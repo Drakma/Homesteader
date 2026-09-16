@@ -2414,6 +2414,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                     "stage_number": i,
                     "total_stages": len(resolved_stages),
                     "stage_name": st["name"],
+                    "create_models": bool(data.get("create_models", True)),
+                    "no_model": not bool(data.get("create_models", True)) or bool(data.get("no_model")),
                     "also_rig": bool(data.get("also_rig")),
                     "rig_type": (data.get("rig_type") or "human").strip().lower()
                 }

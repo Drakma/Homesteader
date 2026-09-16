@@ -377,6 +377,53 @@
       background: var(--border-accent);
     }
 
+    .sidebar-mode-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 0 0 10px 0;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sidebar-tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .sidebar-tab-btn:hover {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .sidebar-tab-btn.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent-sky);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .card-action-btn.card-action-remove-tag {
+      color: #f87171 !important;
+      border-color: rgba(248, 113, 113, 0.3) !important;
+      background: rgba(248, 113, 113, 0.1) !important;
+    }
+    .card-action-btn.card-action-remove-tag:hover {
+      background: rgba(248, 113, 113, 0.25) !important;
+      border-color: #f87171 !important;
+      transform: scale(1.1);
+    }
+
     .cat-btn {
       display: flex;
       align-items: center;
@@ -2740,6 +2787,13 @@
       <div id="reqgg-stages-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
       <datalist id="reqgg-reference-datalist"></datalist>
 
+      <div style="margin-bottom: 10px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
+          <input type="checkbox" id="reqgg-create-models-toggle" checked style="width: 15px; height: 15px; accent-color: #38bdf8;">
+          🧊 Create 3D models for each stage <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(uncheck for 2D icon-only lifecycle)</span>
+        </label>
+      </div>
+
       <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
         <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
           <input type="checkbox" id="reqgg-also-rig-toggle" style="width: 15px; height: 15px; accent-color: #22c55e;">
@@ -3731,11 +3785,7 @@
     }
 
     function showCategoryDropHints(active) {
-      document.querySelectorAll(".cat-btn[data-category]").forEach(btn => {
-        btn.classList.toggle("drag-hint", active);
-        if (!active) btn.classList.remove("drag-target-hover");
-      });
-      document.querySelectorAll(".cat-subfolder-btn").forEach(btn => {
+      document.querySelectorAll(".cat-btn[data-category], .cat-subfolder-btn, .tag-folder-btn").forEach(btn => {
         btn.classList.toggle("drag-hint", active);
         if (!active) btn.classList.remove("drag-target-hover");
       });
@@ -4274,6 +4324,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
       await loadCatalog();
       await loadKitConfig();
+      await loadTagRegistry();
       deriveLegacyGrowthGroups();
       computeDuplicates();
       buildCategorySidebar();
@@ -5056,11 +5107,269 @@
       );
     }
 
+    // Sidebar mode state: "categories" vs "tags"
+    let sidebarMode = "categories";
+    let activeTag = null;
+    let TAG_REGISTRY = {};
+
+    async function loadTagRegistry() {
+      try {
+        const res = await fetch("/api/material-tags", { cache: "no-store" });
+        const data = await res.json();
+        if (res.ok && data && data.tags) {
+          TAG_REGISTRY = data.tags;
+        }
+      } catch (err) {
+        console.warn("Failed to load tag registry:", err);
+      }
+    }
+
+    function switchSidebarTab(mode) {
+      sidebarMode = mode;
+      if (mode === "categories") {
+        activeTag = null;
+      }
+      buildCategorySidebar();
+      renderGallery();
+    }
+
+    function selectTag(tagName) {
+      activeTag = tagName;
+      activeSubfolder = null;
+      buildCategorySidebar();
+      renderGallery();
+    }
+
+    function exitTagView() {
+      activeTag = null;
+      sidebarMode = "categories";
+      buildCategorySidebar();
+      renderGallery();
+    }
+
+    async function openTagRegistryDialogWithName(tagName) {
+      await openTagRegistryDialog();
+      if (tagName && TAG_REGISTRY[tagName]) {
+        document.getElementById("tagreg-name-input").value = tagName;
+        document.getElementById("tagreg-members-input").value = TAG_REGISTRY[tagName].join(", ");
+      }
+    }
+
+    async function openCreateTagPrompt() {
+      const tagName = prompt("Enter new tag name (e.g. 'timber', 'flooring', 'pipe_metal'):");
+      if (!tagName) return;
+      const cleanName = tagName.trim().toLowerCase().replace(/^#/, "");
+      if (!cleanName || !/^[a-z][a-z0-9_]*$/.test(cleanName)) {
+        showToast("Tag name must start with a letter and contain only lowercase letters, numbers, and underscores.", "warning");
+        return;
+      }
+      if (TAG_REGISTRY[cleanName]) {
+        showToast(`Tag #${cleanName} already exists.`, "info");
+        selectTag(cleanName);
+        return;
+      }
+      let seedMembers = [];
+      if (SELECTED_ITEMS.size > 0) {
+        seedMembers = Array.from(SELECTED_ITEMS).map(k => k.split("/")[1]).filter(Boolean);
+      } else if (ALL_ITEMS.length > 0) {
+        seedMembers = [ALL_ITEMS[0].id];
+      }
+      try {
+        const res = await fetch("/api/save-material-tag", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tag_name: cleanName, members: seedMembers })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          TAG_REGISTRY[cleanName] = seedMembers;
+          showToast(`🏷️ Created tag #${cleanName}`, "success");
+          selectTag(cleanName);
+        } else {
+          showToast(`Error: ${data?.error || "Failed to create tag"}`, "error");
+        }
+      } catch (err) {
+        showToast(`Server error: ${err.message}`, "error");
+      }
+    }
+
+    async function handleTagDrop(e, tagName) {
+      showCategoryDropHints(false);
+      try {
+        const raw = e.dataTransfer.getData("application/json");
+        if (!raw) return;
+        const data = JSON.parse(raw);
+
+        let itemIdsToAdd = [];
+        if (data.type === "single" && data.id) {
+          itemIdsToAdd = [data.id];
+        } else if (data.type === "batch" && Array.isArray(data.items)) {
+          itemIdsToAdd = data.items.map(it => it.id || it.item_id).filter(Boolean);
+        }
+
+        if (itemIdsToAdd.length === 0) return;
+
+        const currentMembers = TAG_REGISTRY[tagName] ? [...TAG_REGISTRY[tagName]] : [];
+        let addedCount = 0;
+        itemIdsToAdd.forEach(id => {
+          if (!currentMembers.includes(id)) {
+            currentMembers.push(id);
+            addedCount++;
+          }
+        });
+
+        if (addedCount === 0) {
+          showToast(`Asset(s) already in #${tagName}`, "info");
+          return;
+        }
+
+        const res = await fetch("/api/save-material-tag", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tag_name: tagName, members: currentMembers })
+        });
+        const respData = await res.json();
+        if (res.ok && respData.success) {
+          TAG_REGISTRY[tagName] = currentMembers;
+          showToast(`🏷️ Added ${addedCount} asset(s) to #${tagName}`, "success");
+          buildCategorySidebar();
+          if (activeTag === tagName) {
+            renderGallery();
+          }
+        } else {
+          showToast(`Error: ${respData?.error || "Failed to update tag"}`, "error");
+        }
+      } catch (err) {
+        console.error("Tag drop error:", err);
+        showToast(`Failed to drop onto tag: ${err.message}`, "error");
+      }
+    }
+
+    async function removeAssetFromCurrentTag(itemId, e) {
+      if (e) e.stopPropagation();
+      if (!activeTag || !TAG_REGISTRY[activeTag]) return;
+      const tagName = activeTag;
+      const currentMembers = TAG_REGISTRY[tagName] || [];
+      const updatedMembers = currentMembers.filter(id => id !== itemId);
+
+      try {
+        const res = await fetch("/api/save-material-tag", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tag_name: tagName, members: updatedMembers })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          TAG_REGISTRY[tagName] = updatedMembers;
+          showToast(`❌ Removed '${itemId}' from #${tagName}`, "success");
+          buildCategorySidebar();
+          renderGallery();
+        } else {
+          showToast(`Error: ${data?.error || "Failed to remove from tag"}`, "error");
+        }
+      } catch (err) {
+        showToast(`Server error: ${err.message}`, "error");
+      }
+    }
+
     function buildCategorySidebar() {
       updateHeaderStats();
       const sidebar = document.getElementById("cat-sidebar");
+      if (!sidebar) return;
       sidebar.innerHTML = "";
 
+      // Top Tab Switcher: [ 🗂️ Categories ] [ 🏷️ Tag Registry ]
+      const tabRow = document.createElement("div");
+      tabRow.className = "sidebar-mode-tabs";
+      tabRow.innerHTML = `
+        <button class="sidebar-tab-btn ${sidebarMode === 'categories' ? 'active' : ''}" id="tab-btn-categories">
+          🗂️ Categories
+        </button>
+        <button class="sidebar-tab-btn ${sidebarMode === 'tags' ? 'active' : ''}" id="tab-btn-tags">
+          🏷️ Tag Registry
+        </button>
+      `;
+      tabRow.querySelector("#tab-btn-categories").onclick = () => switchSidebarTab("categories");
+      tabRow.querySelector("#tab-btn-tags").onclick = () => switchSidebarTab("tags");
+      sidebar.appendChild(tabRow);
+
+      if (sidebarMode === "tags") {
+        renderTagRegistrySidebar(sidebar);
+      } else {
+        renderCategoriesSidebarContent(sidebar);
+      }
+    }
+
+    function renderTagRegistrySidebar(sidebar) {
+      const container = document.createElement("div");
+      container.style.cssText = "display: flex; flex-direction: column; gap: 3px;";
+
+      // "All Tags" view reset
+      const allTagsBtn = document.createElement("button");
+      allTagsBtn.className = `cat-btn ${activeTag === null ? "active" : ""}`;
+      allTagsBtn.innerHTML = `
+        <span class="cat-label"><span>🏷️</span> All Tag Groups</span>
+        <span class="cat-count">${Object.keys(TAG_REGISTRY).length}</span>
+      `;
+      allTagsBtn.onclick = () => {
+        activeTag = null;
+        buildCategorySidebar();
+        renderGallery();
+      };
+      container.appendChild(allTagsBtn);
+
+      const tagNames = Object.keys(TAG_REGISTRY).sort();
+      tagNames.forEach(tagName => {
+        const members = TAG_REGISTRY[tagName] || [];
+        const isSelected = activeTag === tagName;
+
+        const row = document.createElement("div");
+        row.className = "cat-btn-row";
+
+        const btn = document.createElement("button");
+        btn.className = `cat-btn tag-folder-btn ${isSelected ? "active" : ""}`;
+        btn.dataset.tag = tagName;
+        btn.title = `Tag #${tagName} (${members.length} members) — drag assets here to add`;
+        btn.innerHTML = `
+          <span class="cat-label" style="font-family: 'JetBrains Mono', monospace; font-size: 12.5px;">
+            <span>📁</span> #${tagName}
+          </span>
+          <span style="display: flex; align-items: center; gap: 6px;">
+            <span class="cat-prefix-edit" title="Manage tag in dialog" onclick="event.stopPropagation(); openTagRegistryDialogWithName('${tagName}');">✏️</span>
+            <span class="cat-count">${members.length}</span>
+          </span>
+        `;
+        btn.onclick = () => selectTag(tagName);
+
+        btn.ondragover = (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "copy";
+          btn.classList.add("drag-target-hover");
+        };
+        btn.ondragleave = () => {
+          btn.classList.remove("drag-target-hover");
+        };
+        btn.ondrop = async (e) => {
+          e.preventDefault();
+          btn.classList.remove("drag-target-hover");
+          await handleTagDrop(e, tagName);
+        };
+
+        row.appendChild(btn);
+        container.appendChild(row);
+      });
+
+      const addTagBtn = document.createElement("button");
+      addTagBtn.className = "cat-btn cat-add-btn";
+      addTagBtn.title = "Create a new #tag material group";
+      addTagBtn.innerHTML = `<span class="cat-label"><span>➕</span> Add New Tag</span>`;
+      addTagBtn.onclick = () => openCreateTagPrompt();
+      container.appendChild(addTagBtn);
+
+      sidebar.appendChild(container);
+    }
+
+    function renderCategoriesSidebarContent(sidebar) {
       // Compute counts per category
       const counts = {};
       ALL_ITEMS.forEach(it => {
@@ -5069,7 +5378,7 @@
 
       // "All" button
       const allBtn = document.createElement("button");
-      allBtn.className = `cat-btn ${activeCategory === "all" ? "active" : ""}`;
+      allBtn.className = `cat-btn ${activeCategory === "all" && !activeSubfolder ? "active" : ""}`;
       allBtn.innerHTML = `
         <span class="cat-label"><span>✨</span> All Categories</span>
         <span class="cat-count">${ALL_ITEMS.length}</span>
@@ -5149,9 +5458,6 @@
             `;
             sfBtn.onclick = () => selectSubfolderFromSidebar(cat, sf.species, sf.meta);
 
-            // Drag & drop listeners: dropping an asset here moves it into
-            // this category (if needed) and tags it with this species so
-            // it groups into this lifecycle subfolder.
             sfBtn.ondragover = (e) => {
               e.preventDefault();
               e.dataTransfer.dropEffect = "move";
@@ -5189,14 +5495,6 @@
       addCatBtn.innerHTML = `<span class="cat-label"><span>➕</span> Add Category</span>`;
       addCatBtn.onclick = () => openAddCategoryDialog();
       sidebar.appendChild(addCatBtn);
-
-      // "Tag Registry" button - manage #tag material groups used by recipes
-      const tagRegBtn = document.createElement("button");
-      tagRegBtn.className = "cat-btn cat-add-btn";
-      tagRegBtn.title = "Create/edit/delete #tag material groups used by construction & crafting recipes";
-      tagRegBtn.innerHTML = `<span class="cat-label"><span>🏷️</span> Tag Registry</span>`;
-      tagRegBtn.onclick = () => openTagRegistryDialog();
-      sidebar.appendChild(tagRegBtn);
     }
 
     // Computes the species/lifecycle subfolders (the same grouping used for
@@ -5882,6 +6180,8 @@
       const growthType = document.getElementById("reqgg-growthtype-input").value.trim();
       const maxAgeVal = document.getElementById("reqgg-maxage-input").value;
       const timeUnit = document.getElementById("reqgg-timeunit-input").value.trim() || "days";
+      const createModelsToggle = document.getElementById("reqgg-create-models-toggle");
+      const createModels = createModelsToggle ? createModelsToggle.checked : true;
       const alsoRig = document.getElementById("reqgg-also-rig-toggle").checked;
       const rigType = document.getElementById("reqgg-rig-type-select").value;
       const extraAnimations = parseCommaList(document.getElementById("reqgg-extra-anim-input").value);
@@ -5901,6 +6201,7 @@
       try {
         const body = {
           base_name: name, category, description, stages,
+          create_models: createModels, no_model: !createModels,
           also_rig: alsoRig, rig_type: rigType, extra_animations: extraAnimations,
           icon: icon || undefined,
           growth_type: growthType || undefined,
@@ -6764,7 +7065,10 @@
       const q = searchQuery.toLowerCase().trim();
       
       const filtered = ALL_ITEMS.filter(it => {
-        if (activeSubfolder) {
+        if (activeTag) {
+          const members = TAG_REGISTRY[activeTag] || [];
+          if (!members.includes(it.id)) return false;
+        } else if (activeSubfolder) {
           const sp = getSpeciesForItem(it);
           if (sp !== activeSubfolder.species) return false;
           if (it.category === "food") return false;  // food drops shown in Food category, not in lifecycle groups
@@ -6801,7 +7105,20 @@
       // Update banner
       const bannerTitle = document.getElementById("banner-title");
       const bannerDesc = document.getElementById("banner-desc");
-      if (activeFilter === "duplicates") {
+      if (activeTag) {
+        bannerTitle.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <button class="btn-subfolder-back" onclick="exitTagView()" title="Return to Categories">
+              <span>⬅️</span> Back to Categories
+            </button>
+            <span style="display: inline-flex; align-items: center; gap: 8px;">
+              <span>🏷️</span> #${activeTag}
+            </span>
+            <button type="button" onclick="openTagRegistryDialogWithName('${activeTag}')" style="padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(56, 189, 248, 0.12); color: #38bdf8; font-size: 12px; font-weight: 700; cursor: pointer;">✏️ Edit Members</button>
+          </div>
+        `;
+        bannerDesc.innerText = `Tag Registry Group: interchangeable materials/items for recipes matching #${activeTag}. Drag any asset card from the gallery onto the #${activeTag} folder in the sidebar to add it. Click the Red X on any card to remove it from this tag.`;
+      } else if (activeFilter === "duplicates") {
         bannerTitle.innerHTML = `<span style="display: inline-flex; align-items: center; gap: 8px;"><span>⚠️</span> Duplicate Assets</span>`;
         bannerDesc.innerText = `Listing potential duplicate assets across categories, grouped side-by-side. Use the trashcan or batch delete to clean up duplicates.`;
       } else if (activeSubfolder) {
@@ -6841,7 +7158,7 @@
         return;
       }
 
-      if (!activeSubfolder && activeFilter !== "duplicates") {
+      if (!activeTag && !activeSubfolder && activeFilter !== "duplicates") {
         const speciesGroups = {};
         const standaloneItems = [];
 
@@ -7001,7 +7318,7 @@
             <div class="card-quick-actions">
               <button class="card-action-btn card-action-regen" title="Regenerate Icon (HUD Rules)" onclick="event.stopPropagation(); requestRegenIconFromCard('${it.id}', '${it.category}', event);">🔄</button>
               <button class="card-action-btn card-action-rename" title="Rename Asset" onclick="event.stopPropagation(); requestRenameAssetFromCard('${it.id}', '${it.category}', event);">✏️</button>
-              <button class="card-action-btn card-action-delete" title="Permanently Delete (Click to delete, Shift+click for instant delete)" onclick="event.stopPropagation(); requestDeleteAssetFromCard('${it.id}', '${it.category}', event);">🗑️</button>
+              ${activeTag ? `<button class="card-action-btn card-action-remove-tag" title="Remove from #${activeTag} Registry" onclick="event.stopPropagation(); removeAssetFromCurrentTag('${it.id}', event);">❌</button>` : `<button class="card-action-btn card-action-delete" title="Permanently Delete (Click to delete, Shift+click for instant delete)" onclick="event.stopPropagation(); requestDeleteAssetFromCard('${it.id}', '${it.category}', event);">🗑️</button>`}
             </div>
           </div>
         </div>
