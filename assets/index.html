@@ -3269,6 +3269,11 @@
         title="Regenerate icons for all checked assets (HUD 128x128 3D low-poly standard)">
         Regen Icons
       </button>
+      <button class="btn-make-group" id="batch-request-models-btn"
+        title="Queue 3D model generation for all checked assets"
+        style="background: #0284c7; box-shadow: 0 0 14px rgba(2, 132, 199, 0.5);">
+        🧊 Request Models
+      </button>
       <button class="btn-make-group" id="batch-group-btn" title="Create a growth group from the checked assets">
         Make Group
       </button>
@@ -4770,8 +4775,6 @@
       refreshGhostAlert();
       setInterval(refreshGhostAlert, 30000);
 
-      refreshPendingApprovals();
-      setInterval(refreshPendingApprovals, 4000);
 
       scheduleAssetRequestsPoll();
     });
@@ -5157,33 +5160,13 @@
     let currentApprovalId = null;
 
     async function refreshPendingApprovals() {
-      try {
-        const res = await fetch("/api/pending-approvals", { cache: "no-store" });
-        const data = await res.json();
-        if (!res.ok || !data.success) return;
-        const approvals = data.approvals || [];
-        if (approvals.length === 0) return;
-        const next = approvals[0]; // oldest first
-        if (currentApprovalId === next.id) return; // already showing it
-        showApprovalModal(next);
-      } catch (err) {
-        console.error("Failed to refresh pending approvals:", err);
-      }
+      // Disabled: all asset generation uses the 100% free pipeline ($0 cost). No user approval required.
+      return;
     }
 
     function showApprovalModal(approval) {
-      currentApprovalId = approval.id;
-      document.getElementById("approval-title").innerText = approval.title;
-      const planList = document.getElementById("approval-plan-list");
-      planList.innerHTML = (approval.plan || []).map((step, i) => `<div>${i + 1}. ${step}</div>`).join("");
-      const costBox = document.getElementById("approval-cost-box");
-      const cost = approval.cost || {};
-      const parts = [];
-      const hasVal = v => typeof v === "number" || (typeof v === "string" && v.trim() !== "");
-      if (hasVal(cost.creative_claw)) parts.push(`🖼️ ${cost.creative_claw}${typeof cost.creative_claw === "number" ? "cr" : ""} Creative Claw`);
-      if (hasVal(cost.meshy)) parts.push(`🧊 ${cost.meshy}${typeof cost.meshy === "number" ? "cr" : ""} Meshy`);
-      costBox.innerHTML = parts.length ? parts.map(p => `<div>${p}</div>`).join("") : (cost.summary || "");
-      document.getElementById("approval-dialog").showModal();
+      // Disabled: approvals are no longer needed
+      return;
     }
 
     async function resolveApproval(action, mode) {
@@ -6758,7 +6741,7 @@
     }
 
     async function executeRequestRegenerateModel(it) {
-      if (!confirm(`Queue a model regeneration request for "${it.name}"? A Claude session watching the queue will show the cost and regenerate the 3D model from its current icon once approved.`)) return;
+      if (!confirm(`Queue a 3D model generation request for "${it.name}"? The system will generate the 3D model from its icon automatically ($0 cost).`)) return;
       try {
         const res = await fetch("/api/request-regenerate-model", {
           method: "POST",
@@ -6767,10 +6750,10 @@
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          showToast(`🧊 Model regeneration requested for '${it.name}'.`, "success");
+          showToast(`🧊 Model generation requested for '${it.name}'.`, "success");
           refreshAssetRequestsIndicator();
         } else {
-          showToast(`Error: ${data?.error || "Failed to request model regeneration"}`, "error");
+          showToast(`Error: ${data?.error || "Failed to request model generation"}`, "error");
         }
       } catch (err) {
         console.error("Request regenerate model error:", err);
@@ -6985,6 +6968,43 @@
           }
         }
       );
+    }
+
+    async function executeBatchRequestModels() {
+      const items = Array.from(SELECTED_ITEMS.values());
+      if (items.length === 0) return;
+
+      if (!confirm(`Queue 3D model generation for ${items.length} checked asset${items.length === 1 ? "" : "s"}? The system will generate 3D models from each asset's icon automatically ($0 cost).`)) {
+        return;
+      }
+
+      const btn = document.getElementById("batch-request-models-btn");
+      if (btn) { btn.disabled = true; btn.innerText = "Queuing..."; }
+
+      try {
+        const res = await fetch("/api/request-regenerate-model-batch", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: items.map(it => ({ category: it.category, id: it.id })) })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`🧊 ${data.message}`, "success");
+          if (data.errors && data.errors.length) {
+            console.warn("Batch model generation errors:", data.errors);
+          }
+          refreshAssetRequestsIndicator();
+          SELECTED_ITEMS.clear();
+          updateSelectionUI();
+        } else {
+          showToast(`Error: ${data?.error || "Failed to request model generation"}`, "error");
+        }
+      } catch (err) {
+        console.error("Batch model generation request error:", err);
+        showToast(`Server error: ${err.message}`, "error");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "🧊 Request Models"; }
+      }
     }
 
     async function executeRequestAsset() {
@@ -8011,6 +8031,8 @@
       // "Make Group" batch bar button
       const batchGroupBtn = document.getElementById("batch-group-btn");
       if (batchGroupBtn) batchGroupBtn.onclick = () => openGrowthGroupFormFromSelection();
+      const batchRequestModelsBtn = document.getElementById("batch-request-models-btn");
+      if (batchRequestModelsBtn) batchRequestModelsBtn.onclick = () => executeBatchRequestModels();
       const batchRigBtn = document.getElementById("batch-rig-btn");
       if (batchRigBtn) batchRigBtn.onclick = () => executeBatchRequestRigging();
       const statusMeshyItem = document.getElementById("status-meshy");

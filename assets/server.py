@@ -1335,6 +1335,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_request_rigging_batch()
         elif self.path == "/api/request-regenerate-model":
             self.handle_request_regenerate_model()
+        elif self.path == "/api/request-regenerate-model-batch":
+            self.handle_request_regenerate_model_batch()
         elif self.path == "/api/request-icon":
             self.handle_request_icon()
         elif self.path == "/api/open-item-folder":
@@ -2550,6 +2552,38 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.send_json_response({"success": False, "error": str(e)}, 400)
         except Exception as e:
             print(f"Error requesting model regeneration: {e}")
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_request_regenerate_model_batch(self):
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len)
+            data = json.loads(post_body.decode("utf-8")) if content_len > 0 else {}
+            items = data.get("items", [])
+            if not isinstance(items, list) or not items:
+                self.send_json_response({"success": False, "error": "No items provided"}, 400)
+                return
+
+            created, errors = [], []
+            for it in items:
+                try:
+                    cat = (it.get("category") or "").strip().lower()
+                    item_id = (it.get("id") or it.get("item_id") or "").strip().lower()
+                    created.append(self._queue_asset_action_request(
+                        "regenerate_model", cat, item_id
+                    ))
+                except ValueError as e:
+                    errors.append(str(e))
+
+            print(f"[ASSET ACTION REQUEST BATCH] regenerate_model -> {len(created)} queued, {len(errors)} error(s)")
+            self.send_json_response({
+                "success": True,
+                "message": f"Model generation requested for {len(created)} asset(s)" + (f" ({len(errors)} skipped)" if errors else ""),
+                "requests": created,
+                "errors": errors
+            }, 200)
+        except Exception as e:
+            print(f"Error requesting batch model generation: {e}")
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
     def handle_request_icon(self):
