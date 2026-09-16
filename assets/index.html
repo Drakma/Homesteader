@@ -422,6 +422,14 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     }
 
+    .sidebar-tab-btn.drag-target-hover {
+      background: rgba(56, 189, 248, 0.25) !important;
+      border: 2px dashed #38bdf8 !important;
+      color: #38bdf8 !important;
+      transform: scale(1.03);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+
     .card-action-btn.card-action-remove-tag {
       color: #f87171 !important;
       border-color: rgba(248, 113, 113, 0.3) !important;
@@ -5540,18 +5548,22 @@
       }
     }
 
-    function switchSidebarTab(mode) {
+    function switchSidebarTab(mode, skipGallery = false) {
       sidebarMode = mode;
       if (mode === "categories") {
-        activeTag = null;
+        if (!skipGallery) {
+          activeTag = null;
+        }
       } else if (mode === "tags") {
-        if (!activeTag) {
+        if (!skipGallery && !activeTag) {
           const names = Object.keys(TAG_REGISTRY).sort();
           if (names.length > 0) activeTag = names[0];
         }
       }
       buildCategorySidebar();
-      renderGallery();
+      if (!skipGallery) {
+        renderGallery();
+      }
     }
 
     function selectTag(tagName) {
@@ -5710,8 +5722,60 @@
           🏷️ Tag Registry
         </button>
       `;
-      tabRow.querySelector("#tab-btn-categories").onclick = () => switchSidebarTab("categories");
-      tabRow.querySelector("#tab-btn-tags").onclick = () => switchSidebarTab("tags");
+      const catTabBtn = tabRow.querySelector("#tab-btn-categories");
+      const tagTabBtn = tabRow.querySelector("#tab-btn-tags");
+
+      catTabBtn.onclick = () => switchSidebarTab("categories");
+      tagTabBtn.onclick = () => switchSidebarTab("tags");
+
+      // Hover over Tag Registry tab while dragging an asset card -> automatically open the tab!
+      tagTabBtn.ondragover = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        tagTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "tags") {
+          switchSidebarTab("tags", true);
+        }
+      };
+      tagTabBtn.ondragenter = (e) => {
+        e.preventDefault();
+        tagTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "tags") {
+          switchSidebarTab("tags", true);
+        }
+      };
+      tagTabBtn.ondragleave = () => {
+        tagTabBtn.classList.remove("drag-target-hover");
+      };
+      tagTabBtn.ondrop = (e) => {
+        e.preventDefault();
+        tagTabBtn.classList.remove("drag-target-hover");
+      };
+
+      // Hover over Categories tab while dragging -> switch back to Categories!
+      catTabBtn.ondragover = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        catTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "categories") {
+          switchSidebarTab("categories", true);
+        }
+      };
+      catTabBtn.ondragenter = (e) => {
+        e.preventDefault();
+        catTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "categories") {
+          switchSidebarTab("categories", true);
+        }
+      };
+      catTabBtn.ondragleave = () => {
+        catTabBtn.classList.remove("drag-target-hover");
+      };
+      catTabBtn.ondrop = (e) => {
+        e.preventDefault();
+        catTabBtn.classList.remove("drag-target-hover");
+      };
+
       sidebar.appendChild(tabRow);
 
       if (sidebarMode === "tags") {
