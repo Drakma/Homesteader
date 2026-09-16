@@ -2,19 +2,19 @@
   "categories": {
     "peds": {
       "name": "Peds",
-      "icon": "🙍‍♂",
+      "icon": "\ud83d\ude4d\u200d\u2642",
       "desc": "Player Characters",
       "prefix": "peds"
     },
     "vehicles": {
       "name": "Vehicles",
-      "icon": "🚗",
+      "icon": "\ud83d\ude97",
       "desc": "Cars, Trucks, Machinery",
       "prefix": "vehicle"
     },
     "appliances": {
       "name": "Appliances & Furniture",
-      "icon": "🛋️",
+      "icon": "\ud83d\udecb\ufe0f",
       "desc": "Household appliances and furniture placed inside buildings - kitchen appliances, laundry, outdoor cooking, and living/bedroom furniture, each with real-world dimensions for interior space planning.",
       "prefix": "appliance"
     }
@@ -22,209 +22,214 @@
   "subfolders": {
     "quarter_horse": {
       "name": "American Quarter Horse",
-      "icon": "🐎",
+      "icon": "\ud83d\udc0e",
       "category": "ranching"
     },
     "barred_chicken": {
       "name": "Barred Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching"
     },
     "red_chicken": {
       "name": "Red Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching"
     },
     "white_chicken": {
       "name": "White Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching"
     },
     "pink_pig": {
       "name": "Pink Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching"
     },
     "hampshire_pig": {
       "name": "Hampshire Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching"
     },
     "duroc_pig": {
       "name": "Duroc Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching"
     },
     "white_goat": {
       "name": "White Goat",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching"
     },
     "brown_goat": {
       "name": "Brown Goat",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching"
     },
     "black_white_goat": {
       "name": "Black & White Goat",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching"
     },
     "jersey_cow": {
       "name": "Jersey Cow",
-      "icon": "🐄",
+      "icon": "\ud83d\udc04",
       "category": "ranching"
     },
     "holstein_cow": {
       "name": "Holstein Cow",
-      "icon": "🐄",
+      "icon": "\ud83d\udc04",
       "category": "ranching"
     },
     "highland_cow": {
       "name": "Highland Cow",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching"
     },
     "apple": {
       "name": "Apple Tree",
-      "icon": "🍎",
+      "icon": "\ud83c\udf4e",
       "category": "logging"
     },
     "birch": {
       "name": "Birch Tree",
-      "icon": "🪵",
+      "icon": "\ud83e\udeb5",
       "category": "logging"
     },
     "maple": {
       "name": "Maple Tree",
-      "icon": "🍁",
+      "icon": "\ud83c\udf41",
       "category": "logging"
     },
     "oak": {
       "name": "Oak Tree",
-      "icon": "🌳",
+      "icon": "\ud83c\udf33",
       "category": "logging"
     },
     "pine": {
       "name": "Pine Tree",
-      "icon": "🌲",
+      "icon": "\ud83c\udf32",
       "category": "logging"
     },
     "poplar": {
       "name": "Poplar Tree",
-      "icon": "🌿",
+      "icon": "\ud83c\udf3f",
       "category": "logging"
     },
     "willow": {
       "name": "Willow Tree",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "logging"
     },
     "large_log_cabin": {
       "name": "Large Log Cabin",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "corn_crop": {
       "name": "Corn Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming"
     },
     "wheat_crop": {
       "name": "Wheat Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming"
     },
     "sunflower_crop": {
       "name": "Sunflower Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming"
     },
     "sunflower": {
       "name": "Sunflower",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming"
     },
     "wheat": {
       "name": "Wheat",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming"
     },
     "corn": {
       "name": "Corn",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming"
     },
     "welsummer_chicken": {
       "name": "Welsummer Chicken",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "ranching"
     },
     "black_white_billy_goat": {
       "name": "Black & White Billy Goat",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching"
     },
     "white_sheep": {
       "name": "White Sheep",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "ranching"
     },
     "suffolk_sheep": {
       "name": "Suffolk Sheep",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching"
     },
     "tan_sheep": {
       "name": "Tan Sheep",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching"
     },
     "welsummer_rooter": {
       "name": "Welsummer Rooster",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching"
     },
     "barn": {
       "name": "Barn",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "chicken_coop": {
       "name": "Chicken Coop",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "farmhouse": {
       "name": "Farmhouse",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "greenhouse": {
       "name": "Greenhouse",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "small_cabin": {
       "name": "Small Cabin",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "stable": {
       "name": "Stable",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures"
     },
     "starter_house": {
       "name": "Starter House",
       "icon": "??",
       "category": "structures"
+    },
+    "large_metal_garage": {
+      "name": "Large Metal Garage",
+      "icon": "\ud83c\udfe0",
+      "category": "structures"
     }
   },
   "growth_groups": {
     "quarter_horse": {
       "name": "American Quarter Horse",
-      "icon": "🐎",
+      "icon": "\ud83d\udc0e",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -255,7 +260,7 @@
     },
     "barred_chicken": {
       "name": "Barred Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -279,7 +284,7 @@
     },
     "red_chicken": {
       "name": "Red Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -303,7 +308,7 @@
     },
     "white_chicken": {
       "name": "White Chicken",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -327,7 +332,7 @@
     },
     "pink_pig": {
       "name": "Pink Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -351,7 +356,7 @@
     },
     "hampshire_pig": {
       "name": "Hampshire Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -375,7 +380,7 @@
     },
     "duroc_pig": {
       "name": "Duroc Pig",
-      "icon": "🐖",
+      "icon": "\ud83d\udc16",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -399,7 +404,7 @@
     },
     "white_goat": {
       "name": "White Goat",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -423,7 +428,7 @@
     },
     "brown_goat": {
       "name": "Brown Goat",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -447,7 +452,7 @@
     },
     "black_white_goat": {
       "name": "Black & White Goat",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -471,7 +476,7 @@
     },
     "jersey_cow": {
       "name": "Jersey Cow",
-      "icon": "🐄",
+      "icon": "\ud83d\udc04",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -495,7 +500,7 @@
     },
     "holstein_cow": {
       "name": "Holstein Cow",
-      "icon": "🐄",
+      "icon": "\ud83d\udc04",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -519,7 +524,7 @@
     },
     "highland_cow": {
       "name": "Highland Cow",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -543,7 +548,7 @@
     },
     "apple": {
       "name": "Apple Tree",
-      "icon": "🍎",
+      "icon": "\ud83c\udf4e",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 80,
@@ -581,7 +586,7 @@
     },
     "birch": {
       "name": "Birch Tree",
-      "icon": "🪵",
+      "icon": "\ud83e\udeb5",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -619,7 +624,7 @@
     },
     "maple": {
       "name": "Maple Tree",
-      "icon": "🍁",
+      "icon": "\ud83c\udf41",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -657,7 +662,7 @@
     },
     "oak": {
       "name": "Oak Tree",
-      "icon": "🌳",
+      "icon": "\ud83c\udf33",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -695,7 +700,7 @@
     },
     "pine": {
       "name": "Pine Tree",
-      "icon": "🌲",
+      "icon": "\ud83c\udf32",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -733,7 +738,7 @@
     },
     "poplar": {
       "name": "Poplar Tree",
-      "icon": "🌿",
+      "icon": "\ud83c\udf3f",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 80,
@@ -771,7 +776,7 @@
     },
     "willow": {
       "name": "Willow Tree",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 90,
@@ -809,7 +814,7 @@
     },
     "large_log_cabin": {
       "name": "Large Log Cabin",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -847,7 +852,7 @@
     },
     "corn_crop": {
       "name": "Corn Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -878,7 +883,7 @@
     },
     "wheat_crop": {
       "name": "Wheat Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -909,7 +914,7 @@
     },
     "sunflower_crop": {
       "name": "Sunflower Crop",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -940,7 +945,7 @@
     },
     "sunflower": {
       "name": "Sunflower",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming",
       "growth_type": "plant",
       "max_age": 100,
@@ -971,7 +976,7 @@
     },
     "wheat": {
       "name": "Wheat",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming",
       "growth_type": "plant",
       "max_age": 180,
@@ -1002,7 +1007,7 @@
     },
     "corn": {
       "name": "Corn",
-      "icon": "🌾",
+      "icon": "\ud83c\udf3e",
       "category": "farming",
       "growth_type": "plant",
       "max_age": 80,
@@ -1033,7 +1038,7 @@
     },
     "welsummer_chicken": {
       "name": "Welsummer Chicken",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 60,
@@ -1057,7 +1062,7 @@
     },
     "black_white_billy_goat": {
       "name": "Black & White Billy Goat",
-      "icon": "🐐",
+      "icon": "\ud83d\udc10",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1081,7 +1086,7 @@
     },
     "white_sheep": {
       "name": "White Sheep",
-      "icon": "🌱",
+      "icon": "\ud83c\udf31",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1105,7 +1110,7 @@
     },
     "suffolk_sheep": {
       "name": "Suffolk Sheep",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1129,7 +1134,7 @@
     },
     "tan_sheep": {
       "name": "Tan Sheep",
-      "icon": "🐑",
+      "icon": "\ud83d\udc11",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1153,7 +1158,7 @@
     },
     "welsummer_rooter": {
       "name": "Welsummer Rooster",
-      "icon": "🐔",
+      "icon": "\ud83d\udc14",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1177,7 +1182,7 @@
     },
     "barn": {
       "name": "Barn",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1215,7 +1220,7 @@
     },
     "chicken_coop": {
       "name": "Chicken Coop",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1253,7 +1258,7 @@
     },
     "farmhouse": {
       "name": "Farmhouse",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1291,7 +1296,7 @@
     },
     "greenhouse": {
       "name": "Greenhouse",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1329,7 +1334,7 @@
     },
     "small_cabin": {
       "name": "Small Cabin",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1367,7 +1372,7 @@
     },
     "stable": {
       "name": "Stable",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1436,6 +1441,44 @@
           "stage": 4,
           "name": "complete",
           "item_id": "struct_complete_starter_house",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "large_metal_garage": {
+      "name": "Large Metal Garage",
+      "icon": "\ud83c\udfe0",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_large_metal_garage",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_large_metal_garage",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_large_metal_garage",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_large_metal_garage",
           "age_min": 99,
           "age_max": 100
         }

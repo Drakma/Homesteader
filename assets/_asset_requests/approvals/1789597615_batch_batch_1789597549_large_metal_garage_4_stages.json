@@ -1,0 +1,21 @@
+{
+  "id": "1789597615_batch_batch_1789597549_large_metal_garage_4_stages",
+  "title": "Batch batch_1789597549 - Large Metal Garage (4 Stages)",
+  "plan": [
+    "Stage 1 (foundation): Concrete slab with 6-inch perimeter stem walls",
+    "Stage 2 (framing): Steel structural frame mounted to foundation",
+    "Stage 3 (walls): Light-gray corrugated aluminum walls (open roof)",
+    "Stage 4 (complete): Finished garage with black standing-seam roof and doors",
+    "2D Icons: Free FLUX.1 [schnell] / AI Studio on neutral slate, 128x128 RGBA standardized",
+    "3D Meshes: Free Hunyuan3D-2 / Blender Unity FBX (1m=1unit, Zmin=0 pivot)",
+    "Manifests: 4-stage building construction progression linked in assets/structures/"
+  ],
+  "cost": {
+    "creative_claw": "0 (Free FLUX)",
+    "meshy": "0 (Free Hunyuan3D-2)",
+    "summary": "100% Free Pipeline ($0.00 / 0 Credits)"
+  },
+  "status": "approved",
+  "created_at": "2026-09-16T22:26:55Z",
+  "resolved_at": "2026-09-16T22:27:00Z"
+}

@@ -10,11 +10,11 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **593**
+Total Indexed Items: **597**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 39 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Structures**](structures/) | 43 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 81 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 19 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 45 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
@@ -41,7 +41,7 @@ Total Indexed Items: **593**
 
 ---
 
-### 📂 [Structures](structures/) (39 items)
+### 📂 [Structures](structures/) (43 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -52,6 +52,7 @@ Total Indexed Items: **593**
 | `struct_complete_farmhouse` | Farmhouse | ✅ Yes | 🌱 4-Stage | [struct_complete_farmhouse.json](structures/struct_complete_farmhouse/struct_complete_farmhouse.json) |
 | `struct_complete_greenhouse` | Greenhouse | ✅ Yes | 🌱 4-Stage | [struct_complete_greenhouse.json](structures/struct_complete_greenhouse/struct_complete_greenhouse.json) |
 | `struct_complete_large_log_cabin` | Large Log Cabin | ✅ Yes | 🌱 4-Stage | [struct_complete_large_log_cabin.json](structures/struct_complete_large_log_cabin/struct_complete_large_log_cabin.json) |
+| `struct_complete_large_metal_garage` | Large Metal Garage - Complete | — | 🌱 4-Stage | [struct_complete_large_metal_garage.json](structures/struct_complete_large_metal_garage/struct_complete_large_metal_garage.json) |
 | `struct_complete_small_cabin` | Small Log Cabin | ✅ Yes | 🌱 4-Stage | [struct_complete_small_cabin.json](structures/struct_complete_small_cabin/struct_complete_small_cabin.json) |
 | `struct_complete_stable` | Stable | ✅ Yes | 🌱 4-Stage | [struct_complete_stable.json](structures/struct_complete_stable/struct_complete_stable.json) |
 | `struct_complete_starter_house` | Starter House | ✅ Yes | 🌱 4-Stage | [struct_complete_starter_house.json](structures/struct_complete_starter_house/struct_complete_starter_house.json) |
@@ -60,6 +61,7 @@ Total Indexed Items: **593**
 | `struct_foundation_farmhouse` | Farmhouse - Foundation | — | 🌱 4-Stage | [struct_foundation_farmhouse.json](structures/struct_foundation_farmhouse/struct_foundation_farmhouse.json) |
 | `struct_foundation_greenhouse` | Greenhouse - Foundation | — | 🌱 4-Stage | [struct_foundation_greenhouse.json](structures/struct_foundation_greenhouse/struct_foundation_greenhouse.json) |
 | `struct_foundation_large_log_cabin` | Large Log Cabin - Foundation | ✅ Yes | 🌱 4-Stage | [struct_foundation_large_log_cabin.json](structures/struct_foundation_large_log_cabin/struct_foundation_large_log_cabin.json) |
+| `struct_foundation_large_metal_garage` | Large Metal Garage - Foundation | — | 🌱 4-Stage | [struct_foundation_large_metal_garage.json](structures/struct_foundation_large_metal_garage/struct_foundation_large_metal_garage.json) |
 | `struct_foundation_small_cabin` | Small Cabin - Foundation | — | 🌱 4-Stage | [struct_foundation_small_cabin.json](structures/struct_foundation_small_cabin/struct_foundation_small_cabin.json) |
 | `struct_foundation_stable` | Stable - Foundation | — | 🌱 4-Stage | [struct_foundation_stable.json](structures/struct_foundation_stable/struct_foundation_stable.json) |
 | `struct_foundation_starter_house` | Starter House - Foundation | — | 🌱 4-Stage | [struct_foundation_starter_house.json](structures/struct_foundation_starter_house/struct_foundation_starter_house.json) |
@@ -68,6 +70,7 @@ Total Indexed Items: **593**
 | `struct_framing_farmhouse` | Farmhouse - Framing | — | 🌱 4-Stage | [struct_framing_farmhouse.json](structures/struct_framing_farmhouse/struct_framing_farmhouse.json) |
 | `struct_framing_greenhouse` | Greenhouse - Framing | — | 🌱 4-Stage | [struct_framing_greenhouse.json](structures/struct_framing_greenhouse/struct_framing_greenhouse.json) |
 | `struct_framing_large_log_cabin` | Large Log Cabin - Framing | ✅ Yes | 🌱 4-Stage | [struct_framing_large_log_cabin.json](structures/struct_framing_large_log_cabin/struct_framing_large_log_cabin.json) |
+| `struct_framing_large_metal_garage` | Large Metal Garage - Framing | — | 🌱 4-Stage | [struct_framing_large_metal_garage.json](structures/struct_framing_large_metal_garage/struct_framing_large_metal_garage.json) |
 | `struct_framing_small_cabin` | Small Cabin - Framing | — | 🌱 4-Stage | [struct_framing_small_cabin.json](structures/struct_framing_small_cabin/struct_framing_small_cabin.json) |
 | `struct_framing_stable` | Stable - Framing | — | 🌱 4-Stage | [struct_framing_stable.json](structures/struct_framing_stable/struct_framing_stable.json) |
 | `struct_framing_starter_house` | Starter House - Framing | — | 🌱 4-Stage | [struct_framing_starter_house.json](structures/struct_framing_starter_house/struct_framing_starter_house.json) |
@@ -80,6 +83,7 @@ Total Indexed Items: **593**
 | `struct_walls_farmhouse` | Farmhouse - Walls | — | 🌱 4-Stage | [struct_walls_farmhouse.json](structures/struct_walls_farmhouse/struct_walls_farmhouse.json) |
 | `struct_walls_greenhouse` | Greenhouse - Walls | — | 🌱 4-Stage | [struct_walls_greenhouse.json](structures/struct_walls_greenhouse/struct_walls_greenhouse.json) |
 | `struct_walls_large_log_cabin` | Large Log Cabin - Walls | ✅ Yes | 🌱 4-Stage | [struct_walls_large_log_cabin.json](structures/struct_walls_large_log_cabin/struct_walls_large_log_cabin.json) |
+| `struct_walls_large_metal_garage` | Large Metal Garage - Walls | — | 🌱 4-Stage | [struct_walls_large_metal_garage.json](structures/struct_walls_large_metal_garage/struct_walls_large_metal_garage.json) |
 | `struct_walls_small_cabin` | Small Cabin - Walls | — | 🌱 4-Stage | [struct_walls_small_cabin.json](structures/struct_walls_small_cabin/struct_walls_small_cabin.json) |
 | `struct_walls_stable` | Stable - Walls | — | 🌱 4-Stage | [struct_walls_stable.json](structures/struct_walls_stable/struct_walls_stable.json) |
 | `struct_walls_starter_house` | Starter House - Walls | — | 🌱 4-Stage | [struct_walls_starter_house.json](structures/struct_walls_starter_house/struct_walls_starter_house.json) |
@@ -281,7 +285,7 @@ Total Indexed Items: **593**
 | `tree_mature_apple` | Tree Apple Large | ✅ Yes | 🌱 4-Stage | [tree_mature_apple.json](logging/tree_mature_apple/tree_mature_apple.json) |
 | `tree_mature_birch` | Birch Tree | — | 🌱 4-Stage | [tree_mature_birch.json](logging/tree_mature_birch/tree_mature_birch.json) |
 | `tree_mature_maple` | Maple Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_maple.json](logging/tree_mature_maple/tree_mature_maple.json) |
-| `tree_mature_oak` | Tree Mature Oak | ✅ Yes | — | [tree_mature_oak.json](logging/tree_mature_oak/tree_mature_oak.json) |
+| `tree_mature_oak` | Oak Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_oak.json](logging/tree_mature_oak/tree_mature_oak.json) |
 | `tree_mature_pine` | Mature Pine Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_pine.json](logging/tree_mature_pine/tree_mature_pine.json) |
 | `tree_mature_poplar` | Mature Poplar Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_poplar.json](logging/tree_mature_poplar/tree_mature_poplar.json) |
 | `tree_mature_willow` | Tree Willow Large | ✅ Yes | 🌱 4-Stage | [tree_mature_willow.json](logging/tree_mature_willow/tree_mature_willow.json) |
