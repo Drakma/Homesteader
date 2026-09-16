@@ -6606,6 +6606,18 @@
             ageMax
           });
         }
+      } else if (type === "animal" && stageCount === 2) {
+        // Animal 2 stages: stage 1 max age 30 (0 to 30), stage 2 min age 30 (30 to maxAge)
+        stageRows.push({
+          name: stageNames[0] !== undefined ? stageNames[0] : "",
+          ageMin: 0,
+          ageMax: 30
+        });
+        stageRows.push({
+          name: stageNames[1] !== undefined ? stageNames[1] : "adult",
+          ageMin: 30,
+          ageMax: maxAge
+        });
       } else {
         // Evenly distribute days based on number of stages up to maxAge
         for (let i = 0; i < stageCount; i++) {
@@ -8184,6 +8196,9 @@
               aMin = Math.round(i * step);
               aMax = Math.round((i + 1) * step);
             }
+          } else if (type === "animal" && n === 2) {
+            if (i === 0) { aMin = 0; aMax = 30; }
+            else { aMin = 30; aMax = maxAge; }
           } else {
             const step = maxAge / n;
             aMin = Math.round(i * step);
