@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20260914_174738_stylized-low-poly-small-young_01a0a21a",
+      "prompt": "Stylized low-poly small young oak tree with slender wooden trunk and vibrant green leafy canopy, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a21a-b888-74ac-9bd1-5d3deb5e3ee8",
+      "created_at": "2026-09-14T22:47:38.093Z",
+      "updated_at": "2026-09-14T22:53:02.055Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175330_stylized-low-poly-small-young_01a0a220",
+      "prompt": "Stylized low-poly small young paper birch tree with slender white bark trunk and light green delicate leafy canopy, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-1bee-7576-86b2-cb3a7fb00e9f",
+      "created_at": "2026-09-14T22:53:30.246Z",
+      "updated_at": "2026-09-14T22:59:57.106Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175334_stylized-low-poly-small-young_01a0a220",
+      "prompt": "Stylized low-poly small young conifer pine tree with slender brown trunk and fresh dark-green needle branches, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-2c31-7379-8043-881e468ab656",
+      "created_at": "2026-09-14T22:53:34.756Z",
+      "updated_at": "2026-09-14T22:59:59.781Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175339_stylized-low-poly-small-young_01a0a220",
+      "prompt": "Stylized low-poly small young sugar maple tree with slender trunk and vibrant orange-red leafy canopy, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-3e78-7013-ab79-ab99d945a5ee",
+      "created_at": "2026-09-14T22:53:39.668Z",
+      "updated_at": "2026-09-14T23:00:02.244Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175344_stylized-low-poly-medium-half_01a0a220",
+      "prompt": "Stylized low-poly medium half-grown oak tree with sturdy wooden trunk, spreading branches, and full green rounded foliage, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-5150-742c-b3a1-77c4686d649c",
+      "created_at": "2026-09-14T22:53:44.765Z",
+      "updated_at": "2026-09-14T23:00:04.490Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175349_stylized-low-poly-medium-half_01a0a220",
+      "prompt": "Stylized low-poly medium half-grown white birch tree with distinctive papery white bark and fluttering green leaves, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-64f5-7029-8789-d64fdbe39774",
+      "created_at": "2026-09-14T22:53:49.151Z",
+      "updated_at": "2026-09-14T23:00:07.442Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175354_stylized-low-poly-medium-half_01a0a220",
+      "prompt": "Stylized low-poly medium half-grown evergreen pine tree with layered tiered dark green coniferous boughs, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-76f9-7671-88ca-938367b8fa23",
+      "created_at": "2026-09-14T22:53:54.244Z",
+      "updated_at": "2026-09-14T23:00:11.225Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_175359_stylized-low-poly-medium-half_01a0a220",
+      "prompt": "Stylized low-poly medium half-grown sugar maple tree with lush autumn orange-gold crown and textured bark trunk, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a220-8c35-74d9-9956-6c21a4c680e1",
+      "created_at": "2026-09-14T22:53:59.429Z",
+      "updated_at": "2026-09-14T23:01:21.021Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180140_stylized-low-poly-cut-oak-tree_01a0a227",
+      "prompt": "Stylized low-poly cut oak tree stump with thick rough dark-brown bark, visible annular wood rings on top cut surface, and sturdy exposed root flares, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-92cb-74a7-a1fc-c72cf5fe4bad",
+      "created_at": "2026-09-14T23:01:40.008Z",
+      "updated_at": "2026-09-14T23:05:14.167Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180145_stylized-low-poly-cut-white-bi_01a0a227",
+      "prompt": "Stylized low-poly cut white birch tree stump with chalky white papery bark, dark horizontal lenticel notches, and pale annular growth rings on top, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-a765-7785-aed8-9d856b06e9f8",
+      "created_at": "2026-09-14T23:01:45.573Z",
+      "updated_at": "2026-09-14T23:05:17.507Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180049_stylized-low-poly-small-young_01a0a226",
+      "prompt": "Stylized low-poly small young apple fruit tree with slender brown trunk and fresh green leafy crown with a few small green budding apples, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a226-cf19-7088-a482-77e3cb2e6ec9",
+      "created_at": "2026-09-14T23:00:49.964Z",
+      "updated_at": "2026-09-14T23:06:07.304Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180205_stylized-low-poly-cut-weeping_01a0a227",
+      "prompt": "Stylized low-poly cut weeping willow tree stump with deeply ridged fibrous bark, broad base with spreading buttress roots, and flat wood grain top, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-f721-71b3-afe7-c99bd2bcfeec",
+      "created_at": "2026-09-14T23:02:05.916Z",
+      "updated_at": "2026-09-14T23:06:09.610Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180210_stylized-low-poly-cut-columnar_01a0a228",
+      "prompt": "Stylized low-poly cut columnar poplar tree stump with pale greenish-grey bark, circular cut top with fine rings, and ground-anchored roots, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a228-09e7-76e7-aa73-bd709a4ee4b9",
+      "created_at": "2026-09-14T23:02:10.536Z",
+      "updated_at": "2026-09-14T23:06:12.196Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180154_stylized-low-poly-cut-sugar-ma_01a0a227",
+      "prompt": "Stylized low-poly cut sugar maple tree stump with grey-brown furrowed bark, concentric growth rings, and spreading ground roots, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-cba3-71f7-af06-65e583ab6c4b",
+      "created_at": "2026-09-14T23:01:54.935Z",
+      "updated_at": "2026-09-14T23:06:58.730Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180150_stylized-low-poly-cut-evergree_01a0a227",
+      "prompt": "Stylized low-poly cut evergreen pine tree stump with reddish-brown scaly bark, amber resin drip droplets, and visible core rings on flat top, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-bab2-7610-b4b4-959317ad7695",
+      "created_at": "2026-09-14T23:01:50.229Z",
+      "updated_at": "2026-09-14T23:07:01.560Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180110_stylized-low-poly-small-young_01a0a227",
+      "prompt": "Stylized low-poly small young columnar poplar tree with slender vertical upright trunk and compact yellow-green leafy crown, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-1d81-716b-8487-98ff2f9c688e",
+      "created_at": "2026-09-14T23:01:10.263Z",
+      "updated_at": "2026-09-14T23:07:03.953Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180054_stylized-low-poly-medium-half_01a0a226",
+      "prompt": "Stylized low-poly medium half-grown apple tree with branching wooden limbs and full green leafy canopy dotted with red apples, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a226-e113-7688-8da6-1b0f3917a4de",
+      "created_at": "2026-09-14T23:00:54.758Z",
+      "updated_at": "2026-09-15T00:07:40.504Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180059_stylized-low-poly-small-young_01a0a226",
+      "prompt": "Stylized low-poly small young weeping willow tree with slender trunk and delicate arching hanging green branches, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a226-f4a3-74ff-a3c4-9b41e5b82f7a",
+      "created_at": "2026-09-14T23:00:59.658Z",
+      "updated_at": "2026-09-15T00:07:45.105Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180104_stylized-low-poly-medium-half_01a0a227",
+      "prompt": "Stylized low-poly medium half-grown weeping willow tree with gracefully drooping long leafy boughs and textured trunk, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-0973-76e4-bca1-69f67ab62a1e",
+      "created_at": "2026-09-14T23:01:04.896Z",
+      "updated_at": "2026-09-15T00:07:49.073Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180114_stylized-low-poly-medium-half_01a0a227",
+      "prompt": "Stylized low-poly medium half-grown tall columnar poplar tree with upright spire-like silhouette and dense fluttering foliage, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-2ff7-7316-84d8-21cdfe8ed971",
+      "created_at": "2026-09-14T23:01:14.307Z",
+      "updated_at": "2026-09-15T00:07:53.677Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180201_stylized-low-poly-cut-apple-or_01a0a227",
+      "prompt": "Stylized low-poly cut apple orchard tree stump with gnarled textured bark, clean sawed flat top with growth rings, and short surface roots, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a227-e171-70c6-9d3e-915252141f69",
+      "created_at": "2026-09-14T23:02:01.106Z",
+      "updated_at": "2026-09-15T00:07:56.505Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_180215_stylized-low-poly-weathered-an_01a0a228",
+      "prompt": "Stylized low-poly weathered ancient forest tree stump covered with velvety green moss patches, tiny sprouting shelf fungi, and decaying wood grain, 3d game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a228-1beb-774f-8e00-d5e54a51746e",
+      "created_at": "2026-09-14T23:02:15.289Z",
+      "updated_at": "2026-09-15T00:07:59.981Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190702_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery oak sapling in burlap wrapped root ball tied with twine, tender green leaves, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-6d83-73d6-ae27-930b9d5b68aa",
+      "created_at": "2026-09-15T00:07:02.628Z",
+      "updated_at": "2026-09-15T00:09:38.089Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190719_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery sugar maple sapling in burlap wrapped root ball tied with twine, vibrant orange-red maple leaves, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-aeb4-70a3-a75f-0dcfb7d3a7ef",
+      "created_at": "2026-09-15T00:07:19.255Z",
+      "updated_at": "2026-09-15T00:10:24.461Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190724_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery apple tree sapling in burlap wrapped root ball tied with twine, fresh green fruit tree shoot, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-c33e-7363-827d-39c086cec7c1",
+      "created_at": "2026-09-15T00:07:24.048Z",
+      "updated_at": "2026-09-15T00:10:27.368Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190735_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery columnar poplar sapling in burlap wrapped root ball tied with twine, upright slender yellow-green shoot, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-ed0c-706e-a68e-9604c7d551aa",
+      "created_at": "2026-09-15T00:07:35.253Z",
+      "updated_at": "2026-09-15T00:10:30.406Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190707_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery birch sapling in burlap wrapped root ball tied with twine, white bark slender shoot, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-8243-736e-8282-a7ec5f177734",
+      "created_at": "2026-09-15T00:07:07.432Z",
+      "updated_at": "2026-09-15T00:11:16.517Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190713_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery pine seedling sapling in burlap wrapped root ball tied with twine, dark green pine needles, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-99ee-7014-bd8c-5c15e92cf222",
+      "created_at": "2026-09-15T00:07:13.791Z",
+      "updated_at": "2026-09-15T00:11:22.794Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260914_190729_stylized-low-poly-young-nurser_01a0a263",
+      "prompt": "Stylized low-poly young nursery weeping willow sapling in burlap wrapped root ball tied with twine, drooping delicate slender branches, 3d game inventory asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0a263-d554-7234-b543-6b010c302078",
+      "created_at": "2026-09-15T00:07:29.002Z",
+      "updated_at": "2026-09-15T00:13:31.306Z",
+      "task_count": 1
+    }
+  ]
+}

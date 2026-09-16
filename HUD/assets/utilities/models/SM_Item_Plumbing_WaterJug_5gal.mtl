@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Plumbing_WaterJug_5gal
+
+newmtl poly_blue
+Ka 0.112 0.248 0.368
+Kd 0.280 0.620 0.920
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl cap_blue
+Ka 0.048 0.152 0.312
+Kd 0.120 0.380 0.780
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Homestead Farm Badge Color</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --void:#12161d; --slate:#2b3442; --panel-border:#3d4a5c;
+    --copper:#e08a3c; --text:#eef2f6; --text-dim:#8b96a5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--void);color:var(--text);font-family:'Manrope',sans-serif;padding-block:32px;padding-inline:16px;min-height:100vh;}
+  .wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:32px;}
+  .intro{display:flex;flex-direction:column;gap:7px;}
+  .eyebrow{font-family:'Sora';font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--copper);}
+  h1{font-family:'Sora';font-weight:700;font-size:clamp(24px,4vw,34px);margin:0;letter-spacing:0.3px;}
+  .intro p{margin:0;color:var(--text-dim);font-size:14px;max-width:68ch;line-height:1.6;}
+  .section-label{font-family:'Sora';font-size:12px;font-weight:600;color:#93a1b3;letter-spacing:2px;text-transform:uppercase;margin:0 0 14px 2px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--panel-border),transparent);}
+  .grid{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;}
+  .swatch{background:var(--slate);border:1px solid var(--panel-border);padding:28px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .swatch.light{background:#dfd6c2;}
+  .swatch svg{width:280px;height:280px;}
+  .swatch.small svg{width:110px;height:110px;}
+  .swatch .cap{font-family:'Sora';font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);}
+  .swatch.light .cap{color:#5c4128;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="intro">
+    <span class="eyebrow">Visual Direction — Farm Badge v3</span>
+    <h1>Homestead Farm Badge, Colorized</h1>
+    <p>Full color pass with a dusk-to-harvest palette (navy sky, cream cloud, tan farmhouse, wheat-gold and soil-brown fields), plus a dark outline stroke on every shape so overlapping elements — the tree against the fields, the house against the sky — separate cleanly instead of merging into one silhouette.</p>
+  </div>
+
+  <div>
+    <p class="section-label">Full Color</p>
+    <div class="grid">
+
+      <div class="swatch">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="clip"><circle cx="200" cy="200" r="168"/></clipPath>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#24304a"/>
+              <stop offset="65%" stop-color="#5a3d5c"/>
+              <stop offset="100%" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+
+          <circle cx="200" cy="200" r="188" fill="none" stroke="#e08a3c" stroke-width="20"/>
+          <circle cx="200" cy="200" r="178" fill="none" stroke="#241a10" stroke-width="3"/>
+          <circle cx="200" cy="200" r="163" fill="none" stroke="#241a10" stroke-width="3"/>
+
+          <g clip-path="url(#clip)" stroke="#241a10" stroke-width="4" stroke-linejoin="round">
+            <circle cx="200" cy="200" r="170" fill="url(#sky)" stroke="none"/>
+
+            <!-- cloud -->
+            <g fill="#f4ede0">
+              <circle cx="150" cy="108" r="28"/>
+              <circle cx="188" cy="88" r="36"/>
+              <circle cx="228" cy="90" r="34"/>
+              <circle cx="262" cy="106" r="26"/>
+              <rect x="126" y="102" width="150" height="22"/>
+            </g>
+
+            <!-- field bands: outline pass then color pass -->
+            <g fill="none" stroke="#241a10" stroke-width="25">
+              <path d="M 151.7,387.1 A 50,50 0 0 1 248.3,387.1"/>
+              <path d="M 131.4,381.6 A 71,71 0 0 1 268.6,381.6"/>
+              <path d="M 111.1,376.2 A 92,92 0 0 1 288.9,376.2"/>
+              <path d="M 90.9,370.8 A 113,113 0 0 1 309.1,370.8"/>
+              <path d="M 70.6,365.3 A 134,134 0 0 1 329.4,365.3"/>
+              <path d="M 50.3,359.9 A 155,155 0 0 1 349.7,359.9"/>
+              <path d="M 30.0,354.4 A 176,176 0 0 1 370.0,354.4"/>
+              <path d="M 9.7,349.0 A 197,197 0 0 1 390.3,349.0"/>
+              <path d="M -10.6,343.6 A 218,218 0 0 1 410.6,343.6"/>
+              <path d="M -30.9,338.1 A 239,239 0 0 1 430.9,338.1"/>
+            </g>
+            <g fill="none" stroke-width="19" stroke="#7f4f24">
+              <path d="M 151.7,387.1 A 50,50 0 0 1 248.3,387.1" stroke="#eab308"/>
+              <path d="M 131.4,381.6 A 71,71 0 0 1 268.6,381.6" stroke="#7f4f24"/>
+              <path d="M 111.1,376.2 A 92,92 0 0 1 288.9,376.2" stroke="#eab308"/>
+              <path d="M 90.9,370.8 A 113,113 0 0 1 309.1,370.8" stroke="#7f4f24"/>
+              <path d="M 70.6,365.3 A 134,134 0 0 1 329.4,365.3" stroke="#eab308"/>
+              <path d="M 50.3,359.9 A 155,155 0 0 1 349.7,359.9" stroke="#7f4f24"/>
+              <path d="M 30.0,354.4 A 176,176 0 0 1 370.0,354.4" stroke="#eab308"/>
+              <path d="M 9.7,349.0 A 197,197 0 0 1 390.3,349.0" stroke="#7f4f24"/>
+              <path d="M -10.6,343.6 A 218,218 0 0 1 410.6,343.6" stroke="#eab308"/>
+              <path d="M -30.9,338.1 A 239,239 0 0 1 430.9,338.1" stroke="#7f4f24"/>
+            </g>
+
+            <!-- bush -->
+            <ellipse cx="352" cy="270" rx="26" ry="16" fill="#587f3f"/>
+
+            <!-- tree -->
+            <rect x="48" y="262" width="10" height="38" fill="#5a3d24"/>
+            <circle cx="53" cy="238" r="28" fill="#6b8f47"/>
+
+            <!-- wing house -->
+            <polygon points="230,205 285,150 335,205" fill="#4a2f1f"/>
+            <rect x="235" y="205" width="95" height="95" fill="#b3855a"/>
+            <rect x="268" y="222" width="22" height="22" fill="#2b3442"/>
+            <rect x="268" y="254" width="22" height="22" fill="#2b3442"/>
+
+            <!-- main house -->
+            <rect x="125" y="100" width="16" height="42" fill="#7c4a33"/>
+            <polygon points="95,175 170,95 245,175" fill="#4a2f1f"/>
+            <rect x="105" y="175" width="130" height="125" fill="#c99a6b"/>
+            <rect x="155" y="193" width="30" height="30" fill="#2b3442"/>
+            <rect x="120" y="238" width="95" height="62" fill="#2b3442"/>
+          </g>
+
+          <circle cx="200" cy="200" r="170" fill="none" stroke="#241a10" stroke-width="4"/>
+        </svg>
+        <span class="cap">On dark UI</span>
+      </div>
+
+      <div class="swatch light">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="clip2"><circle cx="200" cy="200" r="168"/></clipPath></defs>
+          <circle cx="200" cy="200" r="188" fill="none" stroke="#a86428" stroke-width="20"/>
+          <circle cx="200" cy="200" r="178" fill="none" stroke="#241a10" stroke-width="3"/>
+          <circle cx="200" cy="200" r="163" fill="none" stroke="#241a10" stroke-width="3"/>
+          <g clip-path="url(#clip2)" stroke="#241a10" stroke-width="4" stroke-linejoin="round">
+            <circle cx="200" cy="200" r="170" fill="url(#sky)" stroke="none"/>
+            <g fill="#f4ede0">
+              <circle cx="150" cy="108" r="28"/><circle cx="188" cy="88" r="36"/>
+              <circle cx="228" cy="90" r="34"/><circle cx="262" cy="106" r="26"/>
+              <rect x="126" y="102" width="150" height="22"/>
+            </g>
+            <g fill="none" stroke="#241a10" stroke-width="25">
+              <path d="M 151.7,387.1 A 50,50 0 0 1 248.3,387.1"/>
+              <path d="M 131.4,381.6 A 71,71 0 0 1 268.6,381.6"/>
+              <path d="M 111.1,376.2 A 92,92 0 0 1 288.9,376.2"/>
+              <path d="M 90.9,370.8 A 113,113 0 0 1 309.1,370.8"/>
+              <path d="M 70.6,365.3 A 134,134 0 0 1 329.4,365.3"/>
+              <path d="M 50.3,359.9 A 155,155 0 0 1 349.7,359.9"/>
+              <path d="M 30.0,354.4 A 176,176 0 0 1 370.0,354.4"/>
+              <path d="M 9.7,349.0 A 197,197 0 0 1 390.3,349.0"/>
+              <path d="M -10.6,343.6 A 218,218 0 0 1 410.6,343.6"/>
+              <path d="M -30.9,338.1 A 239,239 0 0 1 430.9,338.1"/>
+            </g>
+            <g fill="none" stroke-width="19">
+              <path d="M 151.7,387.1 A 50,50 0 0 1 248.3,387.1" stroke="#eab308"/>
+              <path d="M 131.4,381.6 A 71,71 0 0 1 268.6,381.6" stroke="#7f4f24"/>
+              <path d="M 111.1,376.2 A 92,92 0 0 1 288.9,376.2" stroke="#eab308"/>
+              <path d="M 90.9,370.8 A 113,113 0 0 1 309.1,370.8" stroke="#7f4f24"/>
+              <path d="M 70.6,365.3 A 134,134 0 0 1 329.4,365.3" stroke="#eab308"/>
+              <path d="M 50.3,359.9 A 155,155 0 0 1 349.7,359.9" stroke="#7f4f24"/>
+              <path d="M 30.0,354.4 A 176,176 0 0 1 370.0,354.4" stroke="#eab308"/>
+              <path d="M 9.7,349.0 A 197,197 0 0 1 390.3,349.0" stroke="#7f4f24"/>
+              <path d="M -10.6,343.6 A 218,218 0 0 1 410.6,343.6" stroke="#eab308"/>
+              <path d="M -30.9,338.1 A 239,239 0 0 1 430.9,338.1" stroke="#7f4f24"/>
+            </g>
+            <ellipse cx="352" cy="270" rx="26" ry="16" fill="#587f3f"/>
+            <rect x="48" y="262" width="10" height="38" fill="#5a3d24"/>
+            <circle cx="53" cy="238" r="28" fill="#6b8f47"/>
+            <polygon points="230,205 285,150 335,205" fill="#4a2f1f"/>
+            <rect x="235" y="205" width="95" height="95" fill="#b3855a"/>
+            <rect x="268" y="222" width="22" height="22" fill="#2b3442"/>
+            <rect x="268" y="254" width="22" height="22" fill="#2b3442"/>
+            <rect x="125" y="100" width="16" height="42" fill="#7c4a33"/>
+            <polygon points="95,175 170,95 245,175" fill="#4a2f1f"/>
+            <rect x="105" y="175" width="130" height="125" fill="#c99a6b"/>
+            <rect x="155" y="193" width="30" height="30" fill="#2b3442"/>
+            <rect x="120" y="238" width="95" height="62" fill="#2b3442"/>
+          </g>
+          <circle cx="200" cy="200" r="170" fill="none" stroke="#241a10" stroke-width="4"/>
+        </svg>
+        <span class="cap">On parchment</span>
+      </div>
+
+      <div class="swatch small">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="clip3"><circle cx="200" cy="200" r="168"/></clipPath></defs>
+          <circle cx="200" cy="200" r="188" fill="none" stroke="#e08a3c" stroke-width="20"/>
+          <circle cx="200" cy="200" r="163" fill="none" stroke="#241a10" stroke-width="3"/>
+          <g clip-path="url(#clip3)" stroke="#241a10" stroke-width="4" stroke-linejoin="round">
+            <circle cx="200" cy="200" r="170" fill="url(#sky)" stroke="none"/>
+            <g fill="#f4ede0"><circle cx="188" cy="98" r="40"/><rect x="130" y="105" width="140" height="24"/></g>
+            <g fill="none" stroke-width="19">
+              <path d="M 90.9,370.8 A 113,113 0 0 1 309.1,370.8" stroke="#7f4f24"/>
+              <path d="M 30.0,354.4 A 176,176 0 0 1 370.0,354.4" stroke="#eab308"/>
+            </g>
+            <polygon points="95,175 170,95 245,175" fill="#4a2f1f"/>
+            <rect x="105" y="175" width="130" height="125" fill="#c99a6b"/>
+            <rect x="120" y="238" width="95" height="62" fill="#2b3442"/>
+          </g>
+          <circle cx="200" cy="200" r="170" fill="none" stroke="#241a10" stroke-width="4"/>
+        </svg>
+        <span class="cap">Favicon scale</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

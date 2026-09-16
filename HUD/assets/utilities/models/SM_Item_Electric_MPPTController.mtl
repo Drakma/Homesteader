@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Electric_MPPTController
+
+newmtl mppt_blue
+Ka 0.048 0.152 0.288
+Kd 0.120 0.380 0.720
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl heatsink_fin
+Ka 0.096 0.104 0.112
+Kd 0.240 0.260 0.280
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl screen_lcd
+Ka 0.060 0.340 0.180
+Kd 0.150 0.850 0.450
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

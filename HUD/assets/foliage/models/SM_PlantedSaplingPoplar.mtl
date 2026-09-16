@@ -1,0 +1,34 @@
+# Homesteader Material Definition
+
+newmtl Soil_Bed
+Ka 0.0880 0.0640 0.0480
+Kd 0.2200 0.1600 0.1200
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Bark
+Ka 0.1920 0.1760 0.1280
+Kd 0.4800 0.4400 0.3200
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Foliage_0
+Ka 0.1760 0.2880 0.1040
+Kd 0.4400 0.7200 0.2600
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Foliage_1
+Ka 0.1440 0.2400 0.0800
+Kd 0.3600 0.6000 0.2000
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+

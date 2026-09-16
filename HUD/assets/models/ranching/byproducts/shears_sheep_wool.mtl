@@ -1,0 +1,18 @@
+# Homesteader Material Definition
+
+newmtl Spring_Steel
+Ka 0.3120 0.3200 0.3360
+Kd 0.7800 0.8000 0.8400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Edge_Sharp
+Ka 0.3520 0.3600 0.3760
+Kd 0.8800 0.9000 0.9400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

@@ -1,0 +1,26 @@
+# Material Definition
+
+newmtl log_bark
+Ka 0.1400 0.0960 0.0600
+Kd 0.3500 0.2400 0.1500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl log_end
+Ka 0.3040 0.2600 0.1760
+Kd 0.7600 0.6500 0.4400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl chock_wood
+Ka 0.1840 0.1360 0.0800
+Kd 0.4600 0.3400 0.2000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

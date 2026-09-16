@@ -1,0 +1,21 @@
+{
+  "batch_id": "batch_1789478248",
+  "finalized_at": "2026-09-15T13:17:28Z",
+  "items": [
+    {
+      "id": "1789478245_rig_animal_dog_labrador",
+      "name": "Rigging: animal_dog_labrador",
+      "category": "ranching",
+      "description": "Rigging request for existing asset ranching/animal_dog_labrador - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T13:17:25Z",
+      "action": "rig",
+      "target_category": "ranching",
+      "target_item_id": "animal_dog_labrador",
+      "rig_type": "quadruped",
+      "batch_id": "batch_1789478248",
+      "finalized_at": "2026-09-15T13:17:28Z"
+    }
+  ]
+}

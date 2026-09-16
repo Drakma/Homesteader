@@ -1,0 +1,19 @@
+{
+  "id": "1789516204_batch_batch_1789516107_10_new_assets_4_icon_sheets_3_per_sheet_cap",
+  "title": "Batch batch_1789516107 - 10 new assets (4 icon sheets, 3-per-sheet cap)",
+  "plan": [
+    "Sheet 1 (3 items, icon only): Charcoal, Fiberglass Insulation Batt, Interior Wall Paint",
+    "Sheet 2 (3 items, icon only): Low Capacity Water Well Pump, High Capacity Water Well Pump, Hand Pump Well Head",
+    "Sheet 3 (3 items): Manual Well (icon only), Shower Stall (icon only), Chinking (icon + 3D model - not marked icon-only)",
+    "Sheet 4 (1 item, icon only): Winter Coat",
+    "All sheets: magenta chroma-key background, style-anchor technique, explicit left-facing per item",
+    "Chinking gets meshy_image_to_3d (smart-topology, mesh+texture) unless Icon Only mode is chosen, which skips it too"
+  ],
+  "cost": {
+    "creative_claw": "~64 credits (4 sheet generations at ~16 each)",
+    "meshy": "~15-20 credits (Chinking model only, smart-topology mesh+texture) - 0 if Icon Only approved"
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T23:50:04Z",
+  "resolved_at": "2026-09-15T23:50:10Z"
+}

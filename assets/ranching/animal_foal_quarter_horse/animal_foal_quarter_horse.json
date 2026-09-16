@@ -1,0 +1,102 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_foal_quarter_horse",
+  "name": "Foal American Quarter Horse",
+  "category": "ranching",
+  "description": "A young foal American Quarter Horse, the first growth stage of the quarter horse lifecycle. Icon generated via Creative Claw as part of a batched 3-item contact sheet with the yearling and adult stages, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "icon": "animal_foal_quarter_horse.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Foal_Quarter_Horse.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "animal",
+    "species": "quarter_horse",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 3,
+    "current_stage": {
+      "stage": 1,
+      "name": "foal",
+      "age_min": 0,
+      "age_max": 180
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foal",
+        "item_id": "animal_foal_quarter_horse",
+        "age_min": 0,
+        "age_max": 180
+      },
+      {
+        "stage": 2,
+        "name": "yearling",
+        "item_id": "animal_yearling_quarter_horse",
+        "age_min": 180,
+        "age_max": 400
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "item_id": "animal_adult_quarter_horse",
+        "age_min": 400,
+        "age_max": 730
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "horse",
+    "produces": "",
+    "gender": "unspecified",
+    "temperament": "passive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.35,
+      "depth": 1.2,
+      "height": 0.9
+    }
+  }
+}

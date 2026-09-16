@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "unreal": {
+      "type": "http",
+      "url": "http://localhost:8000/mcp"
+    },
+    "meshy": {
+      "command": "npx",
+      "args": ["-y", "@meshy-ai/meshy-mcp-server"],
+      "env": {
+        "MESHY_API_KEY": "msy_mUvsQRtfvX2levWkmugKy3nFHSp3Yyf0Y4Cx"
+      }
+    },
+    "blender": {
+      "command": "C:/Users/casey/AppData/Roaming/Python/Python313/Scripts/uvx.exe",
+      "args": ["blender-mcp", "--port", "9877"]
+    }
+  }
+}

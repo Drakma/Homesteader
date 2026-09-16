@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="glow_sun" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#e9c46a" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <g filter="url(#glow_sun)">
+    <!-- Sundial base plate -->
+    <polygon points="32,6 54,16 60,38 48,56 16,56 4,38 10,16" fill="#3d5a80" stroke="#1d2d44" stroke-width="2"/>
+    <polygon points="32,6 54,16 48,22 32,14" fill="#5b84b1"/>
+    <polygon points="54,16 60,38 52,36 48,22" fill="#466d98"/>
+    <polygon points="60,38 48,56 42,50 52,36" fill="#32527b"/>
+    <polygon points="48,56 16,56 22,50 42,50" fill="#243e63"/>
+    <polygon points="16,56 4,38 12,36 22,50" fill="#1b2f4d"/>
+    <polygon points="4,38 10,16 16,22 12,36" fill="#32527b"/>
+    <polygon points="10,16 32,6 32,14 16,22" fill="#5b84b1"/>
+    <!-- Center plate -->
+    <polygon points="32,14 48,22 52,36 42,50 22,50 12,36 16,22" fill="#e0e1dd"/>
+    <!-- Sundial Gnomon (Stylized golden low-poly pointer shadow) -->
+    <polygon points="32,18 36,36 32,38 28,36" fill="#f4a261"/>
+    <polygon points="32,18 36,36 32,38" fill="#e76f51"/>
+    <polygon points="32,38 48,46 36,36" fill="#2b2d42" opacity="0.6"/>
+  </g>
+</svg>

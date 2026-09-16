@@ -1,0 +1,127 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "waste_hose_sewer_rv_3m",
+  "name": "3m RV Sewer Hose",
+  "category": "waste",
+  "description": "Collapsible accordion RV sewer hose.",
+  "icon": "waste_hose_sewer_rv_3m.png",
+  "properties": {
+    "weight_kg": 1.5,
+    "max_stack_size": 3,
+    "base_value": 15.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "waste_hose_sewer_rv_10ft.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "waste_hose_sewer_rv_10ft.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 110.0,
+        "y": 96.0,
+        "z": 44.0
+      },
+      "dimensions_m": {
+        "x": 1.1,
+        "y": 0.96,
+        "z": 0.44
+      },
+      "vertices": 2808,
+      "faces": 936,
+      "bounding_box": {
+        "min": [
+          -48.0,
+          -48.0,
+          0.0
+        ],
+        "max": [
+          62.0,
+          48.0,
+          44.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "waste_hose_sewer_rv_10ft.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 110.0,
+      "y": 96.0,
+      "z": 44.0
+    },
+    "dimensions_m": {
+      "x": 1.1,
+      "y": 0.96,
+      "z": 0.44
+    },
+    "vertices": 2808,
+    "faces": 936,
+    "bounding_box": {
+      "min": [
+        -48.0,
+        -48.0,
+        0.0
+      ],
+      "max": [
+        62.0,
+        48.0,
+        44.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.1,
+      "depth": 0.96,
+      "height": 0.44
+    },
+    "power_draw_w": 0
+  }
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="tool_sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <g filter="url(#tool_sh)">
+    <!-- Wooden haft -->
+    <polygon points="14,58 10,54 46,10 50,14" fill="#7f4f24"/>
+    <polygon points="14,58 12,56 48,12 50,14" fill="#a66a38"/>
+    <!-- Blade head -->
+    <polygon points="38,8 58,6 60,26 44,24 36,16" fill="#4a5759"/>
+    <polygon points="38,8 50,14 36,16" fill="#92a8d1"/>
+    <polygon points="50,14 58,6 38,8" fill="#c3d2e6"/>
+    <polygon points="50,14 60,26 58,6" fill="#e0ebf5"/>
+    <polygon points="50,14 44,24 60,26" fill="#6c7a89"/>
+    <polygon points="58,6 60,26 59,25 57,7" fill="#ffffff" opacity="0.9"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="glow_gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#ffb703" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <g filter="url(#glow_gold)">
+    <!-- Octagon rim -->
+    <polygon points="20,4 44,4 60,20 60,44 44,60 20,60 4,44 4,20" fill="#c97e00"/>
+    <polygon points="20,4 44,4 40,11 24,11" fill="#ffe066"/>
+    <polygon points="44,4 60,20 53,24 40,11" fill="#ffd13b"/>
+    <polygon points="60,20 60,44 53,40 53,24" fill="#ffb703"/>
+    <polygon points="60,44 44,60 40,53 53,40" fill="#e09200"/>
+    <polygon points="44,60 20,60 24,53 40,53" fill="#b87200"/>
+    <polygon points="20,60 4,44 11,40 24,53" fill="#e09200"/>
+    <polygon points="4,44 4,20 11,24 11,40" fill="#ffb703"/>
+    <polygon points="4,20 20,4 24,11 11,24" fill="#ffe066"/>
+    <!-- Face -->
+    <polygon points="24,11 40,11 53,24 53,40 40,53 24,53 11,40 11,24" fill="#f5aa00"/>
+    <polygon points="24,11 32,32 40,11" fill="#ffc83b"/>
+    <polygon points="40,11 32,32 53,24" fill="#ffa200"/>
+    <polygon points="53,24 32,32 53,40" fill="#eb8f00"/>
+    <polygon points="53,40 32,32 40,53" fill="#d47a00"/>
+    <polygon points="40,53 32,32 24,53" fill="#bd6800"/>
+    <polygon points="24,53 32,32 11,40" fill="#d47a00"/>
+    <polygon points="11,40 32,32 11,24" fill="#ffa200"/>
+    <polygon points="11,24 32,32 24,11" fill="#ffc83b"/>
+    <!-- Currency glyph -->
+    <circle cx="32" cy="32" r="10" fill="#ffffff" opacity="0.3"/>
+    <text x="27" y="38" font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="16" fill="#472600">$</text>
+  </g>
+</svg>

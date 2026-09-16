@@ -1,0 +1,56 @@
+{
+	"$schema": "https://homesteader.game/schemas/item_v1.json",
+	"id": "water_pump_submersible_1hp",
+	"name": "Small Submersible Well Pump",
+	"category": "water",
+	"description": "1 HP compact stainless steel submersible deep well pump with coiled electrical cable.",
+	"icon": "water_pump_submersible_1hp.png",
+	"properties": {
+		"weight_kg": 12.0,
+		"max_stack_size": 5,
+		"base_value": 180.0,
+		"is_consumable": false,
+		"footprint": null
+	},
+	"models": [
+		{
+			"file": "water_pump_submersible_1hp.fbx",
+			"format": "fbx",
+			"dimensions_m": {
+				"x": 0.4,
+				"y": 0.4,
+				"z": 0.9
+			}
+		}
+	],
+	"utilities": {
+		"water": {
+			"metric": "Output: 15 GPM at 100ft head",
+			"details": "High-pressure deep well continuous pumping."
+		},
+		"electricity": {
+			"metric": "Power draw: 750W (120V / 240V)",
+			"details": "Electric motor with submersible waterproof cord."
+		},
+		"waste": {
+			"metric": "None",
+			"details": "None"
+		},
+		"battery": {
+			"metric": "None",
+			"details": "None"
+		}
+	},
+	"growth": {
+		"is_growable": false,
+		"species": null,
+		"max_age": null,
+		"total_stages": 0,
+		"stages": []
+	},
+	"plugin_metadata": {
+		"version": "1.0.0",
+		"author": "Homesteader Free Pipeline",
+		"api_version": "1.0"
+	}
+}

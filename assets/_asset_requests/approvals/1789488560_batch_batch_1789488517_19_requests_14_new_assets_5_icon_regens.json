@@ -1,0 +1,18 @@
+{
+  "id": "1789488560_batch_batch_1789488517_19_requests_14_new_assets_5_icon_regens",
+  "title": "Batch batch_1789488517 - 19 requests (14 new assets, 5 icon regens)",
+  "plan": [
+    "Sheet A (3 items, no reference): Wheelbarrow, Plastic Wheelbarrow, Steel Wheelbarrow - one Creative Claw contact sheet",
+    "2 fuel containers with a reference (color recolors): Large Diesel Fuel Container (matches large_gas_fuel_container, green), Small Diesel Fuel Container (matches small_gas_fuel_container, yellow) - individual reference-conditioned edits",
+    "9 materials items with a reference (species/wood-type recolors): 3 poplar log piles + 3 willowood log piles (all matched to the oak log pile at the same size) + 3 birch uncut logs (all matched to mat_pile_logs_birch_small) - individual reference-conditioned edits",
+    "All 14 new items get a Meshy image-to-3d model (smart-topology) after their icon",
+    "5 icon-only regenerations with explicit user prompts (no model touched): mat_leather (remove border), mat_pelt_cow (fix clipping), mat_pelt_goat (fix clipping), mat_pelt_sheep (remove border), roofing_steel_corrugated (remove floating pixels on the left) - each edits the item's own existing icon directly per its prompt"
+  ],
+  "cost": {
+    "creative_claw": "~272cr (1 sheet @ 16cr + 11 individual reference-edits @ 16cr each + 5 icon-only prompt-edits @ 16cr each). CURRENT BALANCE IS ONLY 136cr - this is ~136cr short. Options: add credits, or approve a partial batch (e.g. the 5 icon regens + fuel/wheelbarrow items first, ~192cr, and hold the 9 materials items for a follow-up).",
+    "meshy": "~210cr (14 image-to-3d smart-topology generations @ 15cr each) - current Meshy balance is 605cr, sufficient."
+  },
+  "status": "denied",
+  "created_at": "2026-09-15T16:09:20Z",
+  "resolved_at": "2026-09-15T16:11:03Z"
+}

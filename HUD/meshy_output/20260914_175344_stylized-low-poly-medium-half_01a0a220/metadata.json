@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly medium half-grown oak tree with sturdy wooden trunk, spreading branches, and full green rounded foliage, 3d game asset",
+  "folder": "20260914_175344_stylized-low-poly-medium-half_01a0a220",
+  "root_task_id": "01a0a220-5150-742c-b3a1-77c4686d649c",
+  "created_at": "2026-09-14T22:53:44.765Z",
+  "updated_at": "2026-09-14T23:00:04.490Z",
+  "tasks": [
+    {
+      "task_id": "01a0a220-5150-742c-b3a1-77c4686d649c",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly medium half-grown oak tree with sturdy wooden trunk, spreading branches, and full green rounded foliage, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:00:04.489Z"
+    }
+  ]
+}

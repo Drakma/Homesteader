@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g filter="drop-shadow(0 2px 2px rgba(0,0,0,0.6))">
+    <polygon points="14,56 10,52 48,14 52,18" fill="#7f4f24"/>
+    <polygon points="14,56 12,54 50,16 52,18" fill="#a66a38"/>
+    <!-- Pick head arch -->
+    <path d="M 28,10 Q 48,18 60,34 L 56,36 Q 44,24 26,14 Z" fill="#6c7a89"/>
+    <path d="M 32,8 Q 48,14 60,34 L 58,32 Q 46,14 30,6 Z" fill="#c3d2e6"/>
+  </g>
+</svg>

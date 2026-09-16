@@ -1,0 +1,17 @@
+{
+  "id": "1789501806_batch_batch_1789501760_3_exact_match_icon_regens_each_via_individual_image_edit_per_new_rule",
+  "title": "Batch batch_1789501760 - 3 exact-match icon regens (each via individual image-edit, per new rule)",
+  "plan": [
+    "3 individual image-edit generations via Creative Claw nano-banana-2 @ ~16cr each = ~48cr, no Meshy spend (icon regen only) - each item edits its own real reference image directly rather than a text re-description, since all 3 are exact-match requests that cannot be folded into a shared sheet",
+    "struct_walls_barn: edit its own current icon, add visible open roof rafters/trusses across the open top (keep everything else identical, roof stays uncovered)",
+    "struct_walls_stable: edit struct_complete_stable (the finished reference) - keep walls/siding/proportions/colors identical, replace the closed shingled roof with open rafters instead",
+    "struct_walls_small_cabin: edit struct_complete_small_cabin (the finished reference) - keep the log walls/proportions/colors identical, replace the closed shingled roof with open rafters instead"
+  ],
+  "cost": {
+    "creative_claw": 48,
+    "meshy": 0
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T19:50:06Z",
+  "resolved_at": "2026-09-15T19:50:12Z"
+}

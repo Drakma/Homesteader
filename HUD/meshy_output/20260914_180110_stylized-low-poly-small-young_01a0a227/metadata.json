@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly small young columnar poplar tree with slender vertical upright trunk and compact yellow-green leafy crown, 3d game asset",
+  "folder": "20260914_180110_stylized-low-poly-small-young_01a0a227",
+  "root_task_id": "01a0a227-1d81-716b-8487-98ff2f9c688e",
+  "created_at": "2026-09-14T23:01:10.263Z",
+  "updated_at": "2026-09-14T23:07:03.953Z",
+  "tasks": [
+    {
+      "task_id": "01a0a227-1d81-716b-8487-98ff2f9c688e",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly small young columnar poplar tree with slender vertical upright trunk and compact yellow-green leafy crown, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:07:03.953Z"
+    }
+  ]
+}

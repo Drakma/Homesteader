@@ -1,0 +1,15 @@
+{
+  "id": "1789500651_regenerate_icon_struct_complete_starter_house_match_walls_stage_reference_exactly_close_roof",
+  "title": "Regenerate Icon: struct_complete_starter_house (match walls-stage reference exactly + close roof)",
+  "plan": [
+    "1 single-item generation via Creative Claw nano-banana-2 @ ~16cr, no Meshy spend (icon regen only)",
+    "Match struct_walls_starter_house reference exactly: same camera angle, same left-facing door/porch composition, same wall siding/colors - then add a closed shingled roof, a stovepipe on the roof, and extend the wall siding all the way up to the roofline (reference has open roof framing)"
+  ],
+  "cost": {
+    "creative_claw": 16,
+    "meshy": 0
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T19:30:51Z",
+  "resolved_at": "2026-09-15T19:30:55Z"
+}

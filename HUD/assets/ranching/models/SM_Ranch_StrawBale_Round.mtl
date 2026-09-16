@@ -1,0 +1,18 @@
+# Material Definition
+
+newmtl Straw_Pale
+Ka 0.3680 0.3200 0.1680
+Kd 0.9200 0.8000 0.4200
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Twine
+Ka 0.3000 0.2600 0.1200
+Kd 0.7500 0.6500 0.3000
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+

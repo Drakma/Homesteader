@@ -1,0 +1,18 @@
+# Material Definition
+
+newmtl Heavy_Rubber
+Ka 0.0640 0.0640 0.0720
+Kd 0.1600 0.1600 0.1800
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Grain_Pellets
+Ka 0.2600 0.2080 0.1280
+Kd 0.6500 0.5200 0.3200
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+

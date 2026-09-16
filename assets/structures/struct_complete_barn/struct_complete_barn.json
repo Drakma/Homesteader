@@ -1,0 +1,232 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_barn",
+  "name": "Barn",
+  "category": "structures",
+  "description": "A classic red barn with a gambrel roof.",
+  "icon": "struct_complete_barn.png",
+  "properties": {
+    "weight_kg": 15000.0,
+    "max_stack_size": 1,
+    "base_value": 30000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 15,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Building_SmallBarn.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Building_SmallBarn.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 611.7,
+        "y": 810.0,
+        "z": 641.0
+      },
+      "dimensions_m": {
+        "x": 6.12,
+        "y": 8.1,
+        "z": 6.41
+      },
+      "vertices": 3078,
+      "faces": 1026,
+      "bounding_box": {
+        "min": [
+          -305.858,
+          -405.0,
+          0.0
+        ],
+        "max": [
+          305.858,
+          405.0,
+          641.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Struct_Barn.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SM_Struct_Barn.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Barn.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 640.0,
+        "y": 850.0,
+        "z": 720.0
+      },
+      "dimensions_m": {
+        "x": 6.4,
+        "y": 8.5,
+        "z": 7.2
+      },
+      "vertices": 975,
+      "faces": 360,
+      "bounding_box": {
+        "min": [
+          -320.0,
+          -425.0,
+          0.0
+        ],
+        "max": [
+          320.0,
+          425.0,
+          720.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "building",
+    "species": "barn",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 4,
+      "name": "complete",
+      "age_min": 99,
+      "age_max": 100
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "item_id": "struct_foundation_barn",
+        "age_min": 0,
+        "age_max": 33
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "item_id": "struct_framing_barn",
+        "age_min": 33,
+        "age_max": 66
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "item_id": "struct_walls_barn",
+        "age_min": 66,
+        "age_max": 99
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "item_id": "struct_complete_barn",
+        "age_min": 99,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Building_SmallBarn.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 611.7,
+      "y": 810.0,
+      "z": 641.0
+    },
+    "dimensions_m": {
+      "x": 6.12,
+      "y": 8.1,
+      "z": 6.41
+    },
+    "vertices": 3078,
+    "faces": 1026,
+    "bounding_box": {
+      "min": [
+        -305.858,
+        -405.0,
+        0.0
+      ],
+      "max": [
+        305.858,
+        405.0,
+        641.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 45.4,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 6.12,
+      "depth": 8.1,
+      "height": 6.41
+    },
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 20,
+    "roof_area_m2": 49.6,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 6
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 4
+      },
+      {
+        "item_id": "sheet_drywall_stack_large",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 45
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

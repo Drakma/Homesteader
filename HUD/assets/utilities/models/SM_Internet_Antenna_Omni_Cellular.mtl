@@ -1,0 +1,26 @@
+# Material Definition
+
+newmtl Fiberglass_White
+Ka 0.3680 0.3680 0.3760
+Kd 0.9200 0.9200 0.9400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Stainless_Bracket
+Ka 0.3000 0.3040 0.3120
+Kd 0.7500 0.7600 0.7800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Coaxial_Cable
+Ka 0.0600 0.0600 0.0640
+Kd 0.1500 0.1500 0.1600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

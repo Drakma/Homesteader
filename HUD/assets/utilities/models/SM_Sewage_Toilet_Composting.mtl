@@ -1,0 +1,34 @@
+# Material Definition
+
+newmtl White_Porcelain
+Ka 0.3800 0.3800 0.3840
+Kd 0.9500 0.9500 0.9600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Rustic_Cedar
+Ka 0.2200 0.1520 0.1000
+Kd 0.5500 0.3800 0.2500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Exhaust_Vent
+Ka 0.1400 0.1400 0.1520
+Kd 0.3500 0.3500 0.3800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Agitator_Handle
+Ka 0.2800 0.2800 0.2880
+Kd 0.7000 0.7000 0.7200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

@@ -1,0 +1,1445 @@
+{
+  "categories": {
+    "peds": {
+      "name": "Peds",
+      "icon": "🙍‍♂",
+      "desc": "Player Characters",
+      "prefix": "peds"
+    },
+    "vehicles": {
+      "name": "Vehicles",
+      "icon": "🚗",
+      "desc": "Cars, Trucks, Machinery",
+      "prefix": "vehicle"
+    },
+    "appliances": {
+      "name": "Appliances & Furniture",
+      "icon": "🛋️",
+      "desc": "Household appliances and furniture placed inside buildings - kitchen appliances, laundry, outdoor cooking, and living/bedroom furniture, each with real-world dimensions for interior space planning.",
+      "prefix": "appliance"
+    }
+  },
+  "subfolders": {
+    "quarter_horse": {
+      "name": "American Quarter Horse",
+      "icon": "🐎",
+      "category": "ranching"
+    },
+    "barred_chicken": {
+      "name": "Barred Chicken",
+      "icon": "🐔",
+      "category": "ranching"
+    },
+    "red_chicken": {
+      "name": "Red Chicken",
+      "icon": "🐔",
+      "category": "ranching"
+    },
+    "white_chicken": {
+      "name": "White Chicken",
+      "icon": "🐔",
+      "category": "ranching"
+    },
+    "pink_pig": {
+      "name": "Pink Pig",
+      "icon": "🐖",
+      "category": "ranching"
+    },
+    "hampshire_pig": {
+      "name": "Hampshire Pig",
+      "icon": "🐖",
+      "category": "ranching"
+    },
+    "duroc_pig": {
+      "name": "Duroc Pig",
+      "icon": "🐖",
+      "category": "ranching"
+    },
+    "white_goat": {
+      "name": "White Goat",
+      "icon": "🐐",
+      "category": "ranching"
+    },
+    "brown_goat": {
+      "name": "Brown Goat",
+      "icon": "🐑",
+      "category": "ranching"
+    },
+    "black_white_goat": {
+      "name": "Black & White Goat",
+      "icon": "🐑",
+      "category": "ranching"
+    },
+    "jersey_cow": {
+      "name": "Jersey Cow",
+      "icon": "🐄",
+      "category": "ranching"
+    },
+    "holstein_cow": {
+      "name": "Holstein Cow",
+      "icon": "🐄",
+      "category": "ranching"
+    },
+    "highland_cow": {
+      "name": "Highland Cow",
+      "icon": "🐐",
+      "category": "ranching"
+    },
+    "apple": {
+      "name": "Apple Tree",
+      "icon": "🍎",
+      "category": "logging"
+    },
+    "birch": {
+      "name": "Birch Tree",
+      "icon": "🪵",
+      "category": "logging"
+    },
+    "maple": {
+      "name": "Maple Tree",
+      "icon": "🍁",
+      "category": "logging"
+    },
+    "oak": {
+      "name": "Oak Tree",
+      "icon": "🌳",
+      "category": "logging"
+    },
+    "pine": {
+      "name": "Pine Tree",
+      "icon": "🌲",
+      "category": "logging"
+    },
+    "poplar": {
+      "name": "Poplar Tree",
+      "icon": "🌿",
+      "category": "logging"
+    },
+    "willow": {
+      "name": "Willow Tree",
+      "icon": "🌾",
+      "category": "logging"
+    },
+    "large_log_cabin": {
+      "name": "Large Log Cabin",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "corn_crop": {
+      "name": "Corn Crop",
+      "icon": "🌱",
+      "category": "farming"
+    },
+    "wheat_crop": {
+      "name": "Wheat Crop",
+      "icon": "🌱",
+      "category": "farming"
+    },
+    "sunflower_crop": {
+      "name": "Sunflower Crop",
+      "icon": "🌱",
+      "category": "farming"
+    },
+    "sunflower": {
+      "name": "Sunflower",
+      "icon": "🌾",
+      "category": "farming"
+    },
+    "wheat": {
+      "name": "Wheat",
+      "icon": "🌾",
+      "category": "farming"
+    },
+    "corn": {
+      "name": "Corn",
+      "icon": "🌾",
+      "category": "farming"
+    },
+    "welsummer_chicken": {
+      "name": "Welsummer Chicken",
+      "icon": "🌱",
+      "category": "ranching"
+    },
+    "black_white_billy_goat": {
+      "name": "Black & White Billy Goat",
+      "icon": "🐐",
+      "category": "ranching"
+    },
+    "white_sheep": {
+      "name": "White Sheep",
+      "icon": "🌱",
+      "category": "ranching"
+    },
+    "suffolk_sheep": {
+      "name": "Suffolk Sheep",
+      "icon": "🐑",
+      "category": "ranching"
+    },
+    "tan_sheep": {
+      "name": "Tan Sheep",
+      "icon": "🐑",
+      "category": "ranching"
+    },
+    "welsummer_rooter": {
+      "name": "Welsummer Rooster",
+      "icon": "🐔",
+      "category": "ranching"
+    },
+    "barn": {
+      "name": "Barn",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "chicken_coop": {
+      "name": "Chicken Coop",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "farmhouse": {
+      "name": "Farmhouse",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "greenhouse": {
+      "name": "Greenhouse",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "small_cabin": {
+      "name": "Small Cabin",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "stable": {
+      "name": "Stable",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "starter_house": {
+      "name": "Starter House",
+      "icon": "??",
+      "category": "structures"
+    }
+  },
+  "growth_groups": {
+    "quarter_horse": {
+      "name": "American Quarter Horse",
+      "icon": "🐎",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foal",
+          "item_id": "animal_foal_quarter_horse",
+          "age_min": 0,
+          "age_max": 180
+        },
+        {
+          "stage": 2,
+          "name": "yearling",
+          "item_id": "animal_yearling_quarter_horse",
+          "age_min": 180,
+          "age_max": 400
+        },
+        {
+          "stage": 3,
+          "name": "adult",
+          "item_id": "animal_adult_quarter_horse",
+          "age_min": 400,
+          "age_max": 730
+        }
+      ]
+    },
+    "barred_chicken": {
+      "name": "Barred Chicken",
+      "icon": "🐔",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "chick",
+          "item_id": "animal_chick_barred_chicken",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_barred_chicken",
+          "age_min": 31,
+          "age_max": 730
+        }
+      ]
+    },
+    "red_chicken": {
+      "name": "Red Chicken",
+      "icon": "🐔",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "baby",
+          "item_id": "animal_baby_red_chicken",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_red_chicken",
+          "age_min": 30,
+          "age_max": 730
+        }
+      ]
+    },
+    "white_chicken": {
+      "name": "White Chicken",
+      "icon": "🐔",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "baby",
+          "item_id": "animal_baby_white_chicken",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_white_chicken",
+          "age_min": 31,
+          "age_max": 730
+        }
+      ]
+    },
+    "pink_pig": {
+      "name": "Pink Pig",
+      "icon": "🐖",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "piglet",
+          "item_id": "animal_piglet_pink_pig",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_pink_pig",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "hampshire_pig": {
+      "name": "Hampshire Pig",
+      "icon": "🐖",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "piglet",
+          "item_id": "animal_piglet_hampshire_pig",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_hampshire_pig",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "duroc_pig": {
+      "name": "Duroc Pig",
+      "icon": "🐖",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "piglet",
+          "item_id": "animal_piglet_duroc_pig",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_duroc_pig",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "white_goat": {
+      "name": "White Goat",
+      "icon": "🐐",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "kid",
+          "item_id": "animal_kid_white_goat",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_white_goat",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "brown_goat": {
+      "name": "Brown Goat",
+      "icon": "🐑",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "kid",
+          "item_id": "animal_kid_brown_goat",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_brown_goat",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "black_white_goat": {
+      "name": "Black & White Goat",
+      "icon": "🐑",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "kid",
+          "item_id": "animal_kid_black_white_goat",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_black_white_goat",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "jersey_cow": {
+      "name": "Jersey Cow",
+      "icon": "🐄",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "calf",
+          "item_id": "animal_calf_jersey_cow",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_jersey_cow",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "holstein_cow": {
+      "name": "Holstein Cow",
+      "icon": "🐄",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "calf",
+          "item_id": "animal_calf_holstein_cow",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_holstein_cow",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "highland_cow": {
+      "name": "Highland Cow",
+      "icon": "🐐",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "calf",
+          "item_id": "animal_calf_highland_cow",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_highland_cow",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "apple": {
+      "name": "Apple Tree",
+      "icon": "🍎",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_apple",
+          "age_min": 0,
+          "age_max": 12
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_apple",
+          "age_min": 12,
+          "age_max": 32
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_apple",
+          "age_min": 32,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_apple",
+          "age_min": 60,
+          "age_max": 80
+        }
+      ]
+    },
+    "birch": {
+      "name": "Birch Tree",
+      "icon": "🪵",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_birch",
+          "age_min": 0,
+          "age_max": 15
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_birch",
+          "age_min": 15,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_birch",
+          "age_min": 40,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_birch",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "maple": {
+      "name": "Maple Tree",
+      "icon": "🍁",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_maple",
+          "age_min": 0,
+          "age_max": 15
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_maple",
+          "age_min": 15,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_maple",
+          "age_min": 40,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_maple",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "oak": {
+      "name": "Oak Tree",
+      "icon": "🌳",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_oak",
+          "age_min": 0,
+          "age_max": 15
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_oak",
+          "age_min": 15,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_oak",
+          "age_min": 40,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_oak",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "pine": {
+      "name": "Pine Tree",
+      "icon": "🌲",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_pine",
+          "age_min": 0,
+          "age_max": 15
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_pine",
+          "age_min": 15,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_pine",
+          "age_min": 40,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_pine",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "poplar": {
+      "name": "Poplar Tree",
+      "icon": "🌿",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_poplar",
+          "age_min": 0,
+          "age_max": 12
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_poplar",
+          "age_min": 12,
+          "age_max": 32
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_poplar",
+          "age_min": 32,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_poplar",
+          "age_min": 60,
+          "age_max": 80
+        }
+      ]
+    },
+    "willow": {
+      "name": "Willow Tree",
+      "icon": "🌾",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_willow",
+          "age_min": 0,
+          "age_max": 14
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_willow",
+          "age_min": 14,
+          "age_max": 36
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_willow",
+          "age_min": 36,
+          "age_max": 68
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_willow",
+          "age_min": 68,
+          "age_max": 90
+        }
+      ]
+    },
+    "large_log_cabin": {
+      "name": "Large Log Cabin",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_large_log_cabin",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_large_log_cabin",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_large_log_cabin",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_large_log_cabin",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "corn_crop": {
+      "name": "Corn Crop",
+      "icon": "🌱",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_corn",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_corn",
+          "age_min": 30,
+          "age_max": 60
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_corn",
+          "age_min": 60,
+          "age_max": 90
+        }
+      ]
+    },
+    "wheat_crop": {
+      "name": "Wheat Crop",
+      "icon": "🌱",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_wheat",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_wheat",
+          "age_min": 30,
+          "age_max": 60
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_wheat",
+          "age_min": 60,
+          "age_max": 90
+        }
+      ]
+    },
+    "sunflower_crop": {
+      "name": "Sunflower Crop",
+      "icon": "🌱",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_sunflower",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_sunflower",
+          "age_min": 30,
+          "age_max": 60
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_sunflower",
+          "age_min": 60,
+          "age_max": 90
+        }
+      ]
+    },
+    "sunflower": {
+      "name": "Sunflower",
+      "icon": "🌾",
+      "category": "farming",
+      "growth_type": "plant",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_sunflower",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_sunflower",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_sunflower",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "wheat": {
+      "name": "Wheat",
+      "icon": "🌾",
+      "category": "farming",
+      "growth_type": "plant",
+      "max_age": 180,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_wheat",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_wheat",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_wheat",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "corn": {
+      "name": "Corn",
+      "icon": "🌾",
+      "category": "farming",
+      "growth_type": "plant",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_corn",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "growing",
+          "item_id": "crop_growing_corn",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "mature",
+          "item_id": "crop_mature_corn",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "welsummer_chicken": {
+      "name": "Welsummer Chicken",
+      "icon": "🌱",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 60,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "chick",
+          "item_id": "animal_chicken_welsummer_chick",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_chicken_welsummer_adult",
+          "age_min": 30,
+          "age_max": 60
+        }
+      ]
+    },
+    "black_white_billy_goat": {
+      "name": "Black & White Billy Goat",
+      "icon": "🐐",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "kid",
+          "item_id": "animal_kid_black_white_billy_goat",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_black_white_billy_goat",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "white_sheep": {
+      "name": "White Sheep",
+      "icon": "🌱",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "lamb",
+          "item_id": "animal_lamb_white_sheep",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_white_sheep",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "suffolk_sheep": {
+      "name": "Suffolk Sheep",
+      "icon": "🐑",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "lamb",
+          "item_id": "animal_lamb_suffolk_sheep",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_suffolk_sheep",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "tan_sheep": {
+      "name": "Tan Sheep",
+      "icon": "🐑",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "lamb",
+          "item_id": "animal_lamb_tan_sheep",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_tan_sheep",
+          "age_min": 90,
+          "age_max": 730
+        }
+      ]
+    },
+    "welsummer_rooter": {
+      "name": "Welsummer Rooster",
+      "icon": "🐔",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "chick",
+          "item_id": "animal_chick_welsummer_rooter",
+          "age_min": 0,
+          "age_max": 30
+        },
+        {
+          "stage": 2,
+          "name": "adult",
+          "item_id": "animal_adult_welsummer_rooter",
+          "age_min": 30,
+          "age_max": 730
+        }
+      ]
+    },
+    "barn": {
+      "name": "Barn",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_barn",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_barn",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_barn",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_barn",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "chicken_coop": {
+      "name": "Chicken Coop",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percentage",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_chicken_coop",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_chicken_coop",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_chicken_coop",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_chicken_coop",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "farmhouse": {
+      "name": "Farmhouse",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_farmhouse",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_farmhouse",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_farmhouse",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_farmhouse",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "greenhouse": {
+      "name": "Greenhouse",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_greenhouse",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_greenhouse",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_greenhouse",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_greenhouse",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "small_cabin": {
+      "name": "Small Cabin",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_small_cabin",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_small_cabin",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_small_cabin",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_small_cabin",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "stable": {
+      "name": "Stable",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_stable",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_stable",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_stable",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_stable",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "starter_house": {
+      "name": "Starter House",
+      "icon": "??",
+      "category": "structures",
+      "growth_type": "building",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_starter_house",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_starter_house",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_starter_house",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_starter_house",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    }
+  }
+}

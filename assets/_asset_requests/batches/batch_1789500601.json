@@ -1,0 +1,23 @@
+{
+  "batch_id": "batch_1789500601",
+  "finalized_at": "2026-09-15T19:30:01Z",
+  "items": [
+    {
+      "id": "1789500526_regenerate_icon_struct_complete_starter_house",
+      "name": "Regenerate Icon: struct_complete_starter_house",
+      "category": "structures",
+      "description": "Regenerate Icon request for existing asset structures/struct_complete_starter_house - user instructions: DO EXACTLY AS THE REFERENCE except. add a roof and stovepipe, add siding all the way up",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T19:28:46Z",
+      "action": "regenerate_icon",
+      "target_category": "structures",
+      "target_item_id": "struct_complete_starter_house",
+      "prompt": "DO EXACTLY AS THE REFERENCE except. add a roof and stovepipe, add siding all the way up",
+      "reference_category": "structures",
+      "reference_item_id": "struct_walls_starter_house",
+      "batch_id": "batch_1789500601",
+      "finalized_at": "2026-09-15T19:30:01Z"
+    }
+  ]
+}

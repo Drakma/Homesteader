@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Potato_Loose
+
+newmtl potato_skin
+Ka 0.280 0.200 0.120
+Kd 0.700 0.500 0.300
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl potato_eye
+Ka 0.180 0.128 0.072
+Kd 0.450 0.320 0.180
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

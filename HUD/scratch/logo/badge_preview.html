@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Homestead Seal Badge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --void:#12161d;
+    --slate:#2b3442;
+    --slate-deep:#1a212b;
+    --panel-border:#3d4a5c;
+    --copper:#e08a3c;
+    --copper-dim:#a86428;
+    --steel:#93a1b3;
+    --text:#eef2f6;
+    --text-dim:#8b96a5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--void);color:var(--text);
+    font-family:'Manrope',sans-serif;
+    padding-block:32px;padding-inline:16px;min-height:100vh;
+  }
+  .wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:32px;}
+  .intro{display:flex;flex-direction:column;gap:7px;}
+  .eyebrow{font-family:'Sora';font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--copper);}
+  h1{font-family:'Sora';font-weight:700;font-size:clamp(24px,4vw,34px);margin:0;letter-spacing:0.3px;}
+  .intro p{margin:0;color:var(--text-dim);font-size:14px;max-width:68ch;line-height:1.6;}
+
+  .section-label{
+    font-family:'Sora';font-size:12px;font-weight:600;color:var(--steel);
+    letter-spacing:2px;text-transform:uppercase;margin:0 0 14px 2px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--panel-border),transparent);}
+
+  .grid{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;}
+  .swatch{
+    background:var(--slate);border:1px solid var(--panel-border);
+    padding:28px;display:flex;flex-direction:column;align-items:center;gap:14px;
+  }
+  .swatch.dark{background:var(--slate-deep);}
+  .swatch.light{background:#dfd6c2;}
+  .swatch svg{width:220px;height:220px;}
+  .swatch .cap{font-family:'Sora';font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);}
+  .swatch.light .cap{color:#5c4128;}
+
+  .small-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  .small-row svg{background:var(--slate);border:1px solid var(--panel-border);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="intro">
+    <span class="eyebrow">Visual Direction — Emblem Badge</span>
+    <h1>Homestead Seal</h1>
+    <p>A flat vector badge in the vintage agrarian-emblem genre — circular seal, gable-roofed farmhouse, crossed wheat wreath, radiating sun — built as clean hand-authored SVG (not AI-rendered) so it stays crisp at any size, from a favicon to a splash screen. Two-tone copper-and-steel fill to stay in the game's established palette.</p>
+  </div>
+
+  <div>
+    <p class="section-label">On Game Backgrounds</p>
+    <div class="grid">
+      <div class="swatch dark">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="arcTop" d="M 70,200 A 130,130 0 0 1 330,200" />
+          </defs>
+          <circle cx="200" cy="200" r="188" fill="none" stroke="#e08a3c" stroke-width="3"/>
+          <circle cx="200" cy="200" r="196" fill="none" stroke="#e08a3c" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="200" cy="200" r="172" fill="none" stroke="#93a1b3" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="165" fill="#1a212b"/>
+
+          <text font-family="Sora" font-size="21" font-weight="700" letter-spacing="4" fill="#eef2f6">
+            <textPath href="#arcTop" startOffset="50%" text-anchor="middle">HOMESTEADER</textPath>
+          </text>
+
+          <circle cx="112" cy="200" r="3.5" fill="#e08a3c"/>
+          <circle cx="288" cy="200" r="3.5" fill="#e08a3c"/>
+
+          <g transform="translate(200,238)">
+            <g stroke="#e08a3c" stroke-width="4" stroke-linecap="round">
+              <line x1="0" y1="-58" x2="0" y2="-78"/>
+              <line x1="-20" y1="-52" x2="-34" y2="-68"/>
+              <line x1="20" y1="-52" x2="34" y2="-68"/>
+              <line x1="-32" y1="-38" x2="-50" y2="-46"/>
+              <line x1="32" y1="-38" x2="50" y2="-46"/>
+            </g>
+
+            <path d="M -46,10 L 0,-38 L 46,10 Z" fill="#93a1b3"/>
+            <path d="M -46,10 L 0,-38 L 0,10 Z" fill="#aeb9c6"/>
+            <rect x="-38" y="10" width="76" height="46" fill="#3d4a5c"/>
+            <rect x="-38" y="10" width="38" height="46" fill="#4a5972"/>
+            <rect x="22" y="24" width="12" height="10" fill="#e08a3c"/>
+            <rect x="-6" y="-6" width="16" height="16" fill="#1a212b" stroke="#e08a3c" stroke-width="1.5"/>
+            <rect x="26" y="-56" width="10" height="22" fill="#93a1b3"/>
+
+            <g fill="#e08a3c">
+              <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+              <ellipse cx="-64" cy="-8" rx="5" ry="9" transform="rotate(-30 -64 -8)"/>
+              <ellipse cx="-70" cy="6" rx="5" ry="9" transform="rotate(-15 -70 6)"/>
+              <ellipse cx="-70" cy="20" rx="5" ry="9" transform="rotate(5 -70 20)"/>
+              <ellipse cx="-64" cy="33" rx="5" ry="9" transform="rotate(20 -64 33)"/>
+            </g>
+            <g fill="#e08a3c" transform="scale(-1,1)">
+              <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+              <ellipse cx="-64" cy="-8" rx="5" ry="9" transform="rotate(-30 -64 -8)"/>
+              <ellipse cx="-70" cy="6" rx="5" ry="9" transform="rotate(-15 -70 6)"/>
+              <ellipse cx="-70" cy="20" rx="5" ry="9" transform="rotate(5 -70 20)"/>
+              <ellipse cx="-64" cy="33" rx="5" ry="9" transform="rotate(20 -64 33)"/>
+            </g>
+
+            <path d="M -50,58 Q 0,72 50,58" fill="none" stroke="#a86428" stroke-width="4" stroke-linecap="round"/>
+          </g>
+
+          <text x="200" y="330" font-family="Manrope" font-size="12" font-weight="700" letter-spacing="3" fill="#93a1b3" text-anchor="middle">EST. HOMESTEAD</text>
+        </svg>
+        <span class="cap">On dark slate</span>
+      </div>
+
+      <div class="swatch light">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="arcTop2" d="M 70,200 A 130,130 0 0 1 330,200" />
+          </defs>
+          <circle cx="200" cy="200" r="188" fill="none" stroke="#a86428" stroke-width="3"/>
+          <circle cx="200" cy="200" r="196" fill="none" stroke="#a86428" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="200" cy="200" r="172" fill="none" stroke="#5c4128" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="165" fill="#efe8d8"/>
+
+          <text font-family="Sora" font-size="21" font-weight="700" letter-spacing="4" fill="#2b1a0a">
+            <textPath href="#arcTop2" startOffset="50%" text-anchor="middle">HOMESTEADER</textPath>
+          </text>
+
+          <circle cx="112" cy="200" r="3.5" fill="#a86428"/>
+          <circle cx="288" cy="200" r="3.5" fill="#a86428"/>
+
+          <g transform="translate(200,238)">
+            <g stroke="#a86428" stroke-width="4" stroke-linecap="round">
+              <line x1="0" y1="-58" x2="0" y2="-78"/>
+              <line x1="-20" y1="-52" x2="-34" y2="-68"/>
+              <line x1="20" y1="-52" x2="34" y2="-68"/>
+              <line x1="-32" y1="-38" x2="-50" y2="-46"/>
+              <line x1="32" y1="-38" x2="50" y2="-46"/>
+            </g>
+
+            <path d="M -46,10 L 0,-38 L 46,10 Z" fill="#3d4a5c"/>
+            <path d="M -46,10 L 0,-38 L 0,10 Z" fill="#5c6b80"/>
+            <rect x="-38" y="10" width="76" height="46" fill="#2b3442"/>
+            <rect x="-38" y="10" width="38" height="46" fill="#3d4a5c"/>
+            <rect x="22" y="24" width="12" height="10" fill="#a86428"/>
+            <rect x="-6" y="-6" width="16" height="16" fill="#efe8d8" stroke="#a86428" stroke-width="1.5"/>
+            <rect x="26" y="-56" width="10" height="22" fill="#5c6b80"/>
+
+            <g fill="#a86428">
+              <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+              <ellipse cx="-64" cy="-8" rx="5" ry="9" transform="rotate(-30 -64 -8)"/>
+              <ellipse cx="-70" cy="6" rx="5" ry="9" transform="rotate(-15 -70 6)"/>
+              <ellipse cx="-70" cy="20" rx="5" ry="9" transform="rotate(5 -70 20)"/>
+              <ellipse cx="-64" cy="33" rx="5" ry="9" transform="rotate(20 -64 33)"/>
+            </g>
+            <g fill="#a86428" transform="scale(-1,1)">
+              <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+              <ellipse cx="-64" cy="-8" rx="5" ry="9" transform="rotate(-30 -64 -8)"/>
+              <ellipse cx="-70" cy="6" rx="5" ry="9" transform="rotate(-15 -70 6)"/>
+              <ellipse cx="-70" cy="20" rx="5" ry="9" transform="rotate(5 -70 20)"/>
+              <ellipse cx="-64" cy="33" rx="5" ry="9" transform="rotate(20 -64 33)"/>
+            </g>
+
+            <path d="M -50,58 Q 0,72 50,58" fill="none" stroke="#5c4128" stroke-width="4" stroke-linecap="round"/>
+          </g>
+
+          <text x="200" y="330" font-family="Manrope" font-size="12" font-weight="700" letter-spacing="3" fill="#5c4128" text-anchor="middle">EST. HOMESTEAD</text>
+        </svg>
+        <span class="cap">On parchment / light</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="section-label">Scale Test</p>
+    <div class="small-row">
+      <svg viewBox="0 0 400 400" width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="arcTop3" d="M 70,200 A 130,130 0 0 1 330,200" />
+        </defs>
+        <circle cx="200" cy="200" r="188" fill="none" stroke="#e08a3c" stroke-width="3"/>
+        <circle cx="200" cy="200" r="172" fill="none" stroke="#93a1b3" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="165" fill="#1a212b"/>
+        <text font-family="Sora" font-size="21" font-weight="700" letter-spacing="4" fill="#eef2f6">
+          <textPath href="#arcTop3" startOffset="50%" text-anchor="middle">HOMESTEADER</textPath>
+        </text>
+        <g transform="translate(200,238)">
+          <g stroke="#e08a3c" stroke-width="4" stroke-linecap="round">
+            <line x1="0" y1="-58" x2="0" y2="-78"/>
+            <line x1="-20" y1="-52" x2="-34" y2="-68"/>
+            <line x1="20" y1="-52" x2="34" y2="-68"/>
+          </g>
+          <path d="M -46,10 L 0,-38 L 46,10 Z" fill="#93a1b3"/>
+          <path d="M -46,10 L 0,-38 L 0,10 Z" fill="#aeb9c6"/>
+          <rect x="-38" y="10" width="76" height="46" fill="#3d4a5c"/>
+          <rect x="-38" y="10" width="38" height="46" fill="#4a5972"/>
+          <rect x="-6" y="-6" width="16" height="16" fill="#1a212b" stroke="#e08a3c" stroke-width="1.5"/>
+          <g fill="#e08a3c">
+            <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+          </g>
+          <g fill="#e08a3c" transform="scale(-1,1)">
+            <path d="M -46,56 C -70,40 -76,10 -66,-14 C -60,4 -50,20 -34,30 C -46,38 -50,48 -46,56 Z"/>
+          </g>
+        </g>
+      </svg>
+      <span style="color:var(--text-dim);font-size:13px;max-width:340px;">128px favicon-scale check — the ring text and wreath detail simplify but the house-and-sun silhouette still reads clearly.</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly small young sugar maple tree with slender trunk and vibrant orange-red leafy canopy, 3d game asset",
+  "folder": "20260914_175339_stylized-low-poly-small-young_01a0a220",
+  "root_task_id": "01a0a220-3e78-7013-ab79-ab99d945a5ee",
+  "created_at": "2026-09-14T22:53:39.668Z",
+  "updated_at": "2026-09-14T23:00:02.244Z",
+  "tasks": [
+    {
+      "task_id": "01a0a220-3e78-7013-ab79-ab99d945a5ee",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly small young sugar maple tree with slender trunk and vibrant orange-red leafy canopy, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:00:02.243Z"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Grass_Base
+Ka 0.0960 0.2080 0.0640
+Kd 0.2400 0.5200 0.1600
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Grass_Green
+Ka 0.1440 0.3040 0.0880
+Kd 0.3600 0.7600 0.2200
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Grass_Tip
+Ka 0.2160 0.3400 0.1120
+Kd 0.5400 0.8500 0.2800
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+

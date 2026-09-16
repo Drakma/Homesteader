@@ -1,0 +1,134 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_chainsaw_gas_16",
+  "name": "16\" Gas Chainsaw",
+  "category": "tools",
+  "description": "Gas-powered chainsaw with 16-inch bar.",
+  "icon": "tool_chainsaw_gas_16.png",
+  "properties": {
+    "weight_kg": 5.5,
+    "max_stack_size": 1,
+    "base_value": 220.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tool_chainsaw_gas_16.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "tool_chainsaw_gas_16.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 95.0,
+        "y": 37.2,
+        "z": 51.0
+      },
+      "dimensions_m": {
+        "x": 0.95,
+        "y": 0.37,
+        "z": 0.51
+      },
+      "vertices": 180,
+      "faces": 60,
+      "bounding_box": {
+        "min": [
+          -36.0,
+          -18.5981,
+          0.0
+        ],
+        "max": [
+          59.0,
+          18.5981,
+          51.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Tool_Chainsaw_Gas_16.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Tool_Chainsaw_Gas_16.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 29.2,
+        "y": 99.0,
+        "z": 34.0
+      },
+      "dimensions_m": {
+        "x": 0.29,
+        "y": 0.99,
+        "z": 0.34
+      },
+      "vertices": 106,
+      "faces": 168,
+      "bounding_box": {
+        "min": [
+          -14.6,
+          -34.0,
+          0.0
+        ],
+        "max": [
+          14.6,
+          65.0,
+          34.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "Removable 18V / 20V Max 4.0Ah Lithium-Ion battery pack (60-90 min continuous runtime)",
+      "details": "Removable 18V / 20V Max 4.0Ah Lithium-Ion battery pack (60-90 min continuous runtime)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.25,
+      "depth": 0.5,
+      "height": 0.3
+    },
+    "fuel_type": "gasoline",
+    "fuel_consumption_l_per_min": 0.000139,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0.25
+  }
+}

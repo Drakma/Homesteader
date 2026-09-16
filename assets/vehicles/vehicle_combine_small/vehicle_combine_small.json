@@ -1,0 +1,105 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_combine_small",
+  "name": "Small Combine Harvester",
+  "category": "vehicles",
+  "description": "A small combine harvester with a short grain header for modest grain fields.",
+  "icon": "vehicle_combine_small.png",
+  "properties": {
+    "weight_kg": 5200.0,
+    "max_stack_size": 1,
+    "base_value": 35000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Machine_Combine_Small.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Machine_Combine_Small.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 240.0,
+        "y": 470.0,
+        "z": 263.9
+      },
+      "dimensions_m": {
+        "x": 2.4,
+        "y": 4.7,
+        "z": 2.64
+      },
+      "vertices": 314,
+      "faces": 556,
+      "bounding_box": {
+        "min": [
+          -120.0,
+          -210.0,
+          0.0
+        ],
+        "max": [
+          120.0,
+          260.0,
+          263.9
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "combine",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.005556,
+    "tank_capacity_l": 250,
+    "top_speed_kmh": 22,
+    "seats": 1,
+    "cargo_capacity_m3": 6,
+    "dimensions_m": {
+      "width": 3.0,
+      "depth": 7.0,
+      "height": 3.5
+    }
+  }
+}

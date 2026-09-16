@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly cut columnar poplar tree stump with pale greenish-grey bark, circular cut top with fine rings, and ground-anchored roots, 3d game asset",
+  "folder": "20260914_180210_stylized-low-poly-cut-columnar_01a0a228",
+  "root_task_id": "01a0a228-09e7-76e7-aa73-bd709a4ee4b9",
+  "created_at": "2026-09-14T23:02:10.536Z",
+  "updated_at": "2026-09-14T23:06:12.196Z",
+  "tasks": [
+    {
+      "task_id": "01a0a228-09e7-76e7-aa73-bd709a4ee4b9",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly cut columnar poplar tree stump with pale greenish-grey bark, circular cut top with fine rings, and ground-anchored roots, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:06:12.195Z"
+    }
+  ]
+}

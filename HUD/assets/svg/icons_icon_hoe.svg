@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g filter="drop-shadow(0 2px 2px rgba(0,0,0,0.6))">
+    <polygon points="14,56 10,52 48,14 52,18" fill="#7f4f24"/>
+    <!-- Hoe blade -->
+    <polygon points="46,12 56,16 48,32 42,30" fill="#4a5759"/>
+    <polygon points="46,12 56,16 52,24 44,20" fill="#c3d2e6"/>
+  </g>
+</svg>

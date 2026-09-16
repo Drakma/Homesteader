@@ -1,0 +1,26 @@
+# Material Definition
+
+newmtl Cast_Iron
+Ka 0.0880 0.1200 0.1040
+Kd 0.2200 0.3000 0.2600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Oak_Well_Cover
+Ka 0.2080 0.1520 0.0960
+Kd 0.5200 0.3800 0.2400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Steel_Rod
+Ka 0.2600 0.2600 0.2720
+Kd 0.6500 0.6500 0.6800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

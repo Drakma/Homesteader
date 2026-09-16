@@ -1,0 +1,28 @@
+{
+  "category": "electricity",
+  "fields": {
+    "fuel_type": {
+      "type": "string",
+      "required": true,
+      "note": "diesel, gasoline, none (solar/battery/grid-tied/passive hardware)"
+    },
+    "fuel_consumption_l_per_min": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters per IN-GAME minute of running (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed)"
+    },
+    "max_power_w": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "max power throughput/output in watts, for sources and regulators only (generators, inverters, charge controllers, solar panels, breaker panels/switches). 0 for storage (batteries - see Wh naming instead), passive hardware (wire, poles, conduit), and anything that doesn't source or pass through power."
+    },
+    "tank_capacity_l": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters the item's own onboard fuel tank holds (generators only - a portable/standby generator carries its own small tank, same concept as vehicles.tank_capacity_l). 0 for everything else."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# Material Definition
+
+newmtl pallet_wood
+Ka 0.2720 0.2160 0.1440
+Kd 0.6800 0.5400 0.3600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

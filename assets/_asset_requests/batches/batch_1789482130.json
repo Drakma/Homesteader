@@ -1,0 +1,22 @@
+{
+  "batch_id": "batch_1789482130",
+  "finalized_at": "2026-09-15T14:22:10Z",
+  "items": [
+    {
+      "id": "1789482035_regenerate_icon_fuel_firewood",
+      "name": "Regenerate Icon: fuel_firewood",
+      "category": "fuel",
+      "description": "Regenerate Icon request for existing asset fuel/fuel_firewood - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T14:20:35Z",
+      "action": "regenerate_icon",
+      "target_category": "fuel",
+      "target_item_id": "fuel_firewood",
+      "reference_category": "fuel",
+      "reference_item_id": "fuel_firewood_bundle_tied",
+      "batch_id": "batch_1789482130",
+      "finalized_at": "2026-09-15T14:22:10Z"
+    }
+  ]
+}

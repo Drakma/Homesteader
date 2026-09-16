@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Food_Bread
+
+newmtl crust_gold
+Ka 0.312 0.184 0.072
+Kd 0.780 0.460 0.180
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl score_flour
+Ka 0.380 0.360 0.320
+Kd 0.950 0.900 0.800
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" width="160" height="28">
+  <defs>
+    <filter id="tip_sh" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <g filter="url(#tip_sh)">
+    <rect x="2" y="2" width="156" height="24" rx="12" fill="#151b24" stroke="#334155" stroke-width="1" opacity="0.95"/>
+    <text x="80" y="17" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="11" fill="#f8fafc" text-anchor="middle" letter-spacing="0.5">Wood Axe</text>
+  </g>
+</svg>

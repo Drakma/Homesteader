@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Stainless_Polished
+Ka 0.3520 0.3600 0.3680
+Kd 0.8800 0.9000 0.9200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Milk_White
+Ka 0.3840 0.3840 0.3920
+Kd 0.9600 0.9600 0.9800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Bail_Wire
+Ka 0.2880 0.2960 0.3040
+Kd 0.7200 0.7400 0.7600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

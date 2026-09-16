@@ -1,0 +1,21 @@
+{
+  "id": "1789497619_batch_batch_1789497550_21_requests_7_buildings_x_3_construction_phase_stages_each_via_new_growth_group_request_feature",
+  "title": "Batch batch_1789497550 - 21 requests (7 buildings x 3 construction-phase stages each, via new Growth Group Request feature)",
+  "plan": [
+    "3 contact sheets (9,9,3 items) via Creative Claw nano-banana-2 @ ~16cr/sheet = ~48cr",
+    "Sheet A (9): Barn foundation/framing/walls, Chicken Coop foundation/framing/walls, Farmhouse foundation/framing/walls",
+    "Sheet B (9): Greenhouse foundation/framing/walls, Small Cabin foundation/framing/walls, Stable foundation/framing/walls",
+    "Sheet C (3): Starter House foundation/framing/walls",
+    "Each stage is reference-matched to its OWN existing finished building (struct_barn, struct_coop_chicken, etc.) and described in words per the batching rule - foundation shows only the base/footing, framing adds the wood skeleton, walls adds exterior walls/siding (still missing roof/windows/trim vs the finished reference)",
+    "All 21 items request a full 3D model (no icon-only flag) - Meshy image_to_3d (meshy-t2 smart-topology, mesh+texture) @ ~15cr each = ~315cr",
+    "This is the first real batch to come through the new Request Growth Group dialog - each of the 7 groups will auto-assemble once all 3 of its stages finish, using the group metadata (icon/growth_type/time_unit=percent, age 0-33/33-66/66-99) already attached to the requests"
+  ],
+  "cost": {
+    "creative_claw": 48,
+    "meshy": 315
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T18:40:19Z",
+  "resolved_at": "2026-09-15T18:40:32Z",
+  "approved_mode": "icon_only"
+}

@@ -1,0 +1,34 @@
+# Material Library for SM_Item_Fish_ChinookSalmon
+
+newmtl salmon_silver
+Ka 0.260 0.288 0.312
+Kd 0.650 0.720 0.780
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl salmon_pink
+Ka 0.368 0.180 0.112
+Kd 0.920 0.450 0.280
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl salmon_back
+Ka 0.088 0.128 0.168
+Kd 0.220 0.320 0.420
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl fin_slate
+Ka 0.180 0.208 0.232
+Kd 0.450 0.520 0.580
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

@@ -1,0 +1,131 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_halter_lead_rope",
+  "name": "Halter & Lead Rope",
+  "category": "ranching",
+  "description": "Webbing halter with cotton lead rope.",
+  "icon": "animal_halter_lead_rope.png",
+  "properties": {
+    "weight_kg": 1.5,
+    "max_stack_size": 5,
+    "base_value": 20.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "animal_halter_lead_rope.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "animal_halter_lead_rope.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 68.0,
+        "y": 66.3,
+        "z": 30.7
+      },
+      "dimensions_m": {
+        "x": 0.68,
+        "y": 0.66,
+        "z": 0.31
+      },
+      "vertices": 1248,
+      "faces": 416,
+      "bounding_box": {
+        "min": [
+          -34.0,
+          -33.1475,
+          0.0
+        ],
+        "max": [
+          34.0,
+          33.1475,
+          30.6603
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "halter_lead_rope.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 68.0,
+      "y": 66.3,
+      "z": 30.7
+    },
+    "dimensions_m": {
+      "x": 0.68,
+      "y": 0.66,
+      "z": 0.31
+    },
+    "vertices": 1248,
+    "faces": 416,
+    "bounding_box": {
+      "min": [
+        -34.0,
+        -33.1475,
+        0.0
+      ],
+      "max": [
+        34.0,
+        33.1475,
+        30.6603
+      ]
+    }
+  },
+  "category_fields": {
+    "species": "equipment",
+    "produces": "",
+    "gender": "unspecified",
+    "temperament": "none",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.68,
+      "depth": 0.66,
+      "height": 0.31
+    }
+  }
+}

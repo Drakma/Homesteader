@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Clay_Red
+Ka 0.3120 0.1280 0.0880
+Kd 0.7800 0.3200 0.2200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Brick_Dark
+Ka 0.2480 0.0960 0.0640
+Kd 0.6200 0.2400 0.1600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Hole_Void
+Ka 0.1400 0.0640 0.0480
+Kd 0.3500 0.1600 0.1200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

@@ -1,0 +1,19 @@
+{
+  "batch_id": "batch_1789594712",
+  "finalized_at": "2026-09-16T21:38:32Z",
+  "items": [
+    {
+      "id": "1789594701_female_farmer",
+      "name": "Female Farmer",
+      "category": "peds",
+      "description": "Create a female farmer in modern clothing",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T21:38:21Z",
+      "also_rig": true,
+      "rig_type": "human",
+      "batch_id": "batch_1789594712",
+      "finalized_at": "2026-09-16T21:38:32Z"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Material Library for SM_Tool_Chainsaw_Gas_16
+
+newmtl mat_saw_orange
+Ka 0.364 0.168 0.048
+Kd 0.910 0.420 0.120
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_metal_dark
+Ka 0.080 0.084 0.096
+Kd 0.200 0.210 0.240
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_silver_bevel
+Ka 0.312 0.328 0.344
+Kd 0.780 0.820 0.860
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+

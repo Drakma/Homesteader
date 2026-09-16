@@ -1,0 +1,21 @@
+{
+  "id": "1789503495_new_appliances_furniture_category_40_items_17_families_icon_only",
+  "title": "New Appliances & Furniture category - 40 items (17 families, icon-only)",
+  "plan": [
+    "5 contact sheets (8 items each) via Creative Claw nano-banana-2 @ ~16cr/sheet = ~80cr, no Meshy spend (icon-only, no 3D models per instruction)",
+    "Sheet A: Stove/Range x3 (wood cookstove, budget electric, premium induction), Oven x3 (wood-fired, budget electric, premium convection), Microwave x2 (budget, premium)",
+    "Sheet B: Water Heater x3 (wood-fired, budget electric, premium tankless), Refrigerator x2, Dishwasher x2, Sink budget",
+    "Sheet C: Sink premium, Washer x2, Dryer x2, Grill x3 (charcoal, propane standard, propane premium)",
+    "Sheet D: Smoker x3 (budget charcoal, wood offset, premium pellet), Fireplace/Wood Stove x3 (budget/standard/premium, all wood), Television x2",
+    "Sheet E: Bed x2, Couch x2, Chair x2, Table x2",
+    "All 40 items get real-world dimensions written into their manifests (weight/footprint) for interior space planning, per the finalized appliances-and-furniture spec"
+  ],
+  "cost": {
+    "creative_claw": 80,
+    "meshy": 0
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T20:18:15Z",
+  "resolved_at": "2026-09-15T20:18:28Z",
+  "approved_mode": "icon_only"
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "batch_1789516768",
+  "finalized_at": "2026-09-15T23:59:28Z",
+  "items": [
+    {
+      "id": "1789516738_large_submerisible_well_pump",
+      "name": "Large Submerisible Well Pump",
+      "category": "appliances",
+      "description": "create 3hp  submersible well pump with the cord rolled up next to it",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T23:58:58Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789516768",
+      "finalized_at": "2026-09-15T23:59:28Z"
+    },
+    {
+      "id": "1789516752_small_submersible_well_pump",
+      "name": "Small Submersible Well Pump",
+      "category": "appliances",
+      "description": "create 1hp  submersible well pump with the cord rolled up next to it",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T23:59:12Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789516768",
+      "finalized_at": "2026-09-15T23:59:28Z"
+    }
+  ]
+}

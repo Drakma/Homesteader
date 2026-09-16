@@ -1,0 +1,34 @@
+# Material Library for SM_Animal_Cow_Calf
+
+newmtl calf_brown
+Ka 0.272 0.168 0.096
+Kd 0.680 0.420 0.240
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl blaze_white
+Ka 0.380 0.376 0.368
+Kd 0.950 0.940 0.920
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl muzzle_pink
+Ka 0.376 0.288 0.300
+Kd 0.940 0.720 0.750
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl hooves_dark
+Ka 0.100 0.080 0.072
+Kd 0.250 0.200 0.180
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+

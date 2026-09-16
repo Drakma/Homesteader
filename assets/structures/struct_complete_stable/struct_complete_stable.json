@@ -1,0 +1,200 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_stable",
+  "name": "Stable",
+  "category": "structures",
+  "description": "A stable with multiple stall doors.",
+  "icon": "struct_complete_stable.png",
+  "properties": {
+    "weight_kg": 9000.0,
+    "max_stack_size": 1,
+    "base_value": 15000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 15,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Struct_Stable.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Stable.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 550.0,
+        "y": 910.0,
+        "z": 400.0
+      },
+      "dimensions_m": {
+        "x": 5.5,
+        "y": 9.1,
+        "z": 4.0
+      },
+      "vertices": 1908,
+      "faces": 656,
+      "bounding_box": {
+        "min": [
+          -275.0,
+          -455.0,
+          0.0
+        ],
+        "max": [
+          275.0,
+          455.0,
+          400.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Struct_Stable.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "building",
+    "species": "stable",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 4,
+      "name": "complete",
+      "age_min": 99,
+      "age_max": 100
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "item_id": "struct_foundation_stable",
+        "age_min": 0,
+        "age_max": 33
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "item_id": "struct_framing_stable",
+        "age_min": 33,
+        "age_max": 66
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "item_id": "struct_walls_stable",
+        "age_min": 66,
+        "age_max": 99
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "item_id": "struct_complete_stable",
+        "age_min": 99,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Struct_Stable.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 550.0,
+      "y": 910.0,
+      "z": 400.0
+    },
+    "dimensions_m": {
+      "x": 5.5,
+      "y": 9.1,
+      "z": 4.0
+    },
+    "vertices": 1908,
+    "faces": 656,
+    "bounding_box": {
+      "min": [
+        -275.0,
+        -455.0,
+        0.0
+      ],
+      "max": [
+        275.0,
+        455.0,
+        400.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 45.8,
+    "room_count": 4,
+    "dimensions_m": {
+      "width": 5.5,
+      "depth": 9.1,
+      "height": 4.0
+    },
+    "electrical_service_capacity_w": 8000,
+    "water_supply_capacity_lpm": 15,
+    "roof_area_m2": 50.1,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 6
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 4
+      },
+      {
+        "item_id": "sheet_drywall_stack_large",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 46
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

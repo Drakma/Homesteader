@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Fuel_DieselCan_5gal
+
+newmtl diesel_yellow
+Ka 0.384 0.312 0.048
+Kd 0.960 0.780 0.120
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl spout_black
+Ka 0.064 0.064 0.072
+Kd 0.160 0.160 0.180
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

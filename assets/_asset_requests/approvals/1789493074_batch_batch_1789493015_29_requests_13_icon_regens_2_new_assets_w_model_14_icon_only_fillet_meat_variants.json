@@ -1,0 +1,21 @@
+{
+  "id": "1789493074_batch_batch_1789493015_29_requests_13_icon_regens_2_new_assets_w_model_14_icon_only_fillet_meat_variants",
+  "title": "Batch batch_1789493015 - 29 requests (13 icon regens, 2 new assets w/ model, 14 icon-only fillet/meat variants)",
+  "plan": [
+    "4 contact sheets (7-8 items each) via Creative Claw nano-banana-2 @ ~16cr/sheet = ~64cr",
+    "Sheet A (8): icon regens - vehicle_tractor_small_old (fix clipping), tool_anvil_stump (redo in style), 4 plantable saplings apple/oak/poplar/maple (remove dirt/trunk clipping), electricity_battery_12v_lifepo4_100ah, electricity_battery_bank (redo in style)",
+    "Sheet B (7): icon regen electricity_breakersubpanel, NEW Wooden Utility Pole (also needs a 3D model), icon regens fishing_bait (remove shadow)/fuel_small_diesel_container (green+spout)/fuel_pump_diesel (green not yellow), NEW Medium Grass ground patch (also needs a 3D model), icon regen clutter_dirt_clump (look like dirt)",
+    "Sheet C (7): grilled fish fillets (salmon/trout/walleye/bass/catfish/crappie, icon-only, matched to existing raw fillet icons) + deep-fried bass fillet (icon-only)",
+    "Sheet D (7): deep-fried catfish/crappie/trout/walleye fillets + grilled beef/chicken/pork (icon-only, matched to existing raw ingredient icons)",
+    "27 of 29 items are icon-only (regenerate_icon actions, or no_model=true reference-matched fillet/meat variants) - no Meshy spend for those",
+    "Only Wooden Utility Pole and Medium Grass request full 3D models - Meshy image_to_3d (meshy-t2 smart-topology, mesh+texture) @ ~15cr each = ~30cr"
+  ],
+  "cost": {
+    "creative_claw": 64,
+    "meshy": 30
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T17:24:34Z",
+  "resolved_at": "2026-09-15T17:24:44Z",
+  "approved_mode": "icon_only"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "1789482438_regenerate_icon_fuel_firewood",
+  "title": "Regenerate Icon: fuel_firewood",
+  "plan": [
+    "Generate 3D low-poly faceted render of Seasoned Firewood Stack referenced against fuel/fuel_firewood_bundle_tied",
+    "Standardize icon (128x128 32-bit RGBA, 12px safe margin, transparent background, no borders)",
+    "Overwrite fuel/fuel_firewood/fuel_firewood.png (0 Meshy credits - icon only)"
+  ],
+  "cost": {
+    "creative_claw": "1 generation call",
+    "meshy": "0cr (icon only, no 3D generation)"
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T14:27:18Z",
+  "resolved_at": "2026-09-15T14:27:29Z"
+}

@@ -1,0 +1,41 @@
+{
+  "category": "appliances",
+  "fields": {
+    "fuel_type": {
+      "type": "string",
+      "required": true,
+      "note": "wood, charcoal, propane, electric, none (unpowered furniture)"
+    },
+    "fuel_consumption_per_min": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Per IN-GAME minute of use (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed - keeps consumption correct if the player speeds up time). For fuel_type wood/charcoal: fractional fuel ITEMS per in-game minute (matches fuel category's burn_minutes_per_item). For propane: liters per in-game minute. For electric/none: 0."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "watts drawn while running, for fuel_type electric only. 0 for wood/charcoal/propane appliances (they don't pull from the electric grid) and unpowered furniture."
+    },
+    "bandwidth_usage_mbps": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Mbps consumed while actively streaming, TVs only (this is the internet category's bandwidth-consumer counterpart to a producer's bandwidth_mbps - see internet.schema.json's TODO note on the overload check: sum of active consumers' bandwidth_usage_mbps vs. the connected producer's bandwidth_mbps). 0 for every other appliance."
+    },
+    "water_usage_lpm": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters per in-game minute drawn while actively running - this is the water category's consumer counterpart to a pump's max_flow_rate_lpm (see water.schema.json). Sinks, dishwashers, washers only. 0 for every other appliance, including the water heaters - they heat water passing through, they don't net-consume it themselves."
+    },
+    "cold_resistance_pct": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "max": 100,
+      "note": "percent offset against the wellness penalty for cold/winter exposure (see _base.schema.json's wellness_modifier note on the weather mechanic) while worn/equipped. Winter coat and any future cold-weather gear only. 0 for everything else - this is protection while worn, not a one-time restore, which is why it's separate from properties.wellness_modifier."
+    }
+  }
+}

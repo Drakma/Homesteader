@@ -1,0 +1,17 @@
+{
+  "id": "1789472423_batch_cabin_model_regen_corn_wheat_sunflower_growth_chains_10_items",
+  "title": "Batch: Cabin Model Regen + Corn/Wheat/Sunflower Growth Chains (10 items)",
+  "plan": [
+    "Regenerate 3D model for struct_complete_large_log_cabin from its existing icon (Meshy image-to-3d, smart-topology, textured FBX)",
+    "Generate 3 contact sheets (Corn, Wheat, Sunflower - 3 growth stages each) via Creative Claw",
+    "Standardize all 9 crop icons and run Meshy image-to-3d for each (smart-topology, textured FBX)",
+    "Auto-assemble Corn, Wheat, and Sunflower growth groups once each trio completes"
+  ],
+  "cost": {
+    "creative_claw": 48,
+    "meshy": 150
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T11:40:23Z",
+  "resolved_at": "2026-09-15T11:41:20Z"
+}

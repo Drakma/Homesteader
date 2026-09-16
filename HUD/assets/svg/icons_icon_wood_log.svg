@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g filter="drop-shadow(0 2px 2px rgba(0,0,0,0.6))">
+    <polygon points="18,22 52,10 58,26 24,38" fill="#583110"/>
+    <polygon points="18,22 52,10 54,17 20,29" fill="#7f4f24"/>
+    <!-- Cut end face -->
+    <polygon points="8,30 18,22 24,38 14,46" fill="#ddb892"/>
+    <polygon points="8,30 18,22 16,34" fill="#ede0d4"/>
+    <polygon points="18,22 24,38 16,34" fill="#b08968"/>
+    <polygon points="24,38 14,46 16,34" fill="#9c6644"/>
+    <polygon points="14,46 8,30 16,34" fill="#b08968"/>
+    <circle cx="16" cy="34" r="3" fill="#7f4f24"/>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Hardware_FramingNails_Box
+
+newmtl box_kraft
+Ka 0.260 0.208 0.152
+Kd 0.650 0.520 0.380
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl label_yellow
+Ka 0.380 0.328 0.060
+Kd 0.950 0.820 0.150
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl nails_silver
+Ka 0.300 0.312 0.328
+Kd 0.750 0.780 0.820
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

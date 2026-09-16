@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly small young apple fruit tree with slender brown trunk and fresh green leafy crown with a few small green budding apples, 3d game asset",
+  "folder": "20260914_180049_stylized-low-poly-small-young_01a0a226",
+  "root_task_id": "01a0a226-cf19-7088-a482-77e3cb2e6ec9",
+  "created_at": "2026-09-14T23:00:49.964Z",
+  "updated_at": "2026-09-14T23:06:07.304Z",
+  "tasks": [
+    {
+      "task_id": "01a0a226-cf19-7088-a482-77e3cb2e6ec9",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly small young apple fruit tree with slender brown trunk and fresh green leafy crown with a few small green budding apples, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:06:07.304Z"
+    }
+  ]
+}

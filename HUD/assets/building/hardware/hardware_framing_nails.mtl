@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Box_Cardboard
+Ka 0.3200 0.2560 0.1680
+Kd 0.8000 0.6400 0.4200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Steel_Nail
+Ka 0.3280 0.3360 0.3440
+Kd 0.8200 0.8400 0.8600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Nail_Head
+Ka 0.2880 0.2960 0.3040
+Kd 0.7200 0.7400 0.7600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

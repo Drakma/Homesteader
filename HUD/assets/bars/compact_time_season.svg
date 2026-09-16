@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 44" width="190" height="44">
+  <defs>
+    <filter id="m_cap_sh" x="-10%" y="-15%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#050a10" flood-opacity="0.75"/>
+    </filter>
+  </defs>
+  <g filter="url(#m_cap_sh)">
+    <!-- Compact Pill Frame -->
+    <rect x="2" y="2" width="186" height="40" rx="20" fill="#151b24" stroke="#2a3545" stroke-width="1.5" opacity="0.94"/>
+    
+    <!-- Mini Sundial icon inside circular pocket -->
+    <circle cx="22" cy="22" r="14" fill="#202937" stroke="#37455a" stroke-width="1"/>
+    <!-- Sundial graphic -->
+    <circle cx="22" cy="22" r="11" fill="#e0e1dd"/>
+    <polygon points="22,14 25,24 22,25 19,24" fill="#e76f51"/>
+    <polygon points="22,25 29,29 25,24" fill="#2b2d42" opacity="0.5"/>
+
+    <!-- Clock Text -->
+    <text x="46" y="21" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="14" fill="#ffffff" letter-spacing="0.5">08:45 AM</text>
+    <!-- Season & Day Subtitle -->
+    <text x="46" y="33" font-family="'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="9" fill="#94a3b8" letter-spacing="1">SPRING · DAY 4</text>
+  </g>
+</svg>

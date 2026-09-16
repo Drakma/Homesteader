@@ -1,0 +1,200 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_small_cabin",
+  "name": "Small Log Cabin",
+  "category": "structures",
+  "description": "A one-room log cabin with a peaked roof.",
+  "icon": "struct_complete_small_cabin.png",
+  "properties": {
+    "weight_kg": 5000.0,
+    "max_stack_size": 1,
+    "base_value": 8000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 20,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Struct_Cabin_Small.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SM_Struct_Cabin_Small.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Cabin_Small.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 510.0,
+        "y": 550.0,
+        "z": 439.9
+      },
+      "dimensions_m": {
+        "x": 5.1,
+        "y": 5.5,
+        "z": 4.4
+      },
+      "vertices": 1900,
+      "faces": 636,
+      "bounding_box": {
+        "min": [
+          -255.0,
+          -275.0,
+          0.0
+        ],
+        "max": [
+          255.0,
+          275.0,
+          439.856415
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "building",
+    "species": "small_cabin",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 4,
+      "name": "complete",
+      "age_min": 99,
+      "age_max": 100
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "item_id": "struct_foundation_small_cabin",
+        "age_min": 0,
+        "age_max": 33
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "item_id": "struct_framing_small_cabin",
+        "age_min": 33,
+        "age_max": 66
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "item_id": "struct_walls_small_cabin",
+        "age_min": 66,
+        "age_max": 99
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "item_id": "struct_complete_small_cabin",
+        "age_min": 99,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Struct_Cabin_Small.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 510.0,
+      "y": 550.0,
+      "z": 439.9
+    },
+    "dimensions_m": {
+      "x": 5.1,
+      "y": 5.5,
+      "z": 4.4
+    },
+    "vertices": 1900,
+    "faces": 636,
+    "bounding_box": {
+      "min": [
+        -255.0,
+        -275.0,
+        0.0
+      ],
+      "max": [
+        255.0,
+        275.0,
+        439.856415
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 25.0,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 5.1,
+      "depth": 5.5,
+      "height": 4.4
+    },
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 3
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 2
+      },
+      {
+        "item_id": "sheet_drywall_stack_small",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 25
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 56" width="570" height="56">
+  <defs>
+    <filter id="m_bar_sh" x="-5%" y="-15%" width="110%" height="135%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#050a10" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+  <g filter="url(#m_bar_sh)">
+    <!-- Sleek translucent dark-slate tray -->
+    <rect x="2" y="2" width="566" height="52" rx="12" fill="#131922" stroke="#283445" stroke-width="1.5" opacity="0.95"/>
+
+    <!-- 10 Recessed Slot Wells (width 48, height 44, spacing 54, offset 12) -->
+
+    <!-- Slot 1 -->
+    <g transform="translate(12, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">1</text>
+    </g>
+
+    <!-- Slot 2 -->
+    <g transform="translate(66, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">2</text>
+    </g>
+
+    <!-- Slot 3 -->
+    <g transform="translate(120, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">3</text>
+    </g>
+
+    <!-- Slot 4 -->
+    <g transform="translate(174, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">4</text>
+    </g>
+
+    <!-- Slot 5 -->
+    <g transform="translate(228, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">5</text>
+    </g>
+
+    <!-- Slot 6 -->
+    <g transform="translate(282, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">6</text>
+    </g>
+
+    <!-- Slot 7 -->
+    <g transform="translate(336, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">7</text>
+    </g>
+
+    <!-- Slot 8 -->
+    <g transform="translate(390, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">8</text>
+    </g>
+
+    <!-- Slot 9 -->
+    <g transform="translate(444, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">9</text>
+    </g>
+
+    <!-- Slot 10 -->
+    <g transform="translate(498, 6)">
+      <!-- Slot well -->
+      <rect x="0" y="0" width="48" height="44" rx="8" fill="#1c2533" stroke="#222d3d" stroke-width="1"/>
+      <!-- Subtle top inner shadow -->
+      <rect x="2" y="2" width="44" height="6" rx="3" fill="#10151d" opacity="0.6"/>
+      <!-- Tiny Slot key label in corner -->
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="bold" font-size="9" fill="#64748b">0</text>
+    </g>
+
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly small young weeping willow tree with slender trunk and delicate arching hanging green branches, 3d game asset",
+  "folder": "20260914_180059_stylized-low-poly-small-young_01a0a226",
+  "root_task_id": "01a0a226-f4a3-74ff-a3c4-9b41e5b82f7a",
+  "created_at": "2026-09-14T23:00:59.658Z",
+  "updated_at": "2026-09-15T00:07:45.105Z",
+  "tasks": [
+    {
+      "task_id": "01a0a226-f4a3-74ff-a3c4-9b41e5b82f7a",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly small young weeping willow tree with slender trunk and delicate arching hanging green branches, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-15T00:07:45.104Z"
+    }
+  ]
+}

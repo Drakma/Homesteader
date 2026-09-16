@@ -1,0 +1,26 @@
+# Material Library for SM_Tool_Shovel_ScoopFlat
+
+newmtl mat_metal_dark
+Ka 0.072 0.080 0.088
+Kd 0.180 0.200 0.220
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_wood_hickory
+Ka 0.248 0.168 0.100
+Kd 0.620 0.420 0.250
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_silver_bevel
+Ka 0.328 0.340 0.356
+Kd 0.820 0.850 0.890
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+

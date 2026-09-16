@@ -1,0 +1,41 @@
+{
+  "category": "vehicles",
+  "fields": {
+    "vehicle_type": {
+      "type": "string",
+      "required": true,
+      "note": "pickup, tractor, combine, excavator, skid_steer, sawmill, trailer"
+    },
+    "fuel_type": {
+      "type": "string",
+      "required": true,
+      "note": "diesel, gasoline, none (towed/unpowered)"
+    },
+    "fuel_consumption_l_per_min": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters of fuel burned per IN-GAME minute under typical working load (40 real minutes = 1 full in-game day = 1440 in-game minutes, so consumption scales correctly if the player speeds up time); 0 for unpowered/towed"
+    },
+    "tank_capacity_l": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "top_speed_kmh": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "seats": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "cargo_capacity_m3": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    }
+  }
+}

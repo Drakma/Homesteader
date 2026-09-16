@@ -1,0 +1,77 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_tractor_small_old",
+  "name": "Small Old Tractor",
+  "category": "vehicles",
+  "description": "A small older green tractor with yellow accents and a lot of dirt on it.",
+  "icon": "vehicle_tractor_small_old.png",
+  "properties": {
+    "weight_kg": 2000.0,
+    "max_stack_size": 1,
+    "base_value": 8000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Vehicle_Tractor_Small_Old.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "tractor",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.005,
+    "tank_capacity_l": 90,
+    "top_speed_kmh": 28,
+    "seats": 1,
+    "cargo_capacity_m3": 0,
+    "dimensions_m": {
+      "width": 1.7,
+      "depth": 3.3,
+      "height": 2.2
+    }
+  }
+}

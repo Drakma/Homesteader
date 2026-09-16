@@ -1,0 +1,55 @@
+{
+  "category": "structures",
+  "note": "Deliberately NO power_draw_w or fuel_consumption field here. A structure itself doesn't consume electricity - its total draw is the sum of power_draw_w of every electric item the player places inside it, computed dynamically at runtime. What a structure DOES have is electrical_service_capacity_w: power flows IN to the structure (from a generator/solar/grid connection) and the structure's own wiring/panel then supplies everything plugged in inside it. This capacity is a real gameplay constraint, not just flavor text - an undersized or bad breaker/panel relative to the summed power_draw_w of everything running inside should be able to cause real problems (overload trips, or worse). RUNTIME REQUIREMENT for whoever implements this in game logic: total draw vs. electrical_service_capacity_w is NOT a one-time check at placement time - it must be recomputed continuously/live, because the set of appliances actually running inside a structure changes constantly as the player turns things on and off, so an overload condition can appear or clear at any moment, not just when an item is placed. Do not add a static consumption field here, but electrical_service_capacity_w stays.",
+  "fields": {
+    "interior_area_m2": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "room_count": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "electrical_service_capacity_w": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "max watts the structure's electrical panel/wiring can distribute at once to everything plugged in inside it. 0 for structures with no electrical service (tents, unwired sheds/silos, unfinished construction stages)."
+    },
+    "water_supply_capacity_lpm": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Same model as electrical_service_capacity_w, for plumbing instead of wiring: max liters per in-game minute the structure's own pipes can deliver at once to everything drawing water inside it (sinks, dishwasher, washer - see appliances.water_usage_lpm), fed by whatever pump/cistern is connected upstream. Same runtime requirement as the electrical check: recompute continuously, not just at placement, since which fixtures are actively running changes constantly. 0 for structures with no plumbing (tents, unwired sheds/silos, unfinished construction stages)."
+    },
+    "construction_recipe": {
+      "type": "array",
+      "required": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": "string",
+          "quantity": "number"
+        }
+      },
+      "note": "materials CONSUMED to build/progress to this specific stage (not cumulative from earlier stages - foundation's recipe is separate from framing's, etc.). Draws from the building category's raw materials (lumber, masonry, sheathing, roofing, hardware) and, for log-built cabins, materials.mat_log_* instead of standard framing lumber for the walls stage. Empty array for structures that are placed/purchased rather than built from materials (tents, campers)."
+    },
+    "required_tools": {
+      "type": "array",
+      "required": true,
+      "items": {
+        "type": "array",
+        "items": "string"
+      },
+      "note": "array of tool-requirement GROUPS for this construction stage. Each group is itself an array of alternative tools.* item_ids - the player needs ANY ONE item from each group, not all of them (e.g. a fastening group of [tool_hammer_claw, tool_drill_corded, tool_impact_driver_cordless] means hand tools OR power tools both work). Multiple groups in the outer array means multiple distinct tool roles are needed (e.g. a cutting group AND a separate fastening group), each satisfied independently. Empty array for stages/structures needing no tools (tents, campers)."
+    },
+    "roof_area_m2": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Exterior roof footprint in square meters (approx width x depth from dimensions_m - not the same as interior_area_m2, which is the smaller usable interior floor space). Exists specifically so a rain barrel placed next to this structure can compute its own fill rate dynamically at runtime: rain_barrel_input_lpm = roof_area_m2 x current_rain_intensity x a runoff-efficiency constant (rain barrels have NO static max_flow_rate_lpm of their own in water.schema.json - production varies with weather and whichever roof it's actually collecting from). 0 for unfinished construction stages (no roof yet) and structures without a meaningful catchment roof (silo)."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "category": "waste",
+  "fields": {
+    "power_draw_w": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "watts drawn while running, for electric pumps/aerators only. 0 for passive tanks/manual items."
+    }
+  }
+}

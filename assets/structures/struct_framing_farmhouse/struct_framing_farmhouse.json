@@ -1,0 +1,135 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_framing_farmhouse",
+  "name": "Farmhouse - Framing",
+  "category": "structures",
+  "description": "The framing construction phase of the farmhouse.",
+  "icon": "struct_framing_farmhouse.png",
+  "properties": {
+    "weight_kg": 7000.0,
+    "max_stack_size": 1,
+    "base_value": 15750.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "building",
+    "species": "farmhouse",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 2,
+      "name": "framing",
+      "age_min": 33,
+      "age_max": 66
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "item_id": "struct_foundation_farmhouse",
+        "age_min": 0,
+        "age_max": 33
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "item_id": "struct_framing_farmhouse",
+        "age_min": 33,
+        "age_max": 66
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "item_id": "struct_walls_farmhouse",
+        "age_min": 66,
+        "age_max": 99
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "item_id": "struct_complete_farmhouse",
+        "age_min": 99,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 8.65,
+      "depth": 9.05,
+      "height": 4.95
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "#framing_lumber",
+        "quantity": 60
+      },
+      {
+        "item_id": "lumber_joist_2x8",
+        "quantity": 24
+      },
+      {
+        "item_id": "lumber_post_4x4",
+        "quantity": 8
+      },
+      {
+        "item_id": "item_hardware_framingnails_box",
+        "quantity": 6
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

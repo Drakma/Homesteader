@@ -1,0 +1,18 @@
+# Homesteader Material Definition
+
+newmtl Bramble_Vine
+Ka 0.1600 0.0960 0.0640
+Kd 0.4000 0.2400 0.1600
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl Bramble_Thorns
+Ka 0.3400 0.0880 0.0640
+Kd 0.8500 0.2200 0.1600
+Ks 0.12 0.12 0.12
+Ns 12.0
+d 1.0
+illum 2
+

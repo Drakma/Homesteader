@@ -1,0 +1,127 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "food_potato",
+  "name": "Russet Potato",
+  "category": "food",
+  "description": "Standard farming asset used in the Homesteader simulation.",
+  "icon": "food_potato.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 2,
+    "energy_restore": 0,
+    "stamina_restore": 10,
+    "wellness_modifier": 2
+  },
+  "models": [
+    {
+      "file": "SM_Item_Potato_Loose.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Item_Potato_Loose.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 13.9,
+        "y": 13.6,
+        "z": 9.1
+      },
+      "dimensions_m": {
+        "x": 0.14,
+        "y": 0.14,
+        "z": 0.09
+      },
+      "vertices": 592,
+      "faces": 276,
+      "bounding_box": {
+        "min": [
+          -6.6,
+          -6.89,
+          0.0
+        ],
+        "max": [
+          7.33,
+          6.71,
+          9.1
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Item_Potato_Loose.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 13.9,
+      "y": 13.6,
+      "z": 9.1
+    },
+    "dimensions_m": {
+      "x": 0.14,
+      "y": 0.14,
+      "z": 0.09
+    },
+    "vertices": 592,
+    "faces": 276,
+    "bounding_box": {
+      "min": [
+        -6.6,
+        -6.89,
+        0.0
+      ],
+      "max": [
+        7.33,
+        6.71,
+        9.1
+      ]
+    }
+  },
+  "category_fields": {
+    "hunger_restore": 10,
+    "dimensions_m": {
+      "width": 0.14,
+      "depth": 0.14,
+      "height": 0.09
+    }
+  }
+}

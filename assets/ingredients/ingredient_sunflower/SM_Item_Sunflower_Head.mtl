@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Sunflower_Head
+
+newmtl seed_disc
+Ka 0.096 0.064 0.048
+Kd 0.240 0.160 0.120
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl petal_yellow
+Ka 0.392 0.312 0.040
+Kd 0.980 0.780 0.100
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl stem_green
+Ka 0.100 0.220 0.080
+Kd 0.250 0.550 0.200
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

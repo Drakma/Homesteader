@@ -1,0 +1,55 @@
+{
+  "batch_id": "batch_1789501760",
+  "finalized_at": "2026-09-15T19:49:20Z",
+  "items": [
+    {
+      "id": "1789501652_regenerate_icon_struct_walls_barn",
+      "name": "Regenerate Icon: struct_walls_barn",
+      "category": "structures",
+      "description": "Regenerate Icon request for existing asset structures/struct_walls_barn - user instructions: add rafters to the roof, but leave the actual roof off",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T19:47:32Z",
+      "action": "regenerate_icon",
+      "target_category": "structures",
+      "target_item_id": "struct_walls_barn",
+      "prompt": "add rafters to the roof, but leave the actual roof off",
+      "batch_id": "batch_1789501760",
+      "finalized_at": "2026-09-15T19:49:20Z"
+    },
+    {
+      "id": "1789501706_regenerate_icon_struct_walls_stable",
+      "name": "Regenerate Icon: struct_walls_stable",
+      "category": "structures",
+      "description": "Regenerate Icon request for existing asset structures/struct_walls_stable - user instructions: match the reference exactly, but remove the roof (lave rafters)",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T19:48:26Z",
+      "action": "regenerate_icon",
+      "target_category": "structures",
+      "target_item_id": "struct_walls_stable",
+      "prompt": "match the reference exactly, but remove the roof (lave rafters)",
+      "reference_category": "structures",
+      "reference_item_id": "struct_complete_stable",
+      "batch_id": "batch_1789501760",
+      "finalized_at": "2026-09-15T19:49:20Z"
+    },
+    {
+      "id": "1789501748_regenerate_icon_struct_walls_small_cabin",
+      "name": "Regenerate Icon: struct_walls_small_cabin",
+      "category": "structures",
+      "description": "Regenerate Icon request for existing asset structures/struct_walls_small_cabin - user instructions: follow the reference exactly, but remove the roof leaving rafters",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T19:49:08Z",
+      "action": "regenerate_icon",
+      "target_category": "structures",
+      "target_item_id": "struct_walls_small_cabin",
+      "prompt": "follow the reference exactly, but remove the roof leaving rafters",
+      "reference_category": "structures",
+      "reference_item_id": "struct_complete_small_cabin",
+      "batch_id": "batch_1789501760",
+      "finalized_at": "2026-09-15T19:49:20Z"
+    }
+  ]
+}

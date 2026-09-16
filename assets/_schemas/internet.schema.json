@@ -1,0 +1,29 @@
+{
+  "category": "internet",
+  "note": "The runtime overload check for this category is: sum of active consumers' bandwidth_usage_mbps vs. the connected producer's bandwidth_mbps throughput, same pattern as structures.electrical_service_capacity_w vs summed power_draw_w. appliances.bandwidth_usage_mbps now covers the TVs (streaming, budget 6 Mbps / premium 25 Mbps). REMAINING GAP (not forgotten - paused 2026-09-15 pending Creative Claw credits): no computer/laptop or other general internet-consuming device exists in the catalog yet - only TVs are wired up as bandwidth consumers so far. Add bandwidth_usage_mbps to those item types once they're created.",
+  "fields": {
+    "power_draw_w": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "watts drawn while running, for powered networking gear only. 0 for passive hardware (antennas, dishes, cables, mounts, arrestors)."
+    },
+    "bandwidth_mbps": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "rated throughput in Mbps, for active networking gear and rated cables. 0 for purely passive/mechanical hardware (mounts, arrestors, antennas/dishes - those get range_m instead)."
+    },
+    "range_m": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "effective wireless coverage/range in meters, for transmitting gear only (antennas, outdoor AP, mesh router). 0 for wired-only gear, satellite dishes (range to a satellite isn't a meaningful ground distance), and passive hardware."
+    },
+    "is_connected": {
+      "type": "boolean",
+      "required": true,
+      "note": "DEFAULT/baseline connectivity state for this item type, not a fixed catalog fact - a placed instance's real is_connected should cascade at runtime from whatever it's directly wired to (device B is_connected = true if device B is physically cabled to some device A where A.is_connected is true). No spanning-tree/graph traversal needed - each device only ever needs to check its own direct physical link(s), and true propagates outward one hop at a time as cables get placed. Producers default true: satellite dishes and the yagi are the origin of the connection, not dependent on anything upstream, so they're always connected regardless of wiring. Everything else defaults false until the player actually wires it to something that is_connected. Cables/spools and pure passive mounting hardware aren't network devices themselves, so they stay false (they carry the connection, they don't have one)."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly cut evergreen pine tree stump with reddish-brown scaly bark, amber resin drip droplets, and visible core rings on flat top, 3d game asset",
+  "folder": "20260914_180150_stylized-low-poly-cut-evergree_01a0a227",
+  "root_task_id": "01a0a227-bab2-7610-b4b4-959317ad7695",
+  "created_at": "2026-09-14T23:01:50.229Z",
+  "updated_at": "2026-09-14T23:07:01.560Z",
+  "tasks": [
+    {
+      "task_id": "01a0a227-bab2-7610-b4b4-959317ad7695",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly cut evergreen pine tree stump with reddish-brown scaly bark, amber resin drip droplets, and visible core rings on flat top, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:07:01.560Z"
+    }
+  ]
+}

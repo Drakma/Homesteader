@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "part_wall_window_1m",
+  "name": "Part Wall Window 1M",
+  "category": "hud",
+  "description": "Standard hud asset used in the Homesteader simulation.",
+  "icon": "part_wall_window_1m.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Part_Wall_Window_1m.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Part_Wall_Window_1m.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 100.0,
+        "y": 16.0,
+        "z": 240.0
+      },
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 0.16,
+        "z": 2.4
+      },
+      "vertices": 288,
+      "faces": 96,
+      "bounding_box": {
+        "min": [
+          -50.0,
+          -8.0,
+          0.0
+        ],
+        "max": [
+          50.0,
+          8.0,
+          240.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Part_Wall_Window_1m.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 100.0,
+      "y": 16.0,
+      "z": 240.0
+    },
+    "dimensions_m": {
+      "x": 1.0,
+      "y": 0.16,
+      "z": 2.4
+    },
+    "vertices": 288,
+    "faces": 96,
+    "bounding_box": {
+      "min": [
+        -50.0,
+        -8.0,
+        0.0
+      ],
+      "max": [
+        50.0,
+        8.0,
+        240.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 0.16,
+      "height": 2.4
+    }
+  }
+}

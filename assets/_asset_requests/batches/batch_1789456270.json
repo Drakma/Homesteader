@@ -1,0 +1,39 @@
+{
+  "batch_id": "batch_1789456270",
+  "finalized_at": "2026-09-15T07:11:10Z",
+  "items": [
+    {
+      "id": "1789456185_adult_american_quarter_horse",
+      "name": "Adult American Quarter Horse",
+      "category": "ranching",
+      "description": "a fully adult American Quarter horse",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T07:09:45Z",
+      "batch_id": "batch_1789456270",
+      "finalized_at": "2026-09-15T07:11:10Z"
+    },
+    {
+      "id": "1789456232_yearling_american_quarter_horse",
+      "name": "Yearling American Quarter Horse",
+      "category": "ranching",
+      "description": "a yearling american quarter horse",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T07:10:32Z",
+      "batch_id": "batch_1789456270",
+      "finalized_at": "2026-09-15T07:11:10Z"
+    },
+    {
+      "id": "1789456255_foal_american_quarter_horse",
+      "name": "Foal American Quarter Horse",
+      "category": "ranching",
+      "description": "a foal American Quarter Horse",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T07:10:55Z",
+      "batch_id": "batch_1789456270",
+      "finalized_at": "2026-09-15T07:11:10Z"
+    }
+  ]
+}

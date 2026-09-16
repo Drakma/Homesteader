@@ -1,0 +1,8 @@
+# Homesteader Material
+newmtl M_SM_Item_Fish_Walleye
+Kd 0.550 0.520 0.250
+Ka 0.100 0.100 0.100
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2

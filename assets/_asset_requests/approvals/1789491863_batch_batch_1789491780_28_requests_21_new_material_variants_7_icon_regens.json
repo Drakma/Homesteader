@@ -1,0 +1,22 @@
+{
+  "id": "1789491863_batch_batch_1789491780_28_requests_21_new_material_variants_7_icon_regens",
+  "title": "Batch batch_1789491780 - 28 requests (21 new material variants, 7 icon regens)",
+  "plan": [
+    "4 contact sheets (7 items each, materials/water/waste) via Creative Claw nano-banana-2 @ ~16cr/sheet",
+    "Sheet A: Maple L/M/S, Oak L/M/S, Small Pine uncut logs (icon match to existing birch logs, described in words)",
+    "Sheet B: Pine L/M, Poplar L/M/S, Willowood L/M uncut logs",
+    "Sheet C: Willowood S, Dirt L/M/S, Bedding Stone L/M/S piles (icon match to existing gravel piles)",
+    "Sheet D: 7 icon regenerations on EXISTING assets (mat_feather, water_ibc_tote_275gal, water_pressuretank_well, waste_compost_bin_3bay, waste_pile_manure L/M/S) - each honors its own PROMPT instructions",
+    "25 of 28 items are icon-only (no_model=true was set at request time, or action=regenerate_icon) - no Meshy spend for those",
+    "The 3 Pine uncut logs (Small/Long/Medium) are the ONLY items requesting a full 3D model - Meshy image_to_3d (meshy-t2 smart-topology, mesh+texture) @ ~15cr each = ~45cr",
+    "NOTE: clicking Icon Only below would also skip the model for the 3 Pine logs, not just the 25 already marked icon-only - click full Approve to get Pine models too"
+  ],
+  "cost": {
+    "creative_claw": 64,
+    "meshy": 45
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T17:04:23Z",
+  "resolved_at": "2026-09-15T17:04:33Z",
+  "approved_mode": "icon_only"
+}

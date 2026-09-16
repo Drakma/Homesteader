@@ -1,0 +1,104 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tree_sapling_oak",
+  "name": "Planted Sapling Oak",
+  "category": "logging",
+  "description": "Standard logging asset used in the Homesteader simulation.",
+  "icon": "tree_sapling_oak.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 1,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_PlantedSaplingOak.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "tree",
+    "species": "oak",
+    "max_age": 100,
+    "time_unit": "days",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 1,
+      "name": "sapling",
+      "age_min": 0,
+      "age_max": 15
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "item_id": "tree_sapling_oak",
+        "age_min": 0,
+        "age_max": 15
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "item_id": "tree_small_oak",
+        "age_min": 15,
+        "age_max": 40
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "item_id": "tree_medium_oak",
+        "age_min": 40,
+        "age_max": 75
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "item_id": "tree_mature_oak",
+        "age_min": 75,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.8,
+      "depth": 1.8,
+      "height": 1.6
+    }
+  }
+}

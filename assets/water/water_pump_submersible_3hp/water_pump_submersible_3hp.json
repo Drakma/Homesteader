@@ -1,0 +1,56 @@
+{
+	"$schema": "https://homesteader.game/schemas/item_v1.json",
+	"id": "water_pump_submersible_3hp",
+	"name": "Large Submersible Well Pump",
+	"category": "water",
+	"description": "3 HP commercial stainless steel submersible well pump with heavy duty industrial cable coil.",
+	"icon": "water_pump_submersible_3hp.png",
+	"properties": {
+		"weight_kg": 24.0,
+		"max_stack_size": 5,
+		"base_value": 350.0,
+		"is_consumable": false,
+		"footprint": null
+	},
+	"models": [
+		{
+			"file": "water_pump_submersible_3hp.fbx",
+			"format": "fbx",
+			"dimensions_m": {
+				"x": 0.5,
+				"y": 0.5,
+				"z": 1.2
+			}
+		}
+	],
+	"utilities": {
+		"water": {
+			"metric": "Output: 35 GPM at 250ft head",
+			"details": "High-volume commercial deep well pump."
+		},
+		"electricity": {
+			"metric": "Power draw: 2200W (240V)",
+			"details": "High-torque multi-stage induction motor."
+		},
+		"waste": {
+			"metric": "None",
+			"details": "None"
+		},
+		"battery": {
+			"metric": "None",
+			"details": "None"
+		}
+	},
+	"growth": {
+		"is_growable": false,
+		"species": null,
+		"max_age": null,
+		"total_stages": 0,
+		"stages": []
+	},
+	"plugin_metadata": {
+		"version": "1.0.0",
+		"author": "Homesteader Free Pipeline",
+		"api_version": "1.0"
+	}
+}

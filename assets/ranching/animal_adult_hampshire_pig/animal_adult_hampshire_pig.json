@@ -1,0 +1,187 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_adult_hampshire_pig",
+  "name": "Animal Pig Hampshire",
+  "category": "ranching",
+  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "icon": "animal_adult_hampshire_pig.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Pig_Hampshire.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SKM_Animal_Pig_Hampshire.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SKM_Animal_Pig_Hampshire.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 52.0,
+        "y": 114.2,
+        "z": 70.0
+      },
+      "dimensions_m": {
+        "x": 0.52,
+        "y": 1.14,
+        "z": 0.7
+      },
+      "vertices": 208,
+      "faces": 150,
+      "bounding_box": {
+        "min": [
+          -26.0,
+          -70.199997,
+          -3e-06
+        ],
+        "max": [
+          26.0,
+          44.0,
+          70.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Animal_Pig_Hampshire.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Animal_Pig_Hampshire.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 57.0,
+        "y": 144.0,
+        "z": 72.5
+      },
+      "dimensions_m": {
+        "x": 0.57,
+        "y": 1.44,
+        "z": 0.72
+      },
+      "vertices": 186,
+      "faces": 284,
+      "bounding_box": {
+        "min": [
+          -28.5,
+          -82.0,
+          0.0
+        ],
+        "max": [
+          28.5,
+          62.0,
+          72.5
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "animal",
+    "species": "hampshire_pig",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "current_stage": {
+      "stage": 2,
+      "name": "adult",
+      "age_min": 90,
+      "age_max": 730
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "piglet",
+        "item_id": "animal_piglet_hampshire_pig",
+        "age_min": 0,
+        "age_max": 90
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "item_id": "animal_adult_hampshire_pig",
+        "age_min": 90,
+        "age_max": 730
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SKM_Animal_Pig_Hampshire.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 52.0,
+      "y": 114.2,
+      "z": 70.0
+    },
+    "dimensions_m": {
+      "x": 0.52,
+      "y": 1.14,
+      "z": 0.7
+    },
+    "vertices": 208,
+    "faces": 150,
+    "bounding_box": {
+      "min": [
+        -26.0,
+        -70.199997,
+        -3e-06
+      ],
+      "max": [
+        26.0,
+        44.0,
+        70.0
+      ]
+    }
+  },
+  "category_fields": {
+    "species": "pig",
+    "produces": "",
+    "gender": "unspecified",
+    "temperament": "passive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.52,
+      "depth": 1.14,
+      "height": 0.7
+    }
+  }
+}

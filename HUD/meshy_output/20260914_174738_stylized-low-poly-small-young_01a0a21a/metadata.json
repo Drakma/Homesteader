@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly small young oak tree with slender wooden trunk and vibrant green leafy canopy, 3d game asset",
+  "folder": "20260914_174738_stylized-low-poly-small-young_01a0a21a",
+  "root_task_id": "01a0a21a-b888-74ac-9bd1-5d3deb5e3ee8",
+  "created_at": "2026-09-14T22:47:38.093Z",
+  "updated_at": "2026-09-14T22:53:02.055Z",
+  "tasks": [
+    {
+      "task_id": "01a0a21a-b888-74ac-9bd1-5d3deb5e3ee8",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly small young oak tree with slender wooden trunk and vibrant green leafy canopy, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T22:53:02.054Z"
+    }
+  ]
+}

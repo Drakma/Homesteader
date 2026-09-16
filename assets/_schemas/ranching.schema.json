@@ -1,0 +1,29 @@
+{
+  "category": "ranching",
+  "fields": {
+    "species": {
+      "type": "string",
+      "required": true
+    },
+    "produces": {
+      "type": "string",
+      "required": true,
+      "note": "comma-separated resource tags this animal yields while alive when mature (e.g. 'milk', 'eggs', 'wool'); empty string if none"
+    },
+    "gender": {
+      "type": "string",
+      "required": true,
+      "note": "male, female, or unspecified (equipment items also use unspecified)"
+    },
+    "temperament": {
+      "type": "string",
+      "required": true,
+      "note": "passive, aggressive, territorial, or none (equipment items)"
+    },
+    "same_sex_aggression": {
+      "type": "boolean",
+      "required": true,
+      "note": "true if this animal fights/is hostile toward other males of the same species (e.g. billy goats, roosters) - relevant for pasture/pen management"
+    }
+  }
+}

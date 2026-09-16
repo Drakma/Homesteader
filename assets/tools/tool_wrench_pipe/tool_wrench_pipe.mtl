@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl CastIron_Red
+Ka 0.3440 0.0880 0.0720
+Kd 0.8600 0.2200 0.1800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Steel_Jaw
+Ka 0.1600 0.1680 0.1800
+Kd 0.4000 0.4200 0.4500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Knurl_Nut
+Ka 0.3000 0.2600 0.1000
+Kd 0.7500 0.6500 0.2500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

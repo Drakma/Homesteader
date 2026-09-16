@@ -1,0 +1,21 @@
+{
+  "id": "1789499677_batch_batch_1789499564_8_requests_7_unique_icon_regens_one_target_id_is_stale_renamed_merged_with_its_duplicate",
+  "title": "Batch batch_1789499564 - 8 requests (7 unique icon regens - one target id is stale/renamed, merged with its duplicate)",
+  "plan": [
+    "1 contact sheet (7 items) via Creative Claw nano-banana-2 @ ~16cr = ~16cr, no Meshy spend (icon regen only)",
+    "struct_walls_barn: remove the roof entirely, keep red board walls + white trim + door",
+    "struct_foundation_chicken_coop: keep the exact fence from the reference, but replace the coop building inside it with just a plain foundation slab on grass+dirt ground",
+    "struct_walls_farmhouse: remove the roof (this item was requested twice, once under a stale pre-rename id struct_house_farmhouse_walls and once under its current id - treating as one item)",
+    "struct_walls_greenhouse: match struct_complete_greenhouse exactly minus the glass roof",
+    "struct_walls_stable: remove the shingled roof, keep dark wood siding + stall openings",
+    "struct_walls_starter_house: match struct_complete_starter_house exactly minus roof covering",
+    "struct_walls_small_cabin: remove the shingled roof, keep round log walls"
+  ],
+  "cost": {
+    "creative_claw": 16,
+    "meshy": 0
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T19:14:37Z",
+  "resolved_at": "2026-09-15T19:14:43Z"
+}

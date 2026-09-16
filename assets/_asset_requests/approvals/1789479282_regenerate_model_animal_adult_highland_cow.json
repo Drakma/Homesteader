@@ -1,0 +1,15 @@
+{
+  "id": "1789479282_regenerate_model_animal_adult_highland_cow",
+  "title": "Regenerate Model: animal_adult_highland_cow",
+  "plan": [
+    "animal_adult_highland_cow currently only has an old-pipeline OBJ/MTL model (no FBX) - re-run Meshy image-to-3d using its existing standardized icon as the reference image, same smart-topology convention as every other model this session",
+    "Overwrite/add the FBX model, then rig it in Blender (quadruped, walk+run) as its own already-queued follow-up step - no additional approval needed for the rigging itself since Blender rigging is free"
+  ],
+  "cost": {
+    "creative_claw": "0cr (icon already exists, not regenerated)",
+    "meshy": "15cr (1 image-to-3d smart-topology generation)"
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T13:34:42Z",
+  "resolved_at": "2026-09-15T13:34:49Z"
+}

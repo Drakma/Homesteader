@@ -1,0 +1,286 @@
+{
+  "records": [
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_sheetA_original",
+      "items_requested": 8,
+      "technique": "text_only",
+      "background": "dark_slate",
+      "defects": [
+        "not_low_poly",
+        "wrong_camera_angle"
+      ],
+      "defect_count": 2,
+      "clean": false,
+      "notes": "Original stove/oven/microwave sheet, plain text prompt, no style anchor - user flagged as not low-poly and not all facing correctly"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_cookstove_single",
+      "items_requested": 1,
+      "technique": "style_anchor",
+      "background": "dark_slate",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Single wood cookstove, style-anchored to struct_complete_barn.png - excellent facets, correct facing"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_ranges_oven3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "dark_slate",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "3-item: budget/premium range + wood-fired oven, style-anchored - good facets"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_ovens_micro3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "dark_slate",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "3-item: budget/premium oven + budget microwave, style-anchored - good facets"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_ovens_micro_waterheater8",
+      "items_requested": 8,
+      "technique": "style_anchor",
+      "background": "dark_slate",
+      "defects": [
+        "extraction_fragmentation"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "8-item: ranges/ovens/microwaves/water heater, style-anchored - user confirmed this one was perfect (I had mis-judged it as too smooth) | CORRECTION: 10 components found instead of 8 at default tol=28 (oven glass + stovepipe-like reflections fragmented); needed tol=16 to reconnect. Dark-slate background caused this."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_waterheater_fridge_dw_sink8",
+      "items_requested": 8,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "wrong_facing"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "8-item: water heaters/fridges/dishwashers/sinks, style-anchored + first magenta test - clean render, no text; fragmentation was from the PRIOR sheet's dark-slate extraction, not this one - logging as clean once confirmed | CORRECTED: verified 8/8 components at default tol=28, no fragmentation - magenta background confirmed more robust than dark slate for extraction. | CORRECTION 2: user caught all 8 items facing RIGHT not LEFT (control panels/handles/displays all on the right-visible face) - extraction was clean but facing was systematically wrong across the whole sheet. Not shipped."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_waterheater_fridge_dw_sink8_retry",
+      "items_requested": 8,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "text_on_sheet",
+        "wrong_facing_partial"
+      ],
+      "defect_count": 2,
+      "clean": false,
+      "notes": "Retry with explicit per-item LEFT-facing callout - facing fixed correctly this time, extraction clean (8/8 at default tol), but text captions appeared despite explicit no-text instruction; min_area filter excluded them from extraction so no functional harm, still logging as a defect since instruction wasn't followed | CORRECTION: user caught the 2 sink items (single/double basin) also facing wrong direction - the other 6 items (water heaters/fridges/dishwashers) were correctly left-facing. Sinks need regeneration."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_group_washer_dryer_grill_smoker8",
+      "items_requested": 8,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "text_on_sheet",
+        "wrong_facing_partial"
+      ],
+      "defect_count": 2,
+      "clean": false,
+      "notes": "Washers/dryers/grills/smoker - facing correct on all 8, extraction clean (8/8), only text captions present (harmless, filtered by min_area) | CORRECTION: user caught Budget Top-Load Washer also facing wrong (I misjudged it as correct - top-load washers are ambiguous since the dial is on the top-front lip, not a side door, harder for me to verify visually). Other 7 items correct. Washer needs regeneration."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_redo_sinks_washer3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Redo of the 3 wrong-facing items (2 sinks + budget top-load washer) from earlier 8-item sheets - all correct this time, clean"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_sinks_final_v3",
+      "items_requested": 2,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Final correct sink orientation: cube-with-red-door reference established that the basin's FRONT APRON WALL (not the faucet) is the left-visible plane, faucet mounted at back-right. User confirmed correct. Budget single-basin also needed a follow-up divider removal + background magenta fix (2 sub-edits)."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_smoker_fireplace_tv6_failed",
+      "items_requested": 6,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "text_on_sheet",
+        "wrong_item_count"
+      ],
+      "defect_count": 2,
+      "clean": false,
+      "notes": "Generated 9 cells (3x3 grid) with 3 rows duplicated instead of 6 unique items in 2x3; heavy baked-in text captions and grid lines. Not extracted, not shipped. Reverting to 3-item batches."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_smokers_woodstove3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Wood offset smoker, premium pellet smoker, budget wood stove - clean, no text, correct facing, extracted 3/3"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_smoker_offset_redo",
+      "items_requested": 1,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "wrong_facing"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "Original smoker in the 3-item smokers3 sheet had handle/door on the wrong side per user catch. Took 2 more attempts to fix (1st redo produced broken crossed-geometry, 2nd redo got orientation right but wrong door color + missing firebox, fixed via a targeted recolor+firebox edit). Final version correct and shipped."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_smoker_offset_round_final",
+      "items_requested": 1,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "wrong_facing"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "Gave up on asymmetric offset-firebox smoker after 5 failed facing attempts (kept misjudging orientation, one edit even broke geometry). Switched to a round/symmetric drum smoker per user direction ('just pick a round symmetrical smoker and move on') which sidesteps left/right ambiguity entirely. Final version passed QA and has no orientation risk."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_smoker_final_confirmed",
+      "items_requested": 1,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "wrong_facing"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "Smoker saga resolved: after 6 failed attempts total, fixed by (1) switching to round symmetric drum design, (2) correcting collapsed front-elevation camera back to isometric 3/4, (3) rotating 180deg in-place (not mirrored, to preserve lighting) so vent door moved from right to left. User confirmed correct."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_fireplace_tv3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Standard fireplace insert, premium stone fireplace, budget 32in TV - clean, no text, correct isometric depth and left-facing fronts on all 3, extracted 3/3. Pending final user visual confirmation given today's facing-error streak."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_tv_beds3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "wrong_facing_partial",
+        "extraction_fragmentation"
+      ],
+      "defect_count": 2,
+      "clean": false,
+      "notes": "Premium TV, budget bed, premium bed. Premium bed initially generated backwards (headboard right instead of left), fixed via 180-deg in-place rotation edit. Extraction also needed manual per-item band cropping instead of auto connected-components since drop shadows bridged adjacent items in the standard extractor. All 3 extracted and QA-passed after fixes."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_couches_armchair3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Budget couch, premium sectional, budget armchair - clean, correct facing, no shadows (explicit no-shadow instruction worked - avoided the extraction-fragmentation issue from the previous sheet)"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "appliances_recliner_tables3",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Premium recliner, budget 4-seat dining table, premium 6-seat dining table - clean, no shadows, no text. FINAL sheet - all 40 Appliances & Furniture items now generated/extracted/QA-passed."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "batch1789516107_sheet1_charcoal_insulation_paint",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Charcoal, fiberglass insulation batt, interior wall paint - clean, no text, correct left-facing, 3/3 extracted"
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "batch1789516107_sheet2_well_pumps",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "extraction_fragmentation"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "Low/high capacity well pumps + hand pump wellhead - correct facing, no text, but ground shadows appeared again (despite no-shadow instruction) and merged items 2+3 into one auto-detected component. Fixed via manual band-crop extraction, same technique as the earlier TV/beds sheet. All 3 extracted clean and QA-passed."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "batch1789516107_sheet3_well_shower_chinking",
+      "items_requested": 3,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [
+        "other:chinking_content_mismatch_needed_individual_redo"
+      ],
+      "defect_count": 1,
+      "clean": false,
+      "notes": "Manual well + shower stall extracted clean from the group sheet, but Chinking initially rendered as a rigid stone/concrete ring (looked like a well liner segment) instead of a rope-like caulk material - redone individually with clearer 'coiled rope/tube, not a ring' language, which fixed it. Final set of 3 all QA-passed."
+    },
+    {
+      "date": "2026-09-15",
+      "sheet_id": "batch1789516107_sheet4_wintercoat",
+      "items_requested": 1,
+      "technique": "style_anchor",
+      "background": "magenta",
+      "defects": [],
+      "defect_count": 0,
+      "clean": true,
+      "notes": "Winter Coat - solo item, first-ever clothing/apparel item in the catalog. Clean, no text, no shadow. Left/right facing convention doesn't strictly apply to a symmetric worn garment."
+    }
+  ]
+}

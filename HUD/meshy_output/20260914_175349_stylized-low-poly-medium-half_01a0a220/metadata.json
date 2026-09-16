@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly medium half-grown white birch tree with distinctive papery white bark and fluttering green leaves, 3d game asset",
+  "folder": "20260914_175349_stylized-low-poly-medium-half_01a0a220",
+  "root_task_id": "01a0a220-64f5-7029-8789-d64fdbe39774",
+  "created_at": "2026-09-14T22:53:49.151Z",
+  "updated_at": "2026-09-14T23:00:07.442Z",
+  "tasks": [
+    {
+      "task_id": "01a0a220-64f5-7029-8789-d64fdbe39774",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly medium half-grown white birch tree with distinctive papery white bark and fluttering green leaves, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:00:07.442Z"
+    }
+  ]
+}

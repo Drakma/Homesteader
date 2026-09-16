@@ -1,0 +1,23 @@
+{
+  "category": "fuel",
+  "note": "PROPANE has no in-game production path at all - unlike wood (harvested from trees via logging), propane only ever enters play by the player acquiring it externally (buying/hauling it in, mechanism TBD elsewhere), then storing it in a tank/container and drawing it down. Do not add a propane producer/refiner/well item or mechanic - propane is purely a consumable resource that depletes.",
+  "fields": {
+    "fuel_type": {
+      "type": "string",
+      "required": true,
+      "note": "diesel, gasoline, propane, wood, charcoal"
+    },
+    "capacity_l": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters held/stored; 0 for dispensing pumps (they draw from a separate tank, not a store themselves); firewood uses volume-equivalent liters"
+    },
+    "burn_minutes_per_item": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "IN-GAME minutes (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed; using in-game time keeps consumption correct when the player speeds up time). How many in-game minutes one inventory unit of this item burns for when used as fuel (solid fuels: wood, charcoal). 0 for liquid/gas fuels and dispensing pumps, which are consumed continuously by rate/tank level instead of per discrete item."
+    }
+  }
+}

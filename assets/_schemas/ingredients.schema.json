@@ -1,0 +1,16 @@
+{
+  "category": "ingredients",
+  "note": "Processing is a CHAIN, not always a single step - some ingredients cook directly into food (beef -> grill -> grilled beef), others need an intermediate processing item first (wheat -> mill -> flour -> bake -> bread). next_item_id just points to whatever comes next in the chain, one link at a time; follow it repeatedly (it may point to another ingredients item, or to the final food item) rather than assuming every ingredient is one step from food.",
+  "fields": {
+    "processing_method": {
+      "type": "string",
+      "required": true,
+      "note": "grill, bake, cook, mill, or none (eaten/used raw, or not directly edible/usable at all - e.g. cotton before being processed into cloth)."
+    },
+    "next_item_id": {
+      "type": "string",
+      "required": true,
+      "note": "the item this becomes after processing_method is applied. May be another ingredients item that still needs further processing (e.g. wheat -> ingredient_flour, which doesn't exist yet - a real content gap) or the final food_* item (or ingredient_*_grilled, which lives in the food category despite the prefix). '' if processing_method is none, OR if processing_method is set but the resulting item hasn't been created yet (also a real gap, not an error - e.g. corn/sunflower/egg have no next item yet)."
+    }
+  }
+}

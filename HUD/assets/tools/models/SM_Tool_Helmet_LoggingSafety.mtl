@@ -1,0 +1,26 @@
+# Material Library for SM_Tool_Helmet_LoggingSafety
+
+newmtl mat_saw_orange
+Ka 0.376 0.180 0.040
+Kd 0.940 0.450 0.100
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_metal_dark
+Ka 0.072 0.080 0.088
+Kd 0.180 0.200 0.220
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_steel_axe
+Ka 0.160 0.176 0.192
+Kd 0.400 0.440 0.480
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+

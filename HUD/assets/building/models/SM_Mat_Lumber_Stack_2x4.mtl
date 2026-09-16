@@ -1,0 +1,34 @@
+# Material Definition
+
+newmtl spf_wood
+Ka 0.3360 0.2960 0.2080
+Kd 0.8400 0.7400 0.5200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl wood_end
+Ka 0.2880 0.2400 0.1600
+Kd 0.7200 0.6000 0.4000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl steel_strap
+Ka 0.0600 0.0600 0.0600
+Kd 0.1500 0.1500 0.1500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl skid_timber
+Ka 0.1800 0.1280 0.0720
+Kd 0.4500 0.3200 0.1800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

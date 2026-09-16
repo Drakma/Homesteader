@@ -1,0 +1,43 @@
+{
+  "category": "farming",
+  "fields": {
+    "crop_species": {
+      "type": "string",
+      "required": true,
+      "note": "'' for non-crop items (raw seeds)"
+    },
+    "days_to_mature": {
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    "irrigated_growth_bonus_pct": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "percent reduction to days_to_mature while actively irrigated by a connected water_sprinkler/water_irrigation_sprinkler_riser/water_hose_soaker_flat (see water.schema.json's water_usage_lpm note). Same flat value across all crop species - keeping this simple, not simulating real per-species agronomy."
+    },
+    "fertilized_growth_bonus_pct": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "percent reduction to days_to_mature while fertilized (mat_fertilizer or a waste_pile_manure_* applied to the plot). Same flat value across all crop species."
+    },
+    "season": {
+      "type": "string",
+      "required": true,
+      "note": "spring, summer, fall, winter, or year_round (greenhouse-friendly crops). '' for non-crop items (raw seeds still get a season - it's when they CAN be planted)."
+    },
+    "yield_amount": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "units produced when harvested. Only meaningful on crop_mature_* items - 0 for sprout/growing stages, seeds, and any crop species that doesn't have a mature growth-stage item yet. Only the mature stage is harvestable at all; growth itself (seed -> sprout -> growing -> mature) is handled by the growth_groups system in kit_config.json, not this schema."
+    },
+    "yields_item_id": {
+      "type": "string",
+      "required": true,
+      "note": "the catalog item id produced by harvesting this crop, once mature - either a food_* item directly (carrot, potato, pumpkin, strawberry, tomato all go straight to food) or an ingredient_* item needing further processing (corn, wheat, sunflower, cotton, herb - see ingredients.schema.json's processing_method/next_item_id chain, e.g. wheat mills into flour before it can become bread). ONLY set on crop_mature_* items, same restriction as yield_amount - '' on seeds, sprouts, growing stages, and any species without a mature item yet."
+    }
+  }
+}

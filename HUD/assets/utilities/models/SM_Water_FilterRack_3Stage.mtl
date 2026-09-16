@@ -1,0 +1,42 @@
+# Material Definition
+
+newmtl Steel_Bracket
+Ka 0.3600 0.3600 0.3680
+Kd 0.9000 0.9000 0.9200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Big_Blue_Housing
+Ka 0.0480 0.1280 0.2600
+Kd 0.1200 0.3200 0.6500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Black_Filter_Head
+Ka 0.0720 0.0720 0.0800
+Kd 0.1800 0.1800 0.2000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Copper_Plumbing
+Ka 0.3280 0.1800 0.1000
+Kd 0.8200 0.4500 0.2500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Pressure_Gauge
+Ka 0.3800 0.3800 0.3800
+Kd 0.9500 0.9500 0.9500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

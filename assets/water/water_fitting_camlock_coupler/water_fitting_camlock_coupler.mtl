@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Aluminum_Cast
+Ka 0.3200 0.3280 0.3360
+Kd 0.8000 0.8200 0.8400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Brass_Arm
+Ka 0.3440 0.2720 0.0960
+Kd 0.8600 0.6800 0.2400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Gasket_Black
+Ka 0.0800 0.0800 0.0880
+Kd 0.2000 0.2000 0.2200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

@@ -1,0 +1,15 @@
+{
+  "id": "1789500002_regenerate_icon_struct_complete_starter_house",
+  "title": "Regenerate Icon: struct_complete_starter_house",
+  "plan": [
+    "1 single-item generation via Creative Claw nano-banana-2 @ ~16cr, no Meshy spend (icon regen only)",
+    "Remove the front lower window, add a small gable/eve window in the roof peak, move the door + porch/steps to the center of the front facade, add a stove pipe/chimney on the roof"
+  ],
+  "cost": {
+    "creative_claw": 16,
+    "meshy": 0
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T19:20:02Z",
+  "resolved_at": "2026-09-15T19:20:12Z"
+}

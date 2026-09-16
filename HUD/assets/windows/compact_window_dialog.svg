@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 320" width="460" height="320">
+  <defs>
+    <filter id="win_drop" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#03070d" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+  <g filter="url(#win_drop)">
+    <!-- Base card -->
+    <rect x="2" y="2" width="456" height="316" rx="14" fill="#131922" stroke="#b08968" stroke-width="1.5" opacity="0.96"/>
+    <!-- Header strip -->
+    <path d="M 2,16 A 14,14 0 0,1 16,2 L 444,2 A 14,14 0 0,1 458,16 L 458,44 L 2,44 Z" fill="#1b2330"/>
+    <line x1="2" y1="44" x2="458" y2="44" stroke="#2e3c50" stroke-width="1"/>
+    <!-- Content background area -->
+    <rect x="14" y="56" width="432" height="250" rx="8" fill="#18202c" stroke="#253244" stroke-width="1"/>
+  </g>
+</svg>

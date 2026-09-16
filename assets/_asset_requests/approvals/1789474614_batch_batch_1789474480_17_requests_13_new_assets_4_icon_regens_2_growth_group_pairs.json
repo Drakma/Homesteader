@@ -1,0 +1,20 @@
+{
+  "id": "1789474614_batch_batch_1789474480_17_requests_13_new_assets_4_icon_regens_2_growth_group_pairs",
+  "title": "Batch batch_1789474480 - 17 requests (13 new assets, 4 icon regens, 2 growth-group pairs)",
+  "plan": [
+    "3 new logging assets (Plantable Maple Sapling, Mature Pine Tree, Mature Poplar Tree) - icon generated individually using each item's reference asset as a style anchor, then a 3D model via Meshy image-to-3d",
+    "4 new ranching assets with a reference asset (100 Gallon Stock Tank - Empty, Suffolk Lamb, Tan Lamb, White Lamb) - same individual icon + reference approach, then Meshy image-to-3d",
+    "6 new ranching assets with no reference (Labrador Retriever, Calico Cat, Welsummer Chicken chick+adult, Black & White Billy Goat kid+adult) - batched into one contact sheet, then Meshy image-to-3d each",
+    "Welsummer Chicken and Black & White Billy Goat auto-assemble into 2-stage growth groups once both stages are done",
+    "3 icon-only regenerations (seed_potato, seed_sunflower, seed_wheat) matched in style to seed_corn - no 3D model touched",
+    "NOTE: 2 duplicate 'Regenerate Icon: seed_potato' requests detected in this batch (likely an accidental double-submit) - will generate the new icon once and mark both requests done rather than spend credits twice",
+    "FLAG: Labrador Retriever also requests rigging with rig_type=quadruped. Meshy's rig tool is built for humanoid/bipedal characters (t-pose, walk+run) and has no dedicated quadruped mode - the result may be poor. Approving this plan will still create the Labrador model; rigging it will be asked about separately once the model exists, not bundled into this approval."
+  ],
+  "cost": {
+    "creative_claw": "~80cr (7 individual icon+reference generations @ ~6cr, 1 six-item contact sheet @ ~20cr, 3 icon-only regenerations @ ~6cr)",
+    "meshy": "~195cr (13 image-to-3d smart-topology generations @ 15cr each). Quadruped rigging for the Labrador, if pursued, would be a separate +5cr ask after the model exists."
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T12:16:54Z",
+  "resolved_at": "2026-09-15T12:17:19Z"
+}

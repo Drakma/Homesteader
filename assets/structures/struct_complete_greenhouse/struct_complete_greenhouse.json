@@ -1,0 +1,232 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_greenhouse",
+  "name": "Greenhouse",
+  "category": "structures",
+  "description": "A greenhouse with glass panels.",
+  "icon": "struct_complete_greenhouse.png",
+  "properties": {
+    "weight_kg": 2500.0,
+    "max_stack_size": 1,
+    "base_value": 4000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 18,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Building_Greenhouse.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Building_Greenhouse.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 296.0,
+        "y": 400.0,
+        "z": 267.0
+      },
+      "dimensions_m": {
+        "x": 2.96,
+        "y": 4.0,
+        "z": 2.67
+      },
+      "vertices": 1422,
+      "faces": 474,
+      "bounding_box": {
+        "min": [
+          -148.0,
+          -200.0,
+          0.0
+        ],
+        "max": [
+          148.0,
+          200.0,
+          267.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Struct_Greenhouse.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SM_Struct_Greenhouse.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Greenhouse.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 368.0,
+        "y": 528.0,
+        "z": 324.0
+      },
+      "dimensions_m": {
+        "x": 3.68,
+        "y": 5.28,
+        "z": 3.24
+      },
+      "vertices": 876,
+      "faces": 316,
+      "bounding_box": {
+        "min": [
+          -184.0,
+          -264.0,
+          0.0
+        ],
+        "max": [
+          184.0,
+          264.0,
+          324.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "Consumes 2.0 L/hr drip irrigation",
+      "details": "Consumes 2.0 L/hr drip irrigation"
+    },
+    "electricity": {
+      "metric": "Consumes 1.5 kW heating & ventilation fan power",
+      "details": "Consumes 1.5 kW heating & ventilation fan power"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "building",
+    "species": "greenhouse",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 4,
+      "name": "complete",
+      "age_min": 99,
+      "age_max": 100
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "item_id": "struct_foundation_greenhouse",
+        "age_min": 0,
+        "age_max": 33
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "item_id": "struct_framing_greenhouse",
+        "age_min": 33,
+        "age_max": 66
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "item_id": "struct_walls_greenhouse",
+        "age_min": 66,
+        "age_max": 99
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "item_id": "struct_complete_greenhouse",
+        "age_min": 99,
+        "age_max": 100
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Building_Greenhouse.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 296.0,
+      "y": 400.0,
+      "z": 267.0
+    },
+    "dimensions_m": {
+      "x": 2.96,
+      "y": 4.0,
+      "z": 2.67
+    },
+    "vertices": 1422,
+    "faces": 474,
+    "bounding_box": {
+      "min": [
+        -148.0,
+        -200.0,
+        0.0
+      ],
+      "max": [
+        148.0,
+        200.0,
+        267.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 9.8,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 2.96,
+      "depth": 4.0,
+      "height": 2.67
+    },
+    "electrical_service_capacity_w": 6000,
+    "water_supply_capacity_lpm": 15,
+    "roof_area_m2": 11.8,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 3
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 2
+      },
+      {
+        "item_id": "sheet_drywall_stack_small",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 10
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

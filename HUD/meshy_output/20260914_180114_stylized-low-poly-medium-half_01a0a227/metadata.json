@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly medium half-grown tall columnar poplar tree with upright spire-like silhouette and dense fluttering foliage, 3d game asset",
+  "folder": "20260914_180114_stylized-low-poly-medium-half_01a0a227",
+  "root_task_id": "01a0a227-2ff7-7316-84d8-21cdfe8ed971",
+  "created_at": "2026-09-14T23:01:14.307Z",
+  "updated_at": "2026-09-15T00:07:53.677Z",
+  "tasks": [
+    {
+      "task_id": "01a0a227-2ff7-7316-84d8-21cdfe8ed971",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly medium half-grown tall columnar poplar tree with upright spire-like silhouette and dense fluttering foliage, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-15T00:07:53.676Z"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+# Material Library for SM_Part_Roof_Ridge_1m
+
+newmtl Wood_Plank_Cedar
+Ka 0.200 0.200 0.200
+Kd 0.650 0.460 0.280
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Timber_Dark
+Ka 0.200 0.200 0.200
+Kd 0.440 0.300 0.180
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Log_Pine
+Ka 0.200 0.200 0.200
+Kd 0.540 0.360 0.220
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Log_End
+Ka 0.200 0.200 0.200
+Kd 0.680 0.500 0.320
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Plank_Warm
+Ka 0.200 0.200 0.200
+Kd 0.720 0.520 0.320
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Door_Trim
+Ka 0.200 0.200 0.200
+Kd 0.480 0.340 0.200
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Barn_Red
+Ka 0.200 0.200 0.200
+Kd 0.720 0.200 0.160
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Barn_Red_Dark
+Ka 0.200 0.200 0.200
+Kd 0.540 0.140 0.110
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Barn_White_Trim
+Ka 0.200 0.200 0.200
+Kd 0.950 0.950 0.930
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Cupola_Roof
+Ka 0.200 0.200 0.200
+Kd 0.650 0.520 0.380
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wood_Loft_Inside
+Ka 0.200 0.200 0.200
+Kd 0.550 0.420 0.280
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Stone_Fieldstone
+Ka 0.200 0.200 0.200
+Kd 0.560 0.540 0.500
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Stone_Mortar
+Ka 0.200 0.200 0.200
+Kd 0.720 0.700 0.660
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Concrete_Poured
+Ka 0.200 0.200 0.200
+Kd 0.620 0.600 0.580
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Roof_Tin_Silver
+Ka 0.200 0.200 0.200
+Kd 0.760 0.800 0.840
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Roof_Tin_Dark
+Ka 0.200 0.200 0.200
+Kd 0.580 0.620 0.680
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Roof_Shake_Weathered
+Ka 0.200 0.200 0.200
+Kd 0.580 0.460 0.340
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Roof_Shake_Warm
+Ka 0.200 0.200 0.200
+Kd 0.680 0.520 0.380
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Earth_Turf_Grass
+Ka 0.200 0.200 0.200
+Kd 0.340 0.600 0.220
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Metal_Galvanized
+Ka 0.200 0.200 0.200
+Kd 0.740 0.760 0.780
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Metal_Iron_Black
+Ka 0.200 0.200 0.200
+Kd 0.200 0.200 0.200
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Glass_Greenhouse
+Ka 0.200 0.200 0.200
+Kd 0.750 0.880 0.900
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Glass_Window_Dark
+Ka 0.200 0.200 0.200
+Kd 0.240 0.320 0.380
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+
+newmtl Wire_Mesh
+Ka 0.200 0.200 0.200
+Kd 0.700 0.720 0.740
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2

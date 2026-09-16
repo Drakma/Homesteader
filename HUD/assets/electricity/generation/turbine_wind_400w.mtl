@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Body_White
+Ka 0.3760 0.3760 0.3840
+Kd 0.9400 0.9400 0.9600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Blades_White
+Ka 0.3600 0.3600 0.3680
+Kd 0.9000 0.9000 0.9200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Tail_Blue
+Ka 0.0800 0.1920 0.3400
+Kd 0.2000 0.4800 0.8500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

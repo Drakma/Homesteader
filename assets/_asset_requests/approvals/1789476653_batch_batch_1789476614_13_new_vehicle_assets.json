@@ -1,0 +1,17 @@
+{
+  "id": "1789476653_batch_batch_1789476614_13_new_vehicle_assets",
+  "title": "Batch batch_1789476614 - 13 new vehicle assets",
+  "plan": [
+    "Sheet A (8 items): Old White Pickup, Old Red Pickup Truck, New Silver Pickup, New White Pickup, Old Skid Steer, New Skid Steer, Small Old Tractor, Large Old Tractor - one Creative Claw contact sheet, each with its own condition/color/rust described per-item",
+    "Sheet B (5 items): Small Livestock Trailer, Large Livestock Trailer, Horse Trailer, Small Utility Trailer, Large Utility Trailer - one Creative Claw contact sheet",
+    "All 13 icons standardized (128x128, flood-fill crop) and left-facing per the icon style guide (vehicles are directional subjects)",
+    "13 Meshy image-to-3d generations (smart-topology, mesh+texture) - one per vehicle, no references or rigging requested for this batch"
+  ],
+  "cost": {
+    "creative_claw": "~32cr (2 contact-sheet generations @ 16cr each, based on actual observed per-call cost from the last batch)",
+    "meshy": "~195cr (13 image-to-3d smart-topology generations @ 15cr each)"
+  },
+  "status": "approved",
+  "created_at": "2026-09-15T12:50:53Z",
+  "resolved_at": "2026-09-15T12:51:19Z"
+}

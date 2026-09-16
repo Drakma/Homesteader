@@ -1,0 +1,21 @@
+{
+  "batch_id": "batch_1789499970",
+  "finalized_at": "2026-09-15T19:19:30Z",
+  "items": [
+    {
+      "id": "1789499890_regenerate_icon_struct_complete_starter_house",
+      "name": "Regenerate Icon: struct_complete_starter_house",
+      "category": "structures",
+      "description": "Regenerate Icon request for existing asset structures/struct_complete_starter_house - user instructions: remove the front window, add a small eve window, move the door and porch to the middle. add a stove pipe somehwer in the roof",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-15T19:18:10Z",
+      "action": "regenerate_icon",
+      "target_category": "structures",
+      "target_item_id": "struct_complete_starter_house",
+      "prompt": "remove the front window, add a small eve window, move the door and porch to the middle. add a stove pipe somehwer in the roof",
+      "batch_id": "batch_1789499970",
+      "finalized_at": "2026-09-15T19:19:30Z"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+# Material Library for SM_Machine_Skidsteer_Small
+
+newmtl mat_bobcat_orange
+Ka 0.364 0.180 0.056
+Kd 0.910 0.450 0.140
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_chassis_dark
+Ka 0.072 0.080 0.088
+Kd 0.180 0.200 0.220
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_cab_roof_brown
+Ka 0.168 0.128 0.104
+Kd 0.420 0.320 0.260
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_bucket_dark
+Ka 0.140 0.112 0.096
+Kd 0.350 0.280 0.240
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_tire_rubber
+Ka 0.048 0.052 0.060
+Kd 0.120 0.130 0.150
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_wheel_rim
+Ka 0.288 0.296 0.312
+Kd 0.720 0.740 0.780
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

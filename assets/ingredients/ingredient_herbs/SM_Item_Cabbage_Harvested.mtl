@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Cabbage_Harvested
+
+newmtl cabbage_core
+Ka 0.168 0.300 0.120
+Kd 0.420 0.750 0.300
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl cabbage_leaf
+Ka 0.088 0.232 0.080
+Kd 0.220 0.580 0.200
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl leaf_highlight
+Ka 0.208 0.328 0.168
+Kd 0.520 0.820 0.420
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

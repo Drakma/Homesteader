@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_kid_black_white_billy_goat",
+  "name": "Black & White Billy Goat - kid",
+  "category": "ranching",
+  "description": "A small black-and-white patched billy goat kid.",
+  "icon": "animal_kid_black_white_billy_goat.png",
+  "properties": {
+    "weight_kg": 12.0,
+    "max_stack_size": 1,
+    "base_value": 60.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Goat_Billy_Black_White_Kid.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "animal",
+    "species": "black_white_billy_goat",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "current_stage": {
+      "stage": 1,
+      "name": "kid",
+      "age_min": 0,
+      "age_max": 90
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "kid",
+        "item_id": "animal_kid_black_white_billy_goat",
+        "age_min": 0,
+        "age_max": 90
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "item_id": "animal_adult_black_white_billy_goat",
+        "age_min": 90,
+        "age_max": 730
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "goat",
+    "produces": "",
+    "gender": "male",
+    "temperament": "passive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.2,
+      "depth": 0.5,
+      "height": 0.45
+    }
+  }
+}

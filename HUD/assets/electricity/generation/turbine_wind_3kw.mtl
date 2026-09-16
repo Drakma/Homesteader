@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Nacelle_Steel
+Ka 0.3520 0.3520 0.3600
+Kd 0.8800 0.8800 0.9000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Blades_Carbon
+Ka 0.0960 0.1040 0.1120
+Kd 0.2400 0.2600 0.2800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Tower_Galv
+Ka 0.3000 0.3040 0.3120
+Kd 0.7500 0.7600 0.7800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

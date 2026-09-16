@@ -1,0 +1,16 @@
+{
+  "category": "_base_dimensions",
+  "note": "Applies to EVERY category - real-world width/depth/height in meters, checked against category_fields (not properties). Split into its own file from _base.schema.json only because the validator checks one target per schema file.",
+  "target": "category_fields",
+  "fields": {
+    "dimensions_m": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "width": "number",
+        "depth": "number",
+        "height": "number"
+      }
+    }
+  }
+}

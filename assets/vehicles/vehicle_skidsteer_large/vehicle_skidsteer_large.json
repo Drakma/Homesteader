@@ -1,0 +1,105 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_skidsteer_large",
+  "name": "Large Skid Steer Loader",
+  "category": "vehicles",
+  "description": "A large skid steer loader with a wide bucket for heavier loading jobs.",
+  "icon": "vehicle_skidsteer_large.png",
+  "properties": {
+    "weight_kg": 3800.0,
+    "max_stack_size": 1,
+    "base_value": 24000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 10,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Machine_Skidsteer_Large.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Machine_Skidsteer_Large.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 180.0,
+        "y": 300.0,
+        "z": 205.0
+      },
+      "dimensions_m": {
+        "x": 1.8,
+        "y": 3.0,
+        "z": 2.05
+      },
+      "vertices": 340,
+      "faces": 596,
+      "bounding_box": {
+        "min": [
+          -90.0,
+          -175.0,
+          0.0
+        ],
+        "max": [
+          90.0,
+          125.0,
+          205.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "skid_steer",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.004167,
+    "tank_capacity_l": 95,
+    "top_speed_kmh": 18,
+    "seats": 1,
+    "cargo_capacity_m3": 0.6,
+    "dimensions_m": {
+      "width": 1.75,
+      "depth": 3.5,
+      "height": 2.05
+    }
+  }
+}

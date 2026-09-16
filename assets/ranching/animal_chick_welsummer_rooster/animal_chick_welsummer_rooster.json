@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_chick_welsummer_rooster",
+  "name": "Welsummer Chicken - chick",
+  "category": "ranching",
+  "description": "A small fluffy yellow-brown Welsummer chick.",
+  "icon": "animal_chick_welsummer_rooster.png",
+  "properties": {
+    "weight_kg": 0.5,
+    "max_stack_size": 1,
+    "base_value": 15.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Chicken_Welsummer_Chick.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "animal",
+    "species": "welsummer_rooter",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "current_stage": {
+      "stage": 1,
+      "name": "chick",
+      "age_min": 0,
+      "age_max": 30
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "chick",
+        "item_id": "animal_chick_welsummer_rooster",
+        "age_min": 0,
+        "age_max": 30
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "item_id": "animal_adult_welsummer_rooter",
+        "age_min": 30,
+        "age_max": 730
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "chicken",
+    "produces": "",
+    "gender": "male",
+    "temperament": "aggressive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.08,
+      "depth": 0.12,
+      "height": 0.12
+    }
+  }
+}

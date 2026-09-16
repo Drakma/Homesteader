@@ -1,0 +1,18 @@
+# Homesteader Material Definition
+
+newmtl CMU_Gray
+Ka 0.2720 0.2720 0.2800
+Kd 0.6800 0.6800 0.7000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Void_Dark
+Ka 0.1000 0.1000 0.1040
+Kd 0.2500 0.2500 0.2600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

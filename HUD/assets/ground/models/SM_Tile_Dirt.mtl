@@ -1,0 +1,9 @@
+# Material Definition for SM_Tile_Dirt
+newmtl M_Ground_dirt
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.100 0.100 0.100
+Ns 15.0
+d 1.0
+illum 2
+map_Kd T_Ground_dirt_BaseColor.png

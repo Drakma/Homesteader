@@ -1,0 +1,104 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tree_small_willow",
+  "name": "Tree Willow Small",
+  "category": "logging",
+  "description": "Standard logging asset used in the Homesteader simulation.",
+  "icon": "tree_small_willow.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 1,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Tree_Willow_Small.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "tree",
+    "species": "willow",
+    "max_age": 90,
+    "time_unit": "days",
+    "total_stages": 4,
+    "current_stage": {
+      "stage": 2,
+      "name": "small",
+      "age_min": 14,
+      "age_max": 36
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "item_id": "tree_sapling_willow",
+        "age_min": 0,
+        "age_max": 14
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "item_id": "tree_small_willow",
+        "age_min": 14,
+        "age_max": 36
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "item_id": "tree_medium_willow",
+        "age_min": 36,
+        "age_max": 68
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "item_id": "tree_mature_willow",
+        "age_min": 68,
+        "age_max": 90
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 3.5,
+      "depth": 3.5,
+      "height": 3.6
+    }
+  }
+}

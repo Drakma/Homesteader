@@ -1,0 +1,58 @@
+# Material Library for SM_Machine_Combine_Large
+
+newmtl mat_jd_green
+Ka 0.088 0.216 0.088
+Kd 0.220 0.540 0.220
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_jd_yellow
+Ka 0.380 0.312 0.072
+Kd 0.950 0.780 0.180
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_grain_gold
+Ka 0.368 0.300 0.100
+Kd 0.920 0.750 0.250
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_cab_glass
+Ka 0.120 0.168 0.208
+Kd 0.300 0.420 0.520
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_chassis_dark
+Ka 0.072 0.080 0.088
+Kd 0.180 0.200 0.220
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_tire_rubber
+Ka 0.048 0.052 0.060
+Kd 0.120 0.130 0.150
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_wheel_rim
+Ka 0.288 0.296 0.312
+Kd 0.720 0.740 0.780
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

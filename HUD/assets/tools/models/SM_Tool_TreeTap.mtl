@@ -1,0 +1,8 @@
+# Material
+newmtl M_Steel_Spile
+Kd 0.850 0.880 0.900
+Ka 0.100 0.100 0.100
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2

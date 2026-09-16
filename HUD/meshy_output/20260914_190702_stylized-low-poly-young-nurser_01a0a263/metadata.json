@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly young nursery oak sapling in burlap wrapped root ball tied with twine, tender green leaves, 3d game inventory asset",
+  "folder": "20260914_190702_stylized-low-poly-young-nurser_01a0a263",
+  "root_task_id": "01a0a263-6d83-73d6-ae27-930b9d5b68aa",
+  "created_at": "2026-09-15T00:07:02.628Z",
+  "updated_at": "2026-09-15T00:09:38.089Z",
+  "tasks": [
+    {
+      "task_id": "01a0a263-6d83-73d6-ae27-930b9d5b68aa",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly young nursery oak sapling in burlap wrapped root ball tied with twine, tender green leaves, 3d game inventory asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-15T00:09:38.088Z"
+    }
+  ]
+}

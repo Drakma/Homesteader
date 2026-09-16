@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Wheat_Sheaf
+
+newmtl straw_gold
+Ka 0.360 0.300 0.128
+Kd 0.900 0.750 0.320
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl tie_band
+Ka 0.260 0.192 0.088
+Kd 0.650 0.480 0.220
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl grain_heads
+Ka 0.340 0.280 0.112
+Kd 0.850 0.700 0.280
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

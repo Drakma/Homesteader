@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Animal_Eggs_Carton
+
+newmtl carton_pulp
+Ka 0.300 0.280 0.248
+Kd 0.750 0.700 0.620
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl egg_brown
+Ka 0.340 0.264 0.192
+Kd 0.850 0.660 0.480
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

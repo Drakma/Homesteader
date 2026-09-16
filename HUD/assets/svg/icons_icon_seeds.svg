@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g filter="drop-shadow(0 2px 2px rgba(0,0,0,0.6))">
+    <!-- Seed 1 -->
+    <polygon points="24,18 32,28 24,36 18,28" fill="#cda882"/>
+    <polygon points="24,18 32,28 24,27" fill="#edd6be"/>
+    <polygon points="24,27 32,28 24,36" fill="#a47850"/>
+    <!-- Seed 2 -->
+    <polygon points="42,24 50,34 42,42 36,34" fill="#cda882"/>
+    <polygon points="42,24 50,34 42,33" fill="#edd6be"/>
+    <!-- Seed 3 -->
+    <polygon points="30,36 38,46 30,52 24,44" fill="#cda882"/>
+  </g>
+</svg>

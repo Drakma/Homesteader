@@ -1,0 +1,8 @@
+# Homesteader Material
+newmtl M_SM_Item_Fish_Catfish
+Kd 0.350 0.420 0.500
+Ka 0.100 0.100 0.100
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2

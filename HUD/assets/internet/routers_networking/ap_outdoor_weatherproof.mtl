@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Body_White
+Ka 0.3760 0.3760 0.3800
+Kd 0.9400 0.9400 0.9500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Antenna_Black
+Ka 0.0800 0.0800 0.0880
+Kd 0.2000 0.2000 0.2200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Pole_Mount
+Ka 0.2880 0.2960 0.3040
+Kd 0.7200 0.7400 0.7600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

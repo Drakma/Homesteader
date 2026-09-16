@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_adult_barred_chicken",
+  "name": "Animal Chicken Barred",
+  "category": "ranching",
+  "description": "A barred chicken chick, the baby stage of the barred-breed chicken. Icon generated via Creative Claw as part of a batched contact sheet, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "icon": "animal_adult_barred_chicken.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Chicken_Barred_Chick.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": true,
+    "growth_type": "animal",
+    "species": "barred_chicken",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "current_stage": {
+      "stage": 2,
+      "name": "adult",
+      "age_min": 31,
+      "age_max": 730
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "name": "chick",
+        "item_id": "animal_chick_barred_chicken",
+        "age_min": 0,
+        "age_max": 30
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "item_id": "animal_adult_barred_chicken",
+        "age_min": 31,
+        "age_max": 730
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "chicken",
+    "produces": "eggs",
+    "gender": "female",
+    "temperament": "passive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.15,
+      "depth": 0.35,
+      "height": 0.35
+    }
+  }
+}

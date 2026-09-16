@@ -1,0 +1,18 @@
+# Material Definition
+
+newmtl Concrete_Grey
+Ka 0.2600 0.2560 0.2480
+Kd 0.6500 0.6400 0.6200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Plastic_Baffles
+Ka 0.3600 0.3520 0.3400
+Kd 0.9000 0.8800 0.8500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

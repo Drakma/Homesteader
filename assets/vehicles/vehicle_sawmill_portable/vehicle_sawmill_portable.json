@@ -1,0 +1,105 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_sawmill_portable",
+  "name": "Portable Sawmill",
+  "category": "vehicles",
+  "description": "A larger bandsaw sawmill mounted on a wheeled trailer chassis for towing between job sites.",
+  "icon": "vehicle_sawmill_portable.png",
+  "properties": {
+    "weight_kg": 1600.0,
+    "max_stack_size": 1,
+    "base_value": 16500.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 6,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Machine_Sawmill_Portable.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Machine_Sawmill_Portable.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 132.0,
+        "y": 580.0,
+        "z": 165.0
+      },
+      "dimensions_m": {
+        "x": 1.32,
+        "y": 5.8,
+        "z": 1.65
+      },
+      "vertices": 468,
+      "faces": 808,
+      "bounding_box": {
+        "min": [
+          -66.0,
+          -310.0,
+          0.0
+        ],
+        "max": [
+          66.0,
+          270.0,
+          165.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "sawmill",
+    "fuel_type": "gasoline",
+    "fuel_consumption_l_per_min": 0.002778,
+    "tank_capacity_l": 20,
+    "top_speed_kmh": 0,
+    "seats": 1,
+    "cargo_capacity_m3": 0,
+    "dimensions_m": {
+      "width": 1.5,
+      "depth": 6.0,
+      "height": 1.5
+    }
+  }
+}

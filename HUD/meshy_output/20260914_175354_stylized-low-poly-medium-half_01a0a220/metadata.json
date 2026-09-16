@@ -1,0 +1,20 @@
+{
+  "project_name": "Stylized low-poly medium half-grown evergreen pine tree with layered tiered dark green coniferous boughs, 3d game asset",
+  "folder": "20260914_175354_stylized-low-poly-medium-half_01a0a220",
+  "root_task_id": "01a0a220-76f9-7671-88ca-938367b8fa23",
+  "created_at": "2026-09-14T22:53:54.244Z",
+  "updated_at": "2026-09-14T23:00:11.225Z",
+  "tasks": [
+    {
+      "task_id": "01a0a220-76f9-7671-88ca-938367b8fa23",
+      "task_type": "text-to-3d",
+      "stage": "preview",
+      "prompt": "Stylized low-poly medium half-grown evergreen pine tree with layered tiered dark green coniferous boughs, 3d game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.fbx"
+      ],
+      "created_at": "2026-09-14T23:00:11.225Z"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_wrench_pipe",
+  "name": "Pipe Wrench",
+  "category": "tools",
+  "description": "Adjustable pipe wrench.",
+  "icon": "tool_wrench_pipe.png",
+  "properties": {
+    "weight_kg": 2.5,
+    "max_stack_size": 1,
+    "base_value": 30.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tool_wrench_pipe.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "tool_wrench_pipe.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 16.0,
+        "y": 30.0,
+        "z": 99.0
+      },
+      "dimensions_m": {
+        "x": 0.16,
+        "y": 0.3,
+        "z": 0.99
+      },
+      "vertices": 240,
+      "faces": 80,
+      "bounding_box": {
+        "min": [
+          -8.0,
+          -10.0,
+          0.0
+        ],
+        "max": [
+          8.0,
+          20.0,
+          99.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "tool_wrench_pipe.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 16.0,
+      "y": 30.0,
+      "z": 99.0
+    },
+    "dimensions_m": {
+      "x": 0.16,
+      "y": 0.3,
+      "z": 0.99
+    },
+    "vertices": 240,
+    "faces": 80,
+    "bounding_box": {
+      "min": [
+        -8.0,
+        -10.0,
+        0.0
+      ],
+      "max": [
+        8.0,
+        20.0,
+        99.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.16,
+      "depth": 0.3,
+      "height": 0.99
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0
+  }
+}

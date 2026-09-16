@@ -1,0 +1,32 @@
+{
+  "batch_id": "batch_1789516915",
+  "finalized_at": "2026-09-16T00:01:55Z",
+  "items": [
+    {
+      "id": "1789516852_concrete_well_head",
+      "name": "Concrete Well Head",
+      "category": "appliances",
+      "description": "create a large concrete well head with a pipe coming out the middle of it, the going down in front of it into the ground.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T00:00:52Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789516915",
+      "finalized_at": "2026-09-16T00:01:55Z"
+    },
+    {
+      "id": "1789516880_wooden_well_head",
+      "name": "Wooden Well Head",
+      "category": "water",
+      "description": "Create a wooden well head with a pipe that comes out the side of it and then turns down into the ground",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T00:01:20Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789516915",
+      "finalized_at": "2026-09-16T00:01:55Z"
+    }
+  ]
+}
