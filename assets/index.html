@@ -3040,12 +3040,16 @@
           <label
             style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Growth
             Type</label>
-          <input type="text" id="reqgg-growthtype-input"
-            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
-            placeholder="animal / tree / crop">
+          <select id="reqgg-growthtype-select"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; cursor: pointer;">
+            <option value="building">building</option>
+            <option value="crop">crop</option>
+            <option value="animal">animal</option>
+            <option value="tree">tree</option>
+          </select>
         </div>
-        <div style="width: 100px;">
-          <label
+        <div style="width: 100px;" id="reqgg-maxage-col">
+          <label id="reqgg-maxage-label"
             style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Max
             Age</label>
           <input type="number" id="reqgg-maxage-input" min="1"
@@ -3053,7 +3057,7 @@
             placeholder="auto">
         </div>
         <div style="width: 100px;">
-          <label
+          <label id="reqgg-timeunit-label"
             style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Time
             Unit</label>
           <input type="text" id="reqgg-timeunit-input"
@@ -6542,14 +6546,88 @@
     // being fixable afterward via the separate Edit Stages dialog.
     const REQGG_DEFAULT_STAGE_NAMES = ["Baby", "Juvenile", "Adult", "Elder"];
 
+    function applyGrowthTypeDefaults(type) {
+      const maxAgeLabel = document.getElementById("reqgg-maxage-label");
+      const maxAgeInput = document.getElementById("reqgg-maxage-input");
+      const timeUnitInput = document.getElementById("reqgg-timeunit-input");
+      const stageCountInput = document.getElementById("reqgg-stagecount-input");
+
+      let stageCount = 4;
+      let stageNames = [];
+      let maxAge = 100;
+      let timeUnit = "days";
+
+      if (type === "building") {
+        if (maxAgeLabel) maxAgeLabel.innerHTML = "&nbsp;"; // remove Max Age label text
+        maxAge = 100;
+        timeUnit = "percent";
+        stageCount = 4;
+        stageNames = ["foundation", "framing", "walls", "complete"];
+      } else if (type === "crop") {
+        if (maxAgeLabel) maxAgeLabel.textContent = "Max Age";
+        maxAge = 90;
+        timeUnit = "days";
+        stageCount = 4;
+        stageNames = ["seed", "sprout", "growing", "mature"];
+      } else if (type === "animal") {
+        if (maxAgeLabel) maxAgeLabel.textContent = "Max Age";
+        maxAge = 300;
+        timeUnit = "days";
+        stageCount = 2;
+        stageNames = ["", "adult"]; // leave 1st stage empty, 2nd stage "adult"
+      } else if (type === "tree") {
+        if (maxAgeLabel) maxAgeLabel.textContent = "Max Age";
+        maxAge = 300;
+        timeUnit = "days";
+        stageCount = 4;
+        stageNames = ["sapling", "small", "medium", "mature"];
+      }
+
+      if (maxAgeInput) maxAgeInput.value = maxAge;
+      if (timeUnitInput) timeUnitInput.value = timeUnit;
+      if (stageCountInput) stageCountInput.value = stageCount;
+
+      const stageRows = [];
+      if (type === "building") {
+        // Stage 4 min 99 max 100; other stages evenly distribute 0 to 99
+        for (let i = 0; i < stageCount; i++) {
+          let ageMin, ageMax;
+          if (i === stageCount - 1) {
+            ageMin = 99;
+            ageMax = 100;
+          } else {
+            const step = 99 / (stageCount - 1);
+            ageMin = Math.round(i * step);
+            ageMax = Math.round((i + 1) * step);
+          }
+          stageRows.push({
+            name: stageNames[i] !== undefined ? stageNames[i] : `Stage ${i + 1}`,
+            ageMin,
+            ageMax
+          });
+        }
+      } else {
+        // Evenly distribute days based on number of stages up to maxAge
+        for (let i = 0; i < stageCount; i++) {
+          const step = maxAge / stageCount;
+          const ageMin = Math.round(i * step);
+          const ageMax = Math.round((i + 1) * step);
+          stageRows.push({
+            name: stageNames[i] !== undefined ? stageNames[i] : `Stage ${i + 1}`,
+            ageMin,
+            ageMax
+          });
+        }
+      }
+
+      renderGGRequestStageRows(stageCount, stageRows);
+    }
+
     function openRequestGrowthGroupDialog() {
       const dialog = document.getElementById("request-gg-dialog");
       document.getElementById("reqgg-name-input").value = "";
       document.getElementById("reqgg-icon-input").value = "";
       document.getElementById("reqgg-desc-input").value = "";
-      document.getElementById("reqgg-growthtype-input").value = "";
-      document.getElementById("reqgg-maxage-input").value = "";
-      document.getElementById("reqgg-timeunit-input").value = "days";
       document.getElementById("reqgg-base-reference-input").value = "";
       document.getElementById("reqgg-base-reference-preview").style.display = "none";
       resolvedGGBaseReference = null;
@@ -6561,6 +6639,14 @@
       }).join("");
       if (activeCategory !== "all") catSelect.value = activeCategory;
 
+      const growthTypeSelect = document.getElementById("reqgg-growthtype-select");
+      let initialType = "building";
+      if (activeCategory === "farming") initialType = "crop";
+      else if (activeCategory === "ranching") initialType = "animal";
+      else if (activeCategory === "logging") initialType = "tree";
+      else if (activeCategory === "structures" || activeCategory === "building") initialType = "building";
+      if (growthTypeSelect) growthTypeSelect.value = initialType;
+
       const refDatalist = document.getElementById("reqgg-reference-datalist");
       refDatalist.innerHTML = ALL_ITEMS.map(it =>
         `<option value="${(it.name || it.id).replace(/"/g, "&quot;")} (${it.category}/${it.id})">`
@@ -6571,8 +6657,7 @@
       document.getElementById("reqgg-rig-type-select").value = "human";
       document.getElementById("reqgg-extra-anim-input").value = "";
 
-      document.getElementById("reqgg-stagecount-input").value = 4;
-      renderGGRequestStageRows(4);
+      applyGrowthTypeDefaults(initialType);
 
       dialog.showModal();
       document.getElementById("reqgg-name-input").focus();
@@ -6648,7 +6733,8 @@
       const icon = document.getElementById("reqgg-icon-input").value.trim();
       const category = document.getElementById("reqgg-category-select").value;
       const description = document.getElementById("reqgg-desc-input").value.trim();
-      const growthType = document.getElementById("reqgg-growthtype-input").value.trim();
+      const growthTypeSelect = document.getElementById("reqgg-growthtype-select");
+      const growthType = growthTypeSelect ? growthTypeSelect.value.trim() : "building";
       const maxAgeVal = document.getElementById("reqgg-maxage-input").value;
       const timeUnit = document.getElementById("reqgg-timeunit-input").value.trim() || "days";
       const createModelsToggle = document.getElementById("reqgg-create-models-toggle");
@@ -6662,8 +6748,16 @@
       if (!description) { showToast("Base Description cannot be empty — it's used as the fallback prompt.", "warning"); return; }
 
       const stages = collectGGRequestStageRows();
-      for (const s of stages) {
-        if (!s.name) { showToast("Every stage needs a name.", "warning"); return; }
+      for (let idx = 0; idx < stages.length; idx++) {
+        const s = stages[idx];
+        if (!s.name) {
+          if (growthType === "animal" && idx === 0) {
+            s.name = "baby";
+          } else {
+            showToast(`Stage ${idx + 1} needs a name.`, "warning");
+            return;
+          }
+        }
       }
 
       proceedBtn.disabled = true;
@@ -8056,6 +8150,10 @@
       };
 
       // Request Growth Group dialog
+      const reqGGGrowthTypeSelect = document.getElementById("reqgg-growthtype-select");
+      if (reqGGGrowthTypeSelect) {
+        reqGGGrowthTypeSelect.onchange = () => applyGrowthTypeDefaults(reqGGGrowthTypeSelect.value);
+      }
       const requestGGBtn = document.getElementById("btn-request-growth-group");
       if (requestGGBtn) requestGGBtn.onclick = () => openRequestGrowthGroupDialog();
       const reqGGProceed = document.getElementById("reqgg-proceed-btn");
@@ -8065,6 +8163,8 @@
       const reqGGStageCount = document.getElementById("reqgg-stagecount-input");
       if (reqGGStageCount) reqGGStageCount.oninput = () => {
         const n = Math.max(2, Math.min(10, parseInt(reqGGStageCount.value, 10) || 2));
+        const type = document.getElementById("reqgg-growthtype-select")?.value || "building";
+        const maxAge = parseInt(document.getElementById("reqgg-maxage-input")?.value, 10) || (type === "building" ? 100 : 90);
         const existing = Array.from(document.querySelectorAll("#reqgg-stages-container .reqgg-stage-row")).map(row => ({
           name: row.querySelector(".reqgg-stage-name").value,
           description: row.querySelector(".reqgg-stage-desc").value,
@@ -8074,6 +8174,36 @@
           ageMin: row.querySelector(".reqgg-stage-agemin").value,
           ageMax: row.querySelector(".reqgg-stage-agemax").value,
         }));
+
+        for (let i = 0; i < n; i++) {
+          let aMin, aMax;
+          if (type === "building") {
+            if (i === n - 1) { aMin = 99; aMax = 100; }
+            else {
+              const step = 99 / (n - 1);
+              aMin = Math.round(i * step);
+              aMax = Math.round((i + 1) * step);
+            }
+          } else {
+            const step = maxAge / n;
+            aMin = Math.round(i * step);
+            aMax = Math.round((i + 1) * step);
+          }
+          if (!existing[i]) {
+            const defaultNames = type === "building" ? ["foundation", "framing", "walls", "complete"] :
+                                 type === "tree" ? ["sapling", "small", "medium", "mature"] :
+                                 type === "crop" ? ["seed", "sprout", "growing", "mature"] :
+                                 type === "animal" ? ["", "adult"] : [];
+            existing[i] = {
+              name: defaultNames[i] !== undefined ? defaultNames[i] : `Stage ${i + 1}`,
+              ageMin: aMin,
+              ageMax: aMax
+            };
+          } else if (existing[i].ageMin === "" || existing[i].ageMax === "") {
+            existing[i].ageMin = aMin;
+            existing[i].ageMax = aMax;
+          }
+        }
         renderGGRequestStageRows(n, existing);
       };
       const reqGGAlsoRig = document.getElementById("reqgg-also-rig-toggle");
