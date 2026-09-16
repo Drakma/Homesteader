@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homesteader // Master Asset Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
   <!-- 3D Model Viewer Google Web Component (GLB/GLTF) -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-  
+
   <!-- Three.js + FBXLoader + OBJLoader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -26,17 +28,17 @@
       --bg-input: #0e141c;
       --border-subtle: #233144;
       --border-accent: #334863;
-      
+
       --accent-gold: #f59e0b;
       --accent-emerald: #10b981;
       --accent-sky: #38bdf8;
       --accent-indigo: #6366f1;
       --accent-rose: #f43f5e;
-      
+
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
       --text-muted: #64748b;
-      
+
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
@@ -366,13 +368,16 @@
     aside.cat-sidebar::-webkit-scrollbar {
       width: 4px;
     }
+
     aside.cat-sidebar::-webkit-scrollbar-track {
       background: transparent;
     }
+
     aside.cat-sidebar::-webkit-scrollbar-thumb {
       background: var(--border-subtle);
       border-radius: 4px;
     }
+
     aside.cat-sidebar::-webkit-scrollbar-thumb:hover {
       background: var(--border-accent);
     }
@@ -384,6 +389,7 @@
       margin-bottom: 8px;
       border-bottom: 1px solid var(--border-subtle);
     }
+
     .sidebar-tab-btn {
       flex: 1;
       display: flex;
@@ -392,7 +398,7 @@
       gap: 6px;
       padding: 8px 10px;
       border-radius: var(--radius-md);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
       font-size: 12px;
@@ -402,22 +408,26 @@
       transition: all 0.15s ease;
       user-select: none;
     }
+
     .sidebar-tab-btn:hover {
       background: var(--bg-card);
       color: var(--text-main);
-      border-color: rgba(255,255,255,0.18);
+      border-color: rgba(255, 255, 255, 0.18);
     }
+
     .sidebar-tab-btn.active {
       background: rgba(56, 189, 248, 0.12);
       border-color: rgba(56, 189, 248, 0.4);
       color: var(--accent-sky);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     }
+
     .card-action-btn.card-action-remove-tag {
       color: #f87171 !important;
       border-color: rgba(248, 113, 113, 0.3) !important;
       background: rgba(248, 113, 113, 0.1) !important;
     }
+
     .card-action-btn.card-action-remove-tag:hover {
       background: rgba(248, 113, 113, 0.25) !important;
       border-color: #f87171 !important;
@@ -463,7 +473,7 @@
       background: var(--bg-card);
       border-color: var(--border-subtle);
       color: var(--accent-sky);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .cat-label {
@@ -475,7 +485,7 @@
     .cat-count {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       padding: 2px 6px;
       border-radius: 999px;
       color: var(--text-muted);
@@ -693,7 +703,7 @@
       width: 120px;
       height: 120px;
       background: #090d14;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
@@ -960,7 +970,7 @@
       max-width: 100px;
       max-height: 100px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
     }
 
     .folder-count-badge {
@@ -1035,7 +1045,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .subfolder-nav-left {
@@ -1101,7 +1111,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .modal-title-group {
@@ -1150,7 +1160,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       padding: 2px 7px;
       border-radius: 4px;
       color: var(--text-sub);
@@ -1315,8 +1325,15 @@
     }
 
     @keyframes ari-pop {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .ari-panel {
@@ -1380,10 +1397,21 @@
       border-left: 3px solid var(--border-subtle);
     }
 
-    .ari-item.status-pending { border-left-color: #fbbf24; }
-    .ari-item.status-queued { border-left-color: #a855f7; }
-    .ari-item.status-in_progress { border-left-color: #38bdf8; }
-    .ari-item.status-done { border-left-color: #4ade80; }
+    .ari-item.status-pending {
+      border-left-color: #fbbf24;
+    }
+
+    .ari-item.status-queued {
+      border-left-color: #a855f7;
+    }
+
+    .ari-item.status-in_progress {
+      border-left-color: #38bdf8;
+    }
+
+    .ari-item.status-done {
+      border-left-color: #4ade80;
+    }
 
     .ari-item-top {
       display: flex;
@@ -1442,10 +1470,25 @@
       flex-shrink: 0;
     }
 
-    .ari-item.status-pending .ari-item-status { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
-    .ari-item.status-queued .ari-item-status { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
-    .ari-item.status-in_progress .ari-item-status { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
-    .ari-item.status-done .ari-item-status { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+    .ari-item.status-pending .ari-item-status {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+    }
+
+    .ari-item.status-queued .ari-item-status {
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+    }
+
+    .ari-item.status-in_progress .ari-item-status {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+    }
+
+    .ari-item.status-done .ari-item-status {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
 
     .ari-item-desc {
       font-size: 11px;
@@ -1901,7 +1944,7 @@
     }
 
     .anim-btn {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-subtle);
       color: var(--text-sub);
       padding: 4px 10px;
@@ -1960,7 +2003,7 @@
       justify-content: space-between;
       gap: 8px;
       padding: 5px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 11.5px;
     }
 
@@ -2047,8 +2090,8 @@
     }
 
     .kv-box {
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.04);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       padding: 5px 9px;
       border-radius: var(--radius-sm);
     }
@@ -2082,12 +2125,12 @@
     }
 
     .kv-input:hover {
-      border-color: rgba(255,255,255,0.12);
+      border-color: rgba(255, 255, 255, 0.12);
     }
 
     .kv-input:focus {
       border-color: var(--accent-sky);
-      background: rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.3);
     }
 
     select.kv-input {
@@ -2104,7 +2147,7 @@
 
     .growth-step {
       flex: 1;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 8px 10px;
@@ -2175,7 +2218,7 @@
     }
 
     .copy-json-btn {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       border: none;
       color: var(--text-main);
       font-size: 11px;
@@ -2190,7 +2233,8 @@
       color: #000;
     }
 
-    pre.json-pre, textarea.json-pre {
+    pre.json-pre,
+    textarea.json-pre {
       background: #090d14;
       padding: 16px;
       font-family: 'JetBrains Mono', monospace;
@@ -2220,8 +2264,16 @@
     }
 
     @keyframes json-editor-flash-anim {
-      0%, 100% { box-shadow: none; }
-      20%, 60% { box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.6); }
+
+      0%,
+      100% {
+        box-shadow: none;
+      }
+
+      20%,
+      60% {
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.6);
+      }
     }
 
     textarea.json-pre.json-invalid {
@@ -2234,18 +2286,22 @@
       width: 6px;
       height: 6px;
     }
+
     ::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
+
     ::-webkit-scrollbar-thumb {
       background: var(--border-subtle);
       border-radius: 3px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: var(--border-accent);
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top App Header -->
@@ -2258,7 +2314,7 @@
           <div class="brand-sub">Unified Game Items, Structures & 3D Catalog</div>
         </div>
       </div>
-      
+
       <div class="stats-row">
         <div class="stat-pill">Items: <span class="stat-num" id="stat-total">623</span></div>
         <div class="stat-pill">3D Meshes: <span class="stat-num" id="stat-3d">414</span></div>
@@ -2270,17 +2326,26 @@
     <div class="controls-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" class="search-input" placeholder="Search 623 assets by name, item ID, or tag... (Press '/' to focus)">
-        <button type="button" id="search-clear-btn" class="search-clear-btn" title="Clear search" aria-label="Clear search">✕</button>
+        <input type="text" id="search-input" class="search-input"
+          placeholder="Search 623 assets by name, item ID, or tag... (Press '/' to focus)">
+        <button type="button" id="search-clear-btn" class="search-clear-btn" title="Clear search"
+          aria-label="Clear search">✕</button>
       </div>
 
       <div class="filter-chips">
         <button class="filter-chip active" data-filter="all" id="chip-all">All Assets</button>
-        <button class="filter-chip" data-filter="duplicates" id="chip-duplicates" title="List all duplicate assets across categories" style="border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;">⚠️ Duplicates (<span id="stat-dup-count">0</span>)</button>
+        <button class="filter-chip" data-filter="duplicates" id="chip-duplicates"
+          title="List all duplicate assets across categories"
+          style="border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;">⚠️ Duplicates (<span
+            id="stat-dup-count">0</span>)</button>
         <button class="filter-chip" data-filter="3d" id="chip-3d">📦 3D Models Only</button>
         <button class="filter-chip" data-filter="grow" id="chip-grow">🌱 Growable</button>
-        <button class="filter-chip" id="btn-request-asset" title="Queue a request for a new asset — a Claude session watching the queue will pick it up" style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">🪄 Request New Asset</button>
-        <button class="filter-chip" id="btn-request-growth-group" title="Queue a full lifecycle (multiple linked stages) as one request, with the group's metadata and per-stage references defined up front" style="border-color: rgba(34, 197, 94, 0.4); color: #4ade80;">🌱 Request Growth Group</button>
+        <button class="filter-chip" id="btn-request-asset"
+          title="Queue a request for a new asset — a Claude session watching the queue will pick it up"
+          style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">🪄 Request New Asset</button>
+        <button class="filter-chip" id="btn-request-growth-group"
+          title="Queue a full lifecycle (multiple linked stages) as one request, with the group's metadata and per-stage references defined up front"
+          style="border-color: rgba(34, 197, 94, 0.4); color: #4ade80;">🌱 Request Growth Group</button>
       </div>
     </div>
   </header>
@@ -2297,12 +2362,17 @@
       <div class="cat-header-banner" id="cat-banner">
         <div class="banner-text">
           <h2 id="banner-title">🏛️ Structures</h2>
-          <p id="banner-desc">Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers.</p>
+          <p id="banner-desc">Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops,
+            shelters, and towers.</p>
         </div>
         <div class="banner-meta" id="banner-count-pill" style="display: flex; align-items: center; gap: 8px;">
           <span class="stat-pill">Showing: <span class="stat-num" id="showing-count">0</span></span>
-          <button class="stat-pill" id="select-all-btn" style="cursor: pointer; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--text-sub);" title="Check or uncheck all currently shown assets">☑️ Select All Shown</button>
-          <button class="stat-pill" id="regen-all-btn" style="cursor: pointer; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(2, 132, 199, 0.4); color: #38bdf8;" title="Regenerate all icons in current view following HUD rules">🔄 Regen Icons</button>
+          <button class="stat-pill" id="select-all-btn"
+            style="cursor: pointer; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--text-sub);"
+            title="Check or uncheck all currently shown assets">☑️ Select All Shown</button>
+          <button class="stat-pill" id="regen-all-btn"
+            style="cursor: pointer; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(2, 132, 199, 0.4); color: #38bdf8;"
+            title="Regenerate all icons in current view following HUD rules">🔄 Regen Icons</button>
         </div>
       </div>
 
@@ -2330,16 +2400,20 @@
           </div>
         </div>
         <div class="modal-header-actions">
-          <button class="modal-regen-btn" id="m-open-folder-btn" title="Open this asset's folder in Windows Explorer" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--text-sub);">
+          <button class="modal-regen-btn" id="m-open-folder-btn" title="Open this asset's folder in Windows Explorer"
+            style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--text-sub);">
             📂 Open Folder
           </button>
-          <button class="modal-regen-btn" id="m-request-icon-btn" title="Queue a request for a new icon (optionally matching an existing asset)">
+          <button class="modal-regen-btn" id="m-request-icon-btn"
+            title="Queue a request for a new icon (optionally matching an existing asset)">
             🖼️ Icon
           </button>
-          <button class="modal-regen-btn" id="m-regen-model-btn" title="Queue a request to regenerate the 3D model from the current icon via Meshy">
+          <button class="modal-regen-btn" id="m-regen-model-btn"
+            title="Queue a request to regenerate the 3D model from the current icon via Meshy">
             🧊 Model
           </button>
-          <button class="modal-regen-btn" id="m-request-rig-btn" title="Queue a rigging request for this model (rigged in Blender - walk + run animations included)">
+          <button class="modal-regen-btn" id="m-request-rig-btn"
+            title="Queue a rigging request for this model (rigged in Blender - walk + run animations included)">
             🦴 Rig
           </button>
           <button class="modal-regen-btn" id="m-jump-json-btn" title="Scroll to the JSON manifest editor">
@@ -2384,7 +2458,8 @@
           <div class="info-section">
             <div class="info-sec-title">📖 Description<span class="collapse-chevron">▼</span></div>
             <div class="info-sec-body">
-              <textarea id="m-desc" class="kv-input" style="font-size: 13.5px; font-family: inherit; line-height: 1.5; resize: vertical; min-height: 44px; width: 100%; display: block;"></textarea>
+              <textarea id="m-desc" class="kv-input"
+                style="font-size: 13.5px; font-family: inherit; line-height: 1.5; resize: vertical; min-height: 44px; width: 100%; display: block;"></textarea>
             </div>
           </div>
 
@@ -2393,16 +2468,29 @@
             <div class="info-sec-title">⚙️ Simulation Properties<span class="collapse-chevron">▼</span></div>
             <div class="info-sec-body">
               <div class="kv-grid">
-                <div class="kv-box"><div class="kv-key">Weight (kg)</div><input class="kv-input" type="number" step="any" id="m-weight" data-path="properties.weight_kg"></div>
-                <div class="kv-box"><div class="kv-key">Max Stack Size</div><input class="kv-input" type="number" step="1" id="m-stack" data-path="properties.max_stack_size"></div>
-                <div class="kv-box"><div class="kv-key">Base Value ($)</div><input class="kv-input" type="number" step="any" id="m-value" data-path="properties.base_value"></div>
-                <div class="kv-box"><div class="kv-key">Consumable</div>
+                <div class="kv-box">
+                  <div class="kv-key">Weight (kg)</div><input class="kv-input" type="number" step="any" id="m-weight"
+                    data-path="properties.weight_kg">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Max Stack Size</div><input class="kv-input" type="number" step="1" id="m-stack"
+                    data-path="properties.max_stack_size">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Base Value ($)</div><input class="kv-input" type="number" step="any" id="m-value"
+                    data-path="properties.base_value">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Consumable</div>
                   <select class="kv-input" id="m-consumable" data-path="properties.is_consumable">
                     <option value="false">No</option>
                     <option value="true">Yes</option>
                   </select>
                 </div>
-                <div class="kv-box"><div class="kv-key">Footprint</div><input class="kv-input" type="text" id="m-footprint" data-path="properties.footprint" placeholder="—"></div>
+                <div class="kv-box">
+                  <div class="kv-key">Footprint</div><input class="kv-input" type="text" id="m-footprint"
+                    data-path="properties.footprint" placeholder="—">
+                </div>
               </div>
             </div>
           </div>
@@ -2412,10 +2500,22 @@
             <div class="info-sec-title">📐 3D Dimensions & Metric Geometry<span class="collapse-chevron">▼</span></div>
             <div class="info-sec-body">
               <div class="kv-grid">
-                <div class="kv-box"><div class="kv-key">Width (X)</div><div class="kv-val" id="m-dim-x">—</div></div>
-                <div class="kv-box"><div class="kv-key">Depth (Y)</div><div class="kv-val" id="m-dim-y">—</div></div>
-                <div class="kv-box"><div class="kv-key">Height (Z)</div><div class="kv-val" id="m-dim-z">—</div></div>
-                <div class="kv-box"><div class="kv-key">Polygons / Faces</div><div class="kv-val" id="m-faces">—</div></div>
+                <div class="kv-box">
+                  <div class="kv-key">Width (X)</div>
+                  <div class="kv-val" id="m-dim-x">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Depth (Y)</div>
+                  <div class="kv-val" id="m-dim-y">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Height (Z)</div>
+                  <div class="kv-val" id="m-dim-z">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Polygons / Faces</div>
+                  <div class="kv-val" id="m-faces">—</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2437,8 +2537,10 @@
               <span>📄 Machine-Readable Plugin Manifest (<span id="m-json-filename">item.json</span>)</span>
               <div style="display: flex; align-items: center; gap: 6px;">
                 <span id="m-json-status" style="font-size: 10.5px; color: var(--text-muted);"></span>
-                <button class="copy-json-btn" id="m-json-revert-btn" title="Discard changes" style="display: none;">↩️ Revert</button>
-                <button class="copy-json-btn" id="m-json-save-btn" title="Save changes to disk" style="display: none; background: rgba(34, 197, 94, 0.18); color: #4ade80;">💾 Save</button>
+                <button class="copy-json-btn" id="m-json-revert-btn" title="Discard changes" style="display: none;">↩️
+                  Revert</button>
+                <button class="copy-json-btn" id="m-json-save-btn" title="Save changes to disk"
+                  style="display: none; background: rgba(34, 197, 94, 0.18); color: #4ade80;">💾 Save</button>
                 <button class="copy-json-btn" id="copy-json-btn" title="Copy raw JSON">Copy JSON</button>
                 <span class="collapse-chevron">▼</span>
               </div>
@@ -2457,7 +2559,8 @@
     <div class="confirm-box">
       <div class="confirm-icon">⚠️</div>
       <h4 class="confirm-title">Permanently Delete Asset?</h4>
-      <p class="confirm-msg" id="confirm-delete-msg">Are you sure you want to permanently delete this asset folder from disk?</p>
+      <p class="confirm-msg" id="confirm-delete-msg">Are you sure you want to permanently delete this asset folder from
+        disk?</p>
       <div class="confirm-path-pill" id="confirm-delete-path">assets/category/item_id</div>
       <label class="confirm-checkbox-wrap">
         <input type="checkbox" id="dont-ask-delete">
@@ -2474,95 +2577,150 @@
   <dialog class="confirm-dialog" id="rename-dialog" style="border-color: rgba(6, 182, 212, 0.5); max-width: 460px;">
     <div class="confirm-box" style="text-align: left; padding: 24px;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(6, 182, 212, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(6, 182, 212, 0.3);">✏️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(6, 182, 212, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(6, 182, 212, 0.3);">
+          ✏️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Rename Asset</h4>
-          <div style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 2px;" id="rename-path-hint">assets/category/item_id</div>
+          <div
+            style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 2px;"
+            id="rename-path-hint">assets/category/item_id</div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display Name</label>
-        <input type="text" id="rename-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Chicken Coop">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display
+          Name</label>
+        <input type="text" id="rename-name-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. Chicken Coop">
       </div>
       <div style="margin-bottom: 22px;">
         <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">
-          Asset ID & Folder Slug <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(alphanumeric, underscores)</span>
+          Asset ID & Folder Slug <span
+            style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(alphanumeric, underscores)</span>
         </label>
-        <input type="text" id="rename-id-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="e.g. chicken_coop">
+        <input type="text" id="rename-id-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+          placeholder="e.g. chicken_coop">
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="rename-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-primary" id="rename-proceed-btn" style="background: var(--accent-cyan); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save Changes (Enter)</button>
+        <button class="btn-primary" id="rename-proceed-btn"
+          style="background: var(--accent-cyan); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save
+          Changes (Enter)</button>
       </div>
     </div>
   </dialog>
 
   <!-- Add Category Dialog -->
-  <dialog class="confirm-dialog" id="add-category-dialog" style="border-color: rgba(56, 189, 248, 0.5); max-width: 480px;">
+  <dialog class="confirm-dialog" id="add-category-dialog"
+    style="border-color: rgba(56, 189, 248, 0.5); max-width: 480px;">
     <div class="confirm-box" style="text-align: left; padding: 24px;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">➕</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">
+          ➕</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Add Category</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">Creates a new top-level asset category and folder.</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Creates a new top-level asset category and folder.
+          </div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display Name</label>
-        <input type="text" id="addcat-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Vehicles">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display
+          Name</label>
+        <input type="text" id="addcat-name-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. Vehicles">
       </div>
       <div style="display: flex; gap: 10px; margin-bottom: 14px;">
         <div style="flex: 1;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category Key <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(folder name)</span></label>
-          <input type="text" id="addcat-key-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="vehicles">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category
+            Key <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(folder
+              name)</span></label>
+          <input type="text" id="addcat-key-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+            placeholder="vehicles">
         </div>
         <div style="width: 70px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
-          <input type="text" id="addcat-icon-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="🚗" maxlength="4">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
+          <input type="text" id="addcat-icon-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="🚗" maxlength="4">
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
-        <input type="text" id="addcat-desc-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Cars, trucks, and farm machinery.">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
+        <input type="text" id="addcat-desc-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="Cars, trucks, and farm machinery.">
       </div>
       <div style="margin-bottom: 22px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset Prefix</label>
-        <input type="text" id="addcat-prefix-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="vehicle">
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Items moved into this category are renamed to <code>&lt;prefix&gt;_&lt;name&gt;</code>, and this prefix is added to the naming rules used when items move between categories.</div>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset
+          Prefix</label>
+        <input type="text" id="addcat-prefix-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+          placeholder="vehicle">
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Items moved into this category are
+          renamed to <code>&lt;prefix&gt;_&lt;name&gt;</code>, and this prefix is added to the naming rules used when
+          items move between categories.</div>
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="addcat-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-primary" id="addcat-proceed-btn" style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Create Category (Enter)</button>
+        <button class="btn-primary" id="addcat-proceed-btn"
+          style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Create
+          Category (Enter)</button>
       </div>
     </div>
   </dialog>
 
   <!-- Tag Registry Dialog -->
-  <dialog class="confirm-dialog" id="tag-registry-dialog" style="border-color: rgba(56, 189, 248, 0.5); max-width: 560px;">
+  <dialog class="confirm-dialog" id="tag-registry-dialog"
+    style="border-color: rgba(56, 189, 248, 0.5); max-width: 560px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">🏷️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">
+          🏷️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Tag Registry</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">A tag (<code>#name</code>) stands in for a list of interchangeable items in a recipe - e.g. <code>#flooring</code> = plywood OR OSB OR stone flooring, player's choice.</div>
+          <div style="font-size: 11px; color: var(--text-muted);">A tag (<code>#name</code>) stands in for a list of
+            interchangeable items in a recipe - e.g. <code>#flooring</code> = plywood OR OSB OR stone flooring, player's
+            choice.</div>
         </div>
       </div>
 
       <div id="tagreg-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
 
       <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
-        <div style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px;">Add / Update Tag</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px;">Add / Update Tag
+        </div>
         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
           <div style="width: 160px;">
-            <input type="text" id="tagreg-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="flooring">
+            <input type="text" id="tagreg-name-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+              placeholder="flooring">
           </div>
           <div style="flex: 1;">
-            <input type="text" id="tagreg-members-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="sheet_plywood_cdx, part_floor_wood_1m">
+            <input type="text" id="tagreg-members-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="sheet_plywood_cdx, part_floor_wood_1m">
           </div>
         </div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Member item ids, comma-separated - each must be a real existing catalog item (checked on save). Saving an existing tag name replaces its member list.</div>
+        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Member item ids, comma-separated -
+          each must be a real existing catalog item (checked on save). Saving an existing tag name replaces its member
+          list.</div>
         <div id="tagreg-error" style="display: none; font-size: 12px; color: #f87171; margin-bottom: 12px;"></div>
-        <button class="btn-primary" id="tagreg-save-btn" style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save Tag</button>
+        <button class="btn-primary" id="tagreg-save-btn"
+          style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save
+          Tag</button>
       </div>
 
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; margin-top: 18px;">
@@ -2572,10 +2730,13 @@
   </dialog>
 
   <!-- Edit Category Dialog (custom categories only) -->
-  <dialog class="confirm-dialog" id="edit-category-dialog" style="border-color: rgba(56, 189, 248, 0.5); max-width: 480px;">
+  <dialog class="confirm-dialog" id="edit-category-dialog"
+    style="border-color: rgba(56, 189, 248, 0.5); max-width: 480px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">✏️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">
+          ✏️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Edit Category</h4>
           <div style="font-size: 11px; color: var(--text-muted);" id="editcat-key-label"></div>
@@ -2583,108 +2744,174 @@
       </div>
       <div style="display: flex; gap: 10px; margin-bottom: 14px;">
         <div style="flex: 1;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display Name</label>
-          <input type="text" id="editcat-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display
+            Name</label>
+          <input type="text" id="editcat-name-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
         </div>
         <div style="width: 70px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
-          <input type="text" id="editcat-icon-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" maxlength="4">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
+          <input type="text" id="editcat-icon-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            maxlength="4">
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
-        <input type="text" id="editcat-desc-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
+        <input type="text" id="editcat-desc-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
       </div>
       <div style="margin-bottom: 22px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset Prefix</label>
-        <input type="text" id="editcat-prefix-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;">
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Items moved into this category are renamed to <code>&lt;prefix&gt;_&lt;name&gt;</code>.</div>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset
+          Prefix</label>
+        <input type="text" id="editcat-prefix-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;">
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Items moved into this category are
+          renamed to <code>&lt;prefix&gt;_&lt;name&gt;</code>.</div>
       </div>
       <div class="confirm-actions" style="justify-content: space-between; gap: 10px;">
-        <button class="btn-cancel" id="editcat-delete-btn" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">🗑️ Delete Category</button>
+        <button class="btn-cancel" id="editcat-delete-btn"
+          style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">🗑️ Delete Category</button>
         <div style="display: flex; gap: 10px;">
           <button class="btn-cancel" id="editcat-cancel-btn">Cancel (Esc)</button>
-          <button class="btn-primary" id="editcat-save-btn" style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save Changes (Enter)</button>
+          <button class="btn-primary" id="editcat-save-btn"
+            style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save
+            Changes (Enter)</button>
         </div>
       </div>
     </div>
   </dialog>
 
   <!-- Add Subfolder Dialog -->
-  <dialog class="confirm-dialog" id="add-subfolder-dialog" style="border-color: rgba(16, 185, 129, 0.5); max-width: 460px;">
+  <dialog class="confirm-dialog" id="add-subfolder-dialog"
+    style="border-color: rgba(16, 185, 129, 0.5); max-width: 460px;">
     <div class="confirm-box" style="text-align: left; padding: 24px;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(16, 185, 129, 0.3);">🗂️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(16, 185, 129, 0.3);">
+          🗂️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Add Subfolder</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">In <span id="addsub-cat-label" style="color: var(--text-sub); font-weight: 600;"></span></div>
+          <div style="font-size: 11px; color: var(--text-muted);">In <span id="addsub-cat-label"
+              style="color: var(--text-sub); font-weight: 600;"></span></div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display Name</label>
-        <input type="text" id="addsub-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Draft Horse">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display
+          Name</label>
+        <input type="text" id="addsub-name-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. Draft Horse">
       </div>
       <div style="display: flex; gap: 10px; margin-bottom: 22px;">
         <div style="flex: 1;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Subfolder Key</label>
-          <input type="text" id="addsub-key-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="draft_horse">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Subfolder
+            Key</label>
+          <input type="text" id="addsub-key-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+            placeholder="draft_horse">
         </div>
         <div style="width: 70px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
-          <input type="text" id="addsub-icon-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="🐴" maxlength="4">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
+          <input type="text" id="addsub-icon-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="🐴" maxlength="4">
         </div>
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="addsub-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-primary" id="addsub-proceed-btn" style="background: #10b981; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Create Subfolder (Enter)</button>
+        <button class="btn-primary" id="addsub-proceed-btn"
+          style="background: #10b981; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Create
+          Subfolder (Enter)</button>
       </div>
     </div>
   </dialog>
 
   <!-- Request New Asset Dialog -->
-  <dialog class="confirm-dialog" id="request-asset-dialog" style="border-color: rgba(168, 85, 247, 0.5); max-width: 560px;">
+  <dialog class="confirm-dialog" id="request-asset-dialog"
+    style="border-color: rgba(168, 85, 247, 0.5); max-width: 560px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(168, 85, 247, 0.3);">🪄</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(168, 85, 247, 0.3);">
+          🪄</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Request New Asset</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">Queues a request — a Claude session watching this queue picks it up, shows you the generation cost, and creates it once approved. This does not generate anything by itself.</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Queues a request — a Claude session watching this
+            queue picks it up, shows you the generation cost, and creates it once approved. This does not generate
+            anything by itself.</div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset Name</label>
-        <input type="text" id="reqasset-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Adult Goat">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Asset
+          Name</label>
+        <input type="text" id="reqasset-name-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. Adult Goat">
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
-        <div id="reqasset-category-fixed" style="display: none; padding: 9px 12px; border-radius: 6px; background: #0c121c; border: 1px solid rgba(255,255,255,0.1); color: #f8fafc; font-size: 13.5px;"></div>
-        <select id="reqasset-category-select" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
+        <div id="reqasset-category-fixed"
+          style="display: none; padding: 9px 12px; border-radius: 6px; background: #0c121c; border: 1px solid rgba(255,255,255,0.1); color: #f8fafc; font-size: 13.5px;">
+        </div>
+        <select id="reqasset-category-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(what it looks like / does — used as the generation prompt)</span></label>
-        <textarea id="reqasset-desc-input" rows="3" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;" placeholder="e.g. A lean dairy goat, white coat with brown patches, calm standing pose."></textarea>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(what it looks like / does —
+            used as the generation prompt)</span></label>
+        <textarea id="reqasset-desc-input" rows="3"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;"
+          placeholder="e.g. A lean dairy goat, white coat with brown patches, calm standing pose."></textarea>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Reference Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — match style/look to an existing asset)</span></label>
-        <input type="text" id="reqasset-reference-input" list="reqasset-reference-datalist" autocomplete="off" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Search by name or id, e.g. animal_cow_adult">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Reference
+          Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — match
+            style/look to an existing asset)</span></label>
+        <input type="text" id="reqasset-reference-input" list="reqasset-reference-datalist" autocomplete="off"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="Search by name or id, e.g. animal_cow_adult">
         <datalist id="reqasset-reference-datalist"></datalist>
-        <div id="reqasset-reference-preview" style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
+        <div id="reqasset-reference-preview"
+          style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
           <img id="reqasset-reference-preview-img" style="width: 28px; height: 28px; object-fit: contain;">
           <span id="reqasset-reference-preview-text" style="font-size: 11.5px; color: var(--text-sub);"></span>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Notes <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
-        <input type="text" id="reqasset-notes-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. rig it like the other livestock">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Notes
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional)</span></label>
+        <input type="text" id="reqasset-notes-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. rig it like the other livestock">
       </div>
 
       <div style="margin-bottom: 14px;">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; color: var(--text-sub);">
-          <input type="checkbox" id="reqasset-also-rig-toggle" style="width: 15px; height: 15px; accent-color: #a855f7;">
-          🦴 Also request rigging after the model is created <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(for animation - rigged in Blender, no extra credit cost, includes walk + run)</span>
+        <label
+          style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; color: var(--text-sub);">
+          <input type="checkbox" id="reqasset-also-rig-toggle"
+            style="width: 15px; height: 15px; accent-color: #a855f7;">
+          🦴 Also request rigging after the model is created <span
+            style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(for animation - rigged in Blender,
+            no extra credit cost, includes walk + run)</span>
         </label>
         <div id="reqasset-rig-type-wrap" hidden style="margin-top: 8px; padding-left: 23px;">
-          <select id="reqasset-rig-type-select" style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <select id="reqasset-rig-type-select"
+            style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
             <option value="human">Human / Humanoid</option>
             <option value="bipedal_animal">Bipedal Animal (bird, kangaroo, etc.)</option>
             <option value="quadruped">Quadruped (horse, dog, cow, etc.)</option>
@@ -2693,29 +2920,43 @@
             <option value="fish">Fish (swim-only locomotion)</option>
             <option value="other">Other</option>
           </select>
-          <div id="reqasset-rig-type-warning" style="font-size: 10.5px; color: #fbbf24; margin-top: 6px; display: none;">⚠️ Meshy's rigging tool can't do this shape - it will be rigged in Blender instead (free, but takes longer). Birds also get a flying clip; fish use swim/swim-fast in place of walk/run (via the Animal Animator addon's SHARK profile).</div>
-          <input type="text" id="reqasset-extra-anim-input" style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; margin-top: 8px;" placeholder="Additional animations, comma-separated (optional) - e.g. Idle, Jumping">
+          <div id="reqasset-rig-type-warning"
+            style="font-size: 10.5px; color: #fbbf24; margin-top: 6px; display: none;">⚠️ Meshy's rigging tool can't do
+            this shape - it will be rigged in Blender instead (free, but takes longer). Birds also get a flying clip;
+            fish use swim/swim-fast in place of walk/run (via the Animal Animator addon's SHARK profile).</div>
+          <input type="text" id="reqasset-extra-anim-input"
+            style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; margin-top: 8px;"
+            placeholder="Additional animations, comma-separated (optional) - e.g. Idle, Jumping">
         </div>
       </div>
 
-      <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
-          <input type="checkbox" id="reqasset-multistage-toggle" style="width: 15px; height: 15px; accent-color: #a855f7;">
+      <div
+        style="margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
+        <label
+          style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
+          <input type="checkbox" id="reqasset-multistage-toggle"
+            style="width: 15px; height: 15px; accent-color: #a855f7;">
           This is a growth-stage set (multiple linked assets, e.g. a crop or animal lifecycle)
         </label>
         <div id="reqasset-multistage-body" hidden style="margin-top: 12px;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
             <span style="font-size: 11px; color: var(--text-muted);">Number of stages</span>
-            <input type="number" id="reqasset-stagecount-input" min="2" max="10" value="4" style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #06090e; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+            <input type="number" id="reqasset-stagecount-input" min="2" max="10" value="4"
+              style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #06090e; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
           </div>
           <div id="reqasset-stages-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
-          <p style="font-size: 10.5px; color: var(--text-muted); margin: 8px 0 0;">Each stage becomes its own linked request in the queue (e.g. "Corn - Sprout", "Corn - Mature"). Leave a stage's description blank to reuse the base description above. All stages finalize and batch together, and a Claude session can wire them into a growth group once generated.</p>
+          <p style="font-size: 10.5px; color: var(--text-muted); margin: 8px 0 0;">Each stage becomes its own linked
+            request in the queue (e.g. "Corn - Sprout", "Corn - Mature"). Leave a stage's description blank to reuse the
+            base description above. All stages finalize and batch together, and a Claude session can wire them into a
+            growth group once generated.</p>
         </div>
       </div>
 
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="reqasset-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-primary" id="reqasset-proceed-btn" style="background: #a855f7; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Submit Request (Enter)</button>
+        <button class="btn-primary" id="reqasset-proceed-btn"
+          style="background: #a855f7; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Submit
+          Request (Enter)</button>
       </div>
     </div>
   </dialog>
@@ -2729,78 +2970,129 @@
   <dialog class="confirm-dialog" id="request-gg-dialog" style="border-color: rgba(34, 197, 94, 0.5); max-width: 620px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">🌱</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">
+          🌱</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Request Growth Group</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">Queues a full lifecycle as linked requests — a Claude session generates every stage, then auto-assembles them into a working growth group using the details below. This does not generate anything by itself.</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Queues a full lifecycle as linked requests — a Claude
+            session generates every stage, then auto-assembles them into a working growth group using the details below.
+            This does not generate anything by itself.</div>
         </div>
       </div>
 
       <div style="display: flex; gap: 10px; margin-bottom: 14px;">
         <div style="flex: 1;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base Name</label>
-          <input type="text" id="reqgg-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Goat">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base
+            Name</label>
+          <input type="text" id="reqgg-name-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="e.g. Goat">
         </div>
         <div style="width: 70px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
-          <input type="text" id="reqgg-icon-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="🐐" maxlength="4">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
+          <input type="text" id="reqgg-icon-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="🐐" maxlength="4">
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
-        <select id="reqgg-category-select" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
+        <select id="reqgg-category-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base Description <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(what it looks like overall — used as the fallback prompt for any stage without its own description)</span></label>
-        <textarea id="reqgg-desc-input" rows="2" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;" placeholder="e.g. A lean dairy goat, white coat with brown patches."></textarea>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base
+          Description <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(what it looks like
+            overall — used as the fallback prompt for any stage without its own description)</span></label>
+        <textarea id="reqgg-desc-input" rows="2"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;"
+          placeholder="e.g. A lean dairy goat, white coat with brown patches."></textarea>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base Reference Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — fallback style match for any stage that doesn't set its own reference below)</span></label>
-        <input type="text" id="reqgg-base-reference-input" list="reqgg-reference-datalist" autocomplete="off" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Search by name or id, e.g. animal_cow_adult">
-        <div id="reqgg-base-reference-preview" style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Base
+          Reference Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional —
+            fallback style match for any stage that doesn't set its own reference below)</span></label>
+        <input type="text" id="reqgg-base-reference-input" list="reqgg-reference-datalist" autocomplete="off"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="Search by name or id, e.g. animal_cow_adult">
+        <div id="reqgg-base-reference-preview"
+          style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
           <img id="reqgg-base-reference-preview-img" style="width: 28px; height: 28px; object-fit: contain;">
           <span id="reqgg-base-reference-preview-text" style="font-size: 11.5px; color: var(--text-sub);"></span>
         </div>
       </div>
       <div style="display: flex; gap: 10px; margin-bottom: 18px;">
         <div style="flex: 1;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Growth Type</label>
-          <input type="text" id="reqgg-growthtype-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="animal / tree / crop">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Growth
+            Type</label>
+          <input type="text" id="reqgg-growthtype-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="animal / tree / crop">
         </div>
         <div style="width: 100px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Max Age</label>
-          <input type="number" id="reqgg-maxage-input" min="1" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="auto">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Max
+            Age</label>
+          <input type="number" id="reqgg-maxage-input" min="1"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="auto">
         </div>
         <div style="width: 100px;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Time Unit</label>
-          <input type="text" id="reqgg-timeunit-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="days">
+          <label
+            style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Time
+            Unit</label>
+          <input type="text" id="reqgg-timeunit-input"
+            style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="days">
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;">
-        <label style="font-size: 12px; font-weight: 700; color: var(--text-sub);">Stages <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(each becomes its own linked request; reference + ages are optional per stage)</span></label>
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;">
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-sub);">Stages <span
+            style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(each becomes its own linked
+            request; reference + ages are optional per stage)</span></label>
         <div style="display: flex; align-items: center; gap: 6px;">
           <span style="font-size: 11px; color: var(--text-muted);">Number of stages</span>
-          <input type="number" id="reqgg-stagecount-input" min="2" max="10" value="4" style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <input type="number" id="reqgg-stagecount-input" min="2" max="10" value="4"
+            style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
         </div>
       </div>
-      <div id="reqgg-stages-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
+      <div id="reqgg-stages-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;">
+      </div>
       <datalist id="reqgg-reference-datalist"></datalist>
 
-      <div style="margin-bottom: 10px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
-          <input type="checkbox" id="reqgg-create-models-toggle" checked style="width: 15px; height: 15px; accent-color: #38bdf8;">
-          🧊 Create 3D models for each stage <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(uncheck for 2D icon-only lifecycle)</span>
+      <div
+        style="margin-bottom: 10px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
+        <label
+          style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
+          <input type="checkbox" id="reqgg-create-models-toggle" checked
+            style="width: 15px; height: 15px; accent-color: #38bdf8;">
+          🧊 Create 3D models for each stage <span
+            style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(uncheck for 2D icon-only
+            lifecycle)</span>
         </label>
       </div>
 
-      <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
+      <div
+        style="margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);">
+        <label
+          style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--text-sub);">
           <input type="checkbox" id="reqgg-also-rig-toggle" style="width: 15px; height: 15px; accent-color: #22c55e;">
-          🦴 Also request rigging for every stage after its model is created <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(rigged in Blender, no extra credit cost, includes walk + run)</span>
+          🦴 Also request rigging for every stage after its model is created <span
+            style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(rigged in Blender, no extra credit
+            cost, includes walk + run)</span>
         </label>
         <div id="reqgg-rig-type-wrap" hidden style="margin-top: 8px; padding-left: 23px;">
-          <select id="reqgg-rig-type-select" style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <select id="reqgg-rig-type-select"
+            style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
             <option value="human">Human / Humanoid</option>
             <option value="bipedal_animal">Bipedal Animal (bird, kangaroo, etc.)</option>
             <option value="quadruped">Quadruped (horse, dog, cow, etc.)</option>
@@ -2809,78 +3101,120 @@
             <option value="fish">Fish (swim-only locomotion)</option>
             <option value="other">Other</option>
           </select>
-          <input type="text" id="reqgg-extra-anim-input" style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; margin-top: 8px;" placeholder="Additional animations, comma-separated (optional) - e.g. Idle, Jumping">
+          <input type="text" id="reqgg-extra-anim-input"
+            style="width: 100%; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; margin-top: 8px;"
+            placeholder="Additional animations, comma-separated (optional) - e.g. Idle, Jumping">
         </div>
       </div>
 
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="reqgg-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-primary" id="reqgg-proceed-btn" style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Submit Group Request</button>
+        <button class="btn-primary" id="reqgg-proceed-btn"
+          style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Submit
+          Group Request</button>
       </div>
     </div>
   </dialog>
 
   <!-- Growth Group Dialog (create/edit) -->
-  <dialog class="confirm-dialog" id="growth-group-dialog" style="border-color: rgba(34, 197, 94, 0.5); max-width: 620px;">
+  <dialog class="confirm-dialog" id="growth-group-dialog"
+    style="border-color: rgba(34, 197, 94, 0.5); max-width: 620px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">🌱</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">
+          🌱</div>
         <div>
-          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;" id="gg-dialog-title">Growth Group</h4>
-          <div style="font-size: 11px; color: var(--text-muted);">Define a lifecycle (species) and which existing assets are which stage.</div>
+          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;" id="gg-dialog-title">Growth
+            Group</h4>
+          <div style="font-size: 11px; color: var(--text-muted);">Define a lifecycle (species) and which existing assets
+            are which stage.</div>
         </div>
       </div>
 
       <div id="gg-form-view">
         <div style="display: flex; gap: 10px; margin-bottom: 14px;">
           <div style="flex: 1;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display Name</label>
-            <input type="text" id="gg-name-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Draft Horse">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Display
+              Name</label>
+            <input type="text" id="gg-name-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="e.g. Draft Horse">
           </div>
           <div style="width: 70px;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
-            <input type="text" id="gg-icon-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="🐴" maxlength="4">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Icon</label>
+            <input type="text" id="gg-icon-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 15px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="🐴" maxlength="4">
           </div>
         </div>
         <div style="display: flex; gap: 10px; margin-bottom: 14px;">
           <div style="flex: 1;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Species Key</label>
-            <input type="text" id="gg-key-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;" placeholder="draft_horse">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Species
+              Key</label>
+            <input type="text" id="gg-key-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
+              placeholder="draft_horse">
           </div>
           <div style="flex: 1;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
-            <select id="gg-category-select" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
+            <select id="gg-category-select"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
           </div>
         </div>
         <div style="display: flex; gap: 10px; margin-bottom: 18px;">
           <div style="flex: 1;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Growth Type</label>
-            <input type="text" id="gg-growthtype-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="animal / tree / crop">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Growth
+              Type</label>
+            <input type="text" id="gg-growthtype-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="animal / tree / crop">
           </div>
           <div style="width: 100px;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Max Age</label>
-            <input type="number" id="gg-maxage-input" min="1" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="730">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Max
+              Age</label>
+            <input type="number" id="gg-maxage-input" min="1"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="730">
           </div>
           <div style="width: 100px;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Time Unit</label>
-            <input type="text" id="gg-timeunit-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="days">
+            <label
+              style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Time
+              Unit</label>
+            <input type="text" id="gg-timeunit-input"
+              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+              placeholder="days">
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;">
-          <label style="font-size: 12px; font-weight: 700; color: var(--text-sub);">Stages <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(leave a row as "— none —" to skip it, or to remove an asset already assigned)</span></label>
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-sub);">Stages <span
+              style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(leave a row as "— none —" to skip
+              it, or to remove an asset already assigned)</span></label>
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="font-size: 11px; color: var(--text-muted);">Number of stages</span>
-            <input type="number" id="gg-stagecount-input" min="1" max="10" value="4" style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+            <input type="number" id="gg-stagecount-input" min="1" max="10" value="4"
+              style="width: 56px; border-radius: 5px; padding: 5px 6px; font-size: 12px; text-align: center; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
           </div>
         </div>
-        <div id="gg-stages-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
+        <div id="gg-stages-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;">
+        </div>
 
         <div class="confirm-actions" style="justify-content: space-between; gap: 10px;">
-          <button type="button" class="btn-cancel" id="gg-delete-btn" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); display: none;">🗑️ Delete Group</button>
+          <button type="button" class="btn-cancel" id="gg-delete-btn"
+            style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); display: none;">🗑️ Delete Group</button>
           <div style="display: flex; gap: 10px; margin-left: auto;">
             <button type="button" class="btn-cancel" id="gg-close-btn">Cancel (Esc)</button>
-            <button type="button" class="btn-primary" id="gg-save-btn" style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save Growth Group</button>
+            <button type="button" class="btn-primary" id="gg-save-btn"
+              style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save
+              Growth Group</button>
           </div>
         </div>
       </div>
@@ -2902,15 +3236,19 @@
       <div class="ari-panel-header">
         <span>🪄 Asset Requests</span>
         <div style="display: flex; align-items: center; gap: 4px;">
-          <button type="button" class="ari-panel-close" id="ari-panel-clear-done" title="Clear completed requests only">✅🗑️</button>
-          <button type="button" class="ari-panel-close" id="ari-panel-clear-all" title="Delete all requests">🗑️</button>
+          <button type="button" class="ari-panel-close" id="ari-panel-clear-done"
+            title="Clear completed requests only">✅🗑️</button>
+          <button type="button" class="ari-panel-close" id="ari-panel-clear-all"
+            title="Delete all requests">🗑️</button>
           <button type="button" class="ari-panel-close" id="ari-panel-close" title="Close">✕</button>
         </div>
       </div>
       <div class="ari-panel-list" id="ari-panel-list"></div>
       <div class="ari-panel-footer" id="ari-panel-footer" hidden>
-        <p class="ari-finalize-hint">Pending requests wait here so icon generation can be batched into one sheet. Nothing is generated until you finalize.</p>
-        <button type="button" class="btn-finalize-requests" id="btn-finalize-requests">Finalize &amp; Queue for Generation</button>
+        <p class="ari-finalize-hint">Pending requests wait here so icon generation can be batched into one sheet.
+          Nothing is generated until you finalize.</p>
+        <button type="button" class="btn-finalize-requests" id="btn-finalize-requests">Finalize &amp; Queue for
+          Generation</button>
       </div>
     </div>
   </div>
@@ -2923,19 +3261,24 @@
     </div>
     <div class="batch-bar-actions">
       <button class="btn-clear-selection" id="batch-clear-btn" title="Clear checked items (Esc)">Clear</button>
-      <button class="btn-move-all" id="batch-move-btn" draggable="true" title="Drag this button onto any category on the left sidebar to move all checked assets">
+      <button class="btn-move-all" id="batch-move-btn" draggable="true"
+        title="Drag this button onto any category on the left sidebar to move all checked assets">
         Move All
       </button>
-      <button class="btn-regen-all" id="batch-regen-btn" title="Regenerate icons for all checked assets (HUD 128x128 3D low-poly standard)">
+      <button class="btn-regen-all" id="batch-regen-btn"
+        title="Regenerate icons for all checked assets (HUD 128x128 3D low-poly standard)">
         Regen Icons
       </button>
       <button class="btn-make-group" id="batch-group-btn" title="Create a growth group from the checked assets">
         Make Group
       </button>
-      <button class="btn-make-group" id="batch-rig-btn" title="Queue a rigging request for all checked assets" style="background: #0ea5e9;">
+      <button class="btn-make-group" id="batch-rig-btn" title="Queue a rigging request for all checked assets"
+        style="background: #0ea5e9;">
         Request Rigging
       </button>
-      <button class="btn-make-group" id="batch-bulk-request-btn" title="Queue a new-asset creation request for each checked asset, using a shared prompt" style="background: #7c3aed;">
+      <button class="btn-make-group" id="batch-bulk-request-btn"
+        title="Queue a new-asset creation request for each checked asset, using a shared prompt"
+        style="background: #7c3aed;">
         Bulk Request New
       </button>
       <button class="btn-delete-all" id="batch-delete-btn" title="Delete all checked assets">
@@ -2947,17 +3290,22 @@
   <!-- Batch Complete Summary Modal - pops up automatically when every request
        in a finalized batch reaches status "done", showing per-item status and
        credits spent (Creative Claw + Meshy) plus a grand total. -->
-  <dialog class="confirm-dialog" id="batch-complete-dialog" style="border-color: rgba(74, 222, 128, 0.5); max-width: 520px;">
+  <dialog class="confirm-dialog" id="batch-complete-dialog"
+    style="border-color: rgba(74, 222, 128, 0.5); max-width: 520px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(74, 222, 128, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(74, 222, 128, 0.3);">✅</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(74, 222, 128, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(74, 222, 128, 0.3);">
+          ✅</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Asset Batch Complete</h4>
           <div id="bc-subtitle" style="font-size: 11px; color: var(--text-muted);"></div>
         </div>
       </div>
       <div id="bc-item-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;"></div>
-      <div id="bc-totals" style="font-size: 13px; font-weight: 700; color: #4ade80; border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-bottom: 18px;"></div>
+      <div id="bc-totals"
+        style="font-size: 13px; font-weight: 700; color: #4ade80; border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-bottom: 18px;">
+      </div>
       <div class="confirm-actions">
         <button type="button" class="btn-cancel" id="bc-close-btn">Close</button>
       </div>
@@ -2982,15 +3330,20 @@
   <dialog class="confirm-dialog" id="rig-type-dialog" style="border-color: rgba(14, 165, 233, 0.5); max-width: 440px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(14, 165, 233, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(14, 165, 233, 0.3);">🦴</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(14, 165, 233, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(14, 165, 233, 0.3);">
+          🦴</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Rigging Type</h4>
           <div id="rig-type-subtitle" style="font-size: 11px; color: var(--text-muted);"></div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">What kind of rig is this?</label>
-        <select id="rig-type-select" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">What
+          kind of rig is this?</label>
+        <select id="rig-type-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
           <option value="human">Human / Humanoid</option>
           <option value="bipedal_animal">Bipedal Animal (bird, kangaroo, etc.)</option>
           <option value="quadruped">Quadruped (horse, dog, cow, etc.)</option>
@@ -2999,16 +3352,28 @@
           <option value="fish">Fish (swim-only locomotion)</option>
           <option value="other">Other</option>
         </select>
-        <div id="rig-type-warning" style="font-size: 11px; color: #fbbf24; margin-top: 8px; display: none;">⚠️ Meshy's rigging tool can't pose-estimate this shape (confirmed failure on quadrupeds) - it will be rigged in Blender instead, at no credit cost. Every rig gets walk + run at minimum; birds also get a flying clip (swimming reuses walk/run, lowered into water); fish use swim/swim-fast instead of walk/run.</div>
+        <div id="rig-type-warning" style="font-size: 11px; color: #fbbf24; margin-top: 8px; display: none;">⚠️ Meshy's
+          rigging tool can't pose-estimate this shape (confirmed failure on quadrupeds) - it will be rigged in Blender
+          instead, at no credit cost. Every rig gets walk + run at minimum; birds also get a flying clip (swimming
+          reuses walk/run, lowered into water); fish use swim/swim-fast instead of walk/run.</div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Additional Animations <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional, comma-separated)</span></label>
-        <input type="text" id="rig-type-extra-anim-input" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="e.g. Idle, Jumping, Sitting">
-        <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 6px;">On top of the standard walk + run. No local animation catalog to pick from - type the names you want (e.g. from Mixamo) and whoever processes the request sources them by hand.</div>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Additional
+          Animations <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional,
+            comma-separated)</span></label>
+        <input type="text" id="rig-type-extra-anim-input"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="e.g. Idle, Jumping, Sitting">
+        <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 6px;">On top of the standard walk + run. No
+          local animation catalog to pick from - type the names you want (e.g. from Mixamo) and whoever processes the
+          request sources them by hand.</div>
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="rig-type-cancel-btn">Cancel</button>
-        <button class="btn-primary" id="rig-type-confirm-btn" style="background: #0ea5e9; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue Request</button>
+        <button class="btn-primary" id="rig-type-confirm-btn"
+          style="background: #0ea5e9; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue
+          Request</button>
       </div>
     </div>
   </dialog>
@@ -3016,31 +3381,47 @@
   <!-- Request Icon Dialog - queues a new-icon request for an existing asset,
        optionally matching style to a reference asset (same convention as the
        Request New Asset dialog's Reference Asset field). -->
-  <dialog class="confirm-dialog" id="request-icon-dialog" style="border-color: rgba(168, 85, 247, 0.5); max-width: 440px;">
+  <dialog class="confirm-dialog" id="request-icon-dialog"
+    style="border-color: rgba(168, 85, 247, 0.5); max-width: 440px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(168, 85, 247, 0.3);">🖼️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(168, 85, 247, 0.3);">
+          🖼️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Request New Icon</h4>
           <div id="requesticon-subtitle" style="font-size: 11px; color: var(--text-muted);"></div>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Prompt / Instructions <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — what should change or how it should look)</span></label>
-        <textarea id="requesticon-prompt-input" rows="3" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;" placeholder="e.g. make it darker green, add rust patches, view from the front"></textarea>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Prompt
+          / Instructions <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — what
+            should change or how it should look)</span></label>
+        <textarea id="requesticon-prompt-input" rows="3"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;"
+          placeholder="e.g. make it darker green, add rust patches, view from the front"></textarea>
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Reference Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — match style/look to an existing asset)</span></label>
-        <input type="text" id="requesticon-reference-input" list="requesticon-reference-datalist" autocomplete="off" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Search by name or id, e.g. animal_cow_adult">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Reference
+          Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — match
+            style/look to an existing asset)</span></label>
+        <input type="text" id="requesticon-reference-input" list="requesticon-reference-datalist" autocomplete="off"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+          placeholder="Search by name or id, e.g. animal_cow_adult">
         <datalist id="requesticon-reference-datalist"></datalist>
-        <div id="requesticon-reference-preview" style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
+        <div id="requesticon-reference-preview"
+          style="display: none; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; background: #06090e; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;">
           <img id="requesticon-reference-preview-img" style="width: 28px; height: 28px; object-fit: contain;">
           <span id="requesticon-reference-preview-text" style="font-size: 11.5px; color: var(--text-sub);"></span>
         </div>
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="requesticon-cancel-btn">Cancel</button>
-        <button class="btn-primary" id="requesticon-confirm-btn" style="background: #a855f7; color: #fff; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue Request</button>
+        <button class="btn-primary" id="requesticon-confirm-btn"
+          style="background: #a855f7; color: #fff; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue
+          Request</button>
       </div>
     </div>
   </dialog>
@@ -3050,35 +3431,56 @@
        transformed into a brand-new asset (e.g. "Make this maple" applied to
        several selected log-pile items). Queues one /api/request-asset call
        per selected item, each referencing that item as its style source. -->
-  <dialog class="confirm-dialog" id="bulk-request-dialog" style="border-color: rgba(124, 58, 237, 0.5); max-width: 460px;">
+  <dialog class="confirm-dialog" id="bulk-request-dialog"
+    style="border-color: rgba(124, 58, 237, 0.5); max-width: 460px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(124, 58, 237, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(124, 58, 237, 0.3);">✨</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(124, 58, 237, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(124, 58, 237, 0.3);">
+          ✨</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Bulk Request New Assets</h4>
           <div id="bulkrequest-subtitle" style="font-size: 11px; color: var(--text-muted);"></div>
         </div>
       </div>
-      <div id="bulkrequest-item-list" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; max-height: 160px; overflow-y: auto; font-size: 12px; color: var(--text-sub);"></div>
-      <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Shared Prompt <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(applied to every checked item as its own new-asset request)</span></label>
-        <textarea id="bulkrequest-prompt-input" rows="3" style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;" placeholder="e.g. Make this maple"></textarea>
+      <div id="bulkrequest-item-list"
+        style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; max-height: 160px; overflow-y: auto; font-size: 12px; color: var(--text-sub);">
       </div>
       <div style="margin-bottom: 14px;">
-        <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Rename Each New Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — find this word/phrase in each item's name and replace it, instead of appending the prompt)</span></label>
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Shared
+          Prompt <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(applied to every checked
+            item as its own new-asset request)</span></label>
+        <textarea id="bulkrequest-prompt-input" rows="3"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none; resize: vertical; font-family: inherit;"
+          placeholder="e.g. Make this maple"></textarea>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Rename
+          Each New Asset <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(optional — find
+            this word/phrase in each item's name and replace it, instead of appending the prompt)</span></label>
         <div style="display: flex; gap: 8px;">
-          <input type="text" id="bulkrequest-search-input" style="flex: 1; min-width: 0; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Search, e.g. Birch">
-          <input type="text" id="bulkrequest-replace-input" style="flex: 1; min-width: 0; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;" placeholder="Replace with, e.g. Maple">
+          <input type="text" id="bulkrequest-search-input"
+            style="flex: 1; min-width: 0; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="Search, e.g. Birch">
+          <input type="text" id="bulkrequest-replace-input"
+            style="flex: 1; min-width: 0; border-radius: 6px; padding: 9px 12px; font-size: 13px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
+            placeholder="Replace with, e.g. Maple">
         </div>
         <div id="bulkrequest-name-preview" style="margin-top: 8px; font-size: 11px; color: var(--text-muted);"></div>
       </div>
-      <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 12.5px; color: var(--text-sub); cursor: pointer;">
+      <label
+        style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 12.5px; color: var(--text-sub); cursor: pointer;">
         <input type="checkbox" id="bulkrequest-exclude-models" style="width: 15px; height: 15px; cursor: pointer;">
-        Exclude 3D Models <span style="color: var(--text-muted); font-weight: normal;">(icon only for these — not every item ends up needing a model)</span>
+        Exclude 3D Models <span style="color: var(--text-muted); font-weight: normal;">(icon only for these — not every
+          item ends up needing a model)</span>
       </label>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="bulkrequest-cancel-btn">Cancel</button>
-        <button class="btn-primary" id="bulkrequest-confirm-btn" style="background: #7c3aed; color: #fff; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue Requests</button>
+        <button class="btn-primary" id="bulkrequest-confirm-btn"
+          style="background: #7c3aed; color: #fff; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Queue
+          Requests</button>
       </div>
     </div>
   </dialog>
@@ -3088,43 +3490,63 @@
        it can be approved/denied from inside the asset kit itself. The
        session polls GET /api/approval-status for the id until it stops
        being 'pending'. -->
-  <dialog class="confirm-dialog" id="approval-dialog" style="border-color: rgba(34, 197, 94, 0.5); max-width: 520px; max-height: 82vh;">
-    <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; display: flex; flex-direction: column;">
+  <dialog class="confirm-dialog" id="approval-dialog"
+    style="border-color: rgba(34, 197, 94, 0.5); max-width: 520px; max-height: 82vh;">
+    <div class="confirm-box"
+      style="text-align: left; padding: 24px; max-height: 82vh; display: flex; flex-direction: column;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-shrink: 0;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">💳</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3);">
+          💳</div>
         <div>
-          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;" id="approval-title">Approval Requested</h4>
+          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;" id="approval-title">Approval
+            Requested</h4>
           <div style="font-size: 11px; color: var(--text-muted);">Nothing is spent until you approve this.</div>
         </div>
       </div>
       <div style="overflow-y: auto; min-height: 0; margin-bottom: 16px;">
-        <div id="approval-plan-list" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; font-size: 12.5px; color: var(--text-sub);"></div>
-        <div id="approval-cost-box" style="font-size: 13px; font-weight: 700; color: #4ade80; border-top: 1px solid var(--border-subtle); padding-top: 12px;"></div>
+        <div id="approval-plan-list"
+          style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; font-size: 12.5px; color: var(--text-sub);">
+        </div>
+        <div id="approval-cost-box"
+          style="font-size: 13px; font-weight: 700; color: #4ade80; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+        </div>
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; flex-shrink: 0; flex-wrap: wrap;">
         <button class="btn-danger" id="approval-deny-btn">Deny</button>
-        <button class="btn-primary" id="approval-approve-icononly-btn" title="Create the icon(s) but skip Meshy 3D model generation - not every item ends up needing a model" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12.5px;">Approve (Icon Only, No Model)</button>
-        <button class="btn-primary" id="approval-approve-btn" style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Approve</button>
+        <button class="btn-primary" id="approval-approve-icononly-btn"
+          title="Create the icon(s) but skip Meshy 3D model generation - not every item ends up needing a model"
+          style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12.5px;">Approve
+          (Icon Only, No Model)</button>
+        <button class="btn-primary" id="approval-approve-btn"
+          style="background: #22c55e; color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Approve</button>
       </div>
     </div>
   </dialog>
 
-  <dialog class="confirm-dialog" id="ghost-entries-dialog" style="border-color: rgba(239, 68, 68, 0.5); max-width: 560px;">
+  <dialog class="confirm-dialog" id="ghost-entries-dialog"
+    style="border-color: rgba(239, 68, 68, 0.5); max-width: 560px;">
     <div class="confirm-box" style="text-align: left; padding: 24px; max-height: 82vh; overflow-y: auto;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(239, 68, 68, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️</div>
+        <div
+          style="font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: rgba(239, 68, 68, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(239, 68, 68, 0.3);">
+          ⚠️</div>
         <div>
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Broken Catalog Entries</h4>
-          <div id="ghost-subtitle" style="font-size: 11px; color: var(--text-muted);">These are listed in the catalog but have no folder on disk — broken icon/model.</div>
+          <div id="ghost-subtitle" style="font-size: 11px; color: var(--text-muted);">These are listed in the catalog
+            but have no folder on disk — broken icon/model.</div>
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-        <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); cursor: pointer;">
+        <label
+          style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); cursor: pointer;">
           <input type="checkbox" id="ghost-select-all">
           Select all
         </label>
       </div>
-      <div id="ghost-item-list" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; max-height: 320px; overflow-y: auto;"></div>
+      <div id="ghost-item-list"
+        style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; max-height: 320px; overflow-y: auto;">
+      </div>
       <div class="confirm-actions" style="justify-content: space-between; gap: 10px;">
         <button class="btn-cancel" id="ghost-close-btn">Close</button>
         <button class="btn-danger" id="ghost-remove-btn">Remove Selected</button>
@@ -3136,18 +3558,25 @@
   <dialog class="confirm-dialog" id="batch-delete-dialog" style="max-width: 520px;">
     <div class="confirm-box" style="text-align: left; padding: 24px;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
-        <div style="font-size: 26px; width: 44px; height: 44px; border-radius: 10px; background: rgba(225, 29, 72, 0.15); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(225, 29, 72, 0.4); color: #fb7185;">⚠️</div>
+        <div
+          style="font-size: 26px; width: 44px; height: 44px; border-radius: 10px; background: rgba(225, 29, 72, 0.15); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(225, 29, 72, 0.4); color: #fb7185;">
+          ⚠️</div>
         <div>
-          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 17px; color: #f8fafc;">Delete <span id="batch-dialog-count">0</span> Selected Assets?</h4>
-          <p style="margin: 3px 0 0 0; font-size: 12px; color: var(--text-muted);">Permanently removes all checked asset folders from disk.</p>
+          <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 17px; color: #f8fafc;">Delete <span
+              id="batch-dialog-count">0</span> Selected Assets?</h4>
+          <p style="margin: 3px 0 0 0; font-size: 12px; color: var(--text-muted);">Permanently removes all checked asset
+            folders from disk.</p>
         </div>
       </div>
-      <div id="batch-dialog-list" style="max-height: 180px; overflow-y: auto; background: #0c121c; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px;">
+      <div id="batch-dialog-list"
+        style="max-height: 180px; overflow-y: auto; background: #0c121c; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px;">
         <!-- Filled dynamically with asset tags -->
       </div>
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" id="batch-cancel-btn">Cancel (Esc)</button>
-        <button class="btn-danger" id="batch-confirm-btn" style="background: var(--accent-rose); color: #fff; border: none; font-weight: 700; padding: 9px 20px; border-radius: 6px; cursor: pointer;">Permanently Delete All (Enter)</button>
+        <button class="btn-danger" id="batch-confirm-btn"
+          style="background: var(--accent-rose); color: #fff; border: none; font-weight: 700; padding: 9px 20px; border-radius: 6px; cursor: pointer;">Permanently
+          Delete All (Enter)</button>
       </div>
     </div>
   </dialog>
@@ -3174,12 +3603,15 @@
       <span class="status-label">Monitor</span>
       <span class="status-value" id="status-monitor-value">…</span>
     </div>
-    <div class="status-item" id="status-meshy" title="Live balance from Meshy AI — click to refresh now" style="cursor: pointer;">
+    <div class="status-item" id="status-meshy" title="Live balance from Meshy AI — click to refresh now"
+      style="cursor: pointer;">
       <span class="status-icon">🧊</span>
       <span class="status-label">Meshy</span>
       <span class="status-value" id="status-meshy-value">…</span>
     </div>
-    <div class="status-item" id="status-creativeclaw" title="Last known balance — Creative Claw has no local API key, so this isn't live-polled. Click to re-check the cached value." style="cursor: pointer;">
+    <div class="status-item" id="status-creativeclaw"
+      title="Last known balance — Creative Claw has no local API key, so this isn't live-polled. Click to re-check the cached value."
+      style="cursor: pointer;">
       <span class="status-icon">🎨</span>
       <span class="status-label">Creative Claw</span>
       <span class="status-value" id="status-creativeclaw-value">…</span>
@@ -3190,7 +3622,8 @@
       <span class="status-value" id="status-claude-value">…</span>
       <span class="status-value" id="status-claude-value-7d">…</span>
     </div>
-    <div class="status-item status-ghost-alert" id="status-ghost-alert" title="Click to review and remove" hidden style="margin-left: auto;">
+    <div class="status-item status-ghost-alert" id="status-ghost-alert" title="Click to review and remove" hidden
+      style="margin-left: auto;">
       <span class="status-icon">⚠️</span>
       <span id="status-ghost-alert-text"></span>
     </div>
@@ -3200,8 +3633,8 @@
   <!-- Embedded Data Payload -->
   <script>
     let ALL_ITEMS = [];
-    const CATEGORIES_META = {"structures": {"name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers."}, "building": {"name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies."}, "farming": {"name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery."}, "ranching": {"name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing."}, "logging": {"name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots."}, "fishing": {"name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle."}, "tools": {"name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment."}, "electricity": {"name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring."}, "water": {"name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks."}, "waste": {"name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management."}, "internet": {"name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling."}, "hud": {"name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements."}, "ground": {"name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props."}, "food": {"name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients."}, "fuel": {"name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment."}, "materials": {"name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources."}, "ingredients": {"name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients."}};
-    
+    const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." } };
+
     let activeItem = null;
     const SELECTED_ITEMS = new Map(); // key category_slash_id to item object
 
@@ -3370,7 +3803,7 @@
             const url = new URL(img.src, window.location.href);
             url.searchParams.set("t", ts);
             img.src = url.toString();
-          } catch(e) {
+          } catch (e) {
             img.src = `${img.src.split('?')[0]}?t=${ts}`;
           }
         });
@@ -3381,7 +3814,7 @@
               const mUrl = new URL(mImg.src, window.location.href);
               mUrl.searchParams.set("t", ts);
               mImg.src = mUrl.toString();
-            } catch(e) {
+            } catch (e) {
               mImg.src = `${mImg.src.split('?')[0]}?t=${ts}`;
             }
           }
@@ -3714,7 +4147,7 @@
       const confirmDialog = document.getElementById("confirm-delete-dialog");
       const itemModal = document.getElementById("item-modal");
       const proceedBtn = document.getElementById("confirm-proceed-btn");
-      
+
       proceedBtn.disabled = true;
       proceedBtn.innerText = "Deleting...";
 
@@ -3741,13 +4174,13 @@
           confirmDialog.close();
           itemModal.close();
           cleanup3DViewport();
-          
+
           // Remove from memory
           const idx = ALL_ITEMS.findIndex(x => x.id === it.id && x.category === it.category);
           if (idx !== -1) {
             ALL_ITEMS.splice(idx, 1);
           }
-          
+
           // Animate card removal from DOM
           const card = document.querySelector(`.item-card[data-item-id="${it.id}"][data-category="${it.category}"]`);
           if (card) {
@@ -3765,7 +4198,7 @@
             buildCategorySidebar();
             renderGallery();
           }
-          
+
           showToast(`🗑️ Asset "${it.id}" permanently deleted from disk.`, "success");
         } else {
           showToast(`Error: ${data?.error || "Failed to delete asset"}`, "error");
@@ -4050,7 +4483,7 @@
       buildCategorySidebar();
       renderGallery();
     }
-    
+
     // Three.js instance handles
     let threeScene = null;
     let threeCamera = null;
@@ -4172,7 +4605,7 @@
 
           // Skip fish creature vs fish fillet
           if ((a.id.startsWith("animal_fish_") && b.id.startsWith("ingredient_fillet_")) ||
-              (b.id.startsWith("animal_fish_") && a.id.startsWith("ingredient_fillet_"))) {
+            (b.id.startsWith("animal_fish_") && a.id.startsWith("ingredient_fillet_"))) {
             continue;
           }
 
@@ -4199,7 +4632,7 @@
             isDup = true;
             clusterName = a.name;
           } else if ((a.id === stemB && !PREFIXES.some(p => a.id.startsWith(p))) ||
-                     (b.id === stemA && !PREFIXES.some(p => b.id.startsWith(p)))) {
+            (b.id === stemA && !PREFIXES.some(p => b.id.startsWith(p)))) {
             isDup = true;
             clusterName = stemA.replace(/_/g, " ").toUpperCase();
           } else if (stemA === stemB) {
@@ -5128,6 +5561,11 @@
       sidebarMode = mode;
       if (mode === "categories") {
         activeTag = null;
+      } else if (mode === "tags") {
+        if (!activeTag) {
+          const names = Object.keys(TAG_REGISTRY).sort();
+          if (names.length > 0) activeTag = names[0];
+        }
       }
       buildCategorySidebar();
       renderGallery();
@@ -5303,20 +5741,6 @@
     function renderTagRegistrySidebar(sidebar) {
       const container = document.createElement("div");
       container.style.cssText = "display: flex; flex-direction: column; gap: 3px;";
-
-      // "All Tags" view reset
-      const allTagsBtn = document.createElement("button");
-      allTagsBtn.className = `cat-btn ${activeTag === null ? "active" : ""}`;
-      allTagsBtn.innerHTML = `
-        <span class="cat-label"><span>🏷️</span> All Tag Groups</span>
-        <span class="cat-count">${Object.keys(TAG_REGISTRY).length}</span>
-      `;
-      allTagsBtn.onclick = () => {
-        activeTag = null;
-        buildCategorySidebar();
-        renderGallery();
-      };
-      container.appendChild(allTagsBtn);
 
       const tagNames = Object.keys(TAG_REGISTRY).sort();
       tagNames.forEach(tagName => {
@@ -7042,7 +7466,7 @@
       activeCategory = cat;
       activeSubfolder = null;
       buildCategorySidebar();
-      
+
       // Update banner
       const bannerTitle = document.getElementById("banner-title");
       const bannerDesc = document.getElementById("banner-desc");
@@ -7054,16 +7478,16 @@
         bannerTitle.innerHTML = `${meta.icon || ""} ${meta.name || cat}`;
         bannerDesc.innerText = meta.desc || "";
       }
-      
+
       renderGallery();
     }
 
     function renderGallery() {
       const grid = document.getElementById("item-grid");
       grid.innerHTML = "";
-      
+
       const q = searchQuery.toLowerCase().trim();
-      
+
       const filtered = ALL_ITEMS.filter(it => {
         if (activeTag) {
           const members = TAG_REGISTRY[activeTag] || [];
@@ -7077,11 +7501,11 @@
         } else {
           if (activeCategory !== "all" && it.category !== activeCategory) return false;
         }
-        
+
         if (activeFilter === "duplicates" && !it._isDuplicate) return false;
         if (activeFilter === "3d" && !it.has_3d) return false;
         if (activeFilter === "grow" && !it.growth?.is_growable) return false;
-        
+
         if (q) {
           const matchName = it.name.toLowerCase().includes(q);
           const matchId = it.id.toLowerCase().includes(q);
@@ -7090,7 +7514,7 @@
           const matchSpecies = sp ? sp.toLowerCase().includes(q) : false;
           if (!matchName && !matchId && !matchDesc && !matchSpecies) return false;
         }
-        
+
         return true;
       });
 
@@ -7286,9 +7710,9 @@
           openItemModal(it);
         }
       };
-      
+
       const iconSrc = it.icon || "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' fill='%23334863'><rect width='64' height='64' rx='8'/><text x='32' y='36' font-size='20' text-anchor='middle' fill='%2364748b'>📦</text></svg>";
-      
+
       const badge3D = it.has_3d ? `<span class="badge-3d">${it.model_format?.toUpperCase() || '3D'}</span>` : "";
       const badgeRig = it.rigging?.is_rigged ? `<span class="badge-rig" title="Rigged${it.rigging.animations ? ': ' + it.rigging.animations.join(', ') : ''}">RIG</span>` : "";
       const badgeGrow = it.growth?.is_growable ? `<span class="badge-grow">🌱 STAGE ${it.growth.current_stage?.stage || 1}</span>` : "";
@@ -7925,7 +8349,7 @@
         requestRigBtn.onclick = () => executeRequestRigging(it);
       }
       const modal = document.getElementById("item-modal");
-      
+
       // Header
       const iconSrc = it.icon || "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' fill='%2316202e'/><text x='32' y='36' font-size='24' text-anchor='middle' fill='%2364748b'>📦</text></svg>";
       document.getElementById("m-icon-img").src = iconSrc;
@@ -8150,15 +8574,15 @@
           const box = new THREE.Box3().setFromObject(fbx);
           const size = box.getSize(new THREE.Vector3());
           const center = box.getCenter(new THREE.Vector3());
-          
+
           const maxDim = Math.max(size.x, size.y, size.z);
           const scale = 2.2 / (maxDim || 1.0);
           fbx.scale.set(scale, scale, scale);
-          
+
           fbx.position.x = -center.x * scale;
           fbx.position.y = -box.min.y * scale;
           fbx.position.z = -center.z * scale;
-          
+
           threeScene.add(fbx);
           setupAnimationButtons(fbx.animations || [], (clip) => new THREE.AnimationMixer(fbx));
         },
@@ -8240,16 +8664,16 @@
           const box = new THREE.Box3().setFromObject(obj);
           const size = box.getSize(new THREE.Vector3());
           const center = box.getCenter(new THREE.Vector3());
-          
+
           const maxDim = Math.max(size.x, size.y, size.z);
           const scale = 2.0 / (maxDim || 1.0);
           obj.scale.set(scale, scale, scale);
-          
+
           // Re-center
           obj.position.x = -center.x * scale;
           obj.position.y = -box.min.y * scale; // Ground base
           obj.position.z = -center.z * scale;
-          
+
           // Apply default nice material if mesh has none
           obj.traverse((child) => {
             if (child.isMesh) {
@@ -8263,7 +8687,7 @@
               }
             }
           });
-          
+
           threeScene.add(obj);
         },
         undefined,
@@ -8388,4 +8812,5 @@
     }
   </script>
 </body>
+
 </html>
