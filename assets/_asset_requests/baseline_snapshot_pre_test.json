@@ -1,13 +1,7 @@
 {
-  "timestamp": "2026-09-16T21:37:06Z",
-  "epoch": 1789594626.8663654,
-  "pending_requests": [
-    "1789516738_large_submerisible_well_pump.json",
-    "1789516752_small_submersible_well_pump.json",
-    "1789516852_concrete_well_head.json",
-    "1789516880_wooden_well_head.json",
-    "1789516900_mature_oak_tree.json"
-  ],
+  "timestamp": "2026-09-17T18:11:58Z",
+  "epoch": 1789668718.8961558,
+  "pending_requests": [],
   "batches": [
     "batch_1789456270.json",
     "batch_1789458884.json",
@@ -30,20 +24,13 @@
     "batch_1789501760.json",
     "batch_1789516107.json",
     "batch_1789516768.json",
-    "batch_1789516915.json"
+    "batch_1789516915.json",
+    "batch_1789594712.json",
+    "batch_1789597549.json",
+    "batch_1789602833.json",
+    "batch_1789651222.json"
   ],
-  "done_requests": [
-    "1789510307_charcoal.json",
-    "1789513341_high_capacity_water_well_pump.json",
-    "1789513341_low_capacity_water_well_pump.json",
-    "1789513341_manual_well.json",
-    "1789513342_hand_pump_well_head.json",
-    "1789514419_shower_stall.json",
-    "1789514586_winter_coat.json",
-    "1789515401_fiberglass_insulation_batt.json",
-    "1789515401_interior_wall_paint.json",
-    "1789515780_chinking.json"
-  ],
+  "done_requests": [],
   "in_progress": [],
   "categories": {
     "appliances": [
@@ -100,12 +87,16 @@
       "box_small_brown",
       "box_small_tan",
       "box_small_white",
+      "building_chinking",
       "building_glass",
       "building_insulation_fiberglass_batt",
       "building_metal",
       "building_paint_interior_wall",
       "building_pallet_wood",
       "building_rebar_steel_bundle",
+      "building_steel_frame_beam",
+      "building_steel_siding_corrugated",
+      "building_steel_stud_framing",
       "camp_campfire_ring",
       "camp_picnictable_wood",
       "dock_large_new",
@@ -454,7 +445,6 @@
       "mat_bale_hay_square",
       "mat_bale_straw_round",
       "mat_bale_straw_square",
-      "mat_chinking",
       "mat_feather",
       "mat_fertilizer",
       "mat_leather",
@@ -521,7 +511,20 @@
       "mat_wood_logs_stack",
       "mat_wool_fleece"
     ],
+    "models_legacy": [
+      "building",
+      "electricity",
+      "farming",
+      "fishing",
+      "internet",
+      "logging",
+      "ranching",
+      "sewage",
+      "tools",
+      "water"
+    ],
     "peds": [
+      "peds_female_farmer",
       "peds_male_farmer"
     ],
     "ranching": [
@@ -579,6 +582,7 @@
       "struct_complete_farmhouse",
       "struct_complete_greenhouse",
       "struct_complete_large_log_cabin",
+      "struct_complete_large_metal_garage",
       "struct_complete_small_cabin",
       "struct_complete_stable",
       "struct_complete_starter_house",
@@ -587,6 +591,7 @@
       "struct_foundation_farmhouse",
       "struct_foundation_greenhouse",
       "struct_foundation_large_log_cabin",
+      "struct_foundation_large_metal_garage",
       "struct_foundation_small_cabin",
       "struct_foundation_stable",
       "struct_foundation_starter_house",
@@ -595,6 +600,7 @@
       "struct_framing_farmhouse",
       "struct_framing_greenhouse",
       "struct_framing_large_log_cabin",
+      "struct_framing_large_metal_garage",
       "struct_framing_small_cabin",
       "struct_framing_stable",
       "struct_framing_starter_house",
@@ -607,6 +613,7 @@
       "struct_walls_farmhouse",
       "struct_walls_greenhouse",
       "struct_walls_large_log_cabin",
+      "struct_walls_large_metal_garage",
       "struct_walls_small_cabin",
       "struct_walls_stable",
       "struct_walls_starter_house",
@@ -741,10 +748,14 @@
       "water_pump_high_capacity",
       "water_pump_jet_shallow_well",
       "water_pump_low_capacity",
+      "water_pump_submersible_1hp",
+      "water_pump_submersible_3hp",
       "water_pvc_bundle",
       "water_sprinkler",
       "water_wand_watering_brass",
       "water_watering_can",
+      "water_well_head_concrete",
+      "water_well_head_wooden",
       "water_well_manual"
     ]
   }

@@ -3,7 +3,8 @@ import shutil
 import json
 import sys
 
-BASE_DIR = r"C:\Users\casey\Desktop\Homesteader\assets"
+# This file lives in assets/_asset_requests/, so two levels up is assets/.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REQ_DIR = os.path.join(BASE_DIR, "_asset_requests")
 SNAPSHOT_FILE = os.path.join(REQ_DIR, "baseline_snapshot_pre_test.json")
 

@@ -1,8 +1,8 @@
 import os
 import json
 import time
-
-base_dir = r"C:\Users\casey\Desktop\Homesteader\assets"
+# This file lives in assets/_asset_requests/, so two levels up is assets/.
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 req_dir = os.path.join(base_dir, "_asset_requests")
 
 snapshot = {
