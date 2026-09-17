@@ -17,7 +17,8 @@ from PIL import Image
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import meshy_client
 
-HOMESTEADER_ROOT = r"C:\Users\casey\Desktop\Homesteader"
+# tools/ sits at the repo root, so one level up is the project root.
+HOMESTEADER_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS_DIR = os.path.join(HOMESTEADER_ROOT, "assets")
 UE5_ICON_DIR = os.path.join(HOMESTEADER_ROOT, "Homesteader", "Content", "Homesteader", "UI", "Icons")
 
@@ -220,7 +221,7 @@ def format_compliant_icon(src_img_path, dest_icon_path, max_dim=104):
     nw = max(1, int(w * scale))
     nh = max(1, int(h * scale))
     scaled = cropped.resize((nw, nh), Image.Resampling.LANCZOS)
-    
+
     icon = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
     offset = ((128 - nw) // 2, (128 - nh) // 2)
     icon.paste(scaled, offset, scaled)
@@ -231,14 +232,14 @@ def process_batch(items, scratch_base_dir):
     print(f"\n==========================================")
     print(f"Submitting {len(items)} preview tasks in batch...")
     print(f"==========================================")
-    
+
     preview_tasks = []
     for item in items:
         item_id = item["item_id"]
         category = item["category"]
         prompt = item["prompt"]
         neg = item.get("negative_prompt", "")
-        
+
         print(f"Submitting preview for {item_id}...")
         payload = {
             "mode": "preview",
@@ -255,7 +256,7 @@ def process_batch(items, scratch_base_dir):
         print(f"  -> Task ID: {task_id}")
         preview_tasks.append((item, task_id))
         time.sleep(1) # brief pacing
-        
+
     print(f"\nWaiting for all {len(preview_tasks)} previews to finish...")
     completed_previews = []
     for item, task_id in preview_tasks:
@@ -263,7 +264,7 @@ def process_batch(items, scratch_base_dir):
         t = meshy_client.wait_for_task("text-to-3d", task_id, timeout_sec=360, poll_interval=6)
         completed_previews.append((item, t))
         print(f"  Preview done for {item['item_id']}!")
-        
+
     print(f"\nSubmitting refine tasks for all {len(completed_previews)} items...")
     refine_tasks = []
     for item, prev_task in completed_previews:
@@ -275,58 +276,60 @@ def process_batch(items, scratch_base_dir):
         print(f"  -> Refine Task ID: {ref_id}")
         refine_tasks.append((item, ref_id))
         time.sleep(1)
-        
+
     print(f"\nWaiting for all {len(refine_tasks)} refines to finish...")
     for item, ref_id in refine_tasks:
         item_id = item["item_id"]
         category = item["category"]
         prefix = item["model_prefix"]
-        
+
         print(f"Waiting for refine of {item_id} ({ref_id})...")
         ref_task = meshy_client.wait_for_task("text-to-3d", ref_id, timeout_sec=360, poll_interval=6)
         print(f"  Refine done for {item_id}!")
-        
+
         # Download and deploy
         dest_dir = os.path.join(ASSETS_DIR, category, item_id)
         os.makedirs(dest_dir, exist_ok=True)
         item_scratch = os.path.join(scratch_base_dir, item_id)
         os.makedirs(item_scratch, exist_ok=True)
-        
+
         print(f"Downloading models for {item_id}...")
         downloaded = meshy_client.download_model_files(ref_task, item_scratch, prefix)
-        
+
         # Download thumbnail
         thumb_url = ref_task.get("alpha_thumbnail_url") or ref_task.get("thumbnail_url")
         thumb_path = os.path.join(item_scratch, "preview.png")
         if thumb_url:
             urllib.request.urlretrieve(thumb_url, thumb_path)
-            
+
         # Copy models to asset directory
         for p in downloaded:
             ext = os.path.splitext(p)[1]
             dest_f = os.path.join(dest_dir, f"{prefix}{ext}")
             shutil.copy2(p, dest_f)
             print(f"  Deployed {ext} to {dest_f}")
-            
+
         # Generate and save icon
         icon_path = os.path.join(dest_dir, f"{item_id}.png")
         if os.path.exists(thumb_path):
             format_compliant_icon(thumb_path, icon_path)
             print(f"  Created 128x128 icon: {icon_path}")
-            
+
             # Sync to UE5
             ue5_cat = os.path.join(UE5_ICON_DIR, category)
             if os.path.exists(ue5_cat):
                 shutil.copy2(icon_path, os.path.join(ue5_cat, f"{item_id}.png"))
                 print(f"  Synced to UE5: {ue5_cat}")
-                
+
     print(f"\nBatch processing complete!")
 
 if __name__ == "__main__":
     balance = meshy_client.get_balance()
     print(f"Meshy Asset Pipeline. Current Balance: {balance} credits.")
-    
-    scratch_dir = os.path.join(HOMESTEADER_ROOT, "HUD", "scratch_meshy")
+
+    # scratch/ lives at the repo root (see tools/README.md). It was previously
+    # written under HUD/, which no longer exists.
+    scratch_dir = os.path.join(HOMESTEADER_ROOT, "scratch", "meshy_output")
     os.makedirs(scratch_dir, exist_ok=True)
     
     mode = sys.argv[1] if len(sys.argv) > 1 else "trees"
