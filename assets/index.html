@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homesteader // Master Asset Kit</title>
+  <link rel="icon" type="image/png" href="/hud/hud_badge_3d/hud_badge_3d.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
@@ -55,16 +56,16 @@
       background-color: var(--bg-canvas);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-y: scroll;
+      overflow: hidden;
     }
 
     /* Top Sticky Header */
     header.app-header {
-      position: sticky;
-      top: 0;
+      flex-shrink: 0;
       z-index: 100;
       background: rgba(17, 24, 35, 0.85);
       backdrop-filter: blur(14px);
@@ -258,9 +259,11 @@
     .app-body {
       display: flex;
       flex: 1;
-      padding: 20px 28px 76px;
+      min-height: 0;
+      padding: 16px 28px 42px;
       gap: 24px;
-      align-items: flex-start;
+      align-items: stretch;
+      overflow: hidden;
     }
 
     .status-bar {
@@ -351,18 +354,17 @@
       background: rgba(239, 68, 68, 0.08);
     }
 
-    /* Category Navigation Nav - Pinned Sticky on scroll */
+    /* Category Navigation Nav - Independent Scrolling */
     aside.cat-sidebar {
       width: 280px;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       gap: 0px;
-      position: sticky;
-      top: 125px;
-      max-height: calc(100vh - 145px);
+      height: 100%;
       overflow-y: auto;
-      padding-right: 4px;
+      overscroll-behavior: contain;
+      padding-right: 6px;
     }
 
     aside.cat-sidebar::-webkit-scrollbar {
@@ -620,22 +622,32 @@
       background: rgba(56, 189, 248, 0.08) !important;
     }
 
-    /* Main Gallery Grid */
+    /* Main Gallery Grid - Independent Scrolling */
     main.gallery-content {
       flex: 1;
       min-width: 0;
+      height: 100%;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-right: 8px;
     }
 
     .cat-header-banner {
-      background: var(--bg-panel);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(17, 24, 35, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 16px 20px;
+      padding: 14px 18px;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
     }
 
     .banner-text h2 {
@@ -1082,6 +1094,30 @@
       border-color: #0284c7;
       color: #fff;
       transform: translateX(-2px);
+    }
+
+    /* ================================================= */
+    /* Dialog & Modal Scroll Isolation (Block background scroll bleed-through) */
+    /* ================================================= */
+    body:has(dialog[open]) {
+      overflow: hidden !important;
+    }
+
+    body:has(dialog[open]) .cat-sidebar,
+    body:has(dialog[open]) .gallery-content {
+      overflow: hidden !important;
+    }
+
+    dialog {
+      overscroll-behavior: contain;
+    }
+
+    .modal-container,
+    .modal-body,
+    .modal-info-col,
+    .confirm-dialog,
+    .confirm-dialog-content {
+      overscroll-behavior: contain;
     }
 
     /* ================================================= */
@@ -1737,9 +1773,11 @@
       color: var(--text-main);
       max-width: 440px;
       width: 90vw;
+      max-height: 88vh;
       padding: 0;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
-      overflow: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     dialog.confirm-dialog::backdrop {
@@ -2186,6 +2224,135 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
+    /* Schema Compound / Group / Array UI */
+    .schema-compound-card {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .schema-compound-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .schema-compound-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .schema-type-badge {
+      font-size: 9.5px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      text-transform: none;
+    }
+
+    .schema-note-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .schema-btn-small {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .schema-btn-small:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: #38bdf8;
+    }
+
+    .schema-btn-danger {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #f87171;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .schema-btn-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #f87171;
+    }
+
+    .schema-tool-group-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 5px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+    }
+
+    .schema-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .schema-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: #bae6fd;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .chip-del-btn {
+      cursor: pointer;
+      color: #94a3b8;
+      font-weight: bold;
+      margin-left: 3px;
+      font-size: 11px;
+    }
+
+    .chip-del-btn:hover {
+      color: #f87171;
+    }
+
+    .schema-chip-input {
+      font-size: 11.5px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
 
     /* Raw JSON Toggle */
     .json-accordion {
@@ -2354,6 +2521,9 @@
         <button class="filter-chip" id="btn-request-growth-group"
           title="Queue a full lifecycle (multiple linked stages) as one request, with the group's metadata and per-stage references defined up front"
           style="border-color: rgba(34, 197, 94, 0.4); color: #4ade80;">🌱 Request Growth Group</button>
+        <button class="filter-chip" id="btn-schema-editor"
+          title="Open Schema Editor to view, edit, validate, and create category schemas"
+          style="border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">📋 Schemas</button>
       </div>
     </div>
   </header>
@@ -2462,6 +2632,20 @@
 
         <!-- Right: Human-Readable Inspector -->
         <div class="modal-info-col">
+
+          <!-- Sticky Save Bar (shown when there are unsaved changes) -->
+          <div id="m-inspector-save-bar"
+            style="display: none; position: sticky; top: 0; z-index: 20; background: var(--bg-card); border-bottom: 1px solid rgba(251,191,36,0.3); padding: 8px 14px; align-items: center; gap: 10px; backdrop-filter: blur(8px);">
+            <span id="m-inspector-save-status"
+              style="font-size: 11.5px; font-weight: 600; color: #fbbf24; flex: 1;">Unsaved changes</span>
+            <button id="m-inspector-revert-btn" class="copy-json-btn" title="Discard changes (revert to last saved)"
+              style="font-size: 11px; padding: 3px 9px;">↩️ Revert</button>
+            <button id="m-inspector-save-btn" class="copy-json-btn" title="Save changes to disk (Ctrl+S)"
+              style="font-size: 11px; padding: 3px 9px; background: rgba(34,197,94,0.2); color: #4ade80; border-color: rgba(34,197,94,0.4); font-weight: 700;">💾
+              Save <kbd
+                style="font-size: 9.5px; opacity: 0.7; margin-left: 3px; background: rgba(255,255,255,0.1); padding: 1px 4px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2);">Ctrl+S</kbd></button>
+          </div>
+
           <!-- Description -->
           <div class="info-section">
             <div class="info-sec-title">📖 Description<span class="collapse-chevron">▼</span></div>
@@ -2471,11 +2655,23 @@
             </div>
           </div>
 
-          <!-- Physical & Game Properties -->
+          <!-- Base Schema Properties (Every item gets this schema) -->
           <div class="info-section">
-            <div class="info-sec-title">⚙️ Simulation Properties<span class="collapse-chevron">▼</span></div>
+            <div class="info-sec-title">
+              <span>📋 Base Schema & Properties</span>
+              <button type="button" class="copy-json-btn" id="m-edit-base-schema-btn"
+                title="Edit _base schema definition"
+                style="margin-left: auto; margin-right: 8px; font-size: 10.5px; padding: 2px 7px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8;">
+                ✏️ Edit Schema
+              </button>
+              <span class="collapse-chevron">▼</span>
+            </div>
             <div class="info-sec-body">
               <div class="kv-grid">
+                <div class="kv-box">
+                  <div class="kv-key">Base Value ($)</div><input class="kv-input" type="number" step="any" id="m-value"
+                    data-path="properties.base_value">
+                </div>
                 <div class="kv-box">
                   <div class="kv-key">Weight (kg)</div><input class="kv-input" type="number" step="any" id="m-weight"
                     data-path="properties.weight_kg">
@@ -2483,10 +2679,6 @@
                 <div class="kv-box">
                   <div class="kv-key">Max Stack Size</div><input class="kv-input" type="number" step="1" id="m-stack"
                     data-path="properties.max_stack_size">
-                </div>
-                <div class="kv-box">
-                  <div class="kv-key">Base Value ($)</div><input class="kv-input" type="number" step="any" id="m-value"
-                    data-path="properties.base_value">
                 </div>
                 <div class="kv-box">
                   <div class="kv-key">Consumable</div>
@@ -2499,35 +2691,58 @@
                   <div class="kv-key">Footprint</div><input class="kv-input" type="text" id="m-footprint"
                     data-path="properties.footprint" placeholder="—">
                 </div>
+                <div class="kv-box">
+                  <div class="kv-key">Happiness (±100)</div><input class="kv-input" type="number" step="1"
+                    id="m-happiness" data-path="properties.happiness_modifier" placeholder="0">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Thirst (±100)</div><input class="kv-input" type="number" step="1" id="m-thirst"
+                    data-path="properties.thirst_restore" placeholder="0">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Energy (±100)</div><input class="kv-input" type="number" step="1" id="m-energy"
+                    data-path="properties.energy_restore" placeholder="0">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Stamina (±100)</div><input class="kv-input" type="number" step="1" id="m-stamina"
+                    data-path="properties.stamina_restore" placeholder="0">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Wellness (±100)</div><input class="kv-input" type="number" step="1"
+                    id="m-wellness" data-path="properties.wellness_modifier" placeholder="0">
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 3D Dimensions & Geometry -->
-          <div class="info-section" id="sec-dimensions">
-            <div class="info-sec-title">📐 3D Dimensions & Metric Geometry<span class="collapse-chevron">▼</span></div>
+          <!-- Category Schema Fields (dynamic) -->
+          <div class="info-section" id="sec-category-schema" style="display: none;">
+            <div class="info-sec-title">
+              <span>🏷️ Category Schema (<span id="m-cat-schema-name">Category</span>)</span>
+              <button type="button" class="copy-json-btn" id="m-edit-cat-schema-btn"
+                title="Edit category schema definition"
+                style="margin-left: auto; margin-right: 8px; font-size: 10.5px; padding: 2px 7px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8;">
+                ✏️ Edit Schema
+              </button>
+              <span class="collapse-chevron">▼</span>
+            </div>
             <div class="info-sec-body">
-              <div class="kv-grid">
-                <div class="kv-box">
-                  <div class="kv-key">Width (X)</div>
-                  <div class="kv-val" id="m-dim-x">—</div>
-                </div>
-                <div class="kv-box">
-                  <div class="kv-key">Depth (Y)</div>
-                  <div class="kv-val" id="m-dim-y">—</div>
-                </div>
-                <div class="kv-box">
-                  <div class="kv-key">Height (Z)</div>
-                  <div class="kv-val" id="m-dim-z">—</div>
-                </div>
-                <div class="kv-box">
-                  <div class="kv-key">Polygons / Faces</div>
-                  <div class="kv-val" id="m-faces">—</div>
-                </div>
+              <div class="kv-grid" id="m-cat-schema-grid">
+                <!-- Dynamically populated from category_fields (scalars) -->
+              </div>
+              <div id="m-cat-schema-complex" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+                <!-- Dynamically populated for arrays and groups/objects -->
+              </div>
+              <div id="m-cat-schema-missing"
+                style="display: none; margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08);">
+                <!-- Missing schema fields quick-add -->
               </div>
             </div>
           </div>
 
+          <!-- Datalists for Recipe Items and Tool Auto-Completion -->
+          <datalist id="schema-recipe-item-datalist"></datalist>
+          <datalist id="schema-tools-datalist"></datalist>
 
           <!-- 4-Stage Growth Lifecycle -->
           <div class="info-section" id="sec-growth">
@@ -2555,6 +2770,31 @@
             </div>
             <div class="json-acc-body" id="json-acc-body">
               <textarea class="json-pre json-edit" id="m-raw-json" spellcheck="false"></textarea>
+            </div>
+          </div>
+
+          <!-- 3D Dimensions & Geometry (collapsed by default at bottom) -->
+          <div class="info-section collapsed" id="sec-dimensions">
+            <div class="info-sec-title">📐 3D Dimensions & Metric Geometry<span class="collapse-chevron">▼</span></div>
+            <div class="info-sec-body">
+              <div class="kv-grid">
+                <div class="kv-box">
+                  <div class="kv-key">Width (X)</div>
+                  <div class="kv-val" id="m-dim-x">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Depth (Y)</div>
+                  <div class="kv-val" id="m-dim-y">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Height (Z)</div>
+                  <div class="kv-val" id="m-dim-z">—</div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Polygons / Faces</div>
+                  <div class="kv-val" id="m-faces">—</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2737,6 +2977,211 @@
     </div>
   </dialog>
 
+  <!-- Schema Editor Dialog -->
+  <dialog class="confirm-dialog" id="schema-editor-dialog"
+    style="border-color: rgba(56, 189, 248, 0.5); max-width: 860px; width: 92vw;">
+    <div class="confirm-box" style="text-align: left; padding: 22px 24px; max-height: 85vh; overflow-y: auto;">
+      <!-- Header -->
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div
+            style="font-size: 24px; width: 42px; height: 42px; border-radius: 10px; background: rgba(56, 189, 248, 0.12); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(56, 189, 248, 0.3);">
+            📋
+          </div>
+          <div>
+            <h4 class="confirm-title"
+              style="margin: 0; text-align: left; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+              Category & Base Schema Editor
+              <span id="schema-status-badge"
+                style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); font-weight: 600;">Active</span>
+            </h4>
+            <div style="font-size: 11.5px; color: var(--text-muted);">Inspect, define property requirements, and
+              validate item compliance for categories.</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" class="btn-cancel" id="schema-editor-close-btn"
+            style="padding: 5px 12px; font-size: 12px;">Close (Esc)</button>
+        </div>
+      </div>
+
+      <!-- Controls Row: Schema Selector + New Schema + Mode Switch -->
+      <div
+        style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; background: #0c121c; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 280px;">
+          <label for="schema-select"
+            style="font-size: 11.5px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px;">Schema:</label>
+          <select id="schema-select"
+            style="flex: 1; max-width: 260px; background: #16202e; border: 1px solid var(--border-subtle); color: #f8fafc; padding: 6px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; outline: none;">
+            <!-- Populated dynamically via JS -->
+          </select>
+          <button type="button" id="schema-new-btn"
+            style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.35); color: #4ade80; padding: 5px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap;">
+            + New Schema
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" id="schema-tab-visual-btn"
+            style="background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-sky); color: #38bdf8; padding: 5px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;">
+            Visual Builder
+          </button>
+          <button type="button" id="schema-tab-raw-btn"
+            style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;">
+            Raw JSON
+          </button>
+          <button type="button" id="schema-validate-btn"
+            style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #f59e0b; padding: 5px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            🔍 Check Compliance
+          </button>
+        </div>
+      </div>
+
+      <!-- Compliance Results Panel (hidden until run) -->
+      <div id="schema-compliance-panel"
+        style="display: none; margin-bottom: 16px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-subtle); background: #0b111a;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <div style="font-size: 12.5px; font-weight: 700; display: flex; align-items: center; gap: 8px;"
+            id="schema-compliance-summary">
+            <!-- Populated via JS -->
+          </div>
+          <button type="button" id="schema-compliance-close"
+            style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px;">✕</button>
+        </div>
+        <div id="schema-compliance-details"
+          style="max-height: 160px; overflow-y: auto; font-size: 11px; font-family: 'JetBrains Mono', monospace; display: flex; flex-direction: column; gap: 4px;">
+        </div>
+      </div>
+
+      <!-- Schema Metadata (Target Block + Note) -->
+      <div
+        style="display: flex; gap: 12px; margin-bottom: 14px; background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+        <div style="width: 180px;">
+          <label
+            style="display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">TARGET
+            MANIFEST BLOCK</label>
+          <select id="schema-meta-target"
+            style="width: 100%; background: #16202e; border: 1px solid var(--border-subtle); color: #f8fafc; padding: 6px 8px; border-radius: 4px; font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+            <option value="category_fields">category_fields (Per-category)</option>
+            <option value="properties">properties (Base schema)</option>
+          </select>
+        </div>
+        <div style="flex: 1;">
+          <label
+            style="display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">SCHEMA
+            PURPOSE / NOTE</label>
+          <input type="text" id="schema-meta-note"
+            style="width: 100%; background: #16202e; border: 1px solid var(--border-subtle); color: #f8fafc; padding: 6px 10px; border-radius: 4px; font-size: 12px;"
+            placeholder="Explains the purpose and constraints of this schema...">
+        </div>
+      </div>
+
+      <!-- Visual Builder View -->
+      <div id="schema-view-visual">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span
+            style="font-size: 12px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.6px;">Fields
+            Defined (<span id="schema-field-count">0</span>)</span>
+        </div>
+
+        <!-- Field Rows Container -->
+        <div id="schema-fields-list"
+          style="display: flex; flex-direction: column; gap: 6px; max-height: 280px; overflow-y: auto; margin-bottom: 14px; padding-right: 4px;">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Add / Edit Field Box -->
+        <div
+          style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 12px 14px;">
+          <div
+            style="font-size: 12px; font-weight: 700; color: var(--accent-sky); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <span id="schema-add-field-title">➕ Add Field Definition</span>
+            <button type="button" id="schema-cancel-edit-field-btn"
+              style="display: none; background: none; border: none; color: var(--text-muted); font-size: 11px; cursor: pointer;">Cancel
+              Edit</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <div>
+              <label style="display: block; font-size: 10.5px; color: var(--text-muted); margin-bottom: 3px;">FIELD
+                NAME</label>
+              <input type="text" id="field-in-name"
+                style="width: 100%; background: #0c121c; border: 1px solid var(--border-subtle); color: #38bdf8; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; padding: 6px 8px; border-radius: 4px;"
+                placeholder="e.g. power_draw_w">
+            </div>
+            <div>
+              <label
+                style="display: block; font-size: 10.5px; color: var(--text-muted); margin-bottom: 3px;">TYPE</label>
+              <select id="field-in-type"
+                style="width: 100%; background: #0c121c; border: 1px solid var(--border-subtle); color: #f8fafc; font-size: 12px; padding: 6px 8px; border-radius: 4px;">
+                <option value="number">number (float / int)</option>
+                <option value="string">string (text / enum)</option>
+                <option value="boolean">boolean (true / false)</option>
+                <option value="object">object (nested dict)</option>
+                <option value="array">array (list)</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 10.5px; color: var(--text-muted); margin-bottom: 3px;">MIN
+                (OPTIONAL)</label>
+              <input type="number" step="any" id="field-in-min"
+                style="width: 100%; background: #0c121c; border: 1px solid var(--border-subtle); color: #f8fafc; font-size: 12px; padding: 6px 8px; border-radius: 4px;"
+                placeholder="e.g. 0">
+            </div>
+            <div>
+              <label style="display: block; font-size: 10.5px; color: var(--text-muted); margin-bottom: 3px;">MAX
+                (OPTIONAL)</label>
+              <input type="number" step="any" id="field-in-max"
+                style="width: 100%; background: #0c121c; border: 1px solid var(--border-subtle); color: #f8fafc; font-size: 12px; padding: 6px 8px; border-radius: 4px;"
+                placeholder="e.g. 100">
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <div style="flex: 1;">
+              <input type="text" id="field-in-note"
+                style="width: 100%; background: #0c121c; border: 1px solid var(--border-subtle); color: #f8fafc; font-size: 12px; padding: 6px 10px; border-radius: 4px;"
+                placeholder="Description / note (e.g. Watts drawn while running, 0 if manual)">
+            </div>
+            <label
+              style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); cursor: pointer; user-select: none; white-space: nowrap;">
+              <input type="checkbox" id="field-in-required" checked> Required
+            </label>
+            <button type="button" id="field-submit-btn"
+              style="background: var(--accent-sky); color: #051329; border: none; font-weight: 700; font-size: 12px; padding: 6px 14px; border-radius: 4px; cursor: pointer; white-space: nowrap;">
+              Save Field
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raw JSON View (hidden by default) -->
+      <div id="schema-view-raw" style="display: none;">
+        <div style="margin-bottom: 8px; font-size: 11px; color: var(--text-muted);">Directly edit the raw schema JSON
+          document below:</div>
+        <textarea id="schema-raw-textarea" spellcheck="false"
+          style="width: 100%; height: 320px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.5; background: #080d15; border: 1px solid var(--border-subtle); color: #38bdf8; padding: 12px; border-radius: 8px; resize: vertical; outline: none;"></textarea>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="schema-dirty-text" style="font-size: 11.5px; color: #f59e0b; display: none;">⚠️ Unsaved
+            changes</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="btn-cancel" id="schema-revert-btn" style="padding: 7px 14px; font-size: 12px;">↩️
+            Revert</button>
+          <button type="button" class="btn-primary" id="schema-save-btn"
+            style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 7px 18px; border-radius: 6px; cursor: pointer;">💾
+            Save Schema</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Edit Category Dialog (custom categories only) -->
   <dialog class="confirm-dialog" id="edit-category-dialog"
     style="border-color: rgba(56, 189, 248, 0.5); max-width: 480px;">
@@ -2877,6 +3322,24 @@
       </div>
       <div style="margin-bottom: 14px;">
         <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Schema
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(which category schema to
+            validate against — defaults to match Category)</span></label>
+        <select id="reqasset-schema-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Generation
+          Pipeline</label>
+        <select id="reqasset-pipeline-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <option value="free">Free (FLUX + Hunyuan3D-2 via HF Space) — $0</option>
+          <option value="paid">Paid (Creative Claw + Meshy) — uses credits, asks to confirm cost first</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label
           style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Description
           <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(what it looks like / does —
             used as the generation prompt)</span></label>
@@ -3011,6 +3474,24 @@
           style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Category</label>
         <select id="reqgg-category-select"
           style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Schema
+          <span style="font-weight: normal; color: var(--text-muted); font-size: 11px;">(which category schema to
+            validate against — defaults to match Category)</span></label>
+        <select id="reqgg-schema-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"></select>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label
+          style="display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;">Generation
+          Pipeline</label>
+        <select id="reqgg-pipeline-select"
+          style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
+          <option value="free">Free (FLUX + Hunyuan3D-2 via HF Space) — $0</option>
+          <option value="paid">Paid (Creative Claw + Meshy) — uses credits, asks to confirm cost first</option>
+        </select>
       </div>
       <div style="margin-bottom: 14px;">
         <label
@@ -3639,16 +4120,52 @@
       <span class="status-value" id="status-claude-value">…</span>
       <span class="status-value" id="status-claude-value-7d">…</span>
     </div>
-    <div class="status-item status-ghost-alert" id="status-ghost-alert" title="Click to review and remove" hidden
-      style="margin-left: auto;">
-      <span class="status-icon">⚠️</span>
-      <span id="status-ghost-alert-text"></span>
+    <div class="status-item" id="status-gemini" title="Live — Gemini & Antigravity quota directly from local daemon"
+      style="cursor: pointer;">
+      <span class="status-icon">✨</span>
+      <span class="status-label">Gemini</span>
+      <span class="status-value" id="status-gemini-value">…</span>
+      <span class="status-value" id="status-gemini-pro-value">…</span>
+    </div>
+    <div class="status-bar-right" style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
+      <div class="status-item status-ghost-alert" id="status-ghost-alert" title="Click to review and remove" hidden>
+        <span class="status-icon">⚠️</span>
+        <span id="status-ghost-alert-text"></span>
+      </div>
+      <div class="status-item" id="status-refresh-btn" title="Refresh Catalog & Status"
+        style="cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0 4px; color: var(--text-muted); transition: color 0.15s ease;"
+        onmouseenter="this.style.color='var(--accent-sky)'" onmouseleave="this.style.color='var(--text-muted)'">
+        <span id="status-refresh-icon"
+          style="font-size: 15px; font-weight: 700; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transform-origin: center center; user-select: none;">&#x21bb;</span>
+      </div>
     </div>
   </footer>
 
 
   <!-- Embedded Data Payload -->
   <script>
+    window.onerror = function (msg, url, line, col, error) {
+      const errText = `JS Error: ${msg} (Line ${line}:${col})`;
+      console.error(errText, error);
+      try {
+        fetch("/api/client-error", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: String(msg), line, col, stack: error ? error.stack : null })
+        });
+      } catch (e) { }
+    };
+    window.addEventListener("unhandledrejection", function (event) {
+      console.error("Unhandled promise rejection:", event.reason);
+      try {
+        fetch("/api/client-error", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: String(event.reason), stack: event.reason?.stack })
+        });
+      } catch (e) { }
+    });
+
     let ALL_ITEMS = [];
     const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." } };
 
@@ -4770,26 +5287,75 @@
       if (activeFilter === "duplicates") renderGallery();
     }
 
-    // Initialize Web App
-    document.addEventListener("DOMContentLoaded", async () => {
-      await loadCatalog();
-      await loadKitConfig();
-      await loadTagRegistry();
-      deriveLegacyGrowthGroups();
-      computeDuplicates();
-      buildCategorySidebar();
-      renderGallery();
-      setupEventListeners();
+    // Resilient Application Initializer
+    async function initApp() {
+      try {
+        await loadCatalog();
+      } catch (e) {
+        console.error("Error in loadCatalog:", e);
+      }
+      try {
+        await loadKitConfig();
+      } catch (e) {
+        console.error("Error in loadKitConfig:", e);
+      }
+      try {
+        await loadTagRegistry();
+      } catch (e) {
+        console.error("Error in loadTagRegistry:", e);
+      }
+      try {
+        deriveLegacyGrowthGroups();
+      } catch (e) {
+        console.error("Error in deriveLegacyGrowthGroups:", e);
+      }
+      try {
+        computeDuplicates();
+      } catch (e) {
+        console.error("Error in computeDuplicates:", e);
+      }
+      try {
+        buildCategorySidebar();
+      } catch (e) {
+        console.error("Error in buildCategorySidebar:", e);
+      }
+      try {
+        renderGallery();
+      } catch (e) {
+        console.error("Error in renderGallery:", e);
+      }
+      try {
+        setupEventListeners();
+      } catch (e) {
+        console.error("Error in setupEventListeners:", e);
+      }
 
-      refreshStatusBar();
-      setInterval(refreshStatusBar, 30000);
+      try {
+        refreshStatusBar();
+        setInterval(refreshStatusBar, 30000);
+      } catch (e) {
+        console.error("Error in refreshStatusBar:", e);
+      }
 
-      refreshGhostAlert();
-      setInterval(refreshGhostAlert, 30000);
+      try {
+        refreshGhostAlert();
+        setInterval(refreshGhostAlert, 30000);
+      } catch (e) {
+        console.error("Error in refreshGhostAlert:", e);
+      }
 
+      try {
+        scheduleAssetRequestsPoll();
+      } catch (e) {
+        console.error("Error in scheduleAssetRequestsPoll:", e);
+      }
+    }
 
-      scheduleAssetRequestsPoll();
-    });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initApp);
+    } else {
+      initApp();
+    }
 
     // Adaptive polling: fast (2s) while something is actually in_progress so
     // step-by-step updates from a processing Claude session show up close to
@@ -5342,6 +5908,9 @@
       const claudeItem = document.getElementById("status-claude");
       const claudeVal = document.getElementById("status-claude-value");
       const claudeVal7d = document.getElementById("status-claude-value-7d");
+      const geminiItem = document.getElementById("status-gemini");
+      const geminiVal = document.getElementById("status-gemini-value");
+      const geminiProVal = document.getElementById("status-gemini-pro-value");
 
       const pingStart = performance.now();
       try {
@@ -5412,6 +5981,34 @@
         claudeVal7d.textContent = "";
         claudeVal.classList.add("status-error");
       }
+
+      try {
+        const res = await fetch("/api/gemini-usage", { cache: "no-store" });
+        const data = await res.json();
+        if (res.ok && data.success && data.online) {
+          const flashPct = data.flash ? data.flash.remaining_percent : null;
+          const proPct = data.pro ? data.pro.remaining_percent : null;
+          geminiVal.textContent = flashPct !== null ? `Flash: ${flashPct}%` : (proPct !== null ? `Gemini: ${proPct}%` : "online");
+          geminiProVal.textContent = proPct !== null ? `Pro: ${proPct}%` : "";
+          geminiVal.classList.remove("status-error");
+          geminiProVal.classList.remove("status-error");
+
+          const flashReset = data.flash?.reset_timestamp ? formatResetTooltip(data.flash.reset_timestamp) : (data.flash?.reset_time || "unknown");
+          const proReset = data.pro?.reset_timestamp ? formatResetTooltip(data.pro.reset_timestamp) : (data.pro?.reset_time || "unknown");
+          geminiVal.title = `Gemini Flash quota: ${flashPct}% remaining, resets ${flashReset}`;
+          geminiProVal.title = `Gemini Pro quota: ${proPct}% remaining, resets ${proReset}`;
+          geminiItem.title = `Live, from local Antigravity daemon (port ${data.port}). Tier: ${data.tier_name || "Google AI Pro"}. Click to refresh.`;
+        } else {
+          geminiVal.textContent = "unavailable";
+          geminiProVal.textContent = "";
+          geminiVal.classList.add("status-error");
+          geminiItem.title = data?.error || "Antigravity/Gemini daemon not detected.";
+        }
+      } catch (err) {
+        geminiVal.textContent = "unavailable";
+        geminiProVal.textContent = "";
+        geminiVal.classList.add("status-error");
+      }
     }
 
     // unixSeconds -> "in 3h 29m (2:50 PM)" style tooltip text
@@ -5450,19 +6047,30 @@
     // earlier edit. Disk is the only source of truth now: a create/edit/
     // move/delete can never leave this page's copy pointing at a category,
     // id, or icon path that no longer exists after a reload.
-    async function loadCatalog() {
-      try {
-        const res = await fetch("/api/catalog", { cache: "no-store" });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          ALL_ITEMS = data.items || [];
-        } else {
-          console.error("Failed to load catalog:", data?.error);
-          showToast(`Error loading catalog: ${data?.error || "unknown error"}`, "error");
+    async function loadCatalog(retries = 3) {
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          const res = await fetch("/api/catalog", { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          if (data && data.success) {
+            ALL_ITEMS = data.items || [];
+            updateHeaderStats();
+            return;
+          } else {
+            console.error("Failed to load catalog:", data?.error);
+            showToast(`Error loading catalog: ${data?.error || "unknown error"}`, "error");
+            break;
+          }
+        } catch (err) {
+          console.warn(`Catalog load attempt ${attempt}/${retries} failed:`, err);
+          if (attempt < retries) {
+            await new Promise(r => setTimeout(r, 400 * attempt));
+          } else {
+            console.error("Failed to load catalog after retries:", err);
+            showToast(`Server error loading catalog: ${err.message}`, "error");
+          }
         }
-      } catch (err) {
-        console.error("Failed to load catalog:", err);
-        showToast(`Server error loading catalog: ${err.message}`, "error");
       }
       updateHeaderStats();
     }
@@ -6274,6 +6882,496 @@
       }
     }
 
+    // =========================================================================
+    // Schema Editor Controller
+    // =========================================================================
+    let CURRENT_SCHEMA_NAME = null;
+    let CURRENT_SCHEMA_OBJ = null;
+    let SCHEMA_IS_DIRTY = false;
+    let SCHEMA_VIEW_MODE = "visual";
+    let EDITING_FIELD_NAME = null;
+
+    async function openSchemaEditorDialog(targetSchemaName = null) {
+      const dialog = document.getElementById("schema-editor-dialog");
+      if (!dialog) return;
+
+      SCHEMA_IS_DIRTY = false;
+      EDITING_FIELD_NAME = null;
+      updateSchemaDirtyUI();
+      switchSchemaViewMode("visual");
+      const compPanel = document.getElementById("schema-compliance-panel");
+      if (compPanel) compPanel.style.display = "none";
+      resetFieldInputForm();
+
+      await populateSchemaSelector(targetSchemaName);
+      dialog.showModal();
+    }
+
+    async function populateSchemaSelector(preferredName = null) {
+      const select = document.getElementById("schema-select");
+      if (!select) return;
+      select.innerHTML = '<option value="">Loading schemas…</option>';
+
+      try {
+        const res = await fetch("/api/schemas?all=1");
+        const data = await res.json();
+        const details = (data && data.details) || [];
+
+        select.innerHTML = "";
+
+        const baseGroup = document.createElement("optgroup");
+        baseGroup.label = "Universal Base Schemas";
+        const catGroup = document.createElement("optgroup");
+        catGroup.label = "Category Schemas";
+
+        details.forEach(item => {
+          const opt = document.createElement("option");
+          opt.value = item.name;
+          opt.textContent = `${item.name} (${item.field_count} fields)`;
+          if (item.name.startsWith("_")) {
+            baseGroup.appendChild(opt);
+          } else {
+            catGroup.appendChild(opt);
+          }
+        });
+
+        if (baseGroup.children.length > 0) select.appendChild(baseGroup);
+        if (catGroup.children.length > 0) select.appendChild(catGroup);
+
+        const availableNames = details.map(d => d.name);
+        if (preferredName && availableNames.includes(preferredName)) {
+          select.value = preferredName;
+        } else if (availableNames.includes("tools")) {
+          select.value = "tools";
+        } else if (availableNames.includes("_base")) {
+          select.value = "_base";
+        } else if (availableNames.length > 0) {
+          select.value = availableNames[0];
+        }
+
+        select.onchange = () => {
+          if (SCHEMA_IS_DIRTY) {
+            if (!confirm("You have unsaved changes in this schema. Discard and switch?")) {
+              select.value = CURRENT_SCHEMA_NAME;
+              return;
+            }
+          }
+          loadSchemaForEditing(select.value);
+        };
+
+        if (select.value) {
+          await loadSchemaForEditing(select.value);
+        }
+      } catch (err) {
+        select.innerHTML = `<option value="">Error loading schemas: ${err.message}</option>`;
+      }
+    }
+
+    async function loadSchemaForEditing(schemaName) {
+      if (!schemaName) return;
+      CURRENT_SCHEMA_NAME = schemaName;
+      SCHEMA_IS_DIRTY = false;
+      EDITING_FIELD_NAME = null;
+      updateSchemaDirtyUI();
+      resetFieldInputForm();
+      const compPanel = document.getElementById("schema-compliance-panel");
+      if (compPanel) compPanel.style.display = "none";
+
+      try {
+        const res = await fetch(`/api/schema?name=${encodeURIComponent(schemaName)}`);
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data?.error || "Schema not found");
+
+        CURRENT_SCHEMA_OBJ = data.schema || { category: schemaName, fields: {} };
+        if (!CURRENT_SCHEMA_OBJ.fields) CURRENT_SCHEMA_OBJ.fields = {};
+
+        const badge = document.getElementById("schema-status-badge");
+        if (badge) {
+          badge.textContent = schemaName.startsWith("_") ? "Universal Core" : "Category Field Spec";
+          badge.style.background = schemaName.startsWith("_") ? "rgba(99,102,241,0.18)" : "rgba(34,197,94,0.15)";
+          badge.style.color = schemaName.startsWith("_") ? "#818cf8" : "#4ade80";
+        }
+
+        const targetEl = document.getElementById("schema-meta-target");
+        if (targetEl) targetEl.value = CURRENT_SCHEMA_OBJ.target || (schemaName.startsWith("_base") && !schemaName.includes("dimensions") ? "properties" : "category_fields");
+        const noteEl = document.getElementById("schema-meta-note");
+        if (noteEl) noteEl.value = CURRENT_SCHEMA_OBJ.note || "";
+
+        renderSchemaFieldsList();
+        updateSchemaRawTextarea();
+      } catch (err) {
+        showToast(`Failed to load schema ${schemaName}: ${err.message}`, "error");
+      }
+    }
+
+    function renderSchemaFieldsList() {
+      const container = document.getElementById("schema-fields-list");
+      const countEl = document.getElementById("schema-field-count");
+      if (!container || !CURRENT_SCHEMA_OBJ) return;
+
+      const fields = CURRENT_SCHEMA_OBJ.fields || {};
+      const keys = Object.keys(fields).sort();
+      if (countEl) countEl.textContent = keys.length;
+
+      if (keys.length === 0) {
+        container.innerHTML = `
+          <div style="font-size: 12px; color: var(--text-muted); padding: 14px; text-align: center; background: rgba(0,0,0,0.15); border-radius: 6px;">
+            No fields defined yet. Use the form below to add field specifications.
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      const typeColors = {
+        number: { bg: "rgba(56,189,248,0.14)", text: "#38bdf8", border: "rgba(56,189,248,0.3)" },
+        string: { bg: "rgba(168,85,247,0.14)", text: "#c084fc", border: "rgba(168,85,247,0.3)" },
+        boolean: { bg: "rgba(245,158,11,0.14)", text: "#fbbf24", border: "rgba(245,158,11,0.3)" },
+        object: { bg: "rgba(34,197,94,0.14)", text: "#4ade80", border: "rgba(34,197,94,0.3)" },
+        array: { bg: "rgba(244,63,94,0.14)", text: "#fb7185", border: "rgba(244,63,94,0.3)" },
+      };
+
+      keys.forEach(key => {
+        const spec = fields[key] || {};
+        const typeName = spec.type || "string";
+        const tColor = typeColors[typeName] || typeColors.string;
+        const isReq = spec.required === true;
+
+        let constraints = [];
+        if (spec.min !== undefined) constraints.push(`min: ${spec.min}`);
+        if (spec.max !== undefined) constraints.push(`max: ${spec.max}`);
+
+        const row = document.createElement("div");
+        row.style.cssText = "display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 12px; border-radius: 6px; background: #0e1520; border: 1px solid rgba(255,255,255,0.06);";
+        row.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 700; color: #f8fafc;">${key}</span>
+            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 1.5px 6px; border-radius: 4px; background: ${tColor.bg}; color: ${tColor.text}; border: 1px solid ${tColor.border};">${typeName}</span>
+            <span style="font-size: 10px; font-weight: 600; padding: 1.5px 6px; border-radius: 4px; ${isReq ? 'background: rgba(34,197,94,0.12); color: #4ade80;' : 'background: rgba(148,163,184,0.1); color: #94a3b8;'}">${isReq ? 'Required' : 'Optional'}</span>
+            ${constraints.length > 0 ? `<span style="font-size: 10.5px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">(${constraints.join(', ')})</span>` : ''}
+            ${spec.note ? `<span style="font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;" title="${spec.note}">${spec.note}</span>` : ''}
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+            <button type="button" class="btn-cancel" data-edit-field="${key}" style="padding: 3px 8px; font-size: 11px;">Edit</button>
+            <button type="button" class="btn-cancel" data-del-field="${key}" style="padding: 3px 8px; font-size: 11px; color: #f87171;">Delete</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      container.querySelectorAll("[data-edit-field]").forEach(btn => {
+        btn.onclick = () => startEditField(btn.getAttribute("data-edit-field"));
+      });
+      container.querySelectorAll("[data-del-field]").forEach(btn => {
+        btn.onclick = () => deleteFieldDefinition(btn.getAttribute("data-del-field"));
+      });
+    }
+
+    function resetFieldInputForm() {
+      EDITING_FIELD_NAME = null;
+      const titleEl = document.getElementById("schema-add-field-title");
+      if (titleEl) titleEl.textContent = "➕ Add Field Definition";
+      const submitBtn = document.getElementById("field-submit-btn");
+      if (submitBtn) submitBtn.textContent = "Save Field";
+      const cancelBtn = document.getElementById("schema-cancel-edit-field-btn");
+      if (cancelBtn) cancelBtn.style.display = "none";
+      const nameInput = document.getElementById("field-in-name");
+      if (nameInput) {
+        nameInput.value = "";
+        nameInput.disabled = false;
+      }
+      const typeInput = document.getElementById("field-in-type");
+      if (typeInput) typeInput.value = "number";
+      const minInput = document.getElementById("field-in-min");
+      if (minInput) minInput.value = "";
+      const maxInput = document.getElementById("field-in-max");
+      if (maxInput) maxInput.value = "";
+      const noteInput = document.getElementById("field-in-note");
+      if (noteInput) noteInput.value = "";
+      const reqInput = document.getElementById("field-in-required");
+      if (reqInput) reqInput.checked = true;
+    }
+
+    function startEditField(key) {
+      if (!CURRENT_SCHEMA_OBJ || !CURRENT_SCHEMA_OBJ.fields || !CURRENT_SCHEMA_OBJ.fields[key]) return;
+      const spec = CURRENT_SCHEMA_OBJ.fields[key];
+      EDITING_FIELD_NAME = key;
+
+      document.getElementById("schema-add-field-title").textContent = `✏️ Edit Field: ${key}`;
+      document.getElementById("field-submit-btn").textContent = "Update Field";
+      document.getElementById("schema-cancel-edit-field-btn").style.display = "inline-block";
+
+      const nameIn = document.getElementById("field-in-name");
+      nameIn.value = key;
+      nameIn.disabled = true;
+      document.getElementById("field-in-type").value = spec.type || "string";
+      document.getElementById("field-in-min").value = spec.min !== undefined ? spec.min : "";
+      document.getElementById("field-in-max").value = spec.max !== undefined ? spec.max : "";
+      document.getElementById("field-in-note").value = spec.note || "";
+      document.getElementById("field-in-required").checked = spec.required === true;
+    }
+
+    function submitFieldForm() {
+      if (!CURRENT_SCHEMA_OBJ) return;
+      const name = document.getElementById("field-in-name").value.trim().toLowerCase();
+      if (!name) {
+        showToast("Field name is required", "warning");
+        return;
+      }
+      if (!/^[a-z0-9_]+$/.test(name)) {
+        showToast("Field name must contain only lowercase letters, numbers, and underscores", "warning");
+        return;
+      }
+
+      const type = document.getElementById("field-in-type").value;
+      const isReq = document.getElementById("field-in-required").checked;
+      const note = document.getElementById("field-in-note").value.trim();
+      const minVal = document.getElementById("field-in-min").value;
+      const maxVal = document.getElementById("field-in-max").value;
+
+      const fieldSpec = {
+        type: type,
+        required: isReq
+      };
+      if (type === "number") {
+        if (minVal !== "") fieldSpec.min = Number(minVal);
+        if (maxVal !== "") fieldSpec.max = Number(maxVal);
+      }
+      if (note) fieldSpec.note = note;
+
+      if (!CURRENT_SCHEMA_OBJ.fields) CURRENT_SCHEMA_OBJ.fields = {};
+      CURRENT_SCHEMA_OBJ.fields[name] = fieldSpec;
+
+      SCHEMA_IS_DIRTY = true;
+      updateSchemaDirtyUI();
+      renderSchemaFieldsList();
+      updateSchemaRawTextarea();
+      resetFieldInputForm();
+      showToast(`Field '${name}' updated in schema`, "info");
+    }
+
+    function deleteFieldDefinition(key) {
+      if (!CURRENT_SCHEMA_OBJ || !CURRENT_SCHEMA_OBJ.fields) return;
+      if (!confirm(`Delete field '${key}' from schema?`)) return;
+      delete CURRENT_SCHEMA_OBJ.fields[key];
+      if (EDITING_FIELD_NAME === key) resetFieldInputForm();
+
+      SCHEMA_IS_DIRTY = true;
+      updateSchemaDirtyUI();
+      renderSchemaFieldsList();
+      updateSchemaRawTextarea();
+    }
+
+    function switchSchemaViewMode(mode) {
+      SCHEMA_VIEW_MODE = mode;
+      const visView = document.getElementById("schema-view-visual");
+      const rawView = document.getElementById("schema-view-raw");
+      const visBtn = document.getElementById("schema-tab-visual-btn");
+      const rawBtn = document.getElementById("schema-tab-raw-btn");
+      if (!visView || !rawView || !visBtn || !rawBtn) return;
+
+      if (mode === "visual") {
+        syncFromRawTextarea();
+        visView.style.display = "block";
+        rawView.style.display = "none";
+        visBtn.style.background = "rgba(56, 189, 248, 0.2)";
+        visBtn.style.borderColor = "var(--accent-sky)";
+        visBtn.style.color = "#38bdf8";
+        rawBtn.style.background = "rgba(255, 255, 255, 0.04)";
+        rawBtn.style.borderColor = "var(--border-subtle)";
+        rawBtn.style.color = "var(--text-muted)";
+        renderSchemaFieldsList();
+      } else {
+        updateSchemaRawTextarea();
+        visView.style.display = "none";
+        rawView.style.display = "block";
+        rawBtn.style.background = "rgba(56, 189, 248, 0.2)";
+        rawBtn.style.borderColor = "var(--accent-sky)";
+        rawBtn.style.color = "#38bdf8";
+        visBtn.style.background = "rgba(255, 255, 255, 0.04)";
+        visBtn.style.borderColor = "var(--border-subtle)";
+        visBtn.style.color = "var(--text-muted)";
+      }
+    }
+
+    function updateSchemaRawTextarea() {
+      const textarea = document.getElementById("schema-raw-textarea");
+      if (!textarea || !CURRENT_SCHEMA_OBJ) return;
+
+      const targetEl = document.getElementById("schema-meta-target");
+      if (targetEl) CURRENT_SCHEMA_OBJ.target = targetEl.value;
+      const noteEl = document.getElementById("schema-meta-note");
+      if (noteEl) {
+        const note = noteEl.value.trim();
+        if (note) CURRENT_SCHEMA_OBJ.note = note;
+        else delete CURRENT_SCHEMA_OBJ.note;
+      }
+
+      textarea.value = JSON.stringify(CURRENT_SCHEMA_OBJ, null, 2);
+    }
+
+    function syncFromRawTextarea() {
+      const textarea = document.getElementById("schema-raw-textarea");
+      if (!textarea) return;
+      try {
+        const parsed = JSON.parse(textarea.value);
+        if (typeof parsed === "object" && parsed !== null) {
+          CURRENT_SCHEMA_OBJ = parsed;
+          if (parsed.target) {
+            const targetEl = document.getElementById("schema-meta-target");
+            if (targetEl) targetEl.value = parsed.target;
+          }
+          if (parsed.note) {
+            const noteEl = document.getElementById("schema-meta-note");
+            if (noteEl) noteEl.value = parsed.note;
+          }
+        }
+      } catch (err) {
+        showToast("Warning: Raw JSON contains syntax errors", "warning");
+      }
+    }
+
+    function updateSchemaDirtyUI() {
+      const el = document.getElementById("schema-dirty-text");
+      if (el) el.style.display = SCHEMA_IS_DIRTY ? "inline" : "none";
+    }
+
+    async function executeSaveSchema() {
+      if (!CURRENT_SCHEMA_NAME) return;
+      const saveBtn = document.getElementById("schema-save-btn");
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Saving…";
+      }
+
+      try {
+        if (SCHEMA_VIEW_MODE === "raw") {
+          syncFromRawTextarea();
+        } else {
+          const targetEl = document.getElementById("schema-meta-target");
+          if (targetEl) CURRENT_SCHEMA_OBJ.target = targetEl.value;
+          const noteEl = document.getElementById("schema-meta-note");
+          if (noteEl) {
+            const note = noteEl.value.trim();
+            if (note) CURRENT_SCHEMA_OBJ.note = note;
+            else delete CURRENT_SCHEMA_OBJ.note;
+          }
+        }
+
+        const res = await fetch("/api/schema/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: CURRENT_SCHEMA_NAME,
+            schema: CURRENT_SCHEMA_OBJ
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          SCHEMA_IS_DIRTY = false;
+          updateSchemaDirtyUI();
+          showToast(`💾 Schema '${CURRENT_SCHEMA_NAME}' saved successfully!`, "success");
+        } else {
+          showToast(`Failed to save schema: ${data?.error || "Unknown error"}`, "error");
+        }
+      } catch (err) {
+        showToast(`Save error: ${err.message}`, "error");
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "💾 Save Schema";
+        }
+      }
+    }
+
+    async function promptCreateNewSchema() {
+      const catName = prompt("Enter category name for new schema (e.g. 'fishing', 'logging', 'building'):");
+      if (!catName) return;
+      const safeName = catName.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+      if (!safeName) return;
+
+      CURRENT_SCHEMA_NAME = safeName;
+      CURRENT_SCHEMA_OBJ = {
+        category: safeName,
+        target: "category_fields",
+        fields: {}
+      };
+      SCHEMA_IS_DIRTY = true;
+      updateSchemaDirtyUI();
+
+      const select = document.getElementById("schema-select");
+      if (select) {
+        let opt = Array.from(select.options).find(o => o.value === safeName);
+        if (!opt) {
+          opt = document.createElement("option");
+          opt.value = safeName;
+          opt.textContent = `${safeName} (0 fields - new)`;
+          select.appendChild(opt);
+        }
+        select.value = safeName;
+      }
+
+      const targetEl = document.getElementById("schema-meta-target");
+      if (targetEl) targetEl.value = "category_fields";
+      const noteEl = document.getElementById("schema-meta-note");
+      if (noteEl) noteEl.value = `Field specifications for ${safeName} category.`;
+      resetFieldInputForm();
+      renderSchemaFieldsList();
+      updateSchemaRawTextarea();
+      showToast(`Created new schema draft for '${safeName}'. Click 'Save Schema' when ready.`, "info");
+    }
+
+    async function executeValidateCategoryCompliance() {
+      if (!CURRENT_SCHEMA_NAME) return;
+      const validateBtn = document.getElementById("schema-validate-btn");
+      if (validateBtn) {
+        validateBtn.disabled = true;
+        validateBtn.innerHTML = "Validating…";
+      }
+
+      const panel = document.getElementById("schema-compliance-panel");
+      const summaryEl = document.getElementById("schema-compliance-summary");
+      const detailsEl = document.getElementById("schema-compliance-details");
+
+      try {
+        const cat = CURRENT_SCHEMA_NAME.replace(/^_base(_dimensions)?$/, "");
+        const targetCategory = cat || "tools";
+        const res = await fetch(`/api/schema/validate?category=${encodeURIComponent(targetCategory)}`);
+        const data = await res.json();
+
+        if (panel) panel.style.display = "block";
+        const passed = data.passed_count || 0;
+        const total = data.total_items || 0;
+        const failed = data.failed_count || 0;
+        const pct = total > 0 ? Math.round((passed / total) * 100) : 100;
+
+        if (failed === 0) {
+          if (summaryEl) summaryEl.innerHTML = `<span style="color: #4ade80;">✅ 100% Compliant:</span> All ${total} items in '${targetCategory}' comply with schemas!`;
+          if (detailsEl) detailsEl.innerHTML = `<div style="color: var(--text-muted);">Zero missing required fields or type mismatches.</div>`;
+        } else {
+          if (summaryEl) summaryEl.innerHTML = `<span style="color: #f59e0b;">⚠️ ${passed} / ${total} Compliant (${pct}%):</span> ${failed} items have missing or mis-typed fields.`;
+          if (detailsEl) {
+            detailsEl.innerHTML = "";
+            (data.failed_items || []).forEach(it => {
+              const row = document.createElement("div");
+              row.style.cssText = "padding: 6px 8px; border-radius: 4px; background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.25); margin-bottom: 2px;";
+              row.innerHTML = `<div style="font-weight: 700; color: #f87171;">${it.id} (${it.name}):</div><div style="color: #fca5a5; padding-left: 8px;">${it.errors.join("<br>")}</div>`;
+              detailsEl.appendChild(row);
+            });
+          }
+        }
+      } catch (err) {
+        if (panel) panel.style.display = "block";
+        if (summaryEl) summaryEl.innerHTML = `<span style="color: #f87171;">Validation Error:</span> ${err.message}`;
+        if (detailsEl) detailsEl.innerHTML = "";
+      } finally {
+        if (validateBtn) {
+          validateBtn.disabled = false;
+          validateBtn.innerHTML = "🔍 Check Compliance";
+        }
+      }
+    }
+
     function openAddCategoryDialog() {
       const dialog = document.getElementById("add-category-dialog");
       const keyInput = document.getElementById("addcat-key-input");
@@ -6449,6 +7547,26 @@
       }
     }
 
+    let AVAILABLE_SCHEMAS = null;
+    async function ensureSchemasLoaded() {
+      if (AVAILABLE_SCHEMAS) return AVAILABLE_SCHEMAS;
+      try {
+        const res = await fetch("/api/schemas", { cache: "no-store" });
+        const data = await res.json();
+        AVAILABLE_SCHEMAS = (res.ok && data.success) ? data.schemas : [];
+      } catch (err) {
+        console.error("Failed to load schema list:", err);
+        AVAILABLE_SCHEMAS = [];
+      }
+      return AVAILABLE_SCHEMAS;
+    }
+    async function populateSchemaSelect(selectEl, defaultCategory) {
+      const schemas = await ensureSchemasLoaded();
+      selectEl.innerHTML = [`<option value="">(no schema yet)</option>`]
+        .concat(schemas.map(s => `<option value="${s}">${s}</option>`)).join("");
+      selectEl.value = schemas.includes(defaultCategory) ? defaultCategory : "";
+    }
+
     function openRequestAssetDialog() {
       const dialog = document.getElementById("request-asset-dialog");
       const nameInput = document.getElementById("reqasset-name-input");
@@ -6456,6 +7574,7 @@
       const catFixed = document.getElementById("reqasset-category-fixed");
       const descInput = document.getElementById("reqasset-desc-input");
       const notesInput = document.getElementById("reqasset-notes-input");
+      const schemaSelect = document.getElementById("reqasset-schema-select");
 
       // A category is already open: use it silently, don't ask. Only prompt
       // (show the picker) when browsing "All Categories".
@@ -6465,6 +7584,7 @@
         catFixed.innerText = `${meta.icon || ""} ${meta.name || activeCategory}`;
         catFixed.dataset.category = activeCategory;
         catSelect.style.display = "none";
+        populateSchemaSelect(schemaSelect, activeCategory);
       } else {
         catFixed.style.display = "none";
         catSelect.style.display = "";
@@ -6472,6 +7592,8 @@
           const meta = CATEGORIES_META[cat];
           return `<option value="${cat}">${meta.icon || ""} ${meta.name || cat}</option>`;
         }).join("");
+        populateSchemaSelect(schemaSelect, catSelect.value);
+        catSelect.onchange = () => populateSchemaSelect(schemaSelect, catSelect.value);
       }
 
       nameInput.value = "";
@@ -6640,6 +7762,10 @@
       }).join("");
       if (activeCategory !== "all") catSelect.value = activeCategory;
 
+      const ggSchemaSelect = document.getElementById("reqgg-schema-select");
+      populateSchemaSelect(ggSchemaSelect, catSelect.value);
+      catSelect.onchange = () => populateSchemaSelect(ggSchemaSelect, catSelect.value);
+
       const growthTypeSelect = document.getElementById("reqgg-growthtype-select");
       let initialType = "building";
       if (activeCategory === "farming") initialType = "crop";
@@ -6733,6 +7859,10 @@
       const name = document.getElementById("reqgg-name-input").value.trim();
       const icon = document.getElementById("reqgg-icon-input").value.trim();
       const category = document.getElementById("reqgg-category-select").value;
+      const pipelineSelect = document.getElementById("reqgg-pipeline-select");
+      const pipeline = pipelineSelect ? pipelineSelect.value : "free";
+      const schemaSelect = document.getElementById("reqgg-schema-select");
+      const schema = schemaSelect ? schemaSelect.value : "";
       const description = document.getElementById("reqgg-desc-input").value.trim();
       const growthTypeSelect = document.getElementById("reqgg-growthtype-select");
       const growthType = growthTypeSelect ? growthTypeSelect.value.trim() : "building";
@@ -6775,6 +7905,8 @@
           time_unit: timeUnit,
           reference_category: resolvedGGBaseReference ? resolvedGGBaseReference.category : undefined,
           reference_item_id: resolvedGGBaseReference ? resolvedGGBaseReference.id : undefined,
+          pipeline,
+          schema,
         };
         const res = await fetch("/api/request-asset-stages", {
           method: "POST",
@@ -7174,11 +8306,15 @@
       const catFixed = document.getElementById("reqasset-category-fixed");
       const descInput = document.getElementById("reqasset-desc-input");
       const notesInput = document.getElementById("reqasset-notes-input");
+      const pipelineSelect = document.getElementById("reqasset-pipeline-select");
+      const schemaSelect = document.getElementById("reqasset-schema-select");
 
       const name = nameInput.value.trim();
       const category = catFixed.style.display !== "none" ? catFixed.dataset.category : catSelect.value;
       const description = descInput.value.trim();
       const notes = notesInput.value.trim();
+      const pipeline = pipelineSelect ? pipelineSelect.value : "free";
+      const schema = schemaSelect ? schemaSelect.value : "";
       const isMultiStage = document.getElementById("reqasset-multistage-toggle").checked;
       const alsoRig = document.getElementById("reqasset-also-rig-toggle").checked;
       const rigType = document.getElementById("reqasset-rig-type-select").value;
@@ -7204,8 +8340,8 @@
         const refCategory = resolvedReferenceAsset ? resolvedReferenceAsset.category : null;
         const refItemId = resolvedReferenceAsset ? resolvedReferenceAsset.id : null;
         const body = isMultiStage
-          ? { base_name: name, category, description, notes, stages, also_rig: alsoRig, rig_type: rigType, extra_animations: extraAnimations, reference_category: refCategory, reference_item_id: refItemId }
-          : { name, category, description, notes, also_rig: alsoRig, rig_type: rigType, extra_animations: extraAnimations, reference_category: refCategory, reference_item_id: refItemId };
+          ? { base_name: name, category, description, notes, stages, also_rig: alsoRig, rig_type: rigType, extra_animations: extraAnimations, reference_category: refCategory, reference_item_id: refItemId, pipeline, schema }
+          : { name, category, description, notes, also_rig: alsoRig, rig_type: rigType, extra_animations: extraAnimations, reference_category: refCategory, reference_item_id: refItemId, pipeline, schema };
         const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -7659,6 +8795,8 @@
       }
 
       renderGallery();
+      const galleryEl = document.querySelector("main.gallery-content");
+      if (galleryEl) galleryEl.scrollTop = 0;
     }
 
     function renderGallery() {
@@ -7997,6 +9135,15 @@
           return;
         }
 
+        // Ctrl+S saves the manifest when the item modal is open
+        if ((e.ctrlKey || e.metaKey) && e.key === "s" && itemModal.open) {
+          e.preventDefault();
+          const textarea = document.getElementById("m-raw-json");
+          const dirty = textarea && textarea.value !== textarea.dataset.savedValue;
+          if (dirty) executeSaveManifest();
+          return;
+        }
+
         // Enter key inside rename dialog confirms rename
         if (e.key === "Enter" && renameDialog.open) {
           e.preventDefault();
@@ -8109,6 +9256,77 @@
       if (tagRegSave) tagRegSave.onclick = () => saveTagRegistryEntry();
       const tagRegClose = document.getElementById("tagreg-close-btn");
       if (tagRegClose) tagRegClose.onclick = () => document.getElementById("tag-registry-dialog").close();
+
+      // Schema Editor dialog action buttons & triggers
+      const btnSchemaEditor = document.getElementById("btn-schema-editor");
+      if (btnSchemaEditor) btnSchemaEditor.onclick = () => openSchemaEditorDialog();
+
+      const btnEditBaseSchema = document.getElementById("m-edit-base-schema-btn");
+      if (btnEditBaseSchema) btnEditBaseSchema.onclick = (e) => {
+        e.stopPropagation();
+        openSchemaEditorDialog("_base");
+      };
+
+      const btnEditCatSchema = document.getElementById("m-edit-cat-schema-btn");
+      if (btnEditCatSchema) btnEditCatSchema.onclick = (e) => {
+        e.stopPropagation();
+        const cat = activeItem?.category || (document.getElementById("m-cat-schema-name")?.textContent || "").toLowerCase();
+        openSchemaEditorDialog(cat);
+      };
+
+      const schemaCloseBtn = document.getElementById("schema-editor-close-btn");
+      if (schemaCloseBtn) schemaCloseBtn.onclick = () => document.getElementById("schema-editor-dialog").close();
+
+      const schemaTabVisual = document.getElementById("schema-tab-visual-btn");
+      if (schemaTabVisual) schemaTabVisual.onclick = () => switchSchemaViewMode("visual");
+
+      const schemaTabRaw = document.getElementById("schema-tab-raw-btn");
+      if (schemaTabRaw) schemaTabRaw.onclick = () => switchSchemaViewMode("raw");
+
+      const schemaFieldSubmit = document.getElementById("field-submit-btn");
+      if (schemaFieldSubmit) schemaFieldSubmit.onclick = () => submitFieldForm();
+
+      const schemaCancelEdit = document.getElementById("schema-cancel-edit-field-btn");
+      if (schemaCancelEdit) schemaCancelEdit.onclick = () => resetFieldInputForm();
+
+      const schemaSaveBtn = document.getElementById("schema-save-btn");
+      if (schemaSaveBtn) schemaSaveBtn.onclick = () => executeSaveSchema();
+
+      const schemaRevertBtn = document.getElementById("schema-revert-btn");
+      if (schemaRevertBtn) schemaRevertBtn.onclick = () => {
+        if (CURRENT_SCHEMA_NAME) loadSchemaForEditing(CURRENT_SCHEMA_NAME);
+      };
+
+      const schemaNewBtn = document.getElementById("schema-new-btn");
+      if (schemaNewBtn) schemaNewBtn.onclick = () => promptCreateNewSchema();
+
+      const schemaValidateBtn = document.getElementById("schema-validate-btn");
+      if (schemaValidateBtn) schemaValidateBtn.onclick = () => executeValidateCategoryCompliance();
+
+      const schemaComplianceClose = document.getElementById("schema-compliance-close");
+      if (schemaComplianceClose) schemaComplianceClose.onclick = () => {
+        document.getElementById("schema-compliance-panel").style.display = "none";
+      };
+
+      const schemaMetaTarget = document.getElementById("schema-meta-target");
+      if (schemaMetaTarget) schemaMetaTarget.onchange = () => {
+        SCHEMA_IS_DIRTY = true;
+        updateSchemaDirtyUI();
+        updateSchemaRawTextarea();
+      };
+
+      const schemaMetaNote = document.getElementById("schema-meta-note");
+      if (schemaMetaNote) schemaMetaNote.oninput = () => {
+        SCHEMA_IS_DIRTY = true;
+        updateSchemaDirtyUI();
+        updateSchemaRawTextarea();
+      };
+
+      const schemaRawTextarea = document.getElementById("schema-raw-textarea");
+      if (schemaRawTextarea) schemaRawTextarea.oninput = () => {
+        SCHEMA_IS_DIRTY = true;
+        updateSchemaDirtyUI();
+      };
       const editCatSave = document.getElementById("editcat-save-btn");
       if (editCatSave) editCatSave.onclick = () => executeSaveEditCategory();
       const editCatCancel = document.getElementById("editcat-cancel-btn");
@@ -8147,7 +9365,10 @@
       const reqAssetRigTypeSelect = document.getElementById("reqasset-rig-type-select");
       if (reqAssetRigTypeSelect) reqAssetRigTypeSelect.onchange = () => {
         const type = reqAssetRigTypeSelect.value;
-        document.getElementById("reqasset-rig-type-warning").style.display = (type === "vehicle" || type === "quadruped" || type === "bird" || type === "fish") ? "block" : "none";
+        const warning = document.getElementById("reqasset-rig-type-warning");
+        if (warning) {
+          warning.style.display = (type === "vehicle" || type === "bird" || type === "fish") ? "block" : "none";
+        }
       };
 
       // Request Growth Group dialog
@@ -8192,10 +9413,11 @@
             }
           }
           if (!existing[i]) {
-            const defaultNames = type === "building" ? ["foundation", "framing", "walls", "complete"] :
-                                 type === "tree" ? ["sapling", "small", "medium", "mature"] :
-                                 type === "crop" ? ["seed", "sprout", "growing", "mature"] :
-                                 type === "animal" ? ["", "adult"] : [];
+            const defaultNames =
+              type === "building" ? ["foundation", "framing", "walls", "complete"] :
+                type === "tree" ? ["sapling", "small", "medium", "mature"] :
+                  type === "crop" ? ["seed", "sprout", "growing", "mature"] :
+                    type === "animal" ? ["baby", "adult"] : [];
             existing[i] = {
               name: defaultNames[i] !== undefined ? defaultNames[i] : `Stage ${i + 1}`,
               ageMin: aMin,
@@ -8273,6 +9495,13 @@
         await refreshCreativeClawBalance();
         showToast(`🎨 Creative Claw: ${valEl.textContent} (last known - no live API key locally, only a Claude session's own check updates this)`, "info");
       };
+      const statusGeminiItem = document.getElementById("status-gemini");
+      if (statusGeminiItem) statusGeminiItem.onclick = async () => {
+        const valEl = document.getElementById("status-gemini-value");
+        valEl.textContent = "checking…";
+        await refreshStatusBar();
+        showToast(`✨ Gemini quota refreshed: ${valEl.textContent}`, "info");
+      };
       const batchBulkRequestBtn = document.getElementById("batch-bulk-request-btn");
       if (batchBulkRequestBtn) batchBulkRequestBtn.onclick = () => openBulkRequestDialog();
       const bulkRequestCancelBtn = document.getElementById("bulkrequest-cancel-btn");
@@ -8313,6 +9542,34 @@
 
       const ghostAlert = document.getElementById("status-ghost-alert");
       if (ghostAlert) ghostAlert.onclick = () => openGhostEntriesDialog();
+
+      const statusRefreshBtn = document.getElementById("status-refresh-btn");
+      const statusRefreshIcon = document.getElementById("status-refresh-icon");
+      if (statusRefreshBtn) {
+        statusRefreshBtn.onclick = async (e) => {
+          e.stopPropagation();
+          if (statusRefreshIcon) {
+            statusRefreshIcon.style.transition = "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
+            statusRefreshIcon.style.transform = "rotate(360deg)";
+          }
+          await loadCatalog();
+          await loadKitConfig();
+          await loadTagRegistry();
+          deriveLegacyGrowthGroups();
+          computeDuplicates();
+          buildCategorySidebar();
+          renderGallery();
+          await refreshStatusBar();
+          await refreshGhostAlert();
+          showToast("↻ Catalog & status refreshed", "info");
+          setTimeout(() => {
+            if (statusRefreshIcon) {
+              statusRefreshIcon.style.transition = "none";
+              statusRefreshIcon.style.transform = "rotate(0deg)";
+            }
+          }, 600);
+        };
+      }
 
       const approvalApproveBtn = document.getElementById("approval-approve-btn");
       if (approvalApproveBtn) approvalApproveBtn.onclick = () => resolveApproval("approve");
@@ -8405,10 +9662,63 @@
       };
       document.getElementById("m-json-revert-btn").onclick = (e) => {
         e.stopPropagation();
-        if (activeItem && activeItem.manifest) {
-          setManifestEditorContent(JSON.stringify(activeItem.manifest, null, 2));
+        if (activeItem && manifestTextarea.dataset.savedValue) {
+          try {
+            activeItem.manifest = JSON.parse(manifestTextarea.dataset.savedValue);
+          } catch (err) { }
+          setManifestEditorContent(manifestTextarea.dataset.savedValue);
+          openItemModal(activeItem);
         }
       };
+
+      // Sticky save bar at the top of the inspector panel (mirrors JSON accordion buttons)
+      const inspSaveBtn = document.getElementById("m-inspector-save-btn");
+      if (inspSaveBtn) inspSaveBtn.onclick = (e) => { e.stopPropagation(); executeSaveManifest(); };
+      const inspRevertBtn = document.getElementById("m-inspector-revert-btn");
+      if (inspRevertBtn) inspRevertBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (activeItem && manifestTextarea.dataset.savedValue) {
+          try { activeItem.manifest = JSON.parse(manifestTextarea.dataset.savedValue); } catch (err) { }
+          setManifestEditorContent(manifestTextarea.dataset.savedValue);
+          openItemModal(activeItem);
+        }
+      };
+    }
+
+    // Automatically calculates and updates interior_area_m2 whenever dimensions_m changes
+    function autoCalculateInteriorArea(manifest, itemContext = null) {
+      if (!manifest || typeof manifest !== "object") return;
+      const cf = manifest.category_fields;
+      if (!cf || typeof cf !== "object") return;
+
+      const dim = cf.dimensions_m;
+      if (!dim || typeof dim !== "object") return;
+
+      const w = Number(dim.width !== undefined ? dim.width : (dim.width_m !== undefined ? dim.width_m : dim.x)) || 0;
+      const d = Number(dim.depth !== undefined ? dim.depth : (dim.depth_m !== undefined ? dim.depth_m : dim.y)) || 0;
+
+      if (w > 0 && d > 0) {
+        const calculatedArea = Math.round(w * d * 100) / 100;
+        const isStructure = (manifest.category === "structures") || (itemContext?.category === "structures");
+        const hasAreaField = ("interior_area_m2" in cf);
+
+        if (isStructure || hasAreaField) {
+          cf.interior_area_m2 = calculatedArea;
+
+          // Update the UI input if rendered
+          const areaInp = document.getElementById("m-catfield-interior_area_m2");
+          if (areaInp && Number(areaInp.value) !== calculatedArea) {
+            areaInp.value = calculatedArea;
+            areaInp.style.transition = "background-color 0.3s ease, border-color 0.3s ease";
+            areaInp.style.backgroundColor = "rgba(56, 189, 248, 0.25)";
+            areaInp.style.borderColor = "var(--accent-sky)";
+            setTimeout(() => {
+              areaInp.style.backgroundColor = "";
+              areaInp.style.borderColor = "";
+            }, 700);
+          }
+        }
+      }
     }
 
     // Lets the structured property inputs (Weight, Base Value, Consumable,
@@ -8434,9 +9744,21 @@
         value = rawValue === "" ? null : parseInt(rawValue, 10);
         if (Number.isNaN(value)) return;
       } else if (kind === "bool") {
-        value = rawValue === "true";
+        value = rawValue === "true" || rawValue === true;
       } else if (kind === "string_or_null") {
-        value = rawValue.trim() === "" ? null : rawValue;
+        value = (typeof rawValue === "string" && rawValue.trim() === "") ? null : rawValue;
+      } else if (kind === "footprint_smart") {
+        const raw = typeof rawValue === "string" ? rawValue.trim() : "";
+        if (!raw) {
+          value = null;
+        } else {
+          const m = raw.match(/^([0-9.]+)\s*(?:x|X|\*|×|,)\s*([0-9.]+)(?:\s*m)?$/);
+          if (m) {
+            value = { width_m: parseFloat(m[1]) || 0, depth_m: parseFloat(m[2]) || 0 };
+          } else {
+            value = raw;
+          }
+        }
       } else {
         value = rawValue;
       }
@@ -8448,6 +9770,15 @@
         node = node[parts[i]];
       }
       node[parts[parts.length - 1]] = value;
+
+      // Autofill interior_area_m2 automatically if dimensions_m changes
+      if (path.startsWith("category_fields.dimensions_m")) {
+        autoCalculateInteriorArea(obj, activeItem);
+      }
+
+      if (activeItem) {
+        activeItem.manifest = obj;
+      }
 
       textarea.value = JSON.stringify(obj, null, 2);
       validateManifestEditor();
@@ -8467,6 +9798,12 @@
       const statusEl = document.getElementById("m-json-status");
       const saveBtn = document.getElementById("m-json-save-btn");
       const revertBtn = document.getElementById("m-json-revert-btn");
+
+      // Sticky inspector save bar (top of inspector panel)
+      const inspBar = document.getElementById("m-inspector-save-bar");
+      const inspSaveBtn = document.getElementById("m-inspector-save-btn");
+      const inspRevertBtn = document.getElementById("m-inspector-revert-btn");
+      const inspStatus = document.getElementById("m-inspector-save-status");
 
       const dirty = textarea.value !== textarea.dataset.savedValue;
       let parsed = null;
@@ -8490,6 +9827,14 @@
         saveBtn.disabled = true;
         saveBtn.style.opacity = "0.5";
         saveBtn.style.cursor = "not-allowed";
+        // Sticky bar: show error state
+        if (inspBar) {
+          inspBar.style.display = dirty ? "flex" : "none";
+          inspBar.style.borderBottomColor = "rgba(248,113,113,0.4)";
+          if (inspStatus) { inspStatus.textContent = `⚠️ JSON error — fix before saving`; inspStatus.style.color = "#f87171"; }
+          if (inspSaveBtn) { inspSaveBtn.disabled = true; inspSaveBtn.style.opacity = "0.45"; inspSaveBtn.style.cursor = "not-allowed"; }
+          if (inspRevertBtn) inspRevertBtn.style.display = "";
+        }
       } else if (dirty) {
         statusEl.textContent = "Unsaved changes";
         statusEl.style.color = "#fbbf24";
@@ -8497,9 +9842,19 @@
         saveBtn.disabled = false;
         saveBtn.style.opacity = "1";
         saveBtn.style.cursor = "pointer";
+        // Sticky bar: show save state
+        if (inspBar) {
+          inspBar.style.display = "flex";
+          inspBar.style.borderBottomColor = "rgba(251,191,36,0.3)";
+          if (inspStatus) { inspStatus.textContent = "Unsaved changes"; inspStatus.style.color = "#fbbf24"; }
+          if (inspSaveBtn) { inspSaveBtn.disabled = false; inspSaveBtn.style.opacity = "1"; inspSaveBtn.style.cursor = "pointer"; }
+          if (inspRevertBtn) inspRevertBtn.style.display = "";
+        }
       } else {
         statusEl.textContent = "";
         saveBtn.style.display = "none";
+        // Sticky bar: hide when clean
+        if (inspBar) inspBar.style.display = "none";
       }
     }
 
@@ -8518,6 +9873,10 @@
 
       saveBtn.disabled = true;
       saveBtn.innerText = "Saving...";
+
+      // Also update the sticky bar save button
+      const inspSaveBtnEl = document.getElementById("m-inspector-save-btn");
+      if (inspSaveBtnEl) { inspSaveBtnEl.disabled = true; inspSaveBtnEl.textContent = "Saving..."; }
 
       try {
         const res = await fetch("/api/save-manifest", {
@@ -8550,8 +9909,607 @@
         showToast(`Server error: ${err.message}`, "error");
       } finally {
         saveBtn.innerText = "💾 Save";
+        // Restore sticky bar button label; validateManifestEditor will hide bar if now clean
+        if (inspSaveBtnEl) inspSaveBtnEl.innerHTML = `💾 Save <kbd style="font-size: 9.5px; opacity: 0.7; margin-left: 3px; background: rgba(255,255,255,0.1); padding: 1px 4px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2);">Ctrl+S</kbd>`;
         validateManifestEditor();
       }
+    }
+
+    /* HTML Escaper Helper */
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    /* Category Schema Definition Cache */
+    const SCHEMA_DEFINITION_CACHE = {};
+    async function getCategorySchemaDefinition(cat) {
+      if (!cat) return null;
+      const lower = cat.toLowerCase();
+      if (SCHEMA_DEFINITION_CACHE[lower]) return SCHEMA_DEFINITION_CACHE[lower];
+      try {
+        const res = await fetch(`/api/schema?name=${encodeURIComponent(lower)}`);
+        if (res.ok) {
+          const data = await res.json();
+          const schemaObj = data?.schema || data;
+          if (schemaObj && (schemaObj.fields || schemaObj.category)) {
+            SCHEMA_DEFINITION_CACHE[lower] = schemaObj;
+            return schemaObj;
+          }
+        }
+      } catch (e) {
+        console.warn("Could not fetch schema for", cat, e);
+      }
+      return null;
+    }
+
+    /* Ensure Datalists for Recipe Materials & Tools */
+    function ensureSchemaDatalists() {
+      let recipeDl = document.getElementById("schema-recipe-item-datalist");
+      if (!recipeDl) {
+        recipeDl = document.createElement("datalist");
+        recipeDl.id = "schema-recipe-item-datalist";
+        document.body.appendChild(recipeDl);
+      }
+      if (recipeDl.options.length === 0) {
+        const opts = [];
+        if (typeof TAG_REGISTRY === "object" && TAG_REGISTRY !== null) {
+          for (const tagName of Object.keys(TAG_REGISTRY).sort()) {
+            const memCount = Array.isArray(TAG_REGISTRY[tagName]) ? TAG_REGISTRY[tagName].length : 0;
+            opts.push(`<option value="#${tagName}">#${tagName} (Material Tag: ${memCount} members)</option>`);
+          }
+        }
+        if (Array.isArray(ALL_ITEMS)) {
+          ALL_ITEMS.forEach(item => {
+            opts.push(`<option value="${item.id}">${item.id} — ${escapeHtml(item.name || '')} (${item.category})</option>`);
+          });
+        }
+        recipeDl.innerHTML = opts.join("");
+      }
+
+      let toolsDl = document.getElementById("schema-tools-datalist");
+      if (!toolsDl) {
+        toolsDl = document.createElement("datalist");
+        toolsDl.id = "schema-tools-datalist";
+        document.body.appendChild(toolsDl);
+      }
+      if (toolsDl.options.length === 0 && Array.isArray(ALL_ITEMS)) {
+        const toolItems = ALL_ITEMS.filter(item => item.category === "tools" || item.id.startsWith("tool_"));
+        toolsDl.innerHTML = toolItems.map(t => `<option value="${t.id}">${t.id} — ${escapeHtml(t.name || '')}</option>`).join("");
+      }
+    }
+
+    /* Render Expanded Schema Data Section in Asset Detail Modal */
+    async function renderCategorySchemaSection(it) {
+      const catSec = document.getElementById("sec-category-schema");
+      const catGrid = document.getElementById("m-cat-schema-grid");
+      const catComplex = document.getElementById("m-cat-schema-complex");
+      const catMissing = document.getElementById("m-cat-schema-missing");
+      if (!catSec || !catGrid || !catComplex) return;
+
+      const cat = it.category ? it.category.toLowerCase() : "";
+      const schema = await getCategorySchemaDefinition(cat);
+      const schemaFields = schema?.fields || {};
+      const catFields = (it.manifest && it.manifest.category_fields && typeof it.manifest.category_fields === "object")
+        ? it.manifest.category_fields
+        : {};
+
+      const allFieldKeys = Array.from(new Set([...Object.keys(catFields)]));
+      if (allFieldKeys.length === 0 && Object.keys(schemaFields).length === 0) {
+        catSec.style.display = "none";
+        return;
+      }
+
+      catSec.style.display = "block";
+      document.getElementById("m-cat-schema-name").innerText = it.category ? it.category.toUpperCase() : "CATEGORY";
+
+      catGrid.innerHTML = "";
+      catComplex.innerHTML = "";
+      if (catMissing) catMissing.innerHTML = "";
+
+      ensureSchemaDatalists();
+
+      const scalarKeys = [];
+      const compoundKeys = [];
+
+      for (const k of allFieldKeys) {
+        const v = catFields[k];
+        const sDef = schemaFields[k] || {};
+        const isArr = Array.isArray(v) || sDef.type === "array";
+        const isObj = (!isArr && typeof v === "object" && v !== null) || sDef.type === "object";
+
+        if (isArr || isObj) {
+          compoundKeys.push(k);
+        } else {
+          scalarKeys.push(k);
+        }
+      }
+
+      // 1. Render Scalar Fields
+      for (const k of scalarKeys) {
+        const v = catFields[k];
+        const sDef = schemaFields[k] || {};
+        const fieldType = sDef.type || (typeof v === "number" ? "number" : typeof v === "boolean" ? "boolean" : "string");
+        const note = sDef.note ? ` title="${escapeHtml(sDef.note)}"` : "";
+        const labelText = k.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+        const box = document.createElement("div");
+        box.className = "kv-box";
+        if (sDef.note) box.title = sDef.note;
+
+        if (fieldType === "boolean") {
+          box.innerHTML = `
+            <div class="kv-key"${note}>${labelText}</div>
+            <select class="kv-input" id="m-catfield-${k}">
+              <option value="false"${v === false ? " selected" : ""}>No</option>
+              <option value="true"${v === true ? " selected" : ""}>Yes</option>
+            </select>
+          `;
+          catGrid.appendChild(box);
+          const sel = box.querySelector("select");
+          sel.onchange = () => {
+            const parsed = sel.value === "true";
+            applyManifestFieldEdit(`category_fields.${k}`, parsed, "bool");
+          };
+        } else if (fieldType === "number") {
+          const numVal = (v !== undefined && v !== null) ? v : "";
+          const minAttr = sDef.min !== undefined ? ` min="${sDef.min}"` : "";
+          const maxAttr = sDef.max !== undefined ? ` max="${sDef.max}"` : "";
+          const stepAttr = (sDef.note && sDef.note.toLowerCase().includes("int")) ? ` step="1"` : ` step="any"`;
+          box.innerHTML = `
+            <div class="kv-key"${note}>${labelText}</div>
+            <input class="kv-input" type="number"${stepAttr}${minAttr}${maxAttr} value="${numVal}" id="m-catfield-${k}" placeholder="0">
+          `;
+          catGrid.appendChild(box);
+          const inp = box.querySelector("input");
+          inp.oninput = () => {
+            const parsed = inp.value === "" ? 0 : Number(inp.value);
+            applyManifestFieldEdit(`category_fields.${k}`, parsed, "number");
+          };
+        } else {
+          const strVal = (v !== undefined && v !== null) ? String(v) : "";
+          box.innerHTML = `
+            <div class="kv-key"${note}>${labelText}</div>
+            <input class="kv-input" type="text" value="${escapeHtml(strVal)}" id="m-catfield-${k}" placeholder="—">
+          `;
+          catGrid.appendChild(box);
+          const inp = box.querySelector("input");
+          inp.oninput = () => {
+            applyManifestFieldEdit(`category_fields.${k}`, inp.value, "string");
+          };
+        }
+      }
+
+      catGrid.style.display = scalarKeys.length > 0 ? "grid" : "none";
+
+      // 2. Render Compound Fields (Objects/Groups, Recipe Arrays, Tool Groups, Primitive Arrays)
+      for (const k of compoundKeys) {
+        const v = catFields[k];
+        const sDef = schemaFields[k] || {};
+        const fieldName = k.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+        const isArrayOfArrays = Array.isArray(v) && (v.length > 0 ? Array.isArray(v[0]) : (sDef.items && sDef.items.type === "array"));
+        const isArrayOfObjects = Array.isArray(v) && (v.length > 0 ? (typeof v[0] === "object" && v[0] !== null && !Array.isArray(v[0])) : (sDef.items && sDef.items.type === "object"));
+        const isArrayOfPrimitives = Array.isArray(v) && !isArrayOfArrays && !isArrayOfObjects;
+        const isObjectGroup = !Array.isArray(v) && typeof v === "object" && v !== null;
+
+        if (isArrayOfArrays || k === "required_tools") {
+          renderRequiredToolsCard(catComplex, k, fieldName, v || [], sDef, it);
+        } else if (isArrayOfObjects || k === "construction_recipe") {
+          renderConstructionRecipeCard(catComplex, k, fieldName, v || [], sDef, it);
+        } else if (isArrayOfPrimitives) {
+          renderArrayOfPrimitivesCard(catComplex, k, fieldName, v || [], sDef, it);
+        } else if (isObjectGroup || k === "dimensions_m") {
+          renderObjectGroupCard(catComplex, k, fieldName, v || {}, sDef, it);
+        }
+      }
+
+      // 3. Render Missing Schema Fields Bar
+      if (catMissing && schemaFields) {
+        const missingKeys = Object.keys(schemaFields).filter(key => !(key in catFields));
+        if (missingKeys.length > 0) {
+          catMissing.style.display = "block";
+          catMissing.innerHTML = `
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+              <span>➕ Add Schema Field(s):</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+              ${missingKeys.map(mk => {
+            const s = schemaFields[mk];
+            return `<button type="button" class="schema-btn-small" data-add-field="${mk}" title="${escapeHtml(s.note || '')}">+ ${mk}</button>`;
+          }).join("")}
+            </div>
+          `;
+          catMissing.querySelectorAll("[data-add-field]").forEach(btn => {
+            btn.onclick = () => {
+              const fKey = btn.dataset.addField;
+              const fDef = schemaFields[fKey];
+              let defVal = "";
+              if (fDef.type === "number") defVal = 0;
+              else if (fDef.type === "boolean") defVal = false;
+              else if (fDef.type === "array") defVal = [];
+              else if (fDef.type === "object") defVal = (fDef.properties ? Object.fromEntries(Object.keys(fDef.properties).map(p => [p, 0])) : {});
+
+              applyManifestFieldEdit(`category_fields.${fKey}`, defVal, "raw");
+              if (!it.manifest.category_fields) it.manifest.category_fields = {};
+              it.manifest.category_fields[fKey] = defVal;
+              renderCategorySchemaSection(it);
+            };
+          });
+        } else {
+          catMissing.style.display = "none";
+        }
+      }
+    }
+
+    /* Compound Card: Construction Recipe (Array of Objects) */
+    function renderConstructionRecipeCard(container, fieldKey, fieldTitle, recipeArray, schemaDef, it) {
+      const card = document.createElement("div");
+      card.className = "schema-compound-card";
+
+      const arr = Array.isArray(recipeArray) ? [...recipeArray] : [];
+      const note = schemaDef?.note || "Materials CONSUMED to build or progress this stage. Use #tag for interchangeable materials, or specific item_id.";
+
+      card.innerHTML = `
+        <div class="schema-compound-header">
+          <div class="schema-compound-title">
+            <span>🔨 ${escapeHtml(fieldTitle)}</span>
+            <span class="schema-type-badge" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3);">
+              ${arr.length} item${arr.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <button type="button" class="schema-btn-small" id="recipe-add-btn">
+            + Add Material
+          </button>
+        </div>
+        ${note ? `<div class="schema-note-hint">${escapeHtml(note)}</div>` : ""}
+        <div class="recipe-items-list" style="display: flex; flex-direction: column; gap: 5px;">
+          ${arr.length === 0 ? `
+            <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic; padding: 6px 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+              No materials configured in recipe. Click "+ Add Material" to add required construction materials.
+            </div>
+          ` : ""}
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      const listEl = card.querySelector(".recipe-items-list");
+
+      arr.forEach((item, idx) => {
+        const row = document.createElement("div");
+        row.style.cssText = "display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.22); padding: 5px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.04);";
+        row.innerHTML = `
+          <div style="flex: 2; min-width: 140px;">
+            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 2px;">Item ID or #Tag</div>
+            <input type="text" class="kv-input" list="schema-recipe-item-datalist" placeholder="e.g. #roofing or item_id" value="${escapeHtml(item.item_id || '')}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+          </div>
+          <div style="width: 80px;">
+            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 2px;">Qty</div>
+            <input type="number" step="any" min="0" class="kv-input" placeholder="Qty" value="${item.quantity !== undefined ? item.quantity : 1}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+          </div>
+          <button type="button" class="schema-btn-danger" title="Remove material" style="margin-top: 14px;">✕</button>
+        `;
+
+        const idInp = row.querySelector("input[type='text']");
+        const qtyInp = row.querySelector("input[type='number']");
+        const delBtn = row.querySelector(".schema-btn-danger");
+
+        const updateItem = () => {
+          arr[idx] = {
+            item_id: idInp.value.trim(),
+            quantity: qtyInp.value === "" ? 0 : Number(qtyInp.value)
+          };
+          applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+          if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+        };
+
+        idInp.oninput = updateItem;
+        qtyInp.oninput = updateItem;
+
+        delBtn.onclick = () => {
+          arr.splice(idx, 1);
+          applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+          if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+          renderCategorySchemaSection(it);
+        };
+
+        listEl.appendChild(row);
+      });
+
+      card.querySelector("#recipe-add-btn").onclick = () => {
+        arr.push({ item_id: "", quantity: 1 });
+        applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+        if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+        renderCategorySchemaSection(it);
+      };
+    }
+
+    /* Compound Card: Required Tools (Array of Tool Alternative Groups) */
+    function renderRequiredToolsCard(container, fieldKey, fieldTitle, toolsArray, schemaDef, it) {
+      const card = document.createElement("div");
+      card.className = "schema-compound-card";
+
+      const groups = Array.isArray(toolsArray) ? toolsArray.map(g => Array.isArray(g) ? [...g] : [g]) : [];
+      const note = schemaDef?.note || "Each group is an array of alternative tools (player needs ANY ONE). Multiple groups = multiple tool roles needed.";
+
+      card.innerHTML = `
+        <div class="schema-compound-header">
+          <div class="schema-compound-title">
+            <span>🛠️ ${escapeHtml(fieldTitle)}</span>
+            <span class="schema-type-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">
+              ${groups.length} group${groups.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <button type="button" class="schema-btn-small" id="tools-add-grp-btn">
+            + Add Tool Group
+          </button>
+        </div>
+        ${note ? `<div class="schema-note-hint">${escapeHtml(note)}</div>` : ""}
+        <div class="tools-groups-list" style="display: flex; flex-direction: column; gap: 8px;">
+          ${groups.length === 0 ? `
+            <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic; padding: 6px 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+              No tool requirement groups configured. Click "+ Add Tool Group" to specify required tool alternatives.
+            </div>
+          ` : ""}
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      const listEl = card.querySelector(".tools-groups-list");
+
+      groups.forEach((grp, grpIdx) => {
+        const grpCard = document.createElement("div");
+        grpCard.className = "schema-tool-group-card";
+        grpCard.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <div style="font-size: 11px; font-weight: 600; color: #bae6fd;">
+              Role Group #${grpIdx + 1} <span style="font-size: 10px; color: var(--text-muted); font-weight: normal;">(Player needs ANY 1)</span>
+            </div>
+            <button type="button" class="schema-btn-danger" title="Delete Group" style="font-size: 10.5px; padding: 1px 5px;">
+              🗑️ Delete Group
+            </button>
+          </div>
+          <div class="schema-chips-wrap"></div>
+          <div style="display: flex; align-items: center; gap: 6px; margin-top: 6px;">
+            <input type="text" class="kv-input schema-chip-input" list="schema-tools-datalist" placeholder="Select or type tool_id..." style="flex: 1; background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+            <button type="button" class="schema-btn-small" style="white-space: nowrap;">+ Add Tool</button>
+          </div>
+        `;
+
+        const chipsWrap = grpCard.querySelector(".schema-chips-wrap");
+        const addInp = grpCard.querySelector("input");
+        const addBtn = grpCard.querySelector(".schema-btn-small");
+        const delGrpBtn = grpCard.querySelector(".schema-btn-danger");
+
+        const renderChips = () => {
+          chipsWrap.innerHTML = "";
+          if (grp.length === 0) {
+            chipsWrap.innerHTML = `<span style="font-size: 10.5px; color: var(--text-muted); font-style: italic;">No tools in this group yet.</span>`;
+            return;
+          }
+          grp.forEach((tId, tIdx) => {
+            const chip = document.createElement("span");
+            chip.className = "schema-chip";
+            chip.innerHTML = `<span>🔧 ${escapeHtml(tId)}</span><span class="chip-del-btn" title="Remove tool">✕</span>`;
+            chip.querySelector(".chip-del-btn").onclick = () => {
+              grp.splice(tIdx, 1);
+              groups[grpIdx] = grp;
+              applyManifestFieldEdit(`category_fields.${fieldKey}`, groups, "raw");
+              if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = groups;
+              renderChips();
+            };
+            chipsWrap.appendChild(chip);
+          });
+        };
+
+        renderChips();
+
+        const addToolAction = () => {
+          const val = addInp.value.trim();
+          if (!val) return;
+          if (!grp.includes(val)) {
+            grp.push(val);
+            groups[grpIdx] = grp;
+            applyManifestFieldEdit(`category_fields.${fieldKey}`, groups, "raw");
+            if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = groups;
+            renderChips();
+          }
+          addInp.value = "";
+          addInp.focus();
+        };
+
+        addBtn.onclick = addToolAction;
+        addInp.onkeydown = (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            addToolAction();
+          }
+        };
+
+        delGrpBtn.onclick = () => {
+          groups.splice(grpIdx, 1);
+          applyManifestFieldEdit(`category_fields.${fieldKey}`, groups, "raw");
+          if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = groups;
+          renderCategorySchemaSection(it);
+        };
+
+        listEl.appendChild(grpCard);
+      });
+
+      card.querySelector("#tools-add-grp-btn").onclick = () => {
+        groups.push([]);
+        applyManifestFieldEdit(`category_fields.${fieldKey}`, groups, "raw");
+        if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = groups;
+        renderCategorySchemaSection(it);
+      };
+    }
+
+    /* Compound Card: Object Group (e.g. dimensions_m or custom objects) */
+    function renderObjectGroupCard(container, fieldKey, fieldTitle, objData, schemaDef, it) {
+      const card = document.createElement("div");
+      card.className = "schema-compound-card";
+
+      const obj = (objData && typeof objData === "object" && !Array.isArray(objData)) ? { ...objData } : {};
+      const sProps = schemaDef?.properties || {};
+      const note = schemaDef?.note || "";
+
+      const keys = Array.from(new Set([...Object.keys(sProps), ...Object.keys(obj)]));
+
+      card.innerHTML = `
+        <div class="schema-compound-header">
+          <div class="schema-compound-title">
+            <span>📦 ${escapeHtml(fieldTitle)}</span>
+            <span class="schema-type-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3);">
+              Group / Object
+            </span>
+          </div>
+        </div>
+        ${note ? `<div class="schema-note-hint">${escapeHtml(note)}</div>` : ""}
+        <div class="schema-group-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px;">
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      const gridEl = card.querySelector(".schema-group-grid");
+
+      keys.forEach(k => {
+        const val = obj[k];
+        const propType = (typeof sProps[k] === "string" ? sProps[k] : sProps[k]?.type) || (typeof val === "number" ? "number" : typeof val === "boolean" ? "boolean" : "string");
+        const subLabel = k.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+        const subBox = document.createElement("div");
+        subBox.className = "kv-box";
+
+        if (propType === "number") {
+          subBox.innerHTML = `
+            <div class="kv-key">${subLabel}</div>
+            <input type="number" step="any" class="kv-input" value="${val !== undefined && val !== null ? val : 0}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+          `;
+          const inp = subBox.querySelector("input");
+          inp.oninput = () => {
+            const numVal = inp.value === "" ? 0 : Number(inp.value);
+            obj[k] = numVal;
+            applyManifestFieldEdit(`category_fields.${fieldKey}.${k}`, numVal, "number");
+            if (it.manifest?.category_fields?.[fieldKey]) it.manifest.category_fields[fieldKey][k] = numVal;
+          };
+          inp.onchange = () => {
+            if (fieldKey === "dimensions_m" && !document.getElementById("m-catfield-interior_area_m2")) {
+              if (it.manifest?.category_fields?.interior_area_m2 !== undefined) {
+                renderCategorySchemaSection(it);
+              }
+            }
+          };
+        } else if (propType === "boolean") {
+          subBox.innerHTML = `
+            <div class="kv-key">${subLabel}</div>
+            <select class="kv-input" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+              <option value="false"${val === false ? " selected" : ""}>No</option>
+              <option value="true"${val === true ? " selected" : ""}>Yes</option>
+            </select>
+          `;
+          const sel = subBox.querySelector("select");
+          sel.onchange = () => {
+            const bVal = sel.value === "true";
+            obj[k] = bVal;
+            applyManifestFieldEdit(`category_fields.${fieldKey}.${k}`, bVal, "bool");
+            if (it.manifest?.category_fields?.[fieldKey]) it.manifest.category_fields[fieldKey][k] = bVal;
+          };
+        } else {
+          subBox.innerHTML = `
+            <div class="kv-key">${subLabel}</div>
+            <input type="text" class="kv-input" value="${escapeHtml(val !== undefined && val !== null ? String(val) : '')}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+          `;
+          const inp = subBox.querySelector("input");
+          inp.oninput = () => {
+            obj[k] = inp.value;
+            applyManifestFieldEdit(`category_fields.${fieldKey}.${k}`, inp.value, "string");
+            if (it.manifest?.category_fields?.[fieldKey]) it.manifest.category_fields[fieldKey][k] = inp.value;
+          };
+        }
+
+        gridEl.appendChild(subBox);
+      });
+    }
+
+    /* Compound Card: Array of Primitives (e.g. Tags, Attachments) */
+    function renderArrayOfPrimitivesCard(container, fieldKey, fieldTitle, arrData, schemaDef, it) {
+      const card = document.createElement("div");
+      card.className = "schema-compound-card";
+
+      const arr = Array.isArray(arrData) ? [...arrData] : [];
+      const note = schemaDef?.note || "";
+
+      card.innerHTML = `
+        <div class="schema-compound-header">
+          <div class="schema-compound-title">
+            <span>🏷️ ${escapeHtml(fieldTitle)}</span>
+            <span class="schema-type-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);">
+              ${arr.length} item${arr.length === 1 ? "" : "s"}
+            </span>
+          </div>
+        </div>
+        ${note ? `<div class="schema-note-hint">${escapeHtml(note)}</div>` : ""}
+        <div class="schema-chips-wrap"></div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-top: 6px;">
+          <input type="text" class="kv-input schema-chip-input" placeholder="Add value..." style="flex: 1; background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+          <button type="button" class="schema-btn-small">+ Add</button>
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      const chipsWrap = card.querySelector(".schema-chips-wrap");
+      const addInp = card.querySelector("input");
+      const addBtn = card.querySelector(".schema-btn-small");
+
+      const renderChips = () => {
+        chipsWrap.innerHTML = "";
+        if (arr.length === 0) {
+          chipsWrap.innerHTML = `<span style="font-size: 10.5px; color: var(--text-muted); font-style: italic;">No items configured.</span>`;
+          return;
+        }
+        arr.forEach((itemVal, idx) => {
+          const chip = document.createElement("span");
+          chip.className = "schema-chip";
+          chip.innerHTML = `<span>${escapeHtml(String(itemVal))}</span><span class="chip-del-btn" title="Remove">✕</span>`;
+          chip.querySelector(".chip-del-btn").onclick = () => {
+            arr.splice(idx, 1);
+            applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+            if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+            renderChips();
+          };
+          chipsWrap.appendChild(chip);
+        });
+      };
+
+      renderChips();
+
+      const addAction = () => {
+        const val = addInp.value.trim();
+        if (!val) return;
+        arr.push(val);
+        applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+        if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+        renderChips();
+        addInp.value = "";
+        addInp.focus();
+      };
+
+      addBtn.onclick = addAction;
+      addInp.onkeydown = (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          addAction();
+        }
+      };
     }
 
     /* Open & Populate Item Modal */
@@ -8608,41 +10566,65 @@
       // manifest editor via syncFieldToManifestEditor, reusing its existing
       // dirty-tracking / Save / Revert flow rather than a separate save path)
       const p = it.properties || {};
+      document.getElementById("m-value").value = p.base_value !== undefined && p.base_value !== null ? p.base_value : "";
       document.getElementById("m-weight").value = p.weight_kg !== undefined && p.weight_kg !== null ? p.weight_kg : "";
       document.getElementById("m-stack").value = p.max_stack_size !== undefined && p.max_stack_size !== null ? p.max_stack_size : "";
-      document.getElementById("m-value").value = p.base_value !== undefined && p.base_value !== null ? p.base_value : "";
       document.getElementById("m-consumable").value = p.is_consumable ? "true" : "false";
-      document.getElementById("m-footprint").value = p.footprint || "";
+      let fpVal = "";
+      if (p.footprint) {
+        if (typeof p.footprint === "object") {
+          fpVal = `${p.footprint.width_m || 0} × ${p.footprint.depth_m || 0} m`;
+        } else {
+          fpVal = String(p.footprint);
+        }
+      }
+      document.getElementById("m-footprint").value = fpVal;
+      document.getElementById("m-happiness").value = p.happiness_modifier !== undefined && p.happiness_modifier !== null ? p.happiness_modifier : "";
+      document.getElementById("m-thirst").value = p.thirst_restore !== undefined && p.thirst_restore !== null ? p.thirst_restore : "";
+      document.getElementById("m-energy").value = p.energy_restore !== undefined && p.energy_restore !== null ? p.energy_restore : "";
+      document.getElementById("m-stamina").value = p.stamina_restore !== undefined && p.stamina_restore !== null ? p.stamina_restore : "";
+      document.getElementById("m-wellness").value = p.wellness_modifier !== undefined && p.wellness_modifier !== null ? p.wellness_modifier : "";
 
       // Wire each editable field to write straight into the raw JSON
       // manifest editor's textarea (same dirty/Save/Revert flow as hand-
       // editing the JSON directly) rather than its own separate save path.
       const fieldBindings = [
         ["m-desc", "description", "string"],
+        ["m-value", "properties.base_value", "number"],
         ["m-weight", "properties.weight_kg", "number"],
         ["m-stack", "properties.max_stack_size", "int"],
-        ["m-value", "properties.base_value", "number"],
         ["m-consumable", "properties.is_consumable", "bool"],
-        ["m-footprint", "properties.footprint", "string_or_null"],
+        ["m-footprint", "properties.footprint", "footprint_smart"],
+        ["m-happiness", "properties.happiness_modifier", "number"],
+        ["m-thirst", "properties.thirst_restore", "number"],
+        ["m-energy", "properties.energy_restore", "number"],
+        ["m-stamina", "properties.stamina_restore", "number"],
+        ["m-wellness", "properties.wellness_modifier", "number"],
       ];
       fieldBindings.forEach(([elId, path, kind]) => {
         const el = document.getElementById(elId);
+        if (!el) return;
         el.oninput = el.tagName === "SELECT" ? null : () => applyManifestFieldEdit(path, el.value, kind);
         el.onchange = () => applyManifestFieldEdit(path, el.value, kind);
       });
 
-      // Dimensions
+      // Dynamic Category Schema Section (Supports Scalars, Object Groups, Recipe Arrays, Tool Alternative Groups, Tag Arrays)
+      renderCategorySchemaSection(it);
+
+      // Dimensions (defaults to collapsed at bottom)
+      const dimSec = document.getElementById("sec-dimensions");
+      if (dimSec) dimSec.classList.add("collapsed");
       const d = it.dimensions || {};
       const dCm = d.dimensions_cm || {};
       const dM = d.dimensions_m || {};
       if (dCm.x || dM.x) {
-        document.getElementById("sec-dimensions").style.display = "block";
+        if (dimSec) dimSec.style.display = "block";
         document.getElementById("m-dim-x").innerText = dM.x ? `${dM.x} m (${dCm.x} cm)` : `${dCm.x} cm`;
         document.getElementById("m-dim-y").innerText = dM.y ? `${dM.y} m (${dCm.y} cm)` : `${dCm.y} cm`;
         document.getElementById("m-dim-z").innerText = dM.z ? `${dM.z} m (${dCm.z} cm)` : `${dCm.z} cm`;
         document.getElementById("m-faces").innerText = d.faces ? Number(d.faces).toLocaleString() : "—";
       } else {
-        document.getElementById("sec-dimensions").style.display = "none";
+        if (dimSec) dimSec.style.display = "none";
       }
 
       // Utilities
@@ -8880,7 +10862,7 @@
       threeRenderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(threeRenderer.domElement);
 
-      threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls = new THREE.OrbitControls(threeCama, nderer.domElement);
       threeControls.enableDamping = true;
       threeControls.dampingFactor = 0.05;
       threeControls.autoRotate = true;
@@ -8944,8 +10926,7 @@
               <div style="text-align: center; color: var(--text-muted); padding: 36px 20px;">
                 <div style="font-size: 36px; margin-bottom: 8px;">🛡️</div>
                 <div style="font-size: 14px; font-weight: 700; color: var(--accent-gold);">Browser Security Policy</div>
-                <div style="font-size: 12px; max-width: 320px; margin: 8px auto; line-height: 1.5; color: var(--text-sub);">
-                  Browsers block WebGL mesh loading when opened directly from disk (<code>file://</code>).
+                <div style="font-size: 12px; max-width: 320px; margin: 8px auto; line-height: 1.5; color: var(--text-b);              Browsers block WebGL mesh loading when opened directly from disk (<code>file://</code>).
                   <br><br>
                   Run <b>launch_asset_kit.bat</b> in this folder or start a local server:
                   <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 6px; margin-top: 8px; font-family: monospace; color: var(--accent-sky);">

@@ -6,9 +6,9 @@
   "description": "Parabolic satellite dish with feed horn.",
   "icon": "net_dish_satellite_high_perf.png",
   "properties": {
-    "weight_kg": 15.0,
+    "weight_kg": 15,
     "max_stack_size": 1,
-    "base_value": 650.0,
+    "base_value": 650,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -71,7 +71,7 @@
       "height": 0.4
     },
     "power_draw_w": 150,
-    "bandwidth_mbps": 500,
+    "bandwidth_mbps": 200,
     "range_m": 0,
     "is_connected": true
   }

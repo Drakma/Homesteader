@@ -1,0 +1,45 @@
+{
+  "batch_id": "batch_1789651222",
+  "finalized_at": "2026-09-17T13:20:22Z",
+  "items": [
+    {
+      "id": "1789520000_steel_stud_framing",
+      "name": "Steel Stud (Metal Framing)",
+      "category": "building",
+      "description": "Galvanized steel C-stud, the metal-building equivalent of lumber_stud_2x4 - light-gauge steel framing member used for wall/partition framing in pre-engineered metal buildings, sold in bundles like the existing lumber studs.",
+      "notes": "Queued while filling in the Large Metal Garage growth group's construction_recipe fields - the catalog currently has no steel-frame or metal-siding building materials at all (only roofing_steel_corrugated exists), so a genuinely metal-framed building's recipe can't be built accurately without this. Should slot into a new #steel_framing material tag (assets/_schemas/material_tags.json) analogous to the existing #framing_lumber tag.",
+      "status": "done",
+      "requested_at": "2026-09-16T00:00:00Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789651222",
+      "finalized_at": "2026-09-17T13:20:22Z"
+    },
+    {
+      "id": "1789520001_steel_frame_beam",
+      "name": "Steel Rigid Frame Beam",
+      "category": "building",
+      "description": "Primary structural I-beam/column for a pre-engineered steel building's rigid frame - the load-bearing skeleton members that carry the roof and wall panels on a metal building, distinct from the lighter steel studs used for infill framing.",
+      "notes": "Queued alongside 1789520000_steel_stud_framing while filling in the Large Metal Garage growth group's construction_recipe - the primary structural members of a metal building's frame (vs. the lighter infill studs) don't exist as a separate catalog item yet.",
+      "status": "done",
+      "requested_at": "2026-09-16T00:00:00Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789651222",
+      "finalized_at": "2026-09-17T13:20:22Z"
+    },
+    {
+      "id": "1789520002_steel_siding_corrugated",
+      "name": "Corrugated Steel Wall Siding",
+      "category": "building",
+      "description": "Corrugated steel wall siding panel, sibling to the existing roofing_steel_corrugated item but sized/sold for vertical wall cladding rather than roofing - light-gray/galvanized finish to match a typical metal garage or pole barn exterior.",
+      "notes": "Queued alongside 1789520000_steel_stud_framing and 1789520001_steel_frame_beam while filling in the Large Metal Garage growth group's construction_recipe - the catalog's only existing corrugated-steel item (roofing_steel_corrugated) is explicitly a roofing product, not wall siding, so reusing it for walls would be inaccurate. Should slot into a new #metal_siding material tag once created.",
+      "status": "done",
+      "requested_at": "2026-09-16T00:00:00Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1789651222",
+      "finalized_at": "2026-09-17T13:20:22Z"
+    }
+  ]
+}

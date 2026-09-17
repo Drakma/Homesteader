@@ -1,8 +1,0 @@
-# Homesteader Material
-newmtl M_SM_Item_FishFillet_Bass
-Kd 0.920 0.900 0.860
-Ka 0.100 0.100 0.100
-Ks 0.200 0.200 0.200
-Ns 20.0
-d 1.0
-illum 2

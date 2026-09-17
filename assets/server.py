@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import urllib.request
 import urllib.parse
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import regen_icons
 
 # Windows' default console codepage (cp1252) can't encode most emoji, and
@@ -249,7 +249,6 @@ def rename_item_in_embedded_catalog(category, old_id, new_id, new_name):
     invalidate_catalog_cache()
 KIT_CONFIG_PATH = os.path.join(BASE_DIR, "kit_config.json")
 MATERIAL_TAGS_PATH = os.path.join(BASE_DIR, "_schemas", "material_tags.json")
-CREATIVE_CLAW_BALANCE_PATH = os.path.join(BASE_DIR, "creative_claw_balance.json")
 WATCHER_HEARTBEAT_PATH = os.path.join(BASE_DIR, "_asset_requests", "watcher_heartbeat.json")
 WATCHER_STALE_AFTER_SECONDS = 15
 ASSET_REQUESTS_DIR = os.path.join(BASE_DIR, "_asset_requests")
@@ -258,17 +257,18 @@ ASSET_REQUESTS_IN_PROGRESS = os.path.join(ASSET_REQUESTS_DIR, "in_progress")
 ASSET_REQUESTS_DONE = os.path.join(ASSET_REQUESTS_DIR, "done")
 ASSET_REQUESTS_BATCHES = os.path.join(ASSET_REQUESTS_DIR, "batches")
 APPROVALS_DIR = os.path.join(ASSET_REQUESTS_DIR, "approvals")
+CREATIVE_CLAW_BALANCE_PATH = os.path.join(BASE_DIR, "creative_claw_balance.json")
 MESHY_BASE_URL = "https://api.meshy.ai"
 
 
 def _find_meshy_api_key():
     """Reads MESHY_API_KEY from the env, falling back to the same key already
-    configured for the meshy MCP server in HUD/.mcp.json, so it isn't
+    configured for the meshy MCP server in .mcp.json, so it isn't
     retyped/duplicated into a third source file."""
     env_key = os.environ.get("MESHY_API_KEY")
     if env_key:
         return env_key
-    mcp_config_path = os.path.join(os.path.dirname(BASE_DIR), "HUD", ".mcp.json")
+    mcp_config_path = os.path.join(os.path.dirname(BASE_DIR), ".mcp.json")
     try:
         with open(mcp_config_path, "r", encoding="utf-8") as f:
             cfg = json.load(f)
@@ -282,7 +282,7 @@ def fetch_meshy_balance():
     key never reaches the browser."""
     api_key = _find_meshy_api_key()
     if not api_key:
-        raise RuntimeError("MESHY_API_KEY not found (env var or HUD/.mcp.json)")
+        raise RuntimeError("MESHY_API_KEY not found (env var or .mcp.json)")
     req = urllib.request.Request(
         f"{MESHY_BASE_URL}/openapi/v1/balance",
         headers={"Authorization": f"Bearer {api_key}", "Accept": "application/json"}
@@ -334,8 +334,154 @@ def load_claude_usage():
         return None
 
 
+_cached_hub_info = {"port": None, "csrf": None}
+
+
+def find_agy_hub_port():
+    """Finds the local Antigravity hub port and session CSRF token."""
+    if _cached_hub_info["port"]:
+        port = _cached_hub_info["port"]
+        try:
+            req = urllib.request.Request(f"http://127.0.0.1:{port}/", headers={"User-Agent": "AssetKit"})
+            with urllib.request.urlopen(req, timeout=0.5) as resp:
+                if resp.status == 200:
+                    html = resp.read().decode("utf-8", errors="ignore")
+                    match = re.search(r'"csrfToken":"([^"]+)"', html)
+                    if match:
+                        _cached_hub_info["csrf"] = match.group(1)
+                        return port, _cached_hub_info["csrf"]
+        except Exception:
+            _cached_hub_info["port"] = None
+            _cached_hub_info["csrf"] = None
+
+    port = None
+    try:
+        cmd = 'wmic process where "name=\'agy.exe\'" get commandline /format:csv'
+        out = subprocess.check_output(cmd, shell=True, text=True, errors="ignore")
+        for line in out.splitlines():
+            m = re.search(r'--hub[_-]?port[=\s]+(\d+)', line)
+            if m:
+                port = int(m.group(1))
+                break
+    except Exception:
+        pass
+
+    if not port:
+        cli_log = os.path.join(os.path.expanduser("~"), ".gemini", "antigravity", "cli.log")
+        if os.path.exists(cli_log):
+            try:
+                with open(cli_log, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()[-50:]
+                    for line in reversed(lines):
+                        m = re.search(r'--hub[_-]?port[=\s]+(\d+)', line)
+                        if m:
+                            port = int(m.group(1))
+                            break
+            except Exception:
+                pass
+
+    if not port:
+        return None, None
+
+    try:
+        req = urllib.request.Request(f"http://127.0.0.1:{port}/", headers={"User-Agent": "AssetKit"})
+        with urllib.request.urlopen(req, timeout=1.0) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+            match = re.search(r'"csrfToken":"([^"]+)"', html)
+            if match:
+                csrf = match.group(1)
+                _cached_hub_info["port"] = port
+                _cached_hub_info["csrf"] = csrf
+                return port, csrf
+    except Exception:
+        pass
+
+    return None, None
+
+
+def load_gemini_usage():
+    """Genuinely live: queries the local Antigravity (agy.exe) daemon for
+    current model quotas (Gemini Flash, Gemini Pro, Claude Thinking, etc.),
+    remaining percentages, and reset timestamps."""
+    from datetime import datetime
+    port, csrf = find_agy_hub_port()
+    if not port or not csrf:
+        return None
+
+    try:
+        url = f"http://127.0.0.1:{port}/exa.language_server_pb.LanguageServerService/GetUserStatus"
+        payload = json.dumps({
+            "wrapper_data": {},
+            "metadata": {"ide_name": "antigravity", "extension_name": "antigravity", "locale": "en"}
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            url,
+            data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "X-Codeium-Csrf-Token": csrf,
+                "Connect-Protocol-Version": "1"
+            }
+        )
+
+        with urllib.request.urlopen(req, timeout=2.0) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+
+        user_status = data.get("userStatus") or data.get("user_status") or {}
+        tier_info = user_status.get("userTier") or {}
+        model_configs = (
+            user_status.get("cascadeModelConfigData", {}).get("clientModelConfigs")
+            or user_status.get("cascade_model_config_data", {}).get("client_model_configs")
+            or []
+        )
+
+        models = []
+        flash_model = None
+        pro_model = None
+
+        for m in model_configs:
+            label = m.get("label", "")
+            mid = m.get("modelId", "")
+            qinfo = m.get("quotaInfo") or {}
+            remaining_frac = qinfo.get("remainingFraction")
+            if remaining_frac is not None:
+                pct = round(remaining_frac * 100)
+                reset_time = qinfo.get("resetTime")
+                reset_ts = None
+                if reset_time:
+                    try:
+                        reset_ts = int(datetime.fromisoformat(reset_time.replace("Z", "+00:00")).timestamp())
+                    except Exception:
+                        pass
+                entry = {
+                    "label": label,
+                    "model_id": mid,
+                    "remaining_percent": pct,
+                    "remaining_fraction": remaining_frac,
+                    "reset_time": reset_time,
+                    "reset_timestamp": reset_ts
+                }
+                models.append(entry)
+                if "flash" in label.lower() and not flash_model:
+                    flash_model = entry
+                elif "pro" in label.lower() and not pro_model:
+                    pro_model = entry
+
+        return {
+            "online": True,
+            "port": port,
+            "tier_name": tier_info.get("name", "Google AI Pro"),
+            "models": models,
+            "flash": flash_model,
+            "pro": pro_model
+        }
+    except Exception as e:
+        return {"online": False, "error": str(e)}
+
+
 def load_watcher_status():
-    """Unlike Creative Claw/Claude, this one CAN be live: watch_asset_requests.py
+    """Unlike the Claude usage cache, this one CAN be live: watch_asset_requests.py
     writes a heartbeat file on every poll cycle, so server.py can just check
     freshness directly rather than trusting a self-reported status."""
     if not os.path.exists(WATCHER_HEARTBEAT_PATH):
@@ -1125,6 +1271,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         if self.path == "/api/claude-usage":
             self.handle_claude_usage()
             return
+        if self.path == "/api/gemini-usage":
+            self.handle_gemini_usage()
+            return
         if self.path == "/api/watcher-status":
             self.handle_watcher_status()
             return
@@ -1136,6 +1285,15 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             return
         if self.path == "/api/material-tags":
             self.handle_get_material_tags()
+            return
+        if self.path.startswith("/api/schemas?") or self.path == "/api/schemas":
+            self.handle_get_schemas()
+            return
+        if self.path.startswith("/api/schema/validate?") or self.path == "/api/schema/validate":
+            self.handle_validate_schema()
+            return
+        if self.path.startswith("/api/schema?") or self.path == "/api/schema":
+            self.handle_get_schema()
             return
         if self.path == "/api/ghost-entries":
             self.handle_get_ghost_entries()
@@ -1175,6 +1333,14 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         data = load_claude_usage()
         if data is None:
             self.send_json_response({"success": False, "error": "vscode-claude-status-cache.json not found — install/enable the 'Claude Status' VSCode extension"}, 404)
+            return
+        self.send_json_response({"success": True, **data}, 200)
+
+    def handle_gemini_usage(self):
+        data = load_gemini_usage()
+        if data is None or not data.get("online"):
+            err = data.get("error") if data else "Antigravity/Gemini daemon not detected or offline"
+            self.send_json_response({"success": False, "error": err}, 404)
             return
         self.send_json_response({"success": True, **data}, 200)
 
@@ -1290,8 +1456,22 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             print(f"Error listing item files: {e}")
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
+    def handle_client_error(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            print(f"\n[CLIENT JS ERROR] {data.get('message')} (Line {data.get('line')}:{data.get('col')})")
+            if data.get("stack"):
+                print(f"Stack trace:\n{data['stack']}")
+            self.send_json_response({"success": True}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
     def do_POST(self):
-        if self.path == "/api/delete-asset":
+        if self.path == "/api/client-error":
+            self.handle_client_error()
+        elif self.path == "/api/delete-asset":
             self.handle_delete_asset()
         elif self.path == "/api/delete-batch":
             self.handle_delete_batch()
@@ -1309,6 +1489,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_add_category()
         elif self.path == "/api/save-material-tag":
             self.handle_save_material_tag()
+        elif self.path == "/api/schema/save":
+            self.handle_save_schema()
         elif self.path == "/api/delete-material-tag":
             self.handle_delete_material_tag()
         elif self.path == "/api/edit-category-prefix":
@@ -1879,6 +2061,219 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
     def handle_get_material_tags(self):
         self.send_json_response({"success": True, **load_material_tags()}, 200)
 
+    def handle_get_schemas(self):
+        """Lists category and base schema files in assets/_schemas/ with detail."""
+        try:
+            query = urllib.parse.urlparse(self.path).query
+            params = urllib.parse.parse_qs(query)
+            include_all = params.get("all", ["0"])[0] in ("1", "true")
+            schemas_dir = os.path.join(BASE_DIR, "_schemas")
+            names = []
+            details = []
+            if os.path.isdir(schemas_dir):
+                for fname in os.listdir(schemas_dir):
+                    if not fname.endswith(".schema.json"):
+                        continue
+                    name = fname[:-len(".schema.json")]
+                    if name.startswith("_") and not include_all:
+                        continue
+                    names.append(name)
+                    try:
+                        fpath = os.path.join(schemas_dir, fname)
+                        with open(fpath, "r", encoding="utf-8") as sf:
+                            sdata = json.load(sf)
+                        details.append({
+                            "name": name,
+                            "category": sdata.get("category", name),
+                            "target": sdata.get("target", "category_fields"),
+                            "field_count": len(sdata.get("fields", {})),
+                            "note": sdata.get("note", "")
+                        })
+                    except Exception:
+                        details.append({"name": name, "category": name, "target": "category_fields", "field_count": 0, "note": ""})
+            names.sort()
+            details.sort(key=lambda x: (0 if x["name"].startswith("_") else 1, x["name"]))
+            self.send_json_response({"success": True, "schemas": names, "details": details}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_get_schema(self):
+        """Fetches the full JSON payload for one schema by name."""
+        try:
+            query = urllib.parse.urlparse(self.path).query
+            params = urllib.parse.parse_qs(query)
+            name = (params.get("name", [""])[0]).strip().lower()
+            if not name:
+                self.send_json_response({"success": False, "error": "Missing schema name"}, 400)
+                return
+            safe_name = os.path.basename(name)
+            fpath = os.path.join(BASE_DIR, "_schemas", f"{safe_name}.schema.json")
+            if not os.path.exists(fpath):
+                self.send_json_response({"success": False, "error": f"Schema not found: {safe_name}"}, 404)
+                return
+            with open(fpath, "r", encoding="utf-8") as f:
+                schema_data = json.load(f)
+            self.send_json_response({"success": True, "name": safe_name, "schema": schema_data}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_save_schema(self):
+        """Saves/updates a schema file in assets/_schemas/<name>.schema.json."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len)
+            data = json.loads(post_body.decode("utf-8")) if content_len > 0 else {}
+
+            name = (data.get("name") or "").strip().lower()
+            schema_data = data.get("schema")
+
+            if not name or not isinstance(schema_data, dict):
+                self.send_json_response({"success": False, "error": "Missing schema name or schema body"}, 400)
+                return
+
+            safe_name = "".join(c for c in name if c.isalnum() or c in ("_", "-"))
+            if not safe_name:
+                self.send_json_response({"success": False, "error": "Invalid schema name"}, 400)
+                return
+
+            if "fields" not in schema_data or not isinstance(schema_data["fields"], dict):
+                self.send_json_response({"success": False, "error": "Schema must contain a 'fields' object"}, 400)
+                return
+
+            schemas_dir = os.path.join(BASE_DIR, "_schemas")
+            os.makedirs(schemas_dir, exist_ok=True)
+            fpath = os.path.join(schemas_dir, f"{safe_name}.schema.json")
+
+            with open(fpath, "w", encoding="utf-8") as f:
+                json.dump(schema_data, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+
+            self.send_json_response({"success": True, "name": safe_name}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_validate_schema(self):
+        """Runs compliance checks on all item manifests in a category against schemas."""
+        try:
+            query = urllib.parse.urlparse(self.path).query
+            params = urllib.parse.parse_qs(query)
+            category = (params.get("category", [""])[0]).strip().lower()
+            if not category:
+                self.send_json_response({"success": False, "error": "Missing category"}, 400)
+                return
+
+            schemas_dir = os.path.join(BASE_DIR, "_schemas")
+            schemas = []
+            if os.path.isdir(schemas_dir):
+                for base_name in sorted(os.listdir(schemas_dir)):
+                    if base_name.startswith("_base") and base_name.endswith(".schema.json"):
+                        try:
+                            with open(os.path.join(schemas_dir, base_name), "r", encoding="utf-8") as bf:
+                                schemas.append(json.load(bf))
+                        except Exception:
+                            pass
+                cat_file = os.path.join(schemas_dir, f"{category}.schema.json")
+                if os.path.exists(cat_file):
+                    try:
+                        with open(cat_file, "r", encoding="utf-8") as cf:
+                            schemas.append(json.load(cf))
+                    except Exception:
+                        pass
+
+            cat_dir = os.path.join(BASE_DIR, category)
+            if not os.path.isdir(cat_dir):
+                self.send_json_response({
+                    "success": True,
+                    "category": category,
+                    "total_items": 0,
+                    "passed_count": 0,
+                    "failed_count": 0,
+                    "failed_items": []
+                }, 200)
+                return
+
+            py_types = {"object": dict, "string": str, "number": (int, float), "boolean": bool, "array": list}
+
+            def check_val(val, spec, path_str):
+                errs = []
+                exp = spec.get("type") if isinstance(spec, dict) else spec
+                py_t = py_types.get(exp)
+                if py_t is None:
+                    return errs
+                if not isinstance(val, py_t) or (isinstance(val, bool) and py_t is not bool):
+                    errs.append(f"{path_str}: expected {exp}, got {type(val).__name__}")
+                    return errs
+                if exp == "number" and isinstance(spec, dict):
+                    if "min" in spec and val < spec["min"]:
+                        errs.append(f"{path_str}: {val} < min {spec['min']}")
+                    if "max" in spec and val > spec["max"]:
+                        errs.append(f"{path_str}: {val} > max {spec['max']}")
+                if exp == "object" and isinstance(spec, dict) and "properties" in spec:
+                    for p_name, p_type in spec["properties"].items():
+                        if p_name not in val:
+                            errs.append(f"{path_str}.{p_name}: missing")
+                        else:
+                            errs.extend(check_val(val[p_name], p_type, f"{path_str}.{p_name}"))
+                return errs
+
+            def val_item(manifest, schema):
+                errs = []
+                tgt_key = schema.get("target", "category_fields")
+                tgt = manifest.get(tgt_key, {})
+                for f_name, f_spec in schema.get("fields", {}).items():
+                    if f_name not in tgt:
+                        if f_spec.get("required"):
+                            errs.append(f"{tgt_key}.{f_name}: missing (required)")
+                        continue
+                    errs.extend(check_val(tgt[f_name], f_spec, f"{tgt_key}.{f_name}"))
+                return errs
+
+            total_items = 0
+            passed_items = 0
+            failed_items = []
+
+            for item_id in sorted(os.listdir(cat_dir)):
+                item_folder = os.path.join(cat_dir, item_id)
+                if not os.path.isdir(item_folder):
+                    continue
+                m_file = os.path.join(item_folder, f"{item_id}.json")
+                if not os.path.isfile(m_file):
+                    m_file = os.path.join(item_folder, "manifest.json")
+                if not os.path.isfile(m_file):
+                    continue
+
+                total_items += 1
+                try:
+                    with open(m_file, "r", encoding="utf-8") as mf:
+                        manifest = json.load(mf)
+                except Exception as ex:
+                    failed_items.append({"id": item_id, "name": item_id, "errors": [f"Invalid JSON: {ex}"]})
+                    continue
+
+                item_errs = []
+                for s in schemas:
+                    item_errs.extend(val_item(manifest, s))
+
+                if item_errs:
+                    failed_items.append({
+                        "id": item_id,
+                        "name": manifest.get("name", item_id),
+                        "errors": item_errs
+                    })
+                else:
+                    passed_items += 1
+
+            self.send_json_response({
+                "success": True,
+                "category": category,
+                "total_items": total_items,
+                "passed_count": passed_items,
+                "failed_count": len(failed_items),
+                "failed_items": failed_items
+            }, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
     def handle_save_material_tag(self):
         """Create or update (full replace) one tag - {tag_name, members: [item_ids]}.
         Every member must be a real, existing catalog item; a tag can't
@@ -2191,7 +2586,7 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         record["status"] = new_status
         record["resolved_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         # Only meaningful on an "approved" resolution: "icon_only" tells the
-        # processing session to skip Meshy 3D generation entirely for this
+        # processing session to skip 3D model generation entirely for this
         # plan (icons still get made) - not every requested item ends up
         # needing a model. Defaults to "full" (the original behavior) when
         # not specified, so older/unaware callers are unaffected.
@@ -2296,6 +2691,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 "id": request_id,
                 "name": name,
                 "category": category,
+                "schema": (data.get("schema") or "").strip().lower(),
+                "pipeline": (data.get("pipeline") or "free").strip().lower(),
                 "description": description,
                 "notes": notes,
                 "status": "pending",
@@ -2407,6 +2804,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                     "id": request_id,
                     "name": f"{base_name} - {st['name']}",
                     "category": category,
+                    "schema": (data.get("schema") or "").strip().lower(),
+                    "pipeline": (data.get("pipeline") or "free").strip().lower(),
                     "description": st["description"],
                     "notes": notes,
                     "status": "pending",
@@ -2472,11 +2871,12 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         which create a new one), so they only need category+item_id, not a
         description - there's nothing to generate a prompt for by default,
         the item already exists. rig_type (human/bipedal_animal/quadruped/
-        vehicle/other) is only meaningful for action='rig' - Meshy's
-        meshy_rig tool has no distinct mode per type, but this lets the
+        vehicle/other) is only meaningful for action='rig' - the rigging
+        step (Blender's Mixamo add-on for humanoids, a standard quadruped
+        skeleton otherwise) has no distinct mode per type, but this lets the
         processing Claude session set a sensible height and flag a likely-
-        poor fit (quadruped/vehicle) before spending credits, rather than
-        rig it blindly. reference (category, item_id) tuple is only
+        poor fit (quadruped/vehicle) before rigging it blindly. reference
+        (category, item_id) tuple is only
         meaningful for action='regenerate_icon' - an optional "match style
         to this existing asset" pick, same convention as a new-asset
         request's Reference Asset field. prompt is also only meaningful for
@@ -2692,16 +3092,18 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
     def handle_update_asset_request(self):
         """Lets a Claude session processing a finalized batch report fine-
         grained progress on one request: a human-readable 'step' (e.g.
-        'generating icon sheet', 'meshy image-to-3d 2/3'), running
-        credits_used for Creative Claw / Meshy, and - when the request is
-        actually finished - a status transition that physically moves the
-        request file into in_progress/ or done/ so the queue folders reflect
-        real progress, not just a status field nobody ever changes.
+        'generating icon via FLUX', 'generating 3D mesh via Hunyuan3D-2'),
+        a credits_used cost-tracking dict (always zero under the current
+        free pipeline, kept for backward compatibility with older request
+        records), and - when the request is actually finished - a status
+        transition that physically moves the request file into
+        in_progress/ or done/ so the queue folders reflect real progress,
+        not just a status field nobody ever changes.
 
-        Body: {id, step?, credits_used?: {creative_claw?, meshy?}, status?:
-        "in_progress"|"done", error?}. Only fields present in the body are
-        touched; credits_used is merged key-by-key (pass the running total
-        for each service, not a delta)."""
+        Body: {id, step?, credits_used?: {...}, status?: "in_progress"|
+        "done", error?}. Only fields present in the body are touched;
+        credits_used is merged key-by-key (pass the running total, not a
+        delta)."""
         try:
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len)
@@ -2874,13 +3276,11 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
     def handle_finalize_asset_requests(self):
         """Moves every currently-pending request into a single 'queued' batch.
-        Creative Claw charges per generation call, so instead of a Claude
-        session generating one icon per request as they trickle in, requests
-        sit untouched here until the user explicitly finalizes - then a
-        watching Claude session generates all their icons together as one
-        contact-sheet image (one paid call for N items) and crops individual
-        icons back out, only falling back to per-item Meshy calls where 3D
-        generation genuinely can't be batched. See watch_asset_requests.py."""
+        Requests sit untouched here until the user explicitly finalizes -
+        then a watching Claude session generates all their icons together
+        as one contact-sheet image for N items and crops individual icons
+        back out, still falling back to per-item 3D model generation where
+        that genuinely can't be batched. See watch_asset_requests.py."""
         try:
             if not os.path.isdir(ASSET_REQUESTS_PENDING):
                 self.send_json_response({"success": False, "error": "No pending requests"}, 400)
@@ -3124,9 +3524,12 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+class ReusableThreadingServer(ThreadingHTTPServer):
+    allow_reuse_address = True
+
 def main():
     server_address = ("", PORT)
-    httpd = HTTPServer(server_address, AssetKitHandler)
+    httpd = ReusableThreadingServer(server_address, AssetKitHandler)
     print("=" * 60)
     print(f"  Homesteader Asset Kit Server running on port {PORT}")
     print(f"  Directory: {BASE_DIR}")

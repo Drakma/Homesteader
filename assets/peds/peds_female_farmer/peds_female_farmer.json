@@ -1,93 +1,101 @@
 {
-	"$schema": "https://homesteader.game/schemas/item_v1.json",
-	"id": "peds_female_farmer",
-	"name": "Female Farmer",
-	"category": "peds",
-	"description": "Female farmer character in modern rural work clothing, rigged for Unity Mecanim with Walk and Run animation cycles.",
-	"icon": "peds_female_farmer.png",
-	"properties": {
-		"weight_kg": 65.0,
-		"max_stack_size": 1,
-		"base_value": 0.0,
-		"is_consumable": false,
-		"footprint": {
-			"width_m": 0.6,
-			"depth_m": 0.4,
-			"height_m": 1.7
-		}
-	},
-	"models": [
-		{
-			"file": "peds_female_farmer.fbx",
-			"format": "fbx",
-			"dimensions_m": {
-				"x": 0.6,
-				"y": 0.4,
-				"z": 1.7
-			}
-		},
-		{
-			"file": "SKM_Peds_Female_Farmer_Rigged.fbx",
-			"format": "fbx",
-			"dimensions_m": {
-				"x": 0.6,
-				"y": 0.4,
-				"z": 1.7
-			}
-		},
-		{
-			"file": "SKM_Peds_Female_Farmer_Walk.fbx",
-			"format": "fbx",
-			"dimensions_m": {
-				"x": 0.6,
-				"y": 0.4,
-				"z": 1.7
-			}
-		},
-		{
-			"file": "SKM_Peds_Female_Farmer_Run.fbx",
-			"format": "fbx",
-			"dimensions_m": {
-				"x": 0.6,
-				"y": 0.4,
-				"z": 1.7
-			}
-		}
-	],
-	"utilities": {
-		"water": {
-			"metric": "None",
-			"details": "None"
-		},
-		"electricity": {
-			"metric": "None",
-			"details": "None"
-		},
-		"waste": {
-			"metric": "None",
-			"details": "None"
-		},
-		"battery": {
-			"metric": "None",
-			"details": "None"
-		}
-	},
-	"rigging": {
-		"is_rigged": true,
-		"rig_type": "humanoid",
-		"skeleton": "mixamo_standard",
-		"animations": ["Walk", "Run"]
-	},
-	"growth": {
-		"is_growable": false,
-		"species": null,
-		"max_age": null,
-		"total_stages": 0,
-		"stages": []
-	},
-	"plugin_metadata": {
-		"version": "1.0.0",
-		"author": "Homesteader Free Pipeline",
-		"api_version": "1.0"
-	}
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "peds_female_farmer",
+  "name": "Female Farmer",
+  "category": "peds",
+  "description": "Female farmer character in modern rural work clothing, rigged for Unity Mecanim with Walk and Run animation cycles.",
+  "icon": "peds_female_farmer.png",
+  "properties": {
+    "weight_kg": 65.0,
+    "max_stack_size": 1,
+    "base_value": 0.0,
+    "is_consumable": false,
+    "footprint": {
+      "width_m": 0.6,
+      "depth_m": 0.4,
+      "height_m": 1.7
+    },
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "peds_female_farmer.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.4,
+        "z": 1.7
+      }
+    },
+    {
+      "file": "SKM_Peds_Female_Farmer_Rigged.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.4,
+        "z": 1.7
+      }
+    },
+    {
+      "file": "SKM_Peds_Female_Farmer_Walk.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.4,
+        "z": 1.7
+      }
+    },
+    {
+      "file": "SKM_Peds_Female_Farmer_Run.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.4,
+        "z": 1.7
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None",
+      "details": "None"
+    },
+    "electricity": {
+      "metric": "None",
+      "details": "None"
+    },
+    "waste": {
+      "metric": "None",
+      "details": "None"
+    },
+    "battery": {
+      "metric": "None",
+      "details": "None"
+    }
+  },
+  "rigging": {
+    "is_rigged": true,
+    "rig_type": "humanoid",
+    "skeleton": "mixamo_standard",
+    "animations": [
+      "Walk",
+      "Run"
+    ]
+  },
+  "growth": {
+    "is_growable": false,
+    "species": null,
+    "max_age": null,
+    "total_stages": 0,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Free Pipeline",
+    "api_version": "1.0"
+  }
 }

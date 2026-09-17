@@ -8,14 +8,19 @@ Each item subfolder contains:
 - ⚙️ **`<item_id>.json`**: Machine-readable plugin manifest with metrics, utilities, dimensions, and 4-stage growth lifecycle.
 - 📄 **`README.md`**: Human-readable overview and quick reference for the asset.
 
+### Developer & AI Agent Specifications
+
+- 🌐 **[`API_REFERENCE.md`](API_REFERENCE.md)**: Authoritative REST API specification for `server.py` (queue pipeline, mutations, schemas, tags).
+- 📋 **[`FREE_PIPELINE_GUIDE.md`](FREE_PIPELINE_GUIDE.md)**: 100% Free generation pipeline guide (FLUX, Hunyuan3D-2, Unity target).
+
 ## Category Taxonomy Summary
 
-Total Indexed Items: **597**
+Total Indexed Items: **602**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 43 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 81 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 87 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 19 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 45 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 58 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -29,7 +34,7 @@ Total Indexed Items: **597**
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
 | [**Food**](food/) | 24 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
-| [**Materials**](materials/) | 70 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
+| [**Materials**](materials/) | 69 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
 | [**Ingredients**](ingredients/) | 15 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
 
 ### Shared System & World Asset Directories
@@ -89,7 +94,7 @@ Total Indexed Items: **597**
 | `struct_walls_starter_house` | Starter House - Walls | — | 🌱 4-Stage | [struct_walls_starter_house.json](structures/struct_walls_starter_house/struct_walls_starter_house.json) |
 | `struct_woodshed` | Woodshed | ✅ Yes | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
 
-### 📂 [Building](building/) (81 items)
+### 📂 [Building](building/) (87 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -102,12 +107,16 @@ Total Indexed Items: **597**
 | `box_small_brown` | Small Brown Box | — | — | [box_small_brown.json](building/box_small_brown/box_small_brown.json) |
 | `box_small_tan` | Small Kraft Box | — | — | [box_small_tan.json](building/box_small_tan/box_small_tan.json) |
 | `box_small_white` | Small White Box | — | — | [box_small_white.json](building/box_small_white/box_small_white.json) |
+| `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |
 | `building_glass` | Glass Pane | — | — | [building_glass.json](building/building_glass/building_glass.json) |
 | `building_insulation_fiberglass_batt` | Fiberglass Insulation Batt | — | — | [building_insulation_fiberglass_batt.json](building/building_insulation_fiberglass_batt/building_insulation_fiberglass_batt.json) |
 | `building_metal` | Metal Sheet | — | — | [building_metal.json](building/building_metal/building_metal.json) |
 | `building_paint_interior_wall` | Interior Wall Paint | — | — | [building_paint_interior_wall.json](building/building_paint_interior_wall/building_paint_interior_wall.json) |
 | `building_pallet_wood` | Mat Pallet Wood | ✅ Yes | — | [building_pallet_wood.json](building/building_pallet_wood/building_pallet_wood.json) |
 | `building_rebar_steel_bundle` | Rebar Bundle | ✅ Yes | — | [building_rebar_steel_bundle.json](building/building_rebar_steel_bundle/building_rebar_steel_bundle.json) |
+| `building_steel_frame_beam` | Steel Rigid Frame Beam | ✅ Yes | — | [building_steel_frame_beam.json](building/building_steel_frame_beam/building_steel_frame_beam.json) |
+| `building_steel_siding_corrugated` | Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated.json](building/building_steel_siding_corrugated/building_steel_siding_corrugated.json) |
+| `building_steel_stud_framing` | Steel Stud (Metal Framing) | ✅ Yes | — | [building_steel_stud_framing.json](building/building_steel_stud_framing/building_steel_stud_framing.json) |
 | `camp_campfire_ring` | Camp Campfire Ring | ✅ Yes | — | [camp_campfire_ring.json](building/camp_campfire_ring/camp_campfire_ring.json) |
 | `camp_picnictable_wood` | Camp Picnictable Wood | ✅ Yes | — | [camp_picnictable_wood.json](building/camp_picnictable_wood/camp_picnictable_wood.json) |
 | `dock_large_new` | Large New Dock | — | — | [dock_large_new.json](building/dock_large_new/dock_large_new.json) |
@@ -124,6 +133,7 @@ Total Indexed Items: **597**
 | `hardware_hurricane_ties` | Hurricane Ties Pair | ✅ Yes | — | [hardware_hurricane_ties.json](building/hardware_hurricane_ties/hardware_hurricane_ties.json) |
 | `hardware_nails` | Hardware Nails | — | — | [hardware_nails.json](building/hardware_nails/hardware_nails.json) |
 | `icon_wood_log` | Icon Wood Log | — | — | [icon_wood_log.json](building/icon_wood_log/icon_wood_log.json) |
+| `icons` | Icons | — | — | [icons.json](building/icons/icons.json) |
 | `insulators_tpost_pack` | T-Post Insulators Pack | ✅ Yes | — | [insulators_tpost_pack.json](building/insulators_tpost_pack/insulators_tpost_pack.json) |
 | `item_hardware_deckscrews_box` | Item Hardware Deckscrews Box | ✅ Yes | — | [item_hardware_deckscrews_box.json](building/item_hardware_deckscrews_box/item_hardware_deckscrews_box.json) |
 | `item_hardware_framingnails_box` | Item Hardware Framingnails Box | ✅ Yes | — | [item_hardware_framingnails_box.json](building/item_hardware_framingnails_box/item_hardware_framingnails_box.json) |
@@ -165,6 +175,7 @@ Total Indexed Items: **597**
 | `spool_wire_barbed_4pt` | 4-Point Barbed Wire Spool | ✅ Yes | — | [spool_wire_barbed_4pt.json](building/spool_wire_barbed_4pt/spool_wire_barbed_4pt.json) |
 | `spool_wire_romex_12_2` | Romex 12/2 Wire Spool | ✅ Yes | — | [spool_wire_romex_12_2.json](building/spool_wire_romex_12_2/spool_wire_romex_12_2.json) |
 | `spool_wire_woven_field` | Woven Field Fence Roll | ✅ Yes | — | [spool_wire_woven_field.json](building/spool_wire_woven_field/spool_wire_woven_field.json) |
+| `structures` | Structures | — | — | [structures.json](building/structures/structures.json) |
 | `tape_drip_roll_300m` | 300m Drip Tape Roll | ✅ Yes | — | [tape_drip_roll_300m.json](building/tape_drip_roll_300m/tape_drip_roll_300m.json) |
 | `timer_hose_digital` | Digital Hose Timer | ✅ Yes | — | [timer_hose_digital.json](building/timer_hose_digital/timer_hose_digital.json) |
 | `tubing_drip_irrigation` | Drip Irrigation Tubing | ✅ Yes | — | [tubing_drip_irrigation.json](building/tubing_drip_irrigation/tubing_drip_irrigation.json) |
@@ -628,7 +639,7 @@ Total Indexed Items: **597**
 | `large_gas_fuel_container` | Large Gas Fuel Container | — | — | [large_gas_fuel_container.json](fuel/large_gas_fuel_container/large_gas_fuel_container.json) |
 | `small_gas_fuel_container` | Small Gas Fuel Container | — | — | [small_gas_fuel_container.json](fuel/small_gas_fuel_container/small_gas_fuel_container.json) |
 
-### 📂 [Materials](materials/) (70 items)
+### 📂 [Materials](materials/) (69 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -636,7 +647,6 @@ Total Indexed Items: **597**
 | `mat_bale_hay_square` | Square Hay Bale | — | — | [mat_bale_hay_square.json](materials/mat_bale_hay_square/mat_bale_hay_square.json) |
 | `mat_bale_straw_round` | Round Straw Bale | — | — | [mat_bale_straw_round.json](materials/mat_bale_straw_round/mat_bale_straw_round.json) |
 | `mat_bale_straw_square` | Square Straw Bale | — | — | [mat_bale_straw_square.json](materials/mat_bale_straw_square/mat_bale_straw_square.json) |
-| `mat_chinking` | Chinking | ✅ Yes | — | [mat_chinking.json](materials/mat_chinking/mat_chinking.json) |
 | `mat_feather` | Poultry Down Feather | — | — | [mat_feather.json](materials/mat_feather/mat_feather.json) |
 | `mat_fertilizer` | Fertilizer | — | — | [mat_fertilizer.json](materials/mat_fertilizer/mat_fertilizer.json) |
 | `mat_leather` | Tanned Leather | — | — | [mat_leather.json](materials/mat_leather/mat_leather.json) |

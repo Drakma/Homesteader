@@ -8,7 +8,7 @@
   "properties": {
     "weight_kg": 0.1,
     "max_stack_size": 50,
-    "base_value": 4.0,
+    "base_value": 4,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,

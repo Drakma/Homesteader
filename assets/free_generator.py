@@ -32,8 +32,33 @@ import regen_icons
 FLUX_SPACE = "black-forest-labs/FLUX.1-schnell"
 HUNYUAN_SPACE = "tencent/Hunyuan3D-2.1"
 
-HF_TOKEN = os.environ.get("HF_TOKEN") or "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"
-os.environ["HF_TOKEN"] = HF_TOKEN
+
+def _load_env_file(path):
+    """Minimal KEY=VALUE .env parser (no python-dotenv dependency needed for
+    one file). Ignores blank lines and #-comments; does not override a
+    variable that's already set in the real environment."""
+    if not os.path.isfile(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+_load_env_file(os.path.join(BASE_DIR, ".env"))
+
+HF_TOKEN = os.environ.get("HF_TOKEN")
+if not HF_TOKEN:
+    raise RuntimeError(
+        "HF_TOKEN not set. Add it to assets/.env (HF_TOKEN=hf_...) or export it as an "
+        "environment variable before importing free_generator."
+    )
 
 
 def generate_icon_flux(prompt, output_path, width=1024, height=1024, steps=4):
@@ -105,17 +130,22 @@ def standardize_icon(raw_image_path, target_icon_path):
 
 def generate_3d_hunyuan(image_path, output_dir, item_id, caption="", steps=30, octree_res=256):
     """
-    Generates a 3D mesh using Tencent's Hunyuan3D-2 Hugging Face Space ($0 cost).
-    Uses shape_generation (verified ~7-8s generation on ZeroGPU with token).
+    Generates a TEXTURED 3D mesh using Tencent's Hunyuan3D-2 Hugging Face Space ($0 cost).
+
+    Uses /generation_all, not /shape_generation - shape_generation only produces bare
+    untextured geometry (confirmed empirically 2026-09-16: the resulting GLB had zero
+    images/textures/materials). /generation_all runs the same shape step plus texture
+    baking and returns two files - a textured GLB and a simplified/untextured one - so
+    this picks whichever of the two file outputs is actually the larger, textured one.
     """
-    print(f"[FREE 3D] Generating 3D mesh via Hunyuan3D-2 on Hugging Face...")
+    print(f"[FREE 3D] Generating textured 3D mesh via Hunyuan3D-2 on Hugging Face...")
     if Client is None or handle_file is None:
         raise RuntimeError("gradio_client is required. Run: pip install gradio_client")
 
     os.makedirs(output_dir, exist_ok=True)
     client = Client("tencent/Hunyuan3D-2", token=HF_TOKEN)
 
-    print(f"  Sending image to Hunyuan3D-2 /shape_generation endpoint...")
+    print(f"  Sending image to Hunyuan3D-2 /generation_all endpoint (shape + texture)...")
     res = client.predict(
         caption=caption or item_id.replace("_", " "),
         image=handle_file(image_path),
@@ -130,27 +160,44 @@ def generate_3d_hunyuan(image_path, output_dir, item_id, caption="", steps=30, o
         check_box_rembg=True,
         num_chunks=8000,
         randomize_seed=True,
-        api_name="/shape_generation"
+        api_name="/generation_all"
     )
 
-    file_val = res[0]
-    raw_path = file_val.get("value") or file_val.get("path") if isinstance(file_val, dict) else file_val
-    if raw_path and os.path.exists(raw_path):
-        dest_glb = os.path.join(output_dir, f"{item_id}.glb")
-        import shutil
-        shutil.copyfile(raw_path, dest_glb)
-        print(f"[FREE 3D] Successfully deployed GLB: {dest_glb} ({os.path.getsize(dest_glb):,} bytes)")
-        return dest_glb
-    else:
+    # res = [File (textured/white glb), File (second variant), Output html, Mesh Stats, Seed]
+    # Pick the textured one by file size - the untextured variant is reliably much smaller
+    # since it carries no image data.
+    candidates = []
+    for file_val in (res[0], res[1]):
+        raw_path = file_val.get("value") or file_val.get("path") if isinstance(file_val, dict) else file_val
+        if raw_path and os.path.exists(raw_path):
+            candidates.append(raw_path)
+
+    if not candidates:
         raise RuntimeError(f"Could not locate output 3D file from Hunyuan3D: {res}")
 
+    best_path = max(candidates, key=os.path.getsize)
+    dest_glb = os.path.join(output_dir, f"{item_id}.glb")
+    import shutil
+    shutil.copyfile(best_path, dest_glb)
+    print(f"[FREE 3D] Successfully deployed textured GLB: {dest_glb} ({os.path.getsize(dest_glb):,} bytes)")
+    return dest_glb
 
-def convert_glb_to_unity_fbx(glb_path, fbx_path):
+
+def convert_glb_to_unity_fbx(glb_path, fbx_path, target_dimensions_m=None, ground_pivot=True, round_to_whole_meters=False):
     """
     Converts a GLB/OBJ to FBX formatted for Unity:
     - 1 Unit = 1 Meter
     - Decimates to ~8000 faces for game-ready performance
-    - Ground-aligned pivot (Z_min = 0 for props, or centered for handhelds)
+    - Rescaled to target_dimensions_m (dict with width/depth/height, matching the
+      item's own catalog manifest) if given - Hunyuan3D-2 generates meshes at its own
+      normalized size with zero awareness of the item's real-world dimensions_m, so
+      without this every model comes out some arbitrary (usually far too small) size.
+      Confirmed empirically 2026-09-16: an ungenerated 9x12x5.2m garage came out as
+      1.56x1.96x1.09m with no rescale step at all.
+    - Ground-aligned pivot (Z_min = 0) when ground_pivot=True (structures/crops/props),
+      centered bounding-box pivot when False (handheld tools). Previously this always
+      centered on the full bounding box regardless of the flag - a real bug, since a
+      ground-aligned object needs its pivot at the base, not floating at half-height.
     - Y-Up, +Z-Forward
     - Embeds textures directly
     Uses Blender in background mode.
@@ -159,6 +206,46 @@ def convert_glb_to_unity_fbx(glb_path, fbx_path):
     blender_exe = r"C:\Program Files\Blender Foundation\Blender 5.2\blender.exe"
     if not os.path.exists(blender_exe):
         blender_exe = "blender"
+
+    dims = target_dimensions_m or {}
+    target_w = dims.get("width")
+    target_d = dims.get("depth")
+    target_h = dims.get("height")
+    if round_to_whole_meters and target_w and target_d and target_h:
+        # Structures will eventually snap to a grid - keep their real-world
+        # footprint/height at whole meters rather than fractional values.
+        target_w = max(1, round(target_w))
+        target_d = max(1, round(target_d))
+        target_h = max(1, round(target_h))
+
+    rescale_snippet = ""
+    if target_w and target_d and target_h:
+        rescale_snippet = f"""
+    dims = obj.dimensions
+    if dims.x > 0.0001 and dims.y > 0.0001 and dims.z > 0.0001:
+        obj.scale.x *= {target_w} / dims.x
+        obj.scale.y *= {target_d} / dims.y
+        obj.scale.z *= {target_h} / dims.z
+        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+"""
+
+    # Ground-aligned pivot: move the 3D cursor to (center_x, center_y, min_z) of the
+    # mesh in world space and snap the origin there, then re-zero the object's
+    # location so the origin sits exactly at world (0,0,0). center='BOUNDS' alone
+    # (the old behavior) always puts the pivot at the vertical MIDPOINT, which is
+    # wrong for anything meant to sit flush on the ground.
+    pivot_snippet = """
+    verts_world = [obj.matrix_world @ v.co for v in obj.data.vertices]
+    if verts_world:
+        min_z = min(v.z for v in verts_world)
+        max_z = max(v.z for v in verts_world)
+        center_x = sum(v.x for v in verts_world) / len(verts_world)
+        center_y = sum(v.y for v in verts_world) / len(verts_world)
+        pivot_z = min_z if """ + str(ground_pivot) + """ else (min_z + max_z) / 2.0
+        bpy.context.scene.cursor.location = (center_x, center_y, pivot_z)
+        bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
+        obj.location = (0.0, 0.0, 0.0)
+"""
 
     py_cmd = f"""
 import bpy, os
@@ -169,14 +256,14 @@ mesh_objs = [o for o in bpy.context.scene.objects if o.type == 'MESH']
 if mesh_objs:
     obj = mesh_objs[0]
     bpy.context.view_layer.objects.active = obj
-    
+
     # Decimate if faces > 8000
     if len(obj.data.polygons) > 8000:
         mod = obj.modifiers.new(name='Decimate', type='DECIMATE')
         mod.ratio = min(1.0, 8000.0 / len(obj.data.polygons))
         bpy.ops.object.modifier_apply(modifier=mod.name)
-        
-    bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+{rescale_snippet}
+{pivot_snippet}
 
 bpy.ops.export_scene.fbx(
     filepath=r'{fbx_path}',

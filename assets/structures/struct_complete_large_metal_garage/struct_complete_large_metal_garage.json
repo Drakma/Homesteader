@@ -13,7 +13,12 @@
     "footprint": {
       "width_m": 9.0,
       "depth_m": 12.0
-    }
+    },
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
   },
   "models": [],
   "utilities": {
@@ -94,6 +99,11 @@
       "width": 9.0,
       "depth": 12.0,
       "height": 5.2
-    }
+    },
+    "electrical_service_capacity_w": 24000,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 113.0,
+    "construction_recipe": [],
+    "required_tools": []
   }
 }

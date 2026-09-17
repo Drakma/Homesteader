@@ -1,8 +1,0 @@
-# Material
-newmtl M_Leather_Tanned
-Kd 0.600 0.380 0.200
-Ka 0.100 0.100 0.100
-Ks 0.200 0.200 0.200
-Ns 20.0
-d 1.0
-illum 2

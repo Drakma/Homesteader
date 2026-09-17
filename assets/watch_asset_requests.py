@@ -8,13 +8,13 @@ notified as soon as someone hits "Finalize" on the asset kit's Request
 Asset queue.
 
 Individual requests land in pending/ as soon as they're submitted but are
-NOT reported here - Creative Claw charges per generation call, so a Claude
-session should not act on them one at a time as they trickle in. Only once
-the user explicitly finalizes (grouping N pending requests into one batch,
-see /api/finalize-asset-requests in server.py) does this script say
-anything, and it reports the whole batch at once so all of that batch's
-icons can be generated together as a single contact-sheet image instead of
-N separate paid calls.
+NOT reported here - a paid-pipeline request (see PIPELINE=paid below) can
+charge per generation call, so a Claude session should not act on requests
+one at a time as they trickle in. Only once the user explicitly finalizes
+(grouping N pending requests into one batch, see
+/api/finalize-asset-requests in server.py) does this script say anything,
+and it reports the whole batch at once so paid items in it can be generated
+together as a single contact-sheet image instead of N separate paid calls.
 
 This script never moves files itself and never acts on requests - a Claude
 session decides what to do (read the batch, propose a plan + total cost,
@@ -41,13 +41,14 @@ POLL_SECONDS = 4
 # this up - not just the one that built this feature - knows the required
 # pipeline, even with zero prior conversational context.
 REQUIRED_PIPELINE = (
-    "PIPELINE REQUIRED for a finalized batch (100% FREE PIPELINE - $0 COST, UNITY 6 TARGET): "
+    "PIPELINE REQUIRED for a finalized batch (DEFAULT: FREE PIPELINE - $0 COST, UNITY 6 TARGET): "
     "(1) ENGINE TARGET: Unity 6 (6000.6.0f1) - 1 Unit = 1 Meter, Y-Up, +Z-Forward (Left-handed). "
-    "(2) STRICT ZERO-CREDIT POLICY: DO NOT USE PAID SERVICES (No Creative Claw, No Meshy.ai). "
-    "All tools in assets/free_generator.py are 100% FREE ($0 cost). No user spending approval is needed. "
+    "(2) DEFAULT IS FREE: unless an item is explicitly marked PIPELINE=paid (see PAID_ITEM_PIPELINE below, "
+    "printed only when a batch contains such items), use the free stack below - Creative Claw/Meshy are NOT used. "
+    "All tools in assets/free_generator.py are 100% FREE ($0 cost). No user spending approval is needed for these. "
     "(3) 2D ICON GENERATION: Generate individual 2D icons using free_generator.generate_icon_flux() "
     "(or FLUX.1 [schnell] via gradio_client 'black-forest-labs/FLUX.1-schnell' / Pollinations.ai / Google AI Studio). "
-    "Follow HUD/ITEM_ICON_STYLE_GUIDE.md: 3D low-poly faceted style, solid neutral background, isometric 3/4 front view. "
+    "Follow docs/ITEM_ICON_STYLE_GUIDE.md: 3D low-poly faceted style, solid neutral background, isometric 3/4 front view. "
     "DIRECTION IS NOT OPTIONAL: Directional items (animals, vehicles, tools) MUST face toward the LEFT of the frame. "
     "(4) ICON STANDARDIZATION: Run each icon through assets/regen_icons.py standardize_icon_image() "
     "(or free_generator.standardize_icon()). This enforces 128x128 32-bit RGBA, <= 104px max dimension, >= 12px margin, "
@@ -62,7 +63,13 @@ REQUIRED_PIPELINE = (
     "The UI polls every 2s while in progress. "
     "(8) MARK DONE & UPDATE CATALOG: Call POST /api/update-asset-request with status='done', item_id=<the real created asset id>, "
     "and credits_used={'creative_claw': 0, 'meshy': 0}. Then run python update_catalog_readme.py to synchronize the master index. "
-    "See assets/FREE_PIPELINE_GUIDE.md and HUD/FREE_PIPELINE_GUIDE.md for complete code snippets and documentation."
+    "(9) SCHEMA VALIDATION: if the request has a non-empty 'schema' field (set from the Request Asset / Request Growth Group "
+    "dialog's Schema dropdown), the assembled item's properties/category_fields MUST include every field required by "
+    "assets/_schemas/<schema>.schema.json (plus the always-required assets/_schemas/_base*.schema.json fields) - run "
+    "tools/validate_schema.py <schema> after writing the manifest and fix any [FAIL] before marking the request done. "
+    "This exists because a real batch (the Large Metal Garage growth group, 2026-09-16) shipped with 10 missing required "
+    "fields per stage that nobody caught until an explicit review - don't repeat that. "
+    "See assets/FREE_PIPELINE_GUIDE.md and docs/FREE_PIPELINE_GUIDE.md for complete code snippets and documentation."
 )
 
 # A batch can also contain items that aren't "create a new asset" requests at
@@ -78,7 +85,7 @@ ACTION_ITEM_PIPELINE = (
     "ACTION=regenerate_model -> re-run Tencent Hunyuan3D-2.0 via free_generator.generate_3d_hunyuan() using the item's EXISTING standardized icon (assets/<target>/<id>/<id>.png) as "
     "the reference image ($0 cost), then convert to Unity metric FBX and overwrite the existing model file(s) - do not touch the icon; skip icon generation. "
     "ACTION=regenerate_icon -> run free FLUX.1 [schnell] via free_generator.generate_icon_flux() "
-    "(128x128 3D low-poly, flood-fill crop, standardize, mandatory left-facing-direction rule per HUD/ITEM_ICON_STYLE_GUIDE.md) "
+    "(128x128 3D low-poly, flood-fill crop, standardize, mandatory left-facing-direction rule per docs/ITEM_ICON_STYLE_GUIDE.md) "
     "using the item's existing name/description/category as the prompt basis - then overwrite ONLY "
     "assets/<target>/<id>/<id>.png - do not touch the 3D model or regenerate it. If the item carries a PROMPT='...' marker (user-typed free text from the "
     "Request Icon dialog's Prompt field), that is EXPLICIT direction on what to change (e.g. 'make it darker, "
@@ -107,6 +114,25 @@ REFERENCE_ITEM_PIPELINE = (
     "density as the reference'). "
     "After ANY reference-matched generation, open the result and compare it against the reference side-by-side "
     "before shipping - check colors, trim/material choices, and proportions specifically, not just overall silhouette."
+)
+
+# An item marked PIPELINE=paid above was submitted with the Request Asset /
+# Request Growth Group dialog's Generation Pipeline dropdown set to "Paid"
+# instead of the default "Free" - the user explicitly chose to spend
+# Creative Claw / Meshy credits on this specific item (e.g. for higher
+# quality than the free stack currently produces).
+PAID_ITEM_PIPELINE = (
+    "FOR ANY ITEM MARKED PIPELINE=paid above, use Creative Claw (generate_image) for the 2D icon and/or "
+    "Meshy (meshy_image_to_3d or meshy_text_to_3d) for the 3D model INSTEAD OF the free stack for that item only - "
+    "every other item in the same batch without this marker still uses the free pipeline as normal. "
+    "COST CONFIRMATION IS MANDATORY before spending anything: check the current balance "
+    "(GET /api/creative-claw-balance, GET /api/meshy-balance, or the meshy_check_balance tool), present the "
+    "estimated cost and the resulting balance to the user, and wait for explicit approval before calling any "
+    "paid generation tool - do not skip this because the user already chose 'paid' in the dropdown; choosing the "
+    "pipeline is not the same as approving a specific spend. After generation, report credits_used in the "
+    "POST /api/update-asset-request done payload (e.g. {'creative_claw': 3} or {'meshy': 20}) so the status bar "
+    "and per-batch cost summary stay accurate, and push any freshly-known Creative Claw balance via "
+    "POST /api/creative-claw-balance."
 )
 
 
@@ -212,16 +238,20 @@ def main():
                     + (" NO_MODEL=true" if it.get("no_model") else "")
                     + (f" PROMPT={it.get('prompt')!r}" if it.get("prompt") else "")
                     + (f" REFERENCE={it.get('reference_category')}/{it.get('reference_item_id')}" if it.get("reference_item_id") else "")
+                    + (f" SCHEMA={it.get('schema')}" if it.get("schema") else "")
+                    + (f" PIPELINE={it.get('pipeline')}" if (it.get("pipeline") or "free").strip().lower() == "paid" else "")
                     for it in items
                 )
                 has_action_items = any(it.get("action") or it.get("also_rig") for it in items)
                 has_reference_items = any(it.get("reference_item_id") for it in items)
+                has_paid_items = any((it.get("pipeline") or "free").strip().lower() == "paid" for it in items)
                 print(
                     f"ASSET_REQUEST_BATCH_READY batch_id={batch.get('batch_id')} count={len(items)}\n"
                     f"{item_lines}\n"
                     f"{REQUIRED_PIPELINE}"
                     + (f"\n{ACTION_ITEM_PIPELINE}" if has_action_items else "")
-                    + (f"\n{REFERENCE_ITEM_PIPELINE}" if has_reference_items else ""),
+                    + (f"\n{REFERENCE_ITEM_PIPELINE}" if has_reference_items else "")
+                    + (f"\n{PAID_ITEM_PIPELINE}" if has_paid_items else ""),
                     flush=True
                 )
             except Exception as e:

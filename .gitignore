@@ -1,19 +1,20 @@
 # Legacy Unreal Project & Archives
 Homesteader.old/
-HUD.7z
 *.7z
 *.zip
 *.tar
 *.gz
-
 # Unity project has its own separate git repository
 Homesteader/
 
 # Scratch, bulky temporary dumps & dependencies
-HUD/scratch_meshy/
+scratch/
 node_modules/
 **/node_modules/
 *.bak*
+
+# Pre-migration safety copy (delete once the HUD teardown is confirmed good)
+HUD_migration_backup/
 
 # Environment & API Tokens
 .env

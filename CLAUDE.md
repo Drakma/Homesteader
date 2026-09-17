@@ -3,9 +3,9 @@
 > **IMPORTANT ARCHITECTURAL & PIPELINE UPDATE (2026-09-16)**:
 >
 > 1. **Engine Target**: The project has officially transitioned from Unreal Engine to **Unity 6 (`6000.6.0f1`)**.
-> 2. **Zero-Credit Policy**: **NO PAID APIS** (CreativeClaw or Meshy.ai). All generation must use the **100% Free Stack**.
+> 2. **Default-Free Policy (2026-09-17 update)**: The **100% Free Stack** is the DEFAULT for all generation. Paid services (CreativeClaw, Meshy.ai) are available as an explicit **opt-in per request** via the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown - only use them when a request is marked `PIPELINE=paid`, and always confirm the credit cost with the user before spending (see PAID_ITEM_PIPELINE in `assets/watch_asset_requests.py`).
 > 3. **Ready Helper Library**: `assets/free_generator.py` provides pre-tested Python functions for the free stack.
-> 4. **Detailed Reference**: See [FREE_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/HUD/FREE_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/HUD/UNITY_INTEGRATION_GUIDE.md).
+> 4. **Detailed Reference**: See [FREE_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/FREE_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md).
 
 ---
 
@@ -22,9 +22,9 @@
 
 ---
 
-## 2. Zero-Cost Asset Generation Pipeline ($0 Cost)
+## 2. Zero-Cost Asset Generation Pipeline ($0 Cost, Default)
 
-Under no circumstances should paid API keys or credits (CreativeClaw, Meshy.ai) be consumed. Use the free stack below via `assets/free_generator.py`:
+Use the free stack below via `assets/free_generator.py` for every request unless it's explicitly marked `PIPELINE=paid` (chosen by the user in the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown). For a `PIPELINE=paid` item, use CreativeClaw/Meshy instead for that item only - always confirm the credit cost with the user before spending (see `PAID_ITEM_PIPELINE` in `assets/watch_asset_requests.py`).
 
 ### (A) 2D Item Icons ($0)
 
@@ -106,7 +106,7 @@ Every asset must live in `assets/<category>/<item_id>/`:
 
 - `watch_asset_requests.py` polls `assets/_asset_requests/batches/`.
 - When a batch arrives:
-  1. No cost approval is needed since the generation cost is **$0**.
+  1. No cost approval is needed for regular items - the generation cost is **$0** via the free stack. An item marked `PIPELINE=paid` is the exception: confirm the credit cost with the user before generating (see `PAID_ITEM_PIPELINE`).
   2. Report progress as you go:
      `POST /api/update-asset-request` with `{"id": req_id, "status": "in_progress", "step": "Generating 2D icon via FLUX (Free)"}`
   3. Generate icon via `free_generator.generate_icon_flux()`.

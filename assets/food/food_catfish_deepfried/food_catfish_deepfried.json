@@ -6,10 +6,10 @@
   "description": "A deep-fried, crispy breaded catfish fillet.",
   "icon": "food_catfish_deepfried.png",
   "properties": {
-    "weight_kg": 1.0,
+    "weight_kg": 1,
     "max_stack_size": 99,
-    "base_value": 14.0,
-    "is_consumable": false,
+    "base_value": 14,
+    "is_consumable": true,
     "footprint": null,
     "happiness_modifier": 8,
     "thirst_restore": 2,

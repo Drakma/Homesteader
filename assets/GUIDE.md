@@ -219,5 +219,5 @@ All item icons must adhere strictly to the project icon formatting rules:
 To regenerate manifests, compute geometry bounding boxes, and update the catalog:
 
 ```powershell
-python HUD/scripts/build_unified_assets_catalog.py
+python tools/build_unified_assets_catalog.py
 ```

@@ -1,0 +1,62 @@
+{
+  "batch_id": "batch_1789602833",
+  "finalized_at": "2026-09-16T23:53:53Z",
+  "items": [
+    {
+      "id": "1789602704_regenerate_model_struct_complete_large_metal_garage",
+      "name": "Regenerate Model: struct_complete_large_metal_garage",
+      "category": "structures",
+      "description": "Regenerate Model request for existing asset structures/struct_complete_large_metal_garage - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T23:51:44Z",
+      "action": "regenerate_model",
+      "target_category": "structures",
+      "target_item_id": "struct_complete_large_metal_garage",
+      "batch_id": "batch_1789602833",
+      "finalized_at": "2026-09-16T23:53:53Z"
+    },
+    {
+      "id": "1789602704_regenerate_model_struct_foundation_large_metal_garage",
+      "name": "Regenerate Model: struct_foundation_large_metal_garage",
+      "category": "structures",
+      "description": "Regenerate Model request for existing asset structures/struct_foundation_large_metal_garage - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T23:51:44Z",
+      "action": "regenerate_model",
+      "target_category": "structures",
+      "target_item_id": "struct_foundation_large_metal_garage",
+      "batch_id": "batch_1789602833",
+      "finalized_at": "2026-09-16T23:53:53Z"
+    },
+    {
+      "id": "1789602704_regenerate_model_struct_framing_large_metal_garage",
+      "name": "Regenerate Model: struct_framing_large_metal_garage",
+      "category": "structures",
+      "description": "Regenerate Model request for existing asset structures/struct_framing_large_metal_garage - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T23:51:44Z",
+      "action": "regenerate_model",
+      "target_category": "structures",
+      "target_item_id": "struct_framing_large_metal_garage",
+      "batch_id": "batch_1789602833",
+      "finalized_at": "2026-09-16T23:53:53Z"
+    },
+    {
+      "id": "1789602704_regenerate_model_struct_walls_large_metal_garage",
+      "name": "Regenerate Model: struct_walls_large_metal_garage",
+      "category": "structures",
+      "description": "Regenerate Model request for existing asset structures/struct_walls_large_metal_garage - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-16T23:51:44Z",
+      "action": "regenerate_model",
+      "target_category": "structures",
+      "target_item_id": "struct_walls_large_metal_garage",
+      "batch_id": "batch_1789602833",
+      "finalized_at": "2026-09-16T23:53:53Z"
+    }
+  ]
+}
