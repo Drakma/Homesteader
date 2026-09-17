@@ -6,4 +6,4 @@ Ks 0.100 0.100 0.100
 Ns 15.0
 d 1.0
 illum 2
-map_Kd T_Ground_tall_grass_BaseColor.png
+map_Kd ../textures/tall_grass/T_Ground_tall_grass_BaseColor.png

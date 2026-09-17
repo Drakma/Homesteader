@@ -6,4 +6,4 @@ Ks 0.050 0.050 0.050
 Ns 10.0
 d 1.0
 illum 2
-map_Kd T_Homesteader_Palette.png
+map_Kd ../../textures/palettes/T_Homesteader_Palette.png
