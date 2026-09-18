@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "welsummer_rooter",
+  "name": "Welsummer Rooter",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (chick -> adult) over 730 days. This group is the authoritative owner of the welsummer_rooter scheme.",
+  "icon": "welsummer_rooter.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "welsummer_rooter",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "chick",
+        "age_min": 0,
+        "age_max": 30,
+        "resource": "stages/animal_chick_welsummer_rooster/",
+        "model": "SKM_Animal_Chicken_Welsummer_Chick.fbx",
+        "icon": "animal_chick_welsummer_rooster.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 30,
+        "age_max": 730,
+        "resource": "stages/animal_adult_welsummer_rooster/",
+        "model": "SKM_Animal_Chicken_Welsummer_Adult.fbx",
+        "icon": "animal_adult_welsummer_rooster.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

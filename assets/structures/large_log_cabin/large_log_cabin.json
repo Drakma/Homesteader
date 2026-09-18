@@ -1,0 +1,60 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "large_log_cabin",
+  "name": "Large Log Cabin",
+  "category": "structures",
+  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_log_cabin scheme.",
+  "icon": "large_log_cabin.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "building",
+    "species": "large_log_cabin",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_foundation/",
+        "model": "SM_Struct_Cabin_Large_Foundation.fbx",
+        "icon": "struct_foundation_large_log_cabin.png"
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_framing/",
+        "model": "SM_Struct_Cabin_Large_Framing.fbx",
+        "icon": "struct_framing_large_log_cabin.png"
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 66,
+        "age_max": 99,
+        "resource": "stages/struct_walls/",
+        "model": "SM_Struct_Cabin_Large_Walls.fbx",
+        "icon": "struct_walls_large_log_cabin.png"
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 99,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "SM_Struct_Complete_Large_Log_Cabin.fbx",
+        "icon": "struct_complete_large_log_cabin.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

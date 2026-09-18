@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "red_chicken",
+  "name": "Red Chicken",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (baby -> adult) over 730 days. This group is the authoritative owner of the red_chicken scheme.",
+  "icon": "red_chicken.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "red_chicken",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "baby",
+        "age_min": 0,
+        "age_max": 30,
+        "resource": "stages/animal_baby/",
+        "model": "SKM_Animal_Chicken_Red_Chick.fbx",
+        "icon": "animal_baby_red_chicken.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 30,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Chicken_Red.fbx",
+        "icon": "animal_adult_red_chicken.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}
