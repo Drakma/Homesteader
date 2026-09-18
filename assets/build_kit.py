@@ -2,8 +2,7 @@
 """
 build_kit.py
 Generates an interactive, responsive HTML5 Asset Kit for all items across
-Generates an interactive, responsive HTML5 Asset Kit for all items across
-the 17 Homesteader categories in C:\\Users\\casey\\Desktop\\Homesteader\\assets.
+the 17 Homesteader categories in the assets/ directory.
 Features:
 - Category filtering (17 canonical systems) + Live Search + Quick Filters
 - Grid display of items with 128x128 icons, 3D badges, growth badges
@@ -13,9 +12,15 @@ Features:
   - Raw syntax-highlighted JSON viewer with Copy button
 """
 
+import argparse
+import hashlib
 import os
 import json
 import re
+import sys
+# Empty byte string, spelled without a literal so no later edit to this file
+# can collapse one of its quote pairs into an unterminated string.
+EMPTY_BYTES = bytes()
 
 ASSETS_DIR = r"C:\Users\casey\Desktop\Homesteader\assets"
 CATEGORIES = [
@@ -2254,7 +2259,7 @@ def generate_html(items):
         return;
       }}
 
-      const idRegex = /^[a-z0-9_\-]+$/;
+      const idRegex = /^[a-z0-9_\\-]+$/;
       if (!idRegex.test(newId)) {{
         showToast("Asset ID must only contain lowercase letters, numbers, hyphens, and underscores.", "warning");
         idInput.focus();
@@ -3559,14 +3564,80 @@ def generate_html(items):
 """
     return html
 
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), EMPTY_BYTES):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def write_output(out_path, html_content, force=False):
+    # Write the generated HTML without ever destroying hand-edited work.
+    #
+    # assets/index.html is a REAL source file that the app reads and that has
+    # been hand-edited (its git history contains "smart presets", "autofill",
+    # "stage 4 min age"). This script regenerates a different app from the
+    # template below, so a bare open(path, "w") silently discarded all of
+    # that - which is exactly what happened. Two safeguards now:
+    #
+    #   1. Each write records the result in a sidecar hash file.
+    #   2. If the file on disk no longer matches that record, it has been
+    #      hand-edited and we REFUSE to overwrite it.
+    #
+    # --force overrides the refusal deliberately; there is no accidental path
+    # to clobbering someone's work.
+    sidecar = out_path + ".generated.sha256"
+
+    if os.path.exists(out_path):
+        recorded = None
+        if os.path.isfile(sidecar):
+            try:
+                with open(sidecar, "r", encoding="utf-8") as f:
+                    recorded = f.read().strip()
+            except OSError:
+                recorded = None
+        if recorded is None:
+            print("REFUSING TO WRITE: %s exists with no generation record." % out_path)
+            print("  It was not produced by this script, so it may be hand-edited.")
+            print("  Nothing was changed. Use --out <path>, or --force to override.")
+            return False
+        if _sha256(out_path) != recorded:
+            print("REFUSING TO WRITE: %s has local edits." % out_path)
+            print("  It was modified by hand since this script last generated it,")
+            print("  so overwriting would discard that work. Nothing was changed.")
+            print("  Use --out <path>, or --force to override.")
+            return False
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(html_content)
+    try:
+        with open(sidecar, "w", encoding="utf-8") as f:
+            f.write(_sha256(out_path))
+    except OSError as exc:
+        print("warning: could not write %s: %s" % (sidecar, exc))
+    return True
 if __name__ == "__main__":
+    _ap = argparse.ArgumentParser(description="Generate the Asset Kit HTML.")
+    _ap.add_argument("--out", help="output path (default: assets/index.html)")
+    _ap.add_argument("--force", action="store_true",
+                     help="overwrite even if the target has hand edits")
+    _ap.add_argument("--dry-run", action="store_true",
+                     help="report what would be written, write nothing")
+    _args = _ap.parse_args()
+
     print(f"Collecting asset data across all {len(CATEGORIES)} categories...")
     items = collect_all_items()
     print(f"Collected {len(items)} items.")
-    
+
     html_content = generate_html(items)
-    out_path = os.path.join(ASSETS_DIR, "index.html")
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
-        
-    print(f"Successfully generated Asset Kit at: {out_path} ({len(html_content)} bytes)")
+    out_path = (os.path.abspath(_args.out) if _args.out
+                else os.path.join(ASSETS_DIR, "index.html"))
+
+    if _args.dry_run:
+        print(f"dry run: would write {len(html_content)} bytes to {out_path}")
+        sys.exit(0)
+
+    if write_output(out_path, html_content, force=_args.force):
+        print(f"Successfully generated Asset Kit at: {out_path} ({len(html_content)} bytes)")
+    else:
+        sys.exit(1)

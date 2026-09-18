@@ -14,14 +14,17 @@ python tools\validate_schema.py appliances
 
 ## What's here
 
-| Group | Scripts | Purpose |
-|---|---|---|
-| **Generators** | `generate_*.py` (24) | Build `.obj`/`.mtl` meshes + 128×128 icons per category batch |
-| **Validators** | `validate_*.py` (11) | Enforce icon rules, mesh bounds, schema conformance, material tags |
-| **Extractors** | `extract_*.py` (6) | Slice icon sheets / sprite sheets into individual transparent PNGs |
-| **Catalog** | `build_*catalog*.py`, `update_*html.py`, `generate_gallery_data.py` | Regenerate `assets/README.md` and `gallery/index.html` |
-| **Deploy** | `deploy_icons.py`, `organize_item_assets.py` | Distribute icons to all required locations |
-| **Item data** | `items_*.py` (8), `item_catalog_data*.py` (4) | Category item definitions consumed by the generators |
+| Group                 | Scripts                                                                                              | Purpose                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Asset Kit Runtime** | `server.py`, `app.py`, `asset_kit_mcp.py`, `watch_asset_requests.py`, `build_exe.py` | Local API server, desktop WebView2 wrapper, MCP server, request queue watcher. (The catalog builder `build_kit.py` lives in `assets/`, beside the `index.html` it generates.) |
+| **Pipelines**         | `free_generator.py`, `render_icon_from_model.py`                                                     | Free FLUX.1 + Hunyuan3D-2 pipeline, and 3D model icon snapshot renderer (Blender headless)         |
+| **Generators**        | `generate_*.py` (24)                                                                                 | Build `.obj`/`.mtl` meshes + 128×128 icons per category batch                                      |
+| **Validators**        | `validate_*.py` (11)                                                                                 | Enforce icon rules, mesh bounds, schema conformance, material tags                                 |
+| **Extractors**        | `extract_*.py` (6)                                                                                   | Slice icon sheets / sprite sheets into individual transparent PNGs                                 |
+| **Catalog**           | `build_*catalog*.py`, `update_*html.py`, `generate_gallery_data.py`, `update_catalog_readme.py`      | Regenerate `assets/README.md` and `gallery/index.html`                                             |
+| **Guardrails**        | `check_syntax.py`, `python.cmd`                                                                      | Catch broken Python before it reaches a commit; make `python` resolve in any shell               |
+| **Deploy**            | `deploy_icons.py`, `organize_item_assets.py`                                                         | Distribute icons to all required locations                                                         |
+| **Item data**         | `items_*.py` (8), `item_catalog_data*.py` (4)                                                        | Category item definitions consumed by the generators                                               |
 
 ## Path conventions
 
@@ -43,15 +46,15 @@ paths. Those work but should be migrated to the `__file__`-relative form when to
 Meshy.ai and CreativeClaw are **opt-in per request**, not the default. Use them
 only for items explicitly marked `PIPELINE=paid` in `assets/_asset_requests/`,
 and confirm the credit cost before spending - see `PAID_ITEM_PIPELINE` in
-`assets/watch_asset_requests.py`.
+`tools/watch_asset_requests.py`.
 
-| Script | Role |
-|---|---|
-| `meshy_client.py` | Meshy API wrapper (text-to-3D, image-to-3D) |
-| `meshy_tree_clutter_pipeline.py` | Tree/clutter generation batch |
-| `deploy_batch.py`, `deploy_saplings.py`, `deploy_trees_and_stumps.py`, `deploy_planted_saplings_and_lifecycle.py`, `deploy_new_fuel_assets.py` | Deploy Meshy output into `assets/` |
-| `monitor_and_deploy_refined.py`, `refine_all_trees.py` | Monitor refine tasks and deploy results |
-| `test_api_key.py`, `test_imagen.py`, `test_image_gen.py` | API connectivity probes |
+| Script                                                                                                                                         | Role                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `meshy_client.py`                                                                                                                              | Meshy API wrapper (text-to-3D, image-to-3D) |
+| `meshy_tree_clutter_pipeline.py`                                                                                                               | Tree/clutter generation batch               |
+| `deploy_batch.py`, `deploy_saplings.py`, `deploy_trees_and_stumps.py`, `deploy_planted_saplings_and_lifecycle.py`, `deploy_new_fuel_assets.py` | Deploy Meshy output into `assets/`          |
+| `monitor_and_deploy_refined.py`, `refine_all_trees.py`                                                                                         | Monitor refine tasks and deploy results     |
+| `test_api_key.py`, `test_imagen.py`, `test_image_gen.py`                                                                                       | API connectivity probes                     |
 
 Meshy output lands in `scratch/meshy_output/` (gitignored).
 
