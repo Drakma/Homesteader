@@ -505,19 +505,18 @@ def render_window(canvas: Image.Image, x: int, y: int, w: int, h: int,
     The header reuses the metallic+noisy band style so it sits in the
     same visual family as the HUD's top status bar.
     """
-    # Window body (rounded rect with dark face).
+    # Window body (square rect with dark face).
     draw = ImageDraw.Draw(canvas)
-    radius = max(4, m.px(8))
     body_color = _hex_to_rgb(body_hex)
     bord_color = _hex_to_rgb(border_hex)
-    draw.rounded_rectangle(
+    draw.rectangle(
         [int(x), int(y), int(x + w), int(y + h)],
-        radius=radius, fill=body_color, outline=bord_color, width=1,
+        fill=body_color, outline=bord_color, width=1,
     )
     # Header band sits at the top of the body, hugging its edges (no
     # extra inset padding around the header so the title can use the
     # full header height).
-    header_h_px = m.px(36)
+    header_h_px = m.px(32)
     hx = int(x)
     hy = int(y)
     hw = int(w)
@@ -528,18 +527,29 @@ def render_window(canvas: Image.Image, x: int, y: int, w: int, h: int,
                        highlight_hex="#c19a3c",
                        seed=hash(title) & 0xFFFFFFFF)
     # Title text. Larger font so it fills the header height nicely.
-    font_size = max(8, int(header_h_px * 0.55))
+    font_size = max(8, int(header_h_px * 0.60))
     font = _hud_font(font_size, weight="bold")
-    bbox = draw.textbbox((0, 0), title, font=font)
-    text_w = bbox[2] - bbox[0]
-    text_h = bbox[3] - bbox[1]
-    ascent, _ = font.getmetrics()
-    tx = hx + hh // 2
-    ty = hy + (hh - text_h) // 2 - (ascent - bbox[1])
-    draw.text((tx, ty), title, fill=_hex_to_rgb(title_hex), font=font)
-    # Close x (right-aligned inside the header band).
+    ascent, descent = font.getmetrics()
+    bbox = font.getbbox(title)
+    bbox_h = bbox[3] - bbox[1]
+    # Title: left-aligned past the close-x slot, vertically centered.
+    # PIL's draw.text places (x, y) at the font's INTERNAL origin; the
+    # ink mass is rendered with a vertical offset that we calibrate
+    # empirically so the visible center aligns with the header
+    # midpoint.
+    target_center_y = hy + hh // 2
+    # Empirical offset between draw-text y and rendered ink center for
+    # the HUD font at bold weights: ink center sits ~half of
+    # (ascent - descent) below draw y.
+    center_offset = (ascent - descent) // 2
+    draw_y = target_center_y - center_offset - bbox[1]
+    tx = hx + m.px(36)
+    draw.text((tx - bbox[0], draw_y), title,
+              fill=_hex_to_rgb(title_hex), font=font)
+    # Close x: anchored at the LEFT side of the header band (just
+    # inside the left edge, vertically centered).
     if show_close:
-        cx_x = hx + hw - m.px(14)
+        cx_x = hx + m.px(14)
         cx_y = hy + hh // 2
         # Two strokes to form an X.
         s = m.px(4)
@@ -559,19 +569,20 @@ def render_modal(canvas: Image.Image, x: int, y: int, w: int, h: int,
     """Render a modal dialog: same window shell + close x, then a body
     placeholder block where real widgets would mount.
     """
+    hh = m.px(32)
     render_window(canvas, x, y, w, h, title, m,
                   show_close=True, body_hex=body_hex,
                   border_hex=border_hex)
     # Body content area = below the header (slightly lighter than the
     # body rect to read as the window's working area).
     body_x = int(x + 6)
-    body_y = int(y + m.px(40))
+    body_y = int(y + hh + 4)
     body_w = int(w - 12)
-    body_h = int(h - m.px(44))
+    body_h = int(h - hh - 8)
     draw = ImageDraw.Draw(canvas)
-    draw.rounded_rectangle(
+    draw.rectangle(
         [body_x, body_y, body_x + body_w, body_y + body_h],
-        radius=4, fill=_hex_to_rgb("#29344a"),
+        fill=_hex_to_rgb("#29344a"),
         outline=_hex_to_rgb("#28323f"), width=1,
     )
     # Mockup body text.
