@@ -1,0 +1,282 @@
+{
+  "id": "hud_kit",
+  "name": "Homesteader HUD Kit",
+  "version": "1.0.0",
+  "category": "ui_kit",
+  "description": "Reusable HUD chrome sprites for windows, buttons, toolbar slots, status dividers, and decorative accents. All sprites 128x128 RGBA with perimeter alpha=0, generated from palette.json by _build_sprites.py. Runtime layout described in HUD_LAYOUT.md.",
+  "palette_ref": "palette.json",
+  "runtime_ref": "HUD_LAYOUT.md",
+  "runtime_module_ref": "runtime/",
+  "style_guide_ref": "STYLE_GUIDE.md",
+  "generator_ref": "_build_sprites.py",
+  "validator_ref": "_validate_palette.py",
+  "composer_ref": "compose_preview.py",
+  "entries": [
+    {
+      "id": "panel_compact_dialog",
+      "path": "sprites/panels/panel_compact_dialog.png",
+      "anchor": "center",
+      "palette_role": "body_dialog",
+      "usage": "Small dialog panels - tooltips, confirmations."
+    },
+    {
+      "id": "panel_large_dialog",
+      "path": "sprites/panels/panel_large_dialog.png",
+      "anchor": "center",
+      "palette_role": "body_dialog",
+      "usage": "Larger modals with multiple content rows."
+    },
+    {
+      "id": "panel_drawer",
+      "path": "sprites/panels/panel_drawer.png",
+      "anchor": "left",
+      "palette_role": "body_dialog",
+      "usage": "Side-mounted drawer with content stacked along long axis."
+    },
+    {
+      "id": "panel_modal",
+      "path": "sprites/panels/panel_modal.png",
+      "anchor": "center",
+      "palette_role": "body_dialog",
+      "usage": "Generic centered modal for blocking UI prompts."
+    },
+    {
+      "id": "panel_toast",
+      "path": "sprites/panels/panel_toast.png",
+      "anchor": "bottom-right",
+      "palette_role": "body_status",
+      "usage": "Bottom-corner status notification, short-lived."
+    },
+    {
+      "id": "btn_slate_normal",
+      "path": "sprites/buttons/btn_slate_normal.png",
+      "anchor": "center",
+      "palette_role": "body_button_slate",
+      "usage": "Neutral action button (Cancel, Dismiss)."
+    },
+    {
+      "id": "btn_slate_hover",
+      "path": "sprites/buttons/btn_slate_hover.png",
+      "anchor": "center",
+      "palette_role": "body_button_slate",
+      "usage": "Hover state for slate button."
+    },
+    {
+      "id": "btn_slate_pressed",
+      "path": "sprites/buttons/btn_slate_pressed.png",
+      "anchor": "center",
+      "palette_role": "body_button_slate",
+      "usage": "Pressed state for slate button."
+    },
+    {
+      "id": "btn_slate_disabled",
+      "path": "sprites/buttons/btn_slate_disabled.png",
+      "anchor": "center",
+      "palette_role": "body_button_slate",
+      "usage": "Disabled state for slate button."
+    },
+    {
+      "id": "btn_amber_normal",
+      "path": "sprites/buttons/btn_amber_normal.png",
+      "anchor": "center",
+      "palette_role": "body_button_amber",
+      "usage": "Call-to-action button (Confirm, Proceed)."
+    },
+    {
+      "id": "btn_amber_hover",
+      "path": "sprites/buttons/btn_amber_hover.png",
+      "anchor": "center",
+      "palette_role": "body_button_amber",
+      "usage": "Hover state for amber button."
+    },
+    {
+      "id": "btn_amber_pressed",
+      "path": "sprites/buttons/btn_amber_pressed.png",
+      "anchor": "center",
+      "palette_role": "body_button_amber",
+      "usage": "Pressed state for amber button."
+    },
+    {
+      "id": "btn_amber_disabled",
+      "path": "sprites/buttons/btn_amber_disabled.png",
+      "anchor": "center",
+      "palette_role": "body_button_amber",
+      "usage": "Disabled state for amber button."
+    },
+    {
+      "id": "btn_green_normal",
+      "path": "sprites/buttons/btn_green_normal.png",
+      "anchor": "center",
+      "palette_role": "body_button_green",
+      "usage": "Affirm/Success button (Apply, Save, Confirm)."
+    },
+    {
+      "id": "btn_green_hover",
+      "path": "sprites/buttons/btn_green_hover.png",
+      "anchor": "center",
+      "palette_role": "body_button_green",
+      "usage": "Hover state for green button."
+    },
+    {
+      "id": "btn_green_pressed",
+      "path": "sprites/buttons/btn_green_pressed.png",
+      "anchor": "center",
+      "palette_role": "body_button_green",
+      "usage": "Pressed state for green button."
+    },
+    {
+      "id": "btn_green_disabled",
+      "path": "sprites/buttons/btn_green_disabled.png",
+      "anchor": "center",
+      "palette_role": "body_button_green",
+      "usage": "Disabled state for green button."
+    },
+    {
+      "id": "slot_1x1",
+      "path": "sprites/toolbar_slots/slot_1x1.png",
+      "anchor": "center",
+      "palette_role": "body_status",
+      "usage": "Single hotbar cell, default state."
+    },
+    {
+      "id": "slot_1x1_active",
+      "path": "sprites/toolbar_slots/slot_1x1_active.png",
+      "anchor": "center",
+      "palette_role": "body_status",
+      "usage": "Active/selected hotbar cell with amber inset accent."
+    },
+    {
+      "id": "slot_1x2",
+      "path": "sprites/toolbar_slots/slot_1x2.png",
+      "anchor": "center",
+      "palette_role": "body_status",
+      "usage": "Wide slot (1x2 cells), for action bars with two collocated items."
+    },
+    {
+      "id": "divider_h",
+      "path": "sprites/status_windows/divider_h.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Horizontal divider between content rows in a status window."
+    },
+    {
+      "id": "divider_v",
+      "path": "sprites/status_windows/divider_v.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Vertical divider between columns in a status window."
+    },
+    {
+      "id": "corner_tl",
+      "path": "sprites/status_windows/corner_tl.png",
+      "anchor": "top-left",
+      "palette_role": "no-body",
+      "usage": "Top-left quarter-round for status window framing."
+    },
+    {
+      "id": "corner_tr",
+      "path": "sprites/status_windows/corner_tr.png",
+      "anchor": "top-right",
+      "palette_role": "no-body",
+      "usage": "Top-right quarter-round for status window framing."
+    },
+    {
+      "id": "corner_bl",
+      "path": "sprites/status_windows/corner_bl.png",
+      "anchor": "bottom-left",
+      "palette_role": "no-body",
+      "usage": "Bottom-left quarter-round for status window framing."
+    },
+    {
+      "id": "corner_br",
+      "path": "sprites/status_windows/corner_br.png",
+      "anchor": "bottom-right",
+      "palette_role": "no-body",
+      "usage": "Bottom-right quarter-round for status window framing."
+    },
+    {
+      "id": "close_x",
+      "path": "sprites/decor/close_x.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Top-right close button glyph for dialog panels."
+    },
+    {
+      "id": "glow_accent",
+      "path": "sprites/decor/glow_accent.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Soft amber accent dot for notification sparks."
+    },
+    {
+      "id": "separator_dot",
+      "path": "sprites/decor/separator_dot.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Bullet between list items or breadcrumb elements."
+    },
+    {
+      "id": "double_divider",
+      "path": "sprites/decor/double_divider.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Paired 1-px lines as a stronger section divider."
+    },
+    {
+      "id": "vital_thirst",
+      "path": "sprites/vitals/vital_thirst.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Thirst vital - half-full drinking glass of water."
+    },
+    {
+      "id": "vital_hunger",
+      "path": "sprites/vitals/vital_hunger.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Hunger vital - golden-brown bread loaf."
+    },
+    {
+      "id": "vital_stamina",
+      "path": "sprites/vitals/vital_stamina.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Stamina vital - amber running-man silhouette."
+    },
+    {
+      "id": "vital_wellness",
+      "path": "sprites/vitals/vital_wellness.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Wellness vital - red heart with white medical cross."
+    },
+    {
+      "id": "resource_water",
+      "path": "sprites/resources/resource_water.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Water resource - cyan water droplet."
+    },
+    {
+      "id": "resource_electricity",
+      "path": "sprites/resources/resource_electricity.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Electricity resource - yellow lightning bolt."
+    },
+    {
+      "id": "resource_bandwidth",
+      "path": "sprites/resources/resource_bandwidth.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Bandwidth resource - 4-bar cell signal meter."
+    },
+    {
+      "id": "resource_fuel",
+      "path": "sprites/resources/resource_fuel.png",
+      "anchor": "center",
+      "palette_role": "no-body",
+      "usage": "Fuel resource - industrial pump nozzle."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "_comment": "Canonical HUD kit palette. Measured from existing chrome PNGs in assets/hud/. Hex values are absolute; sample tolerance is +/-2 per channel for drift detection.",
+  "version": "1.0",
+  "canvas": {
+    "size_px": 128,
+    "format": "RGBA8",
+    "margin_px": 12,
+    "max_content_dim_px": 104,
+    "perimeter_alpha_zero": true,
+    "_comment_for_margin": "Per AGENTS.md rule 4: max subject dim <= 104 px on 128 canvas, 12 px margin, perimeter alpha=0."
+  },
+  "colors": {
+    "body_dialog":     { "hex": "#18202c", "role": "panel body - dialogs/drawers/chrome",            "rgb": [24, 32, 44] },
+    "body_status":     { "hex": "#0e1b20", "role": "panel body - deep-context status windows",     "rgb": [14, 27, 32] },
+    "body_button_slate": { "hex": "#253142", "role": "button body - neutral slate",                "rgb": [37, 49, 66] },
+    "body_button_amber": { "hex": "#784b06", "role": "button body - amber (call-to-action)",        "rgb": [120, 75, 6 ] },
+    "body_button_green": { "hex": "#1e4620", "role": "button body - green (success/affirm)",       "rgb": [30, 70, 32] }
+  },
+  "highlights": {
+    "highlight_top_left_px": 1,
+    "highlight_top_left_boost_rgb": [12, 12, 14],
+    "_comment": "A 1-px hi-light along top + left edges simulates light from upper-left. Boost = lighter shade added on top of body rgb."
+  },
+  "borders": {
+    "border_px": 2,
+    "border_color_hex": "#0a0e15",
+    "_comment": "All panels/buttons get a 2-px darker outline."
+  },
+  "corners": {
+    "corner_radius_px": 8,
+    "_comment": "All rounded chrome uses 8 px corner radius on 128 canvas."
+  },
+  "hero_distance": {
+    "expected_sample_delta_per_channel_max": 2,
+    "_comment": "When _validate_palette samples the body pixel of any kit sprite, the deviation from the canonical hex must not exceed this value in any RGB channel."
+  }
+}
