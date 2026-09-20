@@ -24,11 +24,22 @@ Coordinate system
 """
 
 from dataclasses import dataclass, field
+import enum
 
 
 GLYPH_WIDTH = 16
 ASCENDER = 24
 DESCENDER = 4
+
+
+class _KC(enum.Enum):
+    # Kerning classes. Each glyph declares one of these; the GPOS
+    # builder generates pair kerning off (KC_a, KC_b) -> shift.
+    Cap = "cap"        # A-Z, brackets, parentheses, digits
+    Low = "low"        # a-z, lowercase-ish glyphs
+    Digit = "digit"    # 0-9
+    Punct = "punct"    # . , : ; ! ? % - _ + / \\ ^ ~ * & =
+    Space = "space"    # space only
 
 
 @dataclass
@@ -37,36 +48,93 @@ class _GlyphSpec:
     char: str
     width_in_units: int
     strokes: list = field(default_factory=list)
+    kclass: _KC = _KC.Punct
 
 
 _UPEM = 1024
 _ADVANCE_UNITS = GLYPH_WIDTH * (_UPEM // GLYPH_WIDTH)
 
 
-def _g(c, points_list):
+def _g(c, points_list, kclass=None):
     name = {
         " ": "space",
         "-": "hyphen",
         "+": "plus",
         "/": "slash",
+        "\\": "backslash",
         ":": "colon",
         ".": "period",
+        ",": "comma",
+        "'": "apostrophe",
+        "\"": "dquote",
+        "(": "parenleft",
+        ")": "parenright",
+        "?": "question",
+        "!": "exclam",
+        "%": "percent",
+        "&": "ampersand",
+        "*": "asterisk",
+        "_": "underscore",
+        "[": "bracketleft",
+        "]": "bracketright",
+        "<": "less",
+        ">": "greater",
+        "~": "asciitilde",
+        ";": "semicolon",
+        "^": "circumflex",
+        "=": "equal",
+        "#": "hash",
+        "$": "dollar",
+        "@": "at",
+        "`": "grave",
+        "|": "bar",
+        "{": "braceleft",
+        "}": "braceright",
+        "°": "degree",
+        "±": "plusminus",
+        "²": "twosuperior",
+        "³": "threesuperior",
+        "×": "multiply",
+        "÷": "divide",
     }.get(c, None)
     if name is None:
         if c.isdigit():
             name = ["zero", "one", "two", "three", "four",
                     "five", "six", "seven", "eight", "nine"][int(c)]
         elif c.isalpha():
-            # Caps distinct from lowercase: use uppercase glyph name.
             if c.isupper():
-                # Capital letters use the cap-height shape via _cap().
                 name = c.lower() + "_cap"
             else:
                 name = c.lower()
         else:
             name = f"u{ord(c):04x}"
+
+    # Default kerning class inference.
+    if kclass is None:
+        if c == " ":
+            kclass = _KC.Space
+        elif c.isdigit():
+            kclass = _KC.Digit
+        elif c.isupper():
+            kclass = _KC.Cap
+        elif c.isalpha():
+            kclass = _KC.Low
+        else:
+            kclass = _KC.Punct
+
     return _GlyphSpec(name=name, char=c, width_in_units=_ADVANCE_UNITS,
-                       strokes=points_list)
+                       strokes=points_list, kclass=kclass)
+
+
+# Force the auto-kclass on the existing call sites that pass punct chars.
+_GLYPH_OVERRIDES = {
+    "-": _KC.Punct,
+    "+": _KC.Punct,
+    "/": _KC.Punct,
+    "\\": _KC.Punct,
+    ":": _KC.Punct,
+    ".": _KC.Punct,
+}
 
 
 _NUM_X1, _NUM_X2 = 2, 14
@@ -458,15 +526,322 @@ def _play(n_arrows: int):
     return polys
 
 
+# ------------------------------------------------------------
+# Punctuation glyph designs. Each occupies the 16-px design grid
+# and respects the same cap/num/low band conventions used above.
+# (Comma, apostrophe, parentheses, ? ! % & * _ [ ] < > ~ ; ^)
+# ------------------------------------------------------------
+
+def _comma():
+    # Mirror of the period glyph but with a small descender tail at
+    # the bottom-left so it sits visibly lower.
+    return [
+        [(5, 15), (7, 15), (7, 17), (5, 17), (5, 15)],
+        [(5, 17), (4, 20), (5, 21)],
+    ]
+
+
+def _apostrophe():
+    return [[(7, 14), (8, 14), (8, 18), (7, 18), (7, 14)]]
+
+
+def _parenleft():
+    return [[
+        (10, 4), (5, 8), (5, 16), (10, 20), (7, 20),
+        (4, 16), (4, 8), (7, 4), (10, 4),
+    ]]
+
+
+def _parenright():
+    return [[
+        (6, 4), (11, 8), (11, 16), (6, 20), (9, 20),
+        (12, 16), (12, 8), (9, 4), (6, 4),
+    ]]
+
+
+def _question():
+    return [
+        [(4, 7), (7, 4), (12, 4), (12, 10), (8, 14),
+         (8, 17), (8, 18)],
+        [(8, 20), (8, 21)],
+    ]
+
+
+def _exclam():
+    return [
+        [(7, 4), (8, 4), (8, 16), (7, 16), (7, 4)],
+        [(7, 19), (8, 19)],
+    ]
+
+
+def _percent():
+    return [
+        [(4, 7), (4, 5), (5, 4), (6, 4), (7, 5), (7, 7),
+         (6, 8), (5, 8), (4, 7)],
+        [(9, 10), (13, 16)],
+        [(12, 14), (10, 14), (9, 16), (9, 17), (10, 18),
+         (12, 18), (13, 17), (13, 16), (12, 14)],
+    ]
+
+
+def _ampersand():
+    return [[
+        (8, 4), (5, 4), (4, 7), (4, 9), (6, 10), (12, 16),
+        (12, 19), (10, 20), (7, 20), (5, 19), (4, 17),
+        (4, 14), (5, 12), (8, 9), (12, 9), (12, 6),
+        (10, 4), (8, 4),
+    ]]
+
+
+def _asterisk():
+    return [
+        [(7, 4), (7, 20)],
+        [(3, 12), (13, 12)],
+        [(4, 6), (12, 18)],
+        [(4, 18), (12, 6)],
+    ]
+
+
+def _underscore():
+    return [[(3, 19), (13, 19)]]
+
+
+def _bracketleft():
+    return [[
+        (8, 4), (4, 4), (4, 20), (8, 20), (6, 18),
+        (6, 6), (8, 4),
+    ]]
+
+
+def _bracketright():
+    return [[
+        (8, 4), (12, 4), (12, 20), (8, 20), (10, 18),
+        (10, 6), (8, 4),
+    ]]
+
+
+def _less():
+    return [[(11, 4), (4, 12), (11, 20), (10, 20),
+             (3, 12), (10, 4), (11, 4)]]
+
+
+def _greater():
+    return [[(5, 4), (12, 12), (5, 20), (6, 20),
+             (13, 12), (6, 4), (5, 4)]]
+
+
+def _asciitilde():
+    return [[(3, 13), (4, 11), (6, 11), (7, 13),
+             (8, 15), (10, 15), (11, 13), (12, 11),
+             (13, 11), (14, 13)]]
+
+
+def _semicolon():
+    return [
+        [(7, 9), (8, 9), (8, 13), (7, 13), (7, 9)],
+        [(7, 13), (6, 16), (7, 17)],
+        [(7, 19), (8, 19), (8, 20), (7, 20), (7, 19)],
+    ]
+
+
+def _circumflex():
+    return [[(3, 8), (8, 4), (13, 8), (12, 8),
+             (8, 5), (4, 8), (3, 8)]]
+
+
+def _backslash():
+    return [[(3, 4), (13, 20)]]
+
+
+def _equal():
+    return [[(4, 10), (12, 10)], [(4, 14), (12, 14)]]
+
+
+# ------------------------------------------------------------
+# Additional punctuation glyphs - second pass. These cover
+# quoted text ($) "@#hash"), math (±²³), and full ASCII
+# punctuation ("#@`{|}) so HUD chrome never has to fall back
+# to the system font.
+# ------------------------------------------------------------
+
+
+def _dquote():
+    # Two parallel vertical marks at the top of the design grid.
+    return [
+        [(7, 4), (7, 9), (8, 9), (8, 4), (7, 4)],
+        [(10, 4), (10, 9), (11, 9), (11, 4), (10, 4)],
+    ]
+
+
+def _hash():
+    # Two slanted verticals + two horizontal cross-bars.
+    return [
+        [(4, 6), (4, 18), (5, 18), (5, 6), (4, 6)],
+        [(11, 6), (11, 18), (12, 18), (12, 6), (11, 6)],
+        [(4, 8), (12, 8)],
+        [(4, 16), (12, 16)],
+        # Slight slant for hash-blocks
+    ]
+
+
+def _dollar():
+    # Vertical line with two C-curves forming an S shape.
+    return [
+        [(7, 4), (7, 20)],
+        [(5, 6), (5, 8), (8, 8), (10, 11),
+         (10, 14), (7, 14), (10, 14), (10, 17),
+         (7, 18), (5, 18), (5, 20)],
+    ]
+
+
+def _at():
+    # Open inner ring + outer C with a tail.
+    return [
+        [(5, 12), (5, 8), (7, 6), (10, 6),
+         (13, 8), (13, 12), (11, 12), (11, 10),
+         (10, 8), (8, 9), (7, 11), (8, 13),
+         (10, 13), (10, 15), (10, 17), (7, 18),
+         (5, 17)],
+    ]
+
+
+def _grave():
+    # Backtick - same height as apostrophe (top of design) but flipped.
+    return [[(7, 4), (7, 8), (8, 8), (8, 4), (7, 4)]]
+
+
+def _bar():
+    # Vertical bar - thick stem with cutout at top/bottom.
+    return [[(7, 4), (9, 4), (9, 20), (7, 20), (7, 4)]]
+
+
+def _braceleft():
+    # Curly brace - rounded left brace.
+    return [
+        [(11, 4), (7, 4), (6, 5), (6, 9),
+         (4, 10), (6, 11), (6, 15),
+         (7, 16), (11, 20), (8, 20),
+         (5, 15), (5, 10), (5, 5),
+         (8, 4)],
+    ]
+
+
+def _braceright():
+    return [
+        [(5, 4), (9, 4), (10, 5), (10, 9),
+         (12, 10), (10, 11), (10, 15),
+         (9, 16), (5, 20), (8, 20),
+         (11, 15), (11, 10), (11, 5),
+         (8, 4)],
+    ]
+
+
+def _degree():
+    # Small filled circle in upper part of glyph.
+    return [
+        [(8, 6), (6, 6), (5, 8), (5, 10),
+         (6, 12), (8, 12), (10, 10),
+         (10, 8), (8, 6)],
+    ]
+
+
+def _plusminus():
+    # Plus stacked above a horizontal minus line.
+    return [
+        [(4, 12), (12, 12)],
+        [(8, 8), (8, 16)],
+        [(4, 14), (12, 14)],
+    ]
+
+
+def _multiply():
+    # x-style cross used by hand-marked values.
+    return [[(4, 4), (12, 20)], [(12, 4), (4, 20)]]
+
+
+def _divide():
+    # Diagonal slash + small dot above + small dot below.
+    return [
+        [(4, 8), (5, 8), (5, 9), (4, 9), (4, 8)],
+        [(3, 20), (13, 4)],
+        [(10, 15), (11, 15), (11, 16), (10, 16), (10, 15)],
+    ]
+
+
+def _two_super():
+    # Tiny circle that reads as a superscript "2".
+    return [
+        [(7, 13), (8, 13), (10, 12), (10, 11),
+         (8, 9), (6, 11), (6, 15), (10, 15)],
+    ]
+
+
+def _three_super():
+    return [
+        [(6, 12), (9, 12), (10, 13),
+         (8, 14), (10, 15), (10, 17),
+         (9, 18), (7, 18), (6, 17)],
+    ]
+
+
+def _solidus_alt():
+    # A wider `/` variant for fraction use.
+    return [[(3, 18), (13, 6)]]
+
+
+# Hyphen with a small filled rectangle to survive fontTools'
+# "single line is degenerate outline" optimisation that strips
+# the basic U+002D codepoint from cmap at save time.
+def _hyphen():
+    return [[(4, 13), (12, 13), (12, 15), (4, 15), (4, 13)]]
+
+
+
 # Master glyph table.
 GLYPHS = [
-    _g(" ", [[[]]]),
-    _g("-", [[[ (4, 14), (12, 14) ]]]),
-    _g("+", [[[ (4, 14), (12, 14) ]], [[ (7, 11), (7, 17) ]]]),
-    _g("/", [[[ (3, 20), (13, 4) ]]]),
-    _g(":", [[[ (7, 10), (7, 12) ]], [[ (7, 16), (7, 18) ]]]),
-    _g(".", [[[ (7, 20), (8, 20), (8, 19), (7, 19) ]]]),
-    _g("0", _digit("0")),
+    # No glyph for U+0020. fontTools 4.65 strips space from cmap if a
+    # glyph is registered, and Unity falls back gracefully on missing
+    # codepoints using the font's average advance. Keeping space off
+    # the glyph table avoids any rendering as a "black square" stub.
+    _g("-", _hyphen(), kclass=_KC.Punct),
+    _g("+", [[(4, 14), (12, 14)], [(7, 11), (7, 17)]], kclass=_KC.Punct),
+    _g("#", _hash(), kclass=_KC.Punct),
+    _g("$", _dollar(), kclass=_KC.Punct),
+    _g("@", _at(), kclass=_KC.Punct),
+    _g("`", _grave(), kclass=_KC.Punct),
+    _g("\"", _dquote(), kclass=_KC.Punct),
+    _g("|", _bar(), kclass=_KC.Punct),
+    _g("{", _braceleft(), kclass=_KC.Punct),
+    _g("}", _braceright(), kclass=_KC.Punct),
+    _g("°", _degree(), kclass=_KC.Punct),
+    _g("±", _plusminus(), kclass=_KC.Punct),
+    _g("²", _two_super(), kclass=_KC.Punct),
+    _g("³", _three_super(), kclass=_KC.Punct),
+    _g("×", _multiply(), kclass=_KC.Punct),
+    _g("÷", _divide(), kclass=_KC.Punct),
+    _g("/", [[(3, 20), (13, 4)]], kclass=_KC.Punct),
+    _g(":", [[(7, 10), (7, 12)], [(7, 16), (7, 18)]], kclass=_KC.Punct),
+    _g(".", [[(7, 20), (8, 20), (8, 19), (7, 19)]], kclass=_KC.Punct),
+    _g(",", _comma(), kclass=_KC.Punct),
+    _g("'", _apostrophe(), kclass=_KC.Punct),
+    _g("(", _parenleft(), kclass=_KC.Cap),
+    _g(")", _parenright(), kclass=_KC.Cap),
+    _g("?", _question(), kclass=_KC.Punct),
+    _g("!", _exclam(), kclass=_KC.Punct),
+    _g("%", _percent(), kclass=_KC.Cap),
+    _g("&", _ampersand(), kclass=_KC.Punct),
+    _g("*", _asterisk(), kclass=_KC.Punct),
+    _g("_", _underscore(), kclass=_KC.Punct),
+    _g("[", _bracketleft(), kclass=_KC.Cap),
+    _g("]", _bracketright(), kclass=_KC.Cap),
+    _g("<", _less(), kclass=_KC.Cap),
+    _g(">", _greater(), kclass=_KC.Cap),
+    _g("~", _asciitilde(), kclass=_KC.Punct),
+    _g(";", _semicolon(), kclass=_KC.Punct),
+    _g("^", _circumflex(), kclass=_KC.Punct),
+    _g("=", _equal(), kclass=_KC.Punct),
+    _g("\\", _backslash(), kclass=_KC.Punct),
+    _g("0", _digit("0"), kclass=_KC.Digit),
     _g("1", _digit("1")),
     _g("2", _digit("2")),
     _g("3", _digit("3")),
@@ -475,61 +850,76 @@ GLYPHS = [
     _g("6", _digit("6")),
     _g("7", _digit("7")),
     _g("8", _digit("8")),
-    _g("9", _digit("9")),
+    _g("9", _digit("9"), kclass=_KC.Digit),
     # Every uppercase letter used by HUD strings.
-    _g("A", _cap("A")),
-    _g("B", _cap("B")),
-    _g("C", _cap("C")),
-    _g("D", _cap("D")),
-    _g("E", _cap("E")),
-    _g("F", _cap("F")),
-    _g("G", _cap("G")),
-    _g("H", _cap("H")),
-    _g("I", _cap("I")),
-    _g("J", _cap("J")),
-    _g("K", _cap("K")),
-    _g("L", _cap("L")),
-    _g("M", _cap("M")),
-    _g("N", _cap("N")),
-    _g("O", _cap("O")),
-    _g("P", _cap("P")),
-    _g("Q", _cap("Q")),
-    _g("R", _cap("R")),
-    _g("S", _cap("S")),
-    _g("T", _cap("T")),
-    _g("U", _cap("U")),
-    _g("V", _cap("V")),
-    _g("W", _cap("W")),
-    _g("X", _cap("X")),
-    _g("Y", _cap("Y")),
-    _g("Z", _cap("Z")),
+    _g("A", _cap("A"), kclass=_KC.Cap),
+    _g("B", _cap("B"), kclass=_KC.Cap),
+    _g("C", _cap("C"), kclass=_KC.Cap),
+    _g("D", _cap("D"), kclass=_KC.Cap),
+    _g("E", _cap("E"), kclass=_KC.Cap),
+    _g("F", _cap("F"), kclass=_KC.Cap),
+    _g("G", _cap("G"), kclass=_KC.Cap),
+    _g("H", _cap("H"), kclass=_KC.Cap),
+    _g("I", _cap("I"), kclass=_KC.Cap),
+    _g("J", _cap("J"), kclass=_KC.Cap),
+    _g("K", _cap("K"), kclass=_KC.Cap),
+    _g("L", _cap("L"), kclass=_KC.Cap),
+    _g("M", _cap("M"), kclass=_KC.Cap),
+    _g("N", _cap("N"), kclass=_KC.Cap),
+    _g("O", _cap("O"), kclass=_KC.Cap),
+    _g("P", _cap("P"), kclass=_KC.Cap),
+    _g("Q", _cap("Q"), kclass=_KC.Cap),
+    _g("R", _cap("R"), kclass=_KC.Cap),
+    _g("S", _cap("S"), kclass=_KC.Cap),
+    _g("T", _cap("T"), kclass=_KC.Cap),
+    _g("U", _cap("U"), kclass=_KC.Cap),
+    _g("V", _cap("V"), kclass=_KC.Cap),
+    _g("W", _cap("W"), kclass=_KC.Cap),
+    _g("X", _cap("X"), kclass=_KC.Cap),
+    _g("Y", _cap("Y"), kclass=_KC.Cap),
+    _g("Z", _cap("Z"), kclass=_KC.Cap),
     # Lowercase letters for units + season words if needed later.
-    _g("a", _low("a")),
-    _g("b", _low("b")),
-    _g("c", _low("c")),
-    _g("d", _low("d")),
-    _g("e", _low("e")),
-    _g("f", _low("f")),
-    _g("g", _low("g")),
-    _g("h", _low("h")),
-    _g("i", _low("i")),
-    _g("j", _low("j")),
-    _g("k", _low("k")),
-    _g("l", _low("l")),
-    _g("m", _low("m")),
-    _g("n", _low("n")),
-    _g("o", _low("o")),
-    _g("p", _low("p")),
-    _g("q", _low("q")),
-    _g("r", _low("r")),
-    _g("s", _low("s")),
-    _g("t", _low("t")),
-    _g("u", _low("u")),
-    _g("v", _low("v")),
-    _g("w", _low("w")),
-    _g("x", _low("x")),
-    _g("y", _low("y")),
-    _g("z", _low("z")),
+    _g("a", _low("a"), kclass=_KC.Low),
+    _g("b", _low("b"), kclass=_KC.Low),
+    _g("c", _low("c"), kclass=_KC.Low),
+    _g("d", _low("d"), kclass=_KC.Low),
+    _g("e", _low("e"), kclass=_KC.Low),
+    _g("f", _low("f"), kclass=_KC.Low),
+    _g("g", _low("g"), kclass=_KC.Low),
+    _g("h", _low("h"), kclass=_KC.Low),
+    _g("i", _low("i"), kclass=_KC.Low),
+    _g("j", _low("j"), kclass=_KC.Low),
+    _g("k", _low("k"), kclass=_KC.Low),
+    _g("l", _low("l"), kclass=_KC.Low),
+    _g("m", _low("m"), kclass=_KC.Low),
+    _g("n", _low("n"), kclass=_KC.Low),
+    _g("o", _low("o"), kclass=_KC.Low),
+    _g("p", _low("p"), kclass=_KC.Low),
+    _g("q", _low("q"), kclass=_KC.Low),
+    _g("r", _low("r"), kclass=_KC.Low),
+    _g("s", _low("s"), kclass=_KC.Low),
+    _g("t", _low("t"), kclass=_KC.Low),
+    _g("u", _low("u"), kclass=_KC.Low),
+    _g("v", _low("v"), kclass=_KC.Low),
+    _g("w", _low("w"), kclass=_KC.Low),
+    _g("x", _low("x"), kclass=_KC.Low),
+    _g("y", _low("y"), kclass=_KC.Low),
+    _g("z", _low("z"), kclass=_KC.Low),
     _GlyphSpec(name="pause", char="\u23F8", width_in_units=_ADVANCE_UNITS,
                strokes=_pause()),
 ]
+# Reverse lookup tables for the build script.
+_INDEX_BY_NAME = {g.name: i for i, g in enumerate(GLYPHS)}
+_GLYPH_BY_CHAR = {g.char: g for g in GLYPHS if g.char}
+
+
+def glyph_by_char(c):
+    return _GLYPH_BY_CHAR.get(c)
+
+
+def glyph_by_name(name):
+    return GLYPHS[_INDEX_BY_NAME[name]] if name in _INDEX_BY_NAME else None
+
+
+def glyph_index_by_name(name):
+    return _INDEX_BY_NAME.get(name, -1)
