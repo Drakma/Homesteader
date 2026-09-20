@@ -152,16 +152,28 @@ def build_ttf(style, out_path):
     metrics = {g.name: (g.width_in_units, 0) for g in GLYPHS}
     metrics[".notdef"] = (GLYPH_WIDTH * PX, 0)
     fb.setupHorizontalMetrics(metrics)
-    fb.setupHorizontalHeader(ascent=ASCENDER * PX, descent=0)
+
+    # Sane OpenType metrics. Previously the kit set ascent = UPEM * 1.5
+    # which made UI Toolkit render labels at 1.5x their expected
+    # pixel height. Cap height is 16 design px (= UPEM); x-height is
+    # 10 design px (= UPEM * 10/16). Numbers follow:
+    ascent_fu   = UPEM                  # 1024 fu; cap-height + diacritics
+    cap_height  = UPEM                  # 1024 fu
+    x_height    = int(UPEM * 10 * 0.625)  # 640 fu; 10 design-px scaled
+    descent_fu  = 0
+
+    fb.setupHorizontalHeader(ascent=ascent_fu, descent=descent_fu)
     fb.setupNameTable({
         "familyName": "Homesteader HUD",
         "styleName": style.style_name,
     })
     fb.setupOS2(
-        sTypoAscender=ASCENDER * PX,
+        sTypoAscender=ascent_fu,
         sTypoDescender=0,
-        usWinAscent=ASCENDER * PX,
+        usWinAscent=ascent_fu,
         usWinDescent=0,
+        sxHeight=x_height,
+        sCapHeight=cap_height,
         usWeightClass=style.weight,
     )
     fb.setupHead(unitsPerEm=UPEM)
