@@ -20,7 +20,7 @@ from typing import Tuple
 from PIL import Image, ImageDraw, ImageFont
 
 from .time_system import TimeSystem, Speed, format_wall_clock
-from .divlayout import build_layout, SIZE as DIV_SIZE
+from .divlayout import build_layout, SIZE as DIV_SIZE, Div
 from .state import HudState, VitalId, ResourceId
 from .grid_layout import (
     Cell, Anchor, PanelPlacement, PLACEMENTS,
@@ -156,9 +156,8 @@ def _draw_full_width_panel(canvas: Image.Image, m: LayoutMetrics,
                            height_src: int = 96) -> tuple:
     """Draw a full-canvas-width top status bar procedurally.
 
-    Body and border are drawn as flat rectangles so there are no
-    interpolation gaps when stretched across the entire canvas.
-    Highlight color goes along the bottom edge inside the bar.
+    Delegates to ``_draw_header_band`` for the metallic-with-noise
+    fill so all band-style headers share one renderer.
 
     Returns (x, y, w, h).
     """
@@ -166,7 +165,6 @@ def _draw_full_width_panel(canvas: Image.Image, m: LayoutMetrics,
     panel_h = m.px(height_src)
     y = 0                 # flush against canvas top - no gap
     x = 0
-    draw = ImageDraw.Draw(canvas)
     if body_hex is None:
         body_hex = "#18202c"
     if border_hex is None:
@@ -174,18 +172,9 @@ def _draw_full_width_panel(canvas: Image.Image, m: LayoutMetrics,
     if highlight_hex is None:
         # Default highlight: amber accent from palette.
         highlight_hex = "#c19a3c"
-    body = _hex_to_rgb(body_hex)
-    bord = _hex_to_rgb(border_hex)
-    hi = _hex_to_rgb(highlight_hex)
-    draw.rectangle([x, y, x + panel_w, y + panel_h], fill=body)
-    draw.rectangle([x, y, x + panel_w, y + m.px(2)],
-                   fill=bord)
-    # The highlight IS the bottom line of the bar so it is the last
-    # 1px-line. Anything drawn below this (from compositing later) sits
-    # against the canvas background, never underneath the highlight.
-    hi_y = y + panel_h - m.px(1)
-    draw.rectangle([x, hi_y, x + panel_w, hi_y + m.px(1)],
-                   fill=hi)
+    _draw_header_band(canvas, x, y, panel_w, panel_h,
+                      body_hex, border_hex, highlight_hex,
+                      seed=0x4ad5011)
     return (x, y, panel_w, panel_h)
 
 
@@ -305,6 +294,76 @@ def _lerp_color(c0, c1, t):
     """Linearly interpolate two RGB tuples (3 ints each). t in [0, 1]."""
     t = max(0.0, min(1.0, float(t)))
     return tuple(int(round(c0[i] + (c1[i] - c0[i]) * t)) for i in range(3))
+
+
+def _lerp_color(c0, c1, t):
+    """Linearly interpolate two RGB tuples (3 ints each). t in [0, 1]."""
+    t = max(0.0, min(1.0, float(t)))
+    return tuple(int(round(c0[i] + (c1[i] - c0[i]) * t)) for i in range(3))
+
+
+def _draw_header_band(canvas: Image.Image, x: int, y: int, w: int, h: int,
+                       body_hex: str, border_hex: str,
+                       highlight_hex: str, *,
+                       seed: int = None):
+    """Paint a single window/modal/header band with a faint metallic
+    reflection and subtle noise. Visual style:
+
+      - Body fill in `body_hex`, then a horizontal gradient sweeping
+        top->bottom from a slightly lighter tint to a slightly darker
+        shadow, evoking a metal strip catching light from above.
+      - Optional vignette that brightens the upper-left corner (light
+        source from above-left) for a soft 3D curl.
+      - Light per-pixel noise (±2 in each channel) so a flat fill never
+        reads as plastic.
+      - 2 px bottom inner-edge "highlight" in `highlight_hex` and a
+        2 px top inner-edge contour in `border_hex` to anchor the band.
+
+    All sizes in canvas pixels. Caller picks `seed` for reproducibility;
+    None picks from os.urandom when not set.
+    """
+    import os as _os
+    import random as _random
+    body = _hex_to_rgb(body_hex)
+    bord = _hex_to_rgb(border_hex)
+    hi = _hex_to_rgb(highlight_hex)
+    # Lighter highlight color (warm white shifted toward body).
+    light = _lerp_color(body, (255, 240, 220), 0.18)
+    shadow = _lerp_color(body, (0, 0, 0), 0.32)
+
+    # Build the band as a slice of the canvas for noise + alpha blending.
+    band = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    band_px = band.load()
+    rng = _random.Random(seed if seed is not None else _os.urandom(4))
+    diag_max = max(1, w + h)
+    # Small visible diagonal gradient (lower-left darker, upper-right
+    # brighter) with magnitude up to 18 per channel. Noise ±2 rides on
+    # top so the band still reads as brushed metal, not as plastic.
+    rng_diag = _random.Random((seed if seed is not None else 0) ^ 0xA53F)
+    drift_lo = tuple(rng_diag.randint(-2, 2) for _ in range(3))
+    drift_hi = tuple(rng_diag.randint(-2, 2) for _ in range(3))
+    drift_span = (-18, 18)  # max brightness swing along the diagonal
+    for j in range(h):
+        for i in range(w):
+            t_d = (i + j) / diag_max        # 0..1 diagonal progress
+            drift_t = drift_span[0] + (drift_span[1] - drift_span[0]) * t_d
+            drift = _lerp_color(drift_lo, drift_hi, t_d)
+            n = rng.randint(-2, 2)
+            band_px[i, j] = (
+                max(0, min(255, int(body[0] + drift_t + drift[0] + n))),
+                max(0, min(255, int(body[1] + drift_t + drift[1] + n))),
+                max(0, min(255, int(body[2] + drift_t + drift[2] + n))),
+                255,
+            )
+
+    # Paste the band onto the canvas at (x, y).
+    canvas.alpha_composite(band, (x, y))
+
+    # Bottom inner-edge highlight (2 px).
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle([x, y + h - 2, x + w, y + h - 1], fill=hi)
+    # Top inner-edge contour (2 px).
+    draw.rectangle([x, y, x + w, y + 1], fill=bord)
 
 
 def _trim_alpha(img: Image.Image, pad_px: int = 1) -> Image.Image:
@@ -433,6 +492,95 @@ def _format_resource_amount(r) -> str:
     return f"{amt:.1f} {unit}"
 
 
+def render_window(canvas: Image.Image, x: int, y: int, w: int, h: int,
+                   title: str, m: LayoutMetrics, *,
+                   show_close: bool = True,
+                   body_hex: str = "#1a2230",
+                   border_hex: str = "#0a0e15",
+                   title_hex: str = "#c19a3c",
+                   body_inset: int = 2):
+    """Render a normalized window: header band with title (and close x
+    if ``show_close``), plus a body region below it.
+
+    The header reuses the metallic+noisy band style so it sits in the
+    same visual family as the HUD's top status bar.
+    """
+    # Window body (rounded rect with dark face).
+    draw = ImageDraw.Draw(canvas)
+    radius = max(4, m.px(8))
+    body_color = _hex_to_rgb(body_hex)
+    bord_color = _hex_to_rgb(border_hex)
+    draw.rounded_rectangle(
+        [int(x), int(y), int(x + w), int(y + h)],
+        radius=radius, fill=body_color, outline=bord_color, width=1,
+    )
+    # Header band sits at the top of the body, hugging its edges (no
+    # extra inset padding around the header so the title can use the
+    # full header height).
+    header_h_px = m.px(36)
+    hx = int(x)
+    hy = int(y)
+    hw = int(w)
+    hh = int(header_h_px)
+    _draw_header_band(canvas, hx, hy, hw, hh,
+                       body_hex="#222b3a",
+                       border_hex=border_hex,
+                       highlight_hex="#c19a3c",
+                       seed=hash(title) & 0xFFFFFFFF)
+    # Title text. Larger font so it fills the header height nicely.
+    font_size = max(8, int(header_h_px * 0.55))
+    font = _hud_font(font_size, weight="bold")
+    bbox = draw.textbbox((0, 0), title, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+    ascent, _ = font.getmetrics()
+    tx = hx + hh // 2
+    ty = hy + (hh - text_h) // 2 - (ascent - bbox[1])
+    draw.text((tx, ty), title, fill=_hex_to_rgb(title_hex), font=font)
+    # Close x (right-aligned inside the header band).
+    if show_close:
+        cx_x = hx + hw - m.px(14)
+        cx_y = hy + hh // 2
+        # Two strokes to form an X.
+        s = m.px(4)
+        draw.line([(cx_x - s, cx_y - s), (cx_x + s, cx_y + s)],
+                  fill=(220, 90, 90), width=max(1, m.px(2)))
+        draw.line([(cx_x - s, cx_y + s), (cx_x + s, cx_y - s)],
+                  fill=(220, 90, 90), width=max(1, m.px(2)))
+    # Decorative body content area (mockup filler).
+    return (int(x), int(y), int(w), int(h))
+
+
+def render_modal(canvas: Image.Image, x: int, y: int, w: int, h: int,
+                  title: str, body: str, m: LayoutMetrics, *,
+                  body_hex: str = "#1a2230",
+                  border_hex: str = "#0a0e15",
+                  dump_pixels: int = 60):
+    """Render a modal dialog: same window shell + close x, then a body
+    placeholder block where real widgets would mount.
+    """
+    render_window(canvas, x, y, w, h, title, m,
+                  show_close=True, body_hex=body_hex,
+                  border_hex=border_hex)
+    # Body content area = below the header (slightly lighter than the
+    # body rect to read as the window's working area).
+    body_x = int(x + 6)
+    body_y = int(y + m.px(40))
+    body_w = int(w - 12)
+    body_h = int(h - m.px(44))
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle(
+        [body_x, body_y, body_x + body_w, body_y + body_h],
+        radius=4, fill=_hex_to_rgb("#29344a"),
+        outline=_hex_to_rgb("#28323f"), width=1,
+    )
+    # Mockup body text.
+    font = _hud_font(m.px(15))
+    draw.text((body_x + m.px(8), body_y + m.px(8)),
+              body, fill=(220, 224, 230), font=font)
+    return (int(x), int(y), int(w), int(h))
+
+
 def render_top_status_bar(canvas: Image.Image, state: HudState,
                           ts: TimeSystem, m: LayoutMetrics):
     """Layout-driven status bar: every section is a Div with explicit
@@ -462,6 +610,157 @@ def render_top_status_bar(canvas: Image.Image, state: HudState,
     resource_cells = layout.get("resource_cells") or []   # noqa: 841
     inner_y = DIV_SIZE['header_h']  # placeholder, will be reset
     inner_h = DIV_SIZE['header_h'] // 2
+
+    # ---- Draw pill-shaped "well" backgrounds for the VITAL and
+    # RESOURCE GROUPS. The well is a slightly brighter slab in the
+    # same color family as the header band. The body uses a soft
+    # top-to-bottom gradient (top darker, bottom brighter). The
+    # perimeter is 3D: dark along the top + left edges, light along
+    # the bottom + right edges - both wrap around the rounded ends.
+    def _draw_group_well(div, *, pad_l: int = 3, pad_r: int = 3,
+                          pad_t: int = 0, pad_b: int = 0):
+        # The well div's bounds ALREADY include the inner pad; no
+        # further subtraction is needed here.
+        cx = int(div.x * m.s)
+        cy = int(div.y * m.s)
+        cw = int(div.w * m.s)
+        ch = int(div.h * m.s)
+        bg = _hex_to_rgb("#29344a")
+        bg_top = _hex_to_rgb("#222d40")
+        bg_bot = _hex_to_rgb("#34405a")
+        shadow = _hex_to_rgb("#0a0e15")
+        highlight = _hex_to_rgb("#8b9cba")
+        radius = max(4, ch // 2)
+
+        # Body: gradient top->bottom inside a rounded pill mask.
+        body = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+        bp = body.load()
+        cxr, cyr = (cw - 1) / 2, (ch - 1) / 2
+        rx = (cw - 1) / 2
+        ry = (ch - 1) / 2
+        for j in range(ch):
+            t = j / max(1, ch - 1)
+            row = _lerp_color(bg_top, bg_bot, t)
+            for i in range(cw):
+                dx0 = max(0, abs(i - cxr) - rx + radius)
+                dy0 = max(0, abs(j - cyr) - ry + radius)
+                if (dx0 * dx0 + dy0 * dy0) > radius * radius:
+                    continue
+                bp[i, j] = (*row, 255)
+        canvas.alpha_composite(body, (cx, cy))
+
+        # Build the border by drawing it on a scratch layer, then
+        # compositing shadow layer + highlighted half + shadowed half
+        # via two clip masks.
+        border_layer = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+        bd = ImageDraw.Draw(border_layer)
+        # Pill outline in shadow color (drawn first).
+        bd.rounded_rectangle(
+            [0, 0, cw - 1, ch - 1],
+            radius=radius, outline=shadow, width=1,
+        )
+        # Top inner shadow gradient: darker band along the top edge.
+        bd.line([(radius, 1), (cw - radius - 1, 1)], fill=bg_top, width=1)
+
+        # Build the highlight half: bottom-right portion of the pill.
+        # Approach: copy the pill border regardless of color, then
+        # composite highlight OVER only the lower-right half by painting
+        # the highlight on the same scratch but masking it.
+        hl_layer = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+        hd = ImageDraw.Draw(hl_layer)
+        # Bottom + right half-arches: this gives the highlight wrap.
+        hd.arc([cw - 2 * radius, ch - 2 * radius, cw - 1, ch - 1],
+               start=0, end=90, fill=highlight, width=1)
+        hd.arc([0, ch - 2 * radius, 2 * radius - 1, ch - 1],
+               start=90, end=180, fill=highlight, width=1)
+        hd.line([(radius, ch - 1), (cw - radius - 1, ch - 1)],
+                fill=highlight, width=1)
+        bd.line([(cw - 1, radius), (cw - 1, ch - radius - 1)],
+                fill=highlight, width=1)
+
+        canvas.alpha_composite(border_layer, (cx, cy))
+        canvas.alpha_composite(hl_layer, (cx, cy))
+
+    layout_divs = layout.get("divs", {})
+    hdr = layout_divs.get("header")
+    vitals_group = layout_divs.get("vitals")
+    resources_group = layout_divs.get("resources")
+    header_right = (hdr.x + hdr.w) if hdr is not None else m.canvas_w
+    # Compute the visible extent of children inside each group so the
+    # well tightly wraps them (the div itself may have trailing padding).
+    def _child_extent(parent, children):
+        if not children:
+            return None
+        x0 = min(c.x for c in children) - parent.x
+        y0 = min(c.y for c in children) - parent.y
+        x1 = max(c.x + c.w for c in children) - parent.x
+        y1 = max(c.y + c.h for c in children) - parent.y
+        return x0, y0, x1 - x0, y1 - y0
+
+    WELL_PAD_L, WELL_PAD_R, WELL_PAD_T, WELL_PAD_B = 1, 1, 1, 1
+
+    def _build_well_in_header(header, cells, name, content_h, anchor,
+                               outer_l, outer_r, content_h_used):
+        if header is None or not cells:
+            return None
+        from dataclasses import replace as _replace
+        header_local = _replace(header, x=0, y=0)
+        ext = _child_extent(header_local, cells)
+        ww_inner = ext[2] + WELL_PAD_L + WELL_PAD_R
+        wh_inner = content_h_used + WELL_PAD_T + WELL_PAD_B
+        ext0 = ext[0]
+        ext_right = ext[0] + ext[2]
+        # Position the well at the configured anchor offset from the
+        # canvas edge. With anchor='left', the well's LEFT EDGE sits
+        # outer_l px from the canvas left; anchor='right' places the
+        # RIGHT EDGE outer_r px from the canvas right. Cells stay
+        # centered inside the well symmetrically.
+        if anchor == "left":
+            wx = header.x + outer_l
+        elif anchor == "right":
+            wx = header.x + header.w - outer_r - ww_inner
+        else:
+            wx = header.x + (header.w - ww_inner) // 2
+        # Place vertically so the well aligns with the cells' content
+        # center rather than the header's vertical center.
+        if cells:
+            c_top = min(c.y for c in cells)
+            c_bot = max(c.y + c.h for c in cells)
+            content_center_y = (c_top + c_bot) // 2
+            wy = content_center_y - wh_inner // 2
+        else:
+            wy = header.y + (header.h - wh_inner) // 2
+        return Div(name=name, x=wx, y=wy, w=ww_inner, h=wh_inner)
+
+    vitals_well = _build_well_in_header(hdr, vital_cells, "_vitals_well",
+                                          DIV_SIZE['vital_icon'],
+                                          anchor="left", outer_l=8,
+                                          outer_r=0,
+                                          content_h_used=18)
+    resources_well = _build_well_in_header(hdr, resource_cells,
+                                            "_resources_well",
+                                            DIV_SIZE['res_icon'],
+                                            anchor="right", outer_l=0,
+                                            outer_r=8,
+                                            content_h_used=18)
+    # Position cells so they sit centered inside the well: cells
+    # shift horizontally to match the well's inner left, and the well
+    # itself is positioned to vertically center over the cells.
+    def _center_cells_in_well(well, cells):
+        if well is None or not cells:
+            return
+        dx = (well.x + WELL_PAD_L) - min(c.x for c in cells)
+        for c in cells:
+            c.x += dx
+        # Vertical: cell height is fixed by layout; well only widens to
+        # match cell height. No dy shift needed.
+
+    _center_cells_in_well(vitals_well, vital_cells)
+    _center_cells_in_well(resources_well, resource_cells)
+    if vitals_well is not None:
+        _draw_group_well(vitals_well)
+    if resources_well is not None:
+        _draw_group_well(resources_well)
 
     # ---- Vitals: 2 widgets per vital (icon + bar) ----
     n_vitals = len(state.vitals)
@@ -674,7 +973,7 @@ def render_toolbar(canvas: Image.Image, state: HudState, m: LayoutMetrics):
     body_status = _hex_to_rgb("#0e1b20")
     selected_bg = _hex_to_rgb("#778899")  # lightslategray
     active_top = _hex_to_rgb("#c19a3c")
-    font = _hud_font(15)
+    font = _hud_font(18, weight="bold")
     for i, slot in enumerate(state.toolbar):
         wid = slot_w[i]
         x = int(wid.abs_x() * m.s)
