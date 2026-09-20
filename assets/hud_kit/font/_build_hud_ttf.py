@@ -159,7 +159,7 @@ def build_ttf(style, out_path):
     # 10 design px (= UPEM * 10/16). Numbers follow:
     ascent_fu   = UPEM                  # 1024 fu; cap-height + diacritics
     cap_height  = UPEM                  # 1024 fu
-    x_height    = int(UPEM * 10 * 0.625)  # 640 fu; 10 design-px scaled
+    x_height    = int(10 * PX)            # 640 fu; 10 design-px scaled
     descent_fu  = 0
 
     fb.setupHorizontalHeader(ascent=ascent_fu, descent=descent_fu)
