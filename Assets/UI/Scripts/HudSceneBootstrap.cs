@@ -79,6 +79,15 @@ namespace Homesteader.UI
                 ApplyKitOverlayFlag(existing);
             }
 #endif
+            EnsureBindings();
+        }
+
+        private void EnsureBindings()
+        {
+            if (GetComponent<HudBindings>() == null)
+            {
+                gameObject.AddComponent<HudBindings>();
+            }
         }
 
 #if UNITY_EDITOR
