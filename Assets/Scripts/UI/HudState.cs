@@ -214,7 +214,7 @@ namespace Homesteader.UI
                 float k = amount / 1000f;
                 return k.ToString("0.00") + "k " + unit;
             }
-            return amount.ToString("0.##") + " + " + unit;
+            return amount.ToString("0.##") + " " + unit;
         }
-    }
+}
 }

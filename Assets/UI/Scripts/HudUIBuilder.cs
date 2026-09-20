@@ -51,6 +51,7 @@ namespace Homesteader.UI
             }
 
             var root = doc.rootVisualElement;
+            if (root == null) { return; }
             root.Clear();
             root.AddToClassList("screen-root");
 
