@@ -2950,7 +2950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Homesteader.UI.HudSceneBootstrap
   _panelSettingsOverride: {fileID: 0}
-  _enableKitOverlay: 1
+  _enableKitOverlay: 0
 --- !u!4 &1702678527
 Transform:
   m_ObjectHideFlags: 0
