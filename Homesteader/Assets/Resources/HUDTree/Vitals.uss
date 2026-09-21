@@ -1,0 +1,77 @@
+/* Vitals.uss - reusable HUD styling for the Vitals component.
+
+   Each vital row = a tagged small bordered chrome element: icon |
+   letter name | bar track | colored fill bar | percent label. The
+   bar fill width is set by HudBindings per frame as a Percent
+   length, so no CSS width is set here. */
+
+.vitals-root {
+    flex-direction: column;
+    align-items: stretch;
+    height: 132px;
+}
+
+.vital-row {
+    flex-direction: row;
+    align-items: center;
+    height: 28px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 6px;
+}
+
+.vital-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 2px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+}
+
+/* Tinted icon placeholders - real sprite icons would replace these. */
+.vital-icon-vital-wellness { background-color: rgb(40, 134, 84); }
+.vital-icon-vital-stamina  { background-color: rgb(193, 154, 60); }
+.vital-icon-vital-thirst   { background-color: rgb(64, 144, 154); }
+.vital-icon-vital-hunger   { background-color: rgb(168, 100, 64); }
+
+.vital-name {
+    color: rgb(220, 224, 230);
+    font-size: 14px;
+    -unity-font: var(--font);
+    width: 18px;
+    -unity-text-align: middle-center;
+    margin-right: 4px;
+}
+
+.vital-bar-track {
+    flex-grow: 1;
+    height: 14px;
+    border-color: rgb(10, 14, 21);
+    border-width: 1px;
+    border-radius: 7px;
+    background-color: rgb(20, 26, 32);
+    margin-right: 6px;
+}
+
+.vital-bar-fill {
+    height: 14px;
+    width: 0%;
+    border-radius: 6px;
+    align-self: stretch;
+}
+
+.vital-bar-fill.wellness { background-color: rgb(40, 134, 84); }
+.vital-bar-fill.stamina  { background-color: rgb(193, 154, 60); }
+.vital-bar-fill.thirst   { background-color: rgb(64, 144, 154); }
+.vital-bar-fill.hunger   { background-color: rgb(168, 100, 64); }
+
+.vital-pct {
+    color: rgb(241, 196, 15);
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-right;
+    width: 56px;
+    flex-shrink: 0;
+}

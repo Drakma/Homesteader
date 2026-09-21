@@ -1,0 +1,169 @@
+/* HudUI_kit.uss - kit-sourced chrome layer.
+ *
+ * This file ADDS new selectors on top of the existing HudUI.uss. It is
+ * loaded as a sibling style sheet so the existing status bar / toolbar /
+ * window classes keep working unchanged.
+ *
+ * Atlases referenced here live under Assets/Resources/HUDTree/Atlases/Kit/
+ * and are baked by tools/.scratch/kit_bake_atlases.py from
+ * assets/hud_kit/sprites/. The sprite source is the single source of
+ * truth; reload this atlas after running the bake script.
+ */
+
+:root {
+    /* (Reserved - kit atlases are referenced directly in selectors
+       below so we sidestep any var() resolution quirks. */
+}
+
+/* ----- Panel chrome sprites ----- */
+.panel-large-dialog {
+    background-image: resource("HUDTree/Atlases/header_strip");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* ----- Buttons (kit variant) -----
+   Same row order as assets/hud_kit/sprites/buttons/ and the existing
+   HudUI.uss matrix: rows-in-pairs of (red, green, amber, slate)
+   x (normal, hover, pressed, disabled). The kit does not ship red
+   row content; those stay transparent. Atlas dim 200 x 896. */
+
+.btn-kit {
+    width: 200px;
+    height: 56px;
+    background-image: resource("HUDTree/Atlases/Kit/button_atlas_kit");
+    background-size: 200px 896px;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    color: rgb(220, 224, 230);
+    font-size: 24px;
+    -unity-text-align: middle-center;
+}
+
+.btn-kit-red-unclicked    { background-position: 0px 0px; }
+.btn-kit-red-hover        { background-position: 0px -56px; }
+.btn-kit-red-clicked      { background-position: 0px -112px; }
+.btn-kit-red-disabled     { background-position: 0px -168px; }
+
+.btn-kit-green-unclicked  { background-position: 0px -224px; }
+.btn-kit-green-hover      { background-position: 0px -280px; }
+.btn-kit-green-clicked    { background-position: 0px -336px; }
+.btn-kit-green-disabled   { background-position: 0px -392px; }
+
+.btn-kit-amber-unclicked  { background-position: 0px -448px; }
+.btn-kit-amber-hover      { background-position: 0px -504px; }
+.btn-kit-amber-clicked    { background-position: 0px -560px; }
+.btn-kit-amber-disabled   { background-position: 0px -616px; }
+
+.btn-kit-slate-unclicked  { background-position: 0px -672px; }
+.btn-kit-slate-hover      { background-position: 0px -728px; }
+.btn-kit-slate-clicked    { background-position: 0px -784px; }
+.btn-kit-slate-disabled   { background-position: 0px -840px; }
+
+/* ----- Vitals (4 rows: thirst, hunger, stamina, wellness) -----
+   The atlas is a single 128x512 strip; the row stride is 128 px, so
+   each i-th vital icon lives at native offset y = i * 128. UI Toolkit
+   clips the image to the element rect; we use background-position to
+   shift the atlas up so the i-th row is in view.
+*/
+
+/* The .vital-icon-art inner element is 22x22; we paint the kit
+   atlas tile into it scaled to 22x88 so each row is 22 px tall. */
+
+.vital-icon-art {
+    width: 22px;
+    height: 22px;
+    background-image: resource("HUDTree/Atlases/Kit/vital_atlas_kit");
+    background-size: 22px 88px;
+    background-repeat: no-repeat;
+}
+
+.vital-icon-vital-thirst   .vital-icon-art { background-position: 0px 0px; }
+.vital-icon-vital-hunger   .vital-icon-art { background-position: 0px -22px; }
+.vital-icon-vital-stamina  .vital-icon-art { background-position: 0px -44px; }
+.vital-icon-vital-wellness .vital-icon-art { background-position: 0px -66px; }
+
+/* ----- Resources (5 rows: water, electricity, bandwidth, fuel, money) ----- */
+
+.resource-icon {
+    width: 22px;
+    height: 22px;
+    background-image: resource("HUDTree/Atlases/Kit/resource_atlas_kit");
+    background-size: 22px 110px;
+    background-repeat: no-repeat;
+    margin-right: 4px;
+}
+
+.resource-icon-water       { background-position: 0px 0px; }
+.resource-icon-electricity { background-position: 0px -22px; }
+.resource-icon-bandwidth   { background-position: 0px -44px; }
+.resource-icon-fuel        { background-position: 0px -66px; }
+.resource-icon-money       { background-position: 0px -88px; }
+
+/* ----- Toolbar slots -----
+   Tile background is a flat slate; the active slot is a lighter
+   slate. No atlas chrome - the slot_1x1/slot_1x1_active kit
+   sprites are no longer used here. */
+
+.tool-slot {
+    background-color: rgb(34, 43, 58);
+}
+
+.tool-slot.tool-slot--selected {
+    background-color: rgb(120, 136, 153);
+}
+
+/* ----- Decor (4 rows: close_x, glow_accent, separator_dot, double_divider) -----
+   Atlas 128x512 with 128-px stride; offsets in native coords.
+*/
+
+.decor-close_x {
+    width: 14px;
+    height: 14px;
+    background-image: resource("HUDTree/Atlases/Kit/decor_atlas_kit");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+}
+
+.decor-glow_accent {
+    width: 16px;
+    height: 16px;
+    background-image: resource("HUDTree/Atlases/Kit/decor_atlas_kit");
+    background-position: 0px -128px;
+    background-repeat: no-repeat;
+}
+
+.decor-separator_dot {
+    width: 6px;
+    height: 6px;
+    background-image: resource("HUDTree/Atlases/Kit/decor_atlas_kit");
+    background-position: 0px -256px;
+    background-repeat: no-repeat;
+    align-self: center;
+}
+
+.decor-double_divider {
+    height: 6px;
+    background-image: resource("HUDTree/Atlases/Kit/decor_atlas_kit");
+    background-position: 0px -384px;
+    background-repeat: repeat-x;
+}
+
+/* ----- Speed chips (kit sprite icons replace text glyphs) -----
+   Standalone sprites under Atlases/Kit/speed_controls/. Each chip
+   extends the base .speed-chip (44x28) and overlays the kit glyph. */
+
+.speed-chip {
+    color: rgba(0, 0, 0, 0); /* hide the text glyph; sprite draws over */
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.speed-chip.speed-chip--active {
+    background-color: rgb(193, 154, 60);
+}
+
+.icon-pause { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_pause"); }
+.icon-play  { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_play"); }
+.icon-1x    { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_1x"); }
+.icon-3x    { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_3x"); }
+.icon-5x    { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_5x"); }
+.icon-9x, .icon-10x { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_9x"); }

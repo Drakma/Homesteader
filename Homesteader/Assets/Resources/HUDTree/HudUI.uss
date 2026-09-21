@@ -1,0 +1,1221 @@
+/* HudUI.uss - layout for the in-game HUD.
+
+   The HUD is a full-screen overlay built per
+   assets/hud_kit/preview/preview_hud_full.png:
+
+     .screen-root (column flex, transparent so the 3D shows)
+       - .header (top, full width, dark slate band with amber
+         bottom highlight). Inside is a row:
+         - .vitals-well 4 horizontal chip (icon+bar) pairs
+         - .time-speed-cell (single-line time + 5 speed chips below)
+         - .resources-well (4 stacked icon+amount rows)
+       - .toolbar (bottom, centered column flex; 10 slot tiles)
+
+   The header is the only place with a non-transparent
+   background; the toolbar is intentionally free-floating. */
+
+:root {
+    --font: resource("HUDTree/Fonts/HomesteaderHUD");
+    --font-bold: resource("HUDTree/Fonts/HomesteaderHUD_Bold");
+    --font-medium: resource("HUDTree/Fonts/HomesteaderHUD_Medium");
+    --font-italic: resource("HUDTree/Fonts/HomesteaderHUD_Italic");
+    --font-bold-italic: resource("HUDTree/Fonts/HomesteaderHUD_BoldItalic");
+    width: 100%;
+    height: 100%;
+}
+
+TemplateContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.screen-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* ----- HEADER BAND -----
+   The kit's header_strip.png is a pre-baked 1920x64 metallic strip
+   with a top-to-bottom gradient + faint noise + amber bottom line.
+   Using it as the .header background-image gives us the exact
+   preview chrome without any shader. */
+
+.header {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 64px;
+    padding: 0 16px;
+    background-image: resource("HUDTree/Atlases/header_strip");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-bottom-color: rgb(193, 154, 60);
+    border-bottom-width: 2px;
+    position: relative;
+}
+
+.header-spacer {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.vitals-well {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    height: 38px;
+    max-height: 38px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 8px;
+    margin-right: 12px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+}
+
+.vitals-row {
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.vital-row {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.vital-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 3px;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon CONTENTS are 22x22 inside the element - drawn from the kit atlas */
+
+.vital-icon > .vital-icon-art {
+    width: 22px;
+    height: 22px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+/* No background-color tints - the kit atlas art supplies the icon look. */
+
+/* Meter: pill-shaped track with dark slate empty background.
+   The bar fill (.vital-meter-fill) represents signed values from -100 to +100
+   with 0 centered in the middle (40px). Default is 0.
+   The pill container has overflow: hidden so fill bars naturally clip to the pill. */
+
+.vital-meter {
+    width: 80px;
+    height: 18px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 0;
+    margin-right: 0;
+    overflow: hidden;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    border-radius: 9px;
+    background-color: rgb(22, 30, 40);
+    position: relative;
+}
+
+.vital-meter-fill {
+    height: 18px;
+    width: 0;
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    border-radius: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.vital-meter-fill--pos {
+    background-image: resource("HUDTree/Atlases/vital_fill_positive");
+}
+
+.vital-meter-fill--neg {
+    background-image: resource("HUDTree/Atlases/vital_fill_negative");
+}
+
+.vital-meter-center {
+    width: 1px;
+    height: 18px;
+    position: absolute;
+    left: 39.5px;
+    top: 0;
+    background-color: rgb(220, 224, 230);
+    opacity: 0.5;
+}
+
+/* ----- TIME + SPEED CELL -----
+   Center top: season/day/time aligned to top-center with 3px padding on top.
+   The speed pill evenly fills the remaining space between the bottom of
+   the time label and the bottom of the header. */
+.time-speed-cell {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.time-and-date-inner {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: auto;
+}
+
+.time-display-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.time-line-label {
+    color: rgb(220, 224, 230);
+    font-size: 19px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.speed-state-label {
+    color: rgb(255, 215, 64);
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    height: auto;
+    margin-top: 2px;
+    padding: 0;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.weather-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-shrink: 0;
+}
+
+.celestial-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-shrink: 0;
+}
+
+/* The speed chip pill is a 3D-inset rounded box that sits evenly centered
+   between the bottom of the time label and the bottom of the header. */
+
+.speed-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 24px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 12px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-color: rgb(10, 14, 21);
+    border-bottom-color: rgb(80, 96, 112);
+    border-left-color: rgb(20, 28, 40);
+    border-right-color: rgb(20, 28, 40);
+    width: auto;
+}
+
+.speed-chip {
+    width: 12px;
+    height: 16px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-width: 0;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0);
+    font-size: 8px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    -unity-background-scale-mode: scale-to-fit;
+    padding: 0;
+}
+
+.speed-chip:hover {
+    background-color: rgba(255, 220, 100, 0.15);
+}
+
+.speed-chip:checked,
+.speed-chip--active {
+    background-color: rgb(193, 154, 60);
+}
+
+/* ----- RESOURCES WELL -----
+   Right side of header: 4 stacked icon+amount rows. */
+.resources-well {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 38px;
+    max-height: 38px;
+    margin-left: 12px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+}
+
+.resources-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    height: 32px;
+}
+
+.resource-row {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.resource-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* No background-color tints - the kit atlas art supplies the icon look. */
+
+.resource-amount {
+    color: rgb(220, 224, 230);
+    font-size: 18px;
+    -unity-font: var(--font);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+}
+
+/* ----- TOOLBAR -----
+   Bottom-center, transparent container of 10 slot tiles.
+   Anchored with absolute positioning to the bottom of the viewport
+   with 3 px padding from the bottom edge. */
+
+.toolbar-slots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3px;
+    top: auto;
+    height: 64px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 100;
+}
+
+.tool-slot {
+    width: 64px;
+    height: 64px;
+    margin-left: 1px;
+    margin-right: 0;
+    flex-shrink: 0;
+    border-width: 0;
+    border-radius: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    padding: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.tool-slot--selected {
+    border-width: 0;
+}
+
+.tool-slot-count {
+    color: rgb(241, 196, 15);
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-right;
+    padding-right: 4px;
+    padding-bottom: 2px;
+    height: 18px;
+    white-space: nowrap;
+}
+
+/* ----- HEADER SETTINGS BUTTON ----- */
+
+.header-settings-btn {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    align-self: center;
+    background-color: rgba(24, 32, 44, 0.7);
+    border-width: 1px;
+    border-color: rgb(50, 65, 85);
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.header-settings-btn:hover {
+    background-color: rgba(40, 52, 70, 0.95);
+    border-color: rgb(193, 154, 60);
+}
+
+.header-settings-icon {
+    color: rgb(220, 224, 230);
+    font-size: 16px;
+    -unity-text-align: middle-center;
+    margin: 0;
+    padding: 0;
+}
+
+/* ----- WINDOW & MODAL SYSTEM ----- */
+
+.window-shade {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 12, 18, 0.75);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.window-shade--hidden {
+    display: none;
+}
+
+.window {
+    background-color: rgb(26, 34, 48);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    border-top-color: rgb(65, 82, 105);
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.window--hidden {
+    display: none;
+}
+
+.modal {
+    background-color: rgb(26, 34, 48);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    border-top-color: rgb(65, 82, 105);
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.modal--hidden {
+    display: none;
+}
+
+.window-header {
+    height: 36px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 14px;
+    padding-right: 8px;
+    background-image: resource("HUDTree/Atlases/header_strip");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(10, 14, 21);
+    flex-shrink: 0;
+}
+
+.window-title {
+    color: rgb(193, 154, 60);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-left;
+    letter-spacing: 0.5px;
+}
+
+.window-close-btn {
+    width: 22px;
+    height: 22px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 1px;
+    border-color: rgba(220, 90, 90, 0.4);
+    border-radius: 3px;
+    color: rgb(220, 100, 100);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    padding: 0;
+}
+
+.window-close-btn:hover {
+    background-color: rgb(180, 50, 50);
+    color: rgb(255, 255, 255);
+    border-color: rgb(220, 70, 70);
+}
+
+.window-body {
+    padding: 16px;
+    flex-direction: column;
+}
+
+.window-section-title {
+    color: rgb(193, 154, 60);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    margin-top: 6px;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(35, 46, 62);
+}
+
+.window-slider {
+    margin-bottom: 10px;
+}
+
+.window-slider .unity-slider__label {
+    color: rgb(220, 224, 230);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    min-width: 150px;
+}
+
+.window-slider .unity-base-slider__tracker {
+    height: 6px;
+    background-color: rgb(15, 20, 28);
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+}
+
+.window-slider .unity-base-slider__dragger {
+    width: 14px;
+    height: 14px;
+    margin-top: -4px;
+    border-radius: 7px;
+    background-color: rgb(193, 154, 60);
+    border-width: 1px;
+    border-color: rgb(240, 200, 90);
+}
+
+.window-toggle {
+    margin-bottom: 10px;
+}
+
+.window-toggle .unity-toggle__label {
+    color: rgb(220, 224, 230);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    min-width: 150px;
+}
+
+.window-toggle .unity-toggle__checkmark {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    background-color: rgb(15, 20, 28);
+    border-width: 1px;
+    border-color: rgb(50, 65, 85);
+}
+
+.window-toggle:checked .unity-toggle__checkmark {
+    background-color: rgb(193, 154, 60);
+    -unity-background-image-tint-color: rgb(10, 14, 21);
+}
+
+.window-footer-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top-width: 1px;
+    border-top-color: rgb(35, 46, 62);
+}
+
+.modal-body {
+    padding: 24px 28px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-text {
+    color: rgb(220, 224, 230);
+    font-size: 15px;
+    -unity-font: var(--font);
+    -unity-text-align: middle-center;
+    margin-bottom: 24px;
+    white-space: normal;
+}
+
+.modal-button-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Action buttons */
+
+.action-btn {
+    min-width: 90px;
+    height: 30px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-radius: 3px;
+    border-width: 1px;
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.action-btn--primary {
+    background-color: rgb(193, 154, 60);
+    color: rgb(10, 14, 21);
+    border-color: rgb(230, 190, 85);
+}
+
+.action-btn--primary:hover {
+    background-color: rgb(220, 175, 75);
+}
+
+.action-btn--primary:active {
+    background-color: rgb(165, 130, 48);
+}
+
+.action-btn--secondary {
+    background-color: rgb(32, 42, 58);
+    color: rgb(220, 224, 230);
+    border-color: rgb(50, 65, 85);
+}
+
+.action-btn--secondary:hover {
+    background-color: rgb(44, 56, 76);
+}
+
+.action-btn--secondary:active {
+    background-color: rgb(24, 32, 44);
+}
+
+/* =========================================================================
+   TOAST NOTIFICATION CONTAINER & CARDS
+   Drops down from behind the header band with stacking animation.
+   ========================================================================= */
+
+.toast-container {
+    position: absolute;
+    top: 64px; /* Directly behind/below the 64px header band */
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-top: 8px;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.toast-item {
+    pointer-events: auto;
+    flex-direction: row;
+    align-items: center;
+    min-width: 320px;
+    max-width: 580px;
+    margin-bottom: 8px;
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    border-width: 1px;
+    background-color: rgba(18, 24, 34, 0.95);
+    border-color: rgba(193, 154, 60, 0.45);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    /* Transition styles for smooth dropdown animation */
+    transition-property: translate, opacity;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-out-cubic;
+    opacity: 1;
+    translate: 0 0;
+}
+
+/* Initial state when spawning behind header */
+.toast-item--entering {
+    opacity: 0;
+    translate: 0 -36px;
+}
+
+/* Exit state when fading out */
+.toast-item--exiting {
+    opacity: 0;
+    translate: 0 -16px;
+}
+
+/* Icon / Glyph */
+.toast-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+/* Content Column */
+.toast-content {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.toast-title {
+    color: rgb(235, 195, 95);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.toast-message {
+    color: rgb(225, 230, 238);
+    font-size: 13px;
+    -unity-font: var(--font);
+    white-space: normal;
+    line-height: 16px;
+}
+
+/* Toast Type Variants */
+.toast-item--info {
+    border-left-width: 4px;
+    border-left-color: rgb(85, 160, 245);
+}
+
+.toast-item--success {
+    border-left-width: 4px;
+    border-left-color: rgb(80, 205, 120);
+}
+
+.toast-item--warning {
+    border-left-width: 4px;
+    border-left-color: rgb(245, 185, 60);
+}
+
+.toast-item--error {
+    border-left-width: 4px;
+    border-left-color: rgb(240, 85, 85);
+}
+
+/* =========================================================================
+   REAL-TIME HORIZONTAL TIMELINE TAPE
+   Displays a dynamic moving celestial sun/moon ruler centered on current time.
+   ========================================================================= */
+
+.timeline-well {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center; /* Vertically centered in the 64px header band */
+    width: 280px;
+    height: 38px;
+    max-height: 38px;
+    margin-right: 14px; /* Anchored just to the left of the Resources well */
+    padding: 0 4px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Outer viewport masking the moving timeline track */
+.timeline-viewport {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* The moving track containing ticks and 4-hour interval nodes */
+.timeline-track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    /* translate.x is driven in real-time each frame by HudBindings */
+}
+
+/* 4-hour major block containing celestial icon, 1 major tick, and 3 intermediate hourly ticks */
+.timeline-major-node {
+    width: 100px; /* 100px per 4-hour block (25px per hour) */
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Celestial icon (Sun & Moon phase icons) positioned clearly above the ticks */
+.timeline-celestial-icon {
+    width: 30px;
+    height: 30px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin: 0;
+}
+
+/* Major tick dot on 4-hour intervals (12a, 4a, 8a, 12p, 4p, 8p) vertically centered */
+.timeline-tick-major {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -3px;
+    margin-left: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(240, 200, 85, 0.90);
+    border-radius: 3px;
+}
+
+/* Intermediate 1-hour minor tick dots (+1h, +2h, +3h) vertically centered */
+.timeline-tick-hour1 {
+    position: absolute;
+    left: 25px; /* +1 hour */
+    top: 50%;
+    margin-top: -2px;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    background-color: rgba(180, 205, 230, 0.55);
+    border-radius: 2px;
+}
+
+.timeline-tick-hour2 {
+    position: absolute;
+    left: 50px; /* +2 hours (halfway) */
+    top: 50%;
+    margin-top: -2px;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    background-color: rgba(200, 220, 245, 0.70);
+    border-radius: 2px;
+}
+
+.timeline-tick-hour3 {
+    position: absolute;
+    left: 75px; /* +3 hours */
+    top: 50%;
+    margin-top: -2px;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    background-color: rgba(180, 205, 230, 0.55);
+    border-radius: 2px;
+}
+
+/* Fixed Center Reticle / Indicator: Needle pointing to current time in the middle */
+.timeline-center-reticle {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background-color: rgb(245, 195, 65);
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+/* Top downward indicator arrow */
+.timeline-reticle-arrow {
+    width: 8px;
+    height: 6px;
+    margin-left: -3px;
+    background-color: rgb(245, 195, 65);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Subtle edge vignette / shadow over left and right ends of the timeline well */
+.timeline-edge-fade-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    background-color: rgba(10, 14, 21, 0.85);
+    pointer-events: none;
+}
+
+.timeline-edge-fade-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    background-color: rgba(10, 14, 21, 0.85);
+    pointer-events: none;
+}
+
+/* =========================================================================
+   REAL-TIME HORIZONTAL WEATHER TIMELINE TAPE
+   Anchored to the right of the vitals well, displays moving weather icons + temp cell.
+   ========================================================================= */
+
+.weather-timeline-group {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: center; /* Vertically centered in the 64px header band */
+    margin-left: 14px; /* Anchored just to the right of the Vitals well */
+    height: 38px;
+    max-height: 38px;
+}
+
+.weather-timeline-well {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 38px;
+    max-height: 38px;
+    padding: 0 4px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Offset cell attached to the right of the weather timeline displaying current temp */
+.current-temp-cell {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    max-height: 38px;
+    min-width: 44px;
+    margin-left: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-image: resource("HUDTree/Atlases/well");
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: rgb(10, 14, 21);
+    border-left-width: 2px;
+    border-left-color: rgb(193, 154, 60); /* gold accent divider */
+}
+
+.current-temp-label {
+    font-size: 19px;
+    color: rgb(245, 205, 95);
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+.weather-major-node {
+    width: 100px; /* 100px per 4-hour block */
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.weather-timeline-icon {
+    width: 30px;
+    height: 30px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin: 0;
+}
+
+.toast-item--severe {
+    border-left-width: 5px;
+    border-left-color: rgb(255, 60, 60);
+    border-color: rgba(255, 70, 70, 0.7);
+    background-color: rgba(32, 16, 20, 0.96);
+}
+
+/* ----- ASSET SPAWNER WINDOW & CONTROLS ----- */
+.admin-header-assets-btn {
+    height: 24px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    color: rgb(255, 255, 255);
+    background-color: rgb(46, 125, 50);
+    border-color: rgb(76, 175, 80);
+    border-width: 1px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.admin-header-assets-btn:hover {
+    background-color: rgb(56, 142, 60);
+    border-color: rgb(129, 199, 132);
+}
+
+.asset-spawner-window {
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    translate: -50% 0;
+    width: 760px;
+    height: 620px;
+    z-index: 500;
+    background-color: rgb(20, 26, 36);
+    border-width: 1px;
+    border-color: rgb(45, 56, 72);
+    border-top-color: rgb(193, 154, 60);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.asset-spawner-window--hidden {
+    display: none;
+}
+
+.asset-spawner-count-badge {
+    margin-left: 10px;
+    font-size: 11px;
+    color: rgb(193, 154, 60);
+    background-color: rgb(32, 40, 52);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: rgb(60, 75, 95);
+}
+
+.asset-spawner-body {
+    flex-grow: 1;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.asset-categories-scroll {
+    height: 38px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.asset-categories-bar {
+    flex-direction: row;
+    align-items: center;
+}
+
+.asset-category-chip {
+    height: 28px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 6px;
+    font-size: 11px;
+    -unity-font: var(--font-medium);
+    color: rgb(180, 195, 210);
+    background-color: rgb(28, 36, 48);
+    border-width: 1px;
+    border-color: rgb(50, 64, 82);
+    border-radius: 4px;
+    -unity-text-align: middle-center;
+}
+
+.asset-category-chip:hover {
+    background-color: rgb(40, 50, 68);
+    border-color: rgb(80, 100, 125);
+    color: rgb(230, 240, 250);
+}
+
+.asset-category-chip--active {
+    background-color: rgb(193, 154, 60);
+    border-color: rgb(235, 195, 80);
+    color: rgb(16, 20, 28);
+    -unity-font: var(--font-bold);
+}
+
+.asset-search-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    height: 32px;
+}
+
+.asset-search-input {
+    flex-grow: 1;
+    margin-right: 12px;
+    height: 30px;
+    background-color: rgb(14, 18, 25);
+    border-width: 1px;
+    border-color: rgb(50, 64, 82);
+    border-radius: 4px;
+    padding-left: 8px;
+    color: rgb(225, 235, 245);
+    font-size: 12px;
+}
+
+.asset-shortcut-hint {
+    font-size: 11px;
+    color: rgb(241, 196, 15);
+    -unity-font: var(--font-bold);
+    white-space: nowrap;
+    padding: 4px 8px;
+    background-color: rgb(32, 40, 52);
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: rgb(60, 75, 95);
+}
+
+.asset-grid-scroll {
+    flex-grow: 1;
+}
+
+.asset-grid-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 4px;
+}
+
+.asset-tile {
+    width: 78px;
+    height: 90px;
+    margin: 3px;
+    background-color: rgb(24, 31, 42);
+    border-width: 1px;
+    border-color: rgb(45, 58, 76);
+    border-radius: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5px;
+    position: relative;
+    cursor: link;
+}
+
+.asset-tile:hover {
+    border-color: rgb(193, 154, 60);
+    background-color: rgb(36, 48, 66);
+}
+
+.asset-tile-icon {
+    width: 48px;
+    height: 48px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.asset-tile-name {
+    font-size: 9px;
+    color: rgb(215, 225, 235);
+    -unity-text-align: upper-center;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    margin-top: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.asset-tile-badge {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    font-size: 9px;
+    -unity-font: var(--font-bold);
+    color: rgb(241, 196, 15);
+    background-color: rgba(14, 18, 26, 0.85);
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 2px;
+}

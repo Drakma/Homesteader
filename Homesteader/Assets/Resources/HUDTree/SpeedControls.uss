@@ -1,0 +1,40 @@
+/* SpeedControls.uss - speed chip row.
+
+   Five chips in a row, each 44x28, amber border, dark fill.
+   HudBindings wires Button.clicked events via Q&lt;Button&gt;() lookups. */
+
+.speed-controls-row {
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    margin-top: 6px;
+    justify-content: center;
+}
+
+.speed-chip {
+    width: 44px;
+    height: 28px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border-color: rgb(120, 136, 153);
+    border-width: 2px;
+    border-radius: 4px;
+    background-color: rgb(20, 26, 32);
+    -unity-font: var(--font-medium);
+    color: rgb(220, 224, 230);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+.speed-chip:hover {
+    border-color: rgb(193, 154, 60);
+    color: rgb(241, 196, 15);
+}
+
+.speed-chip:checked {
+    border-color: rgb(193, 154, 60);
+    background-color: rgb(48, 56, 72);
+    color: rgb(241, 196, 15);
+}

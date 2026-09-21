@@ -1,0 +1,1652 @@
+/* PhoneUI.uss - Styles for the Homesteader In-Game Smartphone OS & Apps.
+ * 
+ * Frame: Rugged homestead smartphone positioned at right-middle of viewport.
+ * Dimensions: 360px x 680px with rounded bezel, speaker notch, and status bar.
+ * Toggled via Tab key with smooth translation animation.
+ */
+
+/* Container anchored to the right-middle of the screen */
+.phone-wrapper {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    translate: 0 -440px;
+    width: 440px;
+    height: 880px;
+}
+
+/* Hidden state: display none completely removes hit testing and visual output */
+.phone-wrapper--hidden {
+    display: none;
+}
+
+/* Smartphone Bezel / Outer Chassis */
+.phone-chassis {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(18, 24, 32);
+    border-radius: 38px;
+    border-width: 3px;
+    border-color: rgb(40, 52, 68);
+    border-top-color: rgb(65, 84, 110);
+    border-bottom-color: rgb(10, 14, 20);
+    padding: 11px;
+    flex-direction: column;
+}
+
+/* Screen Viewport with smooth rounded corners and dark backdrop */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(13, 17, 24);
+    border-radius: 28px;
+    overflow: hidden;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Top Speaker / Dynamic Notch */
+.phone-notch-bar {
+    height: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+}
+
+.phone-speaker-pill {
+    width: 70px;
+    height: 6px;
+    background-color: rgb(8, 11, 16);
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: rgb(25, 33, 44);
+}
+
+/* Status Bar: Signal, Time, Battery */
+.phone-status-bar {
+    height: 32px;
+    padding-top: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.phone-status-time-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.phone-status-time {
+    color: rgb(230, 235, 242);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+}
+
+.phone-celestial-icon {
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.phone-status-icons {
+    flex-direction: row;
+    align-items: center;
+}
+
+.phone-status-icon {
+    color: rgb(200, 210, 225);
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.phone-battery-pill {
+    width: 24px;
+    height: 12px;
+    border-width: 1px;
+    border-color: rgb(180, 195, 215);
+    border-radius: 2px;
+    margin-left: 8px;
+    padding: 1px;
+    flex-direction: row;
+}
+
+.phone-battery-fill {
+    height: 100%;
+    width: 82%;
+    background-color: rgb(100, 200, 120);
+    border-radius: 1px;
+}
+
+/* Content Area inside Screen */
+.phone-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* =========================================================================
+   HOME SCREEN / APP LAUNCHER
+   ========================================================================= */
+
+.phone-home {
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 12px 14px 4px 14px;
+    justify-content: flex-start;
+}
+
+.phone-home--hidden {
+    display: none;
+}
+
+.phone-widget-weather {
+    background-color: rgba(25, 34, 48, 0.7);
+    border-radius: 16px;
+    border-width: 1px;
+    border-color: rgb(40, 54, 75);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.phone-weather-temp {
+    color: rgb(240, 245, 250);
+    font-size: 28px;
+    -unity-font: var(--font-bold);
+}
+
+.phone-weather-info {
+    color: rgb(170, 185, 205);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.phone-weather-icon {
+    font-size: 32px;
+    color: rgb(241, 196, 15);
+}
+
+/* App Grid: Strict 3-column grid layout (Max 3 in a row) */
+.phone-app-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    width: 384px;
+    height: 100%;
+    align-self: center;
+}
+
+.phone-app-tile {
+    width: 128px;
+    height: 148px;
+    margin-bottom: 6px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+}
+
+.phone-app-icon-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 26px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    border-width: 0;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.phone-app-icon-glyph {
+    font-size: 44px;
+    -unity-text-align: middle-center;
+}
+
+.phone-app-label {
+    color: rgb(220, 228, 238);
+    font-size: 12.5px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: upper-center;
+    white-space: normal;
+    width: 100%;
+    overflow: visible;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* Specific app icon theme colors */
+.app-icon-volt      { background-color: rgb(210, 150, 30); }
+.app-icon-res       { background-color: rgb(45, 120, 195); }
+.app-icon-depot     { background-color: rgb(215, 95, 30); }
+.app-icon-grocer    { background-color: rgb(40, 155, 90); }
+.app-icon-feed      { background-color: rgb(160, 115, 60); }
+.app-icon-bank      { background-color: rgb(35, 130, 100); }
+.app-icon-market    { background-color: rgb(140, 70, 160); }
+.app-icon-almanac   { background-color: rgb(90, 80, 180); }
+
+/* =========================================================================
+   APP VIEWPORT & HEADER
+   ========================================================================= */
+
+.phone-app-view {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 34px; /* Leaves room only for the sleek bottom home bar */
+    flex-direction: column;
+    background-color: rgb(15, 20, 28);
+    overflow: hidden;
+    z-index: 10;
+}
+
+.phone-app-view--hidden {
+    display: none;
+}
+
+.phone-app-header {
+    height: 48px;
+    padding-left: 14px;
+    padding-right: 14px;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(24, 32, 44);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(35, 46, 62);
+    flex-shrink: 0;
+}
+
+.phone-back-btn {
+    width: 34px;
+    height: 34px;
+    background-color: rgba(35, 48, 66, 0.6);
+    border-width: 1px;
+    border-color: rgba(193, 154, 60, 0.5);
+    border-radius: 4px;
+    color: rgb(235, 195, 95);
+    font-size: 18px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.phone-back-btn:hover {
+    background-color: rgba(193, 154, 60, 0.25);
+    border-color: rgb(240, 200, 90);
+    color: rgb(255, 255, 255);
+}
+
+.phone-back-btn:active {
+    background-color: rgba(193, 154, 60, 0.4);
+}
+
+.phone-app-title {
+    color: rgb(235, 240, 248);
+    font-size: 17px;
+    -unity-font: var(--font-bold);
+    flex-grow: 1;
+}
+
+.phone-app-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100%;
+    min-height: 0;
+}
+
+.phone-app-scroll .unity-scroll-view__content-viewport {
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.phone-app-scroll .unity-scroll-view__content-container {
+    flex-shrink: 0;
+    flex-grow: 0;
+    padding: 12px 14px 28px 14px;
+}
+
+.phone-app-scroll .unity-scroller--vertical {
+    width: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 2px;
+}
+
+.phone-app-scroll .unity-scroller--vertical .unity-base-slider__tracker {
+    background-color: rgba(10, 14, 20, 0.4);
+    border-radius: 3px;
+    border-width: 0;
+    width: 6px;
+}
+
+.phone-app-scroll .unity-scroller--vertical .unity-base-slider__dragger {
+    background-color: rgba(193, 154, 60, 0.45);
+    border-radius: 3px;
+    border-width: 0;
+    width: 6px;
+}
+
+.phone-app-scroll .unity-scroller--vertical .unity-base-slider__dragger:hover {
+    background-color: rgba(240, 200, 90, 0.85);
+}
+
+.phone-app-scroll .unity-scroller__low-button,
+.phone-app-scroll .unity-scroller__high-button {
+    display: none;
+}
+
+/* =========================================================================
+   VOLT / GRID OS APP
+   ========================================================================= */
+
+.grid-card {
+    background-color: rgb(22, 29, 40);
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(35, 47, 65);
+    padding: 14px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.grid-card-title {
+    color: rgb(170, 185, 205);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    margin-bottom: 8px;
+}
+
+.grid-metric-large {
+    color: rgb(245, 200, 60);
+    font-size: 32px;
+    -unity-font: var(--font-bold);
+}
+
+.grid-metric-sub {
+    color: rgb(140, 155, 175);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.grid-bar-track {
+    height: 12px;
+    background-color: rgb(12, 16, 22);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(25, 34, 46);
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.grid-bar-fill-solar {
+    height: 100%;
+    width: 68%;
+    background-color: rgb(241, 196, 15);
+}
+
+.grid-bar-fill-battery {
+    height: 100%;
+    width: 84%;
+    background-color: rgb(46, 204, 113);
+}
+
+/* =========================================================================
+   STORE APPS (DEPOT, GROCER, FEED STORE)
+   ========================================================================= */
+
+.store-search-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.store-search-input {
+    flex-grow: 1;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
+    justify-content: center;
+}
+
+.store-search-input > .unity-text-field__input,
+.store-search-input > .unity-base-text-field__input {
+    background-color: rgb(22, 28, 38);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(50, 65, 85);
+    color: rgb(225, 230, 240);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    justify-content: center;
+    align-self: stretch;
+    height: 100%;
+}
+
+.store-search-input:focus > .unity-text-field__input,
+.store-search-input:focus > .unity-base-text-field__input,
+.store-search-input > .unity-text-field__input:focus,
+.store-search-input > .unity-base-text-field__input:focus {
+    border-color: rgb(193, 154, 60);
+    background-color: rgb(26, 34, 46);
+}
+
+.store-search-input TextElement,
+.store-search-input .unity-base-text-field__placeholder {
+    -unity-text-align: middle-left;
+}
+
+.store-empty-search-label {
+    color: rgb(160, 175, 195);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+    margin-top: 36px;
+    margin-bottom: 24px;
+}
+
+.store-banner {
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.store-banner-depot  { background-color: rgb(160, 65, 20); }
+.store-banner-grocer { background-color: rgb(30, 115, 65); }
+.store-banner-feed   { background-color: rgb(120, 85, 40); }
+
+.store-banner-text {
+    color: rgb(255, 255, 255);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+}
+
+.store-item-card {
+    background-color: rgb(22, 29, 40);
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: rgb(35, 47, 65);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.store-item-left {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.store-item-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background-color: rgb(14, 18, 25);
+    border-width: 1px;
+    border-color: rgb(30, 40, 55);
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    -unity-background-scale-mode: scale-to-fit;
+    padding: 2px;
+    flex-shrink: 0;
+}
+
+.store-item-info {
+    flex-direction: column;
+}
+
+.store-item-name {
+    color: rgb(235, 240, 248);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+}
+
+.store-item-price {
+    color: rgb(193, 154, 60);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    margin-top: 2px;
+}
+
+.store-item-buy-btn {
+    height: 30px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background-color: rgb(193, 154, 60);
+    color: rgb(10, 14, 21);
+    border-radius: 5px;
+    border-width: 0;
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.store-item-buy-btn:hover {
+    background-color: rgb(220, 175, 75);
+}
+
+.store-checkout-bar {
+    height: 56px;
+    background-color: rgb(20, 27, 38);
+    border-top-width: 1px;
+    border-top-color: rgb(35, 47, 65);
+    padding: 8px 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.store-cart-text {
+    color: rgb(220, 228, 238);
+    font-size: 14px;
+}
+
+/* =========================================================================
+   BOTTOM GESTURE / HOME BAR
+   ========================================================================= */
+
+.phone-bottom-bar {
+    height: 26px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.phone-home-pill {
+    width: 130px;
+    height: 6px;
+    background-color: rgba(220, 230, 245, 0.4);
+    border-radius: 3px;
+}
+
+.phone-home-pill:hover {
+    background-color: rgba(240, 200, 90, 0.9);
+}
+
+/* =========================================================================
+   FIRST HOMESTEAD BANK APP
+   ========================================================================= */
+
+.store-banner-exchange { background-color: rgb(110, 50, 130); }
+
+.bank-card {
+    background-color: rgb(22, 29, 40);
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(35, 47, 65);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.bank-card-label {
+    color: rgb(160, 175, 195);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+}
+
+.bank-balance-large {
+    color: rgb(46, 204, 113);
+    font-size: 32px;
+    -unity-font: var(--font-bold);
+    margin-top: 2px;
+}
+
+.bank-debt-large {
+    color: rgb(231, 76, 60);
+    font-size: 30px;
+    -unity-font: var(--font-bold);
+    margin-top: 2px;
+}
+
+.bank-card-sub {
+    color: rgb(130, 145, 165);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.bank-rate-pill {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: rgb(231, 76, 60);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+}
+
+.bank-action-btn {
+    flex-grow: 1;
+    margin-left: 4px;
+    margin-right: 4px;
+    height: 34px;
+    background-color: rgb(35, 47, 65);
+    color: rgb(220, 230, 240);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(55, 70, 95);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.bank-action-btn:hover {
+    background-color: rgb(50, 68, 92);
+    color: rgb(255, 255, 255);
+}
+
+.bank-loan-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top-width: 1px;
+    border-top-color: rgb(30, 40, 55);
+}
+
+/* =========================================================================
+   PLAYER MARKETPLACE / EXCHANGE APP
+   ========================================================================= */
+
+.market-tab-bar {
+    flex-direction: row;
+    background-color: rgb(20, 27, 38);
+    height: 42px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(35, 46, 62);
+    flex-shrink: 0;
+}
+
+.market-tab-btn {
+    flex-grow: 1;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(0, 0, 0, 0);
+    color: rgb(160, 175, 195);
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.market-tab-btn--active {
+    color: rgb(240, 200, 90);
+    border-bottom-color: rgb(240, 200, 90);
+    background-color: rgba(240, 200, 90, 0.08);
+}
+
+.phone-app-scroll--hidden {
+    display: none;
+}
+
+/* =========================================================================
+   6. ADMIN TOOLS APP STYLING
+   ========================================================================= */
+
+.app-icon-admin {
+    background-color: rgb(165, 42, 42);
+    border-color: rgb(215, 75, 75);
+}
+
+.admin-card {
+    background-color: rgb(20, 26, 36);
+    border-width: 1px;
+    border-color: rgb(38, 49, 65);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.admin-card-title {
+    color: rgb(193, 154, 60);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    margin-bottom: 10px;
+    letter-spacing: 0.6px;
+    flex-shrink: 0;
+}
+
+.admin-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.admin-chip-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.admin-chip-btn {
+    flex-grow: 1;
+    height: 32px;
+    margin: 0 4px;
+    padding: 0;
+    background-color: rgb(28, 38, 52);
+    border-width: 1px;
+    border-color: rgb(48, 64, 86);
+    border-radius: 5px;
+    color: rgb(215, 225, 238);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+}
+
+.admin-chip-btn:hover {
+    background-color: rgb(44, 58, 78);
+    border-color: rgb(193, 154, 60);
+    color: rgb(255, 255, 255);
+}
+
+.admin-chip-btn:active {
+    background-color: rgb(193, 154, 60);
+    color: rgb(15, 20, 28);
+}
+
+.admin-chip-btn--active {
+    background-color: rgba(193, 154, 60, 0.22);
+    border-color: rgb(240, 200, 90);
+    color: rgb(255, 235, 170);
+    -unity-font: var(--font-bold);
+}
+
+.admin-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.admin-stepper-row {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.admin-step-btn {
+    width: 34px;
+    height: 28px;
+    margin-left: 4px;
+    padding: 0;
+    background-color: rgb(32, 42, 56);
+    border-width: 1px;
+    border-color: rgb(60, 78, 102);
+    border-radius: 4px;
+    color: rgb(210, 220, 230);
+    font-size: 13px;
+}
+
+.admin-step-btn:hover {
+    background-color: rgb(48, 64, 86);
+    border-color: rgb(193, 154, 60);
+}
+
+.admin-action-btn {
+    height: 28px;
+    padding: 0 12px;
+    background-color: rgb(35, 110, 70);
+    border-width: 1px;
+    border-color: rgb(55, 150, 95);
+    border-radius: 4px;
+    color: rgb(240, 250, 245);
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+}
+
+.admin-action-btn:hover {
+    background-color: rgb(45, 135, 85);
+}
+
+.admin-label {
+    color: rgb(225, 232, 240);
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+}
+
+.admin-sublabel {
+    color: rgb(190, 202, 216);
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+.admin-vital-header-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+    flex-shrink: 0;
+}
+
+.admin-vital-zero-btn {
+    width: 30px;
+    height: 22px;
+    padding: 0;
+    background-color: rgb(32, 42, 56);
+    border-width: 1px;
+    border-color: rgb(60, 78, 102);
+    border-radius: 4px;
+    color: rgb(210, 220, 235);
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.admin-vital-zero-btn:hover {
+    background-color: rgb(48, 64, 86);
+    border-color: rgb(193, 154, 60);
+    color: rgb(255, 255, 255);
+}
+
+.admin-slider-row {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.admin-slider-container {
+    height: 22px;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.admin-slider {
+    margin: 0;
+    padding: 0;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.admin-slider .unity-base-slider__drag-container {
+    height: 22px;
+    justify-content: center;
+}
+
+.admin-slider .unity-base-slider__tracker {
+    height: 7px;
+    background-color: rgb(15, 20, 28);
+    border-width: 1px;
+    border-color: rgb(45, 58, 76);
+    border-radius: 3px;
+}
+
+.admin-slider .unity-base-slider__dragger {
+    width: 18px;
+    height: 18px;
+    margin-top: -5px;
+    border-radius: 9px;
+    background-color: rgb(193, 154, 60);
+    border-width: 1px;
+    border-color: rgb(240, 200, 90);
+}
+
+.admin-slider .unity-base-slider__dragger:hover {
+    background-color: rgb(240, 200, 90);
+}
+
+.admin-scale-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    flex-shrink: 0;
+}
+
+.admin-scale-label {
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+}
+
+.admin-scale-label--min {
+    color: rgb(231, 76, 60);
+}
+
+.admin-scale-label--mid {
+    color: rgb(193, 154, 60);
+    -unity-text-align: middle-center;
+}
+
+.admin-scale-label--max {
+    color: rgb(46, 204, 113);
+    -unity-text-align: middle-right;
+}
+
+.admin-time-icon {
+    width: 24px;
+    height: 24px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.admin-input-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+.admin-input-label {
+    color: rgb(210, 220, 235);
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+    width: 130px;
+    flex-shrink: 0;
+}
+
+.admin-text-field {
+    flex-grow: 1;
+    height: 30px;
+    margin: 0 8px 0 0;
+    padding: 0;
+    font-size: 14px;
+    color: rgb(240, 245, 250);
+}
+
+.admin-text-field > .unity-text-field__input {
+    background-color: rgb(15, 20, 28);
+    border-color: rgb(55, 70, 92);
+    border-width: 1px;
+    border-radius: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(240, 245, 250);
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    justify-content: center;
+    height: 100%;
+}
+
+.admin-text-field > .unity-text-field__input:focus {
+    border-color: rgb(193, 154, 60);
+}
+
+.admin-set-btn {
+    width: 50px;
+    height: 30px;
+    padding: 0;
+    background-color: rgb(40, 75, 110);
+    border-width: 1px;
+    border-color: rgb(65, 110, 155);
+    border-radius: 4px;
+    color: rgb(230, 240, 255);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+}
+
+.admin-set-btn:hover {
+    background-color: rgb(55, 100, 145);
+    border-color: rgb(193, 154, 60);
+}
+
+.admin-set-btn:active {
+    background-color: rgb(193, 154, 60);
+    color: rgb(15, 20, 28);
+}
+
+/* =========================================================================
+   7. ALMANAC APP STYLING
+   ========================================================================= */
+
+.phone-app-subtitle {
+    font-size: 11px;
+    color: rgb(150, 165, 185);
+    margin-top: -2px;
+}
+
+.almanac-today-banner {
+    background-color: rgb(22, 28, 40);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    padding: 10px 14px;
+    flex-shrink: 0;
+}
+
+.almanac-today-title {
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    color: rgb(215, 175, 75);
+}
+
+.almanac-today-details {
+    font-size: 12px;
+    color: rgb(170, 185, 205);
+    margin-top: 3px;
+}
+
+.almanac-tab-bar {
+    flex-direction: row;
+    padding: 8px 12px;
+    background-color: rgb(18, 22, 32);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.almanac-tab-btn {
+    flex-grow: 1;
+    height: 32px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgb(160, 175, 195);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.almanac-tab-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.almanac-tab-btn--active {
+    background-color: rgb(75, 65, 160);
+    border-color: rgb(125, 110, 230);
+    color: white;
+}
+
+.almanac-cards-container {
+    flex-direction: column;
+    padding: 8px 10px 24px 10px;
+    flex-shrink: 0;
+}
+
+.almanac-card {
+    background-color: rgb(24, 30, 42);
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.08);
+    padding: 11px 14px;
+    margin-bottom: 9px;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.almanac-card-today {
+    border-color: rgb(215, 175, 75);
+    background-color: rgb(30, 38, 55);
+}
+
+.almanac-card-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+.almanac-card-date-box {
+    flex-direction: row;
+    align-items: center;
+}
+
+.almanac-card-date {
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+    color: rgb(235, 240, 250);
+}
+
+.almanac-card-offset {
+    font-size: 11px;
+    -unity-font: var(--font-medium);
+    color: rgb(150, 170, 195);
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.almanac-card-astro-badge {
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    color: rgb(255, 215, 80);
+    background-color: rgba(255, 200, 40, 0.15);
+    border-width: 1px;
+    border-color: rgba(255, 200, 40, 0.4);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.almanac-card-sun-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+.almanac-card-sun-text {
+    font-size: 12px;
+    color: rgb(180, 195, 215);
+}
+
+.almanac-card-weather-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.almanac-card-weather-left {
+    flex-direction: row;
+    align-items: center;
+}
+
+.almanac-weather-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.almanac-weather-name {
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+    color: white;
+}
+
+.almanac-conf-badge {
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    padding: 3px 8px;
+    border-radius: 4px;
+    -unity-text-align: middle-center;
+}
+
+.almanac-conf-current {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: rgb(90, 185, 255);
+    border-width: 1px;
+    border-color: rgba(52, 152, 219, 0.4);
+}
+
+.almanac-conf-high {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: rgb(80, 230, 140);
+    border-width: 1px;
+    border-color: rgba(46, 204, 113, 0.4);
+}
+
+.almanac-conf-med {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: rgb(250, 185, 75);
+    border-width: 1px;
+    border-color: rgba(243, 156, 18, 0.4);
+}
+
+.almanac-conf-low {
+    background-color: rgba(149, 165, 166, 0.2);
+    color: rgb(180, 195, 210);
+    border-width: 1px;
+    border-color: rgba(149, 165, 166, 0.4);
+}
+
+.almanac-conf-season {
+    background-color: rgba(155, 89, 182, 0.2);
+    color: rgb(200, 150, 240);
+    border-width: 1px;
+    border-color: rgba(155, 89, 182, 0.4);
+}
+
+.almanac-weekly-note {
+    font-size: 12px;
+    color: rgb(155, 175, 195);
+    margin-top: 6px;
+    -unity-font-style: italic;
+}
+
+/* ── Temperature Pill ──────────────────────────────────────────────────── */
+.almanac-card-temp-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.almanac-card-temp-pill {
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(30, 35, 45, 0.75);
+    border-radius: 10px;
+    padding: 2px 10px;
+    border-width: 1px;
+    border-color: rgba(100, 115, 140, 0.6);
+}
+
+.almanac-temp-high {
+    font-size: 13px;
+    color: rgb(255, 160, 80);
+    -unity-font-style: bold;
+    margin-right: 8px;
+}
+
+.almanac-temp-low {
+    font-size: 13px;
+    color: rgb(100, 175, 240);
+    -unity-font-style: bold;
+}
+
+/* Mods App Styles */
+.app-icon-mods {
+    background-color: rgb(75, 45, 120);
+}
+
+.mods-search-row {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 14px 6px 14px;
+}
+
+.mods-search-input {
+    flex-grow: 1;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
+    justify-content: center;
+}
+
+.mods-search-input > .unity-text-field__input,
+.mods-search-input > .unity-base-text-field__input {
+    background-color: rgb(22, 28, 38);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(50, 65, 85);
+    color: rgb(225, 230, 240);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    justify-content: center;
+    align-self: stretch;
+    height: 100%;
+}
+
+.mods-search-input:focus > .unity-text-field__input,
+.mods-search-input:focus > .unity-base-text-field__input,
+.mods-search-input > .unity-text-field__input:focus,
+.mods-search-input > .unity-base-text-field__input:focus {
+    border-color: rgb(193, 154, 60);
+    background-color: rgb(26, 34, 46);
+}
+
+.mods-search-input TextElement,
+.mods-search-input .unity-base-text-field__placeholder {
+    -unity-text-align: middle-left;
+}
+
+.mods-category-scroll {
+    height: 38px;
+    min-height: 38px;
+    margin-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mods-category-nav {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px;
+    background-color: rgba(18, 24, 34, 0.95);
+    border-bottom-width: 1px;
+    border-color: rgb(35, 45, 62);
+    min-height: 38px;
+}
+
+.mods-category-back-btn {
+    background-color: rgb(28, 38, 52);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(50, 70, 95);
+    color: rgb(180, 210, 245);
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    padding: 4px 10px;
+}
+
+.mods-category-back-btn:hover {
+    background-color: rgb(40, 55, 75);
+    color: rgb(255, 255, 255);
+}
+
+.mods-category-nav-title {
+    font-size: 13px;
+    color: rgb(235, 200, 110);
+    -unity-font: var(--font-bold);
+    flex-grow: 1;
+    margin-left: 8px;
+}
+
+.mods-cards-container {
+    padding-bottom: 30px;
+}
+
+.mods-category-card {
+    margin: 6px 14px;
+    padding: 12px 14px;
+    background-color: rgba(22, 28, 38, 0.95);
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: rgb(40, 52, 70);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mods-category-card:hover {
+    background-color: rgba(30, 40, 56, 0.98);
+    border-color: rgb(70, 92, 125);
+}
+
+.mods-category-card-left {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.mods-category-card-name {
+    font-size: 14px;
+    color: rgb(240, 244, 250);
+    -unity-font: var(--font-bold);
+    margin-bottom: 3px;
+}
+
+.mods-category-card-sub {
+    font-size: 11px;
+    color: rgb(140, 160, 185);
+    -unity-font: var(--font);
+}
+
+.mods-category-card-right {
+    flex-direction: row;
+    align-items: center;
+}
+
+.mods-category-open-arrow {
+    font-size: 18px;
+    color: rgb(180, 200, 230);
+    margin-left: 10px;
+    -unity-font: var(--font-bold);
+}
+
+.mod-toggle-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    border-width: 1px;
+    align-self: center;
+}
+
+.mod-toggle-btn--enabled {
+    background-color: rgb(22, 68, 40);
+    border-color: rgb(42, 130, 75);
+    color: rgb(165, 245, 190);
+}
+
+.mod-toggle-btn--enabled:hover {
+    background-color: rgb(30, 90, 52);
+    color: rgb(255, 255, 255);
+}
+
+.mod-toggle-btn--disabled {
+    background-color: rgb(65, 28, 32);
+    border-color: rgb(130, 50, 60);
+    color: rgb(245, 175, 180);
+}
+
+.mod-toggle-btn--disabled:hover {
+    background-color: rgb(85, 38, 42);
+    color: rgb(255, 255, 255);
+}
+
+.mod-badge--enabled {
+    background-color: rgb(22, 68, 40);
+    border-color: rgb(42, 130, 75);
+    color: rgb(165, 245, 190);
+}
+
+.mod-badge--disabled {
+    background-color: rgb(65, 28, 32);
+    border-color: rgb(130, 50, 60);
+    color: rgb(245, 175, 180);
+}
+
+.mod-card {
+    margin: 6px 14px;
+    padding: 12px 14px;
+    background-color: rgba(22, 28, 38, 0.95);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(40, 52, 70);
+    flex-direction: column;
+}
+
+.mod-card-top {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.mod-title {
+    font-size: 14px;
+    color: rgb(235, 200, 110);
+    -unity-font: var(--font-bold);
+    flex-grow: 1;
+}
+
+.mod-badge {
+    padding: 2px 8px;
+    border-radius: 8px;
+    border-width: 1px;
+    background-color: rgb(45, 60, 85);
+    color: rgb(160, 195, 245);
+    font-size: 10px;
+    -unity-font: var(--font-bold);
+}
+
+.mod-desc {
+    font-size: 11px;
+    color: rgb(180, 190, 205);
+    -unity-font: var(--font);
+    white-space: normal;
+    line-height: 14px;
+    margin-bottom: 6px;
+}
+
+.mod-meta-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    color: rgb(120, 135, 155);
+}
+
+.mod-action-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top-width: 1px;
+    border-color: rgb(32, 42, 58);
+}
+
+.mod-folder-label {
+    font-size: 10px;
+    color: rgb(110, 130, 155);
+    -unity-font: var(--font);
+    flex-grow: 1;
+}
+
+/* Dedicated background textures for all extracted app icons */
+.app-icon-board-meeting     { background-image: resource("HUDTree/PhoneIcons/app_board_meeting"); }
+.app-icon-nail-it           { background-image: resource("HUDTree/PhoneIcons/app_nail_it"); }
+.app-icon-lettuce-shop      { background-image: resource("HUDTree/PhoneIcons/app_lettuce_shop"); }
+.app-icon-hay-there         { background-image: resource("HUDTree/PhoneIcons/app_hay_there"); }
+.app-icon-cache-flow        { background-image: resource("HUDTree/PhoneIcons/app_cache_flow"); }
+.app-icon-bazaar-behavior   { background-image: resource("HUDTree/PhoneIcons/app_bazaar_behavior"); }
+.app-icon-shift-happens     { background-image: resource("HUDTree/PhoneIcons/app_shift_happens"); }
+.app-icon-tank-you          { background-image: resource("HUDTree/PhoneIcons/app_tank_you"); }
+.app-icon-drafting-behind   { background-image: resource("HUDTree/PhoneIcons/app_drafting_behind_you"); }
+.app-icon-tractor-beam      { background-image: resource("HUDTree/PhoneIcons/app_tractor_beam"); }
+.app-icon-wheel-deal        { background-image: resource("HUDTree/PhoneIcons/app_wheel_deal"); }
+.app-icon-sofa-so-good      { background-image: resource("HUDTree/PhoneIcons/app_sofa_so_good"); }
+.app-icon-grid-os           { background-image: resource("HUDTree/PhoneIcons/app_grid_os"); }
+.app-icon-resview-levels    { background-image: resource("HUDTree/PhoneIcons/app_resview_levels"); }
+.app-icon-good-almanac      { background-image: resource("HUDTree/PhoneIcons/app_good_almanac"); }
+.app-icon-voltvision        { background-image: resource("HUDTree/PhoneIcons/app_voltvision"); }
+.app-icon-trailer-shack     { background-image: resource("HUDTree/PhoneIcons/app_trailer_shack"); }
+
+/* Additional Store Banners */
+.store-banner-lumber        { background-color: rgb(110, 65, 30); }
+.store-banner-auto          { background-color: rgb(40, 70, 115); }
+.store-banner-fuel          { background-color: rgb(140, 50, 30); }
+.store-banner-structures    { background-color: rgb(60, 85, 55); }
+.store-banner-equipment     { background-color: rgb(135, 95, 25); }
+.store-banner-furniture     { background-color: rgb(85, 55, 110); }
+.store-banner-voltvision    { background-color: rgb(15, 65, 135); }
+.store-banner-trailershack  { background-color: rgb(85, 65, 45); }
+
+/* =========================================================================
+   PAGINATED APP LAUNCHER (3 x 4 Grid per Page with Dot Navigation & Swiping)
+   ========================================================================= */
+
+.phone-launcher-viewport {
+    flex-grow: 1;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    justify-content: flex-start;
+}
+
+.phone-launcher-track {
+    flex-direction: row;
+    height: 100%;
+    /* translate.x is driven by page transitions (0px, -384px, etc.) */
+    transition-property: translate;
+    transition-duration: 0.32s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.phone-launcher-page {
+    width: 384px;
+    height: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    padding: 2px 0 0 0;
+    flex-shrink: 0;
+}
+
+.phone-page-dots-row {
+    height: 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+}
+
+.phone-page-dots-row--hidden {
+    display: none;
+}
+
+.phone-page-dot {
+    width: 44px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    background-color: transparent;
+}
+
+.phone-page-dot-inner {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 5px;
+    background-color: rgba(180, 205, 235, 0.55);
+    transition-property: background-color, scale;
+    transition-duration: 0.2s;
+}
+
+.phone-page-dot:hover .phone-page-dot-inner {
+    background-color: rgba(215, 235, 255, 0.85);
+    scale: 1.15 1.15;
+}
+
+.phone-page-dot--active .phone-page-dot-inner {
+    background-color: rgb(240, 205, 95);
+    scale: 1.25 1.25;
+}
+
+.phone-page-dot--active:hover .phone-page-dot-inner {
+    background-color: rgb(255, 220, 110);
+    scale: 1.35 1.35;
+}
+
+

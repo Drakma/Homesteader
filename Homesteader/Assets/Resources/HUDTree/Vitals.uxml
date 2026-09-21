@@ -1,0 +1,50 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      Vitals.uxml - reusable HUD component.
+      Four vital-row entries: Wellness, Stamina, Thirst, Hunger.
+      Each row: icon | single-letter name | bar track | filled bar | percent label.
+      Bind HudBindings.Update to set bar fill widths and percent labels.
+    -->
+    <ui:Style src="Vitals.uss" />
+    <ui:VisualElement name="Vitals" class="vitals-root">
+
+        <ui:VisualElement name="VitalWellnessRow" class="vital-row">
+            <ui:VisualElement class="vital-icon-vital-wellness" />
+            <ui:Label text="W" class="vital-name" />
+            <ui:VisualElement class="vital-bar-track">
+                <ui:VisualElement name="VitalWellnessFill" class="vital-bar-fill wellness" />
+            </ui:VisualElement>
+            <ui:Label name="VitalWellnessPct" text="50%" class="vital-pct" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="VitalStaminaRow" class="vital-row">
+            <ui:VisualElement class="vital-icon-vital-stamina" />
+            <ui:Label text="S" class="vital-name" />
+            <ui:VisualElement class="vital-bar-track">
+                <ui:VisualElement name="VitalStaminaFill" class="vital-bar-fill stamina" />
+            </ui:VisualElement>
+            <ui:Label name="VitalStaminaPct" text="30%" class="vital-pct" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="VitalThirstRow" class="vital-row">
+            <ui:VisualElement class="vital-icon-vital-thirst" />
+            <ui:Label text="T" class="vital-name" />
+            <ui:VisualElement class="vital-bar-track">
+                <ui:VisualElement name="VitalThirstFill" class="vital-bar-fill thirst" />
+            </ui:VisualElement>
+            <ui:Label name="VitalThirstPct" text="10%" class="vital-pct" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="VitalHungerRow" class="vital-row">
+            <ui:VisualElement class="vital-icon-vital-hunger" />
+            <ui:Label text="H" class="vital-name" />
+            <ui:VisualElement class="vital-bar-track">
+                <ui:VisualElement name="VitalHungerFill" class="vital-bar-fill hunger" />
+            </ui:VisualElement>
+            <ui:Label name="VitalHungerPct" text="-20%" class="vital-pct" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

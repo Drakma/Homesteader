@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      ResourcesBar.uxml - reusable resource display.
+      4 rows: water, electricity, bandwidth, fuel.
+      Each row: tinted icon placeholder + amount label.
+      Bindings writes to ResourceWaterLabel etc.
+    -->
+    <ui:Style src="ResourcesBar.uss" />
+    <ui:VisualElement name="ResourcesBar" class="resources-root">
+        <ui:VisualElement class="resource-row">
+            <ui:VisualElement class="resource-icon-water" />
+            <ui:Label name="ResourceWaterLabel" text="120.5 L"
+                      class="resource-amount" />
+        </ui:VisualElement>
+        <ui:VisualElement class="resource-row">
+            <ui:VisualElement class="resource-icon-electricity" />
+            <ui:Label name="ResourceElectricityLabel" text="8.64 MJ"
+                      class="resource-amount" />
+        </ui:VisualElement>
+        <ui:VisualElement class="resource-row">
+            <ui:VisualElement class="resource-icon-bandwidth" />
+            <ui:Label name="ResourceBandwidthLabel" text="24M Mbps"
+                      class="resource-amount" />
+        </ui:VisualElement>
+        <ui:VisualElement class="resource-row">
+            <ui:VisualElement class="resource-icon-fuel" />
+            <ui:Label name="ResourceFuelLabel" text="16 L"
+                      class="resource-amount" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

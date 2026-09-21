@@ -1,0 +1,47 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <ui:Style src="HudUI.uss" />
+    <ui:VisualElement name="Toolbar" class="toolbar">
+        <ui:VisualElement class="tool-slot tool-slot--selected">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="4" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="2" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="2" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="4" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="2" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="12" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="4" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="2" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="2" class="tool-count" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tool-slot">
+            <ui:VisualElement class="tool-icon" />
+            <ui:Label text="4" class="tool-count" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

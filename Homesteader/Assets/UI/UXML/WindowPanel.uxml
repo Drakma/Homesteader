@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <ui:Style src="HudUI.uss" />
+    <ui:VisualElement name="WindowShade" class="window-shade">
+        <ui:VisualElement name="SettingsWindow" class="window"
+                          style="width: 380px; height: 180px;">
+            <ui:VisualElement class="window-header">
+                <ui:VisualElement class="window-close-x">
+                    <ui:VisualElement class="window-close-x-line" />
+                </ui:VisualElement>
+                <ui:Label text="Settings" class="window-title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="window-body">
+                <ui:Label text="Mock settings panel" class="modal-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ConfirmModal" class="modal"
+                          style="width: 800px; height: 480;">
+            <ui:VisualElement class="window-header">
+                <ui:VisualElement class="window-close-x">
+                    <ui:VisualElement class="window-close-x-line" />
+                </ui:VisualElement>
+                <ui:Label text="Confirm Action" class="window-title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="modal-body">
+                <ui:Label text="Are you sure you want to do that?"
+                          class="modal-text" />
+                <ui:VisualElement class="modal-button-row">
+                    <ui:Button text="Cancel" class="action-btn action-btn--secondary" />
+                    <ui:Button text="OK"     class="action-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

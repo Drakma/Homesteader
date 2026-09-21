@@ -1,0 +1,672 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <ui:Style src="HudUI.uss" />
+    <ui:Style src="PhoneUI.uss" />
+
+    <!-- Phone Wrapper anchored to right-middle of viewport -->
+    <ui:VisualElement name="PhoneWrapper" class="phone-wrapper phone-wrapper--hidden">
+        <ui:VisualElement class="phone-chassis">
+            <ui:VisualElement class="phone-screen">
+
+                <!-- Top Notch / Speaker -->
+                <ui:VisualElement class="phone-notch-bar">
+                    <ui:VisualElement class="phone-speaker-pill" />
+                </ui:VisualElement>
+
+                <!-- Phone Status Bar -->
+                <ui:VisualElement class="phone-status-bar">
+                    <ui:VisualElement class="phone-status-time-row">
+                        <ui:Label name="PhoneClock" text="08:00" class="phone-status-time" />
+                        <ui:VisualElement name="PhoneCelestialIcon" class="phone-celestial-icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="phone-status-icons">
+                        <ui:Label text="5G" class="phone-status-icon" />
+                        <ui:Label text="▲" class="phone-status-icon" />
+                        <ui:VisualElement class="phone-battery-pill">
+                            <ui:VisualElement name="PhoneBatteryFill" class="phone-battery-fill" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Phone Main Content Area -->
+                <ui:VisualElement class="phone-content">
+
+                    <!-- ============================================== -->
+                    <!-- 1. HOME SCREEN / APP LAUNCHER                  -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="PhoneHome" class="phone-home">
+                        <!-- Quick Weather / Date Widget -->
+                        <ui:VisualElement class="phone-widget-weather">
+                            <ui:VisualElement>
+                                <ui:Label name="PhoneWeatherTemp" text="72°F" class="phone-weather-temp" />
+                                <ui:Label name="PhoneWeatherDesc" text="Summer • Day 42 • Sunny" class="phone-weather-info" />
+                            </ui:VisualElement>
+                            <ui:Label text="☀️" class="phone-weather-icon" />
+                        </ui:VisualElement>
+
+                        <!-- Paginated App Launcher Viewport (Max 3x4 per page) -->
+                        <ui:VisualElement name="PhoneLauncherViewport" class="phone-launcher-viewport">
+                            <ui:VisualElement name="PhoneLauncherTrack" class="phone-launcher-track">
+                                <!-- PAGE 1: 12 Apps (3 x 4 Grid) -->
+                                <ui:VisualElement name="LauncherPage0" class="phone-launcher-page">
+                                    <!-- 1. Grid OS -->
+                                    <ui:VisualElement name="AppTileVolt" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-grid-os" />
+                                        <ui:Label text="Grid OS" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 2. ResView (Utilities) -->
+                                    <ui:VisualElement name="AppTileRes" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-resview-levels" />
+                                        <ui:Label text="ResView" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 3. Almanac -->
+                                    <ui:VisualElement name="AppTileAlmanac" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-good-almanac" />
+                                        <ui:Label text="Almanac" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 4. Board Meeting (Logging) -->
+                                    <ui:VisualElement name="AppTileLumber" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-board-meeting" />
+                                        <ui:Label text="Board Meeting" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 5. Nail It (Building, Materials, Tools) -->
+                                    <ui:VisualElement name="AppTileDepot" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-nail-it" />
+                                        <ui:Label text="Nail It" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 6. Lettuce Shop (Grocer, Food, Ingredients) -->
+                                    <ui:VisualElement name="AppTileGrocer" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-lettuce-shop" />
+                                        <ui:Label text="Lettuce Shop" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 7. Hay There (Ranching Supplies) -->
+                                    <ui:VisualElement name="AppTileFeed" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-hay-there" />
+                                        <ui:Label text="Hay There" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 8. Cache Flow (Bank) -->
+                                    <ui:VisualElement name="AppTileBank" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-cache-flow" />
+                                        <ui:Label text="Cache Flow" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 9. Bazaar Behavior (Exchange) -->
+                                    <ui:VisualElement name="AppTileMarket" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-bazaar-behavior" />
+                                        <ui:Label text="Bazaar Behavior" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 10. Shift Happens (Personal Vehicles) -->
+                                    <ui:VisualElement name="AppTileVehicles" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-shift-happens" />
+                                        <ui:Label text="Shift Happens" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 11. Tank You (Fuels & Fuel Supplies) -->
+                                    <ui:VisualElement name="AppTileWater" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-tank-you" />
+                                        <ui:Label text="Tank You" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 12. Drafting Behind You (Structures) -->
+                                    <ui:VisualElement name="AppTileLivestock" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-drafting-behind" />
+                                        <ui:Label text="Drafting Behind You" class="phone-app-label" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <!-- PAGE 2: Remaining Apps -->
+                                <ui:VisualElement name="LauncherPage1" class="phone-launcher-page">
+                                    <!-- 13. Tractor Beam (Farming Vehicles / Equipment) -->
+                                    <ui:VisualElement name="AppTileEquipment" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-tractor-beam" />
+                                        <ui:Label text="Tractor Beam" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 14. Wheel Deal (Dealership & ATVs) -->
+                                    <ui:VisualElement name="AppTileDealership" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-wheel-deal" />
+                                        <ui:Label text="Wheel Deal" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 15. Trailer Shack (Trailer Sales & Secure Parts) -->
+                                    <ui:VisualElement name="AppTileTrailerShack" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-trailer-shack" />
+                                        <ui:Label text="Trailer Shack" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 16. Voltvision (Electronics & Off-Grid Solar) -->
+                                    <ui:VisualElement name="AppTileVoltvision" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-voltvision" />
+                                        <ui:Label text="Voltvision" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 17. Sofa So Good (Furniture & Appliances) -->
+                                    <ui:VisualElement name="AppTileFurniture" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-sofa-so-good" />
+                                        <ui:Label text="Sofa So Good" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 16. Mods Manager -->
+                                    <ui:VisualElement name="AppTileMods" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-mods">
+                                            <ui:Label text="📦" class="phone-app-icon-glyph" />
+                                        </ui:VisualElement>
+                                        <ui:Label text="Mods" class="phone-app-label" />
+                                    </ui:VisualElement>
+
+                                    <!-- 17. Admin Tools -->
+                                    <ui:VisualElement name="AppTileAdmin" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-admin">
+                                            <ui:Label text="🛠️" class="phone-app-icon-glyph" />
+                                        </ui:VisualElement>
+                                        <ui:Label text="Admin" class="phone-app-label" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <!-- Dot Navigation Indicators -->
+                        <ui:VisualElement name="PhonePageDotsRow" class="phone-page-dots-row">
+                            <ui:VisualElement name="PageDot0" class="phone-page-dot phone-page-dot--active">
+                                <ui:VisualElement class="phone-page-dot-inner" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PageDot1" class="phone-page-dot">
+                                <ui:VisualElement class="phone-page-dot-inner" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement style="height: 10px;" />
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 2. VOLT / GRID OS APP VIEW                     -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewVolt" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="VoltBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="Grid OS • Solar &amp; Power" class="phone-app-title" />
+                        </ui:VisualElement>
+                        <ui:ScrollView class="phone-app-scroll">
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="CURRENT SOLAR GENERATION" class="grid-card-title" />
+                                <ui:Label name="GridSolarWatts" text="1.85 kW" class="grid-metric-large" />
+                                <ui:Label text="Array Efficiency: 94% • 6 Active Panels" class="grid-metric-sub" />
+                                <ui:VisualElement class="grid-bar-track">
+                                    <ui:VisualElement name="GridSolarFill" class="grid-bar-fill-solar" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="HOMESTEAD BATTERY BANK" class="grid-card-title" />
+                                <ui:Label name="GridBatteryPct" text="84% (16.8 kWh)" class="grid-metric-large" />
+                                <ui:Label text="LiFePO4 Storage • Est. Runtime: 14h 20m" class="grid-metric-sub" />
+                                <ui:VisualElement class="grid-bar-track">
+                                    <ui:VisualElement name="GridBatteryFill" class="grid-bar-fill-battery" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="CURRENT HOUSE LOAD" class="grid-card-title" />
+                                <ui:Label name="GridLoadWatts" text="420 W" class="grid-metric-large" />
+                                <ui:Label text="Pumps: 180W • Internet: 40W • Baseline: 200W" class="grid-metric-sub" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 3. RESVIEW (RESOURCES & UTILITIES) APP VIEW    -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewRes" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="ResBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="ResView • Homestead Utilities" class="phone-app-title" />
+                        </ui:VisualElement>
+                        <ui:ScrollView class="phone-app-scroll">
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="POTABLE WATER STORAGE" class="grid-card-title" />
+                                <ui:Label name="ResWaterText" text="820 L / 1,000 L" class="grid-metric-large" />
+                                <ui:Label text="Well Inflow: +4.2 L/min • Poly Cistern" class="grid-metric-sub" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="FUEL RESERVES (DIESEL / PROPANE)" class="grid-card-title" />
+                                <ui:Label name="ResFuelText" text="160 L Diesel • 250 Gal Propane" class="grid-metric-large" />
+                                <ui:Label text="Backup Generator Ready • Tank Level: 78%" class="grid-metric-sub" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="grid-card">
+                                <ui:Label text="INTERNET &amp; TELEMETRY" class="grid-card-title" />
+                                <ui:Label name="ResNetText" text="Starlink Satellite • 85 Mbps" class="grid-metric-large" />
+                                <ui:Label text="Latency: 32ms • Mesh WiFi Online" class="grid-metric-sub" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 4. COMMERCE / STORE APP VIEW (SHARED ENGINE)   -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewStore" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="StoreBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label name="StoreTitle" text="Homestead Depot" class="phone-app-title" />
+                        </ui:VisualElement>
+
+                        <ui:ScrollView class="phone-app-scroll">
+                            <!-- Store Banner -->
+                            <ui:VisualElement name="StoreBanner" class="store-banner store-banner-depot">
+                                <ui:Label name="StoreBannerText" text="Fast Homestead Delivery (Free over $100)" class="store-banner-text" />
+                            </ui:VisualElement>
+
+                            <!-- Store Search Bar -->
+                            <ui:VisualElement class="store-search-row">
+                                <ui:TextField name="StoreSearchInput" placeholder-text="Search items..." class="store-search-input" />
+                            </ui:VisualElement>
+
+                            <!-- Catalog Item Container populated dynamically by C# -->
+                            <ui:VisualElement name="StoreItemsContainer">
+                                <!-- Populated at runtime -->
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+
+                        <!-- Cart / Order Summary Bar -->
+                        <ui:VisualElement class="store-checkout-bar">
+                            <ui:VisualElement>
+                                <ui:Label name="StoreCartCount" text="Items in Cart: 0" class="store-cart-text" />
+                                <ui:Label name="StoreCartTotal" text="Total: $0.00" class="store-item-name" />
+                            </ui:VisualElement>
+                            <ui:Button name="StoreCheckoutBtn" text="Order Delivery" class="store-item-buy-btn" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 5. BANKING APP VIEW (FIRST HOMESTEAD BANK)    -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewBank" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="BankBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="First Homestead Bank" class="phone-app-title" />
+                        </ui:VisualElement>
+
+                        <ui:ScrollView class="phone-app-scroll">
+                            <!-- Account Balance Card -->
+                            <ui:VisualElement class="bank-card">
+                                <ui:Label text="CHECKING ACCOUNT BALANCE" class="bank-card-label" />
+                                <ui:Label name="BankBalanceText" text="$1,250.00" class="bank-balance-large" />
+                                <ui:Label text="Account # •••• 8492  •  FDIC Insured" class="bank-card-sub" />
+                            </ui:VisualElement>
+
+                            <!-- Active Loans Card -->
+                            <ui:VisualElement class="bank-card">
+                                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                                    <ui:Label text="ACTIVE LOAN DEBT" class="bank-card-label" />
+                                    <ui:Label text="3.5% APR" class="bank-rate-pill" />
+                                </ui:VisualElement>
+                                <ui:Label name="BankLoanDebtText" text="$0.00" class="bank-debt-large" />
+                                <ui:Label name="BankDailyInterestText" text="Daily Interest: $0.00 / day" class="bank-card-sub" />
+
+                                <ui:VisualElement style="flex-direction: row; margin-top: 10px; justify-content: space-between;">
+                                    <ui:Button name="BankPay100Btn" text="Pay $100" class="bank-action-btn" />
+                                    <ui:Button name="BankPay500Btn" text="Pay $500" class="bank-action-btn" />
+                                    <ui:Button name="BankPayAllBtn" text="Pay All" class="bank-action-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- Take Out Loans Card -->
+                            <ui:VisualElement class="bank-card">
+                                <ui:Label text="BORROW HOMESTEAD CAPITAL" class="bank-card-label" />
+                                <ui:Label text="Instant credit transfer to checking balance." class="bank-card-sub" style="margin-bottom: 8px;" />
+
+                                <ui:VisualElement class="bank-loan-row">
+                                    <ui:VisualElement>
+                                        <ui:Label text="Small Farm Micro-Loan" class="store-item-name" />
+                                        <ui:Label text="$500 • Low interest" class="store-item-price" />
+                                    </ui:VisualElement>
+                                    <ui:Button name="BankTake500Btn" text="Borrow $500" class="store-item-buy-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="bank-loan-row">
+                                    <ui:VisualElement>
+                                        <ui:Label text="Homestead Expansion Loan" class="store-item-name" />
+                                        <ui:Label text="$2,500 • Farm building grant" class="store-item-price" />
+                                    </ui:VisualElement>
+                                    <ui:Button name="BankTake2500Btn" text="Borrow $2,500" class="store-item-buy-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="bank-loan-row">
+                                    <ui:VisualElement>
+                                        <ui:Label text="Heavy Equipment Financing" class="store-item-name" />
+                                        <ui:Label text="$10,000 • Tractor / Skidsteer" class="store-item-price" />
+                                    </ui:VisualElement>
+                                    <ui:Button name="BankTake10000Btn" text="Borrow $10k" class="store-item-buy-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 6. PLAYER MARKETPLACE / EXCHANGE APP VIEW      -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewMarket" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="MarketBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="Homestead Exchange" class="phone-app-title" />
+                        </ui:VisualElement>
+
+                        <!-- Market Navigation Tabs -->
+                        <ui:VisualElement class="market-tab-bar">
+                            <ui:Button name="MarketTabBuyBtn" text="Buy Listings" class="market-tab-btn market-tab-btn--active" />
+                            <ui:Button name="MarketTabSellBtn" text="Sell Produce" class="market-tab-btn" />
+                        </ui:VisualElement>
+
+                        <!-- Buy Listings Container -->
+                        <ui:ScrollView name="MarketBuyScroll" class="phone-app-scroll">
+                            <ui:VisualElement class="store-banner store-banner-exchange">
+                                <ui:Label text="Local Player Community Goods &amp; Rare Crafts" class="store-banner-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="MarketBuyContainer" />
+                        </ui:ScrollView>
+
+                        <!-- Sell Produce Container -->
+                        <ui:ScrollView name="MarketSellScroll" class="phone-app-scroll phone-app-scroll--hidden">
+                            <ui:VisualElement class="store-banner store-banner-exchange">
+                                <ui:Label text="Sell Farm Drops &amp; Crafts for Immediate Cash" class="store-banner-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="MarketSellContainer" />
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 6. ALMANAC APP VIEW                            -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewAlmanac" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="AlmanacBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:VisualElement style="flex-grow: 1;">
+                                <ui:Label text="Homestead Almanac" class="phone-app-title" />
+                                <ui:Label text="Rolling 32-Week Outlook" class="phone-app-subtitle" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <!-- Almanac Today Banner -->
+                        <ui:VisualElement name="AlmanacTodayBanner" class="almanac-today-banner">
+                            <ui:Label name="AlmanacTodayTitle" text="TODAY • Day 1 (January 1 • Winter)" class="almanac-today-title" />
+                            <ui:Label name="AlmanacTodayDetails" text="☀️ Sunrise 7:30 AM • 🌙 Sunset 4:30 PM (9.0h) • 🌑 New Moon" class="almanac-today-details" />
+                        </ui:VisualElement>
+
+                        <!-- Tab Bar: Daily (8 Weeks) vs Weekly (24 Weeks) -->
+                        <ui:VisualElement class="almanac-tab-bar">
+                            <ui:Button name="AlmanacTabDailyBtn" text="Daily (8 Weeks / 56 Days)" class="almanac-tab-btn almanac-tab-btn--active" />
+                            <ui:Button name="AlmanacTabWeeklyBtn" text="Seasonal (24 Weeks)" class="almanac-tab-btn" />
+                        </ui:VisualElement>
+
+                        <!-- ScrollView for Forecast Cards -->
+                        <ui:ScrollView name="AlmanacScrollView" class="phone-app-scroll" vertical-scroller-visibility="AlwaysVisible" mouse-wheel-scroll-size="36">
+                            <!-- Daily Forecasts Container (56 cards) -->
+                            <ui:VisualElement name="AlmanacDailyContainer" class="almanac-cards-container" />
+
+                            <!-- Weekly Forecasts Container (24 cards) -->
+                            <ui:VisualElement name="AlmanacWeeklyContainer" class="almanac-cards-container phone-app-scroll--hidden" />
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 7. ADMIN / DEBUG APP VIEW                      -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewAdmin" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="AdminBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="Admin Tools • World &amp; State" class="phone-app-title" />
+                        </ui:VisualElement>
+                        <ui:ScrollView name="AdminScrollView" mode="Vertical" class="phone-app-scroll" mouse-wheel-scroll-size="36" vertical-scroller-visibility="AlwaysVisible">
+                            <!-- Section: Measurement System -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:Label text="MEASUREMENT SYSTEM" class="admin-card-title" />
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminUnitMetricBtn" text="Metric (L, MJ, m)" class="admin-chip-btn admin-chip-btn--active" />
+                                    <ui:Button name="AdminUnitImperialBtn" text="Imperial (gal, kWh, ft)" class="admin-chip-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- Section: Player Vitals -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:VisualElement class="admin-header-row">
+                                    <ui:Label text="PLAYER VITALS (-100 to +100)" class="admin-card-title" />
+                                    <ui:VisualElement style="flex-direction: row;">
+                                        <ui:Button name="AdminVitalsResetBtn" text="Reset (0)" class="admin-action-btn" style="margin-right: 4px; background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                        <ui:Button name="AdminVitalsMaxBtn" text="Max (+100)" class="admin-action-btn" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-slider-row">
+                                    <ui:VisualElement class="admin-vital-header-row">
+                                        <ui:Label name="AdminVitalWellnessLabel" text="Wellness: 0 (Neutral)" class="admin-sublabel" />
+                                        <ui:Button name="AdminVitalWellnessZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-slider-container">
+                                        <ui:SliderInt name="AdminVitalWellnessSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-scale-row">
+                                        <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
+                                        <ui:Label text="0" class="admin-scale-label admin-scale-label--mid" />
+                                        <ui:Label text="+100" class="admin-scale-label admin-scale-label--max" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-slider-row">
+                                    <ui:VisualElement class="admin-vital-header-row">
+                                        <ui:Label name="AdminVitalStaminaLabel" text="Stamina: 0 (Neutral)" class="admin-sublabel" />
+                                        <ui:Button name="AdminVitalStaminaZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-slider-container">
+                                        <ui:SliderInt name="AdminVitalStaminaSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-scale-row">
+                                        <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
+                                        <ui:Label text="0" class="admin-scale-label admin-scale-label--mid" />
+                                        <ui:Label text="+100" class="admin-scale-label admin-scale-label--max" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-slider-row">
+                                    <ui:VisualElement class="admin-vital-header-row">
+                                        <ui:Label name="AdminVitalThirstLabel" text="Thirst: 0 (Neutral)" class="admin-sublabel" />
+                                        <ui:Button name="AdminVitalThirstZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-slider-container">
+                                        <ui:SliderInt name="AdminVitalThirstSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-scale-row">
+                                        <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
+                                        <ui:Label text="0" class="admin-scale-label admin-scale-label--mid" />
+                                        <ui:Label text="+100" class="admin-scale-label admin-scale-label--max" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-slider-row">
+                                    <ui:VisualElement class="admin-vital-header-row">
+                                        <ui:Label name="AdminVitalHungerLabel" text="Hunger: 0 (Neutral)" class="admin-sublabel" />
+                                        <ui:Button name="AdminVitalHungerZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-slider-container">
+                                        <ui:SliderInt name="AdminVitalHungerSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="admin-scale-row">
+                                        <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
+                                        <ui:Label text="0" class="admin-scale-label admin-scale-label--mid" />
+                                        <ui:Label text="+100" class="admin-scale-label admin-scale-label--max" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- Section: Resources & Money -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:VisualElement class="admin-header-row">
+                                    <ui:Label text="RESOURCES &amp; FINANCES" class="admin-card-title" />
+                                    <ui:Button name="AdminResResetDefaultsBtn" text="Reset Defaults" class="admin-action-btn" style="background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-input-row">
+                                    <ui:Label name="AdminResWaterLabel" text="Water (L):" class="admin-input-label" />
+                                    <ui:TextField name="AdminResWaterInput" value="120.5" class="admin-text-field" />
+                                    <ui:Button name="AdminResWaterSetBtn" text="Set" class="admin-set-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-input-row">
+                                    <ui:Label name="AdminResElecLabel" text="Electricity (MJ):" class="admin-input-label" />
+                                    <ui:TextField name="AdminResElecInput" value="8.64" class="admin-text-field" />
+                                    <ui:Button name="AdminResElecSetBtn" text="Set" class="admin-set-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-input-row">
+                                    <ui:Label name="AdminResBandwidthLabel" text="Bandwidth (Mbps):" class="admin-input-label" />
+                                    <ui:TextField name="AdminResBandwidthInput" value="24.5" class="admin-text-field" />
+                                    <ui:Button name="AdminResBandwidthSetBtn" text="Set" class="admin-set-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-input-row">
+                                    <ui:Label name="AdminResFuelLabel" text="Fuel (L):" class="admin-input-label" />
+                                    <ui:TextField name="AdminResFuelInput" value="16.0" class="admin-text-field" />
+                                    <ui:Button name="AdminResFuelSetBtn" text="Set" class="admin-set-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-input-row">
+                                    <ui:Label name="AdminResMoneyLabel" text="Cash ($):" class="admin-input-label" />
+                                    <ui:TextField name="AdminResMoneyInput" value="1250" class="admin-text-field" />
+                                    <ui:Button name="AdminResMoneySetBtn" text="Set" class="admin-set-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-chip-row" style="margin-top: 8px;">
+                                    <ui:Button name="AdminAddMoney500" text="+$500" class="admin-chip-btn" />
+                                    <ui:Button name="AdminAddMoney5000" text="+$5,000" class="admin-chip-btn" />
+                                    <ui:Button name="AdminClearDebtBtn" text="Clear Debt" class="admin-chip-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- Section: Environment & Calendar -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:Label text="SEASON &amp; CALENDAR" class="admin-card-title" />
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminSeasonWinterBtn" text="Winter" class="admin-chip-btn" />
+                                    <ui:Button name="AdminSeasonSpringBtn" text="Spring" class="admin-chip-btn" />
+                                    <ui:Button name="AdminSeasonSummerBtn" text="Summer" class="admin-chip-btn" />
+                                    <ui:Button name="AdminSeasonAutumnBtn" text="Autumn" class="admin-chip-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-row">
+                                    <ui:Label name="AdminDayLabel" text="Day 1 (January 1)" class="admin-label" />
+                                    <ui:VisualElement class="admin-stepper-row">
+                                        <ui:Button name="AdminDaySub7" text="-7" class="admin-step-btn" />
+                                        <ui:Button name="AdminDaySub1" text="-1" class="admin-step-btn" />
+                                        <ui:Button name="AdminDayAdd1" text="+1" class="admin-step-btn" />
+                                        <ui:Button name="AdminDayAdd7" text="+7" class="admin-step-btn" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:SliderInt name="AdminDaySlider" low-value="1" high-value="336" value="1" class="admin-slider" />
+
+                                <ui:Label name="AdminDaylightLabel" text="Daylight: 12.0h • Sunrise 06:00, Sunset 18:00" class="admin-sublabel" style="font-size: 13px; margin-top: 4px;" />
+                                <ui:Label name="AdminAstroLabel" text="Daylight Increasing (towards Summer Solstice)" class="admin-sublabel" style="font-size: 12px; color: rgb(193, 154, 60); margin-bottom: 6px;" />
+
+                                <ui:Label text="SOLSTICES &amp; EQUINOXES (3RD WEEK)" class="admin-card-title" style="font-size: 12px; color: rgb(150, 165, 185); margin-top: 4px; margin-bottom: 4px;" />
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminJumpSpringEquinoxBtn" text="Mar 21 Spring Equinox" class="admin-chip-btn" tooltip="March 21 (Day 77) - Equal Day &amp; Night (12h/12h)" />
+                                    <ui:Button name="AdminJumpSummerSolsticeBtn" text="Jun 21 Summer Solstice" class="admin-chip-btn" tooltip="June 21 (Day 161) - Longest Day (15h daylight)" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminJumpAutumnEquinoxBtn" text="Sep 21 Autumn Equinox" class="admin-chip-btn" tooltip="September 21 (Day 245) - Equal Day &amp; Night (12h/12h)" />
+                                    <ui:Button name="AdminJumpWinterSolsticeBtn" text="Dec 21 Winter Solstice" class="admin-chip-btn" tooltip="December 21 (Day 329) - Longest Night (15h night / 9h day)" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- Section: Time of Day -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:Label text="TIME OF DAY" class="admin-card-title" />
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminTimeDawnBtn"  text="Dawn 6AM"  class="admin-chip-btn" />
+                                    <ui:Button name="AdminTimeNoonBtn"  text="Noon 12PM" class="admin-chip-btn" />
+                                    <ui:Button name="AdminTimeDuskBtn"  text="Dusk 6PM"  class="admin-chip-btn" />
+                                    <ui:Button name="AdminTimeNightBtn" text="Night 12AM" class="admin-chip-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement class="admin-row">
+                                    <ui:Label name="AdminTimeLabel" text="Time: 08:00" class="admin-label" />
+                                    <ui:VisualElement name="AdminTimeIcon" class="admin-time-icon" />
+                                </ui:VisualElement>
+                                <ui:Slider name="AdminTimeSlider" low-value="0" high-value="1439" value="480" class="admin-slider" />
+                            </ui:VisualElement>
+
+                            <!-- Section: Weather Conditions -->
+                            <ui:VisualElement class="admin-card">
+                                <ui:VisualElement class="admin-header-row">
+                                    <ui:Label text="WEATHER CONDITIONS" class="admin-card-title" />
+                                    <ui:Button name="AdminWeatherAutoBtn" text="Auto (Season)" class="admin-action-btn" style="background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminWeatherSunnyBtn" text="☀️ Sunny" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherPartlyCloudyBtn" text="⛅ Pt Cloudy" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherCloudyBtn" text="☁️ Cloudy" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherRainBtn" text="🌧️ Rain" class="admin-chip-btn" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="AdminWeatherThunderstormBtn" text="⛈️ Storm" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherSnowBtn" text="❄️ Snow" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherBlizzardBtn" text="🌨️ Blizzard" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherWindBtn" text="💨 Wind" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherFogBtn" text="🌫️ Fog" class="admin-chip-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                    <!-- ============================================== -->
+                    <!-- 9. MODS MANAGER VIEW                           -->
+                    <!-- ============================================== -->
+                    <ui:VisualElement name="ViewMods" class="phone-app-view phone-app-view--hidden">
+                        <ui:VisualElement class="phone-app-header">
+                            <ui:Button name="ModsBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Label text="Mod Manager" class="phone-app-title" />
+                        </ui:VisualElement>
+
+                        <!-- Search Bar -->
+                        <ui:VisualElement class="mods-search-row">
+                            <ui:TextField name="ModsSearchInput" placeholder-text="Search mods by name or category..." class="mods-search-input" />
+                        </ui:VisualElement>
+
+                        <!-- Category Navigation Header (Active when inside a category) -->
+                        <ui:VisualElement name="ModsCategoryNav" class="mods-category-nav phone-app-view--hidden">
+                            <ui:Button name="ModsCategoryBackBtn" text="← Categories" class="mods-category-back-btn" />
+                            <ui:Label name="ModsCategoryTitle" text="Category" class="mods-category-nav-title" />
+                            <ui:Button name="ModsCategoryToggleBtn" text="Disable Category" class="mod-toggle-btn mod-toggle-btn--enabled" />
+                        </ui:VisualElement>
+
+                        <!-- Mod Categories & Items List -->
+                        <ui:ScrollView class="phone-app-scroll">
+                            <ui:VisualElement name="ModsCategoriesContainer" class="mods-cards-container">
+                                <!-- Category cards populated dynamically -->
+                            </ui:VisualElement>
+                            <ui:VisualElement name="ModsListContainer" class="mods-cards-container phone-app-view--hidden">
+                                <!-- Mod cards populated dynamically -->
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- Bottom Gesture Bar -->
+                <ui:VisualElement class="phone-bottom-bar">
+                    <ui:VisualElement name="PhoneHomeBtn" class="phone-home-pill" tooltip="Return to Home" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
+

@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      SpeedControls.uxml - five chip buttons for time speed.
+      Pause (II), 1X, 3X, 5X, 10X. Label text only - no sprite assets.
+    -->
+    <ui:Style src="SpeedControls.uss" />
+    <ui:VisualElement name="SpeedControls" class="speed-controls-row">
+        <ui:Button name="SpeedPause" text="II" class="speed-chip icon-pause" />
+        <ui:Button name="Speed1X"    text="1X" class="speed-chip icon-1x" />
+        <ui:Button name="Speed3X"    text="3X" class="speed-chip icon-3x" />
+        <ui:Button name="Speed5X"    text="5X" class="speed-chip icon-5x" />
+        <ui:Button name="Speed10X"   text="10X" class="speed-chip icon-10x" />
+    </ui:VisualElement>
+</ui:UXML>

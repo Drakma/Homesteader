@@ -2,3 +2,8 @@ assets/ground/clutter_grass_tuft/SM_Clutter_Grass_Tuft.obj filter=lfs diff=lfs m
 assets/ground/clutter_leaves/SM_Clutter_Leaves.obj filter=lfs diff=lfs merge=lfs -text
 assets/ground/clutter_pinecones/SM_Clutter_Pinecones.obj filter=lfs diff=lfs merge=lfs -text
 assets/ground/clutter_twigs/SM_Clutter_Twigs.obj filter=lfs diff=lfs merge=lfs -text
+
+# Define macros (only works in top-level gitattributes files)
+[attr]lfs               filter=lfs diff=lfs merge=lfs -text
+[attr]unity-json        eol=lf linguist-language=json
+[attr]unity-yaml        merge=unityyamlmerge eol=lf linguist-language=yaml

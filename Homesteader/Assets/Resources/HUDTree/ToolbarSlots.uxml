@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      ToolbarSlots.uxml - 10 free-floating bordered slots.
+      Container has NO background-color. The user positions this
+      toolbar wherever they want (it sits at margin-bottom: 32px
+      by default; bind this in the inspector).
+      Bindings writes ToolSlotLabel0..9 labels and toggles
+      .tool-slot--selected class on ToolbarSlot{SelectedSlot}.
+    -->
+    <ui:Style src="ToolbarSlots.uss" />
+    <ui:VisualElement name="ToolbarSlots" class="toolbar-slots">
+        <ui:VisualElement name="ToolbarSlot0" class="tool-slot tool-slot--selected">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel0" text="1" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot1" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel1" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot2" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel2" text="1" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot3" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel3" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot4" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel4" text="4" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot5" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel5" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot6" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel6" text="12" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot7" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel7" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot8" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel8" text="2" class="tool-slot-count" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToolbarSlot9" class="tool-slot">
+            <ui:VisualElement class="tool-slot-icon" />
+            <ui:Label name="ToolSlotLabel9" class="tool-slot-count" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

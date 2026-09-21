@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      HUDOverlay_kit.uxml — kit-sourced chrome overlay.
+
+      This UXML is loaded AS A SIBLING TREE on top of the existing
+      HudUI tree by HudUIBuilder when the kit overlay flag is enabled
+      in the inspector. It draws kit-sourced vitals + resources
+      pills; the existing status bar / toolbar keep working.
+
+      Sprites come from the kit atlases baked by
+      tools/.scratch/kit_bake_atlases.py:
+        - 128x512 vital_atlas_kit.png      (thirst/hunger/stamina/wellness)
+        - 128x512 resource_atlas_kit.png  (water/electricity/bandwidth/fuel)
+      Standalone pngs (panel_*, speed_controls/*) are loaded via
+      the KitSprites UXML where needed.
+    -->
+    <ui:Style src="HudUI_kit.uss" />
+    <ui:VisualElement name="KitOverlayRoot" class="kit-overlay-root">
+
+        <!-- Kit vitals row: 4 chips, top-left of screen -->
+        <ui:VisualElement name="KitVitals" class="kit-vitals">
+            <ui:VisualElement class="vital-icon vital-icon-thirst" />
+            <ui:Label text="0%" class="kit-vital-label" />
+            <ui:VisualElement class="vital-icon vital-icon-hunger" />
+            <ui:Label text="0%" class="kit-vital-label" />
+            <ui:VisualElement class="vital-icon vital-icon-stamina" />
+            <ui:Label text="0%" class="kit-vital-label" />
+            <ui:VisualElement class="vital-icon vital-icon-wellness" />
+            <ui:Label text="0%" class="kit-vital-label" />
+        </ui:VisualElement>
+
+        <!-- Kit resources row: 4 icons with labels, top-right -->
+        <ui:VisualElement name="KitResources" class="kit-resources">
+            <ui:VisualElement class="resource-icon resource-icon-water" />
+            <ui:Label text="0 L" class="kit-resource-label" />
+            <ui:VisualElement class="resource-icon resource-icon-electricity" />
+            <ui:Label text="0 MJ" class="kit-resource-label" />
+            <ui:VisualElement class="resource-icon resource-icon-bandwidth" />
+            <ui:Label text="0 Mbps" class="kit-resource-label" />
+            <ui:VisualElement class="resource-icon resource-icon-fuel" />
+            <ui:Label text="0 L" class="kit-resource-label" />
+        </ui:VisualElement>
+
+        <!-- Decorative separator + close-x reference (style proof) -->
+        <ui:VisualElement name="KitDecor" class="kit-decor">
+            <ui:VisualElement class="decor-separator_dot" />
+            <ui:VisualElement class="decor-double_divider" />
+            <ui:VisualElement class="decor-glow_accent" />
+            <ui:VisualElement class="decor-close_x" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

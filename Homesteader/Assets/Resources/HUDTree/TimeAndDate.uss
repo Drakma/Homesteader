@@ -1,0 +1,39 @@
+/* TimeAndDate.uss - centered season/day/clock widget. */
+
+.time-and-date-root {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 96px;
+}
+
+.time-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.season-label {
+    color: rgb(104, 168, 96);
+    font-size: 18px;
+    -unity-font: var(--font-bold);
+    margin-right: 8px;
+    -unity-text-align: middle-center;
+}
+
+.day-label {
+    color: rgb(220, 224, 230);
+    font-size: 18px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.clock-label {
+    color: rgb(241, 196, 15);
+    font-size: 28px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    height: 32px;
+    margin-top: 2px;
+}

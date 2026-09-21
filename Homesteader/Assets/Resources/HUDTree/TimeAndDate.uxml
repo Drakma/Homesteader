@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+    <!--
+      TimeAndDate.uxml - reusable HUD component for the time widget.
+      Center on screen: Season + Day on first row, Clock on second row.
+      Bindings writes to SeasonLabel, DayLabel, ClockLabel.
+    -->
+    <ui:Style src="TimeAndDate.uss" />
+    <ui:VisualElement name="TimeAndDate" class="time-and-date-root">
+        <ui:VisualElement class="time-row">
+            <ui:Label name="SeasonLabel" text="Spring" class="season-label" />
+            <ui:Label name="DayLabel" text="Day 1" class="day-label" />
+        </ui:VisualElement>
+        <ui:Label name="ClockLabel" text="7:13 AM" class="clock-label" />
+    </ui:VisualElement>
+</ui:UXML>
