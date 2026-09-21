@@ -917,6 +917,7 @@
                     <ui:VisualElement name="AssetGridContainer" class="asset-grid-container" />
                 </ui:ScrollView>
             </ui:VisualElement>
+            <ui:VisualElement name="AssetSpawnerResizeHandle" class="window-resize-handle" tooltip="Drag to resize" />
         </ui:VisualElement>
 
     </ui:VisualElement>

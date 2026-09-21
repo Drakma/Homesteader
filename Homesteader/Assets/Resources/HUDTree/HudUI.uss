@@ -1063,6 +1063,20 @@ TemplateContainer {
     overflow: hidden;
 }
 
+.window-resize-handle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(193, 154, 60, 0.35);
+    border-top-left-radius: 6px;
+}
+
+.window-resize-handle:hover {
+    background-color: rgba(193, 154, 60, 0.75);
+}
+
 .asset-spawner-window--hidden {
     display: none;
 }

@@ -339,6 +339,7 @@ namespace Homesteader.UI
             {
                 var spawnerHeader = _assetSpawnerWindow.Q<VisualElement>(className: "window-header");
                 MakeDraggable(_assetSpawnerWindow, spawnerHeader);
+                MakeResizable(_assetSpawnerWindow, _assetSpawnerWindow.Q<VisualElement>("AssetSpawnerResizeHandle"), new Vector2(480f, 360f));
             }
 
             _wired = true;
@@ -457,28 +458,28 @@ namespace Homesteader.UI
                 Vector2 delta = (Vector2)evt.position - dragStartPointer;
                 Vector3 newPos = dragStartPos + new Vector3(delta.x, delta.y, 0f);
 
-                // Clamp within parent boundaries if parent has dimensions
+                // Keep only a 40px grab area of the window on-screen so it can go anywhere without getting lost
                 VisualElement parent = window.parent;
-                if (parent != null)
+                if (parent != null && parent.resolvedStyle.width > 0)
                 {
-                    float parentW = parent.resolvedStyle.width;
-                    float parentH = parent.resolvedStyle.height;
-                    float winW = window.resolvedStyle.width;
-                    float winH = window.resolvedStyle.height;
+                    const float keep = 40f;
+                    var cur = window.resolvedStyle.translate;
+                    Rect wb = window.worldBound;
+                    Rect pb = parent.worldBound;
 
-                    if (parentW > 0 && winW > 0)
-                    {
-                        float baseLeft = (parentW - winW) * 0.5f;
-                        float baseTop = (parentH - winH) * 0.5f;
+                    float shiftX = newPos.x - cur.x;
+                    float shiftY = newPos.y - cur.y;
 
-                        float minX = -baseLeft + 20f;
-                        float maxX = parentW - baseLeft - winW - 20f;
-                        float minY = -baseTop + 20f;
-                        float maxY = parentH - baseTop - 40f;
+                    float minShiftX = (pb.xMin + keep) - wb.xMax;
+                    float maxShiftX = (pb.xMax - keep) - wb.xMin;
+                    float minShiftY = pb.yMin - wb.yMin;
+                    float maxShiftY = (pb.yMax - keep) - wb.yMin;
 
-                        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
-                        newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
-                    }
+                    shiftX = Mathf.Clamp(shiftX, minShiftX, maxShiftX);
+                    shiftY = Mathf.Clamp(shiftY, minShiftY, maxShiftY);
+
+                    newPos.x = cur.x + shiftX;
+                    newPos.y = cur.y + shiftY;
                 }
 
                 window.style.translate = new StyleTranslate(new Translate(new Length(newPos.x), new Length(newPos.y)));
@@ -501,6 +502,91 @@ namespace Homesteader.UI
             });
         }
 
+        private void MakeResizable(VisualElement window, VisualElement handle, Vector2 minSize)
+        {
+            if (window == null || handle == null) return;
+
+            bool isResizing = false;
+            Vector2 startPointer = Vector2.zero;
+            Vector2 startSize = Vector2.zero;
+
+            handle.RegisterCallback<PointerDownEvent>(evt =>
+            {
+                if (evt.button != 0) return;
+
+                isResizing = true;
+                startPointer = evt.position;
+                startSize = new Vector2(window.resolvedStyle.width, window.resolvedStyle.height);
+
+                // Pin the current (possibly percent-based) translate in pixels so the top-left corner stays put.
+                var t = window.resolvedStyle.translate;
+                window.style.translate = new StyleTranslate(new Translate(new Length(t.x), new Length(t.y)));
+
+                handle.CapturePointer(evt.pointerId);
+                evt.StopPropagation();
+            });
+
+            handle.RegisterCallback<PointerMoveEvent>(evt =>
+            {
+                if (!isResizing || !handle.HasPointerCapture(evt.pointerId)) return;
+
+                Vector2 delta = (Vector2)evt.position - startPointer;
+                float newW = Mathf.Max(minSize.x, startSize.x + delta.x);
+                float newH = Mathf.Max(minSize.y, startSize.y + delta.y);
+
+                VisualElement parent = window.parent;
+                if (parent != null && parent.resolvedStyle.width > 0)
+                {
+                    var wb = window.worldBound;
+                    var pb = parent.worldBound;
+                    newW = Mathf.Min(newW, pb.xMax - wb.xMin);
+                    newH = Mathf.Min(newH, pb.yMax - wb.yMin);
+                    newW = Mathf.Max(minSize.x, newW);
+                    newH = Mathf.Max(minSize.y, newH);
+                }
+
+                window.style.width = newW;
+                window.style.height = newH;
+                evt.StopPropagation();
+            });
+
+            handle.RegisterCallback<PointerUpEvent>(evt =>
+            {
+                if (isResizing && handle.HasPointerCapture(evt.pointerId))
+                {
+                    isResizing = false;
+                    handle.ReleasePointer(evt.pointerId);
+                    evt.StopPropagation();
+                }
+            });
+
+            handle.RegisterCallback<PointerCaptureOutEvent>(evt =>
+            {
+                isResizing = false;
+            });
+        }
+
+        /// <summary>
+        /// True while a HUD window is open or a text field has focus. Gameplay input
+        /// (movement, camera, hotkeys) must not read the keyboard while this is true.
+        /// </summary>
+        public static bool KeyboardCaptured =>
+            Instance != null && (Instance.IsModalOpen || Instance.IsSettingsOpen || Instance.IsAssetSpawnerOpen || Instance.IsTextInputFocused());
+
+        private bool IsTextInputFocused()
+        {
+            for (var e = _root?.panel?.focusController?.focusedElement as VisualElement; e != null; e = e.parent)
+                if (e is ITextEdit) return true;
+            return false;
+        }
+
+        private bool BlurFocusedTextInput()
+        {
+            if (!IsTextInputFocused()) return false;
+            (_root.panel.focusController.focusedElement as VisualElement)?.Blur();
+            return true;
+        }
+
         private void HandleShortcuts()
         {
 #if ENABLE_INPUT_SYSTEM
@@ -508,20 +594,27 @@ namespace Homesteader.UI
             bool phoneOpen = _phone != null && _phone.IsOpen;
             if (kb != null)
             {
-                if (kb.tabKey.wasPressedThisFrame)
+                if (kb.escapeKey.wasPressedThisFrame)
+                {
+                    if (!BlurFocusedTextInput())
+                    {
+                        if (IsAssetSpawnerOpen) CloseAssetSpawner();
+                        else if (IsModalOpen) CloseModal();
+                        else if (IsSettingsOpen) CloseSettings();
+                        else if (phoneOpen) _phone.Close();
+                        else OpenSettings();
+                    }
+                }
+                // A focused window / text field owns the keyboard: no hotkeys reach the game
+                else if (KeyboardCaptured)
+                {
+                }
+                else if (kb.tabKey.wasPressedThisFrame)
                 {
                     _phone?.Toggle();
                 }
-                else if (kb.escapeKey.wasPressedThisFrame)
-                {
-                    if (IsAssetSpawnerOpen) CloseAssetSpawner();
-                    else if (IsModalOpen) CloseModal();
-                    else if (IsSettingsOpen) CloseSettings();
-                    else if (phoneOpen) _phone.Close();
-                    else OpenSettings();
-                }
-                // Speed Control Shortcuts (when dialogs are closed)
-                else if (!IsModalOpen && !IsSettingsOpen && !IsAssetSpawnerOpen)
+                // Speed Control Shortcuts
+                else
                 {
                     if (kb.spaceKey.wasPressedThisFrame)
                     {
@@ -553,19 +646,25 @@ namespace Homesteader.UI
             }
 #else
             bool phoneOpen = _phone != null && _phone.IsOpen;
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!BlurFocusedTextInput())
+                {
+                    if (IsAssetSpawnerOpen) CloseAssetSpawner();
+                    else if (IsModalOpen) CloseModal();
+                    else if (IsSettingsOpen) CloseSettings();
+                    else if (phoneOpen) _phone.Close();
+                    else OpenSettings();
+                }
+            }
+            else if (KeyboardCaptured)
+            {
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab))
             {
                 _phone?.Toggle();
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (IsAssetSpawnerOpen) CloseAssetSpawner();
-                else if (IsModalOpen) CloseModal();
-                else if (IsSettingsOpen) CloseSettings();
-                else if (phoneOpen) _phone.Close();
-                else OpenSettings();
-            }
-            else if (!IsModalOpen && !IsSettingsOpen && !IsAssetSpawnerOpen)
+            else
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -616,7 +715,7 @@ namespace Homesteader.UI
 #endif
 
             bool isPaused = TimeSystem.Instance != null && TimeSystem.Instance.IsPaused;
-            if (!isPaused && !isCtrl && Mathf.Abs(scrollDelta) > 0.01f && !IsModalOpen && !IsSettingsOpen && !phoneOpen && !IsAssetSpawnerOpen)
+            if (!isPaused && !isCtrl && Mathf.Abs(scrollDelta) > 0.01f && !KeyboardCaptured && !phoneOpen)
             {
                 int dir = scrollDelta > 0f ? -1 : 1;
                 int current = HudState.Active.SelectedSlot;

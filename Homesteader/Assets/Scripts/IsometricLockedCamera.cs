@@ -83,7 +83,11 @@ public class IsometricLockedCamera : MonoBehaviour
         // Q: counter-clockwise (-90)
         // E: clockwise (+90)
         var kb = Keyboard.current;
-        if (kb != null)
+        if (Homesteader.UI.HudBindings.KeyboardCaptured)
+        {
+            // A HUD window or text field owns the keyboard
+        }
+        else if (kb != null)
         {
             if (kb.qKey.wasPressedThisFrame) targetYaw -= 90f;
             if (kb.eKey.wasPressedThisFrame) targetYaw += 90f;

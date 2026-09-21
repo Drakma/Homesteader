@@ -78,7 +78,11 @@ public class PedController : MonoBehaviour
         float v = 0f;
         bool running = false;
 
-        if (kb != null)
+        if (Homesteader.UI.HudBindings.KeyboardCaptured)
+        {
+            // A HUD window or text field owns the keyboard
+        }
+        else if (kb != null)
         {
             if (kb.aKey.isPressed) h -= 1f;
             if (kb.dKey.isPressed) h += 1f;
