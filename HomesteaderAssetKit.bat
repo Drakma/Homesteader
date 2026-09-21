@@ -1,4 +1,4 @@
 @echo off
-cd /d "%~dp0assets"
-start "" pythonw app.py
+cd /d "%~dp0"
+start "" pythonw tools\app.py
 

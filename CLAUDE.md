@@ -3,8 +3,8 @@
 > **IMPORTANT ARCHITECTURAL & PIPELINE UPDATE (2026-09-16)**:
 >
 > 1. **Engine Target**: The project has officially transitioned from Unreal Engine to **Unity 6 (`6000.6.0f1`)**.
-> 2. **Default-Free Policy (2026-09-17 update)**: The **100% Free Stack** is the DEFAULT for all generation. Paid services (CreativeClaw, Meshy.ai) are available as an explicit **opt-in per request** via the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown - only use them when a request is marked `PIPELINE=paid`, and always confirm the credit cost with the user before spending (see PAID_ITEM_PIPELINE in `assets/watch_asset_requests.py`).
-> 3. **Ready Helper Library**: `assets/free_generator.py` provides pre-tested Python functions for the free stack.
+> 2. **Default-Free Policy (2026-09-17 update)**: The **100% Free Stack** is the DEFAULT for all generation. Paid services (CreativeClaw, Meshy.ai) are available as an explicit **opt-in per request** via the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown - only use them when a request is marked `PIPELINE=paid`, and always confirm the credit cost with the user before spending (see PAID_ITEM_PIPELINE in `tools/watch_asset_requests.py`).
+> 3. **Ready Helper Library**: `tools/free_generator.py` provides pre-tested Python functions for the free stack.
 > 4. **Detailed Reference**: See [FREE_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/FREE_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md).
 
 ---
@@ -22,6 +22,33 @@
 
 ---
 
+## 1b. Mod System (Runtime Content Loading)
+
+Mods are loaded from disk at startup, before terrain generation, so modded
+biomes are baked into the world.
+
+- **Locations**: `<persistentDataPath>/Mods` and `<StreamingAssets>/Mods`.
+- **Shapes**: a mod is either a **folder** or a **`.zip` archive** containing a
+  `mod.json` at its root (a zip whose files sit inside one top-level folder is
+  flattened automatically). Append `.disabled` to a folder/zip name to skip it.
+- **Manifest** (`mod.json`): `id` (required, snake_case), `name`, `version`,
+  `author`, `date`, `description`, plus a `contents[]` list where each entry has a
+  `type` (biome / structure / food / …) and a `path` (exact, wildcard, or folder).
+- **Load order**: dependencies first, then `load_after`, then alphabetical.
+- **Merge rule**: core content always wins — a mod biome whose id collides with
+  a core biome is rejected and logged, never overwritten.
+- **Code**: `Homesteader/Assets/Scripts/Modding/`
+  - `ModJson.cs` — dependency-free JSON reader (arbitrary shapes).
+  - `ModManifestParser.cs` — validates `mod.json` into a `ModManifest`.
+  - `ModDiscovery.cs` — scans folders/zips, extracts archives, orders mods.
+  - `ModFileResolver.cs` — path/wildcard expansion, sandboxed to the mod root.
+  - `ModLoader.cs` — applies content into game registries (the ONLY merge site).
+  - `ModManager.cs` — MonoBehaviour bootstrapper; add it to a boot-scene object.
+- **Full spec**: [MODDING_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MODDING_GUIDE.md).
+- **Example mod**: `mods/example_lavender_homestead/`.
+
+---
+
 ## 2. Zero-Cost Asset Generation Pipeline ($0 Cost, Default)
 
 Use the free stack below via `assets/free_generator.py` for every request unless it's explicitly marked `PIPELINE=paid` (chosen by the user in the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown). For a `PIPELINE=paid` item, use CreativeClaw/Meshy instead for that item only - always confirm the credit cost with the user before spending (see `PAID_ITEM_PIPELINE` in `assets/watch_asset_requests.py`).
@@ -33,7 +60,7 @@ Use the free stack below via `assets/free_generator.py` for every request unless
 
   ```python
   import sys
-  sys.path.append(r"C:\Users\casey\Desktop\Homesteader\assets")
+  sys.path.append(r"C:\Users\casey\Desktop\Homesteader\tools")
   import free_generator as fg
 
   raw_icon_path = fg.generate_icon_flux(
@@ -115,4 +142,4 @@ Every asset must live in `assets/<category>/<item_id>/`:
   6. Convert to Unity FBX/GLB.
   7. Assemble `<item_id>.json` and `README.md`.
   8. Mark done: `POST /api/update-asset-request` with `{"id": req_id, "status": "done", "item_id": item_id, "step": "Done - generated via free FLUX + Hunyuan3D pipeline", "credits_used": {"creative_claw": 0, "meshy": 0}}`.
-  9. Run `python update_catalog_readme.py` to keep the master catalog in sync.
+  9. Run `python tools/update_catalog_readme.py` to keep the master catalog in sync.

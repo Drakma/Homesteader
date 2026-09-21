@@ -25,6 +25,7 @@ HUD_migration_backup/
 .gemini/
 .claude/
 .agents/
+.vscode/
 
 # Python Cache & Builds
 __pycache__/
@@ -34,4 +35,5 @@ __pycache__/
 
 # Watcher operational state
 assets/_asset_requests/watcher_heartbeat.json
+logs/
 
