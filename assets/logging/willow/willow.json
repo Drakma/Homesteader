@@ -50,7 +50,8 @@
         "model": "tree_mature_willow.fbx",
         "icon": "tree_mature_willow.png"
       }
-    ]
+    ],
+    "rules": {}
   },
   "plugin_metadata": {
     "version": "1.0.0",

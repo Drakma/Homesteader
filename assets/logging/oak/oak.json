@@ -50,7 +50,8 @@
 				"model": "tree_mature_oak.fbx",
 				"icon": "tree_mature_oak.png"
 			}
-		]
+		],
+		"rules": {}
 	},
 	"plugin_metadata": {
 		"version": "1.0.0",

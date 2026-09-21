@@ -69,11 +69,12 @@ folder name** — `build_catalog_entry()` looks for exactly
   "models": [ { "file": "SM_Crop_Corn_Growing.fbx", "format": "fbx" } ],
   "utilities": { "water": {...}, "electricity": {...}, "sewage": {...},
                  "battery": {...}, "internet": {...} },
-  "growth": { "is_growable": true, "growth_type": "plant", "species": "corn",
+  "growth": { "is_growable": true, "growth_type": "crop", "species": "corn",
               "max_age": 80, "time_unit": "days", "total_stages": 3,
+              "rules": {...},  (crop/tree groups only)
               "current_stage": {...}, "stages": [...] },
   "plugin_metadata": {...},
-  "category_fields": { "crop_species": "corn", "days_to_mature": 90,
+  "category_fields": { "crop_species": "corn",
                        "dimensions_m": {...}, ... }
 }
 ```

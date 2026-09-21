@@ -52,16 +52,10 @@
   },
   "category_fields": {
     "crop_species": "sunflower",
-    "days_to_mature": 90,
     "dimensions_m": {
       "width": 0.3,
       "depth": 0.3,
       "height": 0.25
-    },
-    "irrigated_growth_bonus_pct": 20,
-    "fertilized_growth_bonus_pct": 15,
-    "season": "summer",
-    "yield_amount": 0,
-    "yields_item_id": ""
+    }
   }
 }

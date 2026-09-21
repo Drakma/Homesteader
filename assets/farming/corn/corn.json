@@ -7,7 +7,7 @@
   "icon": "corn.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "plant",
+    "growth_type": "crop",
     "species": "corn",
     "max_age": 80,
     "time_unit": "days",
@@ -41,7 +41,23 @@
         "model": "crop_mature_corn.fbx",
         "icon": "crop_mature_corn.png"
       }
-    ]
+    ],
+    "rules": {
+      "boosts": {
+        "irrigated_growth_bonus_pct": 20,
+        "fertilized_growth_bonus_pct": 15
+      },
+      "yield": {
+        "item_id": "ingredient_corn",
+        "amount": 3,
+        "harvest_stage": 3
+      },
+      "planting": {
+        "seasons": [
+          "summer"
+        ]
+      }
+    }
   },
   "plugin_metadata": {
     "version": "1.0.0",
