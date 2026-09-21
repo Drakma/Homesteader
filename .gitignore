@@ -4,8 +4,6 @@ Homesteader.old/
 *.zip
 *.tar
 *.gz
-# Unity project has its own separate git repository
-Homesteader/
 
 # Scratch, bulky temporary dumps & dependencies
 scratch/
