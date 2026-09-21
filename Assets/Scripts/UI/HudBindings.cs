@@ -1,28 +1,9 @@
-// HudBindings.cs - drive HUD label values from HudState + TimeSystem.
+// HudBindings.cs - drive HUD widgets from HudState + TimeSystem.
 //
-// Each frame this MonoBehaviour:
-//   1. ticks the TimeSystem by Time.deltaTime
-//   2. reads HudState.Active for vitals / resources / held asset
-//   3. matches known Label / VisualElement / Button names in the
-//      live UXML tree and writes values into them
-//
-// It also handles speed chip clicks (button names below) and the
-// selected-toolbar-slot class toggling.
-//
-// The bindings look for these names in the active UIDocument.
-//
-//   Time:           SeasonLabel, DayLabel, ClockLabel
-//   Resources:      ResourceWaterLabel, ResourceElectricityLabel,
-//                   ResourceBandwidthLabel, ResourceFuelLabel
-//   Vitals (kit):   VitalWellnessLabel, VitalStaminaLabel,
-//                   VitalThirstLabel, VitalHungerLabel
-//   Held asset:     HoldingLabel, HeldNameLabel, HeldCountLabel
-//   Toolbar slots:  ToolbarSlot0..ToolbarSlot9 (VisualElement)
-//   Speed chips:    SpeedPause, Speed1X, Speed3X, Speed5X, Speed9X
-//                   (Button - their clicked events drive TimeSystem.SetSpeed)
-//
-// Items not present are silently skipped so the bindings stay
-// defensive against missing UXML chunks.
+// Each frame this MonoBehaviour ticks the TimeSystem and writes
+// state into the live UIDocument. The widgets are free-floating
+// components under Resources/HUDTree/ - HudBindings uses the Q()
+// query to find each label/visualElement by name.
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,12 +17,12 @@ namespace Homesteader.UI
         [SerializeField] private bool _enableTimeUpdates = true;
         [SerializeField] private bool _enableResourceUpdates = true;
         [SerializeField] private bool _enableVitalUpdates = true;
-        [SerializeField] private bool _enableHeldAssetUpdates = true;
         [SerializeField] private bool _enableToolbarUpdates = true;
-
-        [Tooltip("Ticking is on unless paused. Use the speed chips in the HUD " +
-                 "to flip between Pause/1x/3x/5x/9x at runtime.")]
         [SerializeField] private bool _ownsTimeSystem = true;
+
+        [Tooltip("When true, write percent (0..100) to the label. " +
+                 "Else write raw signed value as +N%/-N%.")]
+        [SerializeField] private bool _vitalsNormalizedPercent = true;
 
         private UIDocument _doc;
         private VisualElement _root;
@@ -49,18 +30,28 @@ namespace Homesteader.UI
         private Label _seasonLabel;
         private Label _dayLabel;
         private Label _clockLabel;
+
         private Label _resourceWater;
         private Label _resourceElectricity;
         private Label _resourceBandwidth;
         private Label _resourceFuel;
-        private Label _vitalWellness;
-        private Label _vitalStamina;
-        private Label _vitalThirst;
-        private Label _vitalHunger;
-        private Label _holdingLabel;
-        private Label _heldNameLabel;
-        private Label _heldCountLabel;
+
+        // Vital bar fill elements. width is set as Length(percent).
+        private VisualElement _vitalWellnessFill;
+        private VisualElement _vitalStaminaFill;
+        private VisualElement _vitalThirstFill;
+        private VisualElement _vitalHungerFill;
+        // Vital percent labels
+        private Label _vitalWellnessPct;
+        private Label _vitalStaminaPct;
+        private Label _vitalThirstPct;
+        private Label _vitalHungerPct;
+
+        // Toolbar
         private VisualElement[] _toolbarSlots = new VisualElement[10];
+        private Label[] _toolbarSlotLabels = new Label[10];
+
+        // Speed chips
         private Button _speedPause;
         private Button _speed1X;
         private Button _speed3X;
@@ -86,24 +77,27 @@ namespace Homesteader.UI
             _root = _doc.rootVisualElement;
             if (_root == null) { return; }
 
-            _seasonLabel   = Q<Label>("SeasonLabel");
-            _dayLabel      = Q<Label>("DayLabel");
-            _clockLabel    = Q<Label>("ClockLabel");
-            _resourceWater       = Q<Label>("ResourceWaterLabel");
+            _seasonLabel = Q<Label>("SeasonLabel");
+            _dayLabel = Q<Label>("DayLabel");
+            _clockLabel = Q<Label>("ClockLabel");
+            _resourceWater = Q<Label>("ResourceWaterLabel");
             _resourceElectricity = Q<Label>("ResourceElectricityLabel");
-            _resourceBandwidth   = Q<Label>("ResourceBandwidthLabel");
-            _resourceFuel        = Q<Label>("ResourceFuelLabel");
-            _vitalWellness = Q<Label>("VitalWellnessLabel");
-            _vitalStamina  = Q<Label>("VitalStaminaLabel");
-            _vitalThirst   = Q<Label>("VitalThirstLabel");
-            _vitalHunger   = Q<Label>("VitalHungerLabel");
-            _holdingLabel  = Q<Label>("HoldingLabel");
-            _heldNameLabel = Q<Label>("HeldNameLabel");
-            _heldCountLabel = Q<Label>("HeldCountLabel");
+            _resourceBandwidth = Q<Label>("ResourceBandwidthLabel");
+            _resourceFuel = Q<Label>("ResourceFuelLabel");
+
+            _vitalWellnessFill = Q<VisualElement>("VitalWellnessFill");
+            _vitalStaminaFill  = Q<VisualElement>("VitalStaminaFill");
+            _vitalThirstFill   = Q<VisualElement>("VitalThirstFill");
+            _vitalHungerFill   = Q<VisualElement>("VitalHungerFill");
+            _vitalWellnessPct = Q<Label>("VitalWellnessPct");
+            _vitalStaminaPct  = Q<Label>("VitalStaminaPct");
+            _vitalThirstPct   = Q<Label>("VitalThirstPct");
+            _vitalHungerPct   = Q<Label>("VitalHungerPct");
 
             for (int i = 0; i < _toolbarSlots.Length; i++)
             {
                 _toolbarSlots[i] = Q<VisualElement>("ToolbarSlot" + i.ToString());
+                _toolbarSlotLabels[i] = Q<Label>("ToolSlotLabel" + i.ToString());
             }
 
             _speedPause = Q<Button>("SpeedPause");
@@ -138,18 +132,15 @@ namespace Homesteader.UI
                 ResolveReferences();
                 return;
             }
-
             if (_ownsTimeSystem)
             {
                 TimeSystem.Instance.Tick(Time.deltaTime);
             }
 
             var state = HudState.Active;
-
             if (_enableTimeUpdates) WriteTime();
             if (_enableResourceUpdates) WriteResources(state);
             if (_enableVitalUpdates) WriteVitals(state);
-            if (_enableHeldAssetUpdates) WriteHeldAsset(state);
             if (_enableToolbarUpdates) WriteToolbar(state);
         }
 
@@ -187,30 +178,34 @@ namespace Homesteader.UI
 
         private void WriteVitals(HudState s)
         {
-            if (_vitalWellness != null && s.Vitals.ContainsKey(VitalId.Wellness))
-                _vitalWellness.text = HudState.FormatVitalPercent(s.Vitals[VitalId.Wellness].Value);
-            if (_vitalStamina != null && s.Vitals.ContainsKey(VitalId.Stamina))
-                _vitalStamina.text = HudState.FormatVitalPercent(s.Vitals[VitalId.Stamina].Value);
-            if (_vitalThirst != null && s.Vitals.ContainsKey(VitalId.Thirst))
-                _vitalThirst.text = HudState.FormatVitalPercent(s.Vitals[VitalId.Thirst].Value);
-            if (_vitalHunger != null && s.Vitals.ContainsKey(VitalId.Hunger))
-                _vitalHunger.text = HudState.FormatVitalPercent(s.Vitals[VitalId.Hunger].Value);
+            WriteOneVital(VitalId.Wellness,
+                          _vitalWellnessFill, _vitalWellnessPct, s);
+            WriteOneVital(VitalId.Stamina,
+                          _vitalStaminaFill, _vitalStaminaPct, s);
+            WriteOneVital(VitalId.Thirst,
+                          _vitalThirstFill, _vitalThirstPct, s);
+            WriteOneVital(VitalId.Hunger,
+                          _vitalHungerFill, _vitalHungerPct, s);
         }
 
-        private void WriteHeldAsset(HudState s)
+        private void WriteOneVital(VitalId id,
+                                    VisualElement fill,
+                                    Label pctLabel,
+                                    HudState s)
         {
-            if (_holdingLabel != null) _holdingLabel.text = "Holding";
-            if (_heldNameLabel != null)
+            int raw = s.Vitals[id].Value;
+            // Signed scale -100..+100 maps to bar percent 0..100.
+            int barPercent = Mathf.Clamp(raw + 100, 0, 200) / 2;
+            if (fill != null)
             {
-                _heldNameLabel.text = string.IsNullOrEmpty(s.HeldAssetId)
-                    ? "(nothing)" : s.HeldAssetId;
+                fill.style.width = new StyleLength(
+                    new Length(barPercent, LengthUnit.Percent));
             }
-            if (_heldCountLabel != null)
+            if (pctLabel != null)
             {
-                int slot = Mathf.Clamp(s.SelectedSlot, 0, s.Toolbar.Count - 1);
-                var data = s.Toolbar[slot];
-                _heldCountLabel.text = (data.Count > 1)
-                    ? "x" + data.Count.ToString() : "";
+                pctLabel.text = _vitalsNormalizedPercent
+                    ? (barPercent.ToString() + "%")
+                    : (raw.ToString("+0;-0") + "%");
             }
         }
 
@@ -229,6 +224,17 @@ namespace Homesteader.UI
                 {
                     if (slot.ClassListContains("tool-slot--selected"))
                         slot.RemoveFromClassList("tool-slot--selected");
+                }
+                if (i < s.Toolbar.Count)
+                {
+                    var data = s.Toolbar[i];
+                    var label = _toolbarSlotLabels[i];
+                    if (label != null)
+                    {
+                        label.text = data.Count > 1
+                            ? "x" + data.Count.ToString()
+                            : "";
+                    }
                 }
             }
         }
