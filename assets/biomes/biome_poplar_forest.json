@@ -1,0 +1,32 @@
+{
+  "id": "biome_poplar_forest",
+  "name": "Poplar Stand",
+  "priority": 5,
+  "description": "Fast-growing tall poplar grove along gentle slopes and river floodplains with sandy clay soil and dense leafy scrub.",
+  "color_hex": "#65a30d",
+  "moisture": 0.58,
+  "nutrients": 0.65,
+  "noise": {
+    "frequency": 0.013,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.55,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 1.8,
+    "noise_amplitude_m": 2.5,
+    "noise_frequency": 0.014,
+    "max_slope_deg": 20.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#4d7c0f",
+    "secondary_color_hex": "#a3e635",
+    "slope_color_hex": "#78716c",
+    "pattern_scale": 1.3,
+    "pattern_intensity": 0.5,
+    "normal_micro_roughness": 0.2
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

@@ -51,15 +51,15 @@
       }
     },
     {
-      "file": "SM_Struct_Greenhouse.fbx",
+      "file": "struct_complete_greenhouse.fbx",
       "format": "fbx"
     },
     {
-      "file": "SM_Struct_Greenhouse.mtl",
+      "file": "struct_complete_greenhouse.mtl",
       "format": "mtl"
     },
     {
-      "file": "SM_Struct_Greenhouse.obj",
+      "file": "struct_complete_greenhouse.obj",
       "format": "obj",
       "dimensions_cm": {
         "x": 368.0,

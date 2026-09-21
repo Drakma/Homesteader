@@ -3,11 +3,11 @@
   "id": "small_cabin",
   "name": "Small Cabin",
   "category": "structures",
-  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the small_cabin scheme.",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the small_cabin scheme.",
   "icon": "small_cabin.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "building",
+    "growth_type": "percent",
     "species": "small_cabin",
     "max_age": 100,
     "time_unit": "percent",
@@ -47,7 +47,7 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "SM_Struct_Cabin_Small.fbx",
+        "model": "struct_complete_small_cabin.fbx",
         "icon": "struct_complete_small_cabin.png"
       }
     ]

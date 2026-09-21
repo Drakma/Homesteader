@@ -41,6 +41,20 @@ py -3 tools/validate_schema.py appliances
 Reports every item in `assets/appliances/*/*.json` that's missing a required
 field or has a field of the wrong type. Exit code 0 = all items comply.
 
+## Namespaces
+An item's `id` is only unique **within its namespace**. Two sources can
+legitimately produce the same id (`shed`, `tree_oak`) - a namespaced
+`qualified_id` (`namespace:id`) is what registries key on, so they coexist
+instead of clobbering each other.
+
+- `namespace` - lowercase snake_case. Defaults to `core` for built-in content.
+- `qualified_id` - `<namespace>:<id>`, written into the manifest for clarity.
+- Mods declare theirs in `mod.json`; the mod's `id` is used unless the manifest
+  asset sets an explicit `namespace`/`ns` field.
+
+This mirrors the Unity side (`AssetManifestSummary.ns` / `.QualifiedId`), where a
+colliding qualified id is rejected - first one wins - rather than overwritten.
+
 ## Categories defined so far
 
 - `_base` - Base schema applied to EVERY item's `properties` block:
@@ -48,6 +62,11 @@ field or has a field of the wrong type. Exit code 0 = all items comply.
   - `weight_kg` (number >= 0, kilograms)
   - `max_stack_size` (integer >= 1)
   - `is_consumable` (boolean)
+  - `is_spawnable` (boolean, optional - defaults to `false` when omitted so older
+    manifests stay valid). When `true`, the item is scattered into the world by
+    terrain generation and must also declare a `spawning` block naming at least
+    one target biome via `spawning.biomes[]`. When `false`/absent the item is
+    data-only: craftable and placeable, but never auto-placed by the generator.
   - Player vitals: `happiness_modifier`, `thirst_restore`, `energy_restore`, `stamina_restore`, `wellness_modifier` (numbers between -100 and +100).
 - `_base_dimensions` - `dimensions_m` (`width`, `depth`, `height` in meters) under `category_fields`.
 - `appliances` - `dimensions_m` (width/depth/height in meters). Added

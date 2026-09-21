@@ -3,11 +3,11 @@
   "id": "large_metal_garage",
   "name": "Large Metal Garage",
   "category": "structures",
-  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
   "icon": "large_metal_garage.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "building",
+    "growth_type": "percent",
     "species": "large_metal_garage",
     "max_age": 100,
     "time_unit": "percent",

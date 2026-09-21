@@ -51,15 +51,15 @@
       }
     },
     {
-      "file": "SM_Struct_Barn.fbx",
+      "file": "struct_complete_barn.fbx",
       "format": "fbx"
     },
     {
-      "file": "SM_Struct_Barn.mtl",
+      "file": "struct_complete_barn.mtl",
       "format": "mtl"
     },
     {
-      "file": "SM_Struct_Barn.obj",
+      "file": "struct_complete_barn.obj",
       "format": "obj",
       "dimensions_cm": {
         "x": 640.0,

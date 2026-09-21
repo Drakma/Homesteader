@@ -1,0 +1,32 @@
+{
+  "id": "biome_pond",
+  "name": "Pond & Wetland Basin",
+  "priority": 10,
+  "description": "Amorphous water depression with deep basin water, muddy waterline banks, sandy littoral shores, and dense cattail reed clusters.",
+  "color_hex": "#3b82f6",
+  "moisture": 0.95,
+  "nutrients": 0.65,
+  "noise": {
+    "frequency": 0.018,
+    "octaves": 3,
+    "persistence": 0.45,
+    "threshold": 0.82,
+    "dither_bandwidth": 0.025
+  },
+  "elevation": {
+    "base_offset_m": -3.0,
+    "noise_amplitude_m": 0.8,
+    "noise_frequency": 0.022,
+    "max_slope_deg": 18.0
+  },
+  "generative_ground": {
+    "shader_mode": "water_basin",
+    "primary_color_hex": "#1e40af",
+    "secondary_color_hex": "#78350f",
+    "slope_color_hex": "#d97706",
+    "pattern_scale": 1.8,
+    "pattern_intensity": 0.6,
+    "normal_micro_roughness": 0.2
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

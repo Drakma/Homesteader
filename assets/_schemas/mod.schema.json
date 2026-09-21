@@ -1,0 +1,36 @@
+{
+  "$schema": "https://homesteader.game/schemas/mod_v1.json",
+  "id": "example_mod_id",
+  "name": "Example Mod",
+  "version": "1.0.0",
+  "author": "Author Name",
+  "date": "2026-09-15",
+  "description": "One or two sentences describing what this mod changes.",
+  "homepage": "https://example.com/my-mod",
+  "icon": "preview.png",
+
+  "compatibility": {
+    "min": "0.1.0",
+    "max": "0.9.9"
+  },
+
+  "load_after": ["some_other_mod_id"],
+  "dependencies": ["required_mod_id"],
+
+  "contents": [
+    {
+      "type": "biome",
+      "path": "biomes/*.json",
+      "group": "terrain"
+    },
+    {
+      "type": "structure",
+      "path": "assets/structures",
+      "group": "cabin"
+    },
+    {
+      "type": "food",
+      "path": "assets/food/crop_pumpkin_giant.json"
+    }
+  ]
+}

@@ -3,11 +3,11 @@
   "id": "large_log_cabin",
   "name": "Large Log Cabin",
   "category": "structures",
-  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_log_cabin scheme.",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_log_cabin scheme.",
   "icon": "large_log_cabin.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "building",
+    "growth_type": "percent",
     "species": "large_log_cabin",
     "max_age": 100,
     "time_unit": "percent",
@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 33,
         "resource": "stages/struct_foundation/",
-        "model": "SM_Struct_Cabin_Large_Foundation.fbx",
+        "model": "struct_foundation_large_log_cabin.fbx",
         "icon": "struct_foundation_large_log_cabin.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 33,
         "age_max": 66,
         "resource": "stages/struct_framing/",
-        "model": "SM_Struct_Cabin_Large_Framing.fbx",
+        "model": "struct_framing_large_log_cabin.fbx",
         "icon": "struct_framing_large_log_cabin.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 66,
         "age_max": 99,
         "resource": "stages/struct_walls/",
-        "model": "SM_Struct_Cabin_Large_Walls.fbx",
+        "model": "struct_walls_large_log_cabin.fbx",
         "icon": "struct_walls_large_log_cabin.png"
       },
       {
@@ -47,7 +47,7 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "SM_Struct_Complete_Large_Log_Cabin.fbx",
+        "model": "struct_complete_large_log_cabin.fbx",
         "icon": "struct_complete_large_log_cabin.png"
       }
     ]

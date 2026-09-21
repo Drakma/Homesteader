@@ -1,64 +1,69 @@
 {
-	"category": "_base",
-	"note": "Applies to EVERY category, not just one - checked against the item's properties block (not category_fields). See README.md.",
-	"target": "properties",
-	"fields": {
-		"base_value": {
-			"type": "number",
-			"required": true,
-			"min": 0,
-			"note": "Base economic / sale value in dollars ($). Mandatory on every item in the catalog."
-		},
-		"weight_kg": {
-			"type": "number",
-			"required": true,
-			"min": 0,
-			"note": "Physical weight in kilograms (kg). Mandatory on every item in the catalog."
-		},
-		"max_stack_size": {
-			"type": "number",
-			"required": true,
-			"min": 1,
-			"note": "Maximum inventory stack count (integer >= 1). Mandatory on every item in the catalog."
-		},
-		"is_consumable": {
-			"type": "boolean",
-			"required": true,
-			"note": "Whether the item is consumed / depleted upon use. Mandatory on every item in the catalog."
-		},
-		"happiness_modifier": {
-			"type": "number",
-			"required": true,
-			"min": -100,
-			"max": 100
-		},
-		"thirst_restore": {
-			"type": "number",
-			"required": true,
-			"min": -100,
-			"max": 100,
-			"note": "score, same -100/+100 scale as the other player stats. Drinkable water containers and watery food/drink items only (positive). 0 for everything else."
-		},
-		"energy_restore": {
-			"type": "number",
-			"required": true,
-			"min": -100,
-			"max": 100,
-			"note": "score, same -100/+100 scale as the other player stats. Beds (full rest) and seating (couches/chairs, a lesser rest) only (positive). 0 for everything else."
-		},
-		"stamina_restore": {
-			"type": "number",
-			"required": true,
-			"min": -100,
-			"max": 100,
-			"note": "score, same -100/+100 scale as the other player stats - a shorter-term exertion resource, distinct from energy_restore's longer-term tiredness/sleep. Mainly food (quick energy from eating). 0 for everything else."
-		},
-		"wellness_modifier": {
-			"type": "number",
-			"required": true,
-			"min": -100,
-			"max": 100,
-			"note": "Wellness is the player's overall health/sickness meter, and it's broader than just consumption. Sources of wellness change, most of which are RUNTIME EVENTS/CONDITIONS rather than a static per-item value (so most items stay 0 here even though they're relevant to the mechanic): (1) consumption - contaminated/unfiltered water and questionable food lower it, clean filtered water and wholesome food raise it (this is what the field captures on food/water items); (2) injury - physical harm while doing risky work (e.g. handling an aggressive animal, see ranching.temperament) is a runtime event, not an item property; (3) environmental exposure - working in/near unclean conditions (manure piles, see waste category) lowers it via proximity, similar to happiness_modifier's proximity model; (4) sleep deprivation - insufficient energy_restore over time is a runtime accumulation, not a single item's value; (5) hygiene - NOT SHOWERING lowers wellness over time; there is currently NO shower/bathing item in the catalog to raise it back - this is a real gap, see the queued asset request; (6) WEATHER EXPOSURE - being out in hot sun without drinking (thirst_restore not being met) lowers wellness on top of the thirst penalty itself; being outside in cold/winter weather without adequate winter gear also lowers wellness. There is currently NO clothing/apparel category or winter gear item in the catalog at all - a real gap, see the queued Winter Coat asset request; once winter gear exists it should carry a positive wellness_modifier (or a dedicated cold-resistance field) representing protection from this penalty. DESIGN RULE: wellness can ONLY be raised by the player deliberately taking care of themselves (eating well, hydrating, sleeping, showering, avoiding injury/unclean exposure) - it must never passively regenerate on its own or rise from unrelated sources. RUNTIME REQUIREMENT: wellness itself should feed back into OTHER stats, not just be a dead-end meter - low wellness should reduce max stamina and reduce happiness. This cross-stat relationship is game logic, not a catalog field."
-		}
-	}
+  "category": "_base",
+  "note": "Applies to EVERY category, not just one - checked against the item's properties block (not category_fields). See README.md.",
+  "target": "properties",
+  "fields": {
+    "base_value": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Base economic / sale value in dollars ($). Mandatory on every item in the catalog."
+    },
+    "weight_kg": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "Physical weight in kilograms (kg). Mandatory on every item in the catalog."
+    },
+    "max_stack_size": {
+      "type": "number",
+      "required": true,
+      "min": 1,
+      "note": "Maximum inventory stack count (integer >= 1). Mandatory on every item in the catalog."
+    },
+    "is_consumable": {
+      "type": "boolean",
+      "required": true,
+      "note": "Whether the item is consumed / depleted upon use. Mandatory on every item in the catalog."
+    },
+    "is_spawnable": {
+      "type": "boolean",
+      "required": false,
+      "note": "Whether this asset is placed into the world during terrain generation. When true, the asset must also declare a 'spawning' block naming at least one target biome (spawning.biomes[]). When false or absent, the asset exists only as an inventory/crafting item and is never scattered by the generator. Defaults to false when omitted, so older manifests stay valid."
+    },
+    "happiness_modifier": {
+      "type": "number",
+      "required": true,
+      "min": -100,
+      "max": 100
+    },
+    "thirst_restore": {
+      "type": "number",
+      "required": true,
+      "min": -100,
+      "max": 100,
+      "note": "score, same -100/+100 scale as the other player stats. Drinkable water containers and watery food/drink items only (positive). 0 for everything else."
+    },
+    "energy_restore": {
+      "type": "number",
+      "required": true,
+      "min": -100,
+      "max": 100,
+      "note": "score, same -100/+100 scale as the other player stats. Beds (full rest) and seating (couches/chairs, a lesser rest) only (positive). 0 for everything else."
+    },
+    "stamina_restore": {
+      "type": "number",
+      "required": true,
+      "min": -100,
+      "max": 100,
+      "note": "score, same -100/+100 scale as the other player stats - a shorter-term exertion resource, distinct from energy_restore's longer-term tiredness/sleep. Mainly food (quick energy from eating). 0 for everything else."
+    },
+    "wellness_modifier": {
+      "type": "number",
+      "required": true,
+      "min": -100,
+      "max": 100,
+      "note": "Wellness is the player's overall health/sickness meter, and it's broader than just consumption. Sources of wellness change, most of which are RUNTIME EVENTS/CONDITIONS rather than a static per-item value (so most items stay 0 here even though they're relevant to the mechanic): (1) consumption - contaminated/unfiltered water and questionable food lower it, clean filtered water and wholesome food raise it (this is what the field captures on food/water items); (2) injury - physical harm while doing risky work (e.g. handling an aggressive animal, see ranching.temperament) is a runtime event, not an item property; (3) environmental exposure - working in/near unclean conditions (manure piles, see waste category) lowers it via proximity, similar to happiness_modifier's proximity model; (4) sleep deprivation - insufficient energy_restore over time is a runtime accumulation, not a single item's value; (5) hygiene - NOT SHOWERING lowers wellness over time; there is currently NO shower/bathing item in the catalog to raise it back - this is a real gap, see the queued asset request; (6) WEATHER EXPOSURE - being out in hot sun without drinking (thirst_restore not being met) lowers wellness on top of the thirst penalty itself; being outside in cold/winter weather without adequate winter gear also lowers wellness. There is currently NO clothing/apparel category or winter gear item in the catalog at all - a real gap, see the queued Winter Coat asset request; once winter gear exists it should carry a positive wellness_modifier (or a dedicated cold-resistance field) representing protection from this penalty. DESIGN RULE: wellness can ONLY be raised by the player deliberately taking care of themselves (eating well, hydrating, sleeping, showering, avoiding injury/unclean exposure) - it must never passively regenerate on its own or rise from unrelated sources. RUNTIME REQUIREMENT: wellness itself should feed back into OTHER stats, not just be a dead-end meter - low wellness should reduce max stamina and reduce happiness. This cross-stat relationship is game logic, not a catalog field."
+    }
+  }
 }

@@ -1,0 +1,32 @@
+{
+  "id": "biome_maple_forest",
+  "name": "Maple Forest",
+  "priority": 5,
+  "description": "Temperate deciduous forest characterized by sugar maples, thick autumnal red and golden leaf litter carpeting the rich forest floor.",
+  "color_hex": "#ea580c",
+  "moisture": 0.6,
+  "nutrients": 0.75,
+  "noise": {
+    "frequency": 0.013,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.56,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 2.5,
+    "noise_amplitude_m": 3.5,
+    "noise_frequency": 0.014,
+    "max_slope_deg": 25.0
+  },
+  "generative_ground": {
+    "shader_mode": "leaf_litter",
+    "primary_color_hex": "#9a3412",
+    "secondary_color_hex": "#c2410c",
+    "slope_color_hex": "#78350f",
+    "pattern_scale": 1.4,
+    "pattern_intensity": 0.6,
+    "normal_micro_roughness": 0.25
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

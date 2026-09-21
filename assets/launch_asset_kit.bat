@@ -20,7 +20,7 @@ echo.
 start http://localhost:8088/index.html
 
 :loop
-python server.py 8088
+python ..\tools\server.py 8088
 echo.
 echo Server stopped. Restarting in 1 second... (Press Ctrl+C to exit)
 timeout /t 1 /nobreak >nul

@@ -1,0 +1,32 @@
+{
+  "id": "biome_meadow",
+  "name": "Pasture & Meadow",
+  "priority": 1,
+  "description": "Open rolling homestead prairie with wild meadow grasses, scattered wildflowers, grazing livestock, and gentle knolls.",
+  "color_hex": "#84cc16",
+  "moisture": 0.45,
+  "nutrients": 0.6,
+  "noise": {
+    "frequency": 0.009,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.0,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 0.0,
+    "noise_amplitude_m": 2.2,
+    "noise_frequency": 0.01,
+    "max_slope_deg": 18.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#65a30d",
+    "secondary_color_hex": "#a3e635",
+    "slope_color_hex": "#78716c",
+    "pattern_scale": 1.5,
+    "pattern_intensity": 0.45,
+    "normal_micro_roughness": 0.2
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

@@ -19,15 +19,15 @@
   },
   "models": [
     {
-      "file": "SM_Struct_House_Starter.fbx",
+      "file": "struct_complete_starter_house.fbx",
       "format": "fbx"
     },
     {
-      "file": "SM_Struct_House_Starter.mtl",
+      "file": "struct_complete_starter_house.mtl",
       "format": "mtl"
     },
     {
-      "file": "SM_Struct_House_Starter.obj",
+      "file": "struct_complete_starter_house.obj",
       "format": "obj",
       "dimensions_cm": {
         "x": 570.0,
@@ -83,7 +83,7 @@
     "compatible_api": "v1"
   },
   "dimensions": {
-    "file": "SM_Struct_House_Starter.obj",
+    "file": "struct_complete_starter_house.obj",
     "format": "obj",
     "dimensions_cm": {
       "x": 570.0,

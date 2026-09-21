@@ -19,11 +19,11 @@
   },
   "models": [
     {
-      "file": "SM_Struct_Stable.mtl",
+      "file": "struct_complete_stable.mtl",
       "format": "mtl"
     },
     {
-      "file": "SM_Struct_Stable.obj",
+      "file": "struct_complete_stable.obj",
       "format": "obj",
       "dimensions_cm": {
         "x": 550.0,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "file": "SM_Struct_Stable.fbx",
+      "file": "struct_complete_stable.fbx",
       "format": "fbx"
     }
   ],
@@ -83,7 +83,7 @@
     "compatible_api": "v1"
   },
   "dimensions": {
-    "file": "SM_Struct_Stable.obj",
+    "file": "struct_complete_stable.obj",
     "format": "obj",
     "dimensions_cm": {
       "x": 550.0,

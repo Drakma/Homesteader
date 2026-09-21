@@ -3,14 +3,14 @@
   "id": "chicken_coop",
   "name": "Chicken Coop",
   "category": "structures",
-  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percentage. This group is the authoritative owner of the chicken_coop scheme.",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the chicken_coop scheme.",
   "icon": "chicken_coop.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "building",
+    "growth_type": "percent",
     "species": "chicken_coop",
     "max_age": 100,
-    "time_unit": "percentage",
+    "time_unit": "percent",
     "total_stages": 4,
     "icon_stage": 4,
     "stages": [
@@ -47,7 +47,7 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "SM_Struct_Coop_Chicken.fbx",
+        "model": "struct_complete_chicken_coop.fbx",
         "icon": "struct_complete_chicken_coop.png"
       }
     ]

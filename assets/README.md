@@ -19,8 +19,8 @@ Total Indexed Items: **602**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 43 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 87 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Structures**](structures/) | 45 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Building**](building/) | 85 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 19 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 45 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 58 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -46,10 +46,11 @@ Total Indexed Items: **602**
 
 ---
 
-### 📂 [Structures](structures/) (43 items)
+### 📂 [Structures](structures/) (45 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
+| `3_bay_truck_garage` | 3 Bay Truck Garage | — | — | [3_bay_truck_garage.json](structures/3_bay_truck_garage/3_bay_truck_garage.json) |
 | `struct_camper_rv` | Travel Trailer RV | ✅ Yes | — | [struct_camper_rv.json](structures/struct_camper_rv/struct_camper_rv.json) |
 | `struct_camper_teardrop` | Teardrop Camper | ✅ Yes | — | [struct_camper_teardrop.json](structures/struct_camper_teardrop/struct_camper_teardrop.json) |
 | `struct_complete_barn` | Barn | ✅ Yes | 🌱 4-Stage | [struct_complete_barn.json](structures/struct_complete_barn/struct_complete_barn.json) |
@@ -79,6 +80,7 @@ Total Indexed Items: **602**
 | `struct_framing_small_cabin` | Small Cabin - Framing | — | 🌱 4-Stage | [struct_framing_small_cabin.json](structures/struct_framing_small_cabin/struct_framing_small_cabin.json) |
 | `struct_framing_stable` | Stable - Framing | — | 🌱 4-Stage | [struct_framing_stable.json](structures/struct_framing_stable/struct_framing_stable.json) |
 | `struct_framing_starter_house` | Starter House - Framing | — | 🌱 4-Stage | [struct_framing_starter_house.json](structures/struct_framing_starter_house/struct_framing_starter_house.json) |
+| `struct_garage_truck_3bay` | 3 Bay Truck Garage | ✅ Yes | — | [struct_garage_truck_3bay.json](structures/struct_garage_truck_3bay/struct_garage_truck_3bay.json) |
 | `struct_shed` | Tool Shed | ✅ Yes | — | [struct_shed.json](structures/struct_shed/struct_shed.json) |
 | `struct_silo` | Grain Silo | ✅ Yes | — | [struct_silo.json](structures/struct_silo/struct_silo.json) |
 | `struct_tent_canvas` | Canvas Wall Tent | ✅ Yes | — | [struct_tent_canvas.json](structures/struct_tent_canvas/struct_tent_canvas.json) |
@@ -94,7 +96,7 @@ Total Indexed Items: **602**
 | `struct_walls_starter_house` | Starter House - Walls | — | 🌱 4-Stage | [struct_walls_starter_house.json](structures/struct_walls_starter_house/struct_walls_starter_house.json) |
 | `struct_woodshed` | Woodshed | ✅ Yes | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
 
-### 📂 [Building](building/) (87 items)
+### 📂 [Building](building/) (85 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -133,7 +135,6 @@ Total Indexed Items: **602**
 | `hardware_hurricane_ties` | Hurricane Ties Pair | ✅ Yes | — | [hardware_hurricane_ties.json](building/hardware_hurricane_ties/hardware_hurricane_ties.json) |
 | `hardware_nails` | Hardware Nails | — | — | [hardware_nails.json](building/hardware_nails/hardware_nails.json) |
 | `icon_wood_log` | Icon Wood Log | — | — | [icon_wood_log.json](building/icon_wood_log/icon_wood_log.json) |
-| `icons` | Icons | — | — | [icons.json](building/icons/icons.json) |
 | `insulators_tpost_pack` | T-Post Insulators Pack | ✅ Yes | — | [insulators_tpost_pack.json](building/insulators_tpost_pack/insulators_tpost_pack.json) |
 | `item_hardware_deckscrews_box` | Item Hardware Deckscrews Box | ✅ Yes | — | [item_hardware_deckscrews_box.json](building/item_hardware_deckscrews_box/item_hardware_deckscrews_box.json) |
 | `item_hardware_framingnails_box` | Item Hardware Framingnails Box | ✅ Yes | — | [item_hardware_framingnails_box.json](building/item_hardware_framingnails_box/item_hardware_framingnails_box.json) |
@@ -175,7 +176,6 @@ Total Indexed Items: **602**
 | `spool_wire_barbed_4pt` | 4-Point Barbed Wire Spool | ✅ Yes | — | [spool_wire_barbed_4pt.json](building/spool_wire_barbed_4pt/spool_wire_barbed_4pt.json) |
 | `spool_wire_romex_12_2` | Romex 12/2 Wire Spool | ✅ Yes | — | [spool_wire_romex_12_2.json](building/spool_wire_romex_12_2/spool_wire_romex_12_2.json) |
 | `spool_wire_woven_field` | Woven Field Fence Roll | ✅ Yes | — | [spool_wire_woven_field.json](building/spool_wire_woven_field/spool_wire_woven_field.json) |
-| `structures` | Structures | — | — | [structures.json](building/structures/structures.json) |
 | `tape_drip_roll_300m` | 300m Drip Tape Roll | ✅ Yes | — | [tape_drip_roll_300m.json](building/tape_drip_roll_300m/tape_drip_roll_300m.json) |
 | `timer_hose_digital` | Digital Hose Timer | ✅ Yes | — | [timer_hose_digital.json](building/timer_hose_digital/timer_hose_digital.json) |
 | `tubing_drip_irrigation` | Drip Irrigation Tubing | ✅ Yes | — | [tubing_drip_irrigation.json](building/tubing_drip_irrigation/tubing_drip_irrigation.json) |
@@ -311,7 +311,7 @@ Total Indexed Items: **602**
 | `tree_sapling_apple` | Planted Sapling Apple | ✅ Yes | 🌱 4-Stage | [tree_sapling_apple.json](logging/tree_sapling_apple/tree_sapling_apple.json) |
 | `tree_sapling_birch` | Planted Sapling Birch | ✅ Yes | 🌱 4-Stage | [tree_sapling_birch.json](logging/tree_sapling_birch/tree_sapling_birch.json) |
 | `tree_sapling_maple` | Planted Sapling Maple | ✅ Yes | 🌱 4-Stage | [tree_sapling_maple.json](logging/tree_sapling_maple/tree_sapling_maple.json) |
-| `tree_sapling_oak` | Planted Sapling Oak | ✅ Yes | 🌱 4-Stage | [tree_sapling_oak.json](logging/tree_sapling_oak/tree_sapling_oak.json) |
+| `tree_sapling_oak` | Tree Sapling Oak | ✅ Yes | — | [tree_sapling_oak.json](logging/tree_sapling_oak/tree_sapling_oak.json) |
 | `tree_sapling_pine` | Planted Sapling Pine | ✅ Yes | 🌱 4-Stage | [tree_sapling_pine.json](logging/tree_sapling_pine/tree_sapling_pine.json) |
 | `tree_sapling_poplar` | Planted Sapling Poplar | ✅ Yes | 🌱 4-Stage | [tree_sapling_poplar.json](logging/tree_sapling_poplar/tree_sapling_poplar.json) |
 | `tree_sapling_willow` | Planted Sapling Willow | ✅ Yes | 🌱 4-Stage | [tree_sapling_willow.json](logging/tree_sapling_willow/tree_sapling_willow.json) |

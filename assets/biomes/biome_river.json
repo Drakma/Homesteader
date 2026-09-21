@@ -1,0 +1,32 @@
+{
+  "id": "biome_river",
+  "name": "River & Creek System",
+  "priority": 12,
+  "description": "Continuous winding fluvial river corridor with moving water, smoothed gravel bars, and muddy littoral margins.",
+  "color_hex": "#06b6d4",
+  "moisture": 1.0,
+  "nutrients": 0.5,
+  "noise": {
+    "frequency": 0.01,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.94,
+    "dither_bandwidth": 0.015
+  },
+  "elevation": {
+    "base_offset_m": -3.5,
+    "noise_amplitude_m": 0.8,
+    "noise_frequency": 0.018,
+    "max_slope_deg": 15.0
+  },
+  "generative_ground": {
+    "shader_mode": "water_flow",
+    "primary_color_hex": "#0284c7",
+    "secondary_color_hex": "#38bdf8",
+    "slope_color_hex": "#64748b",
+    "pattern_scale": 2.5,
+    "pattern_intensity": 0.75,
+    "normal_micro_roughness": 0.15
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

@@ -253,6 +253,19 @@ def _ensure_dir(path: str):
     os.makedirs(path, exist_ok=True)
 
 
+def trim_to_visual_mass(img: Image.Image, pad: int = 1) -> Image.Image:
+    # Trim transparent borders so the sprite has its actual visual mass
+    # with a 1px margin on all sides while maintaining its original aspect.
+    bbox = img.getbbox()
+    if not bbox:
+        return img
+    cropped = img.crop(bbox)
+    bw, bh = cropped.size
+    out = Image.new("RGBA", (bw + 2 * pad, bh + 2 * pad), (0, 0, 0, 0))
+    out.paste(cropped, (pad, pad))
+    return out
+
+
 def _save(img: Image.Image, path: str):
     _ensure_dir(os.path.dirname(path))
     img.save(path, "PNG")
@@ -533,33 +546,33 @@ def build_all():
         else:
             img = draw_corner(kind)
         _save(img, os.path.join(s_dir, f"{name}.png"))
-    # Decor.
+    # Decor (trimmed to visual mass + 1px margin).
     d_dir = os.path.join(SPRITES_ROOT, "decor")
     for name, fn in DECORS:
-        img = fn()
+        img = trim_to_visual_mass(fn(), pad=1)
         _save(img, os.path.join(d_dir, f"{name}.png"))
-    # Speed controls (5 chips: pause, 1x/3x/5x/9x).
+    # Speed controls (5 chips: pause, 1x/3x/5x/9x) (trimmed to visual mass + 1px margin).
     s_dir = os.path.join(SPRITES_ROOT, "speed_controls")
-    _save(draw_speed_pause(), os.path.join(s_dir, "speed_pause.png"))
-    _save(draw_speed_play(1), os.path.join(s_dir, "speed_1x.png"))
-    _save(draw_speed_play(2), os.path.join(s_dir, "speed_3x.png"))
-    _save(draw_speed_play(3), os.path.join(s_dir, "speed_5x.png"))
-    _save(draw_speed_play(4), os.path.join(s_dir, "speed_9x.png"))
-    # Vitals (4 icons: wellness, stamina, thirst, hunger).
+    _save(trim_to_visual_mass(draw_speed_pause(), pad=1), os.path.join(s_dir, "speed_pause.png"))
+    _save(trim_to_visual_mass(draw_speed_play(1), pad=1), os.path.join(s_dir, "speed_1x.png"))
+    _save(trim_to_visual_mass(draw_speed_play(2), pad=1), os.path.join(s_dir, "speed_3x.png"))
+    _save(trim_to_visual_mass(draw_speed_play(3), pad=1), os.path.join(s_dir, "speed_5x.png"))
+    _save(trim_to_visual_mass(draw_speed_play(4), pad=1), os.path.join(s_dir, "speed_9x.png"))
+    # Vitals (4 icons: wellness, stamina, thirst, hunger) (trimmed to visual mass + 1px margin).
     v_dir = os.path.join(SPRITES_ROOT, "vitals")
-    _save(draw_vital_wellness(), os.path.join(v_dir, "vital_wellness.png"))
-    _save(draw_vital_stamina(),  os.path.join(v_dir, "vital_stamina.png"))
-    _save(draw_vital_thirst(),   os.path.join(v_dir, "vital_thirst.png"))
-    _save(draw_vital_hunger(),   os.path.join(v_dir, "vital_hunger.png"))
-    # Resources (4 icons: water, electricity, bandwidth, fuel).
+    _save(trim_to_visual_mass(draw_vital_wellness(), pad=1), os.path.join(v_dir, "vital_wellness.png"))
+    _save(trim_to_visual_mass(draw_vital_stamina(), pad=1),  os.path.join(v_dir, "vital_stamina.png"))
+    _save(trim_to_visual_mass(draw_vital_thirst(), pad=1),   os.path.join(v_dir, "vital_thirst.png"))
+    _save(trim_to_visual_mass(draw_vital_hunger(), pad=1),   os.path.join(v_dir, "vital_hunger.png"))
+    # Resources (4 icons: water, electricity, bandwidth, fuel) (trimmed to visual mass + 1px margin).
     r_dir = os.path.join(SPRITES_ROOT, "resources")
-    _save(draw_resource_water(),
+    _save(trim_to_visual_mass(draw_resource_water(), pad=1),
           os.path.join(r_dir, "resource_water.png"))
-    _save(draw_resource_electricity(),
+    _save(trim_to_visual_mass(draw_resource_electricity(), pad=1),
           os.path.join(r_dir, "resource_electricity.png"))
-    _save(draw_resource_bandwidth(),
+    _save(trim_to_visual_mass(draw_resource_bandwidth(), pad=1),
           os.path.join(r_dir, "resource_bandwidth.png"))
-    _save(draw_resource_fuel(),
+    _save(trim_to_visual_mass(draw_resource_fuel(), pad=1),
           os.path.join(r_dir, "resource_fuel.png"))
     total = (len(PANELS)
              + len(BUTTON_COLORS) * len(BUTTON_STATES)

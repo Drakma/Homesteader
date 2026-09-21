@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 33,
         "resource": "stages/crop_sprout/",
-        "model": "SM_Crop_Sunflower_Sprout.fbx",
+        "model": "crop_sprout_sunflower.fbx",
         "icon": "crop_sprout_sunflower.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 33,
         "age_max": 66,
         "resource": "stages/crop_growing/",
-        "model": "SM_Crop_Sunflower_Growing.fbx",
+        "model": "crop_growing_sunflower.fbx",
         "icon": "crop_growing_sunflower.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 66,
         "age_max": 100,
         "resource": "stages/crop_mature/",
-        "model": "SM_Crop_Sunflower_Mature.fbx",
+        "model": "crop_mature_sunflower.fbx",
         "icon": "crop_mature_sunflower.png"
       }
     ]

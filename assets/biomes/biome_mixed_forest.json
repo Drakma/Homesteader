@@ -1,0 +1,32 @@
+{
+  "id": "biome_mixed_forest",
+  "name": "Mixed Timberland",
+  "priority": 4,
+  "description": "Biodiverse mixed woodland of conifers and deciduous hardwoods with diverse canopy cover, mossy logs, and rich damp ground.",
+  "color_hex": "#166534",
+  "moisture": 0.55,
+  "nutrients": 0.7,
+  "noise": {
+    "frequency": 0.012,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.48,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 3.0,
+    "noise_amplitude_m": 4.0,
+    "noise_frequency": 0.014,
+    "max_slope_deg": 28.0
+  },
+  "generative_ground": {
+    "shader_mode": "leaf_litter",
+    "primary_color_hex": "#15803d",
+    "secondary_color_hex": "#713f12",
+    "slope_color_hex": "#57534e",
+    "pattern_scale": 1.5,
+    "pattern_intensity": 0.55,
+    "normal_micro_roughness": 0.25
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

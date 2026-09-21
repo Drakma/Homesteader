@@ -1,0 +1,32 @@
+{
+  "id": "biome_birch_forest",
+  "name": "Birch Grove",
+  "priority": 5,
+  "description": "Luminous open deciduous grove dominated by white-barked birch trees, light mossy undergrowth, and sandy-loam soil.",
+  "color_hex": "#a3e635",
+  "moisture": 0.5,
+  "nutrients": 0.6,
+  "noise": {
+    "frequency": 0.014,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.54,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 1.8,
+    "noise_amplitude_m": 3.0,
+    "noise_frequency": 0.014,
+    "max_slope_deg": 22.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#84cc16",
+    "secondary_color_hex": "#bef264",
+    "slope_color_hex": "#a8a29e",
+    "pattern_scale": 1.2,
+    "pattern_intensity": 0.5,
+    "normal_micro_roughness": 0.2
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

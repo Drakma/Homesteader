@@ -1,0 +1,32 @@
+{
+  "id": "biome_pine_hills",
+  "name": "Pine Hills & Ridges",
+  "priority": 4,
+  "description": "Dense alpine conifer highlands featuring rolling hills, weathered rocky outcrops, pine needles on the forest floor, and scattered pinecones.",
+  "color_hex": "#1e3a1f",
+  "moisture": 0.45,
+  "nutrients": 0.4,
+  "noise": {
+    "frequency": 0.011,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.49,
+    "dither_bandwidth": 0.06
+  },
+  "elevation": {
+    "base_offset_m": 5.0,
+    "noise_amplitude_m": 5.5,
+    "noise_frequency": 0.015,
+    "max_slope_deg": 35.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#143019",
+    "secondary_color_hex": "#451a03",
+    "slope_color_hex": "#52525b",
+    "pattern_scale": 1.5,
+    "pattern_intensity": 0.6,
+    "normal_micro_roughness": 0.3
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

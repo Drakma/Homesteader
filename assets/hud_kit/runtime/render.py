@@ -505,13 +505,13 @@ def render_window(canvas: Image.Image, x: int, y: int, w: int, h: int,
     The header reuses the metallic+noisy band style so it sits in the
     same visual family as the HUD's top status bar.
     """
-    # Window body (square rect with dark face).
+    # Window body (square rect with dark face, no outer outline so it
+    # sits flush against whatever surface is behind).
     draw = ImageDraw.Draw(canvas)
     body_color = _hex_to_rgb(body_hex)
-    bord_color = _hex_to_rgb(border_hex)
     draw.rectangle(
         [int(x), int(y), int(x + w), int(y + h)],
-        fill=body_color, outline=bord_color, width=1,
+        fill=body_color,
     )
     # Header band sits at the top of the body, hugging its edges (no
     # extra inset padding around the header so the title can use the
@@ -573,23 +573,330 @@ def render_modal(canvas: Image.Image, x: int, y: int, w: int, h: int,
     render_window(canvas, x, y, w, h, title, m,
                   show_close=True, body_hex=body_hex,
                   border_hex=border_hex)
-    # Body content area = below the header (slightly lighter than the
-    # body rect to read as the window's working area).
-    body_x = int(x + 6)
-    body_y = int(y + hh + 4)
-    body_w = int(w - 12)
-    body_h = int(h - hh - 8)
+    # Textarea = entire area below the header, filling the body so the
+    # full working area is available for content (no extra padding).
+    body_x = int(x)
+    body_y = int(y + hh)
+    body_w = int(w)
+    body_h = int(h - hh)
     draw = ImageDraw.Draw(canvas)
     draw.rectangle(
         [body_x, body_y, body_x + body_w, body_y + body_h],
         fill=_hex_to_rgb("#29344a"),
-        outline=_hex_to_rgb("#28323f"), width=1,
     )
     # Mockup body text.
     font = _hud_font(m.px(15))
     draw.text((body_x + m.px(8), body_y + m.px(8)),
               body, fill=(220, 224, 230), font=font)
+    # Buttons row: a primary (OK) on the right, secondary (Cancel) just
+    # to its left, anchored to bottom-right of the body.
+    btn_h = m.px(28)
+    btn_padding = m.px(10)
+    btn_gap = m.px(8)
+    btn_w_pad = m.px(40)
+    btn_font = _hud_font(m.px(14), weight="bold")
+    primary_label = "OK"
+    secondary_label = "Cancel"
+    primary_w = m.px(btn_w_pad) + btn_font.getbbox(primary_label)[2]
+    secondary_w = m.px(btn_w_pad) + btn_font.getbbox(secondary_label)[2]
+    row_y = body_y + body_h - btn_h - btn_padding
+    primary_x = body_x + body_w - btn_padding - primary_w
+    secondary_x = primary_x - btn_gap - secondary_w
+    # Secondary: outline-style button.
+    sek = _hex_to_rgb("#778899")
+    draw.rectangle(
+        [secondary_x, row_y, secondary_x + secondary_w, row_y + btn_h],
+        fill=_hex_to_rgb("#222b3a"), outline=sek, width=1,
+    )
+    sbbox = btn_font.getbbox(secondary_label)
+    sw_ = sbbox[2] - sbbox[0]
+    sascent, sdescent = btn_font.getmetrics()
+    s_center_off = (sascent - sdescent) // 2
+    suy = row_y + btn_h // 2 - s_center_off - sbbox[1]
+    draw.text((secondary_x + (secondary_w - sw_) // 2 - sbbox[0],
+               suy),
+              secondary_label, fill=(220, 224, 230), font=btn_font)
+    # Primary: filled amber button.
+    prim = _hex_to_rgb("#c19a3c")
+    draw.rectangle(
+        [primary_x, row_y, primary_x + primary_w, row_y + btn_h],
+        fill=prim,
+    )
+    pbbox = btn_font.getbbox(primary_label)
+    pw_ = pbbox[2] - pbbox[0]
+    pascent, pdescent = btn_font.getmetrics()
+    p_center_off = (pascent - pdescent) // 2
+    puy = row_y + btn_h // 2 - p_center_off - pbbox[1]
+    draw.text((primary_x + (primary_w - pw_) // 2 - pbbox[0],
+               puy),
+              primary_label, fill=(20, 24, 32), font=btn_font)
     return (int(x), int(y), int(w), int(h))
+
+
+# Color palettes for button color schemes. Each color defines its
+# normal body fill, then hover/click/disabled variants are derived by
+# mixing with black/white.
+BUTTON_COLORS = {
+    "red":    ("#a82f2f", "#c44f4f", "#8a2424", "#5a1818", (245, 230, 230)),
+    "green":  ("#3b7a4b", "#5fa070", "#2d5b3a", "#1f3d28", (235, 245, 235)),
+    "amber":  ("#c19a3c", "#d8b25a", "#a07c2e", "#a47d3d", (20, 24, 32)),
+    "slate":  ("#778899", "#92a3b6", "#5d6e7f", "#3e4754", (240, 244, 248)),
+}
+
+
+def render_button(canvas: Image.Image, x: int, y: int, w: int, h: int,
+                   label: str, m: LayoutMetrics, *,
+                   color: str = "amber",
+                   state: str = "unclicked"):
+    """Render a square-cornered button.
+
+    color:
+      red / green / amber / slate -- selects the palette.
+    state:
+      unclicked -- the default look (body, 1 px shadow outline,
+                   darker top/left, lighter bottom/right).
+      hover     -- lighter body, brighter bottom/right edge.
+      clicked   -- darker body, dark recess on top/left.
+      disabled  -- flat muted gray, dimmed label, no 3D edges.
+    """
+    if color not in BUTTON_COLORS:
+        raise ValueError(f"unknown button color: {color}")
+    if state not in ("unclicked", "hover", "clicked", "disabled"):
+        raise ValueError(f"unknown button state: {state}")
+    body_hex, hover_hex, click_hex, disabled_hex, label_color = (
+        BUTTON_COLORS[color]
+    )
+
+    draw = ImageDraw.Draw(canvas)
+    x0, y0, x1, y1 = int(x), int(y), int(x + w), int(y + h)
+
+    # Pick body per state.
+    if state == "unclicked":
+        body_rgb = _hex_to_rgb(body_hex)
+        edge_label = label_color
+    elif state == "hover":
+        body_rgb = _hex_to_rgb(hover_hex)
+        edge_label = label_color
+    elif state == "clicked":
+        body_rgb = _hex_to_rgb(click_hex)
+        edge_label = label_color
+    else:  # disabled
+        body_rgb = _hex_to_rgb(disabled_hex)
+        edge_label = _lerp_color(label_color, (90, 90, 90), 0.55)
+
+    # Body. No 3D edges - flat per state.
+    draw.rectangle([x0, y0, x1, y1], fill=body_rgb)
+
+    # Label, vertically centered.
+    font_size = max(8, int(h * 0.55))
+    font = _hud_font(font_size, weight="bold")
+    bbox = font.getbbox(label)
+    text_w = bbox[2] - bbox[0]
+    ascent, descent = font.getmetrics()
+    center_off = (ascent - descent) // 2
+    target_cy = y0 + h // 2
+    draw_y = target_cy - center_off - bbox[1]
+    tx = x0 + (w - text_w) // 2 - bbox[0]
+    draw.text((tx, draw_y), label, fill=edge_label, font=font)
+    return (x0, y0, x1, y1)
+
+
+def render_slider(canvas: Image.Image, x: int, y: int, w: int, h: int,
+                   value: float, m: LayoutMetrics, *,
+                   min_value: float = 0.0,
+                   max_value: float = 1.0,
+                   track_kind: str = "slate",
+                   state: str = "unclicked",
+                   show_label: bool = True):
+    """Render a horizontal slider.
+
+    track_kind selects the track look:
+      slate       -- standard lightslate-gray track.
+      lightslate  -- brighter track (lighter gray-blue).
+      disabled    -- flat muted track (still drawable but dim).
+
+    state applies to the thumb (track stays muted in all cases).
+    """
+    """Render a horizontal slider.
+
+    The track is a thin square-cornered bar; the thumb is a square
+    knob ICON_SIZE wide that sits at the value position.
+
+    state:
+      unclicked / hover / clicked / disabled -- applied to the thumb
+      (the track keeps its muted fill in all cases; only the thumb
+      's color changes).
+    """
+    if state not in ("unclicked", "hover", "clicked", "disabled"):
+        raise ValueError(f"unknown slider state: {state}")
+    if track_kind not in ("slate", "lightslate", "disabled"):
+        raise ValueError(f"unknown slider track_kind: {track_kind}")
+
+    # Thumb palette mirrors the red/green/amber/slate families.
+    THUMB_COLORS = {
+        "red":    ("#a82f2f", "#c44f4f", "#8a2424", "#5a1818"),
+        "green":  ("#3b7a4b", "#5fa070", "#2d5b3a", "#1f3d28"),
+        "amber":  ("#c19a3c", "#d8b25a", "#a07c2e", "#5e4721"),
+        "slate":  ("#778899", "#92a3b6", "#5d6e7f", "#3e4754"),
+    }
+    _thumb_hex, thumb_hover, thumb_click, thumb_disabled = THUMB_COLORS["slate"]
+    # Track-kind overrides: when the entire slider is disabled, the
+    # knob also uses the disabled palette regardless of the state.
+    if track_kind == "disabled":
+        thumb_rgb = _hex_to_rgb("#2a2f38")
+    elif track_kind == "slate":
+        thumb_rgb = _hex_to_rgb("#708090")
+    elif track_kind == "lightslate":
+        thumb_rgb = _hex_to_rgb("#778899")
+    elif state == "unclicked":
+        thumb_rgb = _hex_to_rgb("#778899")
+    elif state == "hover":
+        thumb_rgb = _hex_to_rgb(thumb_hover)
+    elif state == "clicked":
+        thumb_rgb = _hex_to_rgb(thumb_click)
+    else:
+        thumb_rgb = _hex_to_rgb(thumb_disabled)
+
+    # Track palette per track_kind. Use the standard CSS values:
+    #   slategray  (#708090) and lightslategray (#778899).
+    # Both are also visible against the dark canvas.
+    TRACK_COLORS = {
+        "slate":       "#708090",
+        "lightslate":  "#778899",
+        "disabled":    "#2a2f38",
+    }
+    track_rgb = _hex_to_rgb(TRACK_COLORS[track_kind])
+    outline_rgb = _hex_to_rgb("#0a0e15")
+
+    draw = ImageDraw.Draw(canvas)
+    x0, y0 = int(x), int(y)
+    x1, y1 = int(x + w), int(y + h)
+
+    # Layout: track mid-Y is y0 + h // 2; thumb extends above and below.
+    track_h = max(6, m.px(10))
+    track_y = y0 + (h - track_h) // 2
+    # The track spans the whole slider width in the kind's color.
+    draw.rectangle(
+        [x0, track_y, x1, track_y + track_h - 1],
+        fill=track_rgb, outline=outline_rgb, width=1,
+    )
+
+    # Filled portion of the track (from left up to thumb center).
+    if max_value > min_value:
+        frac = max(0.0, min(1.0, (value - min_value) / (max_value - min_value)))
+    else:
+        frac = 0.0
+    thumb_w = max(14, m.px(14))
+    thumb_h = h
+    thumb_x = x0 + int(round(frac * (w - thumb_w)))
+    thumb_y = y0
+
+    # Thumb: square body, drawn on top of the track.
+    thumb_edge = _hex_to_rgb("#0a0e15")
+    draw.rectangle(
+        [thumb_x, thumb_y, thumb_x + thumb_w - 1, thumb_y + thumb_h - 1],
+        fill=thumb_rgb, outline=thumb_edge, width=1,
+    )
+    # Optional inner notch for grip.
+    notch_w = max(2, m.px(3))
+    notch_h = max(8, m.px(18))
+    notch_x = thumb_x + (thumb_w - notch_w) // 2
+    notch_y = thumb_y + (thumb_h - notch_h) // 2
+    notch = _lerp_color(thumb_rgb, (0, 0, 0), 0.45)
+    draw.rectangle(
+        [notch_x, notch_y, notch_x + notch_w - 1, notch_y + notch_h - 1],
+        fill=notch,
+    )
+
+    # Optional value label above the slider.
+    if show_label:
+        font = _hud_font(max(8, int(h * 0.40)))
+        text = f"{value:.2f}"
+        bbox = font.getbbox(text)
+        text_w = bbox[2] - bbox[0]
+        # Right-aligned over the thumb.
+        tx = thumb_x + thumb_w // 2 - text_w // 2
+        ty = max(0, y0 - bbox[3] - 2)
+        # White-ish label; dimmed when the slider state is disabled.
+        if state == "disabled":
+            label_rgb = _lerp_color((220, 224, 230), (90, 90, 90), 0.5)
+        else:
+            label_rgb = (220, 224, 230)
+        draw.text((tx - bbox[0], ty - bbox[1]),
+                  text, fill=label_rgb, font=font)
+
+    return (x0, y0, x1, y1)
+
+
+def render_checkbox(canvas: Image.Image, x: int, y: int, size: int,
+                     m: LayoutMetrics, *,
+                     checked: bool = False,
+                     state: str = "unclicked"):
+    """Render a square checkbox.
+
+    state:
+      unclicked -- normal slate box.
+      disabled  -- muted dark gray box, no check glyph even when
+                   ``checked``.
+    """
+    if state not in ("unclicked", "disabled"):
+        raise ValueError(f"unknown checkbox state: {state}")
+    draw = ImageDraw.Draw(canvas)
+    x0, y0, x1, y1 = int(x), int(y), int(x + size), int(y + size)
+    if state == "disabled":
+        bg = _hex_to_rgb("#2a2f38")
+        edge = _hex_to_rgb("#1b1f27")
+    else:
+        bg = _hex_to_rgb("#3e4754")
+        edge = _hex_to_rgb("#0a0e15")
+    draw.rectangle([x0, y0, x1, y1], fill=bg, outline=edge, width=1)
+    if checked and state != "disabled":
+        # Checkmark: a clean two-stroke check.
+        stroke = _hex_to_rgb("#c19a3c")
+        pad = max(3, size // 5)
+        ax = x0 + pad
+        ay = y0 + size // 2
+        bx = x0 + size // 3
+        by = y1 - pad
+        cx = x1 - pad
+        cy = y0 + pad
+        draw.line([(ax, ay), (bx, by)], fill=stroke, width=2)
+        draw.line([(bx, by), (cx, cy)], fill=stroke, width=2)
+    return (x0, y0, x1, y1)
+
+
+def render_radio(canvas: Image.Image, x: int, y: int, size: int,
+                  m: LayoutMetrics, *,
+                  selected: bool = False,
+                  state: str = "unclicked"):
+    """Render a round radio button.
+
+    state:
+      unclicked -- normal slate disk.
+      disabled  -- muted dark gray disk, no inner dot even when
+                   ``selected``.
+    """
+    if state not in ("unclicked", "disabled"):
+        raise ValueError(f"unknown radio state: {state}")
+    draw = ImageDraw.Draw(canvas)
+    cx = int(x + size // 2)
+    cy = int(y + size // 2)
+    if state == "disabled":
+        bg = _hex_to_rgb("#2a2f38")
+        edge = _hex_to_rgb("#1b1f27")
+    else:
+        bg = _hex_to_rgb("#3e4754")
+        edge = _hex_to_rgb("#0a0e15")
+    r_out = size // 2
+    draw.ellipse([cx - r_out, cy - r_out, cx + r_out, cy + r_out],
+                 fill=bg, outline=edge, width=1)
+    if selected and state != "disabled":
+        # Filled inner dot in amber.
+        r_in = max(2, size // 3)
+        fill = _hex_to_rgb("#c19a3c")
+        draw.ellipse([cx - r_in, cy - r_in, cx + r_in, cy + r_in],
+                     fill=fill)
+    return (cx - r_out, cy - r_out, cx + r_out, cy + r_out)
 
 
 def render_top_status_bar(canvas: Image.Image, state: HudState,
@@ -628,69 +935,31 @@ def render_top_status_bar(canvas: Image.Image, state: HudState,
     # top-to-bottom gradient (top darker, bottom brighter). The
     # perimeter is 3D: dark along the top + left edges, light along
     # the bottom + right edges - both wrap around the rounded ends.
-    def _draw_group_well(div, *, pad_l: int = 3, pad_r: int = 3,
-                          pad_t: int = 0, pad_b: int = 0):
-        # The well div's bounds ALREADY include the inner pad; no
-        # further subtraction is needed here.
+    def _draw_group_well(div):
+        # The well div's bounds ALREADY include the inner pad; draw a
+        # square-corner group with a single body color and a 3D-style
+        # border (dark top/left, lighter bottom/right).
         cx = int(div.x * m.s)
         cy = int(div.y * m.s)
         cw = int(div.w * m.s)
         ch = int(div.h * m.s)
         bg = _hex_to_rgb("#29344a")
-        bg_top = _hex_to_rgb("#222d40")
-        bg_bot = _hex_to_rgb("#34405a")
         shadow = _hex_to_rgb("#0a0e15")
         highlight = _hex_to_rgb("#8b9cba")
-        radius = max(4, ch // 2)
-
-        # Body: gradient top->bottom inside a rounded pill mask.
-        body = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
-        bp = body.load()
-        cxr, cyr = (cw - 1) / 2, (ch - 1) / 2
-        rx = (cw - 1) / 2
-        ry = (ch - 1) / 2
-        for j in range(ch):
-            t = j / max(1, ch - 1)
-            row = _lerp_color(bg_top, bg_bot, t)
-            for i in range(cw):
-                dx0 = max(0, abs(i - cxr) - rx + radius)
-                dy0 = max(0, abs(j - cyr) - ry + radius)
-                if (dx0 * dx0 + dy0 * dy0) > radius * radius:
-                    continue
-                bp[i, j] = (*row, 255)
-        canvas.alpha_composite(body, (cx, cy))
-
-        # Build the border by drawing it on a scratch layer, then
-        # compositing shadow layer + highlighted half + shadowed half
-        # via two clip masks.
-        border_layer = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
-        bd = ImageDraw.Draw(border_layer)
-        # Pill outline in shadow color (drawn first).
-        bd.rounded_rectangle(
-            [0, 0, cw - 1, ch - 1],
-            radius=radius, outline=shadow, width=1,
+        # Body.
+        draw.rectangle(
+            [cx, cy, cx + cw - 1, cy + ch - 1],
+            fill=bg,
         )
-        # Top inner shadow gradient: darker band along the top edge.
-        bd.line([(radius, 1), (cw - radius - 1, 1)], fill=bg_top, width=1)
-
-        # Build the highlight half: bottom-right portion of the pill.
-        # Approach: copy the pill border regardless of color, then
-        # composite highlight OVER only the lower-right half by painting
-        # the highlight on the same scratch but masking it.
-        hl_layer = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
-        hd = ImageDraw.Draw(hl_layer)
-        # Bottom + right half-arches: this gives the highlight wrap.
-        hd.arc([cw - 2 * radius, ch - 2 * radius, cw - 1, ch - 1],
-               start=0, end=90, fill=highlight, width=1)
-        hd.arc([0, ch - 2 * radius, 2 * radius - 1, ch - 1],
-               start=90, end=180, fill=highlight, width=1)
-        hd.line([(radius, ch - 1), (cw - radius - 1, ch - 1)],
-                fill=highlight, width=1)
-        bd.line([(cw - 1, radius), (cw - 1, ch - radius - 1)],
-                fill=highlight, width=1)
-
-        canvas.alpha_composite(border_layer, (cx, cy))
-        canvas.alpha_composite(hl_layer, (cx, cy))
+        # 3D border (square corners).
+        # Top + left edges = shadow.
+        draw.line([(cx, cy), (cx + cw - 1, cy)], fill=shadow, width=1)
+        draw.line([(cx, cy), (cx, cy + ch - 1)], fill=shadow, width=1)
+        # Bottom + right edges = highlight.
+        draw.line([(cx, cy + ch - 1), (cx + cw - 1, cy + ch - 1)],
+                  fill=highlight, width=1)
+        draw.line([(cx + cw - 1, cy), (cx + cw - 1, cy + ch - 1)],
+                  fill=highlight, width=1)
 
     layout_divs = layout.get("divs", {})
     hdr = layout_divs.get("header")

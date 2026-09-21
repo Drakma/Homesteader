@@ -1,0 +1,32 @@
+{
+  "id": "biome_maintained_grass",
+  "name": "Maintained Lawn",
+  "priority": 7,
+  "description": "Pristine domestic yard grass displaying alternating directional mower stripes, high turf density, and tidy homestead curb appeal.",
+  "color_hex": "#10b981",
+  "moisture": 0.55,
+  "nutrients": 0.7,
+  "noise": {
+    "frequency": 0.02,
+    "octaves": 2,
+    "persistence": 0.5,
+    "threshold": 0.68,
+    "dither_bandwidth": 0.025
+  },
+  "elevation": {
+    "base_offset_m": 0.3,
+    "noise_amplitude_m": 0.6,
+    "noise_frequency": 0.012,
+    "max_slope_deg": 12.0
+  },
+  "generative_ground": {
+    "shader_mode": "mower_stripes",
+    "primary_color_hex": "#15803d",
+    "secondary_color_hex": "#22c55e",
+    "slope_color_hex": "#4b5563",
+    "pattern_scale": 1.2,
+    "pattern_intensity": 0.65,
+    "normal_micro_roughness": 0.15
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

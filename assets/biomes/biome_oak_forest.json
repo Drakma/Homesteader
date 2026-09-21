@@ -1,0 +1,32 @@
+{
+  "id": "biome_oak_forest",
+  "name": "Oak Woodland",
+  "priority": 5,
+  "description": "Stately hardwood forest with mature broadleaf oaks, shaded understory, fallen acorns, and rich humus-laden topsoil.",
+  "color_hex": "#15803d",
+  "moisture": 0.55,
+  "nutrients": 0.8,
+  "noise": {
+    "frequency": 0.012,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.53,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 3.0,
+    "noise_amplitude_m": 3.5,
+    "noise_frequency": 0.014,
+    "max_slope_deg": 26.0
+  },
+  "generative_ground": {
+    "shader_mode": "leaf_litter",
+    "primary_color_hex": "#166534",
+    "secondary_color_hex": "#3f2c1d",
+    "slope_color_hex": "#57534e",
+    "pattern_scale": 1.6,
+    "pattern_intensity": 0.55,
+    "normal_micro_roughness": 0.3
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

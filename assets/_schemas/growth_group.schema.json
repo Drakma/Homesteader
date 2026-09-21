@@ -1,0 +1,115 @@
+{
+	"category": "growth_group",
+	"note": "Applies to any asset whose manifest sets is_growable: true. A growth group is a normal asset (own folder, own manifest, own category) that additionally owns a growth scheme and a pool of stage resources. The GROUP is authoritative: the scheme (growth_type, max_age, time_unit, stages[]) lives here and nowhere else. Stage folders under stages/ are resources the scheme selects from - they are NOT catalog assets themselves and are never walked by build_full_catalog(). This replaces the older design where every stage item carried its own full duplicate of the shared stages[] array (see kit_config.json growth_groups, retained only for migration).",
+	"target": "root+growth",
+	"required_when": "root is_growable == true",
+	"note_authority": "The ASSET is the authoritative answer for itself. A group's scheme (growth_type, max_age, time_unit, stages[]) is owned by this manifest and nowhere else. kit_config.json growth_groups was only the one-time migration SOURCE for this data - it is not read at runtime and its per-species entries are removed once migrated, so the two can never drift. Per-stage manifests and generated READMEs are likewise not authoritative for the scheme; only this file is.",
+	"root_fields": {
+		"is_growable": {
+			"type": "boolean",
+			"required": true,
+			"note": "TOP-LEVEL on the asset manifest, not inside the growth block. This is the flag that marks the asset itself as a growth group: it is what makes the growth block mandatory and what makes stages/ meaningful. Deliberately at the root so a generic tool can test manifest.is_growable without knowing the growth block's shape. An asset without it is an ordinary item. Never duplicate this inside growth."
+		}
+	},
+	"fields": {
+				"growth_type": {
+			"type": "string",
+			"required": true,
+			"enum": ["tree", "crop", "animal", "percent", "generic"],
+			"note": "Broad lifecycle class. Drives which default rules apply (e.g. whether the group is placeable, harvestable at maturity, rideable). 'generic' is the fallback for anything not clearly tree/crop/animal. 'percent' is the CONSTRUCTION lifecycle (all nine assets/structures groups): it does not advance on its own with time - it advances as the player contributes materials and labour (see each stage manifest's category_fields.construction_recipe and required_tools), so its stages are construction phases (foundation -> framing -> walls -> complete) rather than ages. Because progress is a fraction of a finished build rather than a duration, the scheme is expressed as a percentage of completion: max_age is fixed at 100 and time_unit is 'percent', so each stage claims a band of the build (foundation 0-33, framing 33-66, walls 66-99, complete 99-100)."
+			},
+			"species": {
+			"type": "string",
+			"required": true,
+			"pattern": "^[a-z][a-z0-9_]*$",
+			"note": "Stable species key for this group, matching the group folder id (e.g. 'oak'). Used for lookups and for cross-referencing from other systems (harvest yields, spawning rules). Must be unique across all categories."
+		},
+			"max_age": {
+		"type": "number",
+		"required": true,
+		"min": 1,
+		"note": "Total lifespan in time_unit. The final stage's age_max must equal this value, so a group is fully grown exactly at max_age. For growth_type 'percent' this is always 100 - the build is complete at 100% - so it is a fixed consequence of the class rather than a per-group choice."
+		},
+		"time_unit": {
+		"type": "string",
+		"required": true,
+		"enum": ["days", "hours", "minutes", "percent"],
+		"note": "Unit for all ages in this scheme (age_min, age_max, max_age). 'days' is the norm for trees/crops/animals. For growth_type 'percent' it is always 'percent' - the two go together, and max_age is always 100. The usual 'age' semantics still hold - age_min/age_max stay contiguous and ascending, and the final stage's age_max must still equal max_age - so 'percent' is a relabelling of the same numeric axis (0..100 instead of 0..N days), not a different shape."
+		},
+		"total_stages": {
+			"type": "number",
+			"required": true,
+			"min": 1,
+			"max": 10,
+			"note": "Must equal the length of stages[]. Redundant by design - a cheap integrity check that catches a truncated or hand-edited stages array."
+		},
+		"stages": {
+			"type": "array",
+			"required": true,
+			"min_items": 1,
+			"max_items": 10,
+			"note": "Ordered lifecycle. Each entry selects ONE resource folder from the group's own stages/ directory. Contiguous, non-overlapping, ascending: stages[0].age_min must be 0, each entry's age_max must equal the next entry's age_min, and the last entry's age_max must equal max_age. The STAGE does not own growth data - it is a pointer into the scheme plus a resource selection.",
+			"item_fields": {
+				"stage": {
+					"type": "number",
+					"required": true,
+					"min": 1,
+					"note": "1-based position in the lifecycle. Stage 1 is the youngest (seed/sapling/foal/egg)."
+				},
+				"name": {
+					"type": "string",
+					"required": true,
+					"note": "Human-readable stage name used by the UI and by generated READMEs (e.g. 'sapling', 'small', 'medium', 'mature')."
+				},
+				"age_min": {
+					"type": "number",
+					"required": true,
+					"min": 0,
+					"note": "Inclusive lower age bound in time_unit."
+				},
+				"age_max": {
+					"type": "number",
+					"required": true,
+					"note": "Exclusive upper age bound in time_unit. Must be greater than age_min."
+				},
+				"resource": {
+					"type": "string",
+					"required": true,
+					"note": "Relative path to this stage's resource folder, always of the form 'stages/<folder>/'. The folder holds that stage's manifest, model files, icon, and materials. Relative to the group's own folder, which keeps OBJ/MTL internal references valid and makes migration a folder move rather than a file rewrite."
+				},
+				"model": {
+					"type": "string",
+					"required": true,
+					"note": "Model filename within the stage's resource folder (e.g. 'SM_Tree_Oak_Small.fbx'). Resolved as <resource>/<model>. This is the field the runtime reads to decide what to display at this point in the scheme."
+				},
+					"icon": {
+				"type": "string",
+				"required": false,
+				"note": "Optional per-stage icon filename within the stage's resource folder. The GROUP's own icon (the largest stage's icon, copied to the group root) is what the catalog shows; this is only used for stage-level UI."
+				},
+				"category_fields": {
+				"type": "object",
+				"required": false,
+				"note": "Per-stage data that belongs to the STAGE, not the group - declared here so this one file describes the whole group, but stored on the stage's own manifest at <resource>/<stage_id>.json (a stage is a resource, so its manifest is the authority for its own fields). Which keys are expected is decided by the group's CATEGORY schema (assets/_schemas/<category>.schema.json): a structures stage carries interior_area_m2/room_count/electrical_service_capacity_w/water_supply_capacity_lpm/roof_area_m2 plus the per-stage construction_recipe and required_tools; a farming stage carries crop_species/days_to_mature/season/yield_amount/yields_item_id. Deliberately NOT duplicated onto the group manifest, and never merged upward - a 4-stage building has four DIFFERENT construction_recipe/required_tools sets, one per stage, so a single group-level copy could only ever be wrong for three of them."
+				}
+				}
+				},
+		"icon_stage": {
+			"type": "number",
+			"required": true,
+			"min": 1,
+			"note": "Which stage's icon is promoted to the group's own icon. By convention this is the LARGEST stage (the highest stage number), because the catalog should show the asset at its most recognisable, fully-grown appearance rather than its seed form."
+		}
+	},
+	"directory_layout": {
+		"note": "A growth group owns its resources. Everything below lives under assets/<category>/<species>/.",
+		"files": {
+			"<species>.json": "The group manifest - this schema. Owns the scheme.",
+			"<species>.png": "The group's catalog icon - a copy of the icon_stage stage's icon."
+		},
+		"folders": {
+			"stages/<stage_name>/": "One folder per stage, holding that stage's manifest, model, icon, and materials. Named by the stage's readable name (e.g. stages/tree_sapling/). These are resources, not assets."
+		}
+	},
+	"migration_note": "Migrating an existing group from kit_config.json growth_groups: create the group folder, move each referenced item folder to stages/<stage_name>/ intact (a folder move, so FBX/MTL/PNG and their internal relative references survive untouched), and write the group manifest from the kit_config.json scheme - which is authoritative over the per-item manifests and the generated READMEs, both of which are known to be stale or drifted. Do NOT merge per-stage properties into the group manifest; per-stage data stays with its stage."
+}

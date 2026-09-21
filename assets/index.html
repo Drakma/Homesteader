@@ -1150,6 +1150,280 @@
       gap: 0;
     }
 
+    /* ---- Growth Group split view ------------------------------------------
+       Replaces the gallery grid while a growth group is open. Stages ascend
+       down the left rail; the group's authoritative scheme reports on the
+       right. Clicking a stage opens that single stage in the item modal. */
+    body.growth-group-mode .item-grid {
+      display: grid;
+      grid-template-columns: minmax(240px, 320px) 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .gg-stage-rail {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: sticky;
+      top: 0;
+      max-height: calc(100vh - 190px);
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .gg-rail-head {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent-emerald);
+      padding: 0 2px 2px;
+    }
+
+    /* One card per stage, in ascending stage order. */
+    .gg-stage-card {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .gg-stage-card:hover {
+      border-color: rgba(16, 185, 129, 0.55);
+      border-left-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.07);
+      transform: translateX(2px);
+    }
+
+    /* A stage with no mesh on disk is shown, not hidden - it is still a real
+       declared stage - but it is clearly inert. */
+    .gg-stage-card.gg-no-mesh {
+      opacity: 0.5;
+      cursor: default;
+      border-left-style: dashed;
+    }
+
+    .gg-stage-card.gg-no-mesh:hover {
+      transform: none;
+      border-color: var(--border-subtle);
+      border-left-color: var(--border-subtle);
+      background: var(--bg-card);
+    }
+
+    .gg-stage-thumb {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+
+    /* No icon file for this stage. Show a visible placeholder rather than an
+       empty well, so "no icon" is distinguishable from "failed to load". */
+    .gg-thumb-missing {
+      background-image: linear-gradient(135deg, rgba(148, 163, 184, 0.18) 25%, transparent 25%, transparent 50%, rgba(148, 163, 184, 0.18) 50%, rgba(148, 163, 184, 0.18) 75%, transparent 75%, transparent);
+      background-size: 12px 12px;
+      border-style: dashed;
+      opacity: 0.6;
+    }
+
+    .gg-stage-num {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--accent-emerald);
+    }
+
+    .gg-stage-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 1px;
+    }
+
+    .gg-stage-age {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    .gg-stage-flag {
+      font-size: 9.5px;
+      color: #fbbf24;
+      margin-top: 3px;
+    }
+
+    /* Right column: the scheme the group manifest declares. */
+    .gg-scheme {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .gg-scheme-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .gg-kv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 9px;
+    }
+
+    /* Editable scheme fields. Styled to read as the same box as a read-only
+       kv-box, but focusable, so the panel stays one consistent grid. */
+    .gg-input {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 12px;
+      font-family: inherit;
+      padding: 4px 7px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .gg-input:focus {
+      outline: none;
+      border-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .gg-scheme-actions {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    /* Editable stage table. Columns are sized to the content they hold - a
+       stage name and a model filename are the long fields, the ages are
+       short - so the grid stays readable without wrapping. */
+    .gg-stage-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .gg-se-head,
+    .gg-se-row {
+      display: grid;
+      grid-template-columns: 26px 1.1fr 74px 74px 1.5fr 1.2fr;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .gg-se-head {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 2px;
+    }
+
+    .gg-se-row {
+      padding: 5px 2px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .gg-se-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      text-align: center;
+    }
+
+    .gg-se-row .gg-input {
+      font-size: 11px;
+      padding: 4px 6px;
+    }
+
+    .gg-save-btn {
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      border-radius: var(--radius-sm);
+      color: var(--accent-emerald);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .gg-save-btn:hover:not(:disabled) {
+      background: rgba(16, 185, 129, 0.28);
+      border-color: var(--accent-emerald);
+    }
+
+    .gg-save-btn:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .gg-save-note {
+      font-size: 11.5px;
+      color: #fbbf24;
+    }
+
+    .gg-warn {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.42);
+      border-radius: var(--radius-sm);
+      padding: 8px 11px;
+      color: #fbbf24;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    /* Lifespan bar: every stage drawn to scale across max_age so stage lengths
+       are comparable at a glance rather than only as numbers. */
+    .gg-lifespan {
+      display: flex;
+      height: 34px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #0e141c;
+    }
+
+    .gg-lifespan-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #04120b;
+      border-right: 1px solid rgba(0, 0, 0, 0.45);
+      white-space: nowrap;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .gg-lifespan-seg:last-child {
+      border-right: none;
+    }
+
     /* Item Card */
     .item-card {
       background: var(--bg-card);
@@ -3175,6 +3449,13 @@
       overflow: hidden;
     }
 
+    /* A growth stage shows ONLY the model preview and its files list, so the
+       inspector column is hidden (see applyStageModalMode) and the viewport
+       takes the whole width instead of leaving an empty second column. */
+    .modal-body.stage-modal-mode {
+      grid-template-columns: 1fr;
+    }
+
     /* Left Column: stage rail + 3D Viewport */
     .modal-viewport-col {
       background: #080c12;
@@ -3975,23 +4256,8 @@
 
       <!-- Modal Body (3D Viewport on Left, Human-Readable Inspector on Right) -->
       <div class="modal-body">
-        <!-- Left: 3D Viewport (+ stage rail on a growth group).
-             A growth group owns the authoritative scheme, so its whole
-             lifecycle is shown as a strip of stage cards here. Clicking a card
-             swaps that stage's mesh into the single viewport below - the stages
-             share a world scale and orientation, so they are directly
-             comparable there and the model logic stays exactly as it is.
-             Ordinary items have no scheme, so the rail stays hidden. -->
+        <!-- Left: 3D Viewport -->
         <div class="modal-viewport-col" id="m-viewport-col">
-          <div class="growth-rail" id="m-growth-rail" style="display:none;">
-            <div class="growth-rail-title">
-              <span>🌱 Growth Progression</span>
-              <span id="m-growth-rail-stage" style="font-weight:600; letter-spacing:0;"></span>
-            </div>
-            <div class="growth-rail-list" id="m-growth-rail-list">
-              <!-- Stage cards inserted dynamically -->
-            </div>
-          </div>
           <div class="viewport-canvas-wrap" id="viewport-wrap">
             <!-- model-viewer for GLB or Three.js canvas for OBJ inserted here -->
           </div>
@@ -4150,17 +4416,12 @@
           <!-- Growth Group Scheme.
                The group manifest is AUTHORITATIVE for the scheme, so this
                reports what that manifest declares: growth type, species,
-               lifespan, and each stage's age window drawn to scale. It is a
-               read-only report - edits go through the manifest editor below,
-               so the manifest stays the single source. -->
+               lifespan, and each stage's age window drawn to scale. -->
           <div class="info-section" id="sec-growth">
-            <div class="info-sec-title">🌱 Growth Group Scheme<span class="collapse-chevron">▼</span></div>
+            <div class="info-sec-title">🌱 4-Stage Growth Progression<span class="collapse-chevron">▼</span></div>
             <div class="info-sec-body">
-              <div class="kv-grid" id="m-growth-facts">
-                <!-- Scheme facts inserted dynamically -->
-              </div>
               <div class="growth-stepper" id="m-growth-stepper">
-                <!-- Age bars inserted dynamically -->
+                <!-- Steps inserted dynamically -->
               </div>
             </div>
           </div>
@@ -6003,6 +6264,12 @@
 
     function openRenameDialog(it) {
       if (!it) return;
+      // Same hazard as delete: the stage's folder is the GROUP's, so a rename
+      // would target a path that does not exist. Rename the group itself.
+      if (it.is_growth_stage) {
+        showToast("A growth stage is renamed through its group's scheme, not on its own.", "warning");
+        return;
+      }
       assetToRename = it;
       const dialog = document.getElementById("rename-dialog");
       const nameInput = document.getElementById("rename-name-input");
@@ -6167,6 +6434,15 @@
 
     function requestDeleteAsset(it) {
       if (!it) return;
+      // A growth stage is a resource folder inside its group, not a catalog
+      // asset. `it.id` here is the stage's own id while the folder it actually
+      // lives in belongs to the GROUP, so the delete API - which takes a plain
+      // category+item_id pair - would trash the entire group. Stages are
+      // edited through their group's scheme instead (see saveGroup).
+      if (it.is_growth_stage) {
+        showToast("A growth stage is edited through its group's scheme, not deleted on its own.", "warning");
+        return;
+      }
       const confirmDialog = document.getElementById("confirm-delete-dialog");
       document.getElementById("confirm-delete-msg").innerText = `Move "${it.name}" (${it.id}) to the trash? You can restore it later from the 🗑️ status-bar can.`;
       document.getElementById("confirm-delete-path").innerText = `assets/${it.category}/${it.id}/`;
@@ -10392,7 +10668,15 @@
       const countEl = document.getElementById("m-files-count");
       listEl.innerHTML = `<div style="padding: 8px 0; color: var(--text-muted); font-size: 11.5px;">Loading…</div>`;
       try {
-        const res = await fetch(`/api/item-files?category=${encodeURIComponent(it.category)}&id=${encodeURIComponent(it.id)}`, { cache: "no-store" });
+        // A growth stage is a nested resource folder, so "list this item's
+        // folder" is the GROUP's id plus the stage's resource path - not the
+        // stage id, which names no folder the server can walk to.
+        const q = new URLSearchParams({ category: it.category, id: it.id });
+        if (it.is_growth_stage && it.growth_group_id) {
+          q.set("id", it.growth_group_id);
+          q.set("resource", it.growth_group_resource || "");
+        }
+        const res = await fetch(`/api/item-files?${q.toString()}`, { cache: "no-store" });
         const data = await res.json();
         if (!res.ok || !data.success) throw new Error(data?.error || "Failed to list files");
         const files = data.files || [];
@@ -11177,16 +11461,397 @@
       if (galleryEl) galleryEl.scrollTop = 0;
     }
 
+    /* ---- Growth Group split view ------------------------------------------
+       A growth group owns the authoritative scheme, so when one is open the
+       collection view becomes a two-column report instead of a card grid:
+       stages ascending on the left, the group's scheme on the right. Clicking
+       a stage opens that ONE stage in the regular item modal, so the model
+       loader is reused unchanged and a stage is never decoupled from the
+       manifest that declares it.
+
+       Stage -> item resolution: the manifest's stages[] entries carry a
+       `resource` + `model` pair, while a UI-created group in kit_config.json
+       carries an explicit `item_id`. Prefer item_id; otherwise derive the
+       stage item id the same way the generator names it, then look it up in
+       ALL_ITEMS. A stage that resolves to no item, or to an item with no mesh,
+       is still SHOWN (it is a declared stage) but is not clickable. */
+    function resolveStageItem(sp, st) {
+      const byId = (id) => ALL_ITEMS.find(x => x.id === id && x.category === sp.category) ||
+                            ALL_ITEMS.find(x => x.id === id);
+      if (st.item_id) return byId(st.item_id) || null;
+
+      // Derive from the resource/model descriptor: the stage folder basename
+      // matches the stage item's own id (e.g. stages/crop_sprout/ -> the item
+      // whose folder is crop_sprout_<species>).
+      const folder = (st.resource || "").replace(/\/+$/, "").split("/").pop();
+      if (!folder) return null;
+      const exact = byId(folder);
+      if (exact) return exact;
+      // Stage folders are usually <stage>_<species>; try that composite too.
+      return byId(`${folder}_${sp.species}`) || null;
+    }
+
+    // Opens the item modal for ONE growth stage.
+    //
+    // A stage is a resource folder inside its group, not a catalog asset -
+    // build_full_catalog() skips the "stages" directory, so resolveStageItem()
+    // usually returns null for it and there is no ALL_ITEMS entry to pass to
+    // openItemModal. Ask the server to build the entry from the stage folder's
+    // own manifest instead. `fallbackItem` is the resolved catalog item when
+    // one happened to exist, used only if the fetch fails so a stage is never
+    // unopenable.
+    async function openStageModal(sp, st, fallbackItem) {
+      try {
+        const q = new URLSearchParams({
+          category: sp.category,
+          id: sp.species,
+          resource: st.resource || "",
+        });
+        const res = await fetch(`/api/catalog-entry?${q.toString()}`, { cache: "no-store" });
+        const data = await res.json();
+        if (res.ok && data.success && data.entry) {
+          openItemModal(data.entry);
+          return;
+        }
+        throw new Error((data && data.error) || "Could not load this stage");
+      } catch (err) {
+        console.error("Open stage error:", err);
+        // A stage with a resolvable catalog item can still fall back to it;
+        // otherwise say so rather than silently doing nothing on click.
+        if (fallbackItem) {
+          openItemModal(fallbackItem);
+        } else {
+          showToast(`Could not open stage ${st.stage}: ${err.message}`, "error");
+        }
+      }
+    }
+
+    function renderGrowthGroupView(grid) {
+      const sp = activeSubfolder;
+      const g = GROWTH_GROUPS[sp.species] || {};
+      const stages = Array.isArray(g.stages) ? g.stages.slice() : [];
+
+      // Ascending stage order is the whole point of a lifecycle rail.
+      stages.sort((a, b) => (a.stage ?? 0) - (b.stage ?? 0));
+
+      // The gallery-mode body class is what turns .item-grid into the split
+      // layout; it is cleared on every other path out of renderGallery().
+      document.body.classList.remove("biome-editor-mode");
+      document.body.classList.add("growth-group-mode");
+      grid.innerHTML = "";
+
+      const maxAge = Number(g.max_age) || 0;
+      const timeUnit = g.time_unit || "days";
+      const totalStages = Number(g.total_stages);
+
+      // ---- Left: the stage rail -----------------------------------------
+      const rail = document.createElement("div");
+      rail.className = "gg-stage-rail";
+
+      // No rail header: the stage count is already reported in the scheme
+      // panel's read-only "Stages" box, and the newest stage is called
+      // "complete", not "last", so the old copy read as noise.
+
+      let withMesh = 0;
+
+      stages.forEach(st => {
+        const it = resolveStageItem(sp, st);
+        // A stage is a resource folder, not a catalog asset, so ALL_ITEMS is
+        // the wrong place to ask whether it has a mesh. The manifest's own
+        // stages[] entry declares `model` when one exists - trust that first,
+        // and fall back to a resolvable catalog item only if it does not.
+        const hasMesh = !!st.model || !!(it && it.has_3d);
+        if (hasMesh) withMesh++;
+
+        const card = document.createElement("div");
+        card.className = `gg-stage-card${hasMesh ? "" : " gg-no-mesh"}`;
+        // Every stage opens the modal, mesh or not. A meshless stage falls
+        // through to the modal's own 2D fallback (see setup3DViewport), which
+        // shows the stage icon and a "no 3D mesh" note - so a stage is never a
+        // dead card. Stages are resources rather than catalog assets, so the
+        // entry is built on demand from the stage folder's own manifest via
+        // /api/catalog-entry?resource=<stage resource>.
+        card.title = `Open stage ${st.stage} (${st.name})`;
+        card.onclick = () => openStageModal(sp, st, it);
+
+        // The stage's icon comes from the group manifest, NOT from ALL_ITEMS.
+        // build_full_catalog() skips the "stages" directory outright, so a
+        // stage item is never a catalog asset and resolveStageItem() returns
+        // null for it - reading it.icon there left every rail thumb blank.
+        // The stages[] entry already names its own icon, so build the path
+        // straight from it: <category>/<group>/<stages/xyz>/<icon>.
+        const resDir = (st.resource || "").replace(/^\/+|\/+$/g, "");
+        const stageIcon = st.icon
+          ? [sp.category, sp.species, resDir, st.icon].filter(Boolean).join("/")
+          : "";
+        const thumb = stageIcon
+          ? `<img class="gg-stage-thumb" src="${stageIcon}" alt="${st.name}" loading="lazy" onerror="this.style.visibility='hidden'; this.parentElement.classList.add('gg-thumb-missing')">`
+          : `<div class="gg-stage-thumb gg-thumb-missing"></div>`;
+
+        // "days" is the common case and reads better as a bare "d"; any other
+        // unit is spelled out. Built here so the template stays quote-free.
+        const unitSuffix = timeUnit === "days" ? "d" : ` ${timeUnit}`;
+        const ageLabel = `${st.age_min}-${st.age_max}${unitSuffix}`;
+
+        card.innerHTML = `
+          ${thumb}
+          <div>
+            <div class="gg-stage-num">STAGE ${st.stage}</div>
+            <div class="gg-stage-name">${st.name}</div>
+            <div class="gg-stage-age">${ageLabel}</div>
+            ${hasMesh ? "" : '<div class="gg-stage-flag">no mesh on disk</div>'}
+          </div>
+        `;
+        rail.appendChild(card);
+      });
+
+      grid.appendChild(rail);
+
+      // ---- Right: the scheme report -------------------------------------
+      const scheme = document.createElement("div");
+      scheme.className = "gg-scheme";
+
+      const kv = (key, val) => `
+        <div class="kv-box">
+          <div class="kv-key">${key}</div>
+          <div class="kv-val">${val}</div>
+        </div>
+      `;
+
+      const lifespan = maxAge ? `${maxAge} ${timeUnit}` : "—";
+      const iconStage = g.icon_stage != null ? g.icon_stage : "—";
+
+      // The scheme fields are editable in place. `Stages` and `Meshes On Disk`
+      // stay read-only: they are derived from the stages[] array and from what
+      // is physically on disk, not scheme values the user owns.
+      const field = (key, id, val, type) => `
+        <div class="kv-box">
+          <div class="kv-key">${key}</div>
+          <input class="gg-input" id="${id}" type="${type}" value="${val == null ? "" : val}">
+        </div>
+      `;
+
+      scheme.innerHTML = `
+        <div class="gg-scheme-title">🌱 ${sp.icon || ""} ${g.name || sp.name}</div>
+        <div class="gg-kv-grid">
+          ${field("Display Name", "gg-f-name", g.name || sp.name, "text")}
+          ${field("Growth Type", "gg-f-growth-type", g.growth_type || "", "text")}
+          ${field("Species", "gg-f-species", g.species || sp.species, "text")}
+          ${field("Max Age", "gg-f-max-age", maxAge || "", "number")}
+          ${field("Time Unit", "gg-f-time-unit", timeUnit, "text")}
+          ${field("Icon Stage", "gg-f-icon-stage", g.icon_stage != null ? g.icon_stage : "", "number")}
+          ${kv("Stages", stages.length)}
+          ${kv("Meshes On Disk", `${withMesh} / ${stages.length}`)}
+          <div class="kv-box">
+            <div class="kv-key">Lifespan</div>
+            <div class="kv-val">${lifespan}</div>
+          </div>
+        </div>
+          <div class="gg-rail-head">Stages · editable</div>
+          <div class="gg-stage-editor">
+            <div class="gg-se-head">
+              <div>#</div>
+              <div>Name</div>
+              <div>Age Min</div>
+              <div>Age Max</div>
+              <div>Model</div>
+              <div>Icon</div>
+            </div>
+            ${stages.map(st => {
+              const n = Number(st.stage) || 0;
+              const esc = (v) => String(v == null ? "" : v).replace(/"/g, "&quot;");
+              return `
+                <div class="gg-se-row" data-stage="${n}">
+                  <div class="gg-se-num">${n}</div>
+                  <input class="gg-input gg-se-name" value="${esc(st.name)}">
+                  <input class="gg-input gg-se-agemin" type="number" value="${st.age_min != null ? st.age_min : ""}">
+                  <input class="gg-input gg-se-agemax" type="number" value="${st.age_max != null ? st.age_max : ""}">
+                  <input class="gg-input gg-se-model" value="${esc(st.model)}" placeholder="(none)">
+                  <input class="gg-input gg-se-icon" value="${esc(st.icon)}" placeholder="(none)">
+                </div>
+              `;
+            }).join("")}
+          </div>
+          <div class="gg-scheme-actions">
+            <button class="gg-save-btn" id="gg-save-scheme">💾 Save Scheme</button>
+            <span class="gg-save-note" id="gg-save-note"></span>
+          </div>
+        `;
+
+        // Wire the save on the next tick: the inputs must exist in the DOM first.
+        setTimeout(() => {
+          const btn = document.getElementById("gg-save-scheme");
+          if (btn) btn.onclick = () => saveGroup(sp);
+        }, 0);
+
+        // Surface a declared-vs-actual stage-count mismatch rather than letting
+        // the manifest quietly disagree with itself.
+      if (Number.isFinite(totalStages) && totalStages !== stages.length) {
+        const warn = document.createElement("div");
+        warn.className = "gg-warn";
+        warn.innerText = `⚠️ Manifest declares total_stages = ${totalStages} but lists ${stages.length} stage(s).`;
+        scheme.appendChild(warn);
+      }
+
+      // Same for the age windows: the last stage's age_max should land on
+      // max_age, otherwise the lifespan bar below cannot fill all the way.
+      const lastMax = stages.length ? Number(stages[stages.length - 1].age_max) : 0;
+      if (maxAge && lastMax && lastMax !== maxAge) {
+        const warn = document.createElement("div");
+        warn.className = "gg-warn";
+        warn.innerText = `⚠️ Final stage ends at ${lastMax} ${timeUnit} but max_age is ${maxAge} ${timeUnit}.`;
+        scheme.appendChild(warn);
+      }
+
+      // Age windows drawn to scale across the lifespan.
+      if (maxAge > 0 && stages.length) {
+        const barLabel = document.createElement("div");
+        barLabel.className = "gg-rail-head";
+        barLabel.innerText = `Lifecycle · ${maxAge} ${timeUnit}`;
+        scheme.appendChild(barLabel);
+
+        const bar = document.createElement("div");
+        bar.className = "gg-lifespan";
+        stages.forEach((st, i) => {
+          const span = Math.max(0, (Number(st.age_max) || 0) - (Number(st.age_min) || 0));
+          const seg = document.createElement("div");
+          seg.className = "gg-lifespan-seg";
+          seg.style.flex = `${span} 0 0`;
+          // Alternate shades so adjacent stages stay distinguishable when the
+          // spans are similar lengths.
+          seg.style.background = i % 2 === 0
+            ? "rgba(16, 185, 129, 0.85)"
+            : "rgba(16, 185, 129, 0.55)";
+          seg.title = `Stage ${st.stage} · ${st.name} · ${st.age_min}-${st.age_max} ${timeUnit}`;
+          seg.innerText = span > 0 ? st.name : "";
+          bar.appendChild(seg);
+        });
+        scheme.appendChild(bar);
+      }
+
+      grid.appendChild(scheme);
+    }
+
+    // Persists the editable scheme fields back to the GROUP's own manifest at
+    // <category>/<group>/<group>.json. Deliberately a separate endpoint from
+    // /api/growth-groups: that one expects every stage to be its own catalog
+    // asset and rewrites each member's manifest, which would fail outright on
+    // a migrated group whose stages are resource folders the catalog skips.
+    async function saveGroup(sp) {
+      const btn = document.getElementById("gg-save-scheme");
+      const note = document.getElementById("gg-save-note");
+      const val = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+      };
+      // Per-stage rows from the stage editor. Sent whole (every row, every
+      // field) rather than as a diff: the server matches by stage number, so
+      // a full send is both simpler and self-correcting if a field was
+      // cleared. Row values are strings here; the server coerces and
+      // validates ages, and rejects an empty resource/model.
+      const stageEdits = [];
+      document.querySelectorAll(".gg-stage-editor .gg-se-row").forEach(row => {
+        const n = parseInt(row.dataset.stage, 10);
+        if (!Number.isFinite(n)) return;
+        const get = (sel) => {
+          const el = row.querySelector(sel);
+          return el ? el.value.trim() : "";
+        };
+        const entry = {
+          stage: n,
+          name: get(".gg-se-name"),
+          model: get(".gg-se-model"),
+          icon: get(".gg-se-icon"),
+        };
+        const amin = get(".gg-se-agemin");
+        const amax = get(".gg-se-agemax");
+        if (amin !== "") entry.age_min = amin;
+        if (amax !== "") entry.age_max = amax;
+        // resource/model are only sent when the row actually has a model -
+        // the server requires both together, and a stage legitimately has
+        // neither while it is still an icon-only placeholder.
+        if (entry.model) {
+          // Keep the stage's existing resource folder - it is where the model
+          // actually lives, and renaming it here would break the reference.
+          // A stage that had none yet must already have a folder, because a
+          // model only exists inside one: every stage resource folder is
+          // created when its manifest is written, and that manifest's id names
+          // the folder. Deliberately NOT inventing a name such as
+          // `stages/struct_<n>/` - model filenames and folder names are the
+          // author's choice, not a convention the UI may impose.
+          const cur = (stages.find(s => Number(s.stage) === n) || {}).resource;
+          if (!cur) {
+            if (note) note.innerText = `⚠️ Stage ${n} has no resource folder to place that model in.`;
+            return;
+          }
+          entry.resource = cur;
+        } else {
+          delete entry.model;
+        }
+        if (!entry.icon) delete entry.icon;
+        stageEdits.push(entry);
+      });
+
+      const payload = {
+        category: sp.category,
+        group_id: sp.species,
+        name: val("gg-f-name"),
+        growth_type: val("gg-f-growth-type"),
+        species: val("gg-f-species"),
+        max_age: val("gg-f-max-age"),
+        time_unit: val("gg-f-time-unit"),
+        icon_stage: val("gg-f-icon-stage"),
+        stages: stageEdits,
+      };
+
+      if (btn) { btn.disabled = true; btn.innerText = "Saving..."; }
+      if (note) note.innerText = "";
+
+      try {
+        const res = await fetch("/api/save-group-scheme", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          // Keep the in-memory group in step with what was just written so the
+          // panel does not lie about the saved state.
+          const gi = GROWTH_GROUPS[sp.species];
+          if (gi) {
+            gi.name = data.manifest.name;
+            Object.assign(gi, data.manifest.growth || {});
+          }
+          sp.name = data.manifest.name;
+          if (SPECIES_META[sp.species]) SPECIES_META[sp.species].name = data.manifest.name;
+          showToast(`💾 Scheme for '${sp.species}' saved.`, "success");
+          renderGallery();
+        } else {
+          const msg = (data && data.error) || "Failed to save scheme";
+          if (note) note.innerText = `⚠️ ${msg}`;
+          showToast(`Error: ${msg}`, "error");
+        }
+      } catch (err) {
+        console.error("Save group scheme error:", err);
+        if (note) note.innerText = `⚠️ ${err.message}`;
+        showToast(`Server error: ${err.message}`, "error");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "💾 Save Scheme"; }
+      }
+    }
+
     function renderGallery() {
       const grid = document.getElementById("item-grid");
 
       // Biome editor takes over the collection view entirely when a biome is selected.
       if (sidebarMode === "biomes" && activeBiomeId) {
+        document.body.classList.remove("growth-group-mode");
         renderBiomeEditorView(grid);
         return;
       }
       // Schema editor takes over the collection view when a schema is selected.
       if (sidebarMode === "schemas" && activeSchemaName) {
+        document.body.classList.remove("growth-group-mode");
         renderSchemaEditorView(grid);
         return;
       }
@@ -11195,13 +11860,22 @@
       // the Add action) but no cards and none of the previous category content.
       if (sidebarMode === "biomes" || sidebarMode === "schemas") {
         document.body.classList.remove("biome-editor-mode");
+        document.body.classList.remove("growth-group-mode");
         grid.innerHTML = "";
         renderTabBanner();
         return;
       }
 
+      // A growth group takes over the collection view with the split report,
+      // the same way the biome editor does above.
+      if (activeSubfolder && GROWTH_GROUPS[activeSubfolder.species]) {
+        renderGrowthGroupView(grid);
+        return;
+      }
+
       // Back to the normal gallery: restore the header banner.
       document.body.classList.remove("biome-editor-mode");
+      document.body.classList.remove("growth-group-mode");
 
       grid.innerHTML = "";
 
@@ -11358,23 +12032,17 @@
 
           const folderCard = document.createElement("div");
           folderCard.className = "folder-card growth-group-card";
-          folderCard.title = `Click to open ${meta.name} group (${spItems.length} stage${spItems.length === 1 ? "" : "s"}) — showing ${mostMature ? mostMature.name : ""}`;
+          folderCard.title = `Click to open the ${meta.name} group`;
           folderCard.onclick = () => openSubfolder(sp, meta, spItems[0].category);
 
           folderCard.innerHTML = `
-            <div class="folder-tab">🌱 Growth Group</div>
+            <div class="folder-tab">Group</div>
             <div class="folder-thumb-stack">
               <img src="${bestThumb || ''}" alt="${meta.name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'64\' height=\'64\'><rect width=\'64\' height=\'64\' fill=\'%2316202e\'/><text x=\'32\' y=\'36\' font-size=\'24\' text-anchor=\'middle\' fill=\'%2364748b\'>📦</text></svg>'">
-              <span class="folder-count-badge">🌱 ${spItems.length} stage${spItems.length === 1 ? "" : "s"}</span>
             </div>
             <div class="folder-name" title="${meta.name}">${meta.icon} ${meta.name}</div>
             <div class="folder-meta">
               <span>${spItems[0].category.toUpperCase()}</span>
-              <span>•</span>
-              <span>Growth Group</span>
-            </div>
-            <div class="folder-action-cue">
-              <span>Open Group</span> <span>➔</span>
             </div>
           `;
           grid.appendChild(folderCard);
@@ -14587,6 +15255,7 @@
     /* Open & Populate Item Modal */
     function openItemModal(it) {
       activeItem = it;
+      applyStageModalMode(!!it.is_growth_stage);
       const delBtn = document.getElementById("m-delete-btn");
       if (delBtn) {
         delBtn.onclick = () => requestDeleteAsset(it);
@@ -14723,51 +15392,16 @@
       const growthSec = document.getElementById("sec-growth");
       if (isGrowable && Array.isArray(g.stages) && g.stages.length > 0) {
         growthSec.style.display = "block";
-        const facts = document.getElementById("m-growth-facts");
-        if (facts) {
-          const unit = g.time_unit || "days";
-          const total = g.total_stages != null ? g.total_stages : g.stages.length;
-          const ageSpan = g.max_age != null ? `${g.max_age} ${unit}` : "—";
-          const withMesh = g.stages.filter(s => (s.model || "").trim()).length;
-          const mismatches = [];
-          if (g.total_stages != null && g.total_stages !== g.stages.length) {
-            mismatches.push(`total_stages (${g.total_stages}) != stages (${g.stages.length})`);
-          }
-          const last = g.stages[g.stages.length - 1];
-          if (last && g.max_age != null && last.age_max !== g.max_age) {
-            mismatches.push(`final age_max (${last.age_max}) != max_age (${g.max_age})`);
-          }
-          facts.innerHTML = `
-            <div class="kv-box"><div class="kv-key">Growth Type</div><div class="kv-val">${g.growth_type || "—"}</div></div>
-            <div class="kv-box"><div class="kv-key">Species</div><div class="kv-val">${g.species || "—"}</div></div>
-            <div class="kv-box"><div class="kv-key">Lifespan</div><div class="kv-val">${ageSpan}</div></div>
-            <div class="kv-box"><div class="kv-key">Stages</div><div class="kv-val">${total}</div></div>
-            <div class="kv-box"><div class="kv-key">Icon Stage</div><div class="kv-val">${g.icon_stage != null ? g.icon_stage : "—"}</div></div>
-            <div class="kv-box"><div class="kv-key">Stages W/ Mesh</div><div class="kv-val">${withMesh} / ${g.stages.length}</div></div>
-            ${mismatches.length ? `<div class="kv-box" style="grid-column:1/-1;"><div class="kv-key" style="color:#fbbf24;">⚠️ Integrity</div><div class="kv-val" style="color:#fbbf24;font-size:11px;">${mismatches.join(" · ")}</div></div>` : ""}
-          `;
-        }
-
-        // Age bars, drawn to scale across the lifespan so the windows are
-        // comparable at a glance rather than only listed as numbers.
         const stepper = document.getElementById("m-growth-stepper");
         stepper.innerHTML = "";
-        const span = (g.max_age && g.max_age > 0) ? g.max_age : null;
         g.stages.forEach(st => {
-          const isCur = g.current_stage && g.current_stage.stage === st.stage;
+          const isCur = g.current_stage?.stage === st.stage;
           const stepDiv = document.createElement("div");
           stepDiv.className = `growth-step ${isCur ? "active" : ""}`;
-          let bar = "";
-          if (span && st.age_max > st.age_min) {
-            const startPct = Math.max(0, (st.age_min / span) * 100);
-            const widthPct = Math.min(100 - startPct, ((st.age_max - st.age_min) / span) * 100);
-            bar = `<div class="step-bar" style="margin-left:${startPct}%;width:${widthPct}%;"></div>`;
-          }
           stepDiv.innerHTML = `
             <div class="step-num">STAGE ${st.stage}</div>
             <div class="step-name">${st.name}</div>
-            <div class="step-age">${st.age_min} - ${st.age_max}${(g.time_unit || "days").charAt(0)}</div>
-            ${bar}
+            <div class="step-age">${st.age_min} - ${st.age_max}d</div>
           `;
           stepper.appendChild(stepDiv);
         });
@@ -14779,21 +15413,8 @@
       document.getElementById("m-json-filename").innerText = `${it.id}.json`;
       setManifestEditorContent(JSON.stringify(it.manifest, null, 2));
 
-      // Growth Progression rail (groups only). Rendered BEFORE the viewport
-      // because it decides which stage's mesh the viewport opens on.
-      buildGrowthRail(it);
-
-      // 3D Model Viewport Setup.
-      // A growth group opens on its icon_stage - the same stage the catalog
-      // uses to represent it - so the modal agrees with the gallery card.
-      const st0 = (Array.isArray(g.stages) ? g.stages : []).find(
-        s => s.stage === g.icon_stage);
-      const rel0 = (isGrowable && st0) ? stageModelPath(it, st0) : null;
-      if (rel0) {
-        showStageModel(it, st0, rel0, null);
-      } else {
-        setup3DViewport(it);
-      }
+      // 3D Model Viewport Setup
+      setup3DViewport(it);
 
       // Every file physically on disk for this item, not just what the
       // manifest's models[] array mentions
@@ -14802,88 +15423,34 @@
       modal.showModal();
     }
 
-    /* Resolve one stage's model to a URL the viewport can load.
-
-       A stage is a RESOURCE folder, not a catalog item, so its model is
-       addressed from the group's own manifest: <category>/<group>/<resource>/<model>.
-       The page is served from the assets root, so that path is already
-       relative to it. Returns null when the stage has no mesh, which is real
-       for early construction phases and a few tree stages. */
-    function stageModelPath(it, st) {
-      const resource = (st.resource || "").replace(/^\/+|\/+$/g, "");
-      const model = (st.model || "").trim();
-      if (!resource || !model) return null;
-      return `${it.category}/${it.id}/${resource}/${model}`;
-    }
-
-    /* Growth Progression rail - one card per stage, in the left column.
-
-       Stages whose mesh is missing on disk are shown but not clickable, rather
-       than silently vanishing: knowing a stage has no mesh is the point. */
-    function buildGrowthRail(it) {
-      const rail = document.getElementById("m-growth-rail");
-      const list = document.getElementById("m-growth-rail-list");
-      const stageLabel = document.getElementById("m-growth-rail-stage");
-      if (!rail || !list) return;
-
-      const g = it.growth || {};
-      const stages = Array.isArray(g.stages) ? g.stages : [];
-      if (!(it.is_growable || g.is_growable) || stages.length === 0) {
-        rail.style.display = "none";
-        list.innerHTML = "";
-        return;
-      }
-
-      rail.style.display = "flex";
-      list.innerHTML = "";
-      if (stageLabel) stageLabel.textContent = `${stages.length} stages`;
-
-      stages.forEach(st => {
-        const relPath = stageModelPath(it, st);
-        const iconRel = (st.icon || "").trim()
-          ? `${it.category}/${it.id}/${(st.resource || "").replace(/^\/+|\/+$/g, "")}/${st.icon}`
-          : (it.icon || "");
-
-        const card = document.createElement("div");
-        card.className = "stage-card" + (relPath ? "" : " no-model");
-        card.dataset.stage = st.stage;
-        card.title = relPath
-          ? `${st.name} - ${st.model}`
-          : `${st.name} - no mesh on disk (icon only)`;
-        card.innerHTML = `
-          <img class="stage-card-thumb" src="${iconRel}" alt="${st.name}"
-               loading="lazy" onerror="this.style.visibility='hidden'">
-          <div class="stage-card-num">STAGE ${st.stage}</div>
-          <div class="stage-card-name">${st.name}</div>
-          <div class="stage-card-age">${st.age_min} - ${st.age_max}${(g.time_unit || "days").charAt(0)}</div>
-          ${relPath ? "" : '<div class="stage-card-flag">⚠️ no mesh</div>'}
-        `;
-        if (relPath) card.onclick = () => showStageModel(it, st, relPath, card);
-        list.appendChild(card);
+    // A growth stage is a RESOURCE inside its group, not an asset the user
+    // owns in its own right: its scheme, name, ages, recipe and tools all
+    // belong to the group's manifest, and its own manifest is derived. So a
+    // stage must NOT present the full asset inspector - editing those fields
+    // here would write to the stage manifest while the group's stages[] array
+    // (the authority) kept the old values, leaving the two disagreeing. A
+    // stage click shows only what a stage legitimately has: its model preview
+    // and its files on disk.
+    //
+    // Everything else in the info column is hidden rather than removed, so
+    // leaving stage mode restores the ordinary inspector without rebuilding it.
+    function applyStageModalMode(isStage) {
+      const infoCol = document.querySelector(".modal-info-col");
+      if (infoCol) infoCol.style.display = isStage ? "none" : "";
+      // Actions that address the asset as a whole. Icon/Model/Rig queue
+      // regeneration requests that target an asset folder + manifest, which a
+      // nested stage resource has no id for; Rename/Delete are already
+      // guarded, and hiding them beats letting a click explain why.
+      ["m-request-icon-btn", "m-regen-model-btn", "m-request-rig-btn",
+       "m-jump-json-btn", "m-rename-btn", "m-delete-btn"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = isStage ? "none" : "";
       });
-    }
-
-    /* Swap one stage's mesh into the viewport and mark its card active. */
-    function showStageModel(it, stage, relPath, card) {
-      const list = document.getElementById("m-growth-rail-list");
-      if (list) {
-        list.querySelectorAll(".stage-card").forEach(c => c.classList.remove("active"));
-      }
-      const target = card || (list && list.querySelector(`.stage-card[data-stage="${stage.stage}"]`));
-      if (target) target.classList.add("active");
-
-      const fmt = (relPath.split(".").pop() || "").toLowerCase();
-      // setup3DViewport only reads has_3d / best_model / model_format / models
-      // / name / icon, so a minimal stand-in for the stage is enough and the
-      // existing loader path is reused unchanged.
-      setup3DViewport({
-        has_3d: true,
-        best_model: relPath,
-        model_format: fmt,
-        models: [{ file: relPath.split("/").pop(), format: fmt, path: relPath }],
-        name: `${it.name} - ${stage.name}`,
-        icon: it.icon,
-      });
+      // The save bar belongs to the info column's editing flow.
+      const saveBar = document.getElementById("m-inspector-save-bar");
+      if (saveBar && isStage) saveBar.style.display = "none";
+      const body = document.querySelector(".modal-body");
+      if (body) body.classList.toggle("stage-modal-mode", isStage);
     }
 
     /* Setup 3D Viewport in Modal */
@@ -14981,6 +15548,42 @@
       }
     }
 
+    // Frames the camera on what was actually loaded instead of a fixed point.
+    //
+    // The camera used to sit at a hardcoded (2, 2.5, 3.5) looking at the
+    // ORIGIN, while the model was grounded at y=0 and scaled to a fixed 2.2
+    // world units. Two things followed from that: the model's centre sat above
+    // the look-at point (so its top fell out of frame from the default view),
+    // and the distance bore no relation to the model's real extent - fine for
+    // a small tool, but a building was scaled to the same 2.2 units and still
+    // cropped, needing a manual drag to see. Fit the distance to the object's
+    // bounding sphere and aim at the object's own centre.
+    function frameCameraOnObject(object) {
+      if (!threeCamera || !threeControls || !object) return;
+      const box = new THREE.Box3().setFromObject(object);
+      if (box.isEmpty()) return;
+      const size = box.getSize(new THREE.Vector3());
+      const center = box.getCenter(new THREE.Vector3());
+
+      // Distance that makes the LARGER of the two view dimensions fit, with
+      // ~25% padding so the model does not touch the frame edges.
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fovRad = (threeCamera.fov * Math.PI) / 180;
+      const fitHeight = maxDim / (2 * Math.tan(fovRad / 2));
+      const fitWidth = fitHeight / threeCamera.aspect;
+      const distance = Math.max(fitHeight, fitWidth) * 1.25;
+
+      threeControls.target.copy(center);
+      // Three-quarter view: up and back, so a building reads as 3D rather than
+      // flat-on. Normalised so the framing distance alone controls the zoom.
+      const dir = new THREE.Vector3(0.45, 0.55, 1).normalize();
+      threeCamera.position.copy(center).addScaledVector(dir, distance);
+      threeCamera.near = Math.max(distance / 100, 0.01);
+      threeCamera.far = distance * 100;
+      threeCamera.updateProjectionMatrix();
+      threeControls.update();
+    }
+
     function initThreeFBX(fbxUrl, container) {
       const width = container.clientWidth || 420;
       const height = container.clientHeight || 420;
@@ -14989,7 +15592,6 @@
       threeScene.background = new THREE.Color(0x080c12);
 
       threeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      threeCamera.position.set(2, 2.5, 3.5);
 
       threeRenderer = new THREE.WebGLRenderer({ antialias: true });
       threeRenderer.setSize(width, height);
@@ -15034,6 +15636,7 @@
           fbx.position.z = -center.z * scale;
 
           threeScene.add(fbx);
+          frameCameraOnObject(fbx);
           setupAnimationButtons(fbx.animations || [], (clip) => new THREE.AnimationMixer(fbx));
         },
         undefined,
@@ -15077,14 +15680,13 @@
       threeScene.background = new THREE.Color(0x080c12);
 
       threeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      threeCamera.position.set(2, 2.5, 3.5);
 
       threeRenderer = new THREE.WebGLRenderer({ antialias: true });
       threeRenderer.setSize(width, height);
       threeRenderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(threeRenderer.domElement);
 
-      threeControls = new THREE.OrbitControls(threeCama, nderer.domElement);
+      threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
       threeControls.enableDamping = true;
       threeControls.dampingFactor = 0.05;
       threeControls.autoRotate = true;
@@ -15123,6 +15725,9 @@
           obj.position.x = -center.x * scale;
           obj.position.y = -box.min.y * scale; // Ground base
           obj.position.z = -center.z * scale;
+          // Frame the camera on the object actually loaded - see
+          // frameCameraOnObject for why a fixed camera cropped large models.
+          frameCameraOnObject(obj);
 
           // Apply default nice material if mesh has none
           obj.traverse((child) => {

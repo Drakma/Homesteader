@@ -19,15 +19,15 @@
   },
   "models": [
     {
-      "file": "SM_Struct_Cabin_Small.fbx",
+      "file": "struct_complete_small_cabin.fbx",
       "format": "fbx"
     },
     {
-      "file": "SM_Struct_Cabin_Small.mtl",
+      "file": "struct_complete_small_cabin.mtl",
       "format": "mtl"
     },
     {
-      "file": "SM_Struct_Cabin_Small.obj",
+      "file": "struct_complete_small_cabin.obj",
       "format": "obj",
       "dimensions_cm": {
         "x": 510.0,
@@ -83,7 +83,7 @@
     "compatible_api": "v1"
   },
   "dimensions": {
-    "file": "SM_Struct_Cabin_Small.obj",
+    "file": "struct_complete_small_cabin.obj",
     "format": "obj",
     "dimensions_cm": {
       "x": 510.0,

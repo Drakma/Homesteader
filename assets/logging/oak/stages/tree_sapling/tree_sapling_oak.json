@@ -19,7 +19,7 @@
   },
   "models": [
     {
-      "file": "SM_PlantedSaplingOak.fbx",
+      "file": "tree_sapling_oak.fbx",
       "format": "fbx",
       "dimensions_m": {
         "x": 1.0,

@@ -1,0 +1,32 @@
+{
+  "id": "biome_farmland",
+  "name": "Farmland (Tilled Rows)",
+  "priority": 8,
+  "description": "Agricultural fields featuring distinct parallel tilled soil furrows, high moisture retention, and rich nutrient-dense dark loam.",
+  "color_hex": "#78350f",
+  "moisture": 0.65,
+  "nutrients": 0.9,
+  "noise": {
+    "frequency": 0.015,
+    "octaves": 2,
+    "persistence": 0.5,
+    "threshold": 0.66,
+    "dither_bandwidth": 0.03
+  },
+  "elevation": {
+    "base_offset_m": 0.5,
+    "noise_amplitude_m": 1.0,
+    "noise_frequency": 0.01,
+    "max_slope_deg": 8.0
+  },
+  "generative_ground": {
+    "shader_mode": "tilled_furrows",
+    "primary_color_hex": "#451a03",
+    "secondary_color_hex": "#290e02",
+    "slope_color_hex": "#78350f",
+    "pattern_scale": 1.0,
+    "pattern_intensity": 0.85,
+    "normal_micro_roughness": 0.4
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

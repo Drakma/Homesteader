@@ -363,7 +363,11 @@ def group_display_name(species, root_manifest, scheme):
     elif gtype in ("crop", "plant"):
         if not base.lower().endswith(("plant", "crop")):
             base = "%s Plant" % base
-    elif gtype == "building":
+    elif gtype == "percent":
+        # Construction lifecycle (all assets/structures groups). The species
+        # name is already the building's name ('small_cabin' -> 'Small
+        # Cabin'), so no suffix is appended. Was 'building' before the class
+        # was folded into the 'percent' scheme value.
         pass
     return base
 

@@ -1,0 +1,32 @@
+{
+  "id": "biome_dry_lands",
+  "name": "Dry Lands & Arid Scrub",
+  "priority": 2,
+  "description": "Sun-baked arid plains with low moisture, poor nutrients, dusty cracked earth, dry sand, and hardy drought-tolerant scrub.",
+  "color_hex": "#ca8a04",
+  "moisture": 0.15,
+  "nutrients": 0.2,
+  "noise": {
+    "frequency": 0.012,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.42,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 1.0,
+    "noise_amplitude_m": 2.0,
+    "noise_frequency": 0.012,
+    "max_slope_deg": 18.0
+  },
+  "generative_ground": {
+    "shader_mode": "cracked_earth",
+    "primary_color_hex": "#d97706",
+    "secondary_color_hex": "#78350f",
+    "slope_color_hex": "#a1a1aa",
+    "pattern_scale": 1.8,
+    "pattern_intensity": 0.7,
+    "normal_micro_roughness": 0.35
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

@@ -3,11 +3,11 @@
   "id": "stable",
   "name": "Stable",
   "category": "structures",
-  "description": "A building lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the stable scheme.",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the stable scheme.",
   "icon": "stable.png",
   "is_growable": true,
   "growth": {
-    "growth_type": "building",
+    "growth_type": "percent",
     "species": "stable",
     "max_age": 100,
     "time_unit": "percent",
@@ -47,7 +47,7 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "SM_Struct_Stable.fbx",
+        "model": "struct_complete_stable.fbx",
         "icon": "struct_complete_stable.png"
       }
     ]

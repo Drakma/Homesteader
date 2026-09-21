@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 12,
         "resource": "stages/tree_sapling/",
-        "model": "SM_PlantedSaplingApple.fbx",
+        "model": "tree_sapling_apple.fbx",
         "icon": "tree_sapling_apple.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 12,
         "age_max": 32,
         "resource": "stages/tree_small/",
-        "model": "SM_Tree_Apple_Small.fbx",
+        "model": "tree_small_apple.fbx",
         "icon": "tree_small_apple.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 32,
         "age_max": 60,
         "resource": "stages/tree_medium/",
-        "model": "SM_Tree_Apple_Medium.fbx",
+        "model": "tree_medium_apple.fbx",
         "icon": "tree_medium_apple.png"
       },
       {
@@ -47,7 +47,7 @@
         "age_min": 60,
         "age_max": 80,
         "resource": "stages/tree_mature/",
-        "model": "SM_Tree_Apple_Large.fbx",
+        "model": "tree_mature_apple.fbx",
         "icon": "tree_mature_apple.png"
       }
     ]

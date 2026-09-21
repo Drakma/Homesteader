@@ -1,0 +1,32 @@
+{
+  "id": "biome_lake",
+  "name": "Deep Lake",
+  "priority": 11,
+  "description": "Expansive open body of water with deep benthic depths, calm surface reflections, and sandy beachfront perimeters.",
+  "color_hex": "#1d4ed8",
+  "moisture": 1.0,
+  "nutrients": 0.4,
+  "noise": {
+    "frequency": 0.009,
+    "octaves": 3,
+    "persistence": 0.45,
+    "threshold": 0.88,
+    "dither_bandwidth": 0.02
+  },
+  "elevation": {
+    "base_offset_m": -5.0,
+    "noise_amplitude_m": 1.2,
+    "noise_frequency": 0.015,
+    "max_slope_deg": 12.0
+  },
+  "generative_ground": {
+    "shader_mode": "water_lake",
+    "primary_color_hex": "#1e3a8a",
+    "secondary_color_hex": "#2563eb",
+    "slope_color_hex": "#94a3b8",
+    "pattern_scale": 6.0,
+    "pattern_intensity": 0.5,
+    "normal_micro_roughness": 0.1
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

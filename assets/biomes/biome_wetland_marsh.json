@@ -1,0 +1,32 @@
+{
+  "id": "biome_wetland_marsh",
+  "name": "Bog & Peat Marsh",
+  "priority": 6,
+  "description": "Soggy wetland basin saturated with standing water pools, squishy peat moss, high organic decomposition, and hummocks of marsh reeds.",
+  "color_hex": "#365314",
+  "moisture": 0.9,
+  "nutrients": 0.6,
+  "noise": {
+    "frequency": 0.015,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.62,
+    "dither_bandwidth": 0.04
+  },
+  "elevation": {
+    "base_offset_m": -1.0,
+    "noise_amplitude_m": 1.0,
+    "noise_frequency": 0.02,
+    "max_slope_deg": 10.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#3f3f26",
+    "secondary_color_hex": "#2e2b17",
+    "slope_color_hex": "#57534e",
+    "pattern_scale": 1.5,
+    "pattern_intensity": 0.7,
+    "normal_micro_roughness": 0.35
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

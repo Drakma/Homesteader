@@ -20,7 +20,7 @@
 				"age_min": 0,
 				"age_max": 15,
 				"resource": "stages/tree_sapling/",
-				"model": "SM_PlantedSaplingOak.fbx",
+				"model": "tree_sapling_oak.fbx",
 				"icon": "tree_sapling_oak.png"
 			},
 			{
@@ -29,7 +29,7 @@
 				"age_min": 15,
 				"age_max": 40,
 				"resource": "stages/tree_small/",
-				"model": "SM_Tree_Oak_Small.fbx",
+				"model": "tree_small_oak.fbx",
 				"icon": "tree_small_oak.png"
 			},
 			{
@@ -38,7 +38,7 @@
 				"age_min": 40,
 				"age_max": 75,
 				"resource": "stages/tree_medium/",
-				"model": "SM_Tree_Oak_Medium.fbx",
+				"model": "tree_medium_oak.fbx",
 				"icon": "tree_medium_oak.png"
 			},
 			{
@@ -47,7 +47,7 @@
 				"age_min": 75,
 				"age_max": 100,
 				"resource": "stages/tree_mature/",
-				"model": "SM_Tree_Oak_Mature.fbx",
+				"model": "tree_mature_oak.fbx",
 				"icon": "tree_mature_oak.png"
 			}
 		]

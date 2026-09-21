@@ -1,0 +1,1375 @@
+version: 1
+concurrency: 2
+retries: 3
+format: glb
+jobs:
+- id: barn
+  name: Barn
+  prompt: a 3D model of Barn, low-poly faceted style, simple geometry, stylized game
+    asset, single object, no surroundings
+  output: _models/barn.glb
+- id: chicken_coop
+  name: Chicken Coop
+  prompt: a 3D model of Chicken Coop, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/chicken_coop.glb
+- id: farmhouse
+  name: Farmhouse
+  prompt: a 3D model of Farmhouse, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/farmhouse.glb
+- id: greenhouse
+  name: Greenhouse
+  prompt: a 3D model of Greenhouse, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/greenhouse.glb
+- id: large_log_cabin
+  name: Large Log Cabin
+  prompt: a 3D model of Large Log Cabin, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/large_log_cabin.glb
+- id: large_metal_garage
+  name: Large Metal Garage
+  prompt: a 3D model of Large Metal Garage, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/large_metal_garage.glb
+- id: small_cabin
+  name: Small Cabin
+  prompt: a 3D model of Small Cabin, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/small_cabin.glb
+- id: stable
+  name: Stable
+  prompt: a 3D model of Stable, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/stable.glb
+- id: starter_house
+  name: Starter House
+  prompt: a 3D model of Starter House, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/starter_house.glb
+- id: struct_camper_rv
+  name: Travel Trailer RV
+  prompt: a 3D model of Travel Trailer RV, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/struct_camper_rv.glb
+- id: struct_camper_teardrop
+  name: Teardrop Camper
+  prompt: a 3D model of Teardrop Camper, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/struct_camper_teardrop.glb
+- id: struct_garage_truck_3bay
+  name: 3 Bay Truck Garage
+  prompt: a 3D model of 3 Bay Truck Garage, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/struct_garage_truck_3bay.glb
+- id: struct_shed
+  name: Tool Shed
+  prompt: a 3D model of Tool Shed, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/struct_shed.glb
+- id: struct_silo
+  name: Grain Silo
+  prompt: a 3D model of Grain Silo, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/struct_silo.glb
+- id: struct_tent_canvas
+  name: Canvas Wall Tent
+  prompt: a 3D model of Canvas Wall Tent, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/struct_tent_canvas.glb
+- id: struct_tent_dome
+  name: Dome Tent
+  prompt: a 3D model of Dome Tent, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/struct_tent_dome.glb
+- id: struct_woodshed
+  name: Woodshed
+  prompt: a 3D model of Woodshed, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/struct_woodshed.glb
+- id: corn
+  name: Corn Plant
+  prompt: a 3D model of Corn Plant, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/corn.glb
+- id: sunflower
+  name: Sunflower Plant
+  prompt: a 3D model of Sunflower Plant, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/sunflower.glb
+- id: wheat
+  name: Wheat Plant
+  prompt: a 3D model of Wheat Plant, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/wheat.glb
+- id: animal_cat_calico
+  name: Calico Cat
+  prompt: a 3D model of Calico Cat, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/animal_cat_calico.glb
+- id: animal_dog_labrador
+  name: Labrador Retriever
+  prompt: a 3D model of Labrador Retriever, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_dog_labrador.glb
+- id: animal_halter_lead_rope
+  name: Halter & Lead Rope
+  prompt: a 3D model of Halter & Lead Rope, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_halter_lead_rope.glb
+- id: animal_pan_feed_rubber_55l
+  name: Rubber Feed Pan (55L)
+  prompt: a 3D model of Rubber Feed Pan (55L), low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_pan_feed_rubber_55l.glb
+- id: animal_salt_lick_mineral_23kg
+  name: 23kg Mineral Salt Lick
+  prompt: a 3D model of 23kg Mineral Salt Lick, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_salt_lick_mineral_23kg.glb
+- id: barred_chicken
+  name: Barred Chicken
+  prompt: a 3D model of Barred Chicken, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/barred_chicken.glb
+- id: black_white_billy_goat
+  name: Black White Billy Goat
+  prompt: a 3D model of Black White Billy Goat, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/black_white_billy_goat.glb
+- id: black_white_goat
+  name: Black White Goat
+  prompt: a 3D model of Black White Goat, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/black_white_goat.glb
+- id: brown_goat
+  name: Brown Goat
+  prompt: a 3D model of Brown Goat, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/brown_goat.glb
+- id: duroc_pig
+  name: Duroc Pig
+  prompt: a 3D model of Duroc Pig, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/duroc_pig.glb
+- id: hampshire_pig
+  name: Hampshire Pig
+  prompt: a 3D model of Hampshire Pig, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/hampshire_pig.glb
+- id: highland_cow
+  name: Highland Cow
+  prompt: a 3D model of Highland Cow, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/highland_cow.glb
+- id: holstein_cow
+  name: Holstein Cow
+  prompt: a 3D model of Holstein Cow, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/holstein_cow.glb
+- id: jersey_cow
+  name: Jersey Cow
+  prompt: a 3D model of Jersey Cow, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/jersey_cow.glb
+- id: mat_bale_silage_round
+  name: Round Silage Bale
+  prompt: a 3D model of Round Silage Bale, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/mat_bale_silage_round.glb
+- id: pink_pig
+  name: Pink Pig
+  prompt: a 3D model of Pink Pig, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/pink_pig.glb
+- id: quarter_horse
+  name: Quarter Horse
+  prompt: a 3D model of Quarter Horse, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/quarter_horse.glb
+- id: red_chicken
+  name: Red Chicken
+  prompt: a 3D model of Red Chicken, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/red_chicken.glb
+- id: suffolk_sheep
+  name: Suffolk Sheep
+  prompt: a 3D model of Suffolk Sheep, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/suffolk_sheep.glb
+- id: tan_sheep
+  name: Tan Sheep
+  prompt: a 3D model of Tan Sheep, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/tan_sheep.glb
+- id: trough_stock_tank_380l
+  name: 380L Stock Tank
+  prompt: a 3D model of 380L Stock Tank, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/trough_stock_tank_380l.glb
+- id: trough_stock_tank_380l_empty
+  name: 380 Liter Stock Tank - Empty
+  prompt: a 3D model of 380 Liter Stock Tank - Empty, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/trough_stock_tank_380l_empty.glb
+- id: welsummer_rooter
+  name: Welsummer Rooter
+  prompt: a 3D model of Welsummer Rooter, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/welsummer_rooter.glb
+- id: white_chicken
+  name: White Chicken
+  prompt: a 3D model of White Chicken, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/white_chicken.glb
+- id: white_goat
+  name: White Goat
+  prompt: a 3D model of White Goat, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/white_goat.glb
+- id: white_sheep
+  name: White Sheep
+  prompt: a 3D model of White Sheep, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/white_sheep.glb
+- id: animal_fish_bass
+  name: Largemouth Bass
+  prompt: a 3D model of Largemouth Bass, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_fish_bass.glb
+- id: animal_fish_catfish
+  name: Channel Catfish
+  prompt: a 3D model of Channel Catfish, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/animal_fish_catfish.glb
+- id: animal_fish_crappie
+  name: Black Crappie
+  prompt: a 3D model of Black Crappie, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/animal_fish_crappie.glb
+- id: animal_fish_salmon
+  name: Sockeye Salmon
+  prompt: a 3D model of Sockeye Salmon, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/animal_fish_salmon.glb
+- id: animal_fish_trout
+  name: Rainbow Trout
+  prompt: a 3D model of Rainbow Trout, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/animal_fish_trout.glb
+- id: animal_fish_walleye
+  name: Walleye
+  prompt: a 3D model of Walleye, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/animal_fish_walleye.glb
+- id: fishing_bait
+  name: Live Fishing Bait
+  prompt: a 3D model of Live Fishing Bait, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_bait.glb
+- id: fishing_basket_wire
+  name: Wire Fish Basket
+  prompt: a 3D model of Wire Fish Basket, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_basket_wire.glb
+- id: fishing_bobbers_clip_pack
+  name: Clip-On Bobbers Pack
+  prompt: a 3D model of Clip-On Bobbers Pack, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_bobbers_clip_pack.glb
+- id: fishing_box_lures_organizer
+  name: Lures Organizer Box
+  prompt: a 3D model of Lures Organizer Box, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_box_lures_organizer.glb
+- id: fishing_box_tackle_3tray
+  name: 3-Tray Tackle Box
+  prompt: a 3D model of 3-Tray Tackle Box, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_box_tackle_3tray.glb
+- id: fishing_line_spool
+  name: Braided Fishing Line Spool
+  prompt: a 3D model of Braided Fishing Line Spool, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fishing_line_spool.glb
+- id: fishing_lure
+  name: Fishing Lure
+  prompt: a 3D model of Fishing Lure, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/fishing_lure.glb
+- id: fishing_net_landing_telescopic
+  name: Telescopic Landing Net
+  prompt: a 3D model of Telescopic Landing Net, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_net_landing_telescopic.glb
+- id: fishing_rod
+  name: Fishing Rod
+  prompt: a 3D model of Fishing Rod, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/fishing_rod.glb
+- id: fishing_rod_fly
+  name: Fly Fishing Rod
+  prompt: a 3D model of Fly Fishing Rod, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_rod_fly.glb
+- id: fishing_rod_heavy_trolling
+  name: Heavy Trolling Fishing Rod
+  prompt: a 3D model of Heavy Trolling Fishing Rod, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fishing_rod_heavy_trolling.glb
+- id: fishing_rod_spincast_combo
+  name: Spincast Rod & Reel Combo
+  prompt: a 3D model of Spincast Rod & Reel Combo, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fishing_rod_spincast_combo.glb
+- id: fishing_sinkers_lead
+  name: Split Shot Lead Sinkers
+  prompt: a 3D model of Split Shot Lead Sinkers, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fishing_sinkers_lead.glb
+- id: fuel_charcoal
+  name: Charcoal
+  prompt: a 3D model of Charcoal, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/fuel_charcoal.glb
+- id: fuel_firewood
+  name: Seasoned Firewood Stack
+  prompt: a 3D model of Seasoned Firewood Stack, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_firewood.glb
+- id: fuel_firewood_bundle_tied
+  name: Tied Firewood Bundle
+  prompt: a 3D model of Tied Firewood Bundle, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_firewood_bundle_tied.glb
+- id: fuel_large_diesel_container
+  name: Large Diesel Fuel Container
+  prompt: a 3D model of Large Diesel Fuel Container, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fuel_large_diesel_container.glb
+- id: fuel_propane_18l
+  name: Propane Tank (18L)
+  prompt: a 3D model of Propane Tank (18L), low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_propane_18l.glb
+- id: fuel_propane_1_5l
+  name: Small Propane Tank (1.5L)
+  prompt: a 3D model of Small Propane Tank (1.5L), low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fuel_propane_1_5l.glb
+- id: fuel_propane_36l
+  name: Large Propane Tank (36L)
+  prompt: a 3D model of Large Propane Tank (36L), low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_propane_36l.glb
+- id: fuel_pump_diesel
+  name: Diesel Fuel Pump
+  prompt: a 3D model of Diesel Fuel Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_pump_diesel.glb
+- id: fuel_pump_gas
+  name: Gasoline Fuel Pump
+  prompt: a 3D model of Gasoline Fuel Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_pump_gas.glb
+- id: fuel_small_diesel_container
+  name: Small Diesel Fuel Container
+  prompt: a 3D model of Small Diesel Fuel Container, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fuel_small_diesel_container.glb
+- id: fuel_steel_drum_200l
+  name: Steel Drum (200L)
+  prompt: a 3D model of Steel Drum (200L), low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_steel_drum_200l.glb
+- id: fuel_tank_bulk_large
+  name: Large Bulk Fuel Storage Tank
+  prompt: a 3D model of Large Bulk Fuel Storage Tank, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fuel_tank_bulk_large.glb
+- id: fuel_tank_bulk_small
+  name: Small Bulk Fuel Storage Tank
+  prompt: a 3D model of Small Bulk Fuel Storage Tank, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/fuel_tank_bulk_small.glb
+- id: fuel_tank_propane_1900l
+  name: 1900L Propane Tank
+  prompt: a 3D model of 1900L Propane Tank, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_tank_propane_1900l.glb
+- id: fuel_tank_propane_3800l
+  name: 3800L Propane Tank
+  prompt: a 3D model of 3800L Propane Tank, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/fuel_tank_propane_3800l.glb
+- id: large_gas_fuel_container
+  name: Large Gas Fuel Container
+  prompt: a 3D model of Large Gas Fuel Container, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/large_gas_fuel_container.glb
+- id: small_gas_fuel_container
+  name: Small Gas Fuel Container
+  prompt: a 3D model of Small Gas Fuel Container, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/small_gas_fuel_container.glb
+- id: electricity_battery_12v_agm_1200wh
+  name: 12V AGM 1200Wh Battery
+  prompt: a 3D model of 12V AGM 1200Wh Battery, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_battery_12v_agm_1200wh.glb
+- id: electricity_battery_12v_lifepo4_1200wh
+  name: 12V LiFePO4 1200Wh Battery
+  prompt: a 3D model of 12V LiFePO4 1200Wh Battery, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_battery_12v_lifepo4_1200wh.glb
+- id: electricity_battery_bank
+  name: Battery Bank
+  prompt: a 3D model of Battery Bank, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/electricity_battery_bank.glb
+- id: electricity_battery_rack_48v_5kwh
+  name: 48V Rack Battery (5kWh)
+  prompt: a 3D model of 48V Rack Battery (5kWh), low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_battery_rack_48v_5kwh.glb
+- id: electricity_battery_wall_power_10kwh
+  name: Wall Power Battery (10kWh)
+  prompt: a 3D model of Wall Power Battery (10kWh), low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_battery_wall_power_10kwh.glb
+- id: electricity_breakersubpanel
+  name: Item Electric Breakersubpanel
+  prompt: a 3D model of Item Electric Breakersubpanel, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_breakersubpanel.glb
+- id: electricity_cable_solar_mc4_pair
+  name: Solar MC4 Cable Pair
+  prompt: a 3D model of Solar MC4 Cable Pair, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_cable_solar_mc4_pair.glb
+- id: electricity_cables_battery_interconnect
+  name: Battery Jumper Cables
+  prompt: a 3D model of Battery Jumper Cables, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_cables_battery_interconnect.glb
+- id: electricity_conduit_pipe_emt
+  name: EMT Conduit Pipe
+  prompt: a 3D model of EMT Conduit Pipe, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_conduit_pipe_emt.glb
+- id: electricity_controller_mppt_60a
+  name: 60A MPPT Charge Controller
+  prompt: a 3D model of 60A MPPT Charge Controller, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_controller_mppt_60a.glb
+- id: electricity_cord_generator_30a
+  name: 30A Generator Cord
+  prompt: a 3D model of 30A Generator Cord, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_cord_generator_30a.glb
+- id: electricity_disconnectswitch
+  name: Item Electric Disconnectswitch
+  prompt: a 3D model of Item Electric Disconnectswitch, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_disconnectswitch.glb
+- id: electricity_energizer_fence_solar
+  name: Solar Fence Energizer
+  prompt: a 3D model of Solar Fence Energizer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_energizer_fence_solar.glb
+- id: electricity_generator
+  name: Generator
+  prompt: a 3D model of Generator, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/electricity_generator.glb
+- id: electricity_generator_frame_7500w
+  name: 7500W Frame Generator
+  prompt: a 3D model of 7500W Frame Generator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_generator_frame_7500w.glb
+- id: electricity_generator_inverter_2000w
+  name: 2000W Inverter Generator
+  prompt: a 3D model of 2000W Inverter Generator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_generator_inverter_2000w.glb
+- id: electricity_generator_portable
+  name: Portable Generator
+  prompt: a 3D model of Portable Generator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_generator_portable.glb
+- id: electricity_generator_standby
+  name: Standby Generator
+  prompt: a 3D model of Standby Generator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_generator_standby.glb
+- id: electricity_generator_standby_15kw
+  name: 15kW Standby Generator
+  prompt: a 3D model of 15kW Standby Generator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_generator_standby_15kw.glb
+- id: electricity_inverter_hybrid_3000w
+  name: 3000W Hybrid Inverter
+  prompt: a 3D model of 3000W Hybrid Inverter, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_inverter_hybrid_3000w.glb
+- id: electricity_inverter_wall
+  name: Electric Inverter Wall
+  prompt: a 3D model of Electric Inverter Wall, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_inverter_wall.glb
+- id: electricity_mpptcontroller
+  name: MPPT Solar Charge Controller
+  prompt: a 3D model of MPPT Solar Charge Controller, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_mpptcontroller.glb
+- id: electricity_networkswitch_poe
+  name: Item Electric Networkswitch Poe
+  prompt: a 3D model of Item Electric Networkswitch Poe, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_networkswitch_poe.glb
+- id: electricity_panel_breaker_subpanel
+  name: Outdoor Breaker Subpanel
+  prompt: a 3D model of Outdoor Breaker Subpanel, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_panel_breaker_subpanel.glb
+- id: electricity_power_pole_metal
+  name: Power Pole Metal
+  prompt: a 3D model of Power Pole Metal, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_power_pole_metal.glb
+- id: electricity_power_pole_wood
+  name: Power Pole Wood
+  prompt: a 3D model of Power Pole Wood, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_power_pole_wood.glb
+- id: electricity_powerpole_wood
+  name: Electric Powerpole Wood
+  prompt: a 3D model of Electric Powerpole Wood, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_powerpole_wood.glb
+- id: electricity_rod_grounding_copper
+  name: Copper Grounding Rod
+  prompt: a 3D model of Copper Grounding Rod, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_rod_grounding_copper.glb
+- id: electricity_solar_blanket_200w_folding
+  name: 200W Folding Solar Blanket
+  prompt: a 3D model of 200W Folding Solar Blanket, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_solar_blanket_200w_folding.glb
+- id: electricity_solar_panel
+  name: Solar Panel
+  prompt: a 3D model of Solar Panel, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/electricity_solar_panel.glb
+- id: electricity_solar_panel_100w_rigid
+  name: 100W Rigid Solar Panel
+  prompt: a 3D model of 100W Rigid Solar Panel, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_solar_panel_100w_rigid.glb
+- id: electricity_solar_panel_400w_commercial
+  name: 400W Commercial Solar Panel
+  prompt: a 3D model of 400W Commercial Solar Panel, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/electricity_solar_panel_400w_commercial.glb
+- id: electricity_spool_electric_polywire
+  name: Electric Polywire Spool
+  prompt: a 3D model of Electric Polywire Spool, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_spool_electric_polywire.glb
+- id: electricity_sterilizer_uv_chamber
+  name: UV Sterilizer Chamber
+  prompt: a 3D model of UV Sterilizer Chamber, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_sterilizer_uv_chamber.glb
+- id: electricity_switch_disconnect_safety
+  name: Safety Disconnect Switch
+  prompt: a 3D model of Safety Disconnect Switch, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_switch_disconnect_safety.glb
+- id: electricity_wind_turbine
+  name: Wind Turbine
+  prompt: a 3D model of Wind Turbine, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/electricity_wind_turbine.glb
+- id: electricity_wooden_utility_pole
+  name: Wooden Utility Pole
+  prompt: a 3D model of Wooden Utility Pole, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/electricity_wooden_utility_pole.glb
+- id: water_barrel_rain_200l
+  name: 200L Rain Barrel
+  prompt: a 3D model of 200L Rain Barrel, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_barrel_rain_200l.glb
+- id: water_bucket_water
+  name: Bucket of Water
+  prompt: a 3D model of Bucket of Water, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_bucket_water.glb
+- id: water_cistern_poly_3800l
+  name: 3800L Water Cistern
+  prompt: a 3D model of 3800L Water Cistern, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_cistern_poly_3800l.glb
+- id: water_dock_section_1x2m
+  name: Water Dock Section 1X2M
+  prompt: a 3D model of Water Dock Section 1X2M, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_dock_section_1x2m.glb
+- id: water_drainsock_roll
+  name: Item Plumbing Drainsock Roll
+  prompt: a 3D model of Item Plumbing Drainsock Roll, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_drainsock_roll.glb
+- id: water_filter
+  name: Water Filter
+  prompt: a 3D model of Water Filter, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_filter.glb
+- id: water_filter_canister_bigblue
+  name: Item Plumbing Filter Bigblue
+  prompt: a 3D model of Item Plumbing Filter Bigblue, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_filter_canister_bigblue.glb
+- id: water_filter_reverse_osmosis
+  name: Reverse Osmosis Filter
+  prompt: a 3D model of Reverse Osmosis Filter, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_filter_reverse_osmosis.glb
+- id: water_filter_spin_down_sediment
+  name: Spin-Down Sediment Filter
+  prompt: a 3D model of Spin-Down Sediment Filter, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_filter_spin_down_sediment.glb
+- id: water_fitting_camlock_coupler
+  name: Camlock Coupler
+  prompt: a 3D model of Camlock Coupler, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_fitting_camlock_coupler.glb
+- id: water_hand_pump_wellhead
+  name: Hand Pump Well Head
+  prompt: a 3D model of Hand Pump Well Head, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_hand_pump_wellhead.glb
+- id: water_hose_contractor_heavy
+  name: Heavy Contractor Hose
+  prompt: a 3D model of Heavy Contractor Hose, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_hose_contractor_heavy.glb
+- id: water_hose_soaker_flat
+  name: Soaker Hose
+  prompt: a 3D model of Soaker Hose, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_hose_soaker_flat.glb
+- id: water_ibc_tote_1000l
+  name: 1000L IBC Tote
+  prompt: a 3D model of 1000L IBC Tote, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_ibc_tote_1000l.glb
+- id: water_irrigation_sprinkler_riser
+  name: Farm Irrigation Sprinkler Riser
+  prompt: a 3D model of Farm Irrigation Sprinkler Riser, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_irrigation_sprinkler_riser.glb
+- id: water_jug_20l
+  name: 20L Water Jug
+  prompt: a 3D model of 20L Water Jug, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_jug_20l.glb
+- id: water_pipe
+  name: Water Pipe
+  prompt: a 3D model of Water Pipe, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_pipe.glb
+- id: water_pressuretank_well
+  name: Water Pressuretank Well
+  prompt: a 3D model of Water Pressuretank Well, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_pressuretank_well.glb
+- id: water_pump
+  name: Electric Water Pump
+  prompt: a 3D model of Electric Water Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_pump.glb
+- id: water_pump_high_capacity
+  name: High Capacity Water Well Pump
+  prompt: a 3D model of High Capacity Water Well Pump, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_pump_high_capacity.glb
+- id: water_pump_jet_shallow_well
+  name: Shallow Well Jet Pump
+  prompt: a 3D model of Shallow Well Jet Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_pump_jet_shallow_well.glb
+- id: water_pump_low_capacity
+  name: Low Capacity Water Well Pump
+  prompt: a 3D model of Low Capacity Water Well Pump, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_pump_low_capacity.glb
+- id: water_pump_submersible_1hp
+  name: Small Submersible Well Pump
+  prompt: a 3D model of Small Submersible Well Pump, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_pump_submersible_1hp.glb
+- id: water_pump_submersible_3hp
+  name: Large Submersible Well Pump
+  prompt: a 3D model of Large Submersible Well Pump, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/water_pump_submersible_3hp.glb
+- id: water_pvc_bundle
+  name: Item Plumbing Pvc Bundle
+  prompt: a 3D model of Item Plumbing Pvc Bundle, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_pvc_bundle.glb
+- id: water_sprinkler
+  name: Sprinkler Head
+  prompt: a 3D model of Sprinkler Head, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_sprinkler.glb
+- id: water_wand_watering_brass
+  name: Tool Wand Watering
+  prompt: a 3D model of Tool Wand Watering, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_wand_watering_brass.glb
+- id: water_watering_can
+  name: Tool Wateringcan
+  prompt: a 3D model of Tool Wateringcan, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_watering_can.glb
+- id: water_well_head_concrete
+  name: Concrete Well Head
+  prompt: a 3D model of Concrete Well Head, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_well_head_concrete.glb
+- id: water_well_head_wooden
+  name: Wooden Well Head
+  prompt: a 3D model of Wooden Well Head, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/water_well_head_wooden.glb
+- id: water_well_manual
+  name: Manual Well
+  prompt: a 3D model of Manual Well, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/water_well_manual.glb
+- id: waste_aerator_septic_air_pump
+  name: Septic Aerator Pump
+  prompt: a 3D model of Septic Aerator Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_aerator_septic_air_pump.glb
+- id: waste_box_distribution_septic
+  name: Septic Distribution Box
+  prompt: a 3D model of Septic Distribution Box, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_box_distribution_septic.glb
+- id: waste_compost_bin_3bay
+  name: 3-Bay Compost Bin
+  prompt: a 3D model of 3-Bay Compost Bin, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_compost_bin_3bay.glb
+- id: waste_hose_sewer_rv_3m
+  name: 3m RV Sewer Hose
+  prompt: a 3D model of 3m RV Sewer Hose, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_hose_sewer_rv_3m.glb
+- id: waste_hose_sewer_rv_6m
+  name: 6m RV Sewer Hose
+  prompt: a 3D model of 6m RV Sewer Hose, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_hose_sewer_rv_6m.glb
+- id: waste_nozzle_spray_quick
+  name: Quick-Connect Spray Nozzle
+  prompt: a 3D model of Quick-Connect Spray Nozzle, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_nozzle_spray_quick.glb
+- id: waste_pile_manure_large
+  name: Large Manure Pile (Material)
+  prompt: a 3D model of Large Manure Pile (Material), low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_pile_manure_large.glb
+- id: waste_pile_manure_medium
+  name: Medium Manure Pile (Material)
+  prompt: a 3D model of Medium Manure Pile (Material), low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_pile_manure_medium.glb
+- id: waste_pile_manure_small
+  name: Small Manure Pile (Material)
+  prompt: a 3D model of Small Manure Pile (Material), low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_pile_manure_small.glb
+- id: waste_pump_macerator
+  name: Macerator Waste Pump
+  prompt: a 3D model of Macerator Waste Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_pump_macerator.glb
+- id: waste_pump_pitcher_manual
+  name: Manual Pitcher Well Pump
+  prompt: a 3D model of Manual Pitcher Well Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_pump_pitcher_manual.glb
+- id: waste_pump_submersible_deep
+  name: Deep Submersible Well Pump
+  prompt: a 3D model of Deep Submersible Well Pump, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_pump_submersible_deep.glb
+- id: waste_pump_sump_float
+  name: Automatic Sump Pump
+  prompt: a 3D model of Automatic Sump Pump, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_pump_sump_float.glb
+- id: waste_riser_septic_lid
+  name: Septic Riser & Lid
+  prompt: a 3D model of Septic Riser & Lid, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_riser_septic_lid.glb
+- id: waste_tank_rv_waste_tote
+  name: RV Waste Holding Tote Tank
+  prompt: a 3D model of RV Waste Holding Tote Tank, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_tank_rv_waste_tote.glb
+- id: waste_tank_septic_concrete_3800l
+  name: 3800L Concrete Septic Vault
+  prompt: a 3D model of 3800L Concrete Septic Vault, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/waste_tank_septic_concrete_3800l.glb
+- id: waste_tank_septic_poly_1900l
+  name: 1900L Poly Septic Tank
+  prompt: a 3D model of 1900L Poly Septic Tank, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_tank_septic_poly_1900l.glb
+- id: waste_toilet_composting_rustic
+  name: Composting Toilet
+  prompt: a 3D model of Composting Toilet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_toilet_composting_rustic.glb
+- id: waste_treatment_septic_packets
+  name: Septic Treatment Packets
+  prompt: a 3D model of Septic Treatment Packets, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/waste_treatment_septic_packets.glb
+- id: net_antenna_omni_cellular
+  name: Omni Cellular Antenna
+  prompt: a 3D model of Omni Cellular Antenna, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_antenna_omni_cellular.glb
+- id: net_antenna_yagi_directional
+  name: Yagi Directional Antenna
+  prompt: a 3D model of Yagi Directional Antenna, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_antenna_yagi_directional.glb
+- id: net_ap_outdoor_weatherproof
+  name: Outdoor Access Point
+  prompt: a 3D model of Outdoor Access Point, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_ap_outdoor_weatherproof.glb
+- id: net_arrestor_lightning_ethernet
+  name: Ethernet Surge Arrestor
+  prompt: a 3D model of Ethernet Surge Arrestor, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_arrestor_lightning_ethernet.glb
+- id: net_cable
+  name: Internet Cable
+  prompt: a 3D model of Internet Cable, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/net_cable.glb
+- id: net_cable_ethernet_cat6_15m
+  name: 15m Cat6 Cable
+  prompt: a 3D model of 15m Cat6 Cable, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/net_cable_ethernet_cat6_15m.glb
+- id: net_cable_ethernet_cat6_30m
+  name: 30m Cat6 Cable
+  prompt: a 3D model of 30m Cat6 Cable, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/net_cable_ethernet_cat6_30m.glb
+- id: net_dish_satellite
+  name: Internet Satellite Dish
+  prompt: a 3D model of Internet Satellite Dish, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_dish_satellite.glb
+- id: net_dish_satellite_high_perf
+  name: High-Performance Satellite Dish
+  prompt: a 3D model of High-Performance Satellite Dish, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/net_dish_satellite_high_perf.glb
+- id: net_injector_poe_adapter
+  name: PoE Injector
+  prompt: a 3D model of PoE Injector, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/net_injector_poe_adapter.glb
+- id: net_mount_j_mast_bracket
+  name: J-Mast Mounting Bracket
+  prompt: a 3D model of J-Mast Mounting Bracket, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_mount_j_mast_bracket.glb
+- id: net_router
+  name: Internet Router
+  prompt: a 3D model of Internet Router, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_router.glb
+- id: net_router_mesh_wifi6
+  name: Wi-Fi 6 Mesh Router
+  prompt: a 3D model of Wi-Fi 6 Mesh Router, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_router_mesh_wifi6.glb
+- id: net_spool_cable_cat6_150m
+  name: 150m Cat6 Cable Spool
+  prompt: a 3D model of 150m Cat6 Cable Spool, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_spool_cable_cat6_150m.glb
+- id: net_switch_poe_8port
+  name: 8-Port PoE Switch
+  prompt: a 3D model of 8-Port PoE Switch, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_switch_poe_8port.glb
+- id: net_switch_rackmount_16port
+  name: 16-Port Rackmount Switch
+  prompt: a 3D model of 16-Port Rackmount Switch, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/net_switch_rackmount_16port.glb
+- id: food_apple
+  name: Fresh Red Apple
+  prompt: a 3D model of Fresh Red Apple, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_apple.glb
+- id: food_bass_deepfried
+  name: Bass Fillet Deep Fried
+  prompt: a 3D model of Bass Fillet Deep Fried, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_bass_deepfried.glb
+- id: food_bass_grilled
+  name: Bass Grilled Fillet
+  prompt: a 3D model of Bass Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_bass_grilled.glb
+- id: food_bread
+  name: Bread
+  prompt: a 3D model of Bread, low-poly faceted style, simple geometry, stylized game
+    asset, single object, no surroundings
+  output: _models/food_bread.glb
+- id: food_carrot
+  name: Fresh Garden Carrot
+  prompt: a 3D model of Fresh Garden Carrot, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_carrot.glb
+- id: food_catfish_deepfried
+  name: Catfish Fillet Deep Fried
+  prompt: a 3D model of Catfish Fillet Deep Fried, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/food_catfish_deepfried.glb
+- id: food_catfish_grilled
+  name: Catfish Grilled Fillet
+  prompt: a 3D model of Catfish Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_catfish_grilled.glb
+- id: food_cheese
+  name: Aged Farmhouse Cheese
+  prompt: a 3D model of Aged Farmhouse Cheese, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_cheese.glb
+- id: food_crappie_deepfried
+  name: Crappie Fillet Deep Fried
+  prompt: a 3D model of Crappie Fillet Deep Fried, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/food_crappie_deepfried.glb
+- id: food_crappie_grilled
+  name: Crappie Grilled Fillet
+  prompt: a 3D model of Crappie Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_crappie_grilled.glb
+- id: food_potato
+  name: Russet Potato
+  prompt: a 3D model of Russet Potato, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/food_potato.glb
+- id: food_pumpkin
+  name: Autumn Pumpkin
+  prompt: a 3D model of Autumn Pumpkin, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/food_pumpkin.glb
+- id: food_salmon_grilled
+  name: Salmon Grilled Fillet
+  prompt: a 3D model of Salmon Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_salmon_grilled.glb
+- id: food_strawberry
+  name: Fresh Strawberry
+  prompt: a 3D model of Fresh Strawberry, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_strawberry.glb
+- id: food_tomato
+  name: Vine Ripe Tomato
+  prompt: a 3D model of Vine Ripe Tomato, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_tomato.glb
+- id: food_trout_deepfried
+  name: Trout Fillet Deep Fried
+  prompt: a 3D model of Trout Fillet Deep Fried, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_trout_deepfried.glb
+- id: food_trout_grilled
+  name: Trout Grilled Fillet
+  prompt: a 3D model of Trout Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_trout_grilled.glb
+- id: food_truffle
+  name: Black Foraged Truffle
+  prompt: a 3D model of Black Foraged Truffle, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_truffle.glb
+- id: food_walleye_deepfried
+  name: Walleye Fillet Deep Fried
+  prompt: a 3D model of Walleye Fillet Deep Fried, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/food_walleye_deepfried.glb
+- id: food_walleye_grilled
+  name: Walleye Grilled Fillet
+  prompt: a 3D model of Walleye Grilled Fillet, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/food_walleye_grilled.glb
+- id: ingredient_beef_grilled
+  name: Grilled Beef Cut
+  prompt: a 3D model of Grilled Beef Cut, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/ingredient_beef_grilled.glb
+- id: ingredient_chicken_grilled
+  name: Grilled Chicken Drumstick
+  prompt: a 3D model of Grilled Chicken Drumstick, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/ingredient_chicken_grilled.glb
+- id: ingredient_milk
+  name: Fresh Whole Milk
+  prompt: a 3D model of Fresh Whole Milk, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/ingredient_milk.glb
+- id: ingredient_pork_grilled
+  name: Grilled Pork Chop
+  prompt: a 3D model of Grilled Pork Chop, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/ingredient_pork_grilled.glb
+- id: appliance_armchair_budget
+  name: Budget Armchair
+  prompt: a 3D model of Budget Armchair, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_armchair_budget.glb
+- id: appliance_bed_budget
+  name: Budget Bed Frame and Mattress
+  prompt: a 3D model of Budget Bed Frame and Mattress, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_bed_budget.glb
+- id: appliance_bed_premium
+  name: Premium Queen Bed Frame and Mattress
+  prompt: a 3D model of Premium Queen Bed Frame and Mattress, low-poly faceted style,
+    simple geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_bed_premium.glb
+- id: appliance_couch_budget
+  name: Budget 2-Seater Couch
+  prompt: a 3D model of Budget 2-Seater Couch, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_couch_budget.glb
+- id: appliance_couch_premium
+  name: Premium 3-Seater Sectional Couch
+  prompt: a 3D model of Premium 3-Seater Sectional Couch, low-poly faceted style,
+    simple geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_couch_premium.glb
+- id: appliance_diningtable_budget
+  name: Budget 4-Seat Dining Table
+  prompt: a 3D model of Budget 4-Seat Dining Table, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_diningtable_budget.glb
+- id: appliance_diningtable_premium
+  name: Premium 6-Seat Dining Table
+  prompt: a 3D model of Premium 6-Seat Dining Table, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_diningtable_premium.glb
+- id: appliance_dishwasher_budget
+  name: Budget Dishwasher
+  prompt: a 3D model of Budget Dishwasher, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_dishwasher_budget.glb
+- id: appliance_dishwasher_premium
+  name: Premium Dishwasher
+  prompt: a 3D model of Premium Dishwasher, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_dishwasher_premium.glb
+- id: appliance_dryer_budget
+  name: Budget Dryer
+  prompt: a 3D model of Budget Dryer, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_dryer_budget.glb
+- id: appliance_dryer_premium
+  name: Premium Dryer
+  prompt: a 3D model of Premium Dryer, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_dryer_premium.glb
+- id: appliance_fireplace_insert_standard
+  name: Standard Wood Fireplace Insert
+  prompt: a 3D model of Standard Wood Fireplace Insert, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_fireplace_insert_standard.glb
+- id: appliance_fireplace_premium
+  name: Premium Wood-Burning Fireplace
+  prompt: a 3D model of Premium Wood-Burning Fireplace, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_fireplace_premium.glb
+- id: appliance_fridge_budget
+  name: Budget Refrigerator
+  prompt: a 3D model of Budget Refrigerator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_fridge_budget.glb
+- id: appliance_fridge_premium
+  name: Premium Refrigerator
+  prompt: a 3D model of Premium Refrigerator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_fridge_premium.glb
+- id: appliance_grill_charcoal
+  name: Charcoal Grill
+  prompt: a 3D model of Charcoal Grill, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_grill_charcoal.glb
+- id: appliance_grill_propane_premium
+  name: Premium Propane Grill
+  prompt: a 3D model of Premium Propane Grill, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_grill_propane_premium.glb
+- id: appliance_grill_propane_standard
+  name: Standard Propane Grill
+  prompt: a 3D model of Standard Propane Grill, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_grill_propane_standard.glb
+- id: appliance_microwave_budget
+  name: Budget Microwave
+  prompt: a 3D model of Budget Microwave, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_microwave_budget.glb
+- id: appliance_microwave_premium
+  name: Premium Microwave
+  prompt: a 3D model of Premium Microwave, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_microwave_premium.glb
+- id: appliance_oven_budget_electric
+  name: Budget Electric Wall Oven
+  prompt: a 3D model of Budget Electric Wall Oven, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_oven_budget_electric.glb
+- id: appliance_oven_premium_convection
+  name: Premium Convection Wall Oven
+  prompt: a 3D model of Premium Convection Wall Oven, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_oven_premium_convection.glb
+- id: appliance_oven_wood_fired
+  name: Wood-Fired Oven
+  prompt: a 3D model of Wood-Fired Oven, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_oven_wood_fired.glb
+- id: appliance_recliner_premium
+  name: Premium Recliner Chair
+  prompt: a 3D model of Premium Recliner Chair, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_recliner_premium.glb
+- id: appliance_shower_stall
+  name: Shower Stall
+  prompt: a 3D model of Shower Stall, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_shower_stall.glb
+- id: appliance_sink_budget
+  name: Budget Single-Basin Kitchen Sink
+  prompt: a 3D model of Budget Single-Basin Kitchen Sink, low-poly faceted style,
+    simple geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_sink_budget.glb
+- id: appliance_sink_premium
+  name: Premium Double-Basin Kitchen Sink
+  prompt: a 3D model of Premium Double-Basin Kitchen Sink, low-poly faceted style,
+    simple geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_sink_premium.glb
+- id: appliance_smoker_budget_charcoal
+  name: Budget Charcoal Smoker
+  prompt: a 3D model of Budget Charcoal Smoker, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_smoker_budget_charcoal.glb
+- id: appliance_smoker_offset
+  name: Wood Smoker
+  prompt: a 3D model of Wood Smoker, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_smoker_offset.glb
+- id: appliance_smoker_pellet_premium
+  name: Premium Wood Pellet Smoker
+  prompt: a 3D model of Premium Wood Pellet Smoker, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_smoker_pellet_premium.glb
+- id: appliance_stove_budget_electric
+  name: Budget Electric Range
+  prompt: a 3D model of Budget Electric Range, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_stove_budget_electric.glb
+- id: appliance_stove_premium_induction
+  name: Premium Induction Range
+  prompt: a 3D model of Premium Induction Range, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_stove_premium_induction.glb
+- id: appliance_stove_wood_cookstove
+  name: Wood-Fired Cookstove
+  prompt: a 3D model of Wood-Fired Cookstove, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_stove_wood_cookstove.glb
+- id: appliance_tv_budget
+  name: Budget 32 Inch Television
+  prompt: a 3D model of Budget 32 Inch Television, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_tv_budget.glb
+- id: appliance_tv_premium
+  name: Premium 65 Inch Television
+  prompt: a 3D model of Premium 65 Inch Television, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_tv_premium.glb
+- id: appliance_washer_budget
+  name: Budget Top-Load Washer
+  prompt: a 3D model of Budget Top-Load Washer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_washer_budget.glb
+- id: appliance_washer_premium
+  name: Premium Front-Load Washer
+  prompt: a 3D model of Premium Front-Load Washer, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_washer_premium.glb
+- id: appliance_waterheater_budget_electric
+  name: Budget Electric Water Heater
+  prompt: a 3D model of Budget Electric Water Heater, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_waterheater_budget_electric.glb
+- id: appliance_waterheater_premium_tankless
+  name: Premium Tankless Water Heater
+  prompt: a 3D model of Premium Tankless Water Heater, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/appliance_waterheater_premium_tankless.glb
+- id: appliance_waterheater_wood_fired
+  name: Wood-Fired Water Heater
+  prompt: a 3D model of Wood-Fired Water Heater, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_waterheater_wood_fired.glb
+- id: appliance_winter_coat
+  name: Winter Coat
+  prompt: a 3D model of Winter Coat, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/appliance_winter_coat.glb
+- id: appliance_woodstove_budget
+  name: Budget Wood Stove
+  prompt: a 3D model of Budget Wood Stove, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/appliance_woodstove_budget.glb
+- id: vehicle_combine_large
+  name: Large Combine Harvester
+  prompt: a 3D model of Large Combine Harvester, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_combine_large.glb
+- id: vehicle_combine_small
+  name: Small Combine Harvester
+  prompt: a 3D model of Small Combine Harvester, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_combine_small.glb
+- id: vehicle_excavator_large
+  name: Large Excavator
+  prompt: a 3D model of Large Excavator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_excavator_large.glb
+- id: vehicle_excavator_small
+  name: Small Excavator
+  prompt: a 3D model of Small Excavator, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_excavator_small.glb
+- id: vehicle_pickup_new_silver
+  name: New Silver Pickup
+  prompt: a 3D model of New Silver Pickup, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_pickup_new_silver.glb
+- id: vehicle_pickup_new_white
+  name: New White Pickup
+  prompt: a 3D model of New White Pickup, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_pickup_new_white.glb
+- id: vehicle_pickup_old_red
+  name: Old Red Pickup Truck
+  prompt: a 3D model of Old Red Pickup Truck, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_pickup_old_red.glb
+- id: vehicle_pickup_old_white
+  name: Old White Pickup
+  prompt: a 3D model of Old White Pickup, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_pickup_old_white.glb
+- id: vehicle_sawmill_portable
+  name: Portable Sawmill
+  prompt: a 3D model of Portable Sawmill, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_sawmill_portable.glb
+- id: vehicle_sawmill_stationary
+  name: Stationary Sawmill
+  prompt: a 3D model of Stationary Sawmill, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_sawmill_stationary.glb
+- id: vehicle_skid_steer_new
+  name: New Skid Steer
+  prompt: a 3D model of New Skid Steer, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/vehicle_skid_steer_new.glb
+- id: vehicle_skid_steer_old
+  name: Old Skid Steer
+  prompt: a 3D model of Old Skid Steer, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/vehicle_skid_steer_old.glb
+- id: vehicle_skidsteer_large
+  name: Large Skid Steer Loader
+  prompt: a 3D model of Large Skid Steer Loader, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_skidsteer_large.glb
+- id: vehicle_skidsteer_small
+  name: Compact Skid Steer Loader
+  prompt: a 3D model of Compact Skid Steer Loader, low-poly faceted style, simple
+    geometry, stylized game asset, single object, no surroundings
+  output: _models/vehicle_skidsteer_small.glb
+- id: vehicle_tractor_large
+  name: Large Farm Tractor
+  prompt: a 3D model of Large Farm Tractor, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_tractor_large.glb
+- id: vehicle_tractor_large_old
+  name: Large Old Tractor
+  prompt: a 3D model of Large Old Tractor, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_tractor_large_old.glb
+- id: vehicle_tractor_small
+  name: Small Utility Tractor
+  prompt: a 3D model of Small Utility Tractor, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_tractor_small.glb
+- id: vehicle_tractor_small_old
+  name: Small Old Tractor
+  prompt: a 3D model of Small Old Tractor, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_tractor_small_old.glb
+- id: vehicle_trailer_horse
+  name: Horse Trailer
+  prompt: a 3D model of Horse Trailer, low-poly faceted style, simple geometry, stylized
+    game asset, single object, no surroundings
+  output: _models/vehicle_trailer_horse.glb
+- id: vehicle_trailer_livestock_large
+  name: Large Livestock Trailer
+  prompt: a 3D model of Large Livestock Trailer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_trailer_livestock_large.glb
+- id: vehicle_trailer_livestock_small
+  name: Small Livestock Trailer
+  prompt: a 3D model of Small Livestock Trailer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_trailer_livestock_small.glb
+- id: vehicle_trailer_utility_large
+  name: Large Utility Trailer
+  prompt: a 3D model of Large Utility Trailer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_trailer_utility_large.glb
+- id: vehicle_trailer_utility_small
+  name: Small Utility Trailer
+  prompt: a 3D model of Small Utility Trailer, low-poly faceted style, simple geometry,
+    stylized game asset, single object, no surroundings
+  output: _models/vehicle_trailer_utility_small.glb
