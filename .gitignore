@@ -35,3 +35,27 @@ __pycache__/
 assets/_asset_requests/watcher_heartbeat.json
 logs/
 
+# Runtime mod content loaded by ModManager at startup.
+# Kept on disk for Unity, but excluded from version control: ~10.2k files / 4.6 GB
+# (86% of the repo's LFS payload). Purged from history.
+Homesteader/Assets/Mods/
+
+# Large mesh / 3D-model exports, tracked locally only.
+# 187 files totalling ~2.9 GB shipped as raw git blobs, which made the initial
+# push a single 2.9 GiB pack that GitHub refused ("remote end hung up").
+# Meshes under 0.5 MB stay tracked; the oversized ones are excluded.
+# Purged from history. Keep these files on disk for Unity - they are not in git.
+*.fbx
+*.obj
+*.stl
+*.glb
+*.gltf
+*.usdz
+*.usd
+*.usdc
+*.dae
+*.3ds
+*.blend
+*.ply
+*.abc
+
