@@ -143,7 +143,7 @@ namespace Homesteader.Growth
                 return;
             }
 
-            if (!PlantingValidator.InReach(player, point))
+            if (!PlantingValidator.InReach(player, point, GameRules.HarvestReachCells))
             {
                 ToastNotificationSystem.ShowWarning("Too far", "You can only harvest the squares right next to you.");
                 return;

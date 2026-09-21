@@ -303,6 +303,41 @@ after syncing the mod into Unity. A group whose stage 1 has no prefab reports th
 
 ---
 
+## 4e. Game rules as mod data
+
+The constants behind planting and harvesting are **data in a mod**, not code. A mod lists a
+`gamerules` content entry and ships a `gamerules.json`; the game's built-in numbers are only
+the defaults for anything the file leaves out.
+
+```json
+{ "contents": [ { "type": "gamerules", "path": "gamerules.json" } ] }
+```
+
+```json
+{
+  "planting": { "grid_size_m": 1.0, "reach_cells": 1, "max_slope_deg": 25,
+                "crop_spacing_m": 0.5, "tree_spacing_m": 2.0,
+                "water_biomes": ["biome_pond", "biome_river", "biome_lake"] },
+  "harvest":  { "reach_cells": 1 },
+  "zones": [ { "id": "starter_farmland", "biome": "biome_farmland", "center": [0, 8],
+               "size": [10, 10], "texture": "textures/farmland_grid.png",
+               "tile_m": 1.0, "height_offset_m": 0.005 } ]
+}
+```
+
+- **Rules:** grid size, reach (in squares), steepest plantable slope, plant spacing, and the biomes
+  that can never be planted in.
+- **Zones:** rectangular patches of ground that count as a biome (e.g. farmland) on flat-ground
+  worlds. The game builds a flat textured quad for each one when the mod loads, so a mod supplies
+  its own farmland plots and their texture.
+- **Merge:** mods apply in load order; a later mod overrides individual keys, a list value replaces
+  the whole list, and a zone with the same `id` replaces the earlier one.
+
+The source lives in `assets/_gamerules/` (packaged as the `mod_gamerules` mod by
+`tools/package_catalog_as_mods.py`). Reference: `assets/_schemas/gamerules.schema.json`.
+
+---
+
 ## 5. Biome files
 
 Biome JSON mirrors `assets/biomes/*.json` exactly:

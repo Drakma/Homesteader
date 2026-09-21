@@ -78,6 +78,10 @@ namespace Homesteader.Modding
                                 LoadBiomes(mod, entry, terrainGenerator, result, log);
                                 break;
 
+                            case ModContentType.GameRules:
+                                LoadGameRules(mod, entry, result, log);
+                                break;
+
                             case ModContentType.Script:
                                 result.Messages.Add(
                                     $"Content type 'script' is declared but not executable in this build; " +
@@ -103,6 +107,24 @@ namespace Homesteader.Modding
             }
 
             return results;
+        }
+
+        // ------------------------------------------------------------------ Game rules
+
+        /// <summary>Merges a mod's gamerules.json into GameRules (later mods override earlier keys).</summary>
+        private static void LoadGameRules(ModInfo mod, ModContentEntry entry, ModLoadResult result, Action<string> log)
+        {
+            foreach (string file in ModFileResolver.ResolveFiles(mod, entry.Path, ".json"))
+            {
+                if (!ModJson.TryParse(File.ReadAllText(file), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"Game rules file '{file}' is not valid JSON - {error}");
+                    continue;
+                }
+                GameRules.Apply(mod, root, msg => mod.Warnings.Add($"Game rules: {msg}"));
+                result.Messages.Add("Applied game rules from " + Path.GetFileName(file));
+                log?.Invoke($"[Mods] {mod.Id}: applied game rules ({Path.GetFileName(file)}).");
+            }
         }
 
         // ------------------------------------------------------------------ Tags

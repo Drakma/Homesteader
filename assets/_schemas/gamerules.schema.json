@@ -1,0 +1,132 @@
+{
+  "category": "gamerules",
+  "target": "root",
+  "note": "The game rules mod file (mod content type 'gamerules', file gamerules.json). Data, not code: the runtime reads these values instead of constants. A missing key keeps the built-in default, so a mod only lists what it changes. Merge rule: mods load in order and a later mod overrides individual keys of an earlier one; a list value (water_biomes) replaces the whole list; zones are keyed by id and a later zone with the same id replaces the earlier one.",
+  "fields": {
+    "planting": {
+      "type": "object",
+      "required": false,
+      "fields": {
+        "grid_size_m": {
+          "type": "number",
+          "min": 0.1,
+          "default": 1.0,
+          "note": "Size of one ground grid square in metres. Plants are placed on square centres. Should match the ground grid drawn by the scene."
+        },
+        "reach_cells": {
+          "type": "number",
+          "min": 0,
+          "default": 1,
+          "note": "How many squares away from the player's own square a plant can be placed (1 = own square plus the eight around it)."
+        },
+        "max_slope_deg": {
+          "type": "number",
+          "min": 0,
+          "max": 90,
+          "default": 25,
+          "note": "Steepest ground (degrees) that can be planted."
+        },
+        "crop_spacing_m": {
+          "type": "number",
+          "min": 0,
+          "default": 0.5,
+          "note": "Minimum distance between two planted crops."
+        },
+        "tree_spacing_m": {
+          "type": "number",
+          "min": 0,
+          "default": 2.0,
+          "note": "Minimum distance between two planted trees."
+        },
+        "water_biomes": {
+          "type": "array",
+          "item_type": "string",
+          "default": [
+            "biome_pond",
+            "biome_river",
+            "biome_lake"
+          ],
+          "note": "Biome ids that can never be planted in, whatever a group's own planting.biomes says."
+        }
+      }
+    },
+    "harvest": {
+      "type": "object",
+      "required": false,
+      "fields": {
+        "reach_cells": {
+          "type": "number",
+          "min": 0,
+          "default": 1,
+          "note": "How many squares away from the player's own square a plant can be harvested."
+        }
+      }
+    },
+    "zones": {
+      "type": "array",
+      "required": false,
+      "note": "Rectangular patches of ground that count as a biome for planting rules on flat-ground worlds (no generated terrain). The game builds a flat textured quad for each one at load.",
+      "item_fields": {
+        "id": {
+          "type": "string",
+          "required": true,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "note": "Unique zone id; a later mod's zone with the same id replaces this one."
+        },
+        "biome": {
+          "type": "string",
+          "required": true,
+          "note": "Biome id the zone counts as (e.g. biome_farmland). Growth groups whose planting.biomes list it can be planted inside."
+        },
+        "center": {
+          "type": "array",
+          "required": true,
+          "note": "[x, z] world position of the zone's centre."
+        },
+        "size": {
+          "type": "array",
+          "required": true,
+          "note": "[width, depth] in metres."
+        },
+        "texture": {
+          "type": "string",
+          "required": false,
+          "note": "PNG path relative to the mod root, tiled across the zone. Omitted = an untextured quad."
+        },
+        "tile_m": {
+          "type": "number",
+          "required": false,
+          "min": 0.1,
+          "default": 1.0,
+          "note": "Metres covered by one repeat of the texture."
+        },
+        "height_offset_m": {
+          "type": "number",
+          "required": false,
+          "default": 0.005,
+          "note": "How far above the ground the quad sits."
+        }
+      }
+    }
+  },
+  "example": {
+    "planting": {
+      "reach_cells": 2
+    },
+    "zones": [
+      {
+        "id": "north_field",
+        "biome": "biome_farmland",
+        "center": [
+          0,
+          20
+        ],
+        "size": [
+          12,
+          8
+        ],
+        "texture": "textures/farmland_grid.png"
+      }
+    ]
+  }
+}

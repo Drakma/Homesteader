@@ -124,6 +124,7 @@ namespace Homesteader.Modding
             }
 
             Homesteader.Growth.GrowthRegistry.Clear();
+            Homesteader.Growth.GameRules.Clear();
             LoadedMods.Clear();
             Results.Clear();
             LoadComplete = false;

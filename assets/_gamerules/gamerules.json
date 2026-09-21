@@ -1,0 +1,35 @@
+{
+  "_readme": "Game rules shipped as MOD DATA (mod content type 'gamerules'). Every value here overrides the game's built-in default; anything omitted keeps the default. Mods load in order and a later mod overrides individual keys of an earlier one; zones with the same id replace each other. See assets/_schemas/gamerules.schema.json.",
+  "planting": {
+    "grid_size_m": 1.0,
+    "reach_cells": 1,
+    "max_slope_deg": 25,
+    "crop_spacing_m": 0.5,
+    "tree_spacing_m": 2.0,
+    "water_biomes": [
+      "biome_pond",
+      "biome_river",
+      "biome_lake"
+    ]
+  },
+  "harvest": {
+    "reach_cells": 1
+  },
+  "zones": [
+    {
+      "id": "starter_farmland",
+      "biome": "biome_farmland",
+      "center": [
+        0,
+        8
+      ],
+      "size": [
+        10,
+        10
+      ],
+      "texture": "textures/farmland_grid.png",
+      "tile_m": 1.0,
+      "height_offset_m": 0.005
+    }
+  ]
+}

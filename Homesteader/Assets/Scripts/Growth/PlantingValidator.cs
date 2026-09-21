@@ -14,8 +14,14 @@ namespace Homesteader.Growth
     /// </summary>
     public static class PlantingValidator
     {
-        /// <summary>Ground grid cell size in metres (the grid lines sit on whole world X/Z).</summary>
-        public const float GridSizeM = 1f;
+        // All of these come from the game rules mod data (see GameRules); the numbers there are only
+        // the built-in defaults.
+
+        /// <summary>Ground grid cell size in metres (the grid lines sit on whole multiples of it).</summary>
+        public static float GridSizeM => GameRules.Planting.GridSizeM;
+
+        /// <summary>How far from the player's own grid square a plant can be placed, in squares.</summary>
+        public static int ReachCells => GameRules.Planting.ReachCells;
 
         /// <summary>
         /// Snaps a ground point to the centre of the grid cell it falls in. Plants are
@@ -23,26 +29,11 @@ namespace Homesteader.Growth
         /// </summary>
         public static Vector3 SnapToGrid(Vector3 p)
         {
-            p.x = (Mathf.Floor(p.x / GridSizeM) + 0.5f) * GridSizeM;
-            p.z = (Mathf.Floor(p.z / GridSizeM) + 0.5f) * GridSizeM;
+            float g = GridSizeM;
+            p.x = (Mathf.Floor(p.x / g) + 0.5f) * g;
+            p.z = (Mathf.Floor(p.z / g) + 0.5f) * g;
             return p;
         }
-
-
-        /// <summary>
-        /// How far from the player's own grid square a plant can be placed, in squares.
-        /// 1 = the square the player stands on and the eight squares immediately around it.
-        /// </summary>
-        public const int ReachCells = 1;
-        /// <summary>Steepest ground that can be planted, in degrees.</summary>
-        public const float MaxSlopeDeg = 25f;
-        /// <summary>Minimum distance between two planted groups, in metres.</summary>
-        public const float CropSpacingM = 0.5f;
-        public const float TreeSpacingM = 2.0f;
-
-        // Standing/flowing water is never plantable regardless of a group's biome list.
-        private static readonly HashSet<string> WaterBiomes =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "biome_pond", "biome_river", "biome_lake" };
 
         public static bool Validate(GrowthGroup group, RaycastHit hit, Transform player, out string reason)
         {
@@ -68,7 +59,7 @@ namespace Homesteader.Growth
             }
 
             float slope = Vector3.Angle(hit.normal, Vector3.up);
-            if (slope > MaxSlopeDeg)
+            if (slope > GameRules.Planting.MaxSlopeDeg)
             {
                 reason = "The ground is too steep to plant.";
                 return false;
@@ -101,7 +92,7 @@ namespace Homesteader.Growth
                 }
             }
 
-            if (biomeId != null && WaterBiomes.Contains(biomeId))
+            if (biomeId != null && GameRules.Planting.WaterBiomes.Contains(biomeId))
             {
                 reason = "You can't plant in water.";
                 return false;
@@ -137,7 +128,7 @@ namespace Homesteader.Growth
             }
 
             // Spacing
-            float spacing = group.GrowthType == "tree" ? TreeSpacingM : CropSpacingM;
+            float spacing = group.GrowthType == "tree" ? GameRules.Planting.TreeSpacingM : GameRules.Planting.CropSpacingM;
             foreach (PlantedGrowth other in PlantedGrowth.All)
             {
                 if (other != null && Vector3.Distance(other.transform.position, hit.point) < spacing)
@@ -169,12 +160,13 @@ namespace Homesteader.Growth
         }
 
         /// <summary>True when the point is in the player's own grid square or one of the eight around it.</summary>
-        public static bool InReach(Transform player, Vector3 point)
+        public static bool InReach(Transform player, Vector3 point, int reachCells = -1)
         {
             if (player == null) return true;
             int dx = Mathf.Abs(CellIndex(point.x) - CellIndex(player.position.x));
             int dz = Mathf.Abs(CellIndex(point.z) - CellIndex(player.position.z));
-            return dx <= ReachCells && dz <= ReachCells;
+            int reach = reachCells >= 0 ? reachCells : ReachCells;
+            return dx <= reach && dz <= reach;
         }
 
         /// <summary>The grid cell index (whole-metre square) a world coordinate falls in.</summary>
