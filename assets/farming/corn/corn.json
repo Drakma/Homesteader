@@ -45,16 +45,29 @@
     "rules": {
       "yield": {
         "item_id": "ingredient_corn",
-        "amount": 3,
+        "amount_min": 3,
+        "amount_max": 3,
         "harvest_stage": 3
       },
       "planting": {
         "seasons": [
+          "spring",
           "summer"
         ],
         "biomes": [
           "biome_farmland"
-        ]
+        ],
+        "min_temp_c": 3,
+        "max_temp_c": 45
+      },
+      "needs": {
+        "water_interval_days": 7
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die"
       }
     }
   },

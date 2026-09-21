@@ -51,7 +51,11 @@
 				"icon": "tree_mature_oak.png"
 			}
 		],
-		"rules": {}
+		"rules": {
+			"planting": {
+				"item_id": "plantable_oak_sapling"
+			}
+		}
 	},
 	"plugin_metadata": {
 		"version": "1.0.0",

@@ -45,7 +45,8 @@
     "rules": {
       "yield": {
         "item_id": "ingredient_sunflower",
-        "amount": 1,
+        "amount_min": 1,
+        "amount_max": 1,
         "harvest_stage": 3
       },
       "planting": {
@@ -54,7 +55,8 @@
         ],
         "biomes": [
           "biome_farmland"
-        ]
+        ],
+        "item_id": "seed_sunflower"
       }
     }
   },

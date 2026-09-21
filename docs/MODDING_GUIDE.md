@@ -263,27 +263,40 @@ not contain one. Read a stage's `model`/`icon` from the group manifest's
 
 ---
 
-## 4d. Planting: growth-group rules and right-click use
+## 4d. Planting and harvesting: the group owns its lifecycle
 
-A mod can ship plantable trees and crops entirely as data.
+A mod can ship plantable trees and crops entirely as data, and the **growth group owns everything
+about its lifecycle** (nothing about it lives on the seed or sapling item):
 
-1. **The group** (`is_growable: true`, `growth_type` `tree` or `crop`) carries its scheme and a
-   `growth.rules` block (yield, planting seasons/biomes/temperature, needs, failure - see
-   `assets/_schemas/growth_group.schema.json`). The loader registers it in `GrowthRegistry`
-   and resolves each stage's prefab from that stage's own manifest (`prefabs/<stage id>.prefab`).
-2. **The seed/sapling item** declares its right-click behaviour in a top-level `use` block
-   (`assets/_schemas/use.schema.json`):
+| Rule in `growth.rules` | Meaning |
+| :--- | :--- |
+| `planting.item_id` | The item that plants it (seed / sapling). One item plants one group. |
+| `yield.item_id` / `yield.amount_min`..`amount_max` | The ingredient dropped when harvested, and how many: a random whole number from min to max, inclusive. |
+| `yield.tool` | What harvests it: empty = by hand, an item id, or a `#tag`. |
+| `failure.withered` (crops) / `yield.stump` (trees) / `failure.dead` | The withered version (crops only), the stump left after a tree is harvested (trees only), and the dead version. Each is `resource` + `model`, like a stage. |
+| `planting.seasons/biomes`, temperature, `needs`, `failure` | Where and when it grows and what stops it. |
 
-```json
-{ "id": "seed_wheat", "use": { "right_click": { "action": "plant_growth_group", "group": "wheat" } } }
-```
+See `assets/_schemas/growth_group.schema.json`. The loader registers each group in `GrowthRegistry`
+and resolves every stage, withered and dead prefab from that folder's own manifest
+(`prefabs/<manifest id>.prefab`).
 
-With that item as the active toolbar slot, a right-*click* on the ground (a right-drag still pans
-the camera) checks the spot and plants stage 1, consuming one item. A spot is rejected, with a
-toast saying why, when it is: not terrain, too steep, out of reach, water, outside the group's
-`planting.biomes`, outside its `planting.seasons`, outside its temperature range, or too close to
-another plant. Plants then advance through their stages as game days pass, pausing while the
-season/temperature rules forbid growth.
+**Planting.** With the planting item as the active toolbar slot, a right-*click* on the ground (a
+right-drag still pans the camera) checks the spot and plants stage 1 on the centre of that grid
+square, consuming one item. A spot is rejected, with a message saying why, when it is: not ground,
+too steep, not in the squares right next to the player, water, outside the group's `planting.biomes`,
+outside its `planting.seasons`, outside its temperature range, or already occupied. Plants advance
+through their stages as game days pass, pausing while the season/temperature rules forbid growth.
+
+**Failure.** Out of season with `out_of_season: "wither"` the plant shows its withered version until
+conditions return (crops only). Frost (`frost_kills`) or `out_of_season: "die"` kills it: the dead version stays
+in the world for good, or the plant is removed if the group has none.
+
+**Harvesting.** A ready, living plant (at `yield.harvest_stage`, the last stage by default) is
+harvested by right-clicking its square (the player's own square or the eight around it). `yield.tool`
+must be the active toolbar slot when set; a tag (`#sickle`) is satisfied by any member of that tag in
+`tags.json`. The `yield.item_id` goes to the toolbar; perennials (`yield.regrows`) drop back to
+`regrow_stage`. A harvested tree with a `yield.stump` becomes that stump for good; anything else is removed. A mod ships its tag registry as `tags.json` at the mod
+root (`{"tags": {"sickle": ["tool_sickle"]}}`), union-merged across mods.
 
 Requires the stage models to be imported as prefabs: run **Homesteader > Mods > Generate Mod Prefabs**
 after syncing the mod into Unity. A group whose stage 1 has no prefab reports that instead of planting.

@@ -6,6 +6,9 @@ Shader "Homesteader/GenerativeTerrainURP"
         _TerrainBounds ("Terrain Bounds (X, Z, Height, 0)", Vector) = (500.0, 500.0, 60.0, 0.0)
         _NormalStrength ("Facet Normal Strength", Range(0, 1)) = 0.25
         _NutrientDarkening ("Nutrient Soil Darkening", Range(0, 1)) = 0.35
+        _GridColor ("Ground Grid Color", Color) = (0.90, 0.90, 0.90, 1)
+        _GridLineWidth ("Ground Grid Line Width (m)", Range(0, 0.2)) = 0.031
+        _GridOpacity ("Ground Grid Opacity", Range(0, 1)) = 1
     }
 
     SubShader
@@ -44,11 +47,17 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             TEXTURE2D(_BiomeMap);
             SAMPLER(sampler_BiomeMap);
+            // Unity inline sampler state: point filtering + clamp. The biome map stores a
+            // biome ID in R, so it must not be interpolated (that would invent in-between IDs).
+            SAMPLER(sampler_point_clamp);
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _TerrainBounds;
                 float _NormalStrength;
                 float _NutrientDarkening;
+                half4 _GridColor;
+                float _GridLineWidth;
+                float _GridOpacity;
             CBUFFER_END
 
             // Global Weather parameters set via Shader.SetGlobalVector("_WeatherGroundEffects", ...)
@@ -157,7 +166,12 @@ Shader "Homesteader/GenerativeTerrainURP"
                 // 3. Agricultural Farmland (Soft rounded tilled plots)
                 bool isFarm1 = abs(ox - 335.0) < 30.0 && abs(oz - 215.0) < 24.0;
                 bool isFarm2 = abs(ox - 160.0) < 19.0 && abs(oz - 170.0) < 15.0;
-                bool isFarmland = !isWater && !isWetland && !isLawn && (isFarm1 || isFarm2);
+                // The baked biome map (written by HomesteaderTerrainGenerator) is the source of truth
+                // for farmland placed by the generator, e.g. the starter field around the spawn.
+                // R encodes (biomeMode + 0.5) / 16; farmland is mode 4.
+                half4 biomeSample = SAMPLE_TEXTURE2D(_BiomeMap, sampler_point_clamp, input.uv);
+                bool isFarmMap = abs(biomeSample.r * 16.0 - 4.5) < 0.4;
+                bool isFarmland = !isWater && !isWetland && !isLawn && (isFarm1 || isFarm2 || isFarmMap);
 
                 // 4. Color & Biome Evaluation
                 if (isWater)
@@ -276,6 +290,18 @@ Shader "Homesteader/GenerativeTerrainURP"
                 float ndotl = max(0.0, dot(normWS, mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
                 half3 finalRGB = col * (mainLight.color * celLight);
+
+                // Ground grid: 1 m world-space lines drawn over EVERY ground texture (biomes,
+                // water, snow, ...), matching the old T_Ground_GrassGrid tile (2 px of 64 = 3.1 cm).
+                // Lines sit on integer world X/Z. Cliffs are skipped because the lines would smear
+                // into vertical stripes on near-vertical faces.
+                float2 gridUV = posWS.xz;
+                float2 gridAA = max(fwidth(gridUV), 1e-4);            // anti-alias to ~1 screen pixel
+                float2 gridDist = frac(gridUV);                       // 0 at a line, up to 1 across a metre
+                float2 gridLine = 1.0 - smoothstep(_GridLineWidth, _GridLineWidth + gridAA, gridDist);
+                float gridMask = saturate(max(gridLine.x, gridLine.y)) * _GridOpacity;
+                gridMask *= (slope > 0.38) ? 0.0 : 1.0;
+                finalRGB = lerp(finalRGB, _GridColor.rgb * (mainLight.color * celLight), gridMask);
 
                 return half4(finalRGB, 1.0);
             }

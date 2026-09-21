@@ -54,39 +54,48 @@ namespace Homesteader.Growth
             if (isClick) TryPlant(pos);
         }
 
-        private void TryPlant(Vector2 screenPos)
+        public void TryPlant(Vector2 screenPos)
         {
             HudBindings hud = HudBindings.Instance;
             if (hud == null) return;
             // A window/text field owns input, or the click landed on the HUD.
             if (HudBindings.KeyboardCaptured || hud.IsPointerOverUI(screenPos)) return;
 
-            HudState state = HudState.Active;
-            if (state.SelectedSlot < 0 || state.SelectedSlot >= state.Toolbar.Count) return;
-            ToolbarSlotData slot = state.Toolbar[state.SelectedSlot];
-            if (string.IsNullOrEmpty(slot.IconId) || slot.Count <= 0) return;
-
-            if (!GrowthRegistry.TryGetUse(slot.IconId, out UseBehavior use)
-                || use.Action != UseBehavior.PlantGrowthGroup)
-                return;   // this item has no right-click plant behaviour
-
-            if (!GrowthRegistry.TryGetGroup(use.GroupId, use.Namespace, out GrowthGroup group))
-            {
-                ToastNotificationSystem.ShowError("Can't plant",
-                    $"The growth group '{use.GroupId}' isn't loaded. Is its mod installed?");
-                return;
-            }
-
-            Camera cam = Camera.main;
+            Camera cam = GameCamera();
             if (cam == null) return;
+
+            HudState state = HudState.Active;
+            string heldId = null;
+            GrowthGroup group = null;
+            if (state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count)
+            {
+                ToolbarSlotData slot = state.Toolbar[state.SelectedSlot];
+                if (!string.IsNullOrEmpty(slot.IconId) && slot.Count > 0) heldId = slot.IconId;
+            }
+            // The GROUP owns what plants it: the held item plants whichever group names it.
+            bool canPlant = heldId != null && GrowthRegistry.TryGetGroupPlantedBy(heldId, out group);
 
             if (!TryGroundHit(cam, screenPos, out RaycastHit hit))
             {
-                ToastNotificationSystem.ShowWarning("Can't plant", "You can only plant in open ground.");
+                if (canPlant) ToastNotificationSystem.ShowWarning("Can't plant", "You can only plant in open ground.");
                 return;
             }
 
+            // Lock to the ground grid: everything below (zone, biome, spacing, reach) is
+            // checked at, and the plant is placed on, the centre of the clicked cell.
+            hit.point = PlantingValidator.SnapToGrid(hit.point);
             var ped = FindFirstObjectByType<PedController>();
+
+            // Something already growing in that square: this click tries to harvest it.
+            PlantedGrowth existing = PlantedAt(hit.point);
+            if (existing != null)
+            {
+                TryHarvest(existing, heldId, ped != null ? ped.transform : null, hit.point);
+                return;
+            }
+
+            if (!canPlant) return;   // nothing to plant with this item
+
             if (!PlantingValidator.Validate(group, hit, ped != null ? ped.transform : null, out string reason))
             {
                 ToastNotificationSystem.ShowWarning("Can't plant here", reason);
@@ -97,7 +106,72 @@ namespace Homesteader.Growth
             hud.RefreshToolbar();
 
             PlantedGrowth.Plant(group, hit.point, PlantedRoot());
-            ToastNotificationSystem.ShowSuccess("Planted", $"Planted {group.Name}.");
+        }
+
+        /// <summary>The plant standing in the grid square containing the point, if any.</summary>
+        private static PlantedGrowth PlantedAt(Vector3 point)
+        {
+            foreach (PlantedGrowth p in PlantedGrowth.All)
+            {
+                if (p == null) continue;
+                Vector3 c = p.transform.position;
+                if (Mathf.Floor(c.x / PlantingValidator.GridSizeM) == Mathf.Floor(point.x / PlantingValidator.GridSizeM)
+                    && Mathf.Floor(c.z / PlantingValidator.GridSizeM) == Mathf.Floor(point.z / PlantingValidator.GridSizeM))
+                    return p;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Harvests a ready plant if the player is in reach and (when the group needs one) holding the
+        /// right tool. A success is silent; the yield just appears on the toolbar. Only failures the
+        /// player can act on get a message, and only when the click was clearly a harvest attempt.
+        /// </summary>
+        private static void TryHarvest(PlantedGrowth plant, string heldId, Transform player, Vector3 point)
+        {
+            GrowthRules rules = plant.Group.Rules;
+            if (string.IsNullOrEmpty(rules.YieldItemId) || rules.YieldAmountMax <= 0) return;   // nothing to harvest
+
+            bool needsTool = !string.IsNullOrEmpty(rules.YieldTool);
+            bool holdingTool = needsTool && GrowthRegistry.ToolMatches(rules.YieldTool, heldId);
+
+            if (!plant.CanHarvest)
+            {
+                // A withered or dead plant just can't be harvested; a young one gets a hint if the right tool is in hand.
+                if (holdingTool && plant.State == PlantedGrowth.PlantState.Alive)
+                    ToastNotificationSystem.ShowWarning("Not ready", $"{plant.Group.Name} isn't ready to harvest yet.");
+                return;
+            }
+
+            if (!PlantingValidator.InReach(player, point))
+            {
+                ToastNotificationSystem.ShowWarning("Too far", "You can only harvest the squares right next to you.");
+                return;
+            }
+
+            if (needsTool && !holdingTool)
+            {
+                ToastNotificationSystem.ShowWarning("Need a tool", $"You need {DescribeTool(rules.YieldTool)} to harvest this.");
+                return;
+            }
+
+            int amount = rules.RollYield();
+            int added = HudState.Active.AddItemToToolbar(rules.YieldItemId, amount, HudBindings.GetMaxStack(rules.YieldItemId));
+            if (added <= 0)
+            {
+                ToastNotificationSystem.ShowWarning("Toolbar full", "Make room on the toolbar to harvest this.");
+                return;
+            }
+            HudBindings.Instance.RefreshToolbar();
+            if (added < amount)
+                ToastNotificationSystem.ShowWarning("Toolbar full", "Some of the harvest didn't fit and was lost.");
+
+            plant.Harvested();
+        }
+
+        private static string DescribeTool(string spec)
+        {
+            return spec.StartsWith("#") ? $"a {spec.Substring(1).Replace('_', ' ')}" : HudBindings.GetItemName(spec);
         }
 
         /// <summary>
@@ -118,6 +192,21 @@ namespace Homesteader.Growth
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// The gameplay camera. Camera.main needs the MainCamera tag, which this scene's
+        /// camera does not carry, so fall back to the isometric camera, then any camera.
+        /// </summary>
+        private static Camera GameCamera()
+        {
+            Camera cam = Camera.main;
+            if (cam != null) return cam;
+
+            var iso = FindFirstObjectByType<IsometricLockedCamera>();
+            if (iso != null && iso.TryGetComponent(out cam)) return cam;
+
+            return FindFirstObjectByType<Camera>();
         }
 
         private Transform PlantedRoot()

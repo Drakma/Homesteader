@@ -269,8 +269,19 @@ namespace Homesteader.Editor
 
             Material fallback = AssetDatabase.LoadAssetAtPath<Material>(AtlasMaterialPath);
 
+            // A "<model>_base_color.png" beside the model is the authored texture. The FBX's own
+            // embedded material can lose it (crops came out plain grey), so bind it explicitly.
+            Material authored = GetBaseColorMaterial(modelPath);
+
             foreach (Renderer renderer in instance.GetComponentsInChildren<Renderer>(true))
             {
+                if (authored != null)
+                {
+                    var slots = new Material[Mathf.Max(1, renderer.sharedMaterials.Length)];
+                    for (int i = 0; i < slots.Length; i++) slots[i] = authored;
+                    renderer.sharedMaterials = slots;
+                }
+
                 // If the importer produced no material (common with embedded
                 // textures), bind the project atlas so the mesh is at least shaded.
                 if (renderer.sharedMaterials == null ||
@@ -286,10 +297,12 @@ namespace Homesteader.Editor
             }
 
             // Trees are static scenery: give them colliders so the player and
-            // other systems can interact with them. The inspector gate keeps this
-            // to meshes above a sane vertex count.
+            // other systems can interact with them. Crops are the exception - the player
+            // walks through them - so crop stages get no collider at all.
+            bool solid = !entry.ItemId.StartsWith("crop_", StringComparison.OrdinalIgnoreCase);
             foreach (MeshFilter filter in instance.GetComponentsInChildren<MeshFilter>(true))
             {
+                if (!solid) break;
                 if (filter.sharedMesh == null) continue;
                 if (filter.GetComponent<Collider>() == null)
                     filter.gameObject.AddComponent<MeshCollider>().sharedMesh = filter.sharedMesh;
@@ -299,6 +312,47 @@ namespace Homesteader.Editor
             // pipeline pivots most models at the base already, but not all, and a
             // tree that spawns half-buried looks broken.
             GroundToOrigin(instance);
+        }
+
+        /// <summary>
+        /// The URP/Lit material for "&lt;model&gt;_base_color.png" (created once, then reused),
+        /// or null when the model ships no such texture. The texture is searched for in the whole
+        /// mod folder, because the prefab is built from a copy of the model under models/ while the
+        /// texture sits with the source asset (e.g. stages/&lt;stage&gt;/).
+        /// </summary>
+        private static Material GetBaseColorMaterial(string modelPath)
+        {
+            string stem = Path.GetFileNameWithoutExtension(modelPath);
+            string[] parts = modelPath.Split('/');
+            if (parts.Length < 4) return null;
+            string modRoot = string.Join("/", parts.Take(3));          // Assets/Mods/<mod_id>
+
+            string texturePath = null;
+            foreach (string guid in AssetDatabase.FindAssets(stem + "_base_color t:Texture2D", new[] { modRoot }))
+            {
+                string candidate = AssetDatabase.GUIDToAssetPath(guid);
+                if (Path.GetFileNameWithoutExtension(candidate) == stem + "_base_color")
+                {
+                    texturePath = candidate;
+                    break;
+                }
+            }
+            if (texturePath == null) return null;
+
+            var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
+            string matPath = Path.ChangeExtension(texturePath, ".mat");
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
+            if (mat == null)
+            {
+                mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                AssetDatabase.CreateAsset(mat, matPath);
+            }
+            mat.SetTexture("_BaseMap", texture);
+            mat.SetColor("_BaseColor", Color.white);
+            mat.SetFloat("_Smoothness", 0.1f);
+            mat.SetFloat("_Metallic", 0f);
+            EditorUtility.SetDirty(mat);
+            return mat;
         }
 
         private static void GroundToOrigin(GameObject instance)

@@ -66,6 +66,8 @@ namespace Homesteader.Modding
 
                 var result = new ModLoadResult { Mod = mod };
 
+                LoadTags(mod);
+
                 foreach (ModContentEntry entry in mod.Manifest.Contents)
                 {
                     try
@@ -103,6 +105,35 @@ namespace Homesteader.Modding
             return results;
         }
 
+        // ------------------------------------------------------------------ Tags
+
+        /// <summary>
+        /// Reads the mod's optional root-level tags.json ({"tags": {"name": ["item_id", ...]}}) into the
+        /// tag registry. Tags are virtual items standing for interchangeable real ones; a recipe or
+        /// harvest tool refers to one as "#name".
+        /// </summary>
+        private static void LoadTags(ModInfo mod)
+        {
+            string path = Path.Combine(mod.RootPath, "tags.json");
+            if (!File.Exists(path)) return;
+            try
+            {
+                if (!ModJson.TryParse(File.ReadAllText(path), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"tags.json is not valid JSON - {error}");
+                    return;
+                }
+                ModJsonValue tagObj = root.Get("tags");
+                if (!tagObj.IsObject) return;
+                foreach (KeyValuePair<string, ModJsonValue> kv in tagObj.ObjectValue)
+                    GrowthRegistry.RegisterTag(kv.Key, kv.Value.AsStringList());
+            }
+            catch (Exception ex)
+            {
+                mod.Warnings.Add($"tags.json could not be read: {ex.Message}");
+            }
+        }
+
         // ---------------------------------------------------------------- Biomes
 
         private static void LoadBiomes(
@@ -114,7 +145,7 @@ namespace Homesteader.Modding
         {
             if (generator == null)
             {
-                mod.Warnings.Add("Biome content ignored: no terrain generator supplied.");
+                // No terrain generator: biomes have nowhere to apply.
                 return;
             }
 
@@ -289,7 +320,7 @@ namespace Homesteader.Modding
                     summary.prefab = prefab;
                 }
 
-                // Growth groups and item use-behaviours (e.g. right-click to plant) are
+                // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,
                 // not world scattering.
                 if (GrowthGroup.TryParse(mod, Path.GetDirectoryName(file), root, ns, assetResolver,
@@ -298,14 +329,11 @@ namespace Homesteader.Modding
                     if (!GrowthRegistry.Register(growthGroup))
                         mod.Warnings.Add($"Growth group '{growthGroup.QualifiedId}' already registered; this copy is ignored.");
                 }
-                if (UseBehavior.TryParse(root, ns, out UseBehavior useBehavior))
-                    GrowthRegistry.Register(useBehavior);
 
+                // No terrain generator: nothing to scatter into. Growth groups and use
+                // behaviours were registered above; the asset itself stays data-only.
                 if (generator == null)
-                {
-                    mod.Warnings.Add($"Asset '{localId}' parsed but no terrain generator to register it on.");
                     continue;
-                }
 
                 // Duplicate qualified ids are rejected the same way biomes are:
                 // first one wins, later ones are reported and skipped.

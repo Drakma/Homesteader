@@ -51,7 +51,11 @@
         "icon": "tree_mature_poplar.png"
       }
     ],
-    "rules": {}
+    "rules": {
+      "planting": {
+        "item_id": "plantable_poplar_sapling"
+      }
+    }
   },
   "plugin_metadata": {
     "version": "1.0.0",

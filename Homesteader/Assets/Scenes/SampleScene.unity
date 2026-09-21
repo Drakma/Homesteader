@@ -150,6 +150,111 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &126735630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 126735634}
+  - component: {fileID: 126735633}
+  - component: {fileID: 126735632}
+  - component: {fileID: 126735631}
+  m_Layer: 0
+  m_Name: Farmland Plot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &126735631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126735630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a2b0dbd1e6f41489fd9def9c4b49b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Homesteader.Growth.PlantingZone
+  biomeId: biome_farmland
+  size: {x: 10, y: 10}
+--- !u!23 &126735632
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126735630}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5e7999719cef5eb49ab57b1aba12f542, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &126735633
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126735630}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &126735634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126735630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.005, z: 8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &234937959
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,37 +657,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &922532984
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 922532985}
-  m_Layer: 0
-  m_Name: SpawnedAssets
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &922532985
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922532984}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.5, y: 0, z: 5.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1812365829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1002050536
 GameObject:
@@ -992,539 +1066,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!1 &1812365825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1812365829}
-  - component: {fileID: 1812365828}
-  - component: {fileID: 1812365827}
-  - component: {fileID: 1812365826}
-  m_Layer: 0
-  m_Name: ProceduralTerrain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1812365826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812365825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55d94a87fd2e3b448828c29101bab29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Homesteader.Generation.HomesteaderTerrainGenerator
-  worldSeed: 4312
-  terrainSizeX: 500
-  terrainSizeZ: 500
-  terrainHeight: 50
-  biomes:
-  - id: biome_river
-    name: River & Creek System
-    priority: 12
-    description: Winding stream that carves naturally into the lowest valley basins.
-    color_hex: '#06b6d4'
-    moisture: 1
-    nutrients: 0.5
-    noise:
-      frequency: 0.005
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.95
-      dither_bandwidth: 0.01
-    elevation:
-      base_offset_m: -2.5
-      noise_amplitude_m: 0.5
-      noise_frequency: 0.015
-      max_slope_deg: 15
-    generative_ground:
-      shader_mode: water_flow
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_lake
-    name: Deep Lake
-    priority: 11
-    description: Deep benthic lake basin confined strictly to low valley bottoms.
-    color_hex: '#1d4ed8'
-    moisture: 1
-    nutrients: 0.4
-    noise:
-      frequency: 0.007
-      octaves: 3
-      persistence: 0.45
-      threshold: 0.78
-      dither_bandwidth: 0.015
-    elevation:
-      base_offset_m: -4
-      noise_amplitude_m: 0.8
-      noise_frequency: 0.012
-      max_slope_deg: 12
-    generative_ground:
-      shader_mode: water_lake
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_pond
-    name: Pond & Wetland Basin
-    priority: 10
-    description: Small kettle pond depression confined to low valley areas.
-    color_hex: '#3b82f6'
-    moisture: 0.95
-    nutrients: 0.65
-    noise:
-      frequency: 0.012
-      octaves: 3
-      persistence: 0.45
-      threshold: 0.76
-      dither_bandwidth: 0.02
-    elevation:
-      base_offset_m: -2
-      noise_amplitude_m: 0.6
-      noise_frequency: 0.015
-      max_slope_deg: 18
-    generative_ground:
-      shader_mode: water_basin
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_farmland
-    name: Farmland (Tilled Rows)
-    priority: 8
-    description: Agricultural fields with distinct parallel tilled soil furrows.
-    color_hex: '#78350f'
-    moisture: 0.65
-    nutrients: 0.9
-    noise:
-      frequency: 0.012
-      octaves: 2
-      persistence: 0.5
-      threshold: 0.65
-      dither_bandwidth: 0.03
-    elevation:
-      base_offset_m: 0.5
-      noise_amplitude_m: 1
-      noise_frequency: 0.01
-      max_slope_deg: 8
-    generative_ground:
-      shader_mode: tilled_furrows
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_maintained_grass
-    name: Maintained Lawn
-    priority: 7
-    description: Domestic yard grass with alternating directional mower stripes.
-    color_hex: '#10b981'
-    moisture: 0.55
-    nutrients: 0.7
-    noise:
-      frequency: 0.016
-      octaves: 2
-      persistence: 0.5
-      threshold: 0.68
-      dither_bandwidth: 0.025
-    elevation:
-      base_offset_m: 0.3
-      noise_amplitude_m: 0.6
-      noise_frequency: 0.012
-      max_slope_deg: 12
-    generative_ground:
-      shader_mode: mower_stripes
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_wetland_marsh
-    name: Bog & Peat Marsh
-    priority: 6
-    description: Soggy wetland basin with squishy peat and moss hummocks.
-    color_hex: '#365314'
-    moisture: 0.9
-    nutrients: 0.6
-    noise:
-      frequency: 0.012
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.6
-      dither_bandwidth: 0.035
-    elevation:
-      base_offset_m: -1
-      noise_amplitude_m: 0.8
-      noise_frequency: 0.015
-      max_slope_deg: 10
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_maple_forest
-    name: Maple Forest
-    priority: 5
-    description: Autumn deciduous forest with vibrant leaf litter floor.
-    color_hex: '#ea580c'
-    moisture: 0.6
-    nutrients: 0.75
-    noise:
-      frequency: 0.011
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.54
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 2.5
-      noise_amplitude_m: 3
-      noise_frequency: 0.012
-      max_slope_deg: 25
-    generative_ground:
-      shader_mode: leaf_litter
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_birch_forest
-    name: Birch Grove
-    priority: 5
-    description: Luminous grove with light moss undergrowth.
-    color_hex: '#a3e635'
-    moisture: 0.5
-    nutrients: 0.6
-    noise:
-      frequency: 0.012
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.52
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 1.8
-      noise_amplitude_m: 2.5
-      noise_frequency: 0.012
-      max_slope_deg: 22
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_oak_forest
-    name: Oak Woodland
-    priority: 5
-    description: Hardwood forest with rich shaded leaf soil.
-    color_hex: '#15803d'
-    moisture: 0.55
-    nutrients: 0.8
-    noise:
-      frequency: 0.01
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.5
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 3
-      noise_amplitude_m: 3
-      noise_frequency: 0.012
-      max_slope_deg: 26
-    generative_ground:
-      shader_mode: leaf_litter
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_poplar_forest
-    name: Poplar Stand
-    priority: 5
-    description: Tall grove along gentle knolls and floodplains.
-    color_hex: '#65a30d'
-    moisture: 0.58
-    nutrients: 0.65
-    noise:
-      frequency: 0.011
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.52
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 1.8
-      noise_amplitude_m: 2
-      noise_frequency: 0.012
-      max_slope_deg: 20
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_mixed_forest
-    name: Mixed Timberland
-    priority: 4
-    description: Biodiverse mix of conifers and deciduous trees.
-    color_hex: '#166534'
-    moisture: 0.55
-    nutrients: 0.7
-    noise:
-      frequency: 0.01
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.46
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 3
-      noise_amplitude_m: 3.5
-      noise_frequency: 0.012
-      max_slope_deg: 28
-    generative_ground:
-      shader_mode: leaf_litter
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_pine_hills
-    name: Pine Hills & Ridges
-    priority: 4
-    description: Rolling alpine conifer highlands with weathered rock outcrops.
-    color_hex: '#1e3a1f'
-    moisture: 0.45
-    nutrients: 0.4
-    noise:
-      frequency: 0.009
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.46
-      dither_bandwidth: 0.055
-    elevation:
-      base_offset_m: 5
-      noise_amplitude_m: 4.5
-      noise_frequency: 0.012
-      max_slope_deg: 35
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_rocky_ridge
-    name: Rocky Ridge & Scree
-    priority: 3
-    description: High craggy bedrock knolls and gravel scree slopes.
-    color_hex: '#71717a'
-    moisture: 0.2
-    nutrients: 0.1
-    noise:
-      frequency: 0.011
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.6
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 6.5
-      noise_amplitude_m: 4.5
-      noise_frequency: 0.014
-      max_slope_deg: 45
-    generative_ground:
-      shader_mode: scree_triplanar
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_dry_lands
-    name: Dry Lands & Arid Scrub
-    priority: 2
-    description: Arid sun-baked dirt and dusty plains.
-    color_hex: '#ca8a04'
-    moisture: 0.15
-    nutrients: 0.2
-    noise:
-      frequency: 0.01
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.38
-      dither_bandwidth: 0.045
-    elevation:
-      base_offset_m: 1
-      noise_amplitude_m: 1.8
-      noise_frequency: 0.01
-      max_slope_deg: 18
-    generative_ground:
-      shader_mode: cracked_earth
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_grass_plains
-    name: Lush Prairie / Grass Plains
-    priority: 2
-    description: Expansive plains of thick, luscious nutrient-rich grass.
-    color_hex: '#4ade80'
-    moisture: 0.5
-    nutrients: 0.75
-    noise:
-      frequency: 0.008
-      octaves: 3
-      persistence: 0.5
-      threshold: 0.22
-      dither_bandwidth: 0.05
-    elevation:
-      base_offset_m: 1
-      noise_amplitude_m: 2
-      noise_frequency: 0.009
-      max_slope_deg: 16
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  - id: biome_meadow
-    name: Pasture & Meadow
-    priority: 1
-    description: Open rolling homestead prairie.
-    color_hex: '#84cc16'
-    moisture: 0.45
-    nutrients: 0.6
-    noise:
-      frequency: 0.008
-      octaves: 3
-      persistence: 0.5
-      threshold: 0
-      dither_bandwidth: 0.04
-    elevation:
-      base_offset_m: 0
-      noise_amplitude_m: 1.8
-      noise_frequency: 0.009
-      max_slope_deg: 18
-    generative_ground:
-      shader_mode: standard_dither
-      primary_color_hex: '#15803d'
-      secondary_color_hex: '#22c55e'
-      slope_color_hex: '#6b7280'
-      pattern_scale: 1
-      pattern_intensity: 0.5
-      normal_micro_roughness: 0.2
-  registeredAssets: []
-  starterFieldEnabled: 1
-  starterFieldCenter: {x: 40, y: 22}
-  starterFieldHalfSize: {x: 22, y: 16}
---- !u!154 &1812365827
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812365825}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: cc0e3d96f1346b44d96a2533b4ed08d1, type: 2}
-  m_EnableTreeColliders: 1
---- !u!218 &1812365828
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812365825}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: cc0e3d96f1346b44d96a2533b4ed08d1, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMinimumLODSimplification: 0
-  m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
-  m_DrawHeightmap: 1
-  m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
-  m_StaticShadowCaster: 0
-  m_IgnoreQualitySettings: 0
-  m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: b94c190de530e224a8fdb26fc649e132, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
-  m_ReceiveGI: 1
-  m_ScaleInLightmap: 1
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
-  m_GroupingID: 0
-  m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 0
-  m_EnableHeightmapRayTracing: 1
-  m_EnableTreesAndDetailsRayTracing: 0
-  m_EnableHeightmapLODFrustumCulling: 1
-  m_TreeMotionVectorModeOverride: 3
---- !u!4 &1812365829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812365825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.5, y: 0, z: -5.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 922532985}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1536,6 +1077,6 @@ SceneRoots:
   - {fileID: 1502109138}
   - {fileID: 1138567798}
   - {fileID: 234937962}
-  - {fileID: 1812365829}
   - {fileID: 1702678527}
   - {fileID: 1002050538}
+  - {fileID: 126735634}

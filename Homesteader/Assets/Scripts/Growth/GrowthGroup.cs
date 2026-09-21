@@ -20,6 +20,24 @@ namespace Homesteader.Growth
         public GameObject Prefab;
     }
 
+    /// <summary>A withered / dead version of a plant (failure.withered / failure.dead): a model like a stage.</summary>
+    public sealed class GrowthVariant
+    {
+        public string Resource;
+        public string Model;
+        public string Icon;
+        /// <summary>Resolved through the mod asset resolver; null when no prefab was generated.</summary>
+        public GameObject Prefab;
+
+        public static GrowthVariant Parse(ModJsonValue v)
+        {
+            string resource = v.Get("resource").AsString();
+            string model = v.Get("model").AsString();
+            if (string.IsNullOrEmpty(resource) || string.IsNullOrEmpty(model)) return null;
+            return new GrowthVariant { Resource = resource, Model = model, Icon = v.Get("icon").AsString() };
+        }
+    }
+
     /// <summary>
     /// A group's growth.rules block (growth_group.schema.json). Trees and crops
     /// only. Every field has the schema's default, so a missing block means
@@ -29,12 +47,27 @@ namespace Homesteader.Growth
     {
         // yield
         public string YieldItemId;
-        public int YieldAmount;
+        public int YieldAmountMin;
+        public int YieldAmountMax;
+
+        /// <summary>A random WHOLE number from YieldAmountMin to YieldAmountMax, both inclusive.</summary>
+        public int RollYield()
+        {
+            int lo = Mathf.Max(1, YieldAmountMin);
+            int hi = Mathf.Max(lo, YieldAmountMax);
+            return UnityEngine.Random.Range(lo, hi + 1);   // the int overload's upper bound is exclusive
+        }
         public int HarvestStage;      // 0 = final stage
         public bool Regrows;
         public int RegrowStage;
+        /// <summary>Item id or "#tag" of what harvests it; empty = by hand.</summary>
+        public string YieldTool;
+        /// <summary>Trees: the stump left standing after the tree is harvested (null = the tree is removed).</summary>
+        public GrowthVariant Stump;
 
         // planting
+        /// <summary>The item that plants this group (a seed / sapling); empty = nothing plants it.</summary>
+        public string PlantItemId;
         public readonly List<string> Seasons = new List<string>();   // spring/summer/fall/winter/year_round
         public readonly List<string> Biomes = new List<string>();    // empty = any biome
         public float? MinTempC;
@@ -50,6 +83,8 @@ namespace Homesteader.Growth
         public bool FrostKills;
         public float DroughtDaysBeforeWither;
         public string WitherBehavior = "stall";     // stall | regress_one_stage | die
+        public GrowthVariant Withered;              // shown while withering (null = keep the current stage)
+        public GrowthVariant Dead;                  // shown once dead (null = the plant is removed)
 
         public bool YearRound => Seasons.Count == 0 || Seasons.Contains("year_round");
 
@@ -60,12 +95,18 @@ namespace Homesteader.Growth
 
             ModJsonValue y = r.Get("yield");
             rules.YieldItemId = y.Get("item_id").AsString();
-            rules.YieldAmount = y.Get("amount").AsInt(0);
+            // amount_min / amount_max; the legacy single "amount" is used for both.
+            int legacyAmount = y.Get("amount").AsInt(0);
+            rules.YieldAmountMin = y.Get("amount_min").AsInt(legacyAmount);
+            rules.YieldAmountMax = y.Get("amount_max").AsInt(rules.YieldAmountMin);
             rules.HarvestStage = y.Get("harvest_stage").AsInt(0);
             rules.Regrows = y.Get("regrows").AsBool(false);
             rules.RegrowStage = y.Get("regrow_stage").AsInt(0);
+            rules.YieldTool = y.Get("tool").AsString();
+            rules.Stump = GrowthVariant.Parse(y.Get("stump"));
 
             ModJsonValue p = r.Get("planting");
+            rules.PlantItemId = p.Get("item_id").AsString();
             rules.Seasons.AddRange(p.Get("seasons").AsStringList());
             rules.Biomes.AddRange(p.Get("biomes").AsStringList());
             if (p.Has("min_temp_c")) rules.MinTempC = p.Get("min_temp_c").AsFloat();
@@ -81,6 +122,8 @@ namespace Homesteader.Growth
             rules.FrostKills = f.Get("frost_kills").AsBool(false);
             rules.DroughtDaysBeforeWither = f.Get("drought_days_before_wither").AsFloat(0f);
             rules.WitherBehavior = f.Get("wither_behavior").AsString("stall");
+            rules.Withered = GrowthVariant.Parse(f.Get("withered"));
+            rules.Dead = GrowthVariant.Parse(f.Get("dead"));
             return rules;
         }
     }
@@ -163,7 +206,18 @@ namespace Homesteader.Growth
             result.Stages.Sort((a, b) => a.Stage.CompareTo(b.Stage));
 
             if (result.IsPlantable)
+            {
                 result.Rules = GrowthRules.Parse(g.Get("rules"));
+
+                // Withered / dead versions are resource folders just like stages.
+                foreach (GrowthVariant variant in new[] { result.Rules.Withered, result.Rules.Dead, result.Rules.Stump })
+                {
+                    if (variant == null) continue;
+                    string variantName = variant == result.Rules.Withered ? "withered" : variant == result.Rules.Dead ? "dead" : "stump";
+                    var asStage = new GrowthStage { Stage = 0, Name = variantName, Resource = variant.Resource, Model = variant.Model };
+                    variant.Prefab = ResolveStagePrefab(mod, groupDir, asStage, resolver, warn);
+                }
+            }
 
             group = result;
             return true;
@@ -208,56 +262,52 @@ namespace Homesteader.Growth
         }
     }
 
-    /// <summary>What an item does on right-click (the manifest's use.right_click block).</summary>
-    public sealed class UseBehavior
-    {
-        public const string PlantGrowthGroup = "plant_growth_group";
-
-        public string ItemId;
-        public string Namespace = "core";
-        public string Action;
-        /// <summary>For plant_growth_group: the growth group's id.</summary>
-        public string GroupId;
-
-        public static bool TryParse(ModJsonValue root, string ns, out UseBehavior behavior)
-        {
-            behavior = null;
-            ModJsonValue rc = root.Get("use").Get("right_click");
-            if (rc == null || rc.IsNull || !rc.IsObject) return false;
-
-            string action = rc.Get("action").AsString();
-            string itemId = root.Get("id").AsString();
-            if (string.IsNullOrEmpty(action) || string.IsNullOrEmpty(itemId)) return false;
-
-            behavior = new UseBehavior
-            {
-                ItemId = itemId,
-                Namespace = ns,
-                Action = action,
-                GroupId = rc.Get("group").AsString(),
-            };
-            return true;
-        }
-    }
-
     /// <summary>
-    /// Everything mods have contributed at runtime: growth groups and item use
-    /// behaviours. ModLoader is the only writer (merge rules stay in one file);
+    /// Everything mods have contributed at runtime: growth groups (which own what
+    /// plants them) and the tag registry. ModLoader is the only writer (merge rules stay in one file);
     /// gameplay code only reads.
     /// </summary>
     public static class GrowthRegistry
     {
         private static readonly Dictionary<string, GrowthGroup> groups =
             new Dictionary<string, GrowthGroup>(StringComparer.OrdinalIgnoreCase);
-        private static readonly Dictionary<string, UseBehavior> uses =
-            new Dictionary<string, UseBehavior>(StringComparer.OrdinalIgnoreCase);
+        // Item id -> the group it plants (from each group's rules.planting.item_id).
+        private static readonly Dictionary<string, GrowthGroup> plantItems =
+            new Dictionary<string, GrowthGroup>(StringComparer.OrdinalIgnoreCase);
 
         public static IEnumerable<GrowthGroup> Groups => groups.Values;
+
+        // Tag registry ("#tag" -> member item ids), union-merged from every mod's tags.json.
+        private static readonly Dictionary<string, HashSet<string>> tags =
+            new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
 
         public static void Clear()
         {
             groups.Clear();
-            uses.Clear();
+            plantItems.Clear();
+            tags.Clear();
+        }
+
+        /// <summary>Adds members to a tag, creating it if needed (union, so mods can share one registry).</summary>
+        public static void RegisterTag(string name, IEnumerable<string> members)
+        {
+            if (string.IsNullOrEmpty(name) || members == null) return;
+            if (!tags.TryGetValue(name, out HashSet<string> set))
+                tags[name] = set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (string m in members)
+                if (!string.IsNullOrEmpty(m)) set.Add(m);
+        }
+
+        /// <summary>
+        /// True when <paramref name="itemId"/> satisfies a tool spec: the spec is that exact item id,
+        /// or "#tag" and the item is a member of the tag.
+        /// </summary>
+        public static bool ToolMatches(string toolSpec, string itemId)
+        {
+            if (string.IsNullOrEmpty(toolSpec) || string.IsNullOrEmpty(itemId)) return false;
+            if (toolSpec[0] != '#')
+                return string.Equals(toolSpec, itemId, StringComparison.OrdinalIgnoreCase);
+            return tags.TryGetValue(toolSpec.Substring(1), out HashSet<string> members) && members.Contains(itemId);
         }
 
         /// <summary>First registration of a qualified id wins; returns false for a duplicate.</summary>
@@ -265,31 +315,18 @@ namespace Homesteader.Growth
         {
             if (group == null || groups.ContainsKey(group.QualifiedId)) return false;
             groups[group.QualifiedId] = group;
+            // First group to claim a planting item keeps it (the asset kit forbids duplicates).
+            string item = group.Rules?.PlantItemId;
+            if (!string.IsNullOrEmpty(item) && !plantItems.ContainsKey(item))
+                plantItems[item] = group;
             return true;
         }
 
-        public static bool Register(UseBehavior use)
+        /// <summary>The group a toolbar item plants, if any group names it as its planting item.</summary>
+        public static bool TryGetGroupPlantedBy(string itemId, out GrowthGroup group)
         {
-            if (use == null) return false;
-            string key = $"{use.Namespace}:{use.ItemId}";
-            if (uses.ContainsKey(key)) return false;
-            uses[key] = use;
-            return true;
-        }
-
-        /// <summary>The right-click behaviour of a toolbar item id, from any namespace.</summary>
-        public static bool TryGetUse(string itemId, out UseBehavior use)
-        {
-            foreach (UseBehavior u in uses.Values)
-            {
-                if (string.Equals(u.ItemId, itemId, StringComparison.OrdinalIgnoreCase))
-                {
-                    use = u;
-                    return true;
-                }
-            }
-            use = null;
-            return false;
+            group = null;
+            return !string.IsNullOrEmpty(itemId) && plantItems.TryGetValue(itemId, out group);
         }
 
         /// <summary>Looks a group up by id, preferring the item's own namespace.</summary>

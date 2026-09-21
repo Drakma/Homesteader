@@ -18,6 +18,10 @@ namespace Homesteader.Growth
         public float AgeDays { get; private set; }
         public GrowthStage CurrentStage { get; private set; }
 
+        public enum PlantState { Alive, Withered, Dead, Stump }
+        /// <summary>Alive, withering (out of season with a wither rule), dead (permanent) or a stump (a harvested tree, permanent).</summary>
+        public PlantState State { get; private set; } = PlantState.Alive;
+
         private GameObject model;
         private float lastClockDay;
         private float nextConditionCheck;
@@ -27,7 +31,9 @@ namespace Homesteader.Growth
         public static PlantedGrowth Plant(GrowthGroup group, Vector3 position, Transform parent = null)
         {
             var go = new GameObject($"Planted_{group.Id}");
-            go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+            // Grid-aligned: crops keep their rows straight; trees turn in 90-degree steps for variety.
+            float yaw = group.GrowthType == "tree" ? 90f * Random.Range(0, 4) : 0f;
+            go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yaw, 0f));
             if (parent != null) go.transform.SetParent(parent, true);
 
             var planted = go.AddComponent<PlantedGrowth>();
@@ -43,12 +49,72 @@ namespace Homesteader.Growth
             return t.DayOfYear + t.MinuteOfDay / TimeConstants.CycleGameMinutes;
         }
 
+        /// <summary>Stage number at which this plant can be harvested (the last stage unless the rules say otherwise).</summary>
+        public int HarvestStageNumber
+        {
+            get
+            {
+                if (Group.Rules.HarvestStage > 0) return Group.Rules.HarvestStage;
+                return Group.Stages.Count > 0 ? Group.Stages[Group.Stages.Count - 1].Stage : 1;
+            }
+        }
+
+        /// <summary>True once the plant has reached its harvest stage.</summary>
+        public bool IsReady => CurrentStage != null && CurrentStage.Stage >= HarvestStageNumber;
+
+        /// <summary>Ready AND alive: a withered or dead plant cannot be harvested.</summary>
+        public bool CanHarvest => State == PlantState.Alive && IsReady;
+
+        /// <summary>Re-checks season/temperature now (normally twice a second), e.g. after loading a save.</summary>
+        public void RefreshConditions()
+        {
+            if (State != PlantState.Dead && State != PlantState.Stump && Group != null) EvaluateConditions();
+        }
+
+        /// <summary>Sets the plant's age directly (e.g. loading a save) and shows the matching stage.</summary>
+        public void SetAgeDays(float ageDays)
+        {
+            AgeDays = Mathf.Clamp(ageDays, 0f, Group.MaxAgeDays);
+            GrowthStage stage = Group.StageForAge(AgeDays);
+            if (stage != CurrentStage) SetStage(stage);
+        }
+
+        /// <summary>
+        /// Called after a successful harvest: perennials drop back to their regrow stage and keep
+        /// growing; everything else is removed.
+        /// </summary>
+        public void Harvested()
+        {
+            GrowthRules rules = Group.Rules;
+            if (rules.Regrows && rules.RegrowStage > 0)
+            {
+                GrowthStage back = Group.Stages.Find(s => s.Stage == rules.RegrowStage);
+                if (back != null)
+                {
+                    SetAgeDays(back.AgeMin);
+                    return;
+                }
+            }
+
+            // A harvested tree leaves its stump behind for good; anything else is removed.
+            GrowthVariant stump = rules.Stump;
+            if (stump != null && stump.Prefab != null)
+            {
+                State = PlantState.Stump;
+                ShowModel(stump.Prefab);
+                return;
+            }
+            Destroy(gameObject);
+        }
+
         private void OnEnable() => All.Add(this);
         private void OnDisable() => All.Remove(this);
 
         private void Update()
         {
             if (Group == null) return;
+
+            if (State == PlantState.Dead || State == PlantState.Stump) return;   // permanent states
 
             float clock = ClockDay();
             float dt = clock - lastClockDay;
@@ -85,7 +151,7 @@ namespace Homesteader.Growth
             if (rules.FrostKills && snap.TemperatureC <= 0f)
             {
                 Die("frost");
-                return false;
+                return false;   // dead (or removed): nothing more to grow
             }
 
             bool inSeason = PlantingValidator.SeasonAllowed(rules, snap.Season, out _);
@@ -99,25 +165,67 @@ namespace Homesteader.Growth
             }
 
             growthAllowed = inSeason && tempOk;
+
+            // Out of season with a wither rule: show the withered version until conditions return.
+            SetWithered(!growthAllowed && rules.OutOfSeason == "wither");
             return true;
+        }
+
+        /// <summary>Swaps to / from the withered model. No-op without a withered version or once dead.</summary>
+        private void SetWithered(bool withered)
+        {
+            if (State == PlantState.Dead) return;
+            GrowthVariant variant = Group.Rules.Withered;
+
+            if (withered && State == PlantState.Alive)
+            {
+                State = PlantState.Withered;
+                if (variant != null && variant.Prefab != null) ShowModel(variant.Prefab);
+            }
+            else if (!withered && State == PlantState.Withered)
+            {
+                State = PlantState.Alive;
+                if (variant != null && variant.Prefab != null) SetStage(CurrentStage);   // back to the stage model
+            }
         }
 
         private void Die(string cause)
         {
             ToastNotificationSystem.ShowWarning(
                 $"{Group.Name} died", $"Your {Group.Name.ToLowerInvariant()} was killed by {cause}.");
+
+            // A dead version stays in the world for good; without one the plant is simply removed.
+            GrowthVariant dead = Group.Rules.Dead;
+            if (dead != null && dead.Prefab != null)
+            {
+                State = PlantState.Dead;
+                ShowModel(dead.Prefab);
+                return;
+            }
             Destroy(gameObject);
         }
 
         private void SetStage(GrowthStage stage)
         {
             CurrentStage = stage;
-            if (model != null) Destroy(model);
             if (stage == null || stage.Prefab == null) return;
+            ShowModel(stage.Prefab);
+        }
 
-            model = Instantiate(stage.Prefab, transform);
+        /// <summary>Replaces the visible model (a stage, or the withered / dead version).</summary>
+        private void ShowModel(GameObject prefab)
+        {
+            if (model != null) Destroy(model);
+
+            model = Instantiate(prefab, transform);
             model.transform.localPosition = Vector3.zero;
             model.transform.localRotation = Quaternion.identity;
+
+            // Crops are walk-through: the player and clicks pass straight through them.
+            // (Trees stay solid.) Disabling is immediate, unlike Destroy.
+            if (Group.GrowthType == "crop")
+                foreach (Collider c in model.GetComponentsInChildren<Collider>(true))
+                    c.enabled = false;
         }
     }
 }

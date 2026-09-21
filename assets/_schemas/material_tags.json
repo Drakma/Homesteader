@@ -16,14 +16,29 @@
 			"lumber_bundle_2x4_small",
 			"lumber_bundle_2x4_large"
 		],
-		"roofing": ["roofing_shingles_bundle", "roofing_steel_corrugated"],
-		"romex_wire": ["item_spool_romex_12_2", "spool_wire_romex_12_2"],
+		"roofing": [
+			"roofing_shingles_bundle",
+			"roofing_steel_corrugated"
+		],
+		"romex_wire": [
+			"item_spool_romex_12_2",
+			"spool_wire_romex_12_2"
+		],
 		"plumbing_pipe": [
 			"pipe_pvc_half_inch",
 			"pipe_pvc_one_inch",
 			"pipe_pvc_two_inch"
 		],
-			"steel_framing": ["building_steel_stud_framing", "building_steel_frame_beam"],
-		"metal_siding": ["building_steel_siding_corrugated"]
+		"steel_framing": [
+			"building_steel_stud_framing",
+			"building_steel_frame_beam"
+		],
+		"metal_siding": [
+			"building_steel_siding_corrugated"
+		],
+		"sickle": [
+			"tool_sickle",
+			"tool_sickle_grass"
+		]
 	}
 }

@@ -402,9 +402,9 @@ namespace Homesteader.Generation
         [Header("Starter Field")]
         [Tooltip("Carve a farmland biome plot around the player spawn (terrain-local metres).")]
         public bool starterFieldEnabled = true;
-        public Vector2 starterFieldCenter = new Vector2(40f, 22f);
+        public Vector2 starterFieldCenter = new Vector2(28f, 14f);
         [Tooltip("Half the field size on X and Z, in metres.")]
-        public Vector2 starterFieldHalfSize = new Vector2(22f, 16f);
+        public Vector2 starterFieldHalfSize = new Vector2(26f, 20f);
 
         public BiomeData EvaluateBiomeAt(float worldX, float worldZ)
         {

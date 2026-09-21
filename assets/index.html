@@ -2678,6 +2678,102 @@
       background: rgba(56, 189, 248, 0.2);
     }
 
+    .item-picker-grid {
+      flex: 1;
+      min-height: 220px;
+      max-height: 56vh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: #0c121c;
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+      gap: 8px;
+      align-content: start;
+    }
+
+    .item-picker-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 6px 7px;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .item-picker-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+
+    .item-picker-card.selected {
+      border-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .item-picker-card.current { box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.6); }
+
+    .item-picker-card img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .item-picker-name {
+      font-size: 11px;
+      color: var(--text-main);
+      text-align: center;
+      line-height: 1.2;
+      max-height: 2.4em;
+      overflow: hidden;
+    }
+
+    .item-picker-id {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* The item field shown in the growth group editor: thumbnail + name + Choose / clear */
+    .gg-item-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 6px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .gg-item-chip:hover { border-color: var(--border-accent); }
+    .gg-item-thumb { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; border-radius: 4px; background: rgba(255,255,255,0.04); }
+    .gg-item-text { flex: 1; min-width: 0; }
+    .gg-item-name { font-size: 12px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .gg-item-id { font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+    .gg-item-pick, .gg-item-clear {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 5px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .gg-item-pick:hover { border-color: var(--accent-emerald); color: var(--accent-emerald); }
+    .gg-item-clear:hover { border-color: #f87171; color: #f87171; }
+
     .biome-picker-search {
       width: 100%;
       border-radius: 6px;
@@ -4445,6 +4541,13 @@
                   </button>
                 </div>
 
+                <!-- Read-only: which growth group this item plants. The GROUP owns that link
+                     (growth.rules.planting.item_id), so it is edited on the group, not here. -->
+                <div class="kv-box" id="m-plants-box" style="grid-column: 1 / -1; display: none;">
+                  <div class="kv-key">Plants (set on the growth group)</div>
+                  <div id="m-plants-value" style="font-size: 12px; color: var(--text-main);"></div>
+                </div>
+
                 <div class="kv-box">
                   <div class="kv-key">Footprint</div><input class="kv-input" type="text" id="m-footprint"
                     data-path="properties.footprint" placeholder="—">
@@ -4776,6 +4879,39 @@
              <button class="btn-primary" id="biome-picker-apply-btn"
                style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Apply
                Selection (Enter)</button>
+           </div>
+         </div>
+      </dialog>
+
+       <!-- Item Picker: visual, searchable item chooser (icon grid). Double-click an item to
+            choose it and close; used by the growth group editor for "Planted By" and "Ingredient Dropped". -->
+      <dialog class="confirm-dialog biome-picker-dialog" id="item-picker-dialog"
+         style="border-color: rgba(16, 185, 129, 0.5); max-width: 760px; width: 92vw;">
+         <div class="confirm-box" style="text-align: left; padding: 22px; max-height: 88vh; display: flex; flex-direction: column;">
+           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+             <div style="flex: 1;">
+               <h4 class="confirm-title" id="item-picker-title" style="margin: 0; text-align: left; font-size: 16px;">Choose an item</h4>
+               <div id="item-picker-hint" style="font-size: 11px; color: var(--text-muted);">Search, then double-click an item to choose it.</div>
+             </div>
+             <button type="button" class="btn-cancel" id="item-picker-clear-btn" title="Choose nothing">Clear</button>
+           </div>
+
+           <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+             <input type="text" id="item-picker-search" class="biome-picker-search" style="margin-bottom: 0; flex: 1;"
+               placeholder="Search by name or id…" autocomplete="off">
+             <select class="kv-input" id="item-picker-category" style="width: 170px;"></select>
+           </div>
+
+           <div class="biome-picker-toolbar">
+             <span id="item-picker-count" class="biome-picker-count">0 items</span>
+             <span style="flex: 1;"></span>
+             <span style="font-size: 11px; color: var(--text-muted);">Double-click to choose · Enter chooses the highlighted item · Esc cancels</span>
+           </div>
+
+           <div class="item-picker-grid" id="item-picker-grid"></div>
+
+           <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; margin-top: 14px;">
+             <button class="btn-cancel" id="item-picker-cancel-btn">Cancel (Esc)</button>
            </div>
          </div>
       </dialog>
@@ -7256,6 +7392,7 @@
 
       try {
         wireBiomePicker();
+        wireItemPicker();
       } catch (e) {
         console.error("Error in wireBiomePicker:", e);
       }
@@ -11741,6 +11878,42 @@
           <input id="${id}" type="checkbox" ${on ? "checked" : ""}>
         </div>
       `;
+      const escAttr = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      const curTool = (r.yield || {}).tool || "";
+      // Item pickers. The GROUP owns these links, so the choices are catalog items:
+      //   planting item   -> the seeds / saplings that can plant it
+      //   ingredient drop -> ingredients and food
+      // A saved id that is not in the catalog stays listed (flagged) rather than being dropped.
+      const catalogItems = (typeof ALL_ITEMS !== "undefined" ? ALL_ITEMS : []);
+      // Item fields open the visual picker (icon grid + search); the chosen id lives in a hidden input
+      // so the save payload reads it exactly like a normal field.
+      const itemField = (key, id, cur, kind, blankLabel) => {
+        const it = lookupPickerItem(kind, cur);
+        const shownName = it ? it.name : (cur ? "⚠ " + cur + " (not found)" : blankLabel);
+        return `
+        <div class="kv-box gg-item-field" data-kind="${kind}" data-blank="${escAttr(blankLabel)}">
+          <div class="kv-key">${key}</div>
+          <div class="gg-item-chip" title="Double-click to choose">
+            <img class="gg-item-thumb" src="${it && it.icon ? escAttr(it.icon) : ""}" alt="" style="${it && it.icon ? "" : "visibility:hidden"}">
+            <div class="gg-item-text">
+              <div class="gg-item-name">${escAttr(shownName)}</div>
+              <div class="gg-item-id">${escAttr(cur || "")}</div>
+            </div>
+            <button type="button" class="gg-item-pick">Choose…</button>
+            <button type="button" class="gg-item-clear" title="Choose nothing">✕</button>
+          </div>
+          <input type="hidden" id="${id}" value="${escAttr(cur || "")}">
+        </div>`;
+      };
+      const variantRow = (label, prefix, v) => `
+        <div class="kv-box" style="grid-column: 1 / -1;">
+          <div class="kv-key">${label}</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+            <input class="gg-input" id="${prefix}-resource" placeholder="stages/<folder>/" value="${escAttr((v || {}).resource || "")}">
+            <input class="gg-input" id="${prefix}-model" placeholder="model file (e.g. crop_withered.fbx)" value="${escAttr((v || {}).model || "")}">
+            <input class="gg-input" id="${prefix}-icon" placeholder="icon file (optional)" value="${escAttr((v || {}).icon || "")}">
+          </div>
+        </div>`;
       const rselect = (key, id, cur, opts) => `
         <div class="kv-box">
           <div class="kv-key">${key}</div>
@@ -11796,13 +11969,19 @@
           <div class="gg-rules">
             <div class="gg-rules-title">Yield</div>
             <div class="gg-kv-grid">
-              ${rfield("Yield Item ID", "gg-r-yield-item", (r.yield || {}).item_id, "text")}
-              ${rfield("Yield Amount", "gg-r-yield-amount", (r.yield || {}).amount, "number")}
+              ${itemField("Ingredient Dropped", "gg-r-yield-item", (r.yield || {}).item_id, "drop", "(nothing)")}
+              ${rfield("Yield Min", "gg-r-yield-min", (r.yield || {}).amount_min, "number")}
+              ${rfield("Yield Max (random, inclusive)", "gg-r-yield-max", (r.yield || {}).amount_max, "number")}
               ${rfield("Harvest Stage", "gg-r-harvest-stage", (r.yield || {}).harvest_stage, "number")}
+              ${itemField("Harvest Tool", "gg-r-yield-tool", curTool, "tool", "(by hand)")}
+              ${g.growth_type === "tree" ? variantRow("Stump (left after the tree is harvested)", "gg-r-stump", (r.yield || {}).stump) : ""}
               ${rcheck("Regrows After Harvest", "gg-r-regrows", (r.yield || {}).regrows)}
               ${rfield("Regrow To Stage", "gg-r-regrow-stage", (r.yield || {}).regrow_stage, "number")}
             </div>
             <div class="gg-rules-title">Planting</div>
+            <div class="gg-kv-grid">
+              ${itemField("Planted By (seed / sapling)", "gg-r-plant-item", (r.planting || {}).item_id, "plant", "(nothing plants it)")}
+            </div>
             <div class="gg-biome-picker" id="gg-r-seasons">
               ${["spring", "summer", "fall", "winter", "year_round"].map(s => `
                 <label class="gg-biome-chip">
@@ -11834,6 +12013,8 @@
               ${rcheck("Frost Kills", "gg-r-frost", (r.failure || {}).frost_kills)}
               ${rfield("Drought Grace Days", "gg-r-drought", (r.failure || {}).drought_days_before_wither, "number")}
               ${rselect("On Wither", "gg-r-wither", (r.failure || {}).wither_behavior || "stall", ["stall", "regress_one_stage", "die"])}
+              ${g.growth_type === "crop" ? variantRow("Withered Version (shown while withering)", "gg-r-withered", (r.failure || {}).withered) : ""}
+              ${variantRow("Dead Version (shown once dead)", "gg-r-dead", (r.failure || {}).dead)}
             </div>
           </div>` : ""}
           <div class="gg-scheme-actions">
@@ -11846,6 +12027,7 @@
         setTimeout(() => {
           const btn = document.getElementById("gg-save-scheme");
           if (btn) btn.onclick = () => saveGroup(sp);
+          document.querySelectorAll(".gg-item-field").forEach(wireItemField);
           // year_round must stand alone: ticking it clears the individual seasons and vice versa.
           const seasonBox = document.getElementById("gg-r-seasons");
           if (seasonBox) seasonBox.addEventListener("change", (e) => {
@@ -11988,8 +12170,11 @@
         payload.rules = {
           yield: {
             item_id: val("gg-r-yield-item"),
-            amount: val("gg-r-yield-amount"),
+            amount_min: val("gg-r-yield-min"),
+            amount_max: val("gg-r-yield-max"),
             harvest_stage: val("gg-r-harvest-stage"),
+            tool: val("gg-r-yield-tool"),
+            stump: { resource: val("gg-r-stump-resource"), model: val("gg-r-stump-model"), icon: val("gg-r-stump-icon") },
             regrows: chk("gg-r-regrows"),
             regrow_stage: val("gg-r-regrow-stage"),
           },
@@ -11999,6 +12184,7 @@
             min_temp_c: val("gg-r-min-temp"),
             max_temp_c: val("gg-r-max-temp"),
             indoor_ok: chk("gg-r-indoor"),
+            item_id: val("gg-r-plant-item"),
           },
           needs: {
             water_interval_days: val("gg-r-water-interval"),
@@ -12009,6 +12195,8 @@
             frost_kills: chk("gg-r-frost"),
             drought_days_before_wither: val("gg-r-drought"),
             wither_behavior: val("gg-r-wither"),
+            withered: { resource: val("gg-r-withered-resource"), model: val("gg-r-withered-model"), icon: val("gg-r-withered-icon") },
+            dead: { resource: val("gg-r-dead-resource"), model: val("gg-r-dead-model"), icon: val("gg-r-dead-icon") },
           },
         };
       }
@@ -14514,6 +14702,29 @@
       });
     }
 
+    // ---------------------------------------------------------------------
+    // Plant link (read-only here): the GROUP owns which item plants it
+    // ---------------------------------------------------------------------
+
+    // The growth group whose rules.planting.item_id is this item, or null.
+    function groupPlantedBy(item) {
+      if (!item) return null;
+      for (const [key, g] of Object.entries(GROWTH_GROUPS)) {
+        const pid = g && g.rules && g.rules.planting ? g.rules.planting.item_id : null;
+        if (pid && pid === item.id) return { id: g.species || key, name: g.name || key, type: g.growth_type };
+      }
+      return null;
+    }
+
+    function renderPlantsInfo(item) {
+      const box = document.getElementById("m-plants-box");
+      const val = document.getElementById("m-plants-value");
+      if (!box || !val) return;
+      const g = groupPlantedBy(item);
+      box.style.display = g ? "" : "none";
+      if (g) val.innerText = `Planting this places ${g.name} (${g.id}, ${g.type}). Change it in that group's Growth Rules.`;
+    }
+
     // Writes the whole biome id list to spawning.biomes[], creating or removing
     // the surrounding spawning block so the manifest never keeps an empty
     // spawning array lying around.
@@ -14714,6 +14925,180 @@
           closeBiomePicker();
         };
       }
+    }
+
+    // ---------------------------------------------------------------------
+    // Item picker: a reusable visual chooser (icon grid + search + category filter).
+    // openItemPicker({ title, hint, items, current, onPick }) - double-click an item to
+    // choose it and close; click + Enter also works; "Clear" chooses nothing ("").
+    // ---------------------------------------------------------------------
+    const itemPickerState = { items: [], current: "", highlighted: "", onPick: null, filter: "", category: "" };
+
+    function openItemPicker(opts) {
+      const dlg = document.getElementById("item-picker-dialog");
+      if (!dlg) return;
+      itemPickerState.items = (opts.items || []).slice().sort((a, b) =>
+        (b.isTag ? 1 : 0) - (a.isTag ? 1 : 0) || String(a.name).localeCompare(String(b.name)));
+      itemPickerState.current = opts.current || "";
+      itemPickerState.highlighted = opts.current || "";
+      itemPickerState.onPick = opts.onPick || null;
+      itemPickerState.filter = "";
+      itemPickerState.category = "";
+
+      document.getElementById("item-picker-title").innerText = opts.title || "Choose an item";
+      document.getElementById("item-picker-hint").innerText = opts.hint || "Search, then double-click an item to choose it.";
+      const search = document.getElementById("item-picker-search");
+      search.value = "";
+
+      // Category filter, only when the list spans more than one category.
+      const cats = Array.from(new Set(itemPickerState.items.map(i => i.category).filter(Boolean))).sort();
+      const catSel = document.getElementById("item-picker-category");
+      catSel.innerHTML = `<option value="">All categories</option>` + cats.map(c => `<option value="${c}">${c}</option>`).join("");
+      catSel.style.display = cats.length > 1 ? "" : "none";
+
+      renderItemPickerGrid();
+      dlg.showModal();
+      search.focus();
+    }
+
+    function chooseItemFromPicker(id) {
+      const dlg = document.getElementById("item-picker-dialog");
+      const cb = itemPickerState.onPick;
+      if (dlg && dlg.open) dlg.close();
+      if (cb) cb(id);
+    }
+
+    function renderItemPickerGrid() {
+      const grid = document.getElementById("item-picker-grid");
+      const countEl = document.getElementById("item-picker-count");
+      if (!grid) return;
+      const f = itemPickerState.filter.trim().toLowerCase();
+      const shown = itemPickerState.items.filter(i =>
+        (!itemPickerState.category || i.category === itemPickerState.category)
+        && (!f || String(i.name).toLowerCase().includes(f) || String(i.id).toLowerCase().includes(f)));
+      if (countEl) countEl.innerText = `${shown.length} item${shown.length === 1 ? "" : "s"}`;
+
+      const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      if (shown.length === 0) {
+        grid.innerHTML = `<div class="biome-picker-none" style="grid-column: 1 / -1;">No items match.</div>`;
+        return;
+      }
+      grid.innerHTML = shown.map(i => `
+        <div class="item-picker-card ${i.id === itemPickerState.highlighted ? "selected" : ""} ${i.id === itemPickerState.current ? "current" : ""}"
+             data-id="${esc(i.id)}" title="${esc(i.name)} (${esc(i.id)})">
+          <img src="${esc(i.icon || "")}" alt="" onerror="this.style.visibility='hidden'">
+          <div class="item-picker-name">${esc(i.name)}</div>
+          <div class="item-picker-id">${i.isTag ? esc(i.members + " tool" + (i.members === 1 ? "" : "s") + " - any one works") : esc(i.id)}</div>
+        </div>`).join("");
+
+      grid.querySelectorAll(".item-picker-card").forEach(card => {
+        card.onclick = () => {
+          itemPickerState.highlighted = card.dataset.id;
+          grid.querySelectorAll(".item-picker-card").forEach(c => c.classList.toggle("selected", c === card));
+        };
+        card.ondblclick = () => chooseItemFromPicker(card.dataset.id);
+      });
+    }
+
+    function wireItemPicker() {
+      const dlg = document.getElementById("item-picker-dialog");
+      if (!dlg) return;
+      document.getElementById("item-picker-search").oninput = (e) => {
+        itemPickerState.filter = e.target.value;
+        renderItemPickerGrid();
+      };
+      document.getElementById("item-picker-search").onkeydown = (e) => {
+        if (e.key === "Enter" && itemPickerState.highlighted) {
+          e.preventDefault();
+          chooseItemFromPicker(itemPickerState.highlighted);
+        }
+      };
+      document.getElementById("item-picker-category").onchange = (e) => {
+        itemPickerState.category = e.target.value;
+        renderItemPickerGrid();
+      };
+      document.getElementById("item-picker-clear-btn").onclick = () => chooseItemFromPicker("");
+      document.getElementById("item-picker-cancel-btn").onclick = () => dlg.close();
+    }
+
+    // A tag ("#name" = any one of several interchangeable items) shown as a picker entry.
+    const TAG_ICON = "data:image/svg+xml;utf8," + encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' rx='12' fill='%2316202e'/>" +
+      "<text x='32' y='42' font-size='34' text-anchor='middle'>\u{1F3F7}\uFE0F</text></svg>");
+
+    // toolsOnly: keep just the tags with at least one tool member (the only ones a harvest tool can use).
+    function tagPickerItems(toolsOnly) {
+      const isTool = (id) => id.startsWith("tool_") || ALL_ITEMS.some(i => i.id === id && i.category === "tools");
+      return Object.keys(TAG_REGISTRY).sort()
+        .filter(name => !toolsOnly || (TAG_REGISTRY[name] || []).some(isTool))
+        .map(name => ({
+        id: "#" + name,
+        name: "#" + name,
+        category: "Tags",
+        icon: TAG_ICON,
+        isTag: true,
+        members: (TAG_REGISTRY[name] || []).length,
+      }));
+    }
+
+    // What the group editor's item fields can choose from.
+    function itemsForPicker(kind) {
+      if (kind === "plant") return ALL_ITEMS.filter(i => /^(seed_|plantable_|sapling)/.test(i.id));
+      if (kind === "drop") return ALL_ITEMS.filter(i => i.category === "ingredients" || i.category === "food");
+      // Harvest tools: real tool items plus tags (a tag accepts any one of its member tools).
+      if (kind === "tool") return tagPickerItems(true).concat(ALL_ITEMS.filter(i => i.category === "tools" || i.id.startsWith("tool_")));
+      return ALL_ITEMS;
+    }
+
+    // Finds the item (or tag) a stored id refers to, or null.
+    function lookupPickerItem(kind, id) {
+      if (!id) return null;
+      if (id.startsWith("#")) {
+        const known = tagPickerItems(false).find(t => t.id === id);
+        if (known) return known;
+        // The tag registry loads asynchronously; until it has, do not call a saved tag "not found".
+        if (Object.keys(TAG_REGISTRY).length === 0) return { id, name: id, category: "Tags", icon: TAG_ICON, isTag: true, members: 0 };
+        return null;
+      }
+      return ALL_ITEMS.find(i => i.id === id) || null;
+    }
+
+    // Refreshes a group-editor item field (thumbnail, name, id, hidden value) after a choice.
+    function setItemField(box, id) {
+      const hidden = box.querySelector('input[type="hidden"]');
+      if (hidden) hidden.value = id || "";
+      const item = lookupPickerItem(box.dataset.kind, id);
+      const img = box.querySelector(".gg-item-thumb");
+      if (img) {
+        img.src = item && item.icon ? item.icon : "";
+        img.style.visibility = item && item.icon ? "" : "hidden";
+      }
+      const name = box.querySelector(".gg-item-name");
+      if (name) name.innerText = item ? item.name : (id ? `⚠ ${id} (not found)` : box.dataset.blank);
+      const idEl = box.querySelector(".gg-item-id");
+      if (idEl) idEl.innerText = id || "";
+    }
+
+    function wireItemField(box) {
+      const kind = box.dataset.kind;
+      const open = () => {
+        const hidden = box.querySelector('input[type="hidden"]');
+        openItemPicker({
+          title: kind === "plant" ? "Planted by (seed / sapling)" : kind === "tool" ? "Harvest tool" : "Ingredient dropped when harvested",
+          hint: kind === "plant" ? "The item the player right-clicks the ground with to plant this group."
+            : kind === "tool" ? "What harvests it: a tool item, or a tag (🏷️) that any one of its member tools satisfies."
+            : "The item added to the toolbar when this is harvested.",
+          items: itemsForPicker(kind),
+          current: hidden ? hidden.value : "",
+          onPick: (id) => setItemField(box, id),
+        });
+      };
+      const chip = box.querySelector(".gg-item-chip");
+      if (chip) chip.ondblclick = open;
+      const pick = box.querySelector(".gg-item-pick");
+      if (pick) pick.onclick = open;
+      const clear = box.querySelector(".gg-item-clear");
+      if (clear) clear.onclick = () => setItemField(box, "");
     }
 
     // Loads JSON text into the manifest editor as the new "clean" baseline
@@ -15522,6 +15907,7 @@
       document.getElementById("m-consumable").value = p.is_consumable ? "true" : "false";
       document.getElementById("m-spawnable").value = p.is_spawnable ? "true" : "false";
       renderSpawnBiomeSection(it);
+      renderPlantsInfo(it);
       let fpVal = "";
       if (p.footprint) {
         if (typeof p.footprint === "object") {
@@ -15572,6 +15958,7 @@
       }
       const pickBiomesBtn = document.getElementById("m-pick-biomes-btn");
       if (pickBiomesBtn) pickBiomesBtn.onclick = openBiomePicker;
+
 
       // Dynamic Category Schema Section (Supports Scalars, Object Groups, Recipe Arrays, Tool Alternative Groups, Tag Arrays)
       renderCategorySchemaSection(it);

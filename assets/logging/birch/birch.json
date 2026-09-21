@@ -51,7 +51,11 @@
         "icon": "tree_mature_birch.png"
       }
     ],
-    "rules": {}
+    "rules": {
+      "planting": {
+        "item_id": "plantable_birch_sapling"
+      }
+    }
   },
   "plugin_metadata": {
     "version": "1.0.0",

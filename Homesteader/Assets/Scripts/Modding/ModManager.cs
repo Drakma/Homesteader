@@ -155,7 +155,11 @@ namespace Homesteader.Modding
 
             if (terrainGenerator == null)
             {
-                Log("[Mods] WARNING: no HomesteaderTerrainGenerator in the scene; mods parsed but not applied.");
+                // No generated terrain (e.g. a flat-ground scene): biomes and spawnable
+                // assets have nowhere to go, but growth groups and item use-behaviours
+                // (right-click planting) do not need a terrain, so still apply those.
+                Log("[Mods] No HomesteaderTerrainGenerator in the scene; applying growth groups and item behaviours only.");
+                Results.AddRange(ModLoader.ApplyAll(LoadedMods, null, assetResolver, Log));
             }
             else
             {

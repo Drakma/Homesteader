@@ -14,8 +14,26 @@ namespace Homesteader.Growth
     /// </summary>
     public static class PlantingValidator
     {
-        /// <summary>How far from the player a plant can be placed, in metres.</summary>
-        public const float MaxReachM = 8f;
+        /// <summary>Ground grid cell size in metres (the grid lines sit on whole world X/Z).</summary>
+        public const float GridSizeM = 1f;
+
+        /// <summary>
+        /// Snaps a ground point to the centre of the grid cell it falls in. Plants are
+        /// placed on cell centres so they sit inside a grid square, not on a line.
+        /// </summary>
+        public static Vector3 SnapToGrid(Vector3 p)
+        {
+            p.x = (Mathf.Floor(p.x / GridSizeM) + 0.5f) * GridSizeM;
+            p.z = (Mathf.Floor(p.z / GridSizeM) + 0.5f) * GridSizeM;
+            return p;
+        }
+
+
+        /// <summary>
+        /// How far from the player's own grid square a plant can be placed, in squares.
+        /// 1 = the square the player stands on and the eight squares immediately around it.
+        /// </summary>
+        public const int ReachCells = 1;
         /// <summary>Steepest ground that can be planted, in degrees.</summary>
         public const float MaxSlopeDeg = 25f;
         /// <summary>Minimum distance between two planted groups, in metres.</summary>
@@ -41,8 +59,9 @@ namespace Homesteader.Growth
                 return false;
             }
 
-            // Ground: the click must land on terrain, not a building or prop.
-            if (!(hit.collider is TerrainCollider))
+            // Ground: the click must land on the ground (terrain or the flat "Ground"
+            // plane), not a building or prop.
+            if (!IsGround(hit.collider))
             {
                 reason = "You can only plant in open ground.";
                 return false;
@@ -55,32 +74,44 @@ namespace Homesteader.Growth
                 return false;
             }
 
-            if (player != null && PlanarDistance(player.position, hit.point) > MaxReachM)
+            // Only the squares right next to the player: compare grid cells, not metres, so
+            // it matches the grid the player sees whatever the player's exact position is.
+            if (!InReach(player, hit.point))
             {
-                reason = "Too far away to plant there.";
+                reason = "You can only plant in the squares right next to you.";
                 return false;
             }
 
-            // Biome
-            var generator = UnityEngine.Object.FindFirstObjectByType<HomesteaderTerrainGenerator>();
-            if (generator != null)
+            // Biome: a planting zone on the ground wins; otherwise the generated terrain's
+            // biome map (terrain-local metres) if there is one; otherwise unknown (null).
+            string biomeId = PlantingZone.BiomeAt(hit.point);
+            string biomeName = null;
+            if (biomeId == null)
             {
-                // Biome maps are in TERRAIN-LOCAL metres (0..terrain size), not world space.
-                Vector3 origin = generator.transform.position;
-                BiomeData biome = generator.EvaluateBiomeAt(hit.point.x - origin.x, hit.point.z - origin.z);
-                if (biome != null)
+                var generator = UnityEngine.Object.FindFirstObjectByType<HomesteaderTerrainGenerator>();
+                if (generator != null && generator.GetComponent<Terrain>() != null)
                 {
-                    if (WaterBiomes.Contains(biome.id))
+                    Vector3 origin = generator.transform.position;
+                    BiomeData biome = generator.EvaluateBiomeAt(hit.point.x - origin.x, hit.point.z - origin.z);
+                    if (biome != null)
                     {
-                        reason = "You can't plant in water.";
-                        return false;
-                    }
-                    if (group.Rules.Biomes.Count > 0 && !group.Rules.Biomes.Contains(biome.id))
-                    {
-                        reason = $"{group.Name} can't grow in {(string.IsNullOrEmpty(biome.name) ? biome.id : biome.name)}.";
-                        return false;
+                        biomeId = biome.id;
+                        biomeName = biome.name;
                     }
                 }
+            }
+
+            if (biomeId != null && WaterBiomes.Contains(biomeId))
+            {
+                reason = "You can't plant in water.";
+                return false;
+            }
+            if (group.Rules.Biomes.Count > 0 && (biomeId == null || !group.Rules.Biomes.Contains(biomeId)))
+            {
+                reason = biomeId == null
+                    ? $"{group.Name} needs {DescribeBiomes(group.Rules.Biomes)} to grow."
+                    : $"{group.Name} can't grow in {(string.IsNullOrEmpty(biomeName) ? Pretty(biomeId) : biomeName)}; it needs {DescribeBiomes(group.Rules.Biomes)}.";
+                return false;
             }
 
             // Season + temperature
@@ -119,12 +150,37 @@ namespace Homesteader.Growth
             return true;
         }
 
-        // Reach is measured on the ground plane so standing above or below the spot
-        // (a slope, a fall from the spawn point) does not count against the player.
-        private static float PlanarDistance(Vector3 a, Vector3 b)
+        /// <summary>True for terrain or the flat scene ground (an object named "Ground").</summary>
+        private static bool IsGround(Collider c)
         {
-            a.y = 0f; b.y = 0f;
-            return Vector3.Distance(a, b);
+            return c is TerrainCollider || c.gameObject.name == "Ground";
+        }
+
+        private static string Pretty(string biomeId)
+        {
+            return biomeId.StartsWith("biome_") ? biomeId.Substring(6).Replace('_', ' ') : biomeId;
+        }
+
+        private static string DescribeBiomes(List<string> ids)
+        {
+            var names = new List<string>();
+            foreach (string id in ids) names.Add(Pretty(id));
+            return string.Join(" or ", names);
+        }
+
+        /// <summary>True when the point is in the player's own grid square or one of the eight around it.</summary>
+        public static bool InReach(Transform player, Vector3 point)
+        {
+            if (player == null) return true;
+            int dx = Mathf.Abs(CellIndex(point.x) - CellIndex(player.position.x));
+            int dz = Mathf.Abs(CellIndex(point.z) - CellIndex(player.position.z));
+            return dx <= ReachCells && dz <= ReachCells;
+        }
+
+        /// <summary>The grid cell index (whole-metre square) a world coordinate falls in.</summary>
+        private static int CellIndex(float coordinate)
+        {
+            return Mathf.FloorToInt(coordinate / GridSizeM);
         }
 
         /// <summary>True when <paramref name="season"/> is allowed by the rules' planting seasons.</summary>

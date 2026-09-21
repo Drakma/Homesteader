@@ -51,7 +51,11 @@
         "icon": "tree_mature_willow.png"
       }
     ],
-    "rules": {}
+    "rules": {
+      "planting": {
+        "item_id": "plantable_willow_sapling"
+      }
+    }
   },
   "plugin_metadata": {
     "version": "1.0.0",

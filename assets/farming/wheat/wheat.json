@@ -45,8 +45,10 @@
     "rules": {
       "yield": {
         "item_id": "ingredient_wheat",
-        "amount": 2,
-        "harvest_stage": 3
+        "amount_min": 2,
+        "amount_max": 2,
+        "harvest_stage": 3,
+        "tool": "#sickle"
       },
       "planting": {
         "seasons": [
@@ -54,7 +56,8 @@
         ],
         "biomes": [
           "biome_farmland"
-        ]
+        ],
+        "item_id": "seed_wheat"
       }
     }
   },

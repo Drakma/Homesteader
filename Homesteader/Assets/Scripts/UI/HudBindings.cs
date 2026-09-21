@@ -732,7 +732,29 @@ namespace Homesteader.UI
         {
             if (_root == null || _root.panel == null) return false;
             Vector2 panelPos = RuntimePanelUtils.ScreenToPanel(_root.panel, new Vector2(screenPos.x, Screen.height - screenPos.y));
-            return _root.panel.Pick(panelPos) != null;
+            VisualElement picked = _root.panel.Pick(panelPos);
+            // The full-screen containers (panel root, TemplateContainer, ScreenRoot) sit under
+            // the whole game view and would otherwise count as "over the UI" everywhere.
+            return picked != null
+                && picked != _root
+                && !(picked is TemplateContainer)
+                && !picked.ClassListContains("screen-root");
+        }
+
+        /// <summary>Catalog max stack size for an item id (64 when unknown).</summary>
+        public static int GetMaxStack(string itemId)
+        {
+            EnsureAssetCatalogLoaded();
+            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            return item != null && item.max_stack > 0 ? item.max_stack : 64;
+        }
+
+        /// <summary>Catalog display name for an item id (the id itself when unknown).</summary>
+        public static string GetItemName(string itemId)
+        {
+            EnsureAssetCatalogLoaded();
+            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            return item != null && !string.IsNullOrEmpty(item.name) ? item.name : itemId;
         }
 
         public void SelectToolbarSlot(int slotIndex)
