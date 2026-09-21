@@ -399,6 +399,13 @@ namespace Homesteader.Generation
             return elev;
         }
 
+        [Header("Starter Field")]
+        [Tooltip("Carve a farmland biome plot around the player spawn (terrain-local metres).")]
+        public bool starterFieldEnabled = true;
+        public Vector2 starterFieldCenter = new Vector2(40f, 22f);
+        [Tooltip("Half the field size on X and Z, in metres.")]
+        public Vector2 starterFieldHalfSize = new Vector2(22f, 16f);
+
         public BiomeData EvaluateBiomeAt(float worldX, float worldZ)
         {
             float elev = CalculateElevationAt(worldX, worldZ);
@@ -433,6 +440,14 @@ namespace Homesteader.Generation
             if (Vector2.Distance(new Vector2(worldX, worldZ), lawnCenter) < 32f)
             {
                 return GetBiomeById("biome_maintained_grass");
+            }
+
+            // 4a. Starter field: a farmland plot around the player spawn so crops can be planted right away.
+            if (starterFieldEnabled &&
+                Mathf.Abs(worldX - starterFieldCenter.x) < starterFieldHalfSize.x &&
+                Mathf.Abs(worldZ - starterFieldCenter.y) < starterFieldHalfSize.y)
+            {
+                return GetBiomeById("biome_farmland");
             }
 
             // 4. Farmland (Tilled Furrows) - Two distinct agricultural parcels near homestead

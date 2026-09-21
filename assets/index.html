@@ -1310,6 +1310,95 @@
       background: rgba(16, 185, 129, 0.08);
     }
 
+    /* Dropdowns: the semi-transparent input background renders as white in the
+       native popup, so give selects an opaque dark surface and style the
+       options themselves. color-scheme makes the popup/scrollbars dark. */
+    select.gg-input {
+      color-scheme: dark;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--bg-input);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%2394a3b8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      padding-right: 24px;
+    }
+
+    select.gg-input:hover { border-color: var(--border-accent); }
+    select.gg-input:focus { background-color: var(--bg-input); }
+
+    select.gg-input option {
+      background-color: var(--bg-panel);
+      color: var(--text-main);
+    }
+
+    select.gg-input option:checked {
+      background-color: var(--accent-emerald);
+      color: #06120d;
+    }
+
+    /* Checkboxes in the growth-rules grid pick up the accent colour */
+    .gg-rules input[type="checkbox"] {
+      accent-color: var(--accent-emerald);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    .gg-rules-hint {
+      margin-left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--text-muted);
+    }
+
+    .gg-biome-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .gg-biome-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .gg-biome-chip:hover { border-color: var(--border-accent); }
+    .gg-biome-chip input { display: none; }
+
+    .gg-biome-chip:has(input:checked) {
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.55);
+    }
+
+    .gg-biome-chip.gg-biome-missing {
+      border-style: dashed;
+      color: #f87171;
+    }
+
+    .gg-rules-title {
+      margin: 12px 0 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+    }
+
     .gg-scheme-actions {
       display: flex;
       align-items: center;
@@ -8560,6 +8649,8 @@
         GROWTH_GROUPS[sp] = {
           name: meta.name, icon: meta.icon, category: it.category,
           growth_type: g.growth_type, max_age: g.max_age, time_unit: g.time_unit,
+          total_stages: g.total_stages, icon_stage: g.icon_stage, species: g.species,
+          rules: g.rules,
           stages: g.stages
         };
       });
@@ -11631,6 +11722,34 @@
         </div>
       `;
 
+      // Growth rules (growth_group.schema.json `rules`) exist only for trees
+      // and crops; every other growth_type gets no rules section at all.
+      const r = g.rules || {};
+      const ruleApplies = g.growth_type === "tree" || g.growth_type === "crop";
+      const selectedSeasons = (r.planting || {}).seasons || [];
+      // Valid-placement biomes: every known biome as a toggle chip, plus any
+      // saved id that no longer exists (flagged) so it is visible and removable.
+      const selectedBiomes = (r.planting || {}).biomes || [];
+      const biomeChoices = BIOMES.map(b => ({ id: b.id, name: b.name || b.id }));
+      selectedBiomes.forEach(id => {
+        if (!biomeChoices.some(b => b.id === id)) biomeChoices.push({ id, name: id, missing: true });
+      });
+      const rfield = (key, id, val, type) => field(key, id, val, type);
+      const rcheck = (key, id, on) => `
+        <div class="kv-box">
+          <div class="kv-key">${key}</div>
+          <input id="${id}" type="checkbox" ${on ? "checked" : ""}>
+        </div>
+      `;
+      const rselect = (key, id, cur, opts) => `
+        <div class="kv-box">
+          <div class="kv-key">${key}</div>
+          <select class="gg-input" id="${id}">
+            ${opts.map(o => `<option value="${o}" ${o === cur ? "selected" : ""}>${o}</option>`).join("")}
+          </select>
+        </div>
+      `;
+
       scheme.innerHTML = `
         <div class="gg-scheme-title">🌱 ${sp.icon || ""} ${g.name || sp.name}</div>
         <div class="gg-kv-grid">
@@ -11672,6 +11791,51 @@
               `;
             }).join("")}
           </div>
+          ${ruleApplies ? `
+          <div class="gg-rail-head">Growth Rules · trees &amp; crops only</div>
+          <div class="gg-rules">
+            <div class="gg-rules-title">Yield</div>
+            <div class="gg-kv-grid">
+              ${rfield("Yield Item ID", "gg-r-yield-item", (r.yield || {}).item_id, "text")}
+              ${rfield("Yield Amount", "gg-r-yield-amount", (r.yield || {}).amount, "number")}
+              ${rfield("Harvest Stage", "gg-r-harvest-stage", (r.yield || {}).harvest_stage, "number")}
+              ${rcheck("Regrows After Harvest", "gg-r-regrows", (r.yield || {}).regrows)}
+              ${rfield("Regrow To Stage", "gg-r-regrow-stage", (r.yield || {}).regrow_stage, "number")}
+            </div>
+            <div class="gg-rules-title">Planting</div>
+            <div class="gg-biome-picker" id="gg-r-seasons">
+              ${["spring", "summer", "fall", "winter", "year_round"].map(s => `
+                <label class="gg-biome-chip">
+                  <input type="checkbox" value="${s}" ${selectedSeasons.includes(s) ? "checked" : ""}>
+                  <span>${s === "year_round" ? "Year Round" : s.charAt(0).toUpperCase() + s.slice(1)}</span>
+                </label>`).join("")}
+            </div>
+            <div class="gg-kv-grid">
+              ${rfield("Min Temp °C", "gg-r-min-temp", (r.planting || {}).min_temp_c, "number")}
+              ${rfield("Max Temp °C", "gg-r-max-temp", (r.planting || {}).max_temp_c, "number")}
+              ${rcheck("Indoor OK (greenhouse)", "gg-r-indoor", (r.planting || {}).indoor_ok)}
+            </div>
+            <div class="gg-rules-title">Valid Biomes <span class="gg-rules-hint">none selected = any biome</span></div>
+            <div class="gg-biome-picker" id="gg-r-biomes">
+              ${biomeChoices.map(b => `
+                <label class="gg-biome-chip ${b.missing ? "gg-biome-missing" : ""}" title="${b.id}${b.missing ? " (not found in assets/biomes)" : ""}">
+                  <input type="checkbox" value="${b.id}" ${selectedBiomes.includes(b.id) ? "checked" : ""}>
+                  <span>${b.name}${b.missing ? " ⚠" : ""}</span>
+                </label>`).join("") || '<span class="gg-rules-hint">No biomes loaded.</span>'}
+            </div>
+            <div class="gg-rules-title">Needs</div>
+            <div class="gg-kv-grid">
+              ${rfield("Water Every N Days", "gg-r-water-interval", (r.needs || {}).water_interval_days, "number")}
+              ${rcheck("Fertilizer Required", "gg-r-fert-required", (r.needs || {}).fertilizer_required)}
+            </div>
+            <div class="gg-rules-title">Failure</div>
+            <div class="gg-kv-grid">
+              ${rselect("Out Of Season", "gg-r-out-of-season", (r.failure || {}).out_of_season || "pause", ["pause", "wither", "die"])}
+              ${rcheck("Frost Kills", "gg-r-frost", (r.failure || {}).frost_kills)}
+              ${rfield("Drought Grace Days", "gg-r-drought", (r.failure || {}).drought_days_before_wither, "number")}
+              ${rselect("On Wither", "gg-r-wither", (r.failure || {}).wither_behavior || "stall", ["stall", "regress_one_stage", "die"])}
+            </div>
+          </div>` : ""}
           <div class="gg-scheme-actions">
             <button class="gg-save-btn" id="gg-save-scheme">💾 Save Scheme</button>
             <span class="gg-save-note" id="gg-save-note"></span>
@@ -11682,6 +11846,16 @@
         setTimeout(() => {
           const btn = document.getElementById("gg-save-scheme");
           if (btn) btn.onclick = () => saveGroup(sp);
+          // year_round must stand alone: ticking it clears the individual seasons and vice versa.
+          const seasonBox = document.getElementById("gg-r-seasons");
+          if (seasonBox) seasonBox.addEventListener("change", (e) => {
+            const cbs = Array.from(seasonBox.querySelectorAll("input"));
+            if (e.target.value === "year_round" && e.target.checked) {
+              cbs.forEach(cb => { if (cb !== e.target) cb.checked = false; });
+            } else if (e.target.checked) {
+              cbs.forEach(cb => { if (cb.value === "year_round") cb.checked = false; });
+            }
+          });
         }, 0);
 
         // Surface a declared-vs-actual stage-count mismatch rather than letting
@@ -11749,6 +11923,8 @@
       // a full send is both simpler and self-correcting if a field was
       // cleared. Row values are strings here; the server coerces and
       // validates ages, and rejects an empty resource/model.
+      // The group's current stages, for looking up each stage's resource folder.
+      const savedStages = ((GROWTH_GROUPS[sp.species] || {}).stages) || [];
       const stageEdits = [];
       document.querySelectorAll(".gg-stage-editor .gg-se-row").forEach(row => {
         const n = parseInt(row.dataset.stage, 10);
@@ -11779,7 +11955,7 @@
           // the folder. Deliberately NOT inventing a name such as
           // `stages/struct_<n>/` - model filenames and folder names are the
           // author's choice, not a convention the UI may impose.
-          const cur = (stages.find(s => Number(s.stage) === n) || {}).resource;
+          const cur = (savedStages.find(s => Number(s.stage) === n) || {}).resource;
           if (!cur) {
             if (note) note.innerText = `⚠️ Stage ${n} has no resource folder to place that model in.`;
             return;
@@ -11803,6 +11979,39 @@
         icon_stage: val("gg-f-icon-stage"),
         stages: stageEdits,
       };
+
+      // Growth rules: only present in the DOM for tree/crop groups. Blank
+      // fields are sent blank; the server drops them, so an empty form
+      // saves as {} (no rule).
+      if (document.getElementById("gg-r-yield-item")) {
+        const chk = (id) => !!(document.getElementById(id) || {}).checked;
+        payload.rules = {
+          yield: {
+            item_id: val("gg-r-yield-item"),
+            amount: val("gg-r-yield-amount"),
+            harvest_stage: val("gg-r-harvest-stage"),
+            regrows: chk("gg-r-regrows"),
+            regrow_stage: val("gg-r-regrow-stage"),
+          },
+          planting: {
+            seasons: Array.from(document.querySelectorAll("#gg-r-seasons input:checked")).map(cb => cb.value),
+            biomes: Array.from(document.querySelectorAll("#gg-r-biomes input:checked")).map(cb => cb.value),
+            min_temp_c: val("gg-r-min-temp"),
+            max_temp_c: val("gg-r-max-temp"),
+            indoor_ok: chk("gg-r-indoor"),
+          },
+          needs: {
+            water_interval_days: val("gg-r-water-interval"),
+            fertilizer_required: chk("gg-r-fert-required"),
+          },
+          failure: {
+            out_of_season: val("gg-r-out-of-season"),
+            frost_kills: chk("gg-r-frost"),
+            drought_days_before_wither: val("gg-r-drought"),
+            wither_behavior: val("gg-r-wither"),
+          },
+        };
+      }
 
       if (btn) { btn.disabled = true; btn.innerText = "Saving..."; }
       if (note) note.innerText = "";

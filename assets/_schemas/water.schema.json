@@ -1,6 +1,13 @@
 {
   "category": "water",
   "fields": {
+    "irrigated_growth_bonus_pct": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 90,
+      "note": "percent reduction to a crop's days-to-mature while it is actively irrigated by this item (needs is_connected water). A property of the IRRIGATION ITEM, not the crop, so every crop reads the same value from the item watering it. Set on water_sprinkler, water_irrigation_sprinkler_riser and water_hose_soaker_flat; omit/0 elsewhere. Replaces the old per-crop irrigated_growth_bonus_pct."
+    },
     "power_draw_w": {
       "type": "number",
       "required": true,
@@ -23,7 +30,7 @@
       "type": "number",
       "required": true,
       "min": 0,
-      "note": "CONSUMER side - liters per in-game minute drawn while actively running (sprinklers, hoses, watering wand). 0 for producers, storage, and passive/inline components. Fill-and-carry containers (bucket, jug, watering can) use capacity_l instead, not a flow rate. IRRIGATION ITEMS ARE TERMINAL: water_sprinkler, water_irrigation_sprinkler_riser, and water_hose_soaker_flat need water pumped TO them (is_connected still applies) but don't feed water onward to any other item - their output is a crop GROWTH-RATE MODIFIER for nearby farming category items, not more plumbing. Now implemented as farming.irrigated_growth_bonus_pct (and a matching fertilized_growth_bonus_pct for mat_fertilizer/manure)."
+      "note": "CONSUMER side - liters per in-game minute drawn while actively running (sprinklers, hoses, watering wand). 0 for producers, storage, and passive/inline components. Fill-and-carry containers (bucket, jug, watering can) use capacity_l instead, not a flow rate. IRRIGATION ITEMS ARE TERMINAL: water_sprinkler, water_irrigation_sprinkler_riser, and water_hose_soaker_flat need water pumped TO them (is_connected still applies) but don't feed water onward to any other item - their output is a crop GROWTH-RATE MODIFIER for nearby farming category items, not more plumbing. Implemented as irrigated_growth_bonus_pct on these irrigation items themselves (the fertilizer equivalent is fertilizer_growth_bonus_pct on the fertilizer items)."
     },
     "is_connected": {
       "type": "boolean",

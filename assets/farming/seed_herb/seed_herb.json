@@ -72,8 +72,6 @@
       "depth": 0.03,
       "height": 0.08
     },
-    "irrigated_growth_bonus_pct": 20,
-    "fertilized_growth_bonus_pct": 15,
     "season": "year_round",
     "yield_amount": 0,
     "yields_item_id": ""

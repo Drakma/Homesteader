@@ -61,6 +61,7 @@
       "depth": 0.6,
       "height": 0.3
     },
-    "power_draw_w": 0
+    "power_draw_w": 0,
+    "fertilizer_growth_bonus_pct": 15
   }
 }

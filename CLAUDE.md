@@ -22,6 +22,14 @@
 
 ---
 
+## 1a. UI Design Rules (UI Toolkit)
+
+- **Text fields** (TextField, number fields, search boxes, dropdowns): text is ALWAYS vertically centered in the box, including placeholder text. Style the inner input, not just the outer element: justify-content: center; -unity-text-align: middle-left; padding-top: 0; padding-bottom: 0; on .unity-base-text-field__input / .unity-base-popup-field__input, and zero margin/padding on the inner TextElement. Horizontal alignment stays left.
+- **Buttons**: label text is ALWAYS centered vertically AND horizontally (-unity-text-align: middle-center).
+- Reference implementations: .asset-search-input and .asset-category-dropdown in Resources/HUDTree/HudUI.uss.
+
+---
+
 ## 1b. Mod System (Runtime Content Loading)
 
 Mods are loaded from disk at startup, before terrain generation, so modded

@@ -43,10 +43,6 @@
       }
     ],
     "rules": {
-      "boosts": {
-        "irrigated_growth_bonus_pct": 20,
-        "fertilized_growth_bonus_pct": 15
-      },
       "yield": {
         "item_id": "ingredient_wheat",
         "amount": 2,
@@ -55,6 +51,9 @@
       "planting": {
         "seasons": [
           "summer"
+        ],
+        "biomes": [
+          "biome_farmland"
         ]
       }
     }

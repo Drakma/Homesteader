@@ -147,13 +147,14 @@ namespace Homesteader.UI
         private VisualElement _assetSpawnerWindow;
         private Button _assetSpawnerCloseBtn;
         private Label _assetSpawnerCountBadge;
-        private VisualElement _assetCategoriesBar;
+        private Label _assetSpawnerStatusLabel;
+        private DropdownField _assetCategoryDropdown;
         private TextField _assetSearchInput;
         private VisualElement _assetGridContainer;
         private string _selectedAssetCategory = "all";
         private string _assetSearchQuery = "";
         private static AssetCatalogDatabase s_assetCatalog;
-        private readonly List<Button> _categoryChipButtons = new List<Button>();
+        private readonly List<string> _assetCategoryKeys = new List<string>();
 
         public bool IsAssetSpawnerOpen => _assetSpawnerWindow != null && !_assetSpawnerWindow.ClassListContains("asset-spawner-window--hidden");
 
@@ -317,9 +318,11 @@ namespace Homesteader.UI
             _assetSpawnerWindow = Q<VisualElement>("AssetSpawnerWindow");
             _assetSpawnerCloseBtn = Q<Button>("AssetSpawnerCloseBtn");
             _assetSpawnerCountBadge = Q<Label>("AssetSpawnerCountBadge");
-            _assetCategoriesBar = Q<VisualElement>("AssetCategoriesBar");
+            _assetSpawnerStatusLabel = Q<Label>("AssetSpawnerStatusLabel");
+            _assetCategoryDropdown = Q<DropdownField>("AssetCategoryDropdown");
             _assetSearchInput = Q<TextField>("AssetSearchInput");
             _assetGridContainer = Q<VisualElement>("AssetGridContainer");
+            _assetGridContainer?.RegisterCallback<GeometryChangedEvent>(evt => LayoutAssetGrid());
 
             if (_assetSpawnerCloseBtn != null)
             {
@@ -576,7 +579,7 @@ namespace Homesteader.UI
         private bool IsTextInputFocused()
         {
             for (var e = _root?.panel?.focusController?.focusedElement as VisualElement; e != null; e = e.parent)
-                if (e is ITextEdit) return true;
+                if (e is TextField || e is IntegerField || e is FloatField || e is LongField || e is DoubleField) return true;
             return false;
         }
 
@@ -722,6 +725,14 @@ namespace Homesteader.UI
                 int next = (current + dir + HudState.ToolbarSize) % HudState.ToolbarSize;
                 SelectToolbarSlot(next);
             }
+        }
+
+        /// <summary>True when the screen position is over a pickable HUD element (window, phone, toolbar).</summary>
+        public bool IsPointerOverUI(Vector2 screenPos)
+        {
+            if (_root == null || _root.panel == null) return false;
+            Vector2 panelPos = RuntimePanelUtils.ScreenToPanel(_root.panel, new Vector2(screenPos.x, Screen.height - screenPos.y));
+            return _root.panel.Pick(panelPos) != null;
         }
 
         public void SelectToolbarSlot(int slotIndex)
@@ -906,7 +917,7 @@ namespace Homesteader.UI
 
             _assetSpawnerWindow.RemoveFromClassList("asset-spawner-window--hidden");
 
-            BuildAssetCategoryChips();
+            BuildAssetCategoryDropdown();
             FilterAndDisplayAssets();
         }
 
@@ -948,15 +959,12 @@ namespace Homesteader.UI
             }
         }
 
-        private void BuildAssetCategoryChips()
+        private void BuildAssetCategoryDropdown()
         {
-            if (_assetCategoriesBar == null) return;
-            if (_categoryChipButtons.Count > 0) return;
+            if (_assetCategoryDropdown == null) return;
+            if (_assetCategoryKeys.Count > 0) return;
 
             EnsureAssetCatalogLoaded();
-
-            _assetCategoriesBar.Clear();
-            _categoryChipButtons.Clear();
 
             var categories = new List<string> { "all" };
             if (s_assetCatalog != null && s_assetCatalog.items != null)
@@ -969,34 +977,46 @@ namespace Homesteader.UI
                 categories.AddRange(distinctCats);
             }
 
+            var labels = new List<string>();
             foreach (var cat in categories)
             {
-                var chip = new Button();
-                chip.AddToClassList("asset-category-chip");
-                string display = cat.Equals("all", StringComparison.OrdinalIgnoreCase)
-                    ? "ALL"
-                    : char.ToUpper(cat[0]) + cat.Substring(1);
-                chip.text = display;
+                _assetCategoryKeys.Add(cat);
+                labels.Add(cat.Equals("all", StringComparison.OrdinalIgnoreCase)
+                    ? "All Categories"
+                    : char.ToUpper(cat[0]) + cat.Substring(1));
+            }
 
-                if (string.Equals(_selectedAssetCategory, cat, StringComparison.OrdinalIgnoreCase))
-                {
-                    chip.AddToClassList("asset-category-chip--active");
-                }
+            _assetCategoryDropdown.choices = labels;
+            int selected = _assetCategoryKeys.FindIndex(k => string.Equals(k, _selectedAssetCategory, StringComparison.OrdinalIgnoreCase));
+            _assetCategoryDropdown.SetValueWithoutNotify(labels[Mathf.Max(0, selected)]);
 
-                string catKey = cat;
-                chip.clicked += () =>
-                {
-                    _selectedAssetCategory = catKey;
-                    foreach (var c in _categoryChipButtons)
-                    {
-                        c.RemoveFromClassList("asset-category-chip--active");
-                    }
-                    chip.AddToClassList("asset-category-chip--active");
-                    FilterAndDisplayAssets();
-                };
+            _assetCategoryDropdown.RegisterValueChangedCallback(evt =>
+            {
+                int idx = _assetCategoryDropdown.index;
+                if (idx < 0 || idx >= _assetCategoryKeys.Count) return;
+                _selectedAssetCategory = _assetCategoryKeys[idx];
+                FilterAndDisplayAssets();
+            });
+        }
 
-                _categoryChipButtons.Add(chip);
-                _assetCategoriesBar.Add(chip);
+        private const float AssetTileMinWidth = 100f;
+        private const float AssetTileMargin = 3f;
+
+        // Stretches tiles so each row fills the grid width evenly (no leftover gap on the right).
+        private void LayoutAssetGrid()
+        {
+            if (_assetGridContainer == null) return;
+
+            float avail = _assetGridContainer.contentRect.width;
+            if (avail <= 0f || float.IsNaN(avail)) return;
+
+            float cell = AssetTileMinWidth + AssetTileMargin * 2f;
+            int cols = Mathf.Max(1, Mathf.FloorToInt(avail / cell));
+            float tileWidth = Mathf.Floor(avail / cols - AssetTileMargin * 2f);
+
+            foreach (var child in _assetGridContainer.Children())
+            {
+                if (child.ClassListContains("asset-tile")) child.style.width = tileWidth;
             }
         }
 
@@ -1031,6 +1051,10 @@ namespace Homesteader.UI
             if (_assetSpawnerCountBadge != null)
             {
                 _assetSpawnerCountBadge.text = $"{filtered.Count} items";
+            }
+            if (_assetSpawnerStatusLabel != null)
+            {
+                _assetSpawnerStatusLabel.text = $"Showing {filtered.Count} of {s_assetCatalog.items.Count} items";
             }
 
             foreach (var item in filtered)
@@ -1081,6 +1105,8 @@ namespace Homesteader.UI
 
                 _assetGridContainer.Add(tile);
             }
+
+            LayoutAssetGrid();
         }
 
         private void Update()

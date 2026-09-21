@@ -901,13 +901,9 @@
                 <ui:Button name="AssetSpawnerCloseBtn" text="✕" class="window-close-btn" />
             </ui:VisualElement>
             <ui:VisualElement class="asset-spawner-body">
-                <!-- Category Selector Chips -->
-                <ui:ScrollView mode="Horizontal" class="asset-categories-scroll" horizontal-scroller-visibility="Hidden">
-                    <ui:VisualElement name="AssetCategoriesBar" class="asset-categories-bar" />
-                </ui:ScrollView>
-
-                <!-- Search & Shortcut Hint Row -->
+                <!-- Category Dropdown, Search & Shortcut Hint Row -->
                 <ui:VisualElement class="asset-search-row">
+                    <ui:DropdownField name="AssetCategoryDropdown" class="asset-category-dropdown" />
                     <ui:TextField name="AssetSearchInput" placeholder-text="Search assets by name or ID..." class="asset-search-input" />
                     <ui:Label text="Click: +1  •  Shift+Click: Full Stack" class="asset-shortcut-hint" />
                 </ui:VisualElement>
@@ -917,7 +913,23 @@
                     <ui:VisualElement name="AssetGridContainer" class="asset-grid-container" />
                 </ui:ScrollView>
             </ui:VisualElement>
-            <ui:VisualElement name="AssetSpawnerResizeHandle" class="window-resize-handle" tooltip="Drag to resize" />
+            <ui:VisualElement class="window-status-bar">
+                <ui:Label name="AssetSpawnerStatusLabel" text="" class="window-status-label" />
+                <ui:VisualElement name="AssetSpawnerResizeHandle" class="window-resize-handle" tooltip="Drag to resize">
+                    <ui:VisualElement class="resize-dot-row" picking-mode="Ignore">
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="resize-dot-row" picking-mode="Ignore">
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="resize-dot-row" picking-mode="Ignore">
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                        <ui:VisualElement class="resize-dot" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
 
     </ui:VisualElement>

@@ -60,6 +60,7 @@
       "width": 0.5,
       "depth": 0.35,
       "height": 0.15
-    }
+    },
+    "fertilizer_growth_bonus_pct": 15
   }
 }

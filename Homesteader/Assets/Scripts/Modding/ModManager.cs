@@ -123,6 +123,7 @@ namespace Homesteader.Modding
                 if (verboseLogging) Debug.Log(message);
             }
 
+            Homesteader.Growth.GrowthRegistry.Clear();
             LoadedMods.Clear();
             Results.Clear();
             LoadComplete = false;

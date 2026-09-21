@@ -17,6 +17,12 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
+  "use": {
+    "right_click": {
+      "action": "plant_growth_group",
+      "group": "poplar"
+    }
+  },
   "models": [
     {
       "file": "SM_Sapling_Poplar.fbx",

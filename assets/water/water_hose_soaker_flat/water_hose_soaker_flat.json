@@ -128,6 +128,7 @@
     "water_usage_lpm": 5,
     "is_connected": false,
     "max_filter_throughput_lpm": 0,
-    "max_roof_proximity_m": 0
+    "max_roof_proximity_m": 0,
+    "irrigated_growth_bonus_pct": 20
   }
 }

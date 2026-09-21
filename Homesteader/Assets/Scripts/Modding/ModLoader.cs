@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Homesteader.Generation;
+using Homesteader.Growth;
 using UnityEngine;
 
 namespace Homesteader.Modding
@@ -287,6 +288,18 @@ namespace Homesteader.Modding
                 {
                     summary.prefab = prefab;
                 }
+
+                // Growth groups and item use-behaviours (e.g. right-click to plant) are
+                // registered independently of terrain generation: they drive gameplay,
+                // not world scattering.
+                if (GrowthGroup.TryParse(mod, Path.GetDirectoryName(file), root, ns, assetResolver,
+                        out GrowthGroup growthGroup, msg => mod.Warnings.Add($"Growth group '{localId}': {msg}")))
+                {
+                    if (!GrowthRegistry.Register(growthGroup))
+                        mod.Warnings.Add($"Growth group '{growthGroup.QualifiedId}' already registered; this copy is ignored.");
+                }
+                if (UseBehavior.TryParse(root, ns, out UseBehavior useBehavior))
+                    GrowthRegistry.Register(useBehavior);
 
                 if (generator == null)
                 {

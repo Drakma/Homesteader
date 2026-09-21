@@ -444,6 +444,20 @@ namespace Homesteader.UI
             HeldAssetId = slot.IconId ?? string.Empty;
         }
 
+        /// <summary>Removes <paramref name="count"/> items from the selected slot; false if it holds fewer.</summary>
+        public bool ConsumeFromSelectedSlot(int count)
+        {
+            EnsureToolbarSlots();
+            if (SelectedSlot < 0 || SelectedSlot >= Toolbar.Count) return false;
+            var slot = Toolbar[SelectedSlot];
+            if (string.IsNullOrEmpty(slot.IconId) || slot.Count < count) return false;
+            slot.Count -= count;
+            if (slot.Count <= 0) slot = ToolbarSlotData.Empty();
+            Toolbar[SelectedSlot] = slot;
+            HeldAssetId = slot.IconId ?? string.Empty;
+            return true;
+        }
+
         public void EnsureToolbarSlots()
         {
             while (Toolbar.Count < ToolbarSize)

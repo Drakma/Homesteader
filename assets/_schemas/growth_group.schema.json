@@ -104,17 +104,8 @@
 			"type": "object",
 			"required": true,
 			"required_when": "growth_type in [tree, crop]. These rules apply ONLY to trees and crops - omit the block for animal, percent (construction groups advance by player contribution, not by environment) and generic groups, and a validator should reject it there.",
-			"note": "The GROUP-LEVEL growth rules: everything about HOW and WHEN the group grows and what it yields, as opposed to the scheme (stages/ages) which says WHAT it looks like at each age. Group-authoritative like the scheme - these values live here and nowhere else. Formerly these were duplicated on each stage as farming category_fields (days_to_mature, irrigated_growth_bonus_pct, fertilized_growth_bonus_pct, season, yield_amount, yields_item_id) or lived in game code; stage manifests must NOT repeat them. Every sub-block is optional except where noted; a missing sub-block means 'no rule' (no boost, no restriction, cannot fail).",
+			"note": "The GROUP-LEVEL growth rules: everything about HOW and WHEN the group grows and what it yields, as opposed to the scheme (stages/ages) which says WHAT it looks like at each age. Group-authoritative like the scheme - these values live here and nowhere else. Formerly these were duplicated on each stage as farming category_fields (days_to_mature, irrigated_growth_bonus_pct, fertilized_growth_bonus_pct, season, yield_amount, yields_item_id) or lived in game code; stage manifests must NOT repeat them. Growth-speed modifiers are NOT crop rules: how much irrigating or fertilizing speeds growth is a property of the irrigation item (category_fields.irrigated_growth_bonus_pct on water_sprinkler / water_irrigation_sprinkler_riser / water_hose_soaker_flat) or the fertilizer (category_fields.fertilizer_growth_bonus_pct on mat_fertilizer / waste_pile_manure_*). Every sub-block is optional except where noted; a missing sub-block means 'no rule' (no boost, no restriction, cannot fail).",
 			"sub_fields": {
-				"boosts": {
-					"type": "object",
-					"required": false,
-					"note": "Modifiers that speed up growth. Each is a percent REDUCTION of the time needed to reach max_age (so 10 turns a 180-day group into 162 days) while the condition holds; stacked boosts are additive, capped at 90.",
-					"fields": {
-						"irrigated_growth_bonus_pct": { "type": "number", "min": 0, "max": 90, "default": 0, "note": "Applied while actively irrigated by a connected water_sprinkler / water_irrigation_sprinkler_riser / water_hose_soaker_flat." },
-						"fertilized_growth_bonus_pct": { "type": "number", "min": 0, "max": 90, "default": 0, "note": "Applied while fertilized (mat_fertilizer or a waste_pile_manure_* applied to the plot)." }
-					}
-				},
 				"yield": {
 					"type": "object",
 					"required": false,
@@ -133,6 +124,7 @@
 					"note": "Where and when the group can be planted and can grow.",
 					"fields": {
 						"seasons": { "type": "array", "item_enum": ["spring", "summer", "fall", "winter", "year_round"], "required": false, "note": "Seasons in which planting is allowed and growth proceeds. 'year_round' (greenhouse-friendly) must appear alone. Omitted = year_round. Replaces the old per-item 'season' string." },
+						"biomes": { "type": "array", "item_type": "string", "required": false, "note": "Biome ids (the id/filename of a biome in assets/biomes/, e.g. 'biome_farmland') where this group is a VALID PLACEMENT - it can only be planted, and will only grow, in these biomes. Omitted or empty = valid in any biome. Every id must exist in assets/biomes/. This is where the group may be PLACED; it is distinct from a spawnable asset's spawning.biomes (where the world generator scatters it)." },
 						"min_temp_c": { "type": "number", "required": false, "note": "Growth pauses (or fails, per failure rules) below this temperature in Celsius." },
 						"max_temp_c": { "type": "number", "required": false, "note": "Growth pauses (or fails) above this temperature in Celsius." },
 						"indoor_ok": { "type": "boolean", "required": false, "default": false, "note": "True if it can be planted inside a greenhouse, ignoring seasons and outdoor temperature (uses the greenhouse's interior temperature instead)." }
@@ -160,9 +152,8 @@
 				}
 			},
 			"example": {
-				"boosts": { "irrigated_growth_bonus_pct": 15, "fertilized_growth_bonus_pct": 10 },
 				"yield": { "item_id": "ingredient_wheat", "amount": 6, "harvest_stage": 3 },
-				"planting": { "seasons": ["spring", "summer"], "min_temp_c": 4 },
+				"planting": { "seasons": ["spring", "summer"], "biomes": ["biome_farmland", "biome_meadow"], "min_temp_c": 4 },
 				"needs": { "water_interval_days": 4 },
 				"failure": { "out_of_season": "pause", "frost_kills": true, "drought_days_before_wither": 3, "wither_behavior": "stall" }
 			}

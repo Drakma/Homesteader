@@ -1,6 +1,6 @@
 {
   "category": "farming",
-  "note": "days_to_mature, irrigated_growth_bonus_pct, fertilized_growth_bonus_pct, season, yield_amount and yields_item_id are NOT required on growth-group stage manifests (crop_sprout/growing/mature): for a crop group that data is owned by the group manifest's growth.rules (see growth_group.schema.json) and must not be repeated per stage. They stay valid (and are still used) on standalone items such as seed_*.",
+  "note": "days_to_mature, season, yield_amount and yields_item_id are NOT required on growth-group stage manifests (crop_sprout/growing/mature): for a crop group that data is owned by the group manifest's growth.rules (see growth_group.schema.json) and must not be repeated per stage. They stay valid (and are still used) on standalone items such as seed_*.",
   "fields": {
     "crop_species": {
       "type": "string",
@@ -11,18 +11,6 @@
       "type": "number",
       "required": false,
       "min": 0
-    },
-    "irrigated_growth_bonus_pct": {
-      "type": "number",
-      "required": false,
-      "min": 0,
-      "note": "percent reduction to days_to_mature while actively irrigated by a connected water_sprinkler/water_irrigation_sprinkler_riser/water_hose_soaker_flat (see water.schema.json's water_usage_lpm note). Same flat value across all crop species - keeping this simple, not simulating real per-species agronomy."
-    },
-    "fertilized_growth_bonus_pct": {
-      "type": "number",
-      "required": false,
-      "min": 0,
-      "note": "percent reduction to days_to_mature while fertilized (mat_fertilizer or a waste_pile_manure_* applied to the plot). Same flat value across all crop species."
     },
     "season": {
       "type": "string",
