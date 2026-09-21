@@ -296,6 +296,11 @@ namespace Homesteader.UI
         /// Reset to the state a brand-new game starts in: every resource at
         /// zero, no debt, all vitals at +100, and an empty toolbar.
         /// </summary>
+        public void ResetResourcesToDefault()
+        {
+            ResetToNewGameDefaults();
+        }
+
         public void ResetToNewGameDefaults()
         {
             SetResourceAmount(ResourceId.Water, 0f);

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "birch",
+  "name": "Birch Tree",
+  "category": "logging",
+  "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 100 days. This group is the authoritative owner of the birch scheme.",
+  "icon": "birch.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "birch",
+    "max_age": 100,
+    "time_unit": "days",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0,
+        "age_max": 15,
+        "resource": "stages/tree_sapling/",
+        "model": "tree_sapling_birch.fbx",
+        "icon": "tree_sapling_birch.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 15,
+        "age_max": 40,
+        "resource": "stages/tree_small/",
+        "model": "tree_small_birch.fbx",
+        "icon": "tree_small_birch.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 40,
+        "age_max": 75,
+        "resource": "stages/tree_medium/",
+        "model": "tree_medium_birch.fbx",
+        "icon": "tree_medium_birch.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 75,
+        "age_max": 100,
+        "resource": "stages/tree_mature/",
+        "model": "",
+        "icon": "tree_mature_birch.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

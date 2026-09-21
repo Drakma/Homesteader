@@ -1,0 +1,18 @@
+# Homesteader Material Definition
+
+newmtl Salt_RedBrown
+Ka 0.2880 0.1520 0.0960
+Kd 0.7200 0.3800 0.2400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Holder_Blue
+Ka 0.0800 0.1760 0.3200
+Kd 0.2000 0.4400 0.8000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

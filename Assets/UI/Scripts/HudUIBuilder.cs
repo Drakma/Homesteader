@@ -13,6 +13,7 @@ namespace Homesteader.UI
     /// and named so <see cref="Resources.Load{T}(string)"/> can find
     /// them by the resource path strings exposed in the inspector.
     /// </summary>
+    [DefaultExecutionOrder(-90)]
     [RequireComponent(typeof(UIDocument))]
     public sealed class HudUIBuilder : MonoBehaviour
     {
@@ -32,9 +33,11 @@ namespace Homesteader.UI
 
         [Header("Kit-sourced chrome overlay (assets/hud_kit/).")]
         [Tooltip("When enabled, an additional overlay UXML is mounted as a " +
-                 "sibling tree and the kit USS is loaded as a sibling " +
-                 "stylesheet. The original status bar / toolbar / window " +
-                 "keep working unchanged.")]
+                 "sibling tree and a kit USS is loaded as a sibling " +
+                 "stylesheet. HudUI.uxml already imports HudUI_kit.uss " +
+                 "directly so kit chrome applies without the overlay tree; " +
+                 "the overlay remains opt-in for decorative-only stages, " +
+                 "but live values need to be bound into it.")]
         [SerializeField] private bool _enableKitOverlay = false;
         [SerializeField] private VisualTreeAsset _kitOverlayAsset;
         [SerializeField] private string _kitOverlayResource = "HUDTree/HUDOverlay_kit";
@@ -53,81 +56,24 @@ namespace Homesteader.UI
             var root = doc.rootVisualElement;
             if (root == null) { return; }
             root.Clear();
-            root.AddToClassList("screen-root");
 
-            // Resolve the four UXML trees. Try inspector slot first,
-            // then Resources fallback.
             var hud = LoadAsset(_hudAsset, _hudResource);
-            var toolbar = LoadAsset(_toolbarAsset, _toolbarResource);
-            var form = LoadAsset(_formAsset, _formResource);
-            var window = LoadAsset(_windowAsset, _windowResource);
-
-            if (hud != null) root.Add(hud.CloneTree());
-
-            if (toolbar != null)
+            if (hud != null)
             {
-                var t = toolbar.CloneTree();
-                t.style.position = Position.Absolute;
-                t.style.left = 0;
-                t.style.right = 0;
-                t.style.bottom = 8;
-                root.Add(t);
+                var tree = hud.CloneTree();
+                tree.style.width = new StyleLength(new Length(100f, LengthUnit.Percent));
+                tree.style.height = new StyleLength(new Length(100f, LengthUnit.Percent));
+                tree.style.position = Position.Absolute;
+                tree.style.left = 0;
+                tree.style.top = 0;
+                tree.style.right = 0;
+                tree.style.bottom = 0;
+                root.Add(tree);
             }
 
-            if (window != null)
-            {
-                var w = window.CloneTree();
-                w.style.position = Position.Absolute;
-                w.style.left = 0;
-                w.style.right = 0;
-                w.style.top = 0;
-                w.style.bottom = 0;
-                w.pickingMode = PickingMode.Ignore;
-                root.Add(w);
-            }
-
-            if (form != null)
-            {
-                var f = form.CloneTree();
-                f.style.position = Position.Absolute;
-                f.style.left = 24;
-                f.style.right = 24;
-                f.style.top = 80;
-                f.style.bottom = 120;
-                root.Add(f);
-            }
-
-            if (_enableKitOverlay)
-            {
-                AttachKitOverlay(root);
-            }
-
-            if (hud == null && toolbar == null && form == null && window == null)
-            {
-                Debug.LogError("[HudUI] No UXML assets resolved. Drag them " +
-                               "into the inspector slots OR put them under " +
-                               "Assets/Resources/HUDTree/ and rebuild.");
-            }
-        }
-
-        private void AttachKitOverlay(VisualElement root)
-        {
-            var overlay = LoadAsset(_kitOverlayAsset, _kitOverlayResource);
-            if (overlay != null)
-            {
-                var ov = overlay.CloneTree();
-                ov.style.position = Position.Absolute;
-                ov.style.left = 0;
-                ov.style.right = 0;
-                ov.style.top = 0;
-                ov.style.bottom = 0;
-                ov.pickingMode = PickingMode.Ignore;
-                root.Add(ov);
-            }
-
-            // Load the kit USS as a sibling style sheet so the kit classes
-            // (vital-icon, resource-icon, btn-kit-*, decor-*) resolve
-            // against the kit atlases baked from assets/hud_kit/.
+            // Always load the kit USS as a sibling style sheet so the
+            // chrome that overrides the tint placeholders is present, even
+            // if the inspector flag toggles the UXML overlay.
             try
             {
                 var kitUss = Resources.Load<StyleSheet>(_kitOverlayUssResource);
@@ -135,17 +81,32 @@ namespace Homesteader.UI
                 {
                     root.styleSheets.Add(kitUss);
                 }
-                else
-                {
-                    Debug.LogWarning("[HudUI] Kit overlay USS not found at " +
-                                     "Resources path " + _kitOverlayUssResource);
-                }
             }
             catch (System.Exception ex)
             {
                 Debug.LogWarning("[HudUI] Failed to attach kit USS: " + ex.Message);
             }
+
+            if (hud == null)
+            {
+                Debug.LogError("[HudUI] No HUD UXML resolved. Drag the " +
+                               "HudUI.uxml into the inspector slot OR put " +
+                               "it under Assets/Resources/HUDTree/ and rebuild.");
+            }
+
+            // Ensure bindings reconnect to the newly mounted visual tree
+            var bindings = GetComponent<HudBindings>();
+            if (bindings != null)
+            {
+                bindings.ResolveReferences();
+            }
         }
+
+        // No-op kept for backward compatibility. The kit overlay UXML
+        // (HUDOverlay_kit) is not loaded because HudUI.uxml already
+        // renders every element bindings write to; mounting duplicates
+        // would render ghost rows.
+        private void AttachKitOverlay(VisualElement root) { }
 
         private static VisualTreeAsset LoadAsset(VisualTreeAsset inspector,
                                                   string resourcesPath)

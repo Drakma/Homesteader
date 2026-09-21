@@ -1,0 +1,19 @@
+{
+  "id": "mod_fuel",
+  "name": "Homesteader Fuel & Heating",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Diesel containers, bulk propane tanks, cordwood stacks, and fuel storage.",
+  "namespace": "fuel",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "fuel",
+      "path": "assets/fuel",
+      "group": "fuel"
+    }
+  ]
+}

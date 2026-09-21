@@ -1,0 +1,137 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_tent_dome",
+  "name": "Dome Tent",
+  "category": "structures",
+  "description": "A small two-person dome camping tent.",
+  "icon": "struct_tent_dome.png",
+  "properties": {
+    "weight_kg": 8.0,
+    "max_stack_size": 1,
+    "base_value": 60.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 6,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Struct_Tent_Dome.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SM_Struct_Tent_Dome.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Tent_Dome.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 354.4,
+        "y": 315.0,
+        "z": 175.0
+      },
+      "dimensions_m": {
+        "x": 3.54,
+        "y": 3.15,
+        "z": 1.75
+      },
+      "vertices": 281,
+      "faces": 102,
+      "bounding_box": {
+        "min": [
+          -196.875,
+          -157.5,
+          0.0
+        ],
+        "max": [
+          157.5,
+          157.5,
+          175.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Struct_Tent_Dome.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 354.4,
+      "y": 315.0,
+      "z": 175.0
+    },
+    "dimensions_m": {
+      "x": 3.54,
+      "y": 3.15,
+      "z": 1.75
+    },
+    "vertices": 281,
+    "faces": 102,
+    "bounding_box": {
+      "min": [
+        -196.875,
+        -157.5,
+        0.0
+      ],
+      "max": [
+        157.5,
+        157.5,
+        175.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 9.23,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 3.54,
+      "depth": 3.15,
+      "height": 1.75
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 11.2,
+    "construction_recipe": [],
+    "required_tools": []
+  }
+}

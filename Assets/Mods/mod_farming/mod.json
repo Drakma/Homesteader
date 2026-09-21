@@ -1,0 +1,19 @@
+{
+  "id": "mod_farming",
+  "name": "Homesteader Farming & Crops",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Seed packets, organic fertilizers, soil amendments, and planting supplies.",
+  "namespace": "farming",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "farming",
+      "path": "assets/farming",
+      "group": "farming"
+    }
+  ]
+}

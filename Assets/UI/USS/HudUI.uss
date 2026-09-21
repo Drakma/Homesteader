@@ -1,0 +1,385 @@
+/* HudUI.uss - global styling for the Unity UI Toolkit HUD */
+
+:root {
+    --font: resource("Fonts & Materials/segoeui");
+    --font-bold: resource("Fonts & Materials/segoeuib");
+    --header-strip: resource("Atlases/header_strip");
+    --well: resource("Atlases/well");
+    --window-frame: resource("Atlases/window_frame");
+    --modal-frame: resource("Atlases/modal_frame");
+    --slider-track-lightslate: resource("Atlases/slider_track_lightslate");
+    --slider-track-slate: resource("Atlases/slider_track_slate");
+    --slider-track-disabled: resource("Atlases/slider_track_disabled");
+    --slider-knob: resource("Atlases/slider_knob");
+    --button-atlas: resource("Atlases/button_atlas");
+    --checkbox-atlas: resource("Atlases/checkbox_atlas");
+    --radio-atlas: resource("Atlases/radio_atlas");
+}
+
+/* ----- root scaffolding ----- */
+
+.screen-root {
+    flex-grow: 1;
+    background-color: rgb(48, 56, 72);
+}
+
+/* ----- header band ----- */
+
+.status-bar {
+    flex-direction: row;
+    height: 48px;
+}
+
+.status-strip {
+    flex-grow: 1;
+    background-image: var(--header-strip);
+    background-size: 1920px 64px;
+}
+
+.status-section {
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.status-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.status-label {
+    color: rgb(220, 224, 230);
+    font-size: 14px;
+    -unity-font: var(--font-bold);
+}
+
+.well {
+    background-image: var(--well);
+    background-size: 100% 100%;
+    height: 22px;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 6px;
+}
+
+.well-time {
+    flex-grow: 1;
+    align-items: center;
+}
+
+.time-label {
+    color: rgb(220, 224, 230);
+    font-size: 16px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+.speed-chip {
+    width: 14px;
+    height: 14px;
+    margin-left: 3px;
+    background-color: rgb(40, 56, 72);
+    border-color: rgb(10, 14, 21);
+}
+
+/* ----- icon stand-in (a small slate square so the layout reads) ----- */
+
+.icon-tile {
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+    background-color: rgb(120, 136, 153);
+    border-color: rgb(10, 14, 21);
+}
+
+.label-tile {
+    color: rgb(220, 224, 230);
+    font-size: 14px;
+    -unity-font: var(--font);
+    -unity-text-align: middle-left;
+    padding-left: 2px;
+}
+
+/* ----- toolbar ----- */
+
+.toolbar {
+    flex-direction: row;
+    align-self: center;
+    position: absolute;
+    bottom: 8px;
+    height: 80px;
+    background-color: rgb(20, 26, 32);
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.tool-slot {
+    width: 64px;
+    height: 64px;
+    margin-left: 4px;
+    background-color: rgb(20, 26, 32);
+    border-color: rgb(10, 14, 21);
+    flex-direction: column;
+}
+
+.tool-slot--selected {
+    background-color: rgb(120, 136, 153);
+    border-top-color: rgb(193, 154, 60);
+    border-top-width: 2px;
+    border-bottom-color: rgb(120, 136, 153);
+    border-left-color: rgb(120, 136, 153);
+    border-right-color: rgb(120, 136, 153);
+}
+
+.tool-icon {
+    flex-grow: 1;
+    background-color: rgb(80, 160, 100);
+    margin: 8px 8px 0 8px;
+}
+
+.tool-count {
+    color: rgb(241, 196, 15);
+    font-size: 16px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-right;
+    padding-right: 4px;
+    padding-bottom: 2px;
+}
+
+/* ----- window + modal ----- */
+
+.window-shade {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.35);
+    justify-content: center;
+    align-items: center;
+}
+
+.window {
+    flex-direction: column;
+    background-image: var(--window-frame);
+    -unity-background-scale-mode: stretch-to-fill;
+    padding: 0;
+}
+
+.modal {
+    flex-direction: column;
+    background-image: var(--modal-frame);
+    -unity-background-scale-mode: stretch-to-fill;
+    padding: 0;
+}
+
+.window-header {
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.window-close-x {
+    width: 14px;
+    height: 14px;
+    margin-right: 24px;
+}
+
+.window-close-x-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(220, 90, 90);
+    /* Two diagonal stripes via stripes: skipped (UI Toolkit doesn't
+       support per-pixel lines directly). The visual is approximated
+       via background-color + opacity ramp. */
+    opacity: 0.85;
+}
+
+.window-title {
+    color: rgb(193, 154, 60);
+    font-size: 22px;
+    -unity-font: var(--font-bold);
+}
+
+.window-body {
+    flex-grow: 1;
+    padding: 12px;
+    flex-direction: column;
+}
+
+.modal-body {
+    flex-grow: 1;
+    padding: 8px;
+    flex-direction: column;
+}
+
+.modal-text {
+    color: rgb(220, 224, 230);
+    font-size: 18px;
+    -unity-font: var(--font);
+    padding: 4px;
+}
+
+.modal-button-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 36px;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+}
+
+/* ----- form widgets ----- */
+
+.form {
+    flex-grow: 1;
+    padding: 16px;
+    flex-direction: column;
+    background-color: rgb(40, 48, 56);
+}
+
+.form-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.form-label {
+    color: rgb(220, 224, 230);
+    font-size: 14px;
+    -unity-font: var(--font);
+    width: 90px;
+}
+
+/* Button atlas cells: each button is 200x56. Index formula:
+   row = color*4 + state order; index in USS is row * 56px. */
+.btn {
+    width: 200px;
+    height: 56px;
+    background-image: var(--button-atlas);
+    background-size: 200px 896px;          /* 16 rows * 56 */
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    color: rgb(220, 224, 230);
+    font-size: 24px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+}
+
+/* row positions for color/state combinations. RED row top, GREEN
+   next, etc. States in order: unclicked, hover, clicked, disabled. */
+
+.btn-red-unclicked    { background-position: 0px 0px; }
+.btn-red-hover        { background-position: 0px -56px; }
+.btn-red-clicked      { background-position: 0px -112px; }
+.btn-red-disabled     { background-position: 0px -168px; }
+
+.btn-green-unclicked  { background-position: 0px -224px; }
+.btn-green-hover      { background-position: 0px -280px; }
+.btn-green-clicked    { background-position: 0px -336px; }
+.btn-green-disabled   { background-position: 0px -392px; }
+
+.btn-amber-unclicked  { background-position: 0px -448px; }
+.btn-amber-hover      { background-position: 0px -504px; }
+.btn-amber-clicked    { background-position: 0px -560px; }
+.btn-amber-disabled   { background-position: 0px -616px; }
+
+.btn-slate-unclicked  { background-position: 0px -672px; }
+.btn-slate-hover      { background-position: 0px -728px; }
+.btn-slate-clicked    { background-position: 0px -784px; }
+.btn-slate-disabled   { background-position: 0px -840px; }
+
+/* Checkbox atlas: 4 cells * 28 = 112 wide. */
+.cb {
+    width: 28px;
+    height: 28px;
+    background-image: var(--checkbox-atlas);
+    background-size: 112px 28px;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+}
+.cb-unchecked         { background-position: 0px 0px; }
+.cb-checked           { background-position: -28px 0px; }
+.cb-unchecked-disabled{ background-position: -56px 0px; }
+.cb-checked-disabled  { background-position: -84px 0px; }
+
+/* Radio atlas: same as checkbox layout. */
+.rd {
+    width: 28px;
+    height: 28px;
+    background-image: var(--radio-atlas);
+    background-size: 112px 28px;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+}
+.rd-unselected         { background-position: 0px 0px; }
+.rd-selected           { background-position: -28px 0px; }
+.rd-unselected-disabled{ background-position: -56px 0px; }
+.rd-selected-disabled  { background-position: -84px 0px; }
+
+/* Slider */
+.slider-row {
+    flex-direction: column;
+    height: 56px;
+    margin-bottom: 8px;
+}
+
+.slider-label {
+    color: rgb(220, 224, 230);
+    font-size: 12px;
+    -unity-font: var(--font);
+    height: 16px;
+}
+
+.slider-track {
+    height: 28px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.slider-track-bg {
+    flex-grow: 1;
+    height: 10px;
+    background-repeat: no-repeat;
+    background-size: 100% 10px;
+}
+
+.slider-track-lightslate { background-image: var(--slider-track-lightslate); }
+.slider-track-slate      { background-image: var(--slider-track-slate); }
+.slider-track-disabled   { background-image: var(--slider-track-disabled); }
+
+.slider-knob {
+    width: 18px;
+    height: 28px;
+    background-image: var(--slider-knob);
+    background-size: 18px 28px;
+    margin-left: -9px;
+}
+
+.slider-value-label {
+    color: rgb(220, 224, 230);
+    font-size: 12px;
+    -unity-font: var(--font);
+    -unity-text-align: middle-right;
+    width: 56px;
+    padding-left: 4px;
+}
+
+/* Modal action buttons (OK / Cancel variants). */
+.action-btn {
+    width: 96px;
+    height: 32px;
+    background-color: rgb(193, 154, 60);
+    color: rgb(20, 24, 32);
+    font-size: 16px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    margin-left: 8px;
+}
+.action-btn--secondary {
+    background-color: rgb(34, 43, 58);
+    color: rgb(220, 224, 230);
+    border-color: rgb(120, 136, 153);
+}

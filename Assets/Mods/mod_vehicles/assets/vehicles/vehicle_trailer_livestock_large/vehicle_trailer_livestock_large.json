@@ -1,0 +1,77 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_trailer_livestock_large",
+  "name": "Large Livestock Trailer",
+  "category": "vehicles",
+  "description": "A large new metal livestock trailer, completely clean.",
+  "icon": "vehicle_trailer_livestock_large.png",
+  "properties": {
+    "weight_kg": 1600.0,
+    "max_stack_size": 1,
+    "base_value": 12000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 3,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Vehicle_Trailer_Livestock_Large.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "trailer",
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "tank_capacity_l": 0,
+    "top_speed_kmh": 0,
+    "seats": 0,
+    "cargo_capacity_m3": 12,
+    "dimensions_m": {
+      "width": 2.4,
+      "depth": 7.0,
+      "height": 2.2
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mod_appliances",
+  "name": "Homesteader Appliances Pack",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Homestead household and workshop appliances, refrigeration, laundry, and heating equipment.",
+  "namespace": "appliances",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "appliance",
+      "path": "assets/appliances",
+      "group": "appliances"
+    }
+  ]
+}

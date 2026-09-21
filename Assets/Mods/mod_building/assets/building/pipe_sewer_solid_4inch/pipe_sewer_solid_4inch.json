@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "pipe_sewer_solid_4inch",
+  "name": "4\" Sewer Pipe",
+  "category": "building",
+  "description": "Solid green SDR-35 sewer pipe segment.",
+  "icon": "pipe_sewer_solid_4inch.png",
+  "properties": {
+    "weight_kg": 1.5,
+    "max_stack_size": 15,
+    "base_value": 5.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "pipe_sewer_solid_4inch.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "pipe_sewer_solid_4inch.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 56.0,
+        "y": 56.0,
+        "z": 112.0
+      },
+      "dimensions_m": {
+        "x": 0.56,
+        "y": 0.56,
+        "z": 1.12
+      },
+      "vertices": 288,
+      "faces": 96,
+      "bounding_box": {
+        "min": [
+          -28.0,
+          -28.0,
+          0.0
+        ],
+        "max": [
+          28.0,
+          28.0,
+          112.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "pipe_sewer_solid_4inch.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 56.0,
+      "y": 56.0,
+      "z": 112.0
+    },
+    "dimensions_m": {
+      "x": 0.56,
+      "y": 0.56,
+      "z": 1.12
+    },
+    "vertices": 288,
+    "faces": 96,
+    "bounding_box": {
+      "min": [
+        -28.0,
+        -28.0,
+        0.0
+      ],
+      "max": [
+        28.0,
+        28.0,
+        112.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.56,
+      "depth": 0.56,
+      "height": 1.12
+    }
+  }
+}

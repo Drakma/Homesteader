@@ -1,0 +1,34 @@
+# Homesteader Material Definition
+
+newmtl Case_Red
+Ka 0.3520 0.0800 0.0640
+Kd 0.8800 0.2000 0.1600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl PV_Top
+Ka 0.0480 0.0800 0.1800
+Kd 0.1200 0.2000 0.4500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Knob_Black
+Ka 0.0800 0.0800 0.0880
+Kd 0.2000 0.2000 0.2200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Terminal_Brass
+Ka 0.3520 0.2880 0.0960
+Kd 0.8800 0.7200 0.2400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

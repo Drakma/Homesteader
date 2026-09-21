@@ -1,0 +1,99 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "waste_nozzle_spray_quick",
+  "name": "Quick-Connect Spray Nozzle",
+  "category": "waste",
+  "description": "Adjustable brass spray nozzle with quick-connect fitting.",
+  "icon": "waste_nozzle_spray_quick.png",
+  "properties": {
+    "weight_kg": 0.3,
+    "max_stack_size": 10,
+    "base_value": 6.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "waste_nozzle_spray_quick.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "waste_nozzle_spray_quick.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 32.0,
+        "y": 30.4,
+        "z": 97.0
+      },
+      "dimensions_m": {
+        "x": 0.32,
+        "y": 0.3,
+        "z": 0.97
+      },
+      "vertices": 600,
+      "faces": 200,
+      "bounding_box": {
+        "min": [
+          -16.0,
+          -15.2169,
+          0.0
+        ],
+        "max": [
+          16.0,
+          15.2169,
+          97.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.05,
+      "depth": 0.05,
+      "height": 0.15
+    },
+    "power_draw_w": 0
+  }
+}

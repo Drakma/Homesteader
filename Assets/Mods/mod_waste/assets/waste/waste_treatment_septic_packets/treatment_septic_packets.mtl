@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Box_Cardboard
+Ka 0.3280 0.2600 0.1680
+Kd 0.8200 0.6500 0.4200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Label_Green
+Ka 0.0880 0.2320 0.1200
+Kd 0.2200 0.5800 0.3000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Packet_Foil
+Ka 0.3520 0.3600 0.3680
+Kd 0.8800 0.9000 0.9200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

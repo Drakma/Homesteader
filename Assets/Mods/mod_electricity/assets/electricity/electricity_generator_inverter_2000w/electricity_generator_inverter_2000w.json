@@ -1,0 +1,78 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_generator_inverter_2000w",
+  "name": "2000W Inverter Generator",
+  "category": "electricity",
+  "description": "Quiet portable inverter generator.",
+  "icon": "electricity_generator_inverter_2000w.png",
+  "properties": {
+    "weight_kg": 22.0,
+    "max_stack_size": 1,
+    "base_value": 250.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "generator_inverter_2000w.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "generator_inverter_2000w.obj",
+      "format": "obj"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Generates +5.0 kW AC electricity (consumes 1.5 L/hr fuel)",
+      "details": "Generates +5.0 kW AC electricity (consumes 1.5 L/hr fuel)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.55,
+      "depth": 0.3,
+      "height": 0.45
+    },
+    "fuel_type": "gasoline",
+    "fuel_consumption_l_per_min": 0.002222,
+    "max_power_w": 2000,
+    "tank_capacity_l": 4
+  }
+}

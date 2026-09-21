@@ -1,0 +1,137 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_camper_teardrop",
+  "name": "Teardrop Camper",
+  "category": "structures",
+  "description": "A small teardrop travel trailer.",
+  "icon": "struct_camper_teardrop.png",
+  "properties": {
+    "weight_kg": 550.0,
+    "max_stack_size": 1,
+    "base_value": 4500.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 12,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Struct_Camper_Teardrop.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Struct_Camper_Teardrop.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 230.0,
+        "y": 370.0,
+        "z": 223.6
+      },
+      "dimensions_m": {
+        "x": 2.3,
+        "y": 3.7,
+        "z": 2.24
+      },
+      "vertices": 744,
+      "faces": 242,
+      "bounding_box": {
+        "min": [
+          -115.0,
+          -210.0,
+          0.0
+        ],
+        "max": [
+          115.0,
+          160.0,
+          223.629578
+        ]
+      }
+    },
+    {
+      "file": "SM_Struct_Camper_Teardrop.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Struct_Camper_Teardrop.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 230.0,
+      "y": 370.0,
+      "z": 223.6
+    },
+    "dimensions_m": {
+      "x": 2.3,
+      "y": 3.7,
+      "z": 2.24
+    },
+    "vertices": 744,
+    "faces": 242,
+    "bounding_box": {
+      "min": [
+        -115.0,
+        -210.0,
+        0.0
+      ],
+      "max": [
+        115.0,
+        160.0,
+        223.629578
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 6.8,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 2.3,
+      "depth": 3.7,
+      "height": 2.24
+    },
+    "electrical_service_capacity_w": 1800,
+    "water_supply_capacity_lpm": 8,
+    "roof_area_m2": 8.5,
+    "construction_recipe": [],
+    "required_tools": []
+  }
+}

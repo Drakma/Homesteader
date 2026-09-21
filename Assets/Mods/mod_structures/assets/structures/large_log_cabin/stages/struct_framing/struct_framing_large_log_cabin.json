@@ -1,0 +1,96 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_framing_large_log_cabin",
+  "name": "Large Log Cabin - Framing",
+  "category": "structures",
+  "description": "The framing stage of the Large Log Cabin's construction sequence - post-and-beam skeletal frame erected on the foundation, no wall infill yet. Icon generated via Creative Claw as part of a batched 3-stage contact sheet matched in style to struct_cabin_large, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "icon": "struct_framing_large_log_cabin.png",
+  "properties": {
+    "weight_kg": 5000.0,
+    "max_stack_size": 1,
+    "base_value": 9000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_framing_large_log_cabin.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 7.5,
+      "depth": 8.0,
+      "height": 4.5
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "#framing_lumber",
+        "quantity": 60
+      },
+      {
+        "item_id": "lumber_joist_2x8",
+        "quantity": 24
+      },
+      {
+        "item_id": "lumber_post_4x4",
+        "quantity": 8
+      },
+      {
+        "item_id": "item_hardware_framingnails_box",
+        "quantity": 6
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

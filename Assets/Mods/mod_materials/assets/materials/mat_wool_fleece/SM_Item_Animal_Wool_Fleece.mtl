@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Animal_Wool_Fleece
+
+newmtl fleece_white
+Ka 0.376 0.372 0.364
+Kd 0.940 0.930 0.910
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl fleece_shadow
+Ka 0.320 0.312 0.296
+Kd 0.800 0.780 0.740
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl twine_cord
+Ka 0.248 0.192 0.128
+Kd 0.620 0.480 0.320
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

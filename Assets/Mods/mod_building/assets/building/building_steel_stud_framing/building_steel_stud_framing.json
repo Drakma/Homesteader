@@ -1,0 +1,134 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_steel_stud_framing",
+  "name": "Steel Stud (Metal Framing)",
+  "category": "building",
+  "description": "Galvanized steel C-stud bundle, light-gauge framing members for metal building wall and partition framing.",
+  "icon": "building_steel_stud_framing.png",
+  "properties": {
+    "weight_kg": 12.0,
+    "max_stack_size": 20,
+    "base_value": 18.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "building_steel_stud_framing.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "building_steel_stud_framing.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 21.0,
+        "y": 10.0,
+        "z": 244.0
+      },
+      "dimensions_m": {
+        "x": 0.21,
+        "y": 0.1,
+        "z": 2.44
+      },
+      "vertices": 360,
+      "faces": 180,
+      "bounding_box": {
+        "min": [
+          -0.105,
+          0.05,
+          -1.22
+        ],
+        "max": [
+          0.105,
+          0.15,
+          1.22
+        ]
+      }
+    },
+    {
+      "file": "building_steel_stud_framing.glb",
+      "format": "glb"
+    },
+    {
+      "file": "building_steel_stud_framing.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "mat_steel_stud_framing.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 21.0,
+      "y": 10.0,
+      "z": 244.0
+    },
+    "dimensions_m": {
+      "x": 0.21,
+      "y": 0.1,
+      "z": 2.44
+    },
+    "vertices": 360,
+    "faces": 180,
+    "bounding_box": {
+      "min": [
+        -0.105,
+        0.05,
+        -1.22
+      ],
+      "max": [
+        0.105,
+        0.15,
+        1.22
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.21,
+      "depth": 0.1,
+      "height": 2.44
+    }
+  }
+}

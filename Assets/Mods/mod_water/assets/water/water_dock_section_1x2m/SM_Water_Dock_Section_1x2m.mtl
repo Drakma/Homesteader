@@ -1,0 +1,34 @@
+# Material Definition
+
+newmtl cedar_plank
+Ka 0.3040 0.2480 0.1680
+Kd 0.7600 0.6200 0.4200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl fascia_wood
+Ka 0.2200 0.1680 0.1120
+Kd 0.5500 0.4200 0.2800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl piling_post
+Ka 0.1520 0.1200 0.0800
+Kd 0.3800 0.3000 0.2000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl cleat_alum
+Ka 0.2880 0.2960 0.3040
+Kd 0.7200 0.7400 0.7600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

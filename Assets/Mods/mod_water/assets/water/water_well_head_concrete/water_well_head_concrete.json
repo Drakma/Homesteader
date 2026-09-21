@@ -1,0 +1,79 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_well_head_concrete",
+  "name": "Concrete Well Head",
+  "category": "water",
+  "description": "Large concrete well head casing with a centered steel pipe turning down into the ground.",
+  "icon": "water_well_head_concrete.png",
+  "properties": {
+    "weight_kg": 150.0,
+    "max_stack_size": 1,
+    "base_value": 120.0,
+    "is_consumable": false,
+    "footprint": {
+      "width_m": 1.4,
+      "depth_m": 1.4,
+      "height_m": 1.2
+    },
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "water_well_head_concrete.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 1.4,
+        "y": 1.4,
+        "z": 1.2
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "Passive well head casing",
+      "details": "Provides sealed surface termination and plumbing manifold."
+    },
+    "electricity": {
+      "metric": "None",
+      "details": "None"
+    },
+    "waste": {
+      "metric": "None",
+      "details": "None"
+    },
+    "battery": {
+      "metric": "None",
+      "details": "None"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "species": null,
+    "max_age": null,
+    "total_stages": 0,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Free Pipeline",
+    "api_version": "1.0"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 1.0,
+      "height": 0.8
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 0,
+    "is_connected": true,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

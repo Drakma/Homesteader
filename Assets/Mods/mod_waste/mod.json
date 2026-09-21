@@ -1,0 +1,19 @@
+{
+  "id": "mod_waste",
+  "name": "Homesteader Sanitation & Waste Processing",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Composters, septic tanks, refuse collection bins, and scrap processing equipment.",
+  "namespace": "waste",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "waste",
+      "path": "assets/waste",
+      "group": "waste"
+    }
+  ]
+}

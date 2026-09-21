@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Concrete_Gray
+Ka 0.2600 0.2600 0.2640
+Kd 0.6500 0.6500 0.6600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Concrete_Seam
+Ka 0.1920 0.1920 0.2000
+Kd 0.4800 0.4800 0.5000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Lid_CastIron
+Ka 0.1120 0.1120 0.1200
+Kd 0.2800 0.2800 0.3000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

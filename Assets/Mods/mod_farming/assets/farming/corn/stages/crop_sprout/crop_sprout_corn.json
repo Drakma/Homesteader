@@ -1,0 +1,67 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "crop_sprout_corn",
+  "name": "Corn (Sprout)",
+  "category": "farming",
+  "description": "A sprout stage corn plant.",
+  "icon": "crop_sprout_corn.png",
+  "properties": {
+    "weight_kg": 0.5,
+    "max_stack_size": 1,
+    "base_value": 0.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 2,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "crop_sprout_corn.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "crop_species": "corn",
+    "days_to_mature": 90,
+    "dimensions_m": {
+      "width": 0.3,
+      "depth": 0.3,
+      "height": 0.3
+    },
+    "irrigated_growth_bonus_pct": 20,
+    "fertilized_growth_bonus_pct": 15,
+    "season": "summer",
+    "yield_amount": 0,
+    "yields_item_id": ""
+  }
+}

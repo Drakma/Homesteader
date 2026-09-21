@@ -1,0 +1,19 @@
+{
+  "id": "mod_water",
+  "name": "Homesteader Plumbing & Water Storage",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Poly rainwater cisterns, jet well pumps, filtration systems, and water distribution.",
+  "namespace": "water",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "water",
+      "path": "assets/water",
+      "group": "water"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_woodshed",
+  "name": "Woodshed",
+  "category": "structures",
+  "description": "Standard building asset used in the Homesteader simulation.",
+  "icon": "struct_woodshed.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Building_Woodshed.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Building_Woodshed.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 210.0,
+        "y": 310.0,
+        "z": 215.0
+      },
+      "dimensions_m": {
+        "x": 2.1,
+        "y": 3.1,
+        "z": 2.15
+      },
+      "vertices": 3228,
+      "faces": 1076,
+      "bounding_box": {
+        "min": [
+          -105.0,
+          -155.0,
+          0.0
+        ],
+        "max": [
+          105.0,
+          155.0,
+          215.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Building_Woodshed.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 210.0,
+      "y": 310.0,
+      "z": 215.0
+    },
+    "dimensions_m": {
+      "x": 2.1,
+      "y": 3.1,
+      "z": 2.15
+    },
+    "vertices": 3228,
+    "faces": 1076,
+    "bounding_box": {
+      "min": [
+        -105.0,
+        -155.0,
+        0.0
+      ],
+      "max": [
+        105.0,
+        155.0,
+        215.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 5.04,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 2.1,
+      "depth": 3.1,
+      "height": 2.15
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 6.5,
+    "construction_recipe": [
+      {
+        "item_id": "lumber_post_4x4",
+        "quantity": 4
+      },
+      {
+        "item_id": "#roofing",
+        "quantity": 1
+      },
+      {
+        "item_id": "item_hardware_framingnails_box",
+        "quantity": 1
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

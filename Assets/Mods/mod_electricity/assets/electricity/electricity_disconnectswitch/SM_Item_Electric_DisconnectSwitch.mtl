@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Electric_DisconnectSwitch
+
+newmtl nema_gray
+Ka 0.220 0.248 0.272
+Kd 0.550 0.620 0.680
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl handle_red
+Ka 0.340 0.064 0.056
+Kd 0.850 0.160 0.140
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl handle_shaft
+Ka 0.096 0.104 0.112
+Kd 0.240 0.260 0.280
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

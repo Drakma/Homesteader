@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "camp_picnictable_wood",
+  "name": "Camp Picnictable Wood",
+  "category": "building",
+  "description": "Standard building asset used in the Homesteader simulation.",
+  "icon": "camp_picnictable_wood.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 10,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Camp_PicnicTable_Wood.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Camp_PicnicTable_Wood.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 136.0,
+        "y": 176.0,
+        "z": 76.0
+      },
+      "dimensions_m": {
+        "x": 1.36,
+        "y": 1.76,
+        "z": 0.76
+      },
+      "vertices": 648,
+      "faces": 216,
+      "bounding_box": {
+        "min": [
+          -68.0,
+          -88.0,
+          0.0
+        ],
+        "max": [
+          68.0,
+          88.0,
+          76.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Camp_PicnicTable_Wood.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 136.0,
+      "y": 176.0,
+      "z": 76.0
+    },
+    "dimensions_m": {
+      "x": 1.36,
+      "y": 1.76,
+      "z": 0.76
+    },
+    "vertices": 648,
+    "faces": 216,
+    "bounding_box": {
+      "min": [
+        -68.0,
+        -88.0,
+        0.0
+      ],
+      "max": [
+        68.0,
+        88.0,
+        76.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.36,
+      "depth": 1.76,
+      "height": 0.76
+    }
+  }
+}

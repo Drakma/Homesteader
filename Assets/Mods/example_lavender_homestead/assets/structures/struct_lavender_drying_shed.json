@@ -1,0 +1,54 @@
+{
+	"$schema": "https://homesteader.game/schemas/item_v1.json",
+	"id": "struct_lavender_drying_shed",
+	"name": "Lavender Drying Shed",
+	"category": "structures",
+	"description": "A small, open-sided timber shed for air-drying harvested lavender.",
+	"icon": "struct_lavender_drying_shed.png",
+	"namespace": "lavender_homestead",
+	"qualified_id": "lavender_homestead:struct_lavender_drying_shed",
+	"properties": {
+		"weight_kg": 420.0,
+		"max_stack_size": 1,
+		"base_value": 1850.0,
+		"is_consumable": false,
+		"is_spawnable": true,
+		"happiness_modifier": 5,
+		"thirst_restore": 0,
+		"energy_restore": 0,
+		"stamina_restore": 0,
+		"wellness_modifier": 0
+	},
+	"spawning": {
+		"biomes": ["biome_lavender_fields", "biome_meadow"],
+		"density_per_hectare": 0.4,
+		"clustering": 0.6,
+		"elevation_min_m": 0.0,
+		"elevation_max_m": 40.0,
+		"slope_max_deg": 15.0,
+		"scale_min": 0.95,
+		"scale_max": 1.05,
+		"align_to_surface_normal": true
+	},
+	"plugin_metadata": {
+		"version": "1.0.0",
+		"author": "Homesteader Team",
+		"compatible_api": "v1"
+	},
+	"category_fields": {
+		"interior_area_m2": 9.0,
+		"room_count": 1,
+		"dimensions_m": { "width": 3.0, "depth": 3.0, "height": 2.8 },
+		"electrical_service_capacity_w": 0,
+		"water_supply_capacity_lpm": 0,
+		"roof_area_m2": 9.0,
+		"construction_recipe": [
+			{ "item_id": "lumber_2x4", "quantity": 12 },
+			{ "item_id": "#roofing", "quantity": 2 }
+		],
+		"required_tools": [
+			["tool_circular_saw_corded", "tool_circular_saw_cordless"],
+			["tool_hammer_claw", "tool_impact_driver_cordless"]
+		]
+	}
+}

@@ -1,0 +1,34 @@
+# Material Library for SM_Item_Fishing_TackleBox
+
+newmtl tackle_green
+Ka 0.088 0.168 0.104
+Kd 0.220 0.420 0.260
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl tray_cream
+Ka 0.360 0.344 0.296
+Kd 0.900 0.860 0.740
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl brass_latch
+Ka 0.340 0.288 0.112
+Kd 0.850 0.720 0.280
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl carry_handle
+Ka 0.072 0.072 0.080
+Kd 0.180 0.180 0.200
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

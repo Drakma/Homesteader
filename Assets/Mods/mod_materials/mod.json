@@ -1,0 +1,19 @@
+{
+  "id": "mod_materials",
+  "name": "Homesteader Raw Materials & Ores",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Milled timber studs, quarried stones, raw ores, ingots, and building composites.",
+  "namespace": "materials",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "material",
+      "path": "assets/materials",
+      "group": "materials"
+    }
+  ]
+}

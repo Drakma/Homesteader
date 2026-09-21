@@ -1,0 +1,19 @@
+{
+  "id": "mod_fishing",
+  "name": "Homesteader Fishing & Tackle",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Freshwater rods, reels, cast nets, tackle boxes, and caught fish.",
+  "namespace": "fishing",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "fishing",
+      "path": "assets/fishing",
+      "group": "fishing"
+    }
+  ]
+}

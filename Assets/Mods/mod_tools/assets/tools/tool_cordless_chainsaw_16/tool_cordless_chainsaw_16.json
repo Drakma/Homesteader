@@ -1,0 +1,162 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_cordless_chainsaw_16",
+  "name": "16\" Cordless Chainsaw",
+  "category": "tools",
+  "description": "Battery-powered cordless drill.",
+  "icon": "tool_cordless_chainsaw_16.png",
+  "properties": {
+    "weight_kg": 1.8,
+    "max_stack_size": 1,
+    "base_value": 90.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tool_cordless_chainsaw_16.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "tool_cordless_chainsaw_16.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 78.0,
+        "y": 26.0,
+        "z": 82.0
+      },
+      "dimensions_m": {
+        "x": 0.78,
+        "y": 0.26,
+        "z": 0.82
+      },
+      "vertices": 288,
+      "faces": 96,
+      "bounding_box": {
+        "min": [
+          -21.0,
+          -13.0,
+          0.0
+        ],
+        "max": [
+          57.0,
+          13.0,
+          82.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Tool_Drill_Cordless_20V.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Tool_Drill_Cordless_20V.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 8.4,
+        "y": 18.0,
+        "z": 24.0
+      },
+      "dimensions_m": {
+        "x": 0.08,
+        "y": 0.18,
+        "z": 0.24
+      },
+      "vertices": 40,
+      "faces": 60,
+      "bounding_box": {
+        "min": [
+          -4.2,
+          -8.0,
+          0.0
+        ],
+        "max": [
+          4.2,
+          10.0,
+          24.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "Removable 18V / 20V Max 4.0Ah Lithium-Ion battery pack (60-90 min continuous runtime)",
+      "details": "Removable 18V / 20V Max 4.0Ah Lithium-Ion battery pack (60-90 min continuous runtime)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "tool_drill_cordless_20v.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 78.0,
+      "y": 26.0,
+      "z": 82.0
+    },
+    "dimensions_m": {
+      "x": 0.78,
+      "y": 0.26,
+      "z": 0.82
+    },
+    "vertices": 288,
+    "faces": 96,
+    "bounding_box": {
+      "min": [
+        -21.0,
+        -13.0,
+        0.0
+      ],
+      "max": [
+        57.0,
+        13.0,
+        82.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.78,
+      "depth": 0.26,
+      "height": 0.82
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0
+  }
+}

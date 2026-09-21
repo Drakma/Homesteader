@@ -1,0 +1,11 @@
+{
+  "generated": "2026-09-21T02:44:51",
+  "mod": "example_lavender_homestead",
+  "files": [
+    "README.md",
+    "assets\\food\\food_tea_lavender.json",
+    "assets\\structures\\struct_lavender_drying_shed.json",
+    "biomes\\biome_lavender_fields.json",
+    "mod.json"
+  ]
+}

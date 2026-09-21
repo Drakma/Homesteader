@@ -1,0 +1,19 @@
+{
+  "id": "mod_tools",
+  "name": "Homesteader Hand & Power Tools",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Axes, framing hammers, hand saws, hoes, pickaxes, shovels, and mechanic wrenches.",
+  "namespace": "tools",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "tool",
+      "path": "assets/tools",
+      "group": "tools"
+    }
+  ]
+}

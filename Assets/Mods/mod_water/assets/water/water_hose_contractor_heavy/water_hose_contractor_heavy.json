@@ -1,0 +1,133 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_hose_contractor_heavy",
+  "name": "Heavy Contractor Hose",
+  "category": "water",
+  "description": "Heavy-duty rubber hose for demanding jobs.",
+  "icon": "water_hose_contractor_heavy.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 5,
+    "base_value": 22.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "water_hose_contractor_heavy.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "water_hose_contractor_heavy.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 129.0,
+        "y": 104.0,
+        "z": 58.0
+      },
+      "dimensions_m": {
+        "x": 1.29,
+        "y": 1.04,
+        "z": 0.58
+      },
+      "vertices": 3072,
+      "faces": 1024,
+      "bounding_box": {
+        "min": [
+          -67.0,
+          -52.0,
+          0.0
+        ],
+        "max": [
+          62.0,
+          52.0,
+          58.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "water_hose_contractor_heavy.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 129.0,
+      "y": 104.0,
+      "z": 58.0
+    },
+    "dimensions_m": {
+      "x": 1.29,
+      "y": 1.04,
+      "z": 0.58
+    },
+    "vertices": 3072,
+    "faces": 1024,
+    "bounding_box": {
+      "min": [
+        -67.0,
+        -52.0,
+        0.0
+      ],
+      "max": [
+        62.0,
+        52.0,
+        58.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.29,
+      "depth": 1.04,
+      "height": 0.58
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 20,
+    "is_connected": false,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

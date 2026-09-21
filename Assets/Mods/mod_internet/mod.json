@@ -1,0 +1,19 @@
+{
+  "id": "mod_internet",
+  "name": "Homesteader Telecom & Telemetry",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Satellite dishes, cellular routers, telemetry sensors, and communication hardware.",
+  "namespace": "internet",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "internet",
+      "path": "assets/internet",
+      "group": "internet"
+    }
+  ]
+}

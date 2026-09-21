@@ -1,0 +1,4356 @@
+{
+  "items": [
+    {
+      "id": "appliance_armchair_budget",
+      "name": "Budget Armchair",
+      "category": "appliances",
+      "description": "A simple single armchair with plain fabric upholstery.",
+      "icon": "appliance_armchair_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_bed_budget",
+      "name": "Budget Bed Frame and Mattress",
+      "category": "appliances",
+      "description": "A simple low wooden bed frame with a plain mattress.",
+      "icon": "appliance_bed_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_bed_premium",
+      "name": "Premium Queen Bed Frame and Mattress",
+      "category": "appliances",
+      "description": "An upholstered queen bed frame with a tall padded headboard.",
+      "icon": "appliance_bed_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_couch_budget",
+      "name": "Budget 2-Seater Couch",
+      "category": "appliances",
+      "description": "A simple plain fabric 2-seat couch.",
+      "icon": "appliance_couch_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_couch_premium",
+      "name": "Premium 3-Seater Sectional Couch",
+      "category": "appliances",
+      "description": "A plush upholstered 3-seat sectional couch with a chaise.",
+      "icon": "appliance_couch_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_diningtable_budget",
+      "name": "Budget 4-Seat Dining Table",
+      "category": "appliances",
+      "description": "A simple plain wooden dining table with 4 basic chairs.",
+      "icon": "appliance_diningtable_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_diningtable_premium",
+      "name": "Premium 6-Seat Dining Table",
+      "category": "appliances",
+      "description": "A nicer wooden dining table with 6 upholstered dining chairs.",
+      "icon": "appliance_diningtable_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_dishwasher_budget",
+      "name": "Budget Dishwasher",
+      "category": "appliances",
+      "description": "A basic built-in dishwasher.",
+      "icon": "appliance_dishwasher_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_dishwasher_premium",
+      "name": "Premium Dishwasher",
+      "category": "appliances",
+      "description": "A quiet, high-efficiency built-in dishwasher with a digital display.",
+      "icon": "appliance_dishwasher_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_dryer_budget",
+      "name": "Budget Dryer",
+      "category": "appliances",
+      "description": "A basic clothes dryer.",
+      "icon": "appliance_dryer_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_dryer_premium",
+      "name": "Premium Dryer",
+      "category": "appliances",
+      "description": "A high-efficiency dryer matching the premium washer.",
+      "icon": "appliance_dryer_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_fireplace_insert_standard",
+      "name": "Standard Wood Fireplace Insert",
+      "category": "appliances",
+      "description": "A rectangular black metal wood-burning fireplace insert.",
+      "icon": "appliance_fireplace_insert_standard.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_fireplace_premium",
+      "name": "Premium Wood-Burning Fireplace",
+      "category": "appliances",
+      "description": "A large ornate stone fireplace with a raised hearth and mantel.",
+      "icon": "appliance_fireplace_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_fridge_budget",
+      "name": "Budget Refrigerator",
+      "category": "appliances",
+      "description": "A basic top-freezer refrigerator.",
+      "icon": "appliance_fridge_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_fridge_premium",
+      "name": "Premium Refrigerator",
+      "category": "appliances",
+      "description": "A large stainless-steel french-door refrigerator with digital controls.",
+      "icon": "appliance_fridge_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_grill_charcoal",
+      "name": "Charcoal Grill",
+      "category": "appliances",
+      "description": "An entry-level charcoal kettle grill.",
+      "icon": "appliance_grill_charcoal.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_grill_propane_premium",
+      "name": "Premium Propane Grill",
+      "category": "appliances",
+      "description": "A high-end multi-burner propane grill with a side burner.",
+      "icon": "appliance_grill_propane_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_grill_propane_standard",
+      "name": "Standard Propane Grill",
+      "category": "appliances",
+      "description": "A mid-tier propane grill on a rolling cart.",
+      "icon": "appliance_grill_propane_standard.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_microwave_budget",
+      "name": "Budget Microwave",
+      "category": "appliances",
+      "description": "A compact countertop microwave oven.",
+      "icon": "appliance_microwave_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_microwave_premium",
+      "name": "Premium Microwave",
+      "category": "appliances",
+      "description": "A larger countertop microwave with additional convection cooking modes.",
+      "icon": "appliance_microwave_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_oven_budget_electric",
+      "name": "Budget Electric Wall Oven",
+      "category": "appliances",
+      "description": "A basic built-in electric wall oven.",
+      "icon": "appliance_oven_budget_electric.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_oven_premium_convection",
+      "name": "Premium Convection Wall Oven",
+      "category": "appliances",
+      "description": "A high-end built-in convection wall oven with even heat distribution.",
+      "icon": "appliance_oven_premium_convection.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_oven_wood_fired",
+      "name": "Wood-Fired Oven",
+      "category": "appliances",
+      "description": "A standalone masonry oven fueled by wood, used for baking bread and roasting.",
+      "icon": "appliance_oven_wood_fired.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_recliner_premium",
+      "name": "Premium Recliner Chair",
+      "category": "appliances",
+      "description": "A plush upholstered recliner armchair with a footrest.",
+      "icon": "appliance_recliner_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_shower_stall",
+      "name": "Shower Stall",
+      "category": "appliances",
+      "description": "A basic bathroom shower stall, connected to the water system, used for bathing.",
+      "icon": "appliance_shower_stall.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_sink_budget",
+      "name": "Budget Single-Basin Kitchen Sink",
+      "category": "appliances",
+      "description": "A simple stainless-steel single-basin kitchen sink.",
+      "icon": "appliance_sink_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_sink_premium",
+      "name": "Premium Double-Basin Kitchen Sink",
+      "category": "appliances",
+      "description": "A wider stainless-steel double-basin sink with a gooseneck faucet.",
+      "icon": "appliance_sink_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_smoker_budget_charcoal",
+      "name": "Budget Charcoal Smoker",
+      "category": "appliances",
+      "description": "An entry-level charcoal bullet smoker.",
+      "icon": "appliance_smoker_budget_charcoal.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_smoker_offset",
+      "name": "Wood Smoker",
+      "category": "appliances",
+      "description": "A wood-fueled drum smoker for low-and-slow barbecue.",
+      "icon": "appliance_smoker_offset.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_smoker_pellet_premium",
+      "name": "Premium Wood Pellet Smoker",
+      "category": "appliances",
+      "description": "A stainless-steel wood pellet smoker with digital temperature control.",
+      "icon": "appliance_smoker_pellet_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_stove_budget_electric",
+      "name": "Budget Electric Range",
+      "category": "appliances",
+      "description": "An affordable freestanding electric range with coil burners and a single oven.",
+      "icon": "appliance_stove_budget_electric.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_stove_premium_induction",
+      "name": "Premium Induction Range",
+      "category": "appliances",
+      "description": "A high-end induction range with a smooth glass cooktop and convection oven.",
+      "icon": "appliance_stove_premium_induction.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_stove_wood_cookstove",
+      "name": "Wood-Fired Cookstove",
+      "category": "appliances",
+      "description": "A cast-iron wood-burning cookstove with a built-in oven, fueled by wood only.",
+      "icon": "appliance_stove_wood_cookstove.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_tv_budget",
+      "name": "Budget 32 Inch Television",
+      "category": "appliances",
+      "description": "A basic 32 inch flat-screen television.",
+      "icon": "appliance_tv_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_tv_premium",
+      "name": "Premium 65 Inch Television",
+      "category": "appliances",
+      "description": "A large 65 inch flat-screen television with a slim metal stand.",
+      "icon": "appliance_tv_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_washer_budget",
+      "name": "Budget Top-Load Washer",
+      "category": "appliances",
+      "description": "A basic top-load clothes washer.",
+      "icon": "appliance_washer_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_washer_premium",
+      "name": "Premium Front-Load Washer",
+      "category": "appliances",
+      "description": "A high-efficiency front-load washer with digital controls.",
+      "icon": "appliance_washer_premium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_waterheater_budget_electric",
+      "name": "Budget Electric Water Heater",
+      "category": "appliances",
+      "description": "A standard electric tank water heater.",
+      "icon": "appliance_waterheater_budget_electric.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_waterheater_premium_tankless",
+      "name": "Premium Tankless Water Heater",
+      "category": "appliances",
+      "description": "A compact wall-mounted tankless water heater with on-demand hot water.",
+      "icon": "appliance_waterheater_premium_tankless.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_waterheater_wood_fired",
+      "name": "Wood-Fired Water Heater",
+      "category": "appliances",
+      "description": "A wood-fueled tank water heater for off-grid hot water.",
+      "icon": "appliance_waterheater_wood_fired.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_winter_coat",
+      "name": "Winter Coat",
+      "category": "appliances",
+      "description": "A heavy insulated winter coat, worn outdoors in cold weather to prevent wellness loss from cold exposure.",
+      "icon": "appliance_winter_coat.png",
+      "max_stack": 1
+    },
+    {
+      "id": "appliance_woodstove_budget",
+      "name": "Budget Wood Stove",
+      "category": "appliances",
+      "description": "A small cast-iron wood-burning stove for heating.",
+      "icon": "appliance_woodstove_budget.png",
+      "max_stack": 1
+    },
+    {
+      "id": "box_large_brown",
+      "name": "Large Brown Box",
+      "category": "building",
+      "description": "A large dark brown cardboard shipping box.",
+      "icon": "box_large_brown.png",
+      "max_stack": 5
+    },
+    {
+      "id": "box_large_tan",
+      "name": "Large Kraft Box",
+      "category": "building",
+      "description": "A large tan cardboard shipping box.",
+      "icon": "box_large_tan.png",
+      "max_stack": 5
+    },
+    {
+      "id": "box_large_white",
+      "name": "Large White Box",
+      "category": "building",
+      "description": "A large white cardboard shipping box.",
+      "icon": "box_large_white.png",
+      "max_stack": 5
+    },
+    {
+      "id": "box_medium_brown",
+      "name": "Medium Brown Box",
+      "category": "building",
+      "description": "A medium dark brown cardboard shipping box.",
+      "icon": "box_medium_brown.png",
+      "max_stack": 10
+    },
+    {
+      "id": "box_medium_tan",
+      "name": "Medium Kraft Box",
+      "category": "building",
+      "description": "A medium tan cardboard shipping box.",
+      "icon": "box_medium_tan.png",
+      "max_stack": 10
+    },
+    {
+      "id": "box_medium_white",
+      "name": "Medium White Box",
+      "category": "building",
+      "description": "A medium white cardboard shipping box.",
+      "icon": "box_medium_white.png",
+      "max_stack": 10
+    },
+    {
+      "id": "box_small_brown",
+      "name": "Small Brown Box",
+      "category": "building",
+      "description": "A small dark brown cardboard shipping box.",
+      "icon": "box_small_brown.png",
+      "max_stack": 20
+    },
+    {
+      "id": "box_small_tan",
+      "name": "Small Kraft Box",
+      "category": "building",
+      "description": "A small tan cardboard shipping box.",
+      "icon": "box_small_tan.png",
+      "max_stack": 20
+    },
+    {
+      "id": "box_small_white",
+      "name": "Small White Box",
+      "category": "building",
+      "description": "A small white cardboard shipping box.",
+      "icon": "box_small_white.png",
+      "max_stack": 20
+    },
+    {
+      "id": "building_chinking",
+      "name": "Chinking",
+      "category": "building",
+      "description": "A coil of gray mortar-like sealant material used to fill gaps between logs in log cabin construction.",
+      "icon": "building_chinking.png",
+      "max_stack": 1
+    },
+    {
+      "id": "building_glass",
+      "name": "Glass Pane",
+      "category": "building",
+      "description": "Pane of glass.",
+      "icon": "building_glass.png",
+      "max_stack": 20
+    },
+    {
+      "id": "building_insulation_fiberglass_batt",
+      "name": "Fiberglass Insulation Batt",
+      "category": "building",
+      "description": "A roll of fiberglass wall insulation, installed inside stud cavities before drywall goes up.",
+      "icon": "building_insulation_fiberglass_batt.png",
+      "max_stack": 1
+    },
+    {
+      "id": "building_metal",
+      "name": "Metal Sheet",
+      "category": "building",
+      "description": "Processed metal sheet.",
+      "icon": "building_metal.png",
+      "max_stack": 30
+    },
+    {
+      "id": "building_paint_interior_wall",
+      "name": "Interior Wall Paint",
+      "category": "building",
+      "description": "A bucket of interior wall paint, applied over finished drywall as the final construction step.",
+      "icon": "building_paint_interior_wall.png",
+      "max_stack": 1
+    },
+    {
+      "id": "building_pallet_wood",
+      "name": "Mat Pallet Wood",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "building_pallet_wood.png",
+      "max_stack": 99
+    },
+    {
+      "id": "building_rebar_steel_bundle",
+      "name": "Rebar Bundle",
+      "category": "building",
+      "description": "Bundle of ribbed steel rebar stakes.",
+      "icon": "building_rebar_steel_bundle.png",
+      "max_stack": 10
+    },
+    {
+      "id": "building_steel_frame_beam",
+      "name": "Steel Rigid Frame Beam",
+      "category": "building",
+      "description": "Primary structural I-beam column for pre-engineered metal buildings, heavy load-bearing skeleton member with base connection plate.",
+      "icon": "building_steel_frame_beam.png",
+      "max_stack": 5
+    },
+    {
+      "id": "building_steel_siding_corrugated",
+      "name": "Corrugated Steel Wall Siding",
+      "category": "building",
+      "description": "Corrugated steel wall siding panel, sized for vertical wall cladding with ribbed galvanized finish for metal garages and pole barns.",
+      "icon": "building_steel_siding_corrugated.png",
+      "max_stack": 15
+    },
+    {
+      "id": "building_steel_stud_framing",
+      "name": "Steel Stud (Metal Framing)",
+      "category": "building",
+      "description": "Galvanized steel C-stud bundle, light-gauge framing members for metal building wall and partition framing.",
+      "icon": "building_steel_stud_framing.png",
+      "max_stack": 20
+    },
+    {
+      "id": "camp_campfire_ring",
+      "name": "Camp Campfire Ring",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "camp_campfire_ring.png",
+      "max_stack": 99
+    },
+    {
+      "id": "camp_picnictable_wood",
+      "name": "Camp Picnictable Wood",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "camp_picnictable_wood.png",
+      "max_stack": 99
+    },
+    {
+      "id": "dock_large_new",
+      "name": "Large New Dock",
+      "category": "building",
+      "description": "A large new wooden dock section with a railing.",
+      "icon": "dock_large_new.png",
+      "max_stack": 1
+    },
+    {
+      "id": "dock_large_old",
+      "name": "Large Old Dock",
+      "category": "building",
+      "description": "A large weathered wooden dock section with a broken railing.",
+      "icon": "dock_large_old.png",
+      "max_stack": 1
+    },
+    {
+      "id": "dock_small_new",
+      "name": "Small New Dock",
+      "category": "building",
+      "description": "A small new wooden dock section.",
+      "icon": "dock_small_new.png",
+      "max_stack": 1
+    },
+    {
+      "id": "dock_small_old",
+      "name": "Small Old Dock",
+      "category": "building",
+      "description": "A small weathered wooden dock section.",
+      "icon": "dock_small_old.png",
+      "max_stack": 1
+    },
+    {
+      "id": "drain_french_sock",
+      "name": "French Drain Pipe",
+      "category": "building",
+      "description": "Geotextile-wrapped perforated drain pipe.",
+      "icon": "drain_french_sock.png",
+      "max_stack": 5
+    },
+    {
+      "id": "fence_wire",
+      "name": "Wire Fence Section",
+      "category": "building",
+      "description": "A section of woven wire livestock fence.",
+      "icon": "fence_wire.png",
+      "max_stack": 20
+    },
+    {
+      "id": "fence_wood",
+      "name": "Wood Fence Section",
+      "category": "building",
+      "description": "A section of wooden picket fence.",
+      "icon": "fence_wood.png",
+      "max_stack": 20
+    },
+    {
+      "id": "gate_metal",
+      "name": "Metal Farm Gate",
+      "category": "building",
+      "description": "A galvanized metal tube farm gate.",
+      "icon": "gate_metal.png",
+      "max_stack": 5
+    },
+    {
+      "id": "gate_wood",
+      "name": "Wood Farm Gate",
+      "category": "building",
+      "description": "A wooden farm gate with diagonal bracing.",
+      "icon": "gate_wood.png",
+      "max_stack": 5
+    },
+    {
+      "id": "gland_cable_entry_wall",
+      "name": "Wall Cable Entry Gland",
+      "category": "building",
+      "description": "Weatherproof cable entry fitting.",
+      "icon": "gland_cable_entry_wall.png",
+      "max_stack": 10
+    },
+    {
+      "id": "hardware_gate_hinges",
+      "name": "Gate Strap Hinge",
+      "category": "building",
+      "description": "Heavy forged strap T-hinge.",
+      "icon": "hardware_gate_hinges.png",
+      "max_stack": 10
+    },
+    {
+      "id": "hardware_hurricane_ties",
+      "name": "Hurricane Ties Pair",
+      "category": "building",
+      "description": "Stamped steel rafter tie brackets.",
+      "icon": "hardware_hurricane_ties.png",
+      "max_stack": 20
+    },
+    {
+      "id": "hardware_nails",
+      "name": "Hardware Nails",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "hardware_nails.png",
+      "max_stack": 99
+    },
+    {
+      "id": "icon_wood_log",
+      "name": "Icon Wood Log",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "icon_wood_log.png",
+      "max_stack": 99
+    },
+    {
+      "id": "insulators_tpost_pack",
+      "name": "T-Post Insulators Pack",
+      "category": "building",
+      "description": "Snap-on electric fence insulators.",
+      "icon": "insulators_tpost_pack.png",
+      "max_stack": 10
+    },
+    {
+      "id": "item_hardware_deckscrews_box",
+      "name": "Item Hardware Deckscrews Box",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_hardware_deckscrews_box.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_hardware_framingnails_box",
+      "name": "Item Hardware Framingnails Box",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_hardware_framingnails_box.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_hardware_gatehinges_pair",
+      "name": "Item Hardware Gatehinges Pair",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_hardware_gatehinges_pair.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_hardware_lagbolts_box",
+      "name": "Item Hardware Lagbolts Box",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_hardware_lagbolts_box.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_hardware_rebarbundle",
+      "name": "Item Hardware Rebarbundle",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_hardware_rebarbundle.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_spool_barbedwire",
+      "name": "Item Spool Barbedwire",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_spool_barbedwire.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_spool_cat6_150m",
+      "name": "Cat6 Cable Spool (150m)",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_spool_cat6_150m.png",
+      "max_stack": 99
+    },
+    {
+      "id": "item_spool_romex_12_2",
+      "name": "Item Spool Romex 12 2",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "item_spool_romex_12_2.png",
+      "max_stack": 99
+    },
+    {
+      "id": "lumber_bundle_2x10_large",
+      "name": "Large 2x10 Bundle",
+      "category": "building",
+      "description": "A large bundle of 2x10 framing lumber.",
+      "icon": "lumber_bundle_2x10_large.png",
+      "max_stack": 2
+    },
+    {
+      "id": "lumber_bundle_2x10_small",
+      "name": "Small 2x10 Bundle",
+      "category": "building",
+      "description": "A small bundle of 2x10 framing lumber.",
+      "icon": "lumber_bundle_2x10_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "lumber_bundle_2x4_large",
+      "name": "Large 2x4 Bundle",
+      "category": "building",
+      "description": "A large bundle of 2x4 framing lumber.",
+      "icon": "lumber_bundle_2x4_large.png",
+      "max_stack": 2
+    },
+    {
+      "id": "lumber_bundle_2x4_small",
+      "name": "Small 2x4 Bundle",
+      "category": "building",
+      "description": "A small bundle of 2x4 framing lumber.",
+      "icon": "lumber_bundle_2x4_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "lumber_bundle_2x6_large",
+      "name": "Large 2x6 Bundle",
+      "category": "building",
+      "description": "A large bundle of 2x6 framing lumber.",
+      "icon": "lumber_bundle_2x6_large.png",
+      "max_stack": 2
+    },
+    {
+      "id": "lumber_bundle_2x6_small",
+      "name": "Small 2x6 Bundle",
+      "category": "building",
+      "description": "A small bundle of 2x6 framing lumber.",
+      "icon": "lumber_bundle_2x6_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "lumber_joist_2x8",
+      "name": "2x8 Joist Beam",
+      "category": "building",
+      "description": "Structural fir joist beam.",
+      "icon": "lumber_joist_2x8.png",
+      "max_stack": 15
+    },
+    {
+      "id": "lumber_post_4x4",
+      "name": "4x4 Treated Post",
+      "category": "building",
+      "description": "Pressure-treated wood post.",
+      "icon": "lumber_post_4x4.png",
+      "max_stack": 20
+    },
+    {
+      "id": "lumber_stud_2x4",
+      "name": "2x4 Lumber Stud",
+      "category": "building",
+      "description": "Standard pine framing stud.",
+      "icon": "lumber_stud_2x4.png",
+      "max_stack": 20
+    },
+    {
+      "id": "masonry_brick_red",
+      "name": "Red Clay Brick",
+      "category": "building",
+      "description": "Standard construction brick.",
+      "icon": "masonry_brick_red.png",
+      "max_stack": 40
+    },
+    {
+      "id": "masonry_cinder_block",
+      "name": "Cinder Block",
+      "category": "building",
+      "description": "Standard concrete masonry unit.",
+      "icon": "masonry_cinder_block.png",
+      "max_stack": 30
+    },
+    {
+      "id": "masonry_concrete_bag",
+      "name": "80lb Concrete Mix Bag",
+      "category": "building",
+      "description": "Bag of concrete mix.",
+      "icon": "masonry_concrete_bag.png",
+      "max_stack": 10
+    },
+    {
+      "id": "part_floor_stone_1m",
+      "name": "Part Floor Stone 1M",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "part_floor_stone_1m.png",
+      "max_stack": 99
+    },
+    {
+      "id": "part_floor_wood_1m",
+      "name": "Part Floor Wood 1M",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "part_floor_wood_1m.png",
+      "max_stack": 99
+    },
+    {
+      "id": "pipe_leach_perforated_4inch",
+      "name": "4\" Perforated Leach Pipe",
+      "category": "building",
+      "description": "Perforated pipe for septic leach fields.",
+      "icon": "pipe_leach_perforated_4inch.png",
+      "max_stack": 15
+    },
+    {
+      "id": "pipe_pvc_elbow",
+      "name": "PVC 90-Degree Elbow",
+      "category": "building",
+      "description": "PVC pipe fitting for a 90-degree turn.",
+      "icon": "pipe_pvc_elbow.png",
+      "max_stack": 40
+    },
+    {
+      "id": "pipe_pvc_half_inch",
+      "name": "1/2\" PVC Pipe",
+      "category": "building",
+      "description": "Half-inch PVC pipe segment for small water lines.",
+      "icon": "pipe_pvc_half_inch.png",
+      "max_stack": 30
+    },
+    {
+      "id": "pipe_pvc_one_inch",
+      "name": "1\" PVC Pipe",
+      "category": "building",
+      "description": "One-inch PVC pipe segment for standard water lines.",
+      "icon": "pipe_pvc_one_inch.png",
+      "max_stack": 30
+    },
+    {
+      "id": "pipe_pvc_tee",
+      "name": "PVC Tee Fitting",
+      "category": "building",
+      "description": "PVC pipe fitting for a three-way branch.",
+      "icon": "pipe_pvc_tee.png",
+      "max_stack": 40
+    },
+    {
+      "id": "pipe_pvc_two_inch",
+      "name": "2\" PVC Pipe",
+      "category": "building",
+      "description": "Two-inch PVC pipe segment for high-flow water lines.",
+      "icon": "pipe_pvc_two_inch.png",
+      "max_stack": 20
+    },
+    {
+      "id": "pipe_sewer_solid_4inch",
+      "name": "4\" Sewer Pipe",
+      "category": "building",
+      "description": "Solid green SDR-35 sewer pipe segment.",
+      "icon": "pipe_sewer_solid_4inch.png",
+      "max_stack": 15
+    },
+    {
+      "id": "post_wood_round_6inch",
+      "name": "6\" Round Wood Post",
+      "category": "building",
+      "description": "Heavy round treated fence post.",
+      "icon": "post_wood_round_6inch.png",
+      "max_stack": 15
+    },
+    {
+      "id": "roofing_shingles_bundle",
+      "name": "Asphalt Shingles Bundle",
+      "category": "building",
+      "description": "Bundle of asphalt roofing shingles.",
+      "icon": "roofing_shingles_bundle.png",
+      "max_stack": 10
+    },
+    {
+      "id": "roofing_steel_corrugated",
+      "name": "Corrugated Steel Roofing",
+      "category": "building",
+      "description": "Galvanized corrugated roofing panel.",
+      "icon": "roofing_steel_corrugated.png",
+      "max_stack": 15
+    },
+    {
+      "id": "sheet_drywall_stack_large",
+      "name": "Large Drywall Stack",
+      "category": "building",
+      "description": "A large stack of drywall sheets.",
+      "icon": "sheet_drywall_stack_large.png",
+      "max_stack": 2
+    },
+    {
+      "id": "sheet_drywall_stack_small",
+      "name": "Small Drywall Stack",
+      "category": "building",
+      "description": "A small stack of drywall sheets.",
+      "icon": "sheet_drywall_stack_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "sheet_osb_stack_large",
+      "name": "Large OSB Stack",
+      "category": "building",
+      "description": "A large stack of OSB sheathing sheets.",
+      "icon": "sheet_osb_stack_large.png",
+      "max_stack": 2
+    },
+    {
+      "id": "sheet_osb_stack_small",
+      "name": "Small OSB Stack",
+      "category": "building",
+      "description": "A small stack of OSB sheathing sheets.",
+      "icon": "sheet_osb_stack_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "sheet_plywood_cdx",
+      "name": "CDX Plywood Sheet",
+      "category": "building",
+      "description": "Sheathing-grade plywood sheet.",
+      "icon": "sheet_plywood_cdx.png",
+      "max_stack": 15
+    },
+    {
+      "id": "spool_wire_barbed_4pt",
+      "name": "4-Point Barbed Wire Spool",
+      "category": "building",
+      "description": "Spool of galvanized barbed wire.",
+      "icon": "spool_wire_barbed_4pt.png",
+      "max_stack": 3
+    },
+    {
+      "id": "spool_wire_romex_12_2",
+      "name": "Romex 12/2 Wire Spool",
+      "category": "building",
+      "description": "Spool of 12/2 NM-B electrical wire.",
+      "icon": "spool_wire_romex_12_2.png",
+      "max_stack": 3
+    },
+    {
+      "id": "spool_wire_woven_field",
+      "name": "Woven Field Fence Roll",
+      "category": "building",
+      "description": "Rolled galvanized field fencing.",
+      "icon": "spool_wire_woven_field.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tape_drip_roll_300m",
+      "name": "300m Drip Tape Roll",
+      "category": "building",
+      "description": "Roll of flat drip irrigation tape.",
+      "icon": "tape_drip_roll_300m.png",
+      "max_stack": 2
+    },
+    {
+      "id": "timer_hose_digital",
+      "name": "Digital Hose Timer",
+      "category": "building",
+      "description": "Programmable digital irrigation timer.",
+      "icon": "timer_hose_digital.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tubing_drip_irrigation",
+      "name": "Drip Irrigation Tubing",
+      "category": "building",
+      "description": "1/2\" drip tubing with barbed emitters.",
+      "icon": "tubing_drip_irrigation.png",
+      "max_stack": 5
+    },
+    {
+      "id": "turbine_wind_3kw",
+      "name": "3kW Wind Turbine",
+      "category": "building",
+      "description": "Large wind turbine with tower mount.",
+      "icon": "turbine_wind_3kw.png",
+      "max_stack": 1
+    },
+    {
+      "id": "turbine_wind_400w",
+      "name": "400W Wind Turbine",
+      "category": "building",
+      "description": "Small residential wind turbine.",
+      "icon": "turbine_wind_400w.png",
+      "max_stack": 1
+    },
+    {
+      "id": "valve_ball_brass",
+      "name": "Brass Ball Valve",
+      "category": "building",
+      "description": "Brass shut-off valve with a lever handle.",
+      "icon": "valve_ball_brass.png",
+      "max_stack": 20
+    },
+    {
+      "id": "valve_gate_brass",
+      "name": "Brass Gate Valve",
+      "category": "building",
+      "description": "Brass shut-off valve with a round handwheel.",
+      "icon": "valve_gate_brass.png",
+      "max_stack": 20
+    },
+    {
+      "id": "valve_stock_float",
+      "name": "Stock Tank Float Valve",
+      "category": "building",
+      "description": "Automatic float valve for stock tanks.",
+      "icon": "valve_stock_float.png",
+      "max_stack": 5
+    },
+    {
+      "id": "wood_log",
+      "name": "Wood Log",
+      "category": "building",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "wood_log.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_battery_12v_agm_1200wh",
+      "name": "12V AGM 1200Wh Battery",
+      "category": "electricity",
+      "description": "Sealed lead-acid deep cycle battery.",
+      "icon": "electricity_battery_12v_agm_1200wh.png",
+      "max_stack": 4
+    },
+    {
+      "id": "electricity_battery_12v_lifepo4_1200wh",
+      "name": "12V LiFePO4 1200Wh Battery",
+      "category": "electricity",
+      "description": "Lithium iron phosphate deep cycle battery.",
+      "icon": "electricity_battery_12v_lifepo4_1200wh.png",
+      "max_stack": 4
+    },
+    {
+      "id": "electricity_battery_bank",
+      "name": "Battery Bank",
+      "category": "electricity",
+      "description": "Modular Battery Bank structure for homestead building.",
+      "icon": "electricity_battery_bank.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_battery_rack_48v_5kwh",
+      "name": "48V Rack Battery (5kWh)",
+      "category": "electricity",
+      "description": "Rackmount lithium battery module.",
+      "icon": "electricity_battery_rack_48v_5kwh.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_battery_wall_power_10kwh",
+      "name": "Wall Power Battery (10kWh)",
+      "category": "electricity",
+      "description": "Wall-mounted home battery cabinet.",
+      "icon": "electricity_battery_wall_power_10kwh.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_breakersubpanel",
+      "name": "Item Electric Breakersubpanel",
+      "category": "electricity",
+      "description": "Standard electricity asset used in the Homesteader simulation.",
+      "icon": "electricity_breakersubpanel.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_cable_solar_mc4_pair",
+      "name": "Solar MC4 Cable Pair",
+      "category": "electricity",
+      "description": "Coiled solar cable pair with MC4 connectors.",
+      "icon": "electricity_cable_solar_mc4_pair.png",
+      "max_stack": 5
+    },
+    {
+      "id": "electricity_cables_battery_interconnect",
+      "name": "Battery Jumper Cables",
+      "category": "electricity",
+      "description": "Heavy-duty red/black jumper cable pair.",
+      "icon": "electricity_cables_battery_interconnect.png",
+      "max_stack": 5
+    },
+    {
+      "id": "electricity_conduit_pipe_emt",
+      "name": "EMT Conduit Pipe",
+      "category": "electricity",
+      "description": "Steel electrical conduit tube with coupling.",
+      "icon": "electricity_conduit_pipe_emt.png",
+      "max_stack": 15
+    },
+    {
+      "id": "electricity_controller_mppt_60a",
+      "name": "60A MPPT Charge Controller",
+      "category": "electricity",
+      "description": "Solar charge controller with LCD display.",
+      "icon": "electricity_controller_mppt_60a.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_cord_generator_30a",
+      "name": "30A Generator Cord",
+      "category": "electricity",
+      "description": "Heavy 4-wire generator power cord.",
+      "icon": "electricity_cord_generator_30a.png",
+      "max_stack": 3
+    },
+    {
+      "id": "electricity_disconnectswitch",
+      "name": "Item Electric Disconnectswitch",
+      "category": "electricity",
+      "description": "Standard electricity asset used in the Homesteader simulation.",
+      "icon": "electricity_disconnectswitch.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_energizer_fence_solar",
+      "name": "Solar Fence Energizer",
+      "category": "electricity",
+      "description": "Solar-powered electric fence charger.",
+      "icon": "electricity_energizer_fence_solar.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_generator",
+      "name": "Generator",
+      "category": "electricity",
+      "description": "Modular Generator structure for homestead building.",
+      "icon": "electricity_generator.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_generator_frame_7500w",
+      "name": "7500W Frame Generator",
+      "category": "electricity",
+      "description": "Open-frame generator on wheels.",
+      "icon": "electricity_generator_frame_7500w.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_generator_inverter_2000w",
+      "name": "2000W Inverter Generator",
+      "category": "electricity",
+      "description": "Quiet portable inverter generator.",
+      "icon": "electricity_generator_inverter_2000w.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_generator_portable",
+      "name": "Portable Generator",
+      "category": "electricity",
+      "description": "A small wheeled gasoline generator for portable backup power.",
+      "icon": "electricity_generator_portable.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_generator_standby",
+      "name": "Standby Generator",
+      "category": "electricity",
+      "description": "An automatic standby generator for whole-property backup power.",
+      "icon": "electricity_generator_standby.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_generator_standby_15kw",
+      "name": "15kW Standby Generator",
+      "category": "electricity",
+      "description": "Whole-house automatic standby generator.",
+      "icon": "electricity_generator_standby_15kw.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_inverter_hybrid_3000w",
+      "name": "3000W Hybrid Inverter",
+      "category": "electricity",
+      "description": "Wall-hung hybrid solar inverter.",
+      "icon": "electricity_inverter_hybrid_3000w.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_inverter_wall",
+      "name": "Electric Inverter Wall",
+      "category": "electricity",
+      "description": "Standard electricity asset used in the Homesteader simulation.",
+      "icon": "electricity_inverter_wall.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_mpptcontroller",
+      "name": "MPPT Solar Charge Controller",
+      "category": "electricity",
+      "description": "A maximum power point tracking charge controller for a solar array.",
+      "icon": "electricity_mpptcontroller.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_networkswitch_poe",
+      "name": "Item Electric Networkswitch Poe",
+      "category": "electricity",
+      "description": "Standard electricity asset used in the Homesteader simulation.",
+      "icon": "electricity_networkswitch_poe.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_panel_breaker_subpanel",
+      "name": "Outdoor Breaker Subpanel",
+      "category": "electricity",
+      "description": "Weatherproof electrical subpanel.",
+      "icon": "electricity_panel_breaker_subpanel.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_power_pole_metal",
+      "name": "Power Pole Metal",
+      "category": "electricity",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "electricity_power_pole_metal.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_power_pole_wood",
+      "name": "Power Pole Wood",
+      "category": "electricity",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "electricity_power_pole_wood.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_powerpole_wood",
+      "name": "Electric Powerpole Wood",
+      "category": "electricity",
+      "description": "Standard electricity asset used in the Homesteader simulation.",
+      "icon": "electricity_powerpole_wood.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_rod_grounding_copper",
+      "name": "Copper Grounding Rod",
+      "category": "electricity",
+      "description": "Solid copper ground rod with clamp.",
+      "icon": "electricity_rod_grounding_copper.png",
+      "max_stack": 10
+    },
+    {
+      "id": "electricity_solar_blanket_200w_folding",
+      "name": "200W Folding Solar Blanket",
+      "category": "electricity",
+      "description": "Portable folding solar charging blanket.",
+      "icon": "electricity_solar_blanket_200w_folding.png",
+      "max_stack": 2
+    },
+    {
+      "id": "electricity_solar_panel",
+      "name": "Solar Panel",
+      "category": "electricity",
+      "description": "Modular Solar Panel structure for homestead building.",
+      "icon": "electricity_solar_panel.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_solar_panel_100w_rigid",
+      "name": "100W Rigid Solar Panel",
+      "category": "electricity",
+      "description": "Small tilt-mount rigid solar panel.",
+      "icon": "electricity_solar_panel_100w_rigid.png",
+      "max_stack": 5
+    },
+    {
+      "id": "electricity_solar_panel_400w_commercial",
+      "name": "400W Commercial Solar Panel",
+      "category": "electricity",
+      "description": "Large-format commercial solar panel.",
+      "icon": "electricity_solar_panel_400w_commercial.png",
+      "max_stack": 3
+    },
+    {
+      "id": "electricity_spool_electric_polywire",
+      "name": "Electric Polywire Spool",
+      "category": "electricity",
+      "description": "Reel of braided electric fence wire.",
+      "icon": "electricity_spool_electric_polywire.png",
+      "max_stack": 5
+    },
+    {
+      "id": "electricity_sterilizer_uv_chamber",
+      "name": "UV Sterilizer Chamber",
+      "category": "electricity",
+      "description": "Ultraviolet water sterilization chamber.",
+      "icon": "electricity_sterilizer_uv_chamber.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_switch_disconnect_safety",
+      "name": "Safety Disconnect Switch",
+      "category": "electricity",
+      "description": "Fusible safety disconnect enclosure.",
+      "icon": "electricity_switch_disconnect_safety.png",
+      "max_stack": 1
+    },
+    {
+      "id": "electricity_wind_turbine",
+      "name": "Wind Turbine",
+      "category": "electricity",
+      "description": "Modular Wind Turbine structure for homestead building.",
+      "icon": "electricity_wind_turbine.png",
+      "max_stack": 99
+    },
+    {
+      "id": "electricity_wooden_utility_pole",
+      "name": "Wooden Utility Pole",
+      "category": "electricity",
+      "description": "A tall wooden utility pole with no cross-arms.",
+      "icon": "electricity_wooden_utility_pole.png",
+      "max_stack": 1
+    },
+    {
+      "id": "corn",
+      "name": "Corn Plant",
+      "category": "farming",
+      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 80 days. This group is the authoritative owner of the corn scheme.",
+      "icon": "corn.png",
+      "max_stack": 64
+    },
+    {
+      "id": "seed_carrot",
+      "name": "Carrot Seeds",
+      "category": "farming",
+      "description": "Seeds for planting carrots.",
+      "icon": "seed_carrot.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_corn",
+      "name": "Corn Seeds",
+      "category": "farming",
+      "description": "Seeds for planting corn.",
+      "icon": "seed_corn.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_cotton",
+      "name": "Cotton Seeds",
+      "category": "farming",
+      "description": "Seeds for planting cotton.",
+      "icon": "seed_cotton.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_herb",
+      "name": "Herb Seeds",
+      "category": "farming",
+      "description": "Seeds for planting herbs.",
+      "icon": "seed_herb.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_potato",
+      "name": "Potato Seeds",
+      "category": "farming",
+      "description": "Potato seed pieces for planting.",
+      "icon": "seed_potato.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_pumpkin",
+      "name": "Pumpkin Seeds",
+      "category": "farming",
+      "description": "Seeds for planting pumpkins.",
+      "icon": "seed_pumpkin.png",
+      "max_stack": 50
+    },
+    {
+      "id": "seed_strawberry",
+      "name": "Strawberry Seeds",
+      "category": "farming",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "seed_strawberry.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_sunflower",
+      "name": "Sunflower Seeds",
+      "category": "farming",
+      "description": "Seeds for planting sunflowers.",
+      "icon": "seed_sunflower.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_tomato",
+      "name": "Tomato Seeds",
+      "category": "farming",
+      "description": "Seeds for planting tomatoes.",
+      "icon": "seed_tomato.png",
+      "max_stack": 99
+    },
+    {
+      "id": "seed_wheat",
+      "name": "Wheat Seeds",
+      "category": "farming",
+      "description": "Seeds for planting wheat.",
+      "icon": "seed_wheat.png",
+      "max_stack": 99
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower Plant",
+      "category": "farming",
+      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 100 days. This group is the authoritative owner of the sunflower scheme.",
+      "icon": "sunflower.png",
+      "max_stack": 64
+    },
+    {
+      "id": "wheat",
+      "name": "Wheat Plant",
+      "category": "farming",
+      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 180 days. This group is the authoritative owner of the wheat scheme.",
+      "icon": "wheat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "animal_fish_bass",
+      "name": "Largemouth Bass",
+      "category": "fishing",
+      "description": "A freshly caught largemouth bass from local freshwater lakes.",
+      "icon": "animal_fish_bass.png",
+      "max_stack": 20
+    },
+    {
+      "id": "animal_fish_catfish",
+      "name": "Channel Catfish",
+      "category": "fishing",
+      "description": "A bottom-dwelling whiskered catfish caught in muddy waters.",
+      "icon": "animal_fish_catfish.png",
+      "max_stack": 20
+    },
+    {
+      "id": "animal_fish_crappie",
+      "name": "Black Crappie",
+      "category": "fishing",
+      "description": "A speckled panfish popular for family homestead fish fries.",
+      "icon": "animal_fish_crappie.png",
+      "max_stack": 30
+    },
+    {
+      "id": "animal_fish_salmon",
+      "name": "Sockeye Salmon",
+      "category": "fishing",
+      "description": "A prized wild Pacific king salmon caught in river currents.",
+      "icon": "animal_fish_salmon.png",
+      "max_stack": 20
+    },
+    {
+      "id": "animal_fish_trout",
+      "name": "Rainbow Trout",
+      "category": "fishing",
+      "description": "A beautiful speckled freshwater trout.",
+      "icon": "animal_fish_trout.png",
+      "max_stack": 20
+    },
+    {
+      "id": "animal_fish_walleye",
+      "name": "Walleye",
+      "category": "fishing",
+      "description": "A predatory freshwater gamefish with prized delicate meat.",
+      "icon": "animal_fish_walleye.png",
+      "max_stack": 20
+    },
+    {
+      "id": "fishing_bait",
+      "name": "Live Fishing Bait",
+      "category": "fishing",
+      "description": "A tin of live earthworms dug from moist garden compost.",
+      "icon": "fishing_bait.png",
+      "max_stack": 50
+    },
+    {
+      "id": "fishing_basket_wire",
+      "name": "Wire Fish Basket",
+      "category": "fishing",
+      "description": "Collapsible wire mesh fish keeper basket.",
+      "icon": "fishing_basket_wire.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_bobbers_clip_pack",
+      "name": "Clip-On Bobbers Pack",
+      "category": "fishing",
+      "description": "Pack of classic round bobber floats.",
+      "icon": "fishing_bobbers_clip_pack.png",
+      "max_stack": 10
+    },
+    {
+      "id": "fishing_box_lures_organizer",
+      "name": "Lures Organizer Box",
+      "category": "fishing",
+      "description": "Divided tray for storing fishing lures.",
+      "icon": "fishing_box_lures_organizer.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_box_tackle_3tray",
+      "name": "3-Tray Tackle Box",
+      "category": "fishing",
+      "description": "Cantilever tackle box with brass latch.",
+      "icon": "fishing_box_tackle_3tray.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_line_spool",
+      "name": "Braided Fishing Line Spool",
+      "category": "fishing",
+      "description": "Spool of neon braided fishing line.",
+      "icon": "fishing_line_spool.png",
+      "max_stack": 5
+    },
+    {
+      "id": "fishing_lure",
+      "name": "Fishing Lure",
+      "category": "fishing",
+      "description": "A brass spoon spinner lure with feathered treble hook.",
+      "icon": "fishing_lure.png",
+      "max_stack": 20
+    },
+    {
+      "id": "fishing_net_landing_telescopic",
+      "name": "Telescopic Landing Net",
+      "category": "fishing",
+      "description": "Extendable aluminum landing net.",
+      "icon": "fishing_net_landing_telescopic.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_rod",
+      "name": "Fishing Rod",
+      "category": "fishing",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "fishing_rod.png",
+      "max_stack": 99
+    },
+    {
+      "id": "fishing_rod_fly",
+      "name": "Fly Fishing Rod",
+      "category": "fishing",
+      "description": "Fly rod with reel and chartreuse line.",
+      "icon": "fishing_rod_fly.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_rod_heavy_trolling",
+      "name": "Heavy Trolling Fishing Rod",
+      "category": "fishing",
+      "description": "Offshore trolling rod with lever-drag reel.",
+      "icon": "fishing_rod_heavy_trolling.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_rod_spincast_combo",
+      "name": "Spincast Rod & Reel Combo",
+      "category": "fishing",
+      "description": "Beginner-friendly spincast fishing combo.",
+      "icon": "fishing_rod_spincast_combo.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fishing_sinkers_lead",
+      "name": "Split Shot Lead Sinkers",
+      "category": "fishing",
+      "description": "Dial dispenser of lead split-shot sinkers.",
+      "icon": "fishing_sinkers_lead.png",
+      "max_stack": 5
+    },
+    {
+      "id": "food_apple",
+      "name": "Fresh Red Apple",
+      "category": "food",
+      "description": "A fresh apple.",
+      "icon": "food_apple.png",
+      "max_stack": 20
+    },
+    {
+      "id": "food_bass_deepfried",
+      "name": "Bass Fillet Deep Fried",
+      "category": "food",
+      "description": "A deep-fried, crispy breaded bass fillet.",
+      "icon": "food_bass_deepfried.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_bass_grilled",
+      "name": "Bass Grilled Fillet",
+      "category": "food",
+      "description": "A grilled bass fillet with char marks.",
+      "icon": "food_bass_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_bread",
+      "name": "Bread",
+      "category": "food",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "food_bread.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_carrot",
+      "name": "Fresh Garden Carrot",
+      "category": "food",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "food_carrot.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_catfish_deepfried",
+      "name": "Catfish Fillet Deep Fried",
+      "category": "food",
+      "description": "A deep-fried, crispy breaded catfish fillet.",
+      "icon": "food_catfish_deepfried.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_catfish_grilled",
+      "name": "Catfish Grilled Fillet",
+      "category": "food",
+      "description": "A grilled catfish fillet with char marks.",
+      "icon": "food_catfish_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_cheese",
+      "name": "Aged Farmhouse Cheese",
+      "category": "food",
+      "description": "Aged cheese.",
+      "icon": "food_cheese.png",
+      "max_stack": 20
+    },
+    {
+      "id": "food_crappie_deepfried",
+      "name": "Crappie Fillet Deep Fried",
+      "category": "food",
+      "description": "A deep-fried, crispy breaded crappie fillet.",
+      "icon": "food_crappie_deepfried.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_crappie_grilled",
+      "name": "Crappie Grilled Fillet",
+      "category": "food",
+      "description": "A grilled crappie fillet with char marks.",
+      "icon": "food_crappie_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_potato",
+      "name": "Russet Potato",
+      "category": "food",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "food_potato.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_pumpkin",
+      "name": "Autumn Pumpkin",
+      "category": "food",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "food_pumpkin.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_salmon_grilled",
+      "name": "Salmon Grilled Fillet",
+      "category": "food",
+      "description": "A grilled salmon fillet with char marks.",
+      "icon": "food_salmon_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_strawberry",
+      "name": "Fresh Strawberry",
+      "category": "food",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "food_strawberry.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_tomato",
+      "name": "Vine Ripe Tomato",
+      "category": "food",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "food_tomato.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_trout_deepfried",
+      "name": "Trout Fillet Deep Fried",
+      "category": "food",
+      "description": "A deep-fried, crispy breaded trout fillet.",
+      "icon": "food_trout_deepfried.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_trout_grilled",
+      "name": "Trout Grilled Fillet",
+      "category": "food",
+      "description": "A grilled trout fillet with char marks.",
+      "icon": "food_trout_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_truffle",
+      "name": "Black Foraged Truffle",
+      "category": "food",
+      "description": "A rare truffle found by a pig.",
+      "icon": "food_truffle.png",
+      "max_stack": 10
+    },
+    {
+      "id": "food_walleye_deepfried",
+      "name": "Walleye Fillet Deep Fried",
+      "category": "food",
+      "description": "A deep-fried, crispy breaded walleye fillet.",
+      "icon": "food_walleye_deepfried.png",
+      "max_stack": 99
+    },
+    {
+      "id": "food_walleye_grilled",
+      "name": "Walleye Grilled Fillet",
+      "category": "food",
+      "description": "A grilled walleye fillet with char marks.",
+      "icon": "food_walleye_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_beef_grilled",
+      "name": "Grilled Beef Cut",
+      "category": "food",
+      "description": "A grilled cut of beef with char marks.",
+      "icon": "ingredient_beef_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_chicken_grilled",
+      "name": "Grilled Chicken Drumstick",
+      "category": "food",
+      "description": "A grilled chicken drumstick with char marks.",
+      "icon": "ingredient_chicken_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_milk",
+      "name": "Fresh Whole Milk",
+      "category": "food",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "ingredient_milk.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_pork_grilled",
+      "name": "Grilled Pork Chop",
+      "category": "food",
+      "description": "A grilled pork chop with char marks.",
+      "icon": "ingredient_pork_grilled.png",
+      "max_stack": 99
+    },
+    {
+      "id": "fuel_charcoal",
+      "name": "Charcoal",
+      "category": "fuel",
+      "description": "A bag of lump charcoal, used as fuel for charcoal grills and smokers.",
+      "icon": "fuel_charcoal.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_firewood",
+      "name": "Seasoned Firewood Stack",
+      "category": "fuel",
+      "description": "Chopped wood for fire.",
+      "icon": "fuel_firewood.png",
+      "max_stack": 30
+    },
+    {
+      "id": "fuel_firewood_bundle_tied",
+      "name": "Tied Firewood Bundle",
+      "category": "fuel",
+      "description": "Bundle of split birch firewood.",
+      "icon": "fuel_firewood_bundle_tied.png",
+      "max_stack": 10
+    },
+    {
+      "id": "fuel_large_diesel_container",
+      "name": "Large Diesel Fuel Container",
+      "category": "fuel",
+      "description": "A large green jerry-can style diesel fuel container.",
+      "icon": "fuel_large_diesel_container.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_propane_18l",
+      "name": "Propane Tank (18L)",
+      "category": "fuel",
+      "description": "Propane fuel canister.",
+      "icon": "fuel_propane_18l.png",
+      "max_stack": 5
+    },
+    {
+      "id": "fuel_propane_1_5l",
+      "name": "Small Propane Tank (1.5L)",
+      "category": "fuel",
+      "description": "A small portable propane gas cylinder.",
+      "icon": "fuel_propane_1_5l.png",
+      "max_stack": 10
+    },
+    {
+      "id": "fuel_propane_36l",
+      "name": "Large Propane Tank (36L)",
+      "category": "fuel",
+      "description": "A large portable propane gas cylinder that holds more fuel than the small size.",
+      "icon": "fuel_propane_36l.png",
+      "max_stack": 6
+    },
+    {
+      "id": "fuel_pump_diesel",
+      "name": "Diesel Fuel Pump",
+      "category": "fuel",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "fuel_pump_diesel.png",
+      "max_stack": 99
+    },
+    {
+      "id": "fuel_pump_gas",
+      "name": "Gasoline Fuel Pump",
+      "category": "fuel",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "fuel_pump_gas.png",
+      "max_stack": 99
+    },
+    {
+      "id": "fuel_small_diesel_container",
+      "name": "Small Diesel Fuel Container",
+      "category": "fuel",
+      "description": "A small yellow jerry-can style diesel fuel container.",
+      "icon": "fuel_small_diesel_container.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_steel_drum_200l",
+      "name": "Steel Drum (200L)",
+      "category": "fuel",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "fuel_steel_drum_200l.png",
+      "max_stack": 99
+    },
+    {
+      "id": "fuel_tank_bulk_large",
+      "name": "Large Bulk Fuel Storage Tank",
+      "category": "fuel",
+      "description": "A large skid-mounted bulk fuel storage tank that holds more fuel than the small size.",
+      "icon": "fuel_tank_bulk_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_tank_bulk_small",
+      "name": "Small Bulk Fuel Storage Tank",
+      "category": "fuel",
+      "description": "A skid-mounted bulk fuel storage tank for on-site diesel or gasoline storage.",
+      "icon": "fuel_tank_bulk_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_tank_propane_1900l",
+      "name": "1900L Propane Tank",
+      "category": "fuel",
+      "description": "A residential propane gas tank resting on cradle feet that supplies the homestead.",
+      "icon": "fuel_tank_propane_1900l.png",
+      "max_stack": 1
+    },
+    {
+      "id": "fuel_tank_propane_3800l",
+      "name": "3800L Propane Tank",
+      "category": "fuel",
+      "description": "A large residential propane gas tank that holds double the capacity of the 1900L tank.",
+      "icon": "fuel_tank_propane_3800l.png",
+      "max_stack": 1
+    },
+    {
+      "id": "large_gas_fuel_container",
+      "name": "Large Gas Fuel Container",
+      "category": "fuel",
+      "description": "A large red jerry can filled with diesel fuel that holds more than the small size.",
+      "icon": "large_gas_fuel_container.png",
+      "max_stack": 6
+    },
+    {
+      "id": "small_gas_fuel_container",
+      "name": "Small Gas Fuel Container",
+      "category": "fuel",
+      "description": "A small red jerry can filled with diesel fuel.",
+      "icon": "small_gas_fuel_container.png",
+      "max_stack": 10
+    },
+    {
+      "id": "ingredient_beef",
+      "name": "Raw Beef Cut",
+      "category": "ingredients",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "ingredient_beef.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_chicken",
+      "name": "Raw Chicken Breast",
+      "category": "ingredients",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "ingredient_chicken.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_corn",
+      "name": "Sweet Yellow Corn",
+      "category": "ingredients",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "ingredient_corn.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_cotton",
+      "name": "Cotton",
+      "category": "ingredients",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "ingredient_cotton.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_egg",
+      "name": "Fresh Farm Egg",
+      "category": "ingredients",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "ingredient_egg.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_bass",
+      "name": "Bass Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_bass.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_catfish",
+      "name": "Catfish Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_catfish.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_crappie",
+      "name": "Crappie Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_crappie.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_salmon",
+      "name": "Salmon Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_salmon.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_trout",
+      "name": "Trout Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_trout.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_fillet_walleye",
+      "name": "Walleye Fillet",
+      "category": "ingredients",
+      "description": "Standard fishing asset used in the Homesteader simulation.",
+      "icon": "ingredient_fillet_walleye.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_herbs",
+      "name": "Fresh Culinary Herbs",
+      "category": "ingredients",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "ingredient_herbs.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_pork",
+      "name": "Raw Pork Chop",
+      "category": "ingredients",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "ingredient_pork.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_sunflower",
+      "name": "Sunflower Heads",
+      "category": "ingredients",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "ingredient_sunflower.png",
+      "max_stack": 99
+    },
+    {
+      "id": "ingredient_wheat",
+      "name": "Milled Wheat Grain",
+      "category": "ingredients",
+      "description": "Standard farming asset used in the Homesteader simulation.",
+      "icon": "ingredient_wheat.png",
+      "max_stack": 99
+    },
+    {
+      "id": "net_antenna_omni_cellular",
+      "name": "Omni Cellular Antenna",
+      "category": "internet",
+      "description": "Omnidirectional cellular signal antenna.",
+      "icon": "net_antenna_omni_cellular.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_antenna_yagi_directional",
+      "name": "Yagi Directional Antenna",
+      "category": "internet",
+      "description": "Long-range directional antenna array.",
+      "icon": "net_antenna_yagi_directional.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_ap_outdoor_weatherproof",
+      "name": "Outdoor Access Point",
+      "category": "internet",
+      "description": "Weatherproof outdoor Wi-Fi access point.",
+      "icon": "net_ap_outdoor_weatherproof.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_arrestor_lightning_ethernet",
+      "name": "Ethernet Surge Arrestor",
+      "category": "internet",
+      "description": "Lightning protection block for ethernet lines.",
+      "icon": "net_arrestor_lightning_ethernet.png",
+      "max_stack": 5
+    },
+    {
+      "id": "net_cable",
+      "name": "Internet Cable",
+      "category": "internet",
+      "description": "Standard internet asset used in the Homesteader simulation.",
+      "icon": "net_cable.png",
+      "max_stack": 99
+    },
+    {
+      "id": "net_cable_ethernet_cat6_15m",
+      "name": "15m Cat6 Cable",
+      "category": "internet",
+      "description": "Coiled 15m Cat6 patch cable.",
+      "icon": "net_cable_ethernet_cat6_15m.png",
+      "max_stack": 5
+    },
+    {
+      "id": "net_cable_ethernet_cat6_30m",
+      "name": "30m Cat6 Cable",
+      "category": "internet",
+      "description": "Coiled 30m Cat6 cable with velcro strap.",
+      "icon": "net_cable_ethernet_cat6_30m.png",
+      "max_stack": 5
+    },
+    {
+      "id": "net_dish_satellite",
+      "name": "Internet Satellite Dish",
+      "category": "internet",
+      "description": "Standard internet asset used in the Homesteader simulation.",
+      "icon": "net_dish_satellite.png",
+      "max_stack": 99
+    },
+    {
+      "id": "net_dish_satellite_high_perf",
+      "name": "High-Performance Satellite Dish",
+      "category": "internet",
+      "description": "Parabolic satellite dish with feed horn.",
+      "icon": "net_dish_satellite_high_perf.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_injector_poe_adapter",
+      "name": "PoE Injector",
+      "category": "internet",
+      "description": "Power-over-Ethernet injector adapter.",
+      "icon": "net_injector_poe_adapter.png",
+      "max_stack": 3
+    },
+    {
+      "id": "net_mount_j_mast_bracket",
+      "name": "J-Mast Mounting Bracket",
+      "category": "internet",
+      "description": "Galvanized J-pole antenna mount.",
+      "icon": "net_mount_j_mast_bracket.png",
+      "max_stack": 5
+    },
+    {
+      "id": "net_router",
+      "name": "Internet Router",
+      "category": "internet",
+      "description": "Standard internet asset used in the Homesteader simulation.",
+      "icon": "net_router.png",
+      "max_stack": 99
+    },
+    {
+      "id": "net_router_mesh_wifi6",
+      "name": "Wi-Fi 6 Mesh Router",
+      "category": "internet",
+      "description": "Mesh networking router tower.",
+      "icon": "net_router_mesh_wifi6.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_spool_cable_cat6_150m",
+      "name": "150m Cat6 Cable Spool",
+      "category": "internet",
+      "description": "Bulk spool of direct-burial Cat6 cable.",
+      "icon": "net_spool_cable_cat6_150m.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_switch_poe_8port",
+      "name": "8-Port PoE Switch",
+      "category": "internet",
+      "description": "Compact 8-port PoE network switch.",
+      "icon": "net_switch_poe_8port.png",
+      "max_stack": 1
+    },
+    {
+      "id": "net_switch_rackmount_16port",
+      "name": "16-Port Rackmount Switch",
+      "category": "internet",
+      "description": "1U rackmount 16-port network switch.",
+      "icon": "net_switch_rackmount_16port.png",
+      "max_stack": 1
+    },
+    {
+      "id": "apple",
+      "name": "Apple Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 80 days. This group is the authoritative owner of the apple scheme.",
+      "icon": "apple.png",
+      "max_stack": 64
+    },
+    {
+      "id": "birch",
+      "name": "Birch Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 100 days. This group is the authoritative owner of the birch scheme.",
+      "icon": "birch.png",
+      "max_stack": 64
+    },
+    {
+      "id": "maple",
+      "name": "Maple Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 100 days. This group is the authoritative owner of the maple scheme.",
+      "icon": "maple.png",
+      "max_stack": 64
+    },
+    {
+      "id": "oak",
+      "name": "Oak Tree",
+      "category": "logging",
+      "description": "A hardy deciduous hardwood, the backbone of any homestead's lumber supply. Grows from a planted sapling to a broad-canopied mature oak over 100 days, passing through small and medium stages along the way.",
+      "icon": "oak.png",
+      "max_stack": 64
+    },
+    {
+      "id": "pine",
+      "name": "Pine Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 100 days. This group is the authoritative owner of the pine scheme.",
+      "icon": "pine.png",
+      "max_stack": 64
+    },
+    {
+      "id": "plantable_birch_sapling",
+      "name": "Plantable Birch Sapling",
+      "category": "logging",
+      "description": "A young birch sapling with its roots wrapped in burlap and ready to plant.",
+      "icon": "plantable_birch_sapling.png",
+      "max_stack": 10
+    },
+    {
+      "id": "plantable_maple_sapling",
+      "name": "Plantable Maple Sapling",
+      "category": "logging",
+      "description": "A young maple sapling with its roots wrapped in a burlap nursery bag, ready to plant.",
+      "icon": "plantable_maple_sapling.png",
+      "max_stack": 99
+    },
+    {
+      "id": "plantable_oak_sapling",
+      "name": "Plantable Oak Sapling",
+      "category": "logging",
+      "description": "A young oak sapling with its roots wrapped in burlap and ready to plant.",
+      "icon": "plantable_oak_sapling.png",
+      "max_stack": 10
+    },
+    {
+      "id": "plantable_pine_sapling",
+      "name": "Plantable Pine Sapling",
+      "category": "logging",
+      "description": "A young pine sapling with its roots wrapped in burlap and ready to plant.",
+      "icon": "plantable_pine_sapling.png",
+      "max_stack": 10
+    },
+    {
+      "id": "plantable_poplar_sapling",
+      "name": "Plantable Poplar Sapling",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "plantable_poplar_sapling.png",
+      "max_stack": 99
+    },
+    {
+      "id": "plantable_sapling_apple",
+      "name": "Plantable Sapling Apple",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "plantable_sapling_apple.png",
+      "max_stack": 99
+    },
+    {
+      "id": "plantable_willow_sapling",
+      "name": "Plantable Willow Sapling",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "plantable_willow_sapling.png",
+      "max_stack": 99
+    },
+    {
+      "id": "poplar",
+      "name": "Poplar Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 80 days. This group is the authoritative owner of the poplar scheme.",
+      "icon": "poplar.png",
+      "max_stack": 64
+    },
+    {
+      "id": "stump_apple_large",
+      "name": "Stump Apple Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_apple_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_apple_medium",
+      "name": "Stump Apple Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_apple_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_apple_small",
+      "name": "Stump Apple Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_apple_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_birch_large",
+      "name": "Stump Birch Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_birch_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_birch_medium",
+      "name": "Stump Birch Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_birch_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_birch_small",
+      "name": "Stump Birch Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_birch_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_maple_large",
+      "name": "Stump Maple Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_maple_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_maple_medium",
+      "name": "Stump Maple Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_maple_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_maple_small",
+      "name": "Stump Maple Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_maple_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_oak_large",
+      "name": "Stump Oak Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_oak_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_oak_medium",
+      "name": "Stump Oak Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_oak_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_oak_small",
+      "name": "Stump Oak Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_oak_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_pine_large",
+      "name": "Stump Pine Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_pine_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_pine_medium",
+      "name": "Stump Pine Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_pine_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_pine_small",
+      "name": "Stump Pine Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_pine_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_poplar_large",
+      "name": "Stump Poplar Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_poplar_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_poplar_medium",
+      "name": "Stump Poplar Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_poplar_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_poplar_small",
+      "name": "Stump Poplar Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_poplar_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_willow_large",
+      "name": "Stump Willow Large",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_willow_large.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_willow_medium",
+      "name": "Stump Willow Medium",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_willow_medium.png",
+      "max_stack": 99
+    },
+    {
+      "id": "stump_willow_small",
+      "name": "Stump Willow Small",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "stump_willow_small.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tree_dead_snag",
+      "name": "Tree Dead Snag",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "tree_dead_snag.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tree_sapling",
+      "name": "Tree Sapling",
+      "category": "logging",
+      "description": "Standard logging asset used in the Homesteader simulation.",
+      "icon": "tree_sapling.png",
+      "max_stack": 99
+    },
+    {
+      "id": "willow",
+      "name": "Willow Tree",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 90 days. This group is the authoritative owner of the willow scheme.",
+      "icon": "willow.png",
+      "max_stack": 64
+    },
+    {
+      "id": "mat_bale_hay_round",
+      "name": "Round Hay Bale",
+      "category": "materials",
+      "description": "A round rolled hay bale.",
+      "icon": "mat_bale_hay_round.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_bale_hay_square",
+      "name": "Square Hay Bale",
+      "category": "materials",
+      "description": "A rectangular twine-bound hay bale.",
+      "icon": "mat_bale_hay_square.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_bale_straw_round",
+      "name": "Round Straw Bale",
+      "category": "materials",
+      "description": "A round rolled straw bale.",
+      "icon": "mat_bale_straw_round.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_bale_straw_square",
+      "name": "Square Straw Bale",
+      "category": "materials",
+      "description": "A rectangular twine-bound straw bale.",
+      "icon": "mat_bale_straw_square.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_feather",
+      "name": "Poultry Down Feather",
+      "category": "materials",
+      "description": "Soft down feathers harvested from homestead poultry.",
+      "icon": "mat_feather.png",
+      "max_stack": 99
+    },
+    {
+      "id": "mat_fertilizer",
+      "name": "Fertilizer",
+      "category": "materials",
+      "description": "Organic fertilizer for crops.",
+      "icon": "mat_fertilizer.png",
+      "max_stack": 30
+    },
+    {
+      "id": "mat_leather",
+      "name": "Tanned Leather",
+      "category": "materials",
+      "description": "A roll of vegetable-tanned homestead leather for clothing and tool crafting.",
+      "icon": "mat_leather.png",
+      "max_stack": 20
+    },
+    {
+      "id": "mat_log_birch",
+      "name": "Birch Log",
+      "category": "materials",
+      "description": "A cut birch log with papery white bark.",
+      "icon": "mat_log_birch.png",
+      "max_stack": 20
+    },
+    {
+      "id": "mat_log_birch_uncut_long",
+      "name": "Long Birch Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut birch log with cut branch nubs.",
+      "icon": "mat_log_birch_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_birch_uncut_medium",
+      "name": "Medium Birch Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut birch log with cut branch nubs.",
+      "icon": "mat_log_birch_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_birch_uncut_small",
+      "name": "Small Birch Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut birch log with cut branch nubs.",
+      "icon": "mat_log_birch_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_maple",
+      "name": "Maple Log",
+      "category": "materials",
+      "description": "A cut maple log with smooth gray-brown bark.",
+      "icon": "mat_log_maple.png",
+      "max_stack": 20
+    },
+    {
+      "id": "mat_log_maple_uncut_long",
+      "name": "Long Maple Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut maple log with cut branch nubs.",
+      "icon": "mat_log_maple_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_maple_uncut_medium",
+      "name": "Medium Maple Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut maple log with cut branch nubs.",
+      "icon": "mat_log_maple_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_maple_uncut_small",
+      "name": "Small Maple Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut maple log with cut branch nubs.",
+      "icon": "mat_log_maple_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_oak",
+      "name": "Oak Log",
+      "category": "materials",
+      "description": "A thick cut oak log with rough dark bark.",
+      "icon": "mat_log_oak.png",
+      "max_stack": 20
+    },
+    {
+      "id": "mat_log_oak_uncut_long",
+      "name": "Long Oak Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut oak log with cut branch nubs.",
+      "icon": "mat_log_oak_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_oak_uncut_medium",
+      "name": "Medium Oak Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut oak log with cut branch nubs.",
+      "icon": "mat_log_oak_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_oak_uncut_small",
+      "name": "Small Oak Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut oak log with cut branch nubs.",
+      "icon": "mat_log_oak_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_pine",
+      "name": "Pine Log",
+      "category": "materials",
+      "description": "A cut pine log with pale resin-streaked bark.",
+      "icon": "mat_log_pine.png",
+      "max_stack": 20
+    },
+    {
+      "id": "mat_log_pine_uncut_long",
+      "name": "Long Pine Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut pine log with cut branch nubs.",
+      "icon": "mat_log_pine_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_pine_uncut_medium",
+      "name": "Medium Pine Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut pine log with cut branch nubs.",
+      "icon": "mat_log_pine_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_pine_uncut_small",
+      "name": "Small Pine Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut pine log with cut branch nubs.",
+      "icon": "mat_log_pine_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_poplar_uncut_long",
+      "name": "Long Poplar Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut poplar log with cut branch nubs.",
+      "icon": "mat_log_poplar_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_poplar_uncut_medium",
+      "name": "Medium Poplar Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut poplar log with cut branch nubs.",
+      "icon": "mat_log_poplar_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_poplar_uncut_small",
+      "name": "Small Poplar Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut poplar log with cut branch nubs.",
+      "icon": "mat_log_poplar_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_willowood_uncut_long",
+      "name": "Long Willowood Uncut Log",
+      "category": "materials",
+      "description": "A long individual uncut willowood log with cut branch nubs.",
+      "icon": "mat_log_willowood_uncut_long.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_willowood_uncut_medium",
+      "name": "Medium Willowood Uncut Log",
+      "category": "materials",
+      "description": "A medium-length individual uncut willowood log with cut branch nubs.",
+      "icon": "mat_log_willowood_uncut_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_log_willowood_uncut_small",
+      "name": "Small Willowood Uncut Log",
+      "category": "materials",
+      "description": "A short individual uncut willowood log with cut branch nubs.",
+      "icon": "mat_log_willowood_uncut_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pelt_cow",
+      "name": "Cow Hide Pelt",
+      "category": "materials",
+      "description": "Cured cattle hide suitable for leather crafting and rugs.",
+      "icon": "mat_pelt_cow.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pelt_goat",
+      "name": "Goat Skin Pelt",
+      "category": "materials",
+      "description": "Supple brown goat skin for parchment and soft leather goods.",
+      "icon": "mat_pelt_goat.png",
+      "max_stack": 15
+    },
+    {
+      "id": "mat_pelt_sheep",
+      "name": "Sheep Fleece Pelt",
+      "category": "materials",
+      "description": "Dense plush wool fleece pelt for warm bedding and garments.",
+      "icon": "mat_pelt_sheep.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pile_bedding_stone_large",
+      "name": "Large Bedding Stone Pile",
+      "category": "materials",
+      "description": "A large pile: a loose mound of smooth bedding stone, used for livestock bedding.",
+      "icon": "mat_pile_bedding_stone_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_bedding_stone_medium",
+      "name": "Medium Bedding Stone Pile",
+      "category": "materials",
+      "description": "A medium pile: a loose mound of smooth bedding stone, used for livestock bedding.",
+      "icon": "mat_pile_bedding_stone_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "mat_pile_bedding_stone_small",
+      "name": "Small Bedding Stone Pile",
+      "category": "materials",
+      "description": "A small pile: a loose mound of smooth bedding stone, used for livestock bedding.",
+      "icon": "mat_pile_bedding_stone_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pile_dirt_large",
+      "name": "Large Dirt Pile",
+      "category": "materials",
+      "description": "A large pile: a loose mound of dirt.",
+      "icon": "mat_pile_dirt_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_dirt_medium",
+      "name": "Medium Dirt Pile",
+      "category": "materials",
+      "description": "A medium pile: a loose mound of dirt.",
+      "icon": "mat_pile_dirt_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "mat_pile_dirt_small",
+      "name": "Small Dirt Pile",
+      "category": "materials",
+      "description": "A small pile: a loose mound of dirt.",
+      "icon": "mat_pile_dirt_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pile_gravel_large",
+      "name": "Large Gravel Pile",
+      "category": "materials",
+      "description": "A large mound of crushed gravel.",
+      "icon": "mat_pile_gravel_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_gravel_medium",
+      "name": "Medium Gravel Pile",
+      "category": "materials",
+      "description": "A medium mound of crushed gravel.",
+      "icon": "mat_pile_gravel_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "mat_pile_gravel_small",
+      "name": "Small Gravel Pile",
+      "category": "materials",
+      "description": "A small pile of crushed gravel.",
+      "icon": "mat_pile_gravel_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pile_logs_birch_large",
+      "name": "Large Birch Log Pile",
+      "category": "materials",
+      "description": "A large stack of cut birch logs.",
+      "icon": "mat_pile_logs_birch_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_birch_medium",
+      "name": "Medium Birch Log Pile",
+      "category": "materials",
+      "description": "A medium stack of cut birch logs.",
+      "icon": "mat_pile_logs_birch_medium.png",
+      "max_stack": 2
+    },
+    {
+      "id": "mat_pile_logs_birch_small",
+      "name": "Small Birch Log Pile",
+      "category": "materials",
+      "description": "A small stack of cut birch logs.",
+      "icon": "mat_pile_logs_birch_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_pile_logs_maple_large",
+      "name": "Large Maple Log Pile",
+      "category": "materials",
+      "description": "A large stack of cut maple logs.",
+      "icon": "mat_pile_logs_maple_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_maple_medium",
+      "name": "Medium Maple Log Pile",
+      "category": "materials",
+      "description": "A medium stack of cut maple logs.",
+      "icon": "mat_pile_logs_maple_medium.png",
+      "max_stack": 2
+    },
+    {
+      "id": "mat_pile_logs_maple_small",
+      "name": "Small Maple Log Pile",
+      "category": "materials",
+      "description": "A small stack of cut maple logs.",
+      "icon": "mat_pile_logs_maple_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_pile_logs_oak_large",
+      "name": "Large Oak Log Pile",
+      "category": "materials",
+      "description": "A large stack of cut oak logs.",
+      "icon": "mat_pile_logs_oak_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_oak_medium",
+      "name": "Medium Oak Log Pile",
+      "category": "materials",
+      "description": "A medium stack of cut oak logs.",
+      "icon": "mat_pile_logs_oak_medium.png",
+      "max_stack": 2
+    },
+    {
+      "id": "mat_pile_logs_oak_small",
+      "name": "Small Oak Log Pile",
+      "category": "materials",
+      "description": "A small stack of cut oak logs.",
+      "icon": "mat_pile_logs_oak_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_pile_logs_pine_large",
+      "name": "Large Pine Log Pile",
+      "category": "materials",
+      "description": "A large stack of cut pine logs.",
+      "icon": "mat_pile_logs_pine_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_pine_medium",
+      "name": "Medium Pine Log Pile",
+      "category": "materials",
+      "description": "A medium stack of cut pine logs.",
+      "icon": "mat_pile_logs_pine_medium.png",
+      "max_stack": 2
+    },
+    {
+      "id": "mat_pile_logs_pine_small",
+      "name": "Small Pine Log Pile",
+      "category": "materials",
+      "description": "A small stack of cut pine logs.",
+      "icon": "mat_pile_logs_pine_small.png",
+      "max_stack": 5
+    },
+    {
+      "id": "mat_pile_logs_poplar_large",
+      "name": "Large Poplar Log Pile",
+      "category": "materials",
+      "description": "A large stacked pile of cut poplar logs with smooth light bark.",
+      "icon": "mat_pile_logs_poplar_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_poplar_medium",
+      "name": "Medium Poplar Log Pile",
+      "category": "materials",
+      "description": "A medium stacked pile of cut poplar logs with smooth light bark.",
+      "icon": "mat_pile_logs_poplar_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_poplar_small",
+      "name": "Small Poplar Log Pile",
+      "category": "materials",
+      "description": "A small stacked pile of cut poplar logs with smooth light bark.",
+      "icon": "mat_pile_logs_poplar_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_willow_large",
+      "name": "Large Willowood Log Pile",
+      "category": "materials",
+      "description": "A large stacked pile of cut willow logs with deeply furrowed bark.",
+      "icon": "mat_pile_logs_willow_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_willow_medium",
+      "name": "Medium Willowood Log Pile",
+      "category": "materials",
+      "description": "A medium stacked pile of cut willow logs with deeply furrowed bark.",
+      "icon": "mat_pile_logs_willow_medium.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_logs_willow_small",
+      "name": "Small Willowood Log Pile",
+      "category": "materials",
+      "description": "A small stacked pile of cut willow logs with deeply furrowed bark.",
+      "icon": "mat_pile_logs_willow_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_mulch_large",
+      "name": "Large Mulch Pile",
+      "category": "materials",
+      "description": "A large mound of wood mulch chips.",
+      "icon": "mat_pile_mulch_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_mulch_medium",
+      "name": "Medium Mulch Pile",
+      "category": "materials",
+      "description": "A medium mound of wood mulch chips.",
+      "icon": "mat_pile_mulch_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "mat_pile_mulch_small",
+      "name": "Small Mulch Pile",
+      "category": "materials",
+      "description": "A small pile of wood mulch chips.",
+      "icon": "mat_pile_mulch_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_pile_sand_large",
+      "name": "Large Sand Pile",
+      "category": "materials",
+      "description": "A large mound of sand.",
+      "icon": "mat_pile_sand_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "mat_pile_sand_medium",
+      "name": "Medium Sand Pile",
+      "category": "materials",
+      "description": "A medium mound of sand.",
+      "icon": "mat_pile_sand_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "mat_pile_sand_small",
+      "name": "Small Sand Pile",
+      "category": "materials",
+      "description": "A small pile of sand.",
+      "icon": "mat_pile_sand_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "mat_rope",
+      "name": "Rope",
+      "category": "materials",
+      "description": "Strong rope for construction.",
+      "icon": "mat_rope.png",
+      "max_stack": 30
+    },
+    {
+      "id": "mat_stone",
+      "name": "Stone",
+      "category": "materials",
+      "description": "Quarried stone blocks.",
+      "icon": "mat_stone.png",
+      "max_stack": 50
+    },
+    {
+      "id": "mat_wood_logs_stack",
+      "name": "Wood Logs Stack",
+      "category": "materials",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "mat_wood_logs_stack.png",
+      "max_stack": 99
+    },
+    {
+      "id": "mat_wool_fleece",
+      "name": "Wool Fleece",
+      "category": "materials",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "mat_wool_fleece.png",
+      "max_stack": 99
+    },
+    {
+      "id": "animal_cat_calico",
+      "name": "Calico Cat",
+      "category": "ranching",
+      "description": "An adult calico cat with a white, orange, and black patched coat.",
+      "icon": "animal_cat_calico.png",
+      "max_stack": 1
+    },
+    {
+      "id": "animal_dog_labrador",
+      "name": "Labrador Retriever",
+      "category": "ranching",
+      "description": "An adult golden-yellow Labrador Retriever, a loyal farm companion.",
+      "icon": "animal_dog_labrador.png",
+      "max_stack": 1
+    },
+    {
+      "id": "animal_halter_lead_rope",
+      "name": "Halter & Lead Rope",
+      "category": "ranching",
+      "description": "Webbing halter with cotton lead rope.",
+      "icon": "animal_halter_lead_rope.png",
+      "max_stack": 5
+    },
+    {
+      "id": "animal_pan_feed_rubber_55l",
+      "name": "Rubber Feed Pan (55L)",
+      "category": "ranching",
+      "description": "Shallow rubber livestock feed pan.",
+      "icon": "animal_pan_feed_rubber_55l.png",
+      "max_stack": 5
+    },
+    {
+      "id": "animal_salt_lick_mineral_23kg",
+      "name": "23kg Mineral Salt Lick",
+      "category": "ranching",
+      "description": "Mineral salt block on a holder tray.",
+      "icon": "animal_salt_lick_mineral_23kg.png",
+      "max_stack": 3
+    },
+    {
+      "id": "barred_chicken",
+      "name": "Barred Chicken",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (chick -> adult) over 730 days. This group is the authoritative owner of the barred_chicken scheme.",
+      "icon": "barred_chicken.png",
+      "max_stack": 64
+    },
+    {
+      "id": "black_white_billy_goat",
+      "name": "Black White Billy Goat",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (kid -> adult) over 730 days. This group is the authoritative owner of the black_white_billy_goat scheme.",
+      "icon": "black_white_billy_goat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "black_white_goat",
+      "name": "Black White Goat",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (kid -> adult) over 730 days. This group is the authoritative owner of the black_white_goat scheme.",
+      "icon": "black_white_goat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "brown_goat",
+      "name": "Brown Goat",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (kid -> adult) over 730 days. This group is the authoritative owner of the brown_goat scheme.",
+      "icon": "brown_goat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "duroc_pig",
+      "name": "Duroc Pig",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (piglet -> adult) over 730 days. This group is the authoritative owner of the duroc_pig scheme.",
+      "icon": "duroc_pig.png",
+      "max_stack": 64
+    },
+    {
+      "id": "hampshire_pig",
+      "name": "Hampshire Pig",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (piglet -> adult) over 730 days. This group is the authoritative owner of the hampshire_pig scheme.",
+      "icon": "hampshire_pig.png",
+      "max_stack": 64
+    },
+    {
+      "id": "highland_cow",
+      "name": "Highland Cow",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (calf -> adult) over 730 days. This group is the authoritative owner of the highland_cow scheme.",
+      "icon": "highland_cow.png",
+      "max_stack": 64
+    },
+    {
+      "id": "holstein_cow",
+      "name": "Holstein Cow",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (calf -> adult) over 730 days. This group is the authoritative owner of the holstein_cow scheme.",
+      "icon": "holstein_cow.png",
+      "max_stack": 64
+    },
+    {
+      "id": "jersey_cow",
+      "name": "Jersey Cow",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (calf -> adult) over 730 days. This group is the authoritative owner of the jersey_cow scheme.",
+      "icon": "jersey_cow.png",
+      "max_stack": 64
+    },
+    {
+      "id": "mat_bale_silage_round",
+      "name": "Round Silage Bale",
+      "category": "ranching",
+      "description": "A round silage bale wrapped in plastic.",
+      "icon": "mat_bale_silage_round.png",
+      "max_stack": 5
+    },
+    {
+      "id": "pink_pig",
+      "name": "Pink Pig",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (piglet -> adult) over 730 days. This group is the authoritative owner of the pink_pig scheme.",
+      "icon": "pink_pig.png",
+      "max_stack": 64
+    },
+    {
+      "id": "quarter_horse",
+      "name": "Quarter Horse",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 3 stages (foal -> yearling -> adult) over 730 days. This group is the authoritative owner of the quarter_horse scheme.",
+      "icon": "quarter_horse.png",
+      "max_stack": 64
+    },
+    {
+      "id": "red_chicken",
+      "name": "Red Chicken",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (baby -> adult) over 730 days. This group is the authoritative owner of the red_chicken scheme.",
+      "icon": "red_chicken.png",
+      "max_stack": 64
+    },
+    {
+      "id": "suffolk_sheep",
+      "name": "Suffolk Sheep",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (lamb -> adult) over 730 days. This group is the authoritative owner of the suffolk_sheep scheme.",
+      "icon": "suffolk_sheep.png",
+      "max_stack": 64
+    },
+    {
+      "id": "tan_sheep",
+      "name": "Tan Sheep",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (lamb -> adult) over 730 days. This group is the authoritative owner of the tan_sheep scheme.",
+      "icon": "tan_sheep.png",
+      "max_stack": 64
+    },
+    {
+      "id": "trough_stock_tank_380l",
+      "name": "380L Stock Tank",
+      "category": "ranching",
+      "description": "Galvanized oval livestock water tank.",
+      "icon": "trough_stock_tank_380l.png",
+      "max_stack": 1
+    },
+    {
+      "id": "trough_stock_tank_380l_empty",
+      "name": "380 Liter Stock Tank - Empty",
+      "category": "ranching",
+      "description": "An empty oval galvanized steel 380 liter stock tank.",
+      "icon": "trough_stock_tank_380l_empty.png",
+      "max_stack": 1
+    },
+    {
+      "id": "welsummer_rooter",
+      "name": "Welsummer Rooter",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (chick -> adult) over 730 days. This group is the authoritative owner of the welsummer_rooter scheme.",
+      "icon": "welsummer_rooter.png",
+      "max_stack": 64
+    },
+    {
+      "id": "white_chicken",
+      "name": "White Chicken",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (baby -> adult) over 730 days. This group is the authoritative owner of the white_chicken scheme.",
+      "icon": "white_chicken.png",
+      "max_stack": 64
+    },
+    {
+      "id": "white_goat",
+      "name": "White Goat",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (kid -> adult) over 730 days. This group is the authoritative owner of the white_goat scheme.",
+      "icon": "white_goat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "white_sheep",
+      "name": "White Sheep",
+      "category": "ranching",
+      "description": "A animal lifecycle growing through 2 stages (lamb -> adult) over 730 days. This group is the authoritative owner of the white_sheep scheme.",
+      "icon": "white_sheep.png",
+      "max_stack": 64
+    },
+    {
+      "id": "3_bay_truck_garage",
+      "name": "3 Bay Truck Garage",
+      "category": "structures",
+      "description": "",
+      "icon": "3_bay_truck_garage.png",
+      "max_stack": 64
+    },
+    {
+      "id": "barn",
+      "name": "Barn",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the barn scheme.",
+      "icon": "barn.png",
+      "max_stack": 64
+    },
+    {
+      "id": "chicken_coop",
+      "name": "Chicken Coop",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the chicken_coop scheme.",
+      "icon": "chicken_coop.png",
+      "max_stack": 64
+    },
+    {
+      "id": "farmhouse",
+      "name": "Farmhouse",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the farmhouse scheme.",
+      "icon": "farmhouse.png",
+      "max_stack": 64
+    },
+    {
+      "id": "greenhouse",
+      "name": "Greenhouse",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the greenhouse scheme.",
+      "icon": "greenhouse.png",
+      "max_stack": 64
+    },
+    {
+      "id": "large_log_cabin",
+      "name": "Large Log Cabin",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_log_cabin scheme.",
+      "icon": "large_log_cabin.png",
+      "max_stack": 64
+    },
+    {
+      "id": "large_metal_garage",
+      "name": "Large Metal Garage",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
+      "icon": "large_metal_garage.png",
+      "max_stack": 64
+    },
+    {
+      "id": "small_cabin",
+      "name": "Small Cabin",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the small_cabin scheme.",
+      "icon": "small_cabin.png",
+      "max_stack": 64
+    },
+    {
+      "id": "stable",
+      "name": "Stable",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the stable scheme.",
+      "icon": "stable.png",
+      "max_stack": 64
+    },
+    {
+      "id": "starter_house",
+      "name": "Starter House",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the starter_house scheme.",
+      "icon": "starter_house.png",
+      "max_stack": 64
+    },
+    {
+      "id": "struct_camper_rv",
+      "name": "Travel Trailer RV",
+      "category": "structures",
+      "description": "A larger travel trailer with an awning.",
+      "icon": "struct_camper_rv.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_camper_teardrop",
+      "name": "Teardrop Camper",
+      "category": "structures",
+      "description": "A small teardrop travel trailer.",
+      "icon": "struct_camper_teardrop.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_garage_truck_3bay",
+      "name": "3 Bay Truck Garage",
+      "category": "structures",
+      "description": "Heavy-duty 3-bay metal workshop truck garage featuring light-gray corrugated aluminum siding, black standing seam metal roof, two high-clearance overhead machinery bay doors, one standard car bay door with awnings, and a pedestrian side entrance.",
+      "icon": "struct_garage_truck_3bay.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_shed",
+      "name": "Tool Shed",
+      "category": "structures",
+      "description": "A small wooden tool shed.",
+      "icon": "struct_shed.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_silo",
+      "name": "Grain Silo",
+      "category": "structures",
+      "description": "A tall cylindrical metal grain silo.",
+      "icon": "struct_silo.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_tent_canvas",
+      "name": "Canvas Wall Tent",
+      "category": "structures",
+      "description": "A canvas A-frame wall tent with wood support poles.",
+      "icon": "struct_tent_canvas.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_tent_dome",
+      "name": "Dome Tent",
+      "category": "structures",
+      "description": "A small two-person dome camping tent.",
+      "icon": "struct_tent_dome.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_woodshed",
+      "name": "Woodshed",
+      "category": "structures",
+      "description": "Standard building asset used in the Homesteader simulation.",
+      "icon": "struct_woodshed.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tool_angle_grinder_corded",
+      "name": "Corded Angle Grinder",
+      "category": "tools",
+      "description": "A corded angle grinder with a guarded cutting disc.",
+      "icon": "tool_angle_grinder_corded.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_angle_grinder_cordless",
+      "name": "Cordless Angle Grinder",
+      "category": "tools",
+      "description": "A battery-powered angle grinder with a guarded cutting disc.",
+      "icon": "tool_angle_grinder_cordless.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_animal_paddle_sorting_cattle",
+      "name": "Cattle Sorting Paddle",
+      "category": "tools",
+      "description": "Livestock sorting paddle.",
+      "icon": "tool_animal_paddle_sorting_cattle.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tool_anvil_stump",
+      "name": "Tool Anvil Stump",
+      "category": "tools",
+      "description": "Standard tools asset used in the Homesteader simulation.",
+      "icon": "tool_anvil_stump.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tool_axe",
+      "name": "Axe",
+      "category": "tools",
+      "description": "Chops wood and trees.",
+      "icon": "tool_axe.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_axe_felling",
+      "name": "Felling Axe",
+      "category": "tools",
+      "description": "Long-handled axe for felling trees.",
+      "icon": "tool_axe_felling.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_bucket_empty",
+      "name": "Empty Utility Bucket",
+      "category": "tools",
+      "description": "An empty galvanized steel bucket.",
+      "icon": "tool_bucket_empty.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_cant_hook_peavey",
+      "name": "Cant Hook Peavey",
+      "category": "tools",
+      "description": "Log-rolling lever tool with pivoting hook.",
+      "icon": "tool_cant_hook_peavey.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_chain_choker_logging",
+      "name": "Logging Choker Chain",
+      "category": "tools",
+      "description": "Chromate chain with clevis grab hook.",
+      "icon": "tool_chain_choker_logging.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tool_chainsaw_gas_16",
+      "name": "16\" Gas Chainsaw",
+      "category": "tools",
+      "description": "Gas-powered chainsaw with 16-inch bar.",
+      "icon": "tool_chainsaw_gas_16.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_chainsaw_gas_20",
+      "name": "20\" Gas Chainsaw",
+      "category": "tools",
+      "description": "Pro gas chainsaw with 20-inch bar.",
+      "icon": "tool_chainsaw_gas_20.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_circular_saw_corded",
+      "name": "Corded Circular Saw",
+      "category": "tools",
+      "description": "A corded circular saw for cutting lumber and sheet goods.",
+      "icon": "tool_circular_saw_corded.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_circular_saw_cordless",
+      "name": "Cordless Circular Saw",
+      "category": "tools",
+      "description": "A battery-powered circular saw for cutting lumber and sheet goods.",
+      "icon": "tool_circular_saw_cordless.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_cord_shore_power_50a",
+      "name": "50A Shore Power Cord",
+      "category": "tools",
+      "description": "Heavy RV shore power cord with locking ring.",
+      "icon": "tool_cord_shore_power_50a.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tool_cordless_chainsaw_16",
+      "name": "16\" Cordless Chainsaw",
+      "category": "tools",
+      "description": "Battery-powered cordless drill.",
+      "icon": "tool_cordless_chainsaw_16.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_drill_corded",
+      "name": "Corded Power Drill",
+      "category": "tools",
+      "description": "An industrial corded electric power drill.",
+      "icon": "tool_drill_corded.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_drill_cordless_basic",
+      "name": "Basic Cordless Drill",
+      "category": "tools",
+      "description": "An entry-level cordless drill with a small battery pack.",
+      "icon": "tool_drill_cordless_basic.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_drill_cordless_pro",
+      "name": "Pro Cordless Drill",
+      "category": "tools",
+      "description": "A rugged high-end cordless drill with a larger battery pack for demanding jobs.",
+      "icon": "tool_drill_cordless_pro.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hammer",
+      "name": "Hammer",
+      "category": "tools",
+      "description": "Used for construction.",
+      "icon": "tool_hammer.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hammer_claw",
+      "name": "Claw Hammer",
+      "category": "tools",
+      "description": "Standard claw hammer.",
+      "icon": "tool_hammer_claw.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hammer_club",
+      "name": "Club Hammer",
+      "category": "tools",
+      "description": "Short heavy drilling hammer.",
+      "icon": "tool_hammer_club.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hatchet_camp",
+      "name": "Camp Hatchet",
+      "category": "tools",
+      "description": "Small hand axe for camp tasks.",
+      "icon": "tool_hatchet_camp.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_helmet_logging_safety",
+      "name": "Logging Safety Helmet",
+      "category": "tools",
+      "description": "Hard hat with mesh visor and earmuffs.",
+      "icon": "tool_helmet_logging_safety.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hoe",
+      "name": "Hoe",
+      "category": "tools",
+      "description": "Used to till soil for planting.",
+      "icon": "tool_hoe.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_hose_garden_reel",
+      "name": "Garden Hose & Reel",
+      "category": "tools",
+      "description": "Wheeled reel cart for storing garden hose.",
+      "icon": "tool_hose_garden_reel.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_impact_driver_cordless",
+      "name": "Cordless Impact Driver",
+      "category": "tools",
+      "description": "A compact cordless impact driver with a hex chuck for driving fasteners.",
+      "icon": "tool_impact_driver_cordless.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_kit_chainsaw_file_pouch",
+      "name": "Chainsaw File Kit",
+      "category": "tools",
+      "description": "Roll-up pouch of chainsaw sharpening files.",
+      "icon": "tool_kit_chainsaw_file_pouch.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_loppers_heavy",
+      "name": "Heavy Loppers",
+      "category": "tools",
+      "description": "Long-handled branch loppers.",
+      "icon": "tool_loppers_heavy.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_maul_splitting",
+      "name": "Splitting Maul",
+      "category": "tools",
+      "description": "Heavy wedge maul for splitting logs.",
+      "icon": "tool_maul_splitting.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_miter_saw",
+      "name": "Miter Saw",
+      "category": "tools",
+      "description": "A miter saw with a pivoting blade arm for angled crosscuts.",
+      "icon": "tool_miter_saw.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_pail_milk_stainless",
+      "name": "Tool Pail Milk Stainless",
+      "category": "tools",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "tool_pail_milk_stainless.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tool_pickaxe",
+      "name": "Pickaxe",
+      "category": "tools",
+      "description": "Mines rock and stone.",
+      "icon": "tool_pickaxe.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_plastic_wheelbarrow",
+      "name": "Plastic Wheelbarrow",
+      "category": "tools",
+      "description": "A large green plastic wheelbarrow.",
+      "icon": "tool_plastic_wheelbarrow.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_pump_sprayer",
+      "name": "Pump Sprayer",
+      "category": "tools",
+      "description": "Green steel T-post fence stake.",
+      "icon": "tool_pump_sprayer.png",
+      "max_stack": 20
+    },
+    {
+      "id": "tool_seedbag",
+      "name": "Seed Bag",
+      "category": "tools",
+      "description": "Allows planting seeds.",
+      "icon": "tool_seedbag.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_shears_pruning",
+      "name": "Pruning Shears",
+      "category": "tools",
+      "description": "Bypass pruning shears.",
+      "icon": "tool_shears_pruning.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_shears_sheepwool",
+      "name": "Tool Shears Sheepwool",
+      "category": "tools",
+      "description": "Standard ranching asset used in the Homesteader simulation.",
+      "icon": "tool_shears_sheepwool.png",
+      "max_stack": 99
+    },
+    {
+      "id": "tool_shovel",
+      "name": "Shovel",
+      "category": "tools",
+      "description": "Digs holes and moves earth.",
+      "icon": "tool_shovel.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_shovel_round_point",
+      "name": "Round-Point Shovel",
+      "category": "tools",
+      "description": "General-purpose digging shovel.",
+      "icon": "tool_shovel_round_point.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_shovel_scoop_flat",
+      "name": "Grain Scoop Shovel",
+      "category": "tools",
+      "description": "Wide flat scoop for loose material.",
+      "icon": "tool_shovel_scoop_flat.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_shovel_trenching",
+      "name": "Trenching Shovel",
+      "category": "tools",
+      "description": "Narrow shovel for digging trenches.",
+      "icon": "tool_shovel_trenching.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_sickle",
+      "name": "Sickle",
+      "category": "tools",
+      "description": "Harvests mature crops.",
+      "icon": "tool_sickle.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_sickle_grass",
+      "name": "Grass Sickle",
+      "category": "tools",
+      "description": "Curved blade sickle for cutting grass.",
+      "icon": "tool_sickle_grass.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_steel_wheelbarrow",
+      "name": "Steel Wheelbarrow",
+      "category": "tools",
+      "description": "A large galvanized steel wheelbarrow.",
+      "icon": "tool_steel_wheelbarrow.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_table_saw",
+      "name": "Table Saw",
+      "category": "tools",
+      "description": "A tabletop table saw with a folding stand for ripping lumber.",
+      "icon": "tool_table_saw.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_tap",
+      "name": "Tree Tap & Spile",
+      "category": "tools",
+      "description": "A cast aluminum spile with sap bucket hook for tapping sugar maples.",
+      "icon": "tool_tap.png",
+      "max_stack": 10
+    },
+    {
+      "id": "tool_tongs_skidding_logging",
+      "name": "Skidding Tongs",
+      "category": "tools",
+      "description": "Forged steel log skidding tongs.",
+      "icon": "tool_tongs_skidding_logging.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_trowel_hand",
+      "name": "Hand Trowel",
+      "category": "tools",
+      "description": "Small hand trowel for planting.",
+      "icon": "tool_trowel_hand.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_wedge_felling_abs_pack",
+      "name": "Felling Wedges Pack",
+      "category": "tools",
+      "description": "Pack of ABS plastic felling wedges.",
+      "icon": "tool_wedge_felling_abs_pack.png",
+      "max_stack": 5
+    },
+    {
+      "id": "tool_wedge_splitting_diamond",
+      "name": "Diamond Splitting Wedge",
+      "category": "tools",
+      "description": "4-way steel wedge for splitting logs.",
+      "icon": "tool_wedge_splitting_diamond.png",
+      "max_stack": 3
+    },
+    {
+      "id": "tool_wheelbarrow",
+      "name": "Wheelbarrow",
+      "category": "tools",
+      "description": "A classic wooden garden wheelbarrow with a single front wheel.",
+      "icon": "tool_wheelbarrow.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_wrench_adjustable",
+      "name": "Adjustable Wrench",
+      "category": "tools",
+      "description": "Chrome adjustable wrench.",
+      "icon": "tool_wrench_adjustable.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_wrench_pipe",
+      "name": "Pipe Wrench",
+      "category": "tools",
+      "description": "Adjustable pipe wrench.",
+      "icon": "tool_wrench_pipe.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_combine_large",
+      "name": "Large Combine Harvester",
+      "category": "vehicles",
+      "description": "A large combine harvester with a wide grain header for large-scale harvesting.",
+      "icon": "vehicle_combine_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_combine_small",
+      "name": "Small Combine Harvester",
+      "category": "vehicles",
+      "description": "A small combine harvester with a short grain header for modest grain fields.",
+      "icon": "vehicle_combine_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_excavator_large",
+      "name": "Large Excavator",
+      "category": "vehicles",
+      "description": "A full-size tracked excavator with a long boom arm for heavy digging.",
+      "icon": "vehicle_excavator_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_excavator_small",
+      "name": "Small Excavator",
+      "category": "vehicles",
+      "description": "A compact tracked excavator suited for tight digging jobs.",
+      "icon": "vehicle_excavator_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_pickup_new_silver",
+      "name": "New Silver Pickup",
+      "category": "vehicles",
+      "description": "A brand new modern silver pickup truck with just a little dirt on it.",
+      "icon": "vehicle_pickup_new_silver.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_pickup_new_white",
+      "name": "New White Pickup",
+      "category": "vehicles",
+      "description": "A brand new modern white 4x4 pickup truck, completely clean.",
+      "icon": "vehicle_pickup_new_white.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_pickup_old_red",
+      "name": "Old Red Pickup Truck",
+      "category": "vehicles",
+      "description": "An old red pickup truck with a little rust and faded paint.",
+      "icon": "vehicle_pickup_old_red.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_pickup_old_white",
+      "name": "Old White Pickup",
+      "category": "vehicles",
+      "description": "An old white pickup truck with rust patches on the fenders and lower body, faded paint.",
+      "icon": "vehicle_pickup_old_white.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_sawmill_portable",
+      "name": "Portable Sawmill",
+      "category": "vehicles",
+      "description": "A larger bandsaw sawmill mounted on a wheeled trailer chassis for towing between job sites.",
+      "icon": "vehicle_sawmill_portable.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_sawmill_stationary",
+      "name": "Stationary Sawmill",
+      "category": "vehicles",
+      "description": "A stationary bandsaw sawmill on a rail track with raised leg supports for milling logs into lumber.",
+      "icon": "vehicle_sawmill_stationary.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_skid_steer_new",
+      "name": "New Skid Steer",
+      "category": "vehicles",
+      "description": "A new modern red tracked skid steer, clean paint.",
+      "icon": "vehicle_skid_steer_new.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_skid_steer_old",
+      "name": "Old Skid Steer",
+      "category": "vehicles",
+      "description": "An older tracked skid steer with a lot of dirt and rust on it.",
+      "icon": "vehicle_skid_steer_old.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_skidsteer_large",
+      "name": "Large Skid Steer Loader",
+      "category": "vehicles",
+      "description": "A large skid steer loader with a wide bucket for heavier loading jobs.",
+      "icon": "vehicle_skidsteer_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_skidsteer_small",
+      "name": "Compact Skid Steer Loader",
+      "category": "vehicles",
+      "description": "A small skid steer loader with a compact front bucket for light loading work.",
+      "icon": "vehicle_skidsteer_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_tractor_large",
+      "name": "Large Farm Tractor",
+      "category": "vehicles",
+      "description": "A large enclosed-cab farm tractor with big rear tires for heavy field work.",
+      "icon": "vehicle_tractor_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_tractor_large_old",
+      "name": "Large Old Tractor",
+      "category": "vehicles",
+      "description": "A large old red tractor with black accents and a little dirt on it.",
+      "icon": "vehicle_tractor_large_old.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_tractor_small",
+      "name": "Small Utility Tractor",
+      "category": "vehicles",
+      "description": "A small open-cab farm tractor suited for light utility work around the homestead.",
+      "icon": "vehicle_tractor_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_tractor_small_old",
+      "name": "Small Old Tractor",
+      "category": "vehicles",
+      "description": "A small older green tractor with yellow accents and a lot of dirt on it.",
+      "icon": "vehicle_tractor_small_old.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_trailer_horse",
+      "name": "Horse Trailer",
+      "category": "vehicles",
+      "description": "A metallic two-axle horse trailer with black accents and some dirt on it.",
+      "icon": "vehicle_trailer_horse.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_trailer_livestock_large",
+      "name": "Large Livestock Trailer",
+      "category": "vehicles",
+      "description": "A large new metal livestock trailer, completely clean.",
+      "icon": "vehicle_trailer_livestock_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_trailer_livestock_small",
+      "name": "Small Livestock Trailer",
+      "category": "vehicles",
+      "description": "A small brown livestock trailer with a little dirt on it.",
+      "icon": "vehicle_trailer_livestock_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_trailer_utility_large",
+      "name": "Large Utility Trailer",
+      "category": "vehicles",
+      "description": "A large all-black two-axle utility trailer, completely clean.",
+      "icon": "vehicle_trailer_utility_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "vehicle_trailer_utility_small",
+      "name": "Small Utility Trailer",
+      "category": "vehicles",
+      "description": "A small old wooden and aluminum utility trailer.",
+      "icon": "vehicle_trailer_utility_small.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_aerator_septic_air_pump",
+      "name": "Septic Aerator Pump",
+      "category": "waste",
+      "description": "Air pump for aerobic septic systems.",
+      "icon": "waste_aerator_septic_air_pump.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_box_distribution_septic",
+      "name": "Septic Distribution Box",
+      "category": "waste",
+      "description": "D-box for splitting flow to leach lines.",
+      "icon": "waste_box_distribution_septic.png",
+      "max_stack": 5
+    },
+    {
+      "id": "waste_compost_bin_3bay",
+      "name": "3-Bay Compost Bin",
+      "category": "waste",
+      "description": "Standard sewage asset used in the Homesteader simulation.",
+      "icon": "waste_compost_bin_3bay.png",
+      "max_stack": 99
+    },
+    {
+      "id": "waste_hose_sewer_rv_3m",
+      "name": "3m RV Sewer Hose",
+      "category": "waste",
+      "description": "Collapsible accordion RV sewer hose.",
+      "icon": "waste_hose_sewer_rv_3m.png",
+      "max_stack": 3
+    },
+    {
+      "id": "waste_hose_sewer_rv_6m",
+      "name": "6m RV Sewer Hose",
+      "category": "waste",
+      "description": "Long accordion RV sewer hose with clear elbow.",
+      "icon": "waste_hose_sewer_rv_6m.png",
+      "max_stack": 3
+    },
+    {
+      "id": "waste_nozzle_spray_quick",
+      "name": "Quick-Connect Spray Nozzle",
+      "category": "waste",
+      "description": "Adjustable brass spray nozzle with quick-connect fitting.",
+      "icon": "waste_nozzle_spray_quick.png",
+      "max_stack": 10
+    },
+    {
+      "id": "waste_pile_manure_large",
+      "name": "Large Manure Pile (Material)",
+      "category": "waste",
+      "description": "A large mound of composted manure.",
+      "icon": "waste_pile_manure_large.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_pile_manure_medium",
+      "name": "Medium Manure Pile (Material)",
+      "category": "waste",
+      "description": "A medium mound of composted manure.",
+      "icon": "waste_pile_manure_medium.png",
+      "max_stack": 3
+    },
+    {
+      "id": "waste_pile_manure_small",
+      "name": "Small Manure Pile (Material)",
+      "category": "waste",
+      "description": "A small pile of composted manure.",
+      "icon": "waste_pile_manure_small.png",
+      "max_stack": 10
+    },
+    {
+      "id": "waste_pump_macerator",
+      "name": "Macerator Waste Pump",
+      "category": "waste",
+      "description": "Grinder pump for RV/septic waste discharge.",
+      "icon": "waste_pump_macerator.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_pump_pitcher_manual",
+      "name": "Manual Pitcher Well Pump",
+      "category": "waste",
+      "description": "Hand-operated cast-iron water pump.",
+      "icon": "waste_pump_pitcher_manual.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_pump_submersible_deep",
+      "name": "Deep Submersible Well Pump",
+      "category": "waste",
+      "description": "Stainless submersible pump for deep wells.",
+      "icon": "waste_pump_submersible_deep.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_pump_sump_float",
+      "name": "Automatic Sump Pump",
+      "category": "waste",
+      "description": "Float-switch sump pump for drainage.",
+      "icon": "waste_pump_sump_float.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_riser_septic_lid",
+      "name": "Septic Riser & Lid",
+      "category": "waste",
+      "description": "Access riser ring with locking lid.",
+      "icon": "waste_riser_septic_lid.png",
+      "max_stack": 5
+    },
+    {
+      "id": "waste_tank_rv_waste_tote",
+      "name": "RV Waste Holding Tote Tank",
+      "category": "waste",
+      "description": "Wheeled portable tote for RV waste transport.",
+      "icon": "waste_tank_rv_waste_tote.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_tank_septic_concrete_3800l",
+      "name": "3800L Concrete Septic Vault",
+      "category": "waste",
+      "description": "Heavy precast concrete septic tank.",
+      "icon": "waste_tank_septic_concrete_3800l.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_tank_septic_poly_1900l",
+      "name": "1900L Poly Septic Tank",
+      "category": "waste",
+      "description": "Ribbed poly septic tank with access risers.",
+      "icon": "waste_tank_septic_poly_1900l.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_toilet_composting_rustic",
+      "name": "Composting Toilet",
+      "category": "waste",
+      "description": "Rustic cedar composting toilet with vent stack.",
+      "icon": "waste_toilet_composting_rustic.png",
+      "max_stack": 1
+    },
+    {
+      "id": "waste_treatment_septic_packets",
+      "name": "Septic Treatment Packets",
+      "category": "waste",
+      "description": "Enzyme packets for septic system maintenance.",
+      "icon": "waste_treatment_septic_packets.png",
+      "max_stack": 10
+    },
+    {
+      "id": "water_barrel_rain_200l",
+      "name": "200L Rain Barrel",
+      "category": "water",
+      "description": "Blue plastic barrel for collecting rainwater.",
+      "icon": "water_barrel_rain_200l.png",
+      "max_stack": 3
+    },
+    {
+      "id": "water_bucket_water",
+      "name": "Bucket of Water",
+      "category": "water",
+      "description": "A galvanized steel bucket filled with water.",
+      "icon": "water_bucket_water.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_cistern_poly_3800l",
+      "name": "3800L Water Cistern",
+      "category": "water",
+      "description": "A large 3800 liter poly water cistern for bulk storage.",
+      "icon": "water_cistern_poly_3800l.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_dock_section_1x2m",
+      "name": "Water Dock Section 1X2M",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_dock_section_1x2m.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_drainsock_roll",
+      "name": "Item Plumbing Drainsock Roll",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_drainsock_roll.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_filter",
+      "name": "Water Filter",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_filter.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_filter_canister_bigblue",
+      "name": "Item Plumbing Filter Bigblue",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_filter_canister_bigblue.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_filter_reverse_osmosis",
+      "name": "Reverse Osmosis Filter",
+      "category": "water",
+      "description": "Multi-stage RO drinking water filtration system.",
+      "icon": "water_filter_reverse_osmosis.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_filter_spin_down_sediment",
+      "name": "Spin-Down Sediment Filter",
+      "category": "water",
+      "description": "Reusable sediment filter with flush valve.",
+      "icon": "water_filter_spin_down_sediment.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_fitting_camlock_coupler",
+      "name": "Camlock Coupler",
+      "category": "water",
+      "description": "Quick-disconnect camlock fitting.",
+      "icon": "water_fitting_camlock_coupler.png",
+      "max_stack": 10
+    },
+    {
+      "id": "water_hand_pump_wellhead",
+      "name": "Hand Pump Well Head",
+      "category": "water",
+      "description": "A manual lever-action pitcher pump mounted on a well head, drawing water by hand without electricity.",
+      "icon": "water_hand_pump_wellhead.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_hose_contractor_heavy",
+      "name": "Heavy Contractor Hose",
+      "category": "water",
+      "description": "Heavy-duty rubber hose for demanding jobs.",
+      "icon": "water_hose_contractor_heavy.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_hose_soaker_flat",
+      "name": "Soaker Hose",
+      "category": "water",
+      "description": "Flat porous hose for slow garden watering.",
+      "icon": "water_hose_soaker_flat.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_ibc_tote_1000l",
+      "name": "1000L IBC Tote",
+      "category": "water",
+      "description": "A standard 1000 liter IBC tote for bulk liquid storage.",
+      "icon": "water_ibc_tote_1000l.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_irrigation_sprinkler_riser",
+      "name": "Farm Irrigation Sprinkler Riser",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_irrigation_sprinkler_riser.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_jug_20l",
+      "name": "20L Water Jug",
+      "category": "water",
+      "description": "Portable blue polyethylene water jug.",
+      "icon": "water_jug_20l.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_pipe",
+      "name": "Water Pipe",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_pipe.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_pressuretank_well",
+      "name": "Water Pressuretank Well",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_pressuretank_well.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_pump",
+      "name": "Electric Water Pump",
+      "category": "water",
+      "description": "Modular Electric Water Pump structure for homestead building.",
+      "icon": "water_pump.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_pump_high_capacity",
+      "name": "High Capacity Water Well Pump",
+      "category": "water",
+      "description": "A large electric well pump for a high-output well, capable of supplying a bigger property's full water demand.",
+      "icon": "water_pump_high_capacity.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_pump_jet_shallow_well",
+      "name": "Shallow Well Jet Pump",
+      "category": "water",
+      "description": "Electric jet pump with pressure tank for shallow wells.",
+      "icon": "water_pump_jet_shallow_well.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_pump_low_capacity",
+      "name": "Low Capacity Water Well Pump",
+      "category": "water",
+      "description": "A small electric well pump for a low-output well, drawing groundwater into the property's water system.",
+      "icon": "water_pump_low_capacity.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_pump_submersible_1hp",
+      "name": "Small Submersible Well Pump",
+      "category": "water",
+      "description": "1 HP compact stainless steel submersible deep well pump with coiled electrical cable.",
+      "icon": "water_pump_submersible_1hp.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_pump_submersible_3hp",
+      "name": "Large Submersible Well Pump",
+      "category": "water",
+      "description": "3 HP commercial stainless steel submersible well pump with heavy duty industrial cable coil.",
+      "icon": "water_pump_submersible_3hp.png",
+      "max_stack": 5
+    },
+    {
+      "id": "water_pvc_bundle",
+      "name": "Item Plumbing Pvc Bundle",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_pvc_bundle.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_sprinkler",
+      "name": "Sprinkler Head",
+      "category": "water",
+      "description": "Modular Sprinkler Head structure for homestead building.",
+      "icon": "water_sprinkler.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_wand_watering_brass",
+      "name": "Tool Wand Watering",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_wand_watering_brass.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_watering_can",
+      "name": "Tool Wateringcan",
+      "category": "water",
+      "description": "Standard water asset used in the Homesteader simulation.",
+      "icon": "water_watering_can.png",
+      "max_stack": 99
+    },
+    {
+      "id": "water_well_head_concrete",
+      "name": "Concrete Well Head",
+      "category": "water",
+      "description": "Large concrete well head casing with a centered steel pipe turning down into the ground.",
+      "icon": "water_well_head_concrete.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_well_head_wooden",
+      "name": "Wooden Well Head",
+      "category": "water",
+      "description": "Rustic wooden well head casing with a water pipe coming out the side and turning down into the ground.",
+      "icon": "water_well_head_wooden.png",
+      "max_stack": 1
+    },
+    {
+      "id": "water_well_manual",
+      "name": "Manual Well",
+      "category": "water",
+      "description": "A traditional stone-walled well with a bucket on a rope, drawn up by hand - no power or pump required.",
+      "icon": "water_well_manual.png",
+      "max_stack": 1
+    }
+  ]
+}

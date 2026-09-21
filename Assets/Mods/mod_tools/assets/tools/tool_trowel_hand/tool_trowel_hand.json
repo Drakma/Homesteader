@@ -1,0 +1,162 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_trowel_hand",
+  "name": "Hand Trowel",
+  "category": "tools",
+  "description": "Small hand trowel for planting.",
+  "icon": "tool_trowel_hand.png",
+  "properties": {
+    "weight_kg": 0.4,
+    "max_stack_size": 1,
+    "base_value": 5.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tool_trowel_hand.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "tool_trowel_hand.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 33.0,
+        "y": 47.0,
+        "z": 104.0
+      },
+      "dimensions_m": {
+        "x": 0.33,
+        "y": 0.47,
+        "z": 1.04
+      },
+      "vertices": 336,
+      "faces": 112,
+      "bounding_box": {
+        "min": [
+          -7.0,
+          -7.0,
+          0.0
+        ],
+        "max": [
+          26.0,
+          40.0,
+          104.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Tool_Trowel_Hand.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Tool_Trowel_Hand.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 8.0,
+        "y": 4.0,
+        "z": 30.0
+      },
+      "dimensions_m": {
+        "x": 0.08,
+        "y": 0.04,
+        "z": 0.3
+      },
+      "vertices": 52,
+      "faces": 88,
+      "bounding_box": {
+        "min": [
+          -4.0,
+          -2.0,
+          0.0
+        ],
+        "max": [
+          4.0,
+          2.0,
+          30.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "tool_trowel_hand.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 33.0,
+      "y": 47.0,
+      "z": 104.0
+    },
+    "dimensions_m": {
+      "x": 0.33,
+      "y": 0.47,
+      "z": 1.04
+    },
+    "vertices": 336,
+    "faces": 112,
+    "bounding_box": {
+      "min": [
+        -7.0,
+        -7.0,
+        0.0
+      ],
+      "max": [
+        26.0,
+        40.0,
+        104.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.33,
+      "depth": 0.47,
+      "height": 1.04
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_tractor_large",
+  "name": "Large Farm Tractor",
+  "category": "vehicles",
+  "description": "A large enclosed-cab farm tractor with big rear tires for heavy field work.",
+  "icon": "vehicle_tractor_large.png",
+  "properties": {
+    "weight_kg": 4200.0,
+    "max_stack_size": 1,
+    "base_value": 22000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 12,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Machine_Tractor_Large.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Machine_Tractor_Large.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 224.0,
+        "y": 368.0,
+        "z": 303.8
+      },
+      "dimensions_m": {
+        "x": 2.24,
+        "y": 3.68,
+        "z": 3.04
+      },
+      "vertices": 420,
+      "faces": 720,
+      "bounding_box": {
+        "min": [
+          -112.0,
+          -185.0,
+          0.0
+        ],
+        "max": [
+          112.0,
+          183.0,
+          303.75
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "tractor",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.006944,
+    "tank_capacity_l": 200,
+    "top_speed_kmh": 40,
+    "seats": 1,
+    "cargo_capacity_m3": 0,
+    "dimensions_m": {
+      "width": 2.5,
+      "depth": 4.5,
+      "height": 2.8
+    }
+  }
+}

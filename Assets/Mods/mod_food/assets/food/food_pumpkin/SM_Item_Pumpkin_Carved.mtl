@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Pumpkin_Carved
+
+newmtl pumpkin_orange
+Ka 0.380 0.180 0.020
+Kd 0.950 0.450 0.050
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl pumpkin_stem
+Ka 0.128 0.096 0.064
+Kd 0.320 0.240 0.160
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

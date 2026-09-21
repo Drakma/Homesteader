@@ -1,0 +1,19 @@
+{
+  "id": "mod_logging",
+  "name": "Homesteader Timber & Forestry",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Chainsaws, felling wedges, timber jacks, peaveys, and forestry equipment.",
+  "namespace": "logging",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "logging",
+      "path": "assets/logging",
+      "group": "logging"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "item_spool_cat6_150m",
+  "name": "Cat6 Cable Spool (150m)",
+  "category": "building",
+  "description": "Standard building asset used in the Homesteader simulation.",
+  "icon": "item_spool_cat6_150m.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Item_Spool_Cat6_500ft.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Item_Spool_Cat6_500ft.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 32.0,
+        "y": 32.0,
+        "z": 26.2
+      },
+      "dimensions_m": {
+        "x": 0.32,
+        "y": 0.32,
+        "z": 0.26
+      },
+      "vertices": 96,
+      "faces": 176,
+      "bounding_box": {
+        "min": [
+          -16.0,
+          -16.0,
+          0.0
+        ],
+        "max": [
+          16.0,
+          16.0,
+          26.2
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Item_Spool_Cat6_500ft.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 32.0,
+      "y": 32.0,
+      "z": 26.2
+    },
+    "dimensions_m": {
+      "x": 0.32,
+      "y": 0.32,
+      "z": 0.26
+    },
+    "vertices": 96,
+    "faces": 176,
+    "bounding_box": {
+      "min": [
+        -16.0,
+        -16.0,
+        0.0
+      ],
+      "max": [
+        16.0,
+        16.0,
+        26.2
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.32,
+      "depth": 0.32,
+      "height": 0.26
+    }
+  }
+}

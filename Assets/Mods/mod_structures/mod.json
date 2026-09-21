@@ -1,0 +1,19 @@
+{
+  "id": "mod_structures",
+  "name": "Homesteader Pre-Fab Outbuildings",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-20",
+  "description": "Pre-assembled storage sheds, coops, and homestead utility structures.",
+  "namespace": "structures",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "structure",
+      "path": "assets/structures",
+      "group": "structures"
+    }
+  ]
+}
