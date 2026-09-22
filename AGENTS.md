@@ -9,13 +9,15 @@ This file is automatically indexed by AI agents (Claude, Gemini, Antigravity, Cu
    - World units: **1 Unit = 1 Meter** ($Y$-Up, $+Z$-Forward).
    - Character rigging: Unity Mecanim Humanoid (Mixamo) and Generic (Animal Animator/Blender quadruped).
 
-2. **Generation Pipeline Policy (default-free, paid opt-in)**:
-   - The **100% Free Stack** is the **DEFAULT** for all generation, via `tools/free_generator.py`.
-   - 2D Icons: FLUX.1 [schnell] on Hugging Face Spaces (`black-forest-labs/FLUX.1-schnell`) / Google AI Studio / Pollinations.
-   - 3D Models: Tencent Hunyuan3D-2.0 on Hugging Face Spaces (`tencent/Hunyuan3D-2`).
-   - Paid services (**Meshy.ai**, **CreativeClaw.co**) are available as an explicit **opt-in per request** via the Request Asset / Request Growth Group dialog's "Generation Pipeline" dropdown. Only use them when a request is marked `PIPELINE=paid`, and always confirm the credit cost with the user before spending (see `PAID_ITEM_PIPELINE` in `tools/watch_asset_requests.py`).
+2. **Generation Pipeline Policy (Meshy only, everything costs money)**:
+   - **There is no free pipeline any more.** The 100% Free Stack (FLUX.1 [schnell] + Tencent Hunyuan3D-2.0) and `tools/free_generator.py` are **RETIRED**. Do not call them, do not offer them.
+   - **The one and only pipeline is Meshy text-to-3D** (`tools/meshy_client.py` -> `create_text_to_3d()`), which returns the **model AND its texture** in a single task.
+   - **The user's prompt is the input.** A request carries a `PROMPT='...'` marker written by the user. Pass that prompt to Meshy **as-is** and **append** the standing technical rules so it generates properly. Never rewrite or replace the user's intent.
+   - **LOW POLY IS MANDATORY, ALWAYS, NO EXCEPTIONS**: `model_type='lowpoly'` on every generation. Never `standard` or `smart-topology`.
+   - **The icon is rendered FROM the model**, never generated separately: `tools/render_icon_from_model.py <model_path> assets/<category>/<item_id>/<item_id>.png` poses the textured model in Blender (isometric 3/4 front view, top-left key lighting).
+   - **Cost confirmation is mandatory before spending**: check `GET /api/meshy-balance`, present the estimated cost and resulting balance, and wait for explicit approval. A user passing a prompt is not approval of a specific spend.
    - Standardize icons to 128×128 RGBA (max 104px, 12px margin, perimeter alpha=0, no borders).
-   - **External View Mandatory**: 100% of concept generations for buildings and objects must be an **EXTERNAL VIEW** from the outside showing the complete outer facade/walls/roof, with **NO internal structure, no cutaways, and no indoor camera perspective** (unless an exterior view can naturally see inside through open doors/windows). Never pass an interior concept to 3D reconstruction.
+   - **External View Mandatory**: 100% of generations for buildings and objects must be an **EXTERNAL VIEW** from the outside showing the complete outer facade/walls/roof, with **NO internal structure, no cutaways, and no indoor camera perspective** (unless an exterior view can naturally see inside through open doors/windows).
 
 3. **Mod System** (runtime content loading):
    - Mods live in `<persistentDataPath>/Mods` and `<StreamingAssets>/Mods`, as **folders or `.zip` archives**.
@@ -52,7 +54,7 @@ This file is automatically indexed by AI agents (Claude, Gemini, Antigravity, Cu
 7. **Key Reference Documents**:
    - [API_REFERENCE.md](file:///C:/Users/casey/Desktop/Homesteader/assets/API_REFERENCE.md) - Complete REST API specification for `server.py` backend.
    - [MODDING_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MODDING_GUIDE.md) - Mod format, manifest fields, content types, load order, scripting interface.
-   - [FREE_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/FREE_PIPELINE_GUIDE.md) - Complete step-by-step code and instructions.
+   - [MESHY_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MESHY_PIPELINE_GUIDE.md) - Complete step-by-step code and instructions.
    - [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md) - Import settings, Mecanim setup, material & sprite configuration.
    - [ITEM_ICON_STYLE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/ITEM_ICON_STYLE_GUIDE.md) - Visual rules (3D faceted, left-facing, clean alpha).
    - Master Catalog: `assets/README.md` (600 indexed assets across 16 categories).

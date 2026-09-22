@@ -17,8 +17,10 @@ subprocess and pipe standard MCP JSON-RPC into its stdin/stdout.
   the editor is unlocked and in focus on the main thread.
 
 It is **not** a substitute for the asset-generation pipeline - tools like
-`Unity_AssetGeneration_GenerateAsset` are paid (consume credits) and the
-Homesteader pipeline uses `tools/free_generator.py` + paid opt-ins explicitly.
+`Unity_AssetGeneration_GenerateAsset` are paid (consume credits), and the
+Homesteader pipeline is **Meshy text-to-3D only** (`tools/meshy_client.py`,
+`model_type='lowpoly'`), with a mandatory credit-cost confirmation before
+every spend. See `docs/MESHY_PIPELINE_GUIDE.md`.
 
 ## Quick start
 

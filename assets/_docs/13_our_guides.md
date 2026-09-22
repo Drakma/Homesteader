@@ -61,9 +61,10 @@ validator enforces.</dd>
 ### Pipeline and integration
 
 <dl>
-<dt>FREE_PIPELINE_GUIDE.md</dt>
-<dd><b>The generation pipeline, step by step</b> — the free stack (FLUX.1
-schnell for icons, Hunyuan3D-2.0 for models), including the exact calls. The
+<dt>MESHY_PIPELINE_GUIDE.md</dt>
+<dd><b>The generation pipeline, step by step</b> — the only pipeline is Meshy
+text-to-3D (model + texture in one task), with the icon rendered from the model
+in Blender. The
 canonical reference for how assets actually get made.</dd>
 
 <dt>UNITY_INTEGRATION_GUIDE.md</dt>

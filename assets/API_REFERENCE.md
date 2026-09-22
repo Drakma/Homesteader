@@ -378,15 +378,15 @@ Retrieves or saves 4-stage lifecycle groupings (e.g. `oak`, `corn`, `large_metal
 
 ## 6. Spend Approvals & Balances
 
-Used for explicit user spending approval when processing paid requests (`PIPELINE=paid`):
+Used for explicit user spending approval before any generation - **every request costs money now**, so the approval gate applies to all of them, not just items formerly marked `PIPELINE=paid`:
 
 - `POST /api/request-approval`: Queues a user modal prompt with cost breakdown.
   - Body: `{"title": "...", "description": "...", "service": "meshy", "cost": 15}`
 - `GET /api/pending-approvals`: Lists unanswered approval prompts.
 - `GET /api/approval-status?id={id}`: Checks if user clicked Approve or Deny.
-- `GET /api/creative-claw-balance`: Reads cached Creative Claw credit balance.
+- `GET /api/creative-claw-balance`: Reads cached Creative Claw credit balance (retired service - kept for historical records).
 - `POST /api/creative-claw-balance`: Updates Creative Claw balance. Body: `{"balance": 120}`.
-- `GET /api/meshy-balance`: Returns current Meshy credit balance.
+- `GET /api/meshy-balance`: Returns current Meshy credit balance (**the one to check before every spend**).
 
 ---
 

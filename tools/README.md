@@ -17,7 +17,7 @@ python tools\validate_schema.py appliances
 | Group                 | Scripts                                                                                              | Purpose                                                                                            |
 | --------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **Asset Kit Runtime** | `server.py`, `app.py`, `asset_kit_mcp.py`, `watch_asset_requests.py`, `build_exe.py` | Local API server, desktop WebView2 wrapper, MCP server, request queue watcher. (The catalog builder `build_kit.py` lives in `assets/`, beside the `index.html` it generates.) |
-| **Pipelines**         | `free_generator.py`, `render_icon_from_model.py`                                                     | Free FLUX.1 + Hunyuan3D-2 pipeline, and 3D model icon snapshot renderer (Blender headless)         |
+| **Pipelines**         | `meshy_client.py`, `render_icon_from_model.py`                                                        | Meshy text-to-3D pipeline (model + texture), and 3D model icon renderer (Blender headless)          |
 | **Generators**        | `generate_*.py` (24)                                                                                 | Build `.obj`/`.mtl` meshes + 128×128 icons per category batch                                      |
 | **Validators**        | `validate_*.py` (11)                                                                                 | Enforce icon rules, mesh bounds, schema conformance, material tags                                 |
 | **Extractors**        | `extract_*.py` (6)                                                                                   | Slice icon sheets / sprite sheets into individual transparent PNGs                                 |
@@ -41,12 +41,18 @@ so `tools/generate_homestead_buildings.py` writes to
 A few older scripts still hardcode absolute `C:\Users\casey\Desktop\Homesteader\...`
 paths. Those work but should be migrated to the `__file__`-relative form when touched.
 
-## Paid pipeline (opt-in)
+## The one pipeline (Meshy text-to-3D - everything costs money)
 
-Meshy.ai and CreativeClaw are **opt-in per request**, not the default. Use them
-only for items explicitly marked `PIPELINE=paid` in `assets/_asset_requests/`,
-and confirm the credit cost before spending - see `PAID_ITEM_PIPELINE` in
-`tools/watch_asset_requests.py`.
+There is no free pipeline any more. `free_generator.py`, FLUX.1 [schnell],
+Hunyuan3D-2.0 and CreativeClaw concept images are **retired** — do not call them.
+
+The only generation route is **Meshy text-to-3D** via `tools/meshy_client.py`
+(`create_text_to_3d()`), which returns the model **and its texture** in one task.
+Always `model_type='lowpoly'`. Pass the user's `PROMPT='...'` through as-is and
+append the standing technical rules. The icon is then rendered from the model.
+
+Confirm the credit cost against `GET /api/meshy-balance` before spending - see
+`PAID_ITEM_PIPELINE` in `tools/watch_asset_requests.py`.
 
 | Script                                                                                                                                         | Role                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -58,4 +64,4 @@ and confirm the credit cost before spending - see `PAID_ITEM_PIPELINE` in
 
 Meshy output lands in `scratch/meshy_output/` (gitignored).
 
-For the default free path use `assets/free_generator.py`.
+See `docs/MESHY_PIPELINE_GUIDE.md` for the full step-by-step pipeline.

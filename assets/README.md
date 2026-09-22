@@ -11,26 +11,26 @@ Each item subfolder contains:
 ### Developer & AI Agent Specifications
 
 - 🌐 **[`API_REFERENCE.md`](API_REFERENCE.md)**: Authoritative REST API specification for `server.py` (queue pipeline, mutations, schemas, tags).
-- 📋 **[`FREE_PIPELINE_GUIDE.md`](FREE_PIPELINE_GUIDE.md)**: 100% Free generation pipeline guide (FLUX, Hunyuan3D-2, Unity target).
+- 📋 **[`../docs/MESHY_PIPELINE_GUIDE.md`](../docs/MESHY_PIPELINE_GUIDE.md)**: Asset generation pipeline guide (Meshy text-to-3D, low-poly, Unity target).
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **602**
+Total Indexed Items: **531**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 45 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Structures**](structures/) | 18 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 85 items | Modular building materials, framing, doors, windows, and hardware supplies. |
-| [**Farming**](farming/) | 19 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
-| [**Ranching**](ranching/) | 45 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
-| [**Logging**](logging/) | 58 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
+| [**Farming**](farming/) | 15 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
+| [**Ranching**](ranching/) | 26 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
+| [**Logging**](logging/) | 37 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
-| [**Tools**](tools/) | 53 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
+| [**Tools**](tools/) | 54 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
 | [**Electricity**](electricity/) | 37 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
 | [**Water**](water/) | 31 items | Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks. |
 | [**Waste**](waste/) | 19 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
 | [**Internet**](internet/) | 16 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
-| [**Hud**](hud/) | 32 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
+| [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
 | [**Food**](food/) | 24 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
@@ -46,54 +46,27 @@ Total Indexed Items: **602**
 
 ---
 
-### 📂 [Structures](structures/) (45 items)
+### 📂 [Structures](structures/) (18 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `3_bay_truck_garage` | 3 Bay Truck Garage | — | — | [3_bay_truck_garage.json](structures/3_bay_truck_garage/3_bay_truck_garage.json) |
+| `barn` | Barn | — | — | [barn.json](structures/barn/barn.json) |
+| `chicken_coop` | Chicken Coop | — | — | [chicken_coop.json](structures/chicken_coop/chicken_coop.json) |
+| `farmhouse` | Farmhouse | — | — | [farmhouse.json](structures/farmhouse/farmhouse.json) |
+| `greenhouse` | Greenhouse | — | — | [greenhouse.json](structures/greenhouse/greenhouse.json) |
+| `large_log_cabin` | Large Log Cabin | — | — | [large_log_cabin.json](structures/large_log_cabin/large_log_cabin.json) |
+| `large_metal_garage` | Large Metal Garage | — | — | [large_metal_garage.json](structures/large_metal_garage/large_metal_garage.json) |
+| `small_cabin` | Small Cabin | — | — | [small_cabin.json](structures/small_cabin/small_cabin.json) |
+| `stable` | Stable | — | — | [stable.json](structures/stable/stable.json) |
+| `starter_house` | Starter House | — | — | [starter_house.json](structures/starter_house/starter_house.json) |
 | `struct_camper_rv` | Travel Trailer RV | ✅ Yes | — | [struct_camper_rv.json](structures/struct_camper_rv/struct_camper_rv.json) |
 | `struct_camper_teardrop` | Teardrop Camper | ✅ Yes | — | [struct_camper_teardrop.json](structures/struct_camper_teardrop/struct_camper_teardrop.json) |
-| `struct_complete_barn` | Barn | ✅ Yes | 🌱 4-Stage | [struct_complete_barn.json](structures/struct_complete_barn/struct_complete_barn.json) |
-| `struct_complete_chicken_coop` | Chicken Coop | ✅ Yes | 🌱 4-Stage | [struct_complete_chicken_coop.json](structures/struct_complete_chicken_coop/struct_complete_chicken_coop.json) |
-| `struct_complete_farmhouse` | Farmhouse | ✅ Yes | 🌱 4-Stage | [struct_complete_farmhouse.json](structures/struct_complete_farmhouse/struct_complete_farmhouse.json) |
-| `struct_complete_greenhouse` | Greenhouse | ✅ Yes | 🌱 4-Stage | [struct_complete_greenhouse.json](structures/struct_complete_greenhouse/struct_complete_greenhouse.json) |
-| `struct_complete_large_log_cabin` | Large Log Cabin | ✅ Yes | 🌱 4-Stage | [struct_complete_large_log_cabin.json](structures/struct_complete_large_log_cabin/struct_complete_large_log_cabin.json) |
-| `struct_complete_large_metal_garage` | Large Metal Garage - Complete | — | 🌱 4-Stage | [struct_complete_large_metal_garage.json](structures/struct_complete_large_metal_garage/struct_complete_large_metal_garage.json) |
-| `struct_complete_small_cabin` | Small Log Cabin | ✅ Yes | 🌱 4-Stage | [struct_complete_small_cabin.json](structures/struct_complete_small_cabin/struct_complete_small_cabin.json) |
-| `struct_complete_stable` | Stable | ✅ Yes | 🌱 4-Stage | [struct_complete_stable.json](structures/struct_complete_stable/struct_complete_stable.json) |
-| `struct_complete_starter_house` | Starter House | ✅ Yes | 🌱 4-Stage | [struct_complete_starter_house.json](structures/struct_complete_starter_house/struct_complete_starter_house.json) |
-| `struct_foundation_barn` | Barn - Foundation | — | 🌱 4-Stage | [struct_foundation_barn.json](structures/struct_foundation_barn/struct_foundation_barn.json) |
-| `struct_foundation_chicken_coop` | Chicken Coop - Foundation | — | 🌱 4-Stage | [struct_foundation_chicken_coop.json](structures/struct_foundation_chicken_coop/struct_foundation_chicken_coop.json) |
-| `struct_foundation_farmhouse` | Farmhouse - Foundation | — | 🌱 4-Stage | [struct_foundation_farmhouse.json](structures/struct_foundation_farmhouse/struct_foundation_farmhouse.json) |
-| `struct_foundation_greenhouse` | Greenhouse - Foundation | — | 🌱 4-Stage | [struct_foundation_greenhouse.json](structures/struct_foundation_greenhouse/struct_foundation_greenhouse.json) |
-| `struct_foundation_large_log_cabin` | Large Log Cabin - Foundation | ✅ Yes | 🌱 4-Stage | [struct_foundation_large_log_cabin.json](structures/struct_foundation_large_log_cabin/struct_foundation_large_log_cabin.json) |
-| `struct_foundation_large_metal_garage` | Large Metal Garage - Foundation | — | 🌱 4-Stage | [struct_foundation_large_metal_garage.json](structures/struct_foundation_large_metal_garage/struct_foundation_large_metal_garage.json) |
-| `struct_foundation_small_cabin` | Small Cabin - Foundation | — | 🌱 4-Stage | [struct_foundation_small_cabin.json](structures/struct_foundation_small_cabin/struct_foundation_small_cabin.json) |
-| `struct_foundation_stable` | Stable - Foundation | — | 🌱 4-Stage | [struct_foundation_stable.json](structures/struct_foundation_stable/struct_foundation_stable.json) |
-| `struct_foundation_starter_house` | Starter House - Foundation | — | 🌱 4-Stage | [struct_foundation_starter_house.json](structures/struct_foundation_starter_house/struct_foundation_starter_house.json) |
-| `struct_framing_barn` | Barn - Framing | — | 🌱 4-Stage | [struct_framing_barn.json](structures/struct_framing_barn/struct_framing_barn.json) |
-| `struct_framing_chicken_coop` | Chicken Coop - Framing | — | 🌱 4-Stage | [struct_framing_chicken_coop.json](structures/struct_framing_chicken_coop/struct_framing_chicken_coop.json) |
-| `struct_framing_farmhouse` | Farmhouse - Framing | — | 🌱 4-Stage | [struct_framing_farmhouse.json](structures/struct_framing_farmhouse/struct_framing_farmhouse.json) |
-| `struct_framing_greenhouse` | Greenhouse - Framing | — | 🌱 4-Stage | [struct_framing_greenhouse.json](structures/struct_framing_greenhouse/struct_framing_greenhouse.json) |
-| `struct_framing_large_log_cabin` | Large Log Cabin - Framing | ✅ Yes | 🌱 4-Stage | [struct_framing_large_log_cabin.json](structures/struct_framing_large_log_cabin/struct_framing_large_log_cabin.json) |
-| `struct_framing_large_metal_garage` | Large Metal Garage - Framing | — | 🌱 4-Stage | [struct_framing_large_metal_garage.json](structures/struct_framing_large_metal_garage/struct_framing_large_metal_garage.json) |
-| `struct_framing_small_cabin` | Small Cabin - Framing | — | 🌱 4-Stage | [struct_framing_small_cabin.json](structures/struct_framing_small_cabin/struct_framing_small_cabin.json) |
-| `struct_framing_stable` | Stable - Framing | — | 🌱 4-Stage | [struct_framing_stable.json](structures/struct_framing_stable/struct_framing_stable.json) |
-| `struct_framing_starter_house` | Starter House - Framing | — | 🌱 4-Stage | [struct_framing_starter_house.json](structures/struct_framing_starter_house/struct_framing_starter_house.json) |
 | `struct_garage_truck_3bay` | 3 Bay Truck Garage | ✅ Yes | — | [struct_garage_truck_3bay.json](structures/struct_garage_truck_3bay/struct_garage_truck_3bay.json) |
 | `struct_shed` | Tool Shed | ✅ Yes | — | [struct_shed.json](structures/struct_shed/struct_shed.json) |
 | `struct_silo` | Grain Silo | ✅ Yes | — | [struct_silo.json](structures/struct_silo/struct_silo.json) |
 | `struct_tent_canvas` | Canvas Wall Tent | ✅ Yes | — | [struct_tent_canvas.json](structures/struct_tent_canvas/struct_tent_canvas.json) |
 | `struct_tent_dome` | Dome Tent | ✅ Yes | — | [struct_tent_dome.json](structures/struct_tent_dome/struct_tent_dome.json) |
-| `struct_walls_barn` | Barn - Walls | — | 🌱 4-Stage | [struct_walls_barn.json](structures/struct_walls_barn/struct_walls_barn.json) |
-| `struct_walls_chicken_coop` | Chicken Coop - Walls | — | 🌱 4-Stage | [struct_walls_chicken_coop.json](structures/struct_walls_chicken_coop/struct_walls_chicken_coop.json) |
-| `struct_walls_farmhouse` | Farmhouse - Walls | — | 🌱 4-Stage | [struct_walls_farmhouse.json](structures/struct_walls_farmhouse/struct_walls_farmhouse.json) |
-| `struct_walls_greenhouse` | Greenhouse - Walls | — | 🌱 4-Stage | [struct_walls_greenhouse.json](structures/struct_walls_greenhouse/struct_walls_greenhouse.json) |
-| `struct_walls_large_log_cabin` | Large Log Cabin - Walls | ✅ Yes | 🌱 4-Stage | [struct_walls_large_log_cabin.json](structures/struct_walls_large_log_cabin/struct_walls_large_log_cabin.json) |
-| `struct_walls_large_metal_garage` | Large Metal Garage - Walls | — | 🌱 4-Stage | [struct_walls_large_metal_garage.json](structures/struct_walls_large_metal_garage/struct_walls_large_metal_garage.json) |
-| `struct_walls_small_cabin` | Small Cabin - Walls | — | 🌱 4-Stage | [struct_walls_small_cabin.json](structures/struct_walls_small_cabin/struct_walls_small_cabin.json) |
-| `struct_walls_stable` | Stable - Walls | — | 🌱 4-Stage | [struct_walls_stable.json](structures/struct_walls_stable/struct_walls_stable.json) |
-| `struct_walls_starter_house` | Starter House - Walls | — | 🌱 4-Stage | [struct_walls_starter_house.json](structures/struct_walls_starter_house/struct_walls_starter_house.json) |
 | `struct_woodshed` | Woodshed | ✅ Yes | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
 
 ### 📂 [Building](building/) (85 items)
@@ -186,19 +159,13 @@ Total Indexed Items: **602**
 | `valve_stock_float` | Stock Tank Float Valve | ✅ Yes | — | [valve_stock_float.json](building/valve_stock_float/valve_stock_float.json) |
 | `wood_log` | Wood Log | — | — | [wood_log.json](building/wood_log/wood_log.json) |
 
-### 📂 [Farming](farming/) (19 items)
+### 📂 [Farming](farming/) (15 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
-| `crop_growing_corn` | Corn (Growing) | ✅ Yes | 🌱 4-Stage | [crop_growing_corn.json](farming/crop_growing_corn/crop_growing_corn.json) |
-| `crop_growing_sunflower` | Sunflower (Growing) | ✅ Yes | 🌱 4-Stage | [crop_growing_sunflower.json](farming/crop_growing_sunflower/crop_growing_sunflower.json) |
-| `crop_growing_wheat` | Wheat (Growing) | ✅ Yes | 🌱 4-Stage | [crop_growing_wheat.json](farming/crop_growing_wheat/crop_growing_wheat.json) |
-| `crop_mature_corn` | Corn (Mature) | ✅ Yes | 🌱 4-Stage | [crop_mature_corn.json](farming/crop_mature_corn/crop_mature_corn.json) |
-| `crop_mature_sunflower` | Sunflower (Mature) | ✅ Yes | 🌱 4-Stage | [crop_mature_sunflower.json](farming/crop_mature_sunflower/crop_mature_sunflower.json) |
-| `crop_mature_wheat` | Wheat (Mature) | ✅ Yes | 🌱 4-Stage | [crop_mature_wheat.json](farming/crop_mature_wheat/crop_mature_wheat.json) |
-| `crop_sprout_corn` | Corn (Sprout) | ✅ Yes | 🌱 4-Stage | [crop_sprout_corn.json](farming/crop_sprout_corn/crop_sprout_corn.json) |
-| `crop_sprout_sunflower` | Sunflower (Sprout) | ✅ Yes | 🌱 4-Stage | [crop_sprout_sunflower.json](farming/crop_sprout_sunflower/crop_sprout_sunflower.json) |
-| `crop_sprout_wheat` | Wheat (Sprout) | ✅ Yes | 🌱 4-Stage | [crop_sprout_wheat.json](farming/crop_sprout_wheat/crop_sprout_wheat.json) |
+| `corn` | Corn Plant | — | — | [corn.json](farming/corn/corn.json) |
+| `crop_dead` | Dead Crop | ✅ Yes | — | [crop_dead.json](farming/crop_dead/crop_dead.json) |
+| `crop_withered` | Withered Crop | ✅ Yes | — | [crop_withered.json](farming/crop_withered/crop_withered.json) |
 | `seed_carrot` | Carrot Seeds | ✅ Yes | — | [seed_carrot.json](farming/seed_carrot/seed_carrot.json) |
 | `seed_corn` | Corn Seeds | ✅ Yes | — | [seed_corn.json](farming/seed_corn/seed_corn.json) |
 | `seed_cotton` | Cotton Seeds | ✅ Yes | — | [seed_cotton.json](farming/seed_cotton/seed_cotton.json) |
@@ -209,61 +176,49 @@ Total Indexed Items: **602**
 | `seed_sunflower` | Sunflower Seeds | ✅ Yes | — | [seed_sunflower.json](farming/seed_sunflower/seed_sunflower.json) |
 | `seed_tomato` | Tomato Seeds | ✅ Yes | — | [seed_tomato.json](farming/seed_tomato/seed_tomato.json) |
 | `seed_wheat` | Wheat Seeds | ✅ Yes | — | [seed_wheat.json](farming/seed_wheat/seed_wheat.json) |
+| `sunflower` | Sunflower Plant | — | — | [sunflower.json](farming/sunflower/sunflower.json) |
+| `wheat` | Wheat Plant | — | — | [wheat.json](farming/wheat/wheat.json) |
 
-### 📂 [Ranching](ranching/) (45 items)
+### 📂 [Ranching](ranching/) (26 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
-| `animal_adult_barred_chicken` | Animal Chicken Barred | ✅ Yes | 🌱 4-Stage | [animal_adult_barred_chicken.json](ranching/animal_adult_barred_chicken/animal_adult_barred_chicken.json) |
-| `animal_adult_black_white_billy_goat` | Black & White Billy Goat - adult | ✅ Yes | 🌱 4-Stage | [animal_adult_black_white_billy_goat.json](ranching/animal_adult_black_white_billy_goat/animal_adult_black_white_billy_goat.json) |
-| `animal_adult_black_white_goat` | Animal Goat Blackwhite | ✅ Yes | 🌱 4-Stage | [animal_adult_black_white_goat.json](ranching/animal_adult_black_white_goat/animal_adult_black_white_goat.json) |
-| `animal_adult_brown_goat` | Animal Goat Brown | ✅ Yes | 🌱 4-Stage | [animal_adult_brown_goat.json](ranching/animal_adult_brown_goat/animal_adult_brown_goat.json) |
-| `animal_adult_duroc_pig` | Animal Pig Duroc | ✅ Yes | 🌱 4-Stage | [animal_adult_duroc_pig.json](ranching/animal_adult_duroc_pig/animal_adult_duroc_pig.json) |
-| `animal_adult_hampshire_pig` | Animal Pig Hampshire | ✅ Yes | 🌱 4-Stage | [animal_adult_hampshire_pig.json](ranching/animal_adult_hampshire_pig/animal_adult_hampshire_pig.json) |
-| `animal_adult_highland_cow` | Animal Cow Highland | ✅ Yes | 🌱 4-Stage | [animal_adult_highland_cow.json](ranching/animal_adult_highland_cow/animal_adult_highland_cow.json) |
-| `animal_adult_holstein_cow` | Animal Cow Holstein | ✅ Yes | 🌱 4-Stage | [animal_adult_holstein_cow.json](ranching/animal_adult_holstein_cow/animal_adult_holstein_cow.json) |
-| `animal_adult_jersey_cow` | Animal Cow Jersey | ✅ Yes | 🌱 4-Stage | [animal_adult_jersey_cow.json](ranching/animal_adult_jersey_cow/animal_adult_jersey_cow.json) |
-| `animal_adult_pink_pig` | Animal Pig Pink | ✅ Yes | 🌱 4-Stage | [animal_adult_pink_pig.json](ranching/animal_adult_pink_pig/animal_adult_pink_pig.json) |
-| `animal_adult_quarter_horse` | Adult American Quarter Horse | ✅ Yes | 🌱 4-Stage | [animal_adult_quarter_horse.json](ranching/animal_adult_quarter_horse/animal_adult_quarter_horse.json) |
-| `animal_adult_red_chicken` | Animal Chicken Red | ✅ Yes | 🌱 4-Stage | [animal_adult_red_chicken.json](ranching/animal_adult_red_chicken/animal_adult_red_chicken.json) |
-| `animal_adult_suffolk_sheep` | Animal Sheep Suffolk | ✅ Yes | 🌱 4-Stage | [animal_adult_suffolk_sheep.json](ranching/animal_adult_suffolk_sheep/animal_adult_suffolk_sheep.json) |
-| `animal_adult_tan_sheep` | Animal Sheep Tan | ✅ Yes | 🌱 4-Stage | [animal_adult_tan_sheep.json](ranching/animal_adult_tan_sheep/animal_adult_tan_sheep.json) |
-| `animal_adult_welsummer_rooster` | Welsummer Chicken - adult | ✅ Yes | 🌱 4-Stage | [animal_adult_welsummer_rooster.json](ranching/animal_adult_welsummer_rooster/animal_adult_welsummer_rooster.json) |
-| `animal_adult_white_chicken` | Animal Chicken White | ✅ Yes | 🌱 4-Stage | [animal_adult_white_chicken.json](ranching/animal_adult_white_chicken/animal_adult_white_chicken.json) |
-| `animal_adult_white_goat` | Animal Goat White | ✅ Yes | 🌱 4-Stage | [animal_adult_white_goat.json](ranching/animal_adult_white_goat/animal_adult_white_goat.json) |
-| `animal_adult_white_sheep` | Animal Sheep White | ✅ Yes | 🌱 4-Stage | [animal_adult_white_sheep.json](ranching/animal_adult_white_sheep/animal_adult_white_sheep.json) |
-| `animal_baby_red_chicken` | Red Chicken Chick | ✅ Yes | 🌱 4-Stage | [animal_baby_red_chicken.json](ranching/animal_baby_red_chicken/animal_baby_red_chicken.json) |
-| `animal_baby_white_chicken` | Animal Chicken Chick | ✅ Yes | 🌱 4-Stage | [animal_baby_white_chicken.json](ranching/animal_baby_white_chicken/animal_baby_white_chicken.json) |
-| `animal_calf_highland_cow` | Highland Cow Calf | ✅ Yes | 🌱 4-Stage | [animal_calf_highland_cow.json](ranching/animal_calf_highland_cow/animal_calf_highland_cow.json) |
-| `animal_calf_holstein_cow` | Holstein Cow Calf | ✅ Yes | 🌱 4-Stage | [animal_calf_holstein_cow.json](ranching/animal_calf_holstein_cow/animal_calf_holstein_cow.json) |
-| `animal_calf_jersey_cow` | Jersey Cow Calf | ✅ Yes | 🌱 4-Stage | [animal_calf_jersey_cow.json](ranching/animal_calf_jersey_cow/animal_calf_jersey_cow.json) |
 | `animal_cat_calico` | Calico Cat | ✅ Yes | — | [animal_cat_calico.json](ranching/animal_cat_calico/animal_cat_calico.json) |
-| `animal_chick_barred_chicken` | Barred Chicken Chick | ✅ Yes | 🌱 4-Stage | [animal_chick_barred_chicken.json](ranching/animal_chick_barred_chicken/animal_chick_barred_chicken.json) |
-| `animal_chick_welsummer_rooster` | Welsummer Chicken - chick | ✅ Yes | 🌱 4-Stage | [animal_chick_welsummer_rooster.json](ranching/animal_chick_welsummer_rooster/animal_chick_welsummer_rooster.json) |
 | `animal_dog_labrador` | Labrador Retriever | ✅ Yes | — | [animal_dog_labrador.json](ranching/animal_dog_labrador/animal_dog_labrador.json) |
-| `animal_foal_quarter_horse` | Foal American Quarter Horse | ✅ Yes | 🌱 4-Stage | [animal_foal_quarter_horse.json](ranching/animal_foal_quarter_horse/animal_foal_quarter_horse.json) |
 | `animal_halter_lead_rope` | Halter & Lead Rope | ✅ Yes | — | [animal_halter_lead_rope.json](ranching/animal_halter_lead_rope/animal_halter_lead_rope.json) |
-| `animal_kid_black_white_billy_goat` | Black & White Billy Goat - kid | ✅ Yes | 🌱 4-Stage | [animal_kid_black_white_billy_goat.json](ranching/animal_kid_black_white_billy_goat/animal_kid_black_white_billy_goat.json) |
-| `animal_kid_black_white_goat` | Black/White Goat Kid | ✅ Yes | 🌱 4-Stage | [animal_kid_black_white_goat.json](ranching/animal_kid_black_white_goat/animal_kid_black_white_goat.json) |
-| `animal_kid_brown_goat` | Brown Goat Kid | ✅ Yes | 🌱 4-Stage | [animal_kid_brown_goat.json](ranching/animal_kid_brown_goat/animal_kid_brown_goat.json) |
-| `animal_kid_white_goat` | White Goat Kid | ✅ Yes | 🌱 4-Stage | [animal_kid_white_goat.json](ranching/animal_kid_white_goat/animal_kid_white_goat.json) |
-| `animal_lamb_suffolk_sheep` | Suffolk Lamb | ✅ Yes | 🌱 4-Stage | [animal_lamb_suffolk_sheep.json](ranching/animal_lamb_suffolk_sheep/animal_lamb_suffolk_sheep.json) |
-| `animal_lamb_tan_sheep` | Lamb Tan | ✅ Yes | 🌱 4-Stage | [animal_lamb_tan_sheep.json](ranching/animal_lamb_tan_sheep/animal_lamb_tan_sheep.json) |
-| `animal_lamb_white_sheep` | White Lamb | ✅ Yes | 🌱 4-Stage | [animal_lamb_white_sheep.json](ranching/animal_lamb_white_sheep/animal_lamb_white_sheep.json) |
 | `animal_pan_feed_rubber_55l` | Rubber Feed Pan (55L) | ✅ Yes | — | [animal_pan_feed_rubber_55l.json](ranching/animal_pan_feed_rubber_55l/animal_pan_feed_rubber_55l.json) |
-| `animal_piglet_duroc_pig` | Duroc Piglet | ✅ Yes | 🌱 4-Stage | [animal_piglet_duroc_pig.json](ranching/animal_piglet_duroc_pig/animal_piglet_duroc_pig.json) |
-| `animal_piglet_hampshire_pig` | Hampshire Piglet | ✅ Yes | 🌱 4-Stage | [animal_piglet_hampshire_pig.json](ranching/animal_piglet_hampshire_pig/animal_piglet_hampshire_pig.json) |
-| `animal_piglet_pink_pig` | Pink Piglet | ✅ Yes | 🌱 4-Stage | [animal_piglet_pink_pig.json](ranching/animal_piglet_pink_pig/animal_piglet_pink_pig.json) |
 | `animal_salt_lick_mineral_23kg` | 23kg Mineral Salt Lick | ✅ Yes | — | [animal_salt_lick_mineral_23kg.json](ranching/animal_salt_lick_mineral_23kg/animal_salt_lick_mineral_23kg.json) |
-| `animal_yearling_quarter_horse` | Yearling American Quarter Horse | ✅ Yes | 🌱 4-Stage | [animal_yearling_quarter_horse.json](ranching/animal_yearling_quarter_horse/animal_yearling_quarter_horse.json) |
+| `barred_chicken` | Barred Chicken | — | — | [barred_chicken.json](ranching/barred_chicken/barred_chicken.json) |
+| `black_white_billy_goat` | Black White Billy Goat | — | — | [black_white_billy_goat.json](ranching/black_white_billy_goat/black_white_billy_goat.json) |
+| `black_white_goat` | Black White Goat | — | — | [black_white_goat.json](ranching/black_white_goat/black_white_goat.json) |
+| `brown_goat` | Brown Goat | — | — | [brown_goat.json](ranching/brown_goat/brown_goat.json) |
+| `duroc_pig` | Duroc Pig | — | — | [duroc_pig.json](ranching/duroc_pig/duroc_pig.json) |
+| `hampshire_pig` | Hampshire Pig | — | — | [hampshire_pig.json](ranching/hampshire_pig/hampshire_pig.json) |
+| `highland_cow` | Highland Cow | — | — | [highland_cow.json](ranching/highland_cow/highland_cow.json) |
+| `holstein_cow` | Holstein Cow | — | — | [holstein_cow.json](ranching/holstein_cow/holstein_cow.json) |
+| `jersey_cow` | Jersey Cow | — | — | [jersey_cow.json](ranching/jersey_cow/jersey_cow.json) |
 | `mat_bale_silage_round` | Round Silage Bale | — | — | [mat_bale_silage_round.json](ranching/mat_bale_silage_round/mat_bale_silage_round.json) |
+| `pink_pig` | Pink Pig | — | — | [pink_pig.json](ranching/pink_pig/pink_pig.json) |
+| `quarter_horse` | Quarter Horse | — | — | [quarter_horse.json](ranching/quarter_horse/quarter_horse.json) |
+| `red_chicken` | Red Chicken | — | — | [red_chicken.json](ranching/red_chicken/red_chicken.json) |
+| `suffolk_sheep` | Suffolk Sheep | — | — | [suffolk_sheep.json](ranching/suffolk_sheep/suffolk_sheep.json) |
+| `tan_sheep` | Tan Sheep | — | — | [tan_sheep.json](ranching/tan_sheep/tan_sheep.json) |
 | `trough_stock_tank_380l` | 380L Stock Tank | ✅ Yes | — | [trough_stock_tank_380l.json](ranching/trough_stock_tank_380l/trough_stock_tank_380l.json) |
 | `trough_stock_tank_380l_empty` | 380 Liter Stock Tank - Empty | ✅ Yes | — | [trough_stock_tank_380l_empty.json](ranching/trough_stock_tank_380l_empty/trough_stock_tank_380l_empty.json) |
+| `welsummer_rooter` | Welsummer Rooter | — | — | [welsummer_rooter.json](ranching/welsummer_rooter/welsummer_rooter.json) |
+| `white_chicken` | White Chicken | — | — | [white_chicken.json](ranching/white_chicken/white_chicken.json) |
+| `white_goat` | White Goat | — | — | [white_goat.json](ranching/white_goat/white_goat.json) |
+| `white_sheep` | White Sheep | — | — | [white_sheep.json](ranching/white_sheep/white_sheep.json) |
 
-### 📂 [Logging](logging/) (58 items)
+### 📂 [Logging](logging/) (37 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
+| `apple` | Apple Tree | — | — | [apple.json](logging/apple/apple.json) |
+| `birch` | Birch Tree | — | — | [birch.json](logging/birch/birch.json) |
+| `maple` | Maple Tree | — | — | [maple.json](logging/maple/maple.json) |
+| `oak` | Oak Tree | — | — | [oak.json](logging/oak/oak.json) |
+| `pine` | Pine Tree | — | — | [pine.json](logging/pine/pine.json) |
 | `plantable_birch_sapling` | Plantable Birch Sapling | ✅ Yes | — | [plantable_birch_sapling.json](logging/plantable_birch_sapling/plantable_birch_sapling.json) |
 | `plantable_maple_sapling` | Plantable Maple Sapling | ✅ Yes | — | [plantable_maple_sapling.json](logging/plantable_maple_sapling/plantable_maple_sapling.json) |
 | `plantable_oak_sapling` | Plantable Oak Sapling | ✅ Yes | — | [plantable_oak_sapling.json](logging/plantable_oak_sapling/plantable_oak_sapling.json) |
@@ -271,6 +226,7 @@ Total Indexed Items: **602**
 | `plantable_poplar_sapling` | Plantable Poplar Sapling | ✅ Yes | — | [plantable_poplar_sapling.json](logging/plantable_poplar_sapling/plantable_poplar_sapling.json) |
 | `plantable_sapling_apple` | Plantable Sapling Apple | ✅ Yes | — | [plantable_sapling_apple.json](logging/plantable_sapling_apple/plantable_sapling_apple.json) |
 | `plantable_willow_sapling` | Plantable Willow Sapling | ✅ Yes | — | [plantable_willow_sapling.json](logging/plantable_willow_sapling/plantable_willow_sapling.json) |
+| `poplar` | Poplar Tree | — | — | [poplar.json](logging/poplar/poplar.json) |
 | `stump_apple_large` | Stump Apple Large | ✅ Yes | — | [stump_apple_large.json](logging/stump_apple_large/stump_apple_large.json) |
 | `stump_apple_medium` | Stump Apple Medium | ✅ Yes | — | [stump_apple_medium.json](logging/stump_apple_medium/stump_apple_medium.json) |
 | `stump_apple_small` | Stump Apple Small | ✅ Yes | — | [stump_apple_small.json](logging/stump_apple_small/stump_apple_small.json) |
@@ -293,35 +249,8 @@ Total Indexed Items: **602**
 | `stump_willow_medium` | Stump Willow Medium | ✅ Yes | — | [stump_willow_medium.json](logging/stump_willow_medium/stump_willow_medium.json) |
 | `stump_willow_small` | Stump Willow Small | ✅ Yes | — | [stump_willow_small.json](logging/stump_willow_small/stump_willow_small.json) |
 | `tree_dead_snag` | Tree Dead Snag | ✅ Yes | — | [tree_dead_snag.json](logging/tree_dead_snag/tree_dead_snag.json) |
-| `tree_mature_apple` | Tree Apple Large | ✅ Yes | 🌱 4-Stage | [tree_mature_apple.json](logging/tree_mature_apple/tree_mature_apple.json) |
-| `tree_mature_birch` | Birch Tree | — | 🌱 4-Stage | [tree_mature_birch.json](logging/tree_mature_birch/tree_mature_birch.json) |
-| `tree_mature_maple` | Maple Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_maple.json](logging/tree_mature_maple/tree_mature_maple.json) |
-| `tree_mature_oak` | Oak Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_oak.json](logging/tree_mature_oak/tree_mature_oak.json) |
-| `tree_mature_pine` | Mature Pine Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_pine.json](logging/tree_mature_pine/tree_mature_pine.json) |
-| `tree_mature_poplar` | Mature Poplar Tree | ✅ Yes | 🌱 4-Stage | [tree_mature_poplar.json](logging/tree_mature_poplar/tree_mature_poplar.json) |
-| `tree_mature_willow` | Tree Willow Large | ✅ Yes | 🌱 4-Stage | [tree_mature_willow.json](logging/tree_mature_willow/tree_mature_willow.json) |
-| `tree_medium_apple` | Tree Apple Medium | ✅ Yes | 🌱 4-Stage | [tree_medium_apple.json](logging/tree_medium_apple/tree_medium_apple.json) |
-| `tree_medium_birch` | Half-Grown Birch Tree | ✅ Yes | 🌱 4-Stage | [tree_medium_birch.json](logging/tree_medium_birch/tree_medium_birch.json) |
-| `tree_medium_maple` | Half-Grown Maple Tree | ✅ Yes | 🌱 4-Stage | [tree_medium_maple.json](logging/tree_medium_maple/tree_medium_maple.json) |
-| `tree_medium_oak` | Half-Grown Oak Tree | ✅ Yes | 🌱 4-Stage | [tree_medium_oak.json](logging/tree_medium_oak/tree_medium_oak.json) |
-| `tree_medium_pine` | Half-Grown Pine Tree | ✅ Yes | 🌱 4-Stage | [tree_medium_pine.json](logging/tree_medium_pine/tree_medium_pine.json) |
-| `tree_medium_poplar` | Tree Poplar Medium | ✅ Yes | 🌱 4-Stage | [tree_medium_poplar.json](logging/tree_medium_poplar/tree_medium_poplar.json) |
-| `tree_medium_willow` | Tree Willow Medium | ✅ Yes | 🌱 4-Stage | [tree_medium_willow.json](logging/tree_medium_willow/tree_medium_willow.json) |
 | `tree_sapling` | Tree Sapling | ✅ Yes | — | [tree_sapling.json](logging/tree_sapling/tree_sapling.json) |
-| `tree_sapling_apple` | Planted Sapling Apple | ✅ Yes | 🌱 4-Stage | [tree_sapling_apple.json](logging/tree_sapling_apple/tree_sapling_apple.json) |
-| `tree_sapling_birch` | Planted Sapling Birch | ✅ Yes | 🌱 4-Stage | [tree_sapling_birch.json](logging/tree_sapling_birch/tree_sapling_birch.json) |
-| `tree_sapling_maple` | Planted Sapling Maple | ✅ Yes | 🌱 4-Stage | [tree_sapling_maple.json](logging/tree_sapling_maple/tree_sapling_maple.json) |
-| `tree_sapling_oak` | Tree Sapling Oak | ✅ Yes | — | [tree_sapling_oak.json](logging/tree_sapling_oak/tree_sapling_oak.json) |
-| `tree_sapling_pine` | Planted Sapling Pine | ✅ Yes | 🌱 4-Stage | [tree_sapling_pine.json](logging/tree_sapling_pine/tree_sapling_pine.json) |
-| `tree_sapling_poplar` | Planted Sapling Poplar | ✅ Yes | 🌱 4-Stage | [tree_sapling_poplar.json](logging/tree_sapling_poplar/tree_sapling_poplar.json) |
-| `tree_sapling_willow` | Planted Sapling Willow | ✅ Yes | 🌱 4-Stage | [tree_sapling_willow.json](logging/tree_sapling_willow/tree_sapling_willow.json) |
-| `tree_small_apple` | Tree Apple Small | ✅ Yes | 🌱 4-Stage | [tree_small_apple.json](logging/tree_small_apple/tree_small_apple.json) |
-| `tree_small_birch` | Young Birch Tree | ✅ Yes | 🌱 4-Stage | [tree_small_birch.json](logging/tree_small_birch/tree_small_birch.json) |
-| `tree_small_maple` | Young Maple Tree | ✅ Yes | 🌱 4-Stage | [tree_small_maple.json](logging/tree_small_maple/tree_small_maple.json) |
-| `tree_small_oak` | Young Oak Tree | ✅ Yes | 🌱 4-Stage | [tree_small_oak.json](logging/tree_small_oak/tree_small_oak.json) |
-| `tree_small_pine` | Young Pine Tree | ✅ Yes | 🌱 4-Stage | [tree_small_pine.json](logging/tree_small_pine/tree_small_pine.json) |
-| `tree_small_poplar` | Tree Poplar Small | ✅ Yes | 🌱 4-Stage | [tree_small_poplar.json](logging/tree_small_poplar/tree_small_poplar.json) |
-| `tree_small_willow` | Tree Willow Small | ✅ Yes | 🌱 4-Stage | [tree_small_willow.json](logging/tree_small_willow/tree_small_willow.json) |
+| `willow` | Willow Tree | — | — | [willow.json](logging/willow/willow.json) |
 
 ### 📂 [Fishing](fishing/) (19 items)
 
@@ -347,7 +276,7 @@ Total Indexed Items: **602**
 | `fishing_rod_spincast_combo` | Spincast Rod & Reel Combo | ✅ Yes | — | [fishing_rod_spincast_combo.json](fishing/fishing_rod_spincast_combo/fishing_rod_spincast_combo.json) |
 | `fishing_sinkers_lead` | Split Shot Lead Sinkers | ✅ Yes | — | [fishing_sinkers_lead.json](fishing/fishing_sinkers_lead/fishing_sinkers_lead.json) |
 
-### 📂 [Tools](tools/) (53 items)
+### 📂 [Tools](tools/) (54 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -399,6 +328,7 @@ Total Indexed Items: **602**
 | `tool_tap` | Tree Tap & Spile | — | — | [tool_tap.json](tools/tool_tap/tool_tap.json) |
 | `tool_tongs_skidding_logging` | Skidding Tongs | ✅ Yes | — | [tool_tongs_skidding_logging.json](tools/tool_tongs_skidding_logging/tool_tongs_skidding_logging.json) |
 | `tool_trowel_hand` | Hand Trowel | ✅ Yes | — | [tool_trowel_hand.json](tools/tool_trowel_hand/tool_trowel_hand.json) |
+| `tool_walking_plow_own` | Walking Plow (Meshy text-to-3D, own icon) | ✅ Yes | — | [tool_walking_plow_own.json](tools/tool_walking_plow_own/tool_walking_plow_own.json) |
 | `tool_wedge_felling_abs_pack` | Felling Wedges Pack | ✅ Yes | — | [tool_wedge_felling_abs_pack.json](tools/tool_wedge_felling_abs_pack/tool_wedge_felling_abs_pack.json) |
 | `tool_wedge_splitting_diamond` | Diamond Splitting Wedge | ✅ Yes | — | [tool_wedge_splitting_diamond.json](tools/tool_wedge_splitting_diamond/tool_wedge_splitting_diamond.json) |
 | `tool_wheelbarrow` | Wheelbarrow | ✅ Yes | — | [tool_wheelbarrow.json](tools/tool_wheelbarrow/tool_wheelbarrow.json) |
@@ -528,7 +458,7 @@ Total Indexed Items: **602**
 | `net_switch_poe_8port` | 8-Port PoE Switch | ✅ Yes | — | [net_switch_poe_8port.json](internet/net_switch_poe_8port/net_switch_poe_8port.json) |
 | `net_switch_rackmount_16port` | 16-Port Rackmount Switch | ✅ Yes | — | [net_switch_rackmount_16port.json](internet/net_switch_rackmount_16port/net_switch_rackmount_16port.json) |
 
-### 📂 [Hud](hud/) (32 items)
+### 📂 [Hud](hud/) (31 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -563,7 +493,6 @@ Total Indexed Items: **602**
 | `icon_coin` | Icon Coin | — | — | [icon_coin.json](hud/icon_coin/icon_coin.json) |
 | `icon_heart` | Icon Heart | — | — | [icon_heart.json](hud/icon_heart/icon_heart.json) |
 | `icon_stamina` | Icon Stamina | — | — | [icon_stamina.json](hud/icon_stamina/icon_stamina.json) |
-| `part_wall_window_1m` | Part Wall Window 1M | ✅ Yes | — | [part_wall_window_1m.json](hud/part_wall_window_1m/part_wall_window_1m.json) |
 
 ### 📂 [Ground](ground/) (18 items)
 

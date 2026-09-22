@@ -84,17 +84,18 @@ The target engine is **Unity 6**, at **1 unit = 1 metre**, **Y-up**, with
 The canonical references are:
 
 - `docs/ITEM_ICON_STYLE_GUIDE.md` — the visual rules for icons
-- `docs/FREE_PIPELINE_GUIDE.md` — the generation pipeline, step by step
+- `docs/MESHY_PIPELINE_GUIDE.md` — the generation pipeline, step by step
 - `docs/UNITY_INTEGRATION_GUIDE.md` — import settings, Mecanim setup, materials
 - `assets/API_REFERENCE.md` — the full REST API for the local server
 
 ## Generation pipelines
 
-Icon generation defaults to a **100% free stack** (FLUX.1 [schnell] via Hugging
-Face Spaces, Google AI Studio, or Pollinations). 3D models default to
-**Hunyuan3D-2.0**, also free.
+Icon generation: there is **no separate 2D generation step**. The icon is always
+**rendered from the finished 3D model** (`tools/render_icon_from_model.py`) and
+standardized to 128×128 RGBA.
 
-Paid services — **Meshy.ai** and **Creative Claw** — are available but strictly
-**opt-in per request**, chosen from the Generation Pipeline dropdown. They are
-never used implicitly, and the credit cost is confirmed before spending
-anything.
+3D models are generated with **Meshy text-to-3D** (`tools/meshy_client.py`),
+which returns the model **and its texture** — **always**
+`model_type='lowpoly'`. The retired free stack (FLUX.1 [schnell] +
+Hunyuan3D-2.0) is gone; **every generation costs money**, and the credit cost is
+confirmed before spending anything.
