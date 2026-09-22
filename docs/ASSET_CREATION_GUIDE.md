@@ -15,7 +15,7 @@ assets/
         ├── <item_id>.png              # 128×128 32-bit RGBA icon (NEVER icon.png)
         ├── <item_id>.json             # Plugin manifest (metrics, utilities, 4-stage growth)
         ├── README.md                  # Human-readable preview & quick reference
-        ├── <ModelName>.obj            # Wavefront 3D mesh (or .fbx / .glb)
+        ├── <ModelName>.glb            # 3D model (GLB is the standard; textures embedded)
         ├── <ModelName>.mtl            # Material definitions for .obj
         ├── <ModelName>_Rig.fbx        # Rigging / skeletal mesh (if animated)
         └── ...                        # Additional LODs, textures, or animations
@@ -66,6 +66,8 @@ Every item folder must contain `<item_id>.json` conforming to the Homesteader It
 		"max_stack_size": 99,
 		"base_value": 10.0,
 		"is_consumable": false,
+		"is_buyable": false,
+		"is_sellable": false,
 		"footprint": null
 	},
 	"models": [
