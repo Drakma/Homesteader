@@ -382,7 +382,6 @@ TemplateContainer {
     justify-content: center;
     align-self: center;
     background-color: rgba(0, 0, 0, 0);
-    z-index: 100;
 }
 
 .tool-slot {
@@ -458,7 +457,6 @@ TemplateContainer {
     background-color: rgba(8, 12, 18, 0.75);
     align-items: center;
     justify-content: center;
-    z-index: 1000;
 }
 
 .window-shade--hidden {
@@ -1055,7 +1053,6 @@ TemplateContainer {
     translate: -50% 0;
     width: 760px;
     height: 620px;
-    z-index: 500;
     background-color: rgb(20, 26, 36);
     border-width: 1px;
     border-color: rgb(45, 56, 72);
@@ -1364,15 +1361,13 @@ TemplateContainer {
 }
 
 /* ----- PHONE WRAPPER ----- */
-/* Absolutely positioned right side of screen, vertically centered */
+/* Absolutely positioned bottom-right, above toolbar */
 .phone-wrapper {
     position: absolute;
     right: 24px;
-    top: 50%;
-    translate: 0 -50%;
+    bottom: 100px;
     width: auto;
     height: auto;
-    z-index: 200;
 }
 
 .phone-wrapper--hidden {
