@@ -1362,3 +1362,19 @@ TemplateContainer {
     padding-right: 3px;
     border-radius: 2px;
 }
+
+/* ----- PHONE WRAPPER ----- */
+/* Absolutely positioned right side of screen, vertically centered */
+.phone-wrapper {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    translate: 0 -50%;
+    width: auto;
+    height: auto;
+    z-index: 200;
+}
+
+.phone-wrapper--hidden {
+    display: none;
+}

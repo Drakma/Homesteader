@@ -144,53 +144,41 @@
 
         </ui:VisualElement>
 
-        <!-- toolbar-spacer removed; toolbar is now absolutely positioned -->
-
+        <!-- Toolbar: absolutely positioned at bottom center -->
         <ui:VisualElement name="ToolbarSlots" class="toolbar-slots">
             <ui:VisualElement name="ToolbarSlot0" class="tool-slot tool-slot--selected">
                 <ui:Label name="ToolSlotLabel0" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot1" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel1" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot2" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel2" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot3" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel3" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot4" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel4" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot5" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel5" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot6" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel6" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot7" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel7" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot8" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel8" class="tool-slot-count" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot9" class="tool-slot">
-                <!-- tool-slot-icon removed in favor of kit chrome -->
                 <ui:Label name="ToolSlotLabel9" class="tool-slot-count" />
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <!-- ============================================== -->
-        <!-- HOMESTEADER SMARTPHONE DEVICE (TOGGLED VIA TAB) -->
-        <!-- ============================================== -->
+        <!-- Phone: absolutely positioned center-right -->
         <ui:VisualElement name="PhoneWrapper" class="phone-wrapper phone-wrapper--hidden">
             <ui:VisualElement class="phone-chassis">
                 <ui:VisualElement class="phone-screen">
@@ -883,6 +871,7 @@
                     <ui:Label name="ModalMessage" text="Are you sure you want to discard unsaved homestead changes?" class="modal-text" />
                     <ui:VisualElement class="modal-button-row">
                         <ui:Button name="ModalCancelBtn" text="Cancel" class="action-btn action-btn--secondary" />
+                        <ui:Button name="ModalThirdBtn" text="" class="action-btn action-btn--secondary" style="display: none;" />
                         <ui:Button name="ModalConfirmBtn" text="Confirm" class="action-btn action-btn--primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
