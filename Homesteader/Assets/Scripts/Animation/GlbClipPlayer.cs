@@ -261,9 +261,24 @@ namespace Homesteader.Animation
         /// Drives locomotion from a 0-1 speed value, matching the convention PedController
         /// already uses for its Animator path. carrying selects the carry clip when present.
         /// </summary>
+        [Tooltip("Seconds the character must stay stopped before switching to idle. Absorbs key-release gaps and frame hitches.")]
+        public float idleGraceSeconds = 0.2f;
+
+        private float lastMovingTime = -10f;
+
         public void SetLocomotion(float speed01, bool carrying = false)
         {
-            if (!isReady) return;
+            if (!isReady || actionLocked) return;
+
+            if (speed01 > 0.01f)
+            {
+                lastMovingTime = Time.unscaledTime;
+            }
+            else if (Time.unscaledTime - lastMovingTime < idleGraceSeconds &&
+                     (currentClip == walkClip || currentClip == runClip))
+            {
+                return; // just stopped a moment ago: keep the current gait instead of flickering to idle
+            }
 
             string desired;
             if (speed01 <= 0.01f)
@@ -315,6 +330,86 @@ namespace Homesteader.Animation
             legacyAnimation.CrossFade(clipName, crossFadeSeconds, UnityEngine.PlayMode.StopSameLayer);
             currentClip = clipName;
             return true;
+        }
+
+        // ---- Upper-body layer (hold lantern / flashlight) ----
+        // Plays a clip that only animates part of the skeleton (for example the right arm) on layer 1,
+        // restricted to that bone subtree, so the legs and torso keep walking / running underneath.
+
+        // ---- Full-body action mode (dig, hoe, pet, kneel, sleep ...) ----
+        // While an action is active, locomotion is ignored so walk/idle does not overwrite it.
+        // PedController ends the action as soon as the player moves.
+        private bool actionLocked;
+
+        public bool ActionActive => actionLocked;
+        public string CurrentAction { get; private set; }
+
+        /// <summary>Plays a full-body clip and holds it until EndAction (or the player moves).</summary>
+        public bool BeginAction(string clipName, bool loop = true, float fade = 0.2f)
+        {
+            if (!isReady || legacyAnimation == null || !clips.ContainsKey(clipName)) return false;
+            AnimationState state = legacyAnimation[clipName];
+            if (state == null) return false;
+            StopUpperBody(fade);
+            actionLocked = true;
+            CurrentAction = clipName;
+            state.layer = 0;
+            state.wrapMode = loop ? WrapMode.Loop : WrapMode.ClampForever;
+            legacyAnimation.CrossFade(clipName, fade, PlayMode.StopSameLayer);
+            currentClip = clipName;
+            return true;
+        }
+
+        /// <summary>Releases the action; the next SetLocomotion call fades back to idle / walk.</summary>
+        public void EndAction()
+        {
+            actionLocked = false;
+            CurrentAction = null;
+            currentClip = "<none>";
+        }
+
+        private string upperClip;
+        private Transform upperRoot;
+        private readonly HashSet<string> mixingSet = new HashSet<string>();
+
+        /// <summary>Fades in an upper-body clip over the locomotion. rootBone is the top bone it may affect.</summary>
+        public bool PlayUpperBody(string clipName, string rootBone = "RightArm", float fade = 0.2f)
+        {
+            if (!isReady || legacyAnimation == null || string.IsNullOrEmpty(clipName)) return false;
+            if (!clips.ContainsKey(clipName)) return false;
+            AnimationState state = legacyAnimation[clipName];
+            if (state == null) return false;
+            if (upperClip == clipName && state.weight > 0.5f) return true;
+
+            if (upperRoot == null || upperRoot.name != rootBone) upperRoot = FindBone(rootBone);
+            if (upperRoot == null) return false;
+
+            state.layer = 1;
+            state.wrapMode = WrapMode.Loop;
+            state.blendMode = AnimationBlendMode.Blend;
+            if (mixingSet.Add(clipName)) state.AddMixingTransform(upperRoot, true);
+
+            if (upperClip != null && upperClip != clipName) legacyAnimation.Blend(upperClip, 0f, fade);
+            legacyAnimation.Blend(clipName, 1f, fade);
+            state.enabled = true;
+            upperClip = clipName;
+            return true;
+        }
+
+        /// <summary>Fades the upper-body clip out; the locomotion clips show through again.</summary>
+        public void StopUpperBody(float fade = 0.2f)
+        {
+            if (!isReady || legacyAnimation == null || upperClip == null) return;
+            legacyAnimation.Blend(upperClip, 0f, fade);
+            upperClip = null;
+        }
+
+        /// <summary>Finds a bone by name under this character (null until the GLB has loaded).</summary>
+        public Transform FindBone(string boneName)
+        {
+            foreach (Transform t in GetComponentsInChildren<Transform>(true))
+                if (t.name == boneName) return t;
+            return null;
         }
 
         /// <summary>True if the loaded model carries a clip by this name.</summary>

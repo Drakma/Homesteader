@@ -28,6 +28,8 @@ Shader "Homesteader/GenerativeTerrainURP"
             #pragma fragment frag
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _SHADOWS_SOFT
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -71,6 +73,31 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             // Global Weather parameters set via Shader.SetGlobalVector("_WeatherGroundEffects", ...)
             float4 _WeatherGroundEffects;
+
+            // Smooth 2D value noise in [0,1] (used for patchy snow accumulation).
+            float SnowHash(float2 p)
+            {
+                return frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);
+            }
+
+            float SnowValueNoise(float2 p)
+            {
+                float2 i = floor(p);
+                float2 f = frac(p);
+                float2 u = f * f * (3.0 - 2.0 * f);
+                return lerp(lerp(SnowHash(i), SnowHash(i + float2(1, 0)), u.x),
+                            lerp(SnowHash(i + float2(0, 1)), SnowHash(i + float2(1, 1)), u.x), u.y);
+            }
+
+            // Footprint mask written by SnowFootprints.cs: R = print strength, top-down over the terrain.
+            // _SnowFootprintRect = (originX, originZ, 1/sizeX, 1/sizeZ).
+            TEXTURE2D(_SnowFootprintTex);
+            float4 _SnowFootprintRect;
+            // Cleared-snow mask (shovel / plow / vehicles), same coverage rect. R = 1 where snow was removed.
+            TEXTURE2D(_SnowClearedTex);
+            // Terrain basin map from PuddleBasinMap.cs: 1 = hollow / low ground (puddles collect), 0 = high ground.
+            TEXTURE2D(_PuddleBasinTex);
+            float4 _PuddleBasinRect;
 
             Varyings vert(Attributes input)
             {
@@ -306,25 +333,96 @@ Shader "Homesteader/GenerativeTerrainURP"
                 // _WeatherGroundEffects: (X = SnowCoverage [0..1], Y = GroundWetness [0..1], Z = reserved, W = reserved)
                 float globalSnow = saturate(_WeatherGroundEffects.x);
                 float globalWet = saturate(_WeatherGroundEffects.y);
+                half3 puddleGlint = half3(0, 0, 0); // added after lighting so it stays a bright highlight
+                float snowMask = 0.0; // how much of this pixel is snow-covered (drives neutral lighting below)
 
                 if (!isWater)
                 {
                     // Darken and enrich ground saturation when soaked with rain
                     if (globalWet > 0.01)
                     {
-                        col = lerp(col, col * 0.68, globalWet * 0.75);
+                        // 1) Progressive darkening: the ground darkens as it soaks (wetness rises slowly).
+                        col = lerp(col, col * 0.52, smoothstep(0.0, 1.0, globalWet) * 0.9);
+
+                        // 2) Puddles: appear once the ground is damp, start as small pools, grow, then
+                        //    merge into larger ones. Only on flat ground.
+                        float level = smoothstep(0.35, 1.0, globalWet);
+                        float flatness = smoothstep(0.90, 0.985, normWS.y);
+                        float2 pp = posWS.xz;
+                        float pnSmall = SnowValueNoise(pp * 0.35) * 0.5 + SnowValueNoise(pp * 0.9) * 0.3 + SnowValueNoise(pp * 2.3) * 0.2;
+                        float pnBig = SnowValueNoise(pp * 0.09) * 0.6 + SnowValueNoise(pp * 0.22) * 0.4;
+                        float pn = lerp(pnSmall, pnBig, smoothstep(0.4, 0.9, level) * 0.6);
+                        // Water collects in low ground first: hollows get a big head start, so as it rains
+                        // puddles appear in the basins, then spread outward and uphill as the level rises,
+                        // and retreat back into the basins as the ground dries.
+                        float2 basinUv = (posWS.xz - _PuddleBasinRect.xy) * _PuddleBasinRect.zw;
+                        float basin = SAMPLE_TEXTURE2D(_PuddleBasinTex, sampler_linear_clamp, basinUv).r;
+                        basin *= step(1e-6, _PuddleBasinRect.z); // no map yet -> no bias
+                        pn = pn - basin * 0.32 + 0.10;
+                        float threshold = 0.28 + level * 0.22;
+                        float puddle = saturate((threshold - pn) / 0.05) * flatness * smoothstep(0.0, 0.15, level);
+                        puddle *= 1.0 - saturate(globalSnow * 2.0); // snow covers puddles
+
+                        if (puddle > 0.001)
+                        {
+                            // Dark, cool, glossy water over the wet ground.
+                            half3 pudCol = lerp(col * 0.30, half3(0.10, 0.15, 0.22), 0.55);
+
+                            // Raindrop ripples: expanding rings on a jittered grid, only while it rains.
+                            float rainNow = saturate(_WeatherGroundEffects.z);
+                            float2 g = pp * 1.6;
+                            float2 cell = floor(g);
+                            float2 fcell = frac(g) - 0.5;
+                            float2 rc = (float2(SnowHash(cell), SnowHash(cell + 7.3)) - 0.5) * 0.6;
+                            float ph = frac(_Time.y * 0.9 + SnowHash(cell + 3.1));
+                            float ring = (1.0 - smoothstep(0.0, 0.03, abs(length(fcell - rc) - ph * 0.45))) * (1.0 - ph);
+                            pudCol += ring * rainNow * 0.22;
+
+                            col = lerp(col, pudCol, puddle * 0.9);
+
+                            // Sun glint on the water surface.
+                            Light glintLight = GetMainLight();
+                            float3 viewDirW = normalize(_WorldSpaceCameraPos - posWS);
+                            float3 refl = reflect(-viewDirW, float3(0, 1, 0));
+                            float glint = pow(saturate(dot(refl, glintLight.direction)), 48.0);
+                            puddleGlint = half3(glintLight.color) * (glint * puddle * 0.5);
+                        }
                     }
 
                     // Snow accumulates on upward facing surfaces (normalWS.y > 0.25)
                     if (globalSnow > 0.01)
                     {
                         float upwardBias = saturate((normWS.y - 0.25) / 0.55);
-                        float snowNoise = frac(sin(dot(posWS.xz, float2(12.9898, 78.233))) * 43758.5453);
-                        float snowThreshold = 1.0 - globalSnow;
-                        float snowCoverage = saturate((upwardBias - snowThreshold * 0.5) / 0.5);
+                        // Accumulation stages, driven by globalSnow (0..1):
+                        //   thin dusting  -> a faint, even veil
+                        //   splotchy      -> small patches (fine noise) appear and spread
+                        //   large clumps  -> the patches merge into big drifts (noise scale grows)
+                        //   full          -> everything covered
+                        float c = globalSnow;
+                        float2 sp = posWS.xz;
+                        float nFine  = SnowValueNoise(sp * 1.3) * 0.6 + SnowValueNoise(sp * 3.1) * 0.4;
+                        float nLarge = SnowValueNoise(sp * 0.11) * 0.65 + SnowValueNoise(sp * 0.3) * 0.35;
+                        float n = lerp(nFine, nLarge, smoothstep(0.35, 0.75, c));
+                        float patchy = saturate((c * 1.3 - n) / 0.10);
+                        float thin = smoothstep(0.0, 0.3, c) * 0.35;
+                        float snowCoverage = max(thin, patchy) * upwardBias;
 
                         half3 snowColor = half3(0.92, 0.95, 0.99); // Soft crystalline winter white
-                        col = lerp(col, snowColor, snowCoverage * globalSnow);
+                        // Ramp coverage up faster than the raw accumulation value so the ground turns
+                        // white early in a snowfall instead of staying brown until it is near 1.0.
+                        // Snow removal: cleared areas stay bare until new snow refills them.
+                        float2 clUv = (posWS.xz - _SnowFootprintRect.xy) * _SnowFootprintRect.zw;
+                        float cleared = SAMPLE_TEXTURE2D(_SnowClearedTex, sampler_linear_clamp, clUv).r;
+                        cleared *= step(1e-6, _SnowFootprintRect.z);
+                        float rawSnow = snowCoverage * (1.0 - cleared);
+                        float2 fpUv = (posWS.xz - _SnowFootprintRect.xy) * _SnowFootprintRect.zw;
+                        float footprint = SAMPLE_TEXTURE2D(_SnowFootprintTex, sampler_linear_clamp, fpUv).r;
+                        footprint *= step(1e-6, _SnowFootprintRect.z); // no mask bound yet -> no prints
+                        half3 groundCol = col;
+                        snowMask = rawSnow * (1.0 - footprint);
+                        col = lerp(groundCol, snowColor, snowMask);
+                        // Trodden snow: the ground shows through, slightly darker than untouched ground.
+                        col = lerp(col, groundCol * 0.8, rawSnow * footprint);
                     }
                 }
 
@@ -337,9 +435,48 @@ Shader "Homesteader/GenerativeTerrainURP"
                 // color. This is a stylized/cel shader, not HDR, so the lit color is never meant
                 // to exceed 1.
                 half3 litColor = saturate(mainLight.color);
+                // Ambient floor: with a weak sun (night, dusk, storms) the terrain would go almost black,
+                // because this shader only reads the main light. Keep a cool ambient minimum.
+                litColor = max(litColor, (half3)(unity_AmbientSky.rgb * 0.9));
                 float ndotl = max(0.0, dot(normWS, mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
+                // Snow must read white, not brown: the sun is dimmed and warm-tinted in winter
+                // weather, and multiplying white by that gives a muddy tan. On snow-covered
+                // pixels use a neutral cool-white light with a brightness floor and skip the
+                // darkest cel band.
+                half sunLuma = dot(litColor, half3(0.299, 0.587, 0.114));
+                half3 snowLit = half3(0.96, 0.98, 1.0) * max(sunLuma, 0.9);
+                litColor = lerp(litColor, snowLit, snowMask);
+                celLight = lerp(celLight, max(celLight, 0.95), snowMask);
                 half3 finalRGB = col * (litColor * celLight);
+                finalRGB += puddleGlint;
+
+                // Additional lights (player flashlight / lantern, later lamps): cel-stepped like the sun.
+                #if defined(USE_CLUSTER_LIGHT_LOOP) || defined(USE_FORWARD_PLUS)
+                {
+                    InputData inputData = (InputData)0;
+                    inputData.positionWS = posWS;
+                    inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
+                    uint addCount = GetAdditionalLightsCount();
+                    LIGHT_LOOP_BEGIN(addCount)
+                        Light al = GetAdditionalLight(lightIndex, posWS);
+                        float aNdl = saturate(dot(normWS, al.direction));
+                        float aCel = step(0.05, aNdl) * 0.5 + aNdl * 0.5;
+                        finalRGB += col * al.color * (al.distanceAttenuation * al.shadowAttenuation * aCel);
+                    LIGHT_LOOP_END
+                }
+                #elif defined(_ADDITIONAL_LIGHTS)
+                {
+                    uint addCount = GetAdditionalLightsCount();
+                    for (uint li = 0u; li < addCount; ++li)
+                    {
+                        Light al = GetAdditionalLight(li, posWS);
+                        float aNdl = saturate(dot(normWS, al.direction));
+                        float aCel = step(0.05, aNdl) * 0.5 + aNdl * 0.5;
+                        finalRGB += col * al.color * (al.distanceAttenuation * al.shadowAttenuation * aCel);
+                    }
+                }
+                #endif
 
                 // Ground grid: 1 m world-space lines drawn over EVERY ground texture (biomes,
                 // water, snow, ...), matching the old T_Ground_GrassGrid tile (2 px of 64 = 3.1 cm).

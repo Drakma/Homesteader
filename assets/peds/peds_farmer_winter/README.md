@@ -31,6 +31,9 @@ An older male farmer in modern winter work gear - navy beanie, fur-trimmed insul
 | `peds_farmer_winter_walk.glb` | walking (Meshy) |
 | `peds_farmer_winter_run.glb` | running (Meshy) |
 | `peds_farmer_winter_farm_anims.glb` | `Chop_Tree_RT`, `Farm_Harvest_RT`, `Farm_PlantSeed_RT`, `Farm_Watering_RT`, `Idle_A_RT`, `Sleeping_RT` (Mesh2Motion) |
+| `peds_farmer_winter_extra_anims.glb` | `Walk_Carry_RT`, `Fixing_Kneeling_RT`, `Crouch_Idle_RT`, `Push_RT` (Mesh2Motion) |
+| `peds_farmer_winter_work_anims.glb` | `Dig`, `Hoe`, `Pet` (full body), `Drag` (upper body) (Blender, IK-posed) |
+| `peds_farmer_winter_hold.glb` | `Hold_Lantern`, `Hold_Flashlight` (Blender, right arm only, layered over locomotion) |
 
 Arm clearance was verified numerically: hands stay 0.43-0.84 torso-lengths from the spine axis in every clip (same range as Meshy's own walk/run). An earlier export had hands at 0.02-0.28, i.e. inside the torso, because Mesh2Motion assumed a T-pose target (see `docs/MESH2MOTION_SETUP.md`, section 9).
 
@@ -53,3 +56,6 @@ The farm-animation file's inverse bind matrices are identical to `peds_farmer_wi
 - **Walk animation (GLB)**: [peds_farmer_winter_walk.glb](peds_farmer_winter_walk.glb)
 - **Run animation (GLB)**: [peds_farmer_winter_run.glb](peds_farmer_winter_run.glb)
 - **Farm animations (GLB)**: [peds_farmer_winter_farm_anims.glb](peds_farmer_winter_farm_anims.glb)
+- **Hold clips (GLB)**: [peds_farmer_winter_hold.glb](peds_farmer_winter_hold.glb)
+- **Extra clips (GLB)**: [peds_farmer_winter_extra_anims.glb](peds_farmer_winter_extra_anims.glb)
+- **Work clips (GLB)**: [peds_farmer_winter_work_anims.glb](peds_farmer_winter_work_anims.glb)

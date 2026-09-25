@@ -50,10 +50,10 @@ namespace Homesteader
         [SerializeField] private float _lightningFlashDuration = 0.12f;
 
         [Header("Accumulation Dynamics")]
-        [SerializeField] private float _snowAccumulationRate = 0.035f;  // snow depth per second during snow
-        [SerializeField] private float _snowMeltRate = 0.015f;          // snow melt per second during warm/clear
-        [SerializeField] private float _wetnessGainRate = 0.08f;        // wetness gain per second during rain
-        [SerializeField] private float _wetnessDryingRate = 0.02f;      // drying per second without rain
+        [SerializeField] private float _snowAccumulationPerGameHour = 0.4f; // 1.0 = about one inch: 2.5 game hours of normal snow, 1 hour in a blizzard (x2.5)
+        [SerializeField] private float _snowMeltPerGameHour = 0.3f;      // snow melt per game hour when not snowing (an inch in ~3 hours; rain x3)
+        [SerializeField] private float _wetnessGainRate = 0.008f;       // wetness gain per second during rain (~2 min to soak)
+        [SerializeField] private float _wetnessDryingRate = 0.006f;     // drying per second without rain (~3 min to dry out)
 
         // ── Runtime state ────────────────────────────────────────────────
         private ParticleSystem _rainPS;
@@ -66,6 +66,7 @@ namespace Homesteader
 
         private float _currentSnowCoverage = 0f;
         private float _currentGroundWetness = 0f;
+        private float _currentRainNow = 0f;   // smoothed 0..1 "raining right now" for ripples
 
         private HomesteaderWeather _currentWeather = HomesteaderWeather.Sunny;
         private float _targetFogDensity;
@@ -178,6 +179,13 @@ namespace Homesteader
         private void UpdateGroundAccumulation()
         {
             float dt = Time.deltaTime;
+            // Snow depth follows GAME time (so it respects the time-speed setting), not real seconds.
+            float gameHours = 0f;
+            if (TimeSystem.Instance != null)
+            {
+                gameHours = dt * TimeConstants.GameMinutesPerRealSecondAt1X
+                            * TimeSystem.SpeedToMultiplier(TimeSystem.Instance.CurrentSpeed) / 60f;
+            }
             bool isRaining = (_currentWeather == HomesteaderWeather.Rain || _currentWeather == HomesteaderWeather.Thunderstorm);
             bool isSnowing = (_currentWeather == HomesteaderWeather.Snow || _currentWeather == HomesteaderWeather.Blizzard);
             float snowRateMult = (_currentWeather == HomesteaderWeather.Blizzard) ? 2.5f : 1.0f;
@@ -196,18 +204,20 @@ namespace Homesteader
             // Snow Coverage
             if (isSnowing)
             {
-                _currentSnowCoverage = Mathf.MoveTowards(_currentSnowCoverage, 1.0f, _snowAccumulationRate * snowRateMult * dt);
+                _currentSnowCoverage = Mathf.MoveTowards(_currentSnowCoverage, 1.0f, _snowAccumulationPerGameHour * snowRateMult * gameHours);
             }
             else
             {
                 // Snow melts faster in rain or direct sun
                 float meltMult = isRaining ? 3.0f : 1.0f;
-                _currentSnowCoverage = Mathf.MoveTowards(_currentSnowCoverage, 0f, _snowMeltRate * meltMult * dt);
+                _currentSnowCoverage = Mathf.MoveTowards(_currentSnowCoverage, 0f, _snowMeltPerGameHour * meltMult * gameHours);
             }
 
             // Push global parameters to shaders (terrain, foliage, buildings)
-            // X = SnowCoverage [0..1], Y = GroundWetness [0..1]
-            Shader.SetGlobalVector("_WeatherGroundEffects", new Vector4(_currentSnowCoverage, _currentGroundWetness, 0f, 0f));
+            // X = SnowCoverage [0..1], Y = GroundWetness [0..1], Z = rain-now [0..1]
+            float rainTarget = isRaining ? ((_currentWeather == HomesteaderWeather.Thunderstorm) ? 1.0f : 0.7f) : 0f;
+            _currentRainNow = Mathf.MoveTowards(_currentRainNow, rainTarget, 0.5f * dt);
+            Shader.SetGlobalVector("_WeatherGroundEffects", new Vector4(_currentSnowCoverage, _currentGroundWetness, _currentRainNow, 0f));
         }
 
         // ── Public API ───────────────────────────────────────────────────

@@ -30,11 +30,11 @@ namespace Homesteader
         [SerializeField] private float _springSunIntensity = 1.8f;
         [SerializeField] private float _autumnSunIntensity = 1.7f;
         [SerializeField] private float _winterSunIntensity = 1.4f;
-        [SerializeField] private float _moonIntensity = 0.25f;
+        [SerializeField] private float _moonIntensity = 0.5f;
 
         [Header("Ambient Lighting")]
         [SerializeField] private Color _dayAmbientColor = new Color(0.38f, 0.42f, 0.48f);
-        [SerializeField] private Color _nightAmbientColor = new Color(0.08f, 0.10f, 0.16f);
+        [SerializeField] private Color _nightAmbientColor = new Color(0.17f, 0.21f, 0.31f);
 
         // Canonical world East and South vectors for Homesteader's default isometric view (Yaw = -45°)
         // In the standard camera angle, looking towards (-X, +Z):
@@ -47,6 +47,9 @@ namespace Homesteader
         private void Awake()
         {
             ResolveReferences();
+            // The day/night ambient colour below is only used in Flat mode. In the default Skybox
+            // mode it is ignored, so anything lit (the player, props) stayed evenly bright at night.
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
         }
 
         private void OnEnable()
@@ -295,15 +298,16 @@ namespace Homesteader
                 _celestialLight.transform.rotation = Quaternion.LookRotation(-dirToMoon, Vector3.up);
 
                 float moonHeightFactor = Mathf.Sin(beta);
-                float moonFade = Mathf.SmoothStep(0f, 1f, moonHeightFactor * 2.5f);
-                float moonCycleBrightness = timeSystem.GetMoonPhaseBrightness(0.05f);
+                // Floor the fade so the moon never fully goes out at the start / end of the night.
+                float moonFade = Mathf.Max(0.4f, Mathf.SmoothStep(0f, 1f, moonHeightFactor * 2.5f));
+                float moonCycleBrightness = timeSystem.GetMoonPhaseBrightness(0.45f); // new moon is still readable
 
                 _celestialLight.intensity = _moonIntensity * moonFade * moonCycleBrightness;
                 Color moonColor = GetSeasonNightMoonColor(season);
                 _celestialLight.color = moonColor;
                 _celestialLight.shadowStrength = Mathf.Lerp(0.05f, 0.45f, moonCycleBrightness);
 
-                RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, moonColor * (0.08f + 0.25f * moonCycleBrightness), moonFade);
+                RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, moonColor * (0.16f + 0.25f * moonCycleBrightness), moonFade);
             }
         }
 

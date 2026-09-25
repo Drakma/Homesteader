@@ -42,6 +42,21 @@
       "file": "peds_farmer_winter_farm_anims.glb",
       "format": "glb",
       "description": "Same rig with six clips retargeted in Mesh2Motion: Chop_Tree_RT, Farm_Harvest_RT, Farm_PlantSeed_RT, Farm_Watering_RT, Idle_A_RT, Sleeping_RT. Bind matrices verified identical to the rigged GLB."
+    },
+    {
+      "file": "peds_farmer_winter_hold.glb",
+      "format": "glb",
+      "description": "Upper-body hold clips authored in Blender (right arm only, 2 s loops): Hold_Lantern (arm raised, hand above shoulder) and Hold_Flashlight (arm forward, aimed level). Layered over walk/run/idle in game."
+    },
+    {
+      "file": "peds_farmer_winter_extra_anims.glb",
+      "format": "glb",
+      "description": "Mesh2Motion retargets: Walk_Carry_RT (two-arm carry walk), Fixing_Kneeling_RT (kneel), Crouch_Idle_RT, Push_RT."
+    },
+    {
+      "file": "peds_farmer_winter_work_anims.glb",
+      "format": "glb",
+      "description": "Blender-authored work clips (IK-posed, feet planted): Dig, Hoe, Pet (full body) and Drag (upper body only, layered over walking)."
     }
   ],
   "utilities": {
@@ -88,7 +103,17 @@
       "farm_plant_seed",
       "farm_watering",
       "idle",
-      "sleeping"
+      "sleeping",
+      "hold_lantern",
+      "hold_flashlight",
+      "carry",
+      "kneel",
+      "crouch_idle",
+      "push",
+      "dig",
+      "hoe",
+      "pet",
+      "drag"
     ]
   },
   "plugin_metadata": {

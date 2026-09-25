@@ -480,6 +480,7 @@ namespace Homesteader.UI
             // Block spatial/directional UI navigation (WASD, Arrow keys) from scrolling or shifting focus while walking
             element.RegisterCallback<NavigationMoveEvent>(evt =>
             {
+                evt.PreventDefault(); // StopPropagation alone still lets the default focus move happen
                 evt.StopPropagation();
             }, TrickleDown.TrickleDown);
 
@@ -497,6 +498,7 @@ namespace Homesteader.UI
                     evt.keyCode == KeyCode.UpArrow || evt.keyCode == KeyCode.DownArrow ||
                     evt.keyCode == KeyCode.LeftArrow || evt.keyCode == KeyCode.RightArrow)
                 {
+                    evt.PreventDefault();
                     evt.StopPropagation();
                 }
             }, TrickleDown.TrickleDown);

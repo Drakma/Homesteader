@@ -222,6 +222,17 @@ namespace Homesteader.UI
             if (_doc == null) _doc = GetComponent<UIDocument>();
             if (_doc == null) { return; }
             _root = _doc.rootVisualElement;
+
+            // WASD / arrows are walking keys, not UI navigation. The default UI input module turns them
+            // into NavigationMoveEvents that move keyboard focus, which can land on a TextField (for
+            // example inside the phone) and make KeyboardCaptured true - the character then stops until
+            // focus moves on. Cancel navigation moves everywhere except while a text field is being typed in.
+            _root.RegisterCallback<NavigationMoveEvent>(evt =>
+            {
+                if (IsTextInputFocused()) return;
+                evt.PreventDefault();
+                evt.StopPropagation();
+            }, TrickleDown.TrickleDown);
             if (_root == null) { return; }
 
             // Guard: ensure the tree is actually mounted by checking for key elements

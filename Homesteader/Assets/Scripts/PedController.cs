@@ -19,6 +19,9 @@ public class PedController : MonoBehaviour
 
     public bool IsMoving { get; private set; }
 
+    /// <summary>When true, walking uses the two-arm carry clip (Walk_Carry).</summary>
+    public bool Carrying { get; set; }
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -147,7 +150,8 @@ public class PedController : MonoBehaviour
 
         if (glbPlayer != null)
         {
-            glbPlayer.SetLocomotion(move.magnitude * (running ? 1f : 0.5f));
+            if (IsMoving && glbPlayer.ActionActive) glbPlayer.EndAction(); // moving cancels dig / hoe / pet / kneel ...
+            glbPlayer.SetLocomotion(move.magnitude * (running ? 1f : 0.5f), Carrying);
         }
 
         if (animator != null)

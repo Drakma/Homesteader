@@ -173,12 +173,16 @@ namespace Homesteader.UI
                             {
                                 System.IO.Path.Combine(farmerDir, "peds_farmer_winter_walk.glb"),
                                 System.IO.Path.Combine(farmerDir, "peds_farmer_winter_run.glb"),
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_hold.glb"),
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_extra_anims.glb"),
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_work_anims.glb"),
                             },
                             new System.Collections.Generic.Dictionary<string, string>
                             {
                                 { "walking", "Walk" },
                                 { "running", "Run" },
                                 { "Idle_A", "Idle" },
+                                { "Walk_Carry", "Walk_Carry" }, // strips the _RT suffix so the carry lookup finds it
                             });
                     }
                     else if (modelPrefab != null)
@@ -222,6 +226,16 @@ namespace Homesteader.UI
                 // The winter farmer GLB already faces the way LookRotation points; the old
                 // prefab needed a 180 degree flip.
                 if (usesGlbPed) ped.modelRotationOffset = 0f;
+                if (usesGlbPed && playerObj.GetComponent<SnowFootprints>() == null)
+                    playerObj.AddComponent<SnowFootprints>();
+                if (usesGlbPed && playerObj.GetComponent<PuddleBasinMap>() == null)
+                    playerObj.AddComponent<PuddleBasinMap>();
+                if (usesGlbPed && playerObj.GetComponent<PlayerLight>() == null)
+                    playerObj.AddComponent<PlayerLight>();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (usesGlbPed && playerObj.GetComponent<WorkAnimTester>() == null)
+                    playerObj.AddComponent<WorkAnimTester>();
+#endif
 
                 var anim = usesGlbPed ? null : playerObj.GetComponentInChildren<Animator>();
                 if (anim == null && !usesGlbPed)
