@@ -1,0 +1,21 @@
+{
+  "id": "1790050299_lemon_tree_growth_group_5_stages_meshy_generation",
+  "title": "Lemon tree growth group (5 stages) - Meshy generation",
+  "plan": [
+    "5 stages: sapling, small, medium, mature, fruiting (logging category)",
+    "Each stage uses its own prompt from the request (sapling/small/medium/mature = no fruit, fruiting = fruit present)",
+    "Per-stage target heights: 0.75m / 1.5m / 2.25m / 3.25m / 3.25m - uniform scale-by-height (width/depth left blank, per the new dimension rule)",
+    "Icon rendered from each finished GLB after rescaling (free, local Blender render)",
+    "OPTION A: ai_model=meshy-5, standard topology (lowpoly not supported on meshy-5) = 5+10=15 credits/stage = 75 total. Balance 95 -> 20 after.",
+    "OPTION B: ai_model=meshy-6, lowpoly = 20+10=30 credits/stage = 150 total. NOT AFFORDABLE right now - balance is only 95, this would go negative by 55 credits."
+  ],
+  "cost": {
+    "option_a_meshy": 75,
+    "option_b_meshy": 150,
+    "balance_now": 95,
+    "option_b_affordable": false
+  },
+  "status": "approved",
+  "created_at": "2026-09-22T04:11:39Z",
+  "resolved_at": "2026-09-22T04:13:33Z"
+}

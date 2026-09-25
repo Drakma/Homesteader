@@ -1,0 +1,17 @@
+{
+  "id": "1790044405_orange_tree_cost_correction_needed_pick_a_model",
+  "title": "Orange tree - cost correction needed (pick a model)",
+  "plan": [
+    "Your original approval (75 credits) assumed meshy-6 lowpoly costs ~15/item per CLAUDE.md - that figure is stale/wrong.",
+    "OPTION A: ai_model=meshy-5 (lowpoly) = 5 preview + 10 refine = 15/item = 75 total (matches what you already approved, lower-gen quality)",
+    "OPTION B: ai_model=meshy-6 (lowpoly) = 20 preview + 10 refine = 30/item = 150 total (better quality, double the approved cost, balance 170 -> 20)"
+  ],
+  "cost": {
+    "option_a_meshy": 75,
+    "option_b_meshy": 150,
+    "balance_now": 170
+  },
+  "status": "denied",
+  "created_at": "2026-09-22T02:33:25Z",
+  "resolved_at": "2026-09-22T02:53:15Z"
+}

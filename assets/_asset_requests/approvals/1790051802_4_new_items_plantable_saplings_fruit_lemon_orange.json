@@ -1,0 +1,22 @@
+{
+  "id": "1790051802_4_new_items_plantable_saplings_fruit_lemon_orange",
+  "title": "4 new items: plantable saplings + fruit (lemon/orange)",
+  "plan": [
+    "Plantable Sapling Lemon (logging) - matches plantable_sapling_apple style (sack + young tree), target 0.05x0.05x0.15m",
+    "Plantable Orange Sapling (logging) - same style/size",
+    "Orange (food) - single navel orange, real-world size ~0.075m, hunger_restore per food schema",
+    "Lemon (food) - single large lemon, real-world size ~0.075m x 0.055m, hunger_restore per food schema",
+    "Each: Meshy text-to-3D meshy-5 standard, decimated to 3000 tris, rescaled to target size in Blender - 15 credits/item = 60 total",
+    "Balance 355 -> 295 after"
+  ],
+  "cost": {
+    "meshy_per_item": 15,
+    "items": 4,
+    "meshy_total": 60,
+    "balance_now": 355,
+    "balance_after": 295
+  },
+  "status": "approved",
+  "created_at": "2026-09-22T04:36:42Z",
+  "resolved_at": "2026-09-22T04:36:52Z"
+}

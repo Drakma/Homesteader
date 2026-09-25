@@ -157,7 +157,7 @@ namespace Homesteader.UI
 
     public class TimeSystem
     {
-        private int _dayOfYear = 1;
+        private int _dayOfYear = 141; // Jun 1 - start the game in Summer
         private float _minuteOfDay = 8f * 60f; // Start at 08:00 AM
         private HomesteaderSpeed _speed = HomesteaderSpeed.Speed1X;
         private long _tickCount = 0;

@@ -20,16 +20,10 @@ namespace Homesteader.UI
         [Header("Drag the UXML assets here OR leave null and use the " +
                 "Resources fallback below.")]
         [SerializeField] private VisualTreeAsset _hudAsset;
-        [SerializeField] private VisualTreeAsset _toolbarAsset;
-        [SerializeField] private VisualTreeAsset _formAsset;
-        [SerializeField] private VisualTreeAsset _windowAsset;
 
         [Header("Resources fallback. Loads from any " +
                 "Assets/Resources/<Name>.uxml.")]
         [SerializeField] private string _hudResource = "HUDTree/HudUI";
-        [SerializeField] private string _toolbarResource = "HUDTree/Toolbar";
-        [SerializeField] private string _formResource = "HUDTree/FormPanel";
-        [SerializeField] private string _windowResource = "HUDTree/WindowPanel";
 
         [Header("Kit-sourced chrome overlay (assets/hud_kit/).")]
         [Tooltip("When enabled, an additional overlay UXML is mounted as a " +
@@ -38,9 +32,6 @@ namespace Homesteader.UI
                  "directly so kit chrome applies without the overlay tree; " +
                  "the overlay remains opt-in for decorative-only stages, " +
                  "but live values need to be bound into it.")]
-        [SerializeField] private bool _enableKitOverlay = false;
-        [SerializeField] private VisualTreeAsset _kitOverlayAsset;
-        [SerializeField] private string _kitOverlayResource = "HUDTree/HUDOverlay_kit";
         [SerializeField] private string _kitOverlayUssResource = "HUDTree/HudUI_kit";
 
         private void Awake()

@@ -79,7 +79,7 @@ namespace Homesteader.Growth
             string biomeName = null;
             if (biomeId == null)
             {
-                var generator = UnityEngine.Object.FindFirstObjectByType<HomesteaderTerrainGenerator>();
+                var generator = UnityEngine.Object.FindAnyObjectByType<HomesteaderTerrainGenerator>();
                 if (generator != null && generator.GetComponent<Terrain>() != null)
                 {
                     Vector3 origin = generator.transform.position;

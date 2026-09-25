@@ -1,0 +1,21 @@
+{
+  "id": "1790044247_orange_tree_growth_group_5_stages_meshy_text_to_3d",
+  "title": "Orange tree growth group (5 stages) - Meshy text-to-3D",
+  "plan": [
+    "5 stages: sapling, small, medium, mature, fruiting (logging category)",
+    "Each: Meshy text-to-3D preview + refine, model_type=lowpoly, ai_model=meshy-6",
+    "No fruit on first 4 stages; fruit only on the fruiting stage, per your prompt",
+    "Icon rendered from each finished GLB (free, local Blender render)",
+    "NOTE: Meshy text-to-3D is text-only - it cannot take a previous stage image as a literal visual reference. I will keep the prompt wording consistent stage-to-stage (same tree, same low-poly style) to approximate continuity, but it is not true image-conditioned reference like the Reference Asset picker uses for existing catalog items."
+  ],
+  "cost": {
+    "meshy": 75,
+    "meshy_per_item": 15,
+    "items": 5,
+    "balance_before": 170,
+    "balance_after_est": 95
+  },
+  "status": "approved",
+  "created_at": "2026-09-22T02:30:47Z",
+  "resolved_at": "2026-09-22T02:30:58Z"
+}

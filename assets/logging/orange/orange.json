@@ -1,0 +1,123 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "orange",
+  "name": "Orange",
+  "category": "logging",
+  "description": "A tree lifecycle growing through 5 stages (sapling -> small -> medium -> mature -> fruiting) over 300 days. No fruit is visible until the final fruiting stage. This group is the authoritative owner of the orange scheme.",
+  "icon": "orange.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "orange",
+    "max_age": 300,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0,
+        "age_max": 100,
+        "resource": "stages/tree_sapling/",
+        "model": "tree_sapling_orange.glb",
+        "icon": "tree_sapling_orange.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 100,
+        "age_max": 199,
+        "resource": "stages/tree_small/",
+        "model": "tree_small_orange.glb",
+        "icon": "tree_small_orange.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 199,
+        "age_max": 290,
+        "resource": "stages/tree_medium/",
+        "model": "tree_medium_orange.glb",
+        "icon": "tree_medium_orange.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 290,
+        "age_max": 299,
+        "resource": "stages/tree_mature/",
+        "model": "tree_mature_orange.glb",
+        "icon": "tree_mature_orange.png"
+      },
+      {
+        "stage": 5,
+        "name": "fruiting",
+        "age_min": 299,
+        "age_max": 300,
+        "resource": "stages/tree_fruiting/",
+        "model": "tree_fruiting_orange.glb",
+        "icon": "tree_fruiting_orange.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "mat_log_oak_uncut_long",
+        "amount_min": 1,
+        "amount_max": 1,
+        "tools": [
+          "#tools_axe"
+        ],
+        "stump": {
+          "resource": "../stump_oak_small/",
+          "model": "SM_Stump_Oak_Small.glb",
+          "icon": "stump_oak_small.png"
+        },
+        "extras": [
+          {
+            "item_id": "food_orange",
+            "amount_min": 5,
+            "amount_max": 10
+          }
+        ],
+        "harvest_stage": 4
+      },
+      "fruit": {
+        "is_fruiting": true,
+        "drops": [
+          {
+            "item_id": "food_orange",
+            "amount_min": 10,
+            "amount_max": 20
+          }
+        ],
+        "fruit_stage": 5,
+        "regrow_days": 30
+      },
+      "planting": {
+        "seasons": [
+          "year_round"
+        ],
+        "biomes": [
+          "biome_maintained_grass",
+          "biome_mixed_forest",
+          "biome_grass_plains",
+          "biome_meadow"
+        ],
+        "item_id": "plantable_sapling_orange"
+      },
+      "failure": {
+        "dead": {
+          "resource": "../tree_dead_snag/",
+          "model": "SM_Tree_Dead_Snag.glb",
+          "icon": "tree_dead_snag.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

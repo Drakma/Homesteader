@@ -71,7 +71,7 @@ namespace Homesteader.UI
         public string Unit;
         // For Fuel, this looks like { "gasoline": 12.5, "diesel": 0.0, ... }.
         // For other resources the dict stays empty.
-        public Dictionary<string, float> Subspecies = new Dictionary<string, float>();
+        [NonSerialized] public Dictionary<string, float> Subspecies = new Dictionary<string, float>();
 
         public Resource() { }
         public Resource(ResourceId id, float amount, string unit)
@@ -126,7 +126,7 @@ namespace Homesteader.UI
         public const float MetersToInches = 39.3701f;
 
         // Vitals - signed scale (-100..+100), start at +100 (full health, full stamina, etc.).
-        public Dictionary<VitalId, Vital> Vitals = new Dictionary<VitalId, Vital>
+        [NonSerialized] public Dictionary<VitalId, Vital> Vitals = new Dictionary<VitalId, Vital>
         {
             { VitalId.Wellness, new Vital(VitalId.Wellness, 100) },
             { VitalId.Stamina,  new Vital(VitalId.Stamina,  100) },
@@ -137,7 +137,7 @@ namespace Homesteader.UI
         // Resources - a new game starts with nothing: every resource at 0.
         // Units are kept so the HUD labels still format correctly once the
         // player acquires something.
-        public Dictionary<ResourceId, Resource> Resources = new Dictionary<ResourceId, Resource>
+        [NonSerialized] public Dictionary<ResourceId, Resource> Resources = new Dictionary<ResourceId, Resource>
         {
             { ResourceId.Water,       new Resource(ResourceId.Water, 0f, "L") },
             { ResourceId.Electricity, new Resource(ResourceId.Electricity, 0f, "MJ") },

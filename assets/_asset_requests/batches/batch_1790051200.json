@@ -1,0 +1,70 @@
+{
+  "batch_id": "batch_1790051200",
+  "finalized_at": "2026-09-22T04:26:40Z",
+  "items": [
+    {
+      "id": "1790050582_plantable_sapling_lemon",
+      "name": "Plantable Sapling Lemon",
+      "category": "logging",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "Create a lemon tree sapling",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-09-22T04:16:22Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "reference_category": "logging",
+      "reference_item_id": "plantable_sapling_apple",
+      "batch_id": "batch_1790051200",
+      "finalized_at": "2026-09-22T04:26:40Z"
+    },
+    {
+      "id": "1790050621_plantable_orange_sapling",
+      "name": "Plantable Orange Sapling",
+      "category": "logging",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "create an orange tree sapling",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-09-22T04:17:01Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "reference_category": "logging",
+      "reference_item_id": "plantable_sapling_apple",
+      "batch_id": "batch_1790051200",
+      "finalized_at": "2026-09-22T04:26:40Z"
+    },
+    {
+      "id": "1790050656_orange",
+      "name": "Orange",
+      "category": "food",
+      "schema": "food",
+      "pipeline": "paid",
+      "description": "create  a single navel orange",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-09-22T04:17:36Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1790051200",
+      "finalized_at": "2026-09-22T04:26:40Z"
+    },
+    {
+      "id": "1790050670_lemon",
+      "name": "Lemon",
+      "category": "food",
+      "schema": "food",
+      "pipeline": "paid",
+      "description": "create a single large lemon",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-09-22T04:17:50Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1790051200",
+      "finalized_at": "2026-09-22T04:26:40Z"
+    }
+  ]
+}

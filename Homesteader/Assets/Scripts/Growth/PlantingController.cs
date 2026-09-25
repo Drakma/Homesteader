@@ -30,7 +30,7 @@ namespace Homesteader.Growth
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
         {
-            if (FindFirstObjectByType<PlantingController>() != null) return;
+            if (FindAnyObjectByType<PlantingController>() != null) return;
             new GameObject("PlantingController").AddComponent<PlantingController>();
         }
 
@@ -84,7 +84,7 @@ namespace Homesteader.Growth
             // Lock to the ground grid: everything below (zone, biome, spacing, reach) is
             // checked at, and the plant is placed on, the centre of the clicked cell.
             hit.point = PlantingValidator.SnapToGrid(hit.point);
-            var ped = FindFirstObjectByType<PedController>();
+            var ped = FindAnyObjectByType<PedController>();
 
             // Something already growing in that square: this click tries to harvest it.
             PlantedGrowth existing = PlantedAt(hit.point);
@@ -203,10 +203,10 @@ namespace Homesteader.Growth
             Camera cam = Camera.main;
             if (cam != null) return cam;
 
-            var iso = FindFirstObjectByType<IsometricLockedCamera>();
+            var iso = FindAnyObjectByType<IsometricLockedCamera>();
             if (iso != null && iso.TryGetComponent(out cam)) return cam;
 
-            return FindFirstObjectByType<Camera>();
+            return FindAnyObjectByType<Camera>();
         }
 
         private Transform PlantedRoot()

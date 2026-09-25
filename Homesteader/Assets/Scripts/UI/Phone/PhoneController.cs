@@ -34,6 +34,7 @@ namespace Homesteader.UI
             Almanac,
             Mods,
             Admin,
+            Gigs,
         }
 
         public struct StoreItem
@@ -72,6 +73,7 @@ namespace Homesteader.UI
         private VisualElement _viewMarket;
         private VisualElement _viewAdmin;
         private VisualElement _viewMods;
+        private VisualElement _viewGigs;
 
         // App Launcher Tiles
         private VisualElement _appTileVolt;
@@ -93,6 +95,7 @@ namespace Homesteader.UI
         private VisualElement _appTileFurniture;
         private VisualElement _appTileMods;
         private VisualElement _appTileAdmin;
+        private VisualElement _appTileGigs;
 
         // Navigation
         private Button _voltBackBtn;
@@ -102,7 +105,9 @@ namespace Homesteader.UI
         private Button _marketBackBtn;
         private Button _modsBackBtn;
         private Button _adminBackBtn;
+        private Button _gigsBackBtn;
         private VisualElement _phoneHomeBtn;
+        private GigsApp _gigsApp;
 
         // Admin App Elements
         private Button _adminAssetsBtn;
@@ -303,6 +308,7 @@ namespace Homesteader.UI
             _viewBank = _root.Q<VisualElement>("ViewBank");
             _viewMarket = _root.Q<VisualElement>("ViewMarket");
             _viewMods = _root.Q<VisualElement>("ViewMods");
+            _viewGigs = _root.Q<VisualElement>("ViewGigs");
 
             _appTileVolt = _root.Q<VisualElement>("AppTileVolt");
             _appTileRes = _root.Q<VisualElement>("AppTileRes");
@@ -322,6 +328,7 @@ namespace Homesteader.UI
             _appTileVoltvision = _root.Q<VisualElement>("AppTileVoltvision");
             _appTileFurniture = _root.Q<VisualElement>("AppTileFurniture");
             _appTileMods = _root.Q<VisualElement>("AppTileMods");
+            _appTileGigs = _root.Q<VisualElement>("AppTileGigs");
 
             _voltBackBtn = _root.Q<Button>("VoltBackBtn");
             _resBackBtn = _root.Q<Button>("ResBackBtn");
@@ -329,6 +336,7 @@ namespace Homesteader.UI
             _bankBackBtn = _root.Q<Button>("BankBackBtn");
             _marketBackBtn = _root.Q<Button>("MarketBackBtn");
             _modsBackBtn = _root.Q<Button>("ModsBackBtn");
+            _gigsBackBtn = _root.Q<Button>("GigsBackBtn");
             _phoneHomeBtn = _root.Q<VisualElement>("PhoneHomeBtn");
 
             _gridSolarWatts = _root.Q<Label>("GridSolarWatts");
@@ -535,6 +543,7 @@ namespace Homesteader.UI
             _appTileVoltvision?.RegisterCallback<ClickEvent>(evt => OpenStore("Voltvision", "store-banner-voltvision", "Homestead Off-Grid Solar, Batteries & High-Tech Electronics", GetVoltvisionItems()));
             _appTileFurniture?.RegisterCallback<ClickEvent>(evt => OpenStore("Sofa So Good", "store-banner-grocer", "Artisan Homestead Furniture, Storage & Decor", GetFurnitureItems()));
             _appTileMods?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Mods));
+            _appTileGigs?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Gigs));
 
             _pageDot0?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(0));
             _pageDot1?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(1));
@@ -547,6 +556,7 @@ namespace Homesteader.UI
             _marketBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _almanacBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _modsBackBtn?.RegisterCallback<ClickEvent>(evt => HandleModsBack());
+            _gigsBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _modsCategoryBackBtn?.RegisterCallback<ClickEvent>(evt => GoToModCategories());
             _modsCategoryToggleBtn?.RegisterCallback<ClickEvent>(evt => ToggleCurrentCategory());
             _phoneHomeBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
@@ -932,6 +942,11 @@ namespace Homesteader.UI
                     if (_viewAdmin != null) _viewAdmin.RemoveFromClassList("phone-app-view--hidden");
                     UpdateAdminDisplay();
                     break;
+                case AppView.Gigs:
+                    if (_viewGigs != null) _viewGigs.RemoveFromClassList("phone-app-view--hidden");
+                    if (_gigsApp == null) _gigsApp = new GigsApp(_root);
+                    _gigsApp.Refresh();
+                    break;
                 default:
                     ReturnHome();
                     break;
@@ -950,6 +965,7 @@ namespace Homesteader.UI
             if (_viewAlmanac != null) _viewAlmanac.AddToClassList("phone-app-view--hidden");
             if (_viewMods != null) _viewMods.AddToClassList("phone-app-view--hidden");
             if (_viewAdmin != null) _viewAdmin.AddToClassList("phone-app-view--hidden");
+            if (_viewGigs != null) _viewGigs.AddToClassList("phone-app-view--hidden");
         }
 
         public void Tick()
@@ -1583,7 +1599,6 @@ namespace Homesteader.UI
             {
                 iconBox.Clear();
                 iconBox.style.backgroundImage = new StyleBackground(tex);
-                iconBox.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
             }
             else
             {

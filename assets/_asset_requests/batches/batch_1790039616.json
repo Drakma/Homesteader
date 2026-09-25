@@ -1,0 +1,21 @@
+{
+  "batch_id": "batch_1790039616",
+  "finalized_at": "2026-09-22T01:13:36Z",
+  "items": [
+    {
+      "id": "1790039604_old_farmer",
+      "name": "Old Farmer",
+      "category": "peds",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "Create an old man farmer in low-poly with overalls, boots, green hat and work gloves on",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-22T01:13:24Z",
+      "also_rig": true,
+      "rig_type": "human",
+      "batch_id": "batch_1790039616",
+      "finalized_at": "2026-09-22T01:13:36Z"
+    }
+  ]
+}

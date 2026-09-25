@@ -79,7 +79,7 @@ namespace Homesteader.Modding
             SubMesh current = NewSubMesh(null);
             result.SubMeshes.Add(current);
 
-            bool anyUv = false, anyNormal = false;
+            bool anyNormal = false;
             bool boundsInit = false;
             float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
 
@@ -125,7 +125,6 @@ namespace Homesteader.Modding
                         if (parts.Length >= 3)
                         {
                             texCoords.Add(new Vector2(ParseFloat(parts[1]), ParseFloat(parts[2])));
-                            anyUv = true;
                         }
                         break;
 

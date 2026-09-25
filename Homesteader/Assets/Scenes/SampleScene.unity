@@ -927,16 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Homesteader.UI.HudUIBuilder
   _hudAsset: {fileID: 0}
-  _toolbarAsset: {fileID: 0}
-  _formAsset: {fileID: 0}
-  _windowAsset: {fileID: 0}
   _hudResource: HUDTree/HudUI
-  _toolbarResource: 
-  _formResource: 
-  _windowResource: 
-  _enableKitOverlay: 0
-  _kitOverlayAsset: {fileID: 0}
-  _kitOverlayResource: HUDTree/HUDOverlay_kit
   _kitOverlayUssResource: HUDTree/HudUI_kit
 --- !u!114 &1702678530
 MonoBehaviour:

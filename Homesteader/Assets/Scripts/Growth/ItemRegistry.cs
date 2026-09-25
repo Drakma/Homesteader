@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Homesteader.Growth
+{
+    /// <summary>
+    /// Every mod asset that resolved a model, keyed by item id, so a toolbar item can be shown in the
+    /// world (dropped on the ground). ModLoader is the only writer; gameplay code only reads.
+    /// </summary>
+    public static class ItemRegistry
+    {
+        public sealed class ItemInfo
+        {
+            public string Id;
+            public string Name;
+            public string Category;
+            public GameObject Prefab;   // a lazily-loaded GLB template (inactive) or a generated prefab
+        }
+
+        private static readonly Dictionary<string, ItemInfo> items =
+            new Dictionary<string, ItemInfo>(StringComparer.OrdinalIgnoreCase);
+
+        public static void Clear() => items.Clear();
+
+        /// <summary>First registration of an id wins (core content is loaded first).</summary>
+        public static void Register(string id, string name, string category, GameObject prefab)
+        {
+            if (string.IsNullOrEmpty(id) || prefab == null || items.ContainsKey(id)) return;
+            items[id] = new ItemInfo { Id = id, Name = name, Category = category, Prefab = prefab };
+        }
+
+        public static bool TryGet(string id, out ItemInfo info)
+        {
+            info = null;
+            return !string.IsNullOrEmpty(id) && items.TryGetValue(id, out info);
+        }
+    }
+}

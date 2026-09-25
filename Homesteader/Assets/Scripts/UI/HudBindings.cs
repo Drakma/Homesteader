@@ -111,9 +111,11 @@ namespace Homesteader.UI
         private Button _modalCloseBtn;
         private Button _modalCancelBtn;
         private Button _modalConfirmBtn;
+        private Button _modalThirdBtn;
 
         private System.Action _onModalConfirm;
         private System.Action _onModalCancel;
+        private System.Action _onModalThird;
 
         // Celestial Timeline tape elements
         private VisualElement _timelineWell;
@@ -293,6 +295,7 @@ namespace Homesteader.UI
             _modalCloseBtn = Q<Button>("ModalCloseBtn");
             _modalCancelBtn = Q<Button>("ModalCancelBtn");
             _modalConfirmBtn = Q<Button>("ModalConfirmBtn");
+            _modalThirdBtn = Q<Button>("ModalThirdBtn");
 
             WireWindowAndModal();
 
@@ -312,7 +315,8 @@ namespace Homesteader.UI
             _currentTempLabel = Q<Label>("CurrentTempLabel");
             BuildWeatherTimelineTrack();
 
-            _phone = new PhoneController(_root, ShowModal);
+            _phone = new PhoneController(_root,
+                (title, message, onConfirm, onCancel) => ShowModal(title, message, onConfirm, onCancel));
 
             // Asset Spawner initialization
             _assetSpawnerWindow = Q<VisualElement>("AssetSpawnerWindow");
@@ -398,6 +402,15 @@ namespace Homesteader.UI
                 _modalConfirmBtn.clicked += () =>
                 {
                     var cb = _onModalConfirm;
+                    CloseModal();
+                    cb?.Invoke();
+                };
+            }
+            if (_modalThirdBtn != null)
+            {
+                _modalThirdBtn.clicked += () =>
+                {
+                    var cb = _onModalThird;
                     CloseModal();
                     cb?.Invoke();
                 };
@@ -887,15 +900,33 @@ namespace Homesteader.UI
             else OpenSettings();
         }
 
-        public void ShowModal(string title, string message, System.Action onConfirm = null, System.Action onCancel = null)
+        public void ShowModal(string title, string message, System.Action onConfirm = null, System.Action onCancel = null,
+            string confirmLabel = "Confirm", string cancelLabel = "Cancel", string thirdLabel = null, System.Action onThird = null)
         {
             if (_windowShade == null || _confirmModal == null) return;
 
             _onModalConfirm = onConfirm;
             _onModalCancel = onCancel;
+            _onModalThird = onThird;
 
             if (_modalTitle != null) _modalTitle.text = title;
             if (_modalMessage != null) _modalMessage.text = message;
+
+            if (_modalConfirmBtn != null)
+            {
+                _modalConfirmBtn.text = confirmLabel;
+                _modalConfirmBtn.style.display = string.IsNullOrEmpty(confirmLabel) ? DisplayStyle.None : DisplayStyle.Flex;
+            }
+            if (_modalCancelBtn != null)
+            {
+                _modalCancelBtn.text = cancelLabel;
+                _modalCancelBtn.style.display = string.IsNullOrEmpty(cancelLabel) ? DisplayStyle.None : DisplayStyle.Flex;
+            }
+            if (_modalThirdBtn != null)
+            {
+                _modalThirdBtn.text = thirdLabel;
+                _modalThirdBtn.style.display = string.IsNullOrEmpty(thirdLabel) ? DisplayStyle.None : DisplayStyle.Flex;
+            }
 
             if (_settingsWindow != null) _settingsWindow.AddToClassList("window--hidden");
             _confirmModal.RemoveFromClassList("modal--hidden");
@@ -916,6 +947,7 @@ namespace Homesteader.UI
         {
             _onModalConfirm = null;
             _onModalCancel = null;
+            _onModalThird = null;
             if (_confirmModal != null) _confirmModal.AddToClassList("modal--hidden");
             if (!IsSettingsOpen && _windowShade != null)
             {
@@ -1145,6 +1177,7 @@ namespace Homesteader.UI
 
             HandleShortcuts();
             _phone?.Tick();
+            JobBoard.Tick();
 
             var state = HudState.Active;
             if (_enableTimeUpdates) WriteTime();

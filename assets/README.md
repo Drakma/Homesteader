@@ -15,15 +15,15 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **531**
+Total Indexed Items: **538**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 18 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 85 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 15 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
-| [**Ranching**](ranching/) | 26 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
-| [**Logging**](logging/) | 37 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
+| [**Ranching**](ranching/) | 27 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
+| [**Logging**](logging/) | 41 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
 | [**Tools**](tools/) | 54 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
 | [**Electricity**](electricity/) | 37 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
@@ -32,7 +32,7 @@ Total Indexed Items: **531**
 | [**Internet**](internet/) | 16 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
 | [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
-| [**Food**](food/) | 24 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
+| [**Food**](food/) | 26 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
 | [**Materials**](materials/) | 69 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
 | [**Ingredients**](ingredients/) | 15 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
@@ -179,10 +179,11 @@ Total Indexed Items: **531**
 | `sunflower` | Sunflower Plant | — | — | [sunflower.json](farming/sunflower/sunflower.json) |
 | `wheat` | Wheat Plant | — | — | [wheat.json](farming/wheat/wheat.json) |
 
-### 📂 [Ranching](ranching/) (26 items)
+### 📂 [Ranching](ranching/) (27 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
+| `animal_bull_holstein` | Holstein Bull | ✅ Yes | — | [animal_bull_holstein.json](ranching/animal_bull_holstein/animal_bull_holstein.json) |
 | `animal_cat_calico` | Calico Cat | ✅ Yes | — | [animal_cat_calico.json](ranching/animal_cat_calico/animal_cat_calico.json) |
 | `animal_dog_labrador` | Labrador Retriever | ✅ Yes | — | [animal_dog_labrador.json](ranching/animal_dog_labrador/animal_dog_labrador.json) |
 | `animal_halter_lead_rope` | Halter & Lead Rope | ✅ Yes | — | [animal_halter_lead_rope.json](ranching/animal_halter_lead_rope/animal_halter_lead_rope.json) |
@@ -210,14 +211,16 @@ Total Indexed Items: **531**
 | `white_goat` | White Goat | — | — | [white_goat.json](ranching/white_goat/white_goat.json) |
 | `white_sheep` | White Sheep | — | — | [white_sheep.json](ranching/white_sheep/white_sheep.json) |
 
-### 📂 [Logging](logging/) (37 items)
+### 📂 [Logging](logging/) (41 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `apple` | Apple Tree | — | — | [apple.json](logging/apple/apple.json) |
 | `birch` | Birch Tree | — | — | [birch.json](logging/birch/birch.json) |
+| `lemon` | Lemon | — | — | [lemon.json](logging/lemon/lemon.json) |
 | `maple` | Maple Tree | — | — | [maple.json](logging/maple/maple.json) |
 | `oak` | Oak Tree | — | — | [oak.json](logging/oak/oak.json) |
+| `orange` | Orange | — | — | [orange.json](logging/orange/orange.json) |
 | `pine` | Pine Tree | — | — | [pine.json](logging/pine/pine.json) |
 | `plantable_birch_sapling` | Plantable Birch Sapling | ✅ Yes | — | [plantable_birch_sapling.json](logging/plantable_birch_sapling/plantable_birch_sapling.json) |
 | `plantable_maple_sapling` | Plantable Maple Sapling | ✅ Yes | — | [plantable_maple_sapling.json](logging/plantable_maple_sapling/plantable_maple_sapling.json) |
@@ -225,6 +228,8 @@ Total Indexed Items: **531**
 | `plantable_pine_sapling` | Plantable Pine Sapling | ✅ Yes | — | [plantable_pine_sapling.json](logging/plantable_pine_sapling/plantable_pine_sapling.json) |
 | `plantable_poplar_sapling` | Plantable Poplar Sapling | ✅ Yes | — | [plantable_poplar_sapling.json](logging/plantable_poplar_sapling/plantable_poplar_sapling.json) |
 | `plantable_sapling_apple` | Plantable Sapling Apple | ✅ Yes | — | [plantable_sapling_apple.json](logging/plantable_sapling_apple/plantable_sapling_apple.json) |
+| `plantable_sapling_lemon` | Plantable Sapling Lemon | ✅ Yes | — | [plantable_sapling_lemon.json](logging/plantable_sapling_lemon/plantable_sapling_lemon.json) |
+| `plantable_sapling_orange` | Plantable Sapling Orange | ✅ Yes | — | [plantable_sapling_orange.json](logging/plantable_sapling_orange/plantable_sapling_orange.json) |
 | `plantable_willow_sapling` | Plantable Willow Sapling | ✅ Yes | — | [plantable_willow_sapling.json](logging/plantable_willow_sapling/plantable_willow_sapling.json) |
 | `poplar` | Poplar Tree | — | — | [poplar.json](logging/poplar/poplar.json) |
 | `stump_apple_large` | Stump Apple Large | ✅ Yes | — | [stump_apple_large.json](logging/stump_apple_large/stump_apple_large.json) |
@@ -517,7 +522,7 @@ Total Indexed Items: **531**
 | `textures` | Textures | — | — | [textures.json](ground/textures/textures.json) |
 | `tile_grass_tuft_meadow` | Grass Tuft Meadow | ✅ Yes | — | [tile_grass_tuft_meadow.json](ground/tile_grass_tuft_meadow/tile_grass_tuft_meadow.json) |
 
-### 📂 [Food](food/) (24 items)
+### 📂 [Food](food/) (26 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -531,6 +536,8 @@ Total Indexed Items: **531**
 | `food_cheese` | Aged Farmhouse Cheese | — | — | [food_cheese.json](food/food_cheese/food_cheese.json) |
 | `food_crappie_deepfried` | Crappie Fillet Deep Fried | — | — | [food_crappie_deepfried.json](food/food_crappie_deepfried/food_crappie_deepfried.json) |
 | `food_crappie_grilled` | Crappie Grilled Fillet | — | — | [food_crappie_grilled.json](food/food_crappie_grilled/food_crappie_grilled.json) |
+| `food_lemon` | Fresh Lemon | ✅ Yes | — | [food_lemon.json](food/food_lemon/food_lemon.json) |
+| `food_orange` | Fresh Navel Orange | ✅ Yes | — | [food_orange.json](food/food_orange/food_orange.json) |
 | `food_potato` | Russet Potato | ✅ Yes | — | [food_potato.json](food/food_potato/food_potato.json) |
 | `food_pumpkin` | Autumn Pumpkin | ✅ Yes | — | [food_pumpkin.json](food/food_pumpkin/food_pumpkin.json) |
 | `food_salmon_grilled` | Salmon Grilled Fillet | — | — | [food_salmon_grilled.json](food/food_salmon_grilled/food_salmon_grilled.json) |

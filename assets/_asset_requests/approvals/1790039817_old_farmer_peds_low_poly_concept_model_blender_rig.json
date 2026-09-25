@@ -1,0 +1,22 @@
+{
+  "id": "1790039817_old_farmer_peds_low_poly_concept_model_blender_rig",
+  "title": "Old Farmer (peds) - low-poly concept + model + Blender rig",
+  "plan": [
+    "1. Creative Claw generate_image: low-poly faceted concept of an old male farmer, A-POSE (arms down at sides, legs clearly separated so the rig can bend them), wearing overalls, work boots, a green hat and work gloves. External/full-body view, modern-day workwear, plain unpatterned colours.",
+    "2. Meshy image-to-3D on that concept -> textured GLB, model_type='smart-topology', ai_model='meshy-t2'.",
+    "3. Blender rig (Mixamo Addon, RIG_TYPE=human) - FREE, zero credits: import the GLB, build/apply the humanoid skeleton, export FBX with path_mode='COPY' and embed_textures=True.",
+    "4. Export Unity-ready FBX at 1 Unit = 1 Meter, plus Walk / Run animation clips so the ped animates in Unity 6 Mecanim.",
+    "5. Report progress via /api/update-asset-request, mark done with item_id=peds_old_farmer, then run update_catalog_readme.py."
+  ],
+  "cost": {
+    "note": "Rigging is free. Only the concept image (Creative Claw) and the 3D model (Meshy, ~15 credits) are paid.",
+    "meshy_balance_after": 240,
+    "creative_claw": "UNKNOWN - no balance recorded in assets/creative_claw_balance.json (empty). Creative Claw is reached only via the MCP connector, so the exact cost is unresolvable from here and must be confirmed by the MCP connector's estimate_generation at spend time.",
+    "meshy_credits": 15,
+    "blender_rig": 0,
+    "meshy_balance_before": 255
+  },
+  "status": "approved",
+  "created_at": "2026-09-22T01:16:57Z",
+  "resolved_at": "2026-09-22T01:23:45Z"
+}

@@ -1,0 +1,36 @@
+{
+  "batch_id": "batch_1790034849",
+  "finalized_at": "2026-09-21T23:54:09Z",
+  "items": [
+    {
+      "id": "1790034826_withered_crop",
+      "name": "Withered Crop",
+      "category": "farming",
+      "schema": "farming",
+      "pipeline": "paid",
+      "description": "create a withered crop",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-21T23:53:46Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1790034849",
+      "finalized_at": "2026-09-21T23:54:09Z"
+    },
+    {
+      "id": "1790034842_dead_crop",
+      "name": "Dead Crop",
+      "category": "farming",
+      "schema": "farming",
+      "pipeline": "paid",
+      "description": "create a dead crop",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-21T23:54:02Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1790034849",
+      "finalized_at": "2026-09-21T23:54:09Z"
+    }
+  ]
+}

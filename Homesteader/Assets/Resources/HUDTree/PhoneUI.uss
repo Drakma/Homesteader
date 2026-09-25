@@ -562,6 +562,58 @@
     background-color: rgb(220, 175, 75);
 }
 
+.gig-card {
+    background-color: rgb(22, 29, 40);
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(35, 47, 65);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.gig-card-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gig-pay {
+    color: rgb(46, 204, 113);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+}
+
+.gig-chip-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.gig-chip {
+    background-color: rgba(193, 154, 60, 0.16);
+    color: rgb(215, 190, 130);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    font-size: 11px;
+    -unity-font: var(--font-medium);
+}
+
+.gig-chip--remote {
+    background-color: rgba(52, 152, 219, 0.18);
+    color: rgb(133, 193, 233);
+}
+
+.gig-blurb {
+    color: rgb(130, 145, 165);
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    white-space: normal;
+}
+
 .store-checkout-bar {
     height: 56px;
     background-color: rgb(20, 27, 38);
@@ -1557,6 +1609,7 @@
 .app-icon-good-almanac      { background-image: resource("HUDTree/PhoneIcons/app_good_almanac"); }
 .app-icon-voltvision        { background-image: resource("HUDTree/PhoneIcons/app_voltvision"); }
 .app-icon-trailer-shack     { background-image: resource("HUDTree/PhoneIcons/app_trailer_shack"); }
+.app-icon-gigs              { background-image: resource("HUDTree/PhoneIcons/app_gigs"); }
 
 /* Additional Store Banners */
 .store-banner-lumber        { background-color: rgb(110, 65, 30); }

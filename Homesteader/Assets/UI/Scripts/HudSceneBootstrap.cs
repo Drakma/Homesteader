@@ -73,7 +73,6 @@ namespace Homesteader.UI
             doc.panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
             doc.panelSettings.name = "RuntimePanelSettings";
             doc.panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
-            doc.panelSettings.themeStyleSheet = ScriptableObject.CreateInstance<UnityEngine.UIElements.ThemeStyleSheet>();
         }
 
         private void EnsureBuilder()

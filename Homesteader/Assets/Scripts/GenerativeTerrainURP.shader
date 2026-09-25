@@ -9,6 +9,8 @@ Shader "Homesteader/GenerativeTerrainURP"
         _GridColor ("Ground Grid Color", Color) = (0.90, 0.90, 0.90, 1)
         _GridLineWidth ("Ground Grid Line Width (m)", Range(0, 0.2)) = 0.031
         _GridOpacity ("Ground Grid Opacity", Range(0, 1)) = 1
+        _HasIsland ("Pond Has Island (0 or 1)", Range(0, 1)) = 0
+        _HasBranch ("River Has Branch (0 or 1)", Range(0, 1)) = 0
     }
 
     SubShader
@@ -47,9 +49,14 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             TEXTURE2D(_BiomeMap);
             SAMPLER(sampler_BiomeMap);
-            // Unity inline sampler state: point filtering + clamp. The biome map stores a
-            // biome ID in R, so it must not be interpolated (that would invent in-between IDs).
+            // Unity inline sampler state: point filtering + clamp. The biome map's alpha channel
+            // stores a biome mode id, so it must not be interpolated (that would invent
+            // in-between ids that don't correspond to any real biome).
             SAMPLER(sampler_point_clamp);
+            // A second sampler over the SAME texture, but bilinear: used for the map's RGB
+            // (the biome's actual tint color), so adjacent biomes blend smoothly at their
+            // border instead of stair-stepping at the texel grid.
+            SAMPLER(sampler_linear_clamp);
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _TerrainBounds;
@@ -58,55 +65,12 @@ Shader "Homesteader/GenerativeTerrainURP"
                 half4 _GridColor;
                 float _GridLineWidth;
                 float _GridOpacity;
+                float _HasIsland;
+                float _HasBranch;
             CBUFFER_END
 
             // Global Weather parameters set via Shader.SetGlobalVector("_WeatherGroundEffects", ...)
             float4 _WeatherGroundEffects;
-
-            // Hash for 2D cell grid
-            float2 Hash22(float2 p)
-            {
-                float3 p3 = frac(float3(p.xyx) * float3(443.897, 441.423, 437.195));
-                p3 += dot(p3, p3.yzx + 19.19);
-                return frac((p3.xx + p3.yz) * p3.zy);
-            }
-
-            // Continuous Domain-Warped Voronoi Cellular Noise for Organic Amorphous Biome Blobs
-            float VoronoiBiome(float2 pos, float scale)
-            {
-                // Multi-harmonic domain warping transforms straight cell edges into fluid, flowing organic liquid contours
-                float2 warp = float2(
-                    sin(pos.y * 0.020 + pos.x * 0.010) * 18.0 + cos(pos.y * 0.050) * 7.0,
-                    cos(pos.x * 0.020 + pos.y * 0.010) * 18.0 + sin(pos.x * 0.050) * 7.0
-                );
-                float2 p = (pos + warp) * scale;
-                float2 ip = floor(p);
-                float2 fp = frac(p);
-
-                float minDist = 10.0;
-                float2 cellId = float2(0.0, 0.0);
-
-                [unroll]
-                for (int j = -1; j <= 1; j++)
-                {
-                    [unroll]
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        float2 neighbor = float2((float)i, (float)j);
-                        float2 pt = Hash22(ip + neighbor);
-                        float2 diff = neighbor + pt - fp;
-                        float dist = dot(diff, diff);
-                        if (dist < minDist)
-                        {
-                            minDist = dist;
-                            cellId = ip + neighbor;
-                        }
-                    }
-                }
-
-                // Deterministic pseudo-random value per cell
-                return frac(sin(dot(cellId, float2(12.9898, 78.233))) * 43758.5453);
-            }
 
             Varyings vert(Attributes input)
             {
@@ -137,67 +101,174 @@ Shader "Homesteader/GenerativeTerrainURP"
                 half3 col = half3(0.20, 0.65, 0.28); // Default pasture meadow
                 half3 cliffColor = half3(0.38, 0.40, 0.44); // Weathered granite bedrock
 
-                // 1. Water System: Central Winding River (~7m wide) and Kettle Pond Basin (~24m radius)
-                float riverX = 220.0 + sin(z * 0.015) * 45.0 + sin(z * 0.035 + 1.2) * 18.0;
-                float distToRiver = abs(x - riverX);
+                // The baked biome map (written by HomesteaderTerrainGenerator.GenerateTerrain) is the
+                // single source of truth for what grows where - it already ran the real biome
+                // evaluation (water/wetland/lawn/farmland placement, elevation-based highlands, and
+                // the domain-warped forest/meadow noise fields) once on the CPU. The shader's job is
+                // just to decode and paint it, not to re-derive placement with its own noise.
+                // A encodes (biomeMode + 0.5) / 16 (point-sampled: mode ids must never blend into
+                // each other), RGB is the biome's actual tint color (bilinear-sampled below, so
+                // adjacent biomes fade smoothly across their shared texel border instead of
+                // stair-stepping). See HomesteaderTerrainGenerator.GenerateTerrain.
+                float2 biomeUv = float2(x / _TerrainBounds.x, z / _TerrainBounds.y);
+                half4 biomeSample = SAMPLE_TEXTURE2D(_BiomeMap, sampler_point_clamp, biomeUv);
+                int biomeMode = (int)floor(biomeSample.a * 16.0);
+
+                // 1. Water System: Central Winding River (~7m wide) and Kettle Pond Basin (~24m radius).
+                // Shape is entirely analytic (the same distance fields HomesteaderTerrainGenerator
+                // uses), not read from the 1-texel/metre baked map, so the shoreline is a smooth
+                // curve instead of stair-stepping at the texel grid. Pond wins where the river's
+                // path runs through it, exactly mirroring HomesteaderTerrainGenerator.EvaluateBiomeAt's
+                // pond-before-river priority, so there's no seam where they meet.
+                // Mirrors HomesteaderTerrainGenerator.GetRiverCenterX/GetRiverHalfWidth/GetPondRadius
+                // exactly (layered, unrelated-frequency harmonics) so the river meanders and
+                // varies in width, and the pond's shoreline is lumpy rather than a smooth curve,
+                // matching the baked classification pixel for pixel.
+                float riverX = 220.0
+                    + sin(z * 0.015) * 45.0
+                    + sin(z * 0.035 + 1.2) * 18.0
+                    + sin(z * 0.006 + 2.7) * 30.0
+                    + sin(z * 0.07 + 0.4) * 8.0;
+                float distMainRiver = abs(x - riverX);
+
+                // Optional tributary branch: mirrors HomesteaderTerrainGenerator.RiverHasBranch/
+                // GetBranchCenterX exactly - starts AT the main river's centerline (offset 0) and
+                // diverges from there, so it visibly splits off instead of appearing out of
+                // nowhere a fixed distance away. _HasBranch is 0 or 1, set from C# to match.
+                float branchTLinear = saturate((z - 260.0) / 140.0);
+                // Smoothstep (zero slope at t=0) instead of linear, so the branch leaves tangent
+                // to the main river instead of veering away at a sharp corner right at the split.
+                float branchT = branchTLinear * branchTLinear * (3.0 - 2.0 * branchTLinear);
+                float branchX = riverX + branchT * 90.0 + sin(z * 0.02 + 1.0) * 12.0 * branchT;
+                float distBranchRiver = abs(x - branchX);
+                bool branchActive = (_HasBranch > 0.5) && (z > 260.0);
+                // Tapers the branch's width from a small-but-visible width up to full over the
+                // first 25m past the split.
+                float branchWidthTaper = saturate((z - 260.0) / 25.0);
 
                 float2 pondCenter = float2(220.0, 210.0);
-                float distToPond = distance(float2(x, z), pondCenter);
+                // River flares into a wide funnel-shaped mouth as it nears the pond, so the two
+                // water bodies erode into one smooth entrance instead of a narrow channel butting
+                // into the pond's edge. Mirrors GetRiverHalfWidth exactly.
+                float distToPondCenter = distance(float2(x, z), pondCenter);
+                float mouthT = 1.0 - saturate((distToPondCenter - 20.0) / 35.0);
+                float mouthWiden = smoothstep(0.0, 1.0, mouthT) * 16.0;
+                float riverBaseHalfWidth = clamp(4.0 + sin(z * 0.04) * 1.8 + sin(z * 0.11 + 1.0) * 1.2, 2.2, 6.5) + mouthWiden;
+
+                // Cheap value-noise (hash + bilinear) - not bit-exact with HomesteaderTerrainGenerator's
+                // Mathf.PerlinNoise, but same amplitude/frequency, so the analytic mask and the baked
+                // map agree to well under a metre. Reused for both the pond's coastline and the
+                // river's banks, each with its own coordinate scale, for visible inlets/points on
+                // both, not just a smooth width wobble.
+                #define VALUE_NOISE2(coord) (lerp(lerp(frac(sin(dot(floor(coord), float2(12.9898,78.233)))*43758.5453), frac(sin(dot(floor(coord)+float2(1,0), float2(12.9898,78.233)))*43758.5453), frac(coord).x), lerp(frac(sin(dot(floor(coord)+float2(0,1), float2(12.9898,78.233)))*43758.5453), frac(sin(dot(floor(coord)+float2(1,1), float2(12.9898,78.233)))*43758.5453), frac(coord).x), frac(coord).y))
+
+                // Matches GetRiverHalfWidth exactly: base + mouth-widen + per-position inlet wobble.
+                float riverInlet = (VALUE_NOISE2(float2(x * 0.12, z * 0.12) + 15.0) - 0.5) * 5.0;
+                float mainHalfWidth = riverBaseHalfWidth + riverInlet;
+
+                float distToRiver = distMainRiver;
+                float riverHalfWidth = mainHalfWidth;
+                if (branchActive)
+                {
+                    float branchHalfWidth = lerp(1.2, clamp(mainHalfWidth * 0.6, 1.8, 4.5), branchWidthTaper);
+                    // Smooth-min (polynomial), not a hard "whichever is closer": a strict nearest
+                    // pick always leaves a sharp crease along the line where the two distance
+                    // fields are equal, no matter how smoothly the branch's own centerline curves
+                    // away. This rounds that seam off over a `blend` metre radius instead.
+                    // Mirrors HomesteaderTerrainGenerator.GetNearestRiverDistance exactly.
+                    const float blend = 6.0;
+                    float h = saturate(0.5 + 0.5 * (distMainRiver - distBranchRiver) / blend);
+                    distToRiver = lerp(distMainRiver, distBranchRiver, h) - blend * h * (1.0 - h);
+                    riverHalfWidth = lerp(mainHalfWidth, branchHalfWidth, h);
+                }
+
+                float distToPond = distToPondCenter;
                 float pAngle = atan2(z - pondCenter.y, x - pondCenter.x);
-                float pondRadius = 24.0 + sin(pAngle * 3.0) * 5.0 + cos(pAngle * 4.0) * 3.0;
+                float2 inletCoord = float2(cos(pAngle) * 3.0 + 40.0, sin(pAngle) * 3.0 + 40.0);
+                float2 inletCoord2 = float2(cos(pAngle) * 8.0 + 70.0, sin(pAngle) * 8.0 + 70.0);
+                float inlets = (VALUE_NOISE2(inletCoord) - 0.5) * 16.0 + (VALUE_NOISE2(inletCoord2) - 0.5) * 8.0;
+                float pondRadius = 24.0
+                    + sin(pAngle * 2.0) * 7.0
+                    + cos(pAngle * 3.0) * 5.0
+                    + sin(pAngle * 5.0 + 1.3) * 3.0
+                    + cos(pAngle * 7.0 + 0.7) * 2.0
+                    + inlets;
 
-                bool isRiver = distToRiver < 3.8;
-                bool isPond = distToPond < pondRadius;
-                bool isWater = isRiver || isPond;
+                float aaWidth = max(fwidth(distToPond), fwidth(distToRiver)) + 1e-4;
+                // Raw pond boundary, NOT yet reduced by the island carve-out below - this is what
+                // guards the river funnel from claiming the island. HomesteaderTerrainGenerator's
+                // CalculateElevationAt keeps this same priority (isRiverWater is gated by
+                // !isPondWater using the outer pond radius, before the island special-case ever
+                // runs), so the river funnel must use the same un-carved boundary here too -
+                // otherwise the wide river mouth (it flares out right around the pond) reads the
+                // island as "not pond" and paints it as flowing river water anyway.
+                float pondMaskRaw = 1.0 - smoothstep(pondRadius - aaWidth, pondRadius + aaWidth, distToPond);
+                float pondMask = pondMaskRaw;
 
-                // Shoreline Wetland Buffer (~8m buffer along creek and pond)
-                bool isWetland = !isWater && ((distToRiver < 8.0) || (distToPond < (pondRadius + 7.0)));
+                // Optional island: mirrors HomesteaderTerrainGenerator.PondHasIsland/GetIslandRadius
+                // exactly (deterministic from worldSeed, no noise needed) so the shape it carves
+                // out of the pond matches the baked land/beach classification there precisely.
+                // _HasIsland is 0 or 1, set from C# (GenerateTerrain) to match PondHasIsland - a
+                // plain float switch rather than a shader keyword, since it only needs one variant.
+                float2 islandCenter = pondCenter + float2(7.0, -5.0);
+                float distToIsland = distance(float2(x, z), islandCenter);
+                float iAngle = atan2(z - islandCenter.y, x - islandCenter.x);
+                float islandRadius = 6.0 + sin(iAngle * 3.0) * 2.0 + cos(iAngle * 5.0 + 0.5) * 1.2;
+                float islandMask = (1.0 - smoothstep(islandRadius + 2.5 - aaWidth, islandRadius + 2.5 + aaWidth, distToIsland)) * _HasIsland;
+                pondMask *= (1.0 - islandMask);
 
-                // Organic domain-warped coordinates for man-made plots (softens sharp CAD edges into natural shapes)
-                float ox = x + sin(z * 0.08) * 3.0 + cos(x * 0.04) * 1.5;
-                float oz = z + cos(x * 0.08) * 3.0 + sin(z * 0.04) * 1.5;
+                float riverMask = (1.0 - smoothstep(riverHalfWidth - aaWidth, riverHalfWidth + aaWidth, distToRiver)) * (1.0 - pondMaskRaw);
+                bool isPond = pondMask > 0.5;
+                bool isRiver = riverMask > 0.5 && !isPond;
+                bool isWater = isPond || isRiver;
 
-                // 2. Domestic Homestead Yard (Lawn ~26m radius with soft wavy edge)
-                float distToLawn = distance(float2(ox, oz), float2(285.0, 210.0));
-                float lawnAngle = atan2(oz - 210.0, ox - 285.0);
-                float lawnR = 26.0 + sin(lawnAngle * 4.0) * 3.0;
-                bool isLawn = !isWater && !isWetland && (distToLawn < lawnR);
-
-                // 3. Agricultural Farmland (Soft rounded tilled plots)
-                bool isFarm1 = abs(ox - 335.0) < 30.0 && abs(oz - 215.0) < 24.0;
-                bool isFarm2 = abs(ox - 160.0) < 19.0 && abs(oz - 170.0) < 15.0;
-                // The baked biome map (written by HomesteaderTerrainGenerator) is the source of truth
-                // for farmland placed by the generator, e.g. the starter field around the spawn.
-                // R encodes (biomeMode + 0.5) / 16; farmland is mode 4.
-                half4 biomeSample = SAMPLE_TEXTURE2D(_BiomeMap, sampler_point_clamp, input.uv);
-                bool isFarmMap = abs(biomeSample.r * 16.0 - 4.5) < 0.4;
-                bool isFarmland = !isWater && !isWetland && !isLawn && (isFarm1 || isFarm2 || isFarmMap);
+                // Fringe outer edge gets its own small noise wobble (inlets/coves) via the same
+                // hash noise, and crucially uses a HARD boundary (step, not a fractional multiply)
+                // against the pond/river masks - a fractional (1-mask) leaves a thin anti-aliased
+                // sliver where the two water features are tangent, which is what showed up as a
+                // beach line visibly crossing through open water.
+                float fringeNoise = (frac(sin(dot(float2(x, z) * 0.05, float2(12.9898, 78.233))) * 43758.5453) - 0.5) * 3.0;
+                float riverWetT = saturate(((riverHalfWidth + 1.5 + fringeNoise) - distToRiver) / 2.0) * step(pondRadius, distToPond);
+                float pondWetT = saturate(((pondRadius + 2.5 + fringeNoise) - distToPond) / 2.0) * (1.0 - islandMask);
+                float wetlandT = saturate(max(riverWetT, pondWetT)) * (1.0 - step(0.5, riverMask)) * (1.0 - step(0.5, pondMask));
+                bool isWetland = wetlandT > 0.02;
+                bool isLawn = !isWater && !isWetland && biomeMode == 5;
+                bool isFarmland = !isWater && !isWetland && biomeMode == 4;
 
                 // 4. Color & Biome Evaluation
                 if (isWater)
                 {
-                    half3 deepWater = isPond ? half3(0.04, 0.24, 0.54) : half3(0.06, 0.36, 0.65);
+                    // One shared water look (river/lake/pond) so the whole hydrological network
+                    // reads as a single flowing body instead of separate differently-colored ponds.
+                    half3 deepWater = half3(0.05, 0.30, 0.62);
                     half3 shallowWater = half3(0.15, 0.65, 0.82);
 
-                    // Flowing directional river ripples (smooth flowing waves, zero checkerboard)
+                    // Flowing directional ripples (smooth flowing waves, zero checkerboard) - same
+                    // formula everywhere, so river/lake/pond all flow the same direction.
                     float flow = sin((posWS.x * 0.4 + posWS.z * 1.1) * 0.8 + _Time.y * 1.8) * 0.5
                                + cos((posWS.z * 1.3 - posWS.x * 0.3) * 0.6 - _Time.y * 2.2) * 0.5;
                     col = lerp(deepWater, shallowWater, saturate(flow * 0.35 + 0.35));
 
-                    // Stylized crisp white foam edge along river and pond banks
-                    float edgeDist = isRiver ? (3.8 - distToRiver) : (pondRadius - distToPond);
-                    if (edgeDist < 0.45)
+                    // Stylized crisp white foam edge along river and pond banks. Skipped across
+                    // the river's mouth opening (still isPond there once inside pondRadius, since
+                    // pond wins) - otherwise the pond's own shoreline foam ring traces straight
+                    // across the open entrance, looking like the pond's outline crosses the river.
+                    bool inRiverMouth = distToRiver < riverHalfWidth;
+                    float edgeDist = isPond ? (pondRadius - distToPond) : (riverHalfWidth - distToRiver);
+                    if (edgeDist < 0.45 && !(isPond && inRiverMouth))
                     {
                         col = lerp(col, half3(0.90, 0.96, 1.0), 0.85); // Crisp shoreline foam
                     }
                 }
                 else if (isWetland)
                 {
-                    // Riverbank sandy gravel & moist shoreline silt
-                    half3 riverSand = half3(0.52, 0.48, 0.38);
-                    half3 moistLoam = half3(0.35, 0.32, 0.22);
+                    // The shore fringe isn't just bog any more - HomesteaderTerrainGenerator picks
+                    // sand, grass, or a boggy patch per-spot and bakes whichever it chose into the
+                    // map, so just read that back (bilinear, so it still blends smoothly at its
+                    // own edges) instead of hardcoding one wet-sand look for the whole shoreline.
+                    half3 shoreColor = SAMPLE_TEXTURE2D(_BiomeMap, sampler_linear_clamp, biomeUv).rgb;
                     float gravelDither = step(0.5, frac(posWS.x * 2.0 + posWS.z * 2.0));
-                    col = lerp(riverSand, moistLoam, gravelDither * 0.4);
+                    col = shoreColor * lerp(0.86, 0.96, gravelDither); // subtle damp-ground sheen
                 }
                 else if (isLawn)
                 {
@@ -215,42 +286,14 @@ Shader "Homesteader/GenerativeTerrainURP"
                 }
                 else
                 {
-                    // Organic Amorphous Biome Blobs via Domain-Warped Voronoi Cellular Noise (~50m cells)
-                    float bRand = VoronoiBiome(float2(x, z), 0.020);
-
-                    // Natural balanced distribution across 8 terrestrial biomes (zero concentric rings)
-                    if (bRand < 0.22)
-                    {
-                        col = half3(0.20, 0.65, 0.28); // Pasture Meadow
-                    }
-                    else if (bRand < 0.40)
-                    {
-                        col = half3(0.25, 0.78, 0.34); // Lush Vivid Prairie
-                    }
-                    else if (bRand < 0.52)
-                    {
-                        col = half3(0.55, 0.82, 0.22); // Luminous Lime Birch Grove
-                    }
-                    else if (bRand < 0.64)
-                    {
-                        col = half3(0.76, 0.32, 0.08); // Vibrant Amber Autumn Maple
-                    }
-                    else if (bRand < 0.74)
-                    {
-                        col = half3(0.12, 0.42, 0.16); // Deep Hardwood Oak Woodland
-                    }
-                    else if (bRand < 0.83)
-                    {
-                        col = half3(0.38, 0.62, 0.18); // Fresh Spring Poplar Forest
-                    }
-                    else if (bRand < 0.92)
-                    {
-                        col = half3(0.10, 0.28, 0.14); // Dark Evergreen Pine Hills
-                    }
-                    else
-                    {
-                        col = half3(0.78, 0.48, 0.12); // Arid Sun-baked Clay Scrub
-                    }
+                    // Remaining terrestrial biomes: bilinear-sampled straight from the baked map's
+                    // RGB (the biome's actual color_hex tint), so a maple/birch/meadow/etc border
+                    // fades smoothly across the texel grid instead of stair-stepping. A light
+                    // per-pixel dither keeps large single-biome areas from looking like flat,
+                    // textureless fills.
+                    half3 biomeColor = SAMPLE_TEXTURE2D(_BiomeMap, sampler_linear_clamp, biomeUv).rgb;
+                    float dither = frac(sin(dot(posWS.xz, float2(12.9898, 78.233))) * 43758.5453) * 0.06 - 0.03;
+                    col = saturate(biomeColor + dither);
                 }
 
                 // Automatic cliffs on steep slopes (for non-water)
@@ -287,9 +330,16 @@ Shader "Homesteader/GenerativeTerrainURP"
 
                 // Cel / low-poly faceted lighting
                 Light mainLight = GetMainLight();
+                // URP's GetMainLight().color has the light's intensity baked in - Summer's sun
+                // intensity is 2.0 (see DayNightCycle._summerSunIntensity), which without this
+                // clamp blows the red/green channels out toward white while blue lags behind,
+                // reading as a flat yellow-white wash over every biome regardless of its real
+                // color. This is a stylized/cel shader, not HDR, so the lit color is never meant
+                // to exceed 1.
+                half3 litColor = saturate(mainLight.color);
                 float ndotl = max(0.0, dot(normWS, mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
-                half3 finalRGB = col * (mainLight.color * celLight);
+                half3 finalRGB = col * (litColor * celLight);
 
                 // Ground grid: 1 m world-space lines drawn over EVERY ground texture (biomes,
                 // water, snow, ...), matching the old T_Ground_GrassGrid tile (2 px of 64 = 3.1 cm).
@@ -301,7 +351,10 @@ Shader "Homesteader/GenerativeTerrainURP"
                 float2 gridLine = 1.0 - smoothstep(_GridLineWidth, _GridLineWidth + gridAA, gridDist);
                 float gridMask = saturate(max(gridLine.x, gridLine.y)) * _GridOpacity;
                 gridMask *= (slope > 0.38) ? 0.0 : 1.0;
-                finalRGB = lerp(finalRGB, _GridColor.rgb * (mainLight.color * celLight), gridMask);
+                // Lit by luminance only (no mainLight.color tint) so the grid stays a neutral
+                // grey/white line under warm/low sun angles instead of reading as brown.
+                float gridLuma = dot(litColor, half3(0.299, 0.587, 0.114)) * celLight;
+                finalRGB = lerp(finalRGB, _GridColor.rgb * gridLuma, gridMask);
 
                 return half4(finalRGB, 1.0);
             }

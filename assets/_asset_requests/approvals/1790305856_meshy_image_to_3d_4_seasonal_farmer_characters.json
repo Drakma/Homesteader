@@ -1,0 +1,18 @@
+{
+  "id": "1790305856_meshy_image_to_3d_4_seasonal_farmer_characters",
+  "title": "Meshy image-to-3D: 4 seasonal farmer characters",
+  "plan": [
+    "Crop the 4-season sheet into farmer_spring/summer/autumn/winter.png (done, free)",
+    "Run Meshy image-to-3D (meshy-6, textured, a-pose) on each of the 4 images",
+    "Download GLBs; no rigging/animation in this step"
+  ],
+  "cost": {
+    "meshy_credits": 120,
+    "per_item": 30,
+    "items": 4,
+    "balance_before": 168,
+    "balance_after": 48
+  },
+  "status": "pending",
+  "created_at": "2026-09-25T03:10:56Z"
+}

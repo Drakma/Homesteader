@@ -1,0 +1,58 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_bull_holstein",
+  "name": "Holstein Bull",
+  "category": "ranching",
+  "description": "An adult Holstein bull with a black and white patched coat, thick muscular neck, dewlap and short curved horns.",
+  "icon": "animal_bull_holstein.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 1,
+    "base_value": 2000,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "is_sellable": true
+  },
+  "models": [
+    {
+      "file": "animal_bull_holstein.glb",
+      "format": "glb"
+    }
+  ],
+  "utilities": {
+    "water": { "metric": "None (unplumbed / dry)", "details": "None (unplumbed / dry)" },
+    "electricity": { "metric": "None (passive / unpowered)", "details": "None (passive / unpowered)" },
+    "sewage": { "metric": "None (no waste discharge)", "details": "None (no waste discharge)" },
+    "battery": { "metric": "None (no internal battery)", "details": "None (no internal battery)" },
+    "internet": { "metric": "None (offline / non-networked)", "details": "None (offline / non-networked)" }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "holstein_cow",
+    "produces": "",
+    "gender": "male",
+    "temperament": "aggressive",
+    "same_sex_aggression": true,
+    "dimensions_m": { "width": 2.7077, "depth": 0.8779, "height": 1.65 }
+  }
+}

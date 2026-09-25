@@ -1,0 +1,14 @@
+{
+  "id": "1790308751_rig_spring_summer_autumn_farmers_meshy",
+  "title": "Rig spring, summer, autumn farmers (Meshy)",
+  "plan": [
+    "Meshy rig x3 (spring, summer, autumn), 1.7m, includes free walk/run",
+    "Then Mesh2Motion retarget with A-pose arm fix, file into assets/peds/"
+  ],
+  "cost": {
+    "meshy": 15,
+    "note": "5 credits x 3; balance ~103 -> ~88"
+  },
+  "status": "pending",
+  "created_at": "2026-09-25T03:59:11Z"
+}

@@ -1,0 +1,21 @@
+{
+  "batch_id": "batch_1790032436",
+  "finalized_at": "2026-09-21T23:13:56Z",
+  "items": [
+    {
+      "id": "1790032429_walking_plow",
+      "name": "Walking Plow",
+      "category": "tools",
+      "schema": "tools",
+      "pipeline": "paid",
+      "description": "Create a walking plow",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-09-21T23:13:49Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1790032436",
+      "finalized_at": "2026-09-21T23:13:56Z"
+    }
+  ]
+}

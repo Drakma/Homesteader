@@ -35,6 +35,7 @@
                 <ui:Label name="ModalMessage" text="Are you sure you want to discard unsaved homestead changes?" class="modal-text" />
                 <ui:VisualElement class="modal-button-row">
                     <ui:Button name="ModalCancelBtn" text="Cancel" class="action-btn action-btn--secondary" />
+                    <ui:Button name="ModalThirdBtn" text="" class="action-btn action-btn--secondary" style="display: none;" />
                     <ui:Button name="ModalConfirmBtn" text="Confirm" class="action-btn action-btn--primary" />
                 </ui:VisualElement>
             </ui:VisualElement>

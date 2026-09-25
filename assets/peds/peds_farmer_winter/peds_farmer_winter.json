@@ -1,0 +1,106 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "peds_farmer_winter",
+  "name": "Winter Farmer",
+  "category": "peds",
+  "description": "An older male farmer in modern winter work gear - navy beanie, fur-trimmed insulated parka, work gloves, insulated trousers and buckled snow boots; grey stubble beard. Winter variant of the four-season farmer set. Generated from a reference sheet via Meshy image-to-3D (smart-topology, textured, A-pose), rigged with Meshy rigging, with extra farm animations retargeted in Mesh2Motion.",
+  "icon": "peds_farmer_winter.png",
+  "properties": {
+    "weight_kg": 78,
+    "max_stack_size": 1,
+    "base_value": 0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "peds_farmer_winter.glb",
+      "format": "glb",
+      "description": "Unrigged base mesh (A-pose), textured. Icon is rendered from this."
+    },
+    {
+      "file": "peds_farmer_winter_rigged.glb",
+      "format": "glb",
+      "description": "Rigged, skinned character (24-joint Mixamo-named skeleton) - the animation base."
+    },
+    {
+      "file": "peds_farmer_winter_walk.glb",
+      "format": "glb",
+      "description": "Walking animation clip (Meshy rigging, free)."
+    },
+    {
+      "file": "peds_farmer_winter_run.glb",
+      "format": "glb",
+      "description": "Running animation clip (Meshy rigging, free)."
+    },
+    {
+      "file": "peds_farmer_winter_farm_anims.glb",
+      "format": "glb",
+      "description": "Same rig with six clips retargeted in Mesh2Motion: Chop_Tree_RT, Farm_Harvest_RT, Farm_PlantSeed_RT, Farm_Watering_RT, Idle_A_RT, Sleeping_RT. Bind matrices verified identical to the rigged GLB."
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "rigging": {
+    "is_rigged": true,
+    "rig_type": "human",
+    "height_meters": 1.7,
+    "animations": [
+      "walking",
+      "running",
+      "chop_tree",
+      "farm_harvest",
+      "farm_plant_seed",
+      "farm_watering",
+      "idle",
+      "sleeping"
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 0.35,
+      "height": 1.7
+    }
+  }
+}

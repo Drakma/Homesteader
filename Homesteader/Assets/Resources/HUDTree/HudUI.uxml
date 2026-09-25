@@ -342,6 +342,12 @@
                                             </ui:VisualElement>
                                             <ui:Label text="Admin" class="phone-app-label" />
                                         </ui:VisualElement>
+
+                                        <!-- 18. Gigs (Job Board) -->
+                                        <ui:VisualElement name="AppTileGigs" class="phone-app-tile">
+                                            <ui:VisualElement class="phone-app-icon-box app-icon-gigs" />
+                                            <ui:Label text="Gigs" class="phone-app-label" />
+                                        </ui:VisualElement>
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
@@ -573,6 +579,40 @@
 
                                 <!-- Weekly Forecasts Container (24 cards) -->
                                 <ui:VisualElement name="AlmanacWeeklyContainer" class="almanac-cards-container phone-app-scroll--hidden" />
+                            </ui:ScrollView>
+                        </ui:VisualElement>
+
+                        <!-- ============================================== -->
+                        <!-- GIGS (JOB BOARD) APP VIEW                       -->
+                        <!-- ============================================== -->
+                        <ui:VisualElement name="ViewGigs" class="phone-app-view phone-app-view--hidden">
+                            <ui:VisualElement class="phone-app-header">
+                                <ui:Button name="GigsBackBtn" text="&lt;" class="phone-back-btn" />
+                                <ui:Label text="Gigs" class="phone-app-title" />
+                            </ui:VisualElement>
+
+                            <ui:ScrollView class="phone-app-scroll">
+                                <ui:VisualElement name="GigsCurrentCard" class="bank-card" style="display: none;">
+                                    <ui:Label name="GigsCurrentTitle" text="CURRENT JOB" class="bank-card-label" />
+                                    <ui:Label name="GigsCurrentDetail" text="" class="bank-card-sub" />
+                                    <ui:VisualElement style="flex-direction: row; margin-top: 10px; justify-content: space-between;">
+                                        <ui:Button name="GigsWorkBtn" text="Go to Work Now" class="bank-action-btn" />
+                                        <ui:Button name="GigsQuitBtn" text="Quit Job" class="bank-action-btn" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+
+                                <ui:Label name="GigsHint" text="Pick a shift. Pay is per day, credited when the shift ends." class="bank-card-sub" style="margin-bottom: 8px;" />
+
+                                <ui:VisualElement class="admin-chip-row">
+                                    <ui:Button name="GigsFilterAll" text="All" class="admin-chip-btn" />
+                                    <ui:Button name="GigsFilterOnsite" text="On-site" class="admin-chip-btn" />
+                                    <ui:Button name="GigsFilterRemote" text="Remote" class="admin-chip-btn" />
+                                    <ui:Button name="GigsFilter2h" text="2h" class="admin-chip-btn" />
+                                    <ui:Button name="GigsFilter4h" text="4h" class="admin-chip-btn" />
+                                    <ui:Button name="GigsFilter8h" text="8h" class="admin-chip-btn" />
+                                </ui:VisualElement>
+
+                                <ui:VisualElement name="GigsListContainer" class="almanac-cards-container" />
                             </ui:ScrollView>
                         </ui:VisualElement>
 

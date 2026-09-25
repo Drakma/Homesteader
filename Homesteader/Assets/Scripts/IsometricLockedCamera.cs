@@ -13,8 +13,9 @@ public class IsometricLockedCamera : MonoBehaviour
 
     [Header("Zoom Settings (Ctrl + ScrollWheel)")]
     public float zoomSpeed = 6f;
-    public float minOrthoSize = 2f;
-    public float maxOrthoSize = 20f;
+    public float minOrthoSize = 2.5f;
+    public float maxOrthoSize = 7.5f;
+    public float zoomStep = 1.0f;
 
     [Header("Rotation Settings (Q / E 90° Orbit)")]
     public float yawRotateSpeed = 6f;
@@ -127,11 +128,12 @@ public class IsometricLockedCamera : MonoBehaviour
             mouseDelta = new Vector2(Input.GetAxis("Mouse X") * 20f, Input.GetAxis("Mouse Y") * 20f);
         }
 
-        // Ctrl + ScrollWheel: Zoom in / out
+        // Ctrl + ScrollWheel: Zoom in / out, snapped to discrete steps
         if (isCtrlHeld && cam != null && cam.orthographic && Mathf.Abs(scroll) > 0.01f)
         {
-            float delta = -scroll * zoomSpeed * 0.01f;
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + delta, minOrthoSize, maxOrthoSize);
+            float stepped = cam.orthographicSize + Mathf.Sign(-scroll) * zoomStep;
+            stepped = Mathf.Round(stepped / zoomStep) * zoomStep;
+            cam.orthographicSize = Mathf.Clamp(stepped, minOrthoSize, maxOrthoSize);
         }
 
         // Right-Click + Drag: Pan across ground plane
