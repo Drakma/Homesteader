@@ -34,6 +34,7 @@
                             <ui:VisualElement class="vital-meter-center" />
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement name="VitalStaminaRow" class="vital-row">
                         <ui:VisualElement class="vital-icon vital-icon-vital-stamina">
                             <ui:VisualElement class="vital-icon-art" />
@@ -43,6 +44,7 @@
                             <ui:VisualElement class="vital-meter-center" />
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement name="VitalThirstRow" class="vital-row">
                         <ui:VisualElement class="vital-icon vital-icon-vital-thirst">
                             <ui:VisualElement class="vital-icon-art" />
@@ -52,6 +54,7 @@
                             <ui:VisualElement class="vital-meter-center" />
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement name="VitalHungerRow" class="vital-row">
                         <ui:VisualElement class="vital-icon vital-icon-vital-hunger">
                             <ui:VisualElement class="vital-icon-art" />
@@ -97,15 +100,21 @@
             <ui:VisualElement class="header-spacer" picking-mode="Ignore" />
 
             <!-- Real-time dynamic moving celestial timeline (Sun & Moon phases) anchored just to the left of the Resources well -->
-            <ui:VisualElement name="TimelineWell" class="timeline-well" picking-mode="Ignore">
-                <ui:VisualElement name="TimelineViewport" class="timeline-viewport" picking-mode="Ignore">
-                    <ui:VisualElement name="TimelineTrack" class="timeline-track" picking-mode="Ignore" />
+            <!-- Season tree icon attached to the left of the sun/moon timeline (mirrors the temp cell on the weather timeline) -->
+            <ui:VisualElement name="CelestialTimelineGroup" class="celestial-timeline-group" picking-mode="Ignore">
+                <ui:VisualElement name="SeasonCell" class="season-cell" picking-mode="Ignore">
+                    <ui:VisualElement name="SeasonIcon" class="season-icon" picking-mode="Ignore" />
                 </ui:VisualElement>
-                <ui:VisualElement class="timeline-center-reticle" picking-mode="Ignore">
-                    <ui:VisualElement class="timeline-reticle-arrow" picking-mode="Ignore" />
+                <ui:VisualElement name="TimelineWell" class="timeline-well" picking-mode="Ignore">
+                    <ui:VisualElement name="TimelineViewport" class="timeline-viewport" picking-mode="Ignore">
+                        <ui:VisualElement name="TimelineTrack" class="timeline-track" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="timeline-center-reticle" picking-mode="Ignore">
+                        <ui:VisualElement class="timeline-reticle-arrow" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="timeline-edge-fade-left" picking-mode="Ignore" />
+                    <ui:VisualElement class="timeline-edge-fade-right" picking-mode="Ignore" />
                 </ui:VisualElement>
-                <ui:VisualElement class="timeline-edge-fade-left" picking-mode="Ignore" />
-                <ui:VisualElement class="timeline-edge-fade-right" picking-mode="Ignore" />
             </ui:VisualElement>
 
             <ui:VisualElement name="ResourcesCell" class="resources-well">
@@ -115,21 +124,25 @@
                         <ui:Label name="ResourceWaterLabel" text="0 L"
                                   class="resource-amount" />
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement class="resource-row">
                         <ui:VisualElement class="resource-icon resource-icon-electricity" />
                         <ui:Label name="ResourceElectricityLabel" text="0.00 MJ"
                                   class="resource-amount" />
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement class="resource-row">
                         <ui:VisualElement class="resource-icon resource-icon-bandwidth" />
                         <ui:Label name="ResourceBandwidthLabel" text="0 Mbps"
                                   class="resource-amount" />
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement class="resource-row">
                         <ui:VisualElement class="resource-icon resource-icon-fuel" />
                         <ui:Label name="ResourceFuelLabel" text="0 L"
                                   class="resource-amount" />
                     </ui:VisualElement>
+                    <ui:Label text="|" class="hud-sep" picking-mode="Ignore" />
                     <ui:VisualElement class="resource-row">
                         <ui:VisualElement class="resource-icon resource-icon-money" />
                         <ui:Label name="ResourceMoneyLabel" text="0"
@@ -147,34 +160,64 @@
         <!-- Toolbar: absolutely positioned at bottom center -->
         <ui:VisualElement name="ToolbarSlots" class="toolbar-slots">
             <ui:VisualElement name="ToolbarSlot0" class="tool-slot tool-slot--selected">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="1" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel0" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot1" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="2" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel1" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot2" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="3" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel2" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot3" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="4" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel3" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot4" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="5" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel4" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot5" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="6" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel5" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot6" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="7" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel6" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot7" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="8" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel7" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot8" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="9" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel8" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
             <ui:VisualElement name="ToolbarSlot9" class="tool-slot">
+                <ui:VisualElement class="tool-slot-icon" picking-mode="Ignore" />
+                <ui:Label text="0" class="tool-slot-num" picking-mode="Ignore" />
                 <ui:Label name="ToolSlotLabel9" class="tool-slot-count" />
+                <ui:VisualElement class="tool-slot-underline" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
 

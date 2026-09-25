@@ -17,8 +17,7 @@
 
 /* ----- Panel chrome sprites ----- */
 .panel-large-dialog {
-    background-image: resource("HUDTree/Atlases/header_strip");
-    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgb(43, 52, 66);
 }
 
 /* ----- Buttons (kit variant) -----
@@ -34,7 +33,7 @@
     background-size: 200px 896px;
     background-repeat: no-repeat;
     margin-right: 8px;
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 24px;
     -unity-text-align: middle-center;
 }
@@ -104,12 +103,21 @@
    slate. No atlas chrome - the slot_1x1/slot_1x1_active kit
    sprites are no longer used here. */
 
+/* Precision UI hotbar slots: deep slate tile, hairline edge, copper when selected. */
 .tool-slot {
-    background-color: rgb(34, 43, 58);
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+}
+
+.tool-slot:hover {
+    background-color: rgb(33, 42, 55);
 }
 
 .tool-slot.tool-slot--selected {
-    background-color: rgb(120, 136, 153);
+    background-color: rgb(26, 33, 43);
+    border-width: 2px;
+    border-color: rgb(224, 138, 60);
 }
 
 /* ----- Decor (4 rows: close_x, glow_accent, separator_dot, double_divider) -----
@@ -153,12 +161,12 @@
    extends the base .speed-chip (44x28) and overlays the kit glyph. */
 
 .speed-chip {
-    color: rgba(0, 0, 0, 0); /* hide the text glyph; sprite draws over */
-    background-color: rgba(0, 0, 0, 0);
+    color: rgba(18, 22, 29, 0); /* hide the text glyph; sprite draws over */
+    background-color: rgba(18, 22, 29, 0);
 }
 
 .speed-chip.speed-chip--active {
-    background-color: rgb(193, 154, 60);
+    background-color: rgb(224, 138, 60);
 }
 
 .icon-pause { background-image: resource("HUDTree/Atlases/Kit/speed_controls/speed_pause"); }

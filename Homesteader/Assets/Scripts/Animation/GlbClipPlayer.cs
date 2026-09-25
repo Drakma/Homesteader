@@ -126,6 +126,70 @@ namespace Homesteader.Animation
         }
 
         /// <summary>
+        /// Loads a rigged character .glb and registers its clips, plus the clips found in
+        /// extra .glb files that share the same skeleton (e.g. separate walk/run exports).
+        /// renames maps a substring of a source clip name to the name gameplay code uses
+        /// (e.g. "walking" -> "Walk"), so Meshy/Mesh2Motion clip names need no editing.
+        /// </summary>
+        public async void LoadCharacter(string modelPath, string[] extraClipFiles,
+                                        IReadOnlyDictionary<string, string> renames)
+        {
+            if (string.IsNullOrWhiteSpace(modelPath) || !File.Exists(modelPath))
+            {
+                Fail("file not found: " + modelPath);
+                return;
+            }
+
+            loadPath = modelPath;
+            var all = new List<AnimationClip>();
+            try
+            {
+                var gltf = new GltfImport();
+                if (!await gltf.Load(File.ReadAllBytes(modelPath), new Uri(modelPath)) ||
+                    !await gltf.InstantiateMainSceneAsync(transform))
+                {
+                    Fail("glTFast could not load: " + modelPath);
+                    return;
+                }
+                var own = gltf.GetAnimationClips();
+                if (own != null) all.AddRange(own);
+
+                if (extraClipFiles != null)
+                {
+                    foreach (string extra in extraClipFiles)
+                    {
+                        if (!File.Exists(extra)) continue;
+                        var g = new GltfImport();
+                        if (!await g.Load(File.ReadAllBytes(extra), new Uri(extra))) continue;
+                        var more = g.GetAnimationClips();
+                        if (more != null) all.AddRange(more);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Fail(e.Message);
+                return;
+            }
+
+            if (renames != null)
+            {
+                foreach (AnimationClip clip in all)
+                {
+                    foreach (KeyValuePair<string, string> kv in renames)
+                    {
+                        if (clip.name.IndexOf(kv.Key, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            clip.name = kv.Value;
+                            break;
+                        }
+                    }
+                }
+            }
+            RegisterClips(all);
+        }
+
+        /// <summary>
         /// Registers AnimationClips that are already in memory (e.g. the ones Unity surfaces
         /// from a .glb asset in Resources). Used when the model came from Resources rather
         /// than a file on disk.

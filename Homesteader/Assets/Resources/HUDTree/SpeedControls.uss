@@ -16,12 +16,12 @@
     height: 28px;
     margin-left: 4px;
     margin-right: 4px;
-    border-color: rgb(120, 136, 153);
+    border-color: rgb(139, 150, 165);
     border-width: 2px;
-    border-radius: 4px;
-    background-color: rgb(20, 26, 32);
+    border-radius: 0;
+    background-color: rgb(26, 33, 43);
     -unity-font: var(--font-medium);
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 14px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -29,12 +29,12 @@
 }
 
 .speed-chip:hover {
-    border-color: rgb(193, 154, 60);
-    color: rgb(241, 196, 15);
+    border-color: rgb(224, 138, 60);
+    color: rgb(242, 132, 29);
 }
 
 .speed-chip:checked {
-    border-color: rgb(193, 154, 60);
-    background-color: rgb(48, 56, 72);
-    color: rgb(241, 196, 15);
+    border-color: rgb(224, 138, 60);
+    background-color: rgb(61, 74, 92);
+    color: rgb(242, 132, 29);
 }

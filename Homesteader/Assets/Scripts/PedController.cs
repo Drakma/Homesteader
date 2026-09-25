@@ -14,6 +14,7 @@ public class PedController : MonoBehaviour
 
     private CharacterController controller;
     private Animator animator;
+    private Homesteader.Animation.GlbClipPlayer glbPlayer;
     private float verticalVelocity;
 
     public bool IsMoving { get; private set; }
@@ -22,6 +23,7 @@ public class PedController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        glbPlayer = GetComponentInChildren<Homesteader.Animation.GlbClipPlayer>();
         ResolveCamera();
     }
 
@@ -61,6 +63,7 @@ public class PedController : MonoBehaviour
         if (TimeSystem.Instance.IsPaused)
         {
             IsMoving = false;
+            if (glbPlayer != null) glbPlayer.SetLocomotion(0f);
             if (animator != null)
             {
                 animator.SetFloat("Speed", 0f);
@@ -140,6 +143,11 @@ public class PedController : MonoBehaviour
                 string avatarName = animator.avatar != null ? animator.avatar.name : "null";
                 Debug.Log($"[PedController] Resolved Animator on {animator.gameObject.name}: ctrl={ctrlName}, avatar={avatarName}");
             }
+        }
+
+        if (glbPlayer != null)
+        {
+            glbPlayer.SetLocomotion(move.magnitude * (running ? 1f : 0.5f));
         }
 
         if (animator != null)

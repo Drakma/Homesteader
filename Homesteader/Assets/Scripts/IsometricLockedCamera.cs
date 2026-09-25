@@ -13,9 +13,11 @@ public class IsometricLockedCamera : MonoBehaviour
 
     [Header("Zoom Settings (Ctrl + ScrollWheel)")]
     public float zoomSpeed = 6f;
-    public float minOrthoSize = 2.5f;
-    public float maxOrthoSize = 7.5f;
-    public float zoomStep = 1.0f;
+    // Locked: not serialized, so scene overrides can't change them.
+    // Zoom levels are 2.5, 3.5, 4.5, 5.5, 6.5, 7.5.
+    private const float minOrthoSize = 2.5f;
+    private const float maxOrthoSize = 7.5f;
+    private const float zoomStep = 1.0f;
 
     [Header("Rotation Settings (Q / E 90° Orbit)")]
     public float yawRotateSpeed = 6f;
@@ -34,8 +36,16 @@ public class IsometricLockedCamera : MonoBehaviour
     void Awake()
     {
         cam = GetComponent<Camera>();
+        if (cam != null && cam.orthographic) cam.orthographicSize = SnapZoom(cam.orthographicSize);
         targetYaw = yawDegrees;
         orbitRadius = Mathf.Sqrt(distance * distance + height * height);
+    }
+
+    // Snaps to the nearest level on the min + n * step grid and clamps to [min, max].
+    private static float SnapZoom(float size)
+    {
+        float snapped = minOrthoSize + Mathf.Round((size - minOrthoSize) / zoomStep) * zoomStep;
+        return Mathf.Clamp(snapped, minOrthoSize, maxOrthoSize);
     }
 
     void Start()
@@ -131,9 +141,7 @@ public class IsometricLockedCamera : MonoBehaviour
         // Ctrl + ScrollWheel: Zoom in / out, snapped to discrete steps
         if (isCtrlHeld && cam != null && cam.orthographic && Mathf.Abs(scroll) > 0.01f)
         {
-            float stepped = cam.orthographicSize + Mathf.Sign(-scroll) * zoomStep;
-            stepped = Mathf.Round(stepped / zoomStep) * zoomStep;
-            cam.orthographicSize = Mathf.Clamp(stepped, minOrthoSize, maxOrthoSize);
+            cam.orthographicSize = SnapZoom(cam.orthographicSize + Mathf.Sign(-scroll) * zoomStep);
         }
 
         // Right-Click + Drag: Pan across ground plane

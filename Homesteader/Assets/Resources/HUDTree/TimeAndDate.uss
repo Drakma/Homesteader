@@ -23,14 +23,14 @@
 }
 
 .day-label {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 18px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
 }
 
 .clock-label {
-    color: rgb(241, 196, 15);
+    color: rgb(242, 132, 29);
     font-size: 28px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;

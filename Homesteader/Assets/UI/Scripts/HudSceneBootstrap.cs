@@ -129,6 +129,7 @@ namespace Homesteader.UI
         {
             var existingPed = FindAnyObjectByType<PedController>();
             GameObject playerObj = null;
+            bool usesGlbPed = false;
 
             if (existingPed != null)
             {
@@ -153,7 +154,34 @@ namespace Homesteader.UI
                     }
 
                     var modelPrefab = Resources.Load<GameObject>("Ped/SKM_Peds_Male_Farmer_Rigged");
-                    if (modelPrefab != null)
+                    string farmerDir = System.IO.Path.Combine(Application.streamingAssetsPath, "Peds", "peds_farmer_winter");
+                    string farmerModel = System.IO.Path.Combine(farmerDir, "peds_farmer_winter_farm_anims.glb");
+                    if (System.IO.File.Exists(farmerModel))
+                    {
+                        // Winter farmer: runtime-loaded GLB, clips played by GlbClipPlayer (no Animator).
+                        playerObj = new GameObject("Player");
+                        playerObj.transform.SetPositionAndRotation(spawnPos, spawnRot);
+                        var modelGo = new GameObject("Model");
+                        modelGo.transform.SetParent(playerObj.transform, false);
+                        usesGlbPed = true;
+                        var glb = modelGo.AddComponent<Homesteader.Animation.GlbClipPlayer>();
+                        glb.idleClip = "Idle";
+                        glb.walkClip = "Walk";
+                        glb.runClip = "Run";
+                        glb.LoadCharacter(farmerModel,
+                            new[]
+                            {
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_walk.glb"),
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_run.glb"),
+                            },
+                            new System.Collections.Generic.Dictionary<string, string>
+                            {
+                                { "walking", "Walk" },
+                                { "running", "Run" },
+                                { "Idle_A", "Idle" },
+                            });
+                    }
+                    else if (modelPrefab != null)
                     {
                         playerObj = Instantiate(modelPrefab, spawnPos, spawnRot);
                         playerObj.name = "Player";
@@ -191,16 +219,23 @@ namespace Homesteader.UI
                     ped = playerObj.AddComponent<PedController>();
                 }
 
-                var anim = playerObj.GetComponentInChildren<Animator>();
-                if (anim == null)
+                // The winter farmer GLB already faces the way LookRotation points; the old
+                // prefab needed a 180 degree flip.
+                if (usesGlbPed) ped.modelRotationOffset = 0f;
+
+                var anim = usesGlbPed ? null : playerObj.GetComponentInChildren<Animator>();
+                if (anim == null && !usesGlbPed)
                 {
                     anim = playerObj.AddComponent<Animator>();
                     Debug.Log("[HudSceneBootstrap] Added Animator to playerObj");
                 }
-                anim.applyRootMotion = false;
-                anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+                if (anim != null)
+                {
+                    anim.applyRootMotion = false;
+                    anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+                }
 
-                var animCtrl = Resources.Load<RuntimeAnimatorController>("Ped/PedAnimatorController");
+                var animCtrl = usesGlbPed ? null : Resources.Load<RuntimeAnimatorController>("Ped/PedAnimatorController");
                 if (animCtrl != null)
                 {
                     if (animCtrl.animationClips != null)
@@ -213,7 +248,7 @@ namespace Homesteader.UI
                     anim.runtimeAnimatorController = animCtrl;
                     Debug.Log($"[HudSceneBootstrap] Assigned runtimeAnimatorController: {animCtrl.name}");
                 }
-                else
+                else if (!usesGlbPed)
                 {
                     Debug.LogError("[HudSceneBootstrap] Failed to load Ped/PedAnimatorController from Resources!");
                 }

@@ -24,12 +24,12 @@
 .phone-chassis {
     width: 100%;
     height: 100%;
-    background-color: rgb(18, 24, 32);
+    background-color: rgb(26, 33, 43);
     border-radius: 38px;
     border-width: 3px;
-    border-color: rgb(40, 52, 68);
-    border-top-color: rgb(65, 84, 110);
-    border-bottom-color: rgb(10, 14, 20);
+    border-color: rgb(61, 74, 92);
+    border-top-color: rgb(92, 102, 117);
+    border-bottom-color: rgb(18, 22, 29);
     padding: 11px;
     flex-direction: column;
 }
@@ -38,7 +38,7 @@
 .phone-screen {
     width: 100%;
     height: 100%;
-    background-color: rgb(13, 17, 24);
+    background-color: rgb(26, 33, 43);
     border-radius: 28px;
     overflow: hidden;
     flex-direction: column;
@@ -60,10 +60,10 @@
 .phone-speaker-pill {
     width: 70px;
     height: 6px;
-    background-color: rgb(8, 11, 16);
-    border-radius: 3px;
+    background-color: rgb(18, 22, 29);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(25, 33, 44);
+    border-color: rgb(43, 52, 66);
 }
 
 /* Status Bar: Signal, Time, Battery */
@@ -84,7 +84,7 @@
 }
 
 .phone-status-time {
-    color: rgb(230, 235, 242);
+    color: rgb(238, 242, 246);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
@@ -102,7 +102,7 @@
 }
 
 .phone-status-icon {
-    color: rgb(200, 210, 225);
+    color: rgb(238, 242, 246);
     font-size: 13px;
     margin-left: 6px;
 }
@@ -111,8 +111,8 @@
     width: 24px;
     height: 12px;
     border-width: 1px;
-    border-color: rgb(180, 195, 215);
-    border-radius: 2px;
+    border-color: rgb(147, 161, 179);
+    border-radius: 0;
     margin-left: 8px;
     padding: 1px;
     flex-direction: row;
@@ -121,8 +121,8 @@
 .phone-battery-fill {
     height: 100%;
     width: 82%;
-    background-color: rgb(100, 200, 120);
-    border-radius: 1px;
+    background-color: rgb(92, 208, 192);
+    border-radius: 0;
 }
 
 /* Content Area inside Screen */
@@ -151,10 +151,10 @@
 }
 
 .phone-widget-weather {
-    background-color: rgba(25, 34, 48, 0.7);
+    background-color: rgba(43, 52, 66, 0.7);
     border-radius: 16px;
     border-width: 1px;
-    border-color: rgb(40, 54, 75);
+    border-color: rgb(61, 74, 92);
     padding: 10px 14px;
     margin-bottom: 8px;
     flex-direction: row;
@@ -164,20 +164,20 @@
 }
 
 .phone-weather-temp {
-    color: rgb(240, 245, 250);
+    color: rgb(238, 242, 246);
     font-size: 28px;
     -unity-font: var(--font-bold);
 }
 
 .phone-weather-info {
-    color: rgb(170, 185, 205);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     margin-top: 2px;
 }
 
 .phone-weather-icon {
     font-size: 32px;
-    color: rgb(241, 196, 15);
+    color: rgb(242, 132, 29);
 }
 
 /* App Grid: Strict 3-column grid layout (Max 3 in a row) */
@@ -212,7 +212,7 @@
     border-width: 0;
     flex-shrink: 0;
     -unity-background-scale-mode: scale-to-fit;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
 }
 
 .phone-app-icon-glyph {
@@ -221,7 +221,7 @@
 }
 
 .phone-app-label {
-    color: rgb(220, 228, 238);
+    color: rgb(238, 242, 246);
     font-size: 12.5px;
     -unity-font: var(--font-bold);
     -unity-text-align: upper-center;
@@ -233,12 +233,12 @@
 }
 
 /* Specific app icon theme colors */
-.app-icon-volt      { background-color: rgb(210, 150, 30); }
+.app-icon-volt      { background-color: rgb(224, 138, 60); }
 .app-icon-res       { background-color: rgb(45, 120, 195); }
 .app-icon-depot     { background-color: rgb(215, 95, 30); }
-.app-icon-grocer    { background-color: rgb(40, 155, 90); }
-.app-icon-feed      { background-color: rgb(160, 115, 60); }
-.app-icon-bank      { background-color: rgb(35, 130, 100); }
+.app-icon-grocer    { background-color: rgb(44, 151, 137); }
+.app-icon-feed      { background-color: rgb(194, 115, 41); }
+.app-icon-bank      { background-color: rgb(37, 128, 116); }
 .app-icon-market    { background-color: rgb(140, 70, 160); }
 .app-icon-almanac   { background-color: rgb(90, 80, 180); }
 
@@ -253,7 +253,7 @@
     top: 0;
     bottom: 34px; /* Leaves room only for the sleek bottom home bar */
     flex-direction: column;
-    background-color: rgb(15, 20, 28);
+    background-color: rgb(26, 33, 43);
     overflow: hidden;
     z-index: 10;
 }
@@ -268,20 +268,20 @@
     padding-right: 14px;
     flex-direction: row;
     align-items: center;
-    background-color: rgb(24, 32, 44);
+    background-color: rgb(43, 52, 66);
     border-bottom-width: 1px;
-    border-bottom-color: rgb(35, 46, 62);
+    border-bottom-color: rgb(43, 52, 66);
     flex-shrink: 0;
 }
 
 .phone-back-btn {
     width: 34px;
     height: 34px;
-    background-color: rgba(35, 48, 66, 0.6);
+    background-color: rgba(43, 52, 66, 0.6);
     border-width: 1px;
-    border-color: rgba(193, 154, 60, 0.5);
-    border-radius: 4px;
-    color: rgb(235, 195, 95);
+    border-color: rgba(224, 138, 60, 0.5);
+    border-radius: 0;
+    color: rgb(237, 171, 109);
     font-size: 18px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
@@ -291,17 +291,17 @@
 }
 
 .phone-back-btn:hover {
-    background-color: rgba(193, 154, 60, 0.25);
-    border-color: rgb(240, 200, 90);
+    background-color: rgba(224, 138, 60, 0.25);
+    border-color: rgb(241, 170, 104);
     color: rgb(255, 255, 255);
 }
 
 .phone-back-btn:active {
-    background-color: rgba(193, 154, 60, 0.4);
+    background-color: rgba(224, 138, 60, 0.4);
 }
 
 .phone-app-title {
-    color: rgb(235, 240, 248);
+    color: rgb(238, 242, 246);
     font-size: 17px;
     -unity-font: var(--font-bold);
     flex-grow: 1;
@@ -336,21 +336,21 @@
 }
 
 .phone-app-scroll .unity-scroller--vertical .unity-base-slider__tracker {
-    background-color: rgba(10, 14, 20, 0.4);
-    border-radius: 3px;
+    background-color: rgba(18, 22, 29, 0.4);
+    border-radius: 0;
     border-width: 0;
     width: 6px;
 }
 
 .phone-app-scroll .unity-scroller--vertical .unity-base-slider__dragger {
-    background-color: rgba(193, 154, 60, 0.45);
-    border-radius: 3px;
+    background-color: rgba(224, 138, 60, 0.45);
+    border-radius: 0;
     border-width: 0;
     width: 6px;
 }
 
 .phone-app-scroll .unity-scroller--vertical .unity-base-slider__dragger:hover {
-    background-color: rgba(240, 200, 90, 0.85);
+    background-color: rgba(241, 170, 104, 0.85);
 }
 
 .phone-app-scroll .unity-scroller__low-button,
@@ -363,40 +363,40 @@
    ========================================================================= */
 
 .grid-card {
-    background-color: rgb(22, 29, 40);
+    background-color: rgb(43, 52, 66);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(35, 47, 65);
+    border-color: rgb(43, 52, 66);
     padding: 14px;
     margin-bottom: 12px;
     flex-shrink: 0;
 }
 
 .grid-card-title {
-    color: rgb(170, 185, 205);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     -unity-font: var(--font-bold);
     margin-bottom: 8px;
 }
 
 .grid-metric-large {
-    color: rgb(245, 200, 60);
+    color: rgb(246, 157, 75);
     font-size: 32px;
     -unity-font: var(--font-bold);
 }
 
 .grid-metric-sub {
-    color: rgb(140, 155, 175);
+    color: rgb(139, 150, 165);
     font-size: 13px;
     margin-top: 2px;
 }
 
 .grid-bar-track {
     height: 12px;
-    background-color: rgb(12, 16, 22);
-    border-radius: 6px;
+    background-color: rgb(18, 22, 29);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(25, 34, 46);
+    border-color: rgb(43, 52, 66);
     margin-top: 10px;
     overflow: hidden;
 }
@@ -404,13 +404,13 @@
 .grid-bar-fill-solar {
     height: 100%;
     width: 68%;
-    background-color: rgb(241, 196, 15);
+    background-color: rgb(242, 132, 29);
 }
 
 .grid-bar-fill-battery {
     height: 100%;
     width: 84%;
-    background-color: rgb(46, 204, 113);
+    background-color: rgb(54, 196, 177);
 }
 
 /* =========================================================================
@@ -435,11 +435,11 @@
 
 .store-search-input > .unity-text-field__input,
 .store-search-input > .unity-base-text-field__input {
-    background-color: rgb(22, 28, 38);
-    border-radius: 6px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(50, 65, 85);
-    color: rgb(225, 230, 240);
+    border-color: rgb(61, 74, 92);
+    color: rgb(238, 242, 246);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0;
@@ -457,8 +457,8 @@
 .store-search-input:focus > .unity-base-text-field__input,
 .store-search-input > .unity-text-field__input:focus,
 .store-search-input > .unity-base-text-field__input:focus {
-    border-color: rgb(193, 154, 60);
-    background-color: rgb(26, 34, 46);
+    border-color: rgb(224, 138, 60);
+    background-color: rgb(43, 52, 66);
 }
 
 .store-search-input TextElement,
@@ -467,7 +467,7 @@
 }
 
 .store-empty-search-label {
-    color: rgb(160, 175, 195);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     -unity-font: var(--font-medium);
     -unity-text-align: middle-center;
@@ -476,7 +476,7 @@
 }
 
 .store-banner {
-    border-radius: 8px;
+    border-radius: 0;
     padding: 8px 12px;
     margin-bottom: 12px;
     flex-direction: row;
@@ -485,8 +485,8 @@
 }
 
 .store-banner-depot  { background-color: rgb(160, 65, 20); }
-.store-banner-grocer { background-color: rgb(30, 115, 65); }
-.store-banner-feed   { background-color: rgb(120, 85, 40); }
+.store-banner-grocer { background-color: rgb(33, 112, 102); }
+.store-banner-feed   { background-color: rgb(145, 86, 31); }
 
 .store-banner-text {
     color: rgb(255, 255, 255);
@@ -495,10 +495,10 @@
 }
 
 .store-item-card {
-    background-color: rgb(22, 29, 40);
+    background-color: rgb(43, 52, 66);
     border-radius: 10px;
     border-width: 1px;
-    border-color: rgb(35, 47, 65);
+    border-color: rgb(43, 52, 66);
     padding: 12px 14px;
     margin-bottom: 10px;
     flex-direction: row;
@@ -517,9 +517,9 @@
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: rgb(14, 18, 25);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(30, 40, 55);
+    border-color: rgb(43, 52, 66);
     align-items: center;
     justify-content: center;
     margin-right: 14px;
@@ -533,13 +533,13 @@
 }
 
 .store-item-name {
-    color: rgb(235, 240, 248);
+    color: rgb(238, 242, 246);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
 
 .store-item-price {
-    color: rgb(193, 154, 60);
+    color: rgb(224, 138, 60);
     font-size: 13px;
     -unity-font: var(--font-medium);
     margin-top: 2px;
@@ -549,9 +549,9 @@
     height: 30px;
     padding-left: 14px;
     padding-right: 14px;
-    background-color: rgb(193, 154, 60);
-    color: rgb(10, 14, 21);
-    border-radius: 5px;
+    background-color: rgb(224, 138, 60);
+    color: rgb(18, 22, 29);
+    border-radius: 0;
     border-width: 0;
     font-size: 13px;
     -unity-font: var(--font-bold);
@@ -559,14 +559,14 @@
 }
 
 .store-item-buy-btn:hover {
-    background-color: rgb(220, 175, 75);
+    background-color: rgb(222, 153, 88);
 }
 
 .gig-card {
-    background-color: rgb(22, 29, 40);
+    background-color: rgb(43, 52, 66);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(35, 47, 65);
+    border-color: rgb(43, 52, 66);
     padding: 14px 16px;
     margin-bottom: 10px;
     flex-shrink: 0;
@@ -579,7 +579,7 @@
 }
 
 .gig-pay {
-    color: rgb(46, 204, 113);
+    color: rgb(54, 196, 177);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
@@ -591,9 +591,9 @@
 }
 
 .gig-chip {
-    background-color: rgba(193, 154, 60, 0.16);
-    color: rgb(215, 190, 130);
-    border-radius: 4px;
+    background-color: rgba(224, 138, 60, 0.16);
+    color: rgb(229, 179, 131);
+    border-radius: 0;
     padding: 3px 8px;
     margin-right: 6px;
     margin-bottom: 4px;
@@ -607,7 +607,7 @@
 }
 
 .gig-blurb {
-    color: rgb(130, 145, 165);
+    color: rgb(139, 150, 165);
     font-size: 12px;
     margin-top: 8px;
     margin-bottom: 10px;
@@ -616,9 +616,9 @@
 
 .store-checkout-bar {
     height: 56px;
-    background-color: rgb(20, 27, 38);
+    background-color: rgb(26, 33, 43);
     border-top-width: 1px;
-    border-top-color: rgb(35, 47, 65);
+    border-top-color: rgb(43, 52, 66);
     padding: 8px 16px;
     flex-direction: row;
     justify-content: space-between;
@@ -627,7 +627,7 @@
 }
 
 .store-cart-text {
-    color: rgb(220, 228, 238);
+    color: rgb(238, 242, 246);
     font-size: 14px;
 }
 
@@ -646,11 +646,11 @@
     width: 130px;
     height: 6px;
     background-color: rgba(220, 230, 245, 0.4);
-    border-radius: 3px;
+    border-radius: 0;
 }
 
 .phone-home-pill:hover {
-    background-color: rgba(240, 200, 90, 0.9);
+    background-color: rgba(241, 170, 104, 0.9);
 }
 
 /* =========================================================================
@@ -660,45 +660,45 @@
 .store-banner-exchange { background-color: rgb(110, 50, 130); }
 
 .bank-card {
-    background-color: rgb(22, 29, 40);
+    background-color: rgb(43, 52, 66);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(35, 47, 65);
+    border-color: rgb(43, 52, 66);
     padding: 14px 16px;
     margin-bottom: 12px;
     flex-shrink: 0;
 }
 
 .bank-card-label {
-    color: rgb(160, 175, 195);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     -unity-font: var(--font-bold);
 }
 
 .bank-balance-large {
-    color: rgb(46, 204, 113);
+    color: rgb(54, 196, 177);
     font-size: 32px;
     -unity-font: var(--font-bold);
     margin-top: 2px;
 }
 
 .bank-debt-large {
-    color: rgb(231, 76, 60);
+    color: rgb(231, 60, 66);
     font-size: 30px;
     -unity-font: var(--font-bold);
     margin-top: 2px;
 }
 
 .bank-card-sub {
-    color: rgb(130, 145, 165);
+    color: rgb(139, 150, 165);
     font-size: 13px;
     margin-top: 2px;
 }
 
 .bank-rate-pill {
-    background-color: rgba(231, 76, 60, 0.2);
-    color: rgb(231, 76, 60);
-    border-radius: 4px;
+    background-color: rgba(231, 60, 66, 0.2);
+    color: rgb(231, 60, 66);
+    border-radius: 0;
     padding: 3px 8px;
     font-size: 12px;
     -unity-font: var(--font-bold);
@@ -709,18 +709,18 @@
     margin-left: 4px;
     margin-right: 4px;
     height: 34px;
-    background-color: rgb(35, 47, 65);
-    color: rgb(220, 230, 240);
-    border-radius: 6px;
+    background-color: rgb(43, 52, 66);
+    color: rgb(238, 242, 246);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(55, 70, 95);
+    border-color: rgb(61, 74, 92);
     font-size: 13px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
 }
 
 .bank-action-btn:hover {
-    background-color: rgb(50, 68, 92);
+    background-color: rgb(61, 74, 92);
     color: rgb(255, 255, 255);
 }
 
@@ -731,7 +731,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border-top-width: 1px;
-    border-top-color: rgb(30, 40, 55);
+    border-top-color: rgb(43, 52, 66);
 }
 
 /* =========================================================================
@@ -740,30 +740,30 @@
 
 .market-tab-bar {
     flex-direction: row;
-    background-color: rgb(20, 27, 38);
+    background-color: rgb(26, 33, 43);
     height: 42px;
     border-bottom-width: 1px;
-    border-bottom-color: rgb(35, 46, 62);
+    border-bottom-color: rgb(43, 52, 66);
     flex-shrink: 0;
 }
 
 .market-tab-btn {
     flex-grow: 1;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
     border-width: 0;
     border-bottom-width: 2px;
-    border-bottom-color: rgba(0, 0, 0, 0);
-    color: rgb(160, 175, 195);
+    border-bottom-color: rgba(18, 22, 29, 0);
+    color: rgb(147, 161, 179);
     font-size: 14px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
 }
 
 .market-tab-btn--active {
-    color: rgb(240, 200, 90);
-    border-bottom-color: rgb(240, 200, 90);
-    background-color: rgba(240, 200, 90, 0.08);
+    color: rgb(241, 170, 104);
+    border-bottom-color: rgb(241, 170, 104);
+    background-color: rgba(241, 170, 104, 0.08);
 }
 
 .phone-app-scroll--hidden {
@@ -775,14 +775,14 @@
    ========================================================================= */
 
 .app-icon-admin {
-    background-color: rgb(165, 42, 42);
-    border-color: rgb(215, 75, 75);
+    background-color: rgb(178, 29, 34);
+    border-color: rgb(224, 66, 71);
 }
 
 .admin-card {
-    background-color: rgb(20, 26, 36);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(38, 49, 65);
+    border-color: rgb(61, 74, 92);
     border-radius: 10px;
     padding: 12px 14px;
     margin-bottom: 12px;
@@ -791,7 +791,7 @@
 }
 
 .admin-card-title {
-    color: rgb(193, 154, 60);
+    color: rgb(224, 138, 60);
     font-size: 13px;
     -unity-font: var(--font-bold);
     margin-bottom: 10px;
@@ -820,31 +820,31 @@
     height: 32px;
     margin: 0 4px;
     padding: 0;
-    background-color: rgb(28, 38, 52);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(48, 64, 86);
-    border-radius: 5px;
-    color: rgb(215, 225, 238);
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
+    color: rgb(238, 242, 246);
     font-size: 13px;
     -unity-font: var(--font-medium);
     -unity-text-align: middle-center;
 }
 
 .admin-chip-btn:hover {
-    background-color: rgb(44, 58, 78);
-    border-color: rgb(193, 154, 60);
+    background-color: rgb(61, 74, 92);
+    border-color: rgb(224, 138, 60);
     color: rgb(255, 255, 255);
 }
 
 .admin-chip-btn:active {
-    background-color: rgb(193, 154, 60);
-    color: rgb(15, 20, 28);
+    background-color: rgb(224, 138, 60);
+    color: rgb(26, 33, 43);
 }
 
 .admin-chip-btn--active {
-    background-color: rgba(193, 154, 60, 0.22);
-    border-color: rgb(240, 200, 90);
-    color: rgb(255, 235, 170);
+    background-color: rgba(224, 138, 60, 0.22);
+    border-color: rgb(241, 170, 104);
+    color: rgb(255, 219, 185);
     -unity-font: var(--font-bold);
 }
 
@@ -868,43 +868,43 @@
     height: 28px;
     margin-left: 4px;
     padding: 0;
-    background-color: rgb(32, 42, 56);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(60, 78, 102);
-    border-radius: 4px;
-    color: rgb(210, 220, 230);
+    border-color: rgb(92, 102, 117);
+    border-radius: 0;
+    color: rgb(238, 242, 246);
     font-size: 13px;
 }
 
 .admin-step-btn:hover {
-    background-color: rgb(48, 64, 86);
-    border-color: rgb(193, 154, 60);
+    background-color: rgb(61, 74, 92);
+    border-color: rgb(224, 138, 60);
 }
 
 .admin-action-btn {
     height: 28px;
     padding: 0 12px;
-    background-color: rgb(35, 110, 70);
+    background-color: rgb(33, 112, 102);
     border-width: 1px;
-    border-color: rgb(55, 150, 95);
-    border-radius: 4px;
+    border-color: rgb(46, 159, 144);
+    border-radius: 0;
     color: rgb(240, 250, 245);
     font-size: 12px;
     -unity-font: var(--font-bold);
 }
 
 .admin-action-btn:hover {
-    background-color: rgb(45, 135, 85);
+    background-color: rgb(40, 140, 126);
 }
 
 .admin-label {
-    color: rgb(225, 232, 240);
+    color: rgb(238, 242, 246);
     font-size: 14px;
     -unity-font: var(--font-bold);
 }
 
 .admin-sublabel {
-    color: rgb(190, 202, 216);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     margin-bottom: 2px;
 }
@@ -921,19 +921,19 @@
     width: 30px;
     height: 22px;
     padding: 0;
-    background-color: rgb(32, 42, 56);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(60, 78, 102);
-    border-radius: 4px;
-    color: rgb(210, 220, 235);
+    border-color: rgb(92, 102, 117);
+    border-radius: 0;
+    color: rgb(238, 242, 246);
     font-size: 12px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
 }
 
 .admin-vital-zero-btn:hover {
-    background-color: rgb(48, 64, 86);
-    border-color: rgb(193, 154, 60);
+    background-color: rgb(61, 74, 92);
+    border-color: rgb(224, 138, 60);
     color: rgb(255, 255, 255);
 }
 
@@ -963,10 +963,10 @@
 
 .admin-slider .unity-base-slider__tracker {
     height: 7px;
-    background-color: rgb(15, 20, 28);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(45, 58, 76);
-    border-radius: 3px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
 }
 
 .admin-slider .unity-base-slider__dragger {
@@ -974,13 +974,13 @@
     height: 18px;
     margin-top: -5px;
     border-radius: 9px;
-    background-color: rgb(193, 154, 60);
+    background-color: rgb(224, 138, 60);
     border-width: 1px;
-    border-color: rgb(240, 200, 90);
+    border-color: rgb(241, 170, 104);
 }
 
 .admin-slider .unity-base-slider__dragger:hover {
-    background-color: rgb(240, 200, 90);
+    background-color: rgb(241, 170, 104);
 }
 
 .admin-scale-row {
@@ -1000,16 +1000,16 @@
 }
 
 .admin-scale-label--min {
-    color: rgb(231, 76, 60);
+    color: rgb(231, 60, 66);
 }
 
 .admin-scale-label--mid {
-    color: rgb(193, 154, 60);
+    color: rgb(224, 138, 60);
     -unity-text-align: middle-center;
 }
 
 .admin-scale-label--max {
-    color: rgb(46, 204, 113);
+    color: rgb(54, 196, 177);
     -unity-text-align: middle-right;
 }
 
@@ -1029,7 +1029,7 @@
 }
 
 .admin-input-label {
-    color: rgb(210, 220, 235);
+    color: rgb(238, 242, 246);
     font-size: 14px;
     -unity-font: var(--font-medium);
     width: 130px;
@@ -1042,19 +1042,19 @@
     margin: 0 8px 0 0;
     padding: 0;
     font-size: 14px;
-    color: rgb(240, 245, 250);
+    color: rgb(238, 242, 246);
 }
 
 .admin-text-field > .unity-text-field__input {
-    background-color: rgb(15, 20, 28);
-    border-color: rgb(55, 70, 92);
+    background-color: rgb(26, 33, 43);
+    border-color: rgb(61, 74, 92);
     border-width: 1px;
-    border-radius: 4px;
+    border-radius: 0;
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 0;
     padding-bottom: 0;
-    color: rgb(240, 245, 250);
+    color: rgb(238, 242, 246);
     font-size: 14px;
     -unity-font: var(--font-medium);
     -unity-text-align: middle-left;
@@ -1063,30 +1063,30 @@
 }
 
 .admin-text-field > .unity-text-field__input:focus {
-    border-color: rgb(193, 154, 60);
+    border-color: rgb(224, 138, 60);
 }
 
 .admin-set-btn {
     width: 50px;
     height: 30px;
     padding: 0;
-    background-color: rgb(40, 75, 110);
+    background-color: rgb(61, 74, 92);
     border-width: 1px;
-    border-color: rgb(65, 110, 155);
-    border-radius: 4px;
+    border-color: rgb(92, 102, 117);
+    border-radius: 0;
     color: rgb(230, 240, 255);
     font-size: 13px;
     -unity-font: var(--font-bold);
 }
 
 .admin-set-btn:hover {
-    background-color: rgb(55, 100, 145);
-    border-color: rgb(193, 154, 60);
+    background-color: rgb(92, 102, 117);
+    border-color: rgb(224, 138, 60);
 }
 
 .admin-set-btn:active {
-    background-color: rgb(193, 154, 60);
-    color: rgb(15, 20, 28);
+    background-color: rgb(224, 138, 60);
+    color: rgb(26, 33, 43);
 }
 
 /* =========================================================================
@@ -1095,12 +1095,12 @@
 
 .phone-app-subtitle {
     font-size: 11px;
-    color: rgb(150, 165, 185);
+    color: rgb(147, 161, 179);
     margin-top: -2px;
 }
 
 .almanac-today-banner {
-    background-color: rgb(22, 28, 40);
+    background-color: rgb(43, 52, 66);
     border-bottom-width: 1px;
     border-bottom-color: rgba(255, 255, 255, 0.08);
     padding: 10px 14px;
@@ -1110,19 +1110,19 @@
 .almanac-today-title {
     font-size: 13px;
     -unity-font: var(--font-bold);
-    color: rgb(215, 175, 75);
+    color: rgb(219, 150, 86);
 }
 
 .almanac-today-details {
     font-size: 12px;
-    color: rgb(170, 185, 205);
+    color: rgb(147, 161, 179);
     margin-top: 3px;
 }
 
 .almanac-tab-bar {
     flex-direction: row;
     padding: 8px 12px;
-    background-color: rgb(18, 22, 32);
+    background-color: rgb(26, 33, 43);
     border-bottom-width: 1px;
     border-bottom-color: rgba(255, 255, 255, 0.08);
     flex-shrink: 0;
@@ -1131,11 +1131,11 @@
 .almanac-tab-btn {
     flex-grow: 1;
     height: 32px;
-    border-radius: 6px;
+    border-radius: 0;
     background-color: rgba(255, 255, 255, 0.05);
     border-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
-    color: rgb(160, 175, 195);
+    color: rgb(147, 161, 179);
     font-size: 13px;
     -unity-font: var(--font-medium);
     margin-left: 4px;
@@ -1160,8 +1160,8 @@
 }
 
 .almanac-card {
-    background-color: rgb(24, 30, 42);
-    border-radius: 8px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
     border-color: rgba(255, 255, 255, 0.08);
     padding: 11px 14px;
@@ -1171,8 +1171,8 @@
 }
 
 .almanac-card-today {
-    border-color: rgb(215, 175, 75);
-    background-color: rgb(30, 38, 55);
+    border-color: rgb(219, 150, 86);
+    background-color: rgb(43, 52, 66);
 }
 
 .almanac-card-top {
@@ -1197,22 +1197,22 @@
 .almanac-card-offset {
     font-size: 11px;
     -unity-font: var(--font-medium);
-    color: rgb(150, 170, 195);
+    color: rgb(147, 161, 179);
     background-color: rgba(255, 255, 255, 0.08);
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: 0;
     margin-left: 8px;
 }
 
 .almanac-card-astro-badge {
     font-size: 11px;
     -unity-font: var(--font-bold);
-    color: rgb(255, 215, 80);
-    background-color: rgba(255, 200, 40, 0.15);
+    color: rgb(255, 172, 95);
+    background-color: rgba(255, 152, 55, 0.15);
     border-width: 1px;
-    border-color: rgba(255, 200, 40, 0.4);
+    border-color: rgba(255, 152, 55, 0.4);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 0;
 }
 
 .almanac-card-sun-row {
@@ -1224,7 +1224,7 @@
 
 .almanac-card-sun-text {
     font-size: 12px;
-    color: rgb(180, 195, 215);
+    color: rgb(147, 161, 179);
 }
 
 .almanac-card-weather-row {
@@ -1256,7 +1256,7 @@
     font-size: 11px;
     -unity-font: var(--font-bold);
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 0;
     -unity-text-align: middle-center;
 }
 
@@ -1268,24 +1268,24 @@
 }
 
 .almanac-conf-high {
-    background-color: rgba(46, 204, 113, 0.2);
-    color: rgb(80, 230, 140);
+    background-color: rgba(54, 196, 177, 0.2);
+    color: rgb(88, 222, 204);
     border-width: 1px;
-    border-color: rgba(46, 204, 113, 0.4);
+    border-color: rgba(54, 196, 177, 0.4);
 }
 
 .almanac-conf-med {
-    background-color: rgba(243, 156, 18, 0.2);
-    color: rgb(250, 185, 75);
+    background-color: rgba(244, 135, 33, 0.2);
+    color: rgb(250, 167, 90);
     border-width: 1px;
-    border-color: rgba(243, 156, 18, 0.4);
+    border-color: rgba(244, 135, 33, 0.4);
 }
 
 .almanac-conf-low {
-    background-color: rgba(149, 165, 166, 0.2);
-    color: rgb(180, 195, 210);
+    background-color: rgba(139, 150, 165, 0.2);
+    color: rgb(147, 161, 179);
     border-width: 1px;
-    border-color: rgba(149, 165, 166, 0.4);
+    border-color: rgba(139, 150, 165, 0.4);
 }
 
 .almanac-conf-season {
@@ -1297,7 +1297,7 @@
 
 .almanac-weekly-note {
     font-size: 12px;
-    color: rgb(155, 175, 195);
+    color: rgb(147, 161, 179);
     margin-top: 6px;
     -unity-font-style: italic;
 }
@@ -1313,16 +1313,16 @@
 .almanac-card-temp-pill {
     flex-direction: row;
     align-items: center;
-    background-color: rgba(30, 35, 45, 0.75);
+    background-color: rgba(43, 52, 66, 0.75);
     border-radius: 10px;
     padding: 2px 10px;
     border-width: 1px;
-    border-color: rgba(100, 115, 140, 0.6);
+    border-color: rgba(139, 150, 165, 0.6);
 }
 
 .almanac-temp-high {
     font-size: 13px;
-    color: rgb(255, 160, 80);
+    color: rgb(255, 172, 95);
     -unity-font-style: bold;
     margin-right: 8px;
 }
@@ -1355,11 +1355,11 @@
 
 .mods-search-input > .unity-text-field__input,
 .mods-search-input > .unity-base-text-field__input {
-    background-color: rgb(22, 28, 38);
-    border-radius: 6px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(50, 65, 85);
-    color: rgb(225, 230, 240);
+    border-color: rgb(61, 74, 92);
+    color: rgb(238, 242, 246);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0;
@@ -1377,8 +1377,8 @@
 .mods-search-input:focus > .unity-base-text-field__input,
 .mods-search-input > .unity-text-field__input:focus,
 .mods-search-input > .unity-base-text-field__input:focus {
-    border-color: rgb(193, 154, 60);
-    background-color: rgb(26, 34, 46);
+    border-color: rgb(224, 138, 60);
+    background-color: rgb(43, 52, 66);
 }
 
 .mods-search-input TextElement,
@@ -1399,17 +1399,17 @@
     align-items: center;
     justify-content: space-between;
     padding: 6px 14px;
-    background-color: rgba(18, 24, 34, 0.95);
+    background-color: rgba(26, 33, 43, 0.95);
     border-bottom-width: 1px;
-    border-color: rgb(35, 45, 62);
+    border-color: rgb(43, 52, 66);
     min-height: 38px;
 }
 
 .mods-category-back-btn {
-    background-color: rgb(28, 38, 52);
-    border-radius: 6px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(50, 70, 95);
+    border-color: rgb(61, 74, 92);
     color: rgb(180, 210, 245);
     font-size: 11px;
     -unity-font: var(--font-bold);
@@ -1417,13 +1417,13 @@
 }
 
 .mods-category-back-btn:hover {
-    background-color: rgb(40, 55, 75);
+    background-color: rgb(61, 74, 92);
     color: rgb(255, 255, 255);
 }
 
 .mods-category-nav-title {
     font-size: 13px;
-    color: rgb(235, 200, 110);
+    color: rgb(237, 178, 123);
     -unity-font: var(--font-bold);
     flex-grow: 1;
     margin-left: 8px;
@@ -1436,18 +1436,18 @@
 .mods-category-card {
     margin: 6px 14px;
     padding: 12px 14px;
-    background-color: rgba(22, 28, 38, 0.95);
-    border-radius: 8px;
+    background-color: rgba(43, 52, 66, 0.95);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(40, 52, 70);
+    border-color: rgb(61, 74, 92);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
 .mods-category-card:hover {
-    background-color: rgba(30, 40, 56, 0.98);
-    border-color: rgb(70, 92, 125);
+    background-color: rgba(43, 52, 66, 0.98);
+    border-color: rgb(92, 102, 117);
 }
 
 .mods-category-card-left {
@@ -1457,14 +1457,14 @@
 
 .mods-category-card-name {
     font-size: 14px;
-    color: rgb(240, 244, 250);
+    color: rgb(238, 242, 246);
     -unity-font: var(--font-bold);
     margin-bottom: 3px;
 }
 
 .mods-category-card-sub {
     font-size: 11px;
-    color: rgb(140, 160, 185);
+    color: rgb(147, 161, 179);
     -unity-font: var(--font);
 }
 
@@ -1475,14 +1475,14 @@
 
 .mods-category-open-arrow {
     font-size: 18px;
-    color: rgb(180, 200, 230);
+    color: rgb(238, 242, 246);
     margin-left: 10px;
     -unity-font: var(--font-bold);
 }
 
 .mod-toggle-btn {
     padding: 4px 10px;
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 11px;
     -unity-font: var(--font-bold);
     border-width: 1px;
@@ -1491,7 +1491,7 @@
 
 .mod-toggle-btn--enabled {
     background-color: rgb(22, 68, 40);
-    border-color: rgb(42, 130, 75);
+    border-color: rgb(39, 133, 121);
     color: rgb(165, 245, 190);
 }
 
@@ -1503,7 +1503,7 @@
 .mod-toggle-btn--disabled {
     background-color: rgb(65, 28, 32);
     border-color: rgb(130, 50, 60);
-    color: rgb(245, 175, 180);
+    color: rgb(245, 175, 177);
 }
 
 .mod-toggle-btn--disabled:hover {
@@ -1513,23 +1513,23 @@
 
 .mod-badge--enabled {
     background-color: rgb(22, 68, 40);
-    border-color: rgb(42, 130, 75);
+    border-color: rgb(39, 133, 121);
     color: rgb(165, 245, 190);
 }
 
 .mod-badge--disabled {
     background-color: rgb(65, 28, 32);
     border-color: rgb(130, 50, 60);
-    color: rgb(245, 175, 180);
+    color: rgb(245, 175, 177);
 }
 
 .mod-card {
     margin: 6px 14px;
     padding: 12px 14px;
-    background-color: rgba(22, 28, 38, 0.95);
-    border-radius: 6px;
+    background-color: rgba(43, 52, 66, 0.95);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(40, 52, 70);
+    border-color: rgb(61, 74, 92);
     flex-direction: column;
 }
 
@@ -1542,16 +1542,16 @@
 
 .mod-title {
     font-size: 14px;
-    color: rgb(235, 200, 110);
+    color: rgb(237, 178, 123);
     -unity-font: var(--font-bold);
     flex-grow: 1;
 }
 
 .mod-badge {
     padding: 2px 8px;
-    border-radius: 8px;
+    border-radius: 0;
     border-width: 1px;
-    background-color: rgb(45, 60, 85);
+    background-color: rgb(61, 74, 92);
     color: rgb(160, 195, 245);
     font-size: 10px;
     -unity-font: var(--font-bold);
@@ -1559,7 +1559,7 @@
 
 .mod-desc {
     font-size: 11px;
-    color: rgb(180, 190, 205);
+    color: rgb(147, 161, 179);
     -unity-font: var(--font);
     white-space: normal;
     line-height: 14px;
@@ -1571,7 +1571,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 10px;
-    color: rgb(120, 135, 155);
+    color: rgb(139, 150, 165);
 }
 
 .mod-action-row {
@@ -1581,12 +1581,12 @@
     margin-top: 8px;
     padding-top: 6px;
     border-top-width: 1px;
-    border-color: rgb(32, 42, 58);
+    border-color: rgb(43, 52, 66);
 }
 
 .mod-folder-label {
     font-size: 10px;
-    color: rgb(110, 130, 155);
+    color: rgb(139, 150, 165);
     -unity-font: var(--font);
     flex-grow: 1;
 }
@@ -1613,10 +1613,10 @@
 
 /* Additional Store Banners */
 .store-banner-lumber        { background-color: rgb(110, 65, 30); }
-.store-banner-auto          { background-color: rgb(40, 70, 115); }
-.store-banner-fuel          { background-color: rgb(140, 50, 30); }
+.store-banner-auto          { background-color: rgb(61, 74, 92); }
+.store-banner-fuel          { background-color: rgb(146, 24, 28); }
 .store-banner-structures    { background-color: rgb(60, 85, 55); }
-.store-banner-equipment     { background-color: rgb(135, 95, 25); }
+.store-banner-equipment     { background-color: rgb(148, 86, 27); }
 .store-banner-furniture     { background-color: rgb(85, 55, 110); }
 .store-banner-voltvision    { background-color: rgb(15, 65, 135); }
 .store-banner-trailershack  { background-color: rgb(85, 65, 45); }
@@ -1681,7 +1681,7 @@
     height: 10px;
     min-width: 10px;
     min-height: 10px;
-    border-radius: 5px;
+    border-radius: 0;
     background-color: rgba(180, 205, 235, 0.55);
     transition-property: background-color, scale;
     transition-duration: 0.2s;
@@ -1693,12 +1693,12 @@
 }
 
 .phone-page-dot--active .phone-page-dot-inner {
-    background-color: rgb(240, 205, 95);
+    background-color: rgb(241, 173, 109);
     scale: 1.25 1.25;
 }
 
 .phone-page-dot--active:hover .phone-page-dot-inner {
-    background-color: rgb(255, 220, 110);
+    background-color: rgb(255, 188, 125);
     scale: 1.35 1.35;
 }
 

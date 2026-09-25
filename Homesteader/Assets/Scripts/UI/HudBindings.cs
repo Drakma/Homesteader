@@ -35,6 +35,8 @@ namespace Homesteader.UI
         private VisualElement _weatherIcon;
         private VisualElement _celestialIcon;
         private Label _seasonLabel;
+        private VisualElement _seasonIcon;
+        private static readonly Dictionary<string, Texture2D> s_seasonTextures = new Dictionary<string, Texture2D>();
         private Label _dayLabel;
         private Label _clockLabel;
 
@@ -235,6 +237,7 @@ namespace Homesteader.UI
             _weatherIcon = Q<VisualElement>("WeatherIcon");
             _celestialIcon = Q<VisualElement>("CelestialIcon");
             _seasonLabel = Q<Label>("SeasonLabel");
+            _seasonIcon = Q<VisualElement>("SeasonIcon");
             _dayLabel = Q<Label>("DayLabel");
             _clockLabel = Q<Label>("ClockLabel");
             _resourceWater = Q<Label>("ResourceWaterLabel");
@@ -1191,13 +1194,23 @@ namespace Homesteader.UI
             var snap = TimeSystem.Instance.Snapshot();
             if (_timeLineLabel != null)
             {
-                _timeLineLabel.text = $"{SeasonToString(snap.Season)}  {snap.MonthName} {snap.DayOfMonth}  {TimeSystem.Instance.GetWallClock()}";
+                _timeLineLabel.text = $"{snap.MonthName} {snap.DayOfMonth}  {TimeSystem.Instance.GetWallClock()}";
             }
             if (_speedStateLabel != null)
             {
                 _speedStateLabel.text = GetSpeedDisplayLabel(snap.Speed);
             }
             if (_seasonLabel != null) _seasonLabel.text = SeasonToString(snap.Season);
+            if (_seasonIcon != null)
+            {
+                string seasonKey = SeasonToString(snap.Season).ToLowerInvariant();
+                if (!s_seasonTextures.TryGetValue(seasonKey, out var seasonTex) || seasonTex == null)
+                {
+                    seasonTex = Resources.Load<Texture2D>("HUDTree/KitSprites/seasons/season_" + seasonKey);
+                    s_seasonTextures[seasonKey] = seasonTex;
+                }
+                if (seasonTex != null) _seasonIcon.style.backgroundImage = new StyleBackground(seasonTex);
+            }
             if (_dayLabel != null) _dayLabel.text = $"{snap.MonthName} {snap.DayOfMonth}";
             if (_clockLabel != null) _clockLabel.text = TimeSystem.Instance.GetWallClock();
 
@@ -1502,14 +1515,15 @@ namespace Homesteader.UI
             EnsureGradients();
 
             int raw = Mathf.Clamp(s.Vitals[id].Value, -100, 100);
-            const float halfWidth = 40f; // Center of 80px track
+            const float halfWidth = 37f; // Center of 74px track
 
             if (fill != null)
             {
                 if (raw > 0)
                 {
                     fill.style.display = DisplayStyle.Flex;
-                    fill.style.backgroundImage = new StyleBackground(_posFillTex);
+                    fill.style.backgroundImage = StyleKeyword.None;
+                    fill.style.backgroundColor = new Color(69f / 255f, 209f / 255f, 192f / 255f, 1f); // Precision teal
                     float fillW = (raw / 100f) * halfWidth;
                     fill.style.left = halfWidth;
                     fill.style.width = fillW;
@@ -1517,7 +1531,8 @@ namespace Homesteader.UI
                 else if (raw < 0)
                 {
                     fill.style.display = DisplayStyle.Flex;
-                    fill.style.backgroundImage = new StyleBackground(_negFillTex);
+                    fill.style.backgroundImage = StyleKeyword.None;
+                    fill.style.backgroundColor = new Color(229f / 255f, 72f / 255f, 77f / 255f, 1f); // Precision ember
                     float fillW = (-raw / 100f) * halfWidth;
                     fill.style.left = halfWidth - fillW;
                     fill.style.width = fillW;
@@ -1537,6 +1552,13 @@ namespace Homesteader.UI
                     ? (Mathf.RoundToInt((raw + 100f) / 2f).ToString() + "%")
                     : (raw == 0 ? "0%" : (raw.ToString("+0;-0") + "%"));
             }
+        }
+
+        private static void SetSlotIcon(VisualElement slot, Texture2D tex)
+        {
+            var icon = slot.Q<VisualElement>(className: "tool-slot-icon");
+            if (icon == null) return;
+            icon.style.backgroundImage = tex != null ? new StyleBackground(tex) : new StyleBackground();
         }
 
         private void WriteToolbar(HudState s)
@@ -1569,16 +1591,16 @@ namespace Homesteader.UI
                     if (data.Count > 0 && !string.IsNullOrEmpty(data.IconId))
                     {
                         var tex = PhoneController.GetItemIcon(data.IconId + ".png", data.IconId);
-                        slot.style.backgroundImage = tex != null ? new StyleBackground(tex) : null;
+                        SetSlotIcon(slot, tex);
                     }
                     else
                     {
-                        slot.style.backgroundImage = null;
+                        SetSlotIcon(slot, null);
                     }
                 }
                 else
                 {
-                    slot.style.backgroundImage = null;
+                    SetSlotIcon(slot, null);
                     var label = _toolbarSlotLabels[i];
                     if (label != null) label.text = "";
                 }

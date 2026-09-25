@@ -46,7 +46,7 @@ TemplateContainer {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
 }
 
 /* ----- HEADER BAND -----
@@ -62,9 +62,8 @@ TemplateContainer {
     width: 100%;
     height: 64px;
     padding: 0 16px;
-    background-image: resource("HUDTree/Atlases/header_strip");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-bottom-color: rgb(193, 154, 60);
+    background-color: rgb(43, 52, 66);
+    border-bottom-color: rgb(224, 138, 60);
     border-bottom-width: 2px;
     position: relative;
 }
@@ -82,14 +81,10 @@ TemplateContainer {
     max-height: 38px;
     padding-top: 1px;
     padding-bottom: 1px;
-    padding-left: 10px;
-    padding-right: 8px;
+    padding-left: 0;
+    padding-right: 0;
     margin-right: 12px;
-    background-image: resource("HUDTree/Atlases/well");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
+    border-width: 0;
 }
 
 .vitals-row {
@@ -104,7 +99,7 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     height: 32px;
-    margin-right: 12px;
+    margin-right: 0;
     flex-shrink: 0;
 }
 
@@ -113,7 +108,7 @@ TemplateContainer {
     height: 22px;
     margin-right: 3px;
     flex-shrink: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
     align-items: center;
     justify-content: center;
 }
@@ -135,17 +130,16 @@ TemplateContainer {
    The pill container has overflow: hidden so fill bars naturally clip to the pill. */
 
 .vital-meter {
-    width: 80px;
+    width: 74px;
     height: 18px;
     flex-grow: 0;
     flex-shrink: 0;
     margin-top: 0;
     margin-right: 0;
     overflow: hidden;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
-    border-radius: 9px;
-    background-color: rgb(22, 30, 40);
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgb(58, 70, 88);
     position: relative;
 }
 
@@ -153,7 +147,7 @@ TemplateContainer {
     height: 18px;
     width: 0;
     position: absolute;
-    left: 40px;
+    left: 37px;
     top: 0;
     bottom: 0;
     border-radius: 0;
@@ -172,9 +166,9 @@ TemplateContainer {
     width: 1px;
     height: 18px;
     position: absolute;
-    left: 39.5px;
+    left: 36.5px;
     top: 0;
-    background-color: rgb(220, 224, 230);
+    background-color: rgb(238, 242, 246);
     opacity: 0.5;
 }
 
@@ -184,8 +178,9 @@ TemplateContainer {
    the time label and the bottom of the header. */
 .time-speed-cell {
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 50%;
+    width: 220px;
+    margin-left: -110px;
     top: 0;
     bottom: 0;
     height: 100%;
@@ -217,7 +212,7 @@ TemplateContainer {
 }
 
 .time-line-label {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 19px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
@@ -228,7 +223,7 @@ TemplateContainer {
 }
 
 .speed-state-label {
-    color: rgb(255, 215, 64);
+    color: rgb(255, 164, 79);
     font-size: 11px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
@@ -277,10 +272,10 @@ TemplateContainer {
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-right-width: 1px;
-    border-top-color: rgb(10, 14, 21);
-    border-bottom-color: rgb(80, 96, 112);
-    border-left-color: rgb(20, 28, 40);
-    border-right-color: rgb(20, 28, 40);
+    border-top-color: rgb(18, 22, 29);
+    border-bottom-color: rgb(92, 102, 117);
+    border-left-color: rgb(43, 52, 66);
+    border-right-color: rgb(43, 52, 66);
     width: auto;
 }
 
@@ -290,9 +285,9 @@ TemplateContainer {
     margin-left: 3px;
     margin-right: 3px;
     border-width: 0;
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0);
-    color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    background-color: rgba(18, 22, 29, 0);
+    color: rgba(18, 22, 29, 0);
     font-size: 8px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -301,12 +296,12 @@ TemplateContainer {
 }
 
 .speed-chip:hover {
-    background-color: rgba(255, 220, 100, 0.15);
+    background-color: rgba(255, 183, 115, 0.15);
 }
 
 .speed-chip:checked,
 .speed-chip--active {
-    background-color: rgb(193, 154, 60);
+    background-color: rgb(224, 138, 60);
 }
 
 /* ----- RESOURCES WELL -----
@@ -321,13 +316,9 @@ TemplateContainer {
     margin-left: 12px;
     padding-top: 1px;
     padding-bottom: 1px;
-    padding-left: 6px;
-    padding-right: 6px;
-    background-image: resource("HUDTree/Atlases/well");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
+    padding-left: 0;
+    padding-right: 0;
+    border-width: 0;
 }
 
 .resources-bar {
@@ -343,7 +334,7 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     height: 32px;
-    margin-right: 10px;
+    margin-right: 0;
     flex-shrink: 0;
 }
 
@@ -352,13 +343,13 @@ TemplateContainer {
     height: 22px;
     margin-right: 6px;
     flex-shrink: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
 }
 
 /* No background-color tints - the kit atlas art supplies the icon look. */
 
 .resource-amount {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 18px;
     -unity-font: var(--font);
     -unity-text-align: middle-left;
@@ -374,70 +365,111 @@ TemplateContainer {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 3px;
+    bottom: 14px;
     top: auto;
     height: 64px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     align-self: center;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
 }
 
 .tool-slot {
-    width: 64px;
-    height: 64px;
-    margin-left: 1px;
-    margin-right: 0;
+    position: relative;
+    width: 56px;
+    height: 56px;
+    margin-left: 3px;
+    margin-right: 3px;
     flex-shrink: 0;
-    border-width: 0;
     border-radius: 0;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-end;
-    padding: 0;
-    -unity-background-scale-mode: scale-to-fit;
+    overflow: visible;
 }
 
 .tool-slot--selected {
-    border-width: 0;
+    border-width: 2px;
+}
+
+.tool-slot-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    margin-top: -18px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.tool-slot-num {
+    position: absolute;
+    top: 1px;
+    left: 3px;
+    font-size: 10px;
+    -unity-font: var(--font-bold);
+    color: rgb(92, 102, 117);
+    -unity-text-align: upper-left;
+    padding: 0;
+    margin: 0;
+}
+
+.tool-slot--selected .tool-slot-num {
+    color: rgb(224, 138, 60);
 }
 
 .tool-slot-count {
-    color: rgb(241, 196, 15);
-    font-size: 14px;
+    position: absolute;
+    right: 3px;
+    bottom: 1px;
+    color: rgb(238, 242, 246);
+    font-size: 11px;
     -unity-font: var(--font-bold);
-    -unity-text-align: middle-right;
-    padding-right: 4px;
-    padding-bottom: 2px;
-    height: 18px;
+    -unity-text-align: lower-right;
+    padding: 0;
+    margin: 0;
     white-space: nowrap;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.95);
+    text-shadow: 1px 1px 2px rgba(18, 22, 29, 0.95);
+}
+
+/* Copper bar under the active slot. */
+.tool-slot-underline {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    bottom: -8px;
+    height: 2px;
+    background-color: rgb(224, 138, 60);
+    display: none;
+}
+
+.tool-slot--selected .tool-slot-underline {
+    display: flex;
 }
 
 /* ----- HEADER SETTINGS BUTTON ----- */
 
 .header-settings-btn {
+    display: none; /* gear icon removed; Esc / O still opens Settings */
     width: 32px;
     height: 32px;
     margin-left: 8px;
     align-self: center;
-    background-color: rgba(24, 32, 44, 0.7);
+    background-color: rgba(43, 52, 66, 0.7);
     border-width: 1px;
-    border-color: rgb(50, 65, 85);
-    border-radius: 4px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
     align-items: center;
     justify-content: center;
     padding: 0;
 }
 
 .header-settings-btn:hover {
-    background-color: rgba(40, 52, 70, 0.95);
-    border-color: rgb(193, 154, 60);
+    background-color: rgba(61, 74, 92, 0.95);
+    border-color: rgb(224, 138, 60);
 }
 
 .header-settings-icon {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 16px;
     -unity-text-align: middle-center;
     margin: 0;
@@ -454,7 +486,7 @@ TemplateContainer {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(8, 12, 18, 0.75);
+    background-color: rgba(18, 22, 29, 0.75);
     align-items: center;
     justify-content: center;
 }
@@ -464,11 +496,11 @@ TemplateContainer {
 }
 
 .window {
-    background-color: rgb(26, 34, 48);
-    border-radius: 4px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(10, 14, 21);
-    border-top-color: rgb(65, 82, 105);
+    border-color: rgb(18, 22, 29);
+    border-top-color: rgb(92, 102, 117);
     overflow: hidden;
     flex-direction: column;
 }
@@ -478,11 +510,11 @@ TemplateContainer {
 }
 
 .modal {
-    background-color: rgb(26, 34, 48);
-    border-radius: 4px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(10, 14, 21);
-    border-top-color: rgb(65, 82, 105);
+    border-color: rgb(18, 22, 29);
+    border-top-color: rgb(92, 102, 117);
     overflow: hidden;
     flex-direction: column;
 }
@@ -498,15 +530,14 @@ TemplateContainer {
     justify-content: space-between;
     padding-left: 14px;
     padding-right: 8px;
-    background-image: resource("HUDTree/Atlases/header_strip");
-    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgb(26, 33, 43);
     border-bottom-width: 1px;
-    border-bottom-color: rgb(10, 14, 21);
+    border-bottom-color: rgb(61, 74, 92);
     flex-shrink: 0;
 }
 
 .window-title {
-    color: rgb(193, 154, 60);
+    color: rgb(224, 138, 60);
     font-size: 15px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-left;
@@ -516,20 +547,20 @@ TemplateContainer {
 .window-close-btn {
     width: 22px;
     height: 22px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
     border-width: 1px;
-    border-color: rgba(220, 90, 90, 0.4);
-    border-radius: 3px;
-    color: rgb(220, 100, 100);
+    border-color: rgba(227, 83, 88, 0.4);
+    border-radius: 0;
+    color: rgb(228, 92, 96);
     font-size: 14px;
     -unity-text-align: middle-center;
     padding: 0;
 }
 
 .window-close-btn:hover {
-    background-color: rgb(180, 50, 50);
+    background-color: rgb(198, 32, 38);
     color: rgb(255, 255, 255);
-    border-color: rgb(220, 70, 70);
+    border-color: rgb(224, 66, 71);
 }
 
 .window-body {
@@ -538,14 +569,14 @@ TemplateContainer {
 }
 
 .window-section-title {
-    color: rgb(193, 154, 60);
+    color: rgb(224, 138, 60);
     font-size: 13px;
     -unity-font: var(--font-bold);
     margin-top: 6px;
     margin-bottom: 8px;
     padding-bottom: 2px;
     border-bottom-width: 1px;
-    border-bottom-color: rgb(35, 46, 62);
+    border-bottom-color: rgb(43, 52, 66);
 }
 
 .window-slider {
@@ -553,7 +584,7 @@ TemplateContainer {
 }
 
 .window-slider .unity-slider__label {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 13px;
     -unity-font: var(--font-medium);
     min-width: 150px;
@@ -561,20 +592,20 @@ TemplateContainer {
 
 .window-slider .unity-base-slider__tracker {
     height: 6px;
-    background-color: rgb(15, 20, 28);
-    border-radius: 3px;
+    background-color: rgb(26, 33, 43);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(10, 14, 21);
+    border-color: rgb(18, 22, 29);
 }
 
 .window-slider .unity-base-slider__dragger {
     width: 14px;
     height: 14px;
     margin-top: -4px;
-    border-radius: 7px;
-    background-color: rgb(193, 154, 60);
+    border-radius: 0;
+    background-color: rgb(224, 138, 60);
     border-width: 1px;
-    border-color: rgb(240, 200, 90);
+    border-color: rgb(241, 170, 104);
 }
 
 .window-toggle {
@@ -582,7 +613,7 @@ TemplateContainer {
 }
 
 .window-toggle .unity-toggle__label {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 13px;
     -unity-font: var(--font-medium);
     min-width: 150px;
@@ -591,15 +622,15 @@ TemplateContainer {
 .window-toggle .unity-toggle__checkmark {
     width: 18px;
     height: 18px;
-    border-radius: 3px;
-    background-color: rgb(15, 20, 28);
+    border-radius: 0;
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(50, 65, 85);
+    border-color: rgb(61, 74, 92);
 }
 
 .window-toggle:checked .unity-toggle__checkmark {
-    background-color: rgb(193, 154, 60);
-    -unity-background-image-tint-color: rgb(10, 14, 21);
+    background-color: rgb(224, 138, 60);
+    -unity-background-image-tint-color: rgb(18, 22, 29);
 }
 
 .window-footer-row {
@@ -609,7 +640,7 @@ TemplateContainer {
     margin-top: 14px;
     padding-top: 10px;
     border-top-width: 1px;
-    border-top-color: rgb(35, 46, 62);
+    border-top-color: rgb(43, 52, 66);
 }
 
 .modal-body {
@@ -620,7 +651,7 @@ TemplateContainer {
 }
 
 .modal-text {
-    color: rgb(220, 224, 230);
+    color: rgb(238, 242, 246);
     font-size: 15px;
     -unity-font: var(--font);
     -unity-text-align: middle-center;
@@ -643,7 +674,7 @@ TemplateContainer {
     padding-right: 14px;
     margin-left: 6px;
     margin-right: 6px;
-    border-radius: 3px;
+    border-radius: 0;
     border-width: 1px;
     font-size: 13px;
     -unity-font: var(--font-bold);
@@ -651,31 +682,31 @@ TemplateContainer {
 }
 
 .action-btn--primary {
-    background-color: rgb(193, 154, 60);
-    color: rgb(10, 14, 21);
-    border-color: rgb(230, 190, 85);
+    background-color: rgb(224, 138, 60);
+    color: rgb(18, 22, 29);
+    border-color: rgb(232, 163, 98);
 }
 
 .action-btn--primary:hover {
-    background-color: rgb(220, 175, 75);
+    background-color: rgb(222, 153, 88);
 }
 
 .action-btn--primary:active {
-    background-color: rgb(165, 130, 48);
+    background-color: rgb(188, 112, 40);
 }
 
 .action-btn--secondary {
-    background-color: rgb(32, 42, 58);
-    color: rgb(220, 224, 230);
-    border-color: rgb(50, 65, 85);
+    background-color: rgb(43, 52, 66);
+    color: rgb(238, 242, 246);
+    border-color: rgb(61, 74, 92);
 }
 
 .action-btn--secondary:hover {
-    background-color: rgb(44, 56, 76);
+    background-color: rgb(61, 74, 92);
 }
 
 .action-btn--secondary:active {
-    background-color: rgb(24, 32, 44);
+    background-color: rgb(43, 52, 66);
 }
 
 /* =========================================================================
@@ -704,11 +735,11 @@ TemplateContainer {
     max-width: 580px;
     margin-bottom: 8px;
     padding: 8px 16px 8px 12px;
-    border-radius: 4px;
+    border-radius: 0;
     border-width: 1px;
-    background-color: rgba(18, 24, 34, 0.95);
-    border-color: rgba(193, 154, 60, 0.45);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    background-color: rgba(26, 33, 43, 0.95);
+    border-color: rgba(224, 138, 60, 0.45);
+    box-shadow: 0 4px 12px rgba(18, 22, 29, 0.6);
     /* Transition styles for smooth dropdown animation */
     transition-property: translate, opacity;
     transition-duration: 0.35s;
@@ -745,7 +776,7 @@ TemplateContainer {
 }
 
 .toast-title {
-    color: rgb(235, 195, 95);
+    color: rgb(237, 171, 109);
     font-size: 13px;
     -unity-font: var(--font-bold);
     letter-spacing: 0.5px;
@@ -753,7 +784,7 @@ TemplateContainer {
 }
 
 .toast-message {
-    color: rgb(225, 230, 238);
+    color: rgb(238, 242, 246);
     font-size: 13px;
     -unity-font: var(--font);
     white-space: normal;
@@ -768,17 +799,17 @@ TemplateContainer {
 
 .toast-item--success {
     border-left-width: 4px;
-    border-left-color: rgb(80, 205, 120);
+    border-left-color: rgb(81, 204, 188);
 }
 
 .toast-item--warning {
     border-left-width: 4px;
-    border-left-color: rgb(245, 185, 60);
+    border-left-color: rgb(246, 157, 75);
 }
 
 .toast-item--error {
     border-left-width: 4px;
-    border-left-color: rgb(240, 85, 85);
+    border-left-color: rgb(240, 85, 90);
 }
 
 /* =========================================================================
@@ -792,17 +823,13 @@ TemplateContainer {
     align-items: center;
     justify-content: center;
     align-self: center; /* Vertically centered in the 64px header band */
-    width: 280px;
+    width: 265px;
     height: 38px;
     max-height: 38px;
-    margin-right: 14px; /* Anchored just to the left of the Resources well */
-    padding: 0 4px;
-    background-image: resource("HUDTree/Atlases/well");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
     position: relative;
+    padding: 0 4px;
+    background-color: rgb(58, 70, 88);
+    border-width: 0;
     overflow: hidden;
 }
 
@@ -853,8 +880,8 @@ TemplateContainer {
     margin-left: -3px;
     width: 6px;
     height: 6px;
-    background-color: rgba(240, 200, 85, 0.90);
-    border-radius: 3px;
+    background-color: rgba(241, 168, 99, 0.90);
+    border-radius: 0;
 }
 
 /* Intermediate 1-hour minor tick dots (+1h, +2h, +3h) vertically centered */
@@ -866,8 +893,8 @@ TemplateContainer {
     margin-left: -2px;
     width: 4px;
     height: 4px;
-    background-color: rgba(180, 205, 230, 0.55);
-    border-radius: 2px;
+    background-color: rgba(238, 242, 246, 0.55);
+    border-radius: 0;
 }
 
 .timeline-tick-hour2 {
@@ -879,7 +906,7 @@ TemplateContainer {
     width: 4px;
     height: 4px;
     background-color: rgba(200, 220, 245, 0.70);
-    border-radius: 2px;
+    border-radius: 0;
 }
 
 .timeline-tick-hour3 {
@@ -890,8 +917,8 @@ TemplateContainer {
     margin-left: -2px;
     width: 4px;
     height: 4px;
-    background-color: rgba(180, 205, 230, 0.55);
-    border-radius: 2px;
+    background-color: rgba(238, 242, 246, 0.55);
+    border-radius: 0;
 }
 
 /* Fixed Center Reticle / Indicator: Needle pointing to current time in the middle */
@@ -902,7 +929,7 @@ TemplateContainer {
     bottom: 0;
     width: 2px;
     margin-left: -1px;
-    background-color: rgb(245, 195, 65);
+    background-color: rgb(246, 160, 80);
     align-items: center;
     justify-content: space-between;
     pointer-events: none;
@@ -913,29 +940,31 @@ TemplateContainer {
     width: 8px;
     height: 6px;
     margin-left: -3px;
-    background-color: rgb(245, 195, 65);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    background-color: rgb(246, 160, 80);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* Subtle edge vignette / shadow over left and right ends of the timeline well */
 .timeline-edge-fade-left {
+    display: none;
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
     width: 28px;
-    background-color: rgba(10, 14, 21, 0.85);
+    background-color: rgba(18, 22, 29, 0.85);
     pointer-events: none;
 }
 
 .timeline-edge-fade-right {
+    display: none;
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     width: 28px;
-    background-color: rgba(10, 14, 21, 0.85);
+    background-color: rgba(18, 22, 29, 0.85);
     pointer-events: none;
 }
 
@@ -950,7 +979,10 @@ TemplateContainer {
     align-items: center;
     justify-content: flex-start;
     align-self: center; /* Vertically centered in the 64px header band */
-    margin-left: 14px; /* Anchored just to the right of the Vitals well */
+    position: absolute;
+    right: 50%;
+    margin-right: 118px; /* just left of the fixed-width clock */
+    top: 13px;
     height: 38px;
     max-height: 38px;
 }
@@ -960,15 +992,12 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 250px;
+    width: 235px;
     height: 38px;
     max-height: 38px;
     padding: 0 4px;
-    background-image: resource("HUDTree/Atlases/well");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
+    background-color: rgb(58, 70, 88);
+    border-width: 0;
     position: relative;
     overflow: hidden;
 }
@@ -985,18 +1014,13 @@ TemplateContainer {
     margin-left: 4px;
     padding-left: 6px;
     padding-right: 6px;
-    background-image: resource("HUDTree/Atlases/well");
-    -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: rgb(10, 14, 21);
-    border-left-width: 2px;
-    border-left-color: rgb(193, 154, 60); /* gold accent divider */
+    background-color: rgb(58, 70, 88);
+    border-width: 0;
 }
 
 .current-temp-label {
     font-size: 19px;
-    color: rgb(245, 205, 95);
+    color: rgb(246, 175, 109);
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
     white-space: nowrap;
@@ -1021,8 +1045,8 @@ TemplateContainer {
 
 .toast-item--severe {
     border-left-width: 5px;
-    border-left-color: rgb(255, 60, 60);
-    border-color: rgba(255, 70, 70, 0.7);
+    border-left-color: rgb(255, 60, 66);
+    border-color: rgba(255, 70, 76, 0.7);
     background-color: rgba(32, 16, 20, 0.96);
 }
 
@@ -1034,16 +1058,16 @@ TemplateContainer {
     font-size: 11px;
     -unity-font: var(--font-bold);
     color: rgb(255, 255, 255);
-    background-color: rgb(46, 125, 50);
-    border-color: rgb(76, 175, 80);
+    background-color: rgb(38, 133, 120);
+    border-color: rgb(56, 195, 176);
     border-width: 1px;
-    border-radius: 4px;
+    border-radius: 0;
     margin-right: 8px;
 }
 
 .admin-header-assets-btn:hover {
-    background-color: rgb(56, 142, 60);
-    border-color: rgb(129, 199, 132);
+    background-color: rgb(45, 153, 139);
+    border-color: rgb(114, 214, 201);
 }
 
 .asset-spawner-window {
@@ -1053,11 +1077,11 @@ TemplateContainer {
     translate: -50% 0;
     width: 760px;
     height: 620px;
-    background-color: rgb(20, 26, 36);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(45, 56, 72);
-    border-top-color: rgb(193, 154, 60);
-    border-radius: 6px;
+    border-color: rgb(61, 74, 92);
+    border-top-color: rgb(224, 138, 60);
+    border-radius: 0;
     overflow: hidden;
 }
 
@@ -1069,14 +1093,14 @@ TemplateContainer {
     justify-content: space-between;
     padding-left: 12px;
     padding-right: 4px;
-    background-color: rgb(16, 21, 30);
+    background-color: rgb(26, 33, 43);
     border-top-width: 1px;
-    border-top-color: rgb(45, 56, 72);
+    border-top-color: rgb(61, 74, 92);
 }
 
 .window-status-label {
     font-size: 10px;
-    color: rgb(140, 155, 175);
+    color: rgb(139, 150, 165);
     -unity-font: var(--font-medium);
     -unity-text-align: middle-left;
 }
@@ -1101,12 +1125,12 @@ TemplateContainer {
     width: 2px;
     height: 2px;
     margin: 1px;
-    border-radius: 1px;
-    background-color: rgb(140, 155, 175);
+    border-radius: 0;
+    background-color: rgb(139, 150, 165);
 }
 
 .window-resize-handle:hover .resize-dot {
-    background-color: rgb(193, 154, 60);
+    background-color: rgb(224, 138, 60);
 }
 
 .asset-spawner-window--hidden {
@@ -1116,12 +1140,12 @@ TemplateContainer {
 .asset-spawner-count-badge {
     margin-left: 10px;
     font-size: 11px;
-    color: rgb(193, 154, 60);
-    background-color: rgb(32, 40, 52);
+    color: rgb(224, 138, 60);
+    background-color: rgb(43, 52, 66);
     padding: 2px 6px;
-    border-radius: 3px;
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(60, 75, 95);
+    border-color: rgb(61, 74, 92);
 }
 
 .asset-spawner-body {
@@ -1141,10 +1165,10 @@ TemplateContainer {
     height: 100%;
     margin: 0;
     padding-left: 8px;
-    background-color: rgb(28, 36, 48);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(50, 64, 82);
-    border-radius: 4px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
     color: rgb(225, 235, 245);
     font-size: 12px;
     -unity-font: var(--font-medium);
@@ -1160,21 +1184,21 @@ TemplateContainer {
 }
 
 .asset-category-dropdown > .unity-base-popup-field__input:hover {
-    border-color: rgb(193, 154, 60);
+    border-color: rgb(224, 138, 60);
 }
 
 /* Dropdown popup (rendered by Unity at the panel root, so styled globally) */
 .unity-base-dropdown__container-outer {
-    background-color: rgb(20, 26, 36);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(193, 154, 60);
-    border-radius: 4px;
+    border-color: rgb(224, 138, 60);
+    border-radius: 0;
     padding: 2px;
     min-width: 170px;
 }
 
 .unity-base-dropdown__container-inner {
-    background-color: rgb(20, 26, 36);
+    background-color: rgb(26, 33, 43);
 }
 
 .unity-base-dropdown__item {
@@ -1183,15 +1207,15 @@ TemplateContainer {
     height: 26px;
     min-height: 26px;
     padding: 0 8px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
 }
 
 .unity-base-dropdown__item:hover {
-    background-color: rgb(40, 50, 68);
+    background-color: rgb(61, 74, 92);
 }
 
 .unity-base-dropdown__item:checked {
-    background-color: rgb(193, 154, 60);
+    background-color: rgb(224, 138, 60);
 }
 
 .unity-base-dropdown__label {
@@ -1205,7 +1229,7 @@ TemplateContainer {
 }
 
 .unity-base-dropdown__item:checked .unity-base-dropdown__label {
-    color: rgb(16, 20, 28);
+    color: rgb(26, 33, 43);
 }
 
 .asset-category-chip {
@@ -1215,24 +1239,24 @@ TemplateContainer {
     margin-right: 6px;
     font-size: 11px;
     -unity-font: var(--font-medium);
-    color: rgb(180, 195, 210);
-    background-color: rgb(28, 36, 48);
+    color: rgb(147, 161, 179);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(50, 64, 82);
-    border-radius: 4px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
     -unity-text-align: middle-center;
 }
 
 .asset-category-chip:hover {
-    background-color: rgb(40, 50, 68);
-    border-color: rgb(80, 100, 125);
+    background-color: rgb(61, 74, 92);
+    border-color: rgb(92, 102, 117);
     color: rgb(230, 240, 250);
 }
 
 .asset-category-chip--active {
-    background-color: rgb(193, 154, 60);
-    border-color: rgb(235, 195, 80);
-    color: rgb(16, 20, 28);
+    background-color: rgb(224, 138, 60);
+    border-color: rgb(237, 163, 94);
+    color: rgb(26, 33, 43);
     -unity-font: var(--font-bold);
 }
 
@@ -1248,10 +1272,10 @@ TemplateContainer {
     flex-grow: 1;
     margin-right: 12px;
     height: 30px;
-    background-color: rgb(14, 18, 25);
+    background-color: rgb(26, 33, 43);
     border-width: 1px;
-    border-color: rgb(50, 64, 82);
-    border-radius: 4px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
     padding-left: 8px;
     color: rgb(225, 235, 245);
     font-size: 12px;
@@ -1272,7 +1296,7 @@ TemplateContainer {
     padding-right: 8px;
     padding-top: 0;
     padding-bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(18, 22, 29, 0);
     border-width: 0;
     -unity-text-align: middle-left;
 }
@@ -1286,14 +1310,14 @@ TemplateContainer {
 
 .asset-shortcut-hint {
     font-size: 11px;
-    color: rgb(241, 196, 15);
+    color: rgb(242, 132, 29);
     -unity-font: var(--font-bold);
     white-space: nowrap;
     padding: 4px 8px;
-    background-color: rgb(32, 40, 52);
-    border-radius: 3px;
+    background-color: rgb(43, 52, 66);
+    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(60, 75, 95);
+    border-color: rgb(61, 74, 92);
 }
 
 .asset-grid-scroll {
@@ -1312,10 +1336,10 @@ TemplateContainer {
     width: 100px;
     height: 120px;
     margin: 3px;
-    background-color: rgb(24, 31, 42);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(45, 58, 76);
-    border-radius: 4px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 0;
     align-items: center;
     justify-content: flex-start;
     padding-top: 5px;
@@ -1324,8 +1348,8 @@ TemplateContainer {
 }
 
 .asset-tile:hover {
-    border-color: rgb(193, 154, 60);
-    background-color: rgb(36, 48, 66);
+    border-color: rgb(224, 138, 60);
+    background-color: rgb(61, 74, 92);
 }
 
 .asset-tile-icon {
@@ -1336,7 +1360,7 @@ TemplateContainer {
 
 .asset-tile-name {
     font-size: 9px;
-    color: rgb(215, 225, 235);
+    color: rgb(238, 242, 246);
     -unity-text-align: upper-center;
     white-space: normal;
     overflow: hidden;
@@ -1353,11 +1377,11 @@ TemplateContainer {
     right: 3px;
     font-size: 9px;
     -unity-font: var(--font-bold);
-    color: rgb(241, 196, 15);
-    background-color: rgba(14, 18, 26, 0.85);
+    color: rgb(242, 132, 29);
+    background-color: rgba(26, 33, 43, 0.85);
     padding-left: 3px;
     padding-right: 3px;
-    border-radius: 2px;
+    border-radius: 0;
 }
 
 /* ----- PHONE WRAPPER ----- */
@@ -1372,4 +1396,51 @@ TemplateContainer {
 
 .phone-wrapper--hidden {
     display: none;
+}
+
+/* Precision UI: hairline copper accent edge on the main HUD panels. */
+.window {
+    border-left-width: 2px;
+    border-left-color: rgb(224, 138, 60);
+}
+
+/* "|" dividers between vitals / resources (wells removed). */
+.hud-sep {
+    color: rgb(92, 102, 117);
+    font-size: 20px;
+    -unity-font: var(--font);
+    -unity-text-align: middle-center;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 8px;
+    flex-shrink: 0;
+}
+
+/* Season tree icon + sun/moon timeline, anchored just right of the clock. */
+.celestial-timeline-group {
+    position: absolute;
+    left: 50%;
+    margin-left: 118px;
+    top: 13px;
+    flex-direction: row;
+    align-items: center;
+    height: 38px;
+    max-height: 38px;
+}
+
+.season-cell {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 44px;
+    height: 38px;
+    margin-right: 4px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(58, 70, 88);
+}
+
+.season-icon {
+    width: 32px;
+    height: 32px;
+    -unity-background-scale-mode: scale-to-fit;
 }
