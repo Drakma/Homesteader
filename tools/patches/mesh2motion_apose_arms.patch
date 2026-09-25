@@ -1,0 +1,225 @@
+diff --git a/src/lib/processes/load-skeleton/StepLoadSkeleton.ts b/src/lib/processes/load-skeleton/StepLoadSkeleton.ts
+index 89a5ca2..37b1824 100644
+--- a/src/lib/processes/load-skeleton/StepLoadSkeleton.ts
++++ b/src/lib/processes/load-skeleton/StepLoadSkeleton.ts
+@@ -1,7 +1,7 @@
+ import { UI } from '../../UI.ts'
+ import { Object3D, type Scene, type Object3DEventMap } from 'three'
+ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+-import { SkeletonType, type HandSkeletonType } from '../../enums/SkeletonType.js'
++import { SkeletonType, HandSkeletonType } from '../../enums/SkeletonType.js'
+ import { RigConfig } from '../../RigConfig.ts'
+ import { DOMUtilities } from '../../DOMUtilities.ts'
+ import type GLTFResult from './interfaces/GLTFResult.ts'
+@@ -101,7 +101,19 @@ export class StepLoadSkeleton extends EventTarget {
+ 
+   private skeleton_file_path (): SkeletonType {
+     // get currently selected option out of the model-selection drop-down
+-    const skeleton_selection = this.ui.dom_skeleton_drop_type.options
++    // Guard the element and its options: the dropdown only exists on the app
++    // page. Without this guard the manual_set_skeleton_type() fallback in
++    // skeleton_type() was unreachable in a headless context, because this
++    // method threw before the fallback could be consulted.
++    const drop_down = this.ui.dom_skeleton_drop_type
++    if (drop_down === null || drop_down === undefined || drop_down.options === undefined) {
++      return SkeletonType.None
++    }
++
++    const skeleton_selection = drop_down.options
++    if (skeleton_selection.length === 0 || skeleton_selection.selectedIndex < 0) {
++      return SkeletonType.None
++    }
+     const skeleton_file: string = skeleton_selection[skeleton_selection.selectedIndex].value
+ 
+     if (skeleton_file === 'select-skeleton') return SkeletonType.None
+@@ -115,7 +127,14 @@ export class StepLoadSkeleton extends EventTarget {
+   }
+ 
+   private hand_skeleton_type (): HandSkeletonType {
++    // The hand dropdown only exists on the app page. Guard every hop so the
++    // rig can be loaded without a DOM (previously this threw on the
++    // unguarded selectedIndex dereference).
+     const hand_selection = this.ui.dom_hand_skeleton_selection?.options
++    if (hand_selection === undefined || hand_selection.length === 0 ||
++        hand_selection.selectedIndex < 0) {
++      return HandSkeletonType.AllFingers
++    }
+     return hand_selection[hand_selection.selectedIndex].value as HandSkeletonType
+   }
+ 
+@@ -217,43 +236,55 @@ export class StepLoadSkeleton extends EventTarget {
+   public load_skeleton_file (file_path: string): void {
+     // load skeleton from GLB file
+     this.loader.load(file_path, (gltf: GLTFResult) => {
+-      // traverse scene and find first bone object
+-      // we will go to the parent and mark that as the original armature
+-      let armature_found = false
+-      let original_armature: Object3D = new Object3D()
+-
+-      gltf.scene.traverse((child: Object3D) => {
+-        // Note: three.js removes punctuation characters from names object names like `-` and `.` for sanitization
+-        // Our 3D source files will need to account fo this if we are relying on that later for parsing
+-        // https://discourse.threejs.org/t/avoid-dots-and-colons-being-deleted-from-models-name/15304/2
+-        if (child.type === 'Bone' && !armature_found) {
+-          armature_found = true
+-
+-          if (child.parent != null) {
+-            original_armature = child.parent
+-          } else {
+-            console.warn('could not find armature parent while loading skeleton')
+-          }
++      this.apply_loaded_skeleton(gltf.scene)
++    })
++  }
++
++  /**
++   * Builds the editable armature from an already-parsed skeleton scene.
++   * Split out of load_skeleton_file() so the rig can be loaded without a
++   * browser: GLTFLoader.load() requires a URL, and in Node the bytes are
++   * parsed directly instead.
++   */
++  public apply_loaded_skeleton (skeleton_scene: Object3D): void {
++    // traverse scene and find first bone object
++    // we will go to the parent and mark that as the original armature
++    let armature_found = false
++    let original_armature: Object3D = new Object3D()
++
++    skeleton_scene.traverse((child: Object3D) => {
++      // Note: three.js removes punctuation characters from names object names like `-` and `.` for sanitization
++      // Our 3D source files will need to account fo this if we are relying on that later for parsing
++      // https://discourse.threejs.org/t/avoid-dots-and-colons-being-deleted-from-models-name/15304/2
++      if (child.type === 'Bone' && !armature_found) {
++        armature_found = true
++
++        if (child.parent != null) {
++          original_armature = child.parent
++        } else {
++          console.warn('could not find armature parent while loading skeleton')
+         }
+-      })
++      }
++    })
+ 
+-      this.loaded_armature = original_armature.clone()
+-      this.loaded_armature.name = 'Loaded Armature'
++    this.loaded_armature = original_armature.clone()
++    this.loaded_armature.name = 'Loaded Armature'
+ 
+-      // Apply hand skeleton modifications for human skeletons
+-      if (this.skeleton_file_path() === SkeletonType.Human) {
+-        const helper = new HandHelper()
+-        helper.modify_hand_skeleton(this.loaded_armature, this.hand_skeleton_type())
+-      }
++    // Apply hand skeleton modifications for human skeletons. Prefer the
++    // explicitly-set type so this also works when no dropdown is present.
++    const active_type = this.skeleton_type()
++    if (active_type === SkeletonType.Human) {
++      const helper = new HandHelper()
++      helper.modify_hand_skeleton(this.loaded_armature, this.hand_skeleton_type())
++    }
+ 
+-      this.loaded_armature.position.set(0, 0, 0)
+-      this.loaded_armature.updateWorldMatrix(true, true)
++    this.loaded_armature.position.set(0, 0, 0)
++    this.loaded_armature.updateWorldMatrix(true, true)
+ 
+-      // scale the armature to what we picked using the scale slider/preview
+-      this.loaded_armature.scale.set(this.skeleton_scale(), this.skeleton_scale(), this.skeleton_scale())
++    // scale the armature to what we picked using the scale slider/preview
++    this.loaded_armature.scale.set(this.skeleton_scale(), this.skeleton_scale(), this.skeleton_scale())
+ 
+-      this.dispatchEvent(new CustomEvent('skeletonLoaded', { detail: this.loaded_armature }))
+-    })
++    this.dispatchEvent(new CustomEvent('skeletonLoaded', { detail: this.loaded_armature }))
+   }
+ 
+   private has_select_skeleton_ui_option (): boolean {
+diff --git a/src/retarget/AnimationRetargetService.ts b/src/retarget/AnimationRetargetService.ts
+index 20a6550..562717d 100644
+--- a/src/retarget/AnimationRetargetService.ts
++++ b/src/retarget/AnimationRetargetService.ts
+@@ -245,6 +245,8 @@ export class AnimationRetargetService {
+     const custom_source_config = HumanChainConfig.build_custom_source_config(this.get_bone_mappings())
+     const custom_target_config = HumanChainConfig.build_custom_target_config(custom_source_config, this.get_bone_mappings())
+ 
++    // the target may rest in an A-pose; the source M2M rig is a true T-pose
++    target_rig.align_arms_to_rest = true
+     source_rig.fromConfig(custom_source_config)
+     target_rig.fromConfig(custom_target_config)
+ 
+diff --git a/src/retarget/human-retargeting/Rig.ts b/src/retarget/human-retargeting/Rig.ts
+index 4f1c266..c6da252 100644
+--- a/src/retarget/human-retargeting/Rig.ts
++++ b/src/retarget/human-retargeting/Rig.ts
+@@ -6,6 +6,7 @@ import { type Joint } from './Joint'
+ import { Pose } from './Pose'
+ import { RigItem } from './RigItem'
+ import Vec3 from './Vec3'
++import Quat from './Quat'
+ 
+ import type * as THREE from 'three'
+ 
+@@ -21,6 +22,15 @@ export class Rig {
+   public readonly chains: Record<string, RigItem[]> = {}
+   public scalar: number = 1.0
+ 
++  /**
++   * The arm chains are defined with a hardcoded T-pose swing/twist (arms along +/-X). That is
++   * only true of a T-pose rig. A target rig that rests in an A-pose (arms angled down) would
++   * be off by the difference in angle, so every retargeted arm ends up rotated into the body.
++   * When this is on, arm chains derive their swing from each bone's actual rest direction and
++   * rotate the twist axis by the same amount. Leave off for the (true T-pose) source rig.
++   */
++  public align_arms_to_rest: boolean = false
++
+   constructor (skel: THREE.Skeleton) {
+     this.skel = skel
+     this.tpose = new Pose(skel)
+@@ -106,17 +116,40 @@ export class Rig {
+    */
+   buildItem (k: string, names: string[], swing: Vec3, twist: Vec3): this {
+     const rig_items: RigItem[] = []
+-    let j
++    const align_to_rest: boolean = this.align_arms_to_rest && (k === 'armL' || k === 'armR')
+ 
++    // the joints that actually exist in this skeleton, in chain order
++    const joints: Joint[] = []
+     for (const n of names) {
+-      j = this.tpose.getJoint(n)
+-      if (j === null) {
+-        // some bones won't be mapped, so they will just be empty placeholders
+-        // console.log('Error - Rig.buildLimb : Joint name not found in tpose, ', n)
+-        continue
++      const found = this.tpose.getJoint(n)
++      // some bones won't be mapped, so they will just be empty placeholders
++      if (found !== null) joints.push(found)
++    }
++
++    for (let i = 0; i < joints.length; i++) {
++      const j = joints[i]
++      let item_swing: Vec3 = swing
++      let item_twist: Vec3 = twist
++
++      if (align_to_rest && joints.length >= 2) {
++        // direction this bone points at rest: toward the next joint, or (for the last joint)
++        // the same direction its parent points
++        const from = i < joints.length - 1 ? joints[i] : joints[i - 1]
++        const to = i < joints.length - 1 ? joints[i + 1] : joints[i]
++        const dir = new Vec3(
++          to.world.pos[0] - from.world.pos[0],
++          to.world.pos[1] - from.world.pos[1],
++          to.world.pos[2] - from.world.pos[2]
++        ).norm()
++
++        // rotation from the assumed T-pose direction to the real one, applied to the twist too
++        const assumed = new Vec3(swing[0], swing[1], swing[2]).norm()
++        const rot = new Quat().fromSwing(assumed, dir)
++        item_swing = dir
++        item_twist = new Vec3(twist[0], twist[1], twist[2]).fromQuat(rot, new Vec3(twist[0], twist[1], twist[2]))
+       }
+ 
+-      rig_items.push(new RigItem().fromJoint(j, swing, twist))
++      rig_items.push(new RigItem().fromJoint(j, item_swing, item_twist))
+     }
+ 
+     this.chains[k] = rig_items
