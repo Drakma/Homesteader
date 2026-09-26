@@ -12,7 +12,7 @@ owns the keyboard, game hotkeys are ignored (`HudBindings.KeyboardCaptured`).
 | W A S D | Walk. Directions follow the camera (isometric), so straight up the screen is W+D | `PedController` |
 | Left Shift (hold) | Run | `PedController` |
 | Q / E | Rotate the camera 90 degrees left / right | `IsometricLockedCamera` |
-| Ctrl + mouse wheel | Zoom in / out, six steps (2.5 to 7.5) | `IsometricLockedCamera` |
+| Ctrl + mouse wheel | Zoom in / out in steps of 1 from 2.5 (no upper limit) | `IsometricLockedCamera` |
 | Right mouse + drag | Pan the camera off the player | `IsometricLockedCamera` |
 
 ## Toolbar, tools and the world

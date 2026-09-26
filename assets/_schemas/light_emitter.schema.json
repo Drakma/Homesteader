@@ -83,7 +83,11 @@
           "fade_minutes": {
             "type": "number",
             "default": 20,
-            "note": "Game minutes to reach full brightness after switching on, and to fade out after switching off."
+            "note": "Game minutes to brighten from the strike level to full after switching on."
+          },
+          "dim_minutes": {
+            "type": "number",
+            "note": "Game minutes to dim all the way out after it is due off (smooth to dark, no sudden cut). Default: same as fade_minutes."
           },
           "flicker": {
             "type": "number",

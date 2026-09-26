@@ -171,7 +171,8 @@
       "dusk_lead_minutes": 30,
       "dawn_lag_minutes": 30,
       "startup_seconds": 6,
-      "min_level": 0.25
+      "min_level": 0.25,
+      "dim_minutes": 30
     }
   ]
 }

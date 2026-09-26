@@ -22,6 +22,9 @@ namespace Homesteader
     public sealed class HoverOutline : MonoBehaviour
     {
         private const string OutlineLayerName = "Outline";
+        // OutlineRendererFeature selects layer 8 by number (1 << 8). The layer does not need a NAME to work, so if the
+        // project has no layer called "Outline" (Unity's layer names are easy to lose) layer 8 is used directly.
+        private const int OutlineLayerNumber = 8;
 
         private Transform currentHover;
         private readonly List<(Transform t, int layer)> savedLayers = new();
@@ -37,14 +40,17 @@ namespace Homesteader
 
         private void Awake()
         {
-            outlineLayer = LayerMask.NameToLayer(OutlineLayerName);
-            if (outlineLayer < 0)
-                Debug.LogWarning($"HoverOutline: layer '{OutlineLayerName}' not found - add it in Project Settings > Tags and Layers.");
+            outlineLayer = ResolveLayer();
+        }
+
+        private static int ResolveLayer()
+        {
+            int named = LayerMask.NameToLayer(OutlineLayerName);
+            return named >= 0 ? named : OutlineLayerNumber;
         }
 
         private void Update()
         {
-            if (outlineLayer < 0) return;
 
             bool f4Pressed;
 #if ENABLE_INPUT_SYSTEM
@@ -53,7 +59,14 @@ namespace Homesteader
 #else
             f4Pressed = Input.GetKeyDown(KeyCode.F4);
 #endif
-            if (f4Pressed) outlineToggledOn = !outlineToggledOn;
+            if (f4Pressed)
+            {
+                outlineToggledOn = !outlineToggledOn;
+                ToastNotificationSystem.ShowInfo("Hover outline",
+                    outlineLayer < 0 ? "Unavailable: the 'Outline' layer is missing (Project Settings > Tags and Layers)"
+                                     : (outlineToggledOn ? "On" : "Off"));
+            }
+            if (outlineLayer < 0) return;
 
             if (!outlineToggledOn)
             {

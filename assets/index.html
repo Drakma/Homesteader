@@ -15859,7 +15859,8 @@
             ${lab("on", `<select class="gg-input w-s" data-k="on">${["night", "always", "hours"].map(o => `<option${(l.on || "night") === o ? " selected" : ""}>${o}</option>`).join("")}</select>`)}
             ${(l.on === "hours") ? lab("from h", `<input class="gg-input w-xs" data-h="0" type="number" step="any" value="${esc((l.hours || [18, 6])[0])}">`) + lab("to h", `<input class="gg-input w-xs" data-h="1" type="number" step="any" value="${esc((l.hours || [18, 6])[1])}">`) : ""}
             ${(l.on || "night") === "night" ? lab("on before dusk (min)", num(l, "dusk_lead_minutes")) + lab("off after dawn (min)", num(l, "dawn_lag_minutes")) : ""}
-            ${lab("fade min", num(l, "fade_minutes"))}
+            ${lab("fade in min", num(l, "fade_minutes"))}
+            ${lab("dim out min", num(l, "dim_minutes"))}
             ${lab("flicker 0-1", num(l, "flicker"))}
             ${lab("switch-on flicker 0-1", num(l, "startup_flicker"))}
             ${lab("flicker secs", num(l, "startup_seconds"))}

@@ -35,7 +35,7 @@ def validate_lights(lights):
         if "color" in l and not (isinstance(l["color"], str) and COLOR_RE.match(l["color"])):
             errors.append(f"{ctx}: color must be a hex string like #FFE9C0")
         for k, lo, hi in (("intensity", 0, None), ("range_m", 0.1, None), ("spot_angle_deg", 1, 179),
-                          ("fade_minutes", 0, None), ("dusk_lead_minutes", 0, None), ("dawn_lag_minutes", 0, None), ("flicker", 0, 1), ("startup_flicker", 0, 1), ("startup_seconds", 0.1, None), ("min_level", 0, 1), ("power_w", 0, None),
+                          ("fade_minutes", 0, None), ("dim_minutes", 0, None), ("dusk_lead_minutes", 0, None), ("dawn_lag_minutes", 0, None), ("flicker", 0, 1), ("startup_flicker", 0, 1), ("startup_seconds", 0.1, None), ("min_level", 0, 1), ("power_w", 0, None),
                           ("pitch_deg", None, None), ("yaw_deg", None, None)):
             if k in l:
                 v = l[k]

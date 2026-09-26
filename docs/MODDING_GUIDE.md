@@ -298,7 +298,7 @@ Any asset manifest can carry a top-level `lights` list. Each entry is one light 
 ```
 
 `type` is `point` or `spot`; `offset_m` is metres from the model's pivot in its own axes (y up); `on` is `always`, `night`
-(from `dusk_lead_minutes` (default 30) before today's sunset to `dawn_lag_minutes` (default 30) after today's sunrise, so it follows the seasons) or `hours` (`hours: [from, to]`); the light fades over `fade_minutes` game minutes, and `startup_flicker` (0-1) makes it sputter for `startup_seconds` (real seconds, default 6) when it first switches on, striking at `min_level` (default 0.25 of full) before the slow brighten over `fade_minutes`. The sputter is short and separate from the fade.
+(from `dusk_lead_minutes` (default 30) before today's sunset to `dawn_lag_minutes` (default 30) after today's sunrise, so it follows the seasons) or `hours` (`hours: [from, to]`); the light brightens over `fade_minutes` game minutes and, when it is due off, dims smoothly to dark over `dim_minutes` (default the same), and `startup_flicker` (0-1) makes it sputter for `startup_seconds` (real seconds, default 6) when it first switches on, striking at `min_level` (default 0.25 of full) before the slow brighten over `fade_minutes`. The sputter is short and separate from the fade.
 `requires_power` lights only while `LightEmitter.PowerCheck` (set by the game's power system) says the asset is powered;
 with no power system connected it counts as powered. Edit them in the asset popup's **Lights** card. Schema:
 `assets/_schemas/light_emitter.schema.json`.

@@ -22,7 +22,8 @@ namespace Homesteader.Growth
         public float YawDeg;                        // spot: turn around the model's up axis
         public string On = "night";                 // always | night | hours
         public float FromHour = 18f, ToHour = 6f;   // "hours"
-        public float FadeMinutes = 20f;             // game minutes to fade fully on / off
+        public float FadeMinutes = 20f;             // game minutes to brighten to full after switching on
+        public float DimMinutes = -1f;              // game minutes to dim out after it is due off (< 0 = same as FadeMinutes)
         public float DuskLeadMinutes = 30f;         // "night": switches on this many minutes BEFORE sunset
         public float DawnLagMinutes = 30f;          // "night": switches off this many minutes AFTER sunrise
         public float Flicker;                       // 0 steady .. 1 heavy
@@ -51,6 +52,7 @@ namespace Homesteader.Growth
                     YawDeg = v.Get("yaw_deg").AsFloat(0f),
                     On = v.Get("on").AsString("night").ToLowerInvariant(),
                     FadeMinutes = Mathf.Max(0f, v.Get("fade_minutes").AsFloat(20f)),
+                    DimMinutes = v.Has("dim_minutes") ? Mathf.Max(0f, v.Get("dim_minutes").AsFloat(-1f)) : -1f,
                     DuskLeadMinutes = Mathf.Max(0f, v.Get("dusk_lead_minutes").AsFloat(30f)),
                     DawnLagMinutes = Mathf.Max(0f, v.Get("dawn_lag_minutes").AsFloat(30f)),
                     Flicker = Mathf.Clamp01(v.Get("flicker").AsFloat(0f)),
@@ -144,8 +146,10 @@ namespace Homesteader.Growth
                 bool lit = r.Target > 0.001f || r.Level > 0.001f;
                 if (lit && !r.WasLit) r.LitSince = Time.time;
                 r.WasLit = lit;
-                float shown = lit ? Mathf.Lerp(r.Def.MinLevel, 1f, Mathf.Clamp01(r.Level)) : 0f;
-                shown *= Mathf.Clamp01(r.Level * 20f + (r.Target > 0.001f ? 1f : 0f));
+                // Switching on it strikes at MinLevel and brightens; going off it DIMS smoothly all the way to dark
+                // (no jump from the strike level to off).
+                bool dimming = r.Target < r.Level - 0.001f;
+                float shown = !lit ? 0f : dimming ? Mathf.Clamp01(r.Level) : Mathf.Lerp(r.Def.MinLevel, 1f, Mathf.Clamp01(r.Level));
 
                 float flick = 1f;
                 if (r.Def.Flicker > 0f)
@@ -173,20 +177,23 @@ namespace Homesteader.Growth
             float from, to;
             if (d.On == "hours") { from = d.FromHour * 60f; to = d.ToHour * 60f; }
             else { from = t.SunsetMinute - d.DuskLeadMinutes; to = t.SunriseMinute + d.DawnLagMinutes; }   // "night": today's sunset / sunrise (they move with the seasons)
-            return WindowLevel(t.MinuteOfDay, from, to, d.FadeMinutes);
+            return WindowLevel(t.MinuteOfDay, from, to, d.FadeMinutes, d.DimMinutes >= 0f ? d.DimMinutes : d.FadeMinutes);
         }
 
         /// <summary>Level (0..1) for an on-window [from, to] in minutes of the day (wrapping midnight): switches on at
         /// `from`, reaching full brightness `fade` minutes later, and starts dimming at `to`, fully off `fade` minutes later.</summary>
-        public static float WindowLevel(float minute, float from, float to, float fade)
+        public static float WindowLevel(float minute, float from, float to, float fade) => WindowLevel(minute, from, to, fade, fade);
+
+        public static float WindowLevel(float minute, float from, float to, float fade, float fadeOut)
         {
             float span = Mod(to - from, 1440f);
             if (span < 0.01f) span = 1440f;                      // from == to: always on
             fade = Mathf.Max(0.01f, fade);
+            fadeOut = Mathf.Max(0.01f, fadeOut);
             float since = Mod(minute - from, 1440f);             // minutes since the window opened
             if (since <= span) return Mathf.Min(1f, since / fade);
             float pastEnd = since - span;
-            return pastEnd < fade ? 1f - pastEnd / fade : 0f;
+            return pastEnd < fadeOut ? 1f - pastEnd / fadeOut : 0f;
         }
 
         private static float Mod(float a, float m) { float r = a % m; return r < 0f ? r + m : r; }

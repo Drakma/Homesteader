@@ -28,15 +28,15 @@ namespace Homesteader
         public Shader maskShader;
         public Shader blurShader;
         public Shader compositeShader;
-        [ColorUsage(true, true)] public Color outlineColor = new(0.35f, 0.9f, 1.0f, 0.9f);
+        [ColorUsage(true, true)] public Color outlineColor = new(1f, 1f, 1f, 0.95f);
         // These are pixels in the QUARTER-resolution mask texture, so 1 unit
         // here = ~4 screen pixels. Divide the full-res-equivalent target by 4
         // (e.g. a 3px full-res outline -> 0.75 here), not by ~2.
-        [Range(0, 6)] public float outlineWidthPx = 0.75f;
-        [Range(0, 12)] public float blurRadiusPx = 2f;
-        [Range(0, 1)] public float coverageThreshold = 0.12f;
+        [Range(0, 6)] public float outlineWidthPx = 0.4f;
+        [Range(0, 12)] public float blurRadiusPx = 1f;
+        [Range(0, 1)] public float coverageThreshold = 0.35f;
         [Range(0, 10)] public float pulseSpeed = 2.5f;
-        [Range(0, 1)] public float pulseAmount = 0.25f;
+        [Range(0, 1)] public float pulseAmount = 0.12f;
 
         private OutlinePass pass;
 

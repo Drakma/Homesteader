@@ -14,9 +14,9 @@ public class IsometricLockedCamera : MonoBehaviour
     [Header("Zoom Settings (Ctrl + ScrollWheel)")]
     public float zoomSpeed = 6f;
     // Locked: not serialized, so scene overrides can't change them.
-    // Zoom levels are 2.5, 3.5, 4.5, 5.5, 6.5, 7.5.
+    // Zoom levels start at 2.5 and step by 1.0 with no practical upper limit (the ceiling below only stops a runaway value).
     private const float minOrthoSize = 2.5f;
-    private const float maxOrthoSize = 7.5f;
+    private const float maxOrthoSize = 500f;
     private const float zoomStep = 1.0f;
 
     [Header("Rotation Settings (Q / E 90° Orbit)")]
@@ -205,5 +205,16 @@ public class IsometricLockedCamera : MonoBehaviour
         transform.position = _focalPoint + offset;
 
         transform.rotation = lookRot;
+
+        // Zoomed far out, the ground at the bottom of the screen is CLOSER to the camera than the near plane (the camera sits
+        // orbitRadius from the focal point, and the bottom of the view reaches about 2 x zoom back along the ground), so it
+        // was clipped away and showed the empty background. An orthographic camera may have a negative near plane, so pull it
+        // back by exactly what the current zoom needs, and keep the far plane beyond the top of the screen.
+        if (cam != null && cam.orthographic)
+        {
+            float reach = 2.2f * cam.orthographicSize;
+            cam.nearClipPlane = Mathf.Min(0.3f, orbitRadius - reach - 5f);
+            cam.farClipPlane = Mathf.Max(cam.farClipPlane, orbitRadius + reach + 100f);
+        }
     }
 }

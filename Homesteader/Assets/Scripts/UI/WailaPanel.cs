@@ -54,6 +54,7 @@ namespace Homesteader.UI
                 _visible = !_visible;
                 if (_visible) EnsureBuilt();
                 if (_panel != null) _panel.style.display = _visible ? DisplayStyle.Flex : DisplayStyle.None;
+                ToastNotificationSystem.ShowInfo("What am I looking at", _visible ? "On" : "Off");
             }
 
             if (_visible)

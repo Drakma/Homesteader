@@ -48,6 +48,8 @@ namespace Homesteader.DebugTools
             {
                 _level = (_level + 1) % LevelCount;
                 ApplyLevel();
+                string[] names = { "Off", "Cell under the cursor", "Dim", "Bright" };
+                Homesteader.UI.ToastNotificationSystem.ShowInfo("Ground grid", names[Mathf.Clamp(_level, 0, names.Length - 1)]);
             }
 
             if (_level == 1) UpdateOutlinePosition();
