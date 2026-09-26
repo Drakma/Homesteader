@@ -30,6 +30,9 @@ namespace Homesteader.UI
         private UIDocument _doc;
         private VisualElement _root;
 
+        /// <summary>The HUD's UI Toolkit root (null until the HUD is built); extra HUD elements such as the map attach here.</summary>
+        public VisualElement Root => _root;
+
         private Label _timeLineLabel;
         private Label _speedStateLabel;
         private VisualElement _weatherIcon;
@@ -745,7 +748,7 @@ namespace Homesteader.UI
 #endif
 
             bool isPaused = TimeSystem.Instance != null && TimeSystem.Instance.IsPaused;
-            if (!isPaused && !isCtrl && Mathf.Abs(scrollDelta) > 0.01f && !KeyboardCaptured && !phoneOpen)
+            if (!isPaused && !isCtrl && Mathf.Abs(scrollDelta) > 0.01f && !KeyboardCaptured && !phoneOpen && !MiniMap.PointerOver)
             {
                 int dir = scrollDelta > 0f ? -1 : 1;
                 int current = HudState.Active.SelectedSlot;

@@ -139,7 +139,7 @@ public class IsometricLockedCamera : MonoBehaviour
         }
 
         // Ctrl + ScrollWheel: Zoom in / out, snapped to discrete steps
-        if (isCtrlHeld && cam != null && cam.orthographic && Mathf.Abs(scroll) > 0.01f)
+        if (isCtrlHeld && cam != null && cam.orthographic && Mathf.Abs(scroll) > 0.01f && !Homesteader.UI.MiniMap.PointerOver)
         {
             cam.orthographicSize = SnapZoom(cam.orthographicSize + Mathf.Sign(-scroll) * zoomStep);
         }

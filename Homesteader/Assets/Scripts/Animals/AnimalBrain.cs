@@ -91,6 +91,24 @@ namespace Homesteader.Animals
 
         // ---------------------------------------------------------------- update
 
+        /// <summary>Every animal with a brain, for things that need to see them all (the map).</summary>
+        public static readonly List<AnimalBrain> All = new List<AnimalBrain>();
+        private void OnEnable() { if (!All.Contains(this)) All.Add(this); }
+        private void OnDisable() => All.Remove(this);
+
+        /// <summary>Carries the "predator" or "aggressive" tag: shown red on the map.</summary>
+        public bool IsAggressive
+        {
+            get
+            {
+                if (Def == null) return false;
+                foreach (string t in Def.Tags)
+                    if (string.Equals(t, "predator", System.StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(t, "aggressive", System.StringComparison.OrdinalIgnoreCase)) return true;
+                return false;
+            }
+        }
+
         private void Update()
         {
             if (Def == null) return;

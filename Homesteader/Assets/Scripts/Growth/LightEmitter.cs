@@ -101,6 +101,31 @@ namespace Homesteader.Growth
         }
 
         private readonly List<Runtime> lights = new List<Runtime>();
+
+        /// <summary>A lit light as the map shows it: where, how far it reaches, how bright it is right now (0..1) and its colour.</summary>
+        public struct Glow { public Vector3 Position; public float Range; public float Level; public Color Colour; }
+
+        private static readonly List<LightEmitter> instances = new List<LightEmitter>();
+        private void OnEnable() { if (!instances.Contains(this)) instances.Add(this); }
+        private void OnDisable() => instances.Remove(this);
+
+        /// <summary>Every light that is currently on, for the map to glow around.</summary>
+        public static IEnumerable<Glow> ActiveGlows()
+        {
+            foreach (LightEmitter e in instances)
+            {
+                if (e == null) continue;
+                foreach (Runtime r in e.lights)
+                {
+                    if (r.Light == null || !r.Light.enabled) continue;
+                    yield return new Glow
+                    {
+                        Position = r.Light.transform.position, Range = r.Def.Range, Colour = r.Def.Color,
+                        Level = Mathf.Clamp01(r.Light.intensity / Mathf.Max(0.01f, r.Def.Intensity)),
+                    };
+                }
+            }
+        }
         private string itemId;
         private float nextTick;
 

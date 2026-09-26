@@ -25,6 +25,10 @@ owns the keyboard, game hotkeys are ignored (`HudBindings.KeyboardCaptured`).
 | Left click | Place the selected structure / prop on the square under the cursor (a translucent shadow shows where; blue = valid, red = not) | `PlacementController` |
 | R (Shift+R) | Rotate the shadow being placed 12.5 degrees clockwise (counter-clockwise) | `PlacementController` |
 | F | Player light: flashlight, then lantern, then off | `PlayerLight` |
+| M | Show / hide the map. Dots: faint yellow = you, white = animals, red = predators / aggressive animals | `MiniMap` |
+| Drag the map | Move the map (position, size and zoom are remembered) | `MiniMap` |
+| Shift + mouse wheel over the map | Make the map bigger / smaller | `MiniMap` |
+| Mouse wheel over the map | Zoom the map in / out (it does not zoom the game view or cycle the toolbar there) | `MiniMap` |
 
 ## Time and menus
 
@@ -48,7 +52,7 @@ owns the keyboard, game hotkeys are ignored (`HudBindings.KeyboardCaptured`).
 
 ## Free keys (do not reuse the ones above)
 
-F1, F7, F8, F10 - F12, and every unlisted letter (G, H, T, Y, U, I, O, P, Z, X, C, V, B, N, M). Keep W A S D Q E F Space Tab
+F1, F7, F8, F10 - F12, and every unlisted letter (G, H, T, Y, U, I, O, P, Z, X, C, V, B, N). Keep W A S D Q E F Space Tab
 Esc [ ] and 0 - 9 as they are.
 
 ## Not bound yet (clips exist, no key)
