@@ -1,0 +1,196 @@
+{
+  "id": "animal_base",
+  "abstract": true,
+  "note": "Template. Basic creature: hunger / thirst / energy, flees threats, eats and drinks at tagged objects (food, water), sleeps at night, wanders near home, idles. Extend it and only list what differs. Animation slots default to Idle so a rig without a sit / sleep / eat clip still works; override a slot to use a real clip.",
+  "needs": {
+    "hunger": {
+      "start": 0.3,
+      "rate_per_game_hour": 0.05
+    },
+    "thirst": {
+      "start": 0.2,
+      "rate_per_game_hour": 0.07
+    },
+    "energy": {
+      "start": 1.0,
+      "rate_per_game_hour": -0.04
+    }
+  },
+  "senses": {
+    "sight_m": 20,
+    "hear_m": 30
+  },
+  "movement": {
+    "walk_speed": 1.4,
+    "run_speed": 4.5,
+    "turn_speed_deg": 200,
+    "max_slope_deg": 40,
+    "arrive_dist_m": 0.7
+  },
+  "animations": {
+    "idle": "Idle",
+    "walk": "Walk",
+    "run": "Run",
+    "sit": "Idle",
+    "lay": "Idle",
+    "sleep": "Idle",
+    "eat": "Idle",
+    "drink": "Idle",
+    "bark": "Idle",
+    "work": "Idle"
+  },
+  "behaviors": [
+    {
+      "id": "flee_threat",
+      "priority": 10,
+      "action": {
+        "type": "flee",
+        "target": "threat",
+        "speed": "run",
+        "min_dist": 12
+      },
+      "requires": [
+        {
+          "sense": "threat",
+          "within": 15
+        }
+      ],
+      "score": [
+        {
+          "sense": "threat",
+          "curve": "closer",
+          "weight": 2.0
+        }
+      ],
+      "base": 1.0
+    },
+    {
+      "id": "sleep_at_night",
+      "action": {
+        "type": "rest",
+        "anim": "sleep",
+        "need": "energy",
+        "restore_per_second": 0.02,
+        "until": {
+          "time": "day"
+        }
+      },
+      "requires": [
+        {
+          "time": "night"
+        },
+        {
+          "need": "energy",
+          "below": 0.75
+        }
+      ],
+      "score": [
+        {
+          "need": "energy",
+          "curve": "inverse",
+          "weight": 1.4
+        }
+      ],
+      "base": 0.3,
+      "min_s": 30
+    },
+    {
+      "id": "eat",
+      "action": {
+        "type": "consume",
+        "target": "food",
+        "anim": "eat",
+        "need": "hunger",
+        "restore_per_second": -0.12,
+        "duration": [
+          6,
+          10
+        ]
+      },
+      "requires": [
+        {
+          "need": "hunger",
+          "above": 0.55
+        },
+        {
+          "sense": "food",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "need": "hunger",
+          "curve": "squared",
+          "weight": 1.8
+        }
+      ],
+      "base": 0.1,
+      "cooldown_s": 30
+    },
+    {
+      "id": "drink",
+      "action": {
+        "type": "consume",
+        "target": "water",
+        "anim": "drink",
+        "need": "thirst",
+        "restore_per_second": -0.15,
+        "duration": [
+          5,
+          8
+        ]
+      },
+      "requires": [
+        {
+          "need": "thirst",
+          "above": 0.55
+        },
+        {
+          "sense": "water",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "need": "thirst",
+          "curve": "squared",
+          "weight": 1.8
+        }
+      ],
+      "base": 0.1,
+      "cooldown_s": 30
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 10,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "random": 0.25
+        }
+      ],
+      "base": 0.25
+    },
+    {
+      "id": "idle",
+      "action": {
+        "type": "idle",
+        "anim": "idle",
+        "duration": [
+          3,
+          8
+        ]
+      },
+      "score": [
+        {
+          "random": 0.15
+        }
+      ],
+      "base": 0.2
+    }
+  ]
+}

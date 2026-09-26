@@ -263,6 +263,46 @@ not contain one. Read a stage's `model`/`icon` from the group manifest's
 
 ---
 
+## 4c1. Pushing an asset to the game
+
+The kit's **Push to Game** button (asset popup) or `python tools/push_to_game.py <category> <id>` updates the game's
+`homesteader` mod with one asset, following the Namespace / Category / Asset folder rule:
+`mods/homesteader/<category>/<id>/...`. It is a full mod update, not just a file copy: it replaces the asset's folder,
+makes sure `mod.json` declares the category (and `animal_ai` when the asset carries its own AI), bumps the mod's patch
+version and date, writes an animal's AI to `ai/<id>.json`, and refreshes the in-game asset list (icon +
+`Resources/AssetCatalog.json`). An asset or category switched off with `.disabled` is left alone. Restart Play to load it.
+
+## 4c2. Placing structures and props
+
+Select a placeable item on the toolbar (a structure, electricity, water, waste or internet asset that has a model) and
+a translucent shadow of it follows the grid square under the cursor: blue when the square is valid, red when not. **R**
+turns it (12.5 degrees a press, Shift+R the other way) and a **left click** places it: one item is consumed, the shadow
+fades to solid and it stays until something removes it (`PlacedObject.Remove()`). A square is invalid when it is farther
+than `placement.reach_cells` from the player, in water, too steep, or already holds a placed object or a plant. In
+`gamerules.json`:
+
+```json
+"placement": { "reach_cells": 3, "rotate_step_deg": 12.5, "categories": ["structures", "electricity", "water", "waste", "internet"] }
+```
+
+Placed objects are not saved yet (no save system exists); they last for the session.
+
+## 4c3. Lights on an asset
+
+Any asset manifest can carry a top-level `lights` list. Each entry is one light the asset emits once it is placed:
+
+```json
+"lights": [ { "id": "shade", "type": "spot", "color": "#FFE9C0", "intensity": 6, "range_m": 12, "spot_angle_deg": 110,
+              "offset_m": [0, 3.45, 0.83], "pitch_deg": 90, "on": "night", "fade_minutes": 20, "flicker": 0.03,
+              "requires_power": true, "power_w": 100 } ]
+```
+
+`type` is `point` or `spot`; `offset_m` is metres from the model's pivot in its own axes (y up); `on` is `always`, `night`
+(from `dusk_lead_minutes` (default 30) before today's sunset to `dawn_lag_minutes` (default 30) after today's sunrise, so it follows the seasons) or `hours` (`hours: [from, to]`); the light fades over `fade_minutes` game minutes, and `startup_flicker` (0-1) makes it sputter for `startup_seconds` (real seconds, default 6) when it first switches on, striking at `min_level` (default 0.25 of full) before the slow brighten over `fade_minutes`. The sputter is short and separate from the fade.
+`requires_power` lights only while `LightEmitter.PowerCheck` (set by the game's power system) says the asset is powered;
+with no power system connected it counts as powered. Edit them in the asset popup's **Lights** card. Schema:
+`assets/_schemas/light_emitter.schema.json`.
+
 ## 4d. Planting and harvesting: the group owns its lifecycle
 
 A mod can ship plantable trees and crops entirely as data, and the **growth group owns everything
@@ -335,6 +375,21 @@ the defaults for anything the file leaves out.
 
 The source lives in `assets/_gamerules/` (packaged as the `mod_gamerules` mod by
 `tools/package_catalog_as_mods.py`). Reference: `assets/_schemas/gamerules.schema.json`.
+
+---
+
+## 4f. Animal AI as mod data
+
+Animal behaviour is **data in a mod**: list an `animal_ai` content entry and ship the JSON. Each
+definition gives an animal needs (hunger, energy, ...), senses, an animation map and a list of scored
+behaviour rules; the game builds a brain for every animal it applies to.
+
+```json
+{ "contents": [ { "type": "animal_ai", "path": "ai/*.json" } ] }
+```
+
+Full reference, the rule format, terms and actions: [ANIMAL_AI.md](ANIMAL_AI.md). Schema:
+`assets/_schemas/animal_ai.schema.json`. Example: `assets/_ai/dog_companion.json`.
 
 ---
 

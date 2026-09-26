@@ -84,6 +84,7 @@ def build_mods():
         mods/homesteader/tags.json
         mods/homesteader/<category>/<asset_folder>/...
         mods/homesteader/gamerules/gamerules.json (+ textures/)
+        mods/homesteader/ai/*.json (animal AI definitions)
 
     Namespace / Category / Asset folder. Any of the three can be switched off by appending ".disabled" to
     its folder name (the Mods app does exactly that); an already-disabled folder is left alone here.
@@ -93,8 +94,21 @@ def build_mods():
     print("PACKAGING ASSET CATALOG INTO THE 'homesteader' MOD")
     print("=" * 60)
 
+    # Items pushed from the kit are their OWN mods (tools/push_to_game.py); the core mod must not carry them too.
+    pushed = {}
+    reg_path = os.path.join(SRC_ASSETS_DIR, "_pushed_mods.json")
+    if os.path.isfile(reg_path):
+        try:
+            with open(reg_path, encoding="utf-8") as f:
+                pushed = json.load(f)
+        except Exception:
+            pushed = {}
+    pushed_mod_ids = {v.get("mod_id") for v in pushed.values()}
+
     # The old layout was one mod_<category> per category. Remove those generated folders.
     for d in os.listdir(MODS_DIR):
+        if d in pushed_mod_ids:
+            continue
         if d.startswith("mod_") and os.path.isdir(os.path.join(MODS_DIR, d)):
             shutil.rmtree(os.path.join(MODS_DIR, d))
             print(f"Removed old mod folder [{d}]")
@@ -113,7 +127,8 @@ def build_mods():
     total_items = 0
     for cat in categories:
         cat_src = os.path.join(SRC_ASSETS_DIR, cat)
-        items = sorted(it for it in os.listdir(cat_src) if os.path.isdir(os.path.join(cat_src, it)))
+        items = sorted(it for it in os.listdir(cat_src) if os.path.isdir(os.path.join(cat_src, it))
+                       and not (it in pushed and pushed[it].get("category") == cat))
         if not items:
             continue
 
@@ -148,6 +163,38 @@ def build_mods():
         if not os.path.isdir(os.path.join(mod_dir, "gamerules") + ".disabled"):
             copy_tree_incremental(rules_src, os.path.join(mod_dir, "gamerules"))
         mod_contents.append({"type": "gamerules", "path": "gamerules/gamerules.json"})
+
+    # Animal AI definitions (assets/_ai/*.json) ride along the same way.
+    ai_src = os.path.join(SRC_ASSETS_DIR, "_ai")
+    if os.path.isdir(ai_src):
+        if not os.path.isdir(os.path.join(mod_dir, "ai") + ".disabled"):
+            copy_tree_incremental(ai_src, os.path.join(mod_dir, "ai"))
+        mod_contents.append({"type": "animal_ai", "path": "ai/*.json"})
+
+    # Animals carry their own AI in the manifest (category_fields.ai); write each to ai/<item_id>.json.
+    import glob as _glob
+    ai_out = os.path.join(mod_dir, "ai")
+    for mp in _glob.glob(os.path.join(SRC_ASSETS_DIR, "*", "*", "*.json")):
+        try:
+            with open(mp, encoding="utf-8") as f:
+                mj = json.load(f)
+        except Exception:
+            continue
+        ai_def = (mj.get("category_fields") or {}).get("ai") if isinstance(mj, dict) else None
+        if not isinstance(ai_def, dict) or not ai_def.get("behaviors"):
+            continue
+        item_id = os.path.splitext(os.path.basename(mp))[0]
+        if item_id in pushed:
+            continue    # its own mod carries the AI
+        ai_def = dict(ai_def)
+        ai_def.setdefault("id", item_id + "_ai")
+        if not ai_def.get("applies_to"):
+            ai_def["applies_to"] = [item_id]
+        os.makedirs(ai_out, exist_ok=True)
+        with open(os.path.join(ai_out, item_id + ".json"), "w", encoding="utf-8") as f:
+            json.dump(ai_def, f, indent=2)
+        if not any(c.get("type") == "animal_ai" for c in mod_contents):
+            mod_contents.append({"type": "animal_ai", "path": "ai/*.json"})
 
     manifest = {
         "id": NAMESPACE,

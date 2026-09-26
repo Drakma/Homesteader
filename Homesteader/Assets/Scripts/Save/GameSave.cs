@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Homesteader.Growth;
+using Homesteader.UI;
+using UnityEngine;
+
+namespace Homesteader.Save
+{
+    /// <summary>
+    /// The saved state of the game. Plain serializable data (JsonUtility): no references into the scene, so a save is
+    /// a small readable JSON file at <see cref="SavePath"/>. GameSaveManager captures and applies it.
+    /// </summary>
+    [Serializable]
+    public sealed class GameSave
+    {
+        public const int CurrentVersion = 1;
+        public int version = CurrentVersion;
+        public string savedAtUtc;
+        public int worldSeed;
+
+        // time
+        public int dayOfYear;
+        public float minuteOfDay;
+        public int speed;
+        public bool weatherOverridden;
+        public int weather;
+
+        // player
+        public Vector3 playerPosition;
+        public float playerYaw;
+        public float cameraYaw;
+        public float cameraOrthoSize;
+
+        // HUD state
+        public List<SavedSlot> toolbar = new List<SavedSlot>();
+        public int selectedSlot;
+        public List<SavedVital> vitals = new List<SavedVital>();
+        public List<SavedResource> resources = new List<SavedResource>();
+        public float loanDebt;
+
+        // world
+        public List<SavedPlant> plants = new List<SavedPlant>();
+        public List<SavedPlaced> placed = new List<SavedPlaced>();
+        public List<SavedDrop> drops = new List<SavedDrop>();
+
+        [Serializable] public struct SavedSlot { public string iconId; public int count; }
+        [Serializable] public struct SavedVital { public int id; public int value; }
+        [Serializable]
+        public struct SavedResource
+        {
+            public int id;
+            public float amount;
+            public List<string> subKeys;
+            public List<float> subValues;
+        }
+        [Serializable]
+        public struct SavedPlant
+        {
+            public string group;        // qualified group id
+            public Vector3 position;
+            public float yaw;
+            public float ageDays;
+            public int state;           // PlantedGrowth.PlantState
+        }
+        [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; }
+        [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; }
+
+        // ------------------------------------------------------------------ file
+
+        public static string SaveDir => Path.Combine(Application.persistentDataPath, "Saves");
+        public static string SavePath => Path.Combine(SaveDir, "autosave.json");
+        public static string BackupPath => Path.Combine(SaveDir, "autosave.bak.json");
+
+        public static bool Exists => File.Exists(SavePath);
+
+        public void WriteToDisk()
+        {
+            Directory.CreateDirectory(SaveDir);
+            savedAtUtc = DateTime.UtcNow.ToString("o");
+            string tmp = SavePath + ".tmp";
+            File.WriteAllText(tmp, JsonUtility.ToJson(this, true));
+            if (File.Exists(SavePath)) File.Copy(SavePath, BackupPath, true);   // the previous good save
+            if (File.Exists(SavePath)) File.Delete(SavePath);
+            File.Move(tmp, SavePath);
+        }
+
+        /// <summary>Reads the save, falling back to the backup if the main file is unreadable. Null when there is none.</summary>
+        public static GameSave ReadFromDisk()
+        {
+            foreach (string path in new[] { SavePath, BackupPath })
+            {
+                if (!File.Exists(path)) continue;
+                try
+                {
+                    var s = JsonUtility.FromJson<GameSave>(File.ReadAllText(path));
+                    if (s != null && s.version <= CurrentVersion) return s;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"[Save] could not read {path}: {e.Message}");
+                }
+            }
+            return null;
+        }
+
+        public static void Delete()
+        {
+            foreach (string path in new[] { SavePath, BackupPath })
+                if (File.Exists(path)) File.Delete(path);
+        }
+    }
+}

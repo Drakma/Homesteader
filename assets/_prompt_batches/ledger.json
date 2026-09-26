@@ -1,0 +1,138 @@
+{
+  "tags": {
+    "DPWM": {
+      "batch": "pumpkin",
+      "item_id": "crop_pumpkin",
+      "name": "Pumpkin plant",
+      "category": "farming",
+      "description": "a pumpkin plant growing in a small mound of brown garden soil, broad lobed green leaves and curling vines, orange pumpkin variety",
+      "prompt": "One single image showing 6 stages of the same Pumpkin plant (a pumpkin plant growing in a small mound of brown garden soil, broad lobed green leaves and curling vines, orange pumpkin variety), arranged in ONE horizontal row from left to right in this exact order, with a clear empty gap between neighbours so nothing overlaps or touches: 1. Sprout: a tiny seedling with two small round green seed leaves just breaking through the soil (about 8% of the tallest one's height); 2. Small: a young plant with a few broad leaves, short vines and one small green pumpkin the size of a fist (about 30% of the tallest one's height); 3. Medium: a leafy spreading plant with long vines and a medium half-orange, half-green pumpkin (about 60% of the tallest one's height); 4. Mature: a lush full plant with large leaves, long vines and a big ripe bright orange pumpkin (about 100% of the tallest one's height); 5. Withered: the mature plant drying out: yellowing, curling, drooping leaves and a slightly dull shrunken pumpkin (about 85% of the tallest one's height); 6. Dead: the plant fully dead: brown brittle collapsed leaves and vines lying flat, a shriveled rotting brown pumpkin (about 60% of the tallest one's height). All 6 are the SAME object (same design, base, colours and style); only the growth/state changes. SCALE: they all stand on one shared ground line and are drawn with the same camera, zoom and angle, each at its true size relative to the others, so a small stage stays small and is NOT enlarged to match the biggest; do not crop any of them. STYLE: a true low-poly 3D model render, like a low-polygon game asset. The whole object is built from a small number of large flat triangular and angular polygon facets with hard visible edges between them; every surface is flat-shaded, each facet a single flat colour with soft simple lighting, so you can count the planes. Chunky simplified shapes, no fine detail, no smooth curves or gradients, no realistic textures, no fur/leaf/bark detail, no outlines, not painterly, not photographic, not pixel art, not a cartoon illustration. Limited natural colour palette. Soft top-left key light. Isometric 3/4 front view, modern-day items, plain flat solid light-grey background, no shadow on the ground, no text except the tag. In the bottom-left corner, write the code DPWM in small, plain, dark, sans-serif capital letters on the flat background, well clear of the object. Write it exactly, nothing else.",
+      "status": "cleaned",
+      "created": "2026-09-25 20:05:39",
+      "group": "crop_pumpkin",
+      "group_name": "Pumpkin plant",
+      "stages": 6,
+      "stage_defs": [
+        {
+          "suffix": "sprout",
+          "item_id": "crop_pumpkin_sprout",
+          "name": "Sprout",
+          "desc": "a tiny seedling with two small round green seed leaves just breaking through the soil",
+          "height": "8"
+        },
+        {
+          "suffix": "small",
+          "item_id": "crop_pumpkin_small",
+          "name": "Small",
+          "desc": "a young plant with a few broad leaves, short vines and one small green pumpkin the size of a fist",
+          "height": "30"
+        },
+        {
+          "suffix": "medium",
+          "item_id": "crop_pumpkin_medium",
+          "name": "Medium",
+          "desc": "a leafy spreading plant with long vines and a medium half-orange, half-green pumpkin",
+          "height": "60"
+        },
+        {
+          "suffix": "mature",
+          "item_id": "crop_pumpkin_mature",
+          "name": "Mature",
+          "desc": "a lush full plant with large leaves, long vines and a big ripe bright orange pumpkin",
+          "height": "100"
+        },
+        {
+          "suffix": "withered",
+          "item_id": "crop_pumpkin_withered",
+          "name": "Withered",
+          "desc": "the mature plant drying out: yellowing, curling, drooping leaves and a slightly dull shrunken pumpkin",
+          "height": "85"
+        },
+        {
+          "suffix": "dead",
+          "item_id": "crop_pumpkin_dead",
+          "name": "Dead",
+          "desc": "the plant fully dead: brown brittle collapsed leaves and vines lying flat, a shriveled rotting brown pumpkin",
+          "height": "60"
+        }
+      ],
+      "raw": "assets/_prompt_batches/pumpkin/raw/crop_pumpkin.jpg",
+      "sha1": "1f23671ad080fa14cd06b256d3105e0d1bf59e85",
+      "clean_items": [
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_sprout.png",
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_small.png",
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_medium.png",
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_mature.png",
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_withered.png",
+        "assets/_prompt_batches/pumpkin/clean/crop_pumpkin_dead.png"
+      ]
+    },
+    "JRUV": {
+      "batch": "lightpoles",
+      "item_id": "electricity_lightpole",
+      "name": "Light poles",
+      "category": "electricity",
+      "description": "modern-day outdoor light poles for a homestead and small town, each a different design",
+      "prompt": "One single image showing 6 different Light poles (modern-day outdoor light poles for a homestead and small town, each a different design), arranged in ONE horizontal row from left to right in this exact order, with a clear empty gap between neighbours so nothing overlaps or touches: 1. Wooden utility pole: a tall creosoted wooden utility pole with a crossarm, two glass insulators and a cobra-head street light on a bracket (about 100% of the tallest one's height); 2. Steel street lamp: a tapered galvanized steel street lamp post with a curved arm and an LED lantern head (about 85% of the tallest one's height); 3. Yard barn light: a medium wooden post with a dusk-to-dawn barn light: a shaded metal dome lamp on an arm (about 60% of the tallest one's height); 4. Floodlight pole: a tall square-tube steel pole with a rectangular LED floodlight panel bolted on the top (about 95% of the tallest one's height); 5. Solar garden light: a short black aluminium post with a small solar panel and a lantern-style lamp head (about 22% of the tallest one's height); 6. Lantern post: a black cast-iron post with a glass lantern on top and a small decorative base (about 45% of the tallest one's height). Each is its own distinct design; they share only the same art style. SCALE: they all stand on one shared ground line and are drawn with the same camera, zoom and angle, each at its true size relative to the others; do not crop any of them. STYLE: a true low-poly 3D model render, like a low-polygon game asset. The whole object is built from a small number of large flat triangular and angular polygon facets with hard visible edges between them; every surface is flat-shaded, each facet a single flat colour with soft simple lighting, so you can count the planes. Chunky simplified shapes, no fine detail, no smooth curves or gradients, no realistic textures, no fur/leaf/bark detail, no outlines, not painterly, not photographic, not pixel art, not a cartoon illustration. Limited natural colour palette. Soft top-left key light. Isometric 3/4 front view, modern-day items, plain flat solid light-grey background, no shadow on the ground, no text except the tag. In the bottom-left corner, write the code JRUV in small, plain, dark, sans-serif capital letters on the flat background, well clear of the object. Write it exactly, nothing else.",
+      "status": "cleaned",
+      "created": "2026-09-25 22:21:09",
+      "group": "electricity_lightpole",
+      "group_name": "Light poles",
+      "stages": 6,
+      "stage_defs": [
+        {
+          "suffix": "wood_utility",
+          "item_id": "electricity_lightpole_wood_utility",
+          "name": "Wooden utility pole",
+          "desc": "a tall creosoted wooden utility pole with a crossarm, two glass insulators and a cobra-head street light on a bracket",
+          "height": "100"
+        },
+        {
+          "suffix": "steel_street",
+          "item_id": "electricity_lightpole_steel_street",
+          "name": "Steel street lamp",
+          "desc": "a tapered galvanized steel street lamp post with a curved arm and an LED lantern head",
+          "height": "85"
+        },
+        {
+          "suffix": "yard_barn",
+          "item_id": "electricity_lightpole_yard_barn",
+          "name": "Yard barn light",
+          "desc": "a medium wooden post with a dusk-to-dawn barn light: a shaded metal dome lamp on an arm",
+          "height": "60"
+        },
+        {
+          "suffix": "flood_tower",
+          "item_id": "electricity_lightpole_flood_tower",
+          "name": "Floodlight pole",
+          "desc": "a tall square-tube steel pole with a rectangular LED floodlight panel bolted on the top",
+          "height": "95"
+        },
+        {
+          "suffix": "solar_garden",
+          "item_id": "electricity_lightpole_solar_garden",
+          "name": "Solar garden light",
+          "desc": "a short black aluminium post with a small solar panel and a lantern-style lamp head",
+          "height": "22"
+        },
+        {
+          "suffix": "lantern_post",
+          "item_id": "electricity_lightpole_lantern_post",
+          "name": "Lantern post",
+          "desc": "a black cast-iron post with a glass lantern on top and a small decorative base",
+          "height": "45"
+        }
+      ],
+      "raw": "assets/_prompt_batches/lightpoles/raw/electricity_lightpole.jpg",
+      "sha1": "6a0c8c21f6c76bfba6a3832530e7b328c672781e",
+      "clean_items": [
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_wood_utility.png",
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_steel_street.png",
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_yard_barn.png",
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_flood_tower.png",
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_solar_garden.png",
+        "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_lantern_post.png"
+      ]
+    }
+  }
+}

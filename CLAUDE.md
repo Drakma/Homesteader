@@ -14,6 +14,10 @@
 - **Engine Version**: Unity 6 (`6000.6.0f1`).
 - **Scale Standard**: **1 Unit = 1 Meter** (unlike Unreal which was 1 Unit = 1 cm). When exporting from Blender, scale to metric meters.
 - **3D Model Format**: **GLB is the default and standard model format** (`.glb`, textures embedded). Mods load GLB at runtime via glTFast with no editor import or prefab step. FBX is kept ONLY for rigged/animated models (Humanoid/Generic animation); OBJ is legacy and is being retired. Convert with `tools/convert_models_to_glb.py`.
+- **No foot skating**: every rigged model with walk / run clips must have its gait matched to the game's movement speed. Measure with `python tools/gait_fix.py measure <glb>`; if playback would need to exceed ~1.3x to match, lengthen the stride with `gait_fix.py stretch --target <m/s>` (keeps a backup). Then set the native speed: `GlbClipPlayer.walkNativeSpeed` / `runNativeSpeed` (player) or `movement.walk_native_mps` / `run_native_mps` in the animal AI. Do this on import, not after the user notices.
+- **Save game**: the game autosaves and resumes (`Assets/Scripts/Save/`, `docs/SAVE_GAME.md`, F9 saves now). Anything new that changes the world or player state (new placeable things, inventory-like state, world objects) must be added to `GameSave` / `GameSaveManager.Capture()` / `ApplySave()` in the same change.
+- **NO EMOJI (user rule)**: never use emoji anywhere: not in chat replies, not in UI text, labels, toasts, docs, commit messages or code comments. Plain text only.
+- **Poly budget**: keep every asset model **under 5,000 triangles** (the user's standard). Check the count after any Meshy generation (`meshy-t2` image-to-3D lands around 4,000-4,400) and decimate anything over.
 - **Coordinate System**: Left-handed ($Y$-Up, $+Z$-Forward, $+X$-Right).
 - **Pivots**: Ground-level pivot ($Z_{min} = 0$, $Y_{min} = 0$ in Unity) for structures, furniture, and placed crops; centered pivot for handheld tools and items.
 - **2D UI / Icons**: 128×128 px 32-bit RGBA PNG, imported in Unity as `Texture Type: Sprite (2D and UI)`.
@@ -143,6 +147,14 @@ Every asset must live in `assets/<category>/<item_id>/`:
 ## 3b. Editor / Schema Sync Rule
 
 - Whenever a field changes in the asset kit rich editor (`assets/index.html`), update the matching base schema / category schema (`assets/_schemas/`), server validation (`tools/server.py`), manifest templates (`tools/process_queued_batch.py`, `docs/ASSET_CREATION_GUIDE.md`, `assets/_schemas/README.md`) and backfill existing manifests in the same change. The reverse also applies: schema or template changes must be reflected in the rich editor.
+
+---
+
+- **Animal AI**: behaviour rules are mod data (`assets/_ai/*.json`, content type `animal_ai`). Schema `assets/_schemas/animal_ai.schema.json`, validator `tools/animal_ai.py` (must stay in step with `Assets/Scripts/Animals/AnimalAIDefinition.cs`), reference `docs/ANIMAL_AI.md`. An animal's own AI is `category_fields.ai` in its manifest (ranching schema, edited in the asset popup's Animal AI card, packaged to `ai/<item_id>.json`); `assets/_ai` holds shared/species profiles.
+
+---
+
+- **Controls**: `docs/CONTROLS.md` is the single list of every key/mouse binding. Check it before assigning a key (F2, F3, F4 are taken) and update it in the same change whenever a binding is added, moved or removed.
 
 ---
 

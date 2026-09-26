@@ -100,7 +100,8 @@ namespace Homesteader.Modding
                 : modsDirectoryOverride;
 
             var provider = new ResourcesPrefabProvider(m => Debug.Log(m));
-            return new FileAssetResolver(provider, modsRoot, m => Debug.Log(m));
+            // GLB is the standard model format (loaded at runtime, no editor step); generated prefabs are the fallback.
+            return new CompositeAssetResolver(new GlbAssetResolver(), new FileAssetResolver(provider, modsRoot, m => Debug.Log(m)));
         }
 
         private void OnDestroy()
@@ -124,7 +125,9 @@ namespace Homesteader.Modding
             }
 
             Homesteader.Growth.GrowthRegistry.Clear();
+            Homesteader.Growth.ItemRegistry.Clear();
             Homesteader.Growth.GameRules.Clear();
+            Homesteader.Animals.AnimalAIRegistry.Clear();
             LoadedMods.Clear();
             Results.Clear();
             LoadComplete = false;

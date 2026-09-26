@@ -1,0 +1,65 @@
+{
+  "id": "wildlife_prey",
+  "abstract": true,
+  "extends": [
+    "animal_base"
+  ],
+  "note": "Template. Skittish wild animals (deer, rabbits): bolt early from the player and from anything tagged predator.",
+  "senses": {
+    "sight_m": 35
+  },
+  "movement": {
+    "walk_speed": 1.2,
+    "run_speed": 7.5
+  },
+  "behaviors": [
+    {
+      "id": "flee_predator",
+      "priority": 10,
+      "action": {
+        "type": "flee",
+        "target": "predator",
+        "speed": "run",
+        "min_dist": 25
+      },
+      "requires": [
+        {
+          "sense": "predator",
+          "within": 30
+        }
+      ],
+      "score": [
+        {
+          "sense": "predator",
+          "curve": "closer",
+          "weight": 2
+        }
+      ],
+      "base": 1.0
+    },
+    {
+      "id": "flee_player",
+      "priority": 9,
+      "action": {
+        "type": "flee",
+        "target": "player",
+        "speed": "run",
+        "min_dist": 20
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 15
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 1.6
+        }
+      ],
+      "base": 0.8
+    }
+  ]
+}

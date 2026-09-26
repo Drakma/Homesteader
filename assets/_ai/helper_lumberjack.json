@@ -1,0 +1,13 @@
+{
+  "id": "helper_lumberjack",
+  "extends": [
+    "helper"
+  ],
+  "applies_to": [
+    "species:helper_lumberjack"
+  ],
+  "note": "A woodcutter. Works at trees tagged 'job' with the chop animation.",
+  "animations": {
+    "work": "Chop"
+  }
+}

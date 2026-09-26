@@ -16,6 +16,7 @@ namespace Homesteader.Growth
             public string Name;
             public string Category;
             public GameObject Prefab;   // a lazily-loaded GLB template (inactive) or a generated prefab
+            public List<LightDef> Lights = new List<LightDef>();   // lights the asset emits (manifest "lights")
         }
 
         private static readonly Dictionary<string, ItemInfo> items =
@@ -24,10 +25,10 @@ namespace Homesteader.Growth
         public static void Clear() => items.Clear();
 
         /// <summary>First registration of an id wins (core content is loaded first).</summary>
-        public static void Register(string id, string name, string category, GameObject prefab)
+        public static void Register(string id, string name, string category, GameObject prefab, List<LightDef> lights = null)
         {
             if (string.IsNullOrEmpty(id) || prefab == null || items.ContainsKey(id)) return;
-            items[id] = new ItemInfo { Id = id, Name = name, Category = category, Prefab = prefab };
+            items[id] = new ItemInfo { Id = id, Name = name, Category = category, Prefab = prefab, Lights = lights ?? new List<LightDef>() };
         }
 
         public static bool TryGet(string id, out ItemInfo info)

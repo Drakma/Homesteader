@@ -1,0 +1,13 @@
+{
+  "id": "wolf",
+  "extends": [
+    "wildlife_predator"
+  ],
+  "applies_to": [
+    "*wolf*"
+  ],
+  "note": "Wolves and similar hunters. Carry the 'predator' tag, so sheep, chickens and other livestock run from them and guard dogs chase them.",
+  "tags": [
+    "predator"
+  ]
+}

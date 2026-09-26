@@ -26,8 +26,9 @@ Shader "Homesteader/GenerativeTerrainURP"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
 
@@ -427,7 +428,10 @@ Shader "Homesteader/GenerativeTerrainURP"
                 }
 
                 // Cel / low-poly faceted lighting
-                Light mainLight = GetMainLight();
+                // Receive the sun's shadows (poles, buildings, trees fall across the ground). The cel look keeps them as a
+                // flat darker step rather than a soft gradient.
+                float4 shadowCoord = TransformWorldToShadowCoord(posWS);
+                Light mainLight = GetMainLight(shadowCoord);
                 // URP's GetMainLight().color has the light's intensity baked in - Summer's sun
                 // intensity is 2.0 (see DayNightCycle._summerSunIntensity), which without this
                 // clamp blows the red/green channels out toward white while blue lags behind,
@@ -448,6 +452,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                 half3 snowLit = half3(0.96, 0.98, 1.0) * max(sunLuma, 0.9);
                 litColor = lerp(litColor, snowLit, snowMask);
                 celLight = lerp(celLight, max(celLight, 0.95), snowMask);
+                celLight *= lerp(0.45, 1.0, step(0.5, mainLight.shadowAttenuation));   // in the sun's shadow
                 half3 finalRGB = col * (litColor * celLight);
                 finalRGB += puddleGlint;
 
@@ -459,7 +464,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                     inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
                     uint addCount = GetAdditionalLightsCount();
                     LIGHT_LOOP_BEGIN(addCount)
-                        Light al = GetAdditionalLight(lightIndex, posWS);
+                        Light al = GetAdditionalLight(lightIndex, posWS, half4(1, 1, 1, 1));
                         float aNdl = saturate(dot(normWS, al.direction));
                         float aCel = step(0.05, aNdl) * 0.5 + aNdl * 0.5;
                         finalRGB += col * al.color * (al.distanceAttenuation * al.shadowAttenuation * aCel);
@@ -470,7 +475,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                     uint addCount = GetAdditionalLightsCount();
                     for (uint li = 0u; li < addCount; ++li)
                     {
-                        Light al = GetAdditionalLight(li, posWS);
+                        Light al = GetAdditionalLight(li, posWS, half4(1, 1, 1, 1));
                         float aNdl = saturate(dot(normWS, al.direction));
                         float aCel = step(0.05, aNdl) * 0.5 + aNdl * 0.5;
                         finalRGB += col * al.color * (al.distanceAttenuation * al.shadowAttenuation * aCel);

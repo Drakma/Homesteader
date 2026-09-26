@@ -82,6 +82,10 @@ namespace Homesteader.Modding
                                 LoadGameRules(mod, entry, result, log);
                                 break;
 
+                            case ModContentType.AnimalAi:
+                                LoadAnimalAi(mod, entry, result, log);
+                                break;
+
                             case ModContentType.Script:
                                 result.Messages.Add(
                                     $"Content type 'script' is declared but not executable in this build; " +
@@ -124,6 +128,24 @@ namespace Homesteader.Modding
                 GameRules.Apply(mod, root, msg => mod.Warnings.Add($"Game rules: {msg}"));
                 result.Messages.Add("Applied game rules from " + Path.GetFileName(file));
                 log?.Invoke($"[Mods] {mod.Id}: applied game rules ({Path.GetFileName(file)}).");
+            }
+        }
+
+        // ------------------------------------------------------------------ Animal AI
+
+        /// <summary>Registers the animal_ai JSON files a mod ships (behaviour rules for its animals).</summary>
+        private static void LoadAnimalAi(ModInfo mod, ModContentEntry entry, ModLoadResult result, Action<string> log)
+        {
+            foreach (string file in ModFileResolver.ResolveFiles(mod, entry.Path, ".json"))
+            {
+                if (!ModJson.TryParse(File.ReadAllText(file), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"Animal AI file '{file}' is not valid JSON - {error}");
+                    continue;
+                }
+                Homesteader.Animals.AnimalAIRegistry.LoadFromJson(root, mod.Id, msg => mod.Warnings.Add($"Animal AI: {msg}"));
+                result.Messages.Add("Loaded animal AI from " + Path.GetFileName(file));
+                log?.Invoke($"[Mods] {mod.Id}: loaded animal AI ({Path.GetFileName(file)}).");
             }
         }
 
@@ -341,6 +363,11 @@ namespace Homesteader.Modding
                 {
                     summary.prefab = prefab;
                 }
+
+                // Every asset with a model is available to show in the world (dropped items, placement shadows).
+                if (summary.prefab != null)
+                    Homesteader.Growth.ItemRegistry.Register(localId, summary.name, category, summary.prefab,
+                        Homesteader.Growth.LightDef.ParseList(root.Get("lights")));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

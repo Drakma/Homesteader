@@ -1,0 +1,7 @@
+@variants electricity_lightpole | Light poles | modern-day outdoor light poles for a homestead and small town, each a different design | electricity
+  wood_utility | Wooden utility pole | a tall creosoted wooden utility pole with a crossarm, two glass insulators and a cobra-head street light on a bracket | 100
+  steel_street | Steel street lamp | a tapered galvanized steel street lamp post with a curved arm and an LED lantern head | 85
+  yard_barn | Yard barn light | a medium wooden post with a dusk-to-dawn barn light: a shaded metal dome lamp on an arm | 60
+  flood_tower | Floodlight pole | a tall square-tube steel pole with a rectangular LED floodlight panel bolted on the top | 95
+  solar_garden | Solar garden light | a short black aluminium post with a small solar panel and a lantern-style lamp head | 22
+  lantern_post | Lantern post | a black cast-iron post with a glass lantern on top and a small decorative base | 45

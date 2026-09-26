@@ -232,10 +232,8 @@ namespace Homesteader.UI
                     playerObj.AddComponent<PuddleBasinMap>();
                 if (usesGlbPed && playerObj.GetComponent<PlayerLight>() == null)
                     playerObj.AddComponent<PlayerLight>();
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-                if (usesGlbPed && playerObj.GetComponent<WorkAnimTester>() == null)
-                    playerObj.AddComponent<WorkAnimTester>();
-#endif
+                if (FindAnyObjectByType<Homesteader.Animals.AnimalSpawner>() == null)
+                    playerObj.AddComponent<Homesteader.Animals.AnimalSpawner>();
 
                 var anim = usesGlbPed ? null : playerObj.GetComponentInChildren<Animator>();
                 if (anim == null && !usesGlbPed)

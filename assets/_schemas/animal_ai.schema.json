@@ -1,0 +1,204 @@
+{
+  "category": "animal_ai",
+  "target": "root",
+  "note": "An animal AI definition (mod content type 'animal_ai', files assets/_ai/<id>.json, packaged to mods/<mod>/ai/). Data, not code: each rule is a behaviour with an action, hard requirements and weighted score terms. Every ~0.25 s the animal scores its behaviours and runs the winner. An animal picks its definition through applies_to (its item id, or 'species:<name>'); an animal's own definition is embedded in its manifest as category_fields.ai (ranching schema, edited in the asset popup). Validated by tools/animal_ai.py (same rules as the game's parser). Reference: docs/ANIMAL_AI.md.",
+  "fields": {
+    "id": {
+      "type": "string",
+      "required": true,
+      "note": "Unique lower snake_case id, also the file name. A later mod with the same id replaces an earlier one."
+    },
+    "applies_to": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "string"
+      },
+      "note": "Item ids, '*' wildcards (e.g. '*_cow', 'animal_cat_*') and/or 'species:<name>' this definition drives. Exact id beats wildcard beats species. Optional for an abstract template."
+    },
+    "needs": {
+      "type": "object",
+      "required": false,
+      "note": "Named values 0..1 that change over in-game time. Each key is a need name (hunger, thirst, energy, boredom, ...).",
+      "fields": {
+        "start": {
+          "type": "number",
+          "default": 0.5,
+          "note": "Initial value."
+        },
+        "rate_per_game_hour": {
+          "type": "number",
+          "default": 0,
+          "note": "Change per in-game hour. Positive grows (hunger), negative shrinks (energy). Follows the time-speed setting."
+        },
+        "min": {
+          "type": "number",
+          "default": 0
+        },
+        "max": {
+          "type": "number",
+          "default": 1
+        }
+      }
+    },
+    "senses": {
+      "type": "object",
+      "required": false,
+      "fields": {
+        "sight_m": {
+          "type": "number",
+          "default": 20,
+          "note": "How far it notices the player, other animals and tagged targets."
+        },
+        "hear_m": {
+          "type": "number",
+          "default": 30,
+          "note": "Reserved for sound events."
+        }
+      }
+    },
+    "movement": {
+      "type": "object",
+      "required": false,
+      "fields": {
+        "walk_speed": {
+          "type": "number",
+          "default": 1.6,
+          "note": "m/s"
+        },
+        "run_speed": {
+          "type": "number",
+          "default": 5.0,
+          "note": "m/s"
+        },
+        "turn_speed_deg": {
+          "type": "number",
+          "default": 240
+        },
+        "max_slope_deg": {
+          "type": "number",
+          "default": 40,
+          "note": "Steepest ground it will walk onto."
+        },
+        "arrive_dist_m": {
+          "type": "number",
+          "default": 0.6
+        },
+        "medium": {
+          "type": "string",
+          "default": "ground",
+          "enum": [
+            "ground",
+            "water",
+            "air"
+          ],
+          "note": "ground: walks the terrain. water: swims below the surface and never leaves the water (fish). air: flies hover_m above the ground while moving and lands when it stops (birds)."
+        },
+        "hover_m": {
+          "type": "number",
+          "default": 3,
+          "note": "air only: cruising height above the ground, metres."
+        },
+        "depth_m": {
+          "type": "number",
+          "default": 0.7,
+          "note": "water only: how far below the surface it swims, metres."
+        },
+        "walk_native_mps": {
+          "type": "number",
+          "default": 0,
+          "note": "Ground speed (m/s) the walk clip's feet cover at playback speed 1; measure it with tools/gait_fix.py. The clip then plays at (real speed / this) so the feet do not skate. 0 = off."
+        },
+        "run_native_mps": {
+          "type": "number",
+          "default": 0,
+          "note": "Same for the run clip."
+        }
+      }
+    },
+    "animations": {
+      "type": "object",
+      "required": false,
+      "note": "Slot name -> clip name in the animal's GLB. Slots idle, walk and run drive locomotion; every other slot (sit, lay, sleep, bark, eat, ...) is whatever the actions refer to. An action's anim may also be a raw clip name."
+    },
+    "behaviors": {
+      "type": "array",
+      "required": false,
+      "note": "The rules. Each: {id, action, requires[], score[], base, cooldown_s, min_s, priority, interruptible}. Score = base + sum(term.weight * term value); a behaviour whose requires fail is skipped; the highest score wins. A running behaviour is only replaced when the newcomer beats it by 15% + 0.05, after min_s seconds (or sooner when its priority is higher). May be empty when the definition inherits everything through extends.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "action": {
+            "type": "object",
+            "note": "type: idle | wander | goto | follow | flee | rest | emote | consume | sequence. Common: anim, speed (walk|run|number), target (sense tag), duration (number or [min,max]), radius, stay_near (home|player|none), min_dist, max_dist, arrive_dist, need + restore_per_second (rest/consume), until (a term; rest/follow), steps[] (sequence)."
+          },
+          "requires": {
+            "type": "array",
+            "note": "All must hold. Terms below."
+          },
+          "score": {
+            "type": "array",
+            "note": "Weighted terms. Terms below."
+          },
+          "base": {
+            "type": "number",
+            "default": 0.1
+          },
+          "cooldown_s": {
+            "type": "number",
+            "default": 0
+          },
+          "min_s": {
+            "type": "number",
+            "default": 1.5
+          },
+          "priority": {
+            "type": "number",
+            "default": 0
+          },
+          "interruptible": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "extends": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "string"
+      },
+      "note": "Definition ids to build on, merged in order before this one. Needs, animation slots and senses/movement keys override by name; behaviours override by id; {\"id\": \"x\", \"disabled\": true} removes an inherited behaviour. applies_to is never inherited."
+    },
+    "abstract": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "note": "true = a template: no applies_to needed, never applied to an animal directly, only extended."
+    },
+    "tags": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "string"
+      },
+      "note": "Sense tags this animal carries so other animals can react to it: 'predator' (sheep and prey flee it), 'prey' (predators hunt it), 'threat' (everything flees it), or your own. Every animal is also always 'animal' and 'animal:<species>'. Inherited through extends (merged)."
+    }
+  },
+  "terms": {
+    "note": "One kind key per term, plus optional weight (score only), curve, not.",
+    "need": "{\"need\":\"hunger\",\"above\":0.6} / {\"below\":0.3} tests a threshold; without above/below it is the need value through curve (linear|inverse|squared|sqrt).",
+    "time": "{\"time\":\"night\"} - day | night | dawn | dusk.",
+    "hours": "{\"hours\":[20,6]} - in-game hour range, wraps midnight.",
+    "weather": "{\"weather\":[\"Rain\",\"Snow\"]} - Sunny, PartlyCloudy, Cloudy, Rain, Thunderstorm, Snow, Blizzard, Wind, Fog.",
+    "season": "{\"season\":\"Winter\"} - Spring, Summer, Autumn, Winter.",
+    "sense": "{\"sense\":\"player\",\"within\":7} / {\"beyond\":2} tests the nearest tagged thing; {\"sense\":\"player\",\"curve\":\"closer\"} scores nearness (closer|farther). Tags: player, home, animal, animal:<species>, or any AnimalTarget tag placed in the world (food, water, threat, shelter, ...).",
+    "current": "{\"current\":\"follow_player\"} - true while that behaviour is running (use as a small score bonus to add stickiness).",
+    "event": "{\"event\":\"called\"} - true while a named event raised by gameplay code (AnimalBrain.RaiseEvent) is active.",
+    "random": "{\"random\":0.2} - adds random(0..1) * 0.2 to the score so animals do not all act in lockstep."
+  }
+}

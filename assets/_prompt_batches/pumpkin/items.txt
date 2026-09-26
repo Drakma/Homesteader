@@ -1,0 +1,7 @@
+@group crop_pumpkin | Pumpkin plant | a pumpkin plant growing in a small mound of brown garden soil, broad lobed green leaves and curling vines, orange pumpkin variety | farming
+  sprout | Sprout | a tiny seedling with two small round green seed leaves just breaking through the soil | 8
+  small | Small | a young plant with a few broad leaves, short vines and one small green pumpkin the size of a fist | 30
+  medium | Medium | a leafy spreading plant with long vines and a medium half-orange, half-green pumpkin | 60
+  mature | Mature | a lush full plant with large leaves, long vines and a big ripe bright orange pumpkin | 100
+  withered | Withered | the mature plant drying out: yellowing, curling, drooping leaves and a slightly dull shrunken pumpkin | 85
+  dead | Dead | the plant fully dead: brown brittle collapsed leaves and vines lying flat, a shriveled rotting brown pumpkin | 60

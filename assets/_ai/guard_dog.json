@@ -1,0 +1,95 @@
+{
+  "id": "guard_dog",
+  "abstract": true,
+  "extends": [
+    "dog_companion"
+  ],
+  "note": "Template. A dog that keeps stock: stays with the flock (any 'animal:sheep'), warns at and chases off anything tagged 'predator' that it sees near the flock. It cannot fight: nothing in the game does damage yet, so it drives predators away rather than killing them.",
+  "behaviors": [
+    {
+      "id": "chase_predator",
+      "priority": 7,
+      "action": {
+        "type": "follow",
+        "target": "predator",
+        "speed": "run",
+        "min_dist": 2,
+        "max_dist": 4
+      },
+      "requires": [
+        {
+          "sense": "predator",
+          "within": 25
+        },
+        {
+          "sense": "animal:sheep",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "sense": "predator",
+          "curve": "closer",
+          "weight": 1.8
+        }
+      ],
+      "base": 0.9,
+      "min_s": 4
+    },
+    {
+      "id": "warn_predator",
+      "action": {
+        "type": "emote",
+        "anim": "bark",
+        "duration": [
+          1.6,
+          1.6
+        ]
+      },
+      "requires": [
+        {
+          "sense": "predator",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "sense": "predator",
+          "curve": "closer",
+          "weight": 1.0
+        }
+      ],
+      "base": 0.6,
+      "cooldown_s": 12,
+      "priority": 6
+    },
+    {
+      "id": "tend_flock",
+      "action": {
+        "type": "follow",
+        "target": "animal:sheep",
+        "speed": "walk",
+        "min_dist": 6,
+        "max_dist": 14
+      },
+      "requires": [
+        {
+          "sense": "animal:sheep",
+          "within": 60
+        },
+        {
+          "sense": "animal:sheep",
+          "beyond": 18
+        }
+      ],
+      "score": [
+        {
+          "sense": "animal:sheep",
+          "curve": "farther",
+          "weight": 0.5
+        }
+      ],
+      "base": 0.4
+    }
+  ]
+}

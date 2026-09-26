@@ -34,6 +34,7 @@ namespace Homesteader.Modding
                 bool ok = await gltf.Load(File.ReadAllBytes(Path), new Uri(Path));
                 if (ok && this != null)
                     ok = await gltf.InstantiateMainSceneAsync(transform);
+                if (ok && this != null) GlbMaterials.StripEmission(transform);
                 if (!ok || this == null)
                 {
                     Failed = true;
@@ -76,6 +77,30 @@ namespace Homesteader.Modding
             if (minY == float.MaxValue || Mathf.Abs(minY) < 0.001f) return;
             for (int i = 0; i < transform.childCount; i++)
                 transform.GetChild(i).position -= new Vector3(0f, minY, 0f);
+        }
+    }
+
+    /// <summary>
+    /// Meshy (and some other exporters) write emissiveFactor = white plus an emissive texture on every material, so a
+    /// character or prop shows at full brightness and ignores the lights around it. Nothing in this project uses
+    /// emission from a GLB, so it is cleared on load.
+    /// </summary>
+    public static class GlbMaterials
+    {
+        public static void StripEmission(Transform root)
+        {
+            if (root == null) return;
+            foreach (Renderer r in root.GetComponentsInChildren<Renderer>(true))
+            {
+                foreach (Material m in r.sharedMaterials)
+                {
+                    if (m == null) continue;
+                    if (m.HasProperty("emissiveFactor")) m.SetColor("emissiveFactor", Color.black);
+                    if (m.HasProperty("_EmissionColor")) m.SetColor("_EmissionColor", Color.black);
+                    m.DisableKeyword("_EMISSIVE");
+                    m.DisableKeyword("_EMISSION");
+                }
+            }
         }
     }
 

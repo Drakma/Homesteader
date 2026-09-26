@@ -24,6 +24,12 @@
       "type": "boolean",
       "required": true,
       "note": "true if this animal fights/is hostile toward other males of the same species (e.g. billy goats, roosters) - relevant for pasture/pen management"
+    },
+    "ai": {
+      "type": "object",
+      "required": false,
+      "editor": "animal_ai",
+      "note": "This animal's behaviour (an animal AI definition, see animal_ai.schema.json): needs, senses, movement, animation slots and behaviours. Edited in the Animal AI card of the asset popup; the mod packager writes it to ai/<item_id>.json (mod content type animal_ai). Absent = the animal stands still."
     }
   }
 }

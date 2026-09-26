@@ -151,7 +151,11 @@ public class PedController : MonoBehaviour
         if (glbPlayer != null)
         {
             if (IsMoving && glbPlayer.ActionActive) glbPlayer.EndAction(); // moving cancels dig / hoe / pet / kneel ...
-            glbPlayer.SetLocomotion(move.magnitude * (running ? 1f : 0.5f), Carrying);
+            // Real ground speed (not the input speed): the gait clip is scaled to it so the feet do not skate,
+            // and it drops to ~0 when the ped is pushing against a wall.
+            Vector3 cv = controller.velocity;
+            float groundSpeed = new Vector2(cv.x, cv.z).magnitude;
+            glbPlayer.SetLocomotion(move.magnitude * (running ? 1f : 0.5f), Carrying, groundSpeed);
         }
 
         if (animator != null)

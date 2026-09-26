@@ -1,0 +1,194 @@
+using System;
+using System.Collections.Generic;
+using Homesteader.Modding;
+using Homesteader.UI;
+using UnityEngine;
+
+namespace Homesteader.Growth
+{
+    /// <summary>
+    /// One light an asset emits, from the asset manifest's "lights" list (assets/_schemas/light_emitter.schema.json).
+    /// </summary>
+    public sealed class LightDef
+    {
+        public string Id = "light";
+        public string Type = "point";               // point | spot
+        public Color Color = new Color(1f, 0.93f, 0.78f);
+        public float Intensity = 3.5f;
+        public float Range = 10f;
+        public float SpotAngle = 90f;               // spot only
+        public Vector3 Offset;                      // metres, in the model's local space (pivot at its foot)
+        public float PitchDeg = 90f;                // spot: 90 = straight down, 0 = horizontal
+        public float YawDeg;                        // spot: turn around the model's up axis
+        public string On = "night";                 // always | night | hours
+        public float FromHour = 18f, ToHour = 6f;   // "hours"
+        public float FadeMinutes = 20f;             // game minutes to fade fully on / off
+        public float DuskLeadMinutes = 30f;         // "night": switches on this many minutes BEFORE sunset
+        public float DawnLagMinutes = 30f;          // "night": switches off this many minutes AFTER sunrise
+        public float Flicker;                       // 0 steady .. 1 heavy
+        public float StartupFlicker;                // 0 none .. 1: sputters when it first switches on
+        public float StartupSeconds = 6f;           // real seconds the sputter lasts (independent of the fade)
+        public float MinLevel = 0.25f;              // brightness (0..1) it strikes at; it then brightens over FadeMinutes
+        public bool Shadows;
+        public bool RequiresPower;
+        public float PowerW;                        // informational: the draw when on
+
+        public static List<LightDef> ParseList(ModJsonValue arr)
+        {
+            var list = new List<LightDef>();
+            if (arr == null || !arr.IsArray) return list;
+            foreach (ModJsonValue v in arr.Items)
+            {
+                if (!v.IsObject) continue;
+                var d = new LightDef
+                {
+                    Id = v.Get("id").AsString("light"),
+                    Type = v.Get("type").AsString("point").ToLowerInvariant(),
+                    Intensity = v.Get("intensity").AsFloat(3.5f),
+                    Range = v.Get("range_m").AsFloat(v.Get("range").AsFloat(10f)),
+                    SpotAngle = v.Get("spot_angle_deg").AsFloat(90f),
+                    PitchDeg = v.Get("pitch_deg").AsFloat(90f),
+                    YawDeg = v.Get("yaw_deg").AsFloat(0f),
+                    On = v.Get("on").AsString("night").ToLowerInvariant(),
+                    FadeMinutes = Mathf.Max(0f, v.Get("fade_minutes").AsFloat(20f)),
+                    DuskLeadMinutes = Mathf.Max(0f, v.Get("dusk_lead_minutes").AsFloat(30f)),
+                    DawnLagMinutes = Mathf.Max(0f, v.Get("dawn_lag_minutes").AsFloat(30f)),
+                    Flicker = Mathf.Clamp01(v.Get("flicker").AsFloat(0f)),
+                    StartupFlicker = Mathf.Clamp01(v.Get("startup_flicker").AsFloat(0f)),
+                    StartupSeconds = Mathf.Max(0.1f, v.Get("startup_seconds").AsFloat(6f)),
+                    MinLevel = Mathf.Clamp01(v.Get("min_level").AsFloat(0.25f)),
+                    Shadows = v.Get("shadows").AsBool(false),
+                    RequiresPower = v.Get("requires_power").AsBool(false),
+                    PowerW = v.Get("power_w").AsFloat(0f),
+                };
+                string col = v.Get("color").AsString();
+                if (!string.IsNullOrEmpty(col) && ColorUtility.TryParseHtmlString(col, out Color c)) d.Color = c;
+                ModJsonValue off = v.Get("offset_m");
+                if (off.Count >= 3) d.Offset = new Vector3(off.ArrayValue[0].AsFloat(), off.ArrayValue[1].AsFloat(), off.ArrayValue[2].AsFloat());
+                ModJsonValue hours = v.Get("hours");
+                if (hours.Count >= 2) { d.FromHour = hours.ArrayValue[0].AsFloat(); d.ToHour = hours.ArrayValue[1].AsFloat(); }
+                list.Add(d);
+            }
+            return list;
+        }
+    }
+
+    /// <summary>
+    /// Drives the lights an asset emits: builds a Light per <see cref="LightDef"/> as children of the model and
+    /// fades them on and off with the time of day. "night" is sunset to sunrise (from the game clock), "hours" is a
+    /// from/to hour range, "always" is always on. A light that needs power stays off while
+    /// <see cref="PowerCheck"/> says it has none.
+    /// </summary>
+    public sealed class LightEmitter : MonoBehaviour
+    {
+        /// <summary>
+        /// Set by the game's power system: (item id, world position, watts) -> is it powered right now. While
+        /// null every light is treated as powered (so nothing goes dark with no way to fix it).
+        /// </summary>
+        public static Func<string, Vector3, float, bool> PowerCheck;
+
+        private sealed class Runtime
+        {
+            public LightDef Def;
+            public Light Light;
+            public float Level;       // 0..1 current fade
+            public float Target;      // 0..1 wanted right now (refreshed a few times a second)
+            public bool WasLit;
+            public float LitSince;    // Time.time when it last switched on
+            public float Seed;
+        }
+
+        private readonly List<Runtime> lights = new List<Runtime>();
+        private string itemId;
+        private float nextTick;
+
+        /// <summary>Adds the emitter and its lights to a placed / spawned model.</summary>
+        public static void Attach(GameObject model, string itemId, IList<LightDef> defs)
+        {
+            if (model == null || defs == null || defs.Count == 0) return;
+            var e = model.AddComponent<LightEmitter>();
+            e.itemId = itemId;
+            foreach (LightDef d in defs)
+            {
+                var go = new GameObject("Light_" + d.Id);
+                go.transform.SetParent(model.transform, false);
+                go.transform.localPosition = d.Offset;
+                go.transform.localRotation = Quaternion.Euler(d.PitchDeg, d.YawDeg, 0f);
+                var l = go.AddComponent<Light>();
+                l.type = d.Type == "spot" ? LightType.Spot : LightType.Point;
+                l.color = d.Color;
+                l.range = Mathf.Max(0.1f, d.Range);
+                if (l.type == LightType.Spot) l.spotAngle = Mathf.Clamp(d.SpotAngle, 1f, 179f);
+                l.shadows = d.Shadows ? LightShadows.Soft : LightShadows.None;
+                l.intensity = 0f;
+                l.enabled = false;
+                e.lights.Add(new Runtime { Def = d, Light = l, Seed = UnityEngine.Random.value * 100f });
+            }
+        }
+
+        private void Update()
+        {
+            // Light levels ease every frame; the clock is only read a few times a second.
+            bool tick = Time.unscaledTime >= nextTick;
+            if (tick) nextTick = Time.unscaledTime + 0.25f;
+
+            HudTimeState t = default;
+            if (tick && TimeSystem.Instance != null) t = TimeSystem.Instance.Snapshot();
+
+            foreach (Runtime r in lights)
+            {
+                if (r.Light == null) continue;
+                if (tick) r.Target = TargetLevel(r.Def, t);
+                r.Level = Mathf.MoveTowards(r.Level, r.Target, Time.deltaTime * 1.5f);   // eases power cuts and switch-ons
+                // It strikes at MinLevel and then brightens over the fade; going off it fades out from wherever it is.
+                bool lit = r.Target > 0.001f || r.Level > 0.001f;
+                if (lit && !r.WasLit) r.LitSince = Time.time;
+                r.WasLit = lit;
+                float shown = lit ? Mathf.Lerp(r.Def.MinLevel, 1f, Mathf.Clamp01(r.Level)) : 0f;
+                shown *= Mathf.Clamp01(r.Level * 20f + (r.Target > 0.001f ? 1f : 0f));
+
+                float flick = 1f;
+                if (r.Def.Flicker > 0f)
+                    flick = 1f - r.Def.Flicker * 0.6f * Mathf.PerlinNoise(r.Seed, Time.time * 9f);
+                // Switch-on: a short sputter at the strike level (StartupSeconds), steadying, THEN the slow brighten.
+                float since = Time.time - r.LitSince;
+                if (r.Def.StartupFlicker > 0f && lit && since < r.Def.StartupSeconds)
+                {
+                    float amount = r.Def.StartupFlicker * (1f - since / r.Def.StartupSeconds);
+                    float n = Mathf.PerlinNoise(r.Seed + 7.3f, Time.time * 14f);
+                    float sputter = Mathf.SmoothStep(0f, 1f, (n - 0.3f) * 3f);        // mostly dim, with quick bright stutters
+                    flick *= Mathf.Lerp(1f, sputter, amount);
+                }
+                r.Light.intensity = r.Def.Intensity * shown * flick;
+                r.Light.enabled = r.Light.intensity > 0.01f;
+            }
+        }
+
+        /// <summary>1 when the light should be fully on for this moment, 0 fully off, ramping across FadeMinutes.</summary>
+        private float TargetLevel(LightDef d, HudTimeState t)
+        {
+            if (d.RequiresPower && PowerCheck != null && !PowerCheck(itemId, transform.position, d.PowerW)) return 0f;
+            if (d.On == "always") return 1f;
+
+            float from, to;
+            if (d.On == "hours") { from = d.FromHour * 60f; to = d.ToHour * 60f; }
+            else { from = t.SunsetMinute - d.DuskLeadMinutes; to = t.SunriseMinute + d.DawnLagMinutes; }   // "night": today's sunset / sunrise (they move with the seasons)
+            return WindowLevel(t.MinuteOfDay, from, to, d.FadeMinutes);
+        }
+
+        /// <summary>Level (0..1) for an on-window [from, to] in minutes of the day (wrapping midnight): switches on at
+        /// `from`, reaching full brightness `fade` minutes later, and starts dimming at `to`, fully off `fade` minutes later.</summary>
+        public static float WindowLevel(float minute, float from, float to, float fade)
+        {
+            float span = Mod(to - from, 1440f);
+            if (span < 0.01f) span = 1440f;                      // from == to: always on
+            fade = Mathf.Max(0.01f, fade);
+            float since = Mod(minute - from, 1440f);             // minutes since the window opened
+            if (since <= span) return Mathf.Min(1f, since / fade);
+            float pastEnd = since - span;
+            return pastEnd < fade ? 1f - pastEnd / fade : 0f;
+        }
+
+        private static float Mod(float a, float m) { float r = a % m; return r < 0f ? r + m : r; }
+    }
+}

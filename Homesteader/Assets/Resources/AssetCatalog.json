@@ -1321,6 +1321,30 @@
       "max_stack": 64
     },
     {
+      "id": "crop_dead",
+      "name": "Dead Crop",
+      "category": "farming",
+      "description": "A generic stalk-based crop, dead: a dried, gray-brown broken stalk with no leaves.",
+      "icon": "crop_dead.png",
+      "max_stack": 1
+    },
+    {
+      "id": "crop_withered",
+      "name": "Withered Crop",
+      "category": "farming",
+      "description": "A generic stalk-based crop, withered: dry drooping brown leaves and a wilted seed head.",
+      "icon": "crop_withered.png",
+      "max_stack": 1
+    },
+    {
+      "id": "pumpkin",
+      "name": "Pumpkin Plant",
+      "category": "farming",
+      "description": "A pumpkin lifecycle growing through 4 stages (sprout -> small -> medium -> mature) over 90 days, with withered and dead versions. This group is the authoritative owner of the pumpkin scheme.",
+      "icon": "pumpkin.png",
+      "max_stack": 64
+    },
+    {
       "id": "seed_carrot",
       "name": "Carrot Seeds",
       "category": "farming",
@@ -1647,6 +1671,22 @@
       "description": "A grilled crappie fillet with char marks.",
       "icon": "food_crappie_grilled.png",
       "max_stack": 99
+    },
+    {
+      "id": "food_lemon",
+      "name": "Fresh Lemon",
+      "category": "food",
+      "description": "A single large fresh lemon.",
+      "icon": "food_lemon.png",
+      "max_stack": 20
+    },
+    {
+      "id": "food_orange",
+      "name": "Fresh Navel Orange",
+      "category": "food",
+      "description": "A single fresh navel orange.",
+      "icon": "food_orange.png",
+      "max_stack": 20
     },
     {
       "id": "food_potato",
@@ -2161,6 +2201,14 @@
       "max_stack": 64
     },
     {
+      "id": "lemon",
+      "name": "Lemon",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 5 stages (sapling -> small -> medium -> mature -> fruiting) over 300 days. No fruit is visible until the final fruiting stage. This group is the authoritative owner of the lemon scheme.",
+      "icon": "lemon.png",
+      "max_stack": 64
+    },
+    {
       "id": "maple",
       "name": "Maple Tree",
       "category": "logging",
@@ -2174,6 +2222,14 @@
       "category": "logging",
       "description": "A hardy deciduous hardwood, the backbone of any homestead's lumber supply. Grows from a planted sapling to a broad-canopied mature oak over 100 days, passing through small and medium stages along the way.",
       "icon": "oak.png",
+      "max_stack": 64
+    },
+    {
+      "id": "orange",
+      "name": "Orange",
+      "category": "logging",
+      "description": "A tree lifecycle growing through 5 stages (sapling -> small -> medium -> mature -> fruiting) over 300 days. No fruit is visible until the final fruiting stage. This group is the authoritative owner of the orange scheme.",
+      "icon": "orange.png",
       "max_stack": 64
     },
     {
@@ -2230,6 +2286,22 @@
       "category": "logging",
       "description": "Standard logging asset used in the Homesteader simulation.",
       "icon": "plantable_sapling_apple.png",
+      "max_stack": 99
+    },
+    {
+      "id": "plantable_sapling_lemon",
+      "name": "Plantable Sapling Lemon",
+      "category": "logging",
+      "description": "A lemon tree sapling, ready to plant.",
+      "icon": "plantable_sapling_lemon.png",
+      "max_stack": 99
+    },
+    {
+      "id": "plantable_sapling_orange",
+      "name": "Plantable Sapling Orange",
+      "category": "logging",
+      "description": "An orange tree sapling, ready to plant.",
+      "icon": "plantable_sapling_orange.png",
       "max_stack": 99
     },
     {
@@ -2993,6 +3065,14 @@
       "max_stack": 99
     },
     {
+      "id": "animal_bull_holstein",
+      "name": "Holstein Bull",
+      "category": "ranching",
+      "description": "An adult Holstein bull with a black and white patched coat, thick muscular neck, dewlap and short curved horns.",
+      "icon": "animal_bull_holstein.png",
+      "max_stack": 1
+    },
+    {
       "id": "animal_cat_calico",
       "name": "Calico Cat",
       "category": "ranching",
@@ -3302,6 +3382,14 @@
       "category": "structures",
       "description": "Heavy-duty 3-bay metal workshop truck garage featuring light-gray corrugated aluminum siding, black standing seam metal roof, two high-clearance overhead machinery bay doors, one standard car bay door with awnings, and a pedestrian side entrance.",
       "icon": "struct_garage_truck_3bay.png",
+      "max_stack": 1
+    },
+    {
+      "id": "struct_light_pole_barn",
+      "name": "Yard Barn Light Pole",
+      "category": "structures",
+      "description": "A wooden post with a galvanized bracket arm and a shaded dusk-to-dawn barn light. Lights a yard, barn door or drive.",
+      "icon": "struct_light_pole_barn.png",
       "max_stack": 1
     },
     {
@@ -3726,6 +3814,14 @@
       "category": "tools",
       "description": "Small hand trowel for planting.",
       "icon": "tool_trowel_hand.png",
+      "max_stack": 1
+    },
+    {
+      "id": "tool_walking_plow_own",
+      "name": "Walking Plow (Meshy text-to-3D, own icon)",
+      "category": "tools",
+      "description": "A horse-drawn walking plow with wooden handles and a steel moldboard, used to turn soil before planting.",
+      "icon": "tool_walking_plow_own.png",
       "max_stack": 1
     },
     {

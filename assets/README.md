@@ -15,13 +15,13 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **538**
+Total Indexed Items: **540**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 18 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Structures**](structures/) | 19 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 85 items | Modular building materials, framing, doors, windows, and hardware supplies. |
-| [**Farming**](farming/) | 15 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
+| [**Farming**](farming/) | 16 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 27 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 41 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
@@ -46,7 +46,7 @@ Total Indexed Items: **538**
 
 ---
 
-### 📂 [Structures](structures/) (18 items)
+### 📂 [Structures](structures/) (19 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -63,6 +63,7 @@ Total Indexed Items: **538**
 | `struct_camper_rv` | Travel Trailer RV | ✅ Yes | — | [struct_camper_rv.json](structures/struct_camper_rv/struct_camper_rv.json) |
 | `struct_camper_teardrop` | Teardrop Camper | ✅ Yes | — | [struct_camper_teardrop.json](structures/struct_camper_teardrop/struct_camper_teardrop.json) |
 | `struct_garage_truck_3bay` | 3 Bay Truck Garage | ✅ Yes | — | [struct_garage_truck_3bay.json](structures/struct_garage_truck_3bay/struct_garage_truck_3bay.json) |
+| `struct_light_pole_barn` | Yard Barn Light Pole | ✅ Yes | — | [struct_light_pole_barn.json](structures/struct_light_pole_barn/struct_light_pole_barn.json) |
 | `struct_shed` | Tool Shed | ✅ Yes | — | [struct_shed.json](structures/struct_shed/struct_shed.json) |
 | `struct_silo` | Grain Silo | ✅ Yes | — | [struct_silo.json](structures/struct_silo/struct_silo.json) |
 | `struct_tent_canvas` | Canvas Wall Tent | ✅ Yes | — | [struct_tent_canvas.json](structures/struct_tent_canvas/struct_tent_canvas.json) |
@@ -159,13 +160,14 @@ Total Indexed Items: **538**
 | `valve_stock_float` | Stock Tank Float Valve | ✅ Yes | — | [valve_stock_float.json](building/valve_stock_float/valve_stock_float.json) |
 | `wood_log` | Wood Log | — | — | [wood_log.json](building/wood_log/wood_log.json) |
 
-### 📂 [Farming](farming/) (15 items)
+### 📂 [Farming](farming/) (16 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `corn` | Corn Plant | — | — | [corn.json](farming/corn/corn.json) |
 | `crop_dead` | Dead Crop | ✅ Yes | — | [crop_dead.json](farming/crop_dead/crop_dead.json) |
 | `crop_withered` | Withered Crop | ✅ Yes | — | [crop_withered.json](farming/crop_withered/crop_withered.json) |
+| `pumpkin` | Pumpkin Plant | — | — | [pumpkin.json](farming/pumpkin/pumpkin.json) |
 | `seed_carrot` | Carrot Seeds | ✅ Yes | — | [seed_carrot.json](farming/seed_carrot/seed_carrot.json) |
 | `seed_corn` | Corn Seeds | ✅ Yes | — | [seed_corn.json](farming/seed_corn/seed_corn.json) |
 | `seed_cotton` | Cotton Seeds | ✅ Yes | — | [seed_cotton.json](farming/seed_cotton/seed_cotton.json) |

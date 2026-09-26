@@ -1,0 +1,50 @@
+{
+  "id": "raptor",
+  "extends": [
+    "bird",
+    "wildlife_predator"
+  ],
+  "applies_to": [
+    "*hawk*",
+    "*eagle*",
+    "*owl*"
+  ],
+  "tags": [
+    "predator"
+  ],
+  "note": "Hawks, eagles, owls. Fly like a bird but carry the 'predator' tag (chickens and livestock flee them) and hunt anything tagged 'prey'.",
+  "senses": {
+    "sight_m": 60
+  },
+  "movement": {
+    "medium": "air",
+    "hover_m": 8,
+    "walk_speed": 4.0,
+    "run_speed": 12.0
+  },
+  "behaviors": [
+    {
+      "id": "scatter",
+      "disabled": true
+    },
+    {
+      "id": "flock",
+      "disabled": true
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 35,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "random": 0.3
+        }
+      ],
+      "base": 0.3
+    }
+  ]
+}

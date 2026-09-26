@@ -62,6 +62,39 @@
         }
       }
     },
+    "placement": {
+      "type": "object",
+      "required": false,
+      "fields": {
+        "reach_cells": {
+          "type": "number",
+          "min": 0,
+          "default": 3,
+          "note": "How many squares around the player's own square a structure or prop can be placed."
+        },
+        "rotate_step_deg": {
+          "type": "number",
+          "min": 0.5,
+          "max": 180,
+          "default": 12.5,
+          "note": "Degrees one press of R turns the item being placed (Shift+R turns the other way)."
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "structures",
+            "electricity",
+            "water",
+            "waste",
+            "internet"
+          ],
+          "note": "Item categories that can be placed from the toolbar. Seeds and other plantable items are never placed."
+        }
+      }
+    },
     "zones": {
       "type": "array",
       "required": false,

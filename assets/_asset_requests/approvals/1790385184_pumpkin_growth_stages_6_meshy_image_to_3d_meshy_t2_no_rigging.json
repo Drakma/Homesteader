@@ -1,0 +1,19 @@
+{
+  "id": "1790385184_pumpkin_growth_stages_6_meshy_image_to_3d_meshy_t2_no_rigging",
+  "title": "Pumpkin growth stages: 6 Meshy image-to-3D meshy-t2 (no rigging)",
+  "plan": [
+    "Run Meshy image-to-3D (meshy-t2 smart-topology, textured) on the 6 cleaned stage pictures: sprout, small, medium, mature, withered, dead (same setup as the seasonal farmers)",
+    "Download GLBs; no rigging or animation",
+    "15 credits each = 90; balance 103 -> 13"
+  ],
+  "cost": {
+    "meshy_credits": 90,
+    "per_item": 15,
+    "items": 6,
+    "balance_before": 103,
+    "balance_after": 13
+  },
+  "status": "approved",
+  "created_at": "2026-09-26T01:13:04Z",
+  "resolved_at": "2026-09-26T01:14:55Z"
+}

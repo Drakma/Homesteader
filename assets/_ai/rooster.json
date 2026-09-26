@@ -1,0 +1,81 @@
+{
+  "id": "rooster",
+  "extends": [
+    "chicken"
+  ],
+  "applies_to": [
+    "*rooster*",
+    "*rooter*"
+  ],
+  "note": "Roosters. Crow at dawn, sound the alarm when a predator is near, and stand their ground instead of scattering from the player. Map the 'crow' slot to a crow clip when the rig has one.",
+  "animations": {
+    "crow": "Idle"
+  },
+  "movement": {
+    "walk_speed": 1.0,
+    "run_speed": 4.2
+  },
+  "senses": {
+    "sight_m": 25
+  },
+  "behaviors": [
+    {
+      "id": "scatter",
+      "disabled": true
+    },
+    {
+      "id": "dawn_crow",
+      "action": {
+        "type": "emote",
+        "anim": "crow",
+        "duration": [
+          2.5,
+          2.5
+        ]
+      },
+      "requires": [
+        {
+          "hours": [
+            5,
+            7
+          ]
+        }
+      ],
+      "score": [
+        {
+          "random": 0.3
+        }
+      ],
+      "base": 0.9,
+      "cooldown_s": 600,
+      "priority": 4
+    },
+    {
+      "id": "alarm_crow",
+      "priority": 8,
+      "action": {
+        "type": "emote",
+        "anim": "crow",
+        "duration": [
+          2.0,
+          2.0
+        ]
+      },
+      "requires": [
+        {
+          "sense": "predator",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "sense": "predator",
+          "curve": "closer",
+          "weight": 1.0
+        }
+      ],
+      "base": 0.7,
+      "cooldown_s": 20
+    }
+  ]
+}

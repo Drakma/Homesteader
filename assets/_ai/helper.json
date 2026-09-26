@@ -1,0 +1,166 @@
+{
+  "id": "helper",
+  "abstract": true,
+  "extends": [
+    "animal_base"
+  ],
+  "note": "Template. A hired hand: works during the day at the nearest job object (tag 'job'), eats at meal times, goes to bed at night, and stays out of the way of threats. Set the work animation and the job tag in the role.",
+  "needs": {
+    "morale": {
+      "start": 0.7,
+      "rate_per_game_hour": -0.02
+    }
+  },
+  "senses": {
+    "sight_m": 30
+  },
+  "movement": {
+    "walk_speed": 1.5,
+    "run_speed": 4.2,
+    "turn_speed_deg": 300
+  },
+  "animations": {
+    "work": "Idle"
+  },
+  "behaviors": [
+    {
+      "id": "meal",
+      "action": {
+        "type": "consume",
+        "target": "table",
+        "anim": "eat",
+        "need": "hunger",
+        "restore_per_second": -0.1,
+        "duration": [
+          8,
+          14
+        ]
+      },
+      "requires": [
+        {
+          "need": "hunger",
+          "above": 0.5
+        },
+        {
+          "sense": "table",
+          "within": 60
+        }
+      ],
+      "score": [
+        {
+          "need": "hunger",
+          "curve": "squared",
+          "weight": 1.6
+        }
+      ],
+      "base": 0.1,
+      "cooldown_s": 90
+    },
+    {
+      "id": "sleep_at_night",
+      "action": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "goto",
+            "target": "bed",
+            "speed": "walk",
+            "arrive_dist": 1.2
+          },
+          {
+            "type": "rest",
+            "anim": "sleep",
+            "need": "energy",
+            "restore_per_second": 0.02,
+            "until": {
+              "time": "day"
+            }
+          }
+        ]
+      },
+      "requires": [
+        {
+          "time": "night"
+        },
+        {
+          "need": "energy",
+          "below": 0.8
+        },
+        {
+          "sense": "bed",
+          "within": 80
+        }
+      ],
+      "score": [
+        {
+          "need": "energy",
+          "curve": "inverse",
+          "weight": 1.5
+        }
+      ],
+      "base": 0.4,
+      "min_s": 30
+    },
+    {
+      "id": "work",
+      "action": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "goto",
+            "target": "job",
+            "speed": "walk",
+            "arrive_dist": 1.3
+          },
+          {
+            "type": "emote",
+            "anim": "work",
+            "duration": [
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "requires": [
+        {
+          "time": "day"
+        },
+        {
+          "sense": "job",
+          "within": 80
+        },
+        {
+          "need": "energy",
+          "above": 0.25
+        }
+      ],
+      "score": [
+        {
+          "need": "morale",
+          "weight": 0.4
+        }
+      ],
+      "base": 0.5,
+      "min_s": 6
+    },
+    {
+      "id": "stay_close",
+      "action": {
+        "type": "follow",
+        "target": "player",
+        "speed": "walk",
+        "min_dist": 3,
+        "max_dist": 8
+      },
+      "requires": [
+        {
+          "event": "come_here"
+        }
+      ],
+      "score": [],
+      "base": 2.0,
+      "priority": 5
+    }
+  ]
+}

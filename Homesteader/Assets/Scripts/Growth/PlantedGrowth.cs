@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Homesteader.Modding;
 using Homesteader.UI;
 using UnityEngine;
 
@@ -205,6 +207,13 @@ namespace Homesteader.Growth
             Destroy(gameObject);
         }
 
+        private IEnumerator ShowWhenReady(GameObject prefab, GlbTemplate glb)
+        {
+            while (!glb.Ready && !glb.Failed) yield return null;
+            if (glb.Failed || pendingPrefab != prefab) yield break;   // failed, or the plant moved on to another model
+            ShowModel(prefab);
+        }
+
         private void SetStage(GrowthStage stage)
         {
             CurrentStage = stage;
@@ -212,9 +221,42 @@ namespace Homesteader.Growth
             ShowModel(stage.Prefab);
         }
 
+        /// <summary>Puts the plant back in the state it was saved in (dead / stump are permanent; withered re-evaluates).</summary>
+        public void RestoreState(PlantState saved)
+        {
+            if (Group == null) return;
+            if (saved == PlantState.Dead && Group.Rules.Dead != null && Group.Rules.Dead.Prefab != null)
+            {
+                State = PlantState.Dead;
+                ShowModel(Group.Rules.Dead.Prefab);
+            }
+            else if (saved == PlantState.Stump && Group.Rules.Stump != null && Group.Rules.Stump.Prefab != null)
+            {
+                State = PlantState.Stump;
+                ShowModel(Group.Rules.Stump.Prefab);
+            }
+            else if (saved == PlantState.Withered)
+            {
+                RefreshConditions();
+            }
+        }
+
+        private GameObject pendingPrefab;
+
         /// <summary>Replaces the visible model (a stage, or the withered / dead version).</summary>
         private void ShowModel(GameObject prefab)
         {
+            // A GLB model is a lazily loaded template: start its load and show it once it is ready.
+            GlbTemplate glb = prefab != null ? prefab.GetComponent<GlbTemplate>() : null;
+            if (glb != null && !glb.Ready)
+            {
+                glb.EnsureLoading();
+                if (glb.Failed) return;
+                pendingPrefab = prefab;
+                StartCoroutine(ShowWhenReady(prefab, glb));
+                return;
+            }
+            pendingPrefab = null;
             if (model != null) Destroy(model);
 
             model = Instantiate(prefab, transform);

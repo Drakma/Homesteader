@@ -18,6 +18,9 @@ import urllib.request
 import urllib.parse
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import regen_icons
+import animal_ai
+import light_emitter
+import push_to_game
 import trash_store
 try:
     # The guide list lives in the MCP server (the canonical "which docs are
@@ -1975,6 +1978,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         if self.path == "/api/biomes" or self.path.startswith("/api/biomes?"):
             self.handle_get_biomes()
             return
+        if self.path == "/api/animal-ai" or self.path.startswith("/api/animal-ai?"):
+            self.handle_get_animal_ai()
+            return
         if self.path.startswith("/api/schemas?") or self.path == "/api/schemas":
             self.handle_get_schemas()
             return
@@ -2400,6 +2406,12 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_save_manifest()
         elif self.path == "/api/save-economy":
             self.handle_save_economy()
+        elif self.path == "/api/save-animal-ai":
+            self.handle_save_animal_ai()
+        elif self.path == "/api/validate-animal-ai":
+            self.handle_validate_animal_ai()
+        elif self.path == "/api/push-to-game":
+            self.handle_push_to_game()
         elif self.path == "/api/regen-icons":
             self.handle_regen_icons()
         elif self.path == "/api/regen-icon":
@@ -3273,6 +3285,66 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             print(f"Error saving biome: {e}")
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
+
+    def handle_get_animal_ai(self):
+        """Lists the animal AI definitions in assets/_ai (or returns one with ?id=), with validation results.
+        The asset editor uses this to fill its "AI profile" dropdown."""
+        try:
+            query = urllib.parse.urlparse(self.path).query
+            params = urllib.parse.parse_qs(query)
+            ai_id = (params.get("id", [""])[0]).strip()
+            if ai_id:
+                defn = animal_ai.get_profile(BASE_DIR, ai_id)
+                if defn is None:
+                    self.send_json_response({"success": False, "error": f"No AI profile '{ai_id}'"}, 404)
+                    return
+                errors, warnings = animal_ai.validate(defn, BASE_DIR)
+                self.send_json_response({"success": True, "definition": defn, "errors": errors, "warnings": warnings}, 200)
+                return
+            self.send_json_response({"success": True, "profiles": animal_ai.list_profiles(BASE_DIR)}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_push_to_game(self):
+        """Pushes one asset into the game as part of the 'homesteader' mod (tools/push_to_game.py): copies its
+        folder to Homesteader/mods/homesteader/<category>/<id>/, writes an animal's AI, and refreshes the in-game
+        asset list. Body: {"category": ..., "item_id": ...}."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            result = push_to_game.push_item(data.get("category"), data.get("item_id"))
+            print(f"[PUSH TO GAME] {data.get('category')}/{data.get('item_id')} -> {result.get('pushed')}")
+            self.send_json_response({"success": True, **result}, 200)
+        except (ValueError, FileNotFoundError, RuntimeError) as e:
+            self.send_json_response({"success": False, "error": str(e)}, 400)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_validate_animal_ai(self):
+        """Validates an animal AI definition (e.g. the one embedded in an animal's manifest) without saving it."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            errors, warnings = animal_ai.validate(data.get("definition"), BASE_DIR)
+            self.send_json_response({"success": True, "errors": errors, "warnings": warnings}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_save_animal_ai(self):
+        """Validates and saves an animal AI definition to assets/_ai/<id>.json. Body: {"definition": {...}}.
+        Errors (unknown need, bad action type, ...) reject the save; warnings are returned."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            defn = data.get("definition")
+            ok, errors, warnings = animal_ai.save_profile(BASE_DIR, defn)
+            if not ok:
+                self.send_json_response({"success": False, "errors": errors, "warnings": warnings}, 400)
+                return
+            print(f"[SAVE ANIMAL AI] {defn['id']}")
+            self.send_json_response({"success": True, "id": defn["id"], "warnings": warnings}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
 
     def handle_get_schemas(self):
         """Lists category and base schema files in assets/_schemas/ with detail."""
@@ -5177,6 +5249,11 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
             manifest["id"] = item_id
             manifest["category"] = category
+
+            light_errors, _light_warnings = light_emitter.validate_lights(manifest.get("lights"))
+            if light_errors:
+                self.send_json_response({"success": False, "error": "Lights: " + "; ".join(light_errors)}, 400)
+                return
 
             manifest_path = os.path.join(item_dir, f"{item_id}.json")
             with open(manifest_path, "w", encoding="utf-8") as f:

@@ -1,0 +1,151 @@
+{
+  "category": "light_emitter",
+  "target": "root",
+  "note": "The optional top-level 'lights' list on ANY asset manifest (structures, lamps, vehicles...): each entry is one light the asset emits when it is placed in the world. Edited in the asset popup's Lights card. Runtime: Assets/Scripts/Growth/LightEmitter.cs. Validated by tools/light_emitter.py.",
+  "fields": {
+    "lights": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "note": "Name of this light on the asset (unique within the asset)."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "point",
+              "spot"
+            ],
+            "default": "point",
+            "note": "point: all directions. spot: a cone (street lamps aim straight down)."
+          },
+          "color": {
+            "type": "string",
+            "default": "#FFEDC7",
+            "note": "Hex colour, e.g. #FFE9C0 warm white, #FF9A3C flame, #CFE8FF cold LED."
+          },
+          "intensity": {
+            "type": "number",
+            "default": 3.5,
+            "note": "Brightness. The player's flashlight is 6."
+          },
+          "range_m": {
+            "type": "number",
+            "default": 10,
+            "note": "How far the light reaches, metres."
+          },
+          "spot_angle_deg": {
+            "type": "number",
+            "default": 90,
+            "note": "Spot cone angle (1-179). Spot only."
+          },
+          "offset_m": {
+            "type": "array",
+            "note": "[x, y, z] metres from the model's pivot (its foot), in the model's own axes. y is up."
+          },
+          "pitch_deg": {
+            "type": "number",
+            "default": 90,
+            "note": "Spot only: 90 straight down, 0 horizontal (along +z), -90 straight up."
+          },
+          "yaw_deg": {
+            "type": "number",
+            "default": 0,
+            "note": "Spot only: turn around the vertical axis."
+          },
+          "on": {
+            "type": "string",
+            "enum": [
+              "always",
+              "night",
+              "hours"
+            ],
+            "default": "night",
+            "note": "always: always lit. night: from dusk_lead_minutes before today's sunset to dawn_lag_minutes after today's sunrise (both follow the seasons). hours: between 'hours' [from, to]."
+          },
+          "hours": {
+            "type": "array",
+            "note": "Only for on='hours': [from, to] in hours of the day, wrapping midnight (e.g. [18, 6])."
+          },
+          "dusk_lead_minutes": {
+            "type": "number",
+            "default": 30,
+            "note": "on='night' only: switch on this many minutes BEFORE today's sunset. Sunset moves with the seasons, so this follows it."
+          },
+          "dawn_lag_minutes": {
+            "type": "number",
+            "default": 30,
+            "note": "on='night' only: switch off this many minutes AFTER today's sunrise."
+          },
+          "fade_minutes": {
+            "type": "number",
+            "default": 20,
+            "note": "Game minutes to reach full brightness after switching on, and to fade out after switching off."
+          },
+          "flicker": {
+            "type": "number",
+            "default": 0,
+            "note": "0 steady .. 1 heavy candle-like flicker."
+          },
+          "startup_flicker": {
+            "type": "number",
+            "default": 0,
+            "note": "0 none .. 1: when the light first switches on it sputters (stuttering on and off) for startup_seconds, then settles and starts the slow brighten. Independent of fade_minutes."
+          },
+          "startup_seconds": {
+            "type": "number",
+            "default": 6,
+            "note": "Real seconds the switch-on sputter lasts."
+          },
+          "min_level": {
+            "type": "number",
+            "default": 0.25,
+            "note": "0..1: the brightness it strikes at (as a share of intensity); it then brightens to full over fade_minutes."
+          },
+          "shadows": {
+            "type": "boolean",
+            "default": false,
+            "note": "Cast shadows (costly; use sparingly)."
+          },
+          "requires_power": {
+            "type": "boolean",
+            "default": false,
+            "note": "True: lit only while the game's power system says this asset is powered (LightEmitter.PowerCheck). If no power system is connected it counts as powered."
+          },
+          "power_w": {
+            "type": "number",
+            "default": 0,
+            "note": "Watts drawn while on; handed to the power system."
+          }
+        }
+      },
+      "note": "Empty / absent = the asset emits no light."
+    }
+  },
+  "example": {
+    "lights": [
+      {
+        "id": "shade",
+        "type": "spot",
+        "color": "#FFE9C0",
+        "intensity": 6,
+        "range_m": 12,
+        "spot_angle_deg": 110,
+        "offset_m": [
+          0,
+          3.45,
+          0.83
+        ],
+        "pitch_deg": 90,
+        "on": "night",
+        "fade_minutes": 20,
+        "flicker": 0.03,
+        "requires_power": true,
+        "power_w": 100
+      }
+    ]
+  }
+}

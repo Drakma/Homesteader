@@ -38,13 +38,14 @@ namespace Homesteader.Modding
         public const string Recipe = "recipe";           // crafting / cooking recipes
         public const string Script = "script";           // reserved: code-level extension
         public const string GameRules = "gamerules";     // planting/harvest rules + farmland zones as data
+        public const string AnimalAi = "animal_ai";      // animal behaviour rules (needs, senses, behaviours) as data
 
         /// <summary>Every content type this build understands.</summary>
         public static readonly string[] All =
         {
             Structure, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
             Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Material,
-            Fuel, Ped, Texture, Recipe, Script, GameRules
+            Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi
         };
 
         private static readonly HashSet<string> Known = new HashSet<string>(All, StringComparer.OrdinalIgnoreCase);

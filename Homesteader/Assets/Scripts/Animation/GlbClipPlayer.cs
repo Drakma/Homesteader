@@ -113,6 +113,7 @@ namespace Homesteader.Animation
                     Fail("glTFast could not instantiate: " + glbPath);
                     return;
                 }
+                Homesteader.Modding.GlbMaterials.StripEmission(transform);   // Meshy exports full white emission: the model would glow
             }
             catch (Exception e)
             {
@@ -151,6 +152,7 @@ namespace Homesteader.Animation
                     Fail("glTFast could not load: " + modelPath);
                     return;
                 }
+                Homesteader.Modding.GlbMaterials.StripEmission(transform);   // Meshy exports full white emission: the model would glow
                 var own = gltf.GetAnimationClips();
                 if (own != null) all.AddRange(own);
 
@@ -262,11 +264,23 @@ namespace Homesteader.Animation
         /// already uses for its Animator path. carrying selects the carry clip when present.
         /// </summary>
         [Tooltip("Seconds the character must stay stopped before switching to idle. Absorbs key-release gaps and frame hitches.")]
-        public float idleGraceSeconds = 0.2f;
+        public float idleGraceSeconds = 0.08f;
 
         private float lastMovingTime = -10f;
 
-        public void SetLocomotion(float speed01, bool carrying = false)
+        [Header("Foot-slide matching")]
+        [Tooltip("Ground speed (m/s) the walk clip's feet actually cover per second at playback speed 1. Measured from the clip.")]
+        public float walkNativeSpeed = 1.4f;
+        [Tooltip("Same for the run clip.")]
+        public float runNativeSpeed = 3.3f;
+        [Tooltip("Same for the carry-walk clip.")]
+        public float carryNativeSpeed = 0.45f;
+        [Tooltip("Limits how far the clip is sped up / slowed down to match the real ground speed.")]
+        public Vector2 playbackScaleRange = new Vector2(0.5f, 2.4f);
+
+        /// <param name="worldSpeed">Actual ground speed in m/s. When given, the walk / run / carry clip plays
+        /// at worldSpeed / (the clip's own ground speed) so the feet do not skate over the ground.</param>
+        public void SetLocomotion(float speed01, bool carrying = false, float worldSpeed = -1f)
         {
             if (!isReady || actionLocked) return;
 
@@ -298,6 +312,25 @@ namespace Homesteader.Animation
                 desired = FirstAvailable(walkClip, runClip);
             }
             Play(desired);
+            MatchGaitSpeed(desired, worldSpeed);
+        }
+
+        private void MatchGaitSpeed(string clip, float worldSpeed)
+        {
+            if (legacyAnimation == null || string.IsNullOrEmpty(clip)) return;
+            AnimationState st = legacyAnimation[clip];
+            if (st == null) return;
+            float native = clip == walkClip ? walkNativeSpeed : clip == runClip ? runNativeSpeed
+                         : (carryNativeSpeed > 0f && IsCarryClip(clip)) ? carryNativeSpeed : 0f;
+            st.speed = (worldSpeed >= 0f && native > 0.01f)
+                ? Mathf.Clamp(worldSpeed / native, playbackScaleRange.x, playbackScaleRange.y)
+                : 1f;
+        }
+
+        private bool IsCarryClip(string clip)
+        {
+            foreach (string c in carryClipCandidates) if (c == clip) return true;
+            return false;
         }
 
         /// <summary>
@@ -327,7 +360,9 @@ namespace Homesteader.Animation
             if (legacyAnimation == null || legacyAnimation.GetClip(clipName) == null) return false;
             if (currentClip == clipName && legacyAnimation.IsPlaying(clipName)) return true;
 
-            legacyAnimation.CrossFade(clipName, crossFadeSeconds, UnityEngine.PlayMode.StopSameLayer);
+            // Settling into idle is quicker than a gait change so the feet stop when the ped does.
+            float fade = clipName == idleClip ? crossFadeSeconds * 0.6f : crossFadeSeconds;
+            legacyAnimation.CrossFade(clipName, fade, UnityEngine.PlayMode.StopSameLayer);
             currentClip = clipName;
             return true;
         }

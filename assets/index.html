@@ -225,6 +225,35 @@
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
+    /* ---- Animal AI editor ---------------------------------------------- */
+    dialog.confirm-dialog.ai-dialog { max-width: 1240px; width: min(1240px, 96vw); border-color: rgba(56, 189, 248, 0.3); }
+    .ai-box { display: flex; flex-direction: column; height: 88vh; padding: 16px 18px; }
+    .ai-body { display: flex; gap: 16px; flex: 1 1 auto; min-height: 0; padding-top: 12px; }
+    .ai-list { flex: 0 0 210px; overflow-y: auto; border-right: 1px solid var(--border-subtle); padding-right: 10px; display: flex; flex-direction: column; gap: 4px; }
+    .ai-list button { text-align: left; }
+    .ai-item { padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-sub); font-size: 12px; cursor: pointer; font-family: inherit; }
+    .ai-item.active { border-color: var(--accent-sky); color: var(--accent-sky); }
+    .ai-item small { display: block; color: var(--text-muted); font-size: 10px; }
+    .ai-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+    .ai-tabs { display: flex; gap: 6px; margin-bottom: 10px; align-items: center; }
+    .ai-scroll { padding-right: 6px; }
+    .ai-inline { padding: 8px 4px; }
+    .ai-sec { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px 12px; margin-bottom: 12px; }
+    .ai-sec > h5 { margin: 0 0 8px; font-size: 12px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
+    .ai-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; margin-bottom: 6px; }
+    .ai-row label { display: flex; flex-direction: column; font-size: 10px; color: var(--text-muted); gap: 2px; }
+    .ai-row input, .ai-row select { background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-main); padding: 5px 7px; font-size: 12px; font-family: inherit; min-width: 0; height: 28px; box-sizing: border-box; }
+    .ai-row input.w-s { width: 70px; } .ai-row input.w-m { width: 120px; } .ai-row input.w-l { width: 240px; }
+    .ai-beh { border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-sky); border-radius: var(--radius-md); padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.02); }
+    .ai-terms { margin: 6px 0 0 10px; padding-left: 10px; border-left: 1px dashed var(--border-subtle); }
+    .ai-terms h6 { margin: 0 0 4px; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; }
+    .ai-btn { background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-sub); padding: 4px 10px; font-size: 11px; font-family: inherit; cursor: pointer; text-align: center; }
+    .ai-btn:hover { border-color: var(--accent-sky); color: var(--accent-sky); }
+    .ai-btn.danger:hover { border-color: #f87171; color: #f87171; }
+    .ai-msg { font-size: 11px; margin-top: 8px; white-space: pre-wrap; }
+    .ai-msg.err { color: #f87171; } .ai-msg.ok { color: #34d399; } .ai-msg.warn { color: #fbbf24; }
+    textarea.ai-json { width: 100%; flex: 1 1 auto; min-height: 300px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-subtle); border-radius: 4px; font-family: Consolas, monospace; font-size: 12px; padding: 8px; box-sizing: border-box; resize: none; }
+
     /* Docs button, sitting immediately right of the search box. */
     .docs-btn {
       display: inline-flex;
@@ -1405,6 +1434,47 @@
       gap: 11px;
     }
 
+    /* Compact growth-group editor: header + facts, cards, inline label-above fields. */
+    .gg-scheme { gap: 12px; }
+    .gg-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .gg-facts { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+    .gg-fact {
+      font-size: 10.5px; color: var(--text-sub); background: var(--bg-input);
+      border: 1px solid var(--border-subtle); border-radius: 999px; padding: 2px 9px;
+    }
+    .gg-card {
+      border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+      padding: 10px 12px; background: rgba(0, 0, 0, 0.14); min-width: 0;
+    }
+    .gg-card > h5 {
+      margin: 0 0 8px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--accent-emerald);
+    }
+    .gg-card > h5 .gg-rules-hint { margin-left: 8px; }
+    .gg-sub {
+      margin: 8px 0 5px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .gg-row { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: flex-end; margin-bottom: 8px; }
+    .gg-row:last-child { margin-bottom: 0; }
+    .gg-f { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .gg-fl { font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .gg-input.w-xs { width: 64px; }
+    .gg-input.w-s { width: 96px; }
+    .gg-input.w-m { width: 150px; }
+    .gg-input.w-l { width: 230px; }
+    .gg-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; }
+    .gg-card .kv-box { background: none; border: none; padding: 0; min-width: 140px; flex: 1 1 140px; }
+    .gg-card .gg-item-chip { padding: 3px 6px; gap: 6px; }
+    .gg-card .gg-item-thumb { width: 26px; height: 26px; }
+    .gg-card .gg-item-id { display: none; }
+    .gg-card .kv-key { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+    .gg-card .gg-biome-chip { padding: 3px 9px; }
+    /* Save Scheme lives in the collection toolbar, only while a growth group is open. */
+    body:not(.growth-group-mode) .gg-toolbar-save { display: none; }
+    .gg-toolbar-save { color: var(--accent-emerald) !important; border-color: rgba(16, 185, 129, 0.5) !important; }
+    .gg-toolbar-save:disabled { opacity: 0.55; cursor: default; }
+
     /* Editable stage table. Columns are sized to the content they hold - a
        stage name and a model filename are the long fields, the ages are
        short - so the grid stays readable without wrapping. */
@@ -2053,14 +2123,28 @@
       color: var(--text-sub);
     }
 
-    .modal-close-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+    .banner-back-btn {
+      background: none;
+      border: none;
       color: var(--text-muted);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      font-size: 18px;
+      font-size: 26px;
+      line-height: 1;
+      padding: 0 6px 3px;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .banner-back-btn:hover { color: var(--text-main); }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      opacity: 0.45;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2743,7 +2827,7 @@
       white-space: nowrap;
     }
 
-    /* The item field shown in the growth group editor: thumbnail + name + Choose / clear */
+    /* The item field shown in the growth group editor: thumbnail + name; clicking it opens the item picker */
     .gg-item-chip {
       display: flex;
       align-items: center;
@@ -2760,19 +2844,6 @@
     .gg-item-text { flex: 1; min-width: 0; }
     .gg-item-name { font-size: 12px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .gg-item-id { font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-
-    .gg-item-pick, .gg-item-clear {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: 5px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-input);
-      color: var(--text-sub);
-      cursor: pointer;
-    }
-
-    .gg-item-pick:hover { border-color: var(--accent-emerald); color: var(--accent-emerald); }
-    .gg-item-clear:hover { border-color: #f87171; color: #f87171; }
 
     .biome-picker-search {
       width: 100%;
@@ -3620,9 +3691,9 @@
     }
 
     .modal-close-btn:hover {
-      background: var(--accent-rose);
-      color: #fff;
-      border-color: var(--accent-rose);
+      background: none;
+      color: var(--text-main);
+      opacity: 1;
     }
 
     /* Modal Split Body */
@@ -4377,6 +4448,8 @@
         </div>
         <div class="banner-meta" id="banner-count-pill">
           <span class="stat-pill" style="display: none;">Showing: <span class="stat-num" id="showing-count">0</span></span>
+          <button class="stat-pill banner-action-btn gg-toolbar-save" id="gg-save-scheme"
+            title="Save this growth group's scheme, stages and rules">💾 Save Scheme</button>
           <button class="stat-pill banner-action-btn" id="btn-request-asset"
             title="Queue a request for a new asset — a Claude session watching the queue will pick it up">Request New Asset</button>
           <button class="stat-pill banner-action-btn" id="btn-request-growth-group"
@@ -4425,6 +4498,11 @@
           <button class="modal-regen-btn" id="m-request-rig-btn"
             title="Queue a rigging request for this model (rigged in Blender - walk + run animations included)">
             🦴 Rig
+          </button>
+          <button class="modal-regen-btn" id="m-push-game-btn"
+            title="Save this asset if it has unsaved changes, then update the game's homesteader mod with it (mods/homesteader/<category>/<asset>, mod.json and the in-game asset list). The game loads it on the next Play."
+            style="background: rgba(16,185,129,0.14); border: 1px solid rgba(16,185,129,0.5); color: var(--accent-emerald);">
+            Push to Game
           </button>
           <button class="modal-regen-btn" id="m-jump-json-btn" title="Scroll to the JSON manifest editor">
             📝 JSON
@@ -4573,6 +4651,17 @@
                     id="m-wellness" data-path="properties.wellness_modifier" placeholder="0">
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Lights (manifest "lights"): what this asset emits once placed in the world -->
+          <div class="info-section" id="sec-lights" style="display: none;">
+            <div class="info-sec-title">
+              <span>Lights</span>
+              <span class="collapse-chevron">▼</span>
+            </div>
+            <div class="info-sec-body">
+              <div id="m-lights-body" style="display: flex; flex-direction: column; gap: 8px;"></div>
             </div>
           </div>
 
@@ -7361,6 +7450,8 @@
 
       try {
         refreshStatusBar();
+        refreshPendingApprovals();
+        setInterval(refreshPendingApprovals, 4000);
         setInterval(refreshStatusBar, 30000);
       } catch (e) {
         console.error("Error in refreshStatusBar:", e);
@@ -8026,6 +8117,286 @@
       syncTrashControls();
     }
 
+    // --- Animal AI editor -------------------------------------------------
+    // Edits assets/_ai/<id>.json (mod content type "animal_ai"). The form and the JSON tab edit the
+    // same object; Save posts it to /api/save-animal-ai, which validates with tools/animal_ai.py.
+    const AI_ACTIONS = ["idle", "wander", "goto", "follow", "flee", "rest", "emote", "consume", "sequence"];
+    const AI_ACTION_FIELDS = {
+      idle:    [["anim","s"],["duration","d"]],
+      wander:  [["radius","n"],["stay_near","s"],["speed","s"]],
+      goto:    [["target","s"],["speed","s"],["arrive_dist","n"]],
+      follow:  [["target","s"],["min_dist","n"],["max_dist","n"],["speed","s"]],
+      flee:    [["target","s"],["min_dist","n"],["speed","s"]],
+      rest:    [["anim","s"],["duration","d"],["need","s"],["restore_per_second","n"]],
+      emote:   [["anim","s"],["duration","d"]],
+      consume: [["target","s"],["anim","s"],["need","s"],["restore_per_second","n"],["duration","d"],["speed","s"],["arrive_dist","n"]],
+      sequence:[]
+    };
+    const AI_TERM_KINDS = ["need","time","hours","weather","season","sense","current","event","random"];
+    const AI_TERM_EXTRA = ["above","below","within","beyond","curve","weight"];
+    let aiState = { def: null, tab: "form", msg: null, root: null, onChange: null, item: null };
+
+    function aiEsc(v) { return escapeHtml(v === undefined || v === null ? "" : String(v)); }
+
+    function aiChanged() { if (aiState.onChange) aiState.onChange(aiState.def); }
+
+    // Inline card inside the animal's asset popup. The definition IS the manifest's category_fields.ai object.
+    function renderAnimalAiCard(container, def, it) {
+      const card = document.createElement("div");
+      card.className = "schema-compound-card";
+      card.innerHTML = `<div class="schema-compound-header"><span>Animal AI</span></div><div class="ai-inline"></div>`;
+      container.appendChild(card);
+      const itemId = (it && (it.id || (it.manifest && it.manifest.id))) || "";
+      def.id = def.id || (itemId ? itemId + "_ai" : "animal_ai");
+      if (!Array.isArray(def.applies_to) || def.applies_to.length === 0) def.applies_to = itemId ? [itemId] : [];
+      aiState = { def, tab: "form", msg: null, root: card.querySelector(".ai-inline"), item: it,
+        onChange: (d) => applyManifestFieldEdit("category_fields.ai", d, "raw") };
+      aiRender();
+    }
+
+    function aiDefaultDef(itemId) {
+      return {
+        id: (itemId || "animal") + "_ai", applies_to: itemId ? [itemId] : [],
+        needs: { hunger: { start: 0.3, rate_per_game_hour: 0.05 } },
+        senses: { sight_m: 20 }, movement: { walk_speed: 1.6, run_speed: 5 },
+        animations: { idle: "Idle", walk: "Walk", run: "Run" },
+        behaviors: [{ id: "idle", action: { type: "idle", anim: "idle", duration: [2, 5] }, requires: [], score: [], base: 0.1 }]
+      };
+    }
+
+    // Bind an input to obj[key]; empty removes the key. kind: n number, s string, d duration (n or "a,b"), b bool.
+    function aiBind(inp, obj, key, kind) {
+      inp.oninput = inp.onchange = () => {
+        let v = inp.type === "checkbox" ? inp.checked : inp.value.trim();
+        if (v === "" || v === false) { delete obj[key]; }
+        else if (kind === "n") { const n = parseFloat(v); if (isNaN(n)) delete obj[key]; else obj[key] = n; }
+        else if (kind === "d") {
+          const p = String(v).split(",").map(x => parseFloat(x)).filter(x => !isNaN(x));
+          if (p.length === 1) obj[key] = p[0]; else if (p.length >= 2) obj[key] = [p[0], p[1]]; else delete obj[key];
+        } else if (kind === "b") obj[key] = true;
+        else obj[key] = v;
+        aiChanged();
+      };
+    }
+
+    function aiInput(label, obj, key, kind, cls) {
+      const cur = obj[key];
+      const val = Array.isArray(cur) ? cur.join(",") : (cur === undefined ? "" : cur);
+      return `<label>${label}<input class="${cls || "w-m"}" data-k="${key}" data-kind="${kind}" value="${aiEsc(val)}"></label>`;
+    }
+
+    // wire every [data-k] input inside root to obj (a resolver returns the object for each input)
+    function aiWire(root, resolve) {
+      root.querySelectorAll("input[data-k]").forEach(inp => {
+        const tgt = resolve(inp);
+        if (tgt) aiBind(inp, tgt, inp.dataset.k, inp.dataset.kind);
+      });
+    }
+
+    function aiTermKind(t) { return AI_TERM_KINDS.find(k => k in t) || "need"; }
+    function aiTermVal(t, k) {
+      const v = t[k]; return Array.isArray(v) ? v.join(",") : (v === undefined ? "" : v);
+    }
+
+    function aiTermRow(t, list, ti, bi) {
+      const k = aiTermKind(t);
+      return `<div class="ai-row" data-b="${bi}" data-l="${list}" data-t="${ti}">
+        <label>kind<select data-role="kind">${AI_TERM_KINDS.map(x => `<option${x === k ? " selected" : ""}>${x}</option>`).join("")}</select></label>
+        <label>value<input class="w-m" data-role="val" value="${aiEsc(aiTermVal(t, k))}"></label>
+        ${AI_TERM_EXTRA.filter(e => list === "score" || e !== "weight").map(e =>
+          `<label>${e}<input class="w-s" data-role="extra" data-e="${e}" value="${aiEsc(t[e])}"></label>`).join("")}
+        <label>not<input type="checkbox" data-role="not"${t.not ? " checked" : ""}></label>
+        <button type="button" class="ai-btn danger" data-role="del">✕</button>
+      </div>`;
+    }
+
+    function aiBehaviorHtml(b, bi) {
+      const a = b.action = b.action || { type: "idle" };
+      const fields = (AI_ACTION_FIELDS[a.type] || []).map(([f, kd]) => aiInput(f, a, f, kd, kd === "n" ? "w-s" : "w-m")).join("");
+      const steps = a.type === "sequence"
+        ? `<label>steps (JSON array of actions)<input class="w-l" data-role="steps" value="${aiEsc(JSON.stringify(a.steps || []))}" style="width:520px"></label>` : "";
+      const terms = (list, title) => `<div class="ai-terms"><h6>${title} <button type="button" class="ai-btn" data-role="addterm" data-l="${list}" data-b="${bi}">＋</button></h6>
+        ${(b[list] || []).map((t, ti) => aiTermRow(t, list, ti, bi)).join("")}</div>`;
+      return `<div class="ai-beh" data-b="${bi}">
+        <div class="ai-row">
+          ${aiInput("id", b, "id", "s")}${aiInput("base", b, "base", "n", "w-s")}${aiInput("cooldown_s", b, "cooldown_s", "n", "w-s")}
+          ${aiInput("min_s", b, "min_s", "n", "w-s")}${aiInput("priority", b, "priority", "n", "w-s")}
+          <span style="flex:1"></span>
+          <button type="button" class="ai-btn" data-role="up">↑</button><button type="button" class="ai-btn" data-role="down">↓</button>
+          <button type="button" class="ai-btn danger" data-role="delb">Delete</button>
+        </div>
+        <div class="ai-row"><label>action<select data-role="atype">${AI_ACTIONS.map(x => `<option${x === a.type ? " selected" : ""}>${x}</option>`).join("")}</select></label>
+          ${fields}${steps}</div>
+        ${terms("requires", "requires (all must hold)")}${terms("score", "score (weighted)")}
+      </div>`;
+    }
+
+    function aiRender() {
+      const main = aiState.root;
+      if (!main) return;
+      const d = aiState.def;
+      if (!d) return;
+      const msg = aiState.msg ? `<div class="ai-msg ${aiState.msg.cls}">${aiEsc(aiState.msg.text)}</div>` : "";
+      const head = `<div class="ai-tabs">
+          <button type="button" class="ai-btn" id="ai-tab-form">Form</button><button type="button" class="ai-btn" id="ai-tab-json">JSON</button>
+          <span style="flex:1"></span>
+          <select class="ai-btn" id="ai-import"><option value="">Copy from shared profile…</option></select>
+          <button type="button" class="ai-btn" id="ai-validate">Validate</button></div>${msg}`;
+      if (aiState.tab === "json") {
+        main.innerHTML = head + `<textarea class="ai-json" id="ai-json" spellcheck="false">${aiEsc(JSON.stringify(d, null, 2))}</textarea>`;
+        main.querySelector("#ai-json").oninput = (e) => {
+          try { aiState.def = JSON.parse(e.target.value); aiChanged(); e.target.style.borderColor = ""; }
+          catch (x) { e.target.style.borderColor = "#f87171"; }
+        };
+      } else {
+        d.needs = d.needs || {}; d.senses = d.senses || {}; d.movement = d.movement || {}; d.animations = d.animations || {}; d.behaviors = d.behaviors || [];
+        const needRows = Object.keys(d.needs).map(n => `<div class="ai-row" data-need="${aiEsc(n)}">
+            <label>name<input class="w-m" data-role="needname" value="${aiEsc(n)}"></label>
+            ${aiInput("start", d.needs[n], "start", "n", "w-s")}${aiInput("rate_per_game_hour", d.needs[n], "rate_per_game_hour", "n", "w-s")}
+            ${aiInput("min", d.needs[n], "min", "n", "w-s")}${aiInput("max", d.needs[n], "max", "n", "w-s")}
+            <button type="button" class="ai-btn danger" data-role="delneed">✕</button></div>`).join("");
+        const animRows = Object.keys(d.animations).map(k => `<div class="ai-row" data-anim="${aiEsc(k)}">
+            <label>slot<input class="w-m" data-role="animslot" value="${aiEsc(k)}"></label>
+            <label>clip<input class="w-m" data-role="animclip" value="${aiEsc(d.animations[k])}"></label>
+            <button type="button" class="ai-btn danger" data-role="delanim">✕</button></div>`).join("");
+        main.innerHTML = head + `<div class="ai-scroll">
+          <div class="ai-sec"><h5>Identity</h5><div class="ai-row">
+            ${aiInput("id", d, "id", "s")}
+            <label>applies_to (item ids, *wildcards*, species:name; comma separated)<input style="width:380px" data-role="applies" value="${aiEsc((d.applies_to || []).join(", "))}"></label>
+            <label>extends (templates to build on; comma separated)<input style="width:260px" list="ai-templates" data-role="extends" value="${aiEsc((d.extends || []).join(", "))}"></label>
+            <label>tags this animal carries (predator, prey, threat, ...)<input style="width:230px" data-role="tags" value="${aiEsc((d.tags || []).join(", "))}"></label>
+            <datalist id="ai-templates"></datalist></div>
+            <div class="ai-msg" style="color:var(--text-muted)">${(d.extends || []).length ? "Inherited needs, animation slots and behaviours are not listed below. Add a behaviour with the same id to override one, or an entry <code>{\"id\": \"x\", \"disabled\": true}</code> in the JSON tab to remove it." : "Tip: extend a template (livestock, pet, helper, wildlife_prey, ...) and list only what differs."}</div></div>
+          <div class="ai-sec"><h5>Needs <button type="button" class="ai-btn" id="ai-add-need">＋</button></h5>${needRows}</div>
+          <div class="ai-sec"><h5>Senses &amp; Movement</h5>
+            <div class="ai-row">${aiInput("sight_m", d.senses, "sight_m", "n", "w-s")}${aiInput("hear_m", d.senses, "hear_m", "n", "w-s")}
+            ${aiInput("walk_speed", d.movement, "walk_speed", "n", "w-s")}${aiInput("run_speed", d.movement, "run_speed", "n", "w-s")}
+            ${aiInput("turn_speed_deg", d.movement, "turn_speed_deg", "n", "w-s")}${aiInput("max_slope_deg", d.movement, "max_slope_deg", "n", "w-s")}
+            ${aiInput("arrive_dist_m", d.movement, "arrive_dist_m", "n", "w-s")}</div></div>
+          <div class="ai-sec"><h5>Animation slots <button type="button" class="ai-btn" id="ai-add-anim">＋</button></h5>${animRows}</div>
+          <div class="ai-sec"><h5>Behaviors <button type="button" class="ai-btn" id="ai-add-beh">＋</button></h5>
+            ${d.behaviors.map((b, i) => aiBehaviorHtml(b, i)).join("")}</div></div>`;
+        aiWireForm(main, d);
+      }
+      main.querySelector("#ai-tab-form").onclick = () => { aiState.tab = "form"; aiRender(); };
+      main.querySelector("#ai-tab-json").onclick = () => { aiState.tab = "json"; aiRender(); };
+      main.querySelector("#ai-validate").onclick = aiValidate;
+      const imp = main.querySelector("#ai-import");
+      getAnimalAiProfiles().then(list => {
+        imp.innerHTML = `<option value="">Copy from shared profile…</option>` + list.map(p => `<option value="${aiEsc(p.id)}">${aiEsc(p.id)}</option>`).join("");
+      });
+      imp.onchange = () => { if (imp.value && confirm("Replace this animal's AI with a copy of '" + imp.value + "'?")) aiImport(imp.value); else imp.value = ""; };
+    }
+
+    function aiWireForm(main, d) {
+      // plain [data-k] inputs: identify their owning object from the row/section
+      main.querySelectorAll("input[data-k]").forEach(inp => {
+        const k = inp.dataset.k, kind = inp.dataset.kind;
+        let tgt = null;
+        const beh = inp.closest(".ai-beh"), need = inp.closest("[data-need]");
+        if (need) tgt = d.needs[need.dataset.need];
+        else if (beh) {
+          const b = d.behaviors[+beh.dataset.b];
+          tgt = (inp.closest(".ai-row") === beh.querySelectorAll(".ai-row")[1]) ? b.action : b;
+        }
+        else if (k === "id") tgt = d;
+        else if (["sight_m", "hear_m"].includes(k)) tgt = d.senses;
+        else tgt = d.movement;
+        if (tgt) aiBind(inp, tgt, k, kind);
+      });
+      const q = (sel, fn) => main.querySelectorAll(sel).forEach(fn);
+      const re = () => { aiChanged(); aiRender(); };
+      q('[data-role="tags"]', i => i.oninput = () => {
+        const v = i.value.split(",").map(x => x.trim()).filter(Boolean);
+        if (v.length) d.tags = v; else delete d.tags;
+        aiChanged();
+      });
+      q('[data-role="extends"]', i => i.oninput = () => {
+        const v = i.value.split(",").map(x => x.trim()).filter(Boolean);
+        if (v.length) d.extends = v; else delete d.extends;
+        aiChanged();
+      });
+      getAnimalAiProfiles().then(list => {
+        const dl = main.querySelector("#ai-templates");
+        if (dl) dl.innerHTML = list.slice().sort((a, b) => (b.abstract ? 1 : 0) - (a.abstract ? 1 : 0) || a.id.localeCompare(b.id))
+          .map(p => `<option value="${aiEsc(p.id)}">${p.abstract ? "template" : ""}</option>`).join("");
+      });
+      q('[data-role="applies"]', i => i.oninput = () => { d.applies_to = i.value.split(",").map(x => x.trim()).filter(Boolean); aiChanged(); });
+      q('[data-role="needname"]', i => i.onchange = () => {
+        const old = i.closest("[data-need]").dataset.need, nn = i.value.trim();
+        if (!nn || nn === old || d.needs[nn]) { i.value = old; return; }
+        const out = {}; Object.keys(d.needs).forEach(k => out[k === old ? nn : k] = d.needs[k]); d.needs = out; re();
+      });
+      q('[data-role="delneed"]', b => b.onclick = () => { delete d.needs[b.closest("[data-need]").dataset.need]; re(); });
+      main.querySelector("#ai-add-need").onclick = () => { let n = "need", c = 1; while (d.needs[n]) n = "need" + (++c); d.needs[n] = { start: 0.5, rate_per_game_hour: 0 }; re(); };
+      q('[data-role="animslot"]', i => i.onchange = () => {
+        const old = i.closest("[data-anim]").dataset.anim, nn = i.value.trim();
+        if (!nn || nn === old || d.animations[nn]) { i.value = old; return; }
+        const out = {}; Object.keys(d.animations).forEach(k => out[k === old ? nn : k] = d.animations[k]); d.animations = out; re();
+      });
+      q('[data-role="animclip"]', i => i.oninput = () => { d.animations[i.closest("[data-anim]").dataset.anim] = i.value; aiChanged(); });
+      q('[data-role="delanim"]', b => b.onclick = () => { delete d.animations[b.closest("[data-anim]").dataset.anim]; re(); });
+      main.querySelector("#ai-add-anim").onclick = () => { let n = "slot", c = 1; while (d.animations[n]) n = "slot" + (++c); d.animations[n] = ""; re(); };
+      main.querySelector("#ai-add-beh").onclick = () => { d.behaviors.push({ id: "behavior_" + (d.behaviors.length + 1), action: { type: "idle", duration: [2, 5] }, requires: [], score: [], base: 0.1 }); re(); };
+
+      q(".ai-beh", el => {
+        const bi = +el.dataset.b, b = d.behaviors[bi];
+        el.querySelector('[data-role="delb"]').onclick = () => { d.behaviors.splice(bi, 1); re(); };
+        el.querySelector('[data-role="up"]').onclick = () => { if (bi > 0) { [d.behaviors[bi - 1], d.behaviors[bi]] = [d.behaviors[bi], d.behaviors[bi - 1]]; re(); } };
+        el.querySelector('[data-role="down"]').onclick = () => { if (bi < d.behaviors.length - 1) { [d.behaviors[bi + 1], d.behaviors[bi]] = [d.behaviors[bi], d.behaviors[bi + 1]]; re(); } };
+        el.querySelector('[data-role="atype"]').onchange = (e) => { b.action = { type: e.target.value }; re(); };
+        const st = el.querySelector('[data-role="steps"]');
+        if (st) st.oninput = () => { try { b.action.steps = JSON.parse(st.value); st.style.borderColor = ""; aiChanged(); } catch (x) { st.style.borderColor = "#f87171"; } };
+        el.querySelectorAll('[data-role="addterm"]').forEach(btn => btn.onclick = () => { (b[btn.dataset.l] = b[btn.dataset.l] || []).push({ need: Object.keys(d.needs)[0] || "", ...(btn.dataset.l === "score" ? { weight: 1 } : {}) }); re(); });
+        el.querySelectorAll(".ai-row[data-t]").forEach(row => {
+          const list = row.dataset.l, ti = +row.dataset.t, t = b[list][ti];
+          row.querySelector('[data-role="del"]').onclick = () => { b[list].splice(ti, 1); re(); };
+          const kindSel = row.querySelector('[data-role="kind"]'), valInp = row.querySelector('[data-role="val"]');
+          const writeVal = () => {
+            const old = aiTermKind(t), nk = kindSel.value; if (nk !== old) delete t[old];
+            const v = valInp.value.trim();
+            if (nk === "hours") t[nk] = v.split(",").map(x => parseFloat(x)).filter(x => !isNaN(x));
+            else if (nk === "weather") t[nk] = v.split(",").map(x => x.trim()).filter(Boolean);
+            else if (nk === "random") t[nk] = parseFloat(v) || 0;
+            else t[nk] = v;
+            aiChanged();
+          };
+          kindSel.onchange = () => { writeVal(); re(); };
+          valInp.oninput = writeVal;
+          row.querySelectorAll('[data-role="extra"]').forEach(i => i.oninput = () => {
+            const e = i.dataset.e, v = i.value.trim();
+            if (v === "") delete t[e]; else t[e] = e === "curve" ? v : (parseFloat(v) || 0);
+            aiChanged();
+          });
+          row.querySelector('[data-role="not"]').onchange = (e) => { if (e.target.checked) t.not = true; else delete t.not; aiChanged(); };
+        });
+      });
+    }
+
+    async function aiValidate() {
+      try {
+        const res = await fetch("/api/validate-animal-ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ definition: aiState.def }) });
+        const j = await res.json();
+        const errs = j.errors || [], warns = j.warnings || [];
+        aiState.msg = errs.length ? { cls: "err", text: errs.join("\n") + (warns.length ? "\n" + warns.join("\n") : "") }
+                    : warns.length ? { cls: "warn", text: "Valid.\n" + warns.join("\n") } : { cls: "ok", text: "Valid." };
+      } catch (e) { aiState.msg = { cls: "err", text: String(e.message || e) }; }
+      aiRender();
+    }
+
+    async function aiImport(profileId) {
+      if (!profileId) return;
+      try {
+        const j = await (await fetch("/api/animal-ai?id=" + encodeURIComponent(profileId), { cache: "no-store" })).json();
+        if (!j.success) throw new Error(j.error || "load failed");
+        const itemId = (aiState.item && (aiState.item.id || (aiState.item.manifest && aiState.item.manifest.id))) || "";
+        const d = JSON.parse(JSON.stringify(j.definition));
+        d.id = itemId ? itemId + "_ai" : d.id; d.applies_to = itemId ? [itemId] : d.applies_to;
+        aiState.def = d; aiChanged(); aiState.msg = { cls: "ok", text: "Copied from shared profile '" + profileId + "'." };
+      } catch (e) { aiState.msg = { cls: "err", text: String(e.message || e) }; }
+      aiRender();
+    }
+
     // --- Docs modal -------------------------------------------------------
     //
     // Section list on the left, the selected section's markdown on the right.
@@ -8382,13 +8753,35 @@
     let currentApprovalId = null;
 
     async function refreshPendingApprovals() {
-      // Disabled: all asset generation uses the 100% free pipeline ($0 cost). No user approval required.
-      return;
+      try {
+        const res = await fetch("/api/pending-approvals", { cache: "no-store" });
+        const data = await res.json();
+        if (!res.ok || !data.success) return;
+        const approvals = data.approvals || [];
+        if (approvals.length === 0) return;
+        const next = approvals[approvals.length - 1]; // newest: older ones are usually stale
+        if (currentApprovalId === next.id) return; // already showing it
+        if (document.getElementById("approval-dialog").open) return;
+        showApprovalModal(next);
+      } catch (err) {
+        console.error("Failed to refresh pending approvals:", err);
+      }
     }
 
     function showApprovalModal(approval) {
-      // Disabled: approvals are no longer needed
-      return;
+      currentApprovalId = approval.id;
+      document.getElementById("approval-title").innerText = approval.title;
+      const planList = document.getElementById("approval-plan-list");
+      planList.innerHTML = (approval.plan || []).map((step, i) => `<div>${i + 1}. ${escapeHtml(String(step))}</div>`).join("");
+      const costBox = document.getElementById("approval-cost-box");
+      const cost = approval.cost || {};
+      const parts = [];
+      const hasVal = v => typeof v === "number" || (typeof v === "string" && v.trim() !== "");
+      if (hasVal(cost.creative_claw)) parts.push(`🖼️ ${cost.creative_claw}${typeof cost.creative_claw === "number" ? "cr" : ""} Creative Claw`);
+      const meshyCr = hasVal(cost.meshy) ? cost.meshy : cost.meshy_credits;
+      if (hasVal(meshyCr)) parts.push(`🧊 ${meshyCr}${typeof meshyCr === "number" ? "cr" : ""} Meshy`);
+      costBox.innerHTML = parts.length ? parts.map(p => `<div>${p}</div>`).join("") : (cost.summary || "");
+      document.getElementById("approval-dialog").showModal();
     }
 
     async function resolveApproval(action, mode) {
@@ -11852,11 +12245,11 @@
       // The scheme fields are editable in place. `Stages` and `Meshes On Disk`
       // stay read-only: they are derived from the stages[] array and from what
       // is physically on disk, not scheme values the user owns.
-      const field = (key, id, val, type) => `
-        <div class="kv-box">
-          <div class="kv-key">${key}</div>
-          <input class="gg-input" id="${id}" type="${type}" value="${val == null ? "" : val}">
-        </div>
+      const field = (key, id, val, type, size) => `
+        <label class="gg-f">
+          <span class="gg-fl">${key}</span>
+          <input class="gg-input ${size || (type === "number" ? "w-xs" : "w-m")}" id="${id}" type="${type}" value="${val == null ? "" : val}">
+        </label>
       `;
 
       // Growth rules (growth_group.schema.json `rules`) exist only for trees
@@ -11871,12 +12264,13 @@
       selectedBiomes.forEach(id => {
         if (!biomeChoices.some(b => b.id === id)) biomeChoices.push({ id, name: id, missing: true });
       });
-      const rfield = (key, id, val, type) => field(key, id, val, type);
+      const rfield = (key, id, val, type, size) => field(key, id, val, type, size);
+      // Checkboxes render as toggle chips (same look as the season / biome chips); the id stays on the input.
       const rcheck = (key, id, on) => `
-        <div class="kv-box">
-          <div class="kv-key">${key}</div>
+        <label class="gg-biome-chip" title="${key}">
           <input id="${id}" type="checkbox" ${on ? "checked" : ""}>
-        </div>
+          <span>${key}</span>
+        </label>
       `;
       const escAttr = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
       const curTool = (r.yield || {}).tool || "";
@@ -11893,53 +12287,69 @@
         return `
         <div class="kv-box gg-item-field" data-kind="${kind}" data-blank="${escAttr(blankLabel)}">
           <div class="kv-key">${key}</div>
-          <div class="gg-item-chip" title="Double-click to choose">
+          <div class="gg-item-chip" title="Click to choose">
             <img class="gg-item-thumb" src="${it && it.icon ? escAttr(it.icon) : ""}" alt="" style="${it && it.icon ? "" : "visibility:hidden"}">
             <div class="gg-item-text">
               <div class="gg-item-name">${escAttr(shownName)}</div>
               <div class="gg-item-id">${escAttr(cur || "")}</div>
             </div>
-            <button type="button" class="gg-item-pick">Choose…</button>
-            <button type="button" class="gg-item-clear" title="Choose nothing">✕</button>
           </div>
           <input type="hidden" id="${id}" value="${escAttr(cur || "")}">
         </div>`;
       };
-      const variantRow = (label, prefix, v) => `
-        <div class="kv-box" style="grid-column: 1 / -1;">
+      // Withered / dead / stump version: the same click-to-choose chip as the item fields, listing this group's own
+      // stage folders (/api/group-stages). The hidden inputs keep the ids the save payload reads (-resource/-model/-icon).
+      const variantRow = (label, prefix, v) => {
+        v = v || {};
+        return `
+        <div class="kv-box gg-variant-field" data-prefix="${prefix}" data-category="${escAttr(sp.category || "")}" data-group="${escAttr(sp.species || "")}">
           <div class="kv-key">${label}</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
-            <input class="gg-input" id="${prefix}-resource" placeholder="stages/<folder>/" value="${escAttr((v || {}).resource || "")}">
-            <input class="gg-input" id="${prefix}-model" placeholder="model file (e.g. crop_withered.fbx)" value="${escAttr((v || {}).model || "")}">
-            <input class="gg-input" id="${prefix}-icon" placeholder="icon file (optional)" value="${escAttr((v || {}).icon || "")}">
+          <div class="gg-item-chip" title="Click to choose">
+            <img class="gg-item-thumb" src="" alt="" style="visibility:hidden">
+            <div class="gg-item-text">
+              <div class="gg-item-name">${escAttr(v.resource ? v.resource : "(none)")}</div>
+              <div class="gg-item-id">${escAttr(v.model || "")}</div>
+            </div>
           </div>
+          <input type="hidden" id="${prefix}-resource" value="${escAttr(v.resource || "")}">
+          <input type="hidden" id="${prefix}-model" value="${escAttr(v.model || "")}">
+          <input type="hidden" id="${prefix}-icon" value="${escAttr(v.icon || "")}">
         </div>`;
+      };
       const rselect = (key, id, cur, opts) => `
-        <div class="kv-box">
-          <div class="kv-key">${key}</div>
-          <select class="gg-input" id="${id}">
+        <label class="gg-f">
+          <span class="gg-fl">${key}</span>
+          <select class="gg-input w-m" id="${id}">
             ${opts.map(o => `<option value="${o}" ${o === cur ? "selected" : ""}>${o}</option>`).join("")}
           </select>
-        </div>
+        </label>
       `;
 
       scheme.innerHTML = `
-        <div class="gg-scheme-title">🌱 ${sp.icon || ""} ${g.name || sp.name}</div>
-        <div class="gg-kv-grid">
-          ${field("Display Name", "gg-f-name", g.name || sp.name, "text")}
-          ${field("Growth Type", "gg-f-growth-type", g.growth_type || "", "text")}
-          ${field("Species", "gg-f-species", g.species || sp.species, "text")}
-          ${field("Max Age", "gg-f-max-age", maxAge || "", "number")}
-          ${field("Time Unit", "gg-f-time-unit", timeUnit, "text")}
-          ${field("Icon Stage", "gg-f-icon-stage", g.icon_stage != null ? g.icon_stage : "", "number")}
-          ${kv("Stages", stages.length)}
-          ${kv("Meshes On Disk", `${withMesh} / ${stages.length}`)}
-          <div class="kv-box">
-            <div class="kv-key">Lifespan</div>
-            <div class="kv-val">${lifespan}</div>
+        <div class="gg-head">
+          <div class="gg-scheme-title">🌱 ${sp.icon || ""} ${g.name || sp.name}</div>
+          <div class="gg-facts">
+            <span class="gg-fact">${stages.length} stage${stages.length === 1 ? "" : "s"}</span>
+            <span class="gg-fact">${withMesh} / ${stages.length} meshes</span>
+            <span class="gg-fact">${lifespan}</span>
+          </div>
+          <span class="gg-save-note" id="gg-save-note"></span>
+        </div>
+
+        <div class="gg-card">
+          <h5>Scheme</h5>
+          <div class="gg-row">
+            ${field("Display Name", "gg-f-name", g.name || sp.name, "text", "w-l")}
+            ${field("Growth Type", "gg-f-growth-type", g.growth_type || "", "text", "w-s")}
+            ${field("Species", "gg-f-species", g.species || sp.species, "text", "w-m")}
+            ${field("Max Age", "gg-f-max-age", maxAge || "", "number")}
+            ${field("Time Unit", "gg-f-time-unit", timeUnit, "text", "w-s")}
+            ${field("Icon Stage", "gg-f-icon-stage", g.icon_stage != null ? g.icon_stage : "", "number")}
           </div>
         </div>
-          <div class="gg-rail-head">Stages · editable</div>
+
+        <div class="gg-card">
+          <h5>Stages</h5>
           <div class="gg-stage-editor">
             <div class="gg-se-head">
               <div>#</div>
@@ -11964,24 +12374,35 @@
               `;
             }).join("")}
           </div>
-          ${ruleApplies ? `
-          <div class="gg-rail-head">Growth Rules · trees &amp; crops only</div>
-          <div class="gg-rules">
-            <div class="gg-rules-title">Yield</div>
-            <div class="gg-kv-grid">
+        </div>
+
+        ${ruleApplies ? `
+        <div class="gg-cols gg-rules">
+          <div class="gg-card">
+            <h5>Yield</h5>
+            <div class="gg-row">
               ${itemField("Ingredient Dropped", "gg-r-yield-item", (r.yield || {}).item_id, "drop", "(nothing)")}
-              ${rfield("Yield Min", "gg-r-yield-min", (r.yield || {}).amount_min, "number")}
-              ${rfield("Yield Max (random, inclusive)", "gg-r-yield-max", (r.yield || {}).amount_max, "number")}
-              ${rfield("Harvest Stage", "gg-r-harvest-stage", (r.yield || {}).harvest_stage, "number")}
               ${itemField("Harvest Tool", "gg-r-yield-tool", curTool, "tool", "(by hand)")}
-              ${g.growth_type === "tree" ? variantRow("Stump (left after the tree is harvested)", "gg-r-stump", (r.yield || {}).stump) : ""}
+            </div>
+            <div class="gg-row">
+              ${rfield("Min", "gg-r-yield-min", (r.yield || {}).amount_min, "number")}
+              ${rfield("Max", "gg-r-yield-max", (r.yield || {}).amount_max, "number")}
+              ${rfield("Harvest Stage", "gg-r-harvest-stage", (r.yield || {}).harvest_stage, "number")}
               ${rcheck("Regrows After Harvest", "gg-r-regrows", (r.yield || {}).regrows)}
               ${rfield("Regrow To Stage", "gg-r-regrow-stage", (r.yield || {}).regrow_stage, "number")}
             </div>
-            <div class="gg-rules-title">Planting</div>
-            <div class="gg-kv-grid">
+            ${g.growth_type === "tree" ? `<div class="gg-row">${variantRow("Stump", "gg-r-stump", (r.yield || {}).stump)}</div>` : ""}
+          </div>
+
+          <div class="gg-card">
+            <h5>Planting</h5>
+            <div class="gg-row">
               ${itemField("Planted By (seed / sapling)", "gg-r-plant-item", (r.planting || {}).item_id, "plant", "(nothing plants it)")}
+              ${rfield("Min °C", "gg-r-min-temp", (r.planting || {}).min_temp_c, "number")}
+              ${rfield("Max °C", "gg-r-max-temp", (r.planting || {}).max_temp_c, "number")}
+              ${rcheck("Indoor OK", "gg-r-indoor", (r.planting || {}).indoor_ok)}
             </div>
+            <div class="gg-sub">Seasons</div>
             <div class="gg-biome-picker" id="gg-r-seasons">
               ${["spring", "summer", "fall", "winter", "year_round"].map(s => `
                 <label class="gg-biome-chip">
@@ -11989,12 +12410,7 @@
                   <span>${s === "year_round" ? "Year Round" : s.charAt(0).toUpperCase() + s.slice(1)}</span>
                 </label>`).join("")}
             </div>
-            <div class="gg-kv-grid">
-              ${rfield("Min Temp °C", "gg-r-min-temp", (r.planting || {}).min_temp_c, "number")}
-              ${rfield("Max Temp °C", "gg-r-max-temp", (r.planting || {}).max_temp_c, "number")}
-              ${rcheck("Indoor OK (greenhouse)", "gg-r-indoor", (r.planting || {}).indoor_ok)}
-            </div>
-            <div class="gg-rules-title">Valid Biomes <span class="gg-rules-hint">none selected = any biome</span></div>
+            <div class="gg-sub">Valid Biomes <span class="gg-rules-hint">none selected = any biome</span></div>
             <div class="gg-biome-picker" id="gg-r-biomes">
               ${biomeChoices.map(b => `
                 <label class="gg-biome-chip ${b.missing ? "gg-biome-missing" : ""}" title="${b.id}${b.missing ? " (not found in assets/biomes)" : ""}">
@@ -12002,32 +12418,38 @@
                   <span>${b.name}${b.missing ? " ⚠" : ""}</span>
                 </label>`).join("") || '<span class="gg-rules-hint">No biomes loaded.</span>'}
             </div>
-            <div class="gg-rules-title">Needs</div>
-            <div class="gg-kv-grid">
+          </div>
+
+          <div class="gg-card">
+            <h5>Needs</h5>
+            <div class="gg-row">
               ${rfield("Water Every N Days", "gg-r-water-interval", (r.needs || {}).water_interval_days, "number")}
               ${rcheck("Fertilizer Required", "gg-r-fert-required", (r.needs || {}).fertilizer_required)}
             </div>
-            <div class="gg-rules-title">Failure</div>
-            <div class="gg-kv-grid">
-              ${rselect("Out Of Season", "gg-r-out-of-season", (r.failure || {}).out_of_season || "pause", ["pause", "wither", "die"])}
-              ${rcheck("Frost Kills", "gg-r-frost", (r.failure || {}).frost_kills)}
-              ${rfield("Drought Grace Days", "gg-r-drought", (r.failure || {}).drought_days_before_wither, "number")}
-              ${rselect("On Wither", "gg-r-wither", (r.failure || {}).wither_behavior || "stall", ["stall", "regress_one_stage", "die"])}
-              ${g.growth_type === "crop" ? variantRow("Withered Version (shown while withering)", "gg-r-withered", (r.failure || {}).withered) : ""}
-              ${variantRow("Dead Version (shown once dead)", "gg-r-dead", (r.failure || {}).dead)}
-            </div>
-          </div>` : ""}
-          <div class="gg-scheme-actions">
-            <button class="gg-save-btn" id="gg-save-scheme">💾 Save Scheme</button>
-            <span class="gg-save-note" id="gg-save-note"></span>
           </div>
-        `;
+
+          <div class="gg-card">
+            <h5>Failure</h5>
+            <div class="gg-row">
+              ${rselect("Out Of Season", "gg-r-out-of-season", (r.failure || {}).out_of_season || "pause", ["pause", "wither", "die"])}
+              ${rselect("On Wither", "gg-r-wither", (r.failure || {}).wither_behavior || "stall", ["stall", "regress_one_stage", "die"])}
+              ${rfield("Drought Grace Days", "gg-r-drought", (r.failure || {}).drought_days_before_wither, "number")}
+              ${rcheck("Frost Kills", "gg-r-frost", (r.failure || {}).frost_kills)}
+            </div>
+            <div class="gg-row">
+              ${g.growth_type === "crop" ? variantRow("Withered Version", "gg-r-withered", (r.failure || {}).withered) : ""}
+              ${variantRow("Dead Version", "gg-r-dead", (r.failure || {}).dead)}
+            </div>
+          </div>
+        </div>` : ""}
+      `;
 
         // Wire the save on the next tick: the inputs must exist in the DOM first.
         setTimeout(() => {
           const btn = document.getElementById("gg-save-scheme");
           if (btn) btn.onclick = () => saveGroup(sp);
           document.querySelectorAll(".gg-item-field").forEach(wireItemField);
+          document.querySelectorAll(".gg-variant-field").forEach(wireVariantField);
           // year_round must stand alone: ticking it clears the individual seasons and vice versa.
           const seasonBox = document.getElementById("gg-r-seasons");
           if (seasonBox) seasonBox.addEventListener("change", (e) => {
@@ -12046,7 +12468,7 @@
         const warn = document.createElement("div");
         warn.className = "gg-warn";
         warn.innerText = `⚠️ Manifest declares total_stages = ${totalStages} but lists ${stages.length} stage(s).`;
-        scheme.appendChild(warn);
+        scheme.querySelector(".gg-head").after(warn);
       }
 
       // Same for the age windows: the last stage's age_max should land on
@@ -12056,15 +12478,14 @@
         const warn = document.createElement("div");
         warn.className = "gg-warn";
         warn.innerText = `⚠️ Final stage ends at ${lastMax} ${timeUnit} but max_age is ${maxAge} ${timeUnit}.`;
-        scheme.appendChild(warn);
+        scheme.querySelector(".gg-head").after(warn);
       }
 
       // Age windows drawn to scale across the lifespan.
       if (maxAge > 0 && stages.length) {
         const barLabel = document.createElement("div");
         barLabel.className = "gg-rail-head";
-        barLabel.innerText = `Lifecycle · ${maxAge} ${timeUnit}`;
-        scheme.appendChild(barLabel);
+        barLabel.style.display = "none";
 
         const bar = document.createElement("div");
         bar.className = "gg-lifespan";
@@ -12082,7 +12503,9 @@
           seg.innerText = span > 0 ? st.name : "";
           bar.appendChild(seg);
         });
-        scheme.appendChild(bar);
+        bar.title = `Lifecycle · ${maxAge} ${timeUnit}`;
+        const headEl = scheme.querySelector(".gg-head");
+        if (headEl) headEl.after(bar); else scheme.appendChild(bar);
       }
 
       grid.appendChild(scheme);
@@ -12369,6 +12792,7 @@
           : `${(CATEGORIES_META[activeCategory] || {}).name || activeCategory}`;
         bannerTitle.innerHTML = `
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            ${activeCategory !== "all" ? `<button type="button" class="banner-back-btn" onclick="selectCategory('all')" title="Back to all categories" aria-label="Back to all categories">‹</button>` : ""}
             <span>${catName}</span>
             <button type="button" id="banner-add-category-btn"
               class="banner-action-btn banner-add-btn"
@@ -13903,6 +14327,8 @@
         });
       }
 
+      const pushGameBtn = document.getElementById("m-push-game-btn");
+      if (pushGameBtn) pushGameBtn.onclick = () => pushActiveItemToGame(pushGameBtn);
       const openFolderBtn = document.getElementById("m-open-folder-btn");
       if (openFolderBtn) {
         openFolderBtn.onclick = () => executeOpenItemFolder();
@@ -14535,6 +14961,33 @@
       };
     }
 
+    // Push to Game: saves pending manifest edits, then copies the asset into the game's mod folder
+    // (mods/homesteader/<category>/<id>) and refreshes the in-game asset list. See tools/push_to_game.py.
+    async function pushActiveItemToGame(btn) {
+      if (!activeItem) return;
+      const label = btn ? btn.innerHTML : "";
+      if (btn) { btn.disabled = true; btn.innerHTML = "Pushing..."; }
+      try {
+        const saveBtn = document.getElementById("m-json-save-btn");
+        if (saveBtn && !saveBtn.disabled) await executeSaveManifest();   // unsaved edits go to disk first
+        const res = await fetch("/api/push-to-game", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ category: activeItem.category, item_id: activeItem.id })
+        });
+        const data = await res.json();
+        if (res.ok && data.success && data.pushed) {
+          showToast(`${activeItem.name || activeItem.id} pushed to the "${data.mod_id}" mod (v${data.version}). Restart Play to load it.`, "success");
+        } else {
+          const why = (data.notes && data.notes[0]) || data.error || "Push failed";
+          showToast(`Push to game: ${why}`, "warning");
+        }
+      } catch (err) {
+        showToast(`Push to game failed: ${err.message}`, "error");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = label; }
+      }
+    }
+
     // Automatically calculates and updates interior_area_m2 whenever dimensions_m changes
     function autoCalculateInteriorArea(manifest, itemContext = null) {
       if (!manifest || typeof manifest !== "object") return;
@@ -15093,12 +15546,50 @@
           onPick: (id) => setItemField(box, id),
         });
       };
+      // The whole chip (icon, name, blank space) opens the picker; "Clear" inside the picker chooses nothing.
       const chip = box.querySelector(".gg-item-chip");
-      if (chip) chip.ondblclick = open;
-      const pick = box.querySelector(".gg-item-pick");
-      if (pick) pick.onclick = open;
-      const clear = box.querySelector(".gg-item-clear");
-      if (clear) clear.onclick = () => setItemField(box, "");
+      if (chip) chip.onclick = open;
+    }
+
+    // Withered / dead / stump chooser: a chip that opens the item picker over the group's stage folders.
+    function wireVariantField(box) {
+      const p = box.dataset.prefix;
+      const inp = (suffix) => box.querySelector("#" + p + "-" + suffix);
+      let stages = null;
+      const load = async () => {
+        if (stages) return stages;
+        try {
+          const res = await fetch(`/api/group-stages?category=${encodeURIComponent(box.dataset.category)}&group_id=${encodeURIComponent(box.dataset.group)}`, { cache: "no-store" });
+          const data = await res.json();
+          stages = (data && data.success) ? (data.stages || []) : [];
+        } catch (e) { stages = []; }
+        return stages;
+      };
+      const show = (entry) => {
+        const img = box.querySelector(".gg-item-thumb");
+        const cur = inp("resource").value;
+        img.src = entry && entry.icon_path ? "/" + entry.icon_path : "";
+        img.style.visibility = entry && entry.icon_path ? "" : "hidden";
+        box.querySelector(".gg-item-name").innerText = entry ? entry.name : (cur || "(none)");
+        box.querySelector(".gg-item-id").innerText = entry ? entry.resource + "  ·  " + entry.model : (inp("model").value || "");
+      };
+      load().then(list => show(list.find(x => x.resource === inp("resource").value) || null));
+      box.querySelector(".gg-item-chip").onclick = async () => {
+        const list = await load();
+        openItemPicker({
+          title: box.querySelector(".kv-key").innerText,
+          hint: "Pick one of this group's stage models. Clear chooses none.",
+          items: list.map(x => ({ id: x.resource, name: x.name, category: "", icon: x.icon_path ? "/" + x.icon_path : "" })),
+          current: inp("resource").value,
+          onPick: (id) => {
+            const entry = list.find(x => x.resource === id) || null;
+            inp("resource").value = entry ? entry.resource : "";
+            inp("model").value = entry ? entry.model : "";
+            inp("icon").value = entry ? entry.icon : "";
+            show(entry);
+          },
+        });
+      };
     }
 
     // Loads JSON text into the manifest editor as the new "clean" baseline
@@ -15318,8 +15809,102 @@
       }
     }
 
+    /* Animal AI profiles (assets/_ai/*.json) for the "AI profile" dropdown. Cached briefly. */
+    let _animalAiCache = { t: 0, list: [] };
+    async function getAnimalAiProfiles(force) {
+      if (!force && Date.now() - _animalAiCache.t < 5000) return _animalAiCache.list;
+      try {
+        const r = await fetch("/api/animal-ai");
+        const j = await r.json();
+        _animalAiCache = { t: Date.now(), list: (j && j.success && j.profiles) ? j.profiles : [] };
+      } catch (e) {
+        _animalAiCache = { t: Date.now(), list: [] };
+      }
+      return _animalAiCache.list;
+    }
+
     /* Render Expanded Schema Data Section in Asset Detail Modal */
+    // --- Lights card (manifest "lights"): the lights an asset emits once placed in the world -------------------------
+    const LIGHT_DEFAULT = { id: "light", type: "point", color: "#FFEDC7", intensity: 3.5, range_m: 10, offset_m: [0, 3, 0], on: "night", fade_minutes: 20 };
+
+    function renderLightsSection(it) {
+      const sec = document.getElementById("sec-lights");
+      const body = document.getElementById("m-lights-body");
+      if (!sec || !body || !it) return;
+      const manifest = it.manifest || {};
+      const lights = Array.isArray(manifest.lights) ? JSON.parse(JSON.stringify(manifest.lights)) : [];
+      sec.style.display = "block";
+      const esc = (v) => escapeHtml(v === undefined || v === null ? "" : String(v));
+      const num = (l, k, w = "w-xs") => `<input class="gg-input ${w}" data-k="${k}" type="number" step="any" value="${esc(l[k])}">`;
+      const lab = (t, inner) => `<label class="gg-f"><span class="gg-fl">${t}</span>${inner}</label>`;
+      const push = () => applyManifestFieldEdit("lights", lights.length ? lights : null, "raw");
+
+      body.innerHTML = lights.map((l, i) => {
+        const off = Array.isArray(l.offset_m) ? l.offset_m : [0, 3, 0];
+        const spot = (l.type || "point") === "spot";
+        return `<div class="gg-card" data-i="${i}">
+          <h5><span>${esc(l.id || "light")}</span><button type="button" class="ai-btn danger" data-act="del">Delete</button></h5>
+          <div class="gg-row">
+            ${lab("id", `<input class="gg-input w-s" data-k="id" value="${esc(l.id)}">`)}
+            ${lab("type", `<select class="gg-input w-s" data-k="type"><option${!spot ? " selected" : ""}>point</option><option${spot ? " selected" : ""}>spot</option></select>`)}
+            ${lab("color", `<input class="gg-input" style="width:44px;padding:1px" data-k="color" type="color" value="${esc((l.color || "#FFEDC7").slice(0, 7))}">`)}
+            ${lab("intensity", num(l, "intensity"))}
+            ${lab("range m", num(l, "range_m"))}
+            ${spot ? lab("cone °", num(l, "spot_angle_deg")) + lab("pitch °", num(l, "pitch_deg")) + lab("yaw °", num(l, "yaw_deg")) : ""}
+          </div>
+          <div class="gg-row">
+            ${lab("offset x (m)", `<input class="gg-input w-xs" data-off="0" type="number" step="any" value="${esc(off[0])}">`)}
+            ${lab("offset y (up)", `<input class="gg-input w-xs" data-off="1" type="number" step="any" value="${esc(off[1])}">`)}
+            ${lab("offset z (m)", `<input class="gg-input w-xs" data-off="2" type="number" step="any" value="${esc(off[2])}">`)}
+            ${lab("on", `<select class="gg-input w-s" data-k="on">${["night", "always", "hours"].map(o => `<option${(l.on || "night") === o ? " selected" : ""}>${o}</option>`).join("")}</select>`)}
+            ${(l.on === "hours") ? lab("from h", `<input class="gg-input w-xs" data-h="0" type="number" step="any" value="${esc((l.hours || [18, 6])[0])}">`) + lab("to h", `<input class="gg-input w-xs" data-h="1" type="number" step="any" value="${esc((l.hours || [18, 6])[1])}">`) : ""}
+            ${(l.on || "night") === "night" ? lab("on before dusk (min)", num(l, "dusk_lead_minutes")) + lab("off after dawn (min)", num(l, "dawn_lag_minutes")) : ""}
+            ${lab("fade min", num(l, "fade_minutes"))}
+            ${lab("flicker 0-1", num(l, "flicker"))}
+            ${lab("switch-on flicker 0-1", num(l, "startup_flicker"))}
+            ${lab("flicker secs", num(l, "startup_seconds"))}
+            ${lab("strike level 0-1", num(l, "min_level"))}
+          </div>
+          <div class="gg-row">
+            <label class="gg-biome-chip"><input type="checkbox" data-k="shadows"${l.shadows ? " checked" : ""}><span>Casts shadows</span></label>
+            <label class="gg-biome-chip"><input type="checkbox" data-k="requires_power"${l.requires_power ? " checked" : ""}><span>Needs power</span></label>
+            ${lab("power W", num(l, "power_w"))}
+          </div>
+        </div>`;
+      }).join("") + `<div class="gg-row"><button type="button" class="ai-btn" id="m-light-add">＋ Add light</button>
+        <span class="gg-rules-hint">${lights.length ? "" : "This asset emits no light."}</span></div>`;
+
+      body.querySelectorAll(".gg-card").forEach(card => {
+        const i = +card.dataset.i, l = lights[i];
+        card.querySelector('[data-act="del"]').onclick = () => { lights.splice(i, 1); push(); renderLightsSection({ ...it, manifest: { ...manifest, lights } }); };
+        card.querySelectorAll("[data-k]").forEach(inp => {
+          inp.onchange = inp.oninput = () => {
+            const k = inp.dataset.k;
+            if (inp.type === "checkbox") { if (inp.checked) l[k] = true; else delete l[k]; }
+            else if (inp.type === "number") { if (inp.value === "") delete l[k]; else l[k] = parseFloat(inp.value); }
+            else l[k] = inp.value;
+            if (k === "type" || k === "on") { if (k === "on" && l.on === "hours" && !l.hours) l.hours = [18, 6]; push(); renderLightsSection({ ...it, manifest: { ...manifest, lights } }); return; }
+            push();
+          };
+        });
+        card.querySelectorAll("[data-off]").forEach(inp => inp.oninput = () => {
+          const o = Array.isArray(l.offset_m) ? l.offset_m.slice() : [0, 3, 0];
+          o[+inp.dataset.off] = parseFloat(inp.value) || 0; l.offset_m = o; push();
+        });
+        card.querySelectorAll("[data-h]").forEach(inp => inp.oninput = () => {
+          const h = Array.isArray(l.hours) ? l.hours.slice() : [18, 6];
+          h[+inp.dataset.h] = parseFloat(inp.value) || 0; l.hours = h; push();
+        });
+      });
+      const add = body.querySelector("#m-light-add");
+      if (add) add.onclick = () => {
+        const n = { ...LIGHT_DEFAULT }; let c = 1; while (lights.some(x => x.id === n.id)) n.id = "light" + (++c);
+        lights.push(n); push(); renderLightsSection({ ...it, manifest: { ...manifest, lights } });
+      };
+    }
+
     async function renderCategorySchemaSection(it) {
+      renderLightsSection(it);
       const catSec = document.getElementById("sec-category-schema");
       const catGrid = document.getElementById("m-cat-schema-grid");
       const catComplex = document.getElementById("m-cat-schema-complex");
@@ -15405,6 +15990,26 @@
             const parsed = inp.value === "" ? 0 : Number(inp.value);
             applyManifestFieldEdit(`category_fields.${k}`, parsed, "number");
           };
+        } else if (sDef.options_from === "animal_ai") {
+          // AI profile picker: lists the animal AI definitions in assets/_ai (served by /api/animal-ai).
+          const strVal = (v !== undefined && v !== null) ? String(v) : "";
+          const profiles = await getAnimalAiProfiles();
+          const known = profiles.some(p => p.id === strVal);
+          const opts = [`<option value=""${strVal === "" ? " selected" : ""}>(none - stands still)</option>`]
+            .concat(profiles.map(p => {
+              const label = `${p.id}${p.valid === false ? "  (has errors)" : ""}  -  ${p.behaviors} behaviors`;
+              return `<option value="${escapeHtml(p.id)}"${p.id === strVal ? " selected" : ""}>${escapeHtml(label)}</option>`;
+            }));
+          if (strVal && !known) opts.push(`<option value="${escapeHtml(strVal)}" selected>${escapeHtml(strVal)}  (not found in assets/_ai)</option>`);
+          box.innerHTML = `
+            <div class="kv-key"${note}>${labelText}</div>
+            <select class="kv-input" id="m-catfield-${k}">${opts.join("")}</select>
+          `;
+          catGrid.appendChild(box);
+          const sel = box.querySelector("select");
+          sel.onchange = () => {
+            applyManifestFieldEdit(`category_fields.${k}`, sel.value, "string");
+          };
         } else {
           const strVal = (v !== undefined && v !== null) ? String(v) : "";
           box.innerHTML = `
@@ -15432,7 +16037,9 @@
         const isArrayOfPrimitives = Array.isArray(v) && !isArrayOfArrays && !isArrayOfObjects;
         const isObjectGroup = !Array.isArray(v) && typeof v === "object" && v !== null;
 
-        if (isArrayOfArrays || k === "required_tools") {
+        if (k === "ai" && sDef.editor === "animal_ai") {
+          renderAnimalAiCard(catComplex, (v && typeof v === "object") ? v : {}, it);
+        } else if (isArrayOfArrays || k === "required_tools") {
           renderRequiredToolsCard(catComplex, k, fieldName, v || [], sDef, it);
         } else if (isArrayOfObjects || k === "construction_recipe") {
           renderConstructionRecipeCard(catComplex, k, fieldName, v || [], sDef, it);
@@ -15468,6 +16075,7 @@
               else if (fDef.type === "boolean") defVal = false;
               else if (fDef.type === "array") defVal = [];
               else if (fDef.type === "object") defVal = (fDef.properties ? Object.fromEntries(Object.keys(fDef.properties).map(p => [p, 0])) : {});
+              if (fDef.editor === "animal_ai") defVal = aiDefaultDef((it.id || (it.manifest && it.manifest.id)) || "");
 
               applyManifestFieldEdit(`category_fields.${fKey}`, defVal, "raw");
               if (!it.manifest.category_fields) it.manifest.category_fields = {};

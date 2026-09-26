@@ -73,3 +73,16 @@ colliding qualified id is rejected - first one wins - rather than overwritten.
   2026-09-15 as the first field, since real-world footprint size was the
   original reason this whole schema system got proposed (a house has a
   finite amount of floor space).
+
+## animal_ai.schema.json
+
+Format of an animal AI definition (`assets/_ai/<id>.json`, mod content type `animal_ai`). It is not a category
+schema: it describes a root-level data file, like `gamerules.schema.json`. `ranching.schema.json` gains the
+optional `ai` object field (`editor: "animal_ai"`): the animal's own AI definition, edited in the Animal AI card of the asset popup and packaged to `ai/<item_id>.json`. Shared/species profiles live in `assets/_ai`. Validation lives in `tools/animal_ai.py`. See `docs/ANIMAL_AI.md`.
+
+## light_emitter.schema.json
+
+The optional top-level `lights` list on any asset manifest: each entry is a light the asset emits once placed in the
+world (type point / spot, colour, intensity, range, position offset on the model, when it is on: always / night / hours,
+fade, flicker, shadows, requires_power). Edited in the asset popup's **Lights** card; runtime is
+`Assets/Scripts/Growth/LightEmitter.cs`; validated by `tools/light_emitter.py` on save.

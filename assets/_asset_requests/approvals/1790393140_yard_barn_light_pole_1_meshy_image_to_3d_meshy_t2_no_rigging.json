@@ -1,0 +1,19 @@
+{
+  "id": "1790393140_yard_barn_light_pole_1_meshy_image_to_3d_meshy_t2_no_rigging",
+  "title": "Yard barn light pole: 1 Meshy image-to-3D meshy-t2 (no rigging)",
+  "plan": [
+    "Run Meshy image-to-3D (meshy-t2 smart-topology, textured) on assets/_prompt_batches/lightpoles/clean/electricity_lightpole_yard_barn.png",
+    "Download the GLB; no rigging or animation; check the triangle count is under 5,000",
+    "15 credits; balance 263 -> 248"
+  ],
+  "cost": {
+    "meshy_credits": 15,
+    "per_item": 15,
+    "items": 1,
+    "balance_before": 263,
+    "balance_after": 248
+  },
+  "status": "approved",
+  "created_at": "2026-09-26T03:25:40Z",
+  "resolved_at": "2026-09-26T03:25:51Z"
+}

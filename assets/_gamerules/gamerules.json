@@ -31,5 +31,16 @@
       "tile_m": 1.0,
       "height_offset_m": 0.005
     }
-  ]
+  ],
+  "placement": {
+    "reach_cells": 3,
+    "rotate_step_deg": 12.5,
+    "categories": [
+      "structures",
+      "electricity",
+      "water",
+      "waste",
+      "internet"
+    ]
+  }
 }

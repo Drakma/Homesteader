@@ -1,0 +1,99 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "pumpkin",
+  "name": "Pumpkin Plant",
+  "category": "farming",
+  "description": "A pumpkin lifecycle growing through 4 stages (sprout -> small -> medium -> mature) over 90 days, with withered and dead versions. This group is the authoritative owner of the pumpkin scheme.",
+  "icon": "pumpkin.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "pumpkin",
+    "max_age": 90,
+    "time_unit": "days",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 10,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_pumpkin.glb",
+        "icon": "crop_sprout_pumpkin.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 10,
+        "age_max": 30,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_pumpkin.glb",
+        "icon": "crop_small_pumpkin.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 30,
+        "age_max": 60,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_pumpkin.glb",
+        "icon": "crop_medium_pumpkin.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 60,
+        "age_max": 90,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_pumpkin.glb",
+        "icon": "crop_mature_pumpkin.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "food_pumpkin",
+        "amount_min": 1,
+        "amount_max": 2,
+        "harvest_stage": 4
+      },
+      "planting": {
+        "seasons": [
+          "spring",
+          "summer"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_pumpkin",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 5
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_pumpkin.glb",
+          "icon": "crop_withered_pumpkin.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_pumpkin.glb",
+          "icon": "crop_dead_pumpkin.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}
