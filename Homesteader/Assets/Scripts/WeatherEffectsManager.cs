@@ -246,14 +246,14 @@ namespace Homesteader
                 case HomesteaderWeather.Snow:
                     // Regular gentle snow - calm straight falling flakes (~1,500 particles at 2 m/s)
                     SetTargets(rain: 0f, snow: 0.20f, wind: 0f);
-                    SetFog(true, 0.008f, new Color(0.85f, 0.88f, 0.92f, 1f));
+                    SetFog(true, 0.002f, new Color(0.62f, 0.67f, 0.75f, 1f));
                     ApplySnowVelocity(isBlizzard: false);
                     break;
 
                 case HomesteaderWeather.Blizzard:
                     // Heavy Blizzard: 8,000 particles falling fast (6.5 m/s) and completely straight + gusts + fog
                     SetTargets(rain: 0f, snow: 1.0f, wind: 0.75f);
-                    SetFog(true, 0.022f, new Color(0.88f, 0.92f, 0.98f, 1f));
+                    SetFog(true, 0.008f, new Color(0.66f, 0.72f, 0.82f, 1f));
                     ApplySnowVelocity(isBlizzard: true);
                     ToastNotificationSystem.ShowSevere("Blizzard Warning", "Severe blizzard conditions in effect. Temperature dropping rapidly. Click to dismiss.");
                     break;

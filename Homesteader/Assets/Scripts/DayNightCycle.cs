@@ -147,7 +147,7 @@ namespace Homesteader
                 case HomesteaderWeather.Cloudy: return 0.40f;
                 case HomesteaderWeather.Rain: return 0.30f;
                 case HomesteaderWeather.Thunderstorm: return 0.15f;
-                case HomesteaderWeather.Snow: return 0.50f;
+                case HomesteaderWeather.Snow: return 0.75f;
                 case HomesteaderWeather.Blizzard: return 0.25f; // Dramatic dimming during blizzard
                 case HomesteaderWeather.Wind: return 0.90f;
                 case HomesteaderWeather.Fog: return 0.35f;
@@ -166,7 +166,7 @@ namespace Homesteader
                 case HomesteaderWeather.Thunderstorm:
                     return new Color(0.10f, 0.11f, 0.16f);
                 case HomesteaderWeather.Snow:
-                    return new Color(0.38f, 0.42f, 0.50f);
+                    return new Color(0.24f, 0.27f, 0.34f);
                 case HomesteaderWeather.Blizzard:
                     return new Color(0.48f, 0.54f, 0.65f); // Cold frosty white-blue blizzard ambient
                 case HomesteaderWeather.Fog:

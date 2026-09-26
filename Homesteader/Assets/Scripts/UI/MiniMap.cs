@@ -98,6 +98,8 @@ namespace Homesteader.UI
             }
             if (!shown) return;
 
+            KeepBehindPhone();
+
             ResolveScene();
             if (player == null) return;
 
@@ -195,6 +197,18 @@ namespace Homesteader.UI
         }
 
         // ------------------------------------------------------------------ build
+
+        /// <summary>The phone draws over the map: keep the map below whichever top-level element holds the phone.</summary>
+        private void KeepBehindPhone()
+        {
+            VisualElement root = Root;
+            if (root == null) return;
+            VisualElement phone = root.Q<VisualElement>("PhoneWrapper");
+            if (phone == null) return;
+            while (phone.parent != null && phone.parent != root) phone = phone.parent;
+            if (phone.parent != root) return;
+            if (root.IndexOf(frame) > root.IndexOf(phone)) frame.PlaceBehind(phone);
+        }
 
         private void TryBuild()
         {
