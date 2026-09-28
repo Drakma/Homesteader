@@ -56,7 +56,7 @@ namespace Homesteader
         [Header("Accumulation Dynamics")]
         [SerializeField] private float _snowAccumulationPerGameHour = 0.4f; // 1.0 = about one inch: 2.5 game hours of normal snow, 1 hour in a blizzard (x2.5)
         [SerializeField] private float _snowMeltPerGameHour = 0.3f;      // snow melt per game hour when not snowing (an inch in ~3 hours; rain x3)
-        [SerializeField] private float _wetnessGainRate = 0.008f;       // wetness gain per second during rain (~2 min to soak)
+        [SerializeField] private float _wetnessGainRate = 0.05f;       // wetness gain per second during rain (~15 sec to soak)
         [SerializeField] private float _wetnessDryingRate = 0.006f;     // drying per second without rain (~3 min to dry out)
 
         // ── Runtime state ────────────────────────────────────────────────
@@ -131,6 +131,8 @@ namespace Homesteader
             {
                 _wasPaused = false;
                 ResumeAllWeather();
+                // Force weather re-application after unpause so particle targets are set
+                _weatherInitialized = false;
             }
 
             SmoothEmission();
@@ -645,7 +647,7 @@ namespace Homesteader
             main.startLifetime = new ParticleSystem.MinMaxCurve(0.7f, 1.0f);
             main.startSpeed = new ParticleSystem.MinMaxCurve(_rainSpeed * 0.95f, _rainSpeed * 1.05f);
             main.startSize = new ParticleSystem.MinMaxCurve(_rainSize * 0.8f, _rainSize * 1.2f);
-            main.startColor = new Color(0.88f, 0.94f, 1.00f, 0.60f);
+            main.startColor = new ParticleSystem.MinMaxGradient(new Color(0.88f, 0.94f, 1.00f, 0.60f));
             main.gravityModifier = 0f;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
 

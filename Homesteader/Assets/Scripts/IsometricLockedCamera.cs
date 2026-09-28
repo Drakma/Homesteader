@@ -43,6 +43,7 @@ public class IsometricLockedCamera : MonoBehaviour
             cam.orthographicSize = SnapZoom(7f);
             cam.backgroundColor = Color.black;
             cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.nearClipPlane = -50f;
             // Ensure Camera.main works — many systems rely on it
             if (cam.gameObject.tag != "MainCamera")
                 cam.gameObject.tag = "MainCamera";
@@ -268,10 +269,13 @@ public class IsometricLockedCamera : MonoBehaviour
         // was clipped away and showed the empty background. An orthographic camera may have a negative near plane, so pull it
         // back by exactly what the current zoom needs, and keep the far plane beyond the top of the screen.
         if (cam != null && cam.orthographic)
-        {
-            float reach = 2.2f * cam.orthographicSize;
-            cam.nearClipPlane = Mathf.Min(0.3f, orbitRadius - reach - 5f);
-            cam.farClipPlane = Mathf.Max(cam.farClipPlane, orbitRadius + reach + 100f);
-        }
+            {
+                float reach = 2.2f * cam.orthographicSize;
+                // Near plane: allow negative (orthographic cameras support it) but clamp to a minimum
+                // so we don't clip everything near the camera. -50 is far enough to include the full viewport.
+                cam.nearClipPlane = Mathf.Min(0.3f, orbitRadius - reach - 5f);
+                cam.nearClipPlane = Mathf.Max(cam.nearClipPlane, -50f);
+                cam.farClipPlane = Mathf.Max(cam.farClipPlane, orbitRadius + reach + 100f);
+            }
     }
 }
