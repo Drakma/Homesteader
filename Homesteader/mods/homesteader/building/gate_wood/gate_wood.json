@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "gate_wood",
+  "name": "Wood Farm Gate",
+  "category": "building",
+  "description": "A wooden farm gate with diagonal bracing.",
+  "icon": "gate_wood.png",
+  "properties": {
+    "weight_kg": 25.0,
+    "max_stack_size": 5,
+    "base_value": 40.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.2,
+      "depth": 0.05,
+      "height": 1.2
+    }
+  }
+}

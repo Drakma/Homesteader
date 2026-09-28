@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        result.Log(\"isPlaying=\" + EditorApplication.isPlaying + \" isDelayed=\" + EditorApplication.isPlayingDelayed);\n        if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;\n        EditorApplication.isPlaying = true;\n        result.Log(\"set isPlaying=true (req)\");\n    }\n}\n",
+  "Title": "Enter play direct"
+}

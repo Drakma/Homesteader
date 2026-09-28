@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;\n        EditorApplication.delayCall += () => EditorApplication.EnterPlaymode();\n        result.Log(\"EnterPlaymode requested.\");\n    }\n}",
+  "Title": "Enter play"
+}

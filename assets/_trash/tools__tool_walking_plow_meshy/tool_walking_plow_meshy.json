@@ -1,0 +1,76 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_walking_plow_meshy",
+  "name": "Walking Plow (Meshy only)",
+  "category": "tools",
+  "description": "A horse-drawn walking plow with wooden handles and a steel moldboard, used to turn soil before planting.",
+  "icon": "tool_walking_plow_meshy.png",
+  "properties": {
+    "weight_kg": 45.0,
+    "max_stack_size": 1,
+    "base_value": 180,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "is_sellable": true
+  },
+  "models": [
+    {
+      "file": "SM_tool_walking_plow_meshy.glb",
+      "format": "glb"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 1.6,
+      "height": 1.1
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0
+  }
+}

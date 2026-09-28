@@ -1,0 +1,86 @@
+{
+  "id": "wildlife_predator",
+  "abstract": true,
+  "extends": [
+    "animal_base"
+  ],
+  "note": "Template. Hunts anything tagged prey when hungry; keeps clear of people. Tag prey animals with AnimalTarget 'prey' (and predators with 'predator').",
+  "senses": {
+    "sight_m": 40
+  },
+  "movement": {
+    "walk_speed": 1.5,
+    "run_speed": 8.0
+  },
+  "behaviors": [
+    {
+      "id": "hunt",
+      "action": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "follow",
+            "target": "prey",
+            "speed": "run",
+            "min_dist": 0.8,
+            "max_dist": 2
+          },
+          {
+            "type": "consume",
+            "target": "prey",
+            "anim": "eat",
+            "need": "hunger",
+            "restore_per_second": -0.1,
+            "duration": [
+              6,
+              10
+            ]
+          }
+        ]
+      },
+      "requires": [
+        {
+          "need": "hunger",
+          "above": 0.6
+        },
+        {
+          "sense": "prey",
+          "within": 40
+        }
+      ],
+      "score": [
+        {
+          "need": "hunger",
+          "curve": "squared",
+          "weight": 1.8
+        }
+      ],
+      "base": 0.2,
+      "cooldown_s": 60
+    },
+    {
+      "id": "avoid_player",
+      "priority": 6,
+      "action": {
+        "type": "flee",
+        "target": "player",
+        "speed": "walk",
+        "min_dist": 15
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 10
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 1.0
+        }
+      ],
+      "base": 0.5
+    }
+  ]
+}

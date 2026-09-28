@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Galv_Steel
+Ka 0.3120 0.3200 0.3280
+Kd 0.7800 0.8000 0.8200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Steel_Rim
+Ka 0.2800 0.2880 0.2960
+Kd 0.7000 0.7200 0.7400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Water_Blue
+Ka 0.0880 0.2200 0.3520
+Kd 0.2200 0.5500 0.8800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

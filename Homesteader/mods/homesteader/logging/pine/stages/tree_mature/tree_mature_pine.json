@@ -1,0 +1,73 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tree_mature_pine",
+  "name": "Mature Pine Tree",
+  "category": "logging",
+  "description": "A tall mature conical pine tree with dense dark green needle clusters.",
+  "icon": "tree_mature_pine.png",
+  "properties": {
+    "weight_kg": 800.0,
+    "max_stack_size": 1,
+    "base_value": 400.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 6,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tree_mature_pine.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 6.0,
+      "depth": 6.0,
+      "height": 25.0
+    }
+  },
+  "spawning": {
+    "biomes": [
+      "biome_pine_hills"
+    ],
+    "density_per_hectare": 140.0,
+    "clustering": 0.65,
+    "elevation_min_m": 2.0,
+    "elevation_max_m": 40.0,
+    "slope_max_deg": 35.0,
+    "scale_min": 0.85,
+    "scale_max": 1.35,
+    "align_to_surface_normal": false
+  }
+}

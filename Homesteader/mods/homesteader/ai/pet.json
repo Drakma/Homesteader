@@ -1,0 +1,167 @@
+{
+  "id": "pet",
+  "abstract": true,
+  "extends": [
+    "animal_base"
+  ],
+  "note": "Template. A companion: boredom need, follows the player, sits near them, greets them. Dogs use it as is; cats disable the follow / greet rules.",
+  "needs": {
+    "boredom": {
+      "start": 0.3,
+      "rate_per_game_hour": 0.1
+    }
+  },
+  "senses": {
+    "sight_m": 30,
+    "hear_m": 40
+  },
+  "movement": {
+    "walk_speed": 1.6,
+    "run_speed": 5.0,
+    "turn_speed_deg": 240
+  },
+  "behaviors": [
+    {
+      "id": "lay_down_tired",
+      "action": {
+        "type": "rest",
+        "anim": "lay",
+        "need": "energy",
+        "restore_per_second": 0.03,
+        "until": {
+          "need": "energy",
+          "above": 0.9
+        }
+      },
+      "requires": [
+        {
+          "need": "energy",
+          "below": 0.45
+        }
+      ],
+      "score": [
+        {
+          "need": "energy",
+          "curve": "inverse",
+          "weight": 1.6
+        }
+      ],
+      "base": 0.2,
+      "min_s": 20
+    },
+    {
+      "id": "follow_player",
+      "action": {
+        "type": "follow",
+        "target": "player",
+        "speed": "walk",
+        "min_dist": 2.5,
+        "max_dist": 5.0
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 35
+        },
+        {
+          "sense": "player",
+          "beyond": 4
+        },
+        {
+          "need": "energy",
+          "above": 0.3
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "farther",
+          "weight": 0.6
+        },
+        {
+          "current": "follow_player",
+          "weight": 0.15
+        }
+      ],
+      "base": 0.45
+    },
+    {
+      "id": "greet_bark",
+      "action": {
+        "type": "emote",
+        "anim": "bark",
+        "duration": [
+          1.6,
+          1.6
+        ]
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 7
+        },
+        {
+          "sense": "player",
+          "beyond": 1.5
+        }
+      ],
+      "score": [
+        {
+          "need": "boredom",
+          "weight": 0.7
+        }
+      ],
+      "base": 0.2,
+      "cooldown_s": 60,
+      "min_s": 1.6
+    },
+    {
+      "id": "sit_by_player",
+      "action": {
+        "type": "rest",
+        "anim": "sit",
+        "duration": [
+          6,
+          14
+        ]
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 3.5
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 0.5
+        },
+        {
+          "random": 0.2
+        }
+      ],
+      "base": 0.3,
+      "cooldown_s": 25
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 9,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "need": "boredom",
+          "weight": 0.5
+        },
+        {
+          "random": 0.25
+        }
+      ],
+      "base": 0.25
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        result.Log(\"isPlaying(before)=\" + EditorApplication.isPlaying);\n        if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;\n        result.Log(\"isPlaying(after)=\" + EditorApplication.isPlaying);\n    }\n}",
+  "Title": "Force exit"
+}

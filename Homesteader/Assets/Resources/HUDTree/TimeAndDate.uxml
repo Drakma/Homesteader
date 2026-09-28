@@ -9,7 +9,6 @@
     <ui:Style src="TimeAndDate.uss" />
     <ui:VisualElement name="TimeAndDate" class="time-and-date-root">
         <ui:VisualElement class="time-row">
-            <ui:Label name="SeasonLabel" text="Spring" class="season-label" />
             <ui:Label name="DayLabel" text="Day 1" class="day-label" />
         </ui:VisualElement>
         <ui:Label name="ClockLabel" text="7:13 AM" class="clock-label" />

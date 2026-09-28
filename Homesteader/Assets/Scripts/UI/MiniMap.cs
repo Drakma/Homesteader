@@ -3,6 +3,7 @@ using Homesteader.Animals;
 using Homesteader.Generation;
 using Homesteader.Growth;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -39,19 +40,33 @@ namespace Homesteader.UI
         /// <summary>True while the pointer is over the map (other wheel / zoom handlers should leave it alone).</summary>
         public static bool PointerOver { get; private set; }
 
-        private VisualElement frame, squash, plane, dot;
-        private readonly List<VisualElement> shadows = new List<VisualElement>();
-        private float scale = 1f;
-        private float posX01 = 1f, posY01 = 1f;     // top left corner as a share of the free space (1, 1 = bottom right)
-        private bool needsLayout = true;
-        private bool dragging;
-        private Vector2 dragOffset;
-        private Texture2D tex;
-        private Color32[] pixels;
-        private bool shown = true;
-        private float halfExtent = DefaultHalfExtent;
+        /// <summary>Clears the cached biome colours so the map rebuilds after terrain regeneration.</summary>
+        public static void InvalidateCache()
+        {
+            var mm = FindAnyObjectByType<MiniMap>();
+            if (mm != null)
+            {
+                mm.chunks.Clear();
+                mm.baseCenter = new Vector2(float.MaxValue, float.MaxValue);
+            }
+        }
 
-        private Camera gameCam;
+        private VisualElement frame, squash, plane, dot;
+          	private readonly List<VisualElement> shadows = new List<VisualElement>();
+          	private float scale = 1f;
+          	private float posX01 = 1f, posY01 = 1f;     // top left corner as a share of the free space (1, 1 = bottom right)
+          	private bool needsLayout = true;
+          	private bool dragging;
+          	private Vector2 dragOffset;
+          	private Texture2D tex;
+          	private Color32[] pixels;
+          	private bool shown = true;
+          	private float halfExtent = DefaultHalfExtent;
+
+          	// Cardinal direction labels around the minimap.
+          	private Label dirN, dirS, dirE, dirW;
+
+        	private Camera gameCam;
         private Transform player;
         private HomesteaderTerrainGenerator generator;
         private readonly Dictionary<string, Color> biomeColors = new Dictionary<string, Color>();
@@ -77,11 +92,81 @@ namespace Homesteader.UI
         private static void Bootstrap()
         {
             PointerOver = false;
+            // Register for all future scene loads so the MiniMap is re-created
+            // after scene reloads (New Game, Load). RuntimeInitializeOnLoadMethod
+            // only fires once, so we need sceneLoaded to re-run.
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            OnSceneLoaded(default, LoadSceneMode.Single);
+        }
+
+        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
             if (FindAnyObjectByType<MiniMap>() != null) return;
             new GameObject("MiniMap").AddComponent<MiniMap>();
         }
 
         private void OnDisable() => PointerOver = false;
+
+        private Label CreateDirLabel(string text)
+        {
+        	var lbl = new Label(text) { name = $"minimap-dir-{text}" };
+        	lbl.pickingMode = PickingMode.Ignore;
+        	lbl.style.position = Position.Absolute;
+        	lbl.style.unityFontStyleAndWeight = FontStyle.Bold;
+        	lbl.style.fontSize = 14;
+        	lbl.style.color = Color.white;
+        	lbl.style.unityTextAlign = TextAnchor.MiddleCenter;
+        	lbl.style.width = 24f;
+        	lbl.style.height = 24f;
+        	lbl.AddToClassList("minimap-dir");
+        	return lbl;
+        }
+
+        /// <summary>
+        /// Repositions the N/S/E/W labels around the minimap center, rotated by
+        /// the camera yaw so they track the map's rotation.  Each label sits at
+        /// a fixed radius from the center; its angle is its cardinal bearing
+        /// minus the camera yaw (matching the plane's -yaw rotation).
+        /// </summary>
+        private void UpdateDirLabels(float yaw)
+        {
+        	if (dirN == null) return;
+        	float w = PanelW * scale, h = PanelH * scale;
+        	float cx = w * 0.5f, cy = h * 0.5f;
+        	float ls = 24f;
+        	// Radius from center to label center — keep labels just inside the frame edge.
+        	float rx = (w - ls) * 0.5f;
+        	float ry = (h - ls) * 0.5f;
+        	float rad = Mathf.Min(rx, ry);
+        	float yr = yaw * Mathf.Deg2Rad;
+        	float cosY = Mathf.Cos(yr), sinY = Mathf.Sin(yr);
+
+        	// Each cardinal starts at a base angle (N=0, E=90, S=180, W=270)
+        	// measured clockwise from north in screen space (Y-down).
+        	// After rotating by -yaw (the plane's rotation), the screen position is:
+        	//   x = r * sin(baseAngle - yaw)
+        	//   y = -r * cos(baseAngle - yaw)
+        	PlaceDirLabel(dirN, 0f, cx, cy, rad, ls, cosY, sinY);
+        	PlaceDirLabel(dirE, 90f, cx, cy, rad, ls, cosY, sinY);
+        	PlaceDirLabel(dirS, 180f, cx, cy, rad, ls, cosY, sinY);
+        	PlaceDirLabel(dirW, 270f, cx, cy, rad, ls, cosY, sinY);
+        }
+
+        private void PlaceDirLabel(Label lbl, float baseAngleDeg, float cx, float cy, float r, float ls, float cosY, float sinY)
+        {
+        	float a = (baseAngleDeg) * Mathf.Deg2Rad;
+        	// Rotate the base position by -yaw (clockwise in screen coords):
+        	// x' = x*cos(yaw) + y*sin(yaw)
+        	// y' = -x*sin(yaw) + y*cos(yaw)
+        	// where base x = r*sin(a), base y = -r*cos(a)
+        	float bx = r * Mathf.Sin(a);
+        	float by = -r * Mathf.Cos(a);
+        	float x = bx * cosY + by * sinY;
+        	float y = -bx * sinY + by * cosY;
+        	lbl.style.left = cx + x - ls * 0.5f;
+        	lbl.style.top = cy + y - ls * 0.5f;
+        }
 
         private void Update()
         {
@@ -96,6 +181,14 @@ namespace Homesteader.UI
                 if (!shown) PointerOver = false;
                 SavePrefs();
             }
+
+            // Ctrl+M: clear the minimap cache and force a full rebuild.
+            if (CtrlMPressed() && !HudBindings.KeyboardCaptured)
+            {
+                InvalidateCache();
+                baseExtent = -1f; // force BuildBase to re-centre on next Update
+                nextCompose = 0f; // force Compose to run immediately
+            }
             if (!shown) return;
 
             KeepBehindPhone();
@@ -104,12 +197,14 @@ namespace Homesteader.UI
             if (player == null) return;
 
             // Follow the game view: turn by its yaw, so the map rotates when the view does.
-            float yaw = gameCam != null ? gameCam.transform.eulerAngles.y : 0f;
-            var turn = new Rotate(new Angle(-yaw, AngleUnit.Degree));
-            plane.style.rotate = turn;
-            foreach (VisualElement sh in shadows) sh.style.rotate = turn;
+            			float yaw = gameCam != null ? gameCam.transform.eulerAngles.y : 0f;
+            			var turn = new Rotate(new Angle(-yaw, AngleUnit.Degree));
+            			plane.style.rotate = turn;
+            			foreach (VisualElement sh in shadows) sh.style.rotate = turn;
+            			// Direction labels rotate with the map — positions track the camera yaw.
+            			UpdateDirLabels(yaw);
 
-            Vector3 p = player.position;
+            			Vector3 p = player.position;
             Vector2 pc = new Vector2(p.x, p.z);
 
             // 0. Cache colours ahead of the map (one chunk a frame, nearest first), so recentring never waits on a lookup.
@@ -258,16 +353,25 @@ namespace Homesteader.UI
             frame.Add(squash);
 
             // The player: a small white dot at the centre.
-            dot = new VisualElement { name = "minimap-player" };
-            dot.pickingMode = PickingMode.Ignore;
-            dot.style.position = Position.Absolute;
-            dot.style.width = 8; dot.style.height = 6;
-            dot.style.borderTopLeftRadius = 4; dot.style.borderTopRightRadius = 4;
-            dot.style.borderBottomLeftRadius = 4; dot.style.borderBottomRightRadius = 4;
-            dot.style.backgroundColor = PlayerColour;
-            frame.Add(dot);
+            			dot = new VisualElement { name = "minimap-player" };
+            			dot.pickingMode = PickingMode.Ignore;
+            			dot.style.position = Position.Absolute;
+            			dot.style.width = 8; dot.style.height = 6;
+            			dot.style.borderTopLeftRadius = 4; dot.style.borderTopRightRadius = 4;
+            			dot.style.borderBottomLeftRadius = 4; dot.style.borderBottomRightRadius = 4;
+            			dot.style.backgroundColor = PlayerColour;
+            			frame.Add(dot);
 
-            frame.RegisterCallback<PointerDownEvent>(OnFrameDown);
+            			// Cardinal direction labels around the minimap.
+            			// Positions are recomputed every frame in Update() based on camera yaw,
+            			// so they rotate with the map. Stored dimensions for the reposition math.
+            			float labelSize = 24f;
+            			dirN = CreateDirLabel("N"); frame.Add(dirN);
+            			dirS = CreateDirLabel("S"); frame.Add(dirS);
+            			dirE = CreateDirLabel("E"); frame.Add(dirE);
+            			dirW = CreateDirLabel("W"); frame.Add(dirW);
+
+            						frame.RegisterCallback<PointerDownEvent>(OnFrameDown);
             frame.RegisterCallback<PointerMoveEvent>(OnFrameMove);
             frame.RegisterCallback<PointerUpEvent>(OnFrameUp);
             frame.RegisterCallback<WheelEvent>(OnWheel);
@@ -358,7 +462,7 @@ namespace Homesteader.UI
             posX01 = PlayerPrefs.GetFloat(PrefKey + "x", 1f);       // default: the lower right corner
             posY01 = PlayerPrefs.GetFloat(PrefKey + "y", 1f);
             halfExtent = Mathf.Clamp(PlayerPrefs.GetFloat(PrefKey + "zoom", DefaultHalfExtent), MinHalfExtent, MaxHalfExtent);
-            shown = PlayerPrefs.GetInt(PrefKey + "shown", 1) != 0;
+            shown = true;  // always start on
             needsLayout = true;
         }
 
@@ -414,7 +518,16 @@ namespace Homesteader.UI
                 return;
             }
 
-            // Scrolling down zooms out (more area), up zooms in.
+            // Ctrl + wheel: zoom the minimap in/out (more or less area shown).
+            if (e.ctrlKey)
+            {
+                halfExtent = Mathf.Clamp(halfExtent * (1f + Mathf.Sign(e.delta.y) * 0.15f), MinHalfExtent, MaxHalfExtent);
+                SavePrefs();
+                e.StopPropagation();
+                return;
+            }
+
+            // Plain scroll over the map: zoom the minimap too, and swallow it so the game / toolbar don't also respond.
             halfExtent = Mathf.Clamp(halfExtent * (1f + Mathf.Sign(e.delta.y) * 0.15f), MinHalfExtent, MaxHalfExtent);
             SavePrefs();
             e.StopPropagation();
@@ -426,6 +539,18 @@ namespace Homesteader.UI
             return Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame;
 #else
             return Input.GetKeyDown(KeyCode.M);
+#endif
+        }
+
+        private static bool CtrlMPressed()
+        {
+#if ENABLE_INPUT_SYSTEM
+            var kb = Keyboard.current;
+            return kb != null && kb.mKey.wasPressedThisFrame
+                && (kb.leftCtrlKey.isPressed || kb.rightCtrlKey.isPressed);
+#else
+            return (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                && Input.GetKeyDown(KeyCode.M);
 #endif
         }
 

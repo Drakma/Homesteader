@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "pipe_pvc_half_inch",
+  "name": "1/2\" PVC Pipe",
+  "category": "building",
+  "description": "Half-inch PVC pipe segment for small water lines.",
+  "icon": "pipe_pvc_half_inch.png",
+  "properties": {
+    "weight_kg": 0.3,
+    "max_stack_size": 30,
+    "base_value": 2.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "pipe_pvc_half_inch.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "pipe_pvc_half_inch.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 26.0,
+        "y": 26.0,
+        "z": 120.0
+      },
+      "dimensions_m": {
+        "x": 0.26,
+        "y": 0.26,
+        "z": 1.2
+      },
+      "vertices": 576,
+      "faces": 192,
+      "bounding_box": {
+        "min": [
+          -13.0,
+          -13.0,
+          0.0
+        ],
+        "max": [
+          13.0,
+          13.0,
+          120.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "pipe_pvc_half_inch.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 26.0,
+      "y": 26.0,
+      "z": 120.0
+    },
+    "dimensions_m": {
+      "x": 0.26,
+      "y": 0.26,
+      "z": 1.2
+    },
+    "vertices": 576,
+    "faces": 192,
+    "bounding_box": {
+      "min": [
+        -13.0,
+        -13.0,
+        0.0
+      ],
+      "max": [
+        13.0,
+        13.0,
+        120.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.26,
+      "depth": 0.26,
+      "height": 1.2
+    }
+  }
+}

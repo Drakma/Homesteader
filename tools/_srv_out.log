@@ -1,0 +1,1749 @@
+============================================================
+  Homesteader Asset Kit Server running on port 8088
+  Directory: C:\Users\casey\Desktop\Homesteader\assets
+  URL: http://localhost:8088/index.html
+  API: POST /api/delete-asset (Enabled)
+============================================================
+[SAVE ECONOMY] 1 item(s) updated
+[SAVE ECONOMY] 1 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9208:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9243:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9208:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9243:7)
+Warning: failed to read embedded catalog: substring not found
+Warning: failed to read embedded catalog: substring not found
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9222:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9257:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9208:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9243:7)
+
+[CLIENT JS ERROR] Uncaught SyntaxError: Failed to execute 'appendChild' on 'Node': Identifier 'editCategoryKey' has already been declared (Line 1:1)
+Stack trace:
+SyntaxError: Identifier 'editCategoryKey' has already been declared
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9208:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9243:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+
+[CLIENT JS ERROR] Uncaught SyntaxError: Failed to execute 'appendChild' on 'Node': Identifier 'editCategoryKey' has already been declared (Line 1:1)
+Stack trace:
+SyntaxError: Identifier 'editCategoryKey' has already been declared
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9208:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9243:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9357:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9392:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9401:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9436:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 235 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 15 item(s) updated
+[SAVE ECONOMY] 16 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 7 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 69 item(s) updated
+[SAVE ECONOMY] 17 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 76 item(s) updated
+[SAVE ECONOMY] 19 item(s) updated
+[SAVE ECONOMY] 30 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+[SAVE ECONOMY] 26 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9411:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9446:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9434:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9434:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9434:29)
+    at async refreshStatusBar (http://localhost:8088/:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9434:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9434:29)
+    at async refreshStatusBar (http://localhost:8088/:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9434:29)
+    at async refreshStatusBar (http://localhost:8088/:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9434:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9434:29)
+    at async refreshStatusBar (http://localhost:8088/:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9434:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9469:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9439:29)
+    at async refreshStatusBar (http://localhost:8088/:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+[SAVE ECONOMY] 19 item(s) updated
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9439:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9474:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+[ASSET REQUEST] 1790032429_walking_plow -> Walking Plow (tools)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+[FINALIZE BATCH] batch_1790032436 -> 1 request(s)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+[REQUEST UPDATE] 1790032429_walking_plow -> status=done step='Done - A/B test: Meshy-only (tool_walking_plow_meshy) vs Creative Claw+Meshy (tool_walking_plow_cc)'
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9445:29)
+    at async refreshStatusBar (http://localhost:8088/:9480:7)
+Error building full catalog: [WinError 10053] An established connection was aborted by the software in your host machine
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9445:29)
+    at async refreshStatusBar (http://localhost:8088/:9480:7)
+
+[CLIENT JS ERROR] Uncaught SyntaxError: Failed to execute 'appendChild' on 'Node': Invalid regular expression: missing / (Line 1:199)
+Stack trace:
+SyntaxError: Invalid regular expression: missing /
+    at addScriptContent (eval at evaluate (:337:30), <anonymous>:7:25)
+    at UtilityScript.evaluate (<anonymous>:339:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)Successfully updated C:\Users\casey\Desktop\Homesteader\assets\README.md with 529 items.
+
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+[BATCH DELETE] Moved 2 assets to trash. Errors: 0
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://localhost:8088/:9457:29)
+    at async refreshStatusBar (http://localhost:8088/:9492:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)
+Warning: failed to read embedded catalog: substring not found
+
+[CLIENT JS ERROR] TypeError: Cannot set properties of null (setting 'textContent') (Line None:None)
+Stack trace:
+TypeError: Cannot set properties of null (setting 'textContent')
+    at refreshCreativeClawBalance (http://127.0.0.1:8088/index.html:9445:29)
+    at async refreshStatusBar (http://127.0.0.1:8088/index.html:9480:7)

@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\nusing System.IO;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        if (!EditorApplication.isPlaying) { result.Log(\"not in play\"); return; }\n        // Trigger a deferred capture. CaptureScreenshot writes a PNG to disk.\n        EditorApplication.delayCall += () => {\n            ScreenCapture.CaptureScreenshot(\"C:/Users/casey/Desktop/Homesteader/tools/.scratch/game_view.png\");\n            result.Log(\"CaptureScreenshot queued\");\n        };\n    }\n}",
+  "Title": "Game view capture (play)"
+}

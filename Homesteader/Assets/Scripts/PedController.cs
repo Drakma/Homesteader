@@ -25,6 +25,13 @@ public class PedController : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        // Allow the player to step over small banks at water edges and terrace steps.
+        controller.stepOffset = 0.5f;
+        controller.slopeLimit = 60f;
+
+        // Initialize land ownership so the movement check works even before
+        // the welcome menu runs (e.g. Continue/Load).
+        Homesteader.Land.LandOwnershipSystem.Initialize();
         animator = GetComponentInChildren<Animator>();
         glbPlayer = GetComponentInChildren<Homesteader.Animation.GlbClipPlayer>();
         ResolveCamera();
@@ -38,6 +45,21 @@ public class PedController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, modelRotationOffset, 0f);
         }
         ResolveCamera();
+
+        // Snap the player to the terrain surface so we don't start
+        // floating 3m above the ground. CharacterController ignores
+        // direct transform changes while enabled, so disable it
+        // briefly, move, then re-enable.
+        var cc = GetComponent<CharacterController>();
+        if (cc != null)
+        {
+            cc.enabled = false;
+            Vector3 pos = transform.position;
+            pos.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(pos);
+            transform.position = pos;
+            cc.enabled = true;
+            Debug.Log($"[PedController] Snapped to ground surface at Y={pos.y:F2}");
+        }
     }
 
     void ResolveCamera()
@@ -124,6 +146,23 @@ public class PedController : MonoBehaviour
 
         Vector3 velocity = worldMove;
         velocity.y = verticalVelocity;
+
+        // Land ownership check: prevent moving into unowned tiles.
+        // The invisible walls handle this physically, but this is a software
+        // safety net that also prevents the player from being pushed into
+        // an unowned tile by physics glitches.
+        Vector3 targetPos = transform.position + velocity * Time.deltaTime;
+        if (!Homesteader.Land.LandOwnershipSystem.IsOwned(targetPos.x, targetPos.z))
+        {
+            // Check if the current position is still owned — if so, zero out
+            // the horizontal movement so the player stays in place.
+            if (Homesteader.Land.LandOwnershipSystem.IsOwned(transform.position.x, transform.position.z))
+            {
+                velocity.x = 0f;
+                velocity.z = 0f;
+            }
+        }
+
         controller.Move(velocity * Time.deltaTime);
 
         // Turn character smoothly towards the direction of movement, offset by modelRotationOffset

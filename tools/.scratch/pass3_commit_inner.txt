@@ -1,0 +1,73 @@
+feat(Assets): wire HUDScene into SampleScene + complete glyph coverage
+
+Three deliverables in this commit:
+
+1. SampleScene (Unity-scene wiring)
+   - HudRoot now exists in the scene with all 5 expected
+     components: Transform, HudSceneBootstrap, UIDocument,
+     HudUIBuilder, HudBindings.
+   - UIDocument points at Resources/HUDTree/HudUI.uxml as the
+     source VisualTreeAsset and Assets/UI/PanelSettings.asset.
+   - HudUIBuilder._hudAsset is wired to HudUI.uxml so the
+     runtime loader's Resources fallback is unnecessary.
+   - HudSceneBootstrap._enableKitOverlay = true; the kit overlay
+     siblings render alongside the status bar / toolbar / held-
+     asset panel.
+   - All edits saved in-place.
+
+2. HudWiringMenu editor wiring (Assets/Editor/HudWiringMenu.cs)
+   - Install() now tops up missing components on existing
+     HudRoot instances instead of bailing out, which makes the
+     editor tool idempotent across script-update cycles.
+   - Install() wires PanelSettings + VisualTreeAsset onto
+     UIDocument directly, ensuring the asset references are
+     saved with the scene (not just runtime).
+   - WireUI extracted into a helper so the same logic runs in
+     the new-instance and existing-instance branches.
+
+3. Glyph coverage completion (assets/hud_kit/font/glyph_specs.py)
+   - 14 new punctuation glyphs added: ASCII soft (", #, $, @, `,
+     |, {, }) and Latin-1 supplement (degree, plus-minus,
+     superscript-2, superscript-3, multiply, divide).
+   - Hyphen outline recompiled from a 1-px line to a small
+     filled rectangle so fontTools 4.65 stops stripping its
+     codepoint from cmap at save-time. Hyphen-minus is now
+     reliably emitted.
+   - Lowercase rows (n..z) kclass tagged (was missed in the
+     first batch).
+   - Re-baked 5 TTFs mirror to Unity via tools/bake_kit_fonts.py.
+
+HUD layout intent (HUDTree/HudUI.uxml + HudUI.uss)
+   - ScreenRoot is a column flex container so three siblings
+     stack top-to-bottom.
+   - StatusBar at the top (height 64px via .status-bar) with
+     three flex columns: vitals well, time+speeds, resources
+     well.
+   - ToolbarContainer at the bottom with 10 toolbar slots
+     (ToolbarSlot0..9), each carrying the tool-icon and a
+     tool-count label. The selected slot is toggled by
+     HudBindings via the .tool-slot--selected class.
+   - HeldAssetPanel in the middle with Holding/HeldName/HeldCount
+     labels bound to HudState.
+
+USS misc
+   - Speeds chip class widened from a VisualElement to also
+     cover Button selectors (hover / active states).
+   - Held-asset-bar shortcut class adds flex alignment for
+     the holding label row.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+
+  - SampleScene now contains a fully-wired HudRoot.
+  - In play mode the UIDocument root contains:
+      unity-ui-document__root (1)
+        -> ScreenRoot (3)
+             -> StatusBar (1, status-strip chunks per section)
+             -> ToolbarContainer (10, one per slot)
+             -> HeldAssetPanel (3 labels)
+  - Top status bar present, lower toolbar present, all labels
+    reachable by name. Live HUD is a top-row chrome + bottom
+    toolbar with the holding panel between them.
+  - All 5 HomesteaderHUD TTFs (each 100 codepoints; space-fallback
+    not present by design) are reachable via Resources.Load.
+  - Live editor console: 0 errors, 0 warnings.

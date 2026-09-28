@@ -8,8 +8,8 @@ Central repository for all modular ground tiles, scatter clutter props, seamless
 
 | Property                | Value                                     | Source of Truth                           |
 | :---------------------- | :---------------------------------------- | :---------------------------------------- |
-| **Grid Cell Footprint** | `100 cm × 100 cm` (`1m × 1m`)             | `UGridSystemSubsystem::TileSize = 100.0f` |
-| **Engine Units**        | `1 UU = 1 cm`                             | Unreal Engine default                     |
+| **Grid Cell Footprint** | `1m × 1m`                                | `GameRules.Planting.GridSizeM = 1f`        |
+| **Engine Units**        | `1 unit = 1 meter`                        | Unity 6 default                            |
 | **Tile Slab Height**    | `20 cm` with `2 cm` underside inset bevel | `SM_Tile_*` geometry                      |
 | **Texel Density**       | `512 px / meter`                          | 1 texture repeat = 1 grid cell            |
 
@@ -58,7 +58,7 @@ assets/ground/
 Each of the 20 ground types provides 3 seamless 512×512 PNG maps:
 
 1. **`T_Ground_<type>_BaseColor.png`**: sRGB diffuse albedo color with organic multi-octave tactile noise.
-2. **`T_Ground_<type>_Normal.png`**: Tangent-space Direct-X normal map (**+Y inverted** for Unreal Engine).
+2. **`T_Ground_<type>_Normal.png`**: Tangent-space normal map.
 3. **`T_Ground_<type>_ORM.png`**: Linear packed utility map:
    - **Red Channel**: Ambient Occlusion (AO)
    - **Green Channel**: Roughness

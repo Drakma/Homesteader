@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);\n        AssetDatabase.SaveAssets();\n        result.Log(\"refresh complete.\");\n    }\n}",
+  "Title": "Refresh"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "dog_companion",
+  "applies_to": [
+    "species:dog"
+  ],
+  "extends": [
+    "pet"
+  ],
+  "note": "Species-wide dog. An individual dog can carry its own definition in its manifest. Gait: the Labrador clips have short strides (feet cover ~0.4 m/s walking, ~1.45 m/s running), so speeds are kept modest; a longer-stride re-author would let it move faster without a scurrying look.",
+  "animations": {
+    "sit": "Sit",
+    "lay": "Lay",
+    "sleep": "Sleep",
+    "bark": "Bark",
+    "idle": "Idle",
+    "idle_tail": "IdleTail"
+  },
+  "behaviors": [
+    {
+      "id": "idle",
+      "action": {
+        "type": "idle",
+        "anim": "idle_tail",
+        "duration": [
+          3,
+          8
+        ]
+      },
+      "score": [
+        {
+          "random": 0.15
+        }
+      ],
+      "base": 0.22
+    }
+  ],
+  "movement": {
+    "walk_speed": 1.2,
+    "run_speed": 3.6,
+    "walk_native_mps": 0.41,
+    "run_native_mps": 1.45
+  }
+}

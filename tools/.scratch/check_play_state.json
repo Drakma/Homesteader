@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        result.Log(\"isPlaying: \" + EditorApplication.isPlaying);\n    }\n}\n",
+  "Title": "Probe play state"
+}

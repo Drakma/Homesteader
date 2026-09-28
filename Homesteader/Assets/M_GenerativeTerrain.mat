@@ -30,9 +30,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _GridLineWidth: 0.031
-    - _GridOpacity: 1
+    - _GridOpacity: 0
+    - _HasBranch: 0
+    - _HasIsland: 0
     - _NormalStrength: 0.25
     - _NutrientDarkening: 0.35
+    - _WaterLevelY: 13.75
     m_Colors:
     - _GridColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
     - _TerrainBounds: {r: 500, g: 500, b: 50, a: 0}

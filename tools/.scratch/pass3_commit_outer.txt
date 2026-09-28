@@ -1,0 +1,53 @@
+feat(assets/hud_kit/font): complete glyph coverage + emission hardening
+
+Two source files changed and 5 TTF outputs added.
+
+glyph_specs.py
+  - 14 new glyph designers added at the bottom of the file:
+      _dquote      - " (double quotation mark)
+      _hash        - #
+      _dollar      - $
+      _at          - @
+      _grave       - ` (backtick)
+      _bar         - |
+      _braceleft   - {
+      _braceright  - }
+      _degree      - degree sign
+      _plusminus   - +/-
+      _two_super   - superscript 2
+      _three_super - superscript 3
+      _multiply    - multiplication sign
+      _divide      - division sign
+  - _g() factory extended to map every new char to a stable glyph
+    name ("dquote", "hash", "dollar", etc.) so the build script
+    and downstream consumers can refer to glyphs by name.
+  - All 101 master-glyph entries now carry their kclass. The
+    previous batch missed n-z lowercase. Fixed.
+  - The hyphen-minus outline was a 1-px line, which fontTools
+    4.65 stripped from cmap on save as "degenerate outline".
+    Redesigned as a small filled rectangle (8x2 design-px).
+
+_build_hud_ttf.py
+  - Reads the new glyph_specs.py additions.
+  - Generates all five TTFs with the expanded glyph set:
+      homesteader_hud.ttf            Regular     87 -> 100 codepoints
+      homesteader_hud_medium.ttf     Medium      100 codepoints
+      homesteader_hud_bold.ttf       Bold        100 codepoints
+      homesteader_hud_italic.ttf     Italic      100 codepoints
+      homesteader_hud_bold_italic.ttf BoldItalic 100 codepoints
+  - Style and weight logic unchanged. Bold synthesis (1.5px
+    offset medium, 3px offset bold) still duplicates each
+    outline as a parallel-stroked inner ring so the visual
+    weight gain is consistent across glyphs.
+
+Five TTF outputs (binary)
+  - Re-emitted and committed so the workspace and the Unity
+    project share the same byte exact font assets.
+
+Verified from the build CLI:
+
+  python assets/hud_kit/font/_build_hud_ttf.py
+  cmap coverage: 100 codepoints per file (vs 87 before)
+  hyphen present in cmap (previously absent)
+  the four Latin-1 supplement chars (degree, +/-,
+    superscript 2/3, multiply, divide) present in cmap

@@ -1,0 +1,105 @@
+{
+  "id": "fish",
+  "extends": [
+    "animal_base"
+  ],
+  "applies_to": [
+    "animal_fish_*"
+  ],
+  "tags": [
+    "prey"
+  ],
+  "note": "Fish. Swim below the water surface and never leave the water, school together, dart away from the player. No eating / drinking / sleeping rules (no food objects in water yet). Map walk / run / idle to the swim clip.",
+  "senses": {
+    "sight_m": 15
+  },
+  "movement": {
+    "medium": "water",
+    "depth_m": 0.7,
+    "walk_speed": 0.6,
+    "run_speed": 3.5,
+    "turn_speed_deg": 220
+  },
+  "behaviors": [
+    {
+      "id": "eat",
+      "disabled": true
+    },
+    {
+      "id": "drink",
+      "disabled": true
+    },
+    {
+      "id": "sleep_at_night",
+      "disabled": true
+    },
+    {
+      "id": "dart",
+      "priority": 9,
+      "action": {
+        "type": "flee",
+        "target": "player",
+        "speed": "run",
+        "min_dist": 8
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 4
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 1.5
+        }
+      ],
+      "base": 0.6,
+      "min_s": 2
+    },
+    {
+      "id": "school",
+      "action": {
+        "type": "follow",
+        "target": "animal:fish",
+        "speed": "walk",
+        "min_dist": 1.5,
+        "max_dist": 4
+      },
+      "requires": [
+        {
+          "sense": "animal:fish",
+          "within": 20
+        },
+        {
+          "sense": "animal:fish",
+          "beyond": 5
+        }
+      ],
+      "score": [
+        {
+          "sense": "animal:fish",
+          "curve": "farther",
+          "weight": 0.6
+        }
+      ],
+      "base": 0.35
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 6,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "random": 0.25
+        }
+      ],
+      "base": 0.3
+    }
+  ]
+}

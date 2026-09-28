@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\nusing System.IO;\nusing System.Collections;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        if (!EditorApplication.isPlaying)\n        {\n            result.Log(\"not in play mode\");\n            return;\n        }\n        EditorApplication.delayCall += () => {\n            var img = ScreenCapture.CaptureScreenshotAsTexture();\n            if (img == null) { result.Log(\"null texture\"); return; }\n            var bytes = img.EncodeToPNG();\n            var dir = \"C:/Users/casey/Desktop/Homesteader/tools/.scratch\";\n            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);\n            File.WriteAllBytes(dir + \"/hud_gameview.png\", bytes);\n            result.Log(\"wrote bytes=\" + bytes.Length);\n            Object.DestroyImmediate(img);\n        };\n    }\n}",
+  "Title": "Capture game view after end-of-frame"
+}

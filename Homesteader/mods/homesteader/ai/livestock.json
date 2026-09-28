@@ -1,0 +1,149 @@
+{
+  "id": "livestock",
+  "abstract": true,
+  "extends": [
+    "animal_base"
+  ],
+  "note": "Template. Farm animals: graze (eat where they stand, no food object needed), stay near the herd, drink at troughs, lie down at night. Species files below only change speeds, sight and a few rules. Tagged 'prey' and flees anything tagged 'predator'.",
+  "senses": {
+    "sight_m": 25
+  },
+  "movement": {
+    "walk_speed": 1.1,
+    "run_speed": 4.0
+  },
+  "behaviors": [
+    {
+      "id": "flee_predator",
+      "priority": 10,
+      "action": {
+        "type": "flee",
+        "target": "predator",
+        "speed": "run",
+        "min_dist": 25
+      },
+      "requires": [
+        {
+          "sense": "predator",
+          "within": 30
+        }
+      ],
+      "score": [
+        {
+          "sense": "predator",
+          "curve": "closer",
+          "weight": 2
+        }
+      ],
+      "base": 1.0
+    },
+    {
+      "id": "graze",
+      "action": {
+        "type": "rest",
+        "anim": "eat",
+        "need": "hunger",
+        "restore_per_second": -0.02,
+        "until": {
+          "need": "hunger",
+          "below": 0.15
+        }
+      },
+      "requires": [
+        {
+          "need": "hunger",
+          "above": 0.5
+        },
+        {
+          "time": "day"
+        }
+      ],
+      "score": [
+        {
+          "need": "hunger",
+          "curve": "squared",
+          "weight": 1.6
+        }
+      ],
+      "base": 0.1,
+      "min_s": 12,
+      "cooldown_s": 20
+    },
+    {
+      "id": "herd",
+      "action": {
+        "type": "follow",
+        "target": "animal",
+        "speed": "walk",
+        "min_dist": 3,
+        "max_dist": 7
+      },
+      "requires": [
+        {
+          "sense": "animal",
+          "within": 40
+        },
+        {
+          "sense": "animal",
+          "beyond": 10
+        }
+      ],
+      "score": [
+        {
+          "sense": "animal",
+          "curve": "farther",
+          "weight": 0.5
+        }
+      ],
+      "base": 0.3
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 8,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "random": 0.25
+        }
+      ],
+      "base": 0.25
+    },
+    {
+      "id": "sleep_at_night",
+      "action": {
+        "type": "rest",
+        "anim": "lay",
+        "need": "energy",
+        "restore_per_second": 0.02,
+        "until": {
+          "time": "day"
+        }
+      },
+      "requires": [
+        {
+          "time": "night"
+        },
+        {
+          "need": "energy",
+          "below": 0.75
+        }
+      ],
+      "score": [
+        {
+          "need": "energy",
+          "curve": "inverse",
+          "weight": 1.4
+        }
+      ],
+      "base": 0.3,
+      "min_s": 30
+    }
+  ],
+  "tags": [
+    "prey"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "example_lavender_homestead",
+  "name": "Lavender Homestead (Example)",
+  "version": "1.0.0",
+  "author": "Homesteader Team",
+  "date": "2026-09-15",
+  "description": "Reference mod demonstrating the Homesteader mod format: one biome, one structure asset, and one food item.",
+  "icon": "preview.png",
+
+  "compatibility": {
+    "min": "0.1.0"
+  },
+
+  "contents": [
+    { "type": "biome", "path": "biomes/*.json", "group": "terrain" },
+    { "type": "structure", "path": "assets/structures/*.json", "group": "shed" },
+    { "type": "food", "path": "assets/food/*.json", "group": "drink" }
+  ]
+}

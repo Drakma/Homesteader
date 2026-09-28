@@ -1,0 +1,5 @@
+[sweep-source] loading HunyuanDiT-Distilled (fp16)...
+[sweep-source] pipe loaded in 21.0s; max mem: 7.74 GB
+[sweep-source] 01/30 structures/barn <- 190.6s (batch wall)
+[sweep-source] 02/30 structures/chicken_coop <- 240.5s (batch wall)
+[sweep-source] 03/30 structures/small_cabin <- 243.0s (batch wall)

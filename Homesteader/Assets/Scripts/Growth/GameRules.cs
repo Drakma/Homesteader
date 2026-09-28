@@ -118,8 +118,8 @@ namespace Homesteader.Growth
             if (zoneObjects.TryGetValue(id, out GameObject old) && old != null)
                 UnityEngine.Object.Destroy(old);
 
-            // Sit on whatever ground is at the centre (flat plane or terrain); y = 0 if there is none.
-            float groundY = Physics.Raycast(new Vector3(cx, 1000f, cz), Vector3.down, out RaycastHit hit, 2000f) ? hit.point.y : 0f;
+            // Sit on whatever ground is at the centre (terrain or flat plane); y = 0 if there is none.
+            float groundY = Homesteader.Generation.TerrainHeightDetector.GetGroundY(cx, cz);
 
             var go = GameObject.CreatePrimitive(PrimitiveType.Plane);   // 10 x 10 m at scale 1
             go.name = $"Zone_{id}";

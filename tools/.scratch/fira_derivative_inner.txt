@@ -1,0 +1,29 @@
+feat(Assets): mirror Fira Sans-derived HUD font family
+
+Mirror of source-tree build into the Unity project's HUD font
+directory. The TTFs ship under SIL Open Font License (per their
+embedded licensing and the HOMESTEADER_HUD_LICENSE.txt at the
+asset root).
+
+This commit updates 5 entries under
+Assets/Resources/HUDTree/Fonts/ to the new shape:
+
+  - HomesteaderHUD.ttf            440 KB
+  - HomesteaderHUD_Medium.ttf     440 KB
+  - HomesteaderHUD_Bold.ttf       442 KB
+  - HomesteaderHUD_Italic.ttf     442 KB
+  - HomesteaderHUD_BoldItalic.ttf 444 KB
+
+Each TTF carries 1686 codepoints (full Fira Sans coverage). The
+HUD's UXML references only ~100 codepoints; the rest round-trips
+through Unity's dynamic-font importer so anywhere a new char is
+needed, no Unity-side rebuild is required.
+
+Family + subfamily in each TTF's name table has been rewritten
+(Family: Homesteader HUD, Subfamily: <Regular|Medium|Bold|
+Italic|Bold Italic>, PostScript: HomesteaderHUD-<style>). This
+verifies via fontTools and via Unity's Resources.Load<Font>.
+
+Resolved via tools/bake_kit_fonts.py + AssetDatabase.Refresh.
+Live editor console 0 errors / 0 warnings. HUD strings under
+Resources/HUDTree/HudUI.uxml render with normal line-height.

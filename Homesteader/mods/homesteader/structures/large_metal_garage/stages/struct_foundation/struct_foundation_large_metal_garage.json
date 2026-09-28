@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_foundation_large_metal_garage",
+  "name": "Large Metal Garage - Foundation",
+  "category": "structures",
+  "description": "Reinforced concrete foundation slab with 6-inch perimeter stem walls and embedded anchor bolts for a large metal garage workshop.",
+  "icon": "struct_foundation_large_metal_garage.png",
+  "properties": {
+    "weight_kg": 3800.0,
+    "max_stack_size": 1,
+    "base_value": 3500.0,
+    "is_consumable": false,
+    "footprint": {
+      "width_m": 9.0,
+      "depth_m": 12.0
+    },
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (unpowered)",
+      "details": "Passive structure"
+    },
+    "sewage": {
+      "metric": "None (no discharge)",
+      "details": "None (no discharge)"
+    },
+    "battery": {
+      "metric": "None",
+      "details": "None"
+    },
+    "internet": {
+      "metric": "None",
+      "details": "None"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 108.0,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 9.0,
+      "depth": 12.0,
+      "height": 0.35
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [],
+    "required_tools": []
+  }
+}

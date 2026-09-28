@@ -1,0 +1,68 @@
+{
+  "id": "sheep",
+  "extends": [
+    "livestock"
+  ],
+  "applies_to": [
+    "*_sheep"
+  ],
+  "note": "Sheep. Flock tightly and bolt from the player.",
+  "senses": {
+    "sight_m": 28
+  },
+  "behaviors": [
+    {
+      "id": "herd",
+      "action": {
+        "type": "follow",
+        "target": "animal",
+        "speed": "walk",
+        "min_dist": 2,
+        "max_dist": 5
+      },
+      "requires": [
+        {
+          "sense": "animal",
+          "within": 40
+        },
+        {
+          "sense": "animal",
+          "beyond": 6
+        }
+      ],
+      "score": [
+        {
+          "sense": "animal",
+          "curve": "farther",
+          "weight": 0.7
+        }
+      ],
+      "base": 0.35
+    },
+    {
+      "id": "startled",
+      "priority": 8,
+      "action": {
+        "type": "flee",
+        "target": "player",
+        "speed": "run",
+        "min_dist": 10
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 3.5
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 1.5
+        }
+      ],
+      "base": 0.5,
+      "min_s": 2
+    }
+  ]
+}

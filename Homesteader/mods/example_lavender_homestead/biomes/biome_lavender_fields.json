@@ -1,0 +1,31 @@
+{
+  "id": "biome_lavender_fields",
+  "name": "Lavender Fields",
+  "priority": 7,
+  "description": "Purple flowering meadows on gentle, well-drained slopes.",
+  "color_hex": "#8b5cf6",
+  "moisture": 0.45,
+  "nutrients": 0.7,
+  "noise": {
+    "frequency": 0.012,
+    "octaves": 3,
+    "persistence": 0.5,
+    "threshold": 0.55,
+    "dither_bandwidth": 0.04
+  },
+  "elevation": {
+    "base_offset_m": 1.0,
+    "noise_amplitude_m": 2.0,
+    "noise_frequency": 0.011,
+    "max_slope_deg": 18.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#7e22ce",
+    "secondary_color_hex": "#c084fc",
+    "slope_color_hex": "#a8a29e",
+    "pattern_scale": 1.0,
+    "pattern_intensity": 0.5,
+    "normal_micro_roughness": 0.2
+  }
+}

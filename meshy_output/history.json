@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20260921_233820_a-small-orange-tree-sapling-wr_01a0c768",
+      "prompt": "a small orange tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0c768-5b7d-77d2-bbb2-513f70308075",
+      "created_at": "2026-09-22T04:38:20.297Z",
+      "updated_at": "2026-09-22T04:48:24.252Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260921_233821_a-single-fresh-navel-orange-fr_01a0c768",
+      "prompt": "a single fresh navel orange fruit, round, bright orange textured peel, modern stylized game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0c768-612f-7347-b5c5-d237919c66a7",
+      "created_at": "2026-09-22T04:38:21.766Z",
+      "updated_at": "2026-09-22T04:48:28.143Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260921_233818_a-small-lemon-tree-sapling-wra_01a0c768",
+      "prompt": "a small lemon tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0c768-560c-751f-8d46-65d604021fa6",
+      "created_at": "2026-09-22T04:38:18.905Z",
+      "updated_at": "2026-09-22T04:48:30.343Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260921_233823_a-single-large-fresh-lemon-fru_01a0c768",
+      "prompt": "a single large fresh lemon fruit, oval oblong shape, bright yellow textured peel, modern stylized game asset",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0c768-66e5-734a-a535-bb9cb29feaff",
+      "created_at": "2026-09-22T04:38:23.233Z",
+      "updated_at": "2026-09-22T04:48:32.720Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260922_101658_a-mature-lemon-tree-with-lemon_01a0c9b1",
+      "prompt": "a mature lemon tree with lemons on it, low-poly game asset, modern, faceted low-poly styling",
+      "task_type": "text-to-3d",
+      "root_task_id": "01a0c9b1-0bfc-7598-8669-be8721b099bc",
+      "created_at": "2026-09-22T15:16:58.515Z",
+      "updated_at": "2026-09-22T15:18:02.077Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260922_102344_image-to-3d_01a0c9b7",
+      "prompt": "",
+      "task_type": "image-to-3d",
+      "root_task_id": "01a0c9b7-3c65-74d2-81ce-631ba032851a",
+      "created_at": "2026-09-22T15:23:44.555Z",
+      "updated_at": "2026-09-22T15:24:15.641Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260922_102742_image-to-3d_01a0c9ba",
+      "prompt": "",
+      "task_type": "image-to-3d",
+      "root_task_id": "01a0c9ba-dc5a-74ba-82b2-7483481ce870",
+      "created_at": "2026-09-22T15:27:42.413Z",
+      "updated_at": "2026-09-22T15:28:29.163Z",
+      "task_count": 1
+    },
+    {
+      "folder": "20260922_111935_image-to-3d_01a0c9ea",
+      "prompt": "",
+      "task_type": "image-to-3d",
+      "root_task_id": "01a0c9ea-5db7-7475-892c-55813a8ec29d",
+      "created_at": "2026-09-22T16:19:35.639Z",
+      "updated_at": "2026-09-22T16:20:49.567Z",
+      "task_count": 1
+    }
+  ]
+}

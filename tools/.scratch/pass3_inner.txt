@@ -1,0 +1,51 @@
+feat(Assets): split HUD into toolbox parts - vitals, time-and-date, resources, speed, slots
+
+The HUD is now a *toolbox* of standalone components rather
+than a single assembled HUD. Each piece is its own UXML file
+so it can be loaded independently in any scene context:
+
+  Resources/HUDTree/Vitals.uxml       - 4 vital rows (W/S/T/H)
+                                       with horizontal bar fills.
+                                       Bound names: VitalWellnessFill,
+                                       VitalWellnessPct, etc.
+  Resources/HUDTree/TimeAndDate.uxml  - Season + Day + Clock,
+                                       centered. Bound names:
+                                       SeasonLabel, DayLabel, ClockLabel.
+  Resources/HUDTree/ResourcesBar.uxml - 4 resource rows
+                                       (water/electricity/bandwidth/fuel).
+                                       Bound names: ResourceWaterLabel, etc.
+  Resources/HUDTree/SpeedControls.uxml - 5 chip buttons (II, 1X,
+                                       3X, 5X, 9X) under the time row.
+  Resources/HUDTree/ToolbarSlots.uxml  - 10 free-floating bordered
+                                       slots. NO container background.
+                                       Bound names: ToolbarSlot0..9,
+                                       ToolSlotLabel0..9.
+
+Matching paired USS files give each piece its own styling.
+
+In Resources/HUDTree/HudUI.uxml the combined SampleScene HUD
+keeps the live layout: vitals on left, time+date+speeds centered,
+resources on right, toolbar slots free-floating at the bottom.
+The held-asset panel is REMOVED.
+
+HudBindings.cs:
+  - Resolves the by-name elements via Q() for each piece.
+  - Vital bar fills have their `style.width` set per frame as
+    a StyleLength(Length(barPercent, LengthUnit.Percent)).
+  - Toolbar selected slot class toggled each frame using
+    HudState.SelectedSlot.
+  - Speed chip clicked events route to TimeSystem.SetSpeed.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+
+  - Tools/unity_mcp running Unity_RunCommand probe compile + execute
+    return isCompilationSuccessful=true, isExecutionSuccessful=true.
+  - Live walk of the HUD tree shows ScreenRoot with 2 children
+    (TopRow, ToolbarSlots); TopRow has 3 cells (VitalsCell,
+    TimeAndDateCell, ResourcesCell); 4 vital rows; 5 speed chips;
+    4 resource rows; ToolbarSlots has 10 slot children with first
+    slot selected.
+  - All 5 fonts (Regular, Medium, Bold, Italic, BoldItalic) load
+    via Resources.Load<Font> with sane metrics (UPEM=1000,
+    ascent=935, sCapHeight=735, sxHeight=535 from Fira Sans).
+  - 0 errors / 0 warnings in console.

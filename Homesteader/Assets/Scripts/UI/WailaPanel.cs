@@ -24,7 +24,7 @@ namespace Homesteader.UI
         private static readonly Color TextColor = new Color32(238, 242, 246, 255);
         private static readonly Color TextDim = new Color32(139, 150, 165, 255);
 
-        private bool _visible;
+        private bool _visible = true;
         private VisualElement _root;
         private VisualElement _toastContainer;
         private VisualElement _panel;
@@ -45,6 +45,9 @@ namespace Homesteader.UI
 
         private void Update()
         {
+            // Block while loading
+            if (WelcomeMenuController.IsLoading) return;
+
             bool pressed = Keyboard.current != null
                 ? Keyboard.current.f3Key.wasPressedThisFrame
                 : Input.GetKeyDown(KeyCode.F3);
@@ -54,7 +57,7 @@ namespace Homesteader.UI
                 _visible = !_visible;
                 if (_visible) EnsureBuilt();
                 if (_panel != null) _panel.style.display = _visible ? DisplayStyle.Flex : DisplayStyle.None;
-                ToastNotificationSystem.ShowInfo("What am I looking at", _visible ? "On" : "Off");
+
             }
 
             if (_visible)
@@ -68,11 +71,22 @@ namespace Homesteader.UI
 
         private void EnsureBuilt()
         {
+            // If we have a panel but it's detached or in a stale root (e.g. after scene reload), rebuild
+            if (_panel != null)
+            {
+                var doc = FindAnyObjectByType<UIDocument>();
+                var currentRoot = doc != null ? doc.rootVisualElement : null;
+                if (_panel.parent == null || (currentRoot != null && _panel.parent != currentRoot))
+                {
+                    _panel = null;
+                }
+            }
+
             if (_panel != null) return;
 
-            var doc = FindAnyObjectByType<UIDocument>();
-            if (doc == null) return;
-            _root = doc.rootVisualElement;
+            var d = FindAnyObjectByType<UIDocument>();
+            if (d == null) return;
+            _root = d.rootVisualElement;
             if (_root == null) return;
 
             _toastContainer = _root.Q<VisualElement>("ToastContainer");
@@ -116,7 +130,9 @@ namespace Homesteader.UI
             _rows = new VisualElement { name = "WailaRows" };
             _panel.Add(_rows);
 
-            _root.Add(_panel);
+            // Insert at index 0 so the welcome menu (added later by WelcomeMenuController)
+            // and its wallpaper sit on top of the WAILA panel, hiding it while the menu is open.
+            _root.Insert(0, _panel);
         }
 
         private void RefreshContent()
@@ -316,8 +332,16 @@ namespace Homesteader.UI
                 if (generator != null && generator.GetComponent<Terrain>() != null)
                 {
                     Vector3 origin = generator.transform.position;
-                    BiomeData data = generator.EvaluateBiomeAt(hit.x - origin.x, hit.z - origin.z);
-                    if (data != null) biomeLabel = data.name;
+                    float localX = hit.x - origin.x;
+                    float localZ = hit.z - origin.z;
+
+                    // Only evaluate biome if the hit point is within the terrain bounds
+                    if (localX >= 0f && localX <= generator.terrainSizeX &&
+                        localZ >= 0f && localZ <= generator.terrainSizeZ)
+                    {
+                        BiomeData data = generator.EvaluateBiomeAt(localX, localZ);
+                        if (data != null) biomeLabel = data.name;
+                    }
                 }
             }
             details.Add(("Biome", biomeLabel ?? "none"));

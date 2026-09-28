@@ -196,7 +196,9 @@ namespace Homesteader.Save
             {
                 var cc = ped.GetComponent<CharacterController>();
                 if (cc != null) cc.enabled = false;             // a CharacterController ignores direct position changes
-                ped.transform.SetPositionAndRotation(s.playerPosition, Quaternion.Euler(0f, s.playerYaw, 0f));
+                Vector3 ppos = s.playerPosition;
+                ppos.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(ppos);
+                ped.transform.SetPositionAndRotation(ppos, Quaternion.Euler(0f, s.playerYaw, 0f));
                 if (cc != null) cc.enabled = true;
             }
             var cam = FindAnyObjectByType<IsometricLockedCamera>();

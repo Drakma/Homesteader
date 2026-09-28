@@ -55,7 +55,7 @@ namespace Homesteader.Growth
 
             if (!TryCursorPoint(cam, pointer, out Vector3 hitPoint)) { HideGhost(); return; }
             Vector3 cell = PlantingValidator.SnapToGrid(hitPoint);
-            cell.y = GroundY(cell);
+            cell.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(cell);
 
             if (!EnsureGhost(heldId, info)) return;   // model still loading
 
@@ -95,6 +95,8 @@ namespace Homesteader.Growth
         public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade)
         {
             if (s_placedRoot == null) s_placedRoot = new GameObject("PlacedObjects").transform;
+            // Snap to the terrain surface (just above, not 3 m above).
+            cell = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(cell);
             GameObject obj = Instantiate(info.Prefab, s_placedRoot);
             obj.SetActive(true);                       // templates live inactive
             obj.transform.SetPositionAndRotation(cell, Quaternion.Euler(0f, yawDeg, 0f));
@@ -229,9 +231,7 @@ namespace Homesteader.Growth
 
         private static float GroundY(Vector3 p)
         {
-            Terrain t = Terrain.activeTerrain;
-            if (t != null) return t.SampleHeight(p) + t.transform.position.y;
-            return Physics.Raycast(p + Vector3.up * 50f, Vector3.down, out RaycastHit hit, 200f) ? hit.point.y : p.y;
+            return Homesteader.Generation.TerrainHeightDetector.GetGroundY(p);
         }
 
         private static float SlopeAt(Vector3 p)
@@ -244,8 +244,7 @@ namespace Homesteader.Growth
 
         private static float WaterY()
         {
-            Terrain t = Terrain.activeTerrain;
-            return HomesteaderTerrainGenerator.WaterLevel + (t != null ? t.transform.position.y : 0f);
+            return Homesteader.Generation.TerrainHeightDetector.GetWaterY();
         }
 
         private static Camera GameCamera()

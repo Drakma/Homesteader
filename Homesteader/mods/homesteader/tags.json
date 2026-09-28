@@ -1,0 +1,44 @@
+{
+	"_readme": "A tag is a virtual/fake asset - not a real catalog item - that stands in for a list of interchangeable real items in a recipe (construction_recipe, and any future crafting recipe). Reference a tag in a recipe's item_id as '#tag_name' instead of a real item id; at build/craft time, any ONE of the tag's member items can be consumed to satisfy that recipe line, player's choice. Tags live here, not in any one category's schema, since they can span categories (e.g. #flooring pulls from the building category regardless of which category the recipe itself belongs to). Every member item_id listed below must be a real, existing catalog item - this file doesn't create new items, it just groups existing ones.",
+	"tags": {
+		"flooring": [
+			"part_floor_wood_1m",
+			"part_floor_stone_1m",
+			"sheet_plywood_cdx"
+		],
+		"sheathing": [
+			"sheet_osb_stack_small",
+			"sheet_osb_stack_large",
+			"sheet_plywood_cdx"
+		],
+		"framing_lumber": [
+			"lumber_stud_2x4",
+			"lumber_bundle_2x4_small",
+			"lumber_bundle_2x4_large"
+		],
+		"roofing": [
+			"roofing_shingles_bundle",
+			"roofing_steel_corrugated"
+		],
+		"romex_wire": [
+			"item_spool_romex_12_2",
+			"spool_wire_romex_12_2"
+		],
+		"plumbing_pipe": [
+			"pipe_pvc_half_inch",
+			"pipe_pvc_one_inch",
+			"pipe_pvc_two_inch"
+		],
+		"steel_framing": [
+			"building_steel_stud_framing",
+			"building_steel_frame_beam"
+		],
+		"metal_siding": [
+			"building_steel_siding_corrugated"
+		],
+		"sickle": [
+			"tool_sickle",
+			"tool_sickle_grass"
+		]
+	}
+}

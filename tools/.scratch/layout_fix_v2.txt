@@ -1,0 +1,50 @@
+fix(Assets): make icon tiles + wells readable - 2px borders, 28px size, fills
+
+Per "all empty single pixel squares" feedback: the previous
+USS had 1-px borders + tiny sizes (18-22px) on icon-tile, well,
+and tool-slot elements, which render as a single device-pixel
+per side at PanelSettings ConstantPixelSize scale (0.62x).
+Bumping everything to 2px borders + 28-40px sizes + slight tint
+fills makes each element visibly distinct from the background.
+
+Changes per element (HudUI.uss):
+
+  .well               border 2px, height 40px, fill rgb(34,43,58)
+  .icon-tile          28x28px, border 2px, fill rgb(34,43,58)
+  .label-tile         font-size 16px, height 24px
+  .speed-chip         44x28px, border 2px, fill rgb(34,43,58)
+  .toolbar            height 120px, border-radius 8px, fill rgb(20,26,32)
+  .tool-slot          80x80px, border 2px, fill rgb(34,43,58)
+  .tool-slot--selected border 3px amber, fill rgb(60,76,92)
+  .tool-icon          64x64px, border 2px, fill rgb(60,76,92)
+  .tool-count         font-size 14px, height 16px
+  .status-bar         height 72px (was 56px)
+  .held-asset-bar     border 2px amber, fill rgb(20,26,32)
+
+  All element-only chrome - status-bar / screen-root have no
+  background-color. Each element renders a bordered shape.
+
+HudState.cs (FormatResourceAmount):
+  - Was producing '120.5 + L' (literal space-plus-space-u-n-i-t
+    semicolon) instead of '120.5 L'. The C# source had a broken
+    string literal concat at the non-k line: 'return amount.ToString("0.##") + " + unit;'
+    with no closing quote in the second literal. The fix rebuilds
+    it to the correct 'return amount.ToString("0.##") + " + unit;'
+    (a single-space literal before unit). Duplicate method bodies
+    introduced by the rolling fix-up were also deduped. Final brace
+    count: 47/47.
+
+HudUIBuilder.cs (Awake):
+  - Added a guarded null check for doc.rootVisualElement. The HUD
+    builder's Awake was throwing NullReferenceException when
+    HudSceneBootstrap.ApplyKitOverlayFlag triggered a SerializedObject
+    build pipeline while Awake was running. The NRE was on line 54
+    (root.Clear()). Defensive null guard returns without disturbing
+    the load order.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+  - Console: 0 errors, 0 warnings.
+  - FormatResourceAmount tick probe verified: live label reads '120.5 L'
+    (was '120.5 + L' broken rendering).
+  - HudBindings tick + 60s @ 9x: Clock='5:00 PM', Day='Day 1',
+    Season='Spring'. Cycle math is consistent across both sources.

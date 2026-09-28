@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Steel_Gray
+Ka 0.2720 0.2800 0.2880
+Kd 0.6800 0.7000 0.7200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Door_Latch
+Ka 0.3400 0.3400 0.3520
+Kd 0.8500 0.8500 0.8800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Breaker_Black
+Ka 0.0800 0.0800 0.0880
+Kd 0.2000 0.2000 0.2200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

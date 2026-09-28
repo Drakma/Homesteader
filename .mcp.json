@@ -1,43 +1,54 @@
 {
-	"mcpServers": {
-		"homesteader-asset-kit": {
-			"command": "C:/Python313/python.exe",
-			"args": [
-				"C:/Users/casey/Desktop/Homesteader/tools/asset_kit_mcp.py"
-			],
-			"env": {
-				"PYTHONPATH": "C:/Users/casey/Desktop/Homesteader/tools"
-			}
-		},
-		"meshy": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"@meshy-ai/meshy-mcp-server"
-			],
-			"env": {
-				"MESHY_API_KEY": "msy_mUvsQRtfvX2levWkmugKy3nFHSp3Yyf0Y4Cx"
-			}
-		},
-		"blender": {
-			"command": "C:/Users/casey/AppData/Roaming/Python/Python313/Scripts/uvx.exe",
-			"args": [
-				"blender-mcp",
-				"--port",
-				"9877"
-			]
-		},
-		"unreal": {
-			"type": "http",
-			"url": "http://localhost:8000/mcp"
-		},
-		"unity-mcp": {
-			"command": "C:/Users/casey/.unity/relay/relay_win.exe",
-			"args": [
-				"--mcp",
-				"--name", "unity-mcp",
-				"--project-path", "C:/Users/casey/Desktop/Homesteader/Homesteader"
-			]
-		}
-	}
+  "mcpServers": {
+    "homesteader-asset-kit": {
+      "command": "C:/Python313/python.exe",
+      "args": [
+        "C:/Users/casey/Desktop/Homesteader/tools/asset_kit_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:/Users/casey/Desktop/Homesteader/tools"
+      }
+    },
+    "meshy": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@meshy-ai/meshy-mcp-server"
+      ],
+      "env": {
+        "MESHY_API_KEY": "msy_mUvsQRtfvX2levWkmugKy3nFHSp3Yyf0Y4Cx"
+      }
+    },
+    "blender": {
+      "command": "C:/Users/casey/AppData/Roaming/Python/Python313/Scripts/uvx.exe",
+      "args": [
+        "blender-mcp",
+        "--port",
+        "9877"
+      ]
+    },
+    "unreal": {
+      "type": "http",
+      "url": "http://localhost:8000/mcp"
+    },
+    "unity-mcp": {
+      "command": "C:/Users/casey/.unity/relay/relay_win.exe",
+      "args": [
+        "--mcp",
+        "--name",
+        "unity-mcp",
+        "--project-path",
+        "C:/Users/casey/Desktop/Homesteader/Homesteader"
+      ]
+    },
+    "mesh2motion": {
+      "command": "C:/Python313/python.exe",
+      "args": [
+        "C:/Users/casey/Desktop/Homesteader/tools/mesh2motion_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:/Users/casey/Desktop/Homesteader/tools"
+      }
+    }
+  }
 }

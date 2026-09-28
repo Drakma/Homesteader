@@ -1,0 +1,21 @@
+{
+  "project_name": "a small orange tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+  "folder": "20260921_233820_a-small-orange-tree-sapling-wr_01a0c768",
+  "root_task_id": "01a0c768-5b7d-77d2-bbb2-513f70308075",
+  "created_at": "2026-09-22T04:38:20.297Z",
+  "updated_at": "2026-09-22T04:48:24.252Z",
+  "tasks": [
+    {
+      "task_id": "01a0c768-5b7d-77d2-bbb2-513f70308075",
+      "task_type": "text-to-3d",
+      "stage": "refined",
+      "prompt": "a small orange tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+      "status": "SUCCEEDED",
+      "files": [
+        "refined.glb",
+        "refined_base_color.png"
+      ],
+      "created_at": "2026-09-22T04:48:24.251Z"
+    }
+  ]
+}

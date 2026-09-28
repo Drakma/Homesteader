@@ -303,7 +303,7 @@ assets/
 
 ## 7. Automated Quality Assurance Linter
 
-Run this check on any newly produced icon before adding it to the repository or importing into Unreal Engine.
+Run this check on any newly produced icon before adding it to the repository or importing into Unity.
 
 ```python
 import sys
@@ -365,16 +365,20 @@ if __name__ == "__main__":
 
 ---
 
-## 8. Unreal Engine 5 Import Presets
+## 8. Unity 6 Import Settings
 
-When importing `.png` files into Unreal Engine 5 (`Content/Homesteader/UI/Icons/`):
+When importing `.png` files into Unity 6 (`Assets/Homesteader/UI/Icons/`):
 
-1. **Texture Group**: `UI`
-2. **Compression Settings**: `UserInterface2D (RGBA)`
-3. **Mip Gen Settings**: `NoMipmaps` (critical to keep icons razor-sharp at all resolutions)
-4. **Filter**: `Default` or `Bilinear`
-5. **sRGB**: `Enabled` (Checked)
-6. **Max Texture Size**: `128` (or `0` for default unconstrained)
+1. Select all icons in the **Project window** and set Inspector properties:
+   - **Texture Type**: `Sprite (2D and UI)`
+   - **Sprite Mode**: `Single`
+   - **Pixels Per Unit**: `128` (or `100`)
+   - **Mesh Type**: `Full Rect` (prevents tight polygon clipping)
+   - **Extrude Edges**: `1`
+   - **Generate Mip Maps**: `False` (Unchecked — ensures pixel-sharp icons at all resolutions)
+   - **Filter Mode**: `Bilinear`
+   - **Format**: `RGBA 32 bit` (or `Automatic` / `Truecolor`)
+2. Click **Apply**.
 
 ---
 
@@ -389,5 +393,5 @@ When creating a new item icon:
 - [ ] Scaled with Lanczos to $\le 104\text{ px}$ and centered on a $128 \times 128\text{ px}$ canvas.
 - [ ] 100% transparent edge boundary (`alpha = 0` on all outer pixels).
 - [ ] Saved as 32-bit RGBA `.png` with correct prefix (`seed_`, `crop_`, `tool_`, etc.).
-- [ ] Placed in `assets/items/`, `assets/<category>/<subcategory>/`, and `Homesteader/Content/Homesteader/UI/Icons/<category>/<subcategory>/`.
+- [ ] Placed in `assets/items/`, `assets/<category>/<subcategory>/`, and `Homesteader/Assets/Homesteader/UI/Icons/<category>/<subcategory>/`.
 - [ ] Added to `DT_Items.csv` and verified in [index.html](file:///c:/Users/casey/Desktop/Homesteader/gallery/index.html).

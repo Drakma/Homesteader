@@ -99,16 +99,7 @@ namespace Homesteader.UI
 
         // Window & Modal Elements
         private VisualElement _windowShade;
-        private VisualElement _settingsWindow;
-        private Button _settingsBtn;
-        private Button _settingsCloseBtn;
-        private Button _settingsApplyBtn;
-        private Button _settingsResetBtn;
         private Button _testModalBtn;
-        private Slider _masterVolumeSlider;
-        private Slider _musicVolumeSlider;
-        private Toggle _fullscreenToggle;
-        private Toggle _vsyncToggle;
 
         private VisualElement _confirmModal;
         private Label _modalTitle;
@@ -146,7 +137,6 @@ namespace Homesteader.UI
         public static HudBindings Instance { get; private set; }
 
         public PhoneController Phone => _phone;
-        public bool IsSettingsOpen => _settingsWindow != null && !_settingsWindow.ClassListContains("window--hidden");
         public bool IsModalOpen => _confirmModal != null && !_confirmModal.ClassListContains("modal--hidden");
         public bool IsAnyShadeOpen => _windowShade != null && !_windowShade.ClassListContains("window-shade--hidden");
 
@@ -226,6 +216,20 @@ namespace Homesteader.UI
             if (_doc == null) { return; }
             _root = _doc.rootVisualElement;
 
+            // The UIDocument's TemplateContainer is a full-screen overlay that sits
+            // on top of the minimap in child order. Its inner ScreenRoot already
+            // has picking-mode="Ignore", but the TemplateContainer wrapper itself
+            // defaults to Position, which swallows pointer/wheel events over the
+            // entire screen. Set it to Ignore so events fall through to the
+            // minimap and other siblings; the actual interactive HUD elements are
+            // children of ScreenRoot and still receive events through their own
+            // pickingMode.
+            for (int i = 0; i < _root.childCount; i++)
+            {
+              if (_root[i] is TemplateContainer tc)
+                  tc.pickingMode = PickingMode.Ignore;
+            }
+
             // WASD / arrows are walking keys, not UI navigation. The default UI input module turns them
             // into NavigationMoveEvents that move keyboard focus, which can land on a TextField (for
             // example inside the phone) and make KeyboardCaptured true - the character then stops until
@@ -295,16 +299,7 @@ namespace Homesteader.UI
             }
 
             _windowShade = windowShadeCheck;
-            _settingsWindow = Q<VisualElement>("SettingsWindow");
-            _settingsBtn = Q<Button>("SettingsBtn");
-            _settingsCloseBtn = Q<Button>("SettingsCloseBtn");
-            _settingsApplyBtn = Q<Button>("SettingsApplyBtn");
-            _settingsResetBtn = Q<Button>("SettingsResetBtn");
             _testModalBtn = Q<Button>("TestModalBtn");
-            _masterVolumeSlider = Q<Slider>("MasterVolumeSlider");
-            _musicVolumeSlider = Q<Slider>("MusicVolumeSlider");
-            _fullscreenToggle = Q<Toggle>("FullscreenToggle");
-            _vsyncToggle = Q<Toggle>("VsyncToggle");
 
             _confirmModal = Q<VisualElement>("ConfirmModal");
             _modalTitle = Q<Label>("ModalTitle");
@@ -386,19 +381,6 @@ namespace Homesteader.UI
 
         private void WireWindowAndModal()
         {
-            if (_settingsBtn != null) _settingsBtn.clicked += ToggleSettings;
-            if (_settingsCloseBtn != null) _settingsCloseBtn.clicked += CloseSettings;
-            if (_settingsApplyBtn != null) _settingsApplyBtn.clicked += CloseSettings;
-            if (_settingsResetBtn != null)
-            {
-                _settingsResetBtn.clicked += () =>
-                {
-                    if (_masterVolumeSlider != null) _masterVolumeSlider.value = 80;
-                    if (_musicVolumeSlider != null) _musicVolumeSlider.value = 65;
-                    if (_fullscreenToggle != null) _fullscreenToggle.value = true;
-                    if (_vsyncToggle != null) _vsyncToggle.value = true;
-                };
-            }
             if (_testModalBtn != null)
             {
                 _testModalBtn.clicked += ShowExampleModal;
@@ -441,18 +423,11 @@ namespace Homesteader.UI
                     if (evt.target == _windowShade)
                     {
                         if (IsModalOpen) CloseModal();
-                        else if (IsSettingsOpen) CloseSettings();
                     }
                 });
             }
 
             // Make windows draggable by their header
-            if (_settingsWindow != null)
-            {
-                var settingsHeader = _settingsWindow.Q<VisualElement>(className: "window-header");
-                MakeDraggable(_settingsWindow, settingsHeader);
-            }
-
             if (_confirmModal != null)
             {
                 var modalHeader = _confirmModal.Q<VisualElement>(className: "window-header");
@@ -604,7 +579,7 @@ namespace Homesteader.UI
         /// (movement, camera, hotkeys) must not read the keyboard while this is true.
         /// </summary>
         public static bool KeyboardCaptured =>
-            Instance != null && (Instance.IsModalOpen || Instance.IsSettingsOpen || Instance.IsAssetSpawnerOpen || Instance.IsTextInputFocused());
+            Instance != null && (Instance.IsModalOpen || Instance.IsAssetSpawnerOpen || Instance.IsTextInputFocused());
 
         private bool IsTextInputFocused()
         {
@@ -622,6 +597,9 @@ namespace Homesteader.UI
 
         private void HandleShortcuts()
         {
+            // Block all input while the loading modal is shown.
+            if (WelcomeMenuController.IsLoading) return;
+
 #if ENABLE_INPUT_SYSTEM
             var kb = UnityEngine.InputSystem.Keyboard.current;
             bool phoneOpen = _phone != null && _phone.IsOpen;
@@ -633,9 +611,7 @@ namespace Homesteader.UI
                     {
                         if (IsAssetSpawnerOpen) CloseAssetSpawner();
                         else if (IsModalOpen) CloseModal();
-                        else if (IsSettingsOpen) CloseSettings();
                         else if (phoneOpen) _phone.Close();
-                        else OpenSettings();
                     }
                 }
                 // A focused window / text field owns the keyboard: no hotkeys reach the game
@@ -685,9 +661,7 @@ namespace Homesteader.UI
                 {
                     if (IsAssetSpawnerOpen) CloseAssetSpawner();
                     else if (IsModalOpen) CloseModal();
-                    else if (IsSettingsOpen) CloseSettings();
                     else if (phoneOpen) _phone.Close();
-                    else OpenSettings();
                 }
             }
             else if (KeyboardCaptured)
@@ -838,7 +812,7 @@ namespace Homesteader.UI
             }
             _lastActiveSpeed = nextSpeed;
             TimeSystem.Instance.SetSpeed(nextSpeed);
-            ToastNotificationSystem.ShowInfo("Speed Changed", $"Simulation speed increased to {SpeedToString(nextSpeed)}.");
+
         }
 
         private void DecreaseSpeed()
@@ -865,7 +839,7 @@ namespace Homesteader.UI
             }
             _lastActiveSpeed = nextSpeed;
             TimeSystem.Instance.SetSpeed(nextSpeed);
-            ToastNotificationSystem.ShowInfo("Speed Changed", $"Simulation speed set to {SpeedToString(nextSpeed)}.");
+
         }
 
         private static string SpeedToString(HomesteaderSpeed speed)
@@ -892,29 +866,6 @@ namespace Homesteader.UI
                 case HomesteaderSpeed.Speed10X: return "10x";
                 default: return "1x";
             }
-        }
-
-        public void OpenSettings()
-        {
-            if (_windowShade == null || _settingsWindow == null) return;
-            if (_confirmModal != null) _confirmModal.AddToClassList("modal--hidden");
-            _settingsWindow.RemoveFromClassList("window--hidden");
-            _windowShade.RemoveFromClassList("window-shade--hidden");
-        }
-
-        public void CloseSettings()
-        {
-            if (_settingsWindow != null) _settingsWindow.AddToClassList("window--hidden");
-            if (!IsModalOpen && _windowShade != null)
-            {
-                _windowShade.AddToClassList("window-shade--hidden");
-            }
-        }
-
-        public void ToggleSettings()
-        {
-            if (IsSettingsOpen) CloseSettings();
-            else OpenSettings();
         }
 
         public void ShowModal(string title, string message, System.Action onConfirm = null, System.Action onCancel = null,
@@ -945,7 +896,6 @@ namespace Homesteader.UI
                 _modalThirdBtn.style.display = string.IsNullOrEmpty(thirdLabel) ? DisplayStyle.None : DisplayStyle.Flex;
             }
 
-            if (_settingsWindow != null) _settingsWindow.AddToClassList("window--hidden");
             _confirmModal.RemoveFromClassList("modal--hidden");
             _windowShade.RemoveFromClassList("window-shade--hidden");
         }
@@ -966,7 +916,7 @@ namespace Homesteader.UI
             _onModalCancel = null;
             _onModalThird = null;
             if (_confirmModal != null) _confirmModal.AddToClassList("modal--hidden");
-            if (!IsSettingsOpen && _windowShade != null)
+            if (_windowShade != null)
             {
                 _windowShade.AddToClassList("window-shade--hidden");
             }
@@ -1259,11 +1209,6 @@ namespace Homesteader.UI
                 tick3.AddToClassList("timeline-tick-hour3");
                 node.Add(tick3);
 
-                // Major 4-hour tick mark directly underneath
-                var majorTick = new VisualElement();
-                majorTick.AddToClassList("timeline-tick-major");
-                node.Add(majorTick);
-
                 // Weather Icon added after ticks so it renders on top
                 var weatherIcon = new VisualElement();
                 weatherIcon.AddToClassList("weather-timeline-icon");
@@ -1361,11 +1306,6 @@ namespace Homesteader.UI
                 var tick3 = new VisualElement();
                 tick3.AddToClassList("timeline-tick-hour3");
                 node.Add(tick3);
-
-                // Major 4-hour tick mark directly underneath the celestial icon
-                var majorTick = new VisualElement();
-                majorTick.AddToClassList("timeline-tick-major");
-                node.Add(majorTick);
 
                 // Celestial Icon (Sun / Moon state at this 4-hour mark) added after ticks so it renders on top
                 var celestialIcon = new VisualElement();

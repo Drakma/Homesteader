@@ -1,0 +1,26 @@
+# Homesteader Material Definition
+
+newmtl Alum_Frame
+Ka 0.3400 0.3440 0.3520
+Kd 0.8500 0.8600 0.8800
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl PV_Cells
+Ka 0.0480 0.0800 0.1680
+Kd 0.1200 0.2000 0.4200
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Grid_Silver
+Ka 0.2800 0.3120 0.3600
+Kd 0.7000 0.7800 0.9000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

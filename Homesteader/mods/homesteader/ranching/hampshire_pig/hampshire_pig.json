@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "hampshire_pig",
+  "name": "Hampshire Pig",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (piglet -> adult) over 730 days. This group is the authoritative owner of the hampshire_pig scheme.",
+  "icon": "hampshire_pig.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "hampshire_pig",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "piglet",
+        "age_min": 0,
+        "age_max": 90,
+        "resource": "stages/animal_piglet/",
+        "model": "SKM_Animal_Pig_Hampshire_Piglet.fbx",
+        "icon": "animal_piglet_hampshire_pig.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 90,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Pig_Hampshire.fbx",
+        "icon": "animal_adult_hampshire_pig.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

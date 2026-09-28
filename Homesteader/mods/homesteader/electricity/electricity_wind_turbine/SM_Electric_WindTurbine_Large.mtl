@@ -1,0 +1,34 @@
+# Material Definition
+
+newmtl Steel_Lattice
+Ka 0.2600 0.2720 0.2800
+Kd 0.6500 0.6800 0.7000
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Turbine_White
+Ka 0.3600 0.3680 0.3760
+Kd 0.9000 0.9200 0.9400
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Blades
+Ka 0.3840 0.3840 0.3840
+Kd 0.9600 0.9600 0.9600
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl Concrete_Pad
+Ka 0.2800 0.2720 0.2600
+Kd 0.7000 0.6800 0.6500
+Ks 0.15 0.15 0.15
+Ns 16.0
+d 1.0
+illum 2
+

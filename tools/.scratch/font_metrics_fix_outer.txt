@@ -1,0 +1,20 @@
+fix(assets/hud_kit/font): sane OpenType metrics - ascent = UPEM
+
+The previous build was setting hhea.ascent = ASCENDER * PX = 1536 fu
+while UPEM = 1024. UI Toolkit (and many other layout engines)
+interpret a 1.5x-ascent-to-UPEM ratio as a stretched line-height,
+inflating every label that uses the kit font to about 1.5x its
+declared font-size.
+
+_setHorizontalHeader and _setOS2 now write:
+  ascent_fu   = UPEM            (1024)
+  descent_fu  = 0               (no descenders in the kit)
+  sxHeight    = UPEM * 0.625    (640; matches 10-design-px x-height)
+  sCapHeight  = UPEM            (1024; 16-design-px cap height)
+
+All five TTFs rebuilt at the new metrics and re-emitted. The new
+TTFs are visually larger per glyph outline (they are unchanged)
+but render at the expected pixel size for any given font-size.
+
+This is a single-source fix propagated by tools/bake_kit_fonts.py;
+no Unity-side USS change is needed to take advantage of it.

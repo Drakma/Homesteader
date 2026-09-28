@@ -46,7 +46,7 @@ namespace Homesteader.Animals
                 return null;
             }
 
-            position.y = AnimalMover.GroundY(position);
+            position.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(position);
             var root = new GameObject("Animal_" + itemId);
             root.transform.position = position;
             root.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);

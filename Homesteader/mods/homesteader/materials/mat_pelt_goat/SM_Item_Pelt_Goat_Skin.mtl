@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Pelt_Goat_Skin
+
+newmtl goat_fur
+Ka 0.140 0.096 0.064
+Kd 0.350 0.240 0.160
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl rawhide_cord
+Ka 0.312 0.280 0.216
+Kd 0.780 0.700 0.540
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

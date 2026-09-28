@@ -1,0 +1,38 @@
+# Splitting Maul (`tool_maul_splitting`)
+
+![Splitting Maul Icon](tool_maul_splitting.png)
+
+## Overview
+- **Category**: `tools`
+- **Item Identifier**: `tool_maul_splitting`
+- **Max Stack Size**: 1
+- **Weight**: 5.5 kg
+- **Base Economic Value**: $45.0
+- **Consumable**: False
+
+## Description
+Heavy wedge maul for splitting logs.
+
+## 3D Model & Mesh Specifications
+- **Physical Dimensions (X × Y × Z)**: `32.0 cm × 50.9 cm × 106.0 cm` (`0.32m × 0.51m × 1.06m`)
+- **Mesh Complexity**: 264 vertices, 88 polygon faces
+- **Bounding Box**: $X_{min}=-16.0$, $X_{max}=16.0$, $Y_{min}=-21.0$, $Y_{max}=29.8564$, $Z_{min}=0.0$, $Z_{max}=106.0$
+- **Shading Aesthetic**: 3D Low-Poly Faceted, Metric Scale (cm), Ground-Aligned Pivot ($Z_{min} = 0$).
+- **Texture / Materials**: Flat-shaded UV mapped to `T_Homesteader_Palette` or dedicated 512×512 PBR.
+
+## Utilities & Resource Profile
+| Utility System | Usage / Output Metric | Operational Details |
+| :--- | :--- | :--- |
+| **💧 Water** | `None (unplumbed / dry)` | None (unplumbed / dry) |
+| **⚡ Electricity** | `None (passive / unpowered)` | None (passive / unpowered) |
+| **🚽 Sewage / Waste** | `None (no waste discharge)` | None (no waste discharge) |
+| **🔋 Battery Power** | `None (no internal battery)` | None (no internal battery) |
+| **🌐 Internet / Data** | `None (offline / non-networked)` | None (offline / non-networked) |
+
+## Asset Files & Links
+- **Plugin Manifest (JSON)**: [tool_maul_splitting.json](tool_maul_splitting.json)
+- **Icon (PNG)**: [tool_maul_splitting.png](tool_maul_splitting.png)
+- **3D Mesh (MTL)**: [tool_maul_splitting.mtl](tool_maul_splitting.mtl)
+- **3D Mesh (OBJ)**: [tool_maul_splitting.obj](tool_maul_splitting.obj)
+- **3D Mesh (MTL)**: [SM_Tool_Maul_Splitting.mtl](SM_Tool_Maul_Splitting.mtl)
+- **3D Mesh (OBJ)**: [SM_Tool_Maul_Splitting.obj](SM_Tool_Maul_Splitting.obj)

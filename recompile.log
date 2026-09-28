@@ -1,0 +1,23 @@
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 34888)
+VBCSCompiler prewarm took 6.22 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/respin/6000.6.0f1-fa21a270ab12' branch; Version is '6000.6.0f1 (f7f8ed4d1e24) revision 16251117'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-casey" at "2026-09-28T01:56:06.3214898Z"
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'en' Physical Memory: 31671 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-09-28T01:56:06Z
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Unity.exe
+-batchmode
+-nographics
+-quit
+-projectPath
+C:\Users\casey\Desktop\Homesteader\Homesteader
+-logFile
+C:\Users\casey\Desktop\Homesteader\recompile.log
+Successfully changed project path to: C:\Users\casey\Desktop\Homesteader\Homesteader
+C:/Users/casey/Desktop/Homesteader/Homesteader
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 1

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "appliance_fridge_premium",
+  "name": "Premium Refrigerator",
+  "category": "appliances",
+  "description": "A large stainless-steel french-door refrigerator with digital controls.",
+  "icon": "appliance_fridge_premium.png",
+  "properties": {
+    "weight_kg": 120.0,
+    "max_stack_size": 1,
+    "base_value": 2200.0,
+    "is_consumable": false,
+    "footprint": "0.9m W x 0.75m D x 1.78m H",
+    "happiness_modifier": 35,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.9,
+      "depth": 0.75,
+      "height": 1.78
+    },
+    "fuel_type": "electric",
+    "fuel_consumption_per_min": 0,
+    "power_draw_w": 200,
+    "bandwidth_usage_mbps": 0,
+    "water_usage_lpm": 0,
+    "cold_resistance_pct": 0
+  }
+}

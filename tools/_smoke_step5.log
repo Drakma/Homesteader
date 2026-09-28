@@ -1,0 +1,2 @@
+﻿
+[step5 retry $(Get-Date -Format "o")] starting with local-dir weights; HF_HUB_OFFLINE=1

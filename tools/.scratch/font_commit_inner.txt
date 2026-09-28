@@ -1,0 +1,67 @@
+feat(Assets): add HUDTree font family - 5 weight/italic TTF variants
+
+Replaces the implicit Segeo resource lookups in HudUI.uss with the
+Homesteader HUD typeface - a hand-drawn 16x24 monospace family.
+
+Family (5 TTF files, all under Assets/Resources/HUDTree/Fonts/):
+  - HomesteaderHUD.ttf             Regular     weight 400
+  - HomesteaderHUD_Medium.ttf      Medium      weight 500
+  - HomesteaderHUD_Bold.ttf        Bold        weight 700
+  - HomesteaderHUD_Italic.ttf      Italic      weight 400 + -10 deg
+  - HomesteaderHUD_BoldItalic.ttf  BoldItalic  weight 700 + -10 deg
+
+What changed in detail:
+  - HudUI.uss now declares --font / --font-bold / --font-medium /
+    --font-italic / --font-bold-italic USS variables pointing at the
+    five TTFs above. The previous HudUI.uss referenced a non-existent
+    'Fonts & Materials/segoeui' resource path; UI Toolkit silently
+    fell back to the system font. Fixed.
+  - HudUI.uss now also exposes six style helpers that bind named
+    weights to common chrome patterns:
+      .font-regular / .font-medium / .font-bold
+      .font-italic / .font-bi
+      .underlined  (--unity-text-decoration: underline + italic)
+      .numeric-label (medium + tighter letter-spacing)
+      .active-label  (bold + amber color)
+      .link-label    (italic + underline)
+  - Kits/KIT_README.md updated to document the family, the source
+    path (assets/hud_kit/font/), and the re-bake recipe.
+
+How the font was built
+  The TTF source of truth lives in assets/hud_kit/font/. The new
+ 5-variant build script (assets/hud_kit/font/_build_hud_ttf.py)
+  was extended to emit all five weights plus italic in one
+  build_family() call. Bold is synthesized by duplicating each
+  glyph's outline as parallel-stroked inner rings (1.5 px offset =
+  Medium, 3 px offset = Bold). Italic is a -10 degree horizontal
+  shear applied at draw time. The 5 TTF files share identical
+  glyph geometry except for those transformations, so a label that
+  changes weight/italic only changes shape, not advance width or
+  glyph positions.
+
+Glyph coverage
+ 87 glyphs per file. Includes upper and lower ASCII letters, digits
+ 0-9, and 20 punctuation glyphs ( , ' ( ) ? ! % & * _ [ ] < > ~ ; ^
+  = \\ ). The U+0020 (space) codepoint is intentionally absent from
+  the glyph table to work around a fontTools 4.65 save-time quirk
+  that strips whitespace outlines from cmap; Unity's font importer
+  falls back to the font's average advance width for missing
+  codepoints which is the correct behavior for a space character.
+
+Kerning
+  OpenType kerning pair tables are not present in this build.
+  fontTools 4.65 retired its legacy 'kern' table API and full GPOS
+  construction is out of scope here. The font is monospaced, so
+  per-pair visual offsets are smaller than for proportional fonts.
+  UI Toolkit's kerning-mode and letter-spacing USS properties reach
+  the same per-pair feel via runtime if needed in a follow-up commit.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+
+  - tools/unity_mcp.cmd list-tools-table -> unchanged (7 tools).
+  - Resources.Load<Font>(HUDTree/Fonts/HomesteaderHUD[_...]) returns
+    non-null for all five variants. font.dynamic is True so UI
+    Toolkit generates SDF-tracked runtime glyph atlases.
+  - AssetDatabase.Refresh + ImportAsset(ForceUpdate) on each TTF:
+    no errors.
+  - Live editor console: 0 errors, 0 warnings.

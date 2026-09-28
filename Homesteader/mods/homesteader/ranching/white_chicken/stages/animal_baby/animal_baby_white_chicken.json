@@ -1,0 +1,129 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "animal_baby_white_chicken",
+  "name": "Animal Chicken Chick",
+  "category": "ranching",
+  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "icon": "animal_baby_white_chicken.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 8,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SKM_Animal_Chicken_Chick.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "SKM_Animal_Chicken_Chick.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SKM_Animal_Chicken_Chick.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 15.0,
+        "y": 29.0,
+        "z": 23.0
+      },
+      "dimensions_m": {
+        "x": 0.15,
+        "y": 0.29,
+        "z": 0.23
+      },
+      "vertices": 80,
+      "faces": 60,
+      "bounding_box": {
+        "min": [
+          -7.5,
+          -18.000002,
+          0.0
+        ],
+        "max": [
+          7.5,
+          10.999999,
+          23.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Animal_Chicken_Chick.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Animal_Chicken_Chick.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 13.0,
+        "y": 13.3,
+        "z": 17.3
+      },
+      "dimensions_m": {
+        "x": 0.13,
+        "y": 0.13,
+        "z": 0.17
+      },
+      "vertices": 268,
+      "faces": 188,
+      "bounding_box": {
+        "min": [
+          -6.5,
+          -8.5,
+          0.0
+        ],
+        "max": [
+          6.5,
+          4.76,
+          17.3
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "species": "chicken",
+    "produces": "",
+    "gender": "female",
+    "temperament": "passive",
+    "same_sex_aggression": false,
+    "dimensions_m": {
+      "width": 0.08,
+      "depth": 0.12,
+      "height": 0.12
+    }
+  }
+}

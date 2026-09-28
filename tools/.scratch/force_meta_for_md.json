@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Kits/KIT_README.md\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Kits\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.SaveAssets();\n        result.Log(\"Forced import on Kits/KIT_README.md and Kits/ folder\");\n        result.Log(\"Kits meta exists: \" + System.IO.File.Exists(\"Assets/Resources/HUDTree/Kits.meta\"));\n        result.Log(\"KIT_README.md meta exists: \" + System.IO.File.Exists(\"Assets/Resources/HUDTree/Kits/KIT_README.md.meta\"));\n    }\n}\n",
+  "Title": "Force meta on Kits folder and its md"
+}

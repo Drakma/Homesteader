@@ -1,0 +1,21 @@
+{
+  "project_name": "a single fresh navel orange fruit, round, bright orange textured peel, modern stylized game asset",
+  "folder": "20260921_233821_a-single-fresh-navel-orange-fr_01a0c768",
+  "root_task_id": "01a0c768-612f-7347-b5c5-d237919c66a7",
+  "created_at": "2026-09-22T04:38:21.766Z",
+  "updated_at": "2026-09-22T04:48:28.143Z",
+  "tasks": [
+    {
+      "task_id": "01a0c768-612f-7347-b5c5-d237919c66a7",
+      "task_type": "text-to-3d",
+      "stage": "refined",
+      "prompt": "a single fresh navel orange fruit, round, bright orange textured peel, modern stylized game asset",
+      "status": "SUCCEEDED",
+      "files": [
+        "refined.glb",
+        "refined_base_color.png"
+      ],
+      "created_at": "2026-09-22T04:48:28.142Z"
+    }
+  ]
+}

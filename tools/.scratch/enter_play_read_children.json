@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\nusing UnityEngine.UIElements;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        result.Log(\"Entering play mode...\");\n        EditorApplication.EnterPlaymode();\n    }\n}\n",
+  "Title": "Enter play mode for UIDocument"
+}

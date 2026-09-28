@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\nusing UnityEditor.Compilation;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);\n        AssetDatabase.SaveAssets();\n        result.Log(\"refresh attempted.\");\n        // Force compile by triggering RequestScriptCompilation.\n        CompilationPipeline.RequestScriptCompilation();\n        result.Log(\"RequestScriptCompilation kicked off.\");\n    }\n}\n",
+  "Title": "Trigger compile refresh"
+}

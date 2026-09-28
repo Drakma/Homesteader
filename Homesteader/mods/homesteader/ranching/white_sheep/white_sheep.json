@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "white_sheep",
+  "name": "White Sheep",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (lamb -> adult) over 730 days. This group is the authoritative owner of the white_sheep scheme.",
+  "icon": "white_sheep.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "white_sheep",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "lamb",
+        "age_min": 0,
+        "age_max": 90,
+        "resource": "stages/animal_lamb/",
+        "model": "SKM_Animal_Lamb_White.fbx",
+        "icon": "animal_lamb_white_sheep.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 90,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Sheep_White.fbx",
+        "icon": "animal_adult_white_sheep.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

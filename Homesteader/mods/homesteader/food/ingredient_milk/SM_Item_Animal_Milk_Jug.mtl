@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Animal_Milk_Jug
+
+newmtl milk_white
+Ka 0.384 0.384 0.392
+Kd 0.960 0.960 0.980
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl glass_body
+Ka 0.288 0.328 0.344
+Kd 0.720 0.820 0.860
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl cap_red
+Ka 0.340 0.064 0.056
+Kd 0.850 0.160 0.140
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

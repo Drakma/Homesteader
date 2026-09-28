@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "willow",
+  "name": "Willow Tree",
+  "category": "logging",
+  "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 90 days. This group is the authoritative owner of the willow scheme.",
+  "icon": "willow.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "willow",
+    "max_age": 90,
+    "time_unit": "days",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0,
+        "age_max": 14,
+        "resource": "stages/tree_sapling/",
+        "model": "tree_sapling_willow.fbx",
+        "icon": "tree_sapling_willow.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 14,
+        "age_max": 36,
+        "resource": "stages/tree_small/",
+        "model": "tree_small_willow.fbx",
+        "icon": "tree_small_willow.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 36,
+        "age_max": 68,
+        "resource": "stages/tree_medium/",
+        "model": "tree_medium_willow.fbx",
+        "icon": "tree_medium_willow.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 68,
+        "age_max": 90,
+        "resource": "stages/tree_mature/",
+        "model": "tree_mature_willow.fbx",
+        "icon": "tree_mature_willow.png"
+      }
+    ],
+    "rules": {
+      "planting": {
+        "item_id": "plantable_willow_sapling"
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

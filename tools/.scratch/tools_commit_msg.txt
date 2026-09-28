@@ -1,0 +1,40 @@
+feat(tools): add Unity MCP client wrapper + kit atlas bake script
+
+Two new tools that connect Homesteader's outer workspace to the running
+Unity Editor (via the official com.unity.ai.assistant package's
+relay_win.exe) and to the kit art in assets/hud_kit/.
+
+tools/unity_mcp.py + tools/unity_mcp.cmd
+  Thin Python client that spawns its own relay_win.exe --mcp process
+  per script and speaks standard MCP JSON-RPC on stdio. Exposes:
+    - list-tools, list-tools-table
+    - call Unity_<Tool> with --args-json or --args-file
+    - health / initialize
+  Persistent client via get_client() singleton for long-lived shells.
+  Has a Windows .cmd shim that resolves the absolute Python
+  interpreter (mirrors tools/python.cmd).
+
+tools/UNITY_MCP_README.md
+  Documents when to use the wrapper, how consent flow works, the
+  error/edge cases, and an example program call.
+
+tools/bake_kit_atlases.py
+  Re-emits Unity-ready atlases from assets/hud_kit/sprites/. Output
+  goes to Homesteader/Assets/Resources/HUDTree/Atlases/Kit/ so the
+  HUDTree Resources fallback can pick them up. Five atlases (button,
+  vital, resource, slot, decor) plus standalone sprite catalogs
+  (panels, speed controls, status windows).
+
+End-to-end verification (Unity 6.6 / 6000.6.0f1):
+
+  unity_mcp.list-tool-table -> 7 tools exposed
+  unity_mcp.call Unity_GetConsoleLogs -> returns console + logs
+  unity_mcp.call Unity_RunCommand     -> compiles + runs CommandScript
+                                        blocks via the editor's runcommand
+                                        handler.
+  bake_kit_atlases.py -> 21 PNGs + 4 folder metas under
+                        Homesteader/Assets/Resources/HUDTree/Atlases/Kit/
+
+The runtime hover/side details (relay protocol, consent dialog,
+troubleshooting) live in tools/UNITY_MCP_README.md to keep this
+commit message focused.

@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\nusing UnityEngine.SceneManagement;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        var cam = GameObject.Find(\"IsoCamera\") ?? GameObject.Find(\"Main Camera\");\n        if (cam == null) { result.Log(\"no main camera\"); return; }\n        var c = cam.GetComponent<Camera>();\n        if (c == null) { result.Log(\"no camera component\"); return; }\n        result.Log(\"instanceID: \" + c.GetEntityId());\n        result.Log(\"name: \" + c.name);\n        result.Log(\"enabled: \" + c.enabled);\n    }\n}\n",
+  "Title": "Find Main Camera instance ID"
+}

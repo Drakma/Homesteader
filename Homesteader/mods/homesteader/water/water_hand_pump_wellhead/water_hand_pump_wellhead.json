@@ -1,0 +1,72 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_hand_pump_wellhead",
+  "name": "Hand Pump Well Head",
+  "category": "water",
+  "description": "A manual lever-action pitcher pump mounted on a well head, drawing water by hand without electricity.",
+  "icon": "water_hand_pump_wellhead.png",
+  "properties": {
+    "weight_kg": 25.0,
+    "max_stack_size": 1,
+    "base_value": 180.0,
+    "is_consumable": false,
+    "footprint": "0.3m W x 0.3m D x 1.1m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.3,
+      "depth": 0.3,
+      "height": 1.1
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 8,
+    "water_usage_lpm": 0,
+    "is_connected": true,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

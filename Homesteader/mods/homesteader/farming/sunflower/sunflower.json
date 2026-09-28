@@ -1,0 +1,68 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "sunflower",
+  "name": "Sunflower Plant",
+  "category": "farming",
+  "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 100 days. This group is the authoritative owner of the sunflower scheme.",
+  "icon": "sunflower.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "sunflower",
+    "max_age": 100,
+    "time_unit": "days",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_sunflower.fbx",
+        "icon": "crop_sprout_sunflower.png"
+      },
+      {
+        "stage": 2,
+        "name": "growing",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/crop_growing/",
+        "model": "crop_growing_sunflower.fbx",
+        "icon": "crop_growing_sunflower.png"
+      },
+      {
+        "stage": 3,
+        "name": "mature",
+        "age_min": 66,
+        "age_max": 100,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_sunflower.fbx",
+        "icon": "crop_mature_sunflower.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "ingredient_sunflower",
+        "amount_min": 1,
+        "amount_max": 1,
+        "harvest_stage": 3
+      },
+      "planting": {
+        "seasons": [
+          "summer"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_sunflower"
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

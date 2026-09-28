@@ -1,0 +1,29 @@
+{
+	"$schema": "https://homesteader.game/schemas/item_v1.json",
+	"id": "food_tea_lavender",
+	"name": "Lavender Tea",
+	"category": "food",
+	"description": "A calming herbal tea brewed from dried lavender buds.",
+	"icon": "food_tea_lavender.png",
+	"properties": {
+		"weight_kg": 0.25,
+		"max_stack_size": 8,
+		"base_value": 6.0,
+		"is_consumable": true,
+		"is_spawnable": false,
+		"happiness_modifier": 8,
+		"thirst_restore": 45,
+		"energy_restore": 0,
+		"stamina_restore": 12,
+		"wellness_modifier": 6
+	},
+	"plugin_metadata": {
+		"version": "1.0.0",
+		"author": "Homesteader Team",
+		"compatible_api": "v1"
+	},
+	"category_fields": {
+		"nutrition": 2,
+		"hydration": 45
+	}
+}

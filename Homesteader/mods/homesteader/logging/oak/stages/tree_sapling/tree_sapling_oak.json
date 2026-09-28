@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tree_sapling_oak",
+  "name": "Planted Sapling Oak",
+  "category": "logging",
+  "description": "A young oak sapling, freshly planted and ready to grow.",
+  "icon": "tree_sapling_oak.png",
+  "properties": {
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tree_sapling_oak.fbx",
+      "format": "fbx",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.5
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 1.0,
+      "height": 1.5
+    }
+  }
+}

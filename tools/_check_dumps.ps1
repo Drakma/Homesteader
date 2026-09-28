@@ -1,0 +1,1 @@
+Get-ChildItem -Path "$env:LOCALAPPDATA\CrashDumps" -Recurse -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 5 FullName, Length, LastWriteTime | Format-List

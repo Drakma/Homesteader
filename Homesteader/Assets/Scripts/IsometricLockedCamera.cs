@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Homesteader.Generation;
 
 public class IsometricLockedCamera : MonoBehaviour
 {
@@ -13,11 +14,11 @@ public class IsometricLockedCamera : MonoBehaviour
 
     [Header("Zoom Settings (Ctrl + ScrollWheel)")]
     public float zoomSpeed = 6f;
-    // Locked: not serialized, so scene overrides can't change them.
-    // Zoom levels start at 2.5 and step by 1.0 with no practical upper limit (the ceiling below only stops a runaway value).
-    private const float minOrthoSize = 2.5f;
-    private const float maxOrthoSize = 500f;
+    // Zoom levels start at 3 and step by 1.0 up to a max of 15 (default).
+    private const float minOrthoSize = 3f;
+    private const float defaultMaxOrthoSize = 15f;
     private const float zoomStep = 1.0f;
+    private static float maxOrthoSize = defaultMaxOrthoSize;
 
     [Header("Rotation Settings (Q / E 90° Orbit)")]
     public float yawRotateSpeed = 6f;
@@ -36,9 +37,41 @@ public class IsometricLockedCamera : MonoBehaviour
     void Awake()
     {
         cam = GetComponent<Camera>();
-        if (cam != null && cam.orthographic) cam.orthographicSize = SnapZoom(cam.orthographicSize);
+        ApplyZoomSettings();
+        if (cam != null)
+        {
+            cam.orthographicSize = SnapZoom(7f);
+            cam.backgroundColor = Color.black;
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            // Ensure Camera.main works — many systems rely on it
+            if (cam.gameObject.tag != "MainCamera")
+                cam.gameObject.tag = "MainCamera";
+        }
         targetYaw = yawDegrees;
         orbitRadius = Mathf.Sqrt(distance * distance + height * height);
+    }
+
+    /// <summary>
+    /// Reads the zoom max-level setting from PlayerPrefs. If "Lock" is enabled,
+    /// zoom is capped at the specified level; otherwise the default max (15) is used.
+    /// Called on Awake and whenever the settings dialog closes.
+    /// </summary>
+    public void ApplyZoomSettings()
+    {
+        bool locked = PlayerPrefs.GetInt("ZoomLockEnabled", 0) == 1;
+        if (locked)
+        {
+            int level = PlayerPrefs.GetInt("ZoomMaxLevel", 15);
+            maxOrthoSize = Mathf.Clamp(level, (int)minOrthoSize, 100);
+        }
+        else
+        {
+            maxOrthoSize = defaultMaxOrthoSize;
+        }
+
+        // Clamp current zoom if we're already running and the new max is tighter
+        if (cam != null && cam.orthographic && cam.orthographicSize > maxOrthoSize)
+            cam.orthographicSize = maxOrthoSize;
     }
 
     // Snaps to the nearest level on the min + n * step grid and clamps to [min, max].
@@ -159,6 +192,7 @@ public class IsometricLockedCamera : MonoBehaviour
             float factor = orthoScale * 0.02f * panSpeed;
             _focalPoint -= (camRight * mouseDelta.x + camFwd * mouseDelta.y) * factor;
             _isPanned = true;
+            ClampFocalPoint();
         }
 
         // Check if player is moving to re-center viewport
@@ -191,6 +225,29 @@ public class IsometricLockedCamera : MonoBehaviour
                 _focalPoint = target.position;
             }
         }
+    }
+
+    /// <summary>
+    /// Clamps the focal point to the terrain bounds plus a 5m margin so the
+    /// viewport can't pan past the playable area.
+    /// </summary>
+    private void ClampFocalPoint()
+    {
+        var gen = FindAnyObjectByType<HomesteaderTerrainGenerator>();
+        if (gen == null) return;
+
+        Vector3 origin = gen.transform.position;
+        float sizeX = gen.terrainSizeX;
+        float sizeZ = gen.terrainSizeZ;
+        const float margin = 5f;
+
+        float minX = origin.x - margin;
+        float maxX = origin.x + sizeX + margin;
+        float minZ = origin.z - margin;
+        float maxZ = origin.z + sizeZ + margin;
+
+        _focalPoint.x = Mathf.Clamp(_focalPoint.x, minX, maxX);
+        _focalPoint.z = Mathf.Clamp(_focalPoint.z, minZ, maxZ);
     }
 
     void LateUpdate()

@@ -1,0 +1,66 @@
+feat(assets/hud_kit/font): ship Fira Sans-derived Homesteader HUD family
+
+The previous hand-drawn 16x24 grid produced pixel-style glyphs that
+didn't visually compete with Segoe UI or Fira Sans. This commit
+replaces the build path with a SIL-OFL derivative of Fira Sans.
+
+What changed:
+  - _build_hud_ttf.py: reads C:\Windows\Fonts\FiraSans-*.ttf
+    (or $FIRA_SANS_ROOT override), copies all glyph tables into
+    a new family "Homesteader HUD", and rewrites the name table
+    + OS/2 weight class. All other tables (cmap, glyf, hmtx,
+    GPOS/GSUB, kern, post) are preserved verbatim. Fira Sans's
+    letterspace tuned by the Mozilla team is what we ship.
+
+  - 5 emitted TTFs:
+      homesteader_hud.ttf            Regular     1686 codepoints
+      homesteader_hud_medium.ttf     Medium      1686 codepoints
+      homesteader_hud_bold.ttf       Bold        1686 codepoints
+      homesteader_hud_italic.ttf     Italic      1686 codepoints
+      homesteader_hud_bold_italic.ttf BoldItalic 1686 codepoints
+
+    File sizes jumped from ~10 KB to ~440 KB each because the
+    full real outline set is carried.
+
+  - HOMESTEADER_HUD_LICENSE.txt: full SIL Open Font License v1.1
+    plus an attribution block at the top explaining that the
+    glyphs were extracted from Fira Sans (Carrois Apostrophe,
+    SIL OFL). Per OFL section 1 ("Modified Version"), the name
+    change + copy under SIL OFL is permitted as long as:
+      * the rename + weight are not the original Fira Sans name;
+      * the SIL OFL is redistributed alongside the fonts;
+      * the original copyright records stay intact;
+      * we do not claim authorship of Fira Sans.
+    All four are honoured in this commit.
+
+  - The metrics from Fira Sans (UPEM=1000, hhea.ascent=935,
+    hhea.descent=-265, sCapHeight=735, sxHeight=535) flow through
+    unchanged. UI Toolkit now sees line-height ~ 935/1000, normal
+    for a humanist sans, instead of the inflated 1.5x ratio the
+    previous hand-drawn build emitted.
+
+Implementation note:
+  - The previous hand-drawn glyph_specs.py is still on disk in this
+    directory, kept for historical reference, but is no longer read
+    by the build. The build now reads Fira Sans directly and only
+    need to define which codepoints and PostScript names to bind.
+
+Verification:
+  - Built 5 TTFs via assets/hud_kit/font/_build_hud_ttf.py, all
+    five produce non-empty valid output (~440 KB each).
+  - fontTools can open them, name table now reads
+    Family: Homesteader HUD, Subfamily: <Regular|Medium|Bold|Italic|Bold Italic>.
+  - Tools/render_kit_fonts.py draws each variant to a PNG; the
+    letters now look like a real humanist sans rather than the
+    previous 16x24 pixel approximation.
+  - After mirror + AssetDatabase.Refresh via tools/bake_kit_fonts.py
+    and the Unity MCP relay, Resources.Load<Font> returns
+    non-null for all 5 entries and the live console reports
+    0 errors / 0 warnings.
+
+Licensing note for downstream:
+  - Anyone re-distributing Homesteader HUD with the resulting
+    TTFs MUST also include HOMESTEADER_HUD_LICENSE.txt.
+  - Anyone re-distributing our Homesteader HUD repo as a whole
+    includes the SIL OFL automatically because that file is in
+    the font directory; do not delete or rename.

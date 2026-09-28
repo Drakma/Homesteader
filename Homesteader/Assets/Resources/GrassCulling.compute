@@ -1,0 +1,51 @@
+#pragma kernel CSMain
+
+// Input: all grass matrices and instance data
+StructuredBuffer<float4x4> _AllMatrices;
+StructuredBuffer<float4>   _AllInstanceData;
+
+// Output: culled matrices and instance data (compact)
+RWStructuredBuffer<float4x4> _CulledMatrices;
+RWStructuredBuffer<float4>   _CulledInstanceData;
+
+// Culling params
+float3 _CameraPos;
+float  _RenderDistance;
+uint   _TotalCount;
+
+// Args buffer: [indexCount, instanceCount, startIndex, baseVertex, startInstance]
+// We write the instance count (args[1]) directly so there's no CPU readback.
+RWStructuredBuffer<uint> _IndirectArgs;
+
+uint HashUint(uint x)
+{
+    x ^= x >> 16;
+    x *= 0x45d9f3b;
+    x ^= x >> 16;
+    x *= 0x45d9f3b;
+    x ^= x >> 16;
+    return x;
+}
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _TotalCount) return;
+
+    // Extract world position from the matrix translation column
+    float3 worldPos = float3(_AllMatrices[id.x]._m03, _AllMatrices[id.x]._m13, _AllMatrices[id.x]._m23);
+
+    // Distance cull
+    float dist = distance(worldPos.xz, _CameraPos.xz);
+    if (dist > _RenderDistance) return;
+
+    // Append to culled buffer
+    uint slot = 0;
+    InterlockedAdd(_IndirectArgs[1], 1, slot);
+
+    if (slot < _TotalCount)
+    {
+        _CulledMatrices[slot] = _AllMatrices[id.x];
+        _CulledInstanceData[slot] = _AllInstanceData[id.x];
+    }
+}

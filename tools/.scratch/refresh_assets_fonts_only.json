@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Fonts/HomesteaderHUD.ttf\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Fonts/HomesteaderHUD_Medium.ttf\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Fonts/HomesteaderHUD_Bold.ttf\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Fonts/HomesteaderHUD_Italic.ttf\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.ImportAsset(\"Assets/Resources/HUDTree/Fonts/HomesteaderHUD_BoldItalic.ttf\", ImportAssetOptions.ForceUpdate);\n        AssetDatabase.SaveAssets();\n        result.Log(\"Forced import on 5 TTFs.\");\n    }\n}\n",
+  "Title": "Force-import 5 TTFs only"
+}

@@ -1,0 +1,39 @@
+fix(Assets): sane font metrics + tighter USS layout constants
+
+The previous font build set hhea/ascent = ASCENDER * PX = 1536 fu over
+UPEM 1024. UI Toolkit reads font ascent + OS/2 sCapHeight to compute
+line-height for every Label. With ascent 1.5x UPEM, every label
+became 1.5x its declared font-size; the header_strip PNG-glow
+appeared as an enormous smeared band, and labels rendered
+several hundred px tall.
+
+Changes:
+  - fonts: all five HomesteaderHUD[_...].ttf rebuilt with
+    ascent = UPEM (1024), descent = 0, sxHeight = 640, sCapHeight =
+    1024. UI Toolkit now sees a normal line-height ratio.
+  - HudUI.uss: every chrome element has an explicit height and
+    font-size so it cannot inflate to fill the page even if a
+    USS variable is unset.
+       .status-bar             height: 48px (down from 64)
+       .status-strip          background-size 100% 100%
+                                 (was 1920x64; rescaled to
+                                 container width so the strip wraps
+                                 rather than overflowing)
+       .status-label          font-size: 13px
+       .time-label            font-size: 16px
+       .well                  height: 28px
+       .toolbar               height: 96px
+       .tool-slot             64 x 80
+       .tool-icon             bounded to 56 px wide
+       .tool-count            font-size: 14px
+  - The dragged-in tool-icon class now has its own size and a 2px
+    border so empty slots no longer render as a giant green
+    rectangle filling the entire slot.
+
+After this fix the HUD reads as:
+  - top: 48px chrome strip with section labels
+  - mid: held-asset panel
+  - bottom: 96px toolbar with 64x80 slots
+
+Verified the rebuild by re-running bake_kit_fonts.py and reading
+back all 5 TTFs from Unity via Resources.Load<Font>.

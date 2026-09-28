@@ -1,0 +1,96 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_large_log_cabin",
+  "name": "Large Log Cabin",
+  "category": "structures",
+  "description": "A two-story log cabin with a porch and stone chimney.",
+  "icon": "struct_complete_large_log_cabin.png",
+  "properties": {
+    "weight_kg": 9000.0,
+    "max_stack_size": 1,
+    "base_value": 18000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 30,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_complete_large_log_cabin.fbx",
+      "format": "fbx"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 55.4,
+    "room_count": 2,
+    "dimensions_m": {
+      "width": 7.5,
+      "depth": 8.0,
+      "height": 6.0
+    },
+    "electrical_service_capacity_w": 30000,
+    "water_supply_capacity_lpm": 50,
+    "roof_area_m2": 60.0,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 10
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 6
+      },
+      {
+        "item_id": "sheet_drywall_stack_large",
+        "quantity": 4
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 55
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

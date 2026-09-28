@@ -1,0 +1,49 @@
+C:\Users\casey\AppData\Roaming\Python\Python313\site-packages\diffusers\utils\deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.
+  deprecate("torch_dtype", "1.0.0", _TORCH_DTYPE_DEPRECATION_MESSAGE)
+Loading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s][A
+Loading weights:   0%|          | 2/750 [00:00<02:03,  6.05it/s][A
+Loading weights:   0%|          | 3/750 [00:01<04:17,  2.91it/s][A
+Loading weights:   1%|          | 4/750 [00:02<05:30,  2.26it/s][A
+Loading weights:   1%|          | 5/750 [00:02<06:48,  1.82it/s][A
+Loading weights:   1%|          | 6/750 [00:06<21:05,  1.70s/it][A
+Loading weights:   1%|          | 7/750 [00:12<39:29,  3.19s/it][A
+Loading weights:   1%|1         | 8/750 [00:13<30:24,  2.46s/it][A
+Loading weights:   1%|1         | 9/750 [00:15<29:27,  2.38s/it][A
+Loading weights:   1%|1         | 10/750 [00:16<23:10,  1.88s/it][A
+Loading weights:   1%|1         | 11/750 [00:18<24:31,  1.99s/it][A
+Loading weights:   2%|1         | 12/750 [00:20<24:10,  1.97s/it][A
+Loading weights:   2%|1         | 13/750 [00:22<23:00,  1.87s/it][A
+Loading weights:   2%|1         | 14/750 [00:23<19:23,  1.58s/it][A
+Loading weights:   2%|2         | 15/750 [00:23<16:02,  1.31s/it][A
+Loading weights:   2%|2         | 16/750 [00:26<19:51,  1.62s/it][A
+Loading weights:   2%|2         | 17/750 [00:27<17:12,  1.41s/it][A
+Loading weights:   2%|2         | 18/750 [00:28<15:35,  1.28s/it][A
+Loading weights:   3%|2         | 19/750 [00:32<22:00,  1.81s/it][A
+Loading weights:   3%|2         | 20/750 [00:35<29:33,  2.43s/it][A
+Loading weights:   3%|2         | 21/750 [00:36<24:59,  2.06s/it][A
+Loading weights:   3%|2         | 22/750 [00:37<20:04,  1.65s/it][A
+Loading weights:   3%|3         | 23/750 [00:37<15:29,  1.28s/it][A
+Loading weights:   3%|3         | 24/750 [00:37<12:00,  1.01it/s][A
+Loading weights:   3%|3         | 25/750 [00:38<10:05,  1.20it/s][A
+Loading weights:   3%|3         | 26/750 [00:38<07:40,  1.57it/s][A
+Loading weights:   4%|3         | 28/750 [00:38<04:34,  2.63it/s][A
+Loading weights:   4%|3         | 29/750 [00:38<03:46,  3.18it/s][A
+Loading weights:   4%|4         | 30/750 [00:39<06:00,  2.00it/s][A
+Loading weights:   4%|4         | 32/750 [00:39<03:45,  3.18it/s][A
+Loading weights:   6%|5         | 42/750 [00:39<01:02, 11.38it/s][A
+Loading weights:   6%|6         | 47/750 [00:40<00:47, 14.86it/s][A
+Loading weights:   9%|8         | 66/750 [00:40<00:18, 36.74it/s][A
+Loading weights:  11%|#         | 82/750 [00:40<00:12, 54.92it/s][A
+Loading weights:  13%|#2        | 95/750 [00:40<00:09, 68.26it/s][A
+Loading weights:  15%|#4        | 109/750 [00:40<00:07, 80.47it/s][A
+Loading weights:  17%|#6        | 126/750 [00:40<00:06, 93.84it/s][A
+Loading weights:  18%|#8        | 138/750 [00:40<00:06, 88.68it/s][A
+Loading weights:  22%|##2       | 168/750 [00:40<00:04, 132.24it/s][A
+Loading weights:  86%|########6 | 645/750 [00:40<00:00, 1232.07it/s][ALoading weights: 100%|##########| 750/750 [00:40<00:00, 18.32it/s]  
+Loading pipeline components...:  20%|##        | 1/5 [00:48<03:12, 48.24s/it]Loading pipeline components...:  40%|####      | 2/5 [00:49<01:02, 20.84s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+Loading checkpoint shards: 100%|##########| 2/2 [00:00<00:00, 17.03it/s][ALoading checkpoint shards: 100%|##########| 2/2 [00:00<00:00, 16.97it/s]
+Loading pipeline components...:  60%|######    | 3/5 [00:50<00:23, 11.55s/it]Loading pipeline components...: 100%|##########| 5/5 [01:04<00:00,  8.87s/it]Loading pipeline components...: 100%|##########| 5/5 [01:04<00:00, 12.81s/it]
+negative_prompt is passed but classifier-free guidance is not enabled since true_cfg_scale <= 1
+  0%|          | 0/4 [00:00<?, ?it/s]

@@ -1,0 +1,5 @@
+[hd-smoke] loading HunyuanDiT v1.2 (fp16)...
+[hd-smoke] pipe loaded in 20.8s; max mem: 7.77 GB
+[hd-smoke] gen 1/5: small log cabin
+  -> C:\Users\casey\Desktop\Homesteader\_procgen_test\_hunyuandit_smoke\00_small_log_cabin_s0.png in 304.1s
+[hd-smoke] gen 2/5: wooden barn

@@ -1,0 +1,1 @@
+Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 10 Id, ProcessName, @{Name='WS_MB';Expression={[Math]::Round($_.WorkingSet64/1MB,1)}}, @{Name='VM_MB';Expression={[Math]::Round($_.VirtualMemorySize64/1MB,1)}} | Format-Table -AutoSize

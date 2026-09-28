@@ -1,0 +1,13 @@
+{
+  "id": "helper_farmer",
+  "extends": [
+    "helper"
+  ],
+  "applies_to": [
+    "species:helper_farmer"
+  ],
+  "note": "A field hand. Works at anything tagged 'job' (tag crops that need tending) with the hoe animation.",
+  "animations": {
+    "work": "Hoe"
+  }
+}

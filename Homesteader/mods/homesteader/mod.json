@@ -1,0 +1,107 @@
+{
+  "id": "homesteader",
+  "name": "Homesteader",
+  "version": "1.0.3",
+  "author": "Homesteader Team",
+  "date": "2026-09-26",
+  "description": "The Homesteader core catalog: every category of asset, plus the game rules.",
+  "namespace": "homesteader",
+  "compatibility": {
+    "min": "0.1.0"
+  },
+  "contents": [
+    {
+      "type": "appliance",
+      "path": "appliances",
+      "group": "appliances"
+    },
+    {
+      "type": "building",
+      "path": "building",
+      "group": "building"
+    },
+    {
+      "type": "electricity",
+      "path": "electricity",
+      "group": "electricity"
+    },
+    {
+      "type": "farming",
+      "path": "farming",
+      "group": "farming"
+    },
+    {
+      "type": "fishing",
+      "path": "fishing",
+      "group": "fishing"
+    },
+    {
+      "type": "food",
+      "path": "food",
+      "group": "food"
+    },
+    {
+      "type": "fuel",
+      "path": "fuel",
+      "group": "fuel"
+    },
+    {
+      "type": "ingredient",
+      "path": "ingredients",
+      "group": "ingredients"
+    },
+    {
+      "type": "internet",
+      "path": "internet",
+      "group": "internet"
+    },
+    {
+      "type": "logging",
+      "path": "logging",
+      "group": "logging"
+    },
+    {
+      "type": "material",
+      "path": "materials",
+      "group": "materials"
+    },
+    {
+      "type": "ranching",
+      "path": "ranching",
+      "group": "ranching"
+    },
+    {
+      "type": "structure",
+      "path": "structures",
+      "group": "structures"
+    },
+    {
+      "type": "tool",
+      "path": "tools",
+      "group": "tools"
+    },
+    {
+      "type": "vehicle",
+      "path": "vehicles",
+      "group": "vehicles"
+    },
+    {
+      "type": "waste",
+      "path": "waste",
+      "group": "waste"
+    },
+    {
+      "type": "water",
+      "path": "water",
+      "group": "water"
+    },
+    {
+      "type": "gamerules",
+      "path": "gamerules/gamerules.json"
+    },
+    {
+      "type": "animal_ai",
+      "path": "ai/*.json"
+    }
+  ]
+}

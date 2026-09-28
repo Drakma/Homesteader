@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEngine.UIElements;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        var hud = GameObject.Find(\"HudRoot\");\n        var doc = hud.GetComponent<UIDocument>();\n        var root = doc.rootVisualElement;\n        result.Log(\"root.childCount: \" + root.childCount);\n        for (int i = 0; i < root.childCount; i++)\n        {\n            var c = root[i];\n            result.Log(\"  root[\" + i + \"]= name=\" + c.name + \" children=\" + c.childCount);\n            for (int j = 0; j < c.childCount; j++)\n            {\n                var cc = c[j];\n                result.Log(\"    child[\" + j + \"]= name=\" + cc.name + \" children=\" + cc.childCount);\n            }\n        }\n    }\n}\n",
+  "Title": "Dump root v2"
+}

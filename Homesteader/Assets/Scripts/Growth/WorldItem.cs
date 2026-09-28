@@ -27,7 +27,7 @@ namespace Homesteader.Growth
             if (root == null) root = new GameObject("WorldItems").transform;
             var go = new GameObject("Item_" + itemId);
             go.transform.SetParent(root, false);
-            go.transform.position = point;
+            go.transform.position = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(point);
             var item = go.AddComponent<WorldItem>();
             item.ItemId = itemId;
             item.prefab = info.Prefab;

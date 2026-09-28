@@ -35,6 +35,8 @@ namespace Homesteader.Growth
             var go = new GameObject($"Planted_{group.Id}");
             // Grid-aligned: crops keep their rows straight; trees turn in 90-degree steps for variety.
             float yaw = group.GrowthType == "tree" ? 90f * Random.Range(0, 4) : 0f;
+            // Snap to the terrain surface (just above, not 3 m above).
+            position = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(position);
             go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yaw, 0f));
             if (parent != null) go.transform.SetParent(parent, true);
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,12 @@ namespace Homesteader.Generation
         public float terrainSizeZ = 500f;
         public float terrainHeight = 50f;
 
+        [Header("Terraced Terrain")]
+        [Tooltip("Quantize elevation into discrete steps for a stylized terraced contour look.")]
+        public bool terraceEnabled = true;
+        [Tooltip("Height of each terrace step in metres.")]
+        public float terraceStepMeters = 0.5f;
+
         [Header("Biome Definitions")]
         public List<BiomeData> biomes = new List<BiomeData>();
 
@@ -21,6 +28,24 @@ namespace Homesteader.Generation
         private Terrain targetTerrain;
         private TerrainData terrainData;
         private Texture2D bakedBiomeMap;
+
+        /// <summary>Current generation progress, 0..1. Read by WelcomeMenuController to update the progress bar.</summary>
+        public float GenerationProgress { get; private set; }
+
+        /// <summary>True while async terrain generation is running.</summary>
+        public bool IsGenerating { get; private set; }
+
+        /// <summary>Human-readable label for the current generation phase.</summary>
+        public string GenerationPhase { get; private set; } = "";
+
+        /// <summary>
+        /// Call after changing worldSeed to invalidate any cached seed-dependent values.
+        /// </summary>
+        public void InvalidateSeedCache()
+        {
+            waterMask = null;
+            waterDistField = null;
+        }
 
         private void Reset()
         {
@@ -32,7 +57,6 @@ namespace Homesteader.Generation
             biomes.Clear();
 
             // 1. River: Narrow single winding creek across the valley floor (Priority 12)
-            // Evaluated as: isValley (macroRoll < -1.0) AND tight corridor around center line
             biomes.Add(new BiomeData
             {
                 id = "biome_river",
@@ -273,147 +297,490 @@ namespace Homesteader.Generation
             });
         }
 
-        public readonly Vector2 pondCenter = new Vector2(220f, 210f);
+        // ========================================================================
+        //  WATER SYSTEM — vertex-displaced mesh, continuous channels, SW-to-NE flow
+        // ========================================================================
 
-        /// <summary>
-        /// Calculates the central winding curve of the river spine through the valley floor.
-        /// Layered at several unrelated frequencies (rather than 2 smooth harmonics) so it
-        /// meanders like a real river instead of a single lazy S-curve.
-        /// </summary>
-        public float GetRiverCenterX(float worldZ)
+        /// <summary>Water level (metres above terrain baseline). Shared by all water features.</summary>
+        public const float WaterLevel = 0.5f;
+
+        private const int MAX_BRANCHES = 2;
+        private const int MAX_PONDS = 2;
+
+        private struct RiverFeature
         {
-            return 220f
-                + Mathf.Sin(worldZ * 0.015f) * 45f
-                + Mathf.Sin(worldZ * 0.035f + 1.2f) * 18f
-                + Mathf.Sin(worldZ * 0.006f + 2.7f) * 30f
-                + Mathf.Sin(worldZ * 0.07f + 0.4f) * 8f;
+            public Vector2 start;
+            public Vector2 end;
+            public float halfWidth;
+            public float meanderAmp;
+            public float meanderFreq;
+            public float meanderPhase;
         }
 
-        /// <summary>
-        /// Half-width of the river channel, in metres - varies along its length instead of a
-        /// constant width, like a real river narrowing and widening. Also flares out into a wide
-        /// funnel-shaped mouth as it nears the pond, so the two water bodies erode into one
-        /// smooth entrance instead of a narrow channel butting into the pond's edge.
-        /// </summary>
-        public float GetRiverHalfWidth(float worldX, float worldZ)
+        private struct PondFeature
         {
-            float baseWidth = Mathf.Clamp(
-                4.0f + Mathf.Sin(worldZ * 0.04f) * 1.8f + Mathf.Sin(worldZ * 0.11f + 1.0f) * 1.2f,
-                2.2f, 6.5f);
-
-            float distToPondCenter = Vector2.Distance(new Vector2(worldX, worldZ), pondCenter);
-            float mouthT = 1f - Mathf.Clamp01((distToPondCenter - 20f) / 35f);
-            float mouthWiden = Mathf.SmoothStep(0f, 1f, mouthT) * 16f;
-
-            // Per-position wobble (not just a function of Z) so the bank has real inlets/points
-            // rather than a perfectly symmetric width change along the channel.
-            float riverInlet = (Mathf.PerlinNoise(worldX * 0.12f + 15f, worldZ * 0.12f + 15f) - 0.5f) * 5f;
-
-            return baseWidth + mouthWiden + riverInlet;
+            public Vector2 center;
+            public float radius;
+            public float noiseSeed;
+            public float irregularity; // 0 = circle, 1 = very irregular
         }
 
+        private RiverFeature mainRiver;
+        private RiverFeature[] riverBranches = new RiverFeature[0];
+        private PondFeature[] allPonds = new PondFeature[0];
+        private bool[,] waterMask;          // [x, z] true = water, 1m resolution
+        private float[,] waterDistField;     // [x, z] distance to nearest water in metres
+        private Texture2D waterMaskTex;      // For the water shader
+        private GameObject waterSurfaceObj;
+
         /// <summary>
-        /// Organic perturbed radius of the natural kettle pond basin. Several unrelated
-        /// frequencies plus two Perlin octaves (a broad wobble and a tighter one) so the
-        /// shoreline has real inlets and small peninsulas, not a smooth flower-petal curve.
+        /// Generates seeded water features: 1 SW-to-NE river with up to 2 branches, up to 2 ponds.
+        /// River touches at least one map edge (starts on south edge, ends on north edge).
         /// </summary>
-        public float GetPondRadius(float worldX, float worldZ)
+        private void GenerateWaterFeatures()
         {
-            float dx = worldX - pondCenter.x;
-            float dz = worldZ - pondCenter.y;
-            float angle = Mathf.Atan2(dz, dx);
-            float inlets = (Mathf.PerlinNoise(Mathf.Cos(angle) * 3f + 40f, Mathf.Sin(angle) * 3f + 40f) - 0.5f) * 16f
-                         + (Mathf.PerlinNoise(Mathf.Cos(angle) * 8f + 70f, Mathf.Sin(angle) * 8f + 70f) - 0.5f) * 8f;
-            return 24f
-                + Mathf.Sin(angle * 2f) * 7f
-                + Mathf.Cos(angle * 3f) * 5f
-                + Mathf.Sin(angle * 5f + 1.3f) * 3f
-                + Mathf.Cos(angle * 7f + 0.7f) * 2f
-                + inlets;
-        }
-
-        /// <summary>
-        /// Whether the river gets a branching tributary - a per-world coin flip off the seed,
-        /// independent of the island one.
-        /// </summary>
-        public bool RiverHasBranch => ((worldSeed / 3) % 2) == 0;
-
-        private const float branchStartZ = 260f;
-
-        /// <summary>
-        /// Central curve of the tributary, only meaningful for worldZ > branchStartZ. Starts
-        /// exactly at the main river's own centerline (offset 0) and diverges away from there,
-        /// so it visibly splits off the main channel instead of appearing out of nowhere a fixed
-        /// distance away from it.
-        /// </summary>
-        public float GetBranchCenterX(float worldZ)
-        {
-            float mainX = GetRiverCenterX(worldZ);
-            float tLinear = Mathf.Clamp01((worldZ - branchStartZ) / 140f);
-            // Smoothstep, not linear: a linear ramp has a nonzero slope right at the split, so the
-            // branch immediately veers away at a visible angle - a sharp corner against the main
-            // channel's bank. Smoothstep has zero slope at t=0, so it leaves tangent to the main
-            // river and only gradually curves away.
-            float t = tLinear * tLinear * (3f - 2f * tLinear);
-            return mainX + t * 90f + Mathf.Sin(worldZ * 0.02f + 1f) * 12f * t;
-        }
-
-        /// <summary>
-        /// Distance to the nearer of the main river and its optional branch, with that
-        /// channel's own half-width. Centralizes the branch logic so CalculateElevationAt and
-        /// EvaluateBiomeAt (and the shader) all treat the branch exactly like the main river.
-        /// </summary>
-        public float GetNearestRiverDistance(float worldX, float worldZ, out float halfWidth)
-        {
-            float mainX = GetRiverCenterX(worldZ);
-            float distMain = Mathf.Abs(worldX - mainX);
-            float mainHalfWidth = GetRiverHalfWidth(worldX, worldZ);
-            halfWidth = mainHalfWidth;
-
-            if (RiverHasBranch && worldZ > branchStartZ)
+            // Main river: SW to NE. Start on south edge (western half), end on north edge (eastern half).
+            float startX = Random.Range(50f, 200f);
+            float endX = Random.Range(300f, 450f);
+            mainRiver = new RiverFeature
             {
-                float branchX = GetBranchCenterX(worldZ);
-                float distBranch = Mathf.Abs(worldX - branchX);
+                start = new Vector2(startX, 0f),
+                end = new Vector2(endX, terrainSizeZ),
+                halfWidth = Random.Range(4f, 7f),
+                meanderAmp = Random.Range(15f, 30f),
+                meanderFreq = Random.Range(0.8f, 1.8f),
+                meanderPhase = Random.Range(0f, Mathf.PI * 2f)
+            };
 
-                // Tapers from a small-but-visible width up to full over the first 25m past the
-                // split, so the tributary reads as narrowing off the main river. Tapering all the
-                // way from 0 left a stretch thinner than the shoreline foam band itself, which
-                // rendered as two bare foam lines with no visible water between them.
-                float widthTaper = Mathf.Clamp01((worldZ - branchStartZ) / 25f);
-                float branchFullWidth = Mathf.Clamp(mainHalfWidth * 0.6f, 1.8f, 4.5f);
-                float branchHalfWidth = Mathf.Lerp(1.2f, branchFullWidth, widthTaper);
+            // Branches: up to 2, each splits off the main river.
+            // Rule: rivers don't cross rivers — branches may only leave the main river,
+            // never cross it or cross each other. Each candidate is checked against the
+            // main river and all previously accepted branches; crossings are rejected.
+            int branchCount = Random.Range(0, MAX_BRANCHES + 1);
+            var acceptedBranches = new List<RiverFeature>();
+            for (int i = 0; i < branchCount; i++)
+            {
+                float splitT = Random.Range(0.3f, 0.7f);
+                Vector2 splitPoint = GetRiverPoint(splitT, mainRiver);
 
-                // Smooth-min (polynomial), not a hard "whichever is closer": picking the strictly
-                // nearer channel always leaves a sharp crease along the line where the two distance
-                // fields are equal, no matter how smoothly the branch's own centerline curves away.
-                // This rounds that seam off over a `blend` metre radius instead.
-                const float blend = 6f;
-                float h = Mathf.Clamp01(0.5f + 0.5f * (distMain - distBranch) / blend);
-                float dist = Mathf.Lerp(distMain, distBranch, h) - blend * h * (1f - h);
-                halfWidth = Mathf.Lerp(mainHalfWidth, branchHalfWidth, h);
-                return dist;
+                bool accepted = false;
+                for (int attempt = 0; attempt < 15 && !accepted; attempt++)
+                {
+                    float branchEndX = splitPoint.x + Random.Range(60f, 150f) * (Random.value > 0.5f ? 1f : -1f);
+                    float branchEndZ = Random.Range(300f, terrainSizeZ);
+                    branchEndX = Mathf.Clamp(branchEndX, 0f, terrainSizeX);
+
+                    var candidate = new RiverFeature
+                    {
+                        start = splitPoint,
+                        end = new Vector2(branchEndX, branchEndZ),
+                        halfWidth = mainRiver.halfWidth * Random.Range(0.4f, 0.7f),
+                        meanderAmp = mainRiver.meanderAmp * 0.5f,
+                        meanderFreq = mainRiver.meanderFreq * 1.1f,
+                        meanderPhase = Random.Range(0f, Mathf.PI * 2f)
+                    };
+
+                    // Reject if the candidate crosses the main river (beyond the branch origin).
+                    if (RiverCrossesRiver(candidate, mainRiver))
+                        continue;
+
+                    // Reject if the candidate crosses any previously accepted branch.
+                    bool crossesBranch = false;
+                    foreach (var ab in acceptedBranches)
+                    {
+                        if (RiverCrossesRiver(candidate, ab))
+                        {
+                            crossesBranch = true;
+                            break;
+                        }
+                    }
+                    if (crossesBranch)
+                        continue;
+
+                    acceptedBranches.Add(candidate);
+                    accepted = true;
+                }
             }
-            return distMain;
+            riverBranches = acceptedBranches.ToArray();
+
+            // Ponds: up to 2, placed away from the river
+            int pondCount = Random.Range(0, MAX_PONDS + 1);
+            allPonds = new PondFeature[pondCount];
+            for (int i = 0; i < pondCount; i++)
+            {
+                Vector2 center = Vector2.zero;
+                for (int attempt = 0; attempt < 20; attempt++)
+                {
+                    float cx = Random.Range(60f, terrainSizeX - 60f);
+                    float cz = Random.Range(60f, terrainSizeZ - 60f);
+                    center = new Vector2(cx, cz);
+                    // Check distance to river path
+                    float minDist = float.MaxValue;
+                    for (float t = 0; t <= 1f; t += 0.02f)
+                    {
+                        float d = Vector2.Distance(center, GetRiverPoint(t, mainRiver));
+                        if (d < minDist) minDist = d;
+                    }
+                    if (minDist > 50f) break;
+                }
+                allPonds[i] = new PondFeature
+                {
+                    center = center,
+                    radius = Random.Range(15f, 30f),
+                    noiseSeed = Random.Range(0f, 1000f),
+                    irregularity = Random.Range(0.25f, 0.5f)
+                };
+            }
         }
 
-        /// <summary>
-        /// Whether the pond gets a small island - a per-world coin flip off the seed, not always.
-        /// </summary>
-        public bool PondHasIsland => (worldSeed & 1) == 0;
-
-        public readonly Vector2 islandOffset = new Vector2(7f, -5f);
-
-        /// <summary>
-        /// Irregular radius of the pond's optional island, in the same lumpy style as the
-        /// shoreline itself.
-        /// </summary>
-        public float GetIslandRadius(float worldX, float worldZ, out float distToIsland)
+        /// <summary>Parametric point on a river path at parameter t [0,1].</summary>
+        private Vector2 GetRiverPoint(float t, RiverFeature river)
         {
-            Vector2 islandCenter = pondCenter + islandOffset;
-            distToIsland = Vector2.Distance(new Vector2(worldX, worldZ), islandCenter);
-            float angle = Mathf.Atan2(worldZ - islandCenter.y, worldX - islandCenter.x);
-            return 6f + Mathf.Sin(angle * 3f) * 2f + Mathf.Cos(angle * 5f + 0.5f) * 1.2f;
+            Vector2 basePt = Vector2.Lerp(river.start, river.end, t);
+            Vector2 dir = (river.end - river.start).normalized;
+            Vector2 perp = new Vector2(-dir.y, dir.x);
+            float meander = Mathf.Sin(t * river.meanderFreq * Mathf.PI * 2f + river.meanderPhase) * river.meanderAmp;
+            meander += Mathf.Sin(t * river.meanderFreq * 2.5f + river.meanderPhase + 1.2f) * river.meanderAmp * 0.25f;
+            return basePt + perp * meander;
         }
+
+        /// <summary>Half-width of a river at parameter t, with slight variation.</summary>
+        private float GetRiverHalfWidthAt(float t, RiverFeature river)
+        {
+            return river.halfWidth + Mathf.Sin(t * 8f + river.meanderPhase) * river.halfWidth * 0.2f;
+        }
+
+        /// <summary>
+        /// Checks if a candidate river's centerline enters an existing river's channel,
+        /// excluding the branch origin zone where they intentionally meet.
+        /// Returns true if the candidate crosses the existing river beyond the branch point.
+        /// </summary>
+        private bool RiverCrossesRiver(RiverFeature candidate, RiverFeature existing)
+        {
+            // Tolerance around the branch origin — skip points near the candidate's start
+            // so the intentional junction isn't flagged as a crossing.
+            float branchTolerance = existing.halfWidth * 2f + 5f;
+
+            float pathLength = (candidate.end - candidate.start).magnitude;
+            int steps = Mathf.CeilToInt(pathLength / 1f) + 1;
+
+            // Pre-compute existing river path points for efficiency.
+            int existingSteps = Mathf.CeilToInt((existing.end - existing.start).magnitude / 1f) + 1;
+            Vector2[] existingPts = new Vector2[existingSteps + 1];
+            for (int j = 0; j <= existingSteps; j++)
+            {
+                float et = (float)j / existingSteps;
+                existingPts[j] = GetRiverPoint(et, existing);
+            }
+
+            for (int i = 0; i <= steps; i++)
+            {
+                float t = (float)i / steps;
+                Vector2 pt = GetRiverPoint(t, candidate);
+
+                // Skip the branch origin zone.
+                if (Vector2.Distance(pt, candidate.start) < branchTolerance)
+                    continue;
+
+                // Find minimum distance from this point to the existing river's centerline.
+                float minDist = float.MaxValue;
+                for (int j = 0; j <= existingSteps; j++)
+                {
+                    float d = Vector2.Distance(pt, existingPts[j]);
+                    if (d < minDist) minDist = d;
+                }
+
+                // If the candidate's centerline enters the existing river's channel, it's a crossing.
+                if (minDist < existing.halfWidth)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Builds the water mask: a 1m-resolution boolean grid marking every water cell.
+        /// Walks each river path at 0.5m intervals and stamps circles, guaranteeing continuous
+        /// channel coverage. Also stamps pond circles.
+        /// </summary>
+        private void GenerateWaterMask()
+        {
+            int res = Mathf.RoundToInt(terrainSizeX);
+            waterMask = new bool[res, res];
+
+            StampRiver(mainRiver, res);
+            foreach (var branch in riverBranches)
+                StampRiver(branch, res);
+
+            foreach (var pond in allPonds)
+            {
+                int cx = Mathf.RoundToInt(pond.center.x);
+                int cz = Mathf.RoundToInt(pond.center.y);
+                int r = Mathf.CeilToInt(pond.radius * (1f + pond.irregularity)) + 2;
+                for (int dz = -r; dz <= r; dz++)
+                {
+                    for (int dx = -r; dx <= r; dx++)
+                    {
+                        int px = cx + dx, pz = cz + dz;
+                        if (px < 0 || pz < 0 || px >= res || pz >= res) continue;
+                        // Noise-perturbed radius for irregular pond shapes
+                        float angle = Mathf.Atan2(dz, dx);
+                        float noise = BiomeNoise.FractalNoise2D(
+                            dx * 0.15f, dz * 0.15f, 0.5f, 2, 0.5f, Mathf.RoundToInt(pond.noiseSeed));
+                        float effectiveRadius = pond.radius * (1f - pond.irregularity + noise * pond.irregularity * 2f);
+                        if (Mathf.Sqrt(dx * dx + dz * dz) <= effectiveRadius)
+                            waterMask[px, pz] = true;
+                    }
+                }
+            }
+
+            // Smooth the water mask boundary to remove jagged pixelated shorelines.
+            // Pass 1: A cell is water if it or 2+ of its 4 neighbours are water (majority filter).
+            bool[,] smoothed = new bool[res, res];
+            for (int z = 0; z < res; z++)
+            {
+                for (int x = 0; x < res; x++)
+                {
+                    if (waterMask[x, z]) { smoothed[x, z] = true; continue; }
+                    int count = 0;
+                    if (x > 0 && waterMask[x - 1, z]) count++;
+                    if (x < res - 1 && waterMask[x + 1, z]) count++;
+                    if (z > 0 && waterMask[x, z - 1]) count++;
+                    if (z < res - 1 && waterMask[x, z + 1]) count++;
+                    smoothed[x, z] = count >= 3;
+                }
+            }
+            // Pass 2: remove single-cell peninsulas for cleaner edges
+            for (int z = 1; z < res - 1; z++)
+            {
+                for (int x = 1; x < res - 1; x++)
+                {
+                    if (!smoothed[x, z]) continue;
+                    int waterN = 0;
+                    if (smoothed[x - 1, z]) waterN++;
+                    if (smoothed[x + 1, z]) waterN++;
+                    if (smoothed[x, z - 1]) waterN++;
+                    if (smoothed[x, z + 1]) waterN++;
+                    if (waterN == 0) smoothed[x, z] = false; // isolated water cell
+                }
+            }
+            waterMask = smoothed;
+
+            // Build water mask texture for the shader
+            if (waterMaskTex == null || waterMaskTex.width != res)
+            {
+                waterMaskTex = new Texture2D(res, res, TextureFormat.RGBA32, false, true)
+                {
+                    filterMode = FilterMode.Bilinear,
+                    wrapMode = TextureWrapMode.Clamp
+                };
+            }
+            Color[] maskPixels = new Color[res * res];
+            const float maxWaterDepth = 4f; // normalise depth into 0-1 range
+            for (int z = 0; z < res; z++)
+            {
+                for (int x = 0; x < res; x++)
+                {
+                    if (!waterMask[x, z])
+                    {
+                        maskPixels[z * res + x] = Color.black;
+                        continue;
+                    }
+                    // Encode water depth in R channel (0 = no water, >0 = water depth)
+                    float bedElev = CalculateElevationAt(x, z);
+                    float depth = Mathf.Clamp01((WaterLevel - bedElev) / maxWaterDepth);
+                    // R = depth (0-1), G = 1 (water flag for shader), B = 0, A = 1
+                    maskPixels[z * res + x] = new Color(depth, 1f, 0f, 1f);
+                }
+            }
+
+            waterMaskTex.SetPixels(maskPixels);
+            waterMaskTex.Apply();
+        }
+
+        private void StampRiver(RiverFeature river, int res)
+        {
+            float pathLength = (river.end - river.start).magnitude;
+            int steps = Mathf.CeilToInt(pathLength / 0.5f) + 1;
+            for (int i = 0; i <= steps; i++)
+            {
+                float t = (float)i / steps;
+                Vector2 pt = GetRiverPoint(t, river);
+                float hw = GetRiverHalfWidthAt(t, river);
+                int cx = Mathf.RoundToInt(pt.x);
+                int cz = Mathf.RoundToInt(pt.y);
+                int r = Mathf.CeilToInt(hw) + 1;
+                for (int dz = -r; dz <= r; dz++)
+                {
+                    for (int dx = -r; dx <= r; dx++)
+                    {
+                        int px = cx + dx, pz = cz + dz;
+                        if (px < 0 || pz < 0 || px >= res || pz >= res) continue;
+                        if (Mathf.Sqrt(dx * dx + dz * dz) <= hw)
+                            waterMask[px, pz] = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Two-pass chamfer distance transform: computes approximate Euclidean distance from
+        /// every cell to the nearest water cell. Used by CalculateElevationAt for shoreline banks.
+        /// </summary>
+        private void ComputeWaterDistanceField()
+        {
+            int res = waterMask.GetLength(0);
+            waterDistField = new float[res, res];
+
+            for (int z = 0; z < res; z++)
+                for (int x = 0; x < res; x++)
+                    waterDistField[x, z] = waterMask[x, z] ? 0f : 999f;
+
+            // Forward pass
+            for (int z = 0; z < res; z++)
+            {
+                for (int x = 0; x < res; x++)
+                {
+                    if (x > 0) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x - 1, z] + 1);
+                    if (z > 0) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x, z - 1] + 1);
+                    if (x > 0 && z > 0) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x - 1, z - 1] + 1.414f);
+                    if (x < res - 1 && z > 0) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x + 1, z - 1] + 1.414f);
+                }
+            }
+            // Backward pass
+            for (int z = res - 1; z >= 0; z--)
+            {
+                for (int x = res - 1; x >= 0; x--)
+                {
+                    if (x < res - 1) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x + 1, z] + 1);
+                    if (z < res - 1) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x, z + 1] + 1);
+                    if (x < res - 1 && z < res - 1) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x + 1, z + 1] + 1.414f);
+                    if (x > 0 && z < res - 1) waterDistField[x, z] = Mathf.Min(waterDistField[x, z], waterDistField[x - 1, z + 1] + 1.414f);
+                }
+            }
+        }
+
+        /// <summary>Query whether a world position is inside a water feature.</summary>
+        public bool IsWaterAt(float worldX, float worldZ)
+        {
+            if (waterMask == null) return false;
+            int mx = Mathf.RoundToInt(worldX);
+            int mz = Mathf.RoundToInt(worldZ);
+            int res = waterMask.GetLength(0);
+            if (mx < 0 || mz < 0 || mx >= res || mz >= res) return false;
+            return waterMask[mx, mz];
+        }
+
+        /// <summary>Query distance to nearest water in metres (0 if inside water).
+        /// Uses bilinear interpolation on the distance field for smooth shoreline banks.</summary>
+        private float GetWaterDistance(float worldX, float worldZ)
+        {
+            if (waterDistField == null) return 999f;
+            int res = waterDistField.GetLength(0);
+            int x = Mathf.Clamp(Mathf.RoundToInt(worldX), 0, res - 1);
+            int z = Mathf.Clamp(Mathf.RoundToInt(worldZ), 0, res - 1);
+            return waterDistField[x, z];
+        }
+
+        /// <summary>True if the point is inside any pond (using noise-perturbed radius).</summary>
+        private bool IsInsidePond(float worldX, float worldZ)
+        {
+            foreach (var pond in allPonds)
+            {
+                float dx = worldX - pond.center.x;
+                float dz = worldZ - pond.center.y;
+                float dist = Mathf.Sqrt(dx * dx + dz * dz);
+                float noise = BiomeNoise.FractalNoise2D(
+                    dx * 0.15f, dz * 0.15f, 0.5f, 2, 0.5f, Mathf.RoundToInt(pond.noiseSeed));
+                float effectiveRadius = pond.radius * (1f - pond.irregularity + noise * pond.irregularity * 2f);
+                if (dist < effectiveRadius)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Creates the water surface mesh from the water mask. Only water cells become
+        /// geometry, so the mesh exactly follows the river channel and pond shapes.
+        /// Vertices sit at WaterLevel; the shader displaces them for ripples.
+        /// </summary>
+        private void CreateWaterSurface()
+        {
+            int res = waterMask.GetLength(0);
+            List<Vector3> vertices = new List<Vector3>();
+            List<Vector2> uvs = new List<Vector2>();
+            List<int> triangles = new List<int>();
+
+            int waterCellCount = 0;
+            for (int z = 0; z < res - 1; z++)
+            {
+                for (int x = 0; x < res - 1; x++)
+                {
+                    if (!waterMask[x, z]) continue;
+                    waterCellCount++;
+                    int baseIdx = vertices.Count;
+                    float wy = (WaterLevel + 14f);
+                    vertices.Add(new Vector3(x, wy, z));
+                    vertices.Add(new Vector3(x + 1, wy, z));
+                    vertices.Add(new Vector3(x, wy, z + 1));
+                    vertices.Add(new Vector3(x + 1, wy, z + 1));
+                    float u0 = (float)x / res, u1 = (float)(x + 1) / res;
+                    float v0 = (float)z / res, v1 = (float)(z + 1) / res;
+                    uvs.Add(new Vector2(u0, v0));
+                    uvs.Add(new Vector2(u1, v0));
+                    uvs.Add(new Vector2(u0, v1));
+                    uvs.Add(new Vector2(u1, v1));
+                    triangles.Add(baseIdx); triangles.Add(baseIdx + 2); triangles.Add(baseIdx + 1);
+                    triangles.Add(baseIdx + 1); triangles.Add(baseIdx + 2); triangles.Add(baseIdx + 3);
+                }
+            }
+
+            // Destroy any existing WaterSurface children (the cached reference may be
+            // null after a recompile/scene reload, so also search by name).
+            if (waterSurfaceObj != null)
+                DestroyImmediate(waterSurfaceObj);
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                var child = transform.GetChild(i);
+                if (child.name == "WaterSurface")
+                    DestroyImmediate(child.gameObject);
+            }
+
+            waterSurfaceObj = new GameObject("WaterSurface");
+            waterSurfaceObj.transform.SetParent(transform, false);
+            waterSurfaceObj.transform.localPosition = Vector3.zero;
+
+            MeshFilter mf = waterSurfaceObj.AddComponent<MeshFilter>();
+            MeshRenderer mr = waterSurfaceObj.AddComponent<MeshRenderer>();
+
+            Mesh mesh = new Mesh { name = "WaterMesh" };
+            mesh.vertices = vertices.ToArray();
+            mesh.uv = uvs.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.RecalculateNormals();
+            mf.mesh = mesh;
+
+            Debug.Log($"[TerrainGen] CreateWaterSurface: res={res}, waterCells={waterCellCount}, verts={mesh.vertexCount}, tris={mesh.triangles.Length/3}, maskTex={(waterMaskTex != null ? waterMaskTex.width+"x"+waterMaskTex.height : "NULL")}");
+
+            Shader waterShader = Shader.Find("Homesteader/WaterSurface");
+            if (waterShader != null)
+            {
+                Material mat = new Material(waterShader);
+                if (waterMaskTex != null)
+                    mat.SetTexture("_WaterMask", waterMaskTex);
+                mat.SetVector("_TerrainBounds", new Vector4(terrainSizeX, terrainSizeZ, terrainHeight, 0f));
+                mr.material = mat;
+            }
+            else
+            {
+                Debug.LogWarning("[TerrainGen] WaterSurface shader not found!");
+            }
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            mr.receiveShadows = false;
+        }
+
+        // ========================================================================
+        //  BIOME LOOKUP
+        // ========================================================================
 
         public BiomeData GetBiomeById(string id)
         {
@@ -424,138 +791,103 @@ namespace Homesteader.Generation
             return biomes.Count > 0 ? biomes[biomes.Count - 1] : null;
         }
 
+        // ========================================================================
+        //  ELEVATION
+        // ========================================================================
+
         /// <summary>
-        /// Water level, shared by every water feature (river, its branch, and the pond) - one
-        /// constant flat plane. It used to grade uphill/downhill along the river's length, which
-        /// is what caused the "breaks" where that slope met the pond's own flat level and could
-        /// leave the water surface riding up or down with the surrounding terrain.
+        /// Quantizes elevation into discrete terrace steps for a stylized contour look.
+        /// Water cells are exempt — riverbeds and pondbeds stay smooth so the water surface
+        /// sits naturally above a continuous bed rather than stepped shelves.
         /// </summary>
-        public const float WaterLevel = 0.5f;
+        private float TerraceElevation(float elevMeters, float worldX, float worldZ)
+        {
+            if (!terraceEnabled || IsWaterAt(worldX, worldZ))
+                return elevMeters;
 
-        public float GetRiverWaterLevel(float worldZ) => WaterLevel;
+            // Skip terracing in the edge falloff zone — terracing the smooth border
+            // slope creates visible stacked platforms at map edges.
+            float edgeDist = Mathf.Min(Mathf.Min(worldX, worldZ), Mathf.Min(terrainSizeX - worldX, terrainSizeZ - worldZ));
+            const float edgeFalloff = 45f;
+            if (edgeDist < edgeFalloff)
+                return elevMeters;
+
+            // Skip terracing near water — the shoreline bank needs to rise smoothly
+            // so the player can climb out of rivers. Terracing the bank creates
+            // vertical cliffs that trap the player in the water.
+            float waterDist = GetWaterDistance(worldX, worldZ);
+            if (waterDist < 20f)
+                return elevMeters;
+
+            return Mathf.Round(elevMeters / terraceStepMeters) * terraceStepMeters;
+        }
 
         /// <summary>
-        /// Calculates physical ground elevation with strict hydrological flat carving.
-        /// Water features act as TRUE FLAT CARVERS:
-        /// - The pond is 100% perfectly flat horizontal (zero downward bending or funnel).
-        /// - The river is 100% flat across its channel width (zero V-trench).
-        /// - Shoreline banks rise smoothly up from the flat water level to the surrounding land.
+        /// Calculates physical ground elevation with edge falloff, riverbed carving, and
+        /// smooth shoreline banks. Water features carve the terrain below WaterLevel so the
+        /// water mesh (at WaterLevel) forms a surface above the bed.
         /// </summary>
         public float CalculateElevationAt(float worldX, float worldZ)
         {
-            // 1. Macro undulating landscape: rolling hills (-6m to +6m)
-            float largeHills = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.0035f, 3, 0.5f, worldSeed + 777) * 12.0f - 6.0f;
-            float rolling = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.008f, 2, 0.5f, worldSeed + 444) * 4.0f - 2.0f;
-            // Smooth base (no high-frequency detail) - used as the shoreline target below. The
-            // full "micro" detail term has a ~29m wavelength, short enough to wobble non-
-            // monotonically within just the 10-35m shore/valley zone, which turned the "rise to
-            // natural elevation" target into a bumpy one instead of a smooth ramp - a visible ridge
-            // even after capping the rise height itself.
+            // 1. Macro undulating landscape — gentle rolling hills, kept low so all areas stay walkable.
+            float largeHills = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.0035f, 3, 0.5f, worldSeed + 777) * 6.0f - 3.0f;
+            float rolling = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.008f, 2, 0.5f, worldSeed + 444) * 2.0f - 1.0f;
             float elevBase = largeHills + rolling;
 
-            // 2. Highland mountain rise to the north (Z > 240m)
+            // 2. Gentle northern rise (Z > 240m) — reduced so the north stays accessible.
             if (worldZ > 240f)
             {
                 float northT = (worldZ - 240f) / 260f;
-                elevBase += northT * northT * 10.0f;
+                elevBase += northT * northT * 4.0f;
             }
 
-            // 3. Micro ground texture detail on dry land
-            float micro = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.035f, 2, 0.5f, worldSeed + 999) * 0.4f;
+            // 3. Micro ground texture detail
+            float micro = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.035f, 2, 0.5f, worldSeed + 999) * 0.2f;
             float elev = elevBase + micro;
 
-            // 4. HYDROLOGICAL FLAT CARVER
-            const float pondWaterLevel = 0.5f;
-            float riverWaterLevel = GetRiverWaterLevel(worldZ);
+            // 4. No edge falloff — terrain generates fully to the map borders
 
-            float distToPond = Vector2.Distance(new Vector2(worldX, worldZ), pondCenter);
-            float pondRadius = GetPondRadius(worldX, worldZ);
-            float distToRiver = GetNearestRiverDistance(worldX, worldZ, out float riverHalfWidth);
-
-            bool isPondWater = distToPond <= pondRadius;
-            bool isRiverWater = !isPondWater && (distToRiver <= riverHalfWidth);
-
-            // Optional island in the pond: carve it back out of the water, with its own small
-            // rise and beach, instead of the pond being solid water end to end.
-            if (isPondWater && PondHasIsland)
+            // 5. Water features: carve riverbed/pondbed below water level
+            if (IsWaterAt(worldX, worldZ))
             {
-                float islandRadius = GetIslandRadius(worldX, worldZ, out float distToIsland);
-                if (distToIsland < islandRadius)
+                float depth = 0.4f + BiomeNoise.ValueNoise2D(worldX * 0.1f, worldZ * 0.1f, worldSeed + 42) * 0.3f;
+                return WaterLevel - depth;
+            }
+
+            // 6. Shoreline banks: smooth rise from water edge to surrounding terrain.
+            // The bank must rise gradually enough that the CharacterController
+            // (slopeLimit=45, stepOffset=0.3) can climb out. A 0.5m rise over 20m
+            // is a ~1.4 degree slope — easily walkable.
+            float waterDist = GetWaterDistance(worldX, worldZ);
+            if (waterDist < 40f)
+            {
+                const float bankRiseDistance = 20f;
+                const float bankRiseHeight = 0.5f;
+                float minLandHeight = Mathf.Clamp(elevBase, WaterLevel, WaterLevel + bankRiseHeight);
+
+                if (waterDist < bankRiseDistance)
                 {
-                    float islandT = Mathf.SmoothStep(0f, 1f, 1f - distToIsland / islandRadius);
-                    return Mathf.Lerp(pondWaterLevel + 0.8f, pondWaterLevel + 2.5f, islandT);
+                    float t = Mathf.SmoothStep(0f, 1f, waterDist / bankRiseDistance);
+                    return Mathf.Lerp(WaterLevel - 0.1f, minLandHeight, t);
                 }
-                if (distToIsland < islandRadius + 2.5f)
-                {
-                    float t = Mathf.SmoothStep(0f, 1f, (distToIsland - islandRadius) / 2.5f);
-                    return Mathf.Lerp(pondWaterLevel + 0.8f, pondWaterLevel, t);
-                }
-            }
 
-            // A. Inside water features: GUARANTEED 100% FLAT (cannot bend down)
-            if (isPondWater)
-            {
-                return pondWaterLevel;
-            }
-            if (isRiverWater)
-            {
-                return riverWaterLevel;
-            }
-
-            // B. Shoreline Banks: Carve smoothly UP from flat water level to surrounding land
-            float pondBankDist = distToPond - pondRadius;
-            float riverBankDist = distToRiver - riverHalfWidth;
-
-            // Immediate bank rises gently to this LOW capped height first - never straight to
-            // whatever the local hill noise happens to be, which is what made banks feel like
-            // steep, too-deep drop-offs wherever they crossed higher ground. The remaining climb
-            // up to the real surrounding elevation happens gradually over the wider valley floor
-            // below. Spread over a wide distance so it reads as a gradual slope, not a dropoff.
-            const float bankRiseHeight = 1.0f;
-            const float bankRiseDistance = 10.0f;
-            // Clamped ABOVE at a natural terrain height, never forced up to a minimum bump - a
-            // forced minimum still overshot above the real elevation wherever the natural ground
-            // nearby was already low (very common right next to water, since water tends to sit in
-            // low ground to begin with), so the valley floor had to dip back down from that forced
-            // bump to the real, lower elevation - a visible ridge/levee right at the shore. The
-            // only floor is the water's own level, so land can't dip below the water surface it's
-            // bordering, but otherwise this rises to whatever the natural elevation actually is.
-            float pondMinLandHeight = Mathf.Clamp(elevBase, pondWaterLevel, pondWaterLevel + bankRiseHeight);
-            float riverMinLandHeight = Mathf.Clamp(elevBase, riverWaterLevel, riverWaterLevel + bankRiseHeight);
-            float minLandHeight = (distToPond < 55.0f) ? pondMinLandHeight : riverMinLandHeight;
-
-            if (pondBankDist < bankRiseDistance && pondBankDist >= 0f)
-            {
-                float t = Mathf.SmoothStep(0f, 1f, pondBankDist / bankRiseDistance);
-                return Mathf.Lerp(pondWaterLevel, pondMinLandHeight, t);
-            }
-            else if (riverBankDist < bankRiseDistance && riverBankDist >= 0f)
-            {
-                float t = Mathf.SmoothStep(0f, 1f, riverBankDist / bankRiseDistance);
-                return Mathf.Lerp(riverWaterLevel, riverMinLandHeight, t);
-            }
-
-            // C. Gentle valley floor around the river & pond. Measured as distance PAST the bank
-            // zone above (not raw distance to the water), so it starts at exactly minLandHeight
-            // where the bank zone leaves off - otherwise the two zones use different distance
-            // metrics and the height jumps right at the seam between them.
-            const float valleyWidth = 25.0f;
-            float shoreDist = Mathf.Min(pondBankDist, riverBankDist) - bankRiseDistance;
-            if (shoreDist < valleyWidth)
-            {
+                // Valley floor: gradual blend from bank to full elevation
+                const float valleyWidth = 20f;
+                float shoreDist = waterDist - bankRiseDistance;
                 float vt = Mathf.SmoothStep(0f, 1f, Mathf.Max(0f, shoreDist) / valleyWidth);
-                // Blends toward elevBase (also smooth, no high-frequency wobble), fading the micro
-                // detail back in as vt approaches 1 so it reaches full elev exactly where this zone
-                // ends and the unconstrained "return elev" below takes over - no seam between them.
                 return Mathf.Lerp(minLandHeight, elevBase, vt) + micro * vt;
             }
 
             return elev;
         }
 
+        // ========================================================================
+        //  BIOME EVALUATION
+        // ========================================================================
+
         [Header("Starter Field")]
         [Tooltip("Carve a farmland biome plot around the player spawn (terrain-local metres).")]
-        public bool starterFieldEnabled = true;
+        public bool starterFieldEnabled = false;
         public Vector2 starterFieldCenter = new Vector2(28f, 14f);
         [Tooltip("Half the field size on X and Z, in metres.")]
         public Vector2 starterFieldHalfSize = new Vector2(26f, 20f);
@@ -568,52 +900,43 @@ namespace Homesteader.Generation
 
         public BiomeData EvaluateBiomeAt(float worldX, float worldZ, float elev)
         {
-            float distToRiver = GetNearestRiverDistance(worldX, worldZ, out float riverHalfWidth);
-            float distToPond = Vector2.Distance(new Vector2(worldX, worldZ), pondCenter);
-            float pondRadius = GetPondRadius(worldX, worldZ);
-
-            // 1. Water (Strictly in the sunken channels - occupying ~3% of map).
-            // Pond is checked first: the river's path runs through the pond, and without this
-            // order the river would win there and cut a visible seam straight across the pond.
-            if (distToPond < pondRadius)
+            // 1. Water — classified from the water mask, not analytic distance fields.
+            if (IsWaterAt(worldX, worldZ))
             {
-                if (PondHasIsland)
+                if (IsInsidePond(worldX, worldZ))
                 {
-                    float islandRadius = GetIslandRadius(worldX, worldZ, out float distToIsland);
-                    if (distToIsland < islandRadius) return GetBiomeById("biome_meadow");
-                    if (distToIsland < islandRadius + 2.5f) return GetBiomeById("biome_dry_lands");
+                    // Deep water in the pond core, shallower at the fringe
+                    foreach (var pond in allPonds)
+                    {
+                        float dx = worldX - pond.center.x;
+                        float dz = worldZ - pond.center.y;
+                        float d = Mathf.Sqrt(dx * dx + dz * dz);
+                        float noise = BiomeNoise.FractalNoise2D(
+                            dx * 0.15f, dz * 0.15f, 0.5f, 2, 0.5f, Mathf.RoundToInt(pond.noiseSeed));
+                        float effectiveRadius = pond.radius * (1f - pond.irregularity + noise * pond.irregularity * 2f);
+                        if (d < effectiveRadius)
+                        {
+                            return d < effectiveRadius * 0.45f
+                                ? GetBiomeById("biome_lake")
+                                : GetBiomeById("biome_pond");
+                        }
+                    }
                 }
-                // Deep water in the body's core, shallower pond fringe around it - so both the
-                // lake and pond biomes are actually reachable, not just pond.
-                return distToPond < pondRadius * 0.45f
-                    ? GetBiomeById("biome_lake")
-                    : GetBiomeById("biome_pond");
-            }
-            if (distToRiver < riverHalfWidth)
-            {
                 return GetBiomeById("biome_river");
             }
 
-            // 2. Shoreline fringe - a narrow beach band, not a wide ring, with its outer edge
-            // perturbed by noise so it has real inlets and coves instead of tracing a perfectly
-            // parallel offset of the water's edge. Varies what actually grows there (bog, sand,
-            // or just grass running down to the waterline) instead of wetland_marsh being the
-            // only thing that ever spawns next to water. Gated strictly to !isWater (checked
-            // above already returned) so the fringe can never paint over the water itself, even
-            // where the river's path runs close to the pond.
-            float fringeNoise = (Mathf.PerlinNoise(worldX * 0.05f + 90f, worldZ * 0.05f + 90f) - 0.5f) * 3f;
-            if (distToRiver < riverHalfWidth + 1.5f + fringeNoise || distToPond < (pondRadius + 2.5f + fringeNoise))
+            // 2. Shoreline fringe — narrow band around water, with noise-perturbed edge
+            float waterDist = GetWaterDistance(worldX, worldZ);
+            float fringeNoise = (BiomeNoise.ValueNoise2D(worldX * 0.05f, worldZ * 0.05f, worldSeed + 555) - 0.5f) * 3f;
+            if (waterDist < 4f + fringeNoise)
             {
                 float shoreNoise = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.06f, 2, 0.5f, worldSeed + 555);
-                if (shoreNoise > 0.74f) return GetBiomeById("biome_dry_lands");   // sandy/dirt bank
-                if (shoreNoise < 0.30f) return GetBiomeById("biome_meadow");     // grass right to the waterline
-                return GetBiomeById("biome_wetland_marsh");                      // boggy patch
+                if (shoreNoise > 0.74f) return GetBiomeById("biome_dry_lands");
+                if (shoreNoise < 0.30f) return GetBiomeById("biome_meadow");
+                return GetBiomeById("biome_wetland_marsh");
             }
 
-            // Maintained lawn is a cultivated yard, not a naturally-occurring biome - it no longer
-            // spawns as part of normal terrain generation (mirrors the farmland fix).
-
-            // 4a. Starter field: a farmland plot around the player spawn so crops can be planted right away.
+            // 3. Starter field: farmland plot around the player spawn
             if (starterFieldEnabled &&
                 Mathf.Abs(worldX - starterFieldCenter.x) < starterFieldHalfSize.x &&
                 Mathf.Abs(worldZ - starterFieldCenter.y) < starterFieldHalfSize.y)
@@ -621,131 +944,99 @@ namespace Homesteader.Generation
                 return GetBiomeById("biome_farmland");
             }
 
-            // Farmland is deliberately placed only (the starter field above) - it's cultivated
-            // by the player, not a naturally-occurring biome, so it no longer spawns as part of
-            // normal terrain generation.
+            // 4. Highlands & Mountain Knolls — thresholds lowered for the smoother terrain
+            if (elev > 4.5f) return GetBiomeById("biome_rocky_ridge");
+            if (elev > 2.5f) return GetBiomeById("biome_pine_hills");
 
-            // 5. Highlands & Mountain Knolls (North & High Peaks). The macro hill noise (rolling
-            // -6..+6m plus the north-edge rise) rarely exceeds ~10-11m anywhere on the map, so the
-            // old 14m rocky_ridge threshold was above the terrain's actual achievable range and
-            // that biome could never spawn; 8.5/5.5 sit inside the real range while still keeping
-            // rocky_ridge rarer than pine_hills.
-            if (elev > 8.5f)
-            {
-                return GetBiomeById("biome_rocky_ridge");
-            }
-            if (elev > 5.5f)
-            {
-                return GetBiomeById("biome_pine_hills");
-            }
-
-            // 6. Arid Dry Lands (South-West Sun-baked Scrub). Was a solid 140x145m block (~8% of
-            // the map, one single huge patch) - shrunk to a smaller corner and noise-gated so only
-            // part of that corner is actually arid, breaking it into smaller patches instead of
-            // one big chunk.
+            // 5. Arid Dry Lands (South-West corner, noise-gated)
             if (worldX < 70f && worldZ < 75f)
             {
                 float aridNoise = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.03f, 2, 0.5f, worldSeed + 888);
                 if (aridNoise > 0.45f) return GetBiomeById("biome_dry_lands");
             }
 
-            // 7. Amorphous Regional Forest & Meadow Blobs
-            // Two continuous domain-warped orthogonal noise fields partition the remaining landscape into organic flowing blobs
+            // 6. Amorphous Regional Forest & Meadow Blobs
             float rNoise1 = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.0275f, 3, 0.5f, worldSeed + 101);
             float rNoise2 = BiomeNoise.FractalNoise2D(worldX, worldZ, 0.0275f, 3, 0.5f, worldSeed + 202);
 
-            // Grass/meadow is the default open-country biome and should far outnumber forest -
-            // forest only claims the tails of the noise range instead of most of it. FractalNoise2D
-            // (3 octaves, persistence 0.5) rarely swings past roughly 0.1/0.9 in practice, so 0.85/
-            // 0.15 thresholds were essentially unreachable and forest almost never spawned; 0.60/0.40
-            // is comfortably inside the noise's real range (~76% grass, ~24% forest).
             if (rNoise1 > 0.60f)
             {
-                if (rNoise2 > 0.66f) return GetBiomeById("biome_maple_forest");   // Vibrant Autumn Amber
-                if (rNoise2 > 0.33f) return GetBiomeById("biome_mixed_forest");   // Biodiverse conifer/deciduous mix
-                return GetBiomeById("biome_birch_forest");                       // Luminous Yellow-Green
+                if (rNoise2 > 0.66f) return GetBiomeById("biome_maple_forest");
+                if (rNoise2 > 0.33f) return GetBiomeById("biome_mixed_forest");
+                return GetBiomeById("biome_birch_forest");
             }
             else if (rNoise1 < 0.40f)
             {
-                if (rNoise2 > 0.66f) return GetBiomeById("biome_oak_forest");     // Deep Canopy Hardwood
-                if (rNoise2 > 0.33f) return GetBiomeById("biome_mixed_forest");   // Biodiverse conifer/deciduous mix
-                return GetBiomeById("biome_poplar_forest");                      // Fresh Spring Green
+                if (rNoise2 > 0.66f) return GetBiomeById("biome_oak_forest");
+                if (rNoise2 > 0.33f) return GetBiomeById("biome_mixed_forest");
+                return GetBiomeById("biome_poplar_forest");
             }
             else
             {
                 return (rNoise2 > 0.50f)
-                    ? GetBiomeById("biome_grass_plains")    // Vivid Emerald Prairie
-                    : GetBiomeById("biome_meadow");          // Natural Rolling Pasture
+                    ? GetBiomeById("biome_grass_plains")
+                    : GetBiomeById("biome_meadow");
             }
         }
+
+        // ========================================================================
+        //  TERRAIN GENERATION
+        // ========================================================================
 
         [ContextMenu("Generate Terrain")]
         public void GenerateTerrain()
         {
+            Random.InitState(worldSeed);
             targetTerrain = GetComponent<Terrain>();
             if (targetTerrain == null) return;
             terrainData = targetTerrain.terrainData;
-
-            // Sync terrain size to 500m x 500m
             terrainData.size = new Vector3(terrainSizeX, terrainHeight, terrainSizeZ);
+
+            // Generate water features + mask + distance field BEFORE heightmap
+            GenerateWaterFeatures();
+            GenerateWaterMask();
+            ComputeWaterDistanceField();
 
             int heightmapResolution = terrainData.heightmapResolution;
             float[,] heights = new float[heightmapResolution, heightmapResolution];
 
-            // One texel per metre so the biome map's texel grid lines up exactly with the
-            // shader's 1m world-space grid overlay (a mismatched resolution here caused a
-            // moire beat pattern between the two grids).
             int mapRes = Mathf.RoundToInt(terrainSizeX);
             if (bakedBiomeMap == null || bakedBiomeMap.width != mapRes)
             {
-                // CRITICAL: linear = true ensures no sRGB-to-Linear gamma compression
                 bakedBiomeMap = new Texture2D(mapRes, mapRes, TextureFormat.RGBA32, false, true)
                 {
-                    filterMode = FilterMode.Point,
+                    filterMode = FilterMode.Bilinear,
                     wrapMode = TextureWrapMode.Clamp
                 };
             }
             else
             {
-                bakedBiomeMap.filterMode = FilterMode.Point;
+                bakedBiomeMap.filterMode = FilterMode.Bilinear;
             }
 
             Color[] mapPixels = new Color[mapRes * mapRes];
 
-            // 1. Generate procedural heightmap with guaranteed sunken valley and bed for water
+            // 1. Generate procedural heightmap
             for (int z = 0; z < heightmapResolution; z++)
             {
                 for (int x = 0; x < heightmapResolution; x++)
                 {
                     float worldX = (float)x / (heightmapResolution - 1) * terrainSizeX;
                     float worldZ = (float)z / (heightmapResolution - 1) * terrainSizeZ;
-
                     float elevMeters = CalculateElevationAt(worldX, worldZ);
-
-                    // Normalize to Unity's [0, 1] terrain height space (14m baseline floor)
+                    elevMeters = TerraceElevation(elevMeters, worldX, worldZ);
                     heights[z, x] = Mathf.Clamp01((elevMeters + 14f) / terrainHeight);
                 }
             }
-
             terrainData.SetHeights(0, 0, heights);
 
-            // 2. Bake organic Biome Control Map.
-            // RGB = the biome's actual color_hex tint, sampled BILINEARLY by the shader so
-            // adjacent biomes blend smoothly at their border instead of stair-stepping at the
-            // texel grid. A = ShaderMode [16-bucket full range], sampled with POINT filtering
-            // so the shader can still hard-gate patterned biomes (water/lawn/farmland/wetland)
-            // without inventing in-between mode ids.
+            // 2. Bake biome control map
             for (int py = 0; py < mapRes; py++)
             {
                 for (int px = 0; px < mapRes; px++)
                 {
-                    // Divide by mapRes (not mapRes - 1): with mapRes == terrainSizeX this makes
-                    // each texel exactly 1m wide, so texel boundaries land exactly on the
-                    // shader's integer-metre grid lines instead of drifting away from them
-                    // further from the origin.
                     float worldX = (float)px / mapRes * terrainSizeX;
                     float worldZ = (float)py / mapRes * terrainSizeZ;
-
                     float elevMeters = CalculateElevationAt(worldX, worldZ);
                     BiomeData biome = EvaluateBiomeAt(worldX, worldZ, elevMeters);
 
@@ -777,67 +1068,60 @@ namespace Homesteader.Generation
                     if (biome == null || string.IsNullOrEmpty(biome.color_hex) ||
                         !ColorUtility.TryParseHtmlString(biome.color_hex, out tint))
                     {
-                        tint = new Color(0.518f, 0.800f, 0.086f); // Meadow fallback
+                        tint = new Color(0.518f, 0.800f, 0.086f);
                     }
-
-                    // Encode mode (0..15) across full range in distinct 1/16 buckets immune to gamma distortion
                     float a = (modeInt + 0.5f) / 16.0f;
-
                     mapPixels[py * mapRes + px] = new Color(tint.r, tint.g, tint.b, a);
-                }
-            }
-
-            // Widen biome borders beyond the single-texel bilinear blend the shader already does,
-            // by box-blurring the RGB tint (mode stays in A, untouched, so patterned biome gating
-            // stays crisp). Separable pass: horizontal then vertical.
-            const int blurRadius = 3;
-            Color[] blurredH = new Color[mapRes * mapRes];
-            for (int py = 0; py < mapRes; py++)
-            {
-                for (int px = 0; px < mapRes; px++)
-                {
-                    float r = 0f, g = 0f, b = 0f;
-                    int count = 0;
-                    for (int k = -blurRadius; k <= blurRadius; k++)
-                    {
-                        int sx = Mathf.Clamp(px + k, 0, mapRes - 1);
-                        Color c = mapPixels[py * mapRes + sx];
-                        r += c.r; g += c.g; b += c.b; count++;
-                    }
-                    Color orig = mapPixels[py * mapRes + px];
-                    blurredH[py * mapRes + px] = new Color(r / count, g / count, b / count, orig.a);
-                }
-            }
-            for (int px = 0; px < mapRes; px++)
-            {
-                for (int py = 0; py < mapRes; py++)
-                {
-                    float r = 0f, g = 0f, b = 0f;
-                    int count = 0;
-                    for (int k = -blurRadius; k <= blurRadius; k++)
-                    {
-                        int sy = Mathf.Clamp(py + k, 0, mapRes - 1);
-                        Color c = blurredH[sy * mapRes + px];
-                        r += c.r; g += c.g; b += c.b; count++;
-                    }
-                    Color orig = mapPixels[py * mapRes + px];
-                    mapPixels[py * mapRes + px] = new Color(r / count, g / count, b / count, orig.a);
                 }
             }
 
             bakedBiomeMap.SetPixels(mapPixels);
             bakedBiomeMap.Apply();
 
-            // Pass baked biome map and 500m world bounds to the procedural terrain material
-            if (targetTerrain.materialTemplate != null)
+            // Build border factor texture: 0 = interior, 1 = border.
+            Texture2D borderTex = new Texture2D(mapRes, mapRes, TextureFormat.R8, false);
+            borderTex.filterMode = FilterMode.Bilinear;
+            borderTex.wrapMode = TextureWrapMode.Clamp;
+            Color[] borderPixels = new Color[mapRes * mapRes];
+            const int borderRadius = 6;
+            for (int py = 0; py < mapRes; py++)
             {
-                targetTerrain.materialTemplate.SetTexture("_BiomeMap", bakedBiomeMap);
-                targetTerrain.materialTemplate.SetVector("_TerrainBounds", new Vector4(terrainSizeX, terrainSizeZ, terrainHeight, 0f));
-                targetTerrain.materialTemplate.SetFloat("_HasIsland", PondHasIsland ? 1f : 0f);
-                targetTerrain.materialTemplate.SetFloat("_HasBranch", RiverHasBranch ? 1f : 0f);
+                for (int px = 0; px < mapRes; px++)
+                {
+                    float myMode = mapPixels[py * mapRes + px].a;
+                    int diff = 0, total = 0;
+                    for (int dy = -borderRadius; dy <= borderRadius; dy++)
+                    {
+                        for (int dx = -borderRadius; dx <= borderRadius; dx++)
+                        {
+                            if (dx == 0 && dy == 0) continue;
+                            int nx = Mathf.Clamp(px + dx, 0, mapRes - 1);
+                            int ny = Mathf.Clamp(py + dy, 0, mapRes - 1);
+                            float nMode = mapPixels[ny * mapRes + nx].a;
+                            total++;
+                            if (Mathf.Abs(nMode - myMode) > 0.01f) diff++;
+                        }
+                    }
+                    // Amplify: sqrt makes small border values more visible
+                    float bf = Mathf.Sqrt((float)diff / total);
+                    borderPixels[py * mapRes + px] = new Color(bf, 0, 0, 1);
+                }
             }
+            borderTex.SetPixels(borderPixels);
+            borderTex.Apply();
+
+        if (targetTerrain.materialTemplate != null)
+        {
+            targetTerrain.materialTemplate.SetTexture("_BiomeMap", bakedBiomeMap);
+            targetTerrain.materialTemplate.SetTexture("_BiomeBorderTex", borderTex);
+            targetTerrain.materialTemplate.SetVector("_TerrainBounds", new Vector4(terrainSizeX, terrainSizeZ, terrainHeight, 0f));
+        }
+
+        // 3. Create water surface mesh
+            CreateWaterSurface();
 
             SpawnBiomeAssets();
+            RegenerateGrass();
         }
 
         public Texture2D GetBakedBiomeMap()
@@ -857,8 +1141,6 @@ namespace Homesteader.Generation
 
             foreach (var asset in registeredAssets)
             {
-                // Data-only assets (is_spawnable == false) exist for crafting and
-                // placement but are never scattered by the generator.
                 if (!asset.CanSpawn)
                     continue;
 
@@ -894,6 +1176,212 @@ namespace Homesteader.Generation
                     instance.transform.localScale = Vector3.one * scale;
                 }
             }
+        }
+
+        /// <summary>
+        /// Regenerates GPU-instanced grass blades from the baked biome map.
+        /// </summary>
+        private void RegenerateGrass()
+        {
+            var grassRenderer = GetComponent<Homesteader.Grass.GrassRenderer>();
+            if (grassRenderer == null)
+                grassRenderer = gameObject.AddComponent<Homesteader.Grass.GrassRenderer>();
+            grassRenderer.Regenerate();
+        }
+
+        /// <summary>
+        /// Async version of GenerateTerrain that yields periodically so the main thread
+        /// can update a progress bar.
+        /// </summary>
+        public IEnumerator GenerateTerrainAsync()
+        {
+            Random.InitState(worldSeed);
+            Debug.Log($"[TerrainGen] GenerateTerrainAsync started with seed {worldSeed}");
+
+            IsGenerating = true;
+            GenerationProgress = 0f;
+
+            targetTerrain = GetComponent<Terrain>();
+            if (targetTerrain == null)
+            {
+                IsGenerating = false;
+                GenerationProgress = 1f;
+                yield break;
+            }
+            terrainData = targetTerrain.terrainData;
+            terrainData.size = new Vector3(terrainSizeX, terrainHeight, terrainSizeZ);
+
+            // Generate water features + mask + distance field BEFORE heightmap
+            GenerationPhase = "Generating water features...";
+            GenerateWaterFeatures();
+            GenerateWaterMask();
+            ComputeWaterDistanceField();
+            GenerationProgress = 0.05f;
+            yield return null;
+
+            int heightmapResolution = terrainData.heightmapResolution;
+            float[,] heights = new float[heightmapResolution, heightmapResolution];
+
+            int mapRes = Mathf.RoundToInt(terrainSizeX);
+            if (bakedBiomeMap == null || bakedBiomeMap.width != mapRes)
+            {
+                bakedBiomeMap = new Texture2D(mapRes, mapRes, TextureFormat.RGBA32, false, true)
+                {
+                    filterMode = FilterMode.Bilinear,
+                    wrapMode = TextureWrapMode.Clamp
+                };
+            }
+            else
+            {
+                bakedBiomeMap.filterMode = FilterMode.Bilinear;
+            }
+
+            Color[] mapPixels = new Color[mapRes * mapRes];
+
+            // Phase 1: Heightmap (5% .. 40%)
+            GenerationPhase = "Generating heightmap...";
+            for (int z = 0; z < heightmapResolution; z++)
+            {
+                for (int x = 0; x < heightmapResolution; x++)
+                {
+                    float worldX = (float)x / (heightmapResolution - 1) * terrainSizeX;
+                    float worldZ = (float)z / (heightmapResolution - 1) * terrainSizeZ;
+                    float elevMeters = CalculateElevationAt(worldX, worldZ);
+                    elevMeters = TerraceElevation(elevMeters, worldX, worldZ);
+                    heights[z, x] = Mathf.Clamp01((elevMeters + 14f) / terrainHeight);
+                }
+                if (z % 64 == 0)
+                {
+                    GenerationProgress = Mathf.Lerp(0.05f, 0.40f, (float)z / heightmapResolution);
+                    yield return null;
+                }
+            }
+            terrainData.SetHeights(0, 0, heights);
+            GenerationProgress = 0.40f;
+            yield return null;
+
+            // Phase 2: Biome control map (40% .. 70%)
+            GenerationPhase = "Baking biome map...";
+            for (int py = 0; py < mapRes; py++)
+            {
+                for (int px = 0; px < mapRes; px++)
+                {
+                    float worldX = (float)px / mapRes * terrainSizeX;
+                    float worldZ = (float)py / mapRes * terrainSizeZ;
+                    float elevMeters = CalculateElevationAt(worldX, worldZ);
+                    BiomeData biome = EvaluateBiomeAt(worldX, worldZ, elevMeters);
+
+                    int modeInt = 0;
+                    if (biome != null)
+                    {
+                        switch (biome.id)
+                        {
+                            case "biome_river": modeInt = 1; break;
+                            case "biome_lake": modeInt = 2; break;
+                            case "biome_pond": modeInt = 3; break;
+                            case "biome_farmland": modeInt = 4; break;
+                            case "biome_maintained_grass": modeInt = 5; break;
+                            case "biome_wetland_marsh": modeInt = 6; break;
+                            case "biome_maple_forest": modeInt = 7; break;
+                            case "biome_birch_forest": modeInt = 8; break;
+                            case "biome_oak_forest": modeInt = 9; break;
+                            case "biome_pine_hills": modeInt = 10; break;
+                            case "biome_rocky_ridge": modeInt = 11; break;
+                            case "biome_dry_lands": modeInt = 12; break;
+                            case "biome_grass_plains": modeInt = 13; break;
+                            case "biome_poplar_forest": modeInt = 14; break;
+                            case "biome_mixed_forest": modeInt = 15; break;
+                            default: modeInt = 0; break;
+                        }
+                    }
+
+                    Color tint = Color.white;
+                    if (biome == null || string.IsNullOrEmpty(biome.color_hex) ||
+                        !ColorUtility.TryParseHtmlString(biome.color_hex, out tint))
+                    {
+                        tint = new Color(0.518f, 0.800f, 0.086f);
+                    }
+                    float a = (modeInt + 0.5f) / 16.0f;
+                    mapPixels[py * mapRes + px] = new Color(tint.r, tint.g, tint.b, a);
+                }
+                if (py % 50 == 0)
+                {
+                    GenerationProgress = Mathf.Lerp(0.40f, 0.70f, (float)py / mapRes);
+                    yield return null;
+                }
+            }
+            GenerationProgress = 0.70f;
+            yield return null;
+
+            GenerationProgress = 0.85f;
+            yield return null;
+
+            bakedBiomeMap.SetPixels(mapPixels);
+            bakedBiomeMap.Apply();
+
+            // Build border factor texture: 0 = interior, 1 = border.
+            GenerationPhase = "Computing biome borders...";
+            {
+                Texture2D borderTex = new Texture2D(mapRes, mapRes, TextureFormat.R8, false);
+                borderTex.filterMode = FilterMode.Bilinear;
+                borderTex.wrapMode = TextureWrapMode.Clamp;
+                Color[] borderPixels = new Color[mapRes * mapRes];
+                const int borderRadius = 6;
+                for (int py = 0; py < mapRes; py++)
+                {
+                    for (int px = 0; px < mapRes; px++)
+                    {
+                        float myMode = mapPixels[py * mapRes + px].a;
+                        int diff = 0, total = 0;
+                        for (int dy = -borderRadius; dy <= borderRadius; dy++)
+                        {
+                            for (int dx = -borderRadius; dx <= borderRadius; dx++)
+                            {
+                                if (dx == 0 && dy == 0) continue;
+                                int nx = Mathf.Clamp(px + dx, 0, mapRes - 1);
+                                int ny = Mathf.Clamp(py + dy, 0, mapRes - 1);
+                                float nMode = mapPixels[ny * mapRes + nx].a;
+                                total++;
+                                if (Mathf.Abs(nMode - myMode) > 0.01f) diff++;
+                            }
+                        }
+                        float bf = Mathf.Sqrt((float)diff / total);
+                        borderPixels[py * mapRes + px] = new Color(bf, 0, 0, 1);
+                    }
+                    if (py % 100 == 0) yield return null;
+                }
+                borderTex.SetPixels(borderPixels);
+                borderTex.Apply();
+
+                if (targetTerrain.materialTemplate != null)
+                {
+                    targetTerrain.materialTemplate.SetTexture("_BiomeMap", bakedBiomeMap);
+                    targetTerrain.materialTemplate.SetTexture("_BiomeBorderTex", borderTex);
+                    targetTerrain.materialTemplate.SetVector("_TerrainBounds", new Vector4(terrainSizeX, terrainSizeZ, terrainHeight, 0f));
+                }
+            }
+            GenerationProgress = 0.85f;
+            yield return null;
+
+            // Phase 4: Water surface mesh (85% .. 90%)
+            GenerationPhase = "Creating water surface...";
+            CreateWaterSurface();
+            GenerationProgress = 0.90f;
+            yield return null;
+
+            // Phase 5: Asset spawning (90% .. 100%)
+            GenerationPhase = "Scattering biome assets...";
+            SpawnBiomeAssets();
+
+            // Phase 6: Grass rendering
+            GenerationPhase = "Planting grass...";
+            RegenerateGrass();
+
+            Homesteader.UI.MiniMap.InvalidateCache();
+
+            GenerationProgress = 1f;
+            GenerationPhase = "";
+            IsGenerating = false;
         }
     }
 }

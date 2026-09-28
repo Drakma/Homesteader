@@ -1,0 +1,18 @@
+{
+  "id": "horse",
+  "extends": [
+    "livestock"
+  ],
+  "applies_to": [
+    "quarter_horse"
+  ],
+  "note": "Horses. Fast, wide-ranging.",
+  "movement": {
+    "walk_speed": 1.6,
+    "run_speed": 8.5,
+    "turn_speed_deg": 160
+  },
+  "senses": {
+    "sight_m": 40
+  }
+}

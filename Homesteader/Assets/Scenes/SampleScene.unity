@@ -822,8 +822,6 @@ MonoBehaviour:
   yawDegrees: -45
   followSmoothing: 8
   zoomSpeed: 6
-  minOrthoSize: 2
-  maxOrthoSize: 20
   yawRotateSpeed: 6
   panSpeed: 1
   recenterSpeed: 6

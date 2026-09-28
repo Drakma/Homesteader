@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\nusing UnityEditor.Compilation;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);\n        AssetDatabase.SaveAssets();\n        CompilationPipeline.RequestScriptCompilation();\n        result.Log(\"RequestScriptCompilation done.\");\n    }\n}\n",
+  "Title": "Force compile"
+}

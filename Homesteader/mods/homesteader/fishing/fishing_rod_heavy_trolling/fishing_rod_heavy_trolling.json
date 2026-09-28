@@ -1,0 +1,98 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "fishing_rod_heavy_trolling",
+  "name": "Heavy Trolling Fishing Rod",
+  "category": "fishing",
+  "description": "Offshore trolling rod with lever-drag reel.",
+  "icon": "fishing_rod_heavy_trolling.png",
+  "properties": {
+    "weight_kg": 2.5,
+    "max_stack_size": 1,
+    "base_value": 180.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "fishing_rod_heavy_trolling.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "fishing_rod_heavy_trolling.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 30.0,
+        "y": 33.3,
+        "z": 100.0
+      },
+      "dimensions_m": {
+        "x": 0.3,
+        "y": 0.33,
+        "z": 1.0
+      },
+      "vertices": 444,
+      "faces": 148,
+      "bounding_box": {
+        "min": [
+          -15.0,
+          -7.0,
+          0.0
+        ],
+        "max": [
+          15.0,
+          26.2658,
+          100.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.04,
+      "depth": 0.04,
+      "height": 2.1
+    }
+  }
+}

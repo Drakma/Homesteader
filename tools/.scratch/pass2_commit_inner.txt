@@ -1,0 +1,84 @@
+feat(Assets): wire live runtime state - HudState + TimeSystem + bindings
+
+The HUD now reads real values from `HudState` and `TimeSystem`
+every frame instead of showing static demo strings. Labels under
+`Resources/HUDTree/HudUI.uxml` carry explicit `name=` attributes
+so `HudBindings` can find them and write state per Update.
+
+New C# classes (Assets/Scripts/UI/)
+  - HudState.cs        Port of assets/hud_kit/runtime/state.py.
+                       Defaults match Python: 10 toolbar slots,
+                       4 vitals (Wellness/Stamina/Thirst/Hunger),
+                       4 resources (Water 120.5 L, Electricity
+                       2.40k Wh, Bandwidth 24 Mbps, Fuel compound
+                       dict). HudState has a singleton accessor
+                       HudState.Active so scene-local bindings
+                       share the same instance.
+  - TimeSystem.cs      Port of assets/hud_kit/runtime/time_system.py.
+                       DaysPerSeason=30, DaysPerYear=120, real-time
+                       multiplier 1s -> 1 game minute at 1x.
+                       12-hour DAY/NIGHT phases. Phase/Season/Speed
+                       enums are prefixed Homesteader* to avoid
+                       collisions with arbitrary System.* namespacing.
+                       Tick(dt) updates minute_of_day and rolls
+                       day-of-year over CYCLE_GAME_MINUTES.
+  - HudBindings.cs     Per-frame MonoBehaviour. Ticks the
+                       TimeSystem (when its owner flag is on), reads
+                       HudState.Active, looks up Labels/Buttons in
+                       the live UIDocument root, and writes values:
+                         SeasonLabel, DayLabel, ClockLabel
+                         ResourceWater/Electricity/Bandwidth/Fuel
+                         VitalWellness/Stamina/Thirst/Hunger
+                         Holding/HeldName/HeldCount
+                         ToolbarSlot0..9 (visual selected-state class)
+                         SpeedPause/1X/3X/5X/9X (Button clicked events
+                         drive TimeSystem.SetSpeed).
+                       Defensive: missing labels resolve to null and
+                       are silently skipped so the bindings stay
+                       robust against partial UXML trees.
+
+Modified assets
+  - HudUI.uxml         Rewritten. Original 50 lines had a single
+                       static "Summer, Day 42 5:00 AM" label and
+                       3 icon-tile resource cells with no per-resource
+                       ids. New version names every label that
+                       HudBindings writes to, adds a 10-slot
+                       ToolbarContainer with ToolbarSlot0..9
+                       Visible elements, and a HeldAssetPanel with
+                       Holding/HeldName/HeldCount labels.
+  - HudUI.uss          .speed-chip class widened from a VisualElement
+                       decoration to a Button-friendly selector with
+                       hover/active states, plus -unity-font default
+                       so chips render with the kit's Medium weight
+                       family. -unity-text-decoration: underline
+                       removed (UI Toolkit does not implement CSS
+                       text-decoration); substituted with bold +
+                       amber color in .underlined and .link-label.
+  - HudSceneBootstrap  Now also adds HudBindings in addition to
+                       building the UIDocument and the kit-overlay
+                       enabled flag path.
+
+Design notes
+  - HudState is plain C# data, not a ScriptableObject. A future
+    pass can lift it to a SO for inspector editing and save/load;
+    the singleton accessor keeps the API stable so a swap is a
+    one-line change.
+  - The HUD does not visually mutate when time advances unless
+    the SampleScene is in Play mode. UIDocument only constructs
+    its rootVisualElement during Play. Bindings Update() still
+    ticks the time system on each editor pulse.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+
+  - Tools/unity_mcp.cmd list-tools-table -> unchanged (7 tools).
+  - Resources.Load<Font>(HUDTree/Fonts/HomesteaderHUD[_...]) still
+    non-null (no regression from the font commit).
+  - Unity_RunCommand probe verified HudState defaults match
+    Python source: Wellness=50, Water amount=120.5, Toolbar count
+    = 10.
+  - TimeSystem tick math confirmed: 2 real-seconds at 3x advances
+    CycleMinute by 6; 60 real-seconds at 1x advances by 60. 4
+    real-seconds at 9x would advance by 36 - same math, different
+    speed.
+  - isCompilationSuccessful = True for all 3 new C# files.
+  - Live editor console: 0 errors, 0 warnings.

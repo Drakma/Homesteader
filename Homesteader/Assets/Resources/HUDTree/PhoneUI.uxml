@@ -176,6 +176,14 @@
                                         <ui:VisualElement class="phone-app-icon-box app-icon-gigs" />
                                         <ui:Label text="Gigs" class="phone-app-label" />
                                     </ui:VisualElement>
+
+                                    <!-- 19. Land Office -->
+                                    <ui:VisualElement name="AppTileLand" class="phone-app-tile">
+                                        <ui:VisualElement class="phone-app-icon-box app-icon-admin">
+                                            <ui:Label text="🗺" class="phone-app-icon-glyph" />
+                                        </ui:VisualElement>
+                                        <ui:Label text="Land Office" class="phone-app-label" />
+                                    </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
@@ -696,9 +704,30 @@
                                 <!-- Mod cards populated dynamically -->
                             </ui:VisualElement>
                         </ui:ScrollView>
-                    </ui:VisualElement>
+                      </ui:VisualElement>
 
-                </ui:VisualElement>
+                      <!-- ============================================== -->
+                      <!-- LAND OFFICE APP VIEW                           -->
+                      <!-- ============================================== -->
+                      <ui:VisualElement name="ViewLand" class="phone-app-view phone-app-view--hidden">
+                          <ui:VisualElement class="phone-app-header">
+                        <ui:Button name="LandBackBtn" text="&lt;" class="phone-back-btn" />
+                        <ui:Label text="Land Office" class="phone-app-title" />
+                          </ui:VisualElement>
+                          <ui:ScrollView class="phone-app-scroll">
+                        <ui:VisualElement class="bank-card">
+                            <ui:Label text="YOUR PROPERTY" class="bank-card-label" />
+                            <ui:Label name="LandOwnedCount" text="1 / 25 tiles owned" class="bank-card-sub" />
+                            <ui:Label name="LandBalance" text="Balance: $5,000" class="bank-card-sub" style="margin-top: 4px;" />
+                        </ui:VisualElement>
+
+                        <ui:Label text="AVAILABLE PARCELS" class="bank-card-label" style="margin-top: 12px; margin-bottom: 4px;" />
+                        <ui:Label text="Each parcel is 100m x 100m. $5,000 per tile." class="bank-card-sub" style="margin-bottom: 8px;" />
+                        <ui:VisualElement name="LandListContainer" class="almanac-cards-container" />
+                          </ui:ScrollView>
+                      </ui:VisualElement>
+
+                  </ui:VisualElement>
 
                 <!-- Bottom Gesture Bar -->
                 <ui:VisualElement class="phone-bottom-bar">

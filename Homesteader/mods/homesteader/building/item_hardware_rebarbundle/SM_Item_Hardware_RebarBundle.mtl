@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Hardware_RebarBundle
+
+newmtl rebar_steel
+Ka 0.112 0.128 0.144
+Kd 0.280 0.320 0.360
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl tie_silver
+Ka 0.312 0.320 0.336
+Kd 0.780 0.800 0.840
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

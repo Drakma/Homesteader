@@ -1,0 +1,13 @@
+fix(assets/hud_kit/font): correct sxHeight math
+
+Previously wrote sxHeight = int(UPEM * 10 * 0.625) = 6400. The
+intended value is int(10 * PX) = 640 (10 design pixels converted
+to font units). This was a typo -- the multiplication by UPEM
+should not have happened.
+
+sxHeight is what UI Toolkit uses to compute the lowercase baseline
+of monospaced fonts; an 8x overshoot silently drags glyphs toward
+the descender area.
+
+All five TTFs rebuilt with the corrected math and re-emitted.
+Tools/bake_kit_fonts.py propagates the rebuild.

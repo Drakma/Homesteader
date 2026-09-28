@@ -21,25 +21,29 @@ namespace Homesteader
     {
         // ── Inspector overrides ──────────────────────────────────────────
         [Header("Emitter Box (half-extents around player/camera)")]
-        [SerializeField] private float _emitterHalfWidth = 35f;
-        [SerializeField] private float _emitterHalfDepth = 35f;
-        [SerializeField] private float _emitterHeight = 16f;
+        [SerializeField] private float _emitterHalfWidth = 50f;
+        [SerializeField] private float _emitterHalfDepth = 50f;
+        [SerializeField] private float _emitterHeight = 20f;
 
         [Header("Rain")]
-        [SerializeField] private int _rainMaxParticles = 2400;
+        [SerializeField] private int _rainMaxParticles = 15000;
         [SerializeField] private float _rainSpeed = 16f;
-        [SerializeField] private float _rainSize = 0.024f;
+        [SerializeField] private float _rainSize = 0.15f;
 
         [Header("Snow")]
         [SerializeField] private int _snowMaxParticles = 8000;
         [SerializeField] private float _snowSpeed = 2.0f;
         [SerializeField] private float _blizzardSnowSpeed = 6.5f;
-        [SerializeField] private float _snowSize = 0.045f;
+        [SerializeField] private float _snowSize = 0.25f;
 
         [Header("Wind")]
         [SerializeField] private int _windMaxParticles = 180;
         [SerializeField] private float _windSpeed = 10f;
-        [SerializeField] private float _windSize = 0.035f;
+        [SerializeField] private float _windSize = 0.2f;
+        [SerializeField] private float _windGustInterval = 5f;     // seconds between gust changes
+        [SerializeField] private float _windBaseSpeed = 4f;        // calm-day wind speed
+        [SerializeField] private float _windStormSpeed = 18f;      // storm peak wind speed
+        [SerializeField] private float _windLerpSpeed = 0.5f;      // how fast wind transitions to new target
 
         [Header("Fog")]
         [SerializeField] private float _fogFadeSpeed = 0.6f;  // units/sec
@@ -69,6 +73,7 @@ namespace Homesteader
         private float _currentRainNow = 0f;   // smoothed 0..1 "raining right now" for ripples
 
         private HomesteaderWeather _currentWeather = HomesteaderWeather.Sunny;
+        private bool _weatherInitialized = false;
         private float _targetFogDensity;
         private Color _targetFogColor;
         private bool _fogEnabled;
@@ -81,6 +86,12 @@ namespace Homesteader
         private float _rainEmission;
         private float _snowEmission;
         private float _windEmission;
+
+        // Dynamic wind state
+        private Vector2 _windDir = new Vector2(1f, 0f);   // current wind direction (XZ)
+        private float _windCurrentSpeed = 0f;               // current wind speed (m/s)
+        private float _windTargetSpeed = 0f;                 // target speed we're lerping toward
+        private float _windGustTimer = 0f;                    // countdown to next gust change
 
         private static WeatherEffectsManager s_instance;
         public static WeatherEffectsManager Instance => s_instance;
@@ -125,6 +136,7 @@ namespace Homesteader
             SmoothEmission();
             SmoothFog();
             UpdateGroundAccumulation();
+            UpdateWind();
         }
 
         private void PauseAllWeather()
@@ -223,7 +235,8 @@ namespace Homesteader
         // ── Public API ───────────────────────────────────────────────────
         public void ApplyWeather(HomesteaderWeather weather)
         {
-            if (_currentWeather == weather) return;
+            if (_currentWeather == weather && _weatherInitialized) return;
+            _weatherInitialized = true;
             _currentWeather = weather;
 
             StopLightning();
@@ -343,11 +356,112 @@ namespace Homesteader
             }
         }
 
+        // ── Dynamic Wind ─────────────────────────────────────────────────
+        private void UpdateWind()
+        {
+            // Determine the wind intensity multiplier based on current weather
+            float weatherWind = 0f;
+            switch (_currentWeather)
+            {
+                case HomesteaderWeather.Thunderstorm: weatherWind = 1f; break;
+                case HomesteaderWeather.Blizzard:     weatherWind = 0.85f; break;
+                case HomesteaderWeather.Wind:        weatherWind = 0.6f; break;
+                case HomesteaderWeather.Rain:        weatherWind = 0.2f; break;
+                case HomesteaderWeather.Snow:        weatherWind = 0.15f; break;
+                default:                             weatherWind = 0f; break;
+            }
+
+            // Periodically pick a new gust target: random direction + random speed
+            _windGustTimer -= Time.deltaTime;
+            if (_windGustTimer <= 0f)
+            {
+                _windGustTimer = _windGustInterval * Random.Range(0.7f, 1.3f);
+                float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+                _windDir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                float maxSpeed = Mathf.Lerp(_windBaseSpeed, _windStormSpeed, weatherWind);
+                _windTargetSpeed = maxSpeed * Random.Range(0.4f, 1f);
+            }
+
+            // If weather has no wind, ramp down to zero
+            if (weatherWind < 0.01f)
+                _windTargetSpeed = 0f;
+
+            // Smoothly interpolate current speed toward target
+            _windCurrentSpeed = Mathf.MoveTowards(_windCurrentSpeed, _windTargetSpeed, _windLerpSpeed * 20f * Time.deltaTime);
+
+            // Apply wind force to all active particle systems
+            ApplyWindToParticles();
+
+            // Set global wind params for grass shader: (dirX, dirZ, speed, gust)
+            Shader.SetGlobalVector("_GrassWindParams",
+                new Vector4(_windDir.x, _windDir.y, _windCurrentSpeed, _windCurrentSpeed / Mathf.Max(1f, _windStormSpeed)));
+        }
+
+        private void ApplyWindToParticles()
+        {
+            if (_windCurrentSpeed < 0.01f) return;
+
+            float wx = _windDir.x * _windCurrentSpeed;
+            float wz = _windDir.y * _windCurrentSpeed;
+
+            // Rain: mostly falls down, but wind pushes it sideways
+            if (_rainPS != null)
+            {
+                var vel = _rainPS.velocityOverLifetime;
+                vel.enabled = true;
+                vel.space = ParticleSystemSimulationSpace.World;
+                vel.x = new ParticleSystem.MinMaxCurve(wx * 0.6f, wx * 0.8f);
+                vel.y = new ParticleSystem.MinMaxCurve(-_rainSpeed, -_rainSpeed);
+                vel.z = new ParticleSystem.MinMaxCurve(wz * 0.6f, wz * 0.8f);
+            }
+
+            // Snow: light, so wind pushes it more dramatically
+            if (_snowPS != null)
+            {
+                var vel = _snowPS.velocityOverLifetime;
+                vel.enabled = true;
+                vel.space = ParticleSystemSimulationSpace.World;
+                float snowFall = (_currentWeather == HomesteaderWeather.Blizzard) ? _blizzardSnowSpeed : _snowSpeed;
+                vel.x = new ParticleSystem.MinMaxCurve(wx * 0.8f, wx * 1.2f);
+                vel.y = new ParticleSystem.MinMaxCurve(-snowFall, -snowFall);
+                vel.z = new ParticleSystem.MinMaxCurve(wz * 0.8f, wz * 1.2f);
+            }
+
+            // Wind streaks: blow in the wind direction at the current speed
+            if (_windPS != null)
+            {
+                var vel = _windPS.velocityOverLifetime;
+                vel.enabled = true;
+                vel.space = ParticleSystemSimulationSpace.World;
+                vel.x = new ParticleSystem.MinMaxCurve(wx * 0.9f, wx * 1.1f);
+                vel.y = new ParticleSystem.MinMaxCurve(-0.3f, 0.3f);
+                vel.z = new ParticleSystem.MinMaxCurve(wz * 0.9f, wz * 1.1f);
+
+                // Also rotate the emitter box to align with wind direction
+                float yawDeg = Mathf.Atan2(_windDir.y, _windDir.x) * Mathf.Rad2Deg;
+                _windPS.transform.rotation = Quaternion.Euler(0f, yawDeg, 0f);
+            }
+        }
+
         private void AnchorToCamera()
         {
-            // Center the weather box over the active player focal point or camera view
+            // Center the weather box over the camera's viewport center, not just the player.
+            // In isometric view the camera is offset from the player by the orbit radius,
+            // so the viewport center is between the camera and the player — not at the player.
             Vector3 centerPos;
-            if (_cachedPlayer != null)
+            if (_cachedCam != null && _cachedPlayer != null)
+            {
+                // Use the camera's viewport center: the point on the ground that the camera looks at.
+                // The player is the focal point; the camera is offset behind/above by the orbit radius.
+                // The midpoint between camera and player on the XZ plane is the viewport center.
+                Vector3 camPos = _cachedCam.transform.position;
+                Vector3 playerPos = _cachedPlayer.position;
+                centerPos = new Vector3(
+                    (camPos.x + playerPos.x) * 0.5f,
+                    playerPos.y,
+                    (camPos.z + playerPos.z) * 0.5f);
+            }
+            else if (_cachedPlayer != null)
             {
                 centerPos = _cachedPlayer.position;
             }
@@ -364,9 +478,19 @@ namespace Homesteader
             // and perspective depth match the view frustum seamlessly.
             Quaternion camRot = (_cachedCam != null) ? _cachedCam.transform.rotation : Quaternion.identity;
 
-            // In isometric/perspective view, offsetting the emitter slightly up-camera prevents
-            // the near-ground or lower viewport area from having a gap in falling precipitation.
-            Vector3 aboveCenter = new Vector3(centerPos.x, centerPos.y + _emitterHeight, centerPos.z);
+            // Offset the emitter forward (in the camera's ground-plane forward direction)
+            // so it covers the far half of the viewport, which extends beyond the player.
+            Vector3 camFwd = (_cachedCam != null) ? _cachedCam.transform.forward : Vector3.forward;
+            camFwd.y = 0f;
+            camFwd.Normalize();
+            float forwardOffset = _emitterHalfDepth * 0.5f; // shift box forward by half its depth
+
+            // In isometric/perspective view, offsetting the emitter up prevents the lower
+            // viewport area from having a gap in falling precipitation.
+            Vector3 aboveCenter = new Vector3(
+                centerPos.x + camFwd.x * forwardOffset,
+                centerPos.y + _emitterHeight,
+                centerPos.z + camFwd.z * forwardOffset);
             if (_rainPS)
             {
                 _rainPS.transform.position = aboveCenter;
@@ -452,9 +576,13 @@ namespace Homesteader
             m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             m.SetInt("_ZWrite", 0);
+            m.SetInt("_Cull", 0);           // Off - particles must be visible from all angles
             m.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             m.SetColor("_BaseColor", color);
             m.SetColor("_Color", color);     // Legacy fallback property name
+
+            // Enable the transparent surface keyword for URP Particles/Unlit
+            m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
 
             // Explicitly disable pre-multiplied alpha to avoid black borders/halos
             m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
@@ -494,6 +622,10 @@ namespace Homesteader
             go.transform.SetParent(transform);
             var ps = go.AddComponent<ParticleSystem>();
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            var main = ps.main;
+            main.loop = true;
+            main.duration = 999f;
 
             // Assign material so particles don't render as magenta error quads
             var renderer = ps.GetComponent<ParticleSystemRenderer>();
@@ -650,12 +782,13 @@ namespace Homesteader
             shape.shapeType = ParticleSystemShapeType.Box;
             shape.scale = new Vector3(_emitterHalfWidth * 2f, 4f, _emitterHalfDepth * 2f);
 
+            // Velocity is set dynamically by ApplyWindToParticles() each frame
             var vel = ps.velocityOverLifetime;
             vel.enabled = true;
             vel.space = ParticleSystemSimulationSpace.World;
-            vel.x = new ParticleSystem.MinMaxCurve(_windSpeed * 0.9f, _windSpeed * 1.1f);
+            vel.x = new ParticleSystem.MinMaxCurve(0f, 0f);
             vel.y = new ParticleSystem.MinMaxCurve(-0.3f, 0.3f);
-            vel.z = new ParticleSystem.MinMaxCurve(-0.5f, 0.5f);
+            vel.z = new ParticleSystem.MinMaxCurve(0f, 0f);
         }
 
         // ── Lightning ────────────────────────────────────────────────────

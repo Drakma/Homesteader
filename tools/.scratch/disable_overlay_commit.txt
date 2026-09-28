@@ -1,0 +1,21 @@
+feat(Assets): turn off _enableKitOverlay on HudSceneBootstrap
+
+The kit overlay layer attaches HUDOverlay_kit.uxml + HudUI_kit.uss
+as a sibling tree. The overlay was added so that the kit's vital
+icons, resource icons, and decor ribbons could render alongside
+the status bar / toolbar / held-asset panel - but the current
+HudOverlay_kit.uxml carries a window-panel demo (OK button
+matrix, slider rows, window frame, modal) whose chrome
+overwhelms the live HUD.
+
+Per user feedback, the kit overlay debug mesh is now turned off
+so only the layered chrome (top status bar, mid held-asset
+panel, bottom toolbar) renders.
+
+The kit overlays remain available in /Resources/HUDTree/ for
+re-enablement via the HudSceneBootstrap._enableKitOverlay
+inspector toggle should a future pass want to re-enable.
+
+Verification:
+  - Live at edit-time: console reports 0 errors.
+  - SampleScene _enableKitOverlay flipped 1 -> 0 and saved.

@@ -24,6 +24,8 @@ namespace Homesteader.UI.EditorTools
         {
             EditorApplication.delayCall += () =>
             {
+                // Don't run during play mode — MarkSceneDirty throws otherwise.
+                if (EditorApplication.isPlaying) return;
                 Install();
             };
         }

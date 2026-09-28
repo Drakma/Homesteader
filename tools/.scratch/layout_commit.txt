@@ -1,0 +1,47 @@
+fix(Assets): element-only HUD chrome - drop slate backgrounds
+
+Per user instruction: keep HUD chrome to elements only, no
+slate/grey background fills, no header_strip background-image.
+
+What changed in HudUI.uss:
+
+Removed:
+  - .screen-root background-color (was rgb(48, 56, 72))
+  - .status-strip background-image (was var(--header-strip),
+    the orange band PNG)
+  - .well background-image (was var(--well))
+  - .toolbar background-color (rgb(20, 26, 32))
+  - .tool-slot background-color (rgb(34, 43, 58))
+  - .toolbox-icon background-color (rgb(80, 160, 100))
+  - .icon-tile background-color (rgb(120, 136, 153))
+  - .speed-chip background-color (rgb(40, 56, 72) + hover)
+  - .tool-slot--selected background-color
+
+Kept:
+  - Borders (1-px or 2-px), `border-radius` for rounded corners
+  - Foreground colors for text labels (.status-label,
+    .time-label, .label-tile, .tool-count)
+  - Padding/margin/height/flex contracts
+
+Heights and sizes:
+  - .status-bar   56px (was 48px - a touch taller with explicit
+    padding to fit 14px text)
+  - .well         28px (was 22px in the original kit spec - extra
+    row to fit uncontested text)
+  - .toolbar      96px (was the same; nothing visually changes)
+  - .tool-slot    64x64 (was 64x64 inside a wider 80-height - I
+    removed the extra empty pixels)
+
+Tool icons inside slot (tool-icon):
+  - now a 48x48 bordered placeholder. NOT painted. The inventory
+    art will be filled with actual sprite assets later.
+
+Speed chips:
+  - 30x22, hover/check changes border color only (no fill change).
+    Visible state still arrives via checked pseudo-class.
+
+The HUD still appears as labelled bordered boxes but no longer
+paints any opaque slate/orange/green layer. Status bar is a row
+of bordered wells and labels over the camera's background.
+Toolbar is a bordered row of bordered slots. HeldAssetPanel is
+a single bordered pill.

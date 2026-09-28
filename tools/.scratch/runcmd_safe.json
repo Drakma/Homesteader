@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEngine;\nusing UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        result.Log(\"OK from Homesteader unity_mcp.py wrapper at \" + System.DateTime.UtcNow.ToString(\"o\"));\n        result.Log(\"Unity project path: \" + Application.dataPath);\n    }\n}\n",
+  "Title": "unity-mcp ping from tools/unity_mcp.py"
+}

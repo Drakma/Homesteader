@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;\n        EditorApplication.delayCall += () => EditorApplication.isPlaying = true;\n        result.Log(\"queuing play\");\n    }\n}",
+  "Title": "Enter play simple"
+}

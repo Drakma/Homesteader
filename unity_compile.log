@@ -1,0 +1,43 @@
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 95524)
+VBCSCompiler prewarm took 9.13 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/respin/6000.6.0f1-fa21a270ab12' branch; Version is '6000.6.0f1 (f7f8ed4d1e24) revision 16251117'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-casey" at "2026-09-28T08:01:52.6368908Z"
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'en' Physical Memory: 31671 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-09-28T08:01:52Z
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 86772, path: "C:/Program Files/Unity/Hub/Editor/6000.6.0f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.3+d7ffd15
+  Session Id:              5de1b7e786424d4ebb0822760da46db0
+  Correlation Id:          32dae42169c8810724db9b1ebceaca4f
+  External correlation Id: 2480566920961079383
+  Machine Id:              ZqfXXJKqpNFaS9syg+sjJSMzTks=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-casey" (connect: 0.00s, validation: 0.00s, handshake: 0.11s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-casey-notifications" at "2026-09-28T08:01:52.74822Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 1375988458672-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.12s
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Unity.exe
+-batchmode
+-nographics
+-projectPath
+C:\Users\casey\Desktop\Homesteader\Homesteader
+-quit
+-logFile
+C:\Users\casey\Desktop\Homesteader\unity_compile.log
+Successfully changed project path to: C:\Users\casey\Desktop\Homesteader\Homesteader
+C:/Users/casey/Desktop/Homesteader/Homesteader
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 1

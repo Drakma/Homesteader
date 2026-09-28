@@ -9,8 +9,7 @@ Central repository for project-wide shared textures, color palettes, and skeleta
 ```
 assets/textures/
 ├── palettes/
-│   ├── T_Homesteader_Palette.png     # Master 3D low-poly color palette texture
-│   └── T_Homesteader_Palette.uasset  # Unreal Engine imported texture asset
+│   └── T_Homesteader_Palette.png     # Master 3D low-poly color palette texture
 └── animals/
     └── T_Baby_Calf_BaseColor.png     # Skeletal mesh base color map for baby calf
 ```

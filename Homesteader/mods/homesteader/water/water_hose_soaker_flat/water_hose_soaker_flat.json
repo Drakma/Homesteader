@@ -1,0 +1,134 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_hose_soaker_flat",
+  "name": "Soaker Hose",
+  "category": "water",
+  "description": "Flat porous hose for slow garden watering.",
+  "icon": "water_hose_soaker_flat.png",
+  "properties": {
+    "weight_kg": 2.5,
+    "max_stack_size": 5,
+    "base_value": 9.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "water_hose_soaker_flat.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "water_hose_soaker_flat.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 102.0,
+        "y": 94.0,
+        "z": 37.1
+      },
+      "dimensions_m": {
+        "x": 1.02,
+        "y": 0.94,
+        "z": 0.37
+      },
+      "vertices": 1248,
+      "faces": 416,
+      "bounding_box": {
+        "min": [
+          -47.0,
+          -47.0,
+          0.0
+        ],
+        "max": [
+          55.0,
+          47.0,
+          37.0622
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "water_hose_soaker_flat.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 102.0,
+      "y": 94.0,
+      "z": 37.1
+    },
+    "dimensions_m": {
+      "x": 1.02,
+      "y": 0.94,
+      "z": 0.37
+    },
+    "vertices": 1248,
+    "faces": 416,
+    "bounding_box": {
+      "min": [
+        -47.0,
+        -47.0,
+        0.0
+      ],
+      "max": [
+        55.0,
+        47.0,
+        37.0622
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.02,
+      "depth": 0.94,
+      "height": 0.37
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 5,
+    "is_connected": false,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0,
+    "irrigated_growth_bonus_pct": 20
+  }
+}

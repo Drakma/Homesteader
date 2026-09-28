@@ -1,96 +1,39 @@
-# Homesteader - Unreal Engine 5 3D Model & Texture Integration Guide
+# RETIRED: Unreal Engine 5 3D Model & Texture Integration Guide
 
-This guide details how to import, configure, and assign the 3D low-poly Static Meshes and Master Color Palette Atlas into **Unreal Engine 5**.
-
----
-
-## 1. Directory Structure in Content Browser
-
-All 3D assets and textures are synchronized directly inside your Unreal project at:
-
-```
-Content/Homesteader/
-├── Assets/
-│   ├── Meshes/
-│   │   ├── tools/hand_tools/       (SM_Tool_Axe, Pickaxe, Hoe, Shovel, Hammer, Wrench)
-│   │   ├── tools/equipment/        (SM_Tool_Chainsaw)
-│   │   ├── fishing/tackle/         (SM_Tool_FishingRod)
-│   │   ├── farming/crops/          (SM_Crop_Corn, Tomato, Pumpkin)
-│   │   ├── logging/wood/           (SM_Resource_WoodLogs)
-│   │   ├── building/materials/     (SM_Resource_LumberPlank, StoneBlock)
-│   │   ├── building/hardware/      (SM_Resource_NailsBox)
-│   │   ├── electricity/generation/ (SM_Electric_SolarPanel, WindTurbine, Generator)
-│   │   ├── water/sources/          (SM_Water_WellPump)
-│   │   ├── water/treatment/        (SM_Water_FilterCanister)
-│   │   ├── water/piping/           (SM_Water_PipeValve)
-│   │   ├── sewage/drainage/        (SM_Sewage_SepticTank)
-│   │   ├── sewage/treatment/       (SM_Sewage_CompostBin)
-│   │   ├── internet/satellite_antennas/ (SM_Internet_SatelliteDish)
-│   │   └── internet/routers_networking/ (SM_Internet_Router)
-│   ├── Textures/
-│   │   └── T_Homesteader_Palette.png   (512x512 Master Color Palette Atlas)
-│   └── Materials/
-│       └── M_Homesteader_Palette       (Master Material)
-└── UI/
-    └── Icons/                         (Categorized 128x128 UI Icons)
-```
+> **THIS GUIDE IS RETIRED. DO NOT FOLLOW IT.**
+>
+> The project has officially switched from Unreal Engine 5 to **Unity 6 (`6000.6.0f1`)**.
+> This document's import settings, material setup, and content paths all reference
+> Unreal Engine 5 and are no longer accurate.
+>
+> **See `docs/UNITY_INTEGRATION_GUIDE.md` instead.** It covers:
+> - 3D model import (GLB standard, FBX for rigged/animated only)
+> - Unity 6 Model Inspector settings (Scale Factor, Convert Units, Bake Axis Conversion)
+> - URP material setup
+> - ScriptableObject item definitions (replacing UE5 DataTable + C++ structs)
+> - The full Meshy text-to-3D pipeline
+>
+> Key differences from the retired UE5 guide:
+>
+> | Old (UE5) | New (Unity 6) |
+> | :--- | :--- |
+> | `.obj` static meshes | `.glb` (textures embedded, loaded at runtime by glTFast) |
+> | `Content/Homesteader/Assets/Meshes/` | `Assets/Homesteader/Assets/Meshes/` |
+> | `M_Homesteader_Palette` master material | URP Lit Shader / Shader Graph |
+> | `T_Homesteader_Palette` color atlas | Per-model textures from Meshy (no shared palette atlas) |
+> | 1 unit = 1 cm | 1 unit = 1 meter |
+> | C++ `FItemData` struct + `DT_Items.csv` | C# `ItemDefinition` ScriptableObject |
+>
+> The metric scaling reference table below is preserved for historical reference
+> only — the dimensions are still valid but are now in **meters** (Unity scale),
+> not centimeters (Unreal scale).
 
 ---
 
-## 2. Step 1: Palette Texture Setup (`T_Homesteader_Palette`)
+## Historical Reference: Real-World Metric Scaling
 
-1. In the Content Browser, navigate to `/Game/Homesteader/Assets/Textures/`.
-2. Right-click or drag-and-drop `T_Homesteader_Palette.png`.
-3. Open `T_Homesteader_Palette` and set:
-   - **Compression Settings**: `Default (DXT1/5, BC1/3 on DX11)` or `UserInterface2D (RGBA)`.
-   - **Mip Gen Settings**: `NoMipmaps` (or `Sharpen0` with point/bilinear filtering).
-   - **Texture Filter**: `Nearest` or `Bilinear` (Nearest guarantees zero color bleeding at edges).
-   - **sRGB**: `Enabled` (Checked).
-
----
-
-## 3. Step 2: Master Material Setup (`M_Homesteader_Palette`)
-
-1. In `/Game/Homesteader/Assets/Materials/`, create a new Material named **`M_Homesteader_Palette`**.
-2. Double-click to open the Material Graph:
-   - Add a **Texture Sample** node selecting `T_Homesteader_Palette`.
-   - Connect **RGB** output to the **Base Color** input of the Main Material Node.
-   - Add a **Constant** scalar `0.6` and connect to **Roughness**.
-   - Add a **Constant** scalar `0.4` and connect to **Specular**.
-   - Add a **Constant** scalar `0.0` and connect to **Metallic**.
-3. Click **Save** and **Apply**.
-
----
-
-## 4. Step 3: Importing 3D Static Meshes (`.obj`)
-
-1. In the Content Browser, navigate to the target subfolder under `/Game/Homesteader/Assets/Meshes/`.
-2. Click **Import** (or drag and drop the `.obj` and `.mtl` files).
-3. In the **FBX/OBJ Import Options** dialog:
-   - **Mesh**:
-     - **Vertex Color Import Option**: `Ignore`
-     - **Transform**: Rotation `(0, 0, 0)`, Uniform Scale `1.0` (all models are pre-scaled in centimeters).
-   - **Normal Generation**:
-     - **Normal Import Method**: `Import Normals`
-   - **Collision**:
-     - **Generate Missing Collision**: `Enabled` (Auto Convex Collision).
-   - **Material**:
-     - **Material Search Location**: `Under Parent` or `Local`
-     - **Base Material Name**: Select `M_Homesteader_Palette` (or assign after import).
-4. Click **Import All**.
-
----
-
-## 5. Step 4: Verification & Collision Inspection
-
-1. Open any imported Static Mesh (e.g. `SM_Tool_Axe` or `SM_Electric_Generator`).
-2. Click the **Collision** button in the toolbar to view the generated wireframe collision bounds.
-3. Verify that the Material slot is assigned to `M_Homesteader_Palette`.
-4. The model will display with faceted low-poly colors matching the HUD icon identically.
-
----
-
-## 6. Real-World Metric Scaling Reference
+All dimensions below are in centimeters (original UE5 authoring scale). In Unity 6,
+divide by 100 to get meters (e.g., `66.5 cm` = `0.665 m`).
 
 | Mesh Asset                  | Bounding Box Dimensions (cm)                | Usage                          |
 | :-------------------------- | :------------------------------------------ | :----------------------------- |

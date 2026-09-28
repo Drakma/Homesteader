@@ -37,8 +37,7 @@ namespace Homesteader.Animals
         /// <summary>Surface height of the water in world space.</summary>
         public static float WaterY()
         {
-            Terrain t = Terrain.activeTerrain;
-            return Homesteader.Generation.HomesteaderTerrainGenerator.WaterLevel + (t != null ? t.transform.position.y : 0f);
+            return Homesteader.Generation.TerrainHeightDetector.GetWaterY();
         }
 
         private bool Water => Def.Medium == "water";
@@ -68,9 +67,7 @@ namespace Homesteader.Animals
 
         public static float GroundY(Vector3 p)
         {
-            Terrain t = Terrain.activeTerrain;
-            if (t != null) return t.SampleHeight(p) + t.transform.position.y;
-            return Physics.Raycast(p + Vector3.up * 50f, Vector3.down, out RaycastHit hit, 200f) ? hit.point.y : p.y;
+            return Homesteader.Generation.TerrainHeightDetector.GetGroundY(p);
         }
 
         /// <summary>Slope in degrees of the ground at p (finite difference, 1 m).</summary>

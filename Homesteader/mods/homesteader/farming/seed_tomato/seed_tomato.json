@@ -1,0 +1,79 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "seed_tomato",
+  "name": "Tomato Seeds",
+  "category": "farming",
+  "description": "Seeds for planting tomatoes.",
+  "icon": "seed_tomato.png",
+  "properties": {
+    "weight_kg": 0.1,
+    "max_stack_size": 99,
+    "base_value": 3.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "SM_Item_Seed_Tomato.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Item_Seed_Tomato.obj",
+      "format": "obj"
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "crop_species": "tomato",
+    "days_to_mature": 75,
+    "dimensions_m": {
+      "width": 0.05,
+      "depth": 0.03,
+      "height": 0.08
+    },
+    "season": "summer",
+    "yield_amount": 0,
+    "yields_item_id": ""
+  }
+}

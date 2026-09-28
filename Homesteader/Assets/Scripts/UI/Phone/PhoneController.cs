@@ -35,7 +35,8 @@ namespace Homesteader.UI
             Mods,
             Admin,
             Gigs,
-        }
+            Land,
+    }
 
         public struct StoreItem
         {
@@ -74,6 +75,11 @@ namespace Homesteader.UI
         private VisualElement _viewAdmin;
         private VisualElement _viewMods;
         private VisualElement _viewGigs;
+        private VisualElement _viewLand;
+        private Button _landBackBtn;
+        private Label _landOwnedCount;
+        private Label _landBalance;
+        private VisualElement _landListContainer;
 
         // App Launcher Tiles
         private VisualElement _appTileVolt;
@@ -96,6 +102,7 @@ namespace Homesteader.UI
         private VisualElement _appTileMods;
         private VisualElement _appTileAdmin;
         private VisualElement _appTileGigs;
+        private VisualElement _appTileLand;
 
         // Navigation
         private Button _voltBackBtn;
@@ -309,6 +316,11 @@ namespace Homesteader.UI
             _viewMarket = _root.Q<VisualElement>("ViewMarket");
             _viewMods = _root.Q<VisualElement>("ViewMods");
             _viewGigs = _root.Q<VisualElement>("ViewGigs");
+        _viewLand = _root.Q<VisualElement>("ViewLand");
+        _landBackBtn = _root.Q<Button>("LandBackBtn");
+        _landOwnedCount = _root.Q<Label>("LandOwnedCount");
+        _landBalance = _root.Q<Label>("LandBalance");
+        _landListContainer = _root.Q<VisualElement>("LandListContainer");
 
             _appTileVolt = _root.Q<VisualElement>("AppTileVolt");
             _appTileRes = _root.Q<VisualElement>("AppTileRes");
@@ -329,6 +341,7 @@ namespace Homesteader.UI
             _appTileFurniture = _root.Q<VisualElement>("AppTileFurniture");
             _appTileMods = _root.Q<VisualElement>("AppTileMods");
             _appTileGigs = _root.Q<VisualElement>("AppTileGigs");
+        _appTileLand = _root.Q<VisualElement>("AppTileLand");
 
             _voltBackBtn = _root.Q<Button>("VoltBackBtn");
             _resBackBtn = _root.Q<Button>("ResBackBtn");
@@ -546,6 +559,7 @@ namespace Homesteader.UI
             _appTileFurniture?.RegisterCallback<ClickEvent>(evt => OpenStore("Sofa So Good", "store-banner-grocer", "Artisan Homestead Furniture, Storage & Decor", GetFurnitureItems()));
             _appTileMods?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Mods));
             _appTileGigs?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Gigs));
+        _appTileLand?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Land));
 
             _pageDot0?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(0));
             _pageDot1?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(1));
@@ -559,6 +573,7 @@ namespace Homesteader.UI
             _almanacBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _modsBackBtn?.RegisterCallback<ClickEvent>(evt => HandleModsBack());
             _gigsBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _landBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _modsCategoryBackBtn?.RegisterCallback<ClickEvent>(evt => GoToModCategories());
             _modsCategoryToggleBtn?.RegisterCallback<ClickEvent>(evt => ToggleCurrentCategory());
             _phoneHomeBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
@@ -949,6 +964,10 @@ namespace Homesteader.UI
                     if (_gigsApp == null) _gigsApp = new GigsApp(_root);
                     _gigsApp.Refresh();
                     break;
+                case AppView.Land:
+                    if (_viewLand != null) _viewLand.RemoveFromClassList("phone-app-view--hidden");
+                    RefreshLandApp();
+                    break;
                 default:
                     ReturnHome();
                     break;
@@ -968,6 +987,7 @@ namespace Homesteader.UI
             if (_viewMods != null) _viewMods.AddToClassList("phone-app-view--hidden");
             if (_viewAdmin != null) _viewAdmin.AddToClassList("phone-app-view--hidden");
             if (_viewGigs != null) _viewGigs.AddToClassList("phone-app-view--hidden");
+            if (_viewLand != null) _viewLand.AddToClassList("phone-app-view--hidden");
         }
 
         public void Tick()
@@ -2793,6 +2813,82 @@ namespace Homesteader.UI
                 new ModItemEntry { Id = "mod_ranching", Name = "Livestock & Ranch Supplies", Category = "Ranching", Description = "Alfalfa hay bales, mineral salt blocks, shearing equipment, and animal care supplies.", Author = "Homesteader Team", Version = "1.0.0", AssetCount = 8 },
                 new ModItemEntry { Id = "example_lavender_homestead", Name = "Lavender Homestead", Category = "Example", Description = "Adds lavender fields, a lavender drying shed, and lavender tea.", Author = "Homesteader Team", Version = "1.0.0", AssetCount = 3 }
             };
+        }
+
+        // ── Land Office app ──────────────────────────────────────────
+
+        private void RefreshLandApp()
+        {
+            Homesteader.Land.LandOwnershipSystem.Initialize();
+
+            var owned = Homesteader.Land.LandOwnershipSystem.GetOwnedTiles();
+            var purchasable = Homesteader.Land.LandOwnershipSystem.GetPurchasableTiles();
+
+            if (_landOwnedCount != null)
+                _landOwnedCount.text = $"{owned.Count} / {Homesteader.Land.LandOwnershipSystem.GridSize * Homesteader.Land.LandOwnershipSystem.GridSize} tiles owned";
+
+            if (_landBalance != null)
+                _landBalance.text = $"Balance: ${HudState.Active.Money:N0}";
+
+            if (_landListContainer == null) return;
+            _landListContainer.Clear();
+
+            if (purchasable.Count == 0)
+            {
+                var empty = new Label("No parcels available. Purchase adjacent tiles to expand.");
+                empty.style.color = new StyleColor(new Color(0.6f, 0.65f, 0.72f));
+                empty.style.fontSize = 13;
+                empty.style.paddingTop = 20;
+                empty.style.alignSelf = Align.Center;
+                _landListContainer.Add(empty);
+                return;
+            }
+
+            foreach (var (tx, tz) in purchasable)
+            {
+                var center = Homesteader.Land.LandOwnershipSystem.TileCenter(tx, tz);
+                var card = new VisualElement();
+                card.AddToClassList("bank-card");
+                card.style.marginBottom = 8;
+
+                var nameRow = new Label($"Parcel ({tx}, {tz})");
+                nameRow.AddToClassList("bank-card-label");
+                card.Add(nameRow);
+
+                var detail = new Label($"100m x 100m at ({center.x:F0}, {center.y:F0})\n${Homesteader.Land.LandOwnershipSystem.TilePrice:N0}");
+                detail.AddToClassList("bank-card-sub");
+                detail.style.whiteSpace = WhiteSpace.Normal;
+                card.Add(detail);
+
+                var buyBtn = new Button { text = "Purchase" };
+                buyBtn.AddToClassList("bank-action-btn");
+                buyBtn.style.marginTop = 8;
+                int capturedX = tx, capturedZ = tz;
+                buyBtn.RegisterCallback<ClickEvent>(evt =>
+                {
+                    if (Homesteader.Land.LandOwnershipSystem.TryPurchaseTile(capturedX, capturedZ))
+                    {
+                        ToastNotificationSystem.ShowSuccess("Land Purchased",
+                            $"Parcel ({capturedX}, {capturedZ}) is now yours!");
+                        RefreshLandApp();
+                        // Rebuild boundaries so walls and borders update
+                        var boundary = UnityEngine.Object.FindObjectOfType<Homesteader.Land.LandBoundaryController>();
+                        if (boundary != null) boundary.RebuildBoundaries();
+                    }
+                    else
+                    {
+                        if (HudState.Active.Money < Homesteader.Land.LandOwnershipSystem.TilePrice)
+                            ToastNotificationSystem.ShowError("Insufficient Funds",
+                                $"You need ${Homesteader.Land.LandOwnershipSystem.TilePrice:N0} to buy this parcel.");
+                        else
+                            ToastNotificationSystem.ShowWarning("Purchase Failed",
+                                "This parcel cannot be purchased right now.");
+                    }
+                });
+                card.Add(buyBtn);
+
+                _landListContainer.Add(card);
+            }
         }
     }
 }

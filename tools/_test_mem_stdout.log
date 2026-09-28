@@ -1,0 +1,12 @@
+Stage 0: start
+Process RSS: 0.02 GB | Sys RAM Free: 10.71 GB / 30.93 GB
+Stage 1: imported torch
+Process RSS: 0.37 GB | Sys RAM Free: 9.87 GB / 30.93 GB
+Stage 2: imported pipeline
+Process RSS: 0.58 GB | Sys RAM Free: 9.53 GB / 30.93 GB
+Stage 3: from_pretrained...
+Stage 4: loaded pipeline
+Process RSS: 11.84 GB | Sys RAM Free: 1.04 GB / 30.93 GB
+Stage 5: enable_model_cpu_offload...
+Stage 6: offloaded
+Process RSS: 11.84 GB | Sys RAM Free: 1.04 GB / 30.93 GB

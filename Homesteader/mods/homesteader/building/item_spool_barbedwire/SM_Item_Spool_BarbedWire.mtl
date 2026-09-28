@@ -1,0 +1,18 @@
+# Material Library for SM_Item_Spool_BarbedWire
+
+newmtl wire_galvanized
+Ka 0.288 0.304 0.320
+Kd 0.720 0.760 0.800
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl spool_frame
+Ka 0.104 0.112 0.128
+Kd 0.260 0.280 0.320
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

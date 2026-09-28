@@ -1,0 +1,4 @@
+Set-Location C:\Users\casey\Desktop\Homesteader
+$logPath = "Homesteader\Logs\Editor.log"
+Start-Sleep -Seconds 3
+Get-Content $logPath -Tail 50

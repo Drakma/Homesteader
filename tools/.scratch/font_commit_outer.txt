@@ -1,0 +1,32 @@
+feat(tools): add bake_kit_fonts.py - re-emit HUD font family
+
+tools/bake_kit_fonts.py
+  Wraps assets/hud_kit/font/_build_hud_ttf.build_family() and mirrors
+  the 5 emitted TTFs into Homesteader/Assets/Resources/HUDTree/Fonts/
+
+Run:
+
+  python tools/bake_kit_fonts.py
+
+The script:
+  - reads assets/hud_kit/font/glyph_specs.py + _build_hud_ttf.py
+  - calls build_family() which writes:
+      homesteader_hud.ttf            weight 400, slant 0
+      homesteader_hud_medium.ttf     weight 500, slant 0
+      homesteader_hud_bold.ttf       weight 700, slant 0
+      homesteader_hud_italic.ttf     weight 400, slant -10 deg
+      homesteader_hud_bold_italic.ttf weight 700, slant -10 deg
+  - mirrors each into Homesteader/Assets/Resources/HUDTree/Fonts/
+    under the Unity-safe filenames (HomesteaderHUD_*.ttf).
+  - exits 0 on success.
+
+Optional flags:
+  --source-ttf-dir <path>   override the source directory
+  --out-dir <path>          override where TTFs are written
+  --no-mirror-unity         skip the Unity mirror step
+  --unity-dest <path>       override Unity destination
+
+Verified: re-ran the script end-to-end. The 5 TTFs built and shipped.
+Assets/Resources/HUDTree/Fonts/HomesteaderHUD[_...].ttf now load as
+`Font` assets via Resources.Load<Font> in the running editor without
+compile errors.

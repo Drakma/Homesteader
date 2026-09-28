@@ -1,0 +1,16 @@
+fix(Assets): correct sxHeight = 640 (was 6400 - over-flowed)
+
+Previous build wrote sxHeight = 6400 (extraneous 0). UI Toolkit reads
+sxHeight to compute the relative heights of numerals vs lowercase
+in monospaced fonts; an artificially large number can drag the
+baseline alignment visibly low. The math was supposed to read
+"10 design-px scaled to font units" but accidentally multiplied by
+UPEM again, producing 6400.
+
+After this fix:
+  ascent_fu   = 1024 (UPEM)
+  sCapHeight  = 1024
+  sxHeight    = int(10 * PX) = int(10 * 64) = 640
+
+All 5 TTFs rebuilt and re-mirrored to Assets/Resources/HUDTree/Fonts/
+via tools/bake_kit_fonts.py.

@@ -1,0 +1,49 @@
+feat(Assets): add HUDTree kit overlay - assets/hud_kit art landed in Unity
+
+Bake kit-sourced atlases (vitals, resources, toolbar slots, decor, buttons)
+and standalone sprite catalogs (panels, status windows, speed controls)
+so the new hud_kit/sprites/* chrome is available to HUDTree as a sibling
+overlay tree.
+
+New files
+  - Assets/Resources/HUDTree/HudUI_kit.uss
+      USS that exposes --button-atlas-kit, --vital-atlas-kit,
+      --resource-atlas-kit, --slot-atlas-kit, --decor-atlas-kit and the
+      .btn-kit-*, .vital-icon-*, .resource-icon-*, .tool-slot-kit-*,
+      .decor-* class selectors.
+  - Assets/Resources/HUDTree/HUDOverlay_kit.uxml
+      Overlay tree (KitVitals, KitResources, KitDecor) styled by the
+      kit USS. Mounts as a sibling on the UIDocument root.
+  - Assets/Resources/HUDTree/Atlases/Kit/
+      Baked atlases + standalone sprite catalogs re-emitted by
+      tools/bake_kit_atlases.py from assets/hud_kit/sprites/.
+  - Assets/Resources/HUDTree/Kits/KIT_README.md
+      Doc covering what's in the kit, how to re-bake, and the TODO for
+      adopting the kit font.
+
+Modified files
+  - Assets/UI/Scripts/HudUIBuilder.cs and HudSceneBootstrap.cs
+      Added an opt-in _enableKitOverlay field (default false). When
+      on it mounts HUDOverlay_kit.uxml as a sibling overlay and adds
+      HudUI_kit.uss as a sibling stylesheet. The existing chrome is
+      unchanged for users who leave the default off.
+
+How it composes
+
+The kit overlay rides on top of the live HUD without repainting it.
+Atlases load via UI Toolkit's resource() lookups against the
+Resources/HUDTree/ folder. C# additions only extend HudUIBuilder +
+HudSceneBootstrap so the auto-install flow keeps working unchanged.
+
+Verification against the running editor (Unity 6.6 / 6000.6.0f1):
+
+  - Tools/unity_mcp.cmd list-tools-table -> unchanged (7 tools).
+  - All kit PNGs reachable via AssetDatabase.LoadAssetAtPath<Texture2D>.
+  - Resources.Load<StyleSheet>(HUDTree/HudUI_kit) and
+    Resources.Load<VisualTreeAsset>(HUDTree/HUDOverlay_kit) return
+    non-null after AssetDatabase.Refresh().
+  - Original Resources.Load<VisualTreeAsset>(HUDTree/HudUI) still loads
+    (no regression to the live HUD).
+  - isCompilationSuccessful = True after edits to HudUIBuilder.cs and
+    HudSceneBootstrap.cs.
+  - Live editor console: 0 errors, 0 warnings.

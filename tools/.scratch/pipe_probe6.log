@@ -1,0 +1,31 @@
+>>> [init] {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "probe6", "version": 
+<<< {"type":"handshake","protocol":"unity-mcp","version":"2.0","toolsHash":"Yao1+DZb5Ch3op0kpKz0uxsbGjmkmgGVUn0+eCks+Hw=","tools":[{"name":"Unity_AssetGeneration_GenerateAsset","title":null,"description":"Generates or modifies a Unity asset. ONLY call this tool when the user has explicitly asked to create, generate, or modify a specific asset (e.g., 'generate a sprite', 'create a 3D model', 'make a so
+
+>>> [cand-0] {"command": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-1] {"name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-2] {"tool": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-3] {"method": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-4] {"Unity_GetConsoleLogs": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-5] {"toolName": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+
+>>> [cand-6] {"request": {"name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+

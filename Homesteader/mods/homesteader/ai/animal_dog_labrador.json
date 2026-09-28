@@ -1,0 +1,9 @@
+{
+  "id": "animal_dog_labrador_ai",
+  "applies_to": [
+    "animal_dog_labrador"
+  ],
+  "extends": [
+    "guard_dog"
+  ]
+}

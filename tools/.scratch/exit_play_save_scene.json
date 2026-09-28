@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\nusing UnityEngine;\nusing UnityEngine.SceneManagement;\nusing UnityEditor.SceneManagement;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        // Exit play mode and save the scene.\n        EditorApplication.isPlaying = false;\n        result.Log(\"Requested play-mode exit.\");\n    }\n}\n",
+  "Title": "Request play mode exit"
+}

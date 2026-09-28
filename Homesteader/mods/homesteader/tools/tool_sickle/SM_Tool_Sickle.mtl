@@ -1,0 +1,26 @@
+# Material Library for SM_Tool_Sickle
+
+newmtl mat_wood_hickory
+Ka 0.232 0.152 0.088
+Kd 0.580 0.380 0.220
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_handle_yellow
+Ka 0.340 0.288 0.096
+Kd 0.850 0.720 0.240
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+
+newmtl mat_silver_bevel
+Ka 0.312 0.328 0.344
+Kd 0.780 0.820 0.860
+Ks 0.250 0.250 0.250
+Ns 25.0
+d 1.0
+illum 2
+

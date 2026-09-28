@@ -1,0 +1,22 @@
+feat(tools): add render_kit_fonts.py - PIL preview renderer
+
+Renders each of the five Homesteader HUD TTF files to a PNG so the
+visual side of font metric fixes can be confirmed without entering
+Unity. Uses the Python stdlib Pillow.
+
+Usage:
+
+  python tools/render_kit_fonts.py
+
+Outputs:
+
+  tools/.scratch/hud_font_regular.png
+  tools/.scratch/hud_font_medium.png
+  tools/.scratch/hud_font_bold.png
+  tools/.scratch/hud_font_italic.png
+  tools/.scratch/hud_font_bold_italic.png
+
+Review the PNGs side by side. Bold should look visibly heavier than
+Regular; Italic should slant at -10 degrees; Bold-Italic combines
+both. If any width or ascent looks mis-aligned, rebuild via
+bake_kit_fonts.py and re-render.

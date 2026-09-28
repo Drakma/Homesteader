@@ -1,0 +1,67 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="false">
+    <Style src="WelcomeMenu.uss" />
+
+    <!-- Full-screen overlay with background image -->
+    <ui:VisualElement name="WelcomeMenuRoot" class="welcome-root welcome--hidden">
+
+        <!-- Centered menu card -->
+        <ui:VisualElement name="WelcomeCard" class="welcome-card">
+
+            <!-- Title -->
+            <ui:VisualElement class="welcome-title-block">
+                <ui:Label text="HOMESTEADER" class="welcome-title" />
+                <ui:Label text="A new life on the land" class="welcome-subtitle" />
+            </ui:VisualElement>
+
+            <!-- Main buttons -->
+            <ui:Button name="NewGameBtn" text="New Game" class="welcome-btn welcome-btn--primary" />
+            <ui:Button name="ContinueBtn" text="Continue" class="welcome-btn" />
+
+            <!-- Save / Load on the same row -->
+            <ui:VisualElement class="welcome-btn-row">
+                <ui:Button name="SaveBtn" text="Save" class="welcome-btn welcome-btn--half" />
+                <ui:Button name="LoadBtn" text="Load" class="welcome-btn welcome-btn--half" />
+            </ui:VisualElement>
+
+            <ui:Button name="SettingsBtn" text="Settings" class="welcome-btn" />
+            <ui:Button name="ExitBtn" text="Exit" class="welcome-btn welcome-btn--exit" />
+
+            <!-- Save status label -->
+            <ui:Label name="WelcomeStatus" text="" class="welcome-status" />
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+    <!-- Loading modal (OUTSIDE WelcomeMenuRoot so Hide() doesn't hide it) -->
+    <ui:VisualElement name="LoadingModal" class="loading-modal loading--hidden">
+        <ui:VisualElement class="loading-modal-card">
+            <ui:Label text="LOADING" class="loading-modal-title" />
+            <ui:Label name="LoadingPhase" text="" class="loading-phase" />
+            <ui:VisualElement class="loading-bar-track">
+                <ui:VisualElement name="LoadingBarFill" class="loading-bar-fill" />
+            </ui:VisualElement>
+            <ui:Label name="LoadingPct" text="0%" class="loading-pct" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+
+    <!-- Settings dialog (modal overlay, hidden by default) -->
+    <ui:VisualElement name="SettingsDialog" class="settings-dialog settings--hidden">
+        <ui:VisualElement class="settings-card">
+            <ui:Label text="SETTINGS" class="settings-title" />
+
+            <!-- Zoom Max Level row -->
+            <ui:VisualElement class="settings-row">
+                <ui:Label text="Zoom Max Level" class="settings-label" />
+                <ui:VisualElement class="settings-controls">
+                    <ui:IntegerField name="ZoomMaxLevel" value="15" class="settings-field" />
+                    <ui:Toggle name="ZoomLockToggle" label="Lock" class="settings-toggle" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="ZoomHint" text="Uncheck Lock for no zoom limit." class="settings-hint" />
+
+            <ui:Button name="SettingsCloseBtn" text="Close" class="welcome-btn welcome-btn--primary settings-close-btn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+
+</ui:UXML>

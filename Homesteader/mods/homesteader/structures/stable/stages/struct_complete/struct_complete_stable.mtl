@@ -1,0 +1,34 @@
+# Material Library for SM_Struct_Stable
+
+newmtl mat_cedar_posts
+Ka 0.252 0.188 0.124
+Kd 0.630 0.470 0.310
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_dutch_door
+Ka 0.140 0.104 0.084
+Kd 0.350 0.260 0.210
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_grille_white
+Ka 0.352 0.360 0.372
+Kd 0.880 0.900 0.930
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl mat_roof_shake
+Ka 0.208 0.164 0.140
+Kd 0.520 0.410 0.350
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

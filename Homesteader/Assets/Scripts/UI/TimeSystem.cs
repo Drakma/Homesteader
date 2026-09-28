@@ -218,6 +218,21 @@ namespace Homesteader.UI
             _minuteOfDay = Mathf.Repeat(minute, TimeConstants.CycleGameMinutes);
         }
 
+        /// <summary>
+        /// Resets the clock to the default New Game starting point:
+        /// Day 141 (June 1, Summer), 08:00 AM, speed 1x.
+        /// </summary>
+        public void ResetToNewGameDefaults()
+        {
+            _dayOfYear = 141;            // Jun 1 — start in Summer
+            _minuteOfDay = 8f * 60f;     // 08:00 AM
+            _speed = HomesteaderSpeed.Speed1X;
+            _tickCount = 0;
+            UpdateProceduralWeather();
+            Time.timeScale = 1f;
+            OnPauseChanged?.Invoke(false);
+        }
+
         public void SetSeason(HomesteaderSeason season)
         {
             int year = (_dayOfYear - 1) / TimeConstants.DaysPerYear;

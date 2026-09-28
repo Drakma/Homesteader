@@ -1,0 +1,64 @@
+C:\Users\casey\AppData\Roaming\Python\Python313\site-packages\diffusers\utils\deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.
+  deprecate("torch_dtype", "1.0.0", _TORCH_DTYPE_DEPRECATION_MESSAGE)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\casey\AppData\Roaming\Python\Python313\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\casey\.cache\huggingface\hub\models--Tencent-Hunyuan--HunyuanDiT-v1.2-Diffusers-Distilled. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Fetching 18 files:   0%|          | 0/18 [00:00<?, ?it/s]Fetching 18 files:  11%|#1        | 2/18 [00:00<00:01, 10.26it/s]Fetching 18 files:  22%|##2       | 4/18 [00:00<00:01, 12.96it/s]Fetching 18 files:  39%|###8      | 7/18 [00:00<00:00, 15.53it/s]Fetching 18 files:  56%|#####5    | 10/18 [00:00<00:00, 16.50it/s]Fetching 18 files:  67%|######6   | 12/18 [00:00<00:00, 15.69it/s]Fetching 18 files:  72%|#######2  | 13/18 [00:19<00:00, 15.69it/s]Fetching 18 files:  78%|#######7  | 14/18 [00:36<00:21,  5.35s/it]Fetching 18 files:  83%|########3 | 15/18 [01:18<00:35, 11.82s/it]Fetching 18 files:  89%|########8 | 16/18 [01:31<00:23, 12.00s/it]Fetching 18 files:  94%|#########4| 17/18 [01:35<00:10, 10.28s/it]Fetching 18 files: 100%|##########| 18/18 [01:39<00:00,  5.54s/it]
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  29%|##8       | 2/7 [00:00<00:01,  2.65it/s]Loading pipeline components...:  43%|####2     | 3/7 [00:03<00:04,  1.17s/it]Loading pipeline components...:  57%|#####7    | 4/7 [00:03<00:02,  1.25it/s]
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s][A
+Loading weights:   6%|6         | 25/391 [00:00<00:01, 225.12it/s][A
+Loading weights:  15%|#4        | 58/391 [00:00<00:01, 277.62it/s][A
+Loading weights:  22%|##1       | 86/391 [00:00<00:01, 254.39it/s][A
+Loading weights:  29%|##8       | 112/391 [00:00<00:01, 230.34it/s][A
+Loading weights:  38%|###8      | 149/391 [00:00<00:00, 274.36it/s][A
+Loading weights:  46%|####5     | 178/391 [00:00<00:00, 227.28it/s][A
+Loading weights:  57%|#####7    | 223/391 [00:00<00:00, 278.29it/s][A
+Loading weights:  65%|######4   | 253/391 [00:00<00:00, 262.59it/s][A
+Loading weights:  73%|#######2  | 284/391 [00:01<00:00, 269.97it/s][A
+Loading weights:  80%|########  | 313/391 [00:01<00:00, 271.40it/s][A
+Loading weights:  87%|########7 | 341/391 [00:01<00:00, 273.38it/s][A
+Loading weights:  94%|#########4| 369/391 [00:01<00:00, 259.38it/s][ALoading weights: 100%|##########| 391/391 [00:01<00:00, 264.96it/s]
+Loading pipeline components...:  71%|#######1  | 5/7 [00:05<00:02,  1.21s/it]
+Loading weights:   0%|          | 0/219 [00:00<?, ?it/s][A
+Loading weights:   3%|2         | 6/219 [00:00<00:03, 54.69it/s][A
+Loading weights:   5%|5         | 12/219 [00:00<00:07, 29.30it/s][A
+Loading weights:  10%|9         | 21/219 [00:00<00:05, 39.36it/s][A
+Loading weights:  12%|#1        | 26/219 [00:00<00:04, 38.79it/s][A
+Loading weights:  14%|#4        | 31/219 [00:00<00:05, 37.09it/s][A
+Loading weights:  17%|#6        | 37/219 [00:01<00:04, 36.57it/s][A
+Loading weights:  19%|#9        | 42/219 [00:01<00:05, 30.92it/s][A
+Loading weights:  21%|##1       | 46/219 [00:01<00:05, 30.37it/s][A
+Loading weights:  23%|##2       | 50/219 [00:01<00:06, 26.50it/s][A
+Loading weights:  24%|##4       | 53/219 [00:01<00:06, 25.30it/s][A
+Loading weights:  26%|##5       | 56/219 [00:01<00:07, 22.91it/s][A
+Loading weights:  32%|###1      | 69/219 [00:02<00:03, 40.89it/s][A
+Loading weights:  34%|###3      | 74/219 [00:02<00:04, 33.73it/s][A
+Loading weights:  36%|###5      | 78/219 [00:02<00:04, 33.54it/s][A
+Loading weights:  37%|###7      | 82/219 [00:02<00:04, 29.72it/s][A
+Loading weights:  39%|###9      | 86/219 [00:02<00:06, 20.56it/s][A
+Loading weights:  41%|####      | 89/219 [00:03<00:06, 21.28it/s][A
+Loading weights:  42%|####2     | 92/219 [00:03<00:07, 17.55it/s][A
+Loading weights:  46%|####5     | 100/219 [00:03<00:04, 24.49it/s][A
+Loading weights:  47%|####7     | 103/219 [00:03<00:06, 16.83it/s][A
+Loading weights:  51%|#####1    | 112/219 [00:04<00:04, 26.52it/s][A
+Loading weights:  58%|#####7    | 126/219 [00:04<00:02, 40.58it/s][A
+Loading weights:  60%|######    | 132/219 [00:04<00:02, 33.08it/s][A
+Loading weights:  63%|######2   | 137/219 [00:04<00:02, 29.91it/s][A
+Loading weights:  64%|######4   | 141/219 [00:04<00:02, 30.80it/s][A
+Loading weights:  66%|######6   | 145/219 [00:05<00:03, 22.18it/s][A
+Loading weights:  68%|######7   | 148/219 [00:05<00:03, 19.95it/s][A
+Loading weights:  69%|######8   | 151/219 [00:05<00:04, 16.76it/s][A
+Loading weights:  70%|#######   | 154/219 [00:05<00:03, 17.35it/s][A
+Loading weights:  72%|#######1  | 157/219 [00:06<00:03, 18.57it/s][A
+Loading weights:  73%|#######3  | 160/219 [00:06<00:03, 15.32it/s][A
+Loading weights:  74%|#######3  | 162/219 [00:06<00:04, 12.20it/s][A
+Loading weights:  95%|#########4| 208/219 [00:06<00:00, 61.80it/s][A
+Loading weights:  98%|#########7| 214/219 [00:10<00:00, 10.14it/s][A
+Loading weights: 100%|##########| 219/219 [00:10<00:00, 10.30it/s][ALoading weights: 100%|##########| 219/219 [00:10<00:00, 20.09it/s]
+Loading pipeline components...: 100%|##########| 7/7 [00:16<00:00,  3.46s/it]Loading pipeline components...: 100%|##########| 7/7 [00:16<00:00,  2.38s/it]
+You have disabled the safety checker for <class 'diffusers.pipelines.hunyuandit.pipeline_hunyuandit.HunyuanDiTPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+Reshaped to (height, width)=(1024, 1024), Supported shapes are [(1024, 1024), (1280, 1280), (1024, 768), (1152, 864), (1280, 960), (768, 1024), (864, 1152), (960, 1280), (1280, 768), (768, 1280)]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (85 > 77). Running this sequence through the model will result in indexing errors
+The following part of your input was truncated because CLIP can only handle sequences up to 77 tokens: ['ground plane, no scenery, no props']
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|5         | 1/20 [00:08<02:41,  8.48s/it] 10%|#         | 2/20 [00:18<02:47,  9.31s/it] 15%|#5        | 3/20 [00:27<02:34,  9.07s/it] 20%|##        | 4/20 [00:35<02:22,  8.92s/it] 25%|##5       | 5/20 [00:45<02:20,  9.34s/it] 30%|###       | 6/20 [00:54<02:09,  9.23s/it] 35%|###5      | 7/20 [01:05<02:04,  9.55s/it] 40%|####      | 8/20 [01:14<01:54,  9.53s/it] 45%|####5     | 9/20 [01:23<01:43,  9.38s/it] 50%|#####     | 10/20 [01:32<01:31,  9.17s/it] 55%|#####5    | 11/20 [01:41<01:21,  9.05s/it] 60%|######    | 12/20 [01:49<01:11,  8.94s/it] 65%|######5   | 13/20 [01:58<01:02,  8.88s/it] 70%|#######   | 14/20 [02:07<00:52,  8.83s/it] 75%|#######5  | 15/20 [02:17<00:46,  9.26s/it] 80%|########  | 16/20 [02:26<00:36,  9.13s/it] 85%|########5 | 17/20 [02:35<00:27,  9.02s/it] 90%|######### | 18/20 [02:45<00:18,  9.31s/it] 95%|#########5| 19/20 [02:54<00:09,  9.22s/it]100%|##########| 20/20 [03:02<00:00,  9.08s/it]100%|##########| 20/20 [03:02<00:00,  9.15s/it]

@@ -1,0 +1,43 @@
+>>> [init]: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "probe4", "version": 
+<<< {"type":"handshake","protocol":"unity-mcp","version":"2.0","toolsHash":"Yao1+DZb5Ch3op0kpKz0uxsbGjmkmgGVUn0+eCks+Hw=","tools":[{"name":"Unity_AssetGeneration_GenerateAsset","title":null,"description":"Generates or modifies a Unity asset. ONLY call this tool when the user has explicitly asked to crea
+
+>>> [cand-0]: {"name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+>>> [cand-1]: {"tool": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+>>> [cand-2]: {"command": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+>>> [cand-3]: {"method": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+>>> [cand-4]: {"type": "tool", "name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'tool' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4701
+
+>>> [cand-5]: {"action": "call", "name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+>>> [cand-6]: {"type": "call", "name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'call' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4701
+
+>>> [cand-7]: {"type": "request", "name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'request' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4
+
+>>> [cand-8]: {"type": "invoke", "name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'invoke' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_47
+
+>>> [cand-9]: {"type": "call", "tool": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'call' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4701
+
+>>> [cand-10]: {"jsonrpc": "2.0", "id": 2, "type": "call", "method": "tools/call", "params": {"name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}}
+<<< {"status":"error","error":"Tool 'call' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4701
+
+>>> [cand-11]: {"jsonrpc": "2.0", "id": 3, "type": "tool", "method": "Unity_GetConsoleLogs", "params": {"maxEntries": 2}}
+<<< {"status":"error","error":"Tool 'tool' not found. Available tools: Unity_ApplyTextEdits, Unity_AssetGeneration_ConvertSpri_dca62520, Unity_AssetGeneration_ConvertToMaterial, Unity_AssetGeneration_ConvertToTe_debf7698, Unity_AssetGeneration_CreateAnima_40e1a9ab, Unity_AssetGeneration_EditAnimati_4701
+
+>>> [cand-12]: {"jsonrpc": "2.0", "id": 4, "command": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}
+<<< {"status":"error","error":"Command type cannot be empty"}
+
+--- done ---

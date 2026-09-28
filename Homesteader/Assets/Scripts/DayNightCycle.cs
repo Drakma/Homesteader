@@ -269,6 +269,10 @@ namespace Homesteader
                 _celestialLight.color = sunColor;
                 _celestialLight.shadowStrength = Mathf.Lerp(0.5f, 1.0f, horizonFade);
 
+                // Set shader globals so the water shader can use the actual sun direction and color
+                Shader.SetGlobalVector("_CelestialDir", dirToSun);
+                Shader.SetGlobalVector("_CelestialColor", new Vector4(sunColor.r, sunColor.g, sunColor.b, horizonFade));
+
                 // Ambient light
                 RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, _dayAmbientColor, horizonFade);
             }
@@ -306,6 +310,10 @@ namespace Homesteader
                 Color moonColor = GetSeasonNightMoonColor(season);
                 _celestialLight.color = moonColor;
                 _celestialLight.shadowStrength = Mathf.Lerp(0.05f, 0.45f, moonCycleBrightness);
+
+                // Set shader globals so the water shader can use the actual moon direction and color
+                Shader.SetGlobalVector("_CelestialDir", dirToMoon);
+                Shader.SetGlobalVector("_CelestialColor", new Vector4(moonColor.r, moonColor.g, moonColor.b, moonFade * moonCycleBrightness));
 
                 RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, moonColor * (0.16f + 0.25f * moonCycleBrightness), moonFade);
             }

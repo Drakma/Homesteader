@@ -31,9 +31,9 @@
 
 .clock-label {
     color: rgb(242, 132, 29);
-    font-size: 28px;
+    font-size: 34px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
-    height: 32px;
+    height: 38px;
     margin-top: 2px;
 }

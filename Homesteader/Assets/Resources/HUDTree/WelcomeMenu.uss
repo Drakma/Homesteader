@@ -1,0 +1,337 @@
+/* WelcomeMenu.uss - Welcome / Main Menu styling.
+   Uses the same dark-slate + copper palette and HomesteaderHUD font
+   family as HudUI.uss so the menu looks like it belongs in the game. */
+
+:root {
+    --font: resource("HUDTree/Fonts/HomesteaderHUD");
+    --font-bold: resource("HUDTree/Fonts/HomesteaderHUD_Bold");
+    --font-medium: resource("HUDTree/Fonts/HomesteaderHUD_Medium");
+    --font-italic: resource("HUDTree/Fonts/HomesteaderHUD_Italic");
+    --font-bold-italic: resource("HUDTree/Fonts/HomesteaderHUD_BoldItalic");
+}
+
+/* ----- FULL-SCREEN ROOT ----- */
+
+.welcome-root {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hides any element with the welcome--hidden class (the wallpaper element
+   only has this class, not welcome-root, so it needs a standalone rule). */
+.welcome--hidden {
+    display: none;
+}
+
+/* IMPORTANT: .welcome--hidden must come AFTER .welcome-root so it wins
+   the specificity tie-breaker (same specificity = later source wins). */
+
+.welcome-root.welcome--hidden {
+    display: none;
+}
+
+/* ----- MENU CARD ----- */
+
+.welcome-card {
+    position: relative;
+    width: 360px;
+    padding: 32px 28px 24px 28px;
+    background-color: rgba(43, 52, 66, 0.92);
+    border-width: 1px;
+    border-color: rgb(18, 22, 29);
+    border-top-color: rgb(92, 102, 117);
+    border-left-width: 2px;
+    border-left-color: rgb(224, 138, 60);
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ----- TITLE ----- */
+
+.welcome-title-block {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(61, 74, 92);
+}
+
+.welcome-title {
+    color: rgb(224, 138, 60);
+    font-size: 28px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    letter-spacing: 3px;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome-subtitle {
+    color: rgb(139, 150, 165);
+    font-size: 13px;
+    -unity-font: var(--font-italic);
+    -unity-text-align: middle-center;
+    margin-top: 6px;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+/* ----- BUTTONS ----- */
+
+.welcome-btn {
+    height: 40px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 0;
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    background-color: rgba(26, 33, 43, 0.85);
+    color: rgb(238, 242, 246);
+    font-size: 15px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+    letter-spacing: 0.5px;
+}
+
+.welcome-btn:hover {
+    background-color: rgb(61, 74, 92);
+    border-color: rgb(92, 102, 117);
+    color: rgb(255, 255, 255);
+}
+
+.welcome-btn:active {
+    background-color: rgb(43, 52, 66);
+}
+
+.welcome-btn--primary {
+    background-color: rgb(224, 138, 60);
+    color: rgb(18, 22, 29);
+    border-color: rgb(232, 163, 98);
+    -unity-font: var(--font-bold);
+}
+
+.welcome-btn--primary:hover {
+    background-color: rgb(222, 153, 88);
+    color: rgb(18, 22, 29);
+}
+
+.welcome-btn--primary:active {
+    background-color: rgb(188, 112, 40);
+}
+
+.welcome-btn--exit {
+    margin-top: 14px;
+    border-color: rgba(227, 83, 88, 0.4);
+    color: rgb(228, 92, 96);
+}
+
+.welcome-btn--exit:hover {
+    background-color: rgb(198, 32, 38);
+    color: rgb(255, 255, 255);
+    border-color: rgb(224, 66, 71);
+}
+
+/* ----- SAVE / LOAD ROW ----- */
+
+.welcome-btn-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.welcome-btn--half {
+    flex-grow: 1;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* ----- STATUS LABEL ----- */
+
+.welcome-status {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+    margin-top: 12px;
+    min-height: 16px;
+    padding: 0;
+}
+
+/* ----- PROGRESS BAR (inside loading modal) ----- */
+
+.loading-modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(18, 22, 29, 0.7);
+}
+
+.loading-modal.loading--hidden {
+    display: none;
+}
+
+.loading-modal-card {
+    width: 340px;
+    padding: 28px 24px 20px 24px;
+    background-color: rgba(43, 52, 66, 0.96);
+    border-width: 1px;
+    border-color: rgb(18, 22, 29);
+    border-top-color: rgb(92, 102, 117);
+    border-left-width: 2px;
+    border-left-color: rgb(224, 138, 60);
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.loading-modal-title {
+    color: rgb(224, 138, 60);
+    font-size: 20px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(61, 74, 92);
+}
+
+.loading-phase {
+    color: rgb(139, 150, 165);
+    font-size: 12px;
+    -unity-font: var(--font-italic);
+    -unity-text-align: middle-center;
+    margin-bottom: 8px;
+    min-height: 16px;
+}
+
+.loading-bar-track {
+    height: 8px;
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    overflow: hidden;
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: rgb(224, 138, 60);
+    border-right-color: rgb(232, 163, 98);
+}
+
+.loading-pct {
+    color: rgb(238, 242, 246);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+    margin-top: 6px;
+}
+
+/* ----- SETTINGS DIALOG ----- */
+
+.settings-dialog {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(18, 22, 29, 0.6);
+}
+
+.settings-dialog.settings--hidden {
+    display: none;
+}
+
+.settings-card {
+    width: 320px;
+    padding: 28px 24px 20px 24px;
+    background-color: rgba(43, 52, 66, 0.96);
+    border-width: 1px;
+    border-color: rgb(18, 22, 29);
+    border-top-color: rgb(92, 102, 117);
+    border-left-width: 2px;
+    border-left-color: rgb(224, 138, 60);
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.settings-title {
+    color: rgb(224, 138, 60);
+    font-size: 20px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(61, 74, 92);
+}
+
+.settings-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.settings-label {
+    color: rgb(238, 242, 246);
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+}
+
+.settings-controls {
+    flex-direction: row;
+    align-items: center;
+}
+
+.settings-field {
+    width: 60px;
+    margin-right: 10px;
+    color: rgb(238, 242, 246);
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+    background-color: rgba(26, 33, 43, 0.85);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+}
+
+.settings-toggle {
+    color: rgb(238, 242, 246);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+}
+
+.settings-toggle > .unity-toggle__input {
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+}
+
+.settings-toggle > .unity-toggle__input:checked {
+    background-color: rgb(224, 138, 60);
+    border-color: rgb(232, 163, 98);
+}
+
+.settings-hint {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    -unity-font: var(--font-italic);
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+.settings-close-btn {
+    margin-top: 4px;
+}

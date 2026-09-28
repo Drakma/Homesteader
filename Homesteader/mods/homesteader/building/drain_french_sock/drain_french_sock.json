@@ -1,0 +1,126 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "drain_french_sock",
+  "name": "French Drain Pipe",
+  "category": "building",
+  "description": "Geotextile-wrapped perforated drain pipe.",
+  "icon": "drain_french_sock.png",
+  "properties": {
+    "weight_kg": 2.5,
+    "max_stack_size": 5,
+    "base_value": 12.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "drain_french_sock.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "drain_french_sock.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 107.0,
+        "y": 104.0,
+        "z": 42.0
+      },
+      "dimensions_m": {
+        "x": 1.07,
+        "y": 1.04,
+        "z": 0.42
+      },
+      "vertices": 1632,
+      "faces": 544,
+      "bounding_box": {
+        "min": [
+          -52.0,
+          -52.0,
+          0.0
+        ],
+        "max": [
+          55.0,
+          52.0,
+          42.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "drain_french_sock.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 107.0,
+      "y": 104.0,
+      "z": 42.0
+    },
+    "dimensions_m": {
+      "x": 1.07,
+      "y": 1.04,
+      "z": 0.42
+    },
+    "vertices": 1632,
+    "faces": 544,
+    "bounding_box": {
+      "min": [
+        -52.0,
+        -52.0,
+        0.0
+      ],
+      "max": [
+        55.0,
+        52.0,
+        42.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.07,
+      "depth": 1.04,
+      "height": 0.42
+    }
+  }
+}

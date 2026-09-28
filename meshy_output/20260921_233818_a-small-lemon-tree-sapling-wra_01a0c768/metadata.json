@@ -1,0 +1,21 @@
+{
+  "project_name": "a small lemon tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+  "folder": "20260921_233818_a-small-lemon-tree-sapling-wra_01a0c768",
+  "root_task_id": "01a0c768-560c-751f-8d46-65d604021fa6",
+  "created_at": "2026-09-22T04:38:18.905Z",
+  "updated_at": "2026-09-22T04:48:30.343Z",
+  "tasks": [
+    {
+      "task_id": "01a0c768-560c-751f-8d46-65d604021fa6",
+      "task_type": "text-to-3d",
+      "stage": "refined",
+      "prompt": "a small lemon tree sapling wrapped in a burlap root-ball sack, tiny young tree with a few green leaves, ready to be planted, rustic homestead nursery style",
+      "status": "SUCCEEDED",
+      "files": [
+        "refined.glb",
+        "refined_base_color.png"
+      ],
+      "created_at": "2026-09-22T04:48:30.342Z"
+    }
+  ]
+}

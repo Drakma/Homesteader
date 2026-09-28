@@ -1,0 +1,10 @@
+>>> initialize: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "probe3", "version": "0.0.1"}}}
+<<< response (12064 chars)
+{"type":"handshake","protocol":"unity-mcp","version":"2.0","toolsHash":"Yao1+DZb5Ch3op0kpKz0uxsbGjmkmgGVUn0+eCks+Hw=","tools":[{"name":"Unity_AssetGeneration_GenerateAsset","title":null,"description":"Generates or modifies a Unity asset. ONLY call this tool when the user has explicitly asked to create, generate, or modify a specific asset (e.g., 'generate a sprite', 'create a 3D model', 'make a sound effect', 'generate a texture'). Do NOT call this tool to answer questions about Unity, explain h
+>>> tools/list: {"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}}
+<<< response (58 chars)
+{"status":"error","error":"Command type cannot be empty"}
+>>> Unity_GetConsoleLogs: {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "Unity_GetConsoleLogs", "arguments": {"maxEntries": 2}}}
+<<< response (58 chars)
+{"status":"error","error":"Command type cannot be empty"}
+--- done ---

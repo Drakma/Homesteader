@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "poplar",
+  "name": "Poplar Tree",
+  "category": "logging",
+  "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 80 days. This group is the authoritative owner of the poplar scheme.",
+  "icon": "poplar.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "poplar",
+    "max_age": 80,
+    "time_unit": "days",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0,
+        "age_max": 12,
+        "resource": "stages/tree_sapling/",
+        "model": "tree_sapling_poplar.fbx",
+        "icon": "tree_sapling_poplar.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 12,
+        "age_max": 32,
+        "resource": "stages/tree_small/",
+        "model": "tree_small_poplar.fbx",
+        "icon": "tree_small_poplar.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 32,
+        "age_max": 60,
+        "resource": "stages/tree_medium/",
+        "model": "tree_medium_poplar.fbx",
+        "icon": "tree_medium_poplar.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 60,
+        "age_max": 80,
+        "resource": "stages/tree_mature/",
+        "model": "tree_mature_poplar.fbx",
+        "icon": "tree_mature_poplar.png"
+      }
+    ],
+    "rules": {
+      "planting": {
+        "item_id": "plantable_poplar_sapling"
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

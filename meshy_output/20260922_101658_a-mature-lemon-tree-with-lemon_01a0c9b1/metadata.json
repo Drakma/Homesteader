@@ -1,0 +1,21 @@
+{
+  "project_name": "a mature lemon tree with lemons on it, low-poly game asset, modern, faceted low-poly styling",
+  "folder": "20260922_101658_a-mature-lemon-tree-with-lemon_01a0c9b1",
+  "root_task_id": "01a0c9b1-0bfc-7598-8669-be8721b099bc",
+  "created_at": "2026-09-22T15:16:58.515Z",
+  "updated_at": "2026-09-22T15:18:02.077Z",
+  "tasks": [
+    {
+      "task_id": "01a0c9b1-0bfc-7598-8669-be8721b099bc",
+      "task_type": "text-to-3d",
+      "stage": "refined",
+      "prompt": "a mature lemon tree with lemons on it, low-poly game asset, modern, faceted low-poly styling",
+      "status": "SUCCEEDED",
+      "files": [
+        "refined.glb",
+        "refined_base_color.png"
+      ],
+      "created_at": "2026-09-22T15:18:02.076Z"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[qwen-image] CUDA device: NVIDIA GeForce GTX 1080 Ti (11.0 GB total, 10.0 GB free)
+[qwen-image] device=cuda dtype=torch.bfloat16 cpu_offload=True model=C:\Users\casey\Desktop\models\Qwen-Image-2.1
+[qwen-image] Loading pipeline from 'C:\\Users\\casey\\Desktop\\models\\Qwen-Image-2.1' ... (this is the slow first call - it pulls ~47 GB into RAM if not cached)
+[qwen-image] Pipeline loaded in 64.4s
+[qwen-image] prompt: A small wooden barn exterior under a clear winter sky, sunlight, low angle view, photorealistic
+[qwen-image] size 1024x1024, steps=4, seed=42, edit=None

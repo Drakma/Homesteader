@@ -1,0 +1,26 @@
+# Material Library for SM_Item_Seed_Tomato
+
+newmtl packet_paper
+Ka 0.376 0.364 0.336
+Kd 0.940 0.910 0.840
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl label_crop
+Ka 0.352 0.080 0.060
+Kd 0.880 0.200 0.150
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl packet_flap
+Ka 0.352 0.340 0.312
+Kd 0.880 0.850 0.780
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+

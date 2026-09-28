@@ -1,0 +1,134 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "tool_axe_felling",
+  "name": "Felling Axe",
+  "category": "tools",
+  "description": "Long-handled axe for felling trees.",
+  "icon": "tool_axe_felling.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 1,
+    "base_value": 42.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "tool_axe_felling.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "tool_axe_felling.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 22.0,
+        "y": 53.0,
+        "z": 96.0
+      },
+      "dimensions_m": {
+        "x": 0.22,
+        "y": 0.53,
+        "z": 0.96
+      },
+      "vertices": 168,
+      "faces": 56,
+      "bounding_box": {
+        "min": [
+          -6.0,
+          -8.0,
+          0.0
+        ],
+        "max": [
+          16.0,
+          45.0,
+          96.0
+        ]
+      }
+    },
+    {
+      "file": "SM_Tool_Axe_Felling.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "SM_Tool_Axe_Felling.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 7.0,
+        "y": 32.0,
+        "z": 89.0
+      },
+      "dimensions_m": {
+        "x": 0.07,
+        "y": 0.32,
+        "z": 0.89
+      },
+      "vertices": 76,
+      "faces": 124,
+      "bounding_box": {
+        "min": [
+          -3.5,
+          -10.0,
+          0.0
+        ],
+        "max": [
+          3.5,
+          22.0,
+          89.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.25,
+      "depth": 0.05,
+      "height": 0.9
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "power_draw_w": 0,
+    "tank_capacity_l": 0
+  }
+}

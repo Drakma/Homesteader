@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "barred_chicken",
+  "name": "Barred Chicken",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (chick -> adult) over 730 days. This group is the authoritative owner of the barred_chicken scheme.",
+  "icon": "barred_chicken.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "barred_chicken",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "chick",
+        "age_min": 0,
+        "age_max": 30,
+        "resource": "stages/animal_chick/",
+        "model": "SKM_Animal_Chicken_Barred.fbx",
+        "icon": "animal_chick_barred_chicken.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 30,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Chicken_Barred_Chick.fbx",
+        "icon": "animal_adult_barred_chicken.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

@@ -22,7 +22,7 @@ namespace Homesteader.DebugTools
         private const int LevelCount = 4;
         private const float HalfExtent = 60f; // draws a 120x120m grid centered on the origin
         private const float LineY = 0.025f;
-        private int _level;
+        private int _level = 2;
 
         private LineRenderer _outline;
         private GameObject _gridLines;
@@ -36,6 +36,12 @@ namespace Homesteader.DebugTools
             var go = new GameObject("GridBrightnessToggle");
             DontDestroyOnLoad(go);
             go.AddComponent<GridBrightnessToggle>();
+        }
+
+        private void Start()
+        {
+            // Apply the initial level (defaults to 3 = Bright).
+            ApplyLevel();
         }
 
         private void Update()
@@ -205,10 +211,10 @@ namespace Homesteader.DebugTools
 
             float x0 = Mathf.Floor(hit.x);
             float z0 = Mathf.Floor(hit.z);
-            float y0 = terrain != null ? terrain.SampleHeight(new Vector3(x0, 0f, z0)) + terrain.transform.position.y : hit.y;
-            float y1 = terrain != null ? terrain.SampleHeight(new Vector3(x0 + 1f, 0f, z0)) + terrain.transform.position.y : hit.y;
-            float y2 = terrain != null ? terrain.SampleHeight(new Vector3(x0 + 1f, 0f, z0 + 1f)) + terrain.transform.position.y : hit.y;
-            float y3 = terrain != null ? terrain.SampleHeight(new Vector3(x0, 0f, z0 + 1f)) + terrain.transform.position.y : hit.y;
+            float y0 = Homesteader.Generation.TerrainHeightDetector.GetGroundY(x0, z0);
+            float y1 = Homesteader.Generation.TerrainHeightDetector.GetGroundY(x0 + 1f, z0);
+            float y2 = Homesteader.Generation.TerrainHeightDetector.GetGroundY(x0 + 1f, z0 + 1f);
+            float y3 = Homesteader.Generation.TerrainHeightDetector.GetGroundY(x0, z0 + 1f);
             const float skin = 0.03f; // lift slightly off the surface to avoid z-fighting
 
             _outline.SetPosition(0, new Vector3(x0, y0 + skin, z0));

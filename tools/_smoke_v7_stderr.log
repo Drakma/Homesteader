@@ -1,0 +1,8 @@
+usage: qwen_image_local.py [-h] --prompt PROMPT
+                           [--negative-prompt NEGATIVE_PROMPT] [--seed SEED]
+                           [--steps STEPS] [--aspect ASPECT] [--width WIDTH]
+                           [--height HEIGHT] [--out OUT] [--edit EDIT]
+                           [--transparent] [--cpu-offload] [--no-offload]
+                           [--dtype {bf16,fp16,fp32}] [--model MODEL]
+                           [--force-fit]
+qwen_image_local.py: error: unrecognized arguments: small wooden barn exterior under a clear winter sky, sunlight, low angle view, photorealistic

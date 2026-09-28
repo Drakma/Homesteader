@@ -1,0 +1,42 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "holstein_cow",
+  "name": "Holstein Cow",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 2 stages (calf -> adult) over 730 days. This group is the authoritative owner of the holstein_cow scheme.",
+  "icon": "holstein_cow.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "holstein_cow",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 2,
+    "icon_stage": 2,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "calf",
+        "age_min": 0,
+        "age_max": 90,
+        "resource": "stages/animal_calf/",
+        "model": "SKM_Animal_Cow_Holstein_Calf.fbx",
+        "icon": "animal_calf_holstein_cow.png"
+      },
+      {
+        "stage": 2,
+        "name": "adult",
+        "age_min": 90,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Cow_Holstein.fbx",
+        "icon": "animal_adult_holstein_cow.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_complete_chicken_coop",
+  "name": "Chicken Coop",
+  "category": "structures",
+  "description": "A small chicken coop with a fenced run.",
+  "icon": "struct_complete_chicken_coop.png",
+  "properties": {
+    "weight_kg": 600.0,
+    "max_stack_size": 1,
+    "base_value": 900.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 10,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_complete_chicken_coop.fbx",
+      "format": "fbx"
+    },
+    {
+      "file": "struct_complete_chicken_coop.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "struct_complete_chicken_coop.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 414.0,
+        "y": 376.0,
+        "z": 325.0
+      },
+      "dimensions_m": {
+        "x": 4.14,
+        "y": 3.76,
+        "z": 3.25
+      },
+      "vertices": 1130,
+      "faces": 416,
+      "bounding_box": {
+        "min": [
+          -228.0,
+          -190.0,
+          0.0
+        ],
+        "max": [
+          186.0,
+          186.0,
+          325.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "struct_complete_chicken_coop.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 414.0,
+      "y": 376.0,
+      "z": 325.0
+    },
+    "dimensions_m": {
+      "x": 4.14,
+      "y": 3.76,
+      "z": 3.25
+    },
+    "vertices": 1130,
+    "faces": 416,
+    "bounding_box": {
+      "min": [
+        -228.0,
+        -190.0,
+        0.0
+      ],
+      "max": [
+        186.0,
+        186.0,
+        325.0
+      ]
+    }
+  },
+  "category_fields": {
+    "interior_area_m2": 13.3,
+    "room_count": 1,
+    "dimensions_m": {
+      "width": 4.14,
+      "depth": 3.76,
+      "height": 3.25
+    },
+    "electrical_service_capacity_w": 3000,
+    "water_supply_capacity_lpm": 5,
+    "roof_area_m2": 15.6,
+    "construction_recipe": [
+      {
+        "item_id": "#roofing",
+        "quantity": 3
+      },
+      {
+        "item_id": "building_glass",
+        "quantity": 2
+      },
+      {
+        "item_id": "sheet_drywall_stack_small",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 13
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

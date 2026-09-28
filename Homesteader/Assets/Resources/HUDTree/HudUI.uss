@@ -130,8 +130,8 @@ TemplateContainer {
    The pill container has overflow: hidden so fill bars naturally clip to the pill. */
 
 .vital-meter {
-    width: 74px;
-    height: 18px;
+    width: 73px;
+    height: 16px;
     flex-grow: 0;
     flex-shrink: 0;
     margin-top: 0;
@@ -144,7 +144,7 @@ TemplateContainer {
 }
 
 .vital-meter-fill {
-    height: 18px;
+    height: 16px;
     width: 0;
     position: absolute;
     left: 37px;
@@ -164,7 +164,7 @@ TemplateContainer {
 
 .vital-meter-center {
     width: 1px;
-    height: 18px;
+    height: 16px;
     position: absolute;
     left: 36.5px;
     top: 0;
@@ -213,7 +213,7 @@ TemplateContainer {
 
 .time-line-label {
     color: rgb(238, 242, 246);
-    font-size: 19px;
+    font-size: 24px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
     height: auto;
@@ -823,9 +823,9 @@ TemplateContainer {
     align-items: center;
     justify-content: center;
     align-self: center; /* Vertically centered in the 64px header band */
-    width: 265px;
-    height: 38px;
-    max-height: 38px;
+    width: 200px;
+    height: 36px;
+    max-height: 36px;
     position: relative;
     padding: 0 4px;
     background-color: rgb(58, 70, 88);
@@ -983,8 +983,8 @@ TemplateContainer {
     right: 50%;
     margin-right: 118px; /* just left of the fixed-width clock */
     top: 13px;
-    height: 38px;
-    max-height: 38px;
+    height: 36px;
+    max-height: 36px;
 }
 
 .weather-timeline-well {
@@ -992,9 +992,9 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 235px;
-    height: 38px;
-    max-height: 38px;
+    width: 200px;
+    height: 36px;
+    max-height: 36px;
     padding: 0 4px;
     background-color: rgb(58, 70, 88);
     border-width: 0;
@@ -1008,8 +1008,8 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 38px;
-    max-height: 38px;
+    height: 36px;
+    max-height: 36px;
     min-width: 44px;
     margin-left: 4px;
     padding-left: 6px;
@@ -1135,6 +1135,39 @@ TemplateContainer {
 
 .asset-spawner-window--hidden {
     display: none;
+}
+
+/* ============================================== */
+/* STATISTICS WINDOW (F12 debug overlay)           */
+/* ============================================== */
+.stats-window {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 280px;
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    border-top-color: rgb(224, 138, 60);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.stats-window--hidden {
+    display: none;
+}
+
+.stats-body {
+    padding: 12px 14px;
+}
+
+.stats-line {
+    font-size: 12px;
+    color: rgb(220, 230, 245);
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    margin-bottom: 3px;
+    white-space: nowrap;
 }
 
 .asset-spawner-count-badge {
@@ -1424,15 +1457,15 @@ TemplateContainer {
     top: 13px;
     flex-direction: row;
     align-items: center;
-    height: 38px;
-    max-height: 38px;
+    height: 36px;
+    max-height: 36px;
 }
 
 .season-cell {
     flex-grow: 0;
     flex-shrink: 0;
     width: 44px;
-    height: 38px;
+    height: 36px;
     margin-right: 4px;
     align-items: center;
     justify-content: center;

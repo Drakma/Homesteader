@@ -1,0 +1,114 @@
+{
+  "id": "bird",
+  "extends": [
+    "animal_base"
+  ],
+  "applies_to": [
+    "species:bird",
+    "*_bird",
+    "*sparrow*",
+    "*crow*",
+    "*robin*"
+  ],
+  "tags": [
+    "prey"
+  ],
+  "note": "Small birds. Fly (hover_m above the ground) while moving and land when they stop, hop about on the ground, take off when the player gets close, flock loosely. Map walk / run to the fly / flap clip.",
+  "senses": {
+    "sight_m": 30
+  },
+  "movement": {
+    "medium": "air",
+    "hover_m": 3.5,
+    "walk_speed": 3.0,
+    "run_speed": 8.0,
+    "turn_speed_deg": 300
+  },
+  "behaviors": [
+    {
+      "id": "scatter",
+      "priority": 9,
+      "action": {
+        "type": "flee",
+        "target": "player",
+        "speed": "run",
+        "min_dist": 18
+      },
+      "requires": [
+        {
+          "sense": "player",
+          "within": 5
+        }
+      ],
+      "score": [
+        {
+          "sense": "player",
+          "curve": "closer",
+          "weight": 1.5
+        }
+      ],
+      "base": 0.7,
+      "min_s": 3
+    },
+    {
+      "id": "flock",
+      "action": {
+        "type": "follow",
+        "target": "animal:bird",
+        "speed": "walk",
+        "min_dist": 3,
+        "max_dist": 8
+      },
+      "requires": [
+        {
+          "sense": "animal:bird",
+          "within": 40
+        },
+        {
+          "sense": "animal:bird",
+          "beyond": 12
+        }
+      ],
+      "score": [
+        {
+          "sense": "animal:bird",
+          "curve": "farther",
+          "weight": 0.5
+        }
+      ],
+      "base": 0.3
+    },
+    {
+      "id": "wander_home",
+      "action": {
+        "type": "wander",
+        "radius": 25,
+        "stay_near": "home",
+        "speed": "walk"
+      },
+      "score": [
+        {
+          "random": 0.3
+        }
+      ],
+      "base": 0.3
+    },
+    {
+      "id": "peck",
+      "action": {
+        "type": "idle",
+        "anim": "eat",
+        "duration": [
+          3,
+          8
+        ]
+      },
+      "score": [
+        {
+          "random": 0.3
+        }
+      ],
+      "base": 0.3
+    }
+  ]
+}

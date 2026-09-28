@@ -4,7 +4,7 @@ Asset generation, validation, and deployment scripts. Moved here from
 `HUD/scripts/` during the HUD teardown (2026-09-17).
 
 **These scripts write into `assets/` and into the Unity project's
-`Content/Homesteader/` tree.** They must be run from the repo root so their
+`Assets/Homesteader/` tree.** They must be run from the repo root so their
 `dirname(__file__)`-relative paths resolve correctly:
 
 ```powershell
@@ -36,7 +36,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 so `tools/generate_homestead_buildings.py` writes to
 `<root>/assets/building/structures/` and
-`<root>/Homesteader/Content/Homesteader/Assets/Building/Meshes/`.
+`<root>/Homesteader/Assets/Homesteader/Assets/Building/Meshes/`.
 
 A few older scripts still hardcode absolute `C:\Users\casey\Desktop\Homesteader\...`
 paths. Those work but should be migrated to the `__file__`-relative form when touched.

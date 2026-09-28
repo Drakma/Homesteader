@@ -1,0 +1,51 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "quarter_horse",
+  "name": "Quarter Horse",
+  "category": "ranching",
+  "description": "A animal lifecycle growing through 3 stages (foal -> yearling -> adult) over 730 days. This group is the authoritative owner of the quarter_horse scheme.",
+  "icon": "quarter_horse.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "quarter_horse",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foal",
+        "age_min": 0,
+        "age_max": 180,
+        "resource": "stages/animal_foal/",
+        "model": "SKM_Animal_Foal_Quarter_Horse.fbx",
+        "icon": "animal_foal_quarter_horse.png"
+      },
+      {
+        "stage": 2,
+        "name": "yearling",
+        "age_min": 180,
+        "age_max": 400,
+        "resource": "stages/animal_yearling/",
+        "model": "SKM_Animal_Yearling_Quarter_Horse.fbx",
+        "icon": "animal_yearling_quarter_horse.png"
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "age_min": 400,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "SKM_Animal_Adult_Quarter_Horse.fbx",
+        "icon": "animal_adult_quarter_horse.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

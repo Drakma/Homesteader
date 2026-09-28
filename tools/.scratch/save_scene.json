@@ -1,0 +1,4 @@
+{
+  "Code": "using UnityEditor;\nusing UnityEditor.SceneManagement;\nusing UnityEngine.SceneManagement;\n\ninternal class CommandScript : IRunCommand\n{\n    public void Execute(ExecutionResult result)\n    {\n        var scn = SceneManager.GetActiveScene();\n        if (!scn.IsValid()) { result.Log(\"invalid\"); return; }\n        EditorSceneManager.MarkSceneDirty(scn);\n        EditorSceneManager.SaveScene(scn);\n        result.Log(\"saved \" + scn.path);\n    }\n}",
+  "Title": "Save scene"
+}

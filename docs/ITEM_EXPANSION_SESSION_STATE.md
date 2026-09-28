@@ -125,6 +125,6 @@ When ready to resume:
    - Run [`extract_clean_all.py`](file:///c:/Users/casey/Desktop/Homesteader/tools/extract_clean_all.py) with perimeter flood-fill to carve out pure transparent 128×128 RGBA icons with $\ge 12\text{ px}$ safe margins and zero perimeter alpha.
 4. **Validation**:
    - Run [`validate_item_assets.py`](file:///c:/Users/casey/Desktop/Homesteader/tools/validate_item_assets.py) to guarantee 100% compliance before publishing.
-5. **Mirror to Web HUD & UE5**:
-   - Deploy icons to `assets/<category>/<subcategory>/` and `Homesteader/Content/Homesteader/UI/Icons/`.
+5. **Mirror to Web HUD & Unity 6**:
+   - Deploy icons to `assets/<category>/<subcategory>/` and `Homesteader/Assets/Homesteader/UI/Icons/`.
    - Update `gallery/index.html` catalog to the full 216-item database.

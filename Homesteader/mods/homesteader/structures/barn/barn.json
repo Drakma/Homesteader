@@ -1,0 +1,60 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "barn",
+  "name": "Barn",
+  "category": "structures",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the barn scheme.",
+  "icon": "barn.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "barn",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_barn.png"
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_barn.png"
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 66,
+        "age_max": 99,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_barn.png"
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 99,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "struct_complete_barn.fbx",
+        "icon": "struct_complete_barn.png"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}
