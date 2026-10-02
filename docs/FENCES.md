@@ -15,7 +15,7 @@ Select a fence item in the hotbar (a manifest with `properties.fence_style`: Woo
 | Right click (or Backspace) | Take the last post back (a right drag still pans the camera) |
 | Esc, or choosing another slot | Throw the plan away |
 
-A card beside the cursor shows how many panels and posts the plan needs and how many are in the hotbar. Nothing is used until the fence is built;
+A card beside the cursor shows how many panels and posts the plan needs and how many are in the hotbar, and (from three posts) the area in square metres it would enclose if it were finished now, with the length of fence. Nothing is used until the fence is built;
 then the posts (the item named by `fence_post_item`, one per post, intermediate posts included) and the panels (`ceil(run length /
 fence_panel_m)` per run between posts) are taken from the hotbar, and the fencing is filled in between the posts, following the ground.
 Not enough: a warning says what is missing and the plan stays.
