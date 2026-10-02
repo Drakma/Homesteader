@@ -67,7 +67,7 @@ class Ctx:
 
 def blocked(openings, lo, hi, za, zb, pad=0.0):
     """Intervals along a wall that stay open in the band za..zb."""
-    return sorted((u0 - pad, u1 + pad) for u0, u1, z0, z1 in openings if za < z1 + 0.0001 and zb > z0 - 0.0001)
+    return sorted((u0 - pad, u1 + pad) for u0, u1, z0, z1 in openings if za < z1 - 0.0001 and zb > z0 + 0.0001)   # strictly overlapping
 
 
 def pieces(lo, hi, gaps, min_len=0.04):
@@ -94,15 +94,19 @@ def wall_box(b, c, wall, depth0, depth1, za, zb, m, openings=None, gap_pad=0.0, 
         lo, hi = -w / 2 + inset, w / 2 - inset
     else:
         lo, hi = yh0 + trim, d / 2 - trim
-    for u0, u1 in pieces(lo, hi, blocked(ops, lo, hi, za, zb, gap_pad)):
-        if wall == 'front':
-            b.box(u0, u1, yh0 + depth0, yh0 + depth1, za, zb, m)
-        elif wall == 'back':
-            b.box(u0, u1, d / 2 - depth1, d / 2 - depth0, za, zb, m)
-        elif wall == 'left':
-            b.box(-w / 2 + depth0, -w / 2 + depth1, u0, u1, za, zb, m)
-        else:
-            b.box(w / 2 - depth1, w / 2 - depth0, u0, u1, za, zb, m)
+    # split the band at the heights where openings start and end, so a window cuts only its own height out of the layer (the wall below the
+    # sill and above the head stays closed), not the whole column
+    zs = sorted({za, zb} | {z for o in ops for z in (o[2], o[3]) if za + 1e-4 < z < zb - 1e-4})
+    for bza, bzb in zip(zs[:-1], zs[1:]):
+        for u0, u1 in pieces(lo, hi, blocked(ops, lo, hi, bza, bzb, gap_pad)):
+            if wall == 'front':
+                b.box(u0, u1, yh0 + depth0, yh0 + depth1, bza, bzb, m)
+            elif wall == 'back':
+                b.box(u0, u1, d / 2 - depth1, d / 2 - depth0, bza, bzb, m)
+            elif wall == 'left':
+                b.box(-w / 2 + depth0, -w / 2 + depth1, u0, u1, bza, bzb, m)
+            else:
+                b.box(w / 2 - depth1, w / 2 - depth0, u0, u1, bza, bzb, m)
 
 
 # ------------------------------------------------------------------ pieces shared by several stages
