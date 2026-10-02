@@ -20,6 +20,10 @@ then the posts (the item named by `fence_post_item`, one per post, intermediate 
 fence_panel_m)` per run between posts) are taken from the hotbar, and the fencing is filled in between the posts, following the ground.
 Not enough: a warning says what is missing and the plan stays.
 
+**The work site.** The 4 m x 4 m square round the FIRST post (drawn in amber while you plan) is the fence's work site: materials dropped there
+(loose items, placed items, the contents of boxes and crates standing in it) count towards the fence and are used before the hotbar, so the ped
+need not carry everything (it is encumbered past its carry weight). The cost card shows hotbar plus site.
+
 **The ped builds it.** Once the plan is accepted the ped sets the first post and then walks the fence line, a section at a time (one panel and the
 post at its end), kneeling to work on each for about 2.4 seconds; the section appears when the work is done and its panel and post come out of the
 hotbar then. It stands beside the fence on the side it started on (inside a closed fence if it was inside). Pressing a movement key or Esc stops it:

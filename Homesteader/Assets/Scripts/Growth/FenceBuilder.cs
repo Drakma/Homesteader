@@ -138,7 +138,7 @@ namespace Homesteader.Growth
             float panelLen = Mathf.Max(0.5f, item.fence_panel_m);
             FenceRun.Needs(_posts, closed, panelLen, out int postsNeeded, out int panelsNeeded);
             string postId = string.IsNullOrEmpty(item.fence_post_item) ? "post_wood_round_6inch" : item.fence_post_item;
-            int havePanels = CountInToolbar(_panelId), havePosts = CountInToolbar(postId);
+            int havePanels = Available(_panelId, _posts[0]), havePosts = Available(postId, _posts[0]);
             if (havePanels < panelsNeeded || havePosts < postsNeeded)
             {
                 ToastNotificationSystem.ShowWarning("Not enough materials",
@@ -169,14 +169,14 @@ namespace Homesteader.Growth
         private void Build(AssetCatalogItem item, string panelId, string postId, List<Vector3> posts, bool closed, int panels, int postCount)
         {
             // the plan may have changed while a confirmation was open: check what is there again
-            if (CountInToolbar(panelId) < panels || CountInToolbar(postId) < postCount) { ToastNotificationSystem.ShowWarning("Not enough materials", "The materials are no longer in your hotbar."); return; }
+            if (Available(panelId, posts[0]) < panels || Available(postId, posts[0]) < postCount) { ToastNotificationSystem.ShowWarning("Not enough materials", "The materials are no longer in your hotbar or at the work site."); return; }
             var ped = FindAnyObjectByType<PedController>();
             FenceRun run = FenceRun.Create(item.fence_style, panelId, postId, Mathf.Max(0.5f, item.fence_panel_m), item.fence_height_m > 0f ? item.fence_height_m : 1.2f, posts, closed, null);
             run.Limit = 0;   // only the first post stands; the ped builds the rest, a section at a time
             run.Rebuild();
             bool startedInside = closed && ped != null && run.Encloses(ped.transform.position);
             Reset();
-            StartCoroutine(BuildWalk(run, ped, panelId, postId, panels, startedInside));
+            StartCoroutine(BuildWalk(run, ped, panelId, postId, panels, startedInside, posts[0]));
         }
 
         /// <summary>
@@ -184,19 +184,19 @@ namespace Homesteader.Growth
         /// to work on each one for a couple of seconds. The materials of a section come out of the hotbar when it is finished. Pressing a
         /// movement key (or Esc) stops it where it is.
         /// </summary>
-        private System.Collections.IEnumerator BuildWalk(FenceRun run, PedController ped, string panelId, string postId, int panels, bool startedInside)
+        private System.Collections.IEnumerator BuildWalk(FenceRun run, PedController ped, string panelId, string postId, int panels, bool startedInside, Vector3 site)
         {
             _working = true;
             _stopWork = false;
-            TakeFromToolbar(postId, 1);   // the first post
+            Take(postId, 1, site);   // the first post
             HudBindings.Instance?.RefreshToolbar();
             bool stopped = false;
             for (int i = 0; i < panels && !_stopWork && !stopped; i++)
             {
                 if (run == null) break;
-                if (CountInToolbar(panelId) < 1 || CountInToolbar(postId) < 1)
+                if (Available(panelId, site) < 1 || Available(postId, site) < 1)
                 {
-                    ToastNotificationSystem.ShowWarning("Out of materials", "The rest of the fence needs more " + HudBindings.GetItemName(CountInToolbar(panelId) < 1 ? panelId : postId) + ".");
+                    ToastNotificationSystem.ShowWarning("Out of materials", "The rest of the fence needs more " + HudBindings.GetItemName(Available(panelId, site) < 1 ? panelId : postId) + ".");
                     break;
                 }
                 if (!run.PanelEnds(i, out Vector3 a, out Vector3 b)) break;
@@ -223,8 +223,8 @@ namespace Homesteader.Growth
                     if (stopped) break;
                 }
                 // the section stands: its panel and the post at its end are used up
-                TakeFromToolbar(panelId, 1);
-                TakeFromToolbar(postId, 1);
+                Take(panelId, 1, site);
+                Take(postId, 1, site);
                 HudBindings.Instance?.RefreshToolbar();
                 run.Limit = i + 1;
                 run.Rebuild();
@@ -324,6 +324,59 @@ namespace Homesteader.Growth
             return false;
         }
 
+        // ------------------------------------------------------------------ the work site
+
+        /// <summary>Half the side of the work site round the first post: a 4 m x 4 m square where the fence's materials can be dropped, so the ped need not carry them.</summary>
+        public const float SiteHalf = 2f;
+
+        private static bool InSite(Vector3 centre, Vector3 p)
+        {
+            return Mathf.Abs(p.x - centre.x) <= SiteHalf && Mathf.Abs(p.z - centre.z) <= SiteHalf;
+        }
+
+        private static int CountAtSite(string id, Vector3 centre)
+        {
+            int n = 0;
+            foreach (WorldItem w in WorldItem.All) if (w != null && w.ItemId == id && InSite(centre, w.transform.position)) n++;
+            foreach (PlacedObject o in PlacedObject.All)
+            {
+                if (o == null || !InSite(centre, o.transform.position)) continue;
+                if (o.ItemId == id) n++;
+                if (o.Contents != null) foreach (ContainerStack cs in o.Contents) if (cs.ItemId == id) n += cs.Count;   // in a box or crate standing there
+            }
+            return n;
+        }
+
+        /// <summary>What is on hand for the fence: the hotbar plus the work site.</summary>
+        private static int Available(string id, Vector3 siteCentre) { return CountInToolbar(id) + CountAtSite(id, siteCentre); }
+
+        /// <summary>Uses up count items: first what lies at the work site (loose items, placed ones, the contents of boxes), then the hotbar.</summary>
+        private static void Take(string id, int count, Vector3 centre)
+        {
+            foreach (WorldItem w in new List<WorldItem>(WorldItem.All))
+            {
+                if (count <= 0) break;
+                if (w != null && w.ItemId == id && InSite(centre, w.transform.position)) { Destroy(w.gameObject); count--; }
+            }
+            foreach (PlacedObject o in new List<PlacedObject>(PlacedObject.All))
+            {
+                if (count <= 0) break;
+                if (o == null || !InSite(centre, o.transform.position)) continue;
+                if (o.ItemId == id) { o.Remove(); count--; continue; }
+                if (o.Contents == null) continue;
+                foreach (ContainerStack cs in o.Contents)
+                    if (cs.ItemId == id && count > 0)
+                    {
+                        int took = Mathf.Min(count, cs.Count);
+                        ContainerRules.Remove(o.Contents, id, took);
+                        count -= took;
+                        break;
+                    }
+                if (o.Contents.Count == 0 && ContainerRules.IsDisposable(o.ItemId)) o.Remove();   // an emptied cardboard box goes
+            }
+            if (count > 0) TakeFromToolbar(id, count);
+        }
+
         // ------------------------------------------------------------------ the hotbar
 
         private static int CountInToolbar(string id)
@@ -402,6 +455,8 @@ namespace Homesteader.Growth
             Color c = closing ? new Color(0.3f, 1f, 0.5f) : valid ? new Color(0.35f, 0.85f, 1f) : new Color(1f, 0.3f, 0.25f);
             _line.startColor = _line.endColor = c;
 
+            DrawSite(n > 0 ? _posts[0] : cursor, n > 0);
+
             // a marker on every post (and on the spot the next one would go), the first one larger
             ClearMarkers();
             var spots = new List<Vector3>(_posts);
@@ -422,6 +477,34 @@ namespace Homesteader.Growth
             }
         }
 
+        private LineRenderer _siteLine;
+
+        /// <summary>The work site: a 4 m square round the first post (a pale one round the cursor before the first post is down).</summary>
+        private void DrawSite(Vector3 centre, bool placed)
+        {
+            if (_siteLine == null)
+            {
+                var go = new GameObject("FenceWorkSite");
+                go.transform.SetParent(transform, false);
+                _siteLine = go.AddComponent<LineRenderer>();
+                _siteLine.useWorldSpace = true;
+                _siteLine.loop = true;
+                _siteLine.widthMultiplier = 0.08f;
+                _siteLine.positionCount = 4;
+                _siteLine.sharedMaterial = _lineMat;
+                _siteLine.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                _siteLine.sortingOrder = 9;
+            }
+            Vector3[] c =
+            {
+                new Vector3(centre.x - SiteHalf, 0f, centre.z - SiteHalf), new Vector3(centre.x + SiteHalf, 0f, centre.z - SiteHalf),
+                new Vector3(centre.x + SiteHalf, 0f, centre.z + SiteHalf), new Vector3(centre.x - SiteHalf, 0f, centre.z + SiteHalf),
+            };
+            for (int i = 0; i < 4; i++) { c[i].y = TerrainHeightDetector.GetGroundY(c[i].x, c[i].z) + 0.12f; _siteLine.SetPosition(i, c[i]); }
+            _siteLine.startColor = _siteLine.endColor = placed ? new Color(1f, 0.75f, 0.25f, 0.9f) : new Color(1f, 0.75f, 0.25f, 0.4f);
+            _siteLine.enabled = true;
+        }
+
         private void ClearMarkers()
         {
             foreach (GameObject m in _markers) if (m != null) Destroy(m);
@@ -431,6 +514,7 @@ namespace Homesteader.Growth
         private void HidePreview()
         {
             if (_line != null) _line.enabled = false;
+            if (_siteLine != null) _siteLine.enabled = false;
             ClearMarkers();
             if (_panel != null) _panel.style.display = DisplayStyle.None;
         }
@@ -460,9 +544,10 @@ namespace Homesteader.Growth
             FenceRun.Needs(plan, closing && _posts.Count >= 3, Mathf.Max(0.5f, item.fence_panel_m), out int postsNeeded, out int panelsNeeded);
             string postId = string.IsNullOrEmpty(item.fence_post_item) ? "post_wood_round_6inch" : item.fence_post_item;
             _title.text = item.name;
-            _l1.text = $"{HudBindings.GetItemName(_panelId)}: {panelsNeeded} of {CountInToolbar(_panelId)}";
-            _l2.text = $"{HudBindings.GetItemName(postId)}: {postsNeeded} of {CountInToolbar(postId)}";
-            _l3.text = _posts.Count == 0 ? "Click to place the first post"
+            Vector3 firstPost = _posts.Count > 0 ? _posts[0] : cursor;
+            _l1.text = $"{HudBindings.GetItemName(_panelId)}: {panelsNeeded} of {Available(_panelId, firstPost)}";
+            _l2.text = $"{HudBindings.GetItemName(postId)}: {postsNeeded} of {Available(postId, firstPost)}";
+            _l3.text = _posts.Count == 0 ? "Click to place the first post (the 4 m square round it is the work site for materials)"
                      : closing ? "Click to close the fence"
                      : _posts.Count < 3 ? "Click to add posts, Enter finishes a line, Backspace undoes"
                      : "Click the first post to close it, Enter finishes a line";
