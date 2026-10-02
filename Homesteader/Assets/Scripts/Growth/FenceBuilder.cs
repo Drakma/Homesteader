@@ -30,7 +30,7 @@ namespace Homesteader.Growth
         private LineRenderer _line;
         private readonly List<GameObject> _markers = new List<GameObject>();
         private VisualElement _panel;
-        private Label _title, _l1, _l2, _l3;
+        private Label _title, _l1, _l2, _l3, _lArea;
         private Material _lineMat;
         private bool _rightDown;
         private Vector2 _rightDownAt;
@@ -550,6 +550,7 @@ namespace Homesteader.Growth
                 _title = NewLabel("construction-hover-title");
                 _l1 = NewLabel("construction-hover-sub");
                 _l2 = NewLabel("construction-hover-sub");
+                _lArea = NewLabel("construction-hover-sub");
                 _l3 = NewLabel("construction-hover-hint");
                 root.Insert(0, _panel);
             }
@@ -561,6 +562,19 @@ namespace Homesteader.Growth
             Vector3 firstPost = _posts.Count > 0 ? _posts[0] : cursor;
             _l1.text = $"{HudBindings.GetItemName(_panelId)}: {panelsNeeded} of {Available(_panelId, firstPost)}";
             _l2.text = $"{HudBindings.GetItemName(postId)}: {postsNeeded} of {Available(postId, firstPost)}";
+            // what it would enclose if it were finished now (the posts so far and the one at the cursor, closed up)
+            if (plan.Count >= 3)
+            {
+                float twice = 0f, perimeter = 0f;
+                for (int i = 0, j = plan.Count - 1; i < plan.Count; j = i++)
+                {
+                    twice += plan[j].x * plan[i].z - plan[i].x * plan[j].z;
+                    perimeter += Vector2.Distance(new Vector2(plan[i].x, plan[i].z), new Vector2(plan[j].x, plan[j].z));
+                }
+                _lArea.text = $"Encloses {Mathf.Abs(twice) * 0.5f:0.#} m2 ({perimeter:0.#} m of fence)";
+                _lArea.style.display = DisplayStyle.Flex;
+            }
+            else _lArea.style.display = DisplayStyle.None;
             _l3.text = _posts.Count == 0 ? "Click to place the first post (the 4 m square round it is the work site for materials)"
                      : closing ? "Click to close the fence"
                      : _posts.Count < 3 ? "Click to add posts, Enter finishes a line, right click undoes"
