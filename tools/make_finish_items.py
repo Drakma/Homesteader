@@ -179,7 +179,10 @@ add('roofing_seam_black', 'Standing Seam Black Metal Roofing', 'metal', '#25272b
 add('roofing_thatch', 'Reed Thatch Bundle', 'thatch', '#c9a85c', 'roof', 0.02, 0.0, 70, 'bundle', 14, 16.0)
 
 for slug, name, col in (('brown', 'Brown', '#6a3f2c'), ('tan', 'Tan', '#c9a27a'), ('white', 'White Washed', '#d9d4c7'), ('grey', 'Grey', '#8a8984'),
-                        ('charcoal', 'Charcoal', '#43454a')):
+                        ('charcoal', 'Charcoal', '#43454a'),
+                        # the reds: a family of red bricks, light to deep
+                        ('salmon', 'Salmon Red', '#c9755c'), ('rust', 'Rust Red', '#a4472f'), ('dark_red', 'Dark Red', '#7a2c24'),
+                        ('oxblood', 'Oxblood', '#5a1f1f'), ('old_mill', 'Old Mill Red', '#8c4a3a'), ('pressed_red', 'Pressed Red', '#b0402f')):
     add(f'masonry_brick_{slug}', f'{name} Brick', 'brick', col, 'chimney,foundation', 0.1, 0.0, 110, 'pallet', 6, 120.0, look_style='brick')
 add('masonry_fieldstone', 'Field Stone', 'stone', '#8f8a80', 'chimney,foundation', 0.05, 0.0, 95, 'pile', 6, 150.0, look_style='brick')
 

@@ -268,7 +268,13 @@
       "masonry_brick_tan",
       "masonry_brick_white",
       "masonry_brick_grey",
-      "masonry_brick_charcoal"
+      "masonry_brick_charcoal",
+      "masonry_brick_salmon",
+      "masonry_brick_rust",
+      "masonry_brick_dark_red",
+      "masonry_brick_oxblood",
+      "masonry_brick_old_mill",
+      "masonry_brick_pressed_red"
     ],
     "chimney_masonry": [
       "masonry_brick_red",
@@ -277,6 +283,12 @@
       "masonry_brick_white",
       "masonry_brick_grey",
       "masonry_brick_charcoal",
+      "masonry_brick_salmon",
+      "masonry_brick_rust",
+      "masonry_brick_dark_red",
+      "masonry_brick_oxblood",
+      "masonry_brick_old_mill",
+      "masonry_brick_pressed_red",
       "masonry_fieldstone"
     ]
   },

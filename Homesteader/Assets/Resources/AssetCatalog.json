@@ -2512,6 +2512,28 @@
       ]
     },
     {
+      "id": "masonry_brick_dark_red",
+      "name": "Dark Red Brick",
+      "category": "building",
+      "description": "Dark Red Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_dark_red.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#7a2c24",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
       "id": "masonry_brick_grey",
       "name": "Grey Brick",
       "category": "building",
@@ -2522,6 +2544,72 @@
       "look_target": "chimney,foundation",
       "look_style": "brick",
       "look_color": "#8a8984",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_old_mill",
+      "name": "Old Mill Red Brick",
+      "category": "building",
+      "description": "Old Mill Red Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_old_mill.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#8c4a3a",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_oxblood",
+      "name": "Oxblood Brick",
+      "category": "building",
+      "description": "Oxblood Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_oxblood.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#5a1f1f",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_pressed_red",
+      "name": "Pressed Red Brick",
+      "category": "building",
+      "description": "Pressed Red Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_pressed_red.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#b0402f",
       "look_smoothness": 0.1,
       "look_metallic": 0.0,
       "store_listings": [
@@ -2552,6 +2640,50 @@
           "category": "Building",
           "unit": "kit",
           "price": 0.7
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_rust",
+      "name": "Rust Red Brick",
+      "category": "building",
+      "description": "Rust Red Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_rust.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#a4472f",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_salmon",
+      "name": "Salmon Red Brick",
+      "category": "building",
+      "description": "Salmon Red Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_salmon.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#c9755c",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
         }
       ]
     },
