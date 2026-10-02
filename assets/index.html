@@ -4619,6 +4619,44 @@
                   </select>
                 </div>
 
+                <!-- Fireplace fuel / lighter, and what this item does to a building's look when it is used as a construction material -->
+                <div class="kv-box" title="Fireplace fuel: how many game minutes it burns when put in a fireplace (right click a chimney with it). Empty = not fuel.">
+                  <div class="kv-key">Burns For (game min)</div><input class="kv-input" type="number" step="any" id="m-burn"
+                    data-path="properties.burn_minutes" placeholder="fuel">
+                </div>
+                <div class="kv-box" title="A lighter or match: right click a fireplace that has fuel with it to light the fire (not used up).">
+                  <div class="kv-key">Lights Fires</div>
+                  <select class="kv-input" id="m-lights" data-path="properties.lights_fires">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" style="grid-column: 1 / -1;" title="Used as a construction material, this item decides how those parts of the building LOOK (roof, walls, interior, floor, chimney, foundation; separate several with commas, bricks are chimney,foundation).">
+                  <div class="kv-key">Building Look: Parts</div><input class="kv-input" type="text" id="m-look-target"
+                    data-path="properties.look_target" placeholder="roof, walls, interior, floor, chimney, foundation">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Look Colour</div><input class="kv-input" type="color" id="m-look-color" data-path="properties.look_color">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Look Smoothness (0-1)</div><input class="kv-input" type="number" step="0.05" min="0" max="1" id="m-look-smooth"
+                    data-path="properties.look_smoothness">
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Look Metallic (0-1)</div><input class="kv-input" type="number" step="0.05" min="0" max="1" id="m-look-metal"
+                    data-path="properties.look_metallic">
+                </div>
+                <div class="kv-box" title="For an item whose parts include foundation: the foundation style it builds (the slab is replaced by a block, brick or stilt foundation model).">
+                  <div class="kv-key">Foundation Style</div>
+                  <select class="kv-input" id="m-look-style" data-path="properties.look_style">
+                    <option value="">None</option>
+                    <option value="poured">Poured slab</option>
+                    <option value="block">Concrete block</option>
+                    <option value="brick">Brick or stone</option>
+                    <option value="stilts">Stilts</option>
+                  </select>
+                </div>
+
                 <!-- Spawn Biome Picker: only meaningful while is_spawnable is Yes.
                      Choosing biomes here writes spawning.biomes[] on the manifest. -->
                 <div class="kv-box" id="m-spawn-biomes-box" style="grid-column: 1 / -1; display: none;">
@@ -17373,6 +17411,13 @@
       document.getElementById("m-energy").value = p.energy_restore !== undefined && p.energy_restore !== null ? p.energy_restore : "";
       document.getElementById("m-stamina").value = p.stamina_restore !== undefined && p.stamina_restore !== null ? p.stamina_restore : "";
       document.getElementById("m-wellness").value = p.wellness_modifier !== undefined && p.wellness_modifier !== null ? p.wellness_modifier : "";
+      document.getElementById("m-burn").value = p.burn_minutes !== undefined && p.burn_minutes !== null ? p.burn_minutes : "";
+      document.getElementById("m-lights").value = p.lights_fires ? "true" : "false";
+      document.getElementById("m-look-target").value = p.look_target || "";
+      document.getElementById("m-look-color").value = /^#[0-9a-fA-F]{6}$/.test(p.look_color || "") ? p.look_color : "#a8742f";
+      document.getElementById("m-look-smooth").value = p.look_smoothness !== undefined && p.look_smoothness !== null ? p.look_smoothness : "";
+      document.getElementById("m-look-metal").value = p.look_metallic !== undefined && p.look_metallic !== null ? p.look_metallic : "";
+      document.getElementById("m-look-style").value = p.look_style || "";
 
       // Wire each editable field to write straight into the raw JSON
       // manifest editor's textarea (same dirty/Save/Revert flow as hand-
@@ -17391,6 +17436,13 @@
         ["m-energy", "properties.energy_restore", "number"],
         ["m-stamina", "properties.stamina_restore", "number"],
         ["m-wellness", "properties.wellness_modifier", "number"],
+        ["m-burn", "properties.burn_minutes", "number_optional"],
+        ["m-lights", "properties.lights_fires", "bool"],
+        ["m-look-target", "properties.look_target", "string_or_null"],
+        ["m-look-color", "properties.look_color", "string_or_null"],
+        ["m-look-smooth", "properties.look_smoothness", "number_optional"],
+        ["m-look-metal", "properties.look_metallic", "number_optional"],
+        ["m-look-style", "properties.look_style", "string_or_null"],
       ];
       fieldBindings.forEach(([elId, path, kind]) => {
         const el = document.getElementById(elId);
