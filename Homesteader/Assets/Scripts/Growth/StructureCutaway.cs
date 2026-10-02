@@ -26,7 +26,11 @@ namespace Homesteader.Growth
             public Renderer R;
             public int Kind;                  // 0 roof, 1 wall, 2 glass
             public Vector3 OutwardLocal;      // walls: which way the wall faces, in the site's local space
+            public Collider[] Cols;           // the part's colliders and the layers they were on
+            public int[] Layers;
         }
+
+        private const int IgnoreRaycastLayer = 2;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -80,14 +84,17 @@ namespace Homesteader.Growth
                 for (Transform t = r.transform; t != null && t != root.parent; t = t.parent)
                     if (t.name == "Roof" || t.name == "WindowGlass" || t.name.StartsWith("Wall_")) { n = t.name; break; }
                 if (n == null) continue;
-                if (n == "Roof") _entries.Add(new Entry { R = r, Kind = 0 });
+                Collider[] cols = r.GetComponents<Collider>();
+                var layers = new int[cols.Length];
+                for (int ci = 0; ci < cols.Length; ci++) layers[ci] = cols[ci].gameObject.layer;
+                if (n == "Roof") _entries.Add(new Entry { R = r, Kind = 0, Cols = cols, Layers = layers });
                 else if (n == "WindowGlass") continue;   // the panes stay, so you can see where the windows are (and keep things away from them)
                 else
                 {
                     // which way the wall faces: from the middle of the building to the middle of the wall
                     Vector3 local = _site.transform.InverseTransformPoint(r.bounds.center);
                     Vector3 outward = Mathf.Abs(local.x) > Mathf.Abs(local.z) ? new Vector3(Mathf.Sign(local.x), 0f, 0f) : new Vector3(0f, 0f, Mathf.Sign(local.z));
-                    _entries.Add(new Entry { R = r, Kind = 1, OutwardLocal = outward });
+                    _entries.Add(new Entry { R = r, Kind = 1, OutwardLocal = outward, Cols = cols, Layers = layers });
                 }
             }
         }
@@ -111,6 +118,11 @@ namespace Homesteader.Growth
             if (e.Kind == 2) { e.R.enabled = visible; return; }   // a window pane casts no shadow either way
             // hidden walls and roof still cast their shadows, so the inside is as dark as before
             e.R.shadowCastingMode = visible ? UnityEngine.Rendering.ShadowCastingMode.On : UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            // a hidden wall or roof must not catch the mouse: its colliders move to the Ignore Raycast layer (the player still collides with
+            // them, only raycasts such as clicks, hover and placement pass through)
+            if (e.Cols != null)
+                for (int i = 0; i < e.Cols.Length; i++)
+                    if (e.Cols[i] != null) e.Cols[i].gameObject.layer = visible ? e.Layers[i] : IgnoreRaycastLayer;
         }
 
         private void Restore()
@@ -120,6 +132,9 @@ namespace Homesteader.Growth
                 if (e.R == null) continue;
                 e.R.enabled = true;
                 e.R.shadowCastingMode = e.Kind == 2 ? UnityEngine.Rendering.ShadowCastingMode.Off : UnityEngine.Rendering.ShadowCastingMode.On;   // glass casts no shadow
+                if (e.Cols != null)
+                    for (int i = 0; i < e.Cols.Length; i++)
+                        if (e.Cols[i] != null) e.Cols[i].gameObject.layer = e.Layers[i];
             }
             _entries.Clear();
         }
