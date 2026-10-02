@@ -83,15 +83,17 @@ def pieces(lo, hi, gaps, min_len=0.04):
     return out
 
 
-def wall_box(b, c, wall, depth0, depth1, za, zb, m, openings=None, gap_pad=0.0, inset=0.0):
-    """A band of one wall between two depths measured inward from the outer plane, split round the openings."""
+def wall_box(b, c, wall, depth0, depth1, za, zb, m, openings=None, gap_pad=0.0, inset=0.0, trim=0.0):
+    """A band of one wall between two depths measured inward from the outer plane, split round the openings.
+    inset shortens a front / back band at both ends; trim shortens a side band at both ends (so a layer never pokes through the front or
+    back wall's cladding: coplanar faces there z-fight)."""
     z0 = c.z0
     ops = [(a, bb, z0 + zl, z0 + zh) for a, bb, zl, zh in (c.openings[wall] if openings is None else openings)]
     w, d, yh0 = c.w, c.d, c.yh0
     if wall in ('front', 'back'):
         lo, hi = -w / 2 + inset, w / 2 - inset
     else:
-        lo, hi = yh0 + 0.0, d / 2
+        lo, hi = yh0 + trim, d / 2 - trim
     for u0, u1 in pieces(lo, hi, blocked(ops, lo, hi, za, zb, gap_pad)):
         if wall == 'front':
             b.box(u0, u1, yh0 + depth0, yh0 + depth1, za, zb, m)
@@ -317,21 +319,21 @@ def complete(b, c, M, glass, finishings=False):
     h = foundation(b, c, M)
     b.box(-w / 2 + 0.02, w / 2 - 0.02, -d / 2 + 0.02, d / 2 - 0.02, h, z0, M['floor'])                       # interior floor / subfloor
     for wall in ('front', 'back', 'left', 'right'):
-        wall_box(parts[wall], c, wall, T_SIDING, T_SIDING + T_SHEATH + T_STUD, z0, wall_top(c, wall), M['osb'], inset=T_SIDING)
+        wall_box(parts[wall], c, wall, T_SIDING, T_SIDING + T_SHEATH + T_STUD, z0, wall_top(c, wall), M['osb'], inset=T_SIDING, trim=T_SIDING)
         # clapboard siding: 0.24 m courses, each lapping the one below
         zc = z0
         k = 0
         while zc < wall_top(c, wall) - 0.02:
             zb = min(zc + 0.24, wall_top(c, wall))
-            wall_box(parts[wall], c, wall, 0.0, T_SIDING, zc, zb, M['siding'], gap_pad=0.07, inset=0.0)
+            wall_box(parts[wall], c, wall, 0.0, T_SIDING, zc, zb, M['siding'], gap_pad=0.07, inset=T_SIDING)
             zc = zb
             k += 1
     # the inside: a painted layer on the walls (material Interior), baseboards in the finishing stage; the floor above is material Floor
     ti = T_SIDING + T_SHEATH + T_STUD
     for wall in ('front', 'back', 'left', 'right'):
-        wall_box(parts[wall], c, wall, ti, ti + 0.02, z0 + 0.03, top, M['interior'], inset=ti + 0.02)
+        wall_box(parts[wall], c, wall, ti, ti + 0.02, z0 + 0.03, top, M['interior'], inset=ti + 0.02, trim=ti)
         if finishings:
-            wall_box(parts[wall], c, wall, ti + 0.02, ti + 0.04, z0 + 0.03, z0 + 0.14, M['trim'], inset=ti + 0.04)
+            wall_box(parts[wall], c, wall, ti + 0.02, ti + 0.04, z0 + 0.03, z0 + 0.14, M['trim'], inset=ti + 0.04, trim=ti + 0.02)
     # corner boards
     for (x, y) in ((-w / 2, c.yh0), (w / 2 - 0.08, c.yh0), (-w / 2, d / 2 - 0.08), (w / 2 - 0.08, d / 2 - 0.08)):
         # stand 15 mm proud of the siding on both outer faces, or the two coplanar surfaces z-fight
