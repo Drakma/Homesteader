@@ -157,6 +157,12 @@ Every asset must live in `assets/<category>/<item_id>/`:
 
 ---
 
+## 3a. Structure Model Rules
+
+Building models follow [STRUCTURE_STAGES_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/STRUCTURE_STAGES_GUIDE.md): **a chimney stands against an EXTERIOR wall, never inside a room**;
+the door is 1.2 m by 2.3 m; walls reach the roof with no gap; layers meeting at a corner never share a coplanar outer face; parts are
+named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named materials (Log, Siding, Roof, Shingle, Interior, Floor, Masonry).
+
 ## 3b. Editor / Schema Sync Rule
 
 - Whenever a field changes in the asset kit rich editor (`assets/index.html`), update the matching base schema / category schema (`assets/_schemas/`), server validation (`tools/server.py`), manifest templates (`tools/process_queued_batch.py`, `docs/ASSET_CREATION_GUIDE.md`, `assets/_schemas/README.md`) and backfill existing manifests in the same change. The reverse also applies: schema or template changes must be reflected in the rich editor.

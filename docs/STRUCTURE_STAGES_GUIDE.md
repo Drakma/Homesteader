@@ -118,6 +118,14 @@ in `starter_house.json` (`growth.stages[].construction_recipe` and `required_too
   manifest with `properties.look_*`, README), then `tools/finish_items_icons.py` renders their icons from the models. Add a row to `ITEMS`
   for a new finish; tags (`#paint`, `#flooring`, `#siding`, `#roofing`, `#brick`, `#chimney_masonry`) in `assets/_schemas/material_tags.json`.
 
+## Rules for structure models
+
+- **Chimneys stand against an exterior wall,** outside the footprint's walls, from the ground up past the eaves (the cabin's is on its -X wall,
+  the house's on its left wall): never in the middle of a room, where it would leave walkable space around it.
+- The shell has one door that is wide and tall enough for the player (1.2 m by 2.3 m) and walls clad or framed right up to the roof.
+- Layers that meet at a corner must not share a coplanar outer face (z-fighting): trim the side layers by the cladding thickness and let
+  corner boards stand 15 mm proud.
+
 ## 4. Checklist for a new structure
 
 1. Make sure `assets/structures/<id>/` has the group manifest and the four stage folders with stage manifests (the asset kit's growth group

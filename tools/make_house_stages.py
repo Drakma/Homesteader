@@ -375,14 +375,18 @@ def complete(b, c, M, glass, finishings=False):
         b.box(-0.82, 0.82, -d / 2 - 0.3 * (k + 1), -d / 2 - 0.3 * k, (z0 - 0.04) * (1 - (k + 1) * 0.28), (z0 - 0.04) * (1 - (k + 1) * 0.28) + 0.03, M['deck'])
     # the front door: its own object on a hinge, with panels and a small light
     door(parts['front'], c, M)
-    # brick chimney through the roof
-    cx, cy = 1.0, d / 2 - 1.6
-    b.box(cx - 0.4, cx + 0.4, cy - 0.3, cy + 0.3, z0, c.zr + 0.65, M['brick'])
-    b.box(cx - 0.46, cx + 0.46, cy - 0.36, cy + 0.36, c.zr + 0.6, c.zr + 0.72, M['concrete'])
-    for k in range(1, 8):                                                                                    # brick course lines
-        zz = z0 + 0.1 + k * 0.62
-        if zz < c.zr + 0.6:
-            b.box(cx - 0.41, cx + 0.41, cy - 0.31, cy + 0.31, zz, zz + 0.025, M['concrete_dark'])
+    # the chimney stands against an EXTERIOR wall (the left one), never inside a room (STRUCTURE_STAGES_GUIDE.md, rules): out from the wall
+    # by 0.5 m, from the ground up past the eaves, its last 0.1 m let into the wall
+    cy = d / 2 - 1.8
+    cx0, cx1 = -w / 2 - 0.5, -w / 2 + 0.1
+    ctop = c.zw + 1.0
+    b.box(cx0, cx1, cy - 0.45, cy + 0.45, 0.0, ctop, M['brick'])
+    b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, ctop - 0.04, ctop + 0.08, M['concrete'])                    # the cap
+    b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, c.z0 - 0.3, c.z0 - 0.05, M['concrete'])                     # the hearth's base course
+    for k in range(1, 7):                                                                                    # brick course lines, 6 mm proud
+        zz = 0.3 + k * 0.55
+        if zz < ctop - 0.1:
+            b.box(cx0 - 0.006, cx1, cy - 0.456, cy + 0.456, zz, zz + 0.025, M['concrete_dark'])
     # a downspout at the front corner
     b.box(w / 2 + 0.0, w / 2 + 0.07, c.yh0 - 0.1, c.yh0 - 0.03, z0, top - 0.1, M['trim'])
     for part in parts.values():
