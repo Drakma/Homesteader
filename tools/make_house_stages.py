@@ -395,12 +395,12 @@ def railing(b, c, M):
     zb, zt = c.z0, c.z0 + 0.9
     # front: two runs either side of the steps
     for x0, x1 in ((-w / 2 + 0.12, -0.8), (0.8, w / 2 - 0.12)):
-        b.box(x0, x1, -d / 2 + 0.05, -d / 2 + 0.11, zt - 0.06, zt, M['trim'])
-        b.box(x0, x1, -d / 2 + 0.05, -d / 2 + 0.11, zb + 0.08, zb + 0.14, M['trim'])
+        b.box(x0, x1, -d / 2 + 0.12, -d / 2 + 0.18, zt - 0.06, zt, M['trim'])
+        b.box(x0, x1, -d / 2 + 0.12, -d / 2 + 0.18, zb + 0.08, zb + 0.14, M['trim'])
         n = int((x1 - x0) / 0.2)
         for k in range(1, n):
             x = x0 + k * (x1 - x0) / n
-            b.box(x - 0.018, x + 0.018, -d / 2 + 0.065, -d / 2 + 0.095, zb + 0.14, zt - 0.06, M['trim'])
+            b.box(x - 0.018, x + 0.018, -d / 2 + 0.135, -d / 2 + 0.165, zb + 0.14, zt - 0.06, M['trim'])
     for x in (-w / 2 + 0.12, w / 2 - 0.12):                                                                  # the two sides
         b.box(x - 0.03, x + 0.03, rail_y0, rail_y1, zt - 0.06, zt, M['trim'])
         b.box(x - 0.03, x + 0.03, rail_y0, rail_y1, zb + 0.08, zb + 0.14, M['trim'])
