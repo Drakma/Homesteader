@@ -132,7 +132,8 @@ def foundation(b, c, M):
 
 def porch_posts(b, c, M, top_z):
     w, d = c.w, c.d
-    for x in (-w / 2 + 0.12, 0.0, w / 2 - 0.12):
+    # at the two corners and at the ends of the railing either side of the steps (the steps stay clear in the middle)
+    for x in (-w / 2 + 0.12, -0.8, 0.8, w / 2 - 0.12):
         b.box(x - 0.07, x + 0.07, -d / 2 + 0.08, -d / 2 + 0.22, c.z0, top_z, M['lumber'])
 
 
