@@ -261,7 +261,13 @@ namespace Homesteader.Growth
             mesh.SetTriangles(mb.WireTris, 2);
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-            if (_mf == null) { _mf = gameObject.GetComponent<MeshFilter>() ?? gameObject.AddComponent<MeshFilter>(); gameObject.AddComponent<MeshRenderer>(); }
+            if (_mf == null)
+            {
+                // (not "?? AddComponent": a Unity object that is missing is not a C# null, so ?? would never add it)
+                _mf = gameObject.GetComponent<MeshFilter>();
+                if (_mf == null) _mf = gameObject.AddComponent<MeshFilter>();
+                if (gameObject.GetComponent<MeshRenderer>() == null) gameObject.AddComponent<MeshRenderer>();
+            }
             if (_mf.sharedMesh != null) Destroy(_mf.sharedMesh);
             _mf.sharedMesh = mesh;
             var mr = GetComponent<MeshRenderer>();
