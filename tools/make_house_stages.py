@@ -334,7 +334,12 @@ def complete(b, c, M, glass, finishings=False):
             wall_box(parts[wall], c, wall, ti + 0.02, ti + 0.04, z0 + 0.03, z0 + 0.14, M['trim'], inset=ti + 0.04)
     # corner boards
     for (x, y) in ((-w / 2, c.yh0), (w / 2 - 0.08, c.yh0), (-w / 2, d / 2 - 0.08), (w / 2 - 0.08, d / 2 - 0.08)):
-        b.box(x, x + 0.08, y, y + 0.08, z0, c.zw + 0.05, M['trim'])
+        # stand 15 mm proud of the siding on both outer faces, or the two coplanar surfaces z-fight
+        x0, x1 = (x - 0.015, x + 0.08) if x < 0 else (x, x + 0.095)
+        y0, y1 = (y - 0.015, y + 0.08) if y < 0 else (y, y + 0.095)
+        if abs(y - c.yh0) < 1e-6:
+            y0, y1 = y - 0.015, y + 0.08
+        b.box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
     # window trim, glass, shutters on the front windows
     for wall in ('front', 'back', 'left', 'right'):
         for i, (u0, u1, zl, zh) in enumerate(c.openings[wall]):
