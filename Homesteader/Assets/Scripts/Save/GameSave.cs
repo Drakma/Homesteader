@@ -29,7 +29,9 @@ namespace Homesteader.Save
         // player
         public Vector3 playerPosition;
         public float playerYaw;
-        public float cameraYaw;
+        public float cameraYaw;                  // the yaw the camera is turning to (a half-turned view is saved as where it ends up)
+        public bool cameraPanned;                // the view was panned off the player (right-drag)
+        public Vector3 cameraFocal;              // where the panned view was looking
         public float cameraOrthoSize;
 
         // HUD state

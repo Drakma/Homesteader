@@ -39,6 +39,24 @@ public class IsometricLockedCamera : MonoBehaviour
     private Camera cam;
     private Transform _listenerAnchor;
 
+    // What a save keeps of the view: where the camera is turning to (not the half-turned yaw of the moment), whether it was panned off the
+    // player and where its focus was.
+    public float TargetYaw => targetYaw;
+    public bool IsPanned => _isPanned;
+    public Vector3 FocalPoint => _focalPoint;
+
+    /// <summary>Puts the view back as a save left it: the yaw at once (also as the yaw it turns towards, or it would turn back), the zoom, and the pan.</summary>
+    public void RestoreView(float yaw, float orthoSize, bool panned, Vector3 focal)
+    {
+        yawDegrees = targetYaw = yaw;
+        if (cam == null) cam = GetComponent<Camera>();
+        if (cam != null && orthoSize > 0f) cam.orthographicSize = orthoSize;
+        _isPanned = panned;
+        if (panned) _focalPoint = focal;
+        else if (target != null) _focalPoint = target.position;
+        if (target != null) _lastTargetPos = target.position;
+    }
+
     void Awake()
     {
         cam = GetComponent<Camera>();

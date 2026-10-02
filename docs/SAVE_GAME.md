@@ -6,7 +6,7 @@ The game saves itself and resumes where it left off. Code: `Assets/Scripts/Save/
 ## What is saved
 
 - **Time:** day of year, minute of day, speed, and a forced weather if one is set.
-- **Player:** position, facing, and the camera's orbit and zoom.
+- **Player:** position, facing, and the camera: the yaw it is turning to (restored as its target, so it does not turn back), the zoom, and whether it was panned off the player with where it was looking.
 - **HUD state:** the toolbar (items, counts, selected slot), vitals, resources (water, electricity, bandwidth, fuel by type,
   money) and loan debt.
 - **World:** every planted crop and tree (group, position, facing, age, and whether it is withered, dead or a stump),

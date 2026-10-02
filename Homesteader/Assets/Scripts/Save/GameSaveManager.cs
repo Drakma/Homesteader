@@ -161,7 +161,9 @@ namespace Homesteader.Save
             var cam = FindAnyObjectByType<IsometricLockedCamera>();
             if (cam != null)
             {
-                s.cameraYaw = cam.yawDegrees;
+                s.cameraYaw = cam.TargetYaw;
+                s.cameraPanned = cam.IsPanned;
+                s.cameraFocal = cam.FocalPoint;
                 var c = cam.GetComponent<Camera>();
                 if (c != null) s.cameraOrthoSize = c.orthographicSize;
             }
@@ -280,9 +282,7 @@ namespace Homesteader.Save
             var cam = FindAnyObjectByType<IsometricLockedCamera>();
             if (cam != null)
             {
-                cam.yawDegrees = s.cameraYaw;
-                var c = cam.GetComponent<Camera>();
-                if (c != null && s.cameraOrthoSize > 0f) c.orthographicSize = s.cameraOrthoSize;
+                cam.RestoreView(s.cameraYaw, s.cameraOrthoSize, s.cameraPanned, s.cameraFocal);
             }
 
             // chopped forest trees (the forest itself is regenerated from the seed)
