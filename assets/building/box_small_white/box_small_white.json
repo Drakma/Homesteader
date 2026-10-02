@@ -75,6 +75,7 @@
   "container": {
     "capacity_kg": 5.0,
     "stacking_limit": 5,
-    "accepts": []
+    "accepts": [],
+    "show_fill": false
   }
 }

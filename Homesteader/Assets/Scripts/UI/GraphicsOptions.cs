@@ -332,7 +332,7 @@ namespace Homesteader.UI
         /// <summary>Scales every HUD document (the HUD, the phone, the menus are all in it) through a private copy of its PanelSettings.</summary>
         public static void ApplyHudScale(float scale)
         {
-            foreach (UIDocument doc in UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None))
+            foreach (UIDocument doc in UnityEngine.Object.FindObjectsByType<UIDocument>())
             {
                 if (doc.panelSettings == null) continue;
                 if (!PanelCopies.TryGetValue(doc, out PanelSettings copy) || copy == null)
@@ -451,6 +451,31 @@ namespace Homesteader.UI
                 vsync.RegisterValueChangedCallback(evt => SetVsync(evt.newValue));
                 vsync.tooltip = "Match the monitor's refresh rate. Off lets the preset's fps cap (if any) rule.";
             }
+
+            // A value label to the right of every settings slider (the built-in input box renders black in the runtime theme).
+            root.Query<Slider>(className: "hs-slider").ForEach(sl =>
+            {
+                if (sl.Q<Label>(className: "hs-slider-value") != null) return;
+                sl.showInputField = false;
+                var val = new Label { pickingMode = PickingMode.Ignore };
+                val.AddToClassList("hs-slider-value");
+                bool percent = sl.name == "GfxHudScaleSlider" || sl.name.StartsWith("Audio");
+                Action<float> show = v => val.text = percent ? Mathf.RoundToInt(v) + "%" : (Mathf.Abs(sl.highValue) <= 5f ? v.ToString("0.0") : Mathf.RoundToInt(v).ToString());
+                show(sl.value);
+                sl.RegisterValueChangedCallback(evt => show(evt.newValue));
+                sl.Add(val);
+            });
+
+            root.Query<SliderInt>(className: "hs-slider").ForEach(sl =>
+            {
+                if (sl.Q<Label>(className: "hs-slider-value") != null) return;
+                sl.showInputField = false;
+                var val = new Label { pickingMode = PickingMode.Ignore };
+                val.AddToClassList("hs-slider-value");
+                val.text = sl.value.ToString();
+                sl.RegisterValueChangedCallback(evt => val.text = evt.newValue.ToString());
+                sl.Add(val);
+            });
 
             var hud = root.Q<Slider>("GfxHudScaleSlider");
             if (hud != null)

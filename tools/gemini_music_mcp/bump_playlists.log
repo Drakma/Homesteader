@@ -1,0 +1,85 @@
+[2026-10-02T07:22:31.426Z] GEN Grunge/Flannel_Fog (0/10 in folder)
+[2026-10-02T07:22:49.427Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:22:49.429Z] FAIL Grunge/Flannel_Fog: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:22:49.429Z] LIMIT reached (1) - stopping
+[2026-10-02T07:22:49.431Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=1 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=0 Punk=0
+[2026-10-02T07:22:49.431Z] Unresolved: Grunge/Flannel_Fog
+[2026-10-02T07:31:36.644Z] GEN Grunge/Flannel_Fog (0/10 in folder)
+[2026-10-02T07:31:54.278Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:31:54.279Z] FAIL Grunge/Flannel_Fog: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:31:54.279Z] LIMIT reached (1) - stopping
+[2026-10-02T07:31:54.281Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=1 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=0 Punk=0
+[2026-10-02T07:31:54.281Z] Unresolved: Grunge/Flannel_Fog
+[2026-10-02T07:32:14.760Z] GEN LoFiBeats/Dusty_Window_Light (1/10 in folder)
+[2026-10-02T07:32:31.588Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:32:31.589Z] FAIL LoFiBeats/Dusty_Window_Light: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T07:32:31.590Z] GEN LoFiBeats/Coffee_Steam (1/10 in folder)
+[2026-10-02T07:35:42.276Z] GEN Grunge/Flannel_Fog (1/10 in folder)
+[2026-10-02T07:36:52.491Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching
+[2026-10-02T07:37:58.622Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching
+[2026-10-02T07:39:11.936Z] GEN Grunge/Flannel_Fog (1/10 in folder)
+[2026-10-02T07:40:20.987Z] OK Grunge/Flannel_Fog: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Flannel_Fog.mp3 (3731 KB, via d
+[2026-10-02T07:40:20.988Z] LIMIT reached (1) - stopping
+[2026-10-02T07:40:20.990Z] ALL DONE generated=1 failed=0 counts: LoFiBeats=1 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=2 Punk=0
+[2026-10-02T07:40:39.064Z] GEN LoFiBeats/Dusty_Window_Light (1/10 in folder)
+[2026-10-02T07:41:42.518Z] OK LoFiBeats/Dusty_Window_Light: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiBeats\Dusty_Window_Light.mp3 (3563
+[2026-10-02T07:41:42.519Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T07:42:37.287Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T07:43:08.322Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T07:43:39.697Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T07:44:36.420Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T07:45:50.142Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching
+[2026-10-02T07:51:20.987Z] FAIL Grunge/Rust_And_Static: No track was downloaded within 400s (waiting for audio to appear after 1 browser relaunch(es)). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Rust_And_Static_failed.png. Run gemini_mus
+[2026-10-02T07:51:20.987Z] LIMIT reached (1) - stopping
+[2026-10-02T07:51:20.991Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=2 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=2 Punk=0
+[2026-10-02T07:51:20.991Z] Unresolved: Grunge/Rust_And_Static
+[2026-10-02T07:51:51.624Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T07:56:37.661Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching
+[2026-10-02T07:58:39.726Z] FAIL Grunge/Rust_And_Static: No track was downloaded within 400s (waiting for audio to appear after 1 browser relaunch(es)). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Rust_And_Static_failed.png. Run gemini_mus
+[2026-10-02T07:58:39.727Z] LIMIT reached (1) - stopping
+[2026-10-02T07:58:39.729Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=2 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=2 Punk=0
+[2026-10-02T07:58:39.729Z] Unresolved: Grunge/Rust_And_Static
+[2026-10-02T08:00:02.845Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T08:00:53.689Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-02T08:02:02.966Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching
+[2026-10-02T08:03:15.774Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching
+[2026-10-02T08:04:27.718Z] server stderr: [gemini-music] browser closed mid-run (3) — relaunching
+[2026-10-02T08:06:58.089Z] FAIL Grunge/Rust_And_Static: No track was downloaded within 400s (audio UI found but no download worked yet after 3 browser relaunch(es)). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Rust_And_Static_failed.png. 
+[2026-10-02T08:06:58.090Z] LIMIT reached (1) - stopping
+[2026-10-02T08:06:58.092Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=2 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=2 Punk=0
+[2026-10-02T08:06:58.092Z] Unresolved: Grunge/Rust_And_Static
+[2026-10-02T08:08:21.455Z] GEN Grunge/Rust_And_Static (2/10 in folder)
+[2026-10-02T08:15:09.639Z] FAIL Grunge/Rust_And_Static: No track was downloaded within 400s (waiting for audio to appear). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Rust_And_Static_failed.png. Run gemini_music_inspect to see what the pa
+[2026-10-02T08:15:09.640Z] LIMIT reached (1) - stopping
+[2026-10-02T08:15:09.642Z] ALL DONE generated=0 failed=1 counts: LoFiBeats=2 LoFiMeadow=5 LoFiHarvest=4 LoFiNeon=1 ModernPop=3 ModernCountry=3 SmoothJazz=3 ClassicRock=0 Grunge=2 Punk=0
+[2026-10-02T08:15:09.642Z] Unresolved: Grunge/Rust_And_Static
+[2026-10-02T08:15:45.528Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:20:58.056Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-02T08:21:57.568Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching
+[2026-10-02T08:22:33.378Z] FAIL LoFiBeats/Coffee_Steam: No track was downloaded within 400s (waiting for audio to appear after 1 browser relaunch(es)). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiBeats\Coffee_Steam_failed.png. Run gemini_mus
+[2026-10-02T08:22:33.379Z] GEN LoFiBeats/Porch_Swing_Loop (2/10 in folder)
+[2026-10-02T08:23:48.223Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:24:27.992Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-02T08:25:23.184Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:26:24.071Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:28:30.073Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:29:40.645Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:29:56.740Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:30:59.626Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:32:25.868Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:34:02.657Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:38:03.672Z] server stderr: [gemini-music] browser closed mid-run (3) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:38:59.636Z] FAIL LoFiBeats/Coffee_Steam: rpc timeout
+[2026-10-02T08:38:59.637Z] GEN LoFiBeats/Porch_Swing_Loop (2/10 in folder)
+[2026-10-02T08:40:23.992Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:42:27.291Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T08:42:27.293Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:43:45.782Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T08:43:45.783Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:46:23.303Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T08:46:23.303Z] server stderr: [gemini-music] browser closed mid-run (3) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:47:25.263Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:48:34.234Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-02T08:48:34.242Z] server stderr: [gemini-music] clicking button[aria-label*="Download" i] (1 match(es))
+[2026-10-02T08:48:35.170Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T08:48:35.171Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed

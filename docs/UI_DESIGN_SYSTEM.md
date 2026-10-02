@@ -91,6 +91,8 @@ Rules: never write a literal rgb() in a component rule; use a token. Status colo
 
 Fonts (already defined as `--font`, `--font-medium`, `--font-bold`, `--font-italic`, `--font-bold-italic`): the HomesteaderHUD family. No other font is used.
 
+Weights: the family now has all nine, 100 to 900, derived from Fira Sans (SIL OFL) by `assets/hud_kit/font/_build_hud_ttf.py` and renamed Homesteader HUD (the license notices are kept). The upright weights are `--font-thin` (100), `--font-extralight` (200), `--font-light` (300), `--font` (400), `--font-medium` (500), `--font-semibold` (600), `--font-bold` (700), `--font-extrabold` (800) and `--font-black` (900); the italics are `--font-italic` and `--font-bold-italic`. Every file carries the media glyphs. To add or rebuild a weight: `python assets/hud_kit/font/_build_hud_ttf.py Light`, copy the file into `Assets/Resources/HUDTree/Fonts/` as `HomesteaderHUD_<Style>.ttf`, then run `python assets/hud_kit/font/_add_media_glyphs.py`. In use today: labels in Settings are light (300), body text is regular (400), controls medium (500), titles bold (700).
+
 Type scale (7 steps, replacing the 21 sizes in use):
 
 | Token | Size | Weight | Use |

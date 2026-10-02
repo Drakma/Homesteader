@@ -26,10 +26,28 @@ namespace Homesteader.Save
         public static bool Restored { get; private set; }
         private float nextSave;
 
+        private static bool s_hooked;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics() { s_hooked = false; }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
         {
             Restored = false;
+            // New Game and Continue reload the scene after destroying the old manager. AfterSceneLoad only runs once when the
+            // game starts, so without this hook nothing re-created the manager: no autosave, no save on quit, and the
+            // placed objects and toolbar of that session were never written.
+            if (!s_hooked)
+            {
+                s_hooked = true;
+                UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, mode) => { Restored = false; EnsureExists(); };
+            }
+            EnsureExists();
+        }
+
+        private static void EnsureExists()
+        {
             if (FindAnyObjectByType<GameSaveManager>() != null) return;
             var go = new GameObject("GameSaveManager");
             DontDestroyOnLoad(go);
@@ -183,7 +201,8 @@ namespace Homesteader.Save
             s.pickedBushes = Homesteader.World.BerryBushes.SavedPicked();
             s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
             s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
-            Homesteader.UI.SteadifyMiniPlayer.Capture(out s.miniPlayerOpen, out s.miniPlayerX, out s.miniPlayerY);
+            s.miniPlayerOpen = Homesteader.UI.SteadifyMiniPlayer.IsOpen;
+            s.windows = Homesteader.UI.WindowPositions.Capture();
             return s;
         }
 
@@ -250,7 +269,8 @@ namespace Homesteader.Save
             Homesteader.World.ForestTrees.ApplyDead(s.deadTrees);
             Homesteader.World.ForestTrees.ApplyPicked(s.pickedTrees, s.pickedTreeMasks);
             Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
-            Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen, s.miniPlayerX, s.miniPlayerY);
+            Homesteader.UI.WindowPositions.Restore(s.windows);
+            Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
 
             // plants: the ones standing now belong to the world being left (or to a stale session); the save puts back exactly its own
             foreach (PlantedGrowth old in new List<PlantedGrowth>(PlantedGrowth.All))

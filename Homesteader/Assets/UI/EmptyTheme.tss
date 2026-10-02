@@ -1,0 +1,5 @@
+/* An (almost) empty runtime theme. The game styles every control itself (UITokens.uss and UIControls.uss); this only gives
+   PanelSettings a theme so Unity does not warn "No Theme Style Sheet set". The one rule matches nothing. */
+.homesteader-empty-theme {
+    display: flex;
+}

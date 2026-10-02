@@ -370,6 +370,24 @@ namespace Homesteader.Growth
         /// True when <paramref name="itemId"/> satisfies a tool spec: the spec is that exact item id,
         /// or "#tag" and the item is a member of the tag.
         /// </summary>
+        /// <summary>Every item id a tool spec accepts (a comma list of item ids and #tags, tags expanded), in a stable order.</summary>
+        public static List<string> ToolItems(string toolSpec)
+        {
+            var result = new List<string>();
+            if (string.IsNullOrEmpty(toolSpec)) return result;
+            foreach (string one in toolSpec.Split(','))
+            {
+                string spec = one.Trim();
+                if (spec.Length == 0) continue;
+                if (spec[0] != '#') { if (!result.Contains(spec)) result.Add(spec); continue; }
+                if (!tags.TryGetValue(spec.Substring(1), out HashSet<string> members)) continue;
+                var sorted = new List<string>(members);
+                sorted.Sort(StringComparer.OrdinalIgnoreCase);
+                foreach (string id in sorted) if (!result.Contains(id)) result.Add(id);
+            }
+            return result;
+        }
+
         public static bool ToolMatches(string toolSpec, string itemId)
         {
             if (string.IsNullOrEmpty(toolSpec) || string.IsNullOrEmpty(itemId)) return false;

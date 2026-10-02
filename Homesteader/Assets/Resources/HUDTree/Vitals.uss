@@ -50,7 +50,7 @@
     height: 14px;
     border-color: var(--c-ink);
     border-width: 1px;
-    border-radius: var(--r);
+    border-radius: 0;
     background-color: var(--c-well);
     margin-right: 6px;
 }
@@ -58,7 +58,7 @@
 .vital-bar-fill {
     height: 14px;
     width: 0%;
-    border-radius: var(--r);
+    border-radius: 0;
     align-self: stretch;
 }
 

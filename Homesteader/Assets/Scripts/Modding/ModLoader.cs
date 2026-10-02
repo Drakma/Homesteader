@@ -367,7 +367,8 @@ namespace Homesteader.Modding
                 // Every asset with a model is available to show in the world (dropped items, placement shadows).
                 if (summary.prefab != null)
                     Homesteader.Growth.ItemRegistry.Register(localId, summary.name, category, summary.prefab,
-                        Homesteader.Growth.LightDef.ParseList(root.Get("lights")));
+                        Homesteader.Growth.LightDef.ParseList(root.Get("lights")),
+                        root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(true)));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

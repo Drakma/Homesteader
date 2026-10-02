@@ -50,9 +50,11 @@ namespace Homesteader.Save
         public List<Vector3> pickedTrees = new List<Vector3>();   // x, z, game day the fruit is back, of procedural fruit trees that were picked
         public List<Vector2> fellTrees = new List<Vector2>();   // x, z of every procedural forest tree the player has chopped down
         public bool miniPlayerOpen;     // the Steadify pop-out player: whether it is showing, and where on the screen
-        public float miniPlayerX = 40f, miniPlayerY = 90f;
+        public float miniPlayerX = 40f, miniPlayerY = 90f;   // legacy: positions now live in `windows`
+        public List<SavedWindow> windows = new List<SavedWindow>();   // where each movable window was left
         public List<Vector2> deadTrees = new List<Vector2>();   // x, z of trees killed by lightning
 
+        [Serializable] public struct SavedWindow { public string id; public float x, y; }
         [Serializable] public struct SavedSlot { public string iconId; public int count; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedVital { public int id; public int value; }
         [Serializable]

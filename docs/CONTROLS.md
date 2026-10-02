@@ -22,7 +22,7 @@ Esc, 0 - 9 (and numpad), F1 - F12 and Ctrl are reserved and can't be bound. **A 
 | W A S D | Walk. Directions follow the camera (isometric), so straight up the screen is W+D | `PedController` |
 | Left Shift (hold) | Run | `PedController` |
 | Q / E | Rotate the camera 90 degrees left / right | `IsometricLockedCamera` |
-| Ctrl + mouse wheel | Zoom in / out in steps of 1 from 2.5 (no upper limit) | `IsometricLockedCamera` |
+| Ctrl + mouse wheel | Zoom in / out in steps of 1 from 3 up to the Zoom Max Level (Settings > General, 3 to 50, default 15) | `IsometricLockedCamera` |
 | Right mouse + drag | Pan the camera off the player | `IsometricLockedCamera` |
 
 ## Toolbar, tools and the world
@@ -34,7 +34,8 @@ Esc, 0 - 9 (and numpad), F1 - F12 and Ctrl are reserved and can't be bound. **A 
 | C (rebindable) | Open / close the contents window of the PLACED container under the cursor (within reach; it also has a Pick up button), else of the container in the active toolbar slot (or the first container in the toolbar): put items in, take them out. Containers (baskets) have a weight capacity and accept only certain categories; picked-up items they accept go into them first | `ContainerPanel` |
 | Delete | Empty the active toolbar slot (the items are removed, not dropped) | `HudBindings` |
 | Right click | Plant with the selected seed / harvest the plant in reach; with a felling tool (axe) in the active slot, click a forest tree to chop once (a fruiting tree with ripe fruit, spawned or PLANTED, is picked by right-click with anything else in hand; the tree stays), or HOLD the right button on it to keep chopping (1 to 5 hits by size; dragging pans the camera instead) | `PlantingController`, `ForestTrees` |
-| Left click | Place the selected structure / prop on the square under the cursor (a translucent shadow shows where; blue = valid, red = not) | `PlacementController` |
+| Left click | Place the selected item on the square under the cursor (a translucent shadow shows where; blue = valid, red = not). An identical stackable item stacks; when a stack is full or the item differs, the item goes in free space in the same 1 m square by its real size, and existing stacks slide over to make room if that helps; otherwise "no room" | `PlacementController` |
+| Right click on a placed object | Pick up the top one of its stack into the toolbar (within placement reach); a container keeps what it holds. On a placed CONTAINER, when the active slot holds something, a right click instead moves items between them: what the slot holds goes in if the container accepts it (as many as fit by weight, the rest stays in the slot), otherwise, if the slot holds an item the container has and the slot is not full, items come out into the slot (as many as it takes). If the active slot holds a CONTAINER (a basket in hand), it is what that basket carries that moves: its contents go into the placed container, and when nothing can go in, the placed container's contents go into the basket (what it accepts and has room for; the rest stays). With an EMPTY active slot a right click picks the container up. A right click that drags still pans the camera. Hovering a placed object shows its name, how many are stacked and what a container holds (WAILA) | `PlacementController`, `WailaPanel` |
 | R (Shift+R) | Rotate the shadow being placed 12.5 degrees clockwise (counter-clockwise) | `PlacementController` |
 | F | Player light: flashlight, then lantern, then off | `PlayerLight` |
 | M | Show / hide the map. Dots: faint yellow = you, white = animals, red = predators / aggressive animals | `MiniMap` |

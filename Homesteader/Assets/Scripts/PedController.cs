@@ -7,10 +7,57 @@ public class PedController : MonoBehaviour
 {
     public float walkSpeed = 2.0f;
     public float runSpeed = 5.0f;
+
+    [Header("Carrying")]
+    [Tooltip("Max Carry Weight (kg). The more the ped carries toward this, the slower it moves; past it the ped is encumbered and moves at 10 percent of its base speed.")]
+    public float maxCarryWeight = 70f;
+    public const float EncumberedSpeedFactor = 0.10f;
     public float gravity = -9.81f;
     public float turnSpeed = 10f;
     public float modelRotationOffset = 180f;
     public Transform cameraTransform; // used to make WASD relative to the current camera facing
+
+    private float _carryWeight;        // kg in the toolbar (items and what the containers hold), refreshed a few times a second
+    private float _nextCarryCheck;
+    private bool _wasEncumbered;
+
+    /// <summary>Weight of everything in the toolbar, in kg.</summary>
+    public float CarryWeight => _carryWeight;
+    public bool IsEncumbered => maxCarryWeight > 0f && _carryWeight > maxCarryWeight;
+
+    /// <summary>1 with an empty toolbar, easing down as the load nears Max Carry Weight (0.1 at the limit); 0.1 beyond it.</summary>
+    public float CarrySpeedFactor
+    {
+        get
+        {
+            if (maxCarryWeight <= 0f) return 1f;
+            float r = _carryWeight / maxCarryWeight;
+            if (r > 1f) return EncumberedSpeedFactor;
+            return Mathf.Lerp(1f, EncumberedSpeedFactor, r * r);
+        }
+    }
+
+    private void RefreshCarryWeight()
+    {
+        if (Time.time < _nextCarryCheck) return;
+        _nextCarryCheck = Time.time + 0.25f;
+        float total = 0f;
+        HudState hud = HudState.Active;
+        if (hud != null)
+        {
+            for (int i = 0; i < hud.Toolbar.Count; i++)
+            {
+                ToolbarSlotData slot = hud.Toolbar[i];
+                if (slot.Count <= 0 || string.IsNullOrEmpty(slot.IconId)) continue;
+                total += ContainerRules.WeightOf(slot.IconId) * slot.Count + ContainerRules.Used(slot.Contents);
+            }
+        }
+        _carryWeight = total;
+        bool encumbered = IsEncumbered;
+        if (encumbered && !_wasEncumbered)
+            ToastNotificationSystem.ShowWarning("Encumbered", $"Carrying {_carryWeight:0.#} kg of {maxCarryWeight:0.#} kg. You can only move at {EncumberedSpeedFactor * 100f:0}% speed.");
+        _wasEncumbered = encumbered;
+    }
 
     private CharacterController controller;
     private Animator animator;
@@ -170,7 +217,8 @@ public class PedController : MonoBehaviour
         float camYaw = cameraTransform != null ? cameraTransform.eulerAngles.y : 0f;
         Quaternion camYawRot = Quaternion.Euler(0f, camYaw, 0f);
 
-        float speed = running ? runSpeed : walkSpeed;
+        RefreshCarryWeight();
+        float speed = (running ? runSpeed : walkSpeed) * CarrySpeedFactor;
         Vector3 worldMove = camYawRot * move * speed;
 
         if (controller.isGrounded)

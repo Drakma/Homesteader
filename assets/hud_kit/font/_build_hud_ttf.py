@@ -34,6 +34,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FIRA_SANS_REGULAR = "FiraSans-Regular.ttf"
 FIRA_SANS_MEDIUM = "FiraSans-Medium.ttf"
 FIRA_SANS_BOLD = "FiraSans-Bold.ttf"
+FIRA_SANS_THIN = "FiraSans-Thin.ttf"
+FIRA_SANS_EXTRALIGHT = "FiraSans-ExtraLight.ttf"
+FIRA_SANS_LIGHT = "FiraSans-Light.ttf"
+FIRA_SANS_SEMIBOLD = "FiraSans-SemiBold.ttf"
+FIRA_SANS_EXTRABOLD = "FiraSans-ExtraBold.ttf"
+FIRA_SANS_BLACK = "FiraSans-Black.ttf"
 FIRA_SANS_ITALIC = "FiraSans-Italic.ttf"
 FIRA_SANS_BOLD_ITALIC = "FiraSans-BoldItalic.ttf"
 
@@ -48,9 +54,15 @@ class Style:
 
 
 STYLES = [
+    Style("Thin",        FIRA_SANS_THIN,        "homesteader_hud_thin.ttf",       100),
+    Style("ExtraLight",  FIRA_SANS_EXTRALIGHT,  "homesteader_hud_extralight.ttf", 200),
+    Style("Light",       FIRA_SANS_LIGHT,       "homesteader_hud_light.ttf",      300),
     Style("Regular",     FIRA_SANS_REGULAR,     "homesteader_hud.ttf",            400),
     Style("Medium",      FIRA_SANS_MEDIUM,      "homesteader_hud_medium.ttf",     500),
+    Style("SemiBold",    FIRA_SANS_SEMIBOLD,    "homesteader_hud_semibold.ttf",   600),
     Style("Bold",        FIRA_SANS_BOLD,        "homesteader_hud_bold.ttf",       700),
+    Style("ExtraBold",   FIRA_SANS_EXTRABOLD,   "homesteader_hud_extrabold.ttf",  800),
+    Style("Black",       FIRA_SANS_BLACK,       "homesteader_hud_black.ttf",      900),
     Style("Italic",      FIRA_SANS_ITALIC,      "homesteader_hud_italic.ttf",     400),
     Style("Bold Italic", FIRA_SANS_BOLD_ITALIC, "homesteader_hud_bold_italic.ttf", 700),
 ]
@@ -233,13 +245,19 @@ def build_one(style, out_dir):
     print("  -> ", out_path)
 
 
-def build_family(out_dir=None):
+def build_family(out_dir=None, only=None):
+    """only: optional list of style names (e.g. ["Thin", "Light"]); the rest are left as they are, so a rebuild does not
+    wipe the media glyphs that _add_media_glyphs.py patched into the existing files."""
     if out_dir is None:
         out_dir = HERE
     os.makedirs(out_dir, exist_ok=True)
     for style in STYLES:
+        if only and style.name not in only:
+            continue
         build_one(style, out_dir)
 
 
 if __name__ == "__main__":
-    build_family()
+    # python _build_hud_ttf.py                      rebuild every style
+    # python _build_hud_ttf.py Thin Light Black     build just these (then run _add_media_glyphs.py)
+    build_family(only=sys.argv[1:] or None)

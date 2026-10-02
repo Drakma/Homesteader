@@ -8,7 +8,7 @@
   "properties": {
     "weight_kg": 1.2,
     "max_stack_size": 1,
-    "base_value": 12.0,
+    "base_value": 12,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -73,8 +73,15 @@
     }
   },
   "container": {
-    "capacity_kg": 20.0,
-    "stacking_limit": 5,
-    "accepts": []
+    "capacity_kg": 20,
+    "stacking_limit": 7,
+    "accepts": [
+      "#food"
+    ],
+    "single_type": true
+  },
+  "fruiting": {
+    "drops": [],
+    "regrow_days": 8
   }
 }

@@ -346,7 +346,7 @@ namespace Homesteader.Audio
             // The sliders live in one of the scene's UI documents (the welcome/settings tree); look through all of them,
             // since the first document found is not necessarily the one that holds them.
             Slider master = null, music = null, sfx = null;
-            foreach (var doc in FindObjectsByType<UIDocument>(FindObjectsSortMode.None))
+            foreach (var doc in FindObjectsByType<UIDocument>())
             {
                 var root = doc.rootVisualElement;
                 if (root == null) continue;

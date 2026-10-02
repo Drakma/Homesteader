@@ -73,10 +73,12 @@
             <ui:VisualElement name="WeatherTimelineGroup" class="weather-timeline-group" picking-mode="Ignore">
                 <!-- Wind direction and speed, attached to the left of the weather timeline (mirrors the temp cell on the right) -->
                 <ui:VisualElement name="WindCell" class="wind-cell" picking-mode="Ignore">
-                    <ui:VisualElement name="WindArrowHolder" class="wind-arrow-holder" picking-mode="Ignore" />
-                    <ui:VisualElement class="wind-text-col" picking-mode="Ignore">
+                    <ui:VisualElement class="wind-left-col" picking-mode="Ignore">
+                        <ui:VisualElement class="wind-arrow-row" picking-mode="Ignore">
+                            <ui:VisualElement name="WindArrowHolder" class="wind-arrow-holder" picking-mode="Ignore" />
+                            <ui:Label name="WindDirLabel" text="" class="wind-dir-label" />
+                        </ui:VisualElement>
                         <ui:Label name="WindSpeedLabel" text="Calm" class="wind-speed-label" />
-                        <ui:Label name="WindDirLabel" text="" class="wind-dir-label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="WeatherTimelineWell" class="weather-timeline-well" picking-mode="Ignore">
@@ -256,7 +258,7 @@
             <ui:VisualElement class="hs-accent-edge" picking-mode="Ignore" />
             <ui:VisualElement class="window-header">
                 <ui:VisualElement style="flex-direction: row; align-items: center;">
-                    <ui:Label text="📦 Asset Spawner • Item Catalog" class="window-title" />
+                    <ui:Label text="Asset Spawner" class="window-title" />
                     <ui:Label name="AssetSpawnerCountBadge" text="544 items" class="asset-spawner-count-badge" />
                 </ui:VisualElement>
                 <ui:Button name="AssetSpawnerCloseBtn" text="X" class="hs-close" />
@@ -264,9 +266,9 @@
             <ui:VisualElement class="asset-spawner-body">
                 <!-- Category Dropdown, Search & Shortcut Hint Row -->
                 <ui:VisualElement class="asset-search-row">
-                    <ui:DropdownField name="AssetCategoryDropdown" class="asset-category-dropdown" />
-                    <ui:TextField name="AssetSearchInput" placeholder-text="Search assets by name or ID..." class="asset-search-input" />
-                    <ui:Label text="Click: +1  •  Shift+Click: Full Stack" class="asset-shortcut-hint" />
+                    <ui:DropdownField name="AssetCategoryDropdown" class="hs-dropdown asset-category-dropdown" />
+                    <ui:TextField name="AssetSearchInput" placeholder-text="Search assets by name or ID..." class="hs-field asset-search-input" />
+                    <ui:Label text="Click: +1, Shift+Click: full stack" class="asset-shortcut-hint" />
                 </ui:VisualElement>
 
                 <!-- Asset Grid ScrollView -->
@@ -303,15 +305,15 @@
                 <ui:Button name="StatsCloseBtn" text="X" class="hs-close" />
             </ui:VisualElement>
             <ui:VisualElement class="window-body stats-body">
-                <ui:Label name="StatsFpsLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsZoomLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsGridLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsRamLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsVramLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsDrawLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsTrisLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsScreenLabel" text="—" class="stats-line" />
-                <ui:Label name="StatsCpuLabel" text="—" class="stats-line" />
+                <ui:Label name="StatsFpsLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsZoomLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsGridLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsRamLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsVramLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsDrawLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsTrisLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsScreenLabel" text="-" class="stats-line" />
+                <ui:Label name="StatsCpuLabel" text="-" class="stats-line" />
             </ui:VisualElement>
         </ui:VisualElement>
 

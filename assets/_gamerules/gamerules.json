@@ -36,15 +36,8 @@
   },
   "zones": [],
   "placement": {
-    "reach_cells": 3,
-    "rotate_step_deg": 12.5,
-    "categories": [
-      "structures",
-      "electricity",
-      "water",
-      "waste",
-      "internet"
-    ]
+    "reach_cells": 1,
+    "rotate_step_deg": 12.5
   },
   "graphics": {
     "default_preset": "auto",

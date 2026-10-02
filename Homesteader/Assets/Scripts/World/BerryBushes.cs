@@ -282,7 +282,8 @@ namespace Homesteader.World
             if (!InSeason()) { rows.Add(("Berries", "None in winter")); return; }
             int left = Left(b);
             rows.Add(("Berries", left > 0 ? $"{left} of {b.FruitTotal} left" : $"All picked: back in {Mathf.CeilToInt(Mathf.Max(b.PickedUntil - VegetationSeasons.GrowthDay, 0f))} days"));
-            rows.Add(("Pick with", rules.fruiting_tools != null && rules.fruiting_tools.Count > 0 ? ToolNames(rules.fruiting_tools) : "Nothing (by hand)"));
+            if (rules.fruiting_tools != null && rules.fruiting_tools.Count > 0) rows.Add(("@tools|Pick with", string.Join(",", rules.fruiting_tools)));
+            else rows.Add(("Pick with", "Nothing (by hand)"));
         }
 
         private static string ToolNames(List<string> tools)

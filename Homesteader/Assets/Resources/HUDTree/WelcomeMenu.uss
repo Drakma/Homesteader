@@ -26,6 +26,13 @@
     /* danger */
     --c-danger: rgb(198, 32, 38);
     --c-danger-text: rgb(228, 92, 96);
+    /* font weights 100 to 900 (400 = --font, 500 = --font-medium, 700 = --font-bold are declared next to the tokens) */
+    --font-thin: resource("HUDTree/Fonts/HomesteaderHUD_Thin");
+    --font-extralight: resource("HUDTree/Fonts/HomesteaderHUD_ExtraLight");
+    --font-light: resource("HUDTree/Fonts/HomesteaderHUD_Light");
+    --font-semibold: resource("HUDTree/Fonts/HomesteaderHUD_SemiBold");
+    --font-extrabold: resource("HUDTree/Fonts/HomesteaderHUD_ExtraBold");
+    --font-black: resource("HUDTree/Fonts/HomesteaderHUD_Black");
     /* shape */
     --r: 6px;
 /* END UI TOKENS */
@@ -255,23 +262,27 @@
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
     letter-spacing: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom-width: 1px;
     border-bottom-color: var(--c-raised);
+    flex-shrink: 0;
 }
 
 .settings-row {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    min-height: 32px;
 }
 
 .settings-label {
     color: var(--c-text);
-    font-size: 13px;
-    -unity-font: var(--font-medium);
+    font-size: 15px;
+    -unity-font: var(--font-light);
+    flex-grow: 1;
+    margin-right: 16px;
 }
 
 .settings-controls {
@@ -305,12 +316,12 @@
 /* ----- SETTINGS: wide layout with category navigation on the left ----- */
 
 .settings-card--wide {
-    width: 880px;
+    width: 900px;
     max-width: 94%;
-    height: 580px;
-    max-height: 92%;
-    min-height: 0;
-    padding: 22px 26px 16px 26px;
+    height: 86%;
+    max-height: 700px;
+    min-height: 420px;
+    padding: 24px 28px 20px 28px;
     /* Nothing inside may draw outside the card: pages scroll, long text wraps. */
     overflow: hidden;
 }
@@ -322,6 +333,7 @@
     min-height: 0;
     min-width: 0;
     overflow: hidden;
+    flex-basis: 0;
 }
 
 .settings-nav {
@@ -355,6 +367,8 @@
     min-width: 0;
     min-height: 0;
     padding-right: 6px;
+    flex-basis: 0;
+    padding: 4px 8px 12px 2px;
 }
 
 /* Long text wraps inside its column instead of pushing the page wider than the card. */
@@ -397,11 +411,15 @@
     font-size: 15px;
     -unity-font: var(--font-bold);
     letter-spacing: 1px;
-    margin-top: 6px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 14px;
     padding-bottom: 6px;
     border-bottom-width: 1px;
     border-bottom-color: var(--c-raised);
+}
+
+.settings-page .settings-section-title:first-child {
+    margin-top: 0;
 }
 
 .settings-action-btn {
@@ -414,9 +432,10 @@
     flex-direction: row;
     justify-content: flex-end;
     margin-top: 12px;
-    padding-top: 12px;
+    padding-top: 14px;
     border-top-width: 1px;
     border-top-color: var(--c-raised);
+    flex-shrink: 0;
 }
 
 .settings-footer-btn {

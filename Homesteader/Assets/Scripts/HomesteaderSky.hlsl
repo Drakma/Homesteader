@@ -84,8 +84,11 @@ float3 WaterStars(float2 posXZ, float2 jitter, float time)
     float h = SkyHash21(c + 31.7);
     float2 j = float2(SkyHash21(c + 1.7), SkyHash21(c + 5.3)) - 0.5;
     float dist = length(f - j * 0.5);
-    float tw = 0.7 + 0.3 * sin(time * (0.4 + h * 0.8) + h * 40.0);
-    float s = step(0.988, h) * smoothstep(0.3, 0.0, dist) * tw;
+    // Each star has its own twinkle rate and phase: it swells and fades from almost out to full, and shrinks as it fades.
+    float tw = 0.5 + 0.5 * sin(time * (1.6 + h * 3.2) + h * 61.0);
+    tw = tw * tw;
+    float radius = lerp(0.05, 0.13, tw);
+    float s = step(0.988, h) * smoothstep(radius, 0.0, dist) * (0.12 + 0.88 * tw);
     float3 tint = lerp(float3(0.8, 0.9, 1.0), float3(1.0, 0.95, 0.85), frac(h * 17.0));
     return s * tint;
 }

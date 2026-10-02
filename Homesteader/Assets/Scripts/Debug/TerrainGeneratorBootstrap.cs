@@ -19,6 +19,9 @@ namespace Homesteader.DebugTools
     /// </summary>
     public static class TerrainGeneratorBootstrap
     {
+        /// <summary>The world seed of the save being continued (0 = none). The next generated world uses it instead of the default seed.</summary>
+        public static int SeedOverride;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
         {
@@ -42,7 +45,7 @@ namespace Homesteader.DebugTools
             // got saved into the scene. We must clean these up so only ONE terrain
             // generator remains — otherwise two generators with different seeds produce
             // overlapping, conflicting terrain (pink/mixed minimap).
-            var existingGens = Object.FindObjectsByType<HomesteaderTerrainGenerator>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var existingGens = Object.FindObjectsByType<HomesteaderTerrainGenerator>(FindObjectsInactive.Include);
             if (existingGens.Length > 0)
             {
                 // Keep the first, destroy the rest
@@ -118,6 +121,13 @@ namespace Homesteader.DebugTools
 
             var generator = terrainGO.AddComponent<HomesteaderTerrainGenerator>();
             generator.SetupDefaultBiomes();
+            if (SeedOverride > 0)
+            {
+                generator.worldSeed = SeedOverride;
+                generator.InvalidateSeedCache();
+                Debug.Log($"[TerrainGeneratorBootstrap] Using the saved world seed {SeedOverride}.");
+                SeedOverride = 0;
+            }
 
             // Always generate synchronously. If a New Game is pending, the
             // WelcomeMenuController will regenerate with the new seed + a
@@ -156,7 +166,7 @@ namespace Homesteader.DebugTools
             // again after async terrain generation completes.
             Homesteader.Land.LandOwnershipSystem.Initialize();
 
-            var existing = Object.FindObjectOfType<Homesteader.Land.LandBoundaryController>();
+            var existing = Object.FindAnyObjectByType<Homesteader.Land.LandBoundaryController>();
             if (existing == null)
             {
                 var go = new GameObject("LandBoundaries");

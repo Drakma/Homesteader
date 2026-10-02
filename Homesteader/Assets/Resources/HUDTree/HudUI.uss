@@ -38,6 +38,13 @@
     /* danger */
     --c-danger: rgb(198, 32, 38);
     --c-danger-text: rgb(228, 92, 96);
+    /* font weights 100 to 900 (400 = --font, 500 = --font-medium, 700 = --font-bold are declared next to the tokens) */
+    --font-thin: resource("HUDTree/Fonts/HomesteaderHUD_Thin");
+    --font-extralight: resource("HUDTree/Fonts/HomesteaderHUD_ExtraLight");
+    --font-light: resource("HUDTree/Fonts/HomesteaderHUD_Light");
+    --font-semibold: resource("HUDTree/Fonts/HomesteaderHUD_SemiBold");
+    --font-extrabold: resource("HUDTree/Fonts/HomesteaderHUD_ExtraBold");
+    --font-black: resource("HUDTree/Fonts/HomesteaderHUD_Black");
     /* shape */
     --r: 6px;
 /* END UI TOKENS */
@@ -164,7 +171,7 @@ TemplateContainer {
     margin-right: 0;
     overflow: hidden;
     border-width: 0;
-    border-radius: var(--r);
+    border-radius: 0;
     background-color: rgb(58, 70, 88);
     position: relative;
 }
@@ -176,7 +183,7 @@ TemplateContainer {
     left: 37px;
     top: 0;
     bottom: 0;
-    border-radius: var(--r);
+    border-radius: 0;
     -unity-background-scale-mode: stretch-to-fill;
 }
 
@@ -240,7 +247,7 @@ TemplateContainer {
 .time-line-label {
     color: var(--c-text);
     font-size: 20px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
     -unity-text-align: middle-center;
     height: auto;
     margin: 0;
@@ -251,7 +258,7 @@ TemplateContainer {
 .speed-state-label {
     color: rgb(255, 164, 79);
     font-size: 11px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
     -unity-text-align: middle-center;
     height: auto;
     margin-top: 2px;
@@ -950,20 +957,36 @@ TemplateContainer {
     justify-content: center;
     height: 36px;
     max-height: 36px;
-    width: 84px;
-    min-width: 84px;
+    width: 44px;
+    min-width: 44px;
     margin-right: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 2px;
+    padding-right: 2px;
     background-color: rgb(58, 70, 88);
     border-width: 0;
 }
 
-.wind-arrow-holder {
-    width: 22px;
-    height: 22px;
+/* The arrow sits above the compass hint, small and thin; the speed is to the right. */
+.wind-left-col {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    margin-right: 6px;
+    margin-right: 0;
+}
+
+.wind-arrow-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1px;
+}
+
+.wind-arrow-holder {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-right: 4px;
     align-items: center;
     justify-content: center;
 }
@@ -976,10 +999,10 @@ TemplateContainer {
 }
 
 .wind-speed-label {
-    font-size: 13px;
+    font-size: 11px;
     color: rgb(158, 204, 245);
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-left;
+    -unity-font: var(--font);
+    -unity-text-align: upper-center;
     white-space: nowrap;
     margin: 0;
     padding: 0;
@@ -988,7 +1011,7 @@ TemplateContainer {
 .wind-dir-label {
     font-size: 11px;
     color: rgb(150, 168, 190);
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
     -unity-text-align: middle-left;
     white-space: nowrap;
     margin: 0;
@@ -1014,7 +1037,7 @@ TemplateContainer {
 .current-temp-label {
     font-size: 18px;
     color: rgb(246, 175, 109);
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
     -unity-text-align: middle-center;
     white-space: nowrap;
     margin: 0;
@@ -1055,17 +1078,8 @@ TemplateContainer {
 
 .asset-spawner-window {
     position: absolute;
-    left: 50%;
-    top: 50px;
-    translate: -50% 0;
     width: 760px;
     height: 620px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-top-color: var(--c-accent);
-    border-radius: var(--r);
-    overflow: hidden;
 }
 
 .window-status-bar {
@@ -1128,12 +1142,6 @@ TemplateContainer {
     left: 10px;
     bottom: 10px;
     width: 280px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-top-color: var(--c-accent);
-    border-radius: var(--r);
-    overflow: hidden;
 }
 
 .stats-window--hidden {
@@ -1141,15 +1149,15 @@ TemplateContainer {
 }
 
 .stats-body {
-    padding: 12px 14px;
+    padding: 14px 16px;
 }
 
 .stats-line {
     font-size: 12px;
-    color: rgb(220, 230, 245);
-    -unity-font: var(--font-medium);
+    color: var(--c-text);
+    -unity-font: var(--font);
     -unity-text-align: middle-left;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
     white-space: nowrap;
 }
 
@@ -1175,32 +1183,6 @@ TemplateContainer {
     height: 30px;
     flex-shrink: 0;
     margin: 0 8px 0 0;
-}
-
-.asset-category-dropdown > .unity-base-popup-field__input {
-    height: 100%;
-    margin: 0;
-    padding-left: 8px;
-    background-color: var(--c-panel);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-radius: var(--r);
-    color: rgb(225, 235, 245);
-    font-size: 12px;
-    -unity-font: var(--font-medium);
-    -unity-text-align: middle-left;
-    align-items: center;
-}
-
-.asset-category-dropdown .unity-base-popup-field__text {
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-    -unity-text-align: middle-left;
-}
-
-.asset-category-dropdown > .unity-base-popup-field__input:hover {
-    border-color: var(--c-accent);
 }
 
 /* Dropdown popup (rendered by Unity at the panel root, so styled globally) */
@@ -1288,52 +1270,17 @@ TemplateContainer {
     flex-grow: 1;
     margin-right: 12px;
     height: 30px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-radius: var(--r);
-    padding-left: 8px;
-    color: rgb(225, 235, 245);
-    font-size: 12px;
 }
 
 .asset-search-input {
     align-items: stretch;
 }
 
-.asset-search-input > .unity-text-field__input,
-.asset-search-input > .unity-base-text-field__input {
-    flex-grow: 1;
-    align-self: stretch;
-    justify-content: center;
-    height: 100%;
-    margin: 0;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: rgba(18, 22, 29, 0);
-    border-width: 0;
-    -unity-text-align: middle-left;
-}
-
-.asset-search-input TextElement,
-.asset-search-input .unity-base-text-field__placeholder {
-    margin: 0;
-    padding: 0;
-    -unity-text-align: middle-left;
-}
-
 .asset-shortcut-hint {
     font-size: 11px;
-    color: rgb(242, 132, 29);
-    -unity-font: var(--font-bold);
     white-space: nowrap;
-    padding: 4px 8px;
-    background-color: var(--c-panel);
-    border-radius: var(--r);
-    border-width: 1px;
-    border-color: var(--c-raised);
+    color: var(--c-muted);
+    -unity-font: var(--font-italic);
 }
 
 .asset-grid-scroll {
@@ -1360,7 +1307,6 @@ TemplateContainer {
     justify-content: flex-start;
     padding-top: 5px;
     position: relative;
-    cursor: link;
 }
 
 .asset-tile:hover {
@@ -1412,12 +1358,6 @@ TemplateContainer {
 
 .phone-wrapper--hidden {
     display: none;
-}
-
-/* Precision UI: hairline copper accent edge on the main HUD panels. */
-.window {
-    border-left-width: 2px;
-    border-left-color: var(--c-accent);
 }
 
 /* "|" dividers between vitals / resources (wells removed). */

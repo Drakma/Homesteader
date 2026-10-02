@@ -108,7 +108,7 @@ Each entry names a **type** and a **path** (relative to the mod root).
 
 **`type`** is one of:
 
-`structure`, `biome`, `food`, `ingredient`, `farming`, `ranching`, `logging`,
+`structure`, `building`, `biome`, `food`, `ingredient`, `farming`, `ranching`, `logging`,
 `fishing`, `tool`, `electricity`, `water`, `waste`, `internet`, `vehicle`,
 `appliance`, `material`, `fuel`, `ped`, `texture`, `recipe`, `script`.
 
@@ -274,7 +274,7 @@ version and date, writes an animal's AI to `ai/<id>.json`, and refreshes the in-
 
 ## 4c2. Placing structures and props
 
-Select a placeable item on the toolbar (a structure, electricity, water, waste or internet asset that has a model) and
+Select a placeable item on the toolbar (any item with a model; category does not matter, and an item can opt out with `"properties": { "placeable": false }`) and
 a translucent shadow of it follows the grid square under the cursor: blue when the square is valid, red when not. **R**
 turns it (12.5 degrees a press, Shift+R the other way) and a **left click** places it: one item is consumed, the shadow
 fades to solid and it stays until something removes it (`PlacedObject.Remove()`). A square is invalid when it is farther
@@ -282,7 +282,7 @@ than `placement.reach_cells` from the player, in water, too steep, or already ho
 `gamerules.json`:
 
 ```json
-"placement": { "reach_cells": 3, "rotate_step_deg": 12.5, "categories": ["structures", "electricity", "water", "waste", "internet"] }
+"placement": { "reach_cells": 1, "rotate_step_deg": 12.5 }
 ```
 
 Placed objects are not saved yet (no save system exists); they last for the session.

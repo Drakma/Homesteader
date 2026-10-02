@@ -31,6 +31,20 @@
       "editor": "item_refs",
       "label": "Accepts",
       "note": "What the container accepts: tags (#tag, any member item) and/or exact assets, chosen with the asset picker. Empty = anything. Item categories (for example \"food\") are also understood by the game if written by hand."
+    },
+    "show_fill": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "label": "Show Contents",
+      "note": "Draw what is inside a PLACED container as blocks that rise as it fills (one slab per kind of item: its average colour on the sides and its icon on top). Turn it off for closed boxes, where the inside is not visible."
+    },
+    "single_type": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Single Type",
+      "note": "Takes only one kind of item at a time: once it holds something, only more of that same item goes in. It accepts anything again when emptied."
     }
   }
 }

@@ -46,11 +46,13 @@ namespace Homesteader.UI
             return info != null && info.weight_kg > 0.001f ? info.weight_kg : 0.001f;
         }
 
-        public static bool Accepts(string containerId, string itemId)
+        public static bool Accepts(string containerId, string itemId, List<ContainerStack> contents = null)
         {
             var c = HudBindings.GetCatalogItem(containerId);
             if (c == null || c.container_capacity_kg <= 0f || string.IsNullOrEmpty(itemId) || itemId == containerId) return false;
             if (IsContainer(itemId)) return false;   // no containers inside containers
+            // A single-type container (a crate) takes only what it already holds, once it holds something.
+            if (c.container_single_type && contents != null && contents.Exists(x => x.Count > 0 && x.ItemId != itemId)) return false;
             if (c.container_accepts == null || c.container_accepts.Count == 0) return true;
             var item = HudBindings.GetCatalogItem(itemId);
             foreach (string a in c.container_accepts)
@@ -60,6 +62,17 @@ namespace Homesteader.UI
                 if (GrowthRegistry.ToolMatches(a, itemId)) return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// A copy that shares nothing with the original. A shallow copy (new List of the same stacks) made a held container and a
+        /// placed one edit the SAME stack objects, so a transfer between them added and removed the same count and nothing changed.
+        /// </summary>
+        public static List<ContainerStack> Clone(List<ContainerStack> contents)
+        {
+            var copy = new List<ContainerStack>();
+            if (contents != null) foreach (ContainerStack c in contents) copy.Add(new ContainerStack { ItemId = c.ItemId, Count = c.Count });
+            return copy;
         }
 
         public static float Used(List<ContainerStack> contents)
@@ -72,7 +85,7 @@ namespace Homesteader.UI
         /// <summary>How many more of this item fit in the container, by weight.</summary>
         public static int RoomFor(string containerId, List<ContainerStack> contents, string itemId)
         {
-            if (!Accepts(containerId, itemId)) return 0;
+            if (!Accepts(containerId, itemId, contents)) return 0;
             float free = Capacity(containerId) - Used(contents);
             return free <= 0f ? 0 : Mathf.FloorToInt((free + 1e-4f) / WeightOf(itemId));
         }
@@ -206,26 +219,28 @@ namespace Homesteader.UI
         {
             _source = source;
             _window = new VisualElement { name = "ContainerPanel" };
+            _window.AddToClassList("window");
             _window.AddToClassList("container-panel");
+            var edge = new VisualElement { pickingMode = PickingMode.Ignore };
+            edge.AddToClassList("hs-accent-edge");
+            _window.Add(edge);
             _window.style.position = Position.Absolute;
-            _window.style.left = 80;
-            _window.style.top = 130;
 
             var header = new VisualElement();
-            header.AddToClassList("container-panel-header");
+            header.AddToClassList("window-header");
             header.tooltip = "Drag to move";
             _title = new Label("Container");
-            _title.AddToClassList("container-panel-title");
+            _title.AddToClassList("window-title");
             _title.pickingMode = PickingMode.Ignore;
-            var close = new Button(Close) { text = "×", tooltip = "Close (C)" };
-            close.AddToClassList("steadify-mini-close");
+            var close = new Button(Close) { text = "X", tooltip = "Close (C)" };
+            close.AddToClassList("hs-close");
             header.Add(_title);
             header.Add(close);
             _window.Add(header);
-            MakeDraggable(_window, header);
+            WindowPositions.MakeDraggable(_window, header, "container");
 
             var body = new VisualElement();
-            body.AddToClassList("container-panel-body");
+            body.AddToClassList("window-body");
             _window.Add(body);
 
             _capacityText = new Label("");
@@ -240,13 +255,13 @@ namespace Homesteader.UI
             body.Add(bar);
 
             var h1 = new Label("INSIDE");
-            h1.AddToClassList("container-panel-heading");
+            h1.AddToClassList("window-section-title");
             body.Add(h1);
             _contentsList = new VisualElement();
             body.Add(_contentsList);
 
             var h2 = new Label("PUT IN FROM THE TOOLBAR");
-            h2.AddToClassList("container-panel-heading");
+            h2.AddToClassList("window-section-title");
             body.Add(h2);
             _toolbarList = new VisualElement();
             body.Add(_toolbarList);
@@ -256,8 +271,9 @@ namespace Homesteader.UI
             if (source is WorldSource)
             {
                 var pick = new Button(PickUp) { text = "Pick up", tooltip = "Pick this container up, with everything in it, into the toolbar (the top one of a stack)" };
-                pick.AddToClassList("container-panel-btn");
-                pick.style.marginTop = 8;
+                pick.AddToClassList("hs-btn");
+                pick.AddToClassList("hs-btn--primary");
+                pick.style.marginTop = 12;
                 pick.style.alignSelf = Align.FlexEnd;
                 _footer.Add(pick);
             }
@@ -265,6 +281,7 @@ namespace Homesteader.UI
             VisualElement wallpaper = panelRoot.Q<VisualElement>("WelcomeWallpaper");
             if (wallpaper != null && wallpaper.parent == panelRoot) panelRoot.Insert(panelRoot.IndexOf(wallpaper), _window);
             else panelRoot.Add(_window);
+            WindowPositions.Place(_window, "container");   // centered the first time, then where it was left
 
             _tick = _window.schedule.Execute(Refresh).Every(250);
             Refresh();
@@ -273,6 +290,7 @@ namespace Homesteader.UI
         public void Close()
         {
             _tick?.Pause();
+            WindowPositions.Remember(_window, "container");
             _window.RemoveFromHierarchy();
             if (_open == this) _open = null;
         }
@@ -317,7 +335,7 @@ namespace Homesteader.UI
             for (int i = 0; i < hud.Toolbar.Count; i++)
             {
                 ToolbarSlotData t = hud.Toolbar[i];
-                if (i == _source.ToolbarSlot || t.Count <= 0 || string.IsNullOrEmpty(t.IconId) || !ContainerRules.Accepts(id, t.IconId)) continue;
+                if (i == _source.ToolbarSlot || t.Count <= 0 || string.IsNullOrEmpty(t.IconId) || !ContainerRules.Accepts(id, t.IconId, _source.Contents)) continue;
                 int slot = i;
                 _toolbarList.Add(Row(t.IconId, t.Count, "Put in", () => PutIn(slot)));
                 any = true;
@@ -394,44 +412,12 @@ namespace Homesteader.UI
             for (int i = 0; i < hud.Toolbar.Count; i++)
                 if (hud.Toolbar[i].Count <= 0 || string.IsNullOrEmpty(hud.Toolbar[i].IconId)) { free = i; break; }
             if (free < 0) { ToastNotificationSystem.ShowInfo("Container", "No free toolbar slot."); return; }
-            hud.Toolbar[free] = new ToolbarSlotData { IconId = ws.Placed.ItemId, Count = 1, Contents = new List<ContainerStack>(ws.Placed.Contents) };
+            hud.Toolbar[free] = new ToolbarSlotData { IconId = ws.Placed.ItemId, Count = 1, Contents = ContainerRules.Clone(ws.Placed.Contents) };
             ws.Placed.Remove();
             hud.SelectSlot(hud.SelectedSlot);
             HudBindings.Instance?.RefreshToolbar();
             Close();
         }
 
-        private static void MakeDraggable(VisualElement window, VisualElement handle)
-        {
-            bool dragging = false;
-            Vector2 startPointer = Vector2.zero, startPos = Vector2.zero;
-            handle.RegisterCallback<PointerDownEvent>(evt =>
-            {
-                if (evt.target is Button) return;
-                dragging = true;
-                startPointer = evt.position;
-                startPos = new Vector2(window.resolvedStyle.left, window.resolvedStyle.top);
-                handle.CapturePointer(evt.pointerId);
-                evt.StopPropagation();
-            });
-            handle.RegisterCallback<PointerMoveEvent>(evt =>
-            {
-                if (!dragging) return;
-                Vector2 p = startPos + ((Vector2)evt.position - startPointer);
-                var parent = window.parent;
-                float maxX = (parent != null ? parent.resolvedStyle.width : Screen.width) - window.resolvedStyle.width;
-                float maxY = (parent != null ? parent.resolvedStyle.height : Screen.height) - window.resolvedStyle.height;
-                window.style.left = Mathf.Clamp(p.x, 0f, Mathf.Max(0f, maxX));
-                window.style.top = Mathf.Clamp(p.y, 0f, Mathf.Max(0f, maxY));
-                evt.StopPropagation();
-            });
-            handle.RegisterCallback<PointerUpEvent>(evt =>
-            {
-                if (!dragging) return;
-                dragging = false;
-                handle.ReleasePointer(evt.pointerId);
-                evt.StopPropagation();
-            });
-        }
     }
 }

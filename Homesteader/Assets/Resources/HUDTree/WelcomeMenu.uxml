@@ -68,14 +68,7 @@
                     <!-- GENERAL -->
                     <ui:ScrollView name="SettingsPageGeneral" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page">
                         <ui:Label text="Camera" class="settings-section-title" />
-                        <ui:VisualElement class="settings-row">
-                            <ui:Label text="Zoom Max Level" class="settings-label" />
-                            <ui:VisualElement class="settings-controls">
-                                <ui:IntegerField name="ZoomMaxLevel" value="15" class="settings-field" />
-                                <ui:Toggle name="ZoomLockToggle" label="Lock" class="hs-toggle" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:Label name="ZoomHint" text="Uncheck Lock for no zoom limit." class="settings-hint" />
+                        <ui:SliderInt name="ZoomMaxLevel" label="Zoom Max Level" low-value="3" high-value="50" value="15" class="hs-slider" tooltip="How far the camera can zoom out (3 to 50)." />
 
                         <ui:Label text="Defaults" class="settings-section-title" />
                         <ui:Label text="Puts colour, audio, controls and zoom back to how the game shipped. Display options (quality, fullscreen, v-sync) are left as they are." class="settings-hint" />
@@ -126,7 +119,7 @@
                         </ui:VisualElement>
 
                         <ui:Label text="Interface" class="settings-section-title" />
-                        <ui:Slider name="GfxHudScaleSlider" label="HUD Scale (%)" low-value="50" high-value="300" value="100" show-input-field="true" class="hs-slider" />
+                        <ui:Slider name="GfxHudScaleSlider" label="HUD Scale" low-value="50" high-value="300" value="100" show-input-field="false" class="hs-slider" />
                         <ui:Button name="GfxHudScaleResetBtn" text="Reset HUD Scale" class="welcome-btn settings-action-btn" />
 
                         <ui:Label text="Colour" class="settings-section-title" />

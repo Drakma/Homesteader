@@ -387,8 +387,10 @@
       "max_stack": 1,
       "weight_kg": 7.0,
       "container_capacity_kg": 30.0,
-      "container_stacking_limit": 2,
-      "container_accepts": []
+      "container_stacking_limit": 3,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_large_tan",
@@ -399,8 +401,10 @@
       "max_stack": 1,
       "weight_kg": 7.0,
       "container_capacity_kg": 30.0,
-      "container_stacking_limit": 2,
-      "container_accepts": []
+      "container_stacking_limit": 3,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_large_white",
@@ -411,8 +415,10 @@
       "max_stack": 1,
       "weight_kg": 7.0,
       "container_capacity_kg": 30.0,
-      "container_stacking_limit": 2,
-      "container_accepts": []
+      "container_stacking_limit": 3,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_medium_brown",
@@ -423,8 +429,10 @@
       "max_stack": 1,
       "weight_kg": 3.0,
       "container_capacity_kg": 15.0,
-      "container_stacking_limit": 3,
-      "container_accepts": []
+      "container_stacking_limit": 4,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_medium_tan",
@@ -435,8 +443,10 @@
       "max_stack": 1,
       "weight_kg": 3.0,
       "container_capacity_kg": 15.0,
-      "container_stacking_limit": 3,
-      "container_accepts": []
+      "container_stacking_limit": 4,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_medium_white",
@@ -447,8 +457,10 @@
       "max_stack": 1,
       "weight_kg": 3.0,
       "container_capacity_kg": 15.0,
-      "container_stacking_limit": 3,
-      "container_accepts": []
+      "container_stacking_limit": 4,
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_small_brown",
@@ -460,7 +472,9 @@
       "weight_kg": 1.0,
       "container_capacity_kg": 5.0,
       "container_stacking_limit": 5,
-      "container_accepts": []
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_small_tan",
@@ -472,7 +486,9 @@
       "weight_kg": 1.0,
       "container_capacity_kg": 5.0,
       "container_stacking_limit": 5,
-      "container_accepts": []
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "box_small_white",
@@ -484,7 +500,9 @@
       "weight_kg": 1.0,
       "container_capacity_kg": 5.0,
       "container_stacking_limit": 5,
-      "container_accepts": []
+      "container_accepts": [],
+      "container_show_fill": false,
+      "container_single_type": false
     },
     {
       "id": "building_chinking",
@@ -603,8 +621,12 @@
       "max_stack": 1,
       "weight_kg": 2.0,
       "container_capacity_kg": 35.0,
-      "container_stacking_limit": 4,
-      "container_accepts": []
+      "container_stacking_limit": 6,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "crate_plastic_medium",
@@ -614,9 +636,16 @@
       "icon": "crate_plastic_medium.png",
       "max_stack": 1,
       "weight_kg": 1.2,
+      "fruiting_tools": [],
+      "fruiting_drops": [],
+      "fruiting_regrow_days": 8.0,
       "container_capacity_kg": 20.0,
-      "container_stacking_limit": 5,
-      "container_accepts": []
+      "container_stacking_limit": 7,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "crate_plastic_small",
@@ -627,8 +656,12 @@
       "max_stack": 1,
       "weight_kg": 0.6,
       "container_capacity_kg": 10.0,
-      "container_stacking_limit": 6,
-      "container_accepts": []
+      "container_stacking_limit": 8,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "crate_wood_large",
@@ -639,8 +672,12 @@
       "max_stack": 1,
       "weight_kg": 5.0,
       "container_capacity_kg": 35.0,
-      "container_stacking_limit": 4,
-      "container_accepts": []
+      "container_stacking_limit": 6,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "crate_wood_medium",
@@ -651,8 +688,12 @@
       "max_stack": 1,
       "weight_kg": 3.0,
       "container_capacity_kg": 20.0,
-      "container_stacking_limit": 5,
-      "container_accepts": []
+      "container_stacking_limit": 7,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "crate_wood_small",
@@ -663,8 +704,12 @@
       "max_stack": 1,
       "weight_kg": 1.5,
       "container_capacity_kg": 10.0,
-      "container_stacking_limit": 6,
-      "container_accepts": []
+      "container_stacking_limit": 8,
+      "container_accepts": [
+        "#food"
+      ],
+      "container_show_fill": true,
+      "container_single_type": true
     },
     {
       "id": "dock_large_new",
@@ -1807,7 +1852,9 @@
       "container_capacity_kg": 1.0,
       "container_accepts": [
         "#fishing_gear"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "fishing_box_tackle_3tray",
@@ -1820,7 +1867,9 @@
       "container_capacity_kg": 4.0,
       "container_accepts": [
         "#fishing_gear"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "fishing_line_spool",
@@ -3974,7 +4023,9 @@
       "container_accepts": [
         "#food",
         "#ingredients"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "tool_basket_medium",
@@ -3988,7 +4039,9 @@
       "container_accepts": [
         "#food",
         "#ingredients"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "tool_basket_small",
@@ -4002,7 +4055,9 @@
       "container_accepts": [
         "#food",
         "#ingredients"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "tool_bucket_empty",
@@ -4123,7 +4178,9 @@
       "container_capacity_kg": 6.0,
       "container_accepts": [
         "#food"
-      ]
+      ],
+      "container_show_fill": true,
+      "container_single_type": false
     },
     {
       "id": "tool_hammer",

@@ -59,10 +59,11 @@ function isProfileBusy(e) {
  *  --user-data-dir), not the user's everyday browser, so this is safe. The old commandline
  *  filters were unreliable; matching on the profile path in the command line is not. */
 function killStrayChromium() {
-  // Only match the Chromium Playwright ships (ms-playwright), never the user's Chrome.
+  // Match on the profile dir only: it is unique to this tool, so this never touches the user's everyday Chrome,
+  // and it also catches the installed-Chrome channel (which is not under ms-playwright).
   spawnSync('powershell', ['-NoProfile', '-Command',
     `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" -ErrorAction SilentlyContinue | ` +
-    `Where-Object { $_.CommandLine -and $_.CommandLine -like '*gemini-music-session*' -and $_.CommandLine -like '*ms-playwright*' } | ` +
+    `Where-Object { $_.CommandLine -and $_.CommandLine -like '*gemini-music-session*' } | ` +
     `ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`],
     { stdio: 'ignore' });
 }
@@ -71,13 +72,25 @@ function killStrayChromium() {
  *  with backoff so we do not race the dying process. */
 async function launchContext() {
   const launch = () => chromium.launchPersistentContext(SESSION_DIR, {
-    // Use a real visible browser like Claude's connector. Gemini's music UI and
-    // download controls are more reliable when the page is rendered normally.
+    // Headed: in headless Chrome Gemini answers "An error occurred while generating the track" (tested twice, 2026-10-02).
+    // The window is kept tiny, parked in the bottom-right corner and pushed behind other windows (pushWindowBack).
     headless: false,
-    channel: 'chromium',
+    // Installed Google Chrome by default (Playwright's bundled Chromium kept closing mid-generation on Gemini, 2026-10-02).
+    // GEMINI_MUSIC_CHANNEL=chromium switches back; the persistent profile dir is shared either way.
+    channel: process.env.GEMINI_MUSIC_CHANNEL || 'chrome',
     viewport: { width: 1280, height: 900 },
     acceptDownloads: true,
-    args: ['--disable-blink-features=AutomationControlled'],
+    colorScheme: 'dark',   // Gemini follows prefers-color-scheme: no white flash when the window opens
+    args: [
+      '--disable-blink-features=AutomationControlled',
+      // Open on the left-hand monitor (virtual-desktop x=-1920) so it stays off the main screen but fully visible.
+      // GEMINI_MUSIC_WINDOW_POS="x,y" overrides, e.g. "1940,40" for the right monitor.
+      `--window-position=${process.env.GEMINI_MUSIC_WINDOW_POS || '-1900,40'}`,
+      '--window-size=1300,960',
+      '--force-dark-mode',                          // Chrome's own UI dark too
+      '--disable-backgrounding-occluded-windows',   // keep rendering when the window sits behind others
+      '--disable-renderer-backgrounding',
+    ],
   });
   const delays = [0, 1500, 3000, 6000];
   let lastErr;
@@ -102,6 +115,30 @@ async function launchContext() {
 
 // ── browser ──────────────────────────────────────────────────────────────────
 
+/** Shrink the tool's Chrome window, park it in the bottom-right corner and send it to the back of the
+ *  Z-order so it never covers what the user is doing. Matched by the profile dir in its command line. */
+function pushWindowBack() {
+  const ps = `
+Add-Type @"
+using System; using System.Runtime.InteropServices;
+public class GmWin {
+  [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr h, IntPtr after, int x, int y, int cx, int cy, uint flags);
+  [DllImport("user32.dll")] public static extern int GetSystemMetrics(int i);
+}
+"@
+$ids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -like '*gemini-music-session*' }).ProcessId
+Get-Process -Id $ids -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | ForEach-Object {
+  [GmWin]::SetWindowPos($_.MainWindowHandle, [IntPtr]1, 0, 0, 0, 0, 0x0013) | Out-Null   # HWND_BOTTOM; NOSIZE|NOMOVE|NOACTIVATE
+}`;
+  // Chrome creates its window a moment after launch; try a few times without blocking the caller.
+  let tries = 0;
+  const tick = () => {
+    spawnSync('powershell', ['-NoProfile', '-Command', ps], { stdio: 'ignore' });
+    if (++tries < 4) setTimeout(tick, 1500);
+  };
+  setTimeout(tick, 1000);
+}
+
 async function getPage() {
   if (_context) {
     try {
@@ -118,9 +155,24 @@ async function getPage() {
   // A leftover Chromium holding this profile makes launch fail with
   // "Opening in existing browser session."; launchContext clears it and retries.
   _context = await launchContext();
+  if (process.env.GEMINI_MUSIC_PUSH_BACK === '1') pushWindowBack();   // off by default: an occluded window stalled Gemini's player (2026-10-02)
   _context.on('close', () => { _context = null; _page = null; });
+  _context.on('page', (pg) => {
+    console.error(`[gemini-music] new tab opened: ${pg.url().slice(0, 100)} (tabs=${_context?.pages().length ?? '?'})`);
+    watchPage(pg);
+  });
   _page = _context.pages()[0] ?? (await _context.newPage());
+  watchPage(_page);
   return _page;
+}
+
+const _watched = new WeakSet();
+/** Log why a page handle dies: a renderer crash ("Aw, Snap!") and a tab close look identical to callers. */
+function watchPage(pg) {
+  if (_watched.has(pg)) return;
+  _watched.add(pg);
+  pg.on('crash', () => console.error(`[gemini-music] PAGE CRASHED (renderer) at ${pg.url().slice(0, 100)}`));
+  pg.on('close', () => console.error(`[gemini-music] page closed (tabs left=${_context?.pages().length ?? 0})`));
 }
 
 /** Reset the cached browser after it died, so the next call relaunches cleanly. */
@@ -129,6 +181,10 @@ async function resetBrowser() {
   _context = null;
   _page = null;
   await c?.close().catch(() => {});
+  // A dead context can leave its Chrome alive holding the profile; the next launch would then
+  // hand off to it and close at once ("Target page, context or browser has been closed" forever).
+  killStrayChromium();
+  await new Promise((r) => setTimeout(r, 1500));
 }
 
 /** Gemini opens fine for guests, so "not redirected to accounts.google.com" does NOT mean signed in. Look for the page's own
@@ -214,11 +270,16 @@ async function tryDownloadButton(page) {
     'button:has-text("Download")',
     '[mattooltip*="Download" i]',
   ];
+  // Search inside the latest reply when the page has reply containers, so a page-chrome
+  // "Download" control (the app banner) is never clicked.
+  const replyScope = page.locator('model-response, .model-response, message-content, .response-container');
+  const scoped = (await replyScope.count()) > 0 ? replyScope.last() : page;
   for (const sel of candidates) {
-    const loc = page.locator(sel);
+    const loc = scoped.locator(sel);
     const n = await loc.count();
     if (n === 0) continue;
     const btn = loc.nth(n - 1);          // the most recent one
+    console.error(`[gemini-music] clicking ${sel} (${n} match(es))`);
     try {
       const downloadPromise = page.waitForEvent('download', { timeout: 15_000 });
       await btn.click({ timeout: 5_000 });
@@ -268,8 +329,19 @@ async function tryAudioElement(page) {
 /** Stop immediately when Gemini reports that music generation is unavailable or rate-limited. */
 async function generationLimitReached(page) {
   return page.evaluate(() => {
-    const mains = [...document.querySelectorAll('main, [role="main"]')];
-    const t = (mains.at(-1)?.innerText || document.body.innerText).toLowerCase();
+    // Only read Gemini's latest reply. The sidebar lists old chat titles such as
+    // "Music Generation Limit Reached", and a whole-page (or whole-main) scan matched
+    // those and aborted runs that would have produced a track.
+    const replies = [...document.querySelectorAll('model-response, .model-response, message-content, .response-container')];
+    let t;
+    if (replies.length) {
+      t = replies.at(-1).innerText || '';
+    } else {
+      const clone = document.body.cloneNode(true);
+      clone.querySelectorAll('nav, [role="navigation"], bard-sidenav, side-nav, .sidenav, .side-nav, .conversations-container').forEach((n) => n.remove());
+      t = clone.innerText || clone.textContent || '';
+    }
+    t = t.toLowerCase();
     return t.includes('i can create more music as soon as your limit resets') ||
       t.includes('music generation limit reached') ||
       t.includes('music generation limit') ||
@@ -282,9 +354,18 @@ async function generationLimitReached(page) {
  *  checked BEFORE hasAudioUi, whose text match "your track" would otherwise mask this). */
 async function generationFailed(page) {
   return page.evaluate(() => {
-    const t = document.body.innerText.toLowerCase();
-    return t.includes('something went wrong while generating') ||
-      t.includes('i\'m sorry, something went wrong');
+    // Latest reply only (the sidebar lists old "Failed ... Generation" chat titles).
+    const replies = [...document.querySelectorAll('model-response, .model-response, message-content, .response-container')];
+    const t = (replies.length ? replies.at(-1).innerText : document.body.innerText).toLowerCase();
+    // Gemini words its generation failures many ways ("Something went wrong while generating",
+    // "An error occurred while generating the track", "That request hit a snag in the mix ...
+    // Please try again!"). Any of these in the latest reply means: fresh chat, resend.
+    return t.includes('something went wrong') ||
+      t.includes('an error occurred') ||
+      t.includes('hit a snag') ||
+      t.includes('please try again') ||
+      t.includes("i can't create") || t.includes('i cannot create') || t.includes("i'm unable to create") ||
+      t.includes("can't help with that") || t.includes('cannot help with that');
   });
 }
 
@@ -293,8 +374,11 @@ async function hasAudioUi(page) {
     // A real audio UI means an element or a download control — NOT page text. The text
     // "Generating your track" and the error "…while generating your track" both contain
     // "your track", which used to make this return true during generation and failure.
-    return !!document.querySelector('audio') ||
-      !!document.querySelector('[aria-label*="play" i][aria-label*="track" i], [aria-label*="Download" i]');
+    // Scope to the latest reply: the page chrome has its own "Download"-labelled controls (app banner).
+    const replies = [...document.querySelectorAll('model-response, .model-response, message-content, .response-container')];
+    const root = replies.length ? replies.at(-1) : document;
+    return !!root.querySelector('audio') ||
+      !!root.querySelector('[aria-label*="play" i][aria-label*="track" i], [aria-label*="Download track" i], [aria-label*="Download" i]');
   });
 }
 
@@ -318,7 +402,7 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
     // Old quota messages remain in Gemini's sidebar; always submit in a fresh chat.
     await startFreshChat(page);
 
-    const deadline = Date.now() + timeoutSeconds * 1000;
+    let deadline = Date.now() + timeoutSeconds * 1000;   // restarted on every fresh-chat retry and browser relaunch
   let got = null;
   let lastNote = '';
   let crashes = 0;
@@ -349,6 +433,7 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
         if (retries > 3) break;
         await page2.goto(GEMINI_URL, { waitUntil: 'domcontentloaded', timeout: 60_000 });
         sentAt = null;
+        deadline = Date.now() + timeoutSeconds * 1000;   // Gemini can take 5 minutes to fail; give the retry a full window
         continue;
       }
       if (!(await hasAudioUi(page2))) {
@@ -357,16 +442,26 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
         lastNote = 'waiting for audio to appear';
         continue;
       }
+      console.error(`[gemini-music] audio UI present ${Math.round((Date.now() - sentAt) / 1000)}s after send; trying download`);
       got = (await tryDownloadButton(page2)) || (await tryAudioElement(page2));
       if (got) break;
       lastNote = 'audio UI found but no download worked yet';
+      console.error('[gemini-music] download attempt produced nothing; will retry');
     } catch (e) {
       if (!isBrowserGone(e)) throw e;
       crashes++;
-      console.error(`[gemini-music] browser closed mid-run (${crashes}) — relaunching`);
+      console.error(`[gemini-music] browser closed mid-run (${crashes}) — relaunching: ${String(e.message || e).slice(0, 160)}`);
+      deadline = Date.now() + timeoutSeconds * 1000;
       if (crashes > 3) break;
-      await resetBrowser();
-      page2 = await getPage();
+      const live = _context ? _context.pages().filter((pg) => !pg.isClosed()) : [];
+      if (live.length) {
+        page2 = live.at(-1);
+        _page = page2;
+        console.error(`[gemini-music] adopting surviving tab ${page2.url().slice(0, 100)}`);
+      } else {
+        await resetBrowser();
+        page2 = await getPage();
+      }
       if (!(await openGemini(page2))) {
         return text('The browser closed and Gemini came back signed out. Sign in again in the tool\'s browser and retry.');
       }

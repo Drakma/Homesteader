@@ -63,7 +63,7 @@ public class IsometricLockedCamera : MonoBehaviour
         // this the game runs with zero active AudioListeners and all audio is silent.
         // The listener must NOT sit on this camera: the orthographic camera is pulled far back from the action, and the 3D
         // sounds (footsteps, chopping, animals) fall silent beyond 25 m. It lives on an anchor that follows the focal point.
-        foreach (AudioListener existing in FindObjectsByType<AudioListener>(FindObjectsSortMode.None))
+        foreach (AudioListener existing in FindObjectsByType<AudioListener>())
             existing.enabled = false;
         var anchor = new GameObject("AudioListenerAnchor");
         anchor.transform.SetParent(transform.parent, false);
@@ -75,22 +75,14 @@ public class IsometricLockedCamera : MonoBehaviour
     }
 
     /// <summary>
-    /// Reads the zoom max-level setting from PlayerPrefs. If "Lock" is enabled,
-    /// zoom is capped at the specified level; otherwise the default max (15) is used.
+    /// Reads the zoom max-level setting (3 to 50, default 15) from PlayerPrefs.
     /// Called on Awake and whenever the settings dialog closes.
     /// </summary>
     public void ApplyZoomSettings()
     {
-        bool locked = PlayerPrefs.GetInt("ZoomLockEnabled", 0) == 1;
-        if (locked)
-        {
-            int level = PlayerPrefs.GetInt("ZoomMaxLevel", 15);
-            maxOrthoSize = Mathf.Clamp(level, (int)minOrthoSize, 100);
-        }
-        else
-        {
-            maxOrthoSize = defaultMaxOrthoSize;
-        }
+        // Settings > General > Zoom Max Level (3 to 50). There is no separate lock any more.
+        int level = PlayerPrefs.GetInt("ZoomMaxLevel", (int)defaultMaxOrthoSize);
+        maxOrthoSize = Mathf.Clamp(level, (int)minOrthoSize, 50);
 
         // Clamp current zoom if we're already running and the new max is tighter
         if (cam != null && cam.orthographic && cam.orthographicSize > maxOrthoSize)

@@ -33,6 +33,14 @@
     --c-danger: rgb(198, 32, 38);
     --c-danger-text: rgb(228, 92, 96);
 
+    /* font weights 100 to 900 (400 = --font, 500 = --font-medium, 700 = --font-bold are declared next to the tokens) */
+    --font-thin: resource("HUDTree/Fonts/HomesteaderHUD_Thin");
+    --font-extralight: resource("HUDTree/Fonts/HomesteaderHUD_ExtraLight");
+    --font-light: resource("HUDTree/Fonts/HomesteaderHUD_Light");
+    --font-semibold: resource("HUDTree/Fonts/HomesteaderHUD_SemiBold");
+    --font-extrabold: resource("HUDTree/Fonts/HomesteaderHUD_ExtraBold");
+    --font-black: resource("HUDTree/Fonts/HomesteaderHUD_Black");
+
     /* shape */
     --r: 6px;
 }

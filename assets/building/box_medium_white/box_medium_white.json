@@ -6,9 +6,9 @@
   "description": "A medium white cardboard shipping box.",
   "icon": "box_medium_white.png",
   "properties": {
-    "weight_kg": 3.0,
+    "weight_kg": 3,
     "max_stack_size": 1,
-    "base_value": 4.0,
+    "base_value": 4,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -73,8 +73,9 @@
     }
   },
   "container": {
-    "capacity_kg": 15.0,
-    "stacking_limit": 3,
-    "accepts": []
+    "capacity_kg": 15,
+    "stacking_limit": 4,
+    "accepts": [],
+    "show_fill": false
   }
 }

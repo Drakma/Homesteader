@@ -94,7 +94,7 @@ namespace Homesteader.Controls
         /// F-key debug tools, Ctrl for zoom/pin clicks) or aren't real keys.</summary>
         public static bool IsReserved(Key key)
         {
-            if (key == Key.None || key == Key.IMESelected || key == Key.ContextMenu || key == Key.PrintScreen) return true;
+            if (key == Key.None || key == Key.ContextMenu || key == Key.PrintScreen) return true;
             if (key == Key.Escape || key == Key.LeftCtrl || key == Key.RightCtrl) return true;
             if (key >= Key.Digit1 && key <= Key.Digit0) return true; // enum order is Digit1..Digit9, Digit0
             if (key >= Key.Numpad0 && key <= Key.Numpad9) return true;

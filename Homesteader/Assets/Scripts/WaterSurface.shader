@@ -364,6 +364,7 @@ Shader "Homesteader/WaterSurface"
                 float ndotl = max(0.0, dot(normalize(lerp(float3(0, 1, 0), normal, 0.3)), mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
                 waterCol.rgb *= celLight;
+                waterCol.rgb *= CloudShadowFactor(posWS);   // drifting cloud shadows cross the water too
                 waterCol.rgb += nightAdd;
 
                 // Ice: opaque pale blue-white with a crack network, flat and unlit by waves.

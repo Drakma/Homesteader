@@ -6,9 +6,9 @@
   "description": "A slatted wooden storage crate (large) with corner posts and hand holds. It holds up to 35 kg and stacks.",
   "icon": "crate_wood_large.png",
   "properties": {
-    "weight_kg": 5.0,
+    "weight_kg": 5,
     "max_stack_size": 1,
-    "base_value": 28.0,
+    "base_value": 28,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -73,8 +73,11 @@
     }
   },
   "container": {
-    "capacity_kg": 35.0,
-    "stacking_limit": 4,
-    "accepts": []
+    "capacity_kg": 35,
+    "stacking_limit": 6,
+    "accepts": [
+      "#food"
+    ],
+    "single_type": true
   }
 }

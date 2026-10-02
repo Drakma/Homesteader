@@ -84,6 +84,8 @@ def main():
                                 item_data["container_stacking_limit"] = int(sl)
                             acc = cb.get("accepts")
                             item_data["container_accepts"] = [str(x) for x in acc] if isinstance(acc, list) else []
+                            item_data["container_show_fill"] = bool(cb.get("show_fill", True))
+                            item_data["container_single_type"] = bool(cb.get("single_type", False))
                 except Exception as ex:
                     print(f"Warning reading {manifest_path}: {ex}")
 

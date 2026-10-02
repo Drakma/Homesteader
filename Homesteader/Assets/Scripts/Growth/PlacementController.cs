@@ -10,10 +10,10 @@ using UnityEngine.InputSystem;
 namespace Homesteader.Growth
 {
     /// <summary>
-    /// Placing structures and props. While the selected toolbar item is a placeable asset (its category is listed in
-    /// the game rules' placement.categories: structures, electricity, water, ...), a translucent "shadow" copy of
+    /// Placing structures and props. While the selected toolbar item is placeable (it has a model and its manifest does
+    /// not set properties.placeable = false; the category does not matter), a translucent "shadow" copy of
     /// its model follows the grid square under the cursor. Squares within placement.reach_cells of the player
-    /// (default 3) are valid (tinted blue), others are not (tinted red). R turns it by placement.rotate_step_deg
+    /// (default 1) are valid (tinted blue), others are not (tinted red). R turns it by placement.rotate_step_deg
     /// (default 12.5 degrees, Shift+R turns the other way). A left click on a valid square consumes one item; the
     /// shadow fades to solid and stays until something removes it (<see cref="PlacedObject.Remove"/>).
     ///
@@ -47,6 +47,8 @@ namespace Homesteader.Growth
             HudBindings hud = HudBindings.Instance;
             if (hud == null || HudBindings.KeyboardCaptured) { HideGhost(); return; }
 
+            HandlePickupClick(hud);   // right click on a placed object takes it back
+
             string heldId = HeldItemId();
             if (!IsPlaceable(heldId) || !ItemRegistry.TryGet(heldId, out ItemRegistry.ItemInfo info)) { HideGhost(); return; }
 
@@ -58,43 +60,259 @@ namespace Homesteader.Growth
             if (cam == null || hud.IsPointerOverUI(pointer)) { HideGhost(); return; }
 
             if (!TryCursorPoint(cam, pointer, out Vector3 hitPoint)) { HideGhost(); return; }
-            Vector3 cell = PlantingValidator.SnapToGrid(hitPoint);
-            cell.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(cell);
-            // Stackable containers: an identical container already standing here is built on, not refused.
-            PlacedObject below = PlacedObject.At(cell);
-            if (below != null && CanStack(below, heldId)) cell.y = below.transform.position.y + below.Height;
-
             if (!EnsureGhost(heldId, info)) return;   // model still loading
 
-            var ped = FindAnyObjectByType<PedController>();
-            bool valid = Validate(cell, ped != null ? ped.transform : null, out string reason);
-            lastReason = reason;
-
             ghost.SetActive(true);
-            ghost.transform.position = cell;
             ghost.transform.rotation = Quaternion.Euler(0f, rotationSteps * GameRules.Placement.RotateStepDeg, 0f);
-            GhostVisual.Apply(ghost, valid ? ValidTint : InvalidTint, GhostAlpha);
+            var ped = FindAnyObjectByType<PedController>();
+            Plan plan = MakePlan(heldId, hitPoint, GhostFootprint(), ped != null ? ped.transform : null);
+            lastReason = plan.Reason;
+
+            ghost.transform.position = plan.Position;
+            GhostVisual.Apply(ghost, plan.Valid ? ValidTint : InvalidTint, GhostAlpha);
 
             if (PlaceClicked())
             {
-                if (!valid) { ToastNotificationSystem.ShowWarning("Can't place here", reason); return; }
-                Place(heldId, info, cell, ghost.transform.rotation);
+                if (!plan.Valid) { ToastNotificationSystem.ShowWarning("Can't place here", plan.Reason); return; }
+                Place(heldId, info, plan, ghost.transform.rotation);
             }
+        }
+
+        // ------------------------------------------------------------------ picking up
+
+        private bool _pickDown;
+        private Vector2 _pickDownPos;
+
+        /// <summary>
+        /// A right CLICK (not a drag: dragging with the right button pans the camera) on a placed object takes the top
+        /// one of its stack back into the toolbar, with whatever it holds. Trees, plants and the tool in hand are not
+        /// touched: only a direct hit on a placed object counts.
+        /// </summary>
+        private void HandlePickupClick(HudBindings hud)
+        {
+            Mouse mouse = Mouse.current;
+            if (mouse == null) { _pickDown = false; return; }
+            Vector2 pointer = mouse.position.ReadValue();
+            if (mouse.rightButton.wasPressedThisFrame)
+            {
+                _pickDown = !hud.IsPointerOverUI(pointer);
+                _pickDownPos = pointer;
+                return;
+            }
+            if (!_pickDown || !mouse.rightButton.wasReleasedThisFrame) return;
+            _pickDown = false;
+            if ((pointer - _pickDownPos).sqrMagnitude > 36f) return;   // a camera drag, not a click
+
+            PlacedObject target = PlacedUnderCursor();
+            if (target == null) return;
+            // A placed container: with something in the active slot a right click moves items between the two; with an empty
+            // active slot it picks the container up like anything else.
+            HudState state = HudState.Active;
+            bool activeSlotEmpty = state == null || state.SelectedSlot < 0 || state.SelectedSlot >= state.Toolbar.Count
+                || state.Toolbar[state.SelectedSlot].Count <= 0 || string.IsNullOrEmpty(state.Toolbar[state.SelectedSlot].IconId);
+            if (ContainerRules.IsContainer(target.ItemId) && !activeSlotEmpty) { TransferWithContainer(target); return; }
+            PickUp(target);
+        }
+
+        /// <summary>
+        /// Right click on a placed container while the active slot holds something. Items the container accepts go IN (as
+        /// many as fit by weight; the rest stays in the slot). Otherwise, when the slot holds an item the container also has
+        /// and is not full, items come OUT into the slot (as many as it takes; the rest stays in the container).
+        /// </summary>
+        private static void TransferWithContainer(PlacedObject box)
+        {
+            var ped = FindAnyObjectByType<PedController>();
+            if (ped != null && !PlantingValidator.InReach(ped.transform, box.transform.position, GameRules.Placement.ReachCells))
+            {
+                ToastNotificationSystem.ShowInfo("Too far", "Move closer to reach that.");
+                return;
+            }
+            HudState hud = HudState.Active;
+            if (hud == null) return;
+            hud.EnsureToolbarSlots();
+            int index = hud.SelectedSlot;
+            if (index < 0 || index >= hud.Toolbar.Count) return;
+            ToolbarSlotData slot = hud.Toolbar[index];
+            string boxName = HudBindings.GetItemName(box.ItemId);
+            if (box.Contents == null) box.Contents = new List<ContainerStack>();
+            bool slotHasItems = slot.Count > 0 && !string.IsNullOrEmpty(slot.IconId);
+
+            // A container in the active slot (a basket in hand): it is its CONTENTS that move, not the basket itself.
+            if (slotHasItems && ContainerRules.IsContainer(slot.IconId))
+            {
+                TransferBetweenContainers(box, slot, index, hud, boxName);
+                return;
+            }
+
+            // IN: the slot's items go into the container.
+            if (slotHasItems && ContainerRules.Accepts(box.ItemId, slot.IconId, box.Contents))
+            {
+                int moved = ContainerRules.Add(box.ItemId, box.Contents, slot.IconId, slot.Count);
+                if (moved > 0)
+                {
+                    slot.Count -= moved;
+                    hud.Toolbar[index] = slot.Count > 0 ? slot : ToolbarSlotData.Empty();
+                    FinishTransfer(hud);
+                    ToastNotificationSystem.ShowCounted("transfer_in:" + slot.IconId, boxName, "Put {0}x " + Brace(HudBindings.GetItemName(slot.IconId)) + " in.", moved);
+                    return;
+                }
+                // Full of that: fall through and try to take some out instead.
+            }
+
+            // OUT: the container's items go into the slot.
+            string item = null;
+            int room = 0;
+            int maxStack = 0;
+            if (slotHasItems && box.Contents.Exists(c => c.ItemId == slot.IconId) && !ContainerRules.IsContainer(slot.IconId))
+            {
+                item = slot.IconId;
+                maxStack = Mathf.Max(1, HudBindings.GetMaxStack(item));
+                room = maxStack - slot.Count;
+            }
+
+            if (item == null || room <= 0)
+            {
+                if (slotHasItems && !ContainerRules.Accepts(box.ItemId, slot.IconId, box.Contents))
+                    ToastNotificationSystem.ShowInfo(boxName, boxName + " does not take " + HudBindings.GetItemName(slot.IconId) + ".");
+                else if (slotHasItems && ContainerRules.RoomFor(box.ItemId, box.Contents, slot.IconId) <= 0)
+                    ToastNotificationSystem.ShowInfo(boxName, boxName + " is full.");
+                else if (box.Contents.Count == 0)
+                    ToastNotificationSystem.ShowInfo(boxName, boxName + " is empty.");
+                else
+                    ToastNotificationSystem.ShowInfo(boxName, "Your active slot is full.");
+                return;
+            }
+
+            ContainerStack stack = box.Contents.Find(c => c.ItemId == item);
+            int take = Mathf.Min(room, stack != null ? stack.Count : 0);
+            if (take <= 0) return;
+            ContainerRules.Remove(box.Contents, item, take);
+            slot = slotHasItems ? slot : new ToolbarSlotData { IconId = item, Count = 0 };
+            slot.Count += take;
+            hud.Toolbar[index] = slot;
+            FinishTransfer(hud);
+            ToastNotificationSystem.ShowCounted("transfer_out:" + item, boxName, "Took {0}x " + Brace(HudBindings.GetItemName(item)) + " out.", take);
+        }
+
+        /// <summary>
+        /// The held container (its contents) and a placed container. What the held one carries goes into the placed one (what
+        /// it accepts, as many as fit by weight; the rest stays in the held one). If nothing can go in, the placed one's
+        /// contents go into the held one the same way (as many as it accepts and has room for; the rest stays).
+        /// </summary>
+        private static void TransferBetweenContainers(PlacedObject box, ToolbarSlotData held, int slotIndex, HudState hud, string boxName)
+        {
+            if (held.Contents == null) held.Contents = new List<ContainerStack>();
+            string heldName = HudBindings.GetItemName(held.IconId);
+
+            int movedIn = 0;
+            foreach (ContainerStack st in new List<ContainerStack>(held.Contents))
+            {
+                int n = ContainerRules.Add(box.ItemId, box.Contents, st.ItemId, st.Count);
+                if (n <= 0) continue;
+                ContainerRules.Remove(held.Contents, st.ItemId, n);
+                movedIn += n;
+            }
+            if (movedIn > 0)
+            {
+                hud.Toolbar[slotIndex] = held;
+                FinishTransfer(hud);
+                ToastNotificationSystem.ShowCounted("transfer_in:" + box.GetHashCode(), boxName, "Moved {0} items in from " + Brace(heldName) + ".", movedIn);
+                return;
+            }
+
+            int movedOut = 0;
+            foreach (ContainerStack st in new List<ContainerStack>(box.Contents))
+            {
+                int n = ContainerRules.Add(held.IconId, held.Contents, st.ItemId, st.Count);
+                if (n <= 0) continue;
+                ContainerRules.Remove(box.Contents, st.ItemId, n);
+                movedOut += n;
+            }
+            if (movedOut > 0)
+            {
+                hud.Toolbar[slotIndex] = held;
+                FinishTransfer(hud);
+                ToastNotificationSystem.ShowCounted("transfer_out:" + box.GetHashCode(), boxName, "Moved {0} items out to " + Brace(heldName) + ".", movedOut);
+                return;
+            }
+
+            if (held.Contents.Count == 0 && box.Contents.Count == 0) ToastNotificationSystem.ShowInfo(boxName, "Both are empty.");
+            else if (held.Contents.Count == 0) ToastNotificationSystem.ShowInfo(heldName, heldName + " does not take what is in " + boxName + ", or is full.");
+            else ToastNotificationSystem.ShowInfo(boxName, boxName + " does not take what " + heldName + " holds, or is full.");
+        }
+
+        private static void FinishTransfer(HudState hud)
+        {
+            hud.SelectSlot(hud.SelectedSlot);
+            HudBindings.Instance?.RefreshToolbar();
+        }
+
+        private static string Brace(string text) { return text.Replace("{", "{{").Replace("}", "}}"); }
+
+        /// <summary>Puts the top object of this object's stack into the toolbar (a container keeps its contents). False with a toast when it cannot.</summary>
+        public static bool PickUp(PlacedObject any)
+        {
+            if (any == null) return false;
+            PlacedObject top = any;
+            foreach (List<PlacedObject> col in PlacedObject.ColumnsAt(any.transform.position))
+                if (col.Contains(any)) { top = col[col.Count - 1]; break; }
+
+            var ped = FindAnyObjectByType<PedController>();
+            if (ped != null && !PlantingValidator.InReach(ped.transform, top.transform.position, GameRules.Placement.ReachCells))
+            {
+                ToastNotificationSystem.ShowInfo("Too far", "Move closer to pick that up.");
+                return false;
+            }
+
+            HudState hud = HudState.Active;
+            if (hud == null) return false;
+            hud.EnsureToolbarSlots();
+            string id = top.ItemId;
+            bool holdsThings = top.Contents != null && top.Contents.Count > 0;
+            if (ContainerRules.IsContainer(id) || holdsThings)
+            {
+                // A container goes into a slot of its own so its contents stay with it.
+                int free = -1;
+                for (int i = 0; i < hud.Toolbar.Count; i++)
+                    if (hud.Toolbar[i].Count <= 0 || string.IsNullOrEmpty(hud.Toolbar[i].IconId)) { free = i; break; }
+                if (free < 0) { ToastNotificationSystem.ShowWarning("Toolbar full", "No free toolbar slot for that."); return false; }
+                hud.Toolbar[free] = new ToolbarSlotData { IconId = id, Count = 1, Contents = ContainerRules.Clone(top.Contents) };
+            }
+            else
+            {
+                AssetCatalogItem cat = HudBindings.GetCatalogItem(id);
+                int added = hud.AddItemToToolbar(id, 1, cat != null ? Mathf.Max(1, cat.max_stack) : 64);
+                if (added <= 0) { ToastNotificationSystem.ShowWarning("Toolbar full", "No room in the toolbar for that."); return false; }
+            }
+            top.Remove();
+            hud.SelectSlot(hud.SelectedSlot);
+            HudBindings.Instance?.RefreshToolbar();
+            ToastNotificationSystem.ShowCounted("pickup:" + id, "Picked up", "Picked up {0}x " + HudBindings.GetItemName(id).Replace("{", "{{").Replace("}", "}}") + ".", 1);
+            return true;
         }
 
         // ------------------------------------------------------------------ placing
 
-        private void Place(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, Quaternion rotation)
+        private void Place(string itemId, ItemRegistry.ItemInfo info, Plan plan, Quaternion rotation)
         {
             HudState state = HudState.Active;
             // A container keeps what is in it when it is put down.
             List<ContainerStack> contents = state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count ? state.Toolbar[state.SelectedSlot].Contents : null;
-            PlacedObject below = PlacedObject.At(cell);
-            int level = below != null && CanStack(below, itemId) ? below.Level + 1 : 0;
             if (!state.ConsumeFromSelectedSlot(1)) return;
             HudBindings.Instance.RefreshToolbar();
 
-            SpawnPlaced(itemId, info, cell, rotationSteps * GameRules.Placement.RotateStepDeg, true, level, contents);
+            // Stacks that had to make room slide over first (the terrain height under each is re-read).
+            foreach (var shift in plan.Shifts)
+                foreach (PlacedObject o in shift.Key)
+                {
+                    if (o == null) continue;
+                    Vector3 from = o.transform.position;
+                    Vector3 to = new Vector3(from.x + shift.Value.x, from.y, from.z + shift.Value.y);
+                    to.y += Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(to) - Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(from);
+                    o.transform.position = to;
+                }
+
+            SpawnPlaced(itemId, info, plan.Position, rotationSteps * GameRules.Placement.RotateStepDeg, true, plan.Level, contents);
         }
 
         private static Transform s_placedRoot;
@@ -113,7 +331,8 @@ namespace Homesteader.Growth
             obj.transform.SetPositionAndRotation(cell, Quaternion.Euler(0f, yawDeg, 0f));
             var placed = obj.AddComponent<PlacedObject>();
             placed.Init(itemId, cell, yawDeg, level);
-            if (contents != null) placed.Contents = new List<ContainerStack>(contents);
+            if (contents != null) placed.Contents = ContainerRules.Clone(contents);
+            ContainerFillView.AttachIfContainer(placed);   // what is inside shows as blocks that fill the container
             LightEmitter.Attach(obj, itemId, info.Lights);   // its lights come on with the game clock
             if (fade)
             {
@@ -146,7 +365,7 @@ namespace Homesteader.Growth
             return null;
         }
 
-        private bool Validate(Vector3 cell, Transform player, out string reason)
+        private bool ValidateGround(Vector3 cell, Transform player, out string reason)
         {
             reason = null;
             if (!PlantingValidator.InReach(player, cell, GameRules.Placement.ReachCells))
@@ -164,12 +383,6 @@ namespace Homesteader.Growth
                 reason = "The ground is too steep here.";
                 return false;
             }
-            PlacedObject here = PlacedObject.At(cell);
-            if (here != null && !CanStack(here, HeldItemId()))
-            {
-                reason = here.ItemId == HeldItemId() && ContainerRules.StackingLimit(here.ItemId) > 1 ? "That stack is as high as it goes." : "Something is already placed in that square.";
-                return false;
-            }
             foreach (PlantedGrowth p in PlantedGrowth.All)
             {
                 if (p == null) continue;
@@ -182,6 +395,163 @@ namespace Homesteader.Growth
                 }
             }
             return true;
+        }
+
+        // ------------------------------------------------------------------ packing a square
+
+        /// <summary>Where a new object goes in its grid square, which stacks have to slide over to make room, and whether it fits at all.</summary>
+        private sealed class Plan
+        {
+            public bool Valid;
+            public string Reason;
+            public Vector3 Position;
+            public int Level;
+            public readonly List<KeyValuePair<List<PlacedObject>, Vector2>> Shifts = new List<KeyValuePair<List<PlacedObject>, Vector2>>();
+        }
+
+        private const float PackGap = 0.01f;
+
+        /// <summary>
+        /// 1) An identical stackable item standing under the cursor and under its limit: stack on it.
+        /// 2) Else the free spot in the square nearest the cursor that the footprint fits in without touching anything.
+        /// 3) Else re-pack the whole square (the stacks already there and the new item) into rows; if everything fits the
+        ///    stacks slide over to their new places. 4) Else there is no room.
+        /// </summary>
+        private Plan MakePlan(string heldId, Vector3 hit, Vector2 size, Transform player)
+        {
+            var plan = new Plan();
+            float g = PlantingValidator.GridSizeM;
+            Vector3 center = PlantingValidator.SnapToGrid(hit);
+            center.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(center);
+            plan.Position = center;
+            if (!ValidateGround(center, player, out string reason)) { plan.Reason = reason; return plan; }
+
+            Vector2 min = new Vector2(center.x - g * 0.5f, center.z - g * 0.5f);
+            size = new Vector2(Mathf.Min(size.x, g - 0.02f), Mathf.Min(size.y, g - 0.02f));
+            Vector2 hit2 = new Vector2(hit.x, hit.z);
+            List<List<PlacedObject>> columns = PlacedObject.ColumnsAt(center);
+
+            // 1) stack on the column under the cursor
+            bool fullStackHere = false;
+            foreach (List<PlacedObject> col in columns)
+            {
+                if (!ExpandRect(PlacedObject.ColumnRect(col), 0.03f).Contains(hit2)) continue;
+                PlacedObject top = col[col.Count - 1];
+                if (CanStack(top, heldId))
+                {
+                    Vector3 tp = top.transform.position;
+                    plan.Position = new Vector3(tp.x, tp.y + top.Height, tp.z);
+                    plan.Level = top.Level + 1;
+                    plan.Valid = true;
+                    return plan;
+                }
+                fullStackHere = top.ItemId == heldId && ContainerRules.StackingLimit(heldId) > 1;
+                break;   // a full stack or a different item: look for room beside it
+            }
+
+            // 2) a free spot, nearest the cursor
+            float hw = size.x * 0.5f, hd = size.y * 0.5f, half = PackGap * 0.5f;
+            bool found = false;
+            Vector2 best = default;
+            float bestD = float.MaxValue;
+            for (float x = min.x + hw + half; x <= min.x + g - hw - half + 1e-4f; x += 0.05f)
+            {
+                for (float z = min.y + hd + half; z <= min.y + g - hd - half + 1e-4f; z += 0.05f)
+                {
+                    var cand = new Rect(x - hw, z - hd, size.x, size.y);
+                    bool free = true;
+                    foreach (List<PlacedObject> col in columns)
+                        if (cand.Overlaps(ExpandRect(PlacedObject.ColumnRect(col), half))) { free = false; break; }
+                    if (!free) continue;
+                    float d = (x - hit.x) * (x - hit.x) + (z - hit.z) * (z - hit.z);
+                    if (d < bestD) { bestD = d; best = new Vector2(x, z); found = true; }
+                }
+            }
+            if (found)
+            {
+                plan.Position = GroundAt(best);
+                plan.Valid = true;
+                return plan;
+            }
+
+            // 3) re-pack the square: the stacks already here keep their size, the new item goes last
+            if (columns.Count > 0)
+            {
+                var sizes = new List<Vector2>();
+                foreach (List<PlacedObject> col in columns) sizes.Add(PlacedObject.ColumnRect(col).size);
+                sizes.Add(size);
+                Vector2[] centers = Pack(sizes, g, min);
+                if (centers != null)
+                {
+                    for (int i = 0; i < columns.Count; i++)
+                    {
+                        Vector2 from = PlacedObject.ColumnRect(columns[i]).center;
+                        plan.Shifts.Add(new KeyValuePair<List<PlacedObject>, Vector2>(columns[i], centers[i] - from));
+                    }
+                    plan.Position = GroundAt(centers[centers.Length - 1]);
+                    plan.Valid = true;
+                    return plan;
+                }
+            }
+
+            plan.Reason = fullStackHere ? "That stack is as high as it goes and there is no room beside it." : "There is no room left on that square.";
+            return plan;
+        }
+
+        private static Vector3 GroundAt(Vector2 xz)
+        {
+            var p = new Vector3(xz.x, 0f, xz.y);
+            p.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);
+            return p;
+        }
+
+        private static Rect ExpandRect(Rect r, float by) { return new Rect(r.x - by, r.y - by, r.width + 2f * by, r.height + 2f * by); }
+
+        /// <summary>
+        /// Fits every footprint into a square of side g (corner at min) in rows, tallest first, trying rows along x and
+        /// rows along z. Returns the centre of each in the input order, or null when they do not all fit.
+        /// </summary>
+        private static Vector2[] Pack(List<Vector2> sizes, float g, Vector2 min)
+        {
+            for (int orientation = 0; orientation < 2; orientation++)
+            {
+                var s2 = new List<Vector2>();
+                foreach (Vector2 v in sizes) s2.Add(orientation == 0 ? v : new Vector2(v.y, v.x));
+                var order = new List<int>();
+                for (int i = 0; i < s2.Count; i++) order.Add(i);
+                order.Sort((a, b) => s2[b].y.CompareTo(s2[a].y));
+
+                var result = new Vector2[s2.Count];
+                float x = PackGap * 0.5f, rowZ = PackGap * 0.5f, rowH = 0f;
+                bool ok = true;
+                foreach (int i in order)
+                {
+                    Vector2 v = s2[i];
+                    if (x + v.x > g - PackGap * 0.5f + 1e-4f) { x = PackGap * 0.5f; rowZ += rowH + PackGap; rowH = 0f; }
+                    if (x + v.x > g - PackGap * 0.5f + 1e-4f || rowZ + v.y > g - PackGap * 0.5f + 1e-4f) { ok = false; break; }
+                    result[i] = new Vector2(x + v.x * 0.5f, rowZ + v.y * 0.5f);
+                    x += v.x + PackGap;
+                    rowH = Mathf.Max(rowH, v.y);
+                }
+                if (!ok) continue;
+                for (int i = 0; i < result.Length; i++)
+                {
+                    Vector2 c = orientation == 0 ? result[i] : new Vector2(result[i].y, result[i].x);
+                    result[i] = new Vector2(min.x + c.x, min.y + c.y);
+                }
+                return result;
+            }
+            return null;
+        }
+
+        /// <summary>World footprint (x, z) of the shadow at its current turn.</summary>
+        private Vector2 GhostFootprint()
+        {
+            Renderer[] rs = ghost != null ? ghost.GetComponentsInChildren<Renderer>() : null;
+            if (rs == null || rs.Length == 0) return new Vector2(0.8f, 0.8f);
+            Bounds b = rs[0].bounds;
+            for (int i = 1; i < rs.Length; i++) b.Encapsulate(rs[i].bounds);
+            return new Vector2(b.size.x, b.size.z);
         }
 
         // ------------------------------------------------------------------ ghost
@@ -233,13 +603,14 @@ namespace Homesteader.Growth
             return !string.IsNullOrEmpty(slot.IconId) && slot.Count > 0 ? slot.IconId : null;
         }
 
-        /// <summary>A placeable asset: its category is in the placement rules, and it is not a seed that plants a group.</summary>
+        /// <summary>
+        /// Placeable or not: an item with a model whose manifest does not say properties.placeable = false, and that is
+        /// not a seed that plants a growth group. The category does not matter.
+        /// </summary>
         public static bool IsPlaceable(string itemId)
         {
             if (string.IsNullOrEmpty(itemId)) return false;
-            if (!ItemRegistry.TryGet(itemId, out ItemRegistry.ItemInfo info)) return false;
-            // Stackable containers (boxes) can be put down in the world whatever their category; other items follow the placement rules.
-            if (!GameRules.Placement.Categories.Contains(info.Category ?? "") && ContainerRules.StackingLimit(itemId) <= 1) return false;
+            if (!ItemRegistry.TryGet(itemId, out ItemRegistry.ItemInfo info) || info.Prefab == null || !info.Placeable) return false;
             return !GrowthRegistry.TryGetGroupPlantedBy(itemId, out _);
         }
 
@@ -346,7 +717,26 @@ namespace Homesteader.Growth
         public List<ContainerStack> Contents = new List<ContainerStack>();   // what a placed container holds
         private Vector2Int cell;
 
-        public bool IsTopOfStack => stacks.TryGetValue(cell, out List<PlacedObject> l) && l.Count > 0 && l[l.Count - 1] == this;
+        /// <summary>How many objects are in this one's stack (itself included).</summary>
+        public int StackCount
+        {
+            get
+            {
+                foreach (List<PlacedObject> col in ColumnsAt(transform.position))
+                    if (col.Contains(this)) return col.Count;
+                return 1;
+            }
+        }
+
+        public bool IsTopOfStack
+        {
+            get
+            {
+                foreach (List<PlacedObject> col in ColumnsAt(transform.position))
+                    if (col.Contains(this)) return col[col.Count - 1] == this;
+                return false;
+            }
+        }
 
         public void Init(string itemId, Vector3 position, float yawDeg, int level = 0)
         {
@@ -367,10 +757,63 @@ namespace Homesteader.Growth
             }
         }
 
-        /// <summary>The placed object on top of the stack in the grid square containing the point, if any.</summary>
+        /// <summary>
+        /// The columns (stacks) standing in the grid square containing the point. Objects that share the same spot on
+        /// the ground are one column, bottom first; a square holds several columns when they were packed side by side.
+        /// </summary>
+        public static List<List<PlacedObject>> ColumnsAt(Vector3 point)
+        {
+            var result = new List<List<PlacedObject>>();
+            if (!stacks.TryGetValue(CellOf(point), out List<PlacedObject> all)) return result;
+            foreach (PlacedObject o in all)
+            {
+                if (o == null) continue;
+                Vector3 p = o.transform.position;
+                List<PlacedObject> col = null;
+                foreach (List<PlacedObject> c in result)
+                {
+                    Vector3 q = c[0].transform.position;
+                    if (Mathf.Abs(q.x - p.x) < 0.08f && Mathf.Abs(q.z - p.z) < 0.08f) { col = c; break; }
+                }
+                if (col == null) { col = new List<PlacedObject>(); result.Add(col); }
+                col.Add(o);
+            }
+            foreach (List<PlacedObject> c in result) c.Sort((a, b) => a.Level.CompareTo(b.Level));
+            return result;
+        }
+
+        /// <summary>The ground footprint (x, z in world metres) of a column: the union of its objects' bounds.</summary>
+        public static Rect ColumnRect(List<PlacedObject> column)
+        {
+            bool any = false;
+            Bounds b = default;
+            foreach (PlacedObject o in column)
+            {
+                if (o == null) continue;
+                foreach (Renderer r in o.GetComponentsInChildren<Renderer>())
+                {
+                    if (!any) { b = r.bounds; any = true; }
+                    else b.Encapsulate(r.bounds);
+                }
+            }
+            if (!any)
+            {
+                Vector3 p = column[0].transform.position;
+                return new Rect(p.x - 0.4f, p.z - 0.4f, 0.8f, 0.8f);   // the model has not loaded: a generous footprint
+            }
+            return new Rect(b.min.x, b.min.z, b.size.x, b.size.z);
+        }
+
+        /// <summary>The placed object on top of the column that covers the point, if any.</summary>
         public static PlacedObject At(Vector3 point)
         {
-            return stacks.TryGetValue(CellOf(point), out List<PlacedObject> l) && l.Count > 0 && l[l.Count - 1] != null ? l[l.Count - 1] : null;
+            var p2 = new Vector2(point.x, point.z);
+            foreach (List<PlacedObject> col in ColumnsAt(point))
+            {
+                Rect r = ColumnRect(col);
+                if (new Rect(r.x - 0.03f, r.y - 0.03f, r.width + 0.06f, r.height + 0.06f).Contains(p2)) return col[col.Count - 1];
+            }
+            return null;
         }
 
         /// <summary>Takes it out of the world and frees its square (call from a demolish tool / any gameplay rule).</summary>

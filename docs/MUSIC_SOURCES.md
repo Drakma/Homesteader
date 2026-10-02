@@ -27,7 +27,26 @@ Not allowed: anything from Epidemic Sound (its standard licence does not cover g
   when Google changes the page. The download step tries the page's Download control first, then the audio element.
 
 Save tracks under `Homesteader/Assets/Resources/Audio/Music/<PlaylistName>/` (the AudioManager builds one playlist per folder;
-folder names are listed in `Resources/Audio/Music/playlists.txt`).
+folder names are listed in `Resources/Audio/Music/playlists.txt`). Each playlist has a 256x256 cover at
+`Resources/Audio/Covers/<PlaylistName>.png`.
+
+## Topping playlists up in bulk
+
+`tools/gemini_music_mcp/bump_playlists.mjs` holds a prompt list per playlist and generates until every folder has 10 tracks.
+It talks to the MCP server over stdio (no 2-minute app timeout), skips tracks that already exist and can be re-run safely:
+
+    node tools/gemini_music_mcp/bump_playlists.mjs          # everything
+    ONLY=Grunge,Punk node tools/gemini_music_mcp/bump_playlists.mjs
+    LIMIT=1 node tools/gemini_music_mcp/bump_playlists.mjs  # smoke test
+
+Gemini has a daily music-generation quota. When Gemini's latest reply says the limit is reached the server stops at once
+and the script aborts its run; `retry_bump.ps1` re-runs it every 30 minutes (up to 24 hours) until every folder is full.
+Progress is in `tools/gemini_music_mcp/bump_playlists.log`.
+
+Two lessons from 2026-10-02: the quota check must read only Gemini's latest reply (the sidebar lists old chat titles such as
+"Music Generation Limit Reached", and a whole-page scan matched them and aborted runs that would have worked), and the tool
+now drives the installed Google Chrome (`channel: 'chrome'`) because Playwright's bundled Chromium kept closing mid-generation.
+`GEMINI_MUSIC_CHANNEL=chromium` switches back.
 
 ## Per-track checklist
 

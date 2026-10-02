@@ -38,13 +38,13 @@ namespace Homesteader.UI
 
             // Arrow pointing up, in a unit box scaled to the element.
             p.BeginPath();
-            p.MoveTo(new Vector2(w * 0.50f, h * 0.04f));
-            p.LineTo(new Vector2(w * 0.88f, h * 0.50f));
-            p.LineTo(new Vector2(w * 0.62f, h * 0.50f));
-            p.LineTo(new Vector2(w * 0.62f, h * 0.96f));
-            p.LineTo(new Vector2(w * 0.38f, h * 0.96f));
-            p.LineTo(new Vector2(w * 0.38f, h * 0.50f));
-            p.LineTo(new Vector2(w * 0.12f, h * 0.50f));
+            p.MoveTo(new Vector2(w * 0.50f, h * 0.02f));
+            p.LineTo(new Vector2(w * 0.78f, h * 0.46f));
+            p.LineTo(new Vector2(w * 0.55f, h * 0.46f));
+            p.LineTo(new Vector2(w * 0.55f, h * 0.98f));
+            p.LineTo(new Vector2(w * 0.45f, h * 0.98f));
+            p.LineTo(new Vector2(w * 0.45f, h * 0.46f));
+            p.LineTo(new Vector2(w * 0.22f, h * 0.46f));
             p.ClosePath();
             p.Fill();
         }

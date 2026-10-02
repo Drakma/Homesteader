@@ -30,10 +30,8 @@ namespace Homesteader.Growth
         /// <summary>Placing structures and props from the toolbar (PlacementController).</summary>
         public sealed class PlacementRules
         {
-            public int ReachCells = 3;              // squares around the player a thing can be placed
+            public int ReachCells = 1;              // squares around the player a thing can be placed (1 = the player's own square and the ring around it)
             public float RotateStepDeg = 12.5f;     // one press of R
-            public HashSet<string> Categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                { "structures", "electricity", "water", "waste", "internet" };
         }
 
         public static PlacementRules Placement { get; private set; } = new PlacementRules();
@@ -139,8 +137,6 @@ namespace Homesteader.Growth
             {
                 if (pl.Has("reach_cells")) Placement.ReachCells = Mathf.Max(0, pl.Get("reach_cells").AsInt(Placement.ReachCells));
                 if (pl.Has("rotate_step_deg")) Placement.RotateStepDeg = Mathf.Clamp(pl.Get("rotate_step_deg").AsFloat(Placement.RotateStepDeg), 0.5f, 180f);
-                if (pl.Has("categories"))
-                    Placement.Categories = new HashSet<string>(pl.Get("categories").AsStringList(), StringComparer.OrdinalIgnoreCase);
             }
 
             ModJsonValue gfx = root.Get("graphics");

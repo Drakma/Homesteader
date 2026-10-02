@@ -9,7 +9,7 @@ namespace Homesteader.Animals
     /// </summary>
     public sealed class AnimalMover : MonoBehaviour
     {
-        public MovementDef Def = new MovementDef();
+        [System.NonSerialized] public MovementDef Def = new MovementDef();
         public float Radius = 0.3f;
         public LayerMask obstacleMask = ~0;
 

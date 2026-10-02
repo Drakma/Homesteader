@@ -239,8 +239,7 @@ namespace Homesteader.UI
             _root.RegisterCallback<NavigationMoveEvent>(evt =>
             {
                 if (IsTextInputFocused()) return;
-                evt.PreventDefault();
-                evt.StopPropagation();
+                UiEvents.Swallow(evt);
             }, TrickleDown.TrickleDown);
             if (_root == null) { return; }
 
@@ -350,8 +349,8 @@ namespace Homesteader.UI
             {
                 windHolder.Clear();
                 _windArrow = new WindArrowElement();
-                _windArrow.style.width = 20;
-                _windArrow.style.height = 20;
+                _windArrow.style.width = 14;
+                _windArrow.style.height = 14;
                 windHolder.Add(_windArrow);
             }
 
@@ -385,7 +384,7 @@ namespace Homesteader.UI
             if (_assetSpawnerWindow != null)
             {
                 var spawnerHeader = _assetSpawnerWindow.Q<VisualElement>(className: "window-header");
-                MakeDraggable(_assetSpawnerWindow, spawnerHeader);
+                WindowPositions.MakeDraggable(_assetSpawnerWindow, spawnerHeader, "asset_spawner");
                 MakeResizable(_assetSpawnerWindow, _assetSpawnerWindow.Q<VisualElement>("AssetSpawnerResizeHandle"), new Vector2(480f, 360f));
             }
 
@@ -983,6 +982,7 @@ namespace Homesteader.UI
             if (_assetSpawnerWindow == null) return;
 
             _assetSpawnerWindow.RemoveFromClassList("asset-spawner-window--hidden");
+            WindowPositions.Place(_assetSpawnerWindow, "asset_spawner");   // centered the first time, then where it was left
 
             BuildAssetCategoryDropdown();
             FilterAndDisplayAssets();
@@ -992,6 +992,7 @@ namespace Homesteader.UI
         {
             if (_assetSpawnerWindow != null)
             {
+                WindowPositions.Remember(_assetSpawnerWindow, "asset_spawner");
                 _assetSpawnerWindow.AddToClassList("asset-spawner-window--hidden");
             }
         }
@@ -1162,7 +1163,7 @@ namespace Homesteader.UI
                     if (added > 0)
                     {
                         WriteToolbar(HudState.Active);
-                        ToastNotificationSystem.ShowInfo("Added to Toolbar", $"Added {added}x {currentItem.name} to toolbar.");
+                        ToastNotificationSystem.ShowCounted("toolbar_add:" + currentItem.id, "Added to Toolbar", "Added {0}x " + currentItem.name.Replace("{", "{{").Replace("}", "}}") + " to toolbar.", added);
                     }
                     else
                     {
@@ -1613,7 +1614,7 @@ namespace Homesteader.UI
                     var active = s.Toolbar[s.SelectedSlot];
                     if (active.Count > 0 && !string.IsNullOrEmpty(active.IconId))
                     {
-                        hint = GetItemName(active.IconId);
+                        hint = GetItemName(active.IconId) + $"  x{active.Count}";
                         if (ContainerRules.IsContainer(active.IconId))
                             hint += $"  ({ContainerRules.Used(active.Contents):0.0} / {ContainerRules.Capacity(active.IconId):0.0} kg)";
                     }
@@ -1714,6 +1715,8 @@ namespace Homesteader.UI
         public List<string> fruiting_tools;        // the 'fruiting' add-on schema: what picks it (tools / #tags), what one fruit gives, days to regrow
         public List<string> fruiting_drops;
         public float fruiting_regrow_days;
+        public bool container_single_type;   // takes only one kind of item at a time (crates)
+        public bool container_show_fill = true;   // draw what is inside as blocks (open crates and baskets; closed boxes turn it off)
         public List<string> container_accepts;     // categories, #tags or item ids it accepts; empty = anything
     }
 }

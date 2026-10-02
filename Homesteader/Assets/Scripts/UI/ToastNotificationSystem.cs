@@ -45,9 +45,14 @@ namespace Homesteader.UI
             public float RemainingDuration;
             public bool IsExiting;
             public bool IsPersistent;
+            public Label MessageLabel;     // the message text, so a counted toast can change its number
+            public string CountKey;        // set for a toast that merges repeats (see ShowCounted)
+            public string CountFormat;     // message with {0} where the running total goes
+            public int CountTotal;
         }
 
         private readonly List<ActiveToast> _activeToasts = new List<ActiveToast>();
+        private readonly Dictionary<string, ActiveToast> _countedToasts = new Dictionary<string, ActiveToast>();
 
         private void Awake()
         {
@@ -110,13 +115,48 @@ namespace Homesteader.UI
             }
         }
 
+        /// <summary>
+        /// A toast for something that can repeat quickly (adding the same item to the toolbar again and again). While a
+        /// toast with this key is still showing, no new toast appears: its running total goes up by amount, its text is
+        /// rewritten (the {0} in messageFormat is the total) and its timer starts over.
+        /// </summary>
+        public static void ShowCounted(string key, string title, string messageFormat, int amount, ToastType type = ToastType.Info)
+        {
+            if (s_instance == null) { Debug.Log($"[Toast - {type}] {title}: " + string.Format(messageFormat, amount)); return; }
+            s_instance.CreateOrUpdateCounted(key, title, messageFormat, amount, type);
+        }
+
+        private void CreateOrUpdateCounted(string key, string title, string messageFormat, int amount, ToastType type)
+        {
+            if (_countedToasts.TryGetValue(key, out ActiveToast existing) && existing != null && !existing.IsExiting
+                && existing.Element != null && existing.Element.parent != null)
+            {
+                existing.CountTotal += amount;
+                if (existing.MessageLabel != null) existing.MessageLabel.text = string.Format(existing.CountFormat, existing.CountTotal);
+                existing.RemainingDuration = ToastDuration(title, string.Format(existing.CountFormat, existing.CountTotal));
+                return;
+            }
+            ActiveToast created = CreateToast(title, string.Format(messageFormat, amount), type);
+            if (created == null) return;
+            created.CountKey = key;
+            created.CountFormat = messageFormat;
+            created.CountTotal = amount;
+            _countedToasts[key] = created;
+        }
+
+        private static float ToastDuration(string title, string message)
+        {
+            int charCount = (title?.Length ?? 0) + (message?.Length ?? 0);
+            return Mathf.Max(5.0f, 5.0f + (charCount * 0.045f));
+        }
+
         public static void ShowInfo(string title, string message) => Show(title, message, ToastType.Info);
         public static void ShowSuccess(string title, string message) => Show(title, message, ToastType.Success);
         public static void ShowWarning(string title, string message) => Show(title, message, ToastType.Warning);
         public static void ShowError(string title, string message) => Show(title, message, ToastType.Error);
         public static void ShowSevere(string title, string message) => Show(title, message, ToastType.Severe);
 
-        private void CreateToast(string title, string message, ToastType type)
+        private ActiveToast CreateToast(string title, string message, ToastType type)
         {
             if (_container == null)
             {
@@ -130,12 +170,11 @@ namespace Homesteader.UI
             if (_container == null)
             {
                 Debug.LogWarning($"[ToastNotificationSystem] Cannot show toast '{title}' - ToastContainer not found in UIDocument.");
-                return;
+                return null;
             }
 
             // Duration calculation: Minimum 5.0s, plus 0.045s per character of title + message
-            int charCount = (title?.Length ?? 0) + (message?.Length ?? 0);
-            float duration = Mathf.Max(5.0f, 5.0f + (charCount * 0.045f));
+            float duration = ToastDuration(title, message);
 
             var toastElem = new VisualElement();
             toastElem.AddToClassList("toast-item");
@@ -147,15 +186,15 @@ namespace Homesteader.UI
             {
                 case ToastType.Success:
                     typeClass = "toast-item--success";
-                    iconGlyph = "✓";
+                    iconGlyph = "OK";
                     break;
                 case ToastType.Warning:
                     typeClass = "toast-item--warning";
-                    iconGlyph = "⚠";
+                    iconGlyph = "!";
                     break;
                 case ToastType.Error:
                     typeClass = "toast-item--error";
-                    iconGlyph = "✕";
+                    iconGlyph = "X";
                     break;
                 case ToastType.Severe:
                     typeClass = "toast-item--severe";
@@ -164,7 +203,7 @@ namespace Homesteader.UI
                 case ToastType.Info:
                 default:
                     typeClass = "toast-item--info";
-                    iconGlyph = "ℹ";
+                    iconGlyph = "i";
                     break;
             }
             toastElem.AddToClassList(typeClass);
@@ -185,11 +224,12 @@ namespace Homesteader.UI
                 content.Add(titleLabel);
             }
 
+            Label messageLabel = null;
             if (!string.IsNullOrEmpty(message))
             {
-                var msgLabel = new Label(message);
-                msgLabel.AddToClassList("toast-message");
-                content.Add(msgLabel);
+                messageLabel = new Label(message);
+                messageLabel.AddToClassList("toast-message");
+                content.Add(messageLabel);
             }
             toastElem.Add(content);
 
@@ -198,7 +238,8 @@ namespace Homesteader.UI
                 Element = toastElem,
                 RemainingDuration = duration,
                 IsExiting = false,
-                IsPersistent = (type == ToastType.Severe)
+                IsPersistent = (type == ToastType.Severe),
+                MessageLabel = messageLabel
             };
 
             // Click to dismiss early (or dismiss severe toast)
@@ -217,12 +258,14 @@ namespace Homesteader.UI
             {
                 toastElem.RemoveFromClassList("toast-item--entering");
             }).StartingIn(20);
+            return activeToast;
         }
 
         private void DismissToast(ActiveToast toast)
         {
             if (toast == null || toast.IsExiting) return;
             toast.IsExiting = true;
+            if (toast.CountKey != null && _countedToasts.TryGetValue(toast.CountKey, out ActiveToast mapped) && mapped == toast) _countedToasts.Remove(toast.CountKey);
 
             if (toast.Element != null)
             {

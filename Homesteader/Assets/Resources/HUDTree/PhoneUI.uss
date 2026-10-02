@@ -233,7 +233,7 @@
 .phone-app-label {
     color: var(--c-text);
     font-size: 12px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
     -unity-text-align: upper-center;
     white-space: normal;
     width: 100%;
@@ -261,7 +261,7 @@
     left: 0;
     right: 0;
     top: 0;
-    bottom: 34px; /* Leaves room only for the sleek bottom home bar */
+    bottom: 0;
     flex-direction: column;
     background-color: var(--c-well);
     overflow: hidden;
@@ -411,6 +411,16 @@
    STORE APPS (DEPOT, GROCER, FEED STORE)
    ========================================================================= */
 
+/* Banner and search box above the scrolling items: they do not scroll away, and the list never slides under them. */
+.store-fixed {
+    flex-shrink: 0;
+    flex-grow: 0;
+    padding: 12px 14px 0 14px;
+    background-color: var(--c-well);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--c-raised);
+}
+
 .store-search-row {
     flex-direction: row;
     align-items: center;
@@ -529,7 +539,7 @@
 .store-item-name {
     color: var(--c-text);
     font-size: 15px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font-medium);
 }
 
 .store-item-price {
@@ -939,10 +949,11 @@
    ========================================================================= */
 
 .phone-bottom-bar {
-    height: 26px;
-    justify-content: center;
+    height: 18px;
+    justify-content: flex-end;
     align-items: center;
     flex-shrink: 0;
+    padding-bottom: 6px;
 }
 
 .phone-home-pill {
@@ -975,7 +986,7 @@
 .bank-card-label {
     color: rgb(147, 161, 179);
     font-size: 13px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
 }
 
 .bank-balance-large {
@@ -1138,7 +1149,7 @@
 .admin-label {
     color: var(--c-text);
     font-size: 13px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
 }
 
 .admin-sublabel {
@@ -1222,7 +1233,7 @@
 
 .admin-scale-label {
     font-size: 11px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font);
 }
 
 .admin-scale-label--min {
@@ -1385,7 +1396,7 @@
 
 .almanac-card-date {
     font-size: 13px;
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font-medium);
     color: rgb(235, 240, 250);
 }
 
@@ -1646,7 +1657,7 @@
 .mods-category-card-name {
     font-size: 13px;
     color: var(--c-text);
-    -unity-font: var(--font-bold);
+    -unity-font: var(--font-medium);
     margin-bottom: 3px;
 }
 
@@ -1875,56 +1886,24 @@
 /* ============================================== */
 .steadify-mini {
     width: 320px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-top-color: var(--c-accent);
 }
 
 .steadify-mini-header {
+    padding-right: 6px;
     flex-direction: row;
     align-items: center;
-    height: 18px;
-    padding: 0 2px 0 8px;
-    background-color: rgb(34, 43, 56);
+    height: 30px;
 }
 
 .steadify-mini-header-title {
-    -unity-font: var(--font-bold);
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: rgb(246, 157, 75);
     flex-grow: 1;
 }
 
 .steadify-mini-shuffleall {
-    -unity-font: var(--font-bold);
     height: 14px;
     margin: 0 4px 0 0;
     padding: 0 6px;
     font-size: 11px;
-    letter-spacing: 1px;
-    -unity-text-align: middle-center;
-    color: var(--c-well);
-    background-color: rgb(246, 157, 75);
-    border-width: 0;
-    border-radius: 7px;
-}
-
-.steadify-mini-shuffleall:hover {
-    background-color: rgb(250, 179, 112);
-}
-
-.steadify-mini-close {
-    -unity-font: var(--font-bold);
-    width: 18px;
-    height: 16px;
-    padding: 0;
-    margin: 0;
-    font-size: 13px;
-    -unity-text-align: middle-center;
-    color: var(--c-muted);
-    background-color: transparent;
     border-width: 0;
 }
 
@@ -2066,60 +2045,29 @@
 /* ============================================== */
 .container-panel {
     width: 300px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-top-color: var(--c-accent);
-}
-
-.container-panel-header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 22px;
-    padding: 0 2px 0 10px;
-    background-color: rgb(34, 43, 56);
-}
-
-.container-panel-title {
-    -unity-font: var(--font-bold);
-    font-size: 12px;
-    color: rgb(246, 157, 75);
-}
-
-.container-panel-body {
-    padding: 8px 10px 10px 10px;
 }
 
 .container-panel-capacity {
-    color: rgb(232, 236, 241);
+    color: var(--c-text);
     font-size: 12px;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
 }
 
 .container-panel-bar {
     height: 8px;
     border-radius: 4px;
-    background-color: var(--c-panel);
+    background-color: var(--c-well);
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .container-panel-bar-fill {
     height: 8px;
-    background-color: rgb(110, 190, 90);
+    background-color: var(--c-secondary);
 }
 
 .container-panel-bar-fill--full {
     background-color: var(--c-accent);
-}
-
-.container-panel-heading {
-    -unity-font: var(--font-bold);
-    color: var(--c-muted);
-    font-size: 11px;
-    letter-spacing: 1px;
-    margin: 6px 0 3px 0;
 }
 
 .container-panel-hint {
@@ -2131,7 +2079,7 @@
 .container-panel-row {
     flex-direction: row;
     align-items: center;
-    height: 28px;
+    height: 32px;
 }
 
 .container-panel-icon {
@@ -2144,7 +2092,7 @@
 
 .container-panel-row-name {
     flex-grow: 1;
-    color: rgb(232, 236, 241);
+    color: var(--c-text);
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;

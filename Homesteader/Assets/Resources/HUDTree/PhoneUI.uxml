@@ -27,7 +27,6 @@
                     </ui:VisualElement>
                     <ui:VisualElement class="phone-status-icons">
                         <ui:Label text="5G" class="phone-status-icon" />
-                        <ui:Label text="▲" class="phone-status-icon" />
                         <ui:VisualElement class="phone-battery-pill">
                             <ui:VisualElement name="PhoneBatteryFill" class="phone-battery-fill" />
                         </ui:VisualElement>
@@ -44,7 +43,6 @@
                                 <ui:Label name="PhoneWeatherTemp" text="72°F" class="phone-weather-temp" />
                                 <ui:Label name="PhoneWeatherDesc" text="Summer • Day 42 • Sunny" class="phone-weather-info" />
                             </ui:VisualElement>
-                            <ui:Label text="☀️" class="phone-weather-icon" />
                         </ui:VisualElement>
 
                         <!-- Paginated App Launcher Viewport with Swiping -->
@@ -205,7 +203,7 @@
                     <!-- VOLT / GRID OS APP VIEW -->
                     <ui:VisualElement name="ViewVolt" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="VoltBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="VoltBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Grid OS • Solar &amp; Power" class="phone-app-title" />
                         </ui:VisualElement>
                         <ui:ScrollView class="phone-app-scroll">
@@ -238,7 +236,7 @@
                     <!-- RESVIEW APP VIEW -->
                     <ui:VisualElement name="ViewRes" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="ResBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="ResBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="ResView • Homestead Utilities" class="phone-app-title" />
                         </ui:VisualElement>
                         <ui:ScrollView class="phone-app-scroll">
@@ -265,11 +263,12 @@
                     <!-- STORE APP VIEW (SHARED ENGINE) -->
                     <ui:VisualElement name="ViewStore" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="StoreBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="StoreBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label name="StoreTitle" text="Homestead Depot" class="phone-app-title" />
                         </ui:VisualElement>
 
-                        <ui:ScrollView class="phone-app-scroll">
+                        <!-- The banner and the search box stay put; only the items scroll underneath them. -->
+                        <ui:VisualElement class="store-fixed">
                             <ui:VisualElement name="StoreBanner" class="store-banner store-banner-depot">
                                 <ui:Label name="StoreBannerText" text="Fast Homestead Delivery (Free over $100)" class="store-banner-text" />
                             </ui:VisualElement>
@@ -278,7 +277,9 @@
                             <ui:VisualElement class="store-search-row">
                                 <ui:TextField name="StoreSearchInput" placeholder-text="Search items..." class="store-search-input" />
                             </ui:VisualElement>
+                        </ui:VisualElement>
 
+                        <ui:ScrollView class="phone-app-scroll">
                             <ui:VisualElement name="StoreItemsContainer">
                                 <!-- Populated dynamically by C# -->
                             </ui:VisualElement>
@@ -297,7 +298,7 @@
                     <!-- BANKING APP VIEW (FIRST HOMESTEAD BANK) -->
                     <ui:VisualElement name="ViewBank" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="BankBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="BankBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="First Homestead Bank" class="phone-app-title" />
                         </ui:VisualElement>
 
@@ -360,7 +361,7 @@
                     <!-- PLAYER MARKETPLACE / EXCHANGE APP VIEW -->
                     <ui:VisualElement name="ViewMarket" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="MarketBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="MarketBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Homestead Exchange" class="phone-app-title" />
                         </ui:VisualElement>
 
@@ -392,7 +393,7 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewAlmanac" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="AlmanacBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="AlmanacBackBtn" text="←" class="phone-back-btn" />
                             <ui:VisualElement style="flex-grow: 1;">
                                 <ui:Label text="Homestead Almanac" class="phone-app-title" />
                                 <ui:Label text="Rolling 32-Week Outlook" class="phone-app-subtitle" />
@@ -402,7 +403,7 @@
                         <!-- Almanac Today Banner -->
                         <ui:VisualElement name="AlmanacTodayBanner" class="almanac-today-banner">
                             <ui:Label name="AlmanacTodayTitle" text="TODAY • Day 1 (January 1 • Winter)" class="almanac-today-title" />
-                            <ui:Label name="AlmanacTodayDetails" text="☀️ Sunrise 7:30 AM • 🌙 Sunset 4:30 PM (9.0h) • 🌑 New Moon" class="almanac-today-details" />
+                            <ui:Label name="AlmanacTodayDetails" text="Sunrise 7:30 AM • Sunset 4:30 PM (9.0h) • New Moon" class="almanac-today-details" />
                         </ui:VisualElement>
 
                         <!-- Tab Bar: Daily (8 Weeks) vs Weekly (24 Weeks) -->
@@ -426,7 +427,7 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewGigs" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="GigsBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="GigsBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Gigs" class="phone-app-title" />
                         </ui:VisualElement>
 
@@ -460,7 +461,7 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewSteadify" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="SteadifyBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="SteadifyBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Steadify" class="phone-app-title" />
                         </ui:VisualElement>
 
@@ -513,7 +514,7 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewLand" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                      <ui:Button name="LandBackBtn" text="&lt;" class="phone-back-btn" />
+                      <ui:Button name="LandBackBtn" text="←" class="phone-back-btn" />
                       <ui:Label text="Land Office" class="phone-app-title" />
                         </ui:VisualElement>
                         <ui:ScrollView class="phone-app-scroll">
@@ -534,16 +535,16 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewAdmin" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="AdminBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="AdminBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Admin Tools" class="phone-app-title" />
-                            <ui:Button name="AdminAssetsBtn" text="Assets 📦" class="admin-header-assets-btn" tooltip="Open Asset Spawner Window" />
+                            <ui:Button name="AdminAssetsBtn" text="Assets" class="admin-header-assets-btn" tooltip="Open Asset Spawner Window" />
                         </ui:VisualElement>
                         <ui:ScrollView name="AdminScrollView" mode="Vertical" class="phone-app-scroll" mouse-wheel-scroll-size="36" vertical-scroller-visibility="AlwaysVisible">
                             <!-- Section: Item & Asset Spawner -->
                             <ui:VisualElement class="admin-card">
                                 <ui:VisualElement class="admin-header-row">
                                     <ui:Label text="ITEM &amp; ASSET SPAWNER" class="admin-card-title" />
-                                    <ui:Button name="AdminAssetsCardBtn" text="Open Assets 📦" class="admin-action-btn" style="background-color: rgb(46, 125, 50); border-color: rgb(76, 175, 80); color: white; padding-left: 8px; padding-right: 8px;" />
+                                    <ui:Button name="AdminAssetsCardBtn" text="Open Assets" class="admin-action-btn" style="padding-left: 8px; padding-right: 8px;" />
                                 </ui:VisualElement>
                                 <ui:Label text="Browse 540+ items across 17 categories. Click to add 1, Shift+Click to add a full stack to toolbar." class="admin-sublabel" style="font-size: 11px; margin-top: 3px;" />
                             </ui:VisualElement>
@@ -562,7 +563,7 @@
                                 <ui:VisualElement class="admin-header-row">
                                     <ui:Label text="PLAYER VITALS (-100 to +100)" class="admin-card-title" />
                                     <ui:VisualElement style="flex-direction: row;">
-                                        <ui:Button name="AdminVitalsResetBtn" text="Reset (0)" class="admin-action-btn" style="margin-right: 4px; background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                        <ui:Button name="AdminVitalsResetBtn" text="Reset (0)" class="admin-action-btn" style="margin-right: 4px;" />
                                         <ui:Button name="AdminVitalsMaxBtn" text="Max (+100)" class="admin-action-btn" />
                                     </ui:VisualElement>
                                 </ui:VisualElement>
@@ -632,7 +633,7 @@
                             <ui:VisualElement class="admin-card">
                                 <ui:VisualElement class="admin-header-row">
                                     <ui:Label text="RESOURCES &amp; FINANCES" class="admin-card-title" />
-                                    <ui:Button name="AdminResResetDefaultsBtn" text="Reset Defaults" class="admin-action-btn" style="background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                    <ui:Button name="AdminResResetDefaultsBtn" text="Reset Defaults" class="admin-action-btn"  />
                                 </ui:VisualElement>
 
                                 <ui:VisualElement class="admin-input-row">
@@ -728,20 +729,20 @@
                             <ui:VisualElement class="admin-card">
                                 <ui:VisualElement class="admin-header-row">
                                     <ui:Label text="WEATHER CONDITIONS" class="admin-card-title" />
-                                    <ui:Button name="AdminWeatherAutoBtn" text="Auto (Season)" class="admin-action-btn" style="background-color: rgb(70, 80, 95); border-color: rgb(90, 105, 125);" />
+                                    <ui:Button name="AdminWeatherAutoBtn" text="Auto (Season)" class="admin-action-btn"  />
                                 </ui:VisualElement>
                                 <ui:VisualElement class="admin-chip-row">
-                                    <ui:Button name="AdminWeatherSunnyBtn" text="☀️ Sunny" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherPartlyCloudyBtn" text="⛅ Pt Cloudy" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherCloudyBtn" text="☁️ Cloudy" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherRainBtn" text="🌧️ Rain" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherSunnyBtn" text="Sunny" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherPartlyCloudyBtn" text="Pt Cloudy" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherCloudyBtn" text="Cloudy" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherRainBtn" text="Rain" class="admin-chip-btn" />
                                 </ui:VisualElement>
                                 <ui:VisualElement class="admin-chip-row">
-                                    <ui:Button name="AdminWeatherThunderstormBtn" text="⛈️ Storm" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherSnowBtn" text="❄️ Snow" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherBlizzardBtn" text="🌨️ Blizzard" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherWindBtn" text="💨 Wind" class="admin-chip-btn" />
-                                    <ui:Button name="AdminWeatherFogBtn" text="🌫️ Fog" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherThunderstormBtn" text="Storm" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherSnowBtn" text="Snow" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherBlizzardBtn" text="Blizzard" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherWindBtn" text="Wind" class="admin-chip-btn" />
+                                    <ui:Button name="AdminWeatherFogBtn" text="Fog" class="admin-chip-btn" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:ScrollView>
@@ -752,7 +753,7 @@
                     <!-- ============================================== -->
                     <ui:VisualElement name="ViewMods" class="phone-app-view phone-app-view--hidden">
                         <ui:VisualElement class="phone-app-header">
-                            <ui:Button name="ModsBackBtn" text="&lt;" class="phone-back-btn" />
+                            <ui:Button name="ModsBackBtn" text="←" class="phone-back-btn" />
                             <ui:Label text="Mod Manager" class="phone-app-title" />
                         </ui:VisualElement>
 

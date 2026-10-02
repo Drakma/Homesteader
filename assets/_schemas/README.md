@@ -96,5 +96,7 @@ validated only on assets that have it. `on_add` lists manifest values set when t
 - `container` (`container.schema.json`, target `container`): the asset holds other items up to a weight.
   - `capacity_kg` (number > 0, required): the most weight it can hold (sum of weight_kg x count inside).
   - `stacking_limit` (integer >= 1, optional): identical placed containers can be stacked this high in one grid square in the world; omitted or 1 = no stacking.
+  - `show_fill` (boolean, optional, default true): a PLACED container draws what is inside as blocks that rise as it fills (one slab per kind of item: average colour on the sides, icon on top; `Assets/Scripts/Growth/ContainerFill.cs`). Set false for closed boxes.
+  - `single_type` (boolean, optional, default false): takes only one kind of item at a time; once it holds something only more of that item goes in (crates).
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.
   - `on_add`: sets `properties.max_stack_size` to 1 (a container carries its own contents, so it is one per toolbar slot).

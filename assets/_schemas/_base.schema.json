@@ -64,6 +64,12 @@
       "min": -100,
       "max": 100,
       "note": "Wellness is the player's overall health/sickness meter, and it's broader than just consumption. Sources of wellness change, most of which are RUNTIME EVENTS/CONDITIONS rather than a static per-item value (so most items stay 0 here even though they're relevant to the mechanic): (1) consumption - contaminated/unfiltered water and questionable food lower it, clean filtered water and wholesome food raise it (this is what the field captures on food/water items); (2) injury - physical harm while doing risky work (e.g. handling an aggressive animal, see ranching.temperament) is a runtime event, not an item property; (3) environmental exposure - working in/near unclean conditions (manure piles, see waste category) lowers it via proximity, similar to happiness_modifier's proximity model; (4) sleep deprivation - insufficient energy_restore over time is a runtime accumulation, not a single item's value; (5) hygiene - NOT SHOWERING lowers wellness over time; there is currently NO shower/bathing item in the catalog to raise it back - this is a real gap, see the queued asset request; (6) WEATHER EXPOSURE - being out in hot sun without drinking (thirst_restore not being met) lowers wellness on top of the thirst penalty itself; being outside in cold/winter weather without adequate winter gear also lowers wellness. There is currently NO clothing/apparel category or winter gear item in the catalog at all - a real gap, see the queued Winter Coat asset request; once winter gear exists it should carry a positive wellness_modifier (or a dedicated cold-resistance field) representing protection from this penalty. DESIGN RULE: wellness can ONLY be raised by the player deliberately taking care of themselves (eating well, hydrating, sleeping, showering, avoiding injury/unclean exposure) - it must never passively regenerate on its own or rise from unrelated sources. RUNTIME REQUIREMENT: wellness itself should feed back into OTHER stats, not just be a dead-end meter - low wellness should reduce max stamina and reduce happiness. This cross-stat relationship is game logic, not a catalog field."
+    },
+    "placeable": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "note": "Whether the player can put this item on the ground (left click with a shadow preview, or right click). Default yes for any item with a model; set false for things that should never be placed. Seeds that plant a growth group are never placed."
     }
   }
 }

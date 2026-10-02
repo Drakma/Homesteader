@@ -12,27 +12,25 @@ namespace Homesteader.UI
     public sealed class SteadifyMiniPlayer
     {
         private static SteadifyMiniPlayer _open;
+        private const string WindowId = "steadify_mini";
 
-        public static bool IsOpen => _open != null;
+        public static bool IsOpen { get { DropStale(); return _open != null; } }
+
+        /// <summary>A mini player whose window left the panel (the HUD was rebuilt by New Game or a load) is not open any more; without this the first click only "closed" the stale one.</summary>
+        private static void DropStale()
+        {
+            if (_open != null && _open._window.panel == null) _open.Close();   // also unsubscribes its audio events
+        }
 
         // Where the player is shown from a save (the phone registers its root once it is built), and where it was last put.
         private static VisualElement _host;
-        private static Vector2 _lastPos = new Vector2(40f, 90f);
 
         public static void SetHost(VisualElement anyElementOnPanel) { _host = anyElementOnPanel; }
 
-        /// <summary>For the save: whether the mini player is open and where it sits.</summary>
-        public static void Capture(out bool open, out float x, out float y)
-        {
-            open = _open != null;
-            if (_open != null) _lastPos = new Vector2(_open._window.resolvedStyle.left, _open._window.resolvedStyle.top);
-            x = _lastPos.x; y = _lastPos.y;
-        }
-
         /// <summary>For loading a save: open (at the saved spot) or close the mini player to match.</summary>
-        public static void Restore(bool open, float x, float y)
+        public static void Restore(bool open)
         {
-            _lastPos = new Vector2(x, y);
+            DropStale();
             if (_open != null) _open.Close();
             if (open && _host != null) { Toggle(_host); }
         }
@@ -40,6 +38,7 @@ namespace Homesteader.UI
         /// <summary>Opens the mini player on the same panel as the given element, or closes it if it is already open.</summary>
         public static void Toggle(VisualElement anyElementOnPanel)
         {
+            DropStale();
             if (_open != null) { _open.Close(); return; }
             // Added under the HUD document's own root (not the panel's), so the HUD style sheets (PhoneUI.uss) apply to it.
             var top = anyElementOnPanel;
@@ -63,27 +62,31 @@ namespace Homesteader.UI
         private SteadifyMiniPlayer(VisualElement panelRoot)
         {
             _window = new VisualElement { name = "SteadifyMiniPlayer" };
+            _window.AddToClassList("window");
             _window.AddToClassList("steadify-mini");
+            var edge = new VisualElement { pickingMode = PickingMode.Ignore };
+            edge.AddToClassList("hs-accent-edge");
+            _window.Add(edge);
             _window.style.position = Position.Absolute;
-            _window.style.left = _lastPos.x;
-            _window.style.top = _lastPos.y;
 
             // Title bar: the drag handle.
             var header = new VisualElement();
+            header.AddToClassList("window-header");
             header.AddToClassList("steadify-mini-header");
             var headerTitle = new Label("STEADIFY");
+            headerTitle.AddToClassList("window-title");
             headerTitle.AddToClassList("steadify-mini-header-title");
             headerTitle.pickingMode = PickingMode.Ignore;
             header.tooltip = "Drag to move";
             var shuffleAll = new Button(() => AudioManager.Instance?.MusicShuffleAll()) { text = "SHUFFLE ALL", tooltip = "Shuffle All: play every song from every playlist in random order" };
             shuffleAll.AddToClassList("steadify-mini-shuffleall");
-            var close = new Button(Close) { text = "\u00D7", tooltip = "Close the mini player" };
-            close.AddToClassList("steadify-mini-close");
+            var close = new Button(Close) { text = "X", tooltip = "Close the mini player" };
+            close.AddToClassList("hs-close");
             header.Add(headerTitle);
             header.Add(shuffleAll);
             header.Add(close);
             _window.Add(header);
-            MakeDraggable(_window, header);
+            WindowPositions.MakeDraggable(_window, header, WindowId);
 
             var body = new VisualElement();
             body.AddToClassList("steadify-mini-body");
@@ -146,6 +149,7 @@ namespace Homesteader.UI
             VisualElement wallpaper = panelRoot.Q<VisualElement>("WelcomeWallpaper");
             if (wallpaper != null && wallpaper.parent == panelRoot) panelRoot.Insert(panelRoot.IndexOf(wallpaper), _window);
             else panelRoot.Add(_window);
+            WindowPositions.Place(_window, WindowId);   // centered the first time, then where it was left
             var audio = AudioManager.Instance;
             if (audio != null) { audio.MusicStateChanged += Refresh; audio.PlaylistChanged += Refresh; }
             _tick = _window.schedule.Execute(RefreshTransport).Every(200);
@@ -164,7 +168,7 @@ namespace Homesteader.UI
         {
             var audio = AudioManager.Instance;
             if (audio != null) { audio.MusicStateChanged -= Refresh; audio.PlaylistChanged -= Refresh; }
-            _lastPos = new Vector2(_window.resolvedStyle.left, _window.resolvedStyle.top);
+            WindowPositions.Remember(_window, WindowId);
             _tick?.Pause();
             _window.RemoveFromHierarchy();
             if (_open == this) _open = null;
@@ -213,38 +217,5 @@ namespace Homesteader.UI
             return $"{total / 60}:{total % 60:00}";
         }
 
-        /// <summary>Drag a window by its title bar, kept inside the panel (same pattern as the HUD windows).</summary>
-        private static void MakeDraggable(VisualElement window, VisualElement handle)
-        {
-            bool dragging = false;
-            Vector2 startPointer = Vector2.zero, startPos = Vector2.zero;
-            handle.RegisterCallback<PointerDownEvent>(evt =>
-            {
-                if (evt.target is Button) return;   // the close button is not part of the handle
-                dragging = true;
-                startPointer = evt.position;
-                startPos = new Vector2(window.resolvedStyle.left, window.resolvedStyle.top);
-                handle.CapturePointer(evt.pointerId);
-                evt.StopPropagation();
-            });
-            handle.RegisterCallback<PointerMoveEvent>(evt =>
-            {
-                if (!dragging) return;
-                Vector2 p = startPos + ((Vector2)evt.position - startPointer);
-                var parent = window.parent;
-                float maxX = (parent != null ? parent.resolvedStyle.width : Screen.width) - window.resolvedStyle.width;
-                float maxY = (parent != null ? parent.resolvedStyle.height : Screen.height) - window.resolvedStyle.height;
-                window.style.left = Mathf.Clamp(p.x, 0f, Mathf.Max(0f, maxX));
-                window.style.top = Mathf.Clamp(p.y, 0f, Mathf.Max(0f, maxY));
-                evt.StopPropagation();
-            });
-            handle.RegisterCallback<PointerUpEvent>(evt =>
-            {
-                if (!dragging) return;
-                dragging = false;
-                handle.ReleasePointer(evt.pointerId);
-                evt.StopPropagation();
-            });
-        }
     }
 }

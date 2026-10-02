@@ -99,7 +99,7 @@ namespace Homesteader.Grass
         {
             if (!ready && Application.isPlaying)
             {
-                var gen = FindObjectOfType<HomesteaderTerrainGenerator>();
+                var gen = FindAnyObjectByType<HomesteaderTerrainGenerator>();
                 if (gen != null && gen.GetBakedBiomeMap() != null && !gen.IsGenerating)
                 {
                     StartCoroutine(InitializeAsync());
@@ -176,7 +176,7 @@ namespace Homesteader.Grass
         {
             isGenerating = true;
 
-            terrainGen = FindObjectOfType<HomesteaderTerrainGenerator>();
+            terrainGen = FindAnyObjectByType<HomesteaderTerrainGenerator>();
             if (terrainGen == null) { isGenerating = false; yield break; }
             terrain = terrainGen.GetComponent<Terrain>();
             if (terrain == null) { isGenerating = false; yield break; }

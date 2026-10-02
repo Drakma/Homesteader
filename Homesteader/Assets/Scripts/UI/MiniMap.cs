@@ -53,6 +53,7 @@ namespace Homesteader.UI
 
         private VisualElement frame, squash, plane, dot;
           	private readonly List<VisualElement> shadows = new List<VisualElement>();
+        private Vector2 lastSlide;   // where the plane is slid to (plane pixels, before the squash)
           	private float scale = 1f;
           	private float posX01 = 1f, posY01 = 1f;     // top left corner as a share of the free space (1, 1 = bottom right)
           	private bool needsLayout = true;
@@ -117,6 +118,7 @@ namespace Homesteader.UI
         	lbl.style.fontSize = 14;
         	lbl.style.color = Color.white;
         	lbl.style.unityTextAlign = TextAnchor.MiddleCenter;
+        	lbl.style.textShadow = new TextShadow { offset = new Vector2(1f, 1f), blurRadius = 3f, color = new Color(0f, 0f, 0f, 0.9f) };
         	lbl.style.width = 24f;
         	lbl.style.height = 24f;
         	lbl.AddToClassList("minimap-dir");
@@ -124,48 +126,37 @@ namespace Homesteader.UI
         }
 
         /// <summary>
-        /// Repositions the N/S/E/W labels around the minimap center, rotated by
-        /// the camera yaw so they track the map's rotation.  Each label sits at
-        /// a fixed radius from the center; its angle is its cardinal bearing
-        /// minus the camera yaw (matching the plane's -yaw rotation).
+        /// N, E, S and W sit on the VISIBLE edge of the map: the map is a square plane that turns with the camera, is
+        /// flattened to the isometric angle and slides so the player stays in the middle, so each label is placed at the
+        /// middle of the plane's edge for its compass point, found the same way the map itself is drawn (turn by -yaw,
+        /// squash, add the plane's slide). They therefore travel round the outline of the map as it turns. A label that
+        /// would fall outside the panel is held just inside it.
         /// </summary>
         private void UpdateDirLabels(float yaw)
         {
         	if (dirN == null) return;
         	float w = PanelW * scale, h = PanelH * scale;
-        	float cx = w * 0.5f, cy = h * 0.5f;
         	float ls = 24f;
-        	// Radius from center to label center — keep labels just inside the frame edge.
-        	float rx = (w - ls) * 0.5f;
-        	float ry = (h - ls) * 0.5f;
-        	float rad = Mathf.Min(rx, ry);
-        	float yr = yaw * Mathf.Deg2Rad;
-        	float cosY = Mathf.Cos(yr), sinY = Mathf.Sin(yr);
-
-        	// Each cardinal starts at a base angle (N=0, E=90, S=180, W=270)
-        	// measured clockwise from north in screen space (Y-down).
-        	// After rotating by -yaw (the plane's rotation), the screen position is:
-        	//   x = r * sin(baseAngle - yaw)
-        	//   y = -r * cos(baseAngle - yaw)
-        	PlaceDirLabel(dirN, 0f, cx, cy, rad, ls, cosY, sinY);
-        	PlaceDirLabel(dirE, 90f, cx, cy, rad, ls, cosY, sinY);
-        	PlaceDirLabel(dirS, 180f, cx, cy, rad, ls, cosY, sinY);
-        	PlaceDirLabel(dirW, 270f, cx, cy, rad, ls, cosY, sinY);
+        	float halfSide = PlaneSidePx * scale * 0.5f;
+        	Vector2 planeCentre = new Vector2(w * 0.5f + lastSlide.x, h * 0.5f + lastSlide.y * IsoSquash);
+        	PlaceDirLabel(dirN, 0f, yaw, planeCentre, halfSide, w, h, ls);
+        	PlaceDirLabel(dirE, 90f, yaw, planeCentre, halfSide, w, h, ls);
+        	PlaceDirLabel(dirS, 180f, yaw, planeCentre, halfSide, w, h, ls);
+        	PlaceDirLabel(dirW, 270f, yaw, planeCentre, halfSide, w, h, ls);
         }
 
-        private void PlaceDirLabel(Label lbl, float baseAngleDeg, float cx, float cy, float r, float ls, float cosY, float sinY)
+        private static void PlaceDirLabel(Label lbl, float bearingDeg, float yawDeg, Vector2 planeCentre, float halfSide, float w, float h, float ls)
         {
-        	float a = (baseAngleDeg) * Mathf.Deg2Rad;
-        	// Rotate the base position by -yaw (clockwise in screen coords):
-        	// x' = x*cos(yaw) + y*sin(yaw)
-        	// y' = -x*sin(yaw) + y*cos(yaw)
-        	// where base x = r*sin(a), base y = -r*cos(a)
-        	float bx = r * Mathf.Sin(a);
-        	float by = -r * Mathf.Cos(a);
-        	float x = bx * cosY + by * sinY;
-        	float y = -bx * sinY + by * cosY;
-        	lbl.style.left = cx + x - ls * 0.5f;
-        	lbl.style.top = cy + y - ls * 0.5f;
+        	float b = bearingDeg * Mathf.Deg2Rad;
+        	// The middle of the plane's edge in that compass direction, turned by the map's rotation, then squashed.
+        	Vector2 v = ToPlane(new Vector2(Mathf.Sin(b), Mathf.Cos(b)) * halfSide, yawDeg, 1f);
+        	float x = planeCentre.x + v.x;
+        	float y = planeCentre.y + v.y * IsoSquash;
+        	float half = ls * 0.5f;
+        	x = Mathf.Clamp(x, half, w - half);
+        	y = Mathf.Clamp(y, half, h - half);
+        	lbl.style.left = x - half;
+        	lbl.style.top = y - half;
         }
 
         private void Update()
@@ -240,6 +231,7 @@ namespace Homesteader.UI
             float side = PlaneSidePx * scale;
             float ppm = side / (2f * baseExtent);                       // plane pixels per metre at the grid's zoom
             Vector2 slide = -ToPlane(pc - baseCenter, yaw, ppm);
+            lastSlide = slide;
             plane.style.translate = new Translate(slide.x, slide.y);
             UpdateLivingDots(pc, yaw, side, PlaneSidePx * scale / (2f * halfExtent));
         }
@@ -365,7 +357,6 @@ namespace Homesteader.UI
             			// Cardinal direction labels around the minimap.
             			// Positions are recomputed every frame in Update() based on camera yaw,
             			// so they rotate with the map. Stored dimensions for the reposition math.
-            			float labelSize = 24f;
             			dirN = CreateDirLabel("N"); frame.Add(dirN);
             			dirS = CreateDirLabel("S"); frame.Add(dirS);
             			dirE = CreateDirLabel("E"); frame.Add(dirE);

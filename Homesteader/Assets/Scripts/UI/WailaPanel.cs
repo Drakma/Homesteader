@@ -31,6 +31,12 @@ namespace Homesteader.UI
         private VisualElement _headerRow;
         private Image _iconImage;
         private Label _titleLabel;
+
+        // Rows that rotate through the tools able to do a job (icon and name); Shift holds the rotation.
+        private sealed class ToolRotation { public Image Icon; public Label Name; public List<string> Items; public int Shown = -1; }
+        private readonly List<ToolRotation> _rotations = new List<ToolRotation>();
+        private float _rotationClock;
+        private const float SecondsPerTool = 1.6f;
         private VisualElement _rows;
         private string _lastContentKey;
         private static HomesteaderTerrainGenerator _cachedGenerator;
@@ -65,6 +71,7 @@ namespace Homesteader.UI
             {
                 EnsureBuilt();
                 RefreshContent();
+                UpdateToolRotation();
             }
 
             UpdateToastPush();
@@ -95,7 +102,7 @@ namespace Homesteader.UI
             _panel = new VisualElement { name = "WailaPanel" };
             _panel.style.position = Position.Absolute;
             _panel.style.left = new Length(50, LengthUnit.Percent);
-            _panel.style.top = 67f; // header height (64) + 3px padding
+            _panel.style.top = 70f; // header height (64) + 6px gap
             _panel.style.translate = new Translate(new Length(-50, LengthUnit.Percent), 0);
             _panel.style.minWidth = 260f;
             _panel.style.maxWidth = 380f;
@@ -184,8 +191,19 @@ namespace Homesteader.UI
                 _iconImage.style.display = DisplayStyle.None;
             }
             _rows.Clear();
+            _rotations.Clear();
             foreach (var (label, value) in details)
             {
+                if (label.StartsWith("@item|"))
+                {
+                    AddItemRow(label.Substring("@item|".Length), value);
+                    continue;
+                }
+                if (label.StartsWith("@tools|"))
+                {
+                    AddToolRow(label.Substring("@tools|".Length), value);
+                    continue;
+                }
                 var row = new VisualElement();
                 row.style.flexDirection = FlexDirection.Row;
                 row.style.justifyContent = Justify.SpaceBetween;
@@ -196,6 +214,73 @@ namespace Homesteader.UI
                 row.Add(labelEl);
                 row.Add(valueEl);
                 _rows.Add(row);
+            }
+        }
+
+        /// <summary>A row "[icon] Item name ... xN": one item held in a container.</summary>
+        private void AddItemRow(string itemId, string count)
+        {
+            var row = new VisualElement();
+            row.style.flexDirection = FlexDirection.Row;
+            row.style.justifyContent = Justify.SpaceBetween;
+            row.style.alignItems = Align.Center;
+            row.style.marginTop = 3f;
+            var left = new VisualElement();
+            left.style.flexDirection = FlexDirection.Row;
+            left.style.alignItems = Align.Center;
+            Texture2D tex = Homesteader.UI.PhoneController.GetItemIcon(null, itemId);
+            if (tex != null)
+            {
+                var icon = new Image { image = tex, scaleMode = ScaleMode.ScaleToFit };
+                icon.style.width = 22f; icon.style.height = 22f; icon.style.marginRight = 6f;
+                left.Add(icon);
+            }
+            left.Add(new Label(Homesteader.UI.HudBindings.GetItemName(itemId)) { style = { color = TextColor, fontSize = 14f } });
+            row.Add(left);
+            row.Add(new Label("x" + count) { style = { color = TextDim, fontSize = 14f } });
+            _rows.Add(row);
+        }
+
+        /// <summary>A row "label ... [icon] Tool name" that cycles through every item the tool spec accepts.</summary>
+        private void AddToolRow(string label, string spec)
+        {
+            List<string> items = GrowthRegistry.ToolItems(spec);
+            var row = new VisualElement();
+            row.style.flexDirection = FlexDirection.Row;
+            row.style.justifyContent = Justify.SpaceBetween;
+            row.style.alignItems = Align.Center;
+            row.style.marginTop = 3f;
+            row.Add(new Label(label) { style = { color = TextDim, fontSize = 14f } });
+            var right = new VisualElement();
+            right.style.flexDirection = FlexDirection.Row;
+            right.style.alignItems = Align.Center;
+            var icon = new Image { scaleMode = ScaleMode.ScaleToFit };
+            icon.style.width = 22f; icon.style.height = 22f; icon.style.marginRight = 6f;
+            var name = new Label(items.Count == 0 ? "Any matching tool" : "") { style = { color = TextColor, fontSize = 14f } };
+            right.Add(icon); right.Add(name);
+            row.Add(right);
+            _rows.Add(row);
+            if (items.Count == 0) { icon.style.display = DisplayStyle.None; return; }
+            _rotations.Add(new ToolRotation { Icon = icon, Name = name, Items = items });
+        }
+
+        /// <summary>Advances the clock (held while Shift is down) and shows the current tool in every rotating row.</summary>
+        private void UpdateToolRotation()
+        {
+            if (_rotations.Count == 0) return;
+            bool hold = Keyboard.current != null && Keyboard.current.shiftKey.isPressed;
+            if (!hold) _rotationClock += Time.unscaledDeltaTime;
+            int step = Mathf.FloorToInt(_rotationClock / SecondsPerTool);
+            foreach (ToolRotation r in _rotations)
+            {
+                int index = step % r.Items.Count;
+                if (index == r.Shown) continue;
+                r.Shown = index;
+                string id = r.Items[index];
+                r.Name.text = Homesteader.UI.HudBindings.GetItemName(id);
+                Texture2D tex = Homesteader.UI.PhoneController.GetItemIcon(null, id);
+                r.Icon.image = tex;
+                r.Icon.style.display = tex != null ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 
@@ -215,6 +300,26 @@ namespace Homesteader.UI
                 if (stageName != null) details.Add(("Stage", stageName));
                 details.Add(("State", growth.State.ToString()));
                 details.Add(("Ready to harvest", growth.CanHarvest ? "Yes" : "No"));
+                string harvestTools = growth.Group?.Rules?.YieldTool;
+                if (!string.IsNullOrEmpty(harvestTools)) details.Add(("@tools|Harvest with", harvestTools));
+                return;
+            }
+
+            var placed = hovered.GetComponentInParent<PlacedObject>() ?? hovered.GetComponentInChildren<PlacedObject>();
+            if (placed != null)
+            {
+                int stackCount = placed.StackCount;
+                title = Homesteader.UI.HudBindings.GetItemName(placed.ItemId) + (stackCount > 1 ? "  x" + stackCount : "");
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, placed.ItemId);
+                if (stackCount > 1) details.Add(("Stacked", stackCount + " high"));
+                if (Homesteader.UI.ContainerRules.IsContainer(placed.ItemId))
+                {
+                    details.Add(("Holds", $"{Homesteader.UI.ContainerRules.Used(placed.Contents):0.0} / {Homesteader.UI.ContainerRules.Capacity(placed.ItemId):0.0} kg"));
+                    if (placed.Contents != null && placed.Contents.Count > 0)
+                        foreach (ContainerStack c in placed.Contents) details.Add(("@item|" + c.ItemId, c.Count.ToString()));   // an icon row
+                    else details.Add(("Contents", "Empty"));
+                }
+                details.Add(("Right click", "Pick up"));
                 return;
             }
 
@@ -236,8 +341,12 @@ namespace Homesteader.UI
         private static string NiceNameFromGameObject(string rawName)
         {
             string s = rawName;
-            foreach (string prefix in new[] { "Planted_", "Item_" })
+            // Model clones are named "GLB_<item id>(Clone)": drop the decoration and use the catalog's real name when the id is an item.
+            if (s.EndsWith("(Clone)")) s = s.Substring(0, s.Length - "(Clone)".Length).TrimEnd();
+            foreach (string prefix in new[] { "Planted_", "Item_", "GLB_" })
                 if (s.StartsWith(prefix)) s = s.Substring(prefix.Length);
+            string catalogName = Homesteader.UI.HudBindings.GetItemName(s);
+            if (!string.IsNullOrEmpty(catalogName) && catalogName != s) return catalogName;
             s = s.Replace('_', ' ');
             return s.Length > 0 ? char.ToUpperInvariant(s[0]) + s.Substring(1) : rawName;
         }
@@ -383,11 +492,7 @@ namespace Homesteader.UI
             details.Clear();
 
             if (!TryGroundHit(out Vector3 hit)) return false;
-            int cellX = Mathf.FloorToInt(hit.x);
-            int cellZ = Mathf.FloorToInt(hit.z);
-
             title = "Ground";
-            details.Add(("Grid cell", $"({cellX}, {cellZ})"));
 
             // A planting zone on the ground wins; otherwise fall back to the generated terrain's
             // own biome map (same order PlantingValidator uses), so this doesn't just say "none"
@@ -427,7 +532,7 @@ namespace Homesteader.UI
             {
                 float panelHeight = _panel.resolvedStyle.height;
                 if (panelHeight <= 0f) panelHeight = 70f; // not laid out yet this frame; reasonable default
-                _toastContainer.style.top = 67f + panelHeight + 8f;
+                _toastContainer.style.top = 70f + panelHeight + 8f;
             }
             else
             {

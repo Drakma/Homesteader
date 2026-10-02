@@ -44,8 +44,7 @@ namespace Homesteader.UI
         private readonly Button[] _navButtons = new Button[4];
         private readonly VisualElement[] _pages = new VisualElement[4];
         private Button _resetAllBtn;
-        private IntegerField _zoomMaxField;
-        private Toggle _zoomLockToggle;
+        private SliderInt _zoomMaxField;
 
         private DropdownField _qualityDropdown;
         private Toggle _fullscreenToggle;
@@ -120,8 +119,7 @@ namespace Homesteader.UI
             }
 
             _resetAllBtn = root.Q<Button>("SettingsResetAllBtn");
-            _zoomMaxField = root.Q<IntegerField>("ZoomMaxLevel");
-            _zoomLockToggle = root.Q<Toggle>("ZoomLockToggle");
+            _zoomMaxField = root.Q<SliderInt>("ZoomMaxLevel");
             _qualityDropdown = root.Q<DropdownField>("QualityDropdown");
             _fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
             _vsyncToggle = root.Q<Toggle>("VsyncToggle");
@@ -318,7 +316,6 @@ namespace Homesteader.UI
 
             // Zoom: the fields are read back (and saved) by WelcomeMenuController when the dialog closes.
             if (_zoomMaxField != null) _zoomMaxField.value = 15;
-            if (_zoomLockToggle != null) _zoomLockToggle.value = false;
 
             if (GraphicsSettingsPanel.Instance != null) GraphicsSettingsPanel.Instance.ResetToDefaults();
             if (Homesteader.Audio.AudioManager.Instance != null) Homesteader.Audio.AudioManager.Instance.ResetVolumes();

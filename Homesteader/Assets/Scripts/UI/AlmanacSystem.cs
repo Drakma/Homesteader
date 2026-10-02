@@ -33,7 +33,7 @@ namespace Homesteader.UI
         public float DaylightHours;
         public string MoonPhaseName;
         public string MoonIcon;
-        public string AstronomicalBadge; // e.g. "★ Spring Equinox", "🌕 Full Moon", etc.
+        public string AstronomicalBadge; // e.g. "Spring Equinox", "Full Moon", etc.
 
         // Weather forecast
         public HomesteaderWeather ActualWeather; // Ground truth
@@ -253,8 +253,8 @@ namespace Homesteader.UI
                 string astroBadge = TimeSystem.GetAstronomicalEvent(normDay);
                 if (string.IsNullOrEmpty(astroBadge))
                 {
-                    if (moonAge == 15) astroBadge = "🌕 Full Moon";
-                    else if (moonAge == 1) astroBadge = "🌑 New Moon";
+                    if (moonAge == 15) astroBadge = "Full Moon";
+                    else if (moonAge == 1) astroBadge = "New Moon";
                 }
 
                 list.Add(new DailyForecast
@@ -421,14 +421,14 @@ namespace Homesteader.UI
 
         public static string GetMoonPhaseIcon(int moonAge)
         {
-            if (moonAge == 1) return "🌑";
-            if (moonAge >= 2 && moonAge <= 7) return "🌒";
-            if (moonAge == 8) return "🌓";
-            if (moonAge >= 9 && moonAge <= 14) return "🌔";
-            if (moonAge == 15) return "🌕";
-            if (moonAge >= 16 && moonAge <= 21) return "🌖";
-            if (moonAge == 22) return "🌗";
-            return "🌘";
+            if (moonAge == 1) return "";
+            if (moonAge >= 2 && moonAge <= 7) return "";
+            if (moonAge == 8) return "";
+            if (moonAge >= 9 && moonAge <= 14) return "";
+            if (moonAge == 15) return "";
+            if (moonAge >= 16 && moonAge <= 21) return "";
+            if (moonAge == 22) return "";
+            return "";
         }
 
         public static string GetWeatherIconId(HomesteaderWeather w)

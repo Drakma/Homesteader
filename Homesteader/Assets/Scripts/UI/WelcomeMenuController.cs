@@ -51,8 +51,7 @@ namespace Homesteader.UI
 
         // Settings dialog elements
         private VisualElement _settingsDialog;
-        private IntegerField _zoomMaxField;
-        private Toggle _zoomLockToggle;
+        private SliderInt _zoomMaxField;
         private Button _settingsCloseBtn;
 
         private bool _isVisible;
@@ -238,8 +237,7 @@ namespace Homesteader.UI
 
             // Settings dialog
             _settingsDialog = _root.Q<VisualElement>("SettingsDialog");
-            _zoomMaxField = _root.Q<IntegerField>("ZoomMaxLevel");
-            _zoomLockToggle = _root.Q<Toggle>("ZoomLockToggle");
+            _zoomMaxField = _root.Q<SliderInt>("ZoomMaxLevel");
             _settingsCloseBtn = _root.Q<Button>("SettingsCloseBtn");
 
             // Wire buttons
@@ -255,9 +253,21 @@ namespace Homesteader.UI
             UpdateContinueButton();
         }
 
+        /// <summary>True once a game is running (New Game or Continue was chosen). The menu then offers Resume, which just closes it.</summary>
+        private static bool s_inGame;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetInGame() { s_inGame = false; }
+
         private void UpdateContinueButton()
         {
             if (_continueBtn == null) return;
+            if (s_inGame)
+            {
+                _continueBtn.SetEnabled(true);
+                _continueBtn.text = "Resume";
+                return;
+            }
             bool hasSave = GameSave.Exists;
             _continueBtn.SetEnabled(hasSave);
             _continueBtn.text = hasSave ? "Continue" : "Continue (No Save)";
@@ -304,6 +314,7 @@ namespace Homesteader.UI
         public void Hide()
         {
             if (_menuRoot == null) return;
+            s_inGame = true;
             _menuRoot.AddToClassList("welcome--hidden");
             _menuRoot.style.display = DisplayStyle.None;
             // Hide the wallpaper too so it doesn't linger — but keep it
@@ -390,6 +401,7 @@ namespace Homesteader.UI
             var seedRng = new System.Random(System.DateTime.Now.GetHashCode());
             int newSeed = seedRng.Next(1, 999999);
             Debug.Log($"[WelcomeMenu] New world seed: {newSeed}");
+            Homesteader.DebugTools.TerrainGeneratorBootstrap.SeedOverride = 0;
 
             // Keep the welcome card visible and show the progress bar.
             // Generate terrain in-place (no scene reload) so the card
@@ -399,6 +411,11 @@ namespace Homesteader.UI
 
         private void OnContinue()
         {
+            if (s_inGame)
+            {
+                Hide();   // Resume: back to the running game; nothing is reloaded
+                return;
+            }
             if (!GameSave.Exists)
             {
                 SetStatus("No save found. Start a New Game instead.");
@@ -407,6 +424,10 @@ namespace Homesteader.UI
             SetStatus("Loading...");
             _isNewGamePending = false;
             _skipShowOnLoad = true;
+            // The reloaded scene builds its world from the generator's default seed; hand it the saved one so trees, water and
+            // biomes come back where they were.
+            GameSave saved = GameSave.ReadFromDisk();
+            Homesteader.DebugTools.TerrainGeneratorBootstrap.SeedOverride = saved != null ? saved.worldSeed : 0;
             ReloadScene();
         }
 
@@ -450,10 +471,8 @@ namespace Homesteader.UI
             if (_settingsDialog == null) return;
 
             // Load current values from PlayerPrefs into the dialog fields
-            bool locked = PlayerPrefs.GetInt("ZoomLockEnabled", 0) == 1;
             int maxLevel = PlayerPrefs.GetInt("ZoomMaxLevel", 15);
-            _zoomLockToggle.value = locked;
-            _zoomMaxField.value = maxLevel;
+            _zoomMaxField.SetValueWithoutNotify(Mathf.Clamp(maxLevel, 3, 50));
 
             // Show the dialog
             _settingsDialog.RemoveFromClassList("settings--hidden");
@@ -465,10 +484,8 @@ namespace Homesteader.UI
             if (_settingsDialog == null) return;
 
             // Save values to PlayerPrefs
-            bool locked = _zoomLockToggle.value;
-            int maxLevel = _zoomMaxField.value;
-            PlayerPrefs.SetInt("ZoomLockEnabled", locked ? 1 : 0);
-            PlayerPrefs.SetInt("ZoomMaxLevel", Mathf.Clamp(maxLevel, 1, 100));
+            int maxLevel = Mathf.Clamp(_zoomMaxField.value, 3, 50);
+            PlayerPrefs.SetInt("ZoomMaxLevel", maxLevel);
             PlayerPrefs.Save();
 
             // Notify the camera to pick up the new setting
@@ -479,9 +496,7 @@ namespace Homesteader.UI
             _settingsDialog.AddToClassList("settings--hidden");
             _settingsDialog.style.display = DisplayStyle.None;
 
-            SetStatus(locked
-                ? $"Zoom locked to max level {Mathf.Clamp(maxLevel, 1, 100)}."
-                : "Zoom limit removed.");
+            SetStatus($"Zoom max level {maxLevel}.");
         }
 
         private void OnExit()

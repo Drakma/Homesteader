@@ -8,7 +8,7 @@
   "properties": {
     "weight_kg": 1.5,
     "max_stack_size": 1,
-    "base_value": 8.0,
+    "base_value": 8,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -73,8 +73,11 @@
     }
   },
   "container": {
-    "capacity_kg": 10.0,
-    "stacking_limit": 6,
-    "accepts": []
+    "capacity_kg": 10,
+    "stacking_limit": 8,
+    "accepts": [
+      "#food"
+    ],
+    "single_type": true
   }
 }

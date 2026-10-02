@@ -113,6 +113,7 @@ namespace Homesteader.Animation
                     Fail("glTFast could not instantiate: " + glbPath);
                     return;
                 }
+                if (this == null) return;   // destroyed while the model was loading
                 Homesteader.Modding.GlbMaterials.StripEmission(transform);   // Meshy exports full white emission: the model would glow
             }
             catch (Exception e)
@@ -152,6 +153,7 @@ namespace Homesteader.Animation
                     Fail("glTFast could not load: " + modelPath);
                     return;
                 }
+                if (this == null) return;   // destroyed while the model was loading (Play stopped or the scene reloaded)
                 Homesteader.Modding.GlbMaterials.StripEmission(transform);   // Meshy exports full white emission: the model would glow
                 var own = gltf.GetAnimationClips();
                 if (own != null) all.AddRange(own);
@@ -163,6 +165,7 @@ namespace Homesteader.Animation
                         if (!File.Exists(extra)) continue;
                         var g = new GltfImport();
                         if (!await g.Load(File.ReadAllBytes(extra), new Uri(extra))) continue;
+                        if (this == null) return;
                         var more = g.GetAnimationClips();
                         if (more != null) all.AddRange(more);
                     }
@@ -170,10 +173,11 @@ namespace Homesteader.Animation
             }
             catch (Exception e)
             {
-                Fail(e.Message);
+                if (this != null) Fail(e.Message);
                 return;
             }
 
+            if (this == null) return;
             if (renames != null)
             {
                 foreach (AnimationClip clip in all)

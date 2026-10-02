@@ -21,7 +21,7 @@ GROUPS = {
                 'mods-category-back-btn', 'controls-key-btn', 'steadify-popout-btn', 'header-settings-btn',
                 'almanac-tab-btn', 'mod-toggle-btn'],
     'primary': ['hs-btn--primary', 'action-btn--primary', 'welcome-btn--primary', 'store-item-buy-btn',
-                'controls-key-btn--capturing', 'container-panel-btn'],
+                'controls-key-btn--capturing', 'container-panel-btn', 'steadify-mini-shuffleall'],
     'danger': ['hs-btn--danger', 'welcome-btn--exit', 'mod-toggle-btn--disabled'],
     'teal': ['hs-btn--teal', 'admin-header-assets-btn', 'admin-action-btn', 'mod-toggle-btn--enabled',
              'steadify-shuffle-all-btn'],
@@ -42,30 +42,30 @@ def sel(names, suffix=''):
 def groups_css():
     n = GROUPS
     o = [BEGIN]
-    o.append(sel(n['neutral']) + ' {\n    background-color: var(--c-panel);\n    border-color: var(--c-raised);\n'
-             '    border-radius: var(--r);\n    color: var(--c-text);\n    -unity-font: var(--font-medium);\n'
+    o.append(sel(n['neutral']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: var(--c-panel);\n    border-color: var(--c-raised);\n'
+             '    color: var(--c-text);\n    -unity-font: var(--font-medium);\n'
              '    -unity-text-align: middle-center;\n}\n')
     o.append(sel(n['neutral'], ':hover') + ' {\n    background-color: var(--c-raised);\n    border-color: var(--c-rim);\n'
              '    color: var(--c-text-strong);\n}\n')
     o.append(sel(n['neutral'], ':active') + ' {\n    background-color: var(--c-well);\n}\n')
-    o.append(sel(n['primary']) + ' {\n    background-color: var(--c-accent);\n    border-color: var(--c-accent-hi);\n'
+    o.append(sel(n['primary']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: var(--c-accent);\n    border-color: var(--c-accent-hi);\n'
              '    color: var(--c-ink);\n    -unity-font: var(--font-bold);\n}\n')
     o.append(sel(n['primary'], ':hover') + ' {\n    background-color: var(--c-accent-hi);\n    border-color: var(--c-accent-hi);\n'
              '    color: var(--c-ink);\n}\n')
     o.append(sel(n['primary'], ':active') + ' {\n    background-color: var(--c-accent-lo);\n}\n')
-    o.append(sel(n['danger']) + ' {\n    background-color: rgba(18, 22, 29, 0);\n    border-color: rgba(227, 83, 88, 0.4);\n'
+    o.append(sel(n['danger']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: rgba(18, 22, 29, 0);\n    border-color: rgba(227, 83, 88, 0.4);\n'
              '    color: var(--c-danger-text);\n}\n')
     o.append(sel(n['danger'], ':hover') + ' {\n    background-color: var(--c-danger);\n    border-color: var(--c-danger);\n'
              '    color: var(--c-text-strong);\n}\n')
-    o.append(sel(n['teal']) + ' {\n    background-color: rgba(54, 196, 177, 0.14);\n    border-color: var(--c-secondary-lo);\n'
+    o.append(sel(n['teal']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: rgba(54, 196, 177, 0.14);\n    border-color: var(--c-secondary-lo);\n'
              '    color: var(--c-secondary-hi);\n    -unity-font: var(--font-bold);\n}\n')
     o.append(sel(n['teal'], ':hover') + ' {\n    background-color: var(--c-secondary-lo);\n    border-color: var(--c-secondary);\n'
              '    color: var(--c-text-strong);\n}\n')
-    o.append(sel(n['ghost']) + ' {\n    background-color: rgba(18, 22, 29, 0);\n    border-color: rgba(18, 22, 29, 0);\n'
+    o.append(sel(n['ghost']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: rgba(18, 22, 29, 0);\n    border-color: rgba(18, 22, 29, 0);\n'
              '    color: var(--c-muted);\n}\n')
     o.append(sel(n['ghost'], ':hover') + ' {\n    background-color: var(--c-raised);\n    border-color: rgba(18, 22, 29, 0);\n'
              '    color: var(--c-text-strong);\n}\n')
-    o.append(sel(n['active']) + ' {\n    background-color: rgba(224, 138, 60, 0.22);\n    border-color: var(--c-accent-hi);\n'
+    o.append(sel(n['active']) + ' {\n    border-radius: var(--r);\n    -unity-text-align: middle-center;\n    padding-top: 0;\n    padding-bottom: 0;\n    background-color: rgba(224, 138, 60, 0.22);\n    border-color: var(--c-accent-hi);\n'
              '    color: rgb(255, 219, 185);\n    -unity-font: var(--font-bold);\n}\n')
     o.append(END)
     return '\n'.join(o) + '\n'

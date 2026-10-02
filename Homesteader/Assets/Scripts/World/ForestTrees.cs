@@ -903,7 +903,9 @@ namespace Homesteader.World
             {
                 if (!HarvestReady(t, out string needsStage)) rows.Add(("Harvest", "Not until it is " + needsStage));
                 rows.Add(("Logs", logs > 0 ? $"up to {logs}  {HudBindings.GetItemName(YieldItem(t.Species))}" : "None yet (too young)"));
-                rows.Add(("Needs", DescribeTool(ToolSpec(t.Species)) + " (active slot)"));
+                string chopSpec = ToolSpec(t.Species);
+                if (string.IsNullOrEmpty(chopSpec)) rows.Add(("Needs", DescribeTool(chopSpec) + " (active slot)"));
+                else rows.Add(("@tools|Chop with", chopSpec));   // the panel rotates through the tools that accept this
                 rows.Add(("Chops left", hitsLeft.ToString()));
             }
             GrowthRules fruit = FruitRules(t.Species);
@@ -916,6 +918,7 @@ namespace Homesteader.World
                 else rows.Add(("Fruit", fruitLeft > 0
                     ? $"{fruitLeft} of {fruitTotal} left: " + (string.IsNullOrEmpty(fruit.FruitTool) ? "right-click to pick one" : "pick one with " + DescribeTool(fruit.FruitTool).ToLowerInvariant())
                     : $"All picked: ripe again in {Mathf.CeilToInt(Mathf.Max(wait, 0f))} days"));
+                if (untilAge <= 0f && fruitLeft > 0 && !string.IsNullOrEmpty(fruit.FruitTool)) rows.Add(("@tools|Pick with", fruit.FruitTool));
             }
         }
 
@@ -1154,7 +1157,7 @@ namespace Homesteader.World
 
         private sealed class LiveTree : MonoBehaviour
         {
-            public ForestTree Tree;
+            [System.NonSerialized] public ForestTree Tree;
             private Quaternion _baseRot;
             private Vector3 _axis = Vector3.right;
             private float _angle, _vel, _idle;

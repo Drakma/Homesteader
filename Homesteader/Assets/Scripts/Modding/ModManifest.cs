@@ -17,6 +17,7 @@ namespace Homesteader.Modding
     public static class ModContentType
     {
         public const string Structure = "structure";     // buildings, cabins, barns, sheds
+        public const string Building = "building";       // construction parts and containers: framing, doors, crates, boxes
         public const string Biome = "biome";             // terrain regions + ground shading
         public const string Food = "food";               // edible items
         public const string Ingredient = "ingredient";   // cooking inputs
@@ -43,7 +44,7 @@ namespace Homesteader.Modding
         /// <summary>Every content type this build understands.</summary>
         public static readonly string[] All =
         {
-            Structure, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
+            Structure, Building, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
             Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Material,
             Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi
         };

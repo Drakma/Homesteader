@@ -559,8 +559,7 @@ namespace Homesteader.UI
             // Block spatial/directional UI navigation (WASD, Arrow keys) from scrolling or shifting focus while walking
             element.RegisterCallback<NavigationMoveEvent>(evt =>
             {
-                evt.PreventDefault(); // StopPropagation alone still lets the default focus move happen
-                evt.StopPropagation();
+                UiEvents.Swallow(evt); // StopPropagation alone still lets the default focus move happen
             }, TrickleDown.TrickleDown);
 
             // Block keyboard walking keys (WASD, Arrows) from scrolling UI Toolkit ScrollViews
@@ -577,8 +576,7 @@ namespace Homesteader.UI
                     evt.keyCode == KeyCode.UpArrow || evt.keyCode == KeyCode.DownArrow ||
                     evt.keyCode == KeyCode.LeftArrow || evt.keyCode == KeyCode.RightArrow)
                 {
-                    evt.PreventDefault();
-                    evt.StopPropagation();
+                    UiEvents.Swallow(evt);
                 }
             }, TrickleDown.TrickleDown);
 
@@ -828,7 +826,7 @@ namespace Homesteader.UI
                 icon.pickingMode = PickingMode.Ignore;
                 icon.style.position = Position.Absolute;
                 icon.style.left = 4; icon.style.top = 4; icon.style.right = 4; icon.style.bottom = 4;
-                icon.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+                icon.style.backgroundSize = new BackgroundSize(BackgroundSizeType.Contain);
                 if (def.IconClass != null) icon.AddToClassList(def.IconClass);
                 btn.Add(icon);
 
@@ -1783,11 +1781,11 @@ namespace Homesteader.UI
         {
             return new List<StoreItem>
             {
-                new StoreItem { Id = "player_truffle_oil", Name = "Artisan Truffle Oil (500ml)", Category = "By: FarmerDan", Price = 45.00f, IconGlyph = "🍄", Unit = "bottle" },
-                new StoreItem { Id = "player_wool_sweater", Name = "Hand-Knitted Wool Sweater", Category = "By: WoolCrafter", Price = 65.00f, IconGlyph = "🧶", Unit = "ea" },
-                new StoreItem { Id = "player_smoked_salmon", Name = "Oak-Smoked Salmon Fillets (x5)", Category = "By: RiverFisher", Price = 38.00f, IconGlyph = "🐟", Unit = "pack" },
-                new StoreItem { Id = "player_cured_leather", Name = "Tanned Goat Leather Roll", Category = "By: FrontierTannery", Price = 55.00f, IconGlyph = "📜", Unit = "roll" },
-                new StoreItem { Id = "player_aged_cheese", Name = "Raw Cow Milk Cheddar Wheel", Category = "By: MeadowDairy", Price = 42.00f, IconGlyph = "🧀", Unit = "wheel" }
+                new StoreItem { Id = "player_truffle_oil", Name = "Artisan Truffle Oil (500ml)", Category = "By: FarmerDan", Price = 45.00f, IconGlyph = "", Unit = "bottle" },
+                new StoreItem { Id = "player_wool_sweater", Name = "Hand-Knitted Wool Sweater", Category = "By: WoolCrafter", Price = 65.00f, IconGlyph = "", Unit = "ea" },
+                new StoreItem { Id = "player_smoked_salmon", Name = "Oak-Smoked Salmon Fillets (x5)", Category = "By: RiverFisher", Price = 38.00f, IconGlyph = "", Unit = "pack" },
+                new StoreItem { Id = "player_cured_leather", Name = "Tanned Goat Leather Roll", Category = "By: FrontierTannery", Price = 55.00f, IconGlyph = "", Unit = "roll" },
+                new StoreItem { Id = "player_aged_cheese", Name = "Raw Cow Milk Cheddar Wheel", Category = "By: MeadowDairy", Price = 42.00f, IconGlyph = "", Unit = "wheel" }
             };
         }
 
@@ -1795,11 +1793,11 @@ namespace Homesteader.UI
         {
             return new List<StoreItem>
             {
-                new StoreItem { Id = "food_apple", Name = "Crisp Orchard Apples (x10)", Category = "Fruit", Price = 15.00f, IconGlyph = "🍎", Unit = "crate" },
-                new StoreItem { Id = "mat_log_oak", Name = "Hewn Oak Timber Logs (x5)", Category = "Lumber", Price = 35.00f, IconGlyph = "🪵", Unit = "stack" },
-                new StoreItem { Id = "food_truffle", Name = "Foraged Black Truffle", Category = "Gourmet", Price = 60.00f, IconGlyph = "🍄", Unit = "oz" },
-                new StoreItem { Id = "mat_wool_fleece", Name = "Sheared Sheep Wool Fleece", Category = "Textiles", Price = 25.00f, IconGlyph = "🐑", Unit = "fleece" },
-                new StoreItem { Id = "food_egg", Name = "Farm Fresh Eggs (x12)", Category = "Dairy", Price = 6.00f, IconGlyph = "🥚", Unit = "dozen" }
+                new StoreItem { Id = "food_apple", Name = "Crisp Orchard Apples (x10)", Category = "Fruit", Price = 15.00f, IconGlyph = "", Unit = "crate" },
+                new StoreItem { Id = "mat_log_oak", Name = "Hewn Oak Timber Logs (x5)", Category = "Lumber", Price = 35.00f, IconGlyph = "", Unit = "stack" },
+                new StoreItem { Id = "food_truffle", Name = "Foraged Black Truffle", Category = "Gourmet", Price = 60.00f, IconGlyph = "", Unit = "oz" },
+                new StoreItem { Id = "mat_wool_fleece", Name = "Sheared Sheep Wool Fleece", Category = "Textiles", Price = 25.00f, IconGlyph = "", Unit = "fleece" },
+                new StoreItem { Id = "food_egg", Name = "Farm Fresh Eggs (x12)", Category = "Dairy", Price = 6.00f, IconGlyph = "", Unit = "dozen" }
             };
         }
 
@@ -1965,7 +1963,7 @@ namespace Homesteader.UI
                 {
                     string fallback = (!string.IsNullOrEmpty(iconGlyphOrFile) && !iconGlyphOrFile.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                         ? iconGlyphOrFile
-                        : "📦";
+                        : "?";
                     var glyph = new Label(fallback);
                     glyph.style.fontSize = 20;
                     iconBox.Add(glyph);
@@ -2097,8 +2095,8 @@ namespace Homesteader.UI
             string hiLo = TimeSystem.FormatHighLow(snap.TodayHighC, snap.TodayLowC, units);
             if (_adminWeatherAutoBtn != null)
                 _adminWeatherAutoBtn.text = isAuto
-                    ? $"🔄 Auto  {tempStr}  {hiLo}"
-                    : $"🔄 Auto (override active)";
+                    ? $"Auto  {tempStr}  {hiLo}"
+                    : $"Auto (override active)";
 
             SetChipActive(_adminWeatherAutoBtn, isAuto);
             SetChipActive(_adminWeatherSunnyBtn, w == HomesteaderWeather.Sunny);
@@ -2179,7 +2177,7 @@ namespace Homesteader.UI
             if (_adminAstroLabel != null)
             {
                 _adminAstroLabel.text = !string.IsNullOrEmpty(snap.AstronomicalMilestone)
-                    ? $"★ {snap.AstronomicalMilestone}"
+                    ? $"{snap.AstronomicalMilestone}"
                     : TimeSystem.GetDaylightTrend(snap.DayOfYear);
             }
 
@@ -2349,11 +2347,11 @@ namespace Homesteader.UI
                 int moonAge = ((snap.DayOfYear - 1) % 28) + 1;
                 string moonIcon = AlmanacSystem.GetMoonPhaseIcon(moonAge);
                 string moonName = AlmanacSystem.GetMoonPhaseName(moonAge);
-                string astro = !string.IsNullOrEmpty(snap.AstronomicalMilestone) ? $" • ★ {snap.AstronomicalMilestone}" : "";
+                string astro = !string.IsNullOrEmpty(snap.AstronomicalMilestone) ? $" • {snap.AstronomicalMilestone}" : "";
                 var units = HudState.Active.Units;
                 string nowTemp = TimeSystem.FormatTemperature(snap.TemperatureC, units);
                 string hiLoStr = TimeSystem.FormatHighLow(snap.TodayHighC, snap.TodayLowC, units);
-                _almanacTodayDetails.text = $"🌡 {nowTemp} ({hiLoStr}) • ☀️ Sunrise {WallClock.FormatWithAmPm(snap.SunriseMinute)} • 🌙 Sunset {WallClock.FormatWithAmPm(snap.SunsetMinute)} ({snap.DaylightHours:F1}h) • {moonIcon} {moonName}{astro}";
+                _almanacTodayDetails.text = $"{nowTemp} ({hiLoStr}) • Sunrise {WallClock.FormatWithAmPm(snap.SunriseMinute)} • Sunset {WallClock.FormatWithAmPm(snap.SunsetMinute)} ({snap.DaylightHours:F1}h) • {moonIcon} {moonName}{astro}";
             }
 
             // Populate Daily Forecasts (56 days = 8 weeks)
@@ -2401,7 +2399,7 @@ namespace Homesteader.UI
                     // Sun & Moon Row
                     var sunRow = new VisualElement();
                     sunRow.AddToClassList("almanac-card-sun-row");
-                    var sunText = new Label($"☀️ Rise {WallClock.FormatWithAmPm(df.SunriseMinute)} • 🌙 Set {WallClock.FormatWithAmPm(df.SunsetMinute)} ({df.DaylightHours:F1}h) • {df.MoonIcon} {df.MoonPhaseName}");
+                    var sunText = new Label($"Rise {WallClock.FormatWithAmPm(df.SunriseMinute)} • Set {WallClock.FormatWithAmPm(df.SunsetMinute)} ({df.DaylightHours:F1}h) • {df.MoonIcon} {df.MoonPhaseName}");
                     sunText.AddToClassList("almanac-card-sun-text");
                     sunRow.Add(sunText);
                     card.Add(sunRow);
@@ -2481,7 +2479,7 @@ namespace Homesteader.UI
                     // Sun metrics row
                     var sunRow = new VisualElement();
                     sunRow.AddToClassList("almanac-card-sun-row");
-                    var sunText = new Label($"☀️ Avg Rise {WallClock.FormatWithAmPm(wf.AvgSunriseMinute)} • 🌙 Avg Set {WallClock.FormatWithAmPm(wf.AvgSunsetMinute)} ({wf.AvgDaylightHours:F1}h)");
+                    var sunText = new Label($"Avg Rise {WallClock.FormatWithAmPm(wf.AvgSunriseMinute)} • Avg Set {WallClock.FormatWithAmPm(wf.AvgSunsetMinute)} ({wf.AvgDaylightHours:F1}h)");
                     sunText.AddToClassList("almanac-card-sun-text");
                     sunRow.Add(sunText);
                     card.Add(sunRow);
@@ -2529,7 +2527,7 @@ namespace Homesteader.UI
                     // Seasonal Note
                     if (!string.IsNullOrEmpty(wf.SeasonalTrendNote))
                     {
-                        var note = new Label("💡 " + wf.SeasonalTrendNote);
+                        var note = new Label("" + wf.SeasonalTrendNote);
                         note.AddToClassList("almanac-weekly-note");
                         card.Add(note);
                     }
@@ -2761,12 +2759,12 @@ namespace Homesteader.UI
                 if (allDisabled)
                 {
                     toggleBtn.AddToClassList("mod-toggle-btn--disabled");
-                    toggleBtn.text = "✕ Disabled";
+                    toggleBtn.text = "Disabled";
                 }
                 else
                 {
                     toggleBtn.AddToClassList("mod-toggle-btn--enabled");
-                    toggleBtn.text = "✓ Enabled";
+                    toggleBtn.text = "Enabled";
                 }
 
                 string currentCat = catName;
@@ -2880,7 +2878,7 @@ namespace Homesteader.UI
                 actionRow.AddToClassList("mod-action-row");
 
                 string folderName = !string.IsNullOrEmpty(mod.FolderPath) ? Path.GetFileName(mod.FolderPath) : mod.Id;
-                var folderLabel = new Label($"📁 {folderName}");
+                var folderLabel = new Label($"{folderName}");
                 folderLabel.AddToClassList("mod-folder-label");
                 actionRow.Add(folderLabel);
 
@@ -2889,12 +2887,12 @@ namespace Homesteader.UI
                 if (mod.IsDisabled)
                 {
                     toggleBtn.AddToClassList("mod-toggle-btn--disabled");
-                    toggleBtn.text = "✕ Disabled";
+                    toggleBtn.text = "Disabled";
                 }
                 else
                 {
                     toggleBtn.AddToClassList("mod-toggle-btn--enabled");
-                    toggleBtn.text = "✓ Enabled";
+                    toggleBtn.text = "Enabled";
                 }
 
                 var targetMod = mod;
@@ -3208,7 +3206,7 @@ namespace Homesteader.UI
                             $"Parcel ({capturedX}, {capturedZ}) is now yours!");
                         RefreshLandApp();
                         // Rebuild boundaries so walls and borders update
-                        var boundary = UnityEngine.Object.FindObjectOfType<Homesteader.Land.LandBoundaryController>();
+                        var boundary = UnityEngine.Object.FindAnyObjectByType<Homesteader.Land.LandBoundaryController>();
                         if (boundary != null) boundary.RebuildBoundaries();
                     }
                     else
