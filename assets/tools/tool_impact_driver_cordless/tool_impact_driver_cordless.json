@@ -8,14 +8,27 @@
   "properties": {
     "weight_kg": 1.6,
     "max_stack_size": 1,
-    "base_value": 95.0,
+    "base_value": 95,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot",
+      "trailershack"
+    ],
+    "sale_unit": "cord",
+    "store_overrides": {
+      "trailershack": {
+        "category": "Trailer Repair",
+        "unit": "ea",
+        "price": 220
+      }
+    }
   },
   "models": [],
   "utilities": {

@@ -1,0 +1,15 @@
+{
+  "file": "Sunrise_Porch_v3.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/fcb7d29b778da13f",
+  "chat_title": "Lo-Fi Farm Morning Track Creation",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi…\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 120 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 120 seconds, not cut off mid-song. Lo-fi hip hop instrumental, mellow and warm: dusty vinyl crackle, soft electric piano chords, laid-back boom-bap drums around 75 BPM, gentle upright bass. Peaceful early-morning farm feeling.",
+  "requested_prompt": "Lo-fi hip hop instrumental, mellow and warm: dusty vinyl crackle, soft electric piano chords, laid-back boom-bap drums around 75 BPM, gentle upright bass. Peaceful early-morning farm feeling.",
+  "generated_at": "2026-10-02T09:07:44.653Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Sunrise_Porch_v3.mp4",
+  "bytes": 3690387,
+  "sha256": "97c87b3f41ff91e20c1cf7b369afdfd5d87c46938a0a06b9b2a80df6dc7f35b6",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

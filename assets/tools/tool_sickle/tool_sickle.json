@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 1.5,
     "max_stack_size": 1,
-    "base_value": 30.0,
+    "base_value": 30,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {

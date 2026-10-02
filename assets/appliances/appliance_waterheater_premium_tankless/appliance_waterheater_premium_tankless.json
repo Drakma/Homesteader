@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 30.0,
     "max_stack_size": 1,
-    "base_value": 1400.0,
+    "base_value": 1400,
     "is_consumable": false,
     "footprint": "0.35m W x 0.2m D x 0.6m H",
     "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "tank"
   },
   "models": [],
   "utilities": {

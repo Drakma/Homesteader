@@ -1185,50 +1185,7 @@ TemplateContainer {
     margin: 0 8px 0 0;
 }
 
-/* Dropdown popup (rendered by Unity at the panel root, so styled globally) */
-.unity-base-dropdown__container-outer {
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-accent);
-    border-radius: var(--r);
-    padding: 2px;
-    min-width: 170px;
-}
-
-.unity-base-dropdown__container-inner {
-    background-color: var(--c-well);
-}
-
-.unity-base-dropdown__item {
-    flex-direction: row;
-    align-items: center;
-    height: 26px;
-    min-height: 26px;
-    padding: 0 8px;
-    background-color: rgba(18, 22, 29, 0);
-}
-
-.unity-base-dropdown__item:hover {
-    background-color: var(--c-raised);
-}
-
-.unity-base-dropdown__item:checked {
-    background-color: var(--c-accent);
-}
-
-.unity-base-dropdown__label {
-    flex-grow: 1;
-    font-size: 12px;
-    -unity-font: var(--font-medium);
-    color: rgb(225, 235, 245);
-    -unity-text-align: middle-left;
-    margin: 0;
-    padding: 0;
-}
-
-.unity-base-dropdown__item:checked .unity-base-dropdown__label {
-    color: var(--c-well);
-}
+/* The dropdown popup is styled in PopupMenu.uss (it lives at the panel root, outside this document). */
 
 .asset-category-chip {
     height: 28px;
@@ -1399,4 +1356,198 @@ TemplateContainer {
     width: 32px;
     height: 32px;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ============================================================ controls hints (F1) */
+
+.hints-panel {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    translate: 0 -50%;   /* centred vertically in the window */
+}
+
+.hints-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.hints-keys {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.hints-key {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--c-text-strong);
+    border-width: 1px;
+    border-color: var(--c-text-strong);
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin: 0 4px 0 0;
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(18, 22, 29, 1);
+}
+
+.hints-text {
+    color: var(--c-text-strong);
+    font-size: 15px;
+    margin-left: 6px;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(18, 22, 29, 1);
+}
+
+/* ============================================================ construction site hover card */
+
+.construction-hover {
+    position: absolute;
+    width: 320px;
+    padding: 10px 14px 10px 16px;
+    background-color: var(--c-panel);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: var(--r);
+}
+
+.construction-hover-title {
+    color: var(--c-accent);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+    margin-bottom: 2px;
+}
+
+.construction-hover-sub {
+    color: var(--c-muted);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    margin-bottom: 6px;
+}
+
+.construction-hover-section {
+    color: var(--c-text);
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+.construction-hover-row {
+    flex-direction: row;
+    align-items: center;
+    min-height: 24px;
+}
+
+.construction-hover-row--indent {
+    margin-left: 14px;
+}
+
+.construction-hover-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+
+.construction-hover-name-box {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    height: 20px;
+    overflow: hidden;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.construction-hover-name {
+    color: var(--c-text);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    white-space: nowrap;
+}
+
+.construction-hover-name-fade {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 26px;
+}
+
+.construction-hover-value {
+    flex-shrink: 0;
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-right;
+    white-space: nowrap;
+}
+
+.construction-hover-value--done {
+    color: var(--c-secondary);
+}
+
+.construction-hover-value--missing {
+    color: var(--c-danger-text);
+}
+
+.construction-hover-hint {
+    color: var(--c-muted);
+    font-size: 12px;
+    -unity-font: var(--font-italic);
+    margin-top: 8px;
+}
+
+.construction-hover-go {
+    color: var(--c-accent);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    margin-top: 8px;
+}
+
+.construction-hover-or {
+    color: var(--c-muted);
+    font-size: 12px;
+    -unity-font: var(--font-italic);
+    margin-bottom: 2px;
+}
+
+/* the pinned copy of the list: fixed at the right of the viewport, below the top bar */
+.construction-hover--pinned {
+    right: 16px;
+    top: 120px;
+}
+
+/* build progress bar (UI_DESIGN_SYSTEM 6.8) */
+.construction-hover-bar {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.construction-hover-bar-track {
+    flex-grow: 1;
+    height: 8px;
+    background-color: var(--c-well);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: 0;
+}
+
+.construction-hover-bar-fill {
+    width: 0;
+    height: 100%;
+    background-color: var(--c-accent);
+}
+
+.construction-hover-bar-value {
+    width: 40px;
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--c-text);
+    -unity-text-align: middle-right;
 }

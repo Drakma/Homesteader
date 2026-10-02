@@ -31,6 +31,7 @@ namespace Homesteader.UI
         private const string CloudShadowsKey = "Homesteader.Graphics.CloudShadows";
         private const string ShadowsKey = "Homesteader.Graphics.Shadows";   // -1 / unset = the preset's choice
         private const string WindKey = "Homesteader.Graphics.WindAnimation";
+        private const string SeasonLightKey = "Homesteader.Graphics.SeasonalLighting";
         private const string WaterReflKey = "Homesteader.Graphics.WaterReflections";   // -1 / unset = the preset's choice
 
         public static readonly string[] DisplayModes = { "Fullscreen", "Borderless Windowed", "Windowed" };
@@ -82,7 +83,7 @@ namespace Homesteader.UI
         {
             PlayerPrefs.SetString(PresetKey, id);
             // Picking a preset takes back every individual choice (anti-aliasing, reflections, shadows, clouds, wind).
-            foreach (string k in new[] { AaKey, WaterReflKey, ShadowsKey, CloudShadowsKey, WindKey }) PlayerPrefs.DeleteKey(k);
+            foreach (string k in new[] { AaKey, WaterReflKey, ShadowsKey, CloudShadowsKey, WindKey, SeasonLightKey }) PlayerPrefs.DeleteKey(k);
             PlayerPrefs.Save();
             ApplyPreset(id);
         }
@@ -97,7 +98,7 @@ namespace Homesteader.UI
             if (!string.Equals(EffectiveAa(), Current.Antialiasing, StringComparison.OrdinalIgnoreCase)) return true;
             if (WaterReflectionsOn() != Current.WaterReflections) return true;
             if (ShadowsOn() != (Current.ShadowDistance > 0f)) return true;
-            return !CloudShadowsOn() || !WindAnimationOn();
+            return !CloudShadowsOn() || !WindAnimationOn() || !SeasonalLightingOn();
         }
 
         /// <summary>Shows Custom in the preset dropdown while any quality choice differs from the preset, otherwise the preset itself.</summary>
@@ -125,6 +126,7 @@ namespace Homesteader.UI
             root.Q<Toggle>("GfxShadowsToggle")?.SetValueWithoutNotify(ShadowsOn());
             root.Q<Toggle>("GfxCloudShadowsToggle")?.SetValueWithoutNotify(CloudShadowsOn());
             root.Q<Toggle>("GfxWindAnimationToggle")?.SetValueWithoutNotify(WindAnimationOn());
+            root.Q<Toggle>("GfxSeasonalLightingToggle")?.SetValueWithoutNotify(SeasonalLightingOn());
             RefreshPresetDropdown();
         }
 
@@ -152,6 +154,7 @@ namespace Homesteader.UI
             Shader.SetGlobalFloat("_TerrainBlendQuality", p.TerrainBlend ? 1f : 0f);
             Shader.SetGlobalFloat("_WaterReflectionQuality", WaterReflectionsOn() ? 1f : 0f);
             Shader.SetGlobalFloat("_WindSwayOff", WindAnimationOn() ? 0f : 1f);
+            DayNightCycle.SeasonalLighting = SeasonalLightingOn();
             // With V-Sync on the monitor sets the rate; the cap is only for V-Sync off.
             Application.targetFrameRate = QualitySettings.vSyncCount > 0 ? -1 : (p.MaxFps > 0 ? p.MaxFps : -1);
         }
@@ -164,6 +167,17 @@ namespace Homesteader.UI
             PlayerPrefs.SetInt(CloudShadowsKey, on ? 1 : 0);
             PlayerPrefs.Save();
             Homesteader.World.CloudSystem.ShadowsEnabled = on;
+            RefreshPresetDropdown();
+        }
+
+        /// <summary>The sun and moon change colour and strength with the season (on by default; off = the summer light all year).</summary>
+        public static bool SeasonalLightingOn() => PlayerPrefs.GetInt(SeasonLightKey, 1) == 1;
+
+        public static void SetSeasonalLighting(bool on)
+        {
+            PlayerPrefs.SetInt(SeasonLightKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            DayNightCycle.SeasonalLighting = on;
             RefreshPresetDropdown();
         }
 
@@ -416,6 +430,14 @@ namespace Homesteader.UI
                 wind.SetValueWithoutNotify(WindAnimationOn());
                 wind.RegisterValueChangedCallback(evt => SetWindAnimation(evt.newValue));
                 wind.tooltip = "Trees, bushes and grass sway in the wind. Turn off for perfectly still plants.";
+            }
+
+            var seasonLight = root.Q<Toggle>("GfxSeasonalLightingToggle");
+            if (seasonLight != null)
+            {
+                seasonLight.SetValueWithoutNotify(SeasonalLightingOn());
+                seasonLight.RegisterValueChangedCallback(evt => SetSeasonalLighting(evt.newValue));
+                seasonLight.tooltip = "The sun and moon change colour and strength with the seasons. Turn off for summer light all year.";
             }
 
             var mode = root.Q<DropdownField>("GfxDisplayModeDropdown");

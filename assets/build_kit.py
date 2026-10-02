@@ -26,7 +26,7 @@ ASSETS_DIR = r"C:\Users\casey\Desktop\Homesteader\assets"
 CATEGORIES = [
     "structures", "building", "farming", "ranching", "logging",
     "fishing", "tools", "electricity", "water", "waste",
-    "internet", "hud", "ground", "food", "fuel", "materials", "ingredients"
+    "internet", "hud", "ground", "food", "fuel", "materials", "ingredients", "liquids"
 ]
 
 CATEGORY_METADATA = {
@@ -46,7 +46,8 @@ CATEGORY_METADATA = {
     "food": {"name": "Food & Rations", "icon": "🍲", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients."},
     "fuel": {"name": "Fuel & Containers", "icon": "⛽", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment."},
     "materials": {"name": "Materials", "icon": "🪵", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources."},
-    "ingredients": {"name": "Ingredients", "icon": "🥩", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients."}
+    "ingredients": {"name": "Ingredients", "icon": "🥩", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients."},
+    "liquids": {"name": "Liquids", "icon": "💧", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per litre, a fluid colour and an opacity."}
 }
 
 def collect_all_items():

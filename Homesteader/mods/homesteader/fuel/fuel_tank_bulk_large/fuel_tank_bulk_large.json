@@ -6,16 +6,21 @@
   "description": "A large skid-mounted bulk fuel storage tank that holds more fuel than the small size.",
   "icon": "fuel_tank_bulk_large.png",
   "properties": {
-    "weight_kg": 2600.0,
+    "weight_kg": 2600,
     "max_stack_size": 1,
-    "base_value": 10500.0,
+    "base_value": 10500,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "tank"
   },
   "models": [],
   "utilities": {
@@ -59,10 +64,17 @@
     "dimensions_m": {
       "width": 1.2,
       "depth": 1.2,
-      "height": 3.0
+      "height": 3
     },
     "fuel_type": "diesel",
     "capacity_l": 3785,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 3785,
+    "accepts": [
+      "liquid_diesel",
+      "liquid_gasoline"
+    ]
   }
 }

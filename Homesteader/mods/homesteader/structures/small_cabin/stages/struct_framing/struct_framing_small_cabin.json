@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_framing_small_cabin.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5.1,
+        "y": 3.3,
+        "z": 5.5
+      },
+      "triangles": 976
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -59,7 +70,7 @@
     "construction_recipe": [
       {
         "item_id": "#framing_lumber",
-        "quantity": 20
+        "quantity": 100
       },
       {
         "item_id": "lumber_joist_2x8",
@@ -73,7 +84,8 @@
     "required_tools": [
       [
         "tool_circular_saw_corded",
-        "tool_circular_saw_cordless"
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
       ],
       [
         "tool_hammer_claw",

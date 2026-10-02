@@ -15,7 +15,12 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "feed"
+    ],
+    "sale_unit": "packet"
   },
   "models": [
     {

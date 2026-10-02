@@ -83,3 +83,48 @@
 [2026-10-02T08:48:34.242Z] server stderr: [gemini-music] clicking button[aria-label*="Download" i] (1 match(es))
 [2026-10-02T08:48:35.170Z] server stderr: [gemini-music] page closed (tabs left=0)
 [2026-10-02T08:48:35.171Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: locator.count: Target page, context or browser has been closed
+[2026-10-02T08:50:22.600Z] GEN LoFiBeats/Coffee_Steam (2/10 in folder)
+[2026-10-02T08:51:19.467Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-02T08:51:19.475Z] server stderr: [gemini-music] clicking button[aria-label*="Download" i] (1 match(es))
+[2026-10-02T08:51:19.485Z] server stderr: [gemini-music] download control: {"tag":"BUTTON","label":"Download track","text":"","html":"<button _ngcontent-ng-c348207666=\"\" maticonbutton=\"\" matbadgeposition=\"after\" class=\"mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-badge mat-unthemed mat-badge-overlap mat-badge-above mat
+[2026-10-02T08:51:22.523Z] OK LoFiBeats/Coffee_Steam: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiBeats\Coffee_Steam.mp3 (3586 KB, v
+[2026-10-02T08:51:22.524Z] GEN LoFiBeats/Porch_Swing_Loop (3/10 in folder)
+[2026-10-02T09:09:50.286Z] GEN LoFiMeadow/Clover_Hum (5/10 in folder)
+[2026-10-02T09:11:23.591Z] server stderr: [gemini-music] audio UI present 80s after send; trying download
+[2026-10-02T09:11:25.748Z] OK LoFiMeadow/Clover_Hum: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiMeadow\Clover_Hum.mp3 (3333 KB, vi
+[2026-10-02T09:11:25.750Z] GEN LoFiMeadow/Creekside_Stones (6/10 in folder)
+[2026-10-02T09:11:41.900Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T09:11:41.901Z] FAIL LoFiMeadow/Creekside_Stones: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T09:11:41.902Z] GEN LoFiMeadow/Wildflower_Breeze (6/10 in folder)
+[2026-10-02T09:11:44.132Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:11:44.133Z] FAIL LoFiMeadow/Wildflower_Breeze: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-02T09:11:44.134Z] GEN LoFiMeadow/Butterfly_Path (6/10 in folder)
+[2026-10-02T09:11:44.278Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-02T09:12:00.535Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T09:12:00.536Z] FAIL LoFiMeadow/Butterfly_Path: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-02T09:12:00.537Z] GEN LoFiMeadow/Tall_Grass_Drowse (6/10 in folder)
+[2026-10-02T09:12:03.288Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:12:03.289Z] FAIL LoFiMeadow/Tall_Grass_Drowse: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-02T09:12:03.290Z] GEN LoFiMeadow/Dandelion_Clock (6/10 in folder)
+[2026-10-02T09:12:03.396Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-02T09:12:04.139Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:12:04.139Z] FAIL LoFiMeadow/Dandelion_Clock: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-02T09:12:04.140Z] GEN LoFiHarvest/Orchard_Ladder (4/10 in folder)
+[2026-10-02T09:12:04.161Z] FAIL LoFiHarvest/Orchard_Ladder: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-02T09:12:04.162Z] GEN LoFiHarvest/Pumpkin_Rows (4/10 in folder)
+[2026-10-02T09:12:04.180Z] FAIL LoFiHarvest/Pumpkin_Rows: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-02T09:12:04.181Z] GEN LoFiHarvest/Corn_Crib_Dusk (4/10 in folder)
+[2026-10-02T09:12:05.845Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:12:05.847Z] FAIL LoFiHarvest/Corn_Crib_Dusk: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-02T09:12:05.849Z] GEN LoFiHarvest/Root_Cellar (4/10 in folder)
+[2026-10-02T09:12:05.876Z] FAIL LoFiHarvest/Root_Cellar: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-02T09:12:05.877Z] GEN LoFiHarvest/Threshing_Floor (4/10 in folder)
+[2026-10-02T09:12:05.898Z] FAIL LoFiHarvest/Threshing_Floor: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-02T09:12:05.899Z] GEN LoFiHarvest/Pie_Cooling (4/10 in folder)
+[2026-10-02T09:12:07.038Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:12:07.039Z] FAIL LoFiHarvest/Pie_Cooling: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-02T09:12:07.040Z] GEN LoFiHarvest/Hayride_Home (4/10 in folder)
+[2026-10-02T09:12:07.972Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=2)
+[2026-10-02T09:12:16.066Z] server stderr: [gemini-music] page closed (tabs left=1)
+[2026-10-02T09:12:16.070Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-02T09:12:16.070Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: keyboard.type: Target page, context or browser has been closed

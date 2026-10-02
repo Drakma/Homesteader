@@ -1,0 +1,15 @@
+{
+  "file": "AI_Music_Creation_Request.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/27d2cdb427ccd2d2",
+  "chat_title": "AI Music Creation Request",
+  "prompt": "",
+  "requested_prompt": "",
+  "generated_at": "2026-10-02T09:07:56.936Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\AI_Music_Creation_Request.mp4",
+  "bytes": 3748821,
+  "sha256": "b1a560bebb48913e098cb6e3b8ac76f9087ee0f9d70abc1e2f578099f5a50d8d",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

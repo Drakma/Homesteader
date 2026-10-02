@@ -8,16 +8,32 @@
   "properties": {
     "weight_kg": 45.0,
     "max_stack_size": 1,
-    "base_value": 14.0,
+    "base_value": 14,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_log_poplar_uncut_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.4,
+        "y": 0.37,
+        "z": 0.37
+      },
+      "triangles": 270
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

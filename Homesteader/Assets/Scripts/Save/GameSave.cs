@@ -43,6 +43,8 @@ namespace Homesteader.Save
         public List<SavedPlant> plants = new List<SavedPlant>();
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
+        public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
+        public List<SavedSite> sites = new List<SavedSite>();   // structures under construction (and finished ones): see ConstructionSite
         public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
         public List<Vector3> pickedBushes = new List<Vector3>();   // x, z, game day the berries are back, of berry bushes that were picked
         public List<int> pickedBushMasks = new List<int>();        // per pickedBushes entry: which berries are gone (bit mask)
@@ -73,11 +75,13 @@ namespace Homesteader.Save
             public float yaw;
             public float ageDays;
             public int state;           // PlantedGrowth.PlantState
+            public float stumpRadius;   // a stump keeps the trunk radius of the tree felled
             public int fruitGoneMask;       // which fruit of a planted fruit tree is picked (bit mask; 0 with fruitPickedUntil > 0 = an older save: all picked)
             public float fruitPickedUntil;   // game day a picked fruit tree's fruit is back (0 = not picked)
         }
         [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
-        [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; }
+        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; }
+        [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; public bool hasYaw; public float yawDeg; }
 
         // ------------------------------------------------------------------ file
 

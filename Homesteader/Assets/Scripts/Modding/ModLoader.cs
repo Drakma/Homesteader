@@ -171,6 +171,17 @@ namespace Homesteader.Modding
                 if (!tagObj.IsObject) return;
                 foreach (KeyValuePair<string, ModJsonValue> kv in tagObj.ObjectValue)
                     GrowthRegistry.RegisterTag(kv.Key, kv.Value.AsStringList());
+
+                // equivalencies: {"tag_values": {"framing_lumber": {"unit": "studs", "values": {"lumber_bundle_2x4_large": 20}}}}
+                ModJsonValue valueObj = root.Get("tag_values");
+                if (valueObj.IsObject)
+                    foreach (KeyValuePair<string, ModJsonValue> kv in valueObj.ObjectValue)
+                    {
+                        var values = new Dictionary<string, float>();
+                        ModJsonValue vals = kv.Value.Get("values");
+                        if (vals.IsObject) foreach (KeyValuePair<string, ModJsonValue> vv in vals.ObjectValue) values[vv.Key] = vv.Value.AsFloat(1f);
+                        GrowthRegistry.RegisterTagValues(kv.Key, kv.Value.Get("unit").AsString(""), values);
+                    }
             }
             catch (Exception ex)
             {
@@ -306,6 +317,29 @@ namespace Homesteader.Modding
 
         // ---------------------------------------------------------------- Assets
 
+        /// <summary>
+        /// A structure's stage models (foundation, framing, walls ...) are not catalog assets, but the construction site shows them by id, so
+        /// each one with a model is made known to ItemRegistry (and nothing else). Without this every stage fell back to a plain brown box.
+        /// </summary>
+        private static void RegisterStageModel(ModInfo mod, string file, IModAssetResolver assetResolver)
+        {
+            if (assetResolver == null) return;
+            try
+            {
+                if (!ModJson.TryParse(File.ReadAllText(file), out ModJsonValue root, out string error)) return;
+                if (root.Get("category").AsString() != "structures") return;
+                string id = root.Get("id").AsString();
+                if (string.IsNullOrEmpty(id)) return;
+                if (assetResolver.TryResolvePrefab(mod, root, out GameObject prefab) && prefab != null)
+                    Homesteader.Growth.ItemRegistry.Register(id, root.Get("name").AsString() ?? id, "structures", prefab,
+                        Homesteader.Growth.LightDef.ParseList(root.Get("lights")), false);
+            }
+            catch (Exception ex)
+            {
+                mod.Warnings.Add($"Stage manifest '{file}' could not be read - {ex.Message}");
+            }
+        }
+
         private static void LoadAsset(
             ModInfo mod,
             ModContentEntry entry,
@@ -319,7 +353,10 @@ namespace Homesteader.Modding
                 // Skip stage manifests under stages/ (stages are resources owned by the growth/structure group, not top-level catalog assets)
                 string normPath = file.Replace('\\', '/');
                 if (normPath.Contains("/stages/"))
+                {
+                    RegisterStageModel(mod, file, assetResolver);
                     continue;
+                }
 
                 string text = File.ReadAllText(file);
                 if (!ModJson.TryParse(text, out ModJsonValue root, out string error))
@@ -368,7 +405,7 @@ namespace Homesteader.Modding
                 if (summary.prefab != null)
                     Homesteader.Growth.ItemRegistry.Register(localId, summary.name, category, summary.prefab,
                         Homesteader.Growth.LightDef.ParseList(root.Get("lights")),
-                        root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(true)));
+                        root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(false)));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

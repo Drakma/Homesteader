@@ -36,7 +36,7 @@ namespace Homesteader.UI
             ("Ctrl + click (phone app)", "Pin the app to the screen"),
             ("Esc", "Close the top window / open the menu"),
             ("F9", "Save the game now"),
-            ("F2 / F3 / F4", "Grid brightness / look-at panel / hover outline (debug)"),
+            ("F2 / F3", "Grid overlay / look-at panel (debug)"),
             ("F5 / F6", "Spawn dev animal / animal AI labels (debug)"),
         };
 

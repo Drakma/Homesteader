@@ -211,6 +211,67 @@ namespace Homesteader.Growth
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// A planted tree chopped down: the tree falls like a generated one, everything it yields lies on the ground (see
+        /// ForestTrees.FellPlanted) and a stump stays in its place for good.
+        /// </summary>
+        public void Fell(Vector3 fromPlayer)
+        {
+            GrowthRules rules = Group.Rules;
+            var extras = new List<string>();
+            foreach (GrowthDrop d in rules.YieldExtras)
+            {
+                int n = d.Roll();
+                for (int i = 0; i < n; i++) extras.Add(d.ItemId);
+            }
+            Transform felled = model != null ? model.transform : null;
+            StumpRadius = Homesteader.World.ForestTrees.MeasureTrunkRadius(felled, transform.position);
+            model = null;   // the falling copy now owns it
+            Homesteader.World.ForestTrees.FellPlanted(felled, transform.position, transform.position - fromPlayer, rules.YieldItemId, rules.RollYield(), extras);
+            State = PlantState.Stump;
+            ShowStump();
+        }
+
+        /// <summary>The trunk radius the felled tree had, so its stump is as wide (0 = unknown). Saved with the plant.</summary>
+        public float StumpRadius;
+
+        private bool chopping;
+
+        /// <summary>
+        /// One click starts the chopping: the ped swings the axe for as many swings as a full-grown tree takes (a thock and chips
+        /// each), then the tree falls (see <see cref="Fell"/>). Walking away stops it.
+        /// </summary>
+        public void StartChop(PedController ped)
+        {
+            if (chopping || State == PlantState.Stump) return;
+            StartCoroutine(ChopRoutine(ped));
+        }
+
+        private IEnumerator ChopRoutine(PedController ped)
+        {
+            chopping = true;
+            string clip = Homesteader.World.ForestTrees.ChopClip;
+            bool animated = ped != null && ped.BeginWork(clip, transform.position);
+            int hits = Homesteader.World.ForestTrees.FullTreeHits;
+            for (int i = 0; i < hits; i++)
+            {
+                yield return new WaitForSeconds(Homesteader.World.ForestTrees.SwingSeconds);
+                if (ped != null && animated && !ped.WorkPhase(clip, out _, out _)) { chopping = false; yield break; }   // walked away
+                Homesteader.World.ForestTrees.ChopEffects(transform.position, ped != null ? ped.transform.position : transform.position - Vector3.forward);
+            }
+            if (ped != null && animated) ped.EndWork(clip);
+            chopping = false;
+            Fell(ped != null ? ped.transform.position : transform.position - Vector3.forward);
+        }
+
+        /// <summary>The kit's stump model when it has one, otherwise a stump built in code like a forest tree's.</summary>
+        private void ShowStump()
+        {
+            GrowthVariant stump = Group.Rules.Stump;
+            if (stump != null && stump.Prefab != null) ShowModel(stump.Prefab);
+            else Homesteader.World.ForestTrees.BuildPlantedStump(Group.Id, transform, StumpRadius);
+        }
+
         private void OnEnable() => All.Add(this);
         private void OnDisable() => All.Remove(this);
 
@@ -374,18 +435,20 @@ namespace Homesteader.Growth
         }
 
         /// <summary>Puts the plant back in the state it was saved in (dead / stump are permanent; withered re-evaluates).</summary>
-        public void RestoreState(PlantState saved)
+        public void RestoreState(PlantState saved, float stumpRadius = 0f)
         {
+            if (stumpRadius > 0f) StumpRadius = stumpRadius;
             if (Group == null) return;
             if (saved == PlantState.Dead && Group.Rules.Dead != null && Group.Rules.Dead.Prefab != null)
             {
                 State = PlantState.Dead;
                 ShowModel(Group.Rules.Dead.Prefab);
             }
-            else if (saved == PlantState.Stump && Group.Rules.Stump != null && Group.Rules.Stump.Prefab != null)
+            else if (saved == PlantState.Stump)
             {
                 State = PlantState.Stump;
-                ShowModel(Group.Rules.Stump.Prefab);
+                if (model != null) { Destroy(model); model = null; }
+                ShowStump();
             }
             else if (saved == PlantState.Withered)
             {

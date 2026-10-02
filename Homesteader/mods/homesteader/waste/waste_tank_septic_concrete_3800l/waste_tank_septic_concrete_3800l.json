@@ -6,16 +6,17 @@
   "description": "Heavy precast concrete septic tank.",
   "icon": "waste_tank_septic_concrete_3800l.png",
   "properties": {
-    "weight_kg": 300.0,
+    "weight_kg": 300,
     "max_stack_size": 1,
-    "base_value": 500.0,
+    "base_value": 500,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true
   },
   "models": [
     {
@@ -71,5 +72,12 @@
       "height": 1.6
     },
     "power_draw_w": 0
+  },
+  "liquid_container": {
+    "capacity_l": 3800,
+    "accepts": [
+      "liquid_sewage",
+      "liquid_greywater"
+    ]
   }
 }

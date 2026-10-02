@@ -82,7 +82,8 @@
     "required_tools": [
       [
         "tool_circular_saw_corded",
-        "tool_circular_saw_cordless"
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
       ],
       [
         "tool_hammer_claw",

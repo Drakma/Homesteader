@@ -34,7 +34,7 @@
           "quantity": "number"
         }
       },
-      "note": "materials CONSUMED to build/progress to this specific stage (not cumulative from earlier stages - foundation's recipe is separate from framing's, etc.). Draws from the building category's raw materials (lumber, masonry, sheathing, roofing, hardware) and, for log-built cabins, materials.mat_log_* instead of standard framing lumber for the walls stage. Empty array for structures that are placed/purchased rather than built from materials (tents, campers)."
+      "note": "materials CONSUMED to build/progress to this specific stage (not cumulative from earlier stages - foundation's recipe is separate from framing's, etc.). Draws from the building category's raw materials (lumber, masonry, sheathing, roofing, hardware) and, for log-built cabins, materials.mat_log_* instead of standard framing lumber for the walls stage. Empty array for structures that are placed/purchased rather than built from materials (tents, campers). A line can also be an OR group, {\"any_of\": [{\"item_id\", \"quantity\"}, ...]}: the stage takes ANY ONE alternative in full (for example 2 x Large 2x4 Bundle OR 4 x Small 2x4 Bundle)."
     },
     "required_tools": {
       "type": "array",

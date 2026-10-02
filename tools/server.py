@@ -10,6 +10,7 @@ import re
 import sys
 import struct
 import time
+import threading
 import json
 import datetime
 import shutil
@@ -510,6 +511,91 @@ def check_group_links(manifest, category):
 RULE_SEASONS = ("spring", "summer", "fall", "winter", "year_round")
 RULE_OUT_OF_SEASON = ("pause", "wither", "die")
 RULE_WITHER_BEHAVIOR = ("stall", "regress_one_stage", "die")
+
+
+def sanitize_construction_recipe(raw):
+    """A structure stage's materials: [{item_id (an item id or a #tag), quantity (> 0)}]. Returns (list, None) or (None, error)."""
+    if raw is None:
+        return [], None
+    if not isinstance(raw, list):
+        return None, "construction_recipe must be an array."
+    out = []
+    for line in raw:
+        if not isinstance(line, dict):
+            return None, "each construction_recipe line must be an object."
+        # an "or" line: the stage takes ANY ONE of the alternatives in full ({"any_of": [{item_id, quantity}, ...]})
+        if "any_of" in line:
+            opts, oerr = sanitize_construction_recipe(line.get("any_of"))
+            if oerr:
+                return None, oerr
+            if any("any_of" in o for o in opts):
+                return None, "an any_of group cannot contain another any_of group."
+            if len(opts) < 2:
+                return None, "an any_of group needs at least two alternatives."
+            out.append({"any_of": opts})
+            continue
+        item_id = str(line.get("item_id", "")).strip()
+        if not item_id:
+            return None, "a construction_recipe line has no item_id."
+        try:
+            qty = float(line.get("quantity", 1))
+        except (TypeError, ValueError):
+            return None, f"quantity of {item_id} must be a number."
+        if qty <= 0:
+            return None, f"quantity of {item_id} must be greater than 0."
+        out.append({"item_id": item_id, "quantity": int(qty) if qty.is_integer() else qty})
+    return out, None
+
+
+def sanitize_required_tools(raw):
+    """A structure stage's tools: an array of GROUPS, each an array of alternative tool ids (any ONE of each group)."""
+    if raw is None:
+        return [], None
+    if not isinstance(raw, list):
+        return None, "required_tools must be an array of groups."
+    out = []
+    for grp in raw:
+        if isinstance(grp, str):
+            grp = [grp]
+        if not isinstance(grp, list):
+            return None, "each required_tools group must be an array of tool ids."
+        ids = []
+        for t in grp:
+            t = str(t).strip()
+            if t and t not in ids:
+                ids.append(t)
+        if ids:
+            out.append(ids)
+    return out, None
+
+
+def sync_stage_manifests(category, group_id, growth):
+    """The group's stages[] are authoritative for a structure's construction_recipe / required_tools; a stage's own manifest
+    (stages/<folder>/<id>.json) is derived, so copy them into its category_fields to keep the two in step."""
+    for st in growth.get("stages") or []:
+        if not isinstance(st, dict) or ("construction_recipe" not in st and "required_tools" not in st):
+            continue
+        folder = os.path.join(BASE_DIR, category, group_id, str(st.get("resource", "")).strip("/").replace("/", os.sep))
+        if not os.path.isdir(folder):
+            continue
+        for fn in sorted(os.listdir(folder)):
+            if not fn.endswith(".json") or fn.startswith("_"):
+                continue
+            path = os.path.join(folder, fn)
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    sm = json.load(f)
+                cf = sm.setdefault("category_fields", {})
+                if "construction_recipe" in st:
+                    cf["construction_recipe"] = st["construction_recipe"]
+                if "required_tools" in st:
+                    cf["required_tools"] = st["required_tools"]
+                with open(path, "w", encoding="utf-8", newline="\n") as f:
+                    json.dump(sm, f, indent=2, ensure_ascii=False)
+                    f.write("\n")
+            except Exception as ex:
+                print(f"Warning: could not sync {path}: {ex}")
+            break
 
 
 def sanitize_growth_rules(raw, total_stages, group_id=None, growth_type=None):
@@ -1178,13 +1264,13 @@ def compute_asset_changes():
 BUILTIN_CATEGORIES = {
     "farming", "ranching", "logging", "fishing", "building",
     "structures", "tools", "electricity", "water", "waste",
-    "internet", "hud", "ground", "food", "fuel", "materials", "ingredients"
+    "internet", "hud", "ground", "food", "fuel", "materials", "ingredients", "liquids"
 }
 
 BUILTIN_PREFIX_STRIP = [
     "electricity_", "electric_", "water_", "waste_", "sewage_", "net_", "internet_",
     "animal_fish_", "ingredient_fillet_", "fishing_", "machinery_", "struct_", "tool_",
-    "seed_", "crop_", "food_", "ingredient_", "fuel_", "mat_bale_", "mat_pelt_", "mat_wool_", "mat_",
+    "seed_", "crop_", "food_", "ingredient_", "liquid_", "fuel_", "mat_bale_", "mat_pelt_", "mat_wool_", "mat_",
     "tree_", "tile_", "clutter_", "hud_", "building_", "animal_"
 ]
 
@@ -1334,6 +1420,8 @@ def compute_target_id_for_category(current_id, target_category):
             new_id = f"mat_pelt_{clean_stem}"
         else:
             new_id = f"mat_{stem}"
+    elif target_category == "liquids":
+        new_id = f"liquid_{stem}"
     elif target_category == "ingredients":
         if "fillet" in stem:
             clean_stem = stem.replace("fillet_", "").replace("_fillet", "").strip("_")
@@ -2413,8 +2501,25 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         except Exception as e:
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
+    def handle_restart_server(self):
+        """Shift+click on the status-bar reload icon: restart this server so edited server code takes effect. Inside the desktop
+        app (tools/app.py) the app's hook reloads this module and rebinds the port in place (the window stays open); run on its own
+        (python tools/server.py) the process re-executes itself. The reply goes out first; the page then waits for /api/ping."""
+        self.send_json_response({"success": True, "mode": "embedded" if RESTART_HOOK else "process"}, 200)
+
+        def go():
+            import time as _time
+            _time.sleep(0.4)
+            if RESTART_HOOK:
+                RESTART_HOOK()
+            else:
+                os.execv(sys.executable, [sys.executable] + sys.argv)
+        threading.Thread(target=go, daemon=True).start()
+
     def do_POST(self):
-        if self.path == "/api/client-error":
+        if self.path == "/api/restart-server":
+            self.handle_restart_server()
+        elif self.path == "/api/client-error":
             self.handle_client_error()
         elif self.path == "/api/delete-asset":
             self.handle_delete_asset()
@@ -3840,6 +3945,41 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             data_store = load_material_tags()
             is_new = tag_name not in data_store["tags"]
             data_store["tags"][tag_name] = members
+            # equivalencies: what each member is worth (default 1) and the unit word, only when given
+            if "values" in data or "unit" in data:
+                tv = data_store.setdefault("tag_values", {})
+                entry = tv.setdefault(tag_name, {})
+                if "unit" in data:
+                    unit = str(data.get("unit") or "").strip()
+                    if unit:
+                        entry["unit"] = unit
+                    else:
+                        entry.pop("unit", None)
+                if "values" in data:
+                    vals = {}
+                    for mid, v in (data.get("values") or {}).items():
+                        try:
+                            fv = float(v)
+                        except (TypeError, ValueError):
+                            self.send_json_response({"success": False, "error": f"The value of {mid} must be a number."}, 400)
+                            return
+                        if fv <= 0:
+                            self.send_json_response({"success": False, "error": f"The value of {mid} must be greater than 0."}, 400)
+                            return
+                        if mid in members and abs(fv - 1.0) > 1e-9:
+                            vals[mid] = int(fv) if fv.is_integer() else fv
+                    if vals:
+                        entry["values"] = vals
+                    else:
+                        entry.pop("values", None)
+            tv = data_store.get("tag_values", {})
+            if tag_name in tv:
+                # a value only makes sense for a member
+                tv[tag_name]["values"] = {k: v for k, v in tv[tag_name].get("values", {}).items() if k in members}
+                if not tv[tag_name]["values"]:
+                    tv[tag_name].pop("values")
+                if not tv[tag_name]:
+                    del tv[tag_name]
             save_material_tags(data_store)
 
             print(f"[{'ADD' if is_new else 'UPDATE'} TAG] #{tag_name} -> {members}")
@@ -3867,6 +4007,7 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 return
 
             del data_store["tags"][tag_name]
+            data_store.get("tag_values", {}).pop(tag_name, None)
             save_material_tags(data_store)
 
             print(f"[DELETE TAG] #{tag_name}")
@@ -3905,6 +4046,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
             members = data_store["tags"].pop(old_name)
             data_store["tags"][new_name] = members
+            tv = data_store.get("tag_values", {})
+            if old_name in tv and new_name != old_name:
+                tv[new_name] = tv.pop(old_name)
             save_material_tags(data_store)
 
             updated = rewrite_tag_references(old_name, new_name) if new_name != old_name else []
@@ -5166,6 +5310,19 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                                 "error": f"Stage {num}: age_max must be greater than age_min.",
                             }, 400)
                             return
+                    # Structures: what a stage takes to build (materials consumed, tool groups needed; tools are not consumed).
+                    if "construction_recipe" in entry:
+                        recipe, rerr = sanitize_construction_recipe(entry.get("construction_recipe"))
+                        if rerr:
+                            self.send_json_response({"success": False, "error": f"Stage {num}: {rerr}"}, 400)
+                            return
+                        target["construction_recipe"] = recipe
+                    if "required_tools" in entry:
+                        groups, terr = sanitize_required_tools(entry.get("required_tools"))
+                        if terr:
+                            self.send_json_response({"success": False, "error": f"Stage {num}: {terr}"}, 400)
+                            return
+                        target["required_tools"] = groups
             # Group-level growth rules (see growth_group.schema.json `rules`).
             # They apply ONLY to trees and crops: for any other growth_type a
             # non-empty rules block is rejected and a stale one is dropped.
@@ -5189,6 +5346,7 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 json.dump(manifest, f, indent=2, ensure_ascii=False)
                 f.write("\n")
 
+            sync_stage_manifests(category, group_id, growth)
             invalidate_catalog_cache()
             print(f"[GROUP SCHEME] {category}/{group_id} saved")
             self.send_json_response({"success": True, "manifest": manifest}, 200)
@@ -5328,14 +5486,13 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             # The catalog is cached with a TTL; force a rebuild so /api/catalog
             # reflects the new prices immediately rather than up to 10s later.
             invalidate_catalog_cache()
-            # The phone stores stock is_buyable items and the Market sells is_sellable ones (StoreCatalogs.json),
-            # so rebuild it whenever those flags or prices change. Best effort: a failure must not fail the save.
+            # The phone shops are built from the asset catalog (each manifest's properties.stores / base_value), so refresh the game's
+            # catalog whenever flags or prices change. Best effort: a failure must not fail the save.
             try:
-                for script in ("_build_store_catalogs_json.py", "_add_new_store_catalogs.py"):
-                    subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), script)],
-                                   check=True, capture_output=True, timeout=60)
+                subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "generate_unity_asset_catalog.py")],
+                               check=True, capture_output=True, timeout=120)
             except Exception as e:
-                print(f"[SAVE ECONOMY] could not rebuild StoreCatalogs.json: {e}")
+                print(f"[SAVE ECONOMY] could not regenerate AssetCatalog.json: {e}")
             print(f"[SAVE ECONOMY] {len(saved)} item(s) updated")
             self.send_json_response({
                 "success": True,
@@ -5486,6 +5643,10 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
 class ReusableThreadingServer(ThreadingHTTPServer):
     allow_reuse_address = True
+
+# Set by tools/app.py (the desktop app) so /api/restart-server can restart the embedded server in place.
+RESTART_HOOK = None
+
 
 def main():
     server_address = ("", PORT)

@@ -204,6 +204,8 @@ def write_manifest_and_readme(cfg, target_dir, icon_path, fbx_path):
             "base_value": cfg.get("base_value", 50.0),
             "is_consumable": cfg.get("is_consumable", category == "food"),
             "is_buyable": False,
+            "stores": [],   # phone shops that sell it; set in the asset popup (Sold At)
+            "sale_unit": "ea",
             "is_sellable": False,
             "is_spawnable": is_spawnable,
             "footprint": cfg.get("footprint", None)

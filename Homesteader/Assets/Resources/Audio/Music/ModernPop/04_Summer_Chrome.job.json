@@ -1,6 +1,0 @@
-{
-  "filename": "04_Summer_Chrome",
-  "state": "failed",
-  "note": "page.goto: net::ERR_ABORTED at https://gemini.google.com/app\nCall log:\n\u001b[2m  - navigating to \"https://gemini.google.com/app\", waiting until \"domcontentloaded\"\u001b[22m\n",
-  "updated_at": "2026-10-01T18:57:41.609Z"
-}

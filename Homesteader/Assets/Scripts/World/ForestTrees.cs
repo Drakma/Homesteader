@@ -99,6 +99,24 @@ namespace Homesteader.World
             if (_root != null && _root.GetComponent<FruitTicker>() == null) _root.gameObject.AddComponent<FruitTicker>();
         }
 
+        /// <summary>
+        /// Removes every tree, stump and dead trunk whose base is inside an area, with no logs and no stump (the ground under a foundation
+        /// was cleared). The chunk mesh is collapsed by SiteClearing; this makes them untouchable and not solid.
+        /// </summary>
+        public static void ClearIn(System.Func<float, float, bool> inside)
+        {
+            foreach (ForestTree t in Trees)
+                if (!t.Felled && inside(t.Position.x, t.Position.z)) { t.Felled = true; t.Dead = false; }
+            var gone = new List<ForestTree>();
+            foreach (var kv in DeadObjects)
+                if (kv.Value != null && inside(kv.Value.transform.position.x, kv.Value.transform.position.z)) { Object.Destroy(kv.Value); gone.Add(kv.Key); }
+            foreach (ForestTree t in gone) DeadObjects.Remove(t);
+            if (_root != null)
+                foreach (Transform c in _root)
+                    if (c != null && c.name.StartsWith("TreeStump_") && inside(c.position.x, c.position.z)) Object.Destroy(c.gameObject);
+            ForestSolids.MarkDirty();
+        }
+
         public static void RegisterSpecies(SpeciesInfo info) { Species[info.Name] = info; }
 
         public static void Register(ForestTree tree)
@@ -591,11 +609,44 @@ namespace Homesteader.World
         /// <summary>Applies the fruit state to the baked meshes now (it also runs every 1.5 seconds on its own).</summary>
         public static void RefreshFruit() { SyncFruit(); }
 
+        private sealed class RepeatPickEntry
+        {
+            public System.Func<bool> Again;
+            public Transform Player;
+            public Vector3 Start;
+        }
+
+        private static readonly List<RepeatPickEntry> RepeatPicks = new List<RepeatPickEntry>();
+
+        /// <summary>
+        /// One click picks the whole tree, like one click on a berry bush picks every berry: once the first fruit is in the basket the
+        /// next one is picked, and so on until none is left. <paramref name="again"/> picks one more and returns false when there is
+        /// nothing left to pick. Walking away (more than 0.4 m) stops it.
+        /// </summary>
+        public static void RepeatPick(System.Func<bool> again, Transform player)
+        {
+            if (again == null) return;
+            RepeatPicks.Clear();   // one run at a time
+            RepeatPicks.Add(new RepeatPickEntry { Again = again, Player = player, Start = player != null ? player.position : Vector3.zero });
+        }
+
+        private static void TickRepeatPicks()
+        {
+            for (int i = RepeatPicks.Count - 1; i >= 0; i--)
+            {
+                RepeatPickEntry e = RepeatPicks[i];
+                if (e.Player != null && (e.Player.position - e.Start).sqrMagnitude > 0.16f) { RepeatPicks.RemoveAt(i); continue; }
+                if (FruitPickAnimator.Busy) continue;   // the hand is still on the last fruit
+                if (!e.Again()) RepeatPicks.RemoveAt(i);
+            }
+        }
+
         private sealed class FruitTicker : MonoBehaviour
         {
             private float _next;
             private void Update()
             {
+                if (RepeatPicks.Count > 0) TickRepeatPicks();
                 if (Time.unscaledTime < _next) return;
                 _next = Time.unscaledTime + 1.5f;
                 SyncFruit();
@@ -975,6 +1026,8 @@ namespace Homesteader.World
 
             string logItem = YieldItem(tree.Species);
             int logs = LogsFor(tree.Species, stage);
+            List<string> uncut = UncutLogs(logItem, logs, stage);   // whole logs that lie where the tree falls, when the kit has them
+            if (uncut != null) logs = 0;
             if (logs > 0)
             {
                 int added = HudState.Active.AddItemToToolbar(logItem, logs, HudBindings.GetMaxStack(logItem));
@@ -990,16 +1043,215 @@ namespace Homesteader.World
 
             // More than one yield: the kit's extra drops come with a full-grown tree.
             GrowthRules felling = KitRules(tree.Species);
-            if (felling != null && felling.YieldExtras.Count > 0 && stage >= 3 && !GrowthDrop.Give(felling.YieldExtras))
-                Notify("Toolbar full", "Some of the drops didn't fit and were lost.");
+            var extras = new List<string>();
+            if (felling != null && stage >= 3)
+                foreach (GrowthDrop d in felling.YieldExtras)
+                {
+                    int n = d.Roll();
+                    for (int i = 0; i < n; i++) extras.Add(d.ItemId);
+                }
 
             Vector3 from = player != null ? player.position : tree.Position - Vector3.forward;
-            Fell(tree, from, animate: true);
+            Fell(tree, from, animate: true, uncut, extras);
             return true;
         }
 
+        private static readonly string[] UncutSizeOrder = { "long", "medium", "medium", "small", "small", "small" };
+
+        /// <summary>
+        /// The uncut log items a felled tree leaves on the ground: a grown tree gives long logs and shorter ones, a young one
+        /// fewer and shorter. Null when the species has no uncut log models in the kit (it then yields its cut logs to the toolbar).
+        /// </summary>
+        private static List<string> UncutLogs(string logItem, int count, int stage)
+        {
+            if (string.IsNullOrEmpty(logItem) || count <= 0) return null;
+            var result = new List<string>();
+            if (logItem.Contains("_uncut_"))
+            {
+                // The kit names the exact uncut log (a fruit tree's one long log): that many of it.
+                if (!ItemRegistry.TryGet(logItem, out _)) return null;
+                for (int i = 0; i < count; i++) result.Add(logItem);
+                return result;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                int k = stage >= 3 ? i : i + (stage <= 1 ? 3 : 1);
+                string id = UncutItemId(logItem, UncutSizeOrder[Mathf.Min(k, UncutSizeOrder.Length - 1)]);
+                if (id == null) return null;
+                result.Add(id);
+            }
+            return result;
+        }
+
+        private static string UncutItemId(string logItem, string size)
+        {
+            foreach (string stem in new[] { logItem, logItem.Replace("willow", "willowood") })
+            {
+                string id = stem + "_uncut_" + size;
+                if (ItemRegistry.TryGet(id, out _)) return id;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Fells a tree the player PLANTED (a model under a PlantedGrowth, not a baked forest tree) the way a generated one falls: the
+        /// model topples away from the player, and where it lands its logs lie end to end along the trunk (the kit's uncut log
+        /// models) and every other yield is scattered under the crown. A species with no uncut logs puts its logs on the toolbar.
+        /// </summary>
+        /// <summary>Swings a full-grown tree takes to fell (a planted tree is chopped at its mature size).</summary>
+        public static int FullTreeHits => HitsNeeded[HitsNeeded.Length - 1];
+
+        /// <summary>The thock and the wood chips of one swing at a tree.</summary>
+        public static void ChopEffects(Vector3 treePos, Vector3 fromPlayer)
+        {
+            PlayChopSound(treePos + Vector3.up * 1f);
+            Vector3 dir = fromPlayer - treePos;
+            dir.y = 0f;
+            SpawnChips(treePos + Vector3.up * 0.9f, dir.sqrMagnitude > 0.01f ? dir.normalized : Vector3.forward);
+        }
+
+        /// <summary>
+        /// The radius of a planted tree's trunk, read off its model: the widest reach from the trunk's centre of the geometry in the
+        /// lowest 0.4 m (the roots' flare is not counted, so it is the trunk itself). 0 when it can not be measured.
+        /// </summary>
+        public static float MeasureTrunkRadius(Transform model, Vector3 centre)
+        {
+            if (model == null) return 0f;
+            float best = 0f;
+            float floorY = centre.y;
+            var verts = new List<Vector3>();
+            foreach (MeshFilter mf in model.GetComponentsInChildren<MeshFilter>())
+            {
+                if (mf.sharedMesh == null) continue;
+                mf.sharedMesh.GetVertices(verts);
+                Matrix4x4 m = mf.transform.localToWorldMatrix;
+                foreach (Vector3 lv in verts)
+                {
+                    Vector3 w = m.MultiplyPoint3x4(lv);
+                    if (w.y < floorY + 0.15f || w.y > floorY + 0.6f) continue;
+                    best = Mathf.Max(best, new Vector2(w.x - centre.x, w.z - centre.z).magnitude);
+                }
+            }
+            return best > 0.02f && best < 3f ? best : 0f;
+        }
+
+        public static void FellPlanted(Transform model, Vector3 stump, Vector3 away, string logItem, int logs, List<string> extras)
+        {
+            away.y = 0f;
+            if (away.sqrMagnitude < 0.01f) away = Vector3.forward;
+            away.Normalize();
+
+            List<string> uncut = UncutLogs(logItem, logs, 3);
+            if (uncut == null && logs > 0 && !string.IsNullOrEmpty(logItem))
+            {
+                int added = HudState.Active.AddItemToToolbar(logItem, logs, HudBindings.GetMaxStack(logItem));
+                if (HudBindings.Instance != null) HudBindings.Instance.RefreshToolbar();
+                if (added < logs) Notify("Toolbar full", "Some of the logs didn't fit and were lost.");
+            }
+
+            float crown = 4f;
+            if (model != null)
+            {
+                foreach (Collider c in model.GetComponentsInChildren<Collider>(true)) c.enabled = false;
+                var bounds = new Bounds(model.position, Vector3.zero);
+                foreach (Renderer r in model.GetComponentsInChildren<Renderer>()) bounds.Encapsulate(r.bounds);
+                crown = Mathf.Max(1.5f, bounds.size.y * 0.7f);
+                model.SetParent(null, true);
+                var fall = model.gameObject.AddComponent<FallingModel>();
+                fall.Begin(away, () =>
+                {
+                    if (uncut != null) DropUncutLogs(stump, away, uncut);
+                    if (extras != null && extras.Count > 0) ScatterDrops(stump + away * crown, extras);
+                });
+            }
+            else
+            {
+                if (uncut != null) DropUncutLogs(stump, away, uncut);
+                if (extras != null && extras.Count > 0) ScatterDrops(stump + away * crown, extras);
+            }
+        }
+
+        /// <summary>A stump for a planted tree of this species (the same shape as the one a felled forest tree leaves), under a parent.</summary>
+        public static void BuildPlantedStump(string species, Transform parent, float trunkRadius = 0f)
+        {
+            SpeciesInfo sp = null;
+            if (!string.IsNullOrEmpty(species)) Species.TryGetValue(species, out sp);
+            if (sp == null) foreach (SpeciesInfo any in Species.Values) { sp = any; break; }
+            if (sp == null) return;
+            var go = new GameObject("TreeStump_" + species);
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localRotation = Quaternion.identity;
+            // the cut is as wide as the trunk that was felled (measured off its model); unknown: the species' own trunk
+            float w = trunkRadius > 0.01f ? trunkRadius / Mathf.Max(0.01f, sp.TrunkRadius) : 1f;
+            go.transform.localScale = new Vector3(w, 1f, w);
+            go.AddComponent<MeshFilter>().sharedMesh = StumpMesh(sp);
+            var mr = go.AddComponent<MeshRenderer>();
+            mr.sharedMaterials = new[] { sp.TrunkMat, CutWoodMat() };
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        }
+
+        /// <summary>The felled model of a planted tree: topples over, lies a moment, sinks and is removed.</summary>
+        private sealed class FallingModel : MonoBehaviour
+        {
+            private const float FallTime = 1.3f, SinkDelay = 2.0f, SinkTime = 3.0f, SinkDepth = 4.5f;
+            private Quaternion _baseRot;
+            private Vector3 _axis, _restPos;
+            private System.Action _onLanded;
+            private float _t;
+
+            public void Begin(Vector3 away, System.Action onLanded)
+            {
+                _baseRot = transform.rotation;
+                _restPos = transform.position;
+                _axis = Vector3.Cross(Vector3.up, away).normalized;
+                _onLanded = onLanded;
+            }
+
+            private void Update()
+            {
+                _t += Time.deltaTime;
+                float u = Mathf.Clamp01(_t / FallTime);
+                if (u >= 1f && _onLanded != null) { System.Action landed = _onLanded; _onLanded = null; landed(); }
+                float angle = Mathf.Lerp(0f, 92f, u * u);
+                if (u >= 1f) angle = 88f + Mathf.Sin((_t - FallTime) * 9f) * Mathf.Exp(-(_t - FallTime) * 5f) * 4f;
+                transform.rotation = Quaternion.AngleAxis(angle, -_axis) * _baseRot;
+                float sink = _t - (FallTime + SinkDelay);
+                if (sink > 0f)
+                {
+                    float k = Mathf.Clamp01(sink / SinkTime);
+                    transform.position = _restPos + Vector3.down * (SinkDepth * k * k);
+                    if (k >= 1f) Destroy(gameObject);
+                }
+            }
+        }
+
+        /// <summary>Drops loose items (a fruit tree's fruit) in a spread around a point, where the crown comes down.</summary>
+        private static void ScatterDrops(Vector3 centre, List<string> items)
+        {
+            foreach (string id in items)
+            {
+                Vector2 o = Random.insideUnitCircle * 1.3f;
+                WorldItem.TryDrop(id, centre + new Vector3(o.x, 0f, o.y));
+            }
+        }
+
+        /// <summary>Lays the logs end to end along the line the tree fell, starting at its stump.</summary>
+        private static void DropUncutLogs(Vector3 stump, Vector3 away, List<string> logs)
+        {
+            float yaw = Mathf.Atan2(-away.z, away.x) * Mathf.Rad2Deg;   // a log model lies along its local X
+            float along = 0.5f;
+            foreach (string id in logs)
+            {
+                float length = id.EndsWith("_long") ? 4f : id.EndsWith("_medium") ? 2.4f : 1.3f;
+                Vector3 centre = stump + away * (along + length * 0.5f);
+                WorldItem.TryDrop(id, centre, yaw);
+                along += length + 0.25f;
+            }
+        }
+
         /// <summary>Removes the tree from its chunk mesh, leaves a stump and (optionally) lets a copy fall over.</summary>
-        private static void Fell(ForestTree tree, Vector3 fellFrom, bool animate)
+        private static void Fell(ForestTree tree, Vector3 fellFrom, bool animate, List<string> uncutLogs = null, List<string> scatter = null)
         {
             tree.Felled = true;
             FelledPositions.Add(new Vector2(tree.Position.x, tree.Position.z));
@@ -1013,7 +1265,15 @@ namespace Homesteader.World
                 if (away.sqrMagnitude < 0.01f) away = Vector3.forward;
                 LiveTree live = BeginLive(tree);
                 LiveTrees.Remove(tree);
-                live.StartFall(away.normalized);
+                Vector3 dir = away.normalized;
+                Vector3 stump = tree.Position;
+                float crown = Mathf.Max(1.5f, CurrentHeight(tree) * 0.7f);
+                bool anything = uncutLogs != null || (scatter != null && scatter.Count > 0);
+                live.StartFall(dir, !anything ? (System.Action)null : () =>
+                {
+                    if (uncutLogs != null) DropUncutLogs(stump, dir, uncutLogs);
+                    if (scatter != null) ScatterDrops(stump + dir * crown, scatter);
+                });
             }
             else if (LiveTrees.TryGetValue(tree, out LiveTree stale))
             {
@@ -1085,7 +1345,7 @@ namespace Homesteader.World
             SpeciesInfo sp = Species[tree.Species];
             var go = new GameObject("TreeStump_" + tree.Species);
             if (_root != null) go.transform.SetParent(_root, true);
-            float s = Mathf.Max(0.5f, tree.Scale.x * ScaleNow(tree) * 1.6f);   // a stump is stubbier than a scaled-down trunk
+            float s = Mathf.Max(0.05f, tree.Scale.x * ScaleNow(tree));   // the cut is exactly as wide as the trunk was (see TrunkSize)
             go.transform.SetPositionAndRotation(tree.Position, Quaternion.Euler(0f, tree.Yaw, 0f));
             go.transform.localScale = new Vector3(s, 1f, s);
             go.AddComponent<MeshFilter>().sharedMesh = StumpMesh(sp);
@@ -1181,8 +1441,11 @@ namespace Homesteader.World
                 _idle = 0f;
             }
 
-            public void StartFall(Vector3 away)
+            private System.Action _onLanded;
+
+            public void StartFall(Vector3 away, System.Action onLanded = null)
             {
+                _onLanded = onLanded;
                 _axis = Vector3.Cross(Vector3.up, away).normalized;
                 _falling = true;
                 _fallT = 0f;
@@ -1195,6 +1458,7 @@ namespace Homesteader.World
                 {
                     _fallT += dt;
                     float u = Mathf.Clamp01(_fallT / FallDuration);
+                    if (u >= 1f && _onLanded != null) { System.Action landed = _onLanded; _onLanded = null; landed(); }   // the logs drop where it lands
                     float angle = Mathf.Lerp(0f, 92f, u * u);          // slow start, then it goes
                     if (u >= 1f) angle = 88f + Mathf.Sin((_fallT - FallDuration) * 9f) * Mathf.Exp(-(_fallT - FallDuration) * 5f) * 4f;
                     transform.rotation = Quaternion.AngleAxis(angle, -_axis) * _baseRot;

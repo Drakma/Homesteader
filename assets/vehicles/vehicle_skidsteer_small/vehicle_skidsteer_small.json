@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 2600.0,
     "max_stack_size": 1,
-    "base_value": 15000.0,
+    "base_value": 15000,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 8,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "equipment"
+    ],
+    "sale_unit": "unit"
   },
   "models": [
     {

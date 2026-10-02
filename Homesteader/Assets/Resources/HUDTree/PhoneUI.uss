@@ -733,42 +733,18 @@
     margin: 0 4px;
 }
 
-/* The runtime theme draws no slider parts by itself (the Settings sliders style their own tracker and dragger the
-   same way), so without these the seek bar and the volume slider were there but invisible. */
-.steadify-seek-slider,
-.steadify-volume-slider {
+/* The seek bar and the volume slider are shared hs-sliders (UIControls.uss): the same track and handle as Settings. Layout only here. */
+.steadify-seek-slider.hs-slider,
+.steadify-volume-slider.hs-slider {
     height: 22px;
     min-height: 22px;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     padding: 0;
     flex-shrink: 1;
 }
 
-/* The drag container is what gives a horizontal slider its height (see .admin-slider). */
-.steadify-seek-slider .unity-base-slider__drag-container,
-.steadify-volume-slider .unity-base-slider__drag-container {
-    height: 22px;
-    justify-content: center;
-}
-
-.steadify-seek-slider .unity-base-slider__tracker,
-.steadify-volume-slider .unity-base-slider__tracker {
-    height: 6px;
-    background-color: rgb(58, 70, 88);
-    border-radius: 3px;
-    border-width: 0;
-}
-
-.steadify-seek-slider .unity-base-slider__dragger,
-.steadify-volume-slider .unity-base-slider__dragger {
-    width: 14px;
-    height: 14px;
-    margin-top: -4px;
-    border-radius: 7px;
-    background-color: rgb(246, 157, 75);
-    border-width: 1px;
-    border-color: rgb(250, 190, 130);
+.steadify-seek-slider.hs-slider {
+    margin: 0 4px;
 }
 
 .steadify-transport-row {
@@ -1186,38 +1162,11 @@
     flex-shrink: 0;
 }
 
-.admin-slider {
+.admin-slider.hs-slider {
     margin: 0;
     padding: 0;
     height: 22px;
     flex-shrink: 0;
-}
-
-.admin-slider .unity-base-slider__drag-container {
-    height: 22px;
-    justify-content: center;
-}
-
-.admin-slider .unity-base-slider__tracker {
-    height: 7px;
-    background-color: var(--c-well);
-    border-width: 1px;
-    border-color: var(--c-raised);
-    border-radius: var(--r);
-}
-
-.admin-slider .unity-base-slider__dragger {
-    width: 18px;
-    height: 18px;
-    margin-top: -5px;
-    border-radius: 9px;
-    background-color: var(--c-accent);
-    border-width: 1px;
-    border-color: var(--c-accent-hi);
-}
-
-.admin-slider .unity-base-slider__dragger:hover {
-    background-color: var(--c-accent-hi);
 }
 
 .admin-scale-row {
@@ -1899,14 +1848,6 @@
     flex-grow: 1;
 }
 
-.steadify-mini-shuffleall {
-    height: 14px;
-    margin: 0 4px 0 0;
-    padding: 0 6px;
-    font-size: 11px;
-    border-width: 0;
-}
-
 .steadify-mini-close:hover {
     color: var(--c-text-strong);
     background-color: rgb(170, 60, 50);
@@ -1940,6 +1881,32 @@
     justify-content: space-between;
     margin-left: 8px;
     overflow: hidden;
+}
+
+.steadify-mini-playlist {
+    width: 130px;
+    flex-shrink: 0;
+    height: 22px;
+    margin: 0 6px 0 0;
+}
+
+.steadify-mini-playlist .unity-base-popup-field__input {
+    height: 22px;
+    min-height: 22px;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 6px;
+    justify-content: center;
+    -unity-text-align: middle-left;
+    font-size: 13px;
+}
+
+.steadify-mini-playlist .unity-base-popup-field__text,
+.steadify-mini-playlist .unity-popup-field__text {
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
 }
 
 .steadify-mini-meta {
@@ -2023,21 +1990,27 @@
     left: 7px;
     top: 0;
     bottom: 0;
-    width: 4px;
-    background-color: rgb(58, 70, 88);
-    border-radius: 2px;
-    border-width: 0;
+    width: 6px;
+    left: 6px;
+    background-color: var(--c-well);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: 3px;
 }
 
 .steadify-mini-volume .unity-base-slider__dragger {
     position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 2px;
-    border-radius: 7px;
-    background-color: rgb(246, 157, 75);
+    width: 16px;
+    height: 16px;
+    left: 1px;
+    border-radius: 8px;
+    background-color: var(--c-accent);
     border-width: 1px;
-    border-color: rgb(250, 190, 130);
+    border-color: var(--c-accent-hi);
+}
+
+.steadify-mini-volume .unity-base-slider__dragger:hover {
+    background-color: var(--c-accent-hi);
 }
 
 /* ============================================== */

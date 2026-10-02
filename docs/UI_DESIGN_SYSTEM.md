@@ -344,6 +344,7 @@ Pressed and hover must differ from normal by more than 8 RGB points so they read
 - Files:
   - `UITokens.uss`: the variables in Section 3 (colors, type, spacing, radius).
   - `UIControls.uss`: every `hs-` component in Section 6.
+  - `PopupMenu.uss`: the dropdown popup list. Unity builds it at the panel root, outside every document, so `PopupStyles.Ensure(...)` attaches this sheet there; it uses tokens only and gets its own `:root` copy from `tools/sync_ui_tokens.py`.
   - Existing files keep layout only and import both.
 - A control in UXML is `class="hs-btn hs-btn--primary"`, plus an optional feature class for position.
 

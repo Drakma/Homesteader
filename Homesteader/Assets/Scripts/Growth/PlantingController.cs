@@ -56,8 +56,25 @@ namespace Homesteader.Growth
             {
                 if (workPed == null || ImpactReached(workPed) || Time.unscaledTime > workUntil)
                 {
-                    Homesteader.World.ForestTrees.TryChop(pendingTree, pendingHeld, workPed != null ? workPed.transform : null);
+                    Homesteader.World.ForestTree swung = pendingTree;
+                    string swungHeld = pendingHeld;
+                    int hitsBefore = swung.Hits;
+                    bool felled = Homesteader.World.ForestTrees.TryChop(swung, swungHeld, workPed != null ? workPed.transform : null);
                     pendingTree = null;
+                    // One click chops until the tree is down, like a click on a berry bush picks every berry: the clip keeps
+                    // looping and the next swing lands on its next impact frame. Walking away (the clip stops) ends it.
+                    bool keepGoing = !felled && !swung.Felled && swung.Hits > hitsBefore && workPed != null
+                        && workPed.WorkPhase(Homesteader.World.ForestTrees.ChopClip, out _, out _);
+                    if (keepGoing)
+                    {
+                        pendingTree = swung;
+                        pendingHeld = swungHeld;
+                        workUntil = Time.unscaledTime + Homesteader.World.ForestTrees.SwingSeconds + 0.3f;
+                    }
+                    else if (felled && workPed != null && !chopStarted)
+                    {
+                        workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                    }
                 }
             }
 
@@ -228,7 +245,9 @@ namespace Homesteader.Growth
                 && Homesteader.World.ForestTrees.CanPick(fruitTree))
             {
                 var picker = FindAnyObjectByType<PedController>();
-                Homesteader.World.ForestTrees.TryPickFruit(fruitTree, picker != null ? picker.transform : null, heldId);
+                Transform pickerT = picker != null ? picker.transform : null;
+                if (Homesteader.World.ForestTrees.TryPickFruit(fruitTree, pickerT, heldId))
+                    Homesteader.World.ForestTrees.RepeatPick(() => Homesteader.World.ForestTrees.TryPickFruit(fruitTree, pickerT, heldId), pickerT);   // one click picks it all
                 return;
             }
 
@@ -271,7 +290,11 @@ namespace Homesteader.Growth
                     if (!PlantingValidator.InReach(ped != null ? ped.transform : null, hit.point, GameRules.HarvestReachCells))
                         ToastNotificationSystem.ShowWarning("Too far", "You can only pick the fruit from the squares right next to you.");
                     else
-                        existing.PickFruit(heldId, ped != null ? ped.transform : null);
+                    {
+                        Transform pickerT = ped != null ? ped.transform : null;
+                        if (existing.PickFruit(heldId, pickerT))
+                            Homesteader.World.ForestTrees.RepeatPick(() => existing.PickFruit(heldId, pickerT), pickerT);   // one click picks it all
+                    }
                     return;
                 }
                 // The tool in hand fits the FRUIT (the basket) but nothing is ripe: that is allowed, there is just nothing to do.
@@ -343,6 +366,13 @@ namespace Homesteader.Growth
             if (needsTool && !holdingTool)
             {
                 ToastNotificationSystem.ShowWarning("Need a tool", $"You need {DescribeTool(rules.YieldTool)} to harvest this.");
+                return;
+            }
+
+            // A tree is felled, not picked: it falls and everything it yields lies on the ground, with a stump left behind.
+            if (plant.Group.GrowthType == "tree")
+            {
+                plant.StartChop(player != null ? player.GetComponent<PedController>() : null);
                 return;
             }
 

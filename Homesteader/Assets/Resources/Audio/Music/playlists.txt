@@ -6,3 +6,5 @@ ModernPop
 ModernCountry
 SmoothJazz
 ClassicRock
+Grunge
+Punk

@@ -57,6 +57,17 @@ namespace Homesteader.World
             Picked.Clear();
         }
 
+        /// <summary>Bushes whose base is inside an area are gone (the ground under a foundation was cleared; the mesh part is SiteClearing's).</summary>
+        public static void ClearIn(System.Func<float, float, bool> inside)
+        {
+            foreach (BerryBush b in All)
+            {
+                if (b.FruitTotal <= 0 || !inside(b.Position.x, b.Position.z)) continue;
+                b.FruitTotal = 0;   // nothing left to pick
+                b.Gone = 0;
+            }
+        }
+
         public static void SetLayout(Mesh bushMesh, int firstVert, int perBerry, int total) { Layouts[bushMesh] = (firstVert, perBerry, total); }
 
         public static void Register(BerryBush b, Mesh sourceMesh)

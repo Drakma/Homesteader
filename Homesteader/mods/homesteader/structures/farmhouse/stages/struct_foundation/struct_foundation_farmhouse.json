@@ -58,11 +58,11 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "masonry_concrete_bag",
+        "item_id": "80lb_cement_bag",
         "quantity": 24
       },
       {
-        "item_id": "item_hardware_rebarbundle",
+        "item_id": "#rebar",
         "quantity": 6
       }
     ],

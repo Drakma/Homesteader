@@ -599,7 +599,7 @@ namespace Homesteader.UI
         }
 
         // ── Pinned app shortcuts (ctrl+click a launcher tile to pin it to the viewport) ────────────────
-        private struct PinDef { public string Label; public string IconClass; public Action Open; }
+        private struct PinDef { public string Label; public string IconClass; public Action Open; public bool KeepPhoneClosed; }
         private readonly Dictionary<string, PinDef> _pinDefs = new Dictionary<string, PinDef>();
         private readonly List<string> _pinnedIds = new List<string>();
         private VisualElement _pinDock;
@@ -631,6 +631,19 @@ namespace Homesteader.UI
                     return;
                 }
                 openAction();
+            });
+        }
+
+        /// <summary>Makes a button inside an app pinnable like a launcher tile: Ctrl+click puts a shortcut for it in the pin dock, and that shortcut runs the action.</summary>
+        private void PinButton(Button button, string id, string label, string iconClass, Action action, bool keepPhoneClosed)
+        {
+            if (button == null) return;
+            _pinDefs[id] = new PinDef { Label = label, IconClass = iconClass, Open = action, KeepPhoneClosed = keepPhoneClosed };
+            button.tooltip = "Ctrl+click to pin a shortcut to the screen";
+            button.RegisterCallback<ClickEvent>(evt =>
+            {
+                if (evt.ctrlKey || evt.commandKey) { TogglePin(id); evt.StopPropagation(); return; }
+                action();
             });
         }
 
@@ -838,7 +851,7 @@ namespace Homesteader.UI
                         evt.StopPropagation();
                         return;
                     }
-                    Open();
+                    if (!def.KeepPhoneClosed) Open();   // the asset spawner opens by itself, without the phone
                     def.Open();
                 });
 
@@ -924,8 +937,11 @@ namespace Homesteader.UI
             // Admin App
             Pin(_appTileAdmin, "admin", "Admin", () => OpenApp(AppView.Admin));
             _adminBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _adminAssetsBtn?.RegisterCallback<ClickEvent>(evt => HudBindings.Instance?.OpenAssetSpawner());
-            _adminAssetsCardBtn?.RegisterCallback<ClickEvent>(evt => HudBindings.Instance?.OpenAssetSpawner());
+            string adminIcon = null;
+            if (_appTileAdmin != null && _appTileAdmin.childCount > 0)
+                foreach (string c in _appTileAdmin[0].GetClasses()) if (c.StartsWith("app-icon-")) { adminIcon = c; break; }
+            PinButton(_adminAssetsBtn, "assets", "Assets", adminIcon, () => HudBindings.Instance?.ToggleAssetSpawner(), true);
+            PinButton(_adminAssetsCardBtn, "assets", "Assets", adminIcon, () => HudBindings.Instance?.ToggleAssetSpawner(), true);
 
             // Seasons
             _adminSeasonWinterBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Winter); UpdateAdminDisplay(); });
@@ -1558,7 +1574,9 @@ namespace Homesteader.UI
                         return;
                     }
                     Debug.Log($"<color=green>[Phone Delivery]</color> Order placed successfully! Paid ${totalPrice:F2} for {totalCount} items.");
-                    ToastNotificationSystem.ShowSuccess("Delivery Dispatched", $"Your order of {totalCount} item(s) (${totalPrice:F2}) is on its way to the homestead drop pallet!");
+                    // The goods come with the delivery van the next morning (Homesteader.World.DeliveryService).
+                    Homesteader.World.DeliveryService.Schedule(new Dictionary<string, int>(_cart));
+                    ToastNotificationSystem.ShowSuccess("Order Placed", $"Your order of {totalCount} item(s) (${totalPrice:F2}) will arrive tomorrow morning.");
                     _cart.Clear();
                     UpdateCartDisplay();
                 },
@@ -1802,41 +1820,14 @@ namespace Homesteader.UI
         }
 
         // =========================================================================
-        // REAL ASSET CATALOG ENGINE (STORECATALOGS.JSON)
+        // SHOPS (built from the asset catalog: each asset manifest says which shops sell it, see properties.stores)
         // =========================================================================
 
-#pragma warning disable 0649
-        [Serializable]
-        private class CatalogDatabase
-        {
-            public List<StoreItemData> lumber;
-            public List<StoreItemData> depot;
-            public List<StoreItemData> grocer;
-            public List<StoreItemData> feed;
-            public List<StoreItemData> water;
-            public List<StoreItemData> vehicles;
-            public List<StoreItemData> equipment;
-            public List<StoreItemData> livestock;
-            public List<StoreItemData> furniture;
-            public List<StoreItemData> voltvision;
-            public List<StoreItemData> trailershack;
-        }
-
-        [Serializable]
-        private class StoreItemData
-        {
-            public string id;
-            public string name;
-            public string category;
-            public float price;
-            public string unit;
-            public string description;
-            public string icon;
-        }
-#pragma warning restore 0649
-
-        private static CatalogDatabase s_catalogDb;
         private static readonly Dictionary<string, List<StoreItem>> s_realStoreItems = new Dictionary<string, List<StoreItem>>();
+
+        // Statics survive between plays when "Reload Domain" is off: read the shops afresh each play.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetShopCache() { s_realStoreItems.Clear(); }
 
         // ── Unified Store & Item Icon Engine ────────────────────────────────
         private static readonly Dictionary<string, Texture2D> s_itemIconCache = new Dictionary<string, Texture2D>(StringComparer.OrdinalIgnoreCase);
@@ -1971,67 +1962,36 @@ namespace Homesteader.UI
             }
         }
 
+        /// <summary>
+        /// The items one shop sells, built from the asset catalog (every manifest that lists this shop in properties.stores). Name,
+        /// icon and weight come from the asset itself; the price, count unit and chip label from its listing for this shop.
+        /// </summary>
         private static List<StoreItem> GetRealCatalogItems(string key)
         {
             if (s_realStoreItems.TryGetValue(key, out var list) && list != null && list.Count > 0)
                 return list;
 
-            EnsureCatalogLoaded();
-
-            List<StoreItemData> dataList = null;
-            if (s_catalogDb != null)
-            {
-                switch (key.ToLowerInvariant())
-                {
-                    case "lumber": dataList = s_catalogDb.lumber; break;
-                    case "depot": dataList = s_catalogDb.depot; break;
-                    case "grocer": dataList = s_catalogDb.grocer; break;
-                    case "feed": dataList = s_catalogDb.feed; break;
-                    case "water": dataList = s_catalogDb.water; break;
-                    case "vehicles": dataList = s_catalogDb.vehicles; break;
-                    case "equipment": dataList = s_catalogDb.equipment; break;
-                    case "livestock": dataList = s_catalogDb.livestock; break;
-                    case "furniture": dataList = s_catalogDb.furniture; break;
-                    case "voltvision": dataList = s_catalogDb.voltvision; break;
-                    case "trailershack": dataList = s_catalogDb.trailershack; break;
-                }
-            }
-
             var result = new List<StoreItem>();
-            if (dataList != null)
+            foreach (AssetCatalogItem item in HudBindings.CatalogItems)
             {
-                foreach (var d in dataList)
+                if (item.store_listings == null) continue;
+                foreach (StoreListing l in item.store_listings)
                 {
+                    if (!string.Equals(l.store, key, StringComparison.OrdinalIgnoreCase)) continue;
                     result.Add(new StoreItem
                     {
-                        Id = d.id,
-                        Name = d.name,
-                        Category = d.category,
-                        Price = d.price,
-                        Unit = d.unit,
-                        IconGlyph = d.icon
+                        Id = item.id,
+                        Name = item.name,
+                        Category = l.category,
+                        Price = l.price,
+                        Unit = l.unit,
+                        IconGlyph = item.icon
                     });
+                    break;
                 }
             }
-            s_realStoreItems[key] = result;
+            if (result.Count > 0) s_realStoreItems[key] = result;   // an empty shop is looked up again next time
             return result;
-        }
-
-        private static void EnsureCatalogLoaded()
-        {
-            if (s_catalogDb != null) return;
-            var jsonAsset = Resources.Load<TextAsset>("StoreCatalogs");
-            if (jsonAsset != null && !string.IsNullOrEmpty(jsonAsset.text))
-            {
-                try
-                {
-                    s_catalogDb = JsonUtility.FromJson<CatalogDatabase>(jsonAsset.text);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogWarning("[PhoneController] JsonUtility failed: " + ex.Message);
-                }
-            }
         }
 
         private static List<StoreItem> GetLumberItems() => GetRealCatalogItems("lumber");

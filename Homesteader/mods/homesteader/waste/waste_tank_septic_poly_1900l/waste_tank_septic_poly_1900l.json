@@ -15,7 +15,8 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true
   },
   "models": [
     {
@@ -71,5 +72,12 @@
       "height": 1.4
     },
     "power_draw_w": 0
+  },
+  "liquid_container": {
+    "capacity_l": 1900,
+    "accepts": [
+      "liquid_sewage",
+      "liquid_greywater"
+    ]
   }
 }

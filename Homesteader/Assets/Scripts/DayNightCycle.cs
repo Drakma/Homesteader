@@ -189,7 +189,8 @@ namespace Homesteader
             var timeSnap = timeSystem.Snapshot();
             float cycleMin = timeSnap.CycleMinute;
             int dayOfYear = timeSnap.DayOfYear;
-            HomesteaderSeason season = timeSnap.Season;
+            // The season tints and dims the sun and moon (Graphics > Seasonal Lighting). Off: the summer palette all year.
+            HomesteaderSeason season = SeasonalLighting ? timeSnap.Season : HomesteaderSeason.Summer;
 
             float sunrise = timeSnap.SunriseMinute;
             float sunset = timeSnap.SunsetMinute;
@@ -320,6 +321,9 @@ namespace Homesteader
                 RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, moonColor * (0.16f + 0.25f * moonCycleBrightness), moonFade);
             }
         }
+
+        /// <summary>Seasonal sun and moon colour and strength (Graphics setting; on by default; off = the summer palette all year).</summary>
+        public static bool SeasonalLighting = true;
 
         private float GetSeasonIntensity(HomesteaderSeason season)
         {

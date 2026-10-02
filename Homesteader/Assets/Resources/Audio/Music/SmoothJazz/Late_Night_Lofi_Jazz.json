@@ -1,0 +1,15 @@
+{
+  "file": "Late_Night_Lofi_Jazz.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/eee25835c38bccb9",
+  "chat_title": "Late-Night Jazz Lofi Track",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi\u2026\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 60 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 60 seconds, not cut off mid-song. smooth jazzy atmospheric lofi for late-night city drive: warm muted trumpet with wah-wah guitar, Rhodes electric piano comping chill groove, fretless bassline, brushes on snare, subtle synth pads night-drive vibe, elegant nostalgic feel, instrumental solo",
+  "requested_prompt": "smooth jazzy atmospheric lofi for late-night city drive: warm muted trumpet with wah-wah guitar, Rhodes electric piano comping chill groove, fretless bassline, brushes on snare, subtle synth pads night-drive vibe, elegant nostalgic feel, instrumental solo",
+  "generated_at": "2026-10-02T09:05:54.052Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Late_Night_Jazz_Lofi_Track.mp4",
+  "bytes": 1829724,
+  "sha256": "6743aa13c488fefc0f0e36ae7ae8173aeaa3b622e5f1eaa7e1a300a1da53d885",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

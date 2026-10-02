@@ -45,6 +45,13 @@
       "default": false,
       "label": "Single Type",
       "note": "Takes only one kind of item at a time: once it holds something, only more of that same item goes in. It accepts anything again when emptied."
+    },
+    "disposable": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Disappears When Emptied",
+      "note": "A single-use container (a cardboard delivery box): a PLACED one is removed from the world when its last item is taken out. Reusable containers (crates, baskets) leave this off."
     }
   }
 }

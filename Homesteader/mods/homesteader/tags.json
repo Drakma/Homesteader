@@ -148,6 +148,82 @@
       "tool_basket_large",
       "tool_basket_medium",
       "tool_basket_small"
+    ],
+    "liquid": [
+      "liquid_water",
+      "liquid_milk",
+      "liquid_goat_milk",
+      "liquid_cream",
+      "liquid_diesel",
+      "liquid_gasoline",
+      "liquid_propane",
+      "liquid_kerosene",
+      "liquid_motor_oil",
+      "liquid_hydraulic_fluid",
+      "liquid_gear_oil",
+      "liquid_bar_chain_oil",
+      "liquid_two_stroke_mix",
+      "liquid_olive_oil",
+      "liquid_sewage",
+      "liquid_greywater",
+      "liquid_manure_slurry",
+      "liquid_vegetable_oil",
+      "liquid_maple_sap",
+      "liquid_maple_syrup",
+      "liquid_honey",
+      "liquid_apple_cider",
+      "liquid_antifreeze"
+    ],
+    "liquid_fuel": [
+      "liquid_diesel",
+      "liquid_gasoline",
+      "liquid_kerosene",
+      "liquid_two_stroke_mix"
+    ],
+    "liquid_dairy": [
+      "liquid_milk",
+      "liquid_goat_milk",
+      "liquid_cream"
+    ],
+    "liquid_oil": [
+      "liquid_motor_oil",
+      "liquid_gear_oil",
+      "liquid_bar_chain_oil",
+      "liquid_hydraulic_fluid",
+      "liquid_vegetable_oil",
+      "liquid_olive_oil"
+    ],
+    "liquid_waste": [
+      "liquid_sewage",
+      "liquid_greywater",
+      "liquid_manure_slurry"
+    ],
+    "rebar": [
+      "building_rebar_steel_bundle",
+      "item_hardware_rebarbundle"
+    ],
+    "tool_saw": [
+      "tool_circular_saw_corded",
+      "tool_circular_saw_cordless",
+      "tool_saw_hand"
+    ],
+    "logs": [
+      "mat_log_birch_uncut_long",
+      "mat_log_maple_uncut_long",
+      "mat_log_oak_uncut_long",
+      "mat_log_pine_uncut_long",
+      "mat_log_poplar_uncut_long",
+      "mat_log_willowood_uncut_long"
     ]
-  }
+  },
+  "tag_values": {
+    "framing_lumber": {
+      "unit": "studs",
+      "values": {
+        "lumber_bundle_2x4_small": 20,
+        "lumber_bundle_2x4_large": 40
+      }
+    }
+  },
+  "_readme_values": "tag_values: equivalencies inside a tag. Each member is worth `values[id]` units (default 1); a recipe line \"#tag x N\" is paid by ANY mix of members worth N units or more (1 large bundle = 2 small = 20 studs). `unit` is the word the hover card shows after the count."
 }

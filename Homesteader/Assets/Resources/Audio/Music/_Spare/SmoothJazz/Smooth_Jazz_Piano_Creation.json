@@ -1,0 +1,15 @@
+{
+  "file": "Smooth_Jazz_Piano_Creation.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/2318c67a79caba5d",
+  "chat_title": "Smooth Jazz Piano Creation",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi\u2026\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 60 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 60 seconds, not cut off mid-song. Elegant piano-led smooth jazz, 90 BPM, rich grand piano melody with lush jazz chords, subtle upright bass, soft brush drums, warm intimate late-evening lounge atmosphere, instrumental only, tasteful piano solo and gentle resolve",
+  "requested_prompt": "Elegant piano-led smooth jazz, 90 BPM, rich grand piano melody with lush jazz chords, subtle upright bass, soft brush drums, warm intimate late-evening lounge atmosphere, instrumental only, tasteful piano solo and gentle resolve",
+  "generated_at": "2026-10-02T09:05:21.384Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Smooth_Jazz_Piano_Creation.mp4",
+  "bytes": 1838427,
+  "sha256": "9a46906a0377c644bfd5e82ab5eccf9e165b370de14a0c846b2da8476bf178cf",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

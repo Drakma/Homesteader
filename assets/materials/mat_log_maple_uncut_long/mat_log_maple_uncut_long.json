@@ -8,16 +8,32 @@
   "properties": {
     "weight_kg": 70.0,
     "max_stack_size": 1,
-    "base_value": 22.0,
+    "base_value": 22,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_log_maple_uncut_long.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 4.0,
+        "y": 0.46,
+        "z": 0.46
+      },
+      "triangles": 288
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

@@ -268,7 +268,7 @@
                 <ui:VisualElement class="asset-search-row">
                     <ui:DropdownField name="AssetCategoryDropdown" class="hs-dropdown asset-category-dropdown" />
                     <ui:TextField name="AssetSearchInput" placeholder-text="Search assets by name or ID..." class="hs-field asset-search-input" />
-                    <ui:Label text="Click: +1, Shift+Click: full stack" class="asset-shortcut-hint" />
+                    <ui:Label text="Click: +1, Shift+Click: full stack, Alt+Click: drop" class="asset-shortcut-hint" />
                 </ui:VisualElement>
 
                 <!-- Asset Grid ScrollView -->

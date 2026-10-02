@@ -68,8 +68,40 @@
     "placeable": {
       "type": "boolean",
       "required": false,
-      "default": true,
-      "note": "Whether the player can put this item on the ground (left click with a shadow preview, or right click). Default yes for any item with a model; set false for things that should never be placed. Seeds that plant a growth group are never placed."
+      "default": false,
+      "label": "Placeable",
+      "note": "Whether the player can put this item on the ground. Opt in: true for crates, structures, utilities and other things that stand in the world; default false (tools, food and materials in hand do nothing). The first left click brings out a shadow preview, R rotates it, Enter or a second click places it. Seeds that plant a growth group are never placed."
+    },
+    "stores": {
+      "type": "array",
+      "required": false,
+      "label": "Sold At",
+      "note": "The phone shops that sell this item (depot, lumber, grocer, feed, water, vehicles, equipment, livestock, furniture, voltvision, trailershack). The manifest is the ONLY place this lives: the phone builds each shop from the catalog. Setting it makes the item buyable at base_value (is_buyable true)."
+    },
+    "sale_unit": {
+      "type": "string",
+      "required": false,
+      "label": "Sale Unit",
+      "note": "How a shop counts it: ea, kit, box, bale, packet, tank ... (default ea)."
+    },
+    "store_category": {
+      "type": "string",
+      "required": false,
+      "label": "Shop Label",
+      "note": "The chip label a shop shows for it when it differs from its asset category default (for example Trailer Parts)."
+    },
+    "store_overrides": {
+      "type": "object",
+      "required": false,
+      "label": "Per-Shop Overrides",
+      "note": "One shop that sells it differently: {\"trailershack\": {\"category\": \"Trailer Repair\", \"unit\": \"ea\", \"price\": 35}}. Edited in the manifest JSON."
+    },
+    "support_surface": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Carries Things (pallet)",
+      "note": "A placed one carries items on top (a pallet): things placed over its deck rest on it, packed side by side and stacked up to their stacking limit. A pallet that still carries things cannot be picked up. Needs placeable = true."
     }
   }
 }

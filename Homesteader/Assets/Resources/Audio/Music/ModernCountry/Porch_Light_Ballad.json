@@ -1,0 +1,15 @@
+{
+  "file": "Porch_Light_Ballad.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/8ec6528465de5c12",
+  "chat_title": "Country Ballad Instrumental Generation",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi\u2026\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 60 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 60 seconds, not cut off mid-song. Heartfelt modern country ballad, slow 78 BPM, fingerpicked acoustic guitars, gentle pedal steel swells, soft brushed percussion, warm upright-feel bass, tender wistful small-town evening mood, instrumental only, emotional swelling finale",
+  "requested_prompt": "Heartfelt modern country ballad, slow 78 BPM, fingerpicked acoustic guitars, gentle pedal steel swells, soft brushed percussion, warm upright-feel bass, tender wistful small-town evening mood, instrumental only, emotional swelling finale",
+  "generated_at": "2026-10-02T09:06:09.458Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Country_Ballad_Instrumental_Generation.mp4",
+  "bytes": 2140670,
+  "sha256": "0dc6dffed23e42b89334c33f7dc26014cac4ebaa307e0e644d8ec4c28968f3ec",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

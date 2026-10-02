@@ -10,7 +10,7 @@ The game saves itself and resumes where it left off. Code: `Assets/Scripts/Save/
 - **HUD state:** the toolbar (items, counts, selected slot), vitals, resources (water, electricity, bandwidth, fuel by type,
   money) and loan debt.
 - **World:** every planted crop and tree (group, position, facing, age, and whether it is withered, dead or a stump),
-  every placed structure or prop (item, position, rotation), and every dropped item.
+  every placed structure or prop (item, position, rotation), every phone order waiting for the delivery van (docs/DELIVERY.md), every structure under construction (id, position, turn, stage; docs/CONSTRUCTION.md), and every dropped item.
 - **World seed** (informational: the terrain is regenerated from the same seed, so it must not change between runs).
 
 Not saved yet: animals (only dev-spawned ones exist), snow and puddle accumulation (weather-driven), open windows.

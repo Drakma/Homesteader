@@ -8,19 +8,30 @@
   "properties": {
     "weight_kg": 45.0,
     "max_stack_size": 1,
-    "base_value": 14.0,
+    "base_value": 14,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {
-      "file": "SM_Mat_Log_Birch_Uncut_Medium.fbx",
-      "format": "fbx"
+      "file": "mat_log_birch_uncut_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.4,
+        "y": 0.37,
+        "z": 0.37
+      },
+      "triangles": 270
     }
   ],
   "utilities": {

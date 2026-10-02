@@ -56,6 +56,11 @@
       "group": "internet"
     },
     {
+      "type": "liquid",
+      "path": "liquids",
+      "group": "liquids"
+    },
+    {
       "type": "logging",
       "path": "logging",
       "group": "logging"

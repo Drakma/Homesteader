@@ -1,0 +1,14 @@
+{
+  "file": "October_Undercurrent.mp3",
+  "source": "Google Gemini web app (Lyria), generated manually in the user's browser",
+  "prompt": "Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 120 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 120 seconds, not cut off mid-song. Grunge rock instrumental in a 1990s style, 100 BPM: heavy fuzz-distorted guitar riff, quiet clean verse section then loud distorted chorus, sludgy bass, hard-hitting drums, rainy overcast mood.",
+  "requested_prompt": "Grunge rock instrumental in a 1990s style, 100 BPM: heavy fuzz-distorted guitar riff, quiet clean verse section then loud distorted chorus, sludgy bass, hard-hitting drums, rainy overcast mood.",
+  "requested_duration_seconds": 120,
+  "generated_at": "2026-10-02T07:35:41.411101+00:00",
+  "downloaded_via": "manual browser download",
+  "converted_from": null,
+  "bytes": 2938269,
+  "sha256": "4f26447c0d9d55eb1bc3786ba7eb8e65a1977e9a8eb341522546549e004915d1",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

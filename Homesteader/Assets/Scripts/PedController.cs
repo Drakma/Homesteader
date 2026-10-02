@@ -99,6 +99,18 @@ public class PedController : MonoBehaviour
         if (glbPlayer != null && glbPlayer.ActionActive && glbPlayer.CurrentAction == clip) glbPlayer.EndAction();
     }
 
+    /// <summary>
+    /// Automatic walking (the build routine of a construction site): while set, the ped walks to this point on its own. Any movement key
+    /// takes control back and clears it (AutoCancelled turns true).
+    /// </summary>
+    public Vector3? AutoTarget { get; private set; }
+    public bool AutoCancelled { get; private set; }
+    /// <summary>True while the player is pressing a movement key (not automatic walking): what takes control back from a build.</summary>
+    public bool ManualInput { get; private set; }
+
+    public void AutoWalkTo(Vector3 target) { AutoTarget = target; AutoCancelled = false; }
+    public void AutoStop() { AutoTarget = null; }
+
     /// <summary>When true, walking uses the two-arm carry clip (Walk_Carry).</summary>
     public bool Carrying { get; set; }
 
@@ -209,6 +221,22 @@ public class PedController : MonoBehaviour
         }
 
         Vector3 move = new Vector3(h, 0f, v);
+        ManualInput = move.sqrMagnitude > 0.01f;
+        if (AutoTarget.HasValue)
+        {
+            if (move.sqrMagnitude > 0.01f) { AutoTarget = null; AutoCancelled = true; }   // a key takes control back
+            else
+            {
+                Vector3 to = AutoTarget.Value - transform.position;
+                to.y = 0f;
+                if (to.sqrMagnitude > 0.04f)
+                {
+                    float yaw = cameraTransform != null ? cameraTransform.eulerAngles.y : 0f;
+                    move = Quaternion.Inverse(Quaternion.Euler(0f, yaw, 0f)) * to.normalized;   // the input is camera-relative
+                    running = false;
+                }
+            }
+        }
         move = Vector3.ClampMagnitude(move, 1f);
         IsMoving = move.sqrMagnitude > 0.01f;
 

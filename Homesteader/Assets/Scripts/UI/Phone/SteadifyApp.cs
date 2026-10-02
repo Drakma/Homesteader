@@ -56,6 +56,7 @@ namespace Homesteader.UI
             _repeatBtn = root.Q<Button>("SteadifyRepeatBtn");
             _playlistContainer = root.Q<VisualElement>("SteadifyPlaylistContainer");
             _playlistSelector = root.Q<DropdownField>("SteadifyPlaylistSelector");
+            PopupStyles.Ensure(root);   // the dropdown list is built outside the document and needs its own style sheet
 
             var audio = AudioManager.Instance;
             if (audio != null)

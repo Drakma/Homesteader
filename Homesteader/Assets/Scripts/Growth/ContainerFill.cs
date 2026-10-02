@@ -102,7 +102,6 @@ namespace Homesteader.Growth
                 BuildSlab(w.Key, y, h);
                 y += h;
             }
-            Debug.Log("[ContainerFill] " + _placed.ItemId + ": " + weights.Count + " slab(s), opening " + _inner.size.ToString("F2"));
             return true;
         }
 

@@ -1,0 +1,30 @@
+{
+  "category": "liquids",
+  "note": "A LIQUID is a fluid that fills liquid containers by volume (see liquid_container.schema.json). It is never carried or placed on its own and has no model. Its WEIGHT is properties.weight_kg = kilograms PER LITRE (water 1.0, diesel 0.83); what a container weighs is its own weight plus litres x this. Ids start with liquid_.",
+  "fields": {
+    "color": {
+      "type": "string",
+      "required": true,
+      "editor": "color",
+      "default": "#7fb8e6",
+      "label": "Fluid Color",
+      "note": "The fluid colour as #RRGGBB (the swatch). It tints the liquid shown in a container."
+    },
+    "opacity_pct": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "max": 100,
+      "default": 100,
+      "label": "Opacity (%)",
+      "note": "How opaque the fluid is: 100 = fully opaque (milk, cream), about 70 for fuels, about 35 for water, 0 = invisible. Drives how much of the container shows through the liquid."
+    },
+    "flammable": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Flammable",
+      "note": "Burns or explodes near fire (fuels, oils, kerosene, propane)."
+    }
+  }
+}

@@ -68,6 +68,8 @@ Every item folder must contain `<item_id>.json` conforming to the Homesteader It
 		"is_consumable": false,
 		"is_buyable": false,
 		"is_sellable": false,
+		"stores": [],
+		"sale_unit": "ea",
 		"footprint": null
 	},
 	"models": [

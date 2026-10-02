@@ -7,15 +7,20 @@
   "icon": "fuel_steel_drum_200l.png",
   "properties": {
     "weight_kg": 1.0,
-    "max_stack_size": 99,
-    "base_value": 10.0,
+    "max_stack_size": 1,
+    "base_value": 10,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {
@@ -97,5 +102,12 @@
     "fuel_type": "diesel",
     "capacity_l": 200,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 200,
+    "accepts": [
+      "#liquid_fuel",
+      "#liquid_oil"
+    ]
   }
 }

@@ -81,7 +81,7 @@
           }
         ],
         "tools": [
-          "tool_fruit_basket"
+          "#tool_basket"
         ],
         "fruit_stage": 5,
         "regrow_days": 30

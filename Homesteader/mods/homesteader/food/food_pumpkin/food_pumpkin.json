@@ -15,7 +15,12 @@
     "thirst_restore": 5,
     "energy_restore": 0,
     "stamina_restore": 10,
-    "wellness_modifier": 2
+    "wellness_modifier": 2,
+    "is_buyable": true,
+    "stores": [
+      "grocer"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {

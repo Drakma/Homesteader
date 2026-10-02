@@ -11,7 +11,7 @@ namespace Homesteader.Controls
         MoveUp, MoveDown, MoveLeft, MoveRight, Run,
         CameraRotateLeft, CameraRotateRight,
         PauseTime, SpeedUp, SpeedDown,
-        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer,
+        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem,
     }
 
     /// <summary>
@@ -46,10 +46,11 @@ namespace Homesteader.Controls
             new ActionInfo { Action = BindAction.SpeedUp, Label = "Faster time", Group = "Time and menus", DefaultKey = Key.RightBracket },
             new ActionInfo { Action = BindAction.SpeedDown, Label = "Slower time", Group = "Time and menus", DefaultKey = Key.LeftBracket },
             new ActionInfo { Action = BindAction.TogglePhone, Label = "Open / close phone", Group = "Time and menus", DefaultKey = Key.Tab },
-            new ActionInfo { Action = BindAction.PlayerLight, Label = "Flashlight / lantern", Group = "World", DefaultKey = Key.F },
+            new ActionInfo { Action = BindAction.PlayerLight, Label = "Flashlight / lantern", Group = "World", DefaultKey = Key.L },
             new ActionInfo { Action = BindAction.ToggleMap, Label = "Show / hide map", Group = "World", DefaultKey = Key.M },
             new ActionInfo { Action = BindAction.PlaceRotate, Label = "Rotate placement", Group = "World", DefaultKey = Key.R },
             new ActionInfo { Action = BindAction.ToggleContainer, Label = "Open / close container", Group = "World", DefaultKey = Key.C },
+            new ActionInfo { Action = BindAction.DropItem, Label = "Drop the held item", Group = "World", DefaultKey = Key.F },
         };
 
         /// <summary>True while the Controls page is waiting for a key press to bind. Game actions report
@@ -73,6 +74,16 @@ namespace Homesteader.Controls
 
         private static void Load()
         {
+            // One-time: the flashlight / lantern moves to L whatever an older build saved for it (and anything else saved on L gives it up).
+            if (PlayerPrefs.GetInt(PrefPrefix + "FlashlightOnL", 0) == 0)
+            {
+                PlayerPrefs.DeleteKey(PrefPrefix + BindAction.PlayerLight);
+                foreach (ActionInfo info in All)
+                    if (info.Action != BindAction.PlayerLight && PlayerPrefs.GetInt(PrefPrefix + info.Action, -1) == (int)Key.L)
+                        PlayerPrefs.DeleteKey(PrefPrefix + info.Action);
+                PlayerPrefs.SetInt(PrefPrefix + "FlashlightOnL", 1);
+                PlayerPrefs.Save();
+            }
             _current = new Dictionary<BindAction, Key>();
             foreach (ActionInfo info in All)
             {
@@ -140,6 +151,9 @@ namespace Homesteader.Controls
         }
 
         // ------------------------------------------------------------------ gameplay queries
+
+        /// <summary>The key an action is bound to now.</summary>
+        public static Key KeyOf(BindAction action) { return Current[action]; }
 
         public static bool IsPressed(BindAction action)
         {

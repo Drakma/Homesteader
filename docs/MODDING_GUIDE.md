@@ -274,9 +274,10 @@ version and date, writes an animal's AI to `ai/<id>.json`, and refreshes the in-
 
 ## 4c2. Placing structures and props
 
-Select a placeable item on the toolbar (any item with a model; category does not matter, and an item can opt out with `"properties": { "placeable": false }`) and
-a translucent shadow of it follows the grid square under the cursor: blue when the square is valid, red when not. **R**
-turns it (12.5 degrees a press, Shift+R the other way) and a **left click** places it: one item is consumed, the shadow
+Select a placeable item on the toolbar (an item with a model that opts in with `"properties": { "placeable": true }`; category does not
+matter, the default is not placeable) and **left click**: a translucent shadow of it follows the grid square under the cursor, blue when the
+square is valid, red when not. **R** turns it (12.5 degrees a press, Shift+R the other way); **Enter** or a **second left click** places it
+(Esc, walking away or choosing another slot puts the shadow away): one item is consumed, the shadow
 fades to solid and it stays until something removes it (`PlacedObject.Remove()`). A square is invalid when it is farther
 than `placement.reach_cells` from the player, in water, too steep, or already holds a placed object or a plant. In
 `gamerules.json`:

@@ -7,15 +7,20 @@
   "icon": "fuel_propane_1_5l.png",
   "properties": {
     "weight_kg": 9.0,
-    "max_stack_size": 10,
-    "base_value": 25.0,
+    "max_stack_size": 1,
+    "base_value": 25,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "tank"
   },
   "models": [],
   "utilities": {
@@ -64,5 +69,11 @@
     "fuel_type": "propane",
     "capacity_l": 1.5,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 1.5,
+    "accepts": [
+      "liquid_propane"
+    ]
   }
 }

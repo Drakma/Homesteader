@@ -112,6 +112,25 @@ namespace Homesteader.Save
 #endif
         }
 
+        /// <summary>
+        /// Takes away everything the player made in the world being left: placed objects, dropped items, construction sites, plants,
+        /// and any delivery order or van. New Game generates the new world in place (no scene reload), so without this the old
+        /// world's objects stayed standing in the new one.
+        /// </summary>
+        public static void ClearPlayerMadeWorld()
+        {
+            foreach (PlacedObject o in PlacedObject.All) if (o != null) o.Remove();
+            foreach (WorldItem w in new List<WorldItem>(WorldItem.All)) if (w != null) Object.Destroy(w.gameObject);
+            ConstructionSite.Clear();
+            foreach (PlantedGrowth p in new List<PlantedGrowth>(PlantedGrowth.All))
+            {
+                if (p == null) continue;
+                PlantedGrowth.All.Remove(p);
+                Object.Destroy(p.gameObject);
+            }
+            Homesteader.World.DeliveryService.Reset();
+        }
+
         public static void SaveNow()
         {
             try { Capture().WriteToDisk(); }
@@ -177,7 +196,7 @@ namespace Homesteader.Save
                 s.plants.Add(new GameSave.SavedPlant
                 {
                     group = p.Group.QualifiedId, position = p.transform.position, yaw = p.transform.eulerAngles.y,
-                    ageDays = p.AgeDays, state = (int)p.State, fruitPickedUntil = p.FruitPickedUntil, fruitGoneMask = (int)p.FruitGone,
+                    ageDays = p.AgeDays, state = (int)p.State, stumpRadius = p.StumpRadius, fruitPickedUntil = p.FruitPickedUntil, fruitGoneMask = (int)p.FruitGone,
                 });
             }
             foreach (PlacedObject o in PlacedObject.All)
@@ -193,7 +212,10 @@ namespace Homesteader.Save
                 s.placed.Add(sp);
             }
             foreach (WorldItem w in WorldItem.All)
-                if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position });
+                if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
+            s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
+            foreach (ConstructionSite cs in ConstructionSite.All)
+                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen });
             s.fellTrees = Homesteader.World.ForestTrees.SavedFelled();
             s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
             s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
@@ -272,6 +294,8 @@ namespace Homesteader.Save
             Homesteader.UI.WindowPositions.Restore(s.windows);
             Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
 
+            ClearPlayerMadeWorld();   // whatever is standing belongs to the world being left; the save puts back exactly its own
+
             // plants: the ones standing now belong to the world being left (or to a stale session); the save puts back exactly its own
             foreach (PlantedGrowth old in new List<PlantedGrowth>(PlantedGrowth.All))
             {
@@ -288,7 +312,7 @@ namespace Homesteader.Save
                 PlantedGrowth p = PlantedGrowth.Plant(group, sp.position, plantedRoot);
                 p.transform.rotation = Quaternion.Euler(0f, sp.yaw, 0f);
                 p.SetAgeDays(sp.ageDays);
-                p.RestoreState((PlantedGrowth.PlantState)sp.state);
+                p.RestoreState((PlantedGrowth.PlantState)sp.state, sp.stumpRadius);
                 if (sp.fruitPickedUntil > 0f) p.RestoreFruit(sp.fruitPickedUntil, sp.fruitGoneMask == 0 ? uint.MaxValue : (uint)sp.fruitGoneMask);
             }
 
@@ -314,8 +338,18 @@ namespace Homesteader.Save
                 PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents);
             }
 
+            Homesteader.World.DeliveryService.RestoreOrders(s.deliveries);
+
+            // structures under construction
+            ConstructionSite.Clear();
+            foreach (var cs in s.sites)
+            {
+                ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
+                if (site != null) site.SetDoor(cs.doorOpen);   // set before the model loads: it opens at once when it shows
+            }
+
             // dropped items
-            foreach (var d in s.drops) WorldItem.TryDrop(d.itemId, d.position);
+            foreach (var d in s.drops) WorldItem.TryDrop(d.itemId, d.position, d.hasYaw ? d.yawDeg : (float?)null);
         }
     }
 }

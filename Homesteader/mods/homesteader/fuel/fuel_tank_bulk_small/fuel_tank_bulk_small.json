@@ -6,16 +6,21 @@
   "description": "A skid-mounted bulk fuel storage tank for on-site diesel or gasoline storage.",
   "icon": "fuel_tank_bulk_small.png",
   "properties": {
-    "weight_kg": 1500.0,
+    "weight_kg": 1500,
     "max_stack_size": 1,
-    "base_value": 6200.0,
+    "base_value": 6200,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "tank"
   },
   "models": [],
   "utilities": {
@@ -64,5 +69,12 @@
     "fuel_type": "diesel",
     "capacity_l": 1136,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 1136,
+    "accepts": [
+      "liquid_diesel",
+      "liquid_gasoline"
+    ]
   }
 }

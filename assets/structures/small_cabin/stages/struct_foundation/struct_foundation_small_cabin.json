@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_foundation_small_cabin.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5.1,
+        "y": 0.26,
+        "z": 5.5
+      },
+      "triangles": 72
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -58,23 +69,19 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "masonry_concrete_bag",
-        "quantity": 8
+        "item_id": "#rebar",
+        "quantity": 2
       },
       {
-        "item_id": "item_hardware_rebarbundle",
-        "quantity": 2
+        "item_id": "80lb_cement_bag",
+        "quantity": 4
       }
     ],
     "required_tools": [
       [
         "tool_shovel",
         "tool_shovel_round_point",
-        "tool_shovel_trenching",
-        "tool_pickaxe"
-      ],
-      [
-        "tool_trowel_hand"
+        "tool_shovel_trenching"
       ]
     ]
   }

@@ -7,15 +7,20 @@
   "icon": "large_gas_fuel_container.png",
   "properties": {
     "weight_kg": 16.0,
-    "max_stack_size": 6,
-    "base_value": 38.0,
+    "max_stack_size": 1,
+    "base_value": 38,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "ea"
   },
   "models": [],
   "utilities": {
@@ -64,5 +69,11 @@
     "fuel_type": "gasoline",
     "capacity_l": 19,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 19,
+    "accepts": [
+      "liquid_gasoline"
+    ]
   }
 }

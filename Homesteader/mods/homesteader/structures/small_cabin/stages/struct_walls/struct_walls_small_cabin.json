@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_walls_small_cabin.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5.1,
+        "y": 3.96,
+        "z": 5.5
+      },
+      "triangles": 2372
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -58,22 +69,23 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "mat_log_pine",
-        "quantity": 40
-      },
-      {
         "item_id": "#romex_wire",
         "quantity": 4
       },
       {
         "item_id": "#plumbing_pipe",
         "quantity": 4
+      },
+      {
+        "item_id": "#logs",
+        "quantity": 30
       }
     ],
     "required_tools": [
       [
         "tool_circular_saw_corded",
-        "tool_circular_saw_cordless"
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
       ],
       [
         "tool_hammer_claw",

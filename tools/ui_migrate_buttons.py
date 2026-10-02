@@ -21,7 +21,7 @@ GROUPS = {
                 'mods-category-back-btn', 'controls-key-btn', 'steadify-popout-btn', 'header-settings-btn',
                 'almanac-tab-btn', 'mod-toggle-btn'],
     'primary': ['hs-btn--primary', 'action-btn--primary', 'welcome-btn--primary', 'store-item-buy-btn',
-                'controls-key-btn--capturing', 'container-panel-btn', 'steadify-mini-shuffleall'],
+                'controls-key-btn--capturing', 'container-panel-btn'],
     'danger': ['hs-btn--danger', 'welcome-btn--exit', 'mod-toggle-btn--disabled'],
     'teal': ['hs-btn--teal', 'admin-header-assets-btn', 'admin-action-btn', 'mod-toggle-btn--enabled',
              'steadify-shuffle-all-btn'],

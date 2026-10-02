@@ -8,14 +8,26 @@
   "properties": {
     "weight_kg": 1400.0,
     "max_stack_size": 1,
-    "base_value": 9500.0,
+    "base_value": 9500,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 3,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "equipment",
+      "trailershack"
+    ],
+    "sale_unit": "unit",
+    "store_overrides": {
+      "trailershack": {
+        "category": "Trailers",
+        "unit": "ea"
+      }
+    }
   },
   "models": [
     {

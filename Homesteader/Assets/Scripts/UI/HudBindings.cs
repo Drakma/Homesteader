@@ -363,6 +363,7 @@ namespace Homesteader.UI
             _assetSpawnerCountBadge = Q<Label>("AssetSpawnerCountBadge");
             _assetSpawnerStatusLabel = Q<Label>("AssetSpawnerStatusLabel");
             _assetCategoryDropdown = Q<DropdownField>("AssetCategoryDropdown");
+            if (_assetCategoryDropdown != null) PopupStyles.Ensure(_assetCategoryDropdown);   // its list is built at the panel root
             _assetSearchInput = Q<TextField>("AssetSearchInput");
             _assetGridContainer = Q<VisualElement>("AssetGridContainer");
             _assetGridContainer?.RegisterCallback<GeometryChangedEvent>(evt => LayoutAssetGrid());
@@ -605,6 +606,9 @@ namespace Homesteader.UI
         /// True while a HUD window is open or a text field has focus. Gameplay input
         /// (movement, camera, hotkeys) must not read the keyboard while this is true.
         /// </summary>
+        /// <summary>The frame in which Esc closed something (a text field's focus, a window, the phone); the welcome menu leaves that Esc alone.</summary>
+        public static int EscapeHandledFrame = -1;
+
         public static bool KeyboardCaptured =>
             Instance != null && (Instance.IsModalOpen || Instance.IsAssetSpawnerOpen || Instance.IsTextInputFocused());
 
@@ -634,11 +638,14 @@ namespace Homesteader.UI
             {
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
+                    EscapeHandledFrame = Time.frameCount;   // the welcome menu (which also listens to Esc) must not open on top of this
                     if (!BlurFocusedTextInput())
                     {
                         if (IsAssetSpawnerOpen) CloseAssetSpawner();
                         else if (IsModalOpen) CloseModal();
+                        else if (ContainerPanel.CloseOpen()) { }
                         else if (phoneOpen) _phone.Close();
+                        else EscapeHandledFrame = -1;   // nothing to close: Esc is the welcome menu's
                     }
                 }
                 // A focused window / text field owns the keyboard: no hotkeys reach the game
@@ -780,6 +787,16 @@ namespace Homesteader.UI
                 && picked != _root
                 && !(picked is TemplateContainer)
                 && !picked.ClassListContains("screen-root");
+        }
+
+        /// <summary>Every catalog entry (the phone builds its shops from this).</summary>
+        public static List<AssetCatalogItem> CatalogItems
+        {
+            get
+            {
+                EnsureAssetCatalogLoaded();
+                return s_assetCatalog?.items ?? new List<AssetCatalogItem>();
+            }
         }
 
         /// <summary>The catalog entry for an item id, or null.</summary>
@@ -967,6 +984,19 @@ namespace Homesteader.UI
             }
         }
 
+        private static void DropAssetInFront(string itemId, int count)
+        {
+            var ped = FindAnyObjectByType<PedController>();
+            if (ped == null) return;
+            Vector3 facing = Quaternion.Euler(0f, ped.transform.eulerAngles.y - ped.modelRotationOffset, 0f) * Vector3.forward;
+            Vector3 front = ped.transform.position + facing * 1.5f;
+            int dropped = 0;
+            for (int i = 0; i < count; i++)
+                if (Homesteader.Growth.WorldItem.TryDrop(itemId, front)) dropped++;
+            if (dropped > 0) ToastNotificationSystem.ShowCounted("drop:" + itemId, "Dropped", "Dropped {0}x " + GetItemName(itemId).Replace("{", "{{").Replace("}", "}}") + ".", dropped);
+            else ToastNotificationSystem.ShowWarning("Can't drop", "That asset has no model or icon to drop.");
+        }
+
         private static bool IsShiftHeld()
         {
 #if ENABLE_INPUT_SYSTEM
@@ -1002,6 +1032,13 @@ namespace Homesteader.UI
             if (IsAssetSpawnerOpen) CloseAssetSpawner();
             else OpenAssetSpawner();
         }
+
+        /// <summary>
+        /// With "Reload Domain" off in Enter Play Mode, statics survive between plays: the catalog read in an earlier play (before
+        /// the kit regenerated AssetCatalog.json) would be used again. Read it afresh at the start of every play.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetCatalogCache() { s_assetCatalog = null; }
 
         private static void EnsureAssetCatalogLoaded()
         {
@@ -1159,6 +1196,12 @@ namespace Homesteader.UI
                 {
                     bool isShift = evt.shiftKey || (evt.modifiers & EventModifiers.Shift) != 0 || IsShiftHeld();
                     int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : 1;
+                    if (evt.altKey || (evt.modifiers & EventModifiers.Alt) != 0)
+                    {
+                        // Alt+Click: straight onto the ground in front of the player (Shift: a full stack, up to 24)
+                        DropAssetInFront(currentItem.id, Mathf.Min(24, countToAdd));
+                        return;
+                    }
                     int added = HudState.Active.AddItemToToolbar(currentItem.id, countToAdd, Mathf.Max(1, currentItem.max_stack));
                     if (added > 0)
                     {
@@ -1700,6 +1743,41 @@ namespace Homesteader.UI
         public List<AssetCatalogItem> items;
     }
 
+    /// <summary>One shop's listing of an item (properties.stores in the manifest): the shop id, the chip label, how it is counted, its price.</summary>
+    [System.Serializable]
+    public class StoreListing
+    {
+        public string store;
+        public string category;
+        public string unit;
+        public float price;
+    }
+
+    /// <summary>One alternative of an "or" line: this many of this item (or #tag).</summary>
+    [System.Serializable]
+    public class ConstructionOption { public string item_id; public int quantity = 1; }
+
+    /// <summary>
+    /// One line of a stage's materials: this many of this item (or #tag), OR, when any_of is set, a choice: the stage takes ANY ONE of the
+    /// alternatives IN FULL (for example "2 x Large 2x4 Bundle" or "4 x Small 2x4 Bundle").
+    /// </summary>
+    [System.Serializable]
+    public class ConstructionLine { public string item_id; public int quantity = 1; public List<ConstructionOption> any_of; }
+
+    [System.Serializable]
+    public class ConstructionToolGroup { public List<string> tools; }
+
+    /// <summary>One stage of a structure under construction (foundation, framing, walls, complete): what it takes and how big it is.</summary>
+    [System.Serializable]
+    public class ConstructionStageData
+    {
+        public string name;
+        public string item_id;                         // the stage's own item (its model, when it has one)
+        public float width, depth, height;             // metres
+        public List<ConstructionLine> recipe;          // materials consumed to build this stage (an item id or a #tag)
+        public List<ConstructionToolGroup> tool_groups; // the player needs ANY ONE tool of EACH group in the toolbar; tools are not consumed
+    }
+
     [System.Serializable]
     public class AssetCatalogItem
     {
@@ -1710,11 +1788,20 @@ namespace Homesteader.UI
         public string icon;
         public int max_stack;
         public float weight_kg;
+        public bool support_surface;                                // a placed one carries items on top (a pallet, see PalletDeck.cs)
+        public List<StoreListing> store_listings;                   // the phone shops that sell it (null = not for sale)
+        public List<ConstructionStageData> construction_stages;   // a structure built in stages (see ConstructionSite.cs)
+        public float liquid_capacity_l;            // > 0: holds one liquid by volume (see Liquids.cs)
+        public List<string> liquid_accepts;        // liquid ids or #tags it takes; empty = any liquid
+        public string liquid_color;                // a liquid item: its fluid colour as #RRGGBB
+        public float liquid_opacity_pct;           // a liquid item: 100 = fully opaque (milk), about 70 for fuels
+        public bool liquid_flammable;
         public float container_capacity_kg;        // > 0: this item is a container (see Containers.cs)
         public int container_stacking_limit;       // identical placed containers stack this high in the world (1 / 0 = they do not)
         public List<string> fruiting_tools;        // the 'fruiting' add-on schema: what picks it (tools / #tags), what one fruit gives, days to regrow
         public List<string> fruiting_drops;
         public float fruiting_regrow_days;
+        public bool container_disposable;    // a placed one disappears when its last item is taken out (cardboard boxes)
         public bool container_single_type;   // takes only one kind of item at a time (crates)
         public bool container_show_fill = true;   // draw what is inside as blocks (open crates and baskets; closed boxes turn it off)
         public List<string> container_accepts;     // categories, #tags or item ids it accepts; empty = anything

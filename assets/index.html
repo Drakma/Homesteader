@@ -4587,6 +4587,15 @@
                   <div class="kv-key">Base Value ($)</div><input class="kv-input" type="number" step="any" id="m-value"
                     data-path="properties.base_value">
                 </div>
+                <div class="kv-box" id="m-stores-box" style="grid-column: 1 / -1;"
+                  title="The phone shops that sell this asset. Ticking one makes it buyable at its Base Value; the price, count unit and label of one shop can differ (properties.store_overrides in the manifest JSON).">
+                  <div class="kv-key">Sold At (phone shops)</div>
+                  <div id="m-stores-chips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;"></div>
+                </div>
+                <div class="kv-box">
+                  <div class="kv-key">Sale Unit</div><input class="kv-input" type="text" id="m-sale-unit"
+                    data-path="properties.sale_unit" placeholder="ea, kit, box, bale ...">
+                </div>
                 <div class="kv-box">
                   <div class="kv-key">Weight (kg)</div><input class="kv-input" type="number" step="any" id="m-weight"
                     data-path="properties.weight_kg">
@@ -5045,32 +5054,48 @@
 
       <div id="tagreg-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
 
-      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
-        <div style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px;">Add / Update Tag
-        </div>
-        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-          <div style="width: 160px;">
-            <input type="text" id="tagreg-name-input"
-              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #38bdf8; outline: none;"
-              placeholder="flooring">
-          </div>
-          <div style="flex: 1;">
-            <input type="text" id="tagreg-members-input"
-              style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-family: 'JetBrains Mono', monospace; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;"
-              placeholder="sheet_plywood_cdx, part_floor_wood_1m">
-          </div>
-        </div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Member item ids, comma-separated -
-          each must be a real existing catalog item (checked on save). Saving an existing tag name replaces its member
-          list.</div>
-        <div id="tagreg-error" style="display: none; font-size: 12px; color: #f87171; margin-bottom: 12px;"></div>
-        <button class="btn-primary" id="tagreg-save-btn"
-          style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save
-          Tag</button>
-      </div>
+      <div id="tagreg-error" style="display: none; font-size: 12px; color: #f87171; margin-bottom: 12px;"></div>
+      <button class="btn-primary" id="tagreg-new-btn"
+        style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">+ New Tag</button>
 
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; margin-top: 18px;">
         <button class="btn-cancel" id="tagreg-close-btn">Close (Esc)</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Tag editor: one tag, its members and what each is worth -->
+  <dialog class="confirm-dialog" id="tag-edit-dialog" style="border-color: rgba(56, 189, 248, 0.5); max-width: 640px; width: 92vw;">
+    <div class="confirm-box" style="text-align: left; padding: 22px 24px; max-height: 84vh; overflow-y: auto;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px;">
+        <h4 class="confirm-title" id="tagedit-title" style="margin: 0; text-align: left; font-size: 16px;">Edit tag</h4>
+        <div id="tagedit-header-actions" style="display: flex; gap: 6px; flex: none;">
+          <button type="button" class="btn-cancel" id="tagedit-rename" style="padding: 4px 11px; font-size: 12px;" title="Rename this tag (every recipe that uses it is updated)">Rename</button>
+          <button type="button" class="btn-cancel" id="tagedit-delete" style="padding: 4px 11px; font-size: 12px; color: #f87171;" title="Delete this tag">Delete</button>
+        </div>
+      </div>
+      <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 14px;">The smallest item counts as <b>1</b>. For every bigger
+        item, say how many of the smallest it holds (a small bundle holds 10 studs, a large bundle 20). A recipe asking for
+        <code>#tag x 20</code> is then paid by any mix worth 20 of the smallest.</div>
+      <div style="display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-end;">
+        <div style="width: 200px;">
+          <div class="kv-key">Tag name</div>
+          <input type="text" id="tagedit-name" class="kv-input" placeholder="framing_lumber" style="font-family: 'JetBrains Mono', monospace;">
+        </div>
+        <div style="width: 160px;">
+          <div class="kv-key" title="The word shown after a count on the hover card, for example studs">Unit word (optional)</div>
+          <input type="text" id="tagedit-unit" class="kv-input" placeholder="studs">
+        </div>
+      </div>
+      <div class="kv-key">Members</div>
+      <div id="tagedit-members" style="display: flex; flex-direction: column; gap: 6px; margin: 6px 0 8px;"></div>
+      <button type="button" class="btn-cancel" id="tagedit-add" style="padding: 5px 12px; font-size: 12px;">+ Add member</button>
+      <div id="tagedit-preview" style="font-size: 12px; color: #fbbf24; margin: 12px 0 4px; min-height: 16px;"></div>
+      <div id="tagedit-error" style="display: none; font-size: 12px; color: #f87171; margin: 6px 0;"></div>
+      <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; margin-top: 14px;">
+        <button class="btn-cancel" id="tagedit-cancel">Cancel</button>
+        <button class="btn-primary" id="tagedit-save"
+          style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">Save Tag</button>
       </div>
     </div>
   </dialog>
@@ -6245,7 +6270,7 @@
         <span class="status-icon">🗑️</span>
         <span class="status-value" id="status-trash-value">0</span>
       </div>
-      <div class="status-item" id="status-refresh-btn" title="Refresh Catalog & Status (Shift+Click: full page reload)"
+      <div class="status-item" id="status-refresh-btn" title="Refresh Catalog & Status (Shift+Click: restart the server and reload the page)"
         style="cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0 4px; color: var(--text-muted); transition: color 0.15s ease;"
         onmouseenter="this.style.color='var(--accent-sky)'" onmouseleave="this.style.color='var(--text-muted)'">
         <span id="status-refresh-icon"
@@ -6280,7 +6305,7 @@
     });
 
     let ALL_ITEMS = [];
-    const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." } };
+    const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." }, "liquids": { "name": "Liquids", "icon": "\ud83d\udca7", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per litre, a fluid colour and an opacity." } };
 
     let activeItem = null;
     const SELECTED_ITEMS = new Map(); // key category_slash_id to item object
@@ -9222,6 +9247,13 @@
     let sidebarMode = "categories";
     let activeTag = null;
     let TAG_REGISTRY = {};
+    let TAG_VALUES = {};   // tag -> { unit, values: { member id: units } }: what each member is worth (default 1)
+
+    // "lumber_bundle_2x4_large=20, lumber_stud_2x4" (the dialog's member text): a member's value follows an "=".
+    function formatTagMembers(tag, members) {
+      const vals = (TAG_VALUES[tag] && TAG_VALUES[tag].values) || {};
+      return (members || []).map(m => (vals[m] && vals[m] !== 1) ? `${m}=${vals[m]}` : m).join(", ");
+    }
 
     // Schema state (mirrors the biome tab: list in the sidebar, edit in the view)
     let SCHEMAS = [];                 // Array of {name, category, target, field_count, note}
@@ -9244,6 +9276,7 @@
         const data = await res.json();
         if (res.ok && data && data.tags) {
           TAG_REGISTRY = data.tags;
+          TAG_VALUES = data.tag_values || {};
         }
       } catch (err) {
         console.warn("Failed to load tag registry:", err);
@@ -9363,10 +9396,7 @@
 
     async function openTagRegistryDialogWithName(tagName) {
       await openTagRegistryDialog();
-      if (tagName && TAG_REGISTRY[tagName]) {
-        document.getElementById("tagreg-name-input").value = tagName;
-        document.getElementById("tagreg-members-input").value = TAG_REGISTRY[tagName].join(", ");
-      }
+      if (tagName && TAG_REGISTRY[tagName]) openTagEditor(tagName, TAG_REGISTRY, TAG_VALUES);
     }
 
     async function openCreateTagPrompt() {
@@ -9608,8 +9638,6 @@
             <span>📁</span> #${tagName}
           </span>
           <span style="display: flex; align-items: center; gap: 6px;">
-            <span class="cat-prefix-edit" title="Manage tag in dialog" onclick="event.stopPropagation(); openTagRegistryDialogWithName('${tagName}');">Edit</span>
-            <span class="cat-prefix-edit" title="Rename this tag everywhere it is used" onclick="event.stopPropagation(); renameTagRegistryEntry('${tagName}');">Rename</span>
             <span class="cat-count">${members.length}</span>
           </span>
         `;
@@ -10079,8 +10107,6 @@
 
     async function openTagRegistryDialog() {
       const dialog = document.getElementById("tag-registry-dialog");
-      document.getElementById("tagreg-name-input").value = "";
-      document.getElementById("tagreg-members-input").value = "";
       document.getElementById("tagreg-error").style.display = "none";
       await refreshTagRegistryList();
       dialog.showModal();
@@ -10105,56 +10131,125 @@
           row.innerHTML = `
             <div style="flex: 1; min-width: 0;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #38bdf8; font-weight: 700;">#${name}</div>
-              <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 3px; word-break: break-word;">${tags[name].join(", ")}</div>
+              <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 3px; word-break: break-word;">${formatTagMembers(name, tags[name])}${(data.tag_values && data.tag_values[name] && data.tag_values[name].unit) ? `  <span style="color: #fbbf24;">(units: ${data.tag_values[name].unit})</span>` : ""}</div>
             </div>
-            <div style="display: flex; gap: 6px; flex-shrink: 0;">
-              <button class="btn-cancel" data-edit-tag="${name}" style="padding: 5px 10px; font-size: 12px;">Edit</button>
-              <button class="btn-cancel" data-rename-tag="${name}" style="padding: 5px 10px; font-size: 12px;">Rename</button>
-              <button class="btn-cancel" data-delete-tag="${name}" style="padding: 5px 10px; font-size: 12px; color: #f87171;">Delete</button>
-            </div>`;
+            <div style="flex-shrink: 0; align-self: center; font-size: 11px; color: var(--text-muted);">Open &#9656;</div>`;
+          row.style.cursor = "pointer";
+          row.title = `Open #${name}: edit its members and values, rename or delete it`;
+          row.onmouseenter = () => { row.style.borderColor = "rgba(56,189,248,0.5)"; };
+          row.onmouseleave = () => { row.style.borderColor = ""; };
+          row.onclick = () => openTagEditor(name, tags, data.tag_values || {});
           listEl.appendChild(row);
-        });
-        listEl.querySelectorAll("[data-edit-tag]").forEach(btn => {
-          btn.onclick = () => {
-            const name = btn.getAttribute("data-edit-tag");
-            document.getElementById("tagreg-name-input").value = name;
-            document.getElementById("tagreg-members-input").value = tags[name].join(", ");
-          };
-        });
-        listEl.querySelectorAll("[data-delete-tag]").forEach(btn => {
-          btn.onclick = () => deleteTagRegistryEntry(btn.getAttribute("data-delete-tag"));
-        });
-        listEl.querySelectorAll("[data-rename-tag]").forEach(btn => {
-          btn.onclick = () => renameTagRegistryEntry(btn.getAttribute("data-rename-tag"));
         });
       } catch (err) {
         listEl.innerHTML = `<div style="font-size: 12px; color: #f87171;">Failed to load tags: ${err.message}</div>`;
       }
     }
 
-    async function saveTagRegistryEntry() {
-      const errEl = document.getElementById("tagreg-error");
+    // ---- The tag editor: one tag at a time. The smallest item is 1; each bigger one says how many of the smallest it holds.
+    let tagEdit = null;   // { isNew, name, unit, members: [{ id, value }] }
+
+    function openTagEditor(name, tags, tagValues) {
+      const tv = (tagValues && tagValues[name]) || {};
+      const vals = tv.values || {};
+      tagEdit = {
+        isNew: !name,
+        name: name || "",
+        unit: tv.unit || "",
+        members: ((name && tags && tags[name]) || []).map(id => ({ id, value: vals[id] || 1 })),
+      };
+      document.getElementById("tagedit-title").textContent = name ? `Edit tag #${name}` : "New tag";
+      const nameEl = document.getElementById("tagedit-name");
+      nameEl.value = tagEdit.name;
+      nameEl.disabled = !tagEdit.isNew;   // an existing tag is renamed with the Rename button in this header
+      document.getElementById("tagedit-header-actions").style.display = tagEdit.isNew ? "none" : "flex";
+      document.getElementById("tagedit-unit").value = tagEdit.unit;
+      document.getElementById("tagedit-error").style.display = "none";
+      renderTagEditor();
+      document.getElementById("tag-edit-dialog").showModal();
+    }
+
+    function renderTagEditor() {
+      const list = document.getElementById("tagedit-members");
+      list.innerHTML = "";
+      if (tagEdit.members.length === 0) {
+        list.innerHTML = `<div style="font-size: 12px; color: var(--text-muted);">No members yet. Click "+ Add member".</div>`;
+      }
+      const smallest = tagEdit.members.length ? Math.min(...tagEdit.members.map(m => m.value)) : 1;
+      tagEdit.members.forEach((m, idx) => {
+        const item = lookupPickerItem("accept", m.id);
+        const row = document.createElement("div");
+        row.style.cssText = "display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);";
+        const icon = item && item.icon ? `<img src="${item.icon}" alt="" style="width: 30px; height: 30px; object-fit: contain; flex: none;">` : `<div style="width: 30px; flex: none;"></div>`;
+        row.innerHTML = `${icon}
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 12.5px; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item ? item.name : m.id + " (not found)"}</div>
+            <div style="font-size: 10.5px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">${m.id}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; flex: none;">
+            <span style="font-size: 11px; color: var(--text-muted);">holds</span>
+            <input type="number" min="1" step="1" value="${m.value}" class="kv-input" style="width: 78px;" title="How many of the smallest item this one holds (1 = the smallest)">
+            <span style="font-size: 11px; color: ${m.value === smallest ? "#4ade80" : "var(--text-muted)"}; width: 64px;">${m.value === smallest ? "smallest" : "of the smallest"}</span>
+          </div>
+          <button type="button" class="btn-cancel" title="Remove from the tag" style="padding: 3px 9px; font-size: 12px; color: #f87171; flex: none;">x</button>`;
+        const num = row.querySelector("input");
+        num.oninput = () => {
+          const v = Number(num.value);
+          m.value = Number.isFinite(v) && v >= 1 ? Math.floor(v) : 1;
+          renderTagEditorPreview();
+        };
+        num.onchange = () => renderTagEditor();   // refresh the "smallest" marks once the number is settled
+        row.querySelector("button").onclick = () => { tagEdit.members.splice(idx, 1); renderTagEditor(); };
+        list.appendChild(row);
+      });
+      renderTagEditorPreview();
+    }
+
+    // "1 Large 2x4 Bundle = 20 studs": what the numbers mean, in words.
+    function renderTagEditorPreview() {
+      const el = document.getElementById("tagedit-preview");
+      if (!el) return;
+      const unit = document.getElementById("tagedit-unit").value.trim();
+      const smallest = tagEdit.members.length ? Math.min(...tagEdit.members.map(m => m.value)) : 1;
+      const base = tagEdit.members.find(m => m.value === smallest);
+      const nameOf = (id) => { const it = lookupPickerItem("accept", id); return it ? it.name : id; };
+      const lines = tagEdit.members.filter(m => m !== base && m.value !== smallest)
+        .map(m => `1 ${nameOf(m.id)} = ${m.value / smallest} ${base ? nameOf(base.id) : "of the smallest"}${unit ? ` (${unit})` : ""}`);
+      el.innerHTML = lines.length ? lines.join("<br>") : (tagEdit.members.length > 1 ? "Every member counts as 1." : "");
+    }
+
+    async function saveTagEditor() {
+      const errEl = document.getElementById("tagedit-error");
       errEl.style.display = "none";
-      const tagName = document.getElementById("tagreg-name-input").value.trim().toLowerCase();
-      const members = document.getElementById("tagreg-members-input").value
-        .split(",").map(s => s.trim()).filter(Boolean);
-      if (!tagName || members.length === 0) {
-        errEl.textContent = "Tag name and at least one member item id are required.";
+      const name = document.getElementById("tagedit-name").value.trim().toLowerCase().replace(/^#/, "");
+      const unit = document.getElementById("tagedit-unit").value.trim();
+      if (!name || !/^[a-z][a-z0-9_]*$/.test(name)) {
+        errEl.textContent = "The tag name must start with a letter and use only lowercase letters, numbers and underscores.";
         errEl.style.display = "block";
         return;
       }
+      if (tagEdit.members.length === 0) {
+        errEl.textContent = "A tag needs at least one member.";
+        errEl.style.display = "block";
+        return;
+      }
+      // the smallest is always 1: scale nothing, but make sure at least one member is the smallest at 1
+      const smallest = Math.min(...tagEdit.members.map(m => m.value));
+      const values = {};
+      tagEdit.members.forEach(m => { const v = m.value / smallest; if (v !== 1) values[m.id] = v; });
       try {
         const res = await fetch("/api/save-material-tag", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tag_name: tagName, members })
+          body: JSON.stringify({ tag_name: name, members: tagEdit.members.map(m => m.id), values, unit })
         });
         const data = await res.json();
         if (res.ok && data.success) {
           showToast(`🏷️ ${data.message}`, "success");
-          document.getElementById("tagreg-name-input").value = "";
-          document.getElementById("tagreg-members-input").value = "";
+          document.getElementById("tag-edit-dialog").close();
+          await loadTagRegistry();
           await refreshTagRegistryList();
+          if (typeof buildCategorySidebar === "function") buildCategorySidebar();
         } else {
           errEl.textContent = data?.error || "Failed to save tag";
           errEl.style.display = "block";
@@ -10169,9 +10264,9 @@
     // (recipes, growth-group yield tools ...) in the asset kit and the packaged core mod.
     async function renameTagRegistryEntry(oldName) {
       const entered = window.prompt(`Rename #${oldName} to (lowercase letters, numbers, underscores):`, oldName);
-      if (entered === null) return;
+      if (entered === null) return null;
       const newName = entered.trim().replace(/^#/, "").toLowerCase();
-      if (!newName || newName === oldName) return;
+      if (!newName || newName === oldName) return null;
       try {
         const res = await fetch("/api/rename-material-tag", {
           method: "POST",
@@ -10181,13 +10276,16 @@
         const data = await res.json();
         if (res.ok && data.success) {
           showToast(`🏷️ ${data.message}`, "success");
+          await loadTagRegistry();
           await refreshTagRegistryList();
+          return newName;
         } else {
           showToast(`Error: ${data?.error || "Failed to rename tag"}`, "error");
         }
       } catch (err) {
         showToast(`Server error: ${err.message}`, "error");
       }
+      return null;
     }
 
     async function deleteTagRegistryEntry(tagName) {
@@ -10200,13 +10298,16 @@
         const data = await res.json();
         if (res.ok && data.success) {
           showToast(`🗑️ ${data.message}`, "success");
+          await loadTagRegistry();
           await refreshTagRegistryList();
+          return true;
         } else {
           showToast(`Error: ${data?.error || "Failed to delete tag"}`, "error");
         }
       } catch (err) {
         showToast(`Server error: ${err.message}`, "error");
       }
+      return false;
     }
 
     // =========================================================================
@@ -11815,7 +11916,7 @@
       building: "building", structures: "struct", tools: "tool",
       electricity: "electricity", water: "water", waste: "waste",
       internet: "net", hud: "hud", ground: "clutter", food: "food",
-      fuel: "fuel", materials: "mat", ingredients: "ingredient"
+      fuel: "fuel", materials: "mat", ingredients: "ingredient", liquids: "liquid"
     };
 
     function categoryPrefixFor(category) {
@@ -12616,6 +12717,166 @@
       }
 
       grid.appendChild(scheme);
+      wireConstructionEditors(scheme, stages, sp);
+    }
+
+    // Structures: every stage of the scheme also holds what it takes to BUILD it. Under each row of the Stages table a block lists
+    // the materials (picked with the asset picker, with a quantity) and the tool groups ("any one of these"; tools are not used
+    // up). The state lives on the row (row._construction) and saveGroup() sends it as construction_recipe / required_tools.
+    function wireConstructionEditors(scheme, stages, sp) {
+      if (sp.category !== "structures") return;
+      const esc = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      scheme.querySelectorAll(".gg-stage-editor .gg-se-row").forEach(row => {
+        const n = parseInt(row.dataset.stage, 10);
+        const st = stages.find(x => Number(x.stage) === n) || {};
+        const state = {
+          recipe: (Array.isArray(st.construction_recipe) ? st.construction_recipe : []).map(l => Array.isArray(l.any_of)
+            ? { any_of: l.any_of.map(o => ({ item_id: o.item_id, quantity: o.quantity })) }
+            : { item_id: l.item_id, quantity: l.quantity }),
+          tools: (Array.isArray(st.required_tools) ? st.required_tools : []).map(g => Array.isArray(g) ? g.slice() : [g]),
+        };
+        row._construction = state;
+        const box = document.createElement("div");
+        box.className = "gg-con";
+        box.style.cssText = "margin: 2px 0 14px 28px; padding: 8px 12px; border-left: 2px solid rgba(255,255,255,0.15); display: flex; gap: 28px; flex-wrap: wrap;";
+        row.after(box);
+
+        const chip = (id, onRemove) => {
+          const item = lookupPickerItem("accept", id);
+          const c = document.createElement("div");
+          c.className = "gg-item-chip";
+          c.style.cssText = "margin-bottom: 4px; cursor: default;";
+          c.innerHTML = `
+            <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
+            <div class="gg-item-text"><div class="gg-item-name">${esc(item ? item.name : id + (String(id).startsWith("#") ? "" : " (not found)"))}</div><div class="gg-item-id">${esc(id)}</div></div>
+            <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
+          c.querySelector("button").onclick = onRemove;
+          return c;
+        };
+        const addBtn = (label, onClick) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "btn-cancel";
+          b.style.cssText = "padding: 4px 10px; font-size: 12px; margin-top: 4px;";
+          b.textContent = label;
+          b.onclick = onClick;
+          return b;
+        };
+
+        const render = () => {
+          box.innerHTML = "";
+          // ---- materials
+          const mats = document.createElement("div");
+          mats.style.cssText = "flex: 1 1 320px; min-width: 280px;";
+          mats.innerHTML = `<div class="kv-key" title="Materials used up when this stage is built (a tag accepts any of its members).">Stage ${n}: Materials</div>`;
+          if (state.recipe.length === 0) {
+            const none = document.createElement("div");
+            none.className = "gg-item-id";
+            none.textContent = "(nothing needed)";
+            mats.appendChild(none);
+          }
+          const qtyRow = (line, onRemove) => {
+            const r = document.createElement("div");
+            r.style.cssText = "display: flex; align-items: center; gap: 8px;";
+            const c = chip(line.item_id, onRemove);
+            c.style.flex = "1";
+            const q = document.createElement("input");
+            q.type = "number";
+            q.min = "1";
+            q.step = "1";
+            q.className = "gg-input";
+            q.style.cssText = "width: 70px; flex: none;";
+            q.value = line.quantity != null ? line.quantity : 1;
+            q.title = "Quantity";
+            q.oninput = () => { line.quantity = q.value === "" ? 1 : Number(q.value); };
+            r.appendChild(c);
+            r.appendChild(q);
+            return r;
+          };
+          const pickMaterial = (title, onPick) => openItemPicker({
+            title,
+            hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids.",
+            items: tagPickerItems(false).concat(ALL_ITEMS),
+            current: "",
+            onPick: (id) => { if (id) onPick(id); },
+          });
+          state.recipe.forEach((line, idx) => {
+            if (!Array.isArray(line.any_of)) { mats.appendChild(qtyRow(line, () => { state.recipe.splice(idx, 1); render(); })); return; }
+            // an OR group: the stage takes ANY ONE alternative, in full
+            const g = document.createElement("div");
+            g.style.cssText = "margin: 6px 0; padding: 6px 8px; border: 1px dashed rgba(251,191,36,0.45); border-radius: 8px;";
+            const head = document.createElement("div");
+            head.style.cssText = "display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #fbbf24; margin-bottom: 4px;";
+            head.innerHTML = "<span>Either of these (any ONE, in full)</span>";
+            const del = document.createElement("button");
+            del.type = "button";
+            del.className = "btn-cancel";
+            del.style.cssText = "padding: 2px 8px; font-size: 11px; color: #f87171;";
+            del.textContent = "Remove group";
+            del.onclick = () => { state.recipe.splice(idx, 1); render(); };
+            head.appendChild(del);
+            g.appendChild(head);
+            line.any_of.forEach((opt, oi) => {
+              if (oi > 0) {
+                const or = document.createElement("div");
+                or.textContent = "or";
+                or.style.cssText = "text-align: center; font-size: 11px; color: var(--text-muted); font-style: italic; margin: 2px 0;";
+                g.appendChild(or);
+              }
+              g.appendChild(qtyRow(opt, () => { line.any_of.splice(oi, 1); if (line.any_of.length === 0) state.recipe.splice(idx, 1); render(); }));
+            });
+            g.appendChild(addBtn("+ Add alternative", () => pickMaterial(`Stage ${n}: add an alternative`, (id) => { line.any_of.push({ item_id: id, quantity: 1 }); render(); })));
+            mats.appendChild(g);
+          });
+          mats.appendChild(addBtn("+ Add material", () => pickMaterial(`Stage ${n}: add a material`, (id) => { state.recipe.push({ item_id: id, quantity: 1 }); render(); })));
+          const orBtn = addBtn("+ Add \"or\" group", () => pickMaterial(`Stage ${n}: first alternative of the \"or\" group`, (id) => {
+            state.recipe.push({ any_of: [{ item_id: id, quantity: 1 }] });
+            render();
+          }));
+          orBtn.style.marginLeft = "6px";
+          orBtn.title = "Either-or: the stage takes ANY ONE of the alternatives in full, for example 2 x Large 2x4 Bundle OR 4 x Small 2x4 Bundle";
+          mats.appendChild(orBtn);
+          box.appendChild(mats);
+
+          // ---- tools
+          const tools = document.createElement("div");
+          tools.style.cssText = "flex: 1 1 320px; min-width: 280px;";
+          tools.innerHTML = `<div class="kv-key" title="Tool groups: the player needs ANY ONE tool of EACH group, in the toolbar or placed near the site. Tools are not used up.">Stage ${n}: Tools (any one of each group)</div>`;
+          if (state.tools.length === 0) {
+            const none = document.createElement("div");
+            none.className = "gg-item-id";
+            none.textContent = "(no tools needed)";
+            tools.appendChild(none);
+          }
+          state.tools.forEach((grp, gi) => {
+            const g = document.createElement("div");
+            g.style.cssText = "margin: 4px 0 8px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.10); border-radius: 8px;";
+            const head = document.createElement("div");
+            head.style.cssText = "display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 4px;";
+            head.innerHTML = `<span>Group ${gi + 1}: any one of</span>`;
+            const del = document.createElement("button");
+            del.type = "button";
+            del.className = "btn-cancel";
+            del.style.cssText = "padding: 2px 8px; font-size: 11px; color: #f87171;";
+            del.textContent = "Remove group";
+            del.onclick = () => { state.tools.splice(gi, 1); render(); };
+            head.appendChild(del);
+            g.appendChild(head);
+            grp.forEach((id, ti) => g.appendChild(chip(id, () => { grp.splice(ti, 1); render(); })));
+            g.appendChild(addBtn("+ Add tool", () => openItemPicker({
+              title: `Stage ${n}: add a tool to group ${gi + 1}`,
+              hint: "A tool asset, or a tag that any one of its member tools satisfies.",
+              items: itemsForPicker("tool"),
+              current: "",
+              onPick: (id) => { if (!id || grp.includes(id)) return; grp.push(id); render(); },
+            })));
+            tools.appendChild(g);
+          });
+          tools.appendChild(addBtn("+ Add tool group", () => { state.tools.push([]); render(); }));
+          box.appendChild(tools);
+        };
+        render();
+      });
     }
 
     // Persists the editable scheme fields back to the GROUP's own manifest at
@@ -12677,6 +12938,19 @@
           delete entry.model;
         }
         if (!entry.icon) delete entry.icon;
+        if (row._construction) {
+          // structures: what the stage takes to build (materials with quantities, tool groups)
+          const cleanLine = (l) => ({ item_id: l.item_id, quantity: Math.max(1, Number(l.quantity) || 1) });
+          entry.construction_recipe = row._construction.recipe
+            .map(l => {
+              if (!Array.isArray(l.any_of)) return l.item_id ? cleanLine(l) : null;
+              const opts = l.any_of.filter(o => o.item_id).map(cleanLine);
+              if (opts.length === 0) return null;
+              return opts.length === 1 ? opts[0] : { any_of: opts };   // one alternative is just a plain line
+            })
+            .filter(Boolean);
+          entry.required_tools = row._construction.tools.filter(g => g.length);
+        }
         stageEdits.push(entry);
       });
 
@@ -12857,6 +13131,11 @@
       // Update banner
       const bannerTitle = document.getElementById("banner-title");
       const bannerDesc = document.getElementById("banner-desc");
+      // Request buttons do not belong in a tag's header.
+      for (const rid of ["btn-request-asset", "btn-request-growth-group"]) {
+        const rb = document.getElementById(rid);
+        if (rb) rb.style.display = (sidebarMode === "tags" && activeTag) ? "none" : "";
+      }
       if (sidebarMode === "tags") {
         if (activeTag) {
           bannerTitle.innerHTML = `
@@ -12867,8 +13146,21 @@
               <button type="button" id="banner-add-tag-btn"
                 class="banner-action-btn banner-add-btn"
                 title="Create a new #tag material group">Add Tag</button>
+              <button type="button" id="banner-edit-tag-btn" class="banner-action-btn" title="Edit this tag: members and equivalencies">Edit Tag</button>
+              <button type="button" id="banner-rename-tag-btn" class="banner-action-btn" title="Rename this tag everywhere it is used">Rename</button>
+              <button type="button" id="banner-delete-tag-btn" class="banner-action-btn" style="color: #f87171;" title="Delete this tag">Delete</button>
             </div>
           `;
+          const openTag = activeTag;
+          document.getElementById("banner-edit-tag-btn").onclick = () => openTagEditor(openTag, TAG_REGISTRY, TAG_VALUES);
+          document.getElementById("banner-rename-tag-btn").onclick = async () => {
+            const nn = await renameTagRegistryEntry(openTag);
+            if (nn) selectTag(nn);
+          };
+          document.getElementById("banner-delete-tag-btn").onclick = async () => {
+            if (!confirm(`Delete tag #${openTag}? Recipes that use it will no longer match anything.`)) return;
+            if (await deleteTagRegistryEntry(openTag)) selectTag(null);
+          };
           bannerDesc.innerText = `Tag Registry Group: interchangeable materials/items for recipes matching #${activeTag}. Drag any asset card from the gallery onto the #${activeTag} folder in the sidebar to add it. Click the Red X on any card to remove it from this tag.`;
         } else {
           bannerTitle.innerHTML = `
@@ -14615,8 +14907,40 @@
       if (addCatCancel) addCatCancel.onclick = () => document.getElementById("add-category-dialog").close();
 
       // Tag Registry dialog action buttons
-      const tagRegSave = document.getElementById("tagreg-save-btn");
-      if (tagRegSave) tagRegSave.onclick = () => saveTagRegistryEntry();
+      const tagRegNew = document.getElementById("tagreg-new-btn");
+      if (tagRegNew) tagRegNew.onclick = () => openTagEditor(null, TAG_REGISTRY, TAG_VALUES);
+      const tagEditSave = document.getElementById("tagedit-save");
+      if (tagEditSave) tagEditSave.onclick = () => saveTagEditor();
+      const tagEditCancel = document.getElementById("tagedit-cancel");
+      if (tagEditCancel) tagEditCancel.onclick = () => document.getElementById("tag-edit-dialog").close();
+      const tagEditAdd = document.getElementById("tagedit-add");
+      if (tagEditAdd) tagEditAdd.onclick = () => openItemPicker({
+        title: "Add a member to the tag",
+        hint: "Any asset. It counts 1 until you say how many of the smallest it holds.",
+        items: ALL_ITEMS,
+        current: "",
+        onPick: (id) => {
+          if (!id || tagEdit.members.some(m => m.id === id)) return;
+          tagEdit.members.push({ id, value: 1 });
+          renderTagEditor();
+        },
+      });
+      const tagEditRename = document.getElementById("tagedit-rename");
+      if (tagEditRename) tagEditRename.onclick = async () => {
+        const renamed = await renameTagRegistryEntry(tagEdit.name);
+        if (renamed) {
+          tagEdit.name = renamed;
+          document.getElementById("tagedit-title").textContent = `Edit tag #${renamed}`;
+          document.getElementById("tagedit-name").value = renamed;
+        }
+      };
+      const tagEditDelete = document.getElementById("tagedit-delete");
+      if (tagEditDelete) tagEditDelete.onclick = async () => {
+        if (!confirm(`Delete the tag #${tagEdit.name}? Recipes that name it will no longer find it.`)) return;
+        if (await deleteTagRegistryEntry(tagEdit.name)) document.getElementById("tag-edit-dialog").close();
+      };
+      const tagEditUnit = document.getElementById("tagedit-unit");
+      if (tagEditUnit) tagEditUnit.oninput = () => renderTagEditorPreview();
       const tagRegClose = document.getElementById("tagreg-close-btn");
       if (tagRegClose) tagRegClose.onclick = () => document.getElementById("tag-registry-dialog").close();
 
@@ -14956,9 +15280,18 @@
           }
           // Shift-click does a full hard reload of index.html, picking up any
           // HTML/CSS/JS edits without a manual browser refresh.
+          // The server restarts first (so edited server code takes effect), then the page reloads once it answers again.
           if (e.shiftKey) {
-            showToast("↻ Reloading page…", "info");
-            setTimeout(() => location.reload(), 250);
+            showToast("↻ Restarting server…", "info");
+            try { await fetch("/api/restart-server", { method: "POST" }); } catch (err) { /* the server may already be going down */ }
+            let up = false;
+            await new Promise(r => setTimeout(r, 900));
+            for (let i = 0; i < 40 && !up; i++) {
+              try { const r = await fetch("/api/ping", { cache: "no-store" }); up = r.ok; } catch (err) { up = false; }
+              if (!up) await new Promise(r => setTimeout(r, 400));
+            }
+            showToast(up ? "↻ Server restarted - reloading page…" : "Server did not come back; reloading anyway…", up ? "info" : "warning");
+            setTimeout(() => location.reload(), 400);
             return;
           }
           await loadCatalog();
@@ -16397,6 +16730,23 @@
             const parsed = inp.value === "" ? 0 : Number(inp.value);
             applyManifestFieldEdit(`category_fields.${k}`, parsed, "number");
           };
+        } else if (sDef.editor === "color") {
+          // Fluid colour swatch: a colour picker and the #RRGGBB text, kept in step.
+          const hex = /^#[0-9a-fA-F]{6}$/.test(String(v || "")) ? String(v) : (sDef.default || "#7fb8e6");
+          box.innerHTML = `
+            <div class="kv-key"${note}>${labelText}</div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" value="${hex}" id="m-catfield-${k}-swatch" style="width:44px; height:30px; padding:0; border:1px solid rgba(255,255,255,0.25); border-radius:6px; background:none; cursor:pointer;">
+              <input class="kv-input" type="text" value="${hex}" id="m-catfield-${k}" maxlength="7" style="flex:1;">
+            </div>
+          `;
+          catGrid.appendChild(box);
+          const swatch = box.querySelector('input[type="color"]');
+          const txt = box.querySelector('input[type="text"]');
+          swatch.oninput = () => { txt.value = swatch.value; applyManifestFieldEdit(`category_fields.${k}`, swatch.value, "string"); };
+          txt.oninput = () => {
+            if (/^#[0-9a-fA-F]{6}$/.test(txt.value)) { swatch.value = txt.value; applyManifestFieldEdit(`category_fields.${k}`, txt.value, "string"); }
+          };
         } else if (sDef.options_from === "animal_ai") {
           // AI profile picker: lists the animal AI definitions in assets/_ai (served by /api/animal-ai).
           const strVal = (v !== undefined && v !== null) ? String(v) : "";
@@ -16531,6 +16881,13 @@
       const listEl = card.querySelector(".recipe-items-list");
 
       arr.forEach((item, idx) => {
+        if (Array.isArray(item.any_of)) {
+          const note = document.createElement("div");
+          note.style.cssText = "font-size: 11.5px; color: #fbbf24; padding: 5px 8px; background: rgba(0,0,0,0.22); border-radius: 4px; border: 1px dashed rgba(251,191,36,0.4);";
+          note.textContent = "Either of: " + item.any_of.map(o => `${o.quantity} x ${o.item_id}`).join("  OR  ") + "  (edit it in the structure's Stages table)";
+          listEl.appendChild(note);
+          return;
+        }
         const row = document.createElement("div");
         row.style.cssText = "display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.22); padding: 5px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.04);";
         row.innerHTML = `
@@ -16558,7 +16915,32 @@
           if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
         };
 
-        idInp.oninput = updateItem;
+        idInp.oninput = () => { updateItem(); refreshName(); };
+
+        // The material is CHOSEN with the asset picker (materials, ingredients, liquids, or a #tag of interchangeable ones); typing still works.
+        const nameEl = document.createElement("div");
+        nameEl.className = "gg-item-id";
+        nameEl.style.cssText = "margin-top: 2px; min-height: 13px;";
+        const pickBtn = document.createElement("button");
+        pickBtn.type = "button";
+        pickBtn.className = "schema-btn-small";
+        pickBtn.style.marginTop = "3px";
+        pickBtn.textContent = "Choose...";
+        function refreshName() {
+          const id = idInp.value.trim();
+          const found = id ? lookupPickerItem("accept", id) : null;
+          nameEl.textContent = found ? found.name : (id ? "(not found)" : "");
+        }
+        refreshName();
+        idInp.parentElement.appendChild(nameEl);
+        idInp.parentElement.appendChild(pickBtn);
+        pickBtn.onclick = () => openItemPicker({
+          title: "Choose a material",
+          hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids.",
+          items: tagPickerItems(false).concat(ALL_ITEMS),
+          current: idInp.value.trim(),
+          onPick: (id) => { if (!id) return; idInp.value = id; updateItem(); refreshName(); },
+        });
         qtyInp.oninput = updateItem;
 
         delBtn.onclick = () => {
@@ -16572,10 +16954,19 @@
       });
 
       card.querySelector("#recipe-add-btn").onclick = () => {
-        arr.push({ item_id: "", quantity: 1 });
-        applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
-        if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
-        renderCategorySchemaSection(it);
+        openItemPicker({
+          title: "Add a material",
+          hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids. The quantity is set afterwards.",
+          items: tagPickerItems(false).concat(ALL_ITEMS),
+          current: "",
+          onPick: (id) => {
+            if (!id) return;
+            arr.push({ item_id: id, quantity: 1 });
+            applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
+            if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
+            renderCategorySchemaSection(it);
+          },
+        });
       };
     }
 
@@ -16628,7 +17019,7 @@
           <div class="schema-chips-wrap"></div>
           <div style="display: flex; align-items: center; gap: 6px; margin-top: 6px;">
             <input type="text" class="kv-input schema-chip-input" list="schema-tools-datalist" placeholder="Select or type tool_id..." style="flex: 1; background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
-            <button type="button" class="schema-btn-small" style="white-space: nowrap;">+ Add Tool</button>
+            <button type="button" class="schema-btn-small" style="white-space: nowrap;">+ Choose Tool...</button>
           </div>
         `;
 
@@ -16646,7 +17037,9 @@
           grp.forEach((tId, tIdx) => {
             const chip = document.createElement("span");
             chip.className = "schema-chip";
-            chip.innerHTML = `<span>🔧 ${escapeHtml(tId)}</span><span class="chip-del-btn" title="Remove tool">✕</span>`;
+            const toolInfo = lookupPickerItem("accept", tId);
+            chip.title = tId;
+            chip.innerHTML = `<span>🔧 ${escapeHtml(toolInfo ? toolInfo.name : tId)}</span><span class="chip-del-btn" title="Remove tool">✕</span>`;
             chip.querySelector(".chip-del-btn").onclick = () => {
               grp.splice(tIdx, 1);
               groups[grpIdx] = grp;
@@ -16674,7 +17067,21 @@
           addInp.focus();
         };
 
-        addBtn.onclick = addToolAction;
+        // Tools are CHOSEN with the picker (tool assets and tool tags such as #tool_axe); typing an id and pressing Enter still works.
+        addBtn.onclick = () => openItemPicker({
+          title: "Add a tool",
+          hint: "A tool asset, or a tag (any member tool is enough). The player needs ANY ONE tool of the group.",
+          items: itemsForPicker("tool"),
+          current: "",
+          onPick: (id) => {
+            if (!id || grp.includes(id)) return;
+            grp.push(id);
+            groups[grpIdx] = grp;
+            applyManifestFieldEdit(`category_fields.${fieldKey}`, groups, "raw");
+            if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = groups;
+            renderChips();
+          },
+        });
         addInp.onkeydown = (e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -16862,6 +17269,33 @@
     }
 
     /* Open & Populate Item Modal */
+    // The phone shops (ids are what properties.stores holds; the names are what the phone shows).
+    const PHONE_STORES = [
+      ["depot", "Nail It"], ["lumber", "Board Meeting"], ["grocer", "Lettuce Shop"], ["feed", "Hay There"],
+      ["water", "Tank You"], ["vehicles", "Shift Happens"], ["equipment", "Tractor Beam"], ["livestock", "Drafting Behind You"],
+      ["furniture", "Sofa So Good"], ["voltvision", "Voltvision"], ["trailershack", "Trailer Shack"],
+    ];
+
+    // "Sold At": one toggle chip per shop. Ticking any makes the asset buyable (is_buyable true, at its Base Value); none = not sold.
+    function renderStoresField(p) {
+      const wrap = document.getElementById("m-stores-chips");
+      if (!wrap) return;
+      wrap.innerHTML = "";
+      const current = new Set(Array.isArray(p.stores) ? p.stores : []);
+      PHONE_STORES.forEach(([id, name]) => {
+        const label = document.createElement("label");
+        label.className = "gg-biome-chip";
+        label.title = id;
+        label.innerHTML = `<input type="checkbox" value="${id}" ${current.has(id) ? "checked" : ""}><span>${name}</span>`;
+        label.querySelector("input").onchange = () => {
+          const picked = Array.from(wrap.querySelectorAll("input:checked")).map(cb => cb.value);
+          applyManifestFieldEdit("properties.stores", picked, picked.length ? "raw" : "remove");
+          applyManifestFieldEdit("properties.is_buyable", picked.length > 0, "bool");
+        };
+        wrap.appendChild(label);
+      });
+    }
+
     function openItemModal(it) {
       activeItem = it;
       applyStageModalMode(!!it.is_growth_stage);
@@ -16917,6 +17351,8 @@
       // dirty-tracking / Save / Revert flow rather than a separate save path)
       const p = it.properties || {};
       document.getElementById("m-value").value = p.base_value !== undefined && p.base_value !== null ? p.base_value : "";
+      document.getElementById("m-sale-unit").value = p.sale_unit || "";
+      renderStoresField(p);
       document.getElementById("m-weight").value = p.weight_kg !== undefined && p.weight_kg !== null ? p.weight_kg : "";
       document.getElementById("m-stack").value = p.max_stack_size !== undefined && p.max_stack_size !== null ? p.max_stack_size : "";
       document.getElementById("m-consumable").value = p.is_consumable ? "true" : "false";
@@ -16944,6 +17380,7 @@
       const fieldBindings = [
         ["m-desc", "description", "string"],
         ["m-value", "properties.base_value", "number"],
+        ["m-sale-unit", "properties.sale_unit", "string_or_null"],
         ["m-weight", "properties.weight_kg", "number"],
         ["m-stack", "properties.max_stack_size", "int"],
         ["m-consumable", "properties.is_consumable", "bool"],

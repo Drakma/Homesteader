@@ -1,0 +1,6 @@
+{
+  "filename": "01_Neon_Hearts",
+  "state": "done",
+  "note": "No track was downloaded within 600s (waiting for audio to appear). A screenshot is at C:\\Users\\casey\\Desktop\\Homesteader\\Modern Pop Playlist\\01_Neon_Hearts_failed.png. Run gemini_music_inspect to see what the page offers, then adjust the selectors in tools/gemini_music_mcp/index.js.",
+  "updated_at": "2026-10-01T04:51:50.176Z"
+}

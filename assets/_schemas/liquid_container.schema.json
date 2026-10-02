@@ -1,0 +1,27 @@
+{
+  "category": "liquid_container",
+  "component": true,
+  "title": "Liquid Container",
+  "target": "liquid_container",
+  "note": "A COMPONENT schema, added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'liquid_container' block. The asset holds ONE kind of liquid (an asset of the liquids category) at a time, up to capacity_l litres; the liquid weighs litres x its weight_kg per litre. Buckets, jugs, jerry cans, drums, barrels and tanks use it. It is separate from the 'container' component, which holds solid items by weight. Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1).",
+  "on_add": {
+    "properties.max_stack_size": 1
+  },
+  "fields": {
+    "capacity_l": {
+      "type": "number",
+      "required": true,
+      "min": 0.01,
+      "default": 10,
+      "label": "Capacity (L)",
+      "note": "The most litres this container holds."
+    },
+    "accepts": {
+      "type": "array",
+      "required": false,
+      "editor": "item_refs",
+      "label": "Accepts",
+      "note": "Which liquids it takes: tags (#liquid_fuel, #liquid_dairy, #liquid_oil, #liquid) and/or exact liquid assets, chosen with the asset picker. Empty = any liquid."
+    }
+  }
+}

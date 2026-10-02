@@ -150,7 +150,16 @@ namespace Homesteader.UI
             Texture2D icon;
             var details = new List<(string, string)>();
 
-            if (hovered != null)
+            ConstructionSite site = hovered != null ? hovered.GetComponentInParent<ConstructionSite>() : null;
+            if (site != null)
+            {
+                // The what-and-how-far is on the site's own hover card (ConstructionHover); this just names it.
+                title = site.Finished ? site.Name() : site.Name() + " Build Site";
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, site.StructureId);
+                if (!site.Finished) details.Add(("Stage", site.CurrentStage != null ? site.CurrentStage.name + $"  ({site.Stage + 1} of {site.StageCount})" : ""));
+                else details.Add(("Stage", "Finished"));
+            }
+            else if (hovered != null)
             {
                 DescribeObject(hovered, out title, out icon, details);
             }
@@ -329,6 +338,7 @@ namespace Homesteader.UI
                 title = Homesteader.UI.HudBindings.GetItemName(item.ItemId);
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, item.ItemId);
                 details.Add(("Type", "Dropped item"));
+                details.Add(("Right click", "Pick up"));
                 return;
             }
 

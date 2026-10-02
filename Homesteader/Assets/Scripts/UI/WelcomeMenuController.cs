@@ -212,6 +212,7 @@ namespace Homesteader.UI
                 _root.styleSheets.Add(uss);
             }
 
+            PopupStyles.Ensure(_root);   // dropdown lists (graphics preset) are built at the panel root
             var controlsUss = Resources.Load<StyleSheet>("HUDTree/UIControls");
             if (controlsUss != null && !_root.styleSheets.Contains(controlsUss))
             {
@@ -563,6 +564,7 @@ namespace Homesteader.UI
             CreateLandBoundaries();
             TimeSystem.Instance.ResetToNewGameDefaults();
             HudState.Active.ResetToNewGameDefaults();
+            GameSaveManager.ClearPlayerMadeWorld();   // the old world's placed objects, drops, sites, plants and deliveries do not carry over
 
             // Wait for grass to finish propagating (grass = 85-100% of bar).
             UpdateLoadingProgress(0.85f, "Growing grass...");
@@ -719,7 +721,7 @@ namespace Homesteader.UI
 
         // ------------------------------------------------------------------ update
 
-        private void Update()
+        private void LateUpdate()
         {
             if (_root == null) return;
 
@@ -731,6 +733,7 @@ namespace Homesteader.UI
                 Input.GetKeyDown(KeyCode.Escape);
 #endif
             if (!escPressed) return;
+            if (HudBindings.EscapeHandledFrame == Time.frameCount) return;   // this Esc closed a window or the phone
 
             // Esc while the Controls page is waiting for a key press cancels that rebind (handled there) and
             // must not also close the menu.

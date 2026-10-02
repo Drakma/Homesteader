@@ -11,6 +11,7 @@ Settings > Graphics. Code: `Assets/Scripts/UI/GraphicsOptions.cs`. Presets are m
 - **Shadows**: the sun's shadows on/off (sets the sun light's shadow mode; off skips the shadow pass).
 - **Cloud Shadows**: soft shadows of drifting clouds on land (`CloudSystem.ShadowsEnabled`).
 - **Wind Animation**: sway of trees, bushes, tufts and grass (`_WindSwayOff` global; the GPU grass strength is zeroed in `GrassRenderer`).
+- **Seasonal Lighting**: the sun and moon change colour and strength with the season (`DayNightCycle.SeasonalLighting`). Off keeps the summer palette all year; the sun path still follows the date. Changing it shows Custom in the preset dropdown.
 
 ## Display
 

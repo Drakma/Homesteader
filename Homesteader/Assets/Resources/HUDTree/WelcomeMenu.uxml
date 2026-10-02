@@ -100,6 +100,10 @@
                             <ui:Toggle name="GfxWindAnimationToggle" class="hs-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement class="settings-row">
+                            <ui:Label text="Seasonal Lighting" class="settings-label" tooltip="The sun and moon change colour and strength with the seasons." />
+                            <ui:Toggle name="GfxSeasonalLightingToggle" class="hs-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
                             <ui:Label text="Anti-Aliasing" class="settings-label" tooltip="Smooths jagged edges. FXAA/SMAA are cheap, MSAA costs more." />
                             <ui:DropdownField name="GfxAntiAliasingDropdown" class="hs-dropdown settings-dropdown" />
                         </ui:VisualElement>

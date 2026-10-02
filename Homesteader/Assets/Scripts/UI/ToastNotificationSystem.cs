@@ -49,6 +49,9 @@ namespace Homesteader.UI
             public string CountKey;        // set for a toast that merges repeats (see ShowCounted)
             public string CountFormat;     // message with {0} where the running total goes
             public int CountTotal;
+            public string Title;           // what it says (an identical toast right after it only restarts its timer)
+            public string Message;
+            public ToastType Type;
         }
 
         private readonly List<ActiveToast> _activeToasts = new List<ActiveToast>();
@@ -107,12 +110,31 @@ namespace Homesteader.UI
         {
             if (s_instance != null)
             {
-                s_instance.CreateToast(title, message, type);
+                s_instance.ShowOrRefresh(title, message, type);
             }
             else
             {
                 Debug.Log($"[Toast - {type}] {title}: {message}");
             }
+        }
+
+        /// <summary>
+        /// A toast identical to the NEWEST one still showing (same title, message and kind) does not stack up: the one on screen just
+        /// has its timer started over. Anything different, or identical to an older toast, is a new toast.
+        /// </summary>
+        private void ShowOrRefresh(string title, string message, ToastType type)
+        {
+            if (_activeToasts.Count > 0)
+            {
+                ActiveToast newest = _activeToasts[0];
+                if (newest != null && !newest.IsExiting && newest.Element != null && newest.Element.parent != null
+                    && newest.CountKey == null && newest.Title == title && newest.Message == message && newest.Type == type)
+                {
+                    if (!newest.IsPersistent) newest.RemainingDuration = ToastDuration(title, message);
+                    return;
+                }
+            }
+            CreateToast(title, message, type);
         }
 
         /// <summary>
@@ -239,7 +261,10 @@ namespace Homesteader.UI
                 RemainingDuration = duration,
                 IsExiting = false,
                 IsPersistent = (type == ToastType.Severe),
-                MessageLabel = messageLabel
+                MessageLabel = messageLabel,
+                Title = title,
+                Message = message,
+                Type = type
             };
 
             // Click to dismiss early (or dismiss severe toast)

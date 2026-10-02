@@ -161,8 +161,7 @@
 .welcome-btn--primary,
 .store-item-buy-btn,
 .controls-key-btn--capturing,
-.container-panel-btn,
-.steadify-mini-shuffleall {
+.container-panel-btn {
     border-radius: var(--r);
     -unity-text-align: middle-center;
     padding-top: 0;
@@ -178,8 +177,7 @@
 .welcome-btn--primary:hover,
 .store-item-buy-btn:hover,
 .controls-key-btn--capturing:hover,
-.container-panel-btn:hover,
-.steadify-mini-shuffleall:hover {
+.container-panel-btn:hover {
     background-color: var(--c-accent-hi);
     border-color: var(--c-accent-hi);
     color: var(--c-ink);
@@ -190,8 +188,7 @@
 .welcome-btn--primary:active,
 .store-item-buy-btn:active,
 .controls-key-btn--capturing:active,
-.container-panel-btn:active,
-.steadify-mini-shuffleall:active {
+.container-panel-btn:active {
     background-color: var(--c-accent-lo);
 }
 

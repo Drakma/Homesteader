@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 15.0,
     "max_stack_size": 1,
-    "base_value": 250.0,
+    "base_value": 250,
     "is_consumable": false,
     "footprint": "0.55m W x 0.45m D x 0.33m H",
     "happiness_modifier": 15,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea"
   },
   "models": [],
   "utilities": {

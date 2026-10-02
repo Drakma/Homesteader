@@ -131,6 +131,14 @@ namespace Homesteader.Grass
             lastGenCenter = new Vector3(float.MaxValue, 0f, float.MaxValue);
         }
 
+        /// <summary>The terrain was edited in place (a graded building site): place the blades on the new ground without a full rebuild.</summary>
+        public void RefreshHeights()
+        {
+            if (!ready || isGenerating) return;
+            ResolvePlayer();
+            if (player != null) DispatchRegenerate(player.position);
+        }
+
         public void Regenerate()
         {
             if (isGenerating) StopAllCoroutines();

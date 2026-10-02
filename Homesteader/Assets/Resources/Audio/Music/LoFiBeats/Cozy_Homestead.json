@@ -1,0 +1,15 @@
+{
+  "file": "Cozy_Homestead.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/9558a0e8b7efc52f",
+  "chat_title": "Cozy Homestead Lo-Fi Instrumental",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi\u2026\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 90 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 90 seconds, not cut off mid-song. Genre: lo-fi hip-hop / chillhop, about 75 BPM, centered on the feeling of homesteading: a slow early-morning farm chore vibe. Warm Rhodes electric piano chords, a soft fingerpicked acoustic guitar melody, upright bass, mellow dusty boom-bap drums with brushed snare, gentle vinyl crackle and tape warmth. Subtle country-life touches in the mix such as a distant rooster, light wind and a creaking porch swing, kept very quiet. Mood: cozy, unhurried, pastoral, nostalgic, like coffee on the porch at sunrise. Structure: soft intro, steady loop with a gentle variation in the middle, then a relaxed outro.",
+  "requested_prompt": "Genre: lo-fi hip-hop / chillhop, about 75 BPM, centered on the feeling of homesteading: a slow early-morning farm chore vibe. Warm Rhodes electric piano chords, a soft fingerpicked acoustic guitar melody, upright bass, mellow dusty boom-bap drums with brushed snare, gentle vinyl crackle and tape warmth. Subtle country-life touches in the mix such as a distant rooster, light wind and a creaking porch swing, kept very quiet. Mood: cozy, unhurried, pastoral, nostalgic, like coffee on the porch at sunrise. Structure: soft intro, steady loop with a gentle variation in the middle, then a relaxed outro.",
+  "generated_at": "2026-10-02T09:07:50.589Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Cozy_Homestead_Lo_Fi_Instrumental.mp4",
+  "bytes": 2655213,
+  "sha256": "6ffc49a3f0fc0c3df16408b69c874403b1f5c80f232fbeb225044b9ed4eb583b",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

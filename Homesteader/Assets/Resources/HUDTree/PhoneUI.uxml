@@ -484,7 +484,7 @@
 
                             <ui:VisualElement class="steadify-seek-row">
                                 <ui:Label name="SteadifyTimeElapsed" text="0:00" class="steadify-time-label" />
-                                <ui:Slider name="SteadifySeekSlider" low-value="0" high-value="1" value="0" class="steadify-seek-slider" />
+                                <ui:Slider name="SteadifySeekSlider" low-value="0" high-value="1" value="0" class="hs-slider steadify-seek-slider" />
                                 <ui:Label name="SteadifyTimeTotal" text="0:00" class="steadify-time-label" />
                             </ui:VisualElement>
 
@@ -498,7 +498,7 @@
 
                             <ui:VisualElement class="steadify-volume-row">
                                 <ui:Label text="&#xE006;" class="steadify-volume-glyph" />
-                                <ui:Slider name="SteadifyVolumeSlider" low-value="0" high-value="100" value="65" class="steadify-volume-slider" />
+                                <ui:Slider name="SteadifyVolumeSlider" low-value="0" high-value="100" value="65" class="hs-slider steadify-volume-slider" />
                                 <ui:Label name="SteadifyVolumeValue" text="65%" class="steadify-volume-value" />
                             </ui:VisualElement>
                         </ui:VisualElement>
@@ -574,7 +574,7 @@
                                         <ui:Button name="AdminVitalWellnessZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-slider-container">
-                                        <ui:SliderInt name="AdminVitalWellnessSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                        <ui:SliderInt name="AdminVitalWellnessSlider" low-value="-100" high-value="100" value="0" class="hs-slider admin-slider" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-scale-row">
                                         <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
@@ -589,7 +589,7 @@
                                         <ui:Button name="AdminVitalStaminaZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-slider-container">
-                                        <ui:SliderInt name="AdminVitalStaminaSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                        <ui:SliderInt name="AdminVitalStaminaSlider" low-value="-100" high-value="100" value="0" class="hs-slider admin-slider" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-scale-row">
                                         <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
@@ -604,7 +604,7 @@
                                         <ui:Button name="AdminVitalThirstZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-slider-container">
-                                        <ui:SliderInt name="AdminVitalThirstSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                        <ui:SliderInt name="AdminVitalThirstSlider" low-value="-100" high-value="100" value="0" class="hs-slider admin-slider" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-scale-row">
                                         <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
@@ -619,7 +619,7 @@
                                         <ui:Button name="AdminVitalHungerZeroBtn" text="0" class="admin-vital-zero-btn" tooltip="Reset to 0 (Neutral)" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-slider-container">
-                                        <ui:SliderInt name="AdminVitalHungerSlider" low-value="-100" high-value="100" value="0" class="admin-slider" />
+                                        <ui:SliderInt name="AdminVitalHungerSlider" low-value="-100" high-value="100" value="0" class="hs-slider admin-slider" />
                                     </ui:VisualElement>
                                     <ui:VisualElement class="admin-scale-row">
                                         <ui:Label text="-100" class="admin-scale-label admin-scale-label--min" />
@@ -692,7 +692,7 @@
                                         <ui:Button name="AdminDayAdd7" text="+7" class="admin-step-btn" />
                                     </ui:VisualElement>
                                 </ui:VisualElement>
-                                <ui:SliderInt name="AdminDaySlider" low-value="1" high-value="336" value="1" class="admin-slider" />
+                                <ui:SliderInt name="AdminDaySlider" low-value="1" high-value="336" value="1" class="hs-slider admin-slider" />
 
                                 <ui:Label name="AdminDaylightLabel" text="Daylight: 12.0h • Sunrise 06:00, Sunset 18:00" class="admin-sublabel" style="font-size: 13px; margin-top: 4px;" />
                                 <ui:Label name="AdminAstroLabel" text="Daylight Increasing (towards Summer Solstice)" class="admin-sublabel" style="font-size: 12px; color: rgb(193, 154, 60); margin-bottom: 6px;" />
@@ -722,7 +722,7 @@
                                     <ui:Label name="AdminTimeLabel" text="Time: 08:00" class="admin-label" />
                                     <ui:VisualElement name="AdminTimeIcon" class="admin-time-icon" />
                                 </ui:VisualElement>
-                                <ui:Slider name="AdminTimeSlider" low-value="0" high-value="1439" value="480" class="admin-slider" />
+                                <ui:Slider name="AdminTimeSlider" low-value="0" high-value="1439" value="480" class="hs-slider admin-slider" />
                             </ui:VisualElement>
 
                             <!-- Section: Weather Conditions -->

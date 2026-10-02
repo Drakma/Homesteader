@@ -46,7 +46,13 @@ Progress is in `tools/gemini_music_mcp/bump_playlists.log`.
 Two lessons from 2026-10-02: the quota check must read only Gemini's latest reply (the sidebar lists old chat titles such as
 "Music Generation Limit Reached", and a whole-page scan matched them and aborted runs that would have worked), and the tool
 now drives the installed Google Chrome (`channel: 'chrome'`) because Playwright's bundled Chromium kept closing mid-generation.
-`GEMINI_MUSIC_CHANNEL=chromium` switches back.
+`GEMINI_MUSIC_CHANNEL=chromium` switches back. Headless is refused by Gemini ("An error occurred while generating the track")
+and an occluded or tiny window stalls the player, so the window opens visible on the left monitor (`GEMINI_MUSIC_WINDOW_POS`).
+
+If Chrome starts crashing the instant the Download button is clicked (Crashpad dumps in the profile's `Crashpad/reports`),
+the profile's download database is corrupt from a force-kill mid-download: stop everything and delete
+`~/.codegpt/gemini-music-session/Default/History`, `History-journal` and `DownloadMetadata` (sign-in survives). Never
+force-kill the tool's Chrome while a download is in flight.
 
 ## Per-track checklist
 

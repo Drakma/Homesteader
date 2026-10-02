@@ -15,7 +15,7 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **544**
+Total Indexed Items: **569**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
@@ -25,10 +25,10 @@ Total Indexed Items: **544**
 | [**Ranching**](ranching/) | 27 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
-| [**Tools**](tools/) | 58 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
+| [**Tools**](tools/) | 59 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
 | [**Electricity**](electricity/) | 37 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
 | [**Water**](water/) | 31 items | Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks. |
-| [**Waste**](waste/) | 19 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
+| [**Waste**](waste/) | 20 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
 | [**Internet**](internet/) | 16 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
 | [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
@@ -36,6 +36,7 @@ Total Indexed Items: **544**
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
 | [**Materials**](materials/) | 69 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
 | [**Ingredients**](ingredients/) | 15 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
+| [**Liquids**](liquids/) | 23 items | Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per litre, a fluid colour and an opacity. |
 
 ### Shared System & World Asset Directories
 
@@ -74,6 +75,7 @@ Total Indexed Items: **544**
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
+| `80lb_cement_bag` | 80lb Cement Bag | ✅ Yes | — | [80lb_cement_bag.json](building/80lb_cement_bag/80lb_cement_bag.json) |
 | `box_large_brown` | Large Brown Box | ✅ Yes | — | [box_large_brown.json](building/box_large_brown/box_large_brown.json) |
 | `box_large_tan` | Large Kraft Box | ✅ Yes | — | [box_large_tan.json](building/box_large_tan/box_large_tan.json) |
 | `box_large_white` | Large White Box | ✅ Yes | — | [box_large_white.json](building/box_large_white/box_large_white.json) |
@@ -135,7 +137,6 @@ Total Indexed Items: **544**
 | `lumber_stud_2x4` | 2x4 Lumber Stud | ✅ Yes | — | [lumber_stud_2x4.json](building/lumber_stud_2x4/lumber_stud_2x4.json) |
 | `masonry_brick_red` | Red Clay Brick | ✅ Yes | — | [masonry_brick_red.json](building/masonry_brick_red/masonry_brick_red.json) |
 | `masonry_cinder_block` | Cinder Block | ✅ Yes | — | [masonry_cinder_block.json](building/masonry_cinder_block/masonry_cinder_block.json) |
-| `masonry_concrete_bag` | 80lb Concrete Mix Bag | ✅ Yes | — | [masonry_concrete_bag.json](building/masonry_concrete_bag/masonry_concrete_bag.json) |
 | `part_floor_stone_1m` | Part Floor Stone 1M | ✅ Yes | — | [part_floor_stone_1m.json](building/part_floor_stone_1m/part_floor_stone_1m.json) |
 | `part_floor_wood_1m` | Part Floor Wood 1M | ✅ Yes | — | [part_floor_wood_1m.json](building/part_floor_wood_1m/part_floor_wood_1m.json) |
 | `pipe_leach_perforated_4inch` | 4" Perforated Leach Pipe | ✅ Yes | — | [pipe_leach_perforated_4inch.json](building/pipe_leach_perforated_4inch/pipe_leach_perforated_4inch.json) |
@@ -273,7 +274,7 @@ Total Indexed Items: **544**
 | `fishing_rod_spincast_combo` | Spincast Rod & Reel Combo | ✅ Yes | — | [fishing_rod_spincast_combo.json](fishing/fishing_rod_spincast_combo/fishing_rod_spincast_combo.json) |
 | `fishing_sinkers_lead` | Split Shot Lead Sinkers | ✅ Yes | — | [fishing_sinkers_lead.json](fishing/fishing_sinkers_lead/fishing_sinkers_lead.json) |
 
-### 📂 [Tools](tools/) (58 items)
+### 📂 [Tools](tools/) (59 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -315,6 +316,7 @@ Total Indexed Items: **544**
 | `tool_pickaxe` | Pickaxe | ✅ Yes | — | [tool_pickaxe.json](tools/tool_pickaxe/tool_pickaxe.json) |
 | `tool_plastic_wheelbarrow` | Plastic Wheelbarrow | ✅ Yes | — | [tool_plastic_wheelbarrow.json](tools/tool_plastic_wheelbarrow/tool_plastic_wheelbarrow.json) |
 | `tool_pump_sprayer` | Pump Sprayer | ✅ Yes | — | [tool_pump_sprayer.json](tools/tool_pump_sprayer/tool_pump_sprayer.json) |
+| `tool_saw_hand` | Hand Saw | ✅ Yes | — | [tool_saw_hand.json](tools/tool_saw_hand/tool_saw_hand.json) |
 | `tool_seedbag` | Seed Bag | — | — | [tool_seedbag.json](tools/tool_seedbag/tool_seedbag.json) |
 | `tool_shears_pruning` | Pruning Shears | ✅ Yes | — | [tool_shears_pruning.json](tools/tool_shears_pruning/tool_shears_pruning.json) |
 | `tool_shears_sheepwool` | Tool Shears Sheepwool | ✅ Yes | — | [tool_shears_sheepwool.json](tools/tool_shears_sheepwool/tool_shears_sheepwool.json) |
@@ -414,7 +416,7 @@ Total Indexed Items: **544**
 | `water_well_head_wooden` | Wooden Well Head | ✅ Yes | — | [water_well_head_wooden.json](water/water_well_head_wooden/water_well_head_wooden.json) |
 | `water_well_manual` | Manual Well | — | — | [water_well_manual.json](water/water_well_manual/water_well_manual.json) |
 
-### 📂 [Waste](waste/) (19 items)
+### 📂 [Waste](waste/) (20 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -432,6 +434,7 @@ Total Indexed Items: **544**
 | `waste_pump_submersible_deep` | Deep Submersible Well Pump | ✅ Yes | — | [waste_pump_submersible_deep.json](waste/waste_pump_submersible_deep/waste_pump_submersible_deep.json) |
 | `waste_pump_sump_float` | Automatic Sump Pump | ✅ Yes | — | [waste_pump_sump_float.json](waste/waste_pump_sump_float/waste_pump_sump_float.json) |
 | `waste_riser_septic_lid` | Septic Riser & Lid | ✅ Yes | — | [waste_riser_septic_lid.json](waste/waste_riser_septic_lid/waste_riser_septic_lid.json) |
+| `waste_tank_manure_slurry` | 5000L Manure Slurry Tank | ✅ Yes | — | [waste_tank_manure_slurry.json](waste/waste_tank_manure_slurry/waste_tank_manure_slurry.json) |
 | `waste_tank_rv_waste_tote` | RV Waste Holding Tote Tank | ✅ Yes | — | [waste_tank_rv_waste_tote.json](waste/waste_tank_rv_waste_tote/waste_tank_rv_waste_tote.json) |
 | `waste_tank_septic_concrete_3800l` | 3800L Concrete Septic Vault | ✅ Yes | — | [waste_tank_septic_concrete_3800l.json](waste/waste_tank_septic_concrete_3800l/waste_tank_septic_concrete_3800l.json) |
 | `waste_tank_septic_poly_1900l` | 1900L Poly Septic Tank | ✅ Yes | — | [waste_tank_septic_poly_1900l.json](waste/waste_tank_septic_poly_1900l/waste_tank_septic_poly_1900l.json) |
@@ -597,23 +600,23 @@ Total Indexed Items: **544**
 | `mat_log_birch_uncut_medium` | Medium Birch Uncut Log | ✅ Yes | — | [mat_log_birch_uncut_medium.json](materials/mat_log_birch_uncut_medium/mat_log_birch_uncut_medium.json) |
 | `mat_log_birch_uncut_small` | Small Birch Uncut Log | ✅ Yes | — | [mat_log_birch_uncut_small.json](materials/mat_log_birch_uncut_small/mat_log_birch_uncut_small.json) |
 | `mat_log_maple` | Maple Log | — | — | [mat_log_maple.json](materials/mat_log_maple/mat_log_maple.json) |
-| `mat_log_maple_uncut_long` | Long Maple Uncut Log | — | — | [mat_log_maple_uncut_long.json](materials/mat_log_maple_uncut_long/mat_log_maple_uncut_long.json) |
-| `mat_log_maple_uncut_medium` | Medium Maple Uncut Log | — | — | [mat_log_maple_uncut_medium.json](materials/mat_log_maple_uncut_medium/mat_log_maple_uncut_medium.json) |
-| `mat_log_maple_uncut_small` | Small Maple Uncut Log | — | — | [mat_log_maple_uncut_small.json](materials/mat_log_maple_uncut_small/mat_log_maple_uncut_small.json) |
+| `mat_log_maple_uncut_long` | Long Maple Uncut Log | ✅ Yes | — | [mat_log_maple_uncut_long.json](materials/mat_log_maple_uncut_long/mat_log_maple_uncut_long.json) |
+| `mat_log_maple_uncut_medium` | Medium Maple Uncut Log | ✅ Yes | — | [mat_log_maple_uncut_medium.json](materials/mat_log_maple_uncut_medium/mat_log_maple_uncut_medium.json) |
+| `mat_log_maple_uncut_small` | Small Maple Uncut Log | ✅ Yes | — | [mat_log_maple_uncut_small.json](materials/mat_log_maple_uncut_small/mat_log_maple_uncut_small.json) |
 | `mat_log_oak` | Oak Log | — | — | [mat_log_oak.json](materials/mat_log_oak/mat_log_oak.json) |
-| `mat_log_oak_uncut_long` | Long Oak Uncut Log | — | — | [mat_log_oak_uncut_long.json](materials/mat_log_oak_uncut_long/mat_log_oak_uncut_long.json) |
-| `mat_log_oak_uncut_medium` | Medium Oak Uncut Log | — | — | [mat_log_oak_uncut_medium.json](materials/mat_log_oak_uncut_medium/mat_log_oak_uncut_medium.json) |
-| `mat_log_oak_uncut_small` | Small Oak Uncut Log | — | — | [mat_log_oak_uncut_small.json](materials/mat_log_oak_uncut_small/mat_log_oak_uncut_small.json) |
+| `mat_log_oak_uncut_long` | Long Oak Uncut Log | ✅ Yes | — | [mat_log_oak_uncut_long.json](materials/mat_log_oak_uncut_long/mat_log_oak_uncut_long.json) |
+| `mat_log_oak_uncut_medium` | Medium Oak Uncut Log | ✅ Yes | — | [mat_log_oak_uncut_medium.json](materials/mat_log_oak_uncut_medium/mat_log_oak_uncut_medium.json) |
+| `mat_log_oak_uncut_small` | Small Oak Uncut Log | ✅ Yes | — | [mat_log_oak_uncut_small.json](materials/mat_log_oak_uncut_small/mat_log_oak_uncut_small.json) |
 | `mat_log_pine` | Pine Log | — | — | [mat_log_pine.json](materials/mat_log_pine/mat_log_pine.json) |
-| `mat_log_pine_uncut_long` | Long Pine Uncut Log | — | — | [mat_log_pine_uncut_long.json](materials/mat_log_pine_uncut_long/mat_log_pine_uncut_long.json) |
-| `mat_log_pine_uncut_medium` | Medium Pine Uncut Log | — | — | [mat_log_pine_uncut_medium.json](materials/mat_log_pine_uncut_medium/mat_log_pine_uncut_medium.json) |
-| `mat_log_pine_uncut_small` | Small Pine Uncut Log | — | — | [mat_log_pine_uncut_small.json](materials/mat_log_pine_uncut_small/mat_log_pine_uncut_small.json) |
-| `mat_log_poplar_uncut_long` | Long Poplar Uncut Log | — | — | [mat_log_poplar_uncut_long.json](materials/mat_log_poplar_uncut_long/mat_log_poplar_uncut_long.json) |
-| `mat_log_poplar_uncut_medium` | Medium Poplar Uncut Log | — | — | [mat_log_poplar_uncut_medium.json](materials/mat_log_poplar_uncut_medium/mat_log_poplar_uncut_medium.json) |
-| `mat_log_poplar_uncut_small` | Small Poplar Uncut Log | — | — | [mat_log_poplar_uncut_small.json](materials/mat_log_poplar_uncut_small/mat_log_poplar_uncut_small.json) |
-| `mat_log_willowood_uncut_long` | Long Willowood Uncut Log | — | — | [mat_log_willowood_uncut_long.json](materials/mat_log_willowood_uncut_long/mat_log_willowood_uncut_long.json) |
-| `mat_log_willowood_uncut_medium` | Medium Willowood Uncut Log | — | — | [mat_log_willowood_uncut_medium.json](materials/mat_log_willowood_uncut_medium/mat_log_willowood_uncut_medium.json) |
-| `mat_log_willowood_uncut_small` | Small Willowood Uncut Log | — | — | [mat_log_willowood_uncut_small.json](materials/mat_log_willowood_uncut_small/mat_log_willowood_uncut_small.json) |
+| `mat_log_pine_uncut_long` | Long Pine Uncut Log | ✅ Yes | — | [mat_log_pine_uncut_long.json](materials/mat_log_pine_uncut_long/mat_log_pine_uncut_long.json) |
+| `mat_log_pine_uncut_medium` | Medium Pine Uncut Log | ✅ Yes | — | [mat_log_pine_uncut_medium.json](materials/mat_log_pine_uncut_medium/mat_log_pine_uncut_medium.json) |
+| `mat_log_pine_uncut_small` | Small Pine Uncut Log | ✅ Yes | — | [mat_log_pine_uncut_small.json](materials/mat_log_pine_uncut_small/mat_log_pine_uncut_small.json) |
+| `mat_log_poplar_uncut_long` | Long Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_long.json](materials/mat_log_poplar_uncut_long/mat_log_poplar_uncut_long.json) |
+| `mat_log_poplar_uncut_medium` | Medium Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_medium.json](materials/mat_log_poplar_uncut_medium/mat_log_poplar_uncut_medium.json) |
+| `mat_log_poplar_uncut_small` | Small Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_small.json](materials/mat_log_poplar_uncut_small/mat_log_poplar_uncut_small.json) |
+| `mat_log_willowood_uncut_long` | Long Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_long.json](materials/mat_log_willowood_uncut_long/mat_log_willowood_uncut_long.json) |
+| `mat_log_willowood_uncut_medium` | Medium Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_medium.json](materials/mat_log_willowood_uncut_medium/mat_log_willowood_uncut_medium.json) |
+| `mat_log_willowood_uncut_small` | Small Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_small.json](materials/mat_log_willowood_uncut_small/mat_log_willowood_uncut_small.json) |
 | `mat_pelt_cow` | Cow Hide Pelt | ✅ Yes | — | [mat_pelt_cow.json](materials/mat_pelt_cow/mat_pelt_cow.json) |
 | `mat_pelt_goat` | Goat Skin Pelt | ✅ Yes | — | [mat_pelt_goat.json](materials/mat_pelt_goat/mat_pelt_goat.json) |
 | `mat_pelt_sheep` | Sheep Fleece Pelt | ✅ Yes | — | [mat_pelt_sheep.json](materials/mat_pelt_sheep/mat_pelt_sheep.json) |
@@ -674,3 +677,31 @@ Total Indexed Items: **544**
 | `ingredient_pork` | Raw Pork Chop | ✅ Yes | — | [ingredient_pork.json](ingredients/ingredient_pork/ingredient_pork.json) |
 | `ingredient_sunflower` | Sunflower Heads | ✅ Yes | — | [ingredient_sunflower.json](ingredients/ingredient_sunflower/ingredient_sunflower.json) |
 | `ingredient_wheat` | Milled Wheat Grain | ✅ Yes | — | [ingredient_wheat.json](ingredients/ingredient_wheat/ingredient_wheat.json) |
+
+### 📂 [Liquids](liquids/) (23 items)
+
+| Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
+| :--- | :--- | :---: | :---: | :--- |
+| `liquid_antifreeze` | Antifreeze | — | — | [liquid_antifreeze.json](liquids/liquid_antifreeze/liquid_antifreeze.json) |
+| `liquid_apple_cider` | Apple Cider | — | — | [liquid_apple_cider.json](liquids/liquid_apple_cider/liquid_apple_cider.json) |
+| `liquid_bar_chain_oil` | Bar and Chain Oil | — | — | [liquid_bar_chain_oil.json](liquids/liquid_bar_chain_oil/liquid_bar_chain_oil.json) |
+| `liquid_cream` | Cream | — | — | [liquid_cream.json](liquids/liquid_cream/liquid_cream.json) |
+| `liquid_diesel` | Diesel Fuel | — | — | [liquid_diesel.json](liquids/liquid_diesel/liquid_diesel.json) |
+| `liquid_gasoline` | Gasoline | — | — | [liquid_gasoline.json](liquids/liquid_gasoline/liquid_gasoline.json) |
+| `liquid_gear_oil` | Gear Oil | — | — | [liquid_gear_oil.json](liquids/liquid_gear_oil/liquid_gear_oil.json) |
+| `liquid_goat_milk` | Goat Milk | — | — | [liquid_goat_milk.json](liquids/liquid_goat_milk/liquid_goat_milk.json) |
+| `liquid_greywater` | Greywater | — | — | [liquid_greywater.json](liquids/liquid_greywater/liquid_greywater.json) |
+| `liquid_honey` | Honey | — | — | [liquid_honey.json](liquids/liquid_honey/liquid_honey.json) |
+| `liquid_hydraulic_fluid` | Hydraulic Fluid | — | — | [liquid_hydraulic_fluid.json](liquids/liquid_hydraulic_fluid/liquid_hydraulic_fluid.json) |
+| `liquid_kerosene` | Kerosene | — | — | [liquid_kerosene.json](liquids/liquid_kerosene/liquid_kerosene.json) |
+| `liquid_manure_slurry` | Manure Slurry | — | — | [liquid_manure_slurry.json](liquids/liquid_manure_slurry/liquid_manure_slurry.json) |
+| `liquid_maple_sap` | Maple Sap | — | — | [liquid_maple_sap.json](liquids/liquid_maple_sap/liquid_maple_sap.json) |
+| `liquid_maple_syrup` | Maple Syrup | — | — | [liquid_maple_syrup.json](liquids/liquid_maple_syrup/liquid_maple_syrup.json) |
+| `liquid_milk` | Cow Milk | — | — | [liquid_milk.json](liquids/liquid_milk/liquid_milk.json) |
+| `liquid_motor_oil` | Motor Oil | — | — | [liquid_motor_oil.json](liquids/liquid_motor_oil/liquid_motor_oil.json) |
+| `liquid_olive_oil` | Olive Oil | — | — | [liquid_olive_oil.json](liquids/liquid_olive_oil/liquid_olive_oil.json) |
+| `liquid_propane` | Liquid Propane | — | — | [liquid_propane.json](liquids/liquid_propane/liquid_propane.json) |
+| `liquid_sewage` | Sewage | — | — | [liquid_sewage.json](liquids/liquid_sewage/liquid_sewage.json) |
+| `liquid_two_stroke_mix` | Two-Stroke Fuel Mix | — | — | [liquid_two_stroke_mix.json](liquids/liquid_two_stroke_mix/liquid_two_stroke_mix.json) |
+| `liquid_vegetable_oil` | Vegetable Oil | — | — | [liquid_vegetable_oil.json](liquids/liquid_vegetable_oil/liquid_vegetable_oil.json) |
+| `liquid_water` | Water | — | — | [liquid_water.json](liquids/liquid_water/liquid_water.json) |

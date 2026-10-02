@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 1.0,
     "max_stack_size": 99,
-    "base_value": 14.0,
+    "base_value": 14,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 10,
     "thirst_restore": 2,
     "energy_restore": 0,
     "stamina_restore": 25,
-    "wellness_modifier": 2
+    "wellness_modifier": 2,
+    "is_buyable": true,
+    "stores": [
+      "grocer"
+    ],
+    "sale_unit": "ea"
   },
   "models": [],
   "utilities": {

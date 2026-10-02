@@ -19,40 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_small_cabin.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_small_cabin.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_small_cabin.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 510.0,
-        "y": 550.0,
-        "z": 439.9
-      },
+      "file": "struct_complete_small_cabin.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 5.1,
-        "y": 5.5,
-        "z": 4.4
+        "y": 4.4,
+        "z": 5.5
       },
-      "vertices": 1900,
-      "faces": 636,
-      "bounding_box": {
-        "min": [
-          -255.0,
-          -275.0,
-          0.0
-        ],
-        "max": [
-          255.0,
-          275.0,
-          439.856415
-        ]
-      }
+      "triangles": 2656
     }
   ],
   "utilities": {
@@ -142,7 +116,8 @@
     "required_tools": [
       [
         "tool_circular_saw_corded",
-        "tool_circular_saw_cordless"
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
       ],
       [
         "tool_hammer_claw",

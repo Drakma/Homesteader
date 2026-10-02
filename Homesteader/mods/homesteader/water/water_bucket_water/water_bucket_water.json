@@ -68,5 +68,9 @@
     "is_connected": false,
     "max_filter_throughput_lpm": 0,
     "max_roof_proximity_m": 0
+  },
+  "liquid_container": {
+    "capacity_l": 10,
+    "accepts": []
   }
 }

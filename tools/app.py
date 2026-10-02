@@ -19,6 +19,9 @@ import urllib.request
 from http.server import ThreadingHTTPServer
 
 import webview
+import importlib
+
+import server as server_module
 from server import AssetKitHandler, BASE_DIR
 
 DEFAULT_PORT = 8088
@@ -57,6 +60,35 @@ def start_server_thread(port):
     return httpd
 
 
+_embedded = {"httpd": None, "port": None}
+
+
+def restart_embedded_server():
+    """Restarts the embedded server in place: stop it, reload server.py from disk, bind the same port again. The window stays open
+    (the page waits for /api/ping and reloads). Wired to server.RESTART_HOOK, so Shift+click on the status-bar reload icon calls it."""
+    old = _embedded["httpd"]
+    port = _embedded["port"]
+    if old is not None:
+        try:
+            old.shutdown()
+            old.server_close()
+        except Exception:
+            pass
+    importlib.reload(server_module)
+    server_module.RESTART_HOOK = restart_embedded_server
+    for _ in range(20):   # the old socket can take a moment to let go
+        try:
+            _embedded["httpd"] = ReusableThreadingServer(("", port), server_module.AssetKitHandler)
+            break
+        except OSError:
+            time.sleep(0.25)
+    else:
+        print("[AssetKit] Could not rebind the server port after the restart.")
+        return
+    threading.Thread(target=_embedded["httpd"].serve_forever, daemon=True).start()
+    print(f"[AssetKit] Server restarted on port {port}.")
+
+
 def main():
     target_port = DEFAULT_PORT
     server_instance = None
@@ -73,6 +105,11 @@ def main():
     else:
         print(f"[AssetKit] Starting embedded server on port {target_port}...")
         server_instance = start_server_thread(target_port)
+
+    if server_instance is not None:
+        _embedded["httpd"] = server_instance
+        _embedded["port"] = target_port
+        server_module.RESTART_HOOK = restart_embedded_server
 
     # Wait briefly for server readiness
     for _ in range(20):
@@ -97,10 +134,10 @@ def main():
 
     def on_closed():
         print("[AssetKit] Desktop window closed.")
-        if server_instance:
+        if _embedded["httpd"] is not None:
             try:
-                server_instance.shutdown()
-                server_instance.server_close()
+                _embedded["httpd"].shutdown()
+                _embedded["httpd"].server_close()
                 print("[AssetKit] Embedded server stopped.")
             except Exception:
                 pass

@@ -1,0 +1,15 @@
+{
+  "file": "Smooth_Jazz_Instrumental_Request_v2.mp3",
+  "source": "Google Gemini web app (Lyria), recovered from chat history via browser automation",
+  "chat_url": "https://gemini.google.com/app/9a7866b54253d610",
+  "chat_title": "Smooth Jazz Instrumental Request",
+  "prompt": "You said Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop wi\u2026\n\nCreate an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 60 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 60 seconds, not cut off mid-song. Warm smooth jazz instrumental, 85 BPM, mellow saxophone lead melody, Rhodes electric piano chords, soft upright bass walking line, brushed drums, laid-back sophisticated lounge mood, instrumental only, gentle expressive solo section",
+  "requested_prompt": "Warm smooth jazz instrumental, 85 BPM, mellow saxophone lead melody, Rhodes electric piano chords, soft upright bass walking line, brushed drums, laid-back sophisticated lounge mood, instrumental only, gentle expressive solo section",
+  "generated_at": "2026-10-02T09:05:59.025Z (recovered; chat is earlier)",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Smooth_Jazz_Instrumental_Request_v2.mp4",
+  "bytes": 1748366,
+  "sha256": "5f8d550b2c282cdf20d7da6e2f8da24f00dde1d53427c61e5ffbf4c6403046f0",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "Google AI Plus (account shows Plus badge on 2026-10-02)"
+}

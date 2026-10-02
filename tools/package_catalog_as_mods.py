@@ -30,6 +30,7 @@ CATEGORY_METADATA = {
     "food": ("Pantry & Provisions", "Harvested orchard fruits, farm produce, dairy, canned goods, and pantry staples."),
     "fuel": ("Fuel & Heating", "Diesel containers, bulk propane tanks, cordwood stacks, and fuel storage."),
     "ingredients": ("Culinary Ingredients", "Flours, yeasts, seasonings, culinary oils, and raw cooking staples."),
+    "liquids": ("Liquids", "Milk, water, fuels, oils and syrups that fill buckets, cans, drums and tanks by volume."),
     "internet": ("Telecom & Telemetry", "Satellite dishes, cellular routers, telemetry sensors, and communication hardware."),
     "logging": ("Timber & Forestry", "Chainsaws, felling wedges, timber jacks, peaveys, and forestry equipment."),
     "materials": ("Raw Materials & Ores", "Milled timber studs, quarried stones, raw ores, ingots, and building composites."),

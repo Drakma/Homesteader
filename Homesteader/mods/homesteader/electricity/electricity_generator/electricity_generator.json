@@ -8,14 +8,20 @@
   "properties": {
     "weight_kg": 1.0,
     "max_stack_size": 99,
-    "base_value": 350.0,
+    "base_value": 350,
     "is_consumable": false,
     "footprint": "(X=2,Y=2)",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {

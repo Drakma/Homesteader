@@ -349,11 +349,42 @@ namespace Homesteader.Growth
         private static readonly Dictionary<string, HashSet<string>> tags =
             new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
 
+        // Equivalencies inside a tag: what each member is worth in the tag's units (default 1) and the unit word (see material_tags.json tag_values).
+        private static readonly Dictionary<string, Dictionary<string, float>> tagValues =
+            new Dictionary<string, Dictionary<string, float>>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, string> tagUnits = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
         public static void Clear()
         {
             groups.Clear();
             plantItems.Clear();
             tags.Clear();
+            tagValues.Clear();
+            tagUnits.Clear();
+        }
+
+        /// <summary>Sets what members of a tag are worth (1 large bundle = 20, 1 small = 10, a stud = 1 ...) and the unit word.</summary>
+        public static void RegisterTagValues(string name, string unit, IDictionary<string, float> values)
+        {
+            if (string.IsNullOrEmpty(name)) return;
+            if (!string.IsNullOrEmpty(unit)) tagUnits[name] = unit;
+            if (values == null) return;
+            if (!tagValues.TryGetValue(name, out Dictionary<string, float> map))
+                tagValues[name] = map = new Dictionary<string, float>(StringComparer.OrdinalIgnoreCase);
+            foreach (var kv in values) if (kv.Value > 0f) map[kv.Key] = kv.Value;
+        }
+
+        /// <summary>What one of this item counts for against a recipe spec: its value in the "#tag" (default 1), or 1 for a plain item id.</summary>
+        public static float UnitValue(string spec, string itemId)
+        {
+            if (string.IsNullOrEmpty(spec) || spec[0] != '#') return 1f;
+            return tagValues.TryGetValue(spec.Substring(1), out Dictionary<string, float> map) && map.TryGetValue(itemId, out float v) ? v : 1f;
+        }
+
+        /// <summary>The unit word of a "#tag" (for example "studs"), or null.</summary>
+        public static string UnitName(string spec)
+        {
+            return !string.IsNullOrEmpty(spec) && spec[0] == '#' && tagUnits.TryGetValue(spec.Substring(1), out string u) ? u : null;
         }
 
         /// <summary>Adds members to a tag, creating it if needed (union, so mods can share one registry).</summary>

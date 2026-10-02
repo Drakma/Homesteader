@@ -30,6 +30,7 @@
 ## 1a. UI Design Rules (UI Toolkit)
 
 - **Text fields** (TextField, number fields, search boxes, dropdowns): text is ALWAYS vertically centered in the box, including placeholder text. Style the inner input, not just the outer element: justify-content: center; -unity-text-align: middle-left; padding-top: 0; padding-bottom: 0; on .unity-base-text-field__input / .unity-base-popup-field__input, and zero margin/padding on the inner TextElement. Horizontal alignment stays left.
+- **Toasts**: a toast identical to the NEWEST one still showing (same title, message and kind) never stacks: the one on screen just restarts its timer. Repeats that carry a number use `ToastNotificationSystem.ShowCounted` (one toast, running total). Never fire the same toast several times.
 - **Buttons**: label text is ALWAYS centered vertically AND horizontally (-unity-text-align: middle-center).
 - Reference implementations: .asset-search-input and .asset-category-dropdown in Resources/HUDTree/HudUI.uss.
 - **There is ONE phone.** Its markup is `Homesteader/Assets/Resources/HUDTree/PhoneUI.uxml` and its styles are `PhoneUI.uss` (apps such as Steadify, Volt, Almanac are all in that one uxml). `HudUI.uxml` only instantiates it (`<ui:Instance template="PhoneUI" name="PhoneHost" />`), and `Scripts/UI/Phone/PhoneController.cs` drives it. Never add phone markup to `HudUI.uxml` and never keep a second copy. A horizontal `Slider` needs an explicit height and `.unity-base-slider__drag-container` / tracker / dragger styling (see `.admin-slider` and `.steadify-seek-slider`), or it collapses to zero height and is invisible.
@@ -129,7 +130,7 @@ python tools/render_icon_from_model.py <model_path> assets/<category>/<item_id>/
 
 Every asset must live in `assets/<category>/<item_id>/`:
 
-- The 16 canonical categories: `farming`, `ranching`, `logging`, `fishing`, `building`, `structures`, `tools`, `electricity`, `water`, `waste`, `internet`, `hud`, `ground`, `food`, `fuel`, `materials`.
+- The canonical categories: `farming`, `ranching`, `logging`, `fishing`, `building`, `structures`, `tools`, `electricity`, `water`, `waste`, `internet`, `hud`, `ground`, `food`, `fuel`, `materials`, `ingredients`, `liquids`.
 - Naming prefixes:
   - `struct_*`: cabins, barns, sheds, coops.
   - `machinery_*`: tractors, skidsteers.
@@ -139,6 +140,7 @@ Every asset must live in `assets/<category>/<item_id>/`:
   - `seed_*`: plantable seeds (all use 3D seed packet models).
   - `crop_*`: growing crops.
   - `food_*`: direct edible harvests (e.g. `food_apple`, `food_truffle`).
+  - `liquid_*`: fluids that fill liquid containers by volume (`weight_kg` is per litre; fluid colour and opacity). No model.
   - `ingredient_*`: cooking/crafting drops (singular `ingredient_`, e.g. `ingredient_beef`, `ingredient_fillet_salmon`).
   - `fuel_*`: hydrocarbons, propane, firewood cords, bulk fuel tanks.
   - `mat_*`: lumber, gravel/dirt piles, bales, wool, pelts.
@@ -165,7 +167,8 @@ Every asset must live in `assets/<category>/<item_id>/`:
 
 ---
 
-- **Controls**: `docs/CONTROLS.md` is the single list of every key/mouse binding. Check it before assigning a key (F2, F3, F4 are taken) and update it in the same change whenever a binding is added, moved or removed.
+- **One source for items**: an item's name, price, icon, weight, shop listing (`properties.stores`, `sale_unit`, `base_value`) and everything else live ONLY in its manifest under `assets/<category>/<id>/`. The game's `AssetCatalog.json` and the phone shops are generated from the manifests (`tools/generate_unity_asset_catalog.py`, `tools/package_catalog_as_mods.py`); never keep a second hand-edited list of items (the old `StoreCatalogs.json` was one and went stale on renames).
+- **Controls**: `docs/CONTROLS.md` is the single list of every key/mouse binding. Check it before assigning a key (F2, F3, F4 are taken) and update it AND the F1 hints list (`HintsPanel.cs`) in the same change whenever a binding is added, moved or removed.
 
 ---
 

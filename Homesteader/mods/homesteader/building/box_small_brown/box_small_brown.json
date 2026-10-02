@@ -8,14 +8,20 @@
   "properties": {
     "weight_kg": 1.0,
     "max_stack_size": 1,
-    "base_value": 2.0,
+    "base_value": 2,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "box"
   },
   "models": [
     {
@@ -76,6 +82,7 @@
     "capacity_kg": 5.0,
     "stacking_limit": 5,
     "accepts": [],
-    "show_fill": false
+    "show_fill": false,
+    "disposable": true
   }
 }

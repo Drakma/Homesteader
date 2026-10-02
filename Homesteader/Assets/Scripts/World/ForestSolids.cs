@@ -78,6 +78,20 @@ namespace Homesteader.World
             Add(new Solid { Pos = placed.position, Radius = radius * 0.85f, Height = Mathf.Max(radius * 1.2f, mesh.bounds.size.y * sc.y) });
         }
 
+        /// <summary>Takes away the rocks whose base is inside an area (the ground under a foundation was cleared).</summary>
+        public static void ClearRocksIn(System.Func<float, float, bool> inside)
+        {
+            for (int i = 0; i < Solids.Count; i++)
+            {
+                Solid s = Solids[i];
+                if (s.Tree != null || s.Radius <= 0f || !inside(s.Pos.x, s.Pos.z)) continue;
+                s.Radius = 0f;
+                s.Height = 0f;
+                Solids[i] = s;
+            }
+            _dirty = true;
+        }
+
         /// <summary>A tree was felled (or something else changed): re-place the colliders now.</summary>
         public static void MarkDirty() { _dirty = true; }
 
@@ -163,6 +177,7 @@ namespace Homesteader.World
                             }
                             else
                             {
+                                if (s.Radius <= 0f) continue;   // cleared away
                                 radius = s.Radius;
                                 height = s.Height;
                             }

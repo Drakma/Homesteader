@@ -26,6 +26,13 @@ namespace Homesteader.UI
     {
         public static bool IsContainer(string itemId) => Capacity(itemId) > 0f;
 
+        /// <summary>A single-use container (a cardboard box): a placed one goes away when it has been emptied.</summary>
+        public static bool IsDisposable(string itemId)
+        {
+            var info = HudBindings.GetCatalogItem(itemId);
+            return info != null && info.container_disposable;
+        }
+
         public static float Capacity(string itemId)
         {
             var info = HudBindings.GetCatalogItem(itemId);
@@ -122,6 +129,14 @@ namespace Homesteader.UI
     {
         private static ContainerPanel _open;
         public static bool IsOpen => _open != null;
+
+        /// <summary>Closes the contents window if one is open (Esc). True when there was one.</summary>
+        public static bool CloseOpen()
+        {
+            if (_open == null) return false;
+            _open.Close();
+            return true;
+        }
 
         /// <summary>C: close the window if it is open, else open the placed container under the cursor, else the toolbar's container.</summary>
         public static void Toggle(VisualElement anyElementOnPanel)
@@ -254,6 +269,20 @@ namespace Homesteader.UI
             bar.Add(_barFill);
             body.Add(bar);
 
+            // Pick up sits ABOVE the lists, where it never moves. At the bottom it slid up under the pointer as rows were taken out, so
+            // the click meant for the last "Take" picked the whole container up instead (it looked like the box vanished).
+            _footer = new VisualElement();
+            body.Add(_footer);
+            if (source is WorldSource)
+            {
+                var pick = new Button(PickUp) { text = "Pick up", tooltip = "Pick this container up, with everything in it, into the toolbar (the top one of a stack)" };
+                pick.AddToClassList("hs-btn");
+                pick.AddToClassList("hs-btn--primary");
+                pick.style.marginTop = 8;
+                pick.style.alignSelf = Align.FlexEnd;
+                _footer.Add(pick);
+            }
+
             var h1 = new Label("INSIDE");
             h1.AddToClassList("window-section-title");
             body.Add(h1);
@@ -265,18 +294,6 @@ namespace Homesteader.UI
             body.Add(h2);
             _toolbarList = new VisualElement();
             body.Add(_toolbarList);
-
-            _footer = new VisualElement();
-            body.Add(_footer);
-            if (source is WorldSource)
-            {
-                var pick = new Button(PickUp) { text = "Pick up", tooltip = "Pick this container up, with everything in it, into the toolbar (the top one of a stack)" };
-                pick.AddToClassList("hs-btn");
-                pick.AddToClassList("hs-btn--primary");
-                pick.style.marginTop = 12;
-                pick.style.alignSelf = Align.FlexEnd;
-                _footer.Add(pick);
-            }
 
             VisualElement wallpaper = panelRoot.Q<VisualElement>("WelcomeWallpaper");
             if (wallpaper != null && wallpaper.parent == panelRoot) panelRoot.Insert(panelRoot.IndexOf(wallpaper), _window);
@@ -397,6 +414,13 @@ namespace Homesteader.UI
             if (added <= 0) { ToastNotificationSystem.ShowInfo("Container", "The toolbar is full."); return; }
             ContainerRules.Remove(_source.Contents, itemId, added);
             HudBindings.Instance?.RefreshToolbar();
+            // an emptied cardboard box on the ground goes away
+            if (_source is WorldSource spent && spent.Placed != null && spent.Contents.Count == 0 && ContainerRules.IsDisposable(spent.Placed.ItemId))
+            {
+                spent.Placed.Remove();
+                Close();
+                return;
+            }
             _signature = "";
             Refresh();
         }
@@ -405,7 +429,6 @@ namespace Homesteader.UI
         private void PickUp()
         {
             if (!(_source is WorldSource ws) || ws.Placed == null) return;
-            if (!ws.Placed.IsTopOfStack) { ToastNotificationSystem.ShowInfo("Container", "Pick up the one on top first."); return; }
             HudState hud = HudState.Active;
             hud.EnsureToolbarSlots();
             int free = -1;

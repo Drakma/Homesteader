@@ -7,7 +7,7 @@
   "icon": "water_barrel_rain_200l.png",
   "properties": {
     "weight_kg": 12.0,
-    "max_stack_size": 3,
+    "max_stack_size": 1,
     "base_value": 40.0,
     "is_consumable": false,
     "footprint": null,
@@ -15,7 +15,8 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true
   },
   "models": [
     {
@@ -129,5 +130,11 @@
     "is_connected": true,
     "max_filter_throughput_lpm": 0,
     "max_roof_proximity_m": 2
+  },
+  "liquid_container": {
+    "capacity_l": 200,
+    "accepts": [
+      "liquid_water"
+    ]
   }
 }

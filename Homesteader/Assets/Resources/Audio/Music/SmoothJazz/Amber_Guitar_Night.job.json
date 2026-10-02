@@ -1,6 +1,0 @@
-{
-  "filename": "Amber_Guitar_Night",
-  "state": "done",
-  "note": "No track was downloaded within 600s (waiting for audio to appear after 4 browser relaunch(es)). A screenshot is at C:\\Users\\casey\\Desktop\\Homesteader\\Homesteader\\Assets\\Resources\\Audio\\Music\\SmoothJazz\\Amber_Guitar_Night_failed.png. Run gemini_music_inspect to see what the page offers, then adjust the selectors in tools/gemini_music_mcp/index.js.",
-  "updated_at": "2026-10-01T05:50:36.635Z"
-}

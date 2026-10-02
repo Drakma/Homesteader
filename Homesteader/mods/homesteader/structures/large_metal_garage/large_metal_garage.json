@@ -21,7 +21,9 @@
         "age_max": 33,
         "resource": "stages/struct_foundation/",
         "model": "",
-        "icon": "struct_foundation_large_metal_garage.png"
+        "icon": "struct_foundation_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
       },
       {
         "stage": 2,
@@ -30,7 +32,9 @@
         "age_max": 66,
         "resource": "stages/struct_framing/",
         "model": "",
-        "icon": "struct_framing_large_metal_garage.png"
+        "icon": "struct_framing_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
       },
       {
         "stage": 3,
@@ -39,7 +43,9 @@
         "age_max": 99,
         "resource": "stages/struct_walls/",
         "model": "",
-        "icon": "struct_walls_large_metal_garage.png"
+        "icon": "struct_walls_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
       },
       {
         "stage": 4,
@@ -48,7 +54,9 @@
         "age_max": 100,
         "resource": "stages/struct_complete/",
         "model": "",
-        "icon": "struct_complete_large_metal_garage.png"
+        "icon": "struct_complete_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
       }
     ]
   },

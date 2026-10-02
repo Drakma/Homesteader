@@ -20,8 +20,25 @@
         "age_min": 0,
         "age_max": 33,
         "resource": "stages/struct_foundation/",
-        "model": "",
-        "icon": "struct_foundation_small_cabin.png"
+        "model": "struct_foundation_small_cabin.glb",
+        "icon": "struct_foundation_small_cabin.png",
+        "construction_recipe": [
+          {
+            "item_id": "#rebar",
+            "quantity": 2
+          },
+          {
+            "item_id": "80lb_cement_bag",
+            "quantity": 4
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching"
+          ]
+        ]
       },
       {
         "stage": 2,
@@ -29,8 +46,36 @@
         "age_min": 33,
         "age_max": 66,
         "resource": "stages/struct_framing/",
-        "model": "",
-        "icon": "struct_framing_small_cabin.png"
+        "model": "struct_framing_small_cabin.glb",
+        "icon": "struct_framing_small_cabin.png",
+        "construction_recipe": [
+          {
+            "item_id": "#framing_lumber",
+            "quantity": 100
+          },
+          {
+            "item_id": "lumber_joist_2x8",
+            "quantity": 8
+          },
+          {
+            "item_id": "item_hardware_framingnails_box",
+            "quantity": 2
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
       },
       {
         "stage": 3,
@@ -38,8 +83,36 @@
         "age_min": 66,
         "age_max": 99,
         "resource": "stages/struct_walls/",
-        "model": "",
-        "icon": "struct_walls_small_cabin.png"
+        "model": "struct_walls_small_cabin.glb",
+        "icon": "struct_walls_small_cabin.png",
+        "construction_recipe": [
+          {
+            "item_id": "#romex_wire",
+            "quantity": 4
+          },
+          {
+            "item_id": "#plumbing_pipe",
+            "quantity": 4
+          },
+          {
+            "item_id": "#logs",
+            "quantity": 30
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
       },
       {
         "stage": 4,
@@ -47,8 +120,40 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "struct_complete_small_cabin.fbx",
-        "icon": "struct_complete_small_cabin.png"
+        "model": "struct_complete_small_cabin.glb",
+        "icon": "struct_complete_small_cabin.png",
+        "construction_recipe": [
+          {
+            "item_id": "#roofing",
+            "quantity": 3
+          },
+          {
+            "item_id": "building_glass",
+            "quantity": 2
+          },
+          {
+            "item_id": "sheet_drywall_stack_small",
+            "quantity": 2
+          },
+          {
+            "item_id": "#flooring",
+            "quantity": 25
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
       }
     ]
   },

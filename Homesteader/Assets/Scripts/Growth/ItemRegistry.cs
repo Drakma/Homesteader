@@ -16,7 +16,7 @@ namespace Homesteader.Growth
             public string Name;
             public string Category;
             public GameObject Prefab;   // a lazily-loaded GLB template (inactive) or a generated prefab
-            public bool Placeable = true;   // the manifest's properties.placeable: can the player put it on the ground (default yes)
+            public bool Placeable;   // the manifest's properties.placeable: can the player put it on the ground (opt in, default no)
             public List<LightDef> Lights = new List<LightDef>();   // lights the asset emits (manifest "lights")
         }
 

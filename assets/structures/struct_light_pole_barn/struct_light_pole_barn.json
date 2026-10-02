@@ -15,7 +15,8 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "placeable": true
   },
   "models": [
     {
@@ -136,7 +137,8 @@
     "required_tools": [
       [
         "tool_circular_saw_corded",
-        "tool_circular_saw_cordless"
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
       ],
       [
         "tool_hammer_claw",

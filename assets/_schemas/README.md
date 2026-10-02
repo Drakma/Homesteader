@@ -93,9 +93,25 @@ A component schema is its own schema file with `"component": true`. It is not pa
 asset (the asset popup's "Add schema" button) and lives in its own top-level block on the manifest, named by the schema's `target`. The block is
 validated only on assets that have it. `on_add` lists manifest values set when the schema is added.
 
+- `liquids` (`liquids.schema.json`, category_fields): a fluid that fills liquid containers by volume (category `liquids`, ids `liquid_*`, no model).
+  - `properties.weight_kg` is kilograms PER LITRE (water 1.0, diesel 0.83); a container weighs its own weight plus litres x this.
+  - `color` (string `#RRGGBB`, required, shown as a colour swatch in the editor): the fluid colour.
+  - `opacity_pct` (number 0 to 100, required): 100 = fully opaque (milk), about 70 for fuels, about 35 for water.
+  - `flammable` (boolean, optional).
+  - `dimensions_m` is one litre (a 10 cm cube). Tags `#liquid`, `#liquid_fuel`, `#liquid_dairy`, `#liquid_oil` are in `material_tags.json`. Generator: `tools/make_liquid_assets.py`.
+- `liquid_container` (`liquid_container.schema.json`, component, target `liquid_container`): the asset holds ONE liquid at a time by volume.
+  - `capacity_l` (number > 0, required): the most litres it holds.
+  - `accepts` (array, optional): liquid assets and/or `#liquid...` tags chosen with the asset picker; empty = any liquid.
+  - `on_add`: sets `properties.max_stack_size` to 1. Separate from `container` (solid items by weight). Runtime: `Assets/Scripts/UI/Liquids.cs` (`LiquidRules`).
+- Shop listing (base `properties`, set in the asset popup under **Sold At**): `stores` (the phone shops that sell it: depot, lumber, grocer, feed,
+  water, vehicles, equipment, livestock, furniture, voltvision, trailershack), `sale_unit` (ea, kit, box ...), optional `store_category`
+  (the shop's chip label when it differs from the asset category default) and `store_overrides` (`{"shop": {"category", "unit", "price"}}`
+  for one shop that sells it differently). The price is `base_value`. There is NO separate store file: the phone builds every shop from
+  `AssetCatalog.json`, which `tools/generate_unity_asset_catalog.py` writes from the manifests (`store_listings`).
 - `container` (`container.schema.json`, target `container`): the asset holds other items up to a weight.
   - `capacity_kg` (number > 0, required): the most weight it can hold (sum of weight_kg x count inside).
   - `stacking_limit` (integer >= 1, optional): identical placed containers can be stacked this high in one grid square in the world; omitted or 1 = no stacking.
+  - `disposable` (boolean, optional, default false): a PLACED container is removed from the world when its last item is taken out (cardboard delivery boxes); crates and baskets leave it off.
   - `show_fill` (boolean, optional, default true): a PLACED container draws what is inside as blocks that rise as it fills (one slab per kind of item: average colour on the sides, icon on top; `Assets/Scripts/Growth/ContainerFill.cs`). Set false for closed boxes.
   - `single_type` (boolean, optional, default false): takes only one kind of item at a time; once it holds something only more of that item goes in (crates).
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.

@@ -260,6 +260,29 @@ function sniffExt(buf) {
   return 'bin';
 }
 
+/** Fetch the player's media URL (a plain https link on contribution.usercontent.google.com) through the
+ *  browser context's request client, so cookies apply but Chrome's download machinery is never used.
+ *  Chrome crashed on the Download click on this profile (Crashpad dumps, 2026-10-02); this path does not. */
+async function tryMediaUrl(page) {
+  const src = await page.evaluate(() => {
+    const replies = [...document.querySelectorAll('model-response, .model-response, message-content, .response-container')];
+    const root = replies.length ? replies.at(-1) : document;
+    const m = [...root.querySelectorAll('video, audio')].at(-1);
+    return m ? (m.currentSrc || m.src || '') : '';
+  }).catch(() => '');
+  if (!/^https?:/.test(src)) return null;
+  try {
+    const resp = await page.context().request.get(src, { timeout: 120_000 });
+    if (!resp.ok()) return null;
+    const buf = Buffer.from(await resp.body());
+    if (buf.length < 10_000) return null;
+    return { buf, via: 'media URL fetched with context cookies', suggested: null };
+  } catch (e) {
+    console.error(`[gemini-music] media fetch failed: ${String(e.message || e).slice(0, 120)}`);
+    return null;
+  }
+}
+
 /** Try the page's own download control. Returns a Buffer or null. */
 async function tryDownloadButton(page) {
   // The newest response is last; look for a download control near an audio player first, then anywhere.
@@ -281,6 +304,12 @@ async function tryDownloadButton(page) {
     const btn = loc.nth(n - 1);          // the most recent one
     console.error(`[gemini-music] clicking ${sel} (${n} match(es))`);
     try {
+      // Diagnostics: what is this control, and what does the page look like right before the click?
+      try {
+        const info = await btn.evaluate((el) => ({ tag: el.tagName, label: el.getAttribute('aria-label'), text: (el.innerText || '').slice(0, 60), html: el.outerHTML.slice(0, 300), href: el.closest('a')?.href || null }));
+        console.error(`[gemini-music] download control: ${JSON.stringify(info)}`);
+        await page.screenshot({ path: path.join(RAW_DIR, 'before_download_click.png') }).catch(() => {});
+      } catch { /* diagnostics only */ }
       const downloadPromise = page.waitForEvent('download', { timeout: 15_000 });
       await btn.click({ timeout: 5_000 });
 
@@ -443,7 +472,8 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
         continue;
       }
       console.error(`[gemini-music] audio UI present ${Math.round((Date.now() - sentAt) / 1000)}s after send; trying download`);
-      got = (await tryDownloadButton(page2)) || (await tryAudioElement(page2));
+      got = (await tryMediaUrl(page2)) || (await tryAudioElement(page2)) ||
+        (process.env.GEMINI_MUSIC_CLICK_DOWNLOAD === '1' ? await tryDownloadButton(page2) : null);
       if (got) break;
       lastNote = 'audio UI found but no download worked yet';
       console.error('[gemini-music] download attempt produced nothing; will retry');

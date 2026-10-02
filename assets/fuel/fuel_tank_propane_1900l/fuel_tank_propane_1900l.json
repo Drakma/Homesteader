@@ -8,14 +8,19 @@
   "properties": {
     "weight_kg": 1100.0,
     "max_stack_size": 1,
-    "base_value": 4800.0,
+    "base_value": 4800,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "tank"
   },
   "models": [],
   "utilities": {
@@ -64,5 +69,11 @@
     "fuel_type": "propane",
     "capacity_l": 1900,
     "burn_minutes_per_item": 0
+  },
+  "liquid_container": {
+    "capacity_l": 1900,
+    "accepts": [
+      "liquid_propane"
+    ]
   }
 }
