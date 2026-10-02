@@ -55,7 +55,7 @@ public class PedController : MonoBehaviour
         _carryWeight = total;
         bool encumbered = IsEncumbered;
         if (encumbered && !_wasEncumbered)
-            ToastNotificationSystem.ShowWarning("Encumbered", $"Carrying {_carryWeight:0.#} kg of {maxCarryWeight:0.#} kg. You can only move at {EncumberedSpeedFactor * 100f:0}% speed.");
+            ToastNotificationSystem.ShowWarning("Encumbered", $"Carrying {UnitFormat.Weight(_carryWeight, "0.#")} of {UnitFormat.Weight(maxCarryWeight, "0.#")}. You can only move at {EncumberedSpeedFactor * 100f:0}% speed.");
         _wasEncumbered = encumbered;
     }
 

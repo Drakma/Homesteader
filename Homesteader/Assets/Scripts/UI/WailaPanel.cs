@@ -323,7 +323,7 @@ namespace Homesteader.UI
                 if (stackCount > 1) details.Add(("Stacked", stackCount + " high"));
                 if (Homesteader.UI.ContainerRules.IsContainer(placed.ItemId))
                 {
-                    details.Add(("Holds", $"{Homesteader.UI.ContainerRules.Used(placed.Contents):0.0} / {Homesteader.UI.ContainerRules.Capacity(placed.ItemId):0.0} kg"));
+                    details.Add(("Holds", UnitFormat.WeightPair(Homesteader.UI.ContainerRules.Used(placed.Contents), Homesteader.UI.ContainerRules.Capacity(placed.ItemId))));
                     if (placed.Contents != null && placed.Contents.Count > 0)
                         foreach (ContainerStack c in placed.Contents) details.Add(("@item|" + c.ItemId, c.Count.ToString()));   // an icon row
                     else details.Add(("Contents", "Empty"));

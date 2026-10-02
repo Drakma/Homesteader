@@ -312,7 +312,7 @@ namespace Homesteader.UI
             }
             bool ready = site.Ready;
             _panel.Add(Text(ready ? "Right click to build the " + StageName(stage).ToLowerInvariant()
-                                  : $"Place the materials within {ConstructionSite.YardM:0} m of the foundation",
+                                  : $"Place the materials within {UnitFormat.Distance(ConstructionSite.YardM)} of the foundation",
                             ready ? "construction-hover-go" : "construction-hover-hint"));
             if (pinned) { _panel.Add(Text("P to unpin this list", "construction-hover-hint")); return; }
             if (_pinned == null) _panel.Add(Text("P to pin this list to the screen", "construction-hover-hint"));

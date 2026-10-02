@@ -571,7 +571,7 @@ namespace Homesteader.Growth
                     twice += plan[j].x * plan[i].z - plan[i].x * plan[j].z;
                     perimeter += Vector2.Distance(new Vector2(plan[i].x, plan[i].z), new Vector2(plan[j].x, plan[j].z));
                 }
-                _lArea.text = $"Encloses {Mathf.Abs(twice) * 0.5f:0.#} m2 ({perimeter:0.#} m of fence)";
+                _lArea.text = $"Encloses {UnitFormat.Area(Mathf.Abs(twice) * 0.5f)} ({UnitFormat.Distance(perimeter)} of fence)";
                 _lArea.style.display = DisplayStyle.Flex;
             }
             else _lArea.style.display = DisplayStyle.None;

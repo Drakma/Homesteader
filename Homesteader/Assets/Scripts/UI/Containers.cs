@@ -335,7 +335,7 @@ namespace Homesteader.UI
 
             float cap = ContainerRules.Capacity(id), used = ContainerRules.Used(contents);
             _title.text = HudBindings.GetItemName(id);
-            _capacityText.text = $"{used:0.0} / {cap:0.0} kg";
+            _capacityText.text = UnitFormat.WeightPair(used, cap);
             _barFill.style.width = Length.Percent(Mathf.Clamp01(cap > 0f ? used / cap : 0f) * 100f);
             _barFill.EnableInClassList("container-panel-bar-fill--full", used >= cap - 0.001f);
 
@@ -378,7 +378,7 @@ namespace Homesteader.UI
             row.Add(icon);
             var name = new Label(HudBindings.GetItemName(itemId) + (count > 1 ? "  x" + count : ""));
             name.AddToClassList("container-panel-row-name");
-            name.tooltip = $"{ContainerRules.WeightOf(itemId):0.##} kg each";
+            name.tooltip = UnitFormat.Weight(ContainerRules.WeightOf(itemId), "0.##") + " each";
             row.Add(name);
             var b = new Button(onClick) { text = action, tooltip = action == "Take" ? "Take all of these out into the toolbar" : "Put as many of these in as fit" };
             b.AddToClassList("container-panel-btn");

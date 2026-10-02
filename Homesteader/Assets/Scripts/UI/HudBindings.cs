@@ -1660,7 +1660,7 @@ namespace Homesteader.UI
                     {
                         hint = GetItemName(active.IconId) + $"  x{active.Count}";
                         if (ContainerRules.IsContainer(active.IconId))
-                            hint += $"  ({ContainerRules.Used(active.Contents):0.0} / {ContainerRules.Capacity(active.IconId):0.0} kg)";
+                            hint += $"  ({UnitFormat.WeightPair(ContainerRules.Used(active.Contents), ContainerRules.Capacity(active.IconId))})";
                     }
                 }
                 _activeItemHint.text = hint;

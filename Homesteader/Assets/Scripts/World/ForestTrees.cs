@@ -948,7 +948,7 @@ namespace Homesteader.World
             title = sp.Display + " Tree";
             rows.Add(("Stage", StageNames[stage]));
             rows.Add(("Age", $"{AgeDays(t):F0} days"));
-            rows.Add(("Height", $"{CurrentHeight(t):F1} m"));
+            rows.Add(("Height", Homesteader.UI.UnitFormat.Length(CurrentHeight(t))));
             int logs = MaxLogsFor(t.Species, stage);
             if (IsFellable(t.Species))
             {
