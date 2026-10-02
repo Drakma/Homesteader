@@ -121,7 +121,7 @@ in `starter_house.json` (`growth.stages[].construction_recipe` and `required_too
 ## Rules for structure models
 
 - **Chimneys stand against an exterior wall,** outside the footprint's walls, from the ground up past the eaves (the cabin's is on its -X wall,
-  the house's on its left wall): never in the middle of a room, where it would leave walkable space around it. It also stands on solid wall between the windows (derive its position from the opening table), never across a window.
+  the house's on its left wall): never in the middle of a room, where it would leave walkable space around it. It also stands on solid wall between the windows (derive its position from the opening table), never across a window. The stack must also show on the inside (a chimney breast standing clear of the finished wall, with a hearth): a chimney that ends inside the wall leaves its end face level with the interior finish, which z-fights.
 - The shell has one door that is wide and tall enough for the player (1.2 m by 2.3 m) and walls clad or framed right up to the roof.
 - Layers that meet at a corner must not share a coplanar outer face (z-fighting): trim the side layers by the cladding thickness and let
   corner boards stand 15 mm proud.

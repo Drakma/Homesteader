@@ -383,6 +383,11 @@ def complete(b, c, M, glass, finishings=False):
     ctop = c.zw + 1.0
     b.box(cx0, cx1, cy - 0.45, cy + 0.45, 0.0, ctop, M['brick'])
     b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, ctop - 0.04, ctop + 0.08, M['concrete'])                    # the cap
+    # the chimney breast: the stack continues INSIDE the room, standing 0.4 m clear of the finished wall up to the ceiling, with a hearth
+    # in front of it. It must show inside: a chimney that ends in the wall leaves its end face level with the interior finish (z-fighting)
+    bx1 = -w / 2 + 0.6
+    b.box(cx1 - 0.02, bx1, cy - 0.45, cy + 0.45, c.z0, top + 0.1, M['brick'])
+    b.box(bx1 - 0.001, bx1 + 0.4, cy - 0.55, cy + 0.55, c.z0, c.z0 + 0.05, M['concrete'])
     b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, c.z0 - 0.3, c.z0 - 0.05, M['concrete'])                     # the hearth's base course
     for k in range(1, 7):                                                                                    # brick course lines, 6 mm proud
         zz = 0.3 + k * 0.55
