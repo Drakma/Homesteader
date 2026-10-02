@@ -287,16 +287,18 @@ def chimney_with_fireplace(b, masonry, soot, stone, x_out, x_wall, bx, cy, half,
     fz0, fz1 = z_floor + 0.05, z_floor + 0.72
     depth = 0.3
     # the stack and its cap with the flue hole
-    b.box(x_out, x_wall, cy - half, cy + half, 0.0, z_top, masonry)
+    # the stack stops 0.12 m below the top of the cap: the flue hole is that deep, with the soot floor 5 cm thick, so no two surfaces sit within
+    # millimetres of each other (depth fighting)
+    b.box(x_out, x_wall, cy - half, cy + half, 0.0, z_top - 0.12, masonry)
     cap_out, ch = x_out - 0.06, half + 0.06
     xm = (x_out + x_wall) / 2
     hole = min(0.14, (x_wall - x_out) / 2 - 0.1)
-    zc0, zc1 = z_top - 0.04, z_top + 0.08
+    zc0, zc1 = z_top - 0.2, z_top + 0.08
     b.box(cap_out, xm - hole, cy - ch, cy + ch, zc0, zc1, stone)
     b.box(xm + hole, x_wall, cy - ch, cy + ch, zc0, zc1, stone)
     b.box(xm - hole, xm + hole, cy - ch, cy - hole, zc0, zc1, stone)
     b.box(xm - hole, xm + hole, cy + hole, cy + ch, zc0, zc1, stone)
-    b.box(xm - hole, xm + hole, cy - hole, cy + hole, z_top, z_top + 0.003, soot)          # the dark flue
+    b.box(xm - hole, xm + hole, cy - hole, cy + hole, z_top - 0.12, z_top - 0.07, soot)    # the dark flue floor
     # the breast inside: back, two pillars, a lintel, the firebox floor
     x0 = x_wall - 0.02
     b.box(x0, bx - depth, cy - half, cy + half, z_floor, breast_top, masonry)
