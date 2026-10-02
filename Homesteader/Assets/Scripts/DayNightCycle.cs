@@ -203,18 +203,12 @@ namespace Homesteader
             // Calculate seasonal peak solar elevation (degrees above horizon at noon)
             float maxSolarElevation = TimeSystem.GetMaxSolarElevation(dayOfYear);
 
-            // Determine East and South directions.
-            // If camera is present, compute relative to camera yaw so viewport right is ALWAYS East
+            // East and South are fixed in the WORLD (the directions the minimap's N / E / S / W labels point at the default camera yaw).
+            // They used to follow the camera yaw, which pinned the sun's path to the screen: rotating the camera (Q / E) did not change it.
+            // Now the sun and the moon keep their place in the world, so rotating the camera turns their path across the screen and the
+            // shadows stay put in the world.
             Vector3 eastDir = DefaultEastDirection;
             Vector3 southDir = DefaultSouthDirection;
-
-            if (_referenceCamera != null)
-            {
-                float camYaw = _referenceCamera.transform.eulerAngles.y;
-                Quaternion camYawRot = Quaternion.Euler(0f, camYaw, 0f);
-                eastDir = camYawRot * Vector3.right;
-                southDir = camYawRot * Vector3.back;
-            }
 
             if (isDay)
             {
