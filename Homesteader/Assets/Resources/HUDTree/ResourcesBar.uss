@@ -22,18 +22,18 @@
     height: 22px;
     margin-right: 6px;
     flex-shrink: 0;
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(18, 22, 29);
+    border-color: var(--c-ink);
 }
 
 .resource-icon-water        { background-color: rgb(40, 110, 168); }
-.resource-icon-electricity  { background-color: rgb(224, 138, 60); }
+.resource-icon-electricity  { background-color: var(--c-accent); }
 .resource-icon-bandwidth    { background-color: rgb(96, 168, 96); }
 .resource-icon-fuel         { background-color: rgb(168, 92, 60); }
 
 .resource-amount {
-    color: rgb(238, 242, 246);
+    color: var(--c-text);
     font-size: 18px;
     -unity-font: var(--font);
     -unity-text-align: middle-left;

@@ -125,12 +125,13 @@ Shader "Homesteader/WaterSurface"
                 // roughness patches raced across the water. The offset is now specified in WORLD metres per
                 // second (a slow drift, ~0.4 m/s) and scaled into noise space.
                 float patchSpeed = 0.7 * _WaveSpeed * 2.0;
-                float patch = 0.7 + 0.6 * valueNoise2D((p - wd * t * patchSpeed) * 0.06);
+                // Wide calm and choppy stretches (the old 0.7 to 1.3 range made the whole surface equally busy).
+                float patch = 0.3 + 1.2 * valueNoise2D((p - wd * t * patchSpeed) * 0.035);
                 float scale = _RippleAmplitude * roughness * patch;
 
-                const float wavelength[3] = { 4.2, 2.3, 1.15 };
+                const float wavelength[3] = { 9.0, 5.0, 2.8 };   // longer waves: fewer crests across the same water
                 const float spread[3]     = { 0.0, 0.45, -0.6 };
-                const float amp[3]        = { 0.55, 0.30, 0.15 };
+                const float amp[3]        = { 0.60, 0.20, 0.06 };   // the short ripples were what made the surface look busy
 
                 float3 acc = float3(0, 0, 0);
                 [unroll]
@@ -293,6 +294,8 @@ Shader "Homesteader/WaterSurface"
                 GetWind(wdir, wgust);
                 float flow = valueNoise2D((posWS.xz - wdir * _WaterWind.w * 0.7 * _WaveSpeed * 2.0) * 0.5) * 2.0 - 1.0;
                 waterCol.rgb = lerp(waterCol.rgb * 0.85, waterCol.rgb * 1.15, saturate(flow * 0.3 + 0.5));
+                // The base colour is not lit by the sun, so without this the water stayed daytime blue after dark.
+                waterCol.rgb *= lerp(1.0, 0.14, _SkyParams.x);
 
                 // Celestial reflection: specular highlight from the main light
                 Light mainLight = GetMainLight();
@@ -317,29 +320,36 @@ Shader "Homesteader/WaterSurface"
                 float spec = pow(max(0.0, dot(normal, halfDir)), 64.0);
                 half3 reflection = mainLight.color * spec * 0.6;
                 waterCol.rgb += reflection;
+                half3 nightAdd = half3(0, 0, 0);
                 // Sky reflection (High and Ultra): the environment reflected by the rippled surface, strongest at grazing angles (Fresnel).
                 if (_WaterReflectionQuality > 0.5)
                 {
                     float3 vdir = GetWorldSpaceNormalizeViewDir(posWS);   // right for the orthographic game camera too
-                    // The game camera looks down at about 45 degrees, so plain Fresnel is tiny; start from a visible base and exaggerate the ripples so the sky shimmers.
-                    float3 rn = normalize(normal + (normal - float3(0, 1, 0)) * 3.0);
+                    // The game camera looks down at about 45 degrees, so plain Fresnel is tiny; start from a visible base.
+                    // The sky and clouds are seen through a heavily smoothed normal (only the broad swell tilts them), the
+                    // stars through an almost flat one, so the reflection does not shimmer with every small ripple.
+                    float3 up = float3(0, 1, 0);
+                    float3 rdir = reflect(-vdir, normalize(lerp(up, normal, 0.35)));
+                    float3 sdir = reflect(-vdir, normalize(lerp(up, normal, 0.10)));
                     float fresnel = pow(1.0 - saturate(dot(normal, vdir)), 2.0);
-                    float3 rdir = reflect(-vdir, rn);
+                    float night = _SkyParams.x;
                     half3 sky = GlossyEnvironmentReflection(rdir, 0.0, 1.0);
+                    sky = sky * lerp(1.0, 0.03, night) + half3(0.015, 0.025, 0.05) * night;   // the sky is dark at night
                     // Drifting clouds, lit by the sun and greyer the thicker the weather.
                     float cloud = CloudDensityAlongRay(posWS, rdir);
                     half3 cloudCol = saturate(mainLight.color * 0.85 + unity_AmbientSky.rgb * 0.4) * lerp(1.0, 0.6, _CloudParams.x);
                     sky = lerp(sky, cloudCol, cloud * 0.85);
-                    float reflW = saturate(0.3 + fresnel * 0.6) * (1.0 - ice);
+                    // Calm and choppy stretches: the reflection is stronger where the water is smooth.
+                    float calm = 0.55 + 0.9 * valueNoise2D(posWS.xz * 0.045 + 17.0);
+                    float reflW = saturate((0.3 + fresnel * 0.6) * calm) * (1.0 - ice);
                     waterCol.rgb = lerp(waterCol.rgb, sky, reflW);
-                    // Night: stars and the moon's glitter on the ripples, hidden behind clouds.
-                    float night = _SkyParams.x;
+                    // Night: a few stars and the moon's glitter, hidden behind clouds.
                     if (night > 0.02)
                     {
-                        float cd = saturate(dot(rdir, mainLight.direction));
+                        float cd = saturate(dot(reflect(-vdir, normalize(lerp(up, normal, 0.5))), mainLight.direction));
                         float moon = pow(cd, 900.0) * 2.0 + pow(cd, 60.0) * 0.12;
-                        half3 nightRefl = SkyStars(rdir, _RealTime) * 0.9 + mainLight.color * (moon * 4.0);
-                        waterCol.rgb += nightRefl * night * (1.0 - cloud * 0.85) * (1.0 - ice);
+                        half3 nightRefl = WaterStars(posWS.xz, sdir.xz, _RealTime) * 1.6 + mainLight.color * (moon * 4.0);
+                        nightAdd = nightRefl * night * (1.0 - cloud * 0.85) * (1.0 - ice);   // added after the cel lighting so it is not dimmed by it
                     }
                 }
                 // Rain greys and darkens the water a little, and each ring catches a faint light.
@@ -349,9 +359,12 @@ Shader "Homesteader/WaterSurface"
                 // No shoreline foam: it read as a white fringe around the water and is intentionally gone.
 
                 // Simple cel lighting
-                float ndotl = max(0.0, dot(normal, mainLight.direction));
+                // The steps below turn every small tilt into a hard band, which is what made the surface look covered in
+                // ripples; the light is taken from a mostly flat normal so only the broad swell shows.
+                float ndotl = max(0.0, dot(normalize(lerp(float3(0, 1, 0), normal, 0.3)), mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
                 waterCol.rgb *= celLight;
+                waterCol.rgb += nightAdd;
 
                 // Ice: opaque pale blue-white with a crack network, flat and unlit by waves.
                 if (ice > 0.001)

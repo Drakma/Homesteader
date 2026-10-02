@@ -16,25 +16,25 @@
     height: 28px;
     margin-left: 4px;
     margin-right: 4px;
-    border-color: rgb(139, 150, 165);
+    border-color: var(--c-muted);
     border-width: 2px;
-    border-radius: 0;
-    background-color: rgb(26, 33, 43);
+    border-radius: var(--r);
+    background-color: var(--c-well);
     -unity-font: var(--font-medium);
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
     flex-shrink: 0;
 }
 
 .speed-chip:hover {
-    border-color: rgb(224, 138, 60);
+    border-color: var(--c-accent);
     color: rgb(242, 132, 29);
 }
 
 .speed-chip:checked {
-    border-color: rgb(224, 138, 60);
-    background-color: rgb(61, 74, 92);
+    border-color: var(--c-accent);
+    background-color: var(--c-raised);
     color: rgb(242, 132, 29);
 }

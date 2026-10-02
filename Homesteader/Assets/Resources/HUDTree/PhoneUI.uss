@@ -34,12 +34,12 @@
 .phone-chassis {
     width: 100%;
     height: 100%;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-radius: 38px;
     border-width: 3px;
-    border-color: rgb(61, 74, 92);
-    border-top-color: rgb(92, 102, 117);
-    border-bottom-color: rgb(18, 22, 29);
+    border-color: var(--c-raised);
+    border-top-color: var(--c-rim);
+    border-bottom-color: var(--c-ink);
     padding: 11px;
     flex-direction: column;
 }
@@ -48,7 +48,7 @@
 .phone-screen {
     width: 100%;
     height: 100%;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-radius: 28px;
     overflow: hidden;
     flex-direction: column;
@@ -70,10 +70,10 @@
 .phone-speaker-pill {
     width: 70px;
     height: 6px;
-    background-color: rgb(18, 22, 29);
-    border-radius: 0;
+    background-color: var(--c-ink);
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
 }
 
 /* Status Bar: Signal, Time, Battery */
@@ -94,7 +94,7 @@
 }
 
 .phone-status-time {
-    color: rgb(238, 242, 246);
+    color: var(--c-text);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
@@ -112,7 +112,7 @@
 }
 
 .phone-status-icon {
-    color: rgb(238, 242, 246);
+    color: var(--c-text);
     font-size: 13px;
     margin-left: 6px;
 }
@@ -122,7 +122,7 @@
     height: 12px;
     border-width: 1px;
     border-color: rgb(147, 161, 179);
-    border-radius: 0;
+    border-radius: var(--r);
     margin-left: 8px;
     padding: 1px;
     flex-direction: row;
@@ -132,7 +132,7 @@
     height: 100%;
     width: 82%;
     background-color: rgb(92, 208, 192);
-    border-radius: 0;
+    border-radius: var(--r);
 }
 
 /* Content Area inside Screen */
@@ -164,7 +164,7 @@
     background-color: rgba(43, 52, 66, 0.7);
     border-radius: 16px;
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
+    border-color: var(--c-raised);
     padding: 10px 14px;
     margin-bottom: 8px;
     flex-direction: row;
@@ -174,8 +174,8 @@
 }
 
 .phone-weather-temp {
-    color: rgb(238, 242, 246);
-    font-size: 28px;
+    color: var(--c-text);
+    font-size: 32px;
     -unity-font: var(--font-bold);
 }
 
@@ -226,13 +226,13 @@
 }
 
 .phone-app-icon-glyph {
-    font-size: 44px;
+    font-size: 32px;
     -unity-text-align: middle-center;
 }
 
 .phone-app-label {
-    color: rgb(238, 242, 246);
-    font-size: 12.5px;
+    color: var(--c-text);
+    font-size: 12px;
     -unity-font: var(--font-bold);
     -unity-text-align: upper-center;
     white-space: normal;
@@ -243,7 +243,7 @@
 }
 
 /* Specific app icon theme colors */
-.app-icon-volt      { background-color: rgb(224, 138, 60); }
+.app-icon-volt      { background-color: var(--c-accent); }
 .app-icon-res       { background-color: rgb(45, 120, 195); }
 .app-icon-depot     { background-color: rgb(215, 95, 30); }
 .app-icon-grocer    { background-color: rgb(44, 151, 137); }
@@ -263,7 +263,7 @@
     top: 0;
     bottom: 34px; /* Leaves room only for the sleek bottom home bar */
     flex-direction: column;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     overflow: hidden;
     z-index: 10;
 }
@@ -278,41 +278,25 @@
     padding-right: 14px;
     flex-direction: row;
     align-items: center;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-bottom-width: 1px;
-    border-bottom-color: rgb(43, 52, 66);
+    border-bottom-color: var(--c-panel);
     flex-shrink: 0;
 }
 
 .phone-back-btn {
     width: 34px;
     height: 34px;
-    background-color: rgba(43, 52, 66, 0.6);
     border-width: 1px;
-    border-color: rgba(224, 138, 60, 0.5);
-    border-radius: 0;
-    color: rgb(237, 171, 109);
     font-size: 18px;
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-center;
     padding: 0;
     margin-right: 10px;
     flex-shrink: 0;
 }
 
-.phone-back-btn:hover {
-    background-color: rgba(224, 138, 60, 0.25);
-    border-color: rgb(241, 170, 104);
-    color: rgb(255, 255, 255);
-}
-
-.phone-back-btn:active {
-    background-color: rgba(224, 138, 60, 0.4);
-}
-
 .phone-app-title {
-    color: rgb(238, 242, 246);
-    font-size: 17px;
+    color: var(--c-text);
+    font-size: 15px;
     -unity-font: var(--font-bold);
     flex-grow: 1;
 }
@@ -347,14 +331,14 @@
 
 .phone-app-scroll .unity-scroller--vertical .unity-base-slider__tracker {
     background-color: rgba(18, 22, 29, 0.4);
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 0;
     width: 6px;
 }
 
 .phone-app-scroll .unity-scroller--vertical .unity-base-slider__dragger {
     background-color: rgba(224, 138, 60, 0.45);
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 0;
     width: 6px;
 }
@@ -373,10 +357,10 @@
    ========================================================================= */
 
 .grid-card {
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     padding: 14px;
     margin-bottom: 12px;
     flex-shrink: 0;
@@ -396,17 +380,17 @@
 }
 
 .grid-metric-sub {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 13px;
     margin-top: 2px;
 }
 
 .grid-bar-track {
     height: 12px;
-    background-color: rgb(18, 22, 29);
-    border-radius: 0;
+    background-color: var(--c-ink);
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     margin-top: 10px;
     overflow: hidden;
 }
@@ -420,7 +404,7 @@
 .grid-bar-fill-battery {
     height: 100%;
     width: 84%;
-    background-color: rgb(54, 196, 177);
+    background-color: var(--c-secondary);
 }
 
 /* =========================================================================
@@ -445,11 +429,11 @@
 
 .store-search-input > .unity-text-field__input,
 .store-search-input > .unity-base-text-field__input {
-    background-color: rgb(43, 52, 66);
-    border-radius: 0;
+    background-color: var(--c-panel);
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    color: rgb(238, 242, 246);
+    border-color: var(--c-raised);
+    color: var(--c-text);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0;
@@ -467,8 +451,8 @@
 .store-search-input:focus > .unity-base-text-field__input,
 .store-search-input > .unity-text-field__input:focus,
 .store-search-input > .unity-base-text-field__input:focus {
-    border-color: rgb(224, 138, 60);
-    background-color: rgb(43, 52, 66);
+    border-color: var(--c-accent);
+    background-color: var(--c-panel);
 }
 
 .store-search-input TextElement,
@@ -486,7 +470,7 @@
 }
 
 .store-banner {
-    border-radius: 0;
+    border-radius: var(--r);
     padding: 8px 12px;
     margin-bottom: 12px;
     flex-direction: row;
@@ -499,16 +483,16 @@
 .store-banner-feed   { background-color: rgb(145, 86, 31); }
 
 .store-banner-text {
-    color: rgb(255, 255, 255);
+    color: var(--c-text-strong);
     font-size: 13px;
     -unity-font: var(--font-bold);
 }
 
 .store-item-card {
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-radius: 10px;
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     padding: 12px 14px;
     margin-bottom: 10px;
     flex-direction: row;
@@ -527,9 +511,9 @@
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     align-items: center;
     justify-content: center;
     margin-right: 14px;
@@ -543,13 +527,13 @@
 }
 
 .store-item-name {
-    color: rgb(238, 242, 246);
+    color: var(--c-text);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
 
 .store-item-price {
-    color: rgb(224, 138, 60);
+    color: var(--c-accent);
     font-size: 13px;
     -unity-font: var(--font-medium);
     margin-top: 2px;
@@ -559,24 +543,15 @@
     height: 30px;
     padding-left: 14px;
     padding-right: 14px;
-    background-color: rgb(224, 138, 60);
-    color: rgb(18, 22, 29);
-    border-radius: 0;
     border-width: 0;
     font-size: 13px;
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-center;
-}
-
-.store-item-buy-btn:hover {
-    background-color: rgb(222, 153, 88);
 }
 
 .gig-card {
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     padding: 14px 16px;
     margin-bottom: 10px;
     flex-shrink: 0;
@@ -589,7 +564,7 @@
 }
 
 .gig-pay {
-    color: rgb(54, 196, 177);
+    color: var(--c-secondary);
     font-size: 15px;
     -unity-font: var(--font-bold);
 }
@@ -603,7 +578,7 @@
 .gig-chip {
     background-color: rgba(224, 138, 60, 0.16);
     color: rgb(229, 179, 131);
-    border-radius: 0;
+    border-radius: var(--r);
     padding: 3px 8px;
     margin-right: 6px;
     margin-bottom: 4px;
@@ -617,7 +592,7 @@
 }
 
 .gig-blurb {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 12px;
     margin-top: 8px;
     margin-bottom: 10px;
@@ -644,22 +619,13 @@
 }
 
 .steadify-popout-btn {
-   -unity-font: var(--font-bold);
    width: 30px;
    height: 30px;
    margin: 0 0 0 8px;
    padding: 0;
    flex-shrink: 0;
    font-size: 18px;
-   -unity-text-align: middle-center;
-   color: rgb(232, 236, 241);
-   background-color: rgb(43, 52, 66);
    border-width: 0;
-   border-radius: 15px;
-}
-
-.steadify-popout-btn:hover {
-   background-color: rgb(56, 67, 84);
 }
 
 .steadify-shuffle-all-btn {
@@ -668,17 +634,8 @@
    margin: 0;
    padding: 0;
    flex-shrink: 0;
-   -unity-text-align: middle-center;
-   -unity-font-style: bold;
    font-size: 13px;
-   color: rgb(255, 255, 255);
-   background-color: rgb(29, 185, 84);
    border-width: 0;
-   border-radius: 15px;
-}
-
-.steadify-shuffle-all-btn:hover {
-   background-color: rgb(46, 214, 105);
 }
 
 .steadify-playlist-selector-label {
@@ -696,14 +653,14 @@
 /* The chosen playlist name inside the dropdown. */
 .steadify-playlist-selector .unity-base-popup-field__text,
 .steadify-playlist-selector .unity-popup-field__text {
-   color: rgb(255, 255, 255);
+   color: var(--c-text-strong);
 }
 
 .steadify-now-playing-card {
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-radius: 14px;
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     padding: 16px;
     margin-bottom: 12px;
     align-items: center;
@@ -714,7 +671,7 @@
     width: 96px;
     height: 96px;
     border-radius: 14px;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     justify-content: center;
     align-items: center;
     margin-bottom: 12px;
@@ -726,21 +683,21 @@
 
 .steadify-album-art-glyph {
     -unity-font: var(--font-bold);   /* the HUD font carries the media glyphs; without it Unity falls back to a system emoji font */
-    color: rgb(139, 150, 165);
-    font-size: 40px;
+    color: var(--c-muted);
+    font-size: 32px;
     -unity-text-align: middle-center;
 }
 
 .steadify-track-title {
     color: rgb(232, 236, 241);
-    font-size: 16px;
+    font-size: 15px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-center;
     white-space: normal;
 }
 
 .steadify-track-meta {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 12px;
     margin-top: 2px;
     margin-bottom: 10px;
@@ -755,7 +712,7 @@
 }
 
 .steadify-time-label {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 11px;
     width: 34px;
     -unity-text-align: middle-center;
@@ -816,7 +773,7 @@
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-width: 0;
     font-size: 18px;
     color: rgb(232, 236, 241);
@@ -833,7 +790,7 @@
     height: 32px;
     font-size: 20px;
     background-color: transparent;
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
 }
 
 .steadify-transport-btn--small.steadify-transport-btn--active {
@@ -845,8 +802,8 @@
     height: 52px;
     border-radius: 26px;
     background-color: rgb(246, 157, 75);
-    color: rgb(26, 33, 43);
-    font-size: 24px;
+    color: var(--c-well);
+    font-size: 20px;
 }
 
 .steadify-transport-btn--primary:hover {
@@ -865,7 +822,7 @@
 .steadify-volume-glyph {
     -unity-font: var(--font-bold);   /* the HUD font carries the media glyphs; without it Unity falls back to a system emoji font */
     font-size: 20px;
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     min-width: 46px;
     -unity-text-align: middle-left;
     margin-right: 8px;
@@ -888,7 +845,7 @@
 }
 
 .steadify-playlist-heading {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 11px;
     -unity-font: var(--font-bold);
     letter-spacing: 1px;
@@ -899,7 +856,7 @@
 .steadify-track-row {
     flex-direction: row;
     align-items: center;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-radius: 10px;
     padding: 10px 12px;
     margin-bottom: 8px;
@@ -925,7 +882,7 @@
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     margin-right: 10px;
     justify-content: center;
     align-items: center;
@@ -937,8 +894,8 @@
 .steadify-track-row-glyph--overlay {
     width: 100%;
     height: 100%;
-    font-size: 14px;
-    color: rgb(255, 255, 255);
+    font-size: 13px;
+    color: var(--c-text-strong);
     background-color: rgba(26, 33, 43, 0.45);
     -unity-text-align: middle-center;
     border-radius: 8px;
@@ -955,16 +912,16 @@
 }
 
 .steadify-track-row-sub {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 11px;
     margin-top: 1px;
 }
 
 .store-checkout-bar {
     height: 56px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-top-width: 1px;
-    border-top-color: rgb(43, 52, 66);
+    border-top-color: var(--c-panel);
     padding: 8px 16px;
     flex-direction: row;
     justify-content: space-between;
@@ -973,8 +930,8 @@
 }
 
 .store-cart-text {
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
 }
 
 /* =========================================================================
@@ -992,7 +949,7 @@
     width: 130px;
     height: 6px;
     background-color: rgba(220, 230, 245, 0.4);
-    border-radius: 0;
+    border-radius: var(--r);
 }
 
 .phone-home-pill:hover {
@@ -1006,10 +963,10 @@
 .store-banner-exchange { background-color: rgb(110, 50, 130); }
 
 .bank-card {
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-radius: 12px;
     border-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     padding: 14px 16px;
     margin-bottom: 12px;
     flex-shrink: 0;
@@ -1022,7 +979,7 @@
 }
 
 .bank-balance-large {
-    color: rgb(54, 196, 177);
+    color: var(--c-secondary);
     font-size: 32px;
     -unity-font: var(--font-bold);
     margin-top: 2px;
@@ -1030,13 +987,13 @@
 
 .bank-debt-large {
     color: rgb(231, 60, 66);
-    font-size: 30px;
+    font-size: 32px;
     -unity-font: var(--font-bold);
     margin-top: 2px;
 }
 
 .bank-card-sub {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 13px;
     margin-top: 2px;
 }
@@ -1044,7 +1001,7 @@
 .bank-rate-pill {
     background-color: rgba(231, 60, 66, 0.2);
     color: rgb(231, 60, 66);
-    border-radius: 0;
+    border-radius: var(--r);
     padding: 3px 8px;
     font-size: 12px;
     -unity-font: var(--font-bold);
@@ -1055,19 +1012,8 @@
     margin-left: 4px;
     margin-right: 4px;
     height: 34px;
-    background-color: rgb(43, 52, 66);
-    color: rgb(238, 242, 246);
-    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
     font-size: 13px;
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-center;
-}
-
-.bank-action-btn:hover {
-    background-color: rgb(61, 74, 92);
-    color: rgb(255, 255, 255);
 }
 
 .bank-loan-row {
@@ -1077,7 +1023,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border-top-width: 1px;
-    border-top-color: rgb(43, 52, 66);
+    border-top-color: var(--c-panel);
 }
 
 /* =========================================================================
@@ -1086,30 +1032,19 @@
 
 .market-tab-bar {
     flex-direction: row;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     height: 42px;
     border-bottom-width: 1px;
-    border-bottom-color: rgb(43, 52, 66);
+    border-bottom-color: var(--c-panel);
     flex-shrink: 0;
 }
 
 .market-tab-btn {
     flex-grow: 1;
     height: 100%;
-    background-color: rgba(18, 22, 29, 0);
     border-width: 0;
     border-bottom-width: 2px;
-    border-bottom-color: rgba(18, 22, 29, 0);
-    color: rgb(147, 161, 179);
-    font-size: 14px;
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-center;
-}
-
-.market-tab-btn--active {
-    color: rgb(241, 170, 104);
-    border-bottom-color: rgb(241, 170, 104);
-    background-color: rgba(241, 170, 104, 0.08);
+    font-size: 13px;
 }
 
 .phone-app-scroll--hidden {
@@ -1125,9 +1060,9 @@
 }
 
 .admin-card {
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
+    border-color: var(--c-raised);
     border-radius: 10px;
     padding: 12px 14px;
     margin-bottom: 12px;
@@ -1136,7 +1071,7 @@
 }
 
 .admin-card-title {
-    color: rgb(224, 138, 60);
+    color: var(--c-accent);
     font-size: 13px;
     -unity-font: var(--font-bold);
     margin-bottom: 10px;
@@ -1165,32 +1100,8 @@
     height: 32px;
     margin: 0 4px;
     padding: 0;
-    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    border-radius: 0;
-    color: rgb(238, 242, 246);
     font-size: 13px;
-    -unity-font: var(--font-medium);
-    -unity-text-align: middle-center;
-}
-
-.admin-chip-btn:hover {
-    background-color: rgb(61, 74, 92);
-    border-color: rgb(224, 138, 60);
-    color: rgb(255, 255, 255);
-}
-
-.admin-chip-btn:active {
-    background-color: rgb(224, 138, 60);
-    color: rgb(26, 33, 43);
-}
-
-.admin-chip-btn--active {
-    background-color: rgba(224, 138, 60, 0.22);
-    border-color: rgb(241, 170, 104);
-    color: rgb(255, 219, 185);
-    -unity-font: var(--font-bold);
 }
 
 .admin-row {
@@ -1213,38 +1124,20 @@
     height: 28px;
     margin-left: 4px;
     padding: 0;
-    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(92, 102, 117);
-    border-radius: 0;
-    color: rgb(238, 242, 246);
     font-size: 13px;
-}
-
-.admin-step-btn:hover {
-    background-color: rgb(61, 74, 92);
-    border-color: rgb(224, 138, 60);
 }
 
 .admin-action-btn {
     height: 28px;
     padding: 0 12px;
-    background-color: rgb(33, 112, 102);
     border-width: 1px;
-    border-color: rgb(46, 159, 144);
-    border-radius: 0;
-    color: rgb(240, 250, 245);
     font-size: 12px;
-    -unity-font: var(--font-bold);
-}
-
-.admin-action-btn:hover {
-    background-color: rgb(40, 140, 126);
 }
 
 .admin-label {
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
     -unity-font: var(--font-bold);
 }
 
@@ -1266,20 +1159,8 @@
     width: 30px;
     height: 22px;
     padding: 0;
-    background-color: rgb(43, 52, 66);
     border-width: 1px;
-    border-color: rgb(92, 102, 117);
-    border-radius: 0;
-    color: rgb(238, 242, 246);
     font-size: 12px;
-    -unity-font: var(--font-bold);
-    -unity-text-align: middle-center;
-}
-
-.admin-vital-zero-btn:hover {
-    background-color: rgb(61, 74, 92);
-    border-color: rgb(224, 138, 60);
-    color: rgb(255, 255, 255);
 }
 
 .admin-slider-row {
@@ -1308,10 +1189,10 @@
 
 .admin-slider .unity-base-slider__tracker {
     height: 7px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    border-radius: 0;
+    border-color: var(--c-raised);
+    border-radius: var(--r);
 }
 
 .admin-slider .unity-base-slider__dragger {
@@ -1319,13 +1200,13 @@
     height: 18px;
     margin-top: -5px;
     border-radius: 9px;
-    background-color: rgb(224, 138, 60);
+    background-color: var(--c-accent);
     border-width: 1px;
-    border-color: rgb(241, 170, 104);
+    border-color: var(--c-accent-hi);
 }
 
 .admin-slider .unity-base-slider__dragger:hover {
-    background-color: rgb(241, 170, 104);
+    background-color: var(--c-accent-hi);
 }
 
 .admin-scale-row {
@@ -1349,12 +1230,12 @@
 }
 
 .admin-scale-label--mid {
-    color: rgb(224, 138, 60);
+    color: var(--c-accent);
     -unity-text-align: middle-center;
 }
 
 .admin-scale-label--max {
-    color: rgb(54, 196, 177);
+    color: var(--c-secondary);
     -unity-text-align: middle-right;
 }
 
@@ -1374,8 +1255,8 @@
 }
 
 .admin-input-label {
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
     -unity-font: var(--font-medium);
     width: 130px;
     flex-shrink: 0;
@@ -1386,21 +1267,21 @@
     height: 30px;
     margin: 0 8px 0 0;
     padding: 0;
-    font-size: 14px;
-    color: rgb(238, 242, 246);
+    font-size: 13px;
+    color: var(--c-text);
 }
 
 .admin-text-field > .unity-text-field__input {
-    background-color: rgb(26, 33, 43);
-    border-color: rgb(61, 74, 92);
+    background-color: var(--c-well);
+    border-color: var(--c-raised);
     border-width: 1px;
-    border-radius: 0;
+    border-radius: var(--r);
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 0;
     padding-bottom: 0;
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
     -unity-font: var(--font-medium);
     -unity-text-align: middle-left;
     justify-content: center;
@@ -1408,30 +1289,15 @@
 }
 
 .admin-text-field > .unity-text-field__input:focus {
-    border-color: rgb(224, 138, 60);
+    border-color: var(--c-accent);
 }
 
 .admin-set-btn {
     width: 50px;
     height: 30px;
     padding: 0;
-    background-color: rgb(61, 74, 92);
     border-width: 1px;
-    border-color: rgb(92, 102, 117);
-    border-radius: 0;
-    color: rgb(230, 240, 255);
     font-size: 13px;
-    -unity-font: var(--font-bold);
-}
-
-.admin-set-btn:hover {
-    background-color: rgb(92, 102, 117);
-    border-color: rgb(224, 138, 60);
-}
-
-.admin-set-btn:active {
-    background-color: rgb(224, 138, 60);
-    color: rgb(26, 33, 43);
 }
 
 /* =========================================================================
@@ -1445,7 +1311,7 @@
 }
 
 .almanac-today-banner {
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     border-bottom-width: 1px;
     border-bottom-color: rgba(255, 255, 255, 0.08);
     padding: 10px 14px;
@@ -1467,7 +1333,7 @@
 .almanac-tab-bar {
     flex-direction: row;
     padding: 8px 12px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-bottom-width: 1px;
     border-bottom-color: rgba(255, 255, 255, 0.08);
     flex-shrink: 0;
@@ -1476,26 +1342,10 @@
 .almanac-tab-btn {
     flex-grow: 1;
     height: 32px;
-    border-radius: 0;
-    background-color: rgba(255, 255, 255, 0.05);
     border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.1);
-    color: rgb(147, 161, 179);
     font-size: 13px;
-    -unity-font: var(--font-medium);
     margin-left: 4px;
     margin-right: 4px;
-}
-
-.almanac-tab-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.almanac-tab-btn--active {
-    background-color: rgb(75, 65, 160);
-    border-color: rgb(125, 110, 230);
-    color: white;
 }
 
 .almanac-cards-container {
@@ -1505,8 +1355,8 @@
 }
 
 .almanac-card {
-    background-color: rgb(43, 52, 66);
-    border-radius: 0;
+    background-color: var(--c-panel);
+    border-radius: var(--r);
     border-width: 1px;
     border-color: rgba(255, 255, 255, 0.08);
     padding: 11px 14px;
@@ -1517,7 +1367,7 @@
 
 .almanac-card-today {
     border-color: rgb(219, 150, 86);
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
 }
 
 .almanac-card-top {
@@ -1534,7 +1384,7 @@
 }
 
 .almanac-card-date {
-    font-size: 14px;
+    font-size: 13px;
     -unity-font: var(--font-bold);
     color: rgb(235, 240, 250);
 }
@@ -1545,7 +1395,7 @@
     color: rgb(147, 161, 179);
     background-color: rgba(255, 255, 255, 0.08);
     padding: 2px 6px;
-    border-radius: 0;
+    border-radius: var(--r);
     margin-left: 8px;
 }
 
@@ -1557,7 +1407,7 @@
     border-width: 1px;
     border-color: rgba(255, 152, 55, 0.4);
     padding: 2px 8px;
-    border-radius: 0;
+    border-radius: var(--r);
 }
 
 .almanac-card-sun-row {
@@ -1592,7 +1442,7 @@
 }
 
 .almanac-weather-name {
-    font-size: 14px;
+    font-size: 13px;
     -unity-font: var(--font-medium);
     color: white;
 }
@@ -1601,7 +1451,7 @@
     font-size: 11px;
     -unity-font: var(--font-bold);
     padding: 3px 8px;
-    border-radius: 0;
+    border-radius: var(--r);
     -unity-text-align: middle-center;
 }
 
@@ -1703,11 +1553,11 @@
 
 .mods-search-input > .unity-text-field__input,
 .mods-search-input > .unity-base-text-field__input {
-    background-color: rgb(43, 52, 66);
-    border-radius: 0;
+    background-color: var(--c-panel);
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    color: rgb(238, 242, 246);
+    border-color: var(--c-raised);
+    color: var(--c-text);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0;
@@ -1725,8 +1575,8 @@
 .mods-search-input:focus > .unity-base-text-field__input,
 .mods-search-input > .unity-text-field__input:focus,
 .mods-search-input > .unity-base-text-field__input:focus {
-    border-color: rgb(224, 138, 60);
-    background-color: rgb(43, 52, 66);
+    border-color: var(--c-accent);
+    background-color: var(--c-panel);
 }
 
 .mods-search-input TextElement,
@@ -1749,24 +1599,14 @@
     padding: 6px 14px;
     background-color: rgba(26, 33, 43, 0.95);
     border-bottom-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
     min-height: 38px;
 }
 
 .mods-category-back-btn {
-    background-color: rgb(43, 52, 66);
-    border-radius: 0;
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    color: rgb(180, 210, 245);
     font-size: 11px;
-    -unity-font: var(--font-bold);
     padding: 4px 10px;
-}
-
-.mods-category-back-btn:hover {
-    background-color: rgb(61, 74, 92);
-    color: rgb(255, 255, 255);
 }
 
 .mods-category-nav-title {
@@ -1785,9 +1625,9 @@
     margin: 6px 14px;
     padding: 12px 14px;
     background-color: rgba(43, 52, 66, 0.95);
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
+    border-color: var(--c-raised);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -1795,7 +1635,7 @@
 
 .mods-category-card:hover {
     background-color: rgba(43, 52, 66, 0.98);
-    border-color: rgb(92, 102, 117);
+    border-color: var(--c-rim);
 }
 
 .mods-category-card-left {
@@ -1804,8 +1644,8 @@
 }
 
 .mods-category-card-name {
-    font-size: 14px;
-    color: rgb(238, 242, 246);
+    font-size: 13px;
+    color: var(--c-text);
     -unity-font: var(--font-bold);
     margin-bottom: 3px;
 }
@@ -1823,40 +1663,16 @@
 
 .mods-category-open-arrow {
     font-size: 18px;
-    color: rgb(238, 242, 246);
+    color: var(--c-text);
     margin-left: 10px;
     -unity-font: var(--font-bold);
 }
 
 .mod-toggle-btn {
     padding: 4px 10px;
-    border-radius: 0;
     font-size: 11px;
-    -unity-font: var(--font-bold);
     border-width: 1px;
     align-self: center;
-}
-
-.mod-toggle-btn--enabled {
-    background-color: rgb(22, 68, 40);
-    border-color: rgb(39, 133, 121);
-    color: rgb(165, 245, 190);
-}
-
-.mod-toggle-btn--enabled:hover {
-    background-color: rgb(30, 90, 52);
-    color: rgb(255, 255, 255);
-}
-
-.mod-toggle-btn--disabled {
-    background-color: rgb(65, 28, 32);
-    border-color: rgb(130, 50, 60);
-    color: rgb(245, 175, 177);
-}
-
-.mod-toggle-btn--disabled:hover {
-    background-color: rgb(85, 38, 42);
-    color: rgb(255, 255, 255);
 }
 
 .mod-badge--enabled {
@@ -1875,9 +1691,9 @@
     margin: 6px 14px;
     padding: 12px 14px;
     background-color: rgba(43, 52, 66, 0.95);
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
+    border-color: var(--c-raised);
     flex-direction: column;
 }
 
@@ -1889,7 +1705,7 @@
 }
 
 .mod-title {
-    font-size: 14px;
+    font-size: 13px;
     color: rgb(237, 178, 123);
     -unity-font: var(--font-bold);
     flex-grow: 1;
@@ -1897,11 +1713,11 @@
 
 .mod-badge {
     padding: 2px 8px;
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 1px;
-    background-color: rgb(61, 74, 92);
+    background-color: var(--c-raised);
     color: rgb(160, 195, 245);
-    font-size: 10px;
+    font-size: 11px;
     -unity-font: var(--font-bold);
 }
 
@@ -1918,8 +1734,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-size: 10px;
-    color: rgb(139, 150, 165);
+    font-size: 11px;
+    color: var(--c-muted);
 }
 
 .mod-action-row {
@@ -1929,12 +1745,12 @@
     margin-top: 8px;
     padding-top: 6px;
     border-top-width: 1px;
-    border-color: rgb(43, 52, 66);
+    border-color: var(--c-panel);
 }
 
 .mod-folder-label {
-    font-size: 10px;
-    color: rgb(139, 150, 165);
+    font-size: 11px;
+    color: var(--c-muted);
     -unity-font: var(--font);
     flex-grow: 1;
 }
@@ -1965,7 +1781,7 @@
 
 /* Additional Store Banners */
 .store-banner-lumber        { background-color: rgb(110, 65, 30); }
-.store-banner-auto          { background-color: rgb(61, 74, 92); }
+.store-banner-auto          { background-color: var(--c-raised); }
 .store-banner-fuel          { background-color: rgb(146, 24, 28); }
 .store-banner-structures    { background-color: rgb(60, 85, 55); }
 .store-banner-equipment     { background-color: rgb(148, 86, 27); }
@@ -2033,7 +1849,7 @@
     height: 10px;
     min-width: 10px;
     min-height: 10px;
-    border-radius: 0;
+    border-radius: var(--r);
     background-color: rgba(180, 205, 235, 0.55);
     transition-property: background-color, scale;
     transition-duration: 0.2s;
@@ -2054,17 +1870,15 @@
     scale: 1.35 1.35;
 }
 
-
-
 /* ============================================== */
 /* STEADIFY MINI PLAYER (pop-out window)           */
 /* ============================================== */
 .steadify-mini {
     width: 320px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    border-top-color: rgb(224, 138, 60);
+    border-color: var(--c-raised);
+    border-top-color: var(--c-accent);
 }
 
 .steadify-mini-header {
@@ -2077,7 +1891,7 @@
 
 .steadify-mini-header-title {
     -unity-font: var(--font-bold);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: rgb(246, 157, 75);
     flex-grow: 1;
@@ -2088,10 +1902,10 @@
     height: 14px;
     margin: 0 4px 0 0;
     padding: 0 6px;
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1px;
     -unity-text-align: middle-center;
-    color: rgb(26, 33, 43);
+    color: var(--c-well);
     background-color: rgb(246, 157, 75);
     border-width: 0;
     border-radius: 7px;
@@ -2109,13 +1923,13 @@
     margin: 0;
     font-size: 13px;
     -unity-text-align: middle-center;
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     background-color: transparent;
     border-width: 0;
 }
 
 .steadify-mini-close:hover {
-    color: rgb(255, 255, 255);
+    color: var(--c-text-strong);
     background-color: rgb(170, 60, 50);
 }
 
@@ -2130,7 +1944,7 @@
     height: 62px;
     flex-shrink: 0;
     border-radius: 5px;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     justify-content: center;
     align-items: center;
     -unity-background-scale-mode: scale-and-crop;
@@ -2138,7 +1952,7 @@
 }
 
 .steadify-mini-art-glyph {
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .steadify-mini-mid {
@@ -2150,7 +1964,7 @@
 }
 
 .steadify-mini-meta {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 13px;
     margin: 0;
     white-space: nowrap;
@@ -2166,7 +1980,7 @@
 .steadify-mini-title {
     -unity-font: var(--font-bold);
     color: rgb(232, 236, 241);
-    font-size: 16px;
+    font-size: 15px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -2178,8 +1992,8 @@
 }
 
 .steadify-mini-time {
-    color: rgb(139, 150, 165);
-    font-size: 10px;
+    color: var(--c-muted);
+    font-size: 11px;
     width: 36px;
     -unity-text-align: middle-left;
 }
@@ -2199,7 +2013,7 @@
 }
 
 .steadify-mini-btn:hover {
-    color: rgb(255, 255, 255);
+    color: var(--c-text-strong);
 }
 
 .steadify-mini-btn--on,
@@ -2252,10 +2066,10 @@
 /* ============================================== */
 .container-panel {
     width: 300px;
-    background-color: rgb(26, 33, 43);
+    background-color: var(--c-well);
     border-width: 1px;
-    border-color: rgb(61, 74, 92);
-    border-top-color: rgb(224, 138, 60);
+    border-color: var(--c-raised);
+    border-top-color: var(--c-accent);
 }
 
 .container-panel-header {
@@ -2286,7 +2100,7 @@
 .container-panel-bar {
     height: 8px;
     border-radius: 4px;
-    background-color: rgb(43, 52, 66);
+    background-color: var(--c-panel);
     overflow: hidden;
     margin-bottom: 8px;
 }
@@ -2297,19 +2111,19 @@
 }
 
 .container-panel-bar-fill--full {
-    background-color: rgb(224, 138, 60);
+    background-color: var(--c-accent);
 }
 
 .container-panel-heading {
     -unity-font: var(--font-bold);
-    color: rgb(139, 150, 165);
-    font-size: 9px;
+    color: var(--c-muted);
+    font-size: 11px;
     letter-spacing: 1px;
     margin: 6px 0 3px 0;
 }
 
 .container-panel-hint {
-    color: rgb(139, 150, 165);
+    color: var(--c-muted);
     font-size: 11px;
     white-space: normal;
 }
@@ -2338,18 +2152,9 @@
 }
 
 .container-panel-btn {
-    -unity-font: var(--font-bold);
     height: 20px;
     margin: 0 0 0 6px;
     padding: 0 8px;
-    font-size: 10px;
-    -unity-text-align: middle-center;
-    color: rgb(26, 33, 43);
-    background-color: rgb(246, 157, 75);
+    font-size: 11px;
     border-width: 0;
-    border-radius: 10px;
-}
-
-.container-panel-btn:hover {
-    background-color: rgb(250, 179, 112);
 }

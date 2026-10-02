@@ -389,7 +389,7 @@ namespace Homesteader.UI
             // Clicking a row's label flips its checkbox too (the box itself is small).
             root.Query<VisualElement>(className: "settings-row").ForEach(row =>
             {
-                Toggle tg = row.Q<Toggle>(className: "settings-toggle");
+                Toggle tg = row.Q<Toggle>(className: "hs-toggle");
                 Label lb = row.Q<Label>(className: "settings-label");
                 if (tg != null && lb != null) lb.RegisterCallback<ClickEvent>(_ => tg.value = !tg.value);
             });

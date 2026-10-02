@@ -213,6 +213,12 @@ namespace Homesteader.UI
                 _root.styleSheets.Add(uss);
             }
 
+            var controlsUss = Resources.Load<StyleSheet>("HUDTree/UIControls");
+            if (controlsUss != null && !_root.styleSheets.Contains(controlsUss))
+            {
+                _root.styleSheets.Add(controlsUss);
+            }
+
             // Resolve elements
             _menuRoot = _root.Q<VisualElement>("WelcomeMenuRoot");
             _statusLabel = _root.Q<Label>("WelcomeStatus");

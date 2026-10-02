@@ -40,7 +40,7 @@ namespace Homesteader.World
                 case HomesteaderWeather.Blizzard: return 1f;
                 case HomesteaderWeather.Fog: return 0.6f;
                 case HomesteaderWeather.Wind: return 0.25f;
-                default: return 0.1f;   // Sunny: a few wisps
+                default: return 0.22f;   // Sunny: a few scattered clouds
             }
         }
 
@@ -57,7 +57,7 @@ namespace Homesteader.World
             // The noise is sampled at (position + offset), so the offset runs against the wind for the clouds to move with it.
             _offset -= dir * ((2f + wind.z * 0.6f) * Time.deltaTime);
 
-            float strength = ShadowsEnabled ? Mathf.Lerp(0.45f, 0.15f, Mathf.InverseLerp(0.6f, 1f, _coverage)) : 0f;
+            float strength = ShadowsEnabled ? Mathf.Lerp(0.65f, 0.25f, Mathf.InverseLerp(0.6f, 1f, _coverage)) : 0f;
             Shader.SetGlobalVector(CloudParamsId, new Vector4(_coverage, strength, _offset.x, _offset.y));
         }
     }

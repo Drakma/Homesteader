@@ -25,20 +25,20 @@
     height: 22px;
     margin-right: 2px;
     flex-shrink: 0;
-    border-radius: 0;
+    border-radius: var(--r);
     border-width: 1px;
-    border-color: rgb(18, 22, 29);
+    border-color: var(--c-ink);
 }
 
 /* Tinted icon placeholders - real sprite icons would replace these. */
-.vital-icon-vital-wellness { background-color: rgb(39, 135, 122); }
-.vital-icon-vital-stamina  { background-color: rgb(224, 138, 60); }
+.vital-icon-vital-wellness { background-color: var(--c-secondary-lo); }
+.vital-icon-vital-stamina  { background-color: var(--c-accent); }
 .vital-icon-vital-thirst   { background-color: rgb(64, 144, 154); }
 .vital-icon-vital-hunger   { background-color: rgb(168, 100, 64); }
 
 .vital-name {
-    color: rgb(238, 242, 246);
-    font-size: 14px;
+    color: var(--c-text);
+    font-size: 13px;
     -unity-font: var(--font);
     width: 18px;
     -unity-text-align: middle-center;
@@ -48,28 +48,28 @@
 .vital-bar-track {
     flex-grow: 1;
     height: 14px;
-    border-color: rgb(18, 22, 29);
+    border-color: var(--c-ink);
     border-width: 1px;
-    border-radius: 0;
-    background-color: rgb(26, 33, 43);
+    border-radius: var(--r);
+    background-color: var(--c-well);
     margin-right: 6px;
 }
 
 .vital-bar-fill {
     height: 14px;
     width: 0%;
-    border-radius: 0;
+    border-radius: var(--r);
     align-self: stretch;
 }
 
-.vital-bar-fill.wellness { background-color: rgb(39, 135, 122); }
-.vital-bar-fill.stamina  { background-color: rgb(224, 138, 60); }
+.vital-bar-fill.wellness { background-color: var(--c-secondary-lo); }
+.vital-bar-fill.stamina  { background-color: var(--c-accent); }
 .vital-bar-fill.thirst   { background-color: rgb(64, 144, 154); }
 .vital-bar-fill.hunger   { background-color: rgb(168, 100, 64); }
 
 .vital-pct {
     color: rgb(242, 132, 29);
-    font-size: 14px;
+    font-size: 13px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-right;
     width: 56px;

@@ -1,0 +1,38 @@
+/* UITokens.uss - the single source of truth for the UI design tokens (docs/UI_DESIGN_SYSTEM.md section 3).
+
+   Unity resolves var() per document root, so the declarations below are COPIED into the :root block of HudUI.uss and
+   WelcomeMenu.uss between the BEGIN/END UI TOKENS markers by tools/sync_ui_tokens.py. Edit this file, then run:
+       python tools/sync_ui_tokens.py
+   This file is not attached to any document itself. */
+
+:root {
+    /* surfaces, dark to light */
+    --c-ink: rgb(18, 22, 29);
+    --c-well: rgb(26, 33, 43);
+    --c-field: rgb(29, 36, 46);
+    --c-panel: rgb(43, 52, 66);
+    --c-raised: rgb(61, 74, 92);
+    --c-rim: rgb(92, 102, 117);
+
+    /* text */
+    --c-text: rgb(238, 242, 246);
+    --c-text-strong: rgb(255, 255, 255);
+    --c-muted: rgb(139, 150, 165);
+
+    /* primary accent (amber) */
+    --c-accent: rgb(224, 138, 60);
+    --c-accent-hi: rgb(241, 170, 104);
+    --c-accent-lo: rgb(188, 112, 40);
+
+    /* secondary accent (teal): information, success, enabled, positive values */
+    --c-secondary: rgb(54, 196, 177);
+    --c-secondary-hi: rgb(86, 214, 196);
+    --c-secondary-lo: rgb(39, 135, 122);
+
+    /* danger */
+    --c-danger: rgb(198, 32, 38);
+    --c-danger-text: rgb(228, 92, 96);
+
+    /* shape */
+    --r: 6px;
+}

@@ -34,8 +34,9 @@ float CloudDensity(float2 xz)
 {
     float2 q = (xz + _CloudParams.zw) * 0.012;
     float n = SkyNoise(q) * 0.55 + SkyNoise(q * 2.1 + 7.3) * 0.3 + SkyNoise(q * 4.3 + 3.1) * 0.15;
-    float t = lerp(0.98, 0.30, saturate(_CloudParams.x));
-    return saturate((n - t) / 0.18);
+    // The noise sits mostly between 0.3 and 0.8, so the threshold runs through that range.
+    float t = lerp(0.74, 0.28, saturate(_CloudParams.x));
+    return saturate((n - t) / 0.05);   // a narrow ramp: cloud edges (and their shadows) are crisp
 }
 
 // 1 = in sun, lower = under a cloud's shadow. The sun's ray is followed up to the cloud layer.
@@ -60,16 +61,33 @@ float CloudDensityAlongRay(float3 posWS, float3 dir)
 float3 SkyStars(float3 d, float time)
 {
     if (d.y < 0.05) return 0;
-    float2 p = d.xz / (d.y + 0.35) * 55.0;
+    float2 p = d.xz / (d.y + 0.35) * 22.0;
     float2 c = floor(p);
     float2 f = frac(p) - 0.5;
     float h = SkyHash21(c);
     float2 jit = float2(SkyHash21(c + 1.7), SkyHash21(c + 5.3)) - 0.5;
     float dist = length(f - jit * 0.6);
-    float tw = 0.65 + 0.35 * sin(time * (1.5 + h * 3.0) + h * 40.0);
-    float s = step(0.965, h) * smoothstep(0.14, 0.0, dist) * tw;
+    float tw = 0.7 + 0.3 * sin(time * (0.4 + h * 0.8) + h * 40.0);   // a slow twinkle
+    float s = step(0.992, h) * smoothstep(0.2, 0.0, dist) * tw;
     float3 tint = lerp(float3(0.8, 0.9, 1.0), float3(1.0, 0.95, 0.85), frac(h * 17.0));
     return s * tint * smoothstep(0.05, 0.3, d.y);
+}
+
+// Stars as sparkles fixed on the water. The orthographic camera reflects (almost) one direction for the whole
+// surface, so a direction-based star field shows nothing or one flat tint; keying the stars to the world position
+// keeps them stable and spread out. jitter is a tiny ripple-driven nudge.
+float3 WaterStars(float2 posXZ, float2 jitter, float time)
+{
+    float2 p = posXZ * 2.2 + jitter * 3.0;
+    float2 c = floor(p);
+    float2 f = frac(p) - 0.5;
+    float h = SkyHash21(c + 31.7);
+    float2 j = float2(SkyHash21(c + 1.7), SkyHash21(c + 5.3)) - 0.5;
+    float dist = length(f - j * 0.5);
+    float tw = 0.7 + 0.3 * sin(time * (0.4 + h * 0.8) + h * 40.0);
+    float s = step(0.988, h) * smoothstep(0.3, 0.0, dist) * tw;
+    float3 tint = lerp(float3(0.8, 0.9, 1.0), float3(1.0, 0.95, 0.85), frac(h * 17.0));
+    return s * tint;
 }
 
 #endif
