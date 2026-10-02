@@ -195,6 +195,26 @@ def trim_box(b, c, wall, u0, u1, za, zb, d0, d1, m, to=None):
         target.box(c.w / 2 - d1, c.w / 2 - d0, u0, u1, za, zb, m)
 
 
+def wall_top(c, wall):
+    """Where the cladding of a wall ends: the front and back walls at the plates (a gable stands on them), the side walls right up to the roof."""
+    return c.zw + 0.05 if wall in ('left', 'right') else c.top + 0.18
+
+
+def gable_poly(builder, c, y, thick, m):
+    """The gable end wall: from the plates up to the roof underside, no gap between them."""
+    w = c.w
+    i = builder.mat_index(m)
+    pts = [(-w / 2, c.top + 0.18), (w / 2, c.top + 0.18), (w / 2, c.zw - 0.07), (0.0, c.zr - 0.05), (-w / 2, c.zw - 0.07)]
+    front = [builder.bm.verts.new((x, y - thick / 2, z)) for x, z in pts]
+    back = [builder.bm.verts.new((x, y + thick / 2, z)) for x, z in pts]
+    faces = [builder.bm.faces.new(front[::-1]), builder.bm.faces.new(back)]
+    for k in range(len(pts)):
+        n = (k + 1) % len(pts)
+        faces.append(builder.bm.faces.new((front[k], front[n], back[n], back[k])))
+    for f in faces:
+        f.material_index = i
+
+
 # ------------------------------------------------------------------ stages
 
 def framing(b, c, M):
@@ -235,6 +255,8 @@ def framing(b, c, M):
         # double top plate
         wall_box(b, c, wall, T_SIDING + T_SHEATH, T_SIDING + T_SHEATH + T_STUD, top, top + 0.09, M['lumber'], openings=[])
         wall_box(b, c, wall, T_SIDING + T_SHEATH, T_SIDING + T_SHEATH + T_STUD, top + 0.09, top + 0.18, M['lumber'], openings=[])
+        if wall in ('left', 'right'):   # blocking up to the rafters
+            wall_box(b, c, wall, T_SIDING + T_SHEATH, T_SIDING + T_SHEATH + T_STUD, top + 0.18, c.zw + 0.05, M['lumber'], openings=[])
     # ceiling joists across the house at 0.6 m, porch posts and beam, then the roof framing
     n = int((d / 2 - c.yh0) / 0.6) + 1
     for k in range(n):
@@ -266,7 +288,7 @@ def walls_stage(b, c, M):
     z0, top = c.z0, c.top
     # sheathing over the studs on all four walls, openings left clear
     for wall in ('front', 'back', 'left', 'right'):
-        wall_box(b, c, wall, T_SIDING, T_SIDING + T_SHEATH, z0, top + 0.18, M['osb'], gap_pad=0.0, inset=T_SIDING)
+        wall_box(b, c, wall, T_SIDING, T_SIDING + T_SHEATH, z0, wall_top(c, wall), M['osb'], gap_pad=0.0, inset=T_SIDING)
     # sheathed roof deck, in two sheets a side with a gap left at the ridge for the cap
     roof_deck(b, c, M['osb'], 0.04)
     porch_floor(b, c, M)
@@ -295,12 +317,12 @@ def complete(b, c, M, glass, finishings=False):
     h = foundation(b, c, M)
     b.box(-w / 2 + 0.02, w / 2 - 0.02, -d / 2 + 0.02, d / 2 - 0.02, h, z0, M['floor'])                       # interior floor / subfloor
     for wall in ('front', 'back', 'left', 'right'):
-        wall_box(parts[wall], c, wall, T_SIDING, T_SIDING + T_SHEATH + T_STUD, z0, top + 0.18, M['osb'], inset=T_SIDING)
+        wall_box(parts[wall], c, wall, T_SIDING, T_SIDING + T_SHEATH + T_STUD, z0, wall_top(c, wall), M['osb'], inset=T_SIDING)
         # clapboard siding: 0.24 m courses, each lapping the one below
         zc = z0
         k = 0
-        while zc < top + 0.18 - 0.02:
-            zb = min(zc + 0.24, top + 0.18)
+        while zc < wall_top(c, wall) - 0.02:
+            zb = min(zc + 0.24, wall_top(c, wall))
             wall_box(parts[wall], c, wall, 0.0, T_SIDING, zc, zb, M['siding'], gap_pad=0.07, inset=0.0)
             zc = zb
             k += 1
@@ -312,7 +334,7 @@ def complete(b, c, M, glass, finishings=False):
             wall_box(parts[wall], c, wall, ti + 0.02, ti + 0.04, z0 + 0.03, z0 + 0.14, M['trim'], inset=ti + 0.04)
     # corner boards
     for (x, y) in ((-w / 2, c.yh0), (w / 2 - 0.08, c.yh0), (-w / 2, d / 2 - 0.08), (w / 2 - 0.08, d / 2 - 0.08)):
-        b.box(x, x + 0.08, y, y + 0.08, z0, top + 0.18, M['trim'])
+        b.box(x, x + 0.08, y, y + 0.08, z0, c.zw + 0.05, M['trim'])
     # window trim, glass, shutters on the front windows
     for wall in ('front', 'back', 'left', 'right'):
         for i, (u0, u1, zl, zh) in enumerate(c.openings[wall]):
@@ -320,7 +342,7 @@ def complete(b, c, M, glass, finishings=False):
                 window_dressing(parts[wall], c, M, M['glass'], wall, u0, u1, zl, zh, shutters=(wall == 'front'))
     # gable ends, clad: triangles with a vent window on the front
     for y in (-d / 2 + 0.1, d / 2 - 0.04):
-        parts['front' if y < 0 else 'back'].prism_gable(-w / 2, w / 2, y, 0.06, c.zw - 0.07, c.zr - 0.05, M['siding'])
+        gable_poly(parts['front' if y < 0 else 'back'], c, y, 0.06, M['siding'])
     # a small round-ish vent in the front gable
     parts['front'].box(-0.22, 0.22, -d / 2 + 0.05, -d / 2 + 0.08, top + 0.85, top + 1.25, M['trim'])
     glass_builder.box(-0.18, 0.18, -d / 2 + 0.04, -d / 2 + 0.065, top + 0.89, top + 1.21, M['glass'])
