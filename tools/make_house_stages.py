@@ -377,7 +377,8 @@ def complete(b, c, M, glass, finishings=False):
     door(parts['front'], c, M)
     # the chimney stands against an EXTERIOR wall (the left one), never inside a room (STRUCTURE_STAGES_GUIDE.md, rules): out from the wall
     # by 0.5 m, from the ground up past the eaves, its last 0.1 m let into the wall
-    cy = d / 2 - 1.8
+    ops = c.openings['left']
+    cy = (ops[0][1] + ops[1][0]) / 2          # centred on the solid wall BETWEEN the two windows, never across a window
     cx0, cx1 = -w / 2 - 0.5, -w / 2 + 0.1
     ctop = c.zw + 1.0
     b.box(cx0, cx1, cy - 0.45, cy + 0.45, 0.0, ctop, M['brick'])
