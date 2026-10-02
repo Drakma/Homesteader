@@ -11,7 +11,7 @@ namespace Homesteader.Controls
         MoveUp, MoveDown, MoveLeft, MoveRight, Run,
         CameraRotateLeft, CameraRotateRight,
         PauseTime, SpeedUp, SpeedDown,
-        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem,
+        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem, ToggleCutaway,
     }
 
     /// <summary>
@@ -48,6 +48,7 @@ namespace Homesteader.Controls
             new ActionInfo { Action = BindAction.TogglePhone, Label = "Open / close phone", Group = "Time and menus", DefaultKey = Key.Tab },
             new ActionInfo { Action = BindAction.PlayerLight, Label = "Flashlight / lantern", Group = "World", DefaultKey = Key.L },
             new ActionInfo { Action = BindAction.ToggleMap, Label = "Show / hide map", Group = "World", DefaultKey = Key.M },
+            new ActionInfo { Action = BindAction.ToggleCutaway, Label = "Cutaway view inside buildings", Group = "World", DefaultKey = Key.V },
             new ActionInfo { Action = BindAction.PlaceRotate, Label = "Rotate placement", Group = "World", DefaultKey = Key.R },
             new ActionInfo { Action = BindAction.ToggleContainer, Label = "Open / close container", Group = "World", DefaultKey = Key.C },
             new ActionInfo { Action = BindAction.DropItem, Label = "Drop the held item", Group = "World", DefaultKey = Key.F },

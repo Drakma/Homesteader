@@ -1,0 +1,71 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_finishings_starter_house",
+  "name": "Starter House",
+  "category": "structures",
+  "description": "Starter House, finished: painted walls, flooring and baseboards.",
+  "icon": "struct_finishings_starter_house.png",
+  "properties": {
+    "weight_kg": 12000.0,
+    "max_stack_size": 1,
+    "base_value": 25000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 15,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_finishings_starter_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5.7,
+        "y": 4.6,
+        "z": 7.3
+      },
+      "triangles": 3928
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 37.8,
+    "room_count": 2,
+    "dimensions_m": {
+      "width": 5.7,
+      "depth": 7.3,
+      "height": 4.6
+    },
+    "electrical_service_capacity_w": 24000,
+    "water_supply_capacity_lpm": 40,
+    "roof_area_m2": 41.6
+  }
+}

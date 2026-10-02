@@ -21,7 +21,12 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "look_target": "foundation",
+    "look_color": "#9a9a96",
+    "look_smoothness": 0.05,
+    "look_metallic": 0.0,
+    "look_style": "poured"
   },
   "models": [
     {

@@ -100,6 +100,7 @@ namespace Homesteader.UI
                 H("Drop the held item (Shift: the stack)", K(BindAction.DropItem)),
                 H("Pin a build site list (over the site), drag to move", "P"),
                 H("Flashlight and lantern", K(BindAction.PlayerLight)),
+                H("Cutaway view inside a building", K(BindAction.ToggleCutaway)),
                 H("Map", K(BindAction.ToggleMap)),
                 H("Pause time", K(BindAction.PauseTime)),
                 H("Time speed", K(BindAction.SpeedDown), K(BindAction.SpeedUp)),

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_paint_lavender",
+  "name": "Interior Paint: Lavender",
+  "category": "building",
+  "description": "Interior Paint: Lavender: a building finish. Used as a construction material it sets how that part of the building looks.",
+  "icon": "building_paint_lavender.png",
+  "properties": {
+    "weight_kg": 5.0,
+    "max_stack_size": 4,
+    "base_value": 34,
+    "is_consumable": false,
+    "footprint": "0.3m W x 0.32m D x 0.23m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "can",
+    "look_target": "interior",
+    "look_color": "#b7a6d4",
+    "look_smoothness": 0.25,
+    "look_metallic": 0.0
+  },
+  "models": [
+    {
+      "file": "building_paint_lavender.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.3,
+        "y": 0.23,
+        "z": 0.32
+      },
+      "triangles": 116
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.3,
+      "depth": 0.32,
+      "height": 0.23
+    }
+  }
+}

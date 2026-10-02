@@ -44,6 +44,7 @@ Esc, 0 - 9 (and numpad), F1 - F12 and Ctrl are reserved and can't be bound. **A 
 | Left click (placeable item) over a pallet | The shadow lands ON the pallet, turned like it, in the pallet's free space (identical items stack up to their limit); a loaded pallet cannot be picked up until it is cleared | `PlacementController`, `PalletDeck` |
 | R (Shift+R) | Rotate the shadow being placed 12.5 degrees clockwise (counter-clockwise); a STRUCTURE (construction site) turns in quarter turns so its walls stay on the grid | `PlacementController` |
 | L (rebindable) | Player light: flashlight, then lantern, then off | `PlayerLight` |
+| V (rebindable) | Cutaway view: while you stand inside a finished building, its roof and the walls between the camera and you stop being drawn (the window panes stay, so you can see where the windows are) (they still cast shadows) so the interior shows; V turns it on or off, remembered (default on) | `StructureCutaway` |
 | M | Show / hide the map. Dots: faint yellow = you, white = animals, red = predators / aggressive animals | `MiniMap` |
 | Drag the map | Move the map (position, size and zoom are remembered) | `MiniMap` |
 | Shift + mouse wheel over the map | Make the map bigger / smaller | `MiniMap` |

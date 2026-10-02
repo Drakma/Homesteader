@@ -63,6 +63,10 @@ Free, fast and deterministic: re-run it whenever a dimension or detail changes. 
 - **A window pane as its own object** named `WindowGlass`, alpha-blended glass material (`Alpha` input below 1, blend mode BLEND).
   Its own object because shadow casting is per renderer, not per material: the game switches the pane's shadow casting off so light passes.
 - Frames, sill, mullion, a chimney, fascia boards: plain boxes.
+- **Named materials for the look system:** call the log material `Log` and the roof `Roof` (or `Siding` / `Shingle` / `ShingleDark`): `StructureLook` recolours materials by these name prefixes when the walls or roof were built from items that set a look.
+- **Split for the cutaway view:** the roof (boards, ridge cap, fascia, rafters) is its own object `Roof` and each wall (its logs or siding,
+  gable, and the trim of its door and windows) is `Wall_Front` / `Wall_Back` / `Wall_Left` / `Wall_Right`, built through a `parts` dict of
+  separate `Builder`s. The game finds them by name and works out which way each faces from where its bounds sit.
 
 Sizes that matter for walking: the doorway is `DOOR_W = 1.2`, `DOOR_H = 2.3` (the player capsule is 0.7 m wide with skin, 1.8 m tall),
 so the walls are `WALL_H = 2.7` to fit the header under the eaves.
@@ -74,12 +78,45 @@ so the walls are `WALL_H = 2.7` to fit the header under the eaves.
 | `FrontMarker` empty | front arrow, which way the door faces, door swing direction | `ConstructionSite.LearnFront` |
 | stage model by id | shown as the structure grows; stand-in boxes only if the model is missing | `ConstructionSite.RefreshVisual`, `ModLoader.RegisterStageModel` |
 | `DoorHinge` > `DoorLeaf` | right click on the finished building (within 4 m) swings the door; the leaf is solid only when shut; saved as `doorOpen` | `ConstructionSite.FindDoor/ToggleDoor`, `GameSave.SavedSite` |
+| `Roof`, `Wall_Front`, `Wall_Back`, `Wall_Left`, `Wall_Right` objects | the cutaway view hides the roof and the walls facing the camera while the player is inside (V) | `StructureCutaway` |
 | `WindowGlass` renderer | shadow casting off, so sun and flashlight pass the window | `ConstructionSite.ShowModel` |
 | walls, roof, closed door | cast shadows: they stop the sun and the player's flashlight / lantern | `PlayerLight` (shadows on) |
 | solid meshes (concave) | real mesh colliders, so the player can walk in through the open door | `GlbTemplate` (`Solid`) |
 | the foundation footprint | dirt area, 3 m ground grading, vegetation clearing, 4 m material yard | `TerrainGrade`, `SiteClearing`, `ConstructionSite` |
 
 Placement snaps the foundation into a block of whole 1 m squares, turned in quarter turns, so keep footprints near whole metres where you can.
+
+## 3b. A second example: the starter house (framed and clad)
+
+`tools/make_house_stages.py` (`blender --background --python tools/make_house_stages.py -- starter_house`) is the framed-house sibling. It
+reuses `make_structure_stages.py` as a library (`Builder`, the glass material, `roof_slab`) and shows how to generalise: a `Ctx` holds the
+per-structure numbers (footprint, porch depth, wall height, openings per wall), and each stage is a function that adds to the previous one.
+
+- foundation 276 tris: slab, wider footing step, anchor bolts, rebar stubs, three steps.
+- framing 2,876: subfloor, sill plates, studs every 0.4 m with king studs, doubled headers and sills, double top plates, ceiling joists,
+  porch posts and beam, rafters with collar ties, ridge board, gable studs.
+- walls 3,284: the framing plus OSB sheathing (openings left clear), a sheathed roof deck, porch deck boards, rough window boxes.
+- complete 3,712: clapboard siding in 0.24 m courses, corner boards, window trim with muntins, sills and shutters, a panel door
+  (`DoorHinge` > `DoorLeaf`), railed porch with steps, shingled roof with course lines and ridge cap, fascia, a brick chimney,
+  glazed windows (`WindowGlass`, shadow free).
+
+Walls are built as layers measured inward from the outer plane (siding 0.03, sheathing 0.02, studs 0.14) by `wall_box`, which splits every
+band round the openings; windows, trim and the door hang off the same opening table, so all four stages always agree. Its build list is
+in `starter_house.json` (`growth.stages[].construction_recipe` and `required_tools`).
+
+## 3c. Five stages, finishes and foundation styles
+
+- **Stages:** foundation, framing, walls, exterior (folder `struct_complete`, the roof / siding / windows shell with its door) and finishings
+  (folder `struct_finishings`: the same shell plus baseboards, drywall paint, flooring). Stage 5 is the last: the structure is finished after it.
+  `finishings_data.py`-style edits live in the group manifest (`growth.stages[]`: recipe, tools, `age_min/age_max`).
+- **Named parts for the game:** `Foundation` (slab, lip, steps: its own object in every stage so another style can replace it), `Roof`,
+  `Wall_Front/Back/Left/Right`, `WindowGlass`, `DoorHinge` > `DoorLeaf`, `FrontMarker`.
+- **Named materials for the look system:** `Log`/`Siding`, `Roof`/`Shingle`/`ShingleDark`, `Interior` (a thin layer inside the walls), `Floor`,
+  `Masonry` (chimney), `FoundationFace` (variants). Anything else keeps its colour.
+- **Foundation variants:** `tools/make_foundation_variants.py -- <ids>` writes block, brick and stilts models beside the foundation stage.
+- **Finish items:** `tools/make_finish_items.py` creates the paints, carpets and tiles, sidings, roofings, bricks and field stone (model,
+  manifest with `properties.look_*`, README), then `tools/finish_items_icons.py` renders their icons from the models. Add a row to `ITEMS`
+  for a new finish; tags (`#paint`, `#flooring`, `#siding`, `#roofing`, `#brick`, `#chimney_masonry`) in `assets/_schemas/material_tags.json`.
 
 ## 4. Checklist for a new structure
 

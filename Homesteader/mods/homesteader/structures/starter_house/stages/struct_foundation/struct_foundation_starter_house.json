@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_foundation_starter_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5.7,
+        "y": 0.28,
+        "z": 7.3
+      },
+      "triangles": 276
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

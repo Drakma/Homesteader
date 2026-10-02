@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "roofing_shingles_weathered",
+  "name": "Weathered Wood Shingles",
+  "category": "building",
+  "description": "Weathered Wood Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
+  "icon": "roofing_shingles_weathered.png",
+  "properties": {
+    "weight_kg": 26.0,
+    "max_stack_size": 12,
+    "base_value": 95,
+    "is_consumable": false,
+    "footprint": "0.6m W x 0.38m D x 0.1m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "bundle",
+    "look_target": "roof",
+    "look_color": "#7b7568",
+    "look_smoothness": 0.1,
+    "look_metallic": 0.0
+  },
+  "models": [
+    {
+      "file": "roofing_shingles_weathered.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.1,
+        "z": 0.38
+      },
+      "triangles": 84
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 0.38,
+      "height": 0.1
+    }
+  }
+}

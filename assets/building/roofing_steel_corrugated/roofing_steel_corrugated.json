@@ -21,7 +21,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "look_target": "roof",
+    "look_color": "#b9bec4",
+    "look_smoothness": 0.65,
+    "look_metallic": 0.85
   },
   "models": [
     {

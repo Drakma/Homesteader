@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_starter_house",
-  "name": "Starter House",
+  "name": "Starter House - Exterior",
   "category": "structures",
-  "description": "A small single-story starter homestead house.",
+  "description": "Starter House with its walls clad, roof on and windows in, before the finishing work.",
   "icon": "struct_complete_starter_house.png",
   "properties": {
     "weight_kg": 12000.0,
@@ -19,40 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_starter_house.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_starter_house.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_starter_house.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 570.0,
-        "y": 730.0,
-        "z": 460.0
-      },
+      "file": "struct_complete_starter_house.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 5.7,
-        "y": 7.3,
-        "z": 4.6
+        "y": 4.6,
+        "z": 7.3
       },
-      "vertices": 530,
-      "faces": 196,
-      "bounding_box": {
-        "min": [
-          -285.0,
-          -415.0,
-          0.0
-        ],
-        "max": [
-          285.0,
-          315.0,
-          460.0
-        ]
-      }
+      "triangles": 3868
     }
   ],
   "utilities": {
@@ -82,34 +56,6 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "struct_complete_starter_house.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 570.0,
-      "y": 730.0,
-      "z": 460.0
-    },
-    "dimensions_m": {
-      "x": 5.7,
-      "y": 7.3,
-      "z": 4.6
-    },
-    "vertices": 530,
-    "faces": 196,
-    "bounding_box": {
-      "min": [
-        -285.0,
-        -415.0,
-        0.0
-      ],
-      "max": [
-        285.0,
-        315.0,
-        460.0
-      ]
-    }
-  },
   "category_fields": {
     "interior_area_m2": 37.8,
     "room_count": 2,
@@ -120,38 +66,6 @@
     },
     "electrical_service_capacity_w": 24000,
     "water_supply_capacity_lpm": 40,
-    "roof_area_m2": 41.6,
-    "construction_recipe": [
-      {
-        "item_id": "#roofing",
-        "quantity": 6
-      },
-      {
-        "item_id": "building_glass",
-        "quantity": 4
-      },
-      {
-        "item_id": "sheet_drywall_stack_large",
-        "quantity": 2
-      },
-      {
-        "item_id": "#flooring",
-        "quantity": 38
-      }
-    ],
-    "required_tools": [
-      [
-        "tool_circular_saw_corded",
-        "tool_circular_saw_cordless",
-        "tool_saw_hand"
-      ],
-      [
-        "tool_hammer_claw",
-        "tool_drill_corded",
-        "tool_drill_cordless_basic",
-        "tool_drill_cordless_pro",
-        "tool_impact_driver_cordless"
-      ]
-    ]
+    "roof_area_m2": 41.6
   }
 }

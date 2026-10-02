@@ -11,42 +11,58 @@
     "species": "small_cabin",
     "max_age": 100,
     "time_unit": "percent",
-    "total_stages": 4,
-    "icon_stage": 4,
+    "total_stages": 5,
+    "icon_stage": 5,
     "stages": [
       {
         "stage": 1,
         "name": "foundation",
         "age_min": 0,
-        "age_max": 33,
+        "age_max": 20,
         "resource": "stages/struct_foundation/",
-        "model": "struct_foundation_small_cabin.glb",
+        "model": "",
         "icon": "struct_foundation_small_cabin.png",
         "construction_recipe": [
           {
-            "item_id": "#rebar",
-            "quantity": 2
-          },
-          {
-            "item_id": "80lb_cement_bag",
-            "quantity": 4
+            "any_of": [
+              {
+                "item_id": "80lb_cement_bag",
+                "quantity": 4
+              },
+              {
+                "item_id": "masonry_cinder_block",
+                "quantity": 60
+              },
+              {
+                "item_id": "#brick",
+                "quantity": 3
+              },
+              {
+                "item_id": "post_wood_round_6inch",
+                "quantity": 8
+              }
+            ]
           }
         ],
         "required_tools": [
           [
             "tool_shovel",
             "tool_shovel_round_point",
-            "tool_shovel_trenching"
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_trowel_hand"
           ]
         ]
       },
       {
         "stage": 2,
         "name": "framing",
-        "age_min": 33,
-        "age_max": 66,
+        "age_min": 20,
+        "age_max": 40,
         "resource": "stages/struct_framing/",
-        "model": "struct_framing_small_cabin.glb",
+        "model": "",
         "icon": "struct_framing_small_cabin.png",
         "construction_recipe": [
           {
@@ -80,10 +96,10 @@
       {
         "stage": 3,
         "name": "walls",
-        "age_min": 66,
-        "age_max": 99,
+        "age_min": 40,
+        "age_max": 60,
         "resource": "stages/struct_walls/",
-        "model": "struct_walls_small_cabin.glb",
+        "model": "",
         "icon": "struct_walls_small_cabin.png",
         "construction_recipe": [
           {
@@ -116,11 +132,11 @@
       },
       {
         "stage": 4,
-        "name": "complete",
-        "age_min": 99,
-        "age_max": 100,
+        "name": "exterior",
+        "age_min": 60,
+        "age_max": 80,
         "resource": "stages/struct_complete/",
-        "model": "struct_complete_small_cabin.glb",
+        "model": "",
         "icon": "struct_complete_small_cabin.png",
         "construction_recipe": [
           {
@@ -132,8 +148,44 @@
             "quantity": 2
           },
           {
+            "item_id": "#chimney_masonry",
+            "quantity": 2
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_trowel_hand"
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "finishings",
+        "age_min": 80,
+        "age_max": 100,
+        "resource": "stages/struct_finishings/",
+        "model": "",
+        "icon": "struct_finishings_small_cabin.png",
+        "construction_recipe": [
+          {
             "item_id": "sheet_drywall_stack_small",
             "quantity": 2
+          },
+          {
+            "item_id": "#paint",
+            "quantity": 1
           },
           {
             "item_id": "#flooring",

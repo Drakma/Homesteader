@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_small_cabin",
-  "name": "Small Log Cabin",
+  "name": "Small Log Cabin - Exterior",
   "category": "structures",
-  "description": "A one-room log cabin with a peaked roof.",
+  "description": "Small Log Cabin with its walls clad, roof on and windows in, before the finishing work.",
   "icon": "struct_complete_small_cabin.png",
   "properties": {
     "weight_kg": 5000.0,
@@ -26,7 +26,7 @@
         "y": 4.4,
         "z": 5.5
       },
-      "triangles": 2656
+      "triangles": 2848
     }
   ],
   "utilities": {
@@ -56,34 +56,6 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "struct_complete_small_cabin.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 510.0,
-      "y": 550.0,
-      "z": 439.9
-    },
-    "dimensions_m": {
-      "x": 5.1,
-      "y": 5.5,
-      "z": 4.4
-    },
-    "vertices": 1900,
-    "faces": 636,
-    "bounding_box": {
-      "min": [
-        -255.0,
-        -275.0,
-        0.0
-      ],
-      "max": [
-        255.0,
-        275.0,
-        439.856415
-      ]
-    }
-  },
   "category_fields": {
     "interior_area_m2": 25.0,
     "room_count": 1,
@@ -94,38 +66,6 @@
     },
     "electrical_service_capacity_w": 12000,
     "water_supply_capacity_lpm": 25,
-    "roof_area_m2": 28.1,
-    "construction_recipe": [
-      {
-        "item_id": "#roofing",
-        "quantity": 3
-      },
-      {
-        "item_id": "building_glass",
-        "quantity": 2
-      },
-      {
-        "item_id": "sheet_drywall_stack_small",
-        "quantity": 2
-      },
-      {
-        "item_id": "#flooring",
-        "quantity": 25
-      }
-    ],
-    "required_tools": [
-      [
-        "tool_circular_saw_corded",
-        "tool_circular_saw_cordless",
-        "tool_saw_hand"
-      ],
-      [
-        "tool_hammer_claw",
-        "tool_drill_corded",
-        "tool_drill_cordless_basic",
-        "tool_drill_cordless_pro",
-        "tool_impact_driver_cordless"
-      ]
-    ]
+    "roof_area_m2": 28.1
   }
 }

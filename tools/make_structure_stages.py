@@ -148,7 +148,11 @@ class Builder:
         return o
 
 
+FOUNDATION_BUILDER = None   # when set (main), the slab goes into this separate object ("Foundation") so the game can swap it for another foundation style
+
+
 def slab(b, w, d, h, concrete):
+    b = FOUNDATION_BUILDER if FOUNDATION_BUILDER is not None else b
     b.box(-w / 2, w / 2, -d / 2, d / 2, 0.0, h, concrete)
     # a low lip around the edge and a front step
     lip = 0.05
@@ -228,8 +232,10 @@ def framing(b, w, d, h_total, found_h, mats):
     roof_frame(b, w, d, top + 0.09, h_total, timber)
 
 
-def walls(b, w, d, h_total, found_h, mats):
+def walls(b, w, d, h_total, found_h, mats, parts=None):
+    """parts (the finished stage only): separate Builders named front/back/left/right/roof, so the game can cut the near walls and the roof away."""
     concrete, timber, logm = mats
+    P = (lambda k: parts[k]) if parts else (lambda k: b)
     slab(b, w, d, found_h, concrete)
     z0 = found_h + 0.04
     r = LOG_D / 2
@@ -251,29 +257,60 @@ def walls(b, w, d, h_total, found_h, mats):
                 if cuts[k + 1] - cuts[k] > 0.05:
                     make(cuts[k], cuts[k + 1], zc, c)
 
-    run('front', w, lambda a, bb, zc, c: b.log((a, -d / 2 + r, zc), (bb, -d / 2 + r, zc), r, logm))
-    run('back', w, lambda a, bb, zc, c: b.log((a, d / 2 - r, zc), (bb, d / 2 - r, zc), r, logm))
-    run('left', d, lambda a, bb, zc, c: b.log((-w / 2 + r, a, zc), (-w / 2 + r, bb, zc), r, logm))
-    run('right', d, lambda a, bb, zc, c: b.log((w / 2 - r, a, zc), (w / 2 - r, bb, zc), r, logm))
+    run('front', w, lambda a, bb, zc, c: P('front').log((a, -d / 2 + r, zc), (bb, -d / 2 + r, zc), r, logm))
+    run('back', w, lambda a, bb, zc, c: P('back').log((a, d / 2 - r, zc), (bb, d / 2 - r, zc), r, logm))
+    run('left', d, lambda a, bb, zc, c: P('left').log((-w / 2 + r, a, zc), (-w / 2 + r, bb, zc), r, logm))
+    run('right', d, lambda a, bb, zc, c: P('right').log((w / 2 - r, a, zc), (w / 2 - r, bb, zc), r, logm))
     top = z0 + WALL_H
     # log gables and the open roof frame
     for y in (-d / 2 + r, d / 2 - r):
-        b.prism_gable(-w / 2, w / 2, y, LOG_D * 0.9, top, h_total - 0.1, logm)
-    roof_frame(b, w, d, top, h_total, timber)
+        P('front' if y < 0 else 'back').prism_gable(-w / 2, w / 2, y, LOG_D * 0.9, top, h_total - 0.1, logm)
+    roof_frame(P('roof'), w, d, top, h_total, timber)
     # window frame, door frame
-    b.box(-DOOR_W / 2 - 0.06, -DOOR_W / 2, -d / 2, -d / 2 + LOG_D, z0, z0 + DOOR_H + 0.1, timber)
-    b.box(DOOR_W / 2, DOOR_W / 2 + 0.06, -d / 2, -d / 2 + LOG_D, z0, z0 + DOOR_H + 0.1, timber)
-    b.box(-DOOR_W / 2 - 0.06, DOOR_W / 2 + 0.06, -d / 2, -d / 2 + LOG_D, z0 + DOOR_H, z0 + DOOR_H + 0.1, timber)
+    P('front').box(-DOOR_W / 2 - 0.06, -DOOR_W / 2, -d / 2, -d / 2 + LOG_D, z0, z0 + DOOR_H + 0.1, timber)
+    P('front').box(DOOR_W / 2, DOOR_W / 2 + 0.06, -d / 2, -d / 2 + LOG_D, z0, z0 + DOOR_H + 0.1, timber)
+    P('front').box(-DOOR_W / 2 - 0.06, DOOR_W / 2 + 0.06, -d / 2, -d / 2 + LOG_D, z0 + DOOR_H, z0 + DOOR_H + 0.1, timber)
 
 
 EXTRA_OBJECTS = []   # the hinge and the door leaf of the finished stage (exported with the building)
 
 
-def complete(b, w, d, h_total, found_h, mats):
-    concrete, timber, logm, roofm, doorm, glassm, stonem = mats
+def interior_layer(parts, w, d, z0, top, interiorm):
+    """A thin painted layer on the inside of the log walls (material 'Interior'), cut round the door and the window."""
+    t = 0.02
+    for wall in ('front', 'back', 'left', 'right'):
+        length = w if wall in ('front', 'back') else d
+        ops = opening_x_ranges(wall, w, d)
+        zs = sorted({z0, top} | {z0 + o[2] for o in ops} | {z0 + o[3] for o in ops})
+        for za, zb in zip(zs[:-1], zs[1:]):
+            blocked = sorted((o[0], o[1]) for o in ops if za < z0 + o[3] - 1e-4 and zb > z0 + o[2] + 1e-4)
+            lo, hi = -length / 2 + LOG_D, length / 2 - LOG_D
+            cuts = [lo]
+            for g in blocked:
+                cuts += [max(lo, g[0]), min(hi, g[1])]
+            cuts.append(hi)
+            for k in range(0, len(cuts), 2):
+                u0, u1 = cuts[k], cuts[k + 1]
+                if u1 - u0 < 0.05:
+                    continue
+                p = parts[wall]
+                if wall == 'front':
+                    p.box(u0, u1, -d / 2 + LOG_D, -d / 2 + LOG_D + t, za, zb, interiorm)
+                elif wall == 'back':
+                    p.box(u0, u1, d / 2 - LOG_D - t, d / 2 - LOG_D, za, zb, interiorm)
+                elif wall == 'left':
+                    p.box(-w / 2 + LOG_D, -w / 2 + LOG_D + t, u0, u1, za, zb, interiorm)
+                else:
+                    p.box(w / 2 - LOG_D - t, w / 2 - LOG_D, u0, u1, za, zb, interiorm)
+
+
+def complete(b, w, d, h_total, found_h, mats, finishings=False):
+    """The enclosed building. finishings=True adds the baseboards of the finishing stage (paint, flooring and the chimney masonry are materials)."""
+    concrete, timber, logm, roofm, doorm, glassm, stonem, masonrym, interiorm, floorm = mats
     # the log walls and the rafters are built a little lower than the finished height: the roof boards go ON TOP of the rafters
     h_frame = h_total - 0.14
-    walls(b, w, d, h_frame, found_h, (concrete, timber, logm))
+    parts = {k: Builder(n) for k, n in (('front', 'Wall_Front'), ('back', 'Wall_Back'), ('left', 'Wall_Left'), ('right', 'Wall_Right'), ('roof', 'Roof'))}
+    walls(b, w, d, h_frame, found_h, (concrete, timber, logm), parts)
     z0 = found_h + 0.04
     top = z0 + WALL_H
     ov = 0.3
@@ -281,14 +318,32 @@ def complete(b, w, d, h_total, found_h, mats):
     margin = 0.07                       # the boards' underside rides this far above the rafters' centre line (rafter radius 0.055 + a little)
     z_eave = top - 0.1 + margin + thick
     ridge = h_frame - 0.05 + margin + thick
+    # the inside: a painted layer on the walls and a floor (materials Interior and Floor are recoloured by the paint and flooring used)
+    interior_layer(parts, w, d, z0, top, interiorm)
+    b.box(-w / 2 + LOG_D, w / 2 - LOG_D, -d / 2 + LOG_D, d / 2 - LOG_D, z0, z0 + 0.03, floorm)
+    if finishings:
+        for wall in ('front', 'back', 'left', 'right'):                       # baseboards round the room
+            length = w if wall in ('front', 'back') else d
+            lo, hi = -length / 2 + LOG_D, length / 2 - LOG_D
+            pieces = [(lo, hi)] if wall != 'front' else [(lo, -DOOR_W / 2), (DOOR_W / 2, hi)]
+            for u0, u1 in pieces:
+                zb0, zb1 = z0 + 0.03, z0 + 0.13
+                if wall == 'front':
+                    parts[wall].box(u0, u1, -d / 2 + LOG_D + 0.02, -d / 2 + LOG_D + 0.035, zb0, zb1, timber)
+                elif wall == 'back':
+                    parts[wall].box(u0, u1, d / 2 - LOG_D - 0.035, d / 2 - LOG_D - 0.02, zb0, zb1, timber)
+                elif wall == 'left':
+                    parts[wall].box(-w / 2 + LOG_D + 0.02, -w / 2 + LOG_D + 0.035, u0, u1, zb0, zb1, timber)
+                else:
+                    parts[wall].box(w / 2 - LOG_D - 0.035, w / 2 - LOG_D - 0.02, u0, u1, zb0, zb1, timber)
     # fill the gable ends up to the underside of the boards
     for y in (-d / 2 + LOG_D / 2, d / 2 - LOG_D / 2):
-        b.prism_gable(-w / 2, w / 2, y, LOG_D * 0.9, top + 0.12, h_frame + 0.02, logm)
+        parts['front' if y < 0 else 'back'].prism_gable(-w / 2, w / 2, y, LOG_D * 0.9, top + 0.12, h_frame + 0.02, logm)
     # roof boards on both sides with a ridge cap, and fascia boards along the eaves
     for side in (-1, 1):
-        b.roof_slab(side * (w / 2 + ov), z_eave, ridge, -d / 2 - ov, d / 2 + ov, thick, roofm)
-        b.box(side * (w / 2 + ov) - 0.04, side * (w / 2 + ov) + 0.04, -d / 2 - ov, d / 2 + ov, z_eave - thick - 0.04, z_eave + 0.03, timber)
-    b.box(-0.09, 0.09, -d / 2 - ov, d / 2 + ov, ridge - 0.03, ridge + 0.06, timber)
+        parts['roof'].roof_slab(side * (w / 2 + ov), z_eave, ridge, -d / 2 - ov, d / 2 + ov, thick, roofm)
+        parts['roof'].box(side * (w / 2 + ov) - 0.04, side * (w / 2 + ov) + 0.04, -d / 2 - ov, d / 2 + ov, z_eave - thick - 0.04, z_eave + 0.03, timber)
+    parts['roof'].box(-0.09, 0.09, -d / 2 - ov, d / 2 + ov, ridge - 0.03, ridge + 0.06, timber)
     # the front door is its own object on a hinge (DoorHinge > DoorLeaf) so the game can swing it open; the opening in the wall stays
     dw, dh = DOOR_W - 0.06, DOOR_H - 0.04
     leaf = Builder('DoorLeaf')
@@ -312,13 +367,19 @@ def complete(b, w, d, h_total, found_h, mats):
     EXTRA_OBJECTS.append(glass.finish())
     for (ya, yb, za, zb) in ((wlo - 0.06, wlo, zl - 0.06, zh + 0.06), (whi, whi + 0.06, zl - 0.06, zh + 0.06),
                              (wlo - 0.06, whi + 0.06, zl - 0.06, zl), (wlo - 0.06, whi + 0.06, zh, zh + 0.06)):
-        b.box(xw0, xw1 + 0.03, ya, yb, za, zb, timber)
-    b.box(xw0 + 0.05, xw0 + 0.11, (wlo + whi) / 2 - 0.02, (wlo + whi) / 2 + 0.02, zl, zh, timber)   # a mullion
-    b.box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
+        parts['right'].box(xw0, xw1 + 0.03, ya, yb, za, zb, timber)
+    parts['right'].box(xw0 + 0.05, xw0 + 0.11, (wlo + whi) / 2 - 0.02, (wlo + whi) / 2 + 0.02, zl, zh, timber)   # a mullion
+    parts['right'].box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
+    for part in parts.values():
+        EXTRA_OBJECTS.append(part.finish())   # Wall_Front / Wall_Back / Wall_Left / Wall_Right / Roof: the game can hide them (cutaway view)
     # a stone chimney up the -X wall
     cx0, cx1, cy0, cy1 = -w / 2 - 0.42, -w / 2 + 0.12, 0.2, 0.9
-    b.box(cx0, cx1, cy0, cy1, z0, h_total - 0.02, stonem)
-    b.box(cx0 - 0.06, cx1 + 0.02, cy0 - 0.06, cy1 + 0.06, h_total - 0.02, h_total + 0.08, stonem)
+    b.box(cx0, cx1, cy0, cy1, z0, h_total - 0.02, masonrym)
+    b.box(cx0 - 0.06, cx1 + 0.02, cy0 - 0.06, cy1 + 0.06, h_total - 0.02, h_total + 0.08, masonrym)
+
+
+def finishings(b, w, d, h_total, found_h, mats):
+    complete(b, w, d, h_total, found_h, mats, finishings=True)
 
 
 def stage_manifest(structure, stage_folder):
@@ -337,9 +398,14 @@ def main():
     logm = material('Log', (0.42, 0.27, 0.14), 0.9)
     mats = (concrete, timber, logm)
     full_mats = (concrete, timber, logm, material('Roof', (0.30, 0.17, 0.12), 0.8), material('Door', (0.32, 0.2, 0.1), 0.85),
-                 glass_material(), material('Stone', (0.52, 0.5, 0.48), 0.95))
+                 glass_material(), material('Stone', (0.52, 0.5, 0.48), 0.95), material('Masonry', (0.52, 0.5, 0.48), 0.95),
+                 material('Interior', (0.9, 0.86, 0.78), 0.9), material('Floor', (0.55, 0.4, 0.26), 0.85))
 
-    for stage_folder, fn in (('struct_foundation', None), ('struct_framing', framing), ('struct_walls', walls), ('struct_complete', complete)):
+    stage_list = [('struct_foundation', None), ('struct_framing', framing), ('struct_walls', walls), ('struct_complete', complete)]
+    if os.path.isdir(os.path.join(STRUCTURES, structure, 'stages', 'struct_finishings')):
+        stage_list.append(('struct_finishings', finishings))
+    global FOUNDATION_BUILDER
+    for stage_folder, fn in stage_list:
         folder, manifest_path = stage_manifest(structure, stage_folder)
         d = json.load(open(manifest_path, encoding='utf-8'))
         dims = d['category_fields']['dimensions_m']
@@ -348,11 +414,14 @@ def main():
         for o in list(bpy.data.objects):
             bpy.data.objects.remove(o, do_unlink=True)
         b = Builder(d['id'])
+        del EXTRA_OBJECTS[:]
+        FOUNDATION_BUILDER = Builder('Foundation')    # the slab, lip and steps: its own object in every stage
         if fn is None:
             slab(b, w, depth, h, concrete)
         else:
-            del EXTRA_OBJECTS[:]
-            fn(b, w, depth, h, found, full_mats if fn is complete else mats)
+            fn(b, w, depth, h, found, full_mats if fn in (complete, finishings) else mats)
+        EXTRA_OBJECTS.append(FOUNDATION_BUILDER.finish())
+        FOUNDATION_BUILDER = None
         obj = b.finish()
         # an empty named FrontMarker just in front of the door (the -Y side): the game reads it to know which way the front faces
         marker = bpy.data.objects.new('FrontMarker', None)
@@ -367,9 +436,12 @@ def main():
         out = os.path.join(folder, d['id'] + '.glb')
         bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', use_selection=True, export_yup=True)
         tris = sum(len(p.vertices) - 2 for p in obj.data.polygons)
+        for extra in EXTRA_OBJECTS:
+            if getattr(extra, 'data', None) is not None and hasattr(extra.data, 'polygons'):
+                tris += sum(len(p.vertices) - 2 for p in extra.data.polygons)
         d['models'] = [{'file': d['id'] + '.glb', 'format': 'glb',
                         'dimensions_m': {'x': w, 'y': h, 'z': depth}, 'triangles': tris}]
-        if fn is complete:
+        if fn in (complete, finishings):
             # the old Unreal-era model files of this stage are replaced: remove the legacy formats beside it
             for ext in ('.fbx', '.obj', '.mtl'):
                 legacy = os.path.join(folder, d['id'] + ext)
@@ -379,4 +451,6 @@ def main():
         print('stage', d['id'], tris, 'tris ->', out)
 
 
-main()
+
+if __name__ == '__main__':
+    main()

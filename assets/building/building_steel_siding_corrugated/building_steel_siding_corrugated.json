@@ -21,7 +21,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "look_target": "walls",
+    "look_color": "#aeb4ba",
+    "look_smoothness": 0.6,
+    "look_metallic": 0.85
   },
   "models": [
     {

@@ -722,6 +722,11 @@
       "icon": "80lb_cement_bag.png",
       "max_stack": 10,
       "weight_kg": 36.0,
+      "look_target": "foundation",
+      "look_style": "poured",
+      "look_color": "#9a9a96",
+      "look_smoothness": 0.05,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -956,6 +961,226 @@
       ]
     },
     {
+      "id": "building_floor_carpet_beige",
+      "name": "Beige Carpet",
+      "category": "building",
+      "description": "Beige Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_carpet_beige.png",
+      "max_stack": 6,
+      "weight_kg": 22.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#cdb994",
+      "look_smoothness": 0.04,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "roll",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_carpet_brown",
+      "name": "Brown Carpet",
+      "category": "building",
+      "description": "Brown Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_carpet_brown.png",
+      "max_stack": 6,
+      "weight_kg": 22.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#6b4a33",
+      "look_smoothness": 0.04,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "roll",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_carpet_burgundy",
+      "name": "Burgundy Carpet",
+      "category": "building",
+      "description": "Burgundy Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_carpet_burgundy.png",
+      "max_stack": 6,
+      "weight_kg": 22.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#6e2231",
+      "look_smoothness": 0.04,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "roll",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_carpet_grey",
+      "name": "Grey Carpet",
+      "category": "building",
+      "description": "Grey Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_carpet_grey.png",
+      "max_stack": 6,
+      "weight_kg": 22.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#8a8d92",
+      "look_smoothness": 0.04,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "roll",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_carpet_navy",
+      "name": "Navy Carpet",
+      "category": "building",
+      "description": "Navy Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_carpet_navy.png",
+      "max_stack": 6,
+      "weight_kg": 22.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#2c3a5c",
+      "look_smoothness": 0.04,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "roll",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_tile_slate",
+      "name": "Slate Tile",
+      "category": "building",
+      "description": "Slate Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_tile_slate.png",
+      "max_stack": 10,
+      "weight_kg": 18.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#4b5057",
+      "look_smoothness": 0.5,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "box",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_tile_speckled",
+      "name": "Speckled Grey Tile",
+      "category": "building",
+      "description": "Speckled Grey Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_tile_speckled.png",
+      "max_stack": 10,
+      "weight_kg": 18.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#a9a9a4",
+      "look_smoothness": 0.6,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "box",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_tile_terracotta",
+      "name": "Terracotta Tile",
+      "category": "building",
+      "description": "Terracotta Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_tile_terracotta.png",
+      "max_stack": 10,
+      "weight_kg": 18.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#b8643f",
+      "look_smoothness": 0.35,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "box",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_tile_white",
+      "name": "White Ceramic Tile",
+      "category": "building",
+      "description": "White Ceramic Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_tile_white.png",
+      "max_stack": 10,
+      "weight_kg": 18.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#ecebe6",
+      "look_smoothness": 0.8,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "box",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "building_floor_vinyl_plank",
+      "name": "Wood-look Vinyl Plank",
+      "category": "building",
+      "description": "Wood-look Vinyl Plank: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_floor_vinyl_plank.png",
+      "max_stack": 10,
+      "weight_kg": 18.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#a47a4f",
+      "look_smoothness": 0.3,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "box",
+          "price": 85.0
+        }
+      ]
+    },
+    {
       "id": "building_glass",
       "name": "Glass Pane",
       "category": "building",
@@ -1007,6 +1232,72 @@
       ]
     },
     {
+      "id": "building_paint_barn_red",
+      "name": "Interior Paint: Barn Red",
+      "category": "building",
+      "description": "Interior Paint: Barn Red: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_barn_red.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#8e2f26",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_charcoal",
+      "name": "Interior Paint: Charcoal",
+      "category": "building",
+      "description": "Interior Paint: Charcoal: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_charcoal.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#3b3d42",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_cream",
+      "name": "Interior Paint: Warm Cream",
+      "category": "building",
+      "description": "Interior Paint: Warm Cream: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_cream.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#ead9b0",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
       "id": "building_paint_interior_wall",
       "name": "Interior Wall Paint",
       "category": "building",
@@ -1014,12 +1305,171 @@
       "icon": "building_paint_interior_wall.png",
       "max_stack": 1,
       "weight_kg": 15.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#f1eee6",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 40.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_ivory",
+      "name": "Interior Paint: Ivory",
+      "category": "building",
+      "description": "Interior Paint: Ivory: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_ivory.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#f1ecdc",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_lavender",
+      "name": "Interior Paint: Lavender",
+      "category": "building",
+      "description": "Interior Paint: Lavender: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_lavender.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#b7a6d4",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_mustard",
+      "name": "Interior Paint: Mustard Yellow",
+      "category": "building",
+      "description": "Interior Paint: Mustard Yellow: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_mustard.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#d6a935",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_navy",
+      "name": "Interior Paint: Deep Navy",
+      "category": "building",
+      "description": "Interior Paint: Deep Navy: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_navy.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#27395e",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_sage",
+      "name": "Interior Paint: Sage Green",
+      "category": "building",
+      "description": "Interior Paint: Sage Green: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_sage.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#a9b99a",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_sky_blue",
+      "name": "Interior Paint: Sky Blue",
+      "category": "building",
+      "description": "Interior Paint: Sky Blue: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_sky_blue.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#9cc4e0",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "building_paint_terracotta",
+      "name": "Interior Paint: Terracotta",
+      "category": "building",
+      "description": "Interior Paint: Terracotta: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_paint_terracotta.png",
+      "max_stack": 4,
+      "weight_kg": 5.0,
+      "look_target": "interior",
+      "look_style": "",
+      "look_color": "#c4694a",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "can",
+          "price": 34.0
         }
       ]
     },
@@ -1059,6 +1509,226 @@
       ]
     },
     {
+      "id": "building_siding_barn_red",
+      "name": "Barn Red Board Siding",
+      "category": "building",
+      "description": "Barn Red Board Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_barn_red.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#8a3128",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_brick_veneer",
+      "name": "Red Brick Veneer",
+      "category": "building",
+      "description": "Red Brick Veneer: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_brick_veneer.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#9a4a3a",
+      "look_smoothness": 0.15,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_cedar_shake",
+      "name": "Cedar Shake Siding",
+      "category": "building",
+      "description": "Cedar Shake Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_cedar_shake.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#9a6b3f",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_charcoal_batten",
+      "name": "Charcoal Board and Batten",
+      "category": "building",
+      "description": "Charcoal Board and Batten: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_charcoal_batten.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#3d4044",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_cream",
+      "name": "Cream Clapboard Siding",
+      "category": "building",
+      "description": "Cream Clapboard Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_cream.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#e3d6b4",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_sage",
+      "name": "Sage Green Clapboard Siding",
+      "category": "building",
+      "description": "Sage Green Clapboard Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_sage.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#8fa387",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_slate_blue",
+      "name": "Slate Blue Clapboard Siding",
+      "category": "building",
+      "description": "Slate Blue Clapboard Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_slate_blue.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#5b7189",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_stucco_tan",
+      "name": "Tan Stucco Panels",
+      "category": "building",
+      "description": "Tan Stucco Panels: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_stucco_tan.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#cbb48c",
+      "look_smoothness": 0.05,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_weathered_grey",
+      "name": "Weathered Grey Shiplap",
+      "category": "building",
+      "description": "Weathered Grey Shiplap: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_weathered_grey.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#8d8f8c",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "building_siding_white",
+      "name": "White Clapboard Siding",
+      "category": "building",
+      "description": "White Clapboard Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "building_siding_white.png",
+      "max_stack": 8,
+      "weight_kg": 30.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#eeeeea",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 140.0
+        }
+      ]
+    },
+    {
       "id": "building_steel_frame_beam",
       "name": "Steel Rigid Frame Beam",
       "category": "building",
@@ -1083,6 +1753,11 @@
       "icon": "building_steel_siding_corrugated.png",
       "max_stack": 15,
       "weight_kg": 9.5,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#aeb4ba",
+      "look_smoothness": 0.6,
+      "look_metallic": 0.85,
       "store_listings": [
         {
           "store": "depot",
@@ -1793,6 +2468,72 @@
       ]
     },
     {
+      "id": "masonry_brick_brown",
+      "name": "Brown Brick",
+      "category": "building",
+      "description": "Brown Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_brown.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#6a3f2c",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_charcoal",
+      "name": "Charcoal Brick",
+      "category": "building",
+      "description": "Charcoal Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_charcoal.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#43454a",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_grey",
+      "name": "Grey Brick",
+      "category": "building",
+      "description": "Grey Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_grey.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#8a8984",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
       "id": "masonry_brick_red",
       "name": "Red Clay Brick",
       "category": "building",
@@ -1800,12 +2541,61 @@
       "icon": "masonry_brick_red.png",
       "max_stack": 40,
       "weight_kg": 2.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#9b4a3a",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 0.7
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_tan",
+      "name": "Tan Brick",
+      "category": "building",
+      "description": "Tan Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_tan.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#c9a27a",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_brick_white",
+      "name": "White Washed Brick",
+      "category": "building",
+      "description": "White Washed Brick: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_brick_white.png",
+      "max_stack": 6,
+      "weight_kg": 120.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#d9d4c7",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 110.0
         }
       ]
     },
@@ -1817,12 +2607,39 @@
       "icon": "masonry_cinder_block.png",
       "max_stack": 30,
       "weight_kg": 15.0,
+      "look_target": "foundation",
+      "look_style": "block",
+      "look_color": "#9b9b97",
+      "look_smoothness": 0.05,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 2.0
+        }
+      ]
+    },
+    {
+      "id": "masonry_fieldstone",
+      "name": "Field Stone",
+      "category": "building",
+      "description": "Field Stone: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "masonry_fieldstone.png",
+      "max_stack": 6,
+      "weight_kg": 150.0,
+      "look_target": "chimney,foundation",
+      "look_style": "brick",
+      "look_color": "#8f8a80",
+      "look_smoothness": 0.05,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pile",
+          "price": 95.0
         }
       ]
     },
@@ -1834,6 +2651,11 @@
       "icon": "part_floor_stone_1m.png",
       "max_stack": 99,
       "weight_kg": 1.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#8d8c88",
+      "look_smoothness": 0.5,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -1851,6 +2673,11 @@
       "icon": "part_floor_wood_1m.png",
       "max_stack": 99,
       "weight_kg": 1.0,
+      "look_target": "floor",
+      "look_style": "",
+      "look_color": "#9a7048",
+      "look_smoothness": 0.3,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -1987,12 +2814,149 @@
       "icon": "post_wood_round_6inch.png",
       "max_stack": 15,
       "weight_kg": 15.0,
+      "look_target": "foundation",
+      "look_style": "stilts",
+      "look_color": "#735236",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 12.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_cedar_shakes",
+      "name": "Cedar Shake Roofing",
+      "category": "building",
+      "description": "Cedar Shake Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_cedar_shakes.png",
+      "max_stack": 12,
+      "weight_kg": 24.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#9c6e44",
+      "look_smoothness": 0.08,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 130.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_clay_tile",
+      "name": "Terracotta Clay Tile",
+      "category": "building",
+      "description": "Terracotta Clay Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_clay_tile.png",
+      "max_stack": 6,
+      "weight_kg": 85.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#b3613f",
+      "look_smoothness": 0.35,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 220.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_seam_black",
+      "name": "Standing Seam Black Metal Roofing",
+      "category": "building",
+      "description": "Standing Seam Black Metal Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_seam_black.png",
+      "max_stack": 8,
+      "weight_kg": 35.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#25272b",
+      "look_smoothness": 0.6,
+      "look_metallic": 0.85,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 170.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_seam_green",
+      "name": "Standing Seam Green Metal Roofing",
+      "category": "building",
+      "description": "Standing Seam Green Metal Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_seam_green.png",
+      "max_stack": 8,
+      "weight_kg": 35.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#2f6a49",
+      "look_smoothness": 0.6,
+      "look_metallic": 0.85,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 160.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_seam_red",
+      "name": "Standing Seam Red Metal Roofing",
+      "category": "building",
+      "description": "Standing Seam Red Metal Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_seam_red.png",
+      "max_stack": 8,
+      "weight_kg": 35.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#8f2d27",
+      "look_smoothness": 0.6,
+      "look_metallic": 0.85,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 160.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_shingles_brown",
+      "name": "Brown Asphalt Shingles",
+      "category": "building",
+      "description": "Brown Asphalt Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_shingles_brown.png",
+      "max_stack": 12,
+      "weight_kg": 28.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#5a4636",
+      "look_smoothness": 0.15,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 85.0
         }
       ]
     },
@@ -2004,12 +2968,105 @@
       "icon": "roofing_shingles_bundle.png",
       "max_stack": 10,
       "weight_kg": 25.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#3a3d44",
+      "look_smoothness": 0.15,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 35.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_shingles_green",
+      "name": "Forest Green Shingles",
+      "category": "building",
+      "description": "Forest Green Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_shingles_green.png",
+      "max_stack": 12,
+      "weight_kg": 28.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#3f5b44",
+      "look_smoothness": 0.15,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_shingles_red",
+      "name": "Red Asphalt Shingles",
+      "category": "building",
+      "description": "Red Asphalt Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_shingles_red.png",
+      "max_stack": 12,
+      "weight_kg": 28.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#8a3b30",
+      "look_smoothness": 0.15,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_shingles_weathered",
+      "name": "Weathered Wood Shingles",
+      "category": "building",
+      "description": "Weathered Wood Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_shingles_weathered.png",
+      "max_stack": 12,
+      "weight_kg": 26.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#7b7568",
+      "look_smoothness": 0.1,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_slate_tile",
+      "name": "Natural Slate Tile",
+      "category": "building",
+      "description": "Natural Slate Tile: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_slate_tile.png",
+      "max_stack": 6,
+      "weight_kg": 90.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#5a6068",
+      "look_smoothness": 0.5,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "pallet",
+          "price": 240.0
         }
       ]
     },
@@ -2021,12 +3078,39 @@
       "icon": "roofing_steel_corrugated.png",
       "max_stack": 15,
       "weight_kg": 8.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#b9bec4",
+      "look_smoothness": 0.65,
+      "look_metallic": 0.85,
       "store_listings": [
         {
           "store": "depot",
           "category": "Building",
           "unit": "kit",
           "price": 22.0
+        }
+      ]
+    },
+    {
+      "id": "roofing_thatch",
+      "name": "Reed Thatch Bundle",
+      "category": "building",
+      "description": "Reed Thatch Bundle: a building finish. Used as a construction material it sets how that part of the building looks.",
+      "icon": "roofing_thatch.png",
+      "max_stack": 14,
+      "weight_kg": 16.0,
+      "look_target": "roof",
+      "look_style": "",
+      "look_color": "#c9a85c",
+      "look_smoothness": 0.02,
+      "look_metallic": 0.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "bundle",
+          "price": 70.0
         }
       ]
     },
@@ -5479,6 +6563,11 @@
       "icon": "mat_log_birch_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#ece6d6",
+      "look_smoothness": 0.25,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -5547,6 +6636,11 @@
       "icon": "mat_log_maple_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#b88a55",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -5615,6 +6709,11 @@
       "icon": "mat_log_oak_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#7a5530",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -5683,6 +6782,11 @@
       "icon": "mat_log_pine_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#a8742f",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -5734,6 +6838,11 @@
       "icon": "mat_log_poplar_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#c9b98a",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -5785,6 +6894,11 @@
       "icon": "mat_log_willowood_uncut_long.png",
       "max_stack": 1,
       "weight_kg": 70.0,
+      "look_target": "walls",
+      "look_style": "",
+      "look_color": "#8a6e46",
+      "look_smoothness": 0.2,
+      "look_metallic": 0.0,
       "store_listings": [
         {
           "store": "depot",
@@ -7694,12 +8808,26 @@
           "height": 0.26,
           "recipe": [
             {
-              "item_id": "#rebar",
-              "quantity": 2
-            },
-            {
-              "item_id": "80lb_cement_bag",
-              "quantity": 4
+              "item_id": "",
+              "quantity": 0,
+              "any_of": [
+                {
+                  "item_id": "80lb_cement_bag",
+                  "quantity": 4
+                },
+                {
+                  "item_id": "masonry_cinder_block",
+                  "quantity": 60
+                },
+                {
+                  "item_id": "#brick",
+                  "quantity": 3
+                },
+                {
+                  "item_id": "post_wood_round_6inch",
+                  "quantity": 8
+                }
+              ]
             }
           ],
           "tool_groups": [
@@ -7707,7 +8835,13 @@
               "tools": [
                 "tool_shovel",
                 "tool_shovel_round_point",
-                "tool_shovel_trenching"
+                "tool_shovel_trenching",
+                "tool_pickaxe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
               ]
             }
           ]
@@ -7791,7 +8925,7 @@
           ]
         },
         {
-          "name": "complete",
+          "name": "exterior",
           "item_id": "struct_complete_small_cabin",
           "width": 5.1,
           "depth": 5.5,
@@ -7806,8 +8940,48 @@
               "quantity": 2
             },
             {
+              "item_id": "#chimney_masonry",
+              "quantity": 2
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finishings",
+          "item_id": "struct_finishings_small_cabin",
+          "width": 5.1,
+          "depth": 5.5,
+          "height": 4.4,
+          "recipe": [
+            {
               "item_id": "sheet_drywall_stack_small",
               "quantity": 2
+            },
+            {
+              "item_id": "#paint",
+              "quantity": 1
             },
             {
               "item_id": "#flooring",
@@ -8018,12 +9192,26 @@
           "height": 0.28,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 16
-            },
-            {
-              "item_id": "#rebar",
-              "quantity": 4
+              "item_id": "",
+              "quantity": 0,
+              "any_of": [
+                {
+                  "item_id": "80lb_cement_bag",
+                  "quantity": 10
+                },
+                {
+                  "item_id": "masonry_cinder_block",
+                  "quantity": 150
+                },
+                {
+                  "item_id": "#brick",
+                  "quantity": 5
+                },
+                {
+                  "item_id": "post_wood_round_6inch",
+                  "quantity": 12
+                }
+              ]
             }
           ],
           "tool_groups": [
@@ -8051,7 +9239,7 @@
           "recipe": [
             {
               "item_id": "#framing_lumber",
-              "quantity": 40
+              "quantity": 160
             },
             {
               "item_id": "lumber_joist_2x8",
@@ -8059,7 +9247,11 @@
             },
             {
               "item_id": "lumber_post_4x4",
-              "quantity": 4
+              "quantity": 3
+            },
+            {
+              "item_id": "hardware_hurricane_ties",
+              "quantity": 2
             },
             {
               "item_id": "item_hardware_framingnails_box",
@@ -8094,15 +9286,23 @@
           "recipe": [
             {
               "item_id": "#sheathing",
-              "quantity": 6
+              "quantity": 14
             },
             {
               "item_id": "#romex_wire",
-              "quantity": 8
+              "quantity": 4
             },
             {
               "item_id": "#plumbing_pipe",
-              "quantity": 8
+              "quantity": 6
+            },
+            {
+              "item_id": "building_insulation_fiberglass_batt",
+              "quantity": 6
+            },
+            {
+              "item_id": "item_hardware_deckscrews_box",
+              "quantity": 2
             }
           ],
           "tool_groups": [
@@ -8125,7 +9325,7 @@
           ]
         },
         {
-          "name": "complete",
+          "name": "exterior",
           "item_id": "struct_complete_starter_house",
           "width": 5.7,
           "depth": 7.3,
@@ -8133,19 +9333,63 @@
           "recipe": [
             {
               "item_id": "#roofing",
-              "quantity": 6
+              "quantity": 12
             },
             {
               "item_id": "building_glass",
+              "quantity": 7
+            },
+            {
+              "item_id": "#siding",
+              "quantity": 12
+            },
+            {
+              "item_id": "#chimney_masonry",
+              "quantity": 2
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finishings",
+          "item_id": "struct_finishings_starter_house",
+          "width": 5.7,
+          "depth": 7.3,
+          "height": 4.6,
+          "recipe": [
+            {
+              "item_id": "sheet_drywall_stack_large",
               "quantity": 4
             },
             {
-              "item_id": "sheet_drywall_stack_large",
+              "item_id": "#paint",
               "quantity": 2
             },
             {
               "item_id": "#flooring",
-              "quantity": 38
+              "quantity": 45
             }
           ],
           "tool_groups": [

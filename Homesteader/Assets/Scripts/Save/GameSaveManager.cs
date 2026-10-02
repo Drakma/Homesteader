@@ -215,7 +215,7 @@ namespace Homesteader.Save
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
-                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen });
+                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems) });
             s.fellTrees = Homesteader.World.ForestTrees.SavedFelled();
             s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
             s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
@@ -345,7 +345,7 @@ namespace Homesteader.Save
             foreach (var cs in s.sites)
             {
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
-                if (site != null) site.SetDoor(cs.doorOpen);   // set before the model loads: it opens at once when it shows
+                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); }   // before the model loads, or on it at once when it is already showing
             }
 
             // dropped items

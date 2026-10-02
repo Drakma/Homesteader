@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_floor_carpet_navy",
+  "name": "Navy Carpet",
+  "category": "building",
+  "description": "Navy Carpet: a building finish. Used as a construction material it sets how that part of the building looks.",
+  "icon": "building_floor_carpet_navy.png",
+  "properties": {
+    "weight_kg": 22.0,
+    "max_stack_size": 6,
+    "base_value": 120,
+    "is_consumable": false,
+    "footprint": "1.26m W x 0.28m D x 0.28m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "roll",
+    "look_target": "floor",
+    "look_color": "#2c3a5c",
+    "look_smoothness": 0.04,
+    "look_metallic": 0.0
+  },
+  "models": [
+    {
+      "file": "building_floor_carpet_navy.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.26,
+        "y": 0.28,
+        "z": 0.28
+      },
+      "triangles": 88
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.26,
+      "depth": 0.28,
+      "height": 0.28
+    }
+  }
+}

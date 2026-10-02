@@ -75,6 +75,13 @@ def main():
                             item_data["weight_kg"] = float(wk)
                         if props.get("support_surface") is True:
                             item_data["support_surface"] = True
+                        # how this item makes a building look when it is used as a construction material (see StructureLook.cs)
+                        if props.get("look_target"):
+                            item_data["look_target"] = str(props["look_target"])
+                            item_data["look_style"] = str(props.get("look_style", ""))
+                            item_data["look_color"] = str(props.get("look_color", "#a8742f"))
+                            item_data["look_smoothness"] = float(props.get("look_smoothness", 0.2))
+                            item_data["look_metallic"] = float(props.get("look_metallic", 0.0))
                         # Where the phone shops sell it (the manifest is the only place this lives): properties.stores, with a
                         # per-shop category / unit / price in store_overrides when one shop differs.
                         stores = props.get("stores")

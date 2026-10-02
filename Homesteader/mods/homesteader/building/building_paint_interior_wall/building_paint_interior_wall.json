@@ -20,7 +20,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "look_target": "interior",
+    "look_color": "#f1eee6",
+    "look_smoothness": 0.25,
+    "look_metallic": 0.0
   },
   "models": [],
   "utilities": {

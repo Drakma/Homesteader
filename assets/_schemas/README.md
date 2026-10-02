@@ -116,3 +116,5 @@ validated only on assets that have it. `on_add` lists manifest values set when t
   - `single_type` (boolean, optional, default false): takes only one kind of item at a time; once it holds something only more of that item goes in (crates).
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.
   - `on_add`: sets `properties.max_stack_size` to 1 (a container carries its own contents, so it is one per toolbar slot).
+
+- `look_target` / `look_color` / `look_smoothness` / `look_metallic` (base properties): a construction material that sets how a building looks (roof or walls colour and sheen); see docs/CONSTRUCTION.md "Look follows the materials".

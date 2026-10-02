@@ -172,6 +172,16 @@ namespace Homesteader.Growth
 
         public Vector2 Footprint => _foot;
 
+        /// <summary>The model of the current stage (null before one is built or while it loads).</summary>
+        public Transform VisualRoot => _visual != null ? _visual.transform : null;
+
+        /// <summary>True when a point is within the building's footprint (on the ground plane).</summary>
+        public bool IsInside(Vector3 world)
+        {
+            Vector3 local = Quaternion.Euler(0f, -YawDeg, 0f) * (world - transform.position);
+            return Mathf.Abs(local.x) <= _foot.x * 0.5f && Mathf.Abs(local.z) <= _foot.y * 0.5f;
+        }
+
         /// <summary>
         /// The structure stands on the HIGHEST ground under its footprint, and a footing reaches down to the lowest, so no side is
         /// buried and no side has a gap under it.
@@ -198,7 +208,7 @@ namespace Homesteader.Growth
         /// <summary>Concrete from the foundation's underside down to the lowest ground, with a collider: it fills the gap on the low side.</summary>
         private void AddFooting(Transform parent)
         {
-            if (_drop <= 0.01f) return;
+            if (_drop <= 0.01f || Stilted) return;
             Box(parent, "Footing", new Vector3(0f, -_drop, 0f), new Vector3(_foot.x, _drop + 0.02f, _foot.y), new Color(0.58f, 0.58f, 0.56f), true);
         }
 
@@ -566,6 +576,7 @@ namespace Homesteader.Growth
                 if (!t.Have) missing.Add(ToolGroupName(t.Group));
             if (missing.Count > 0)
             {
+                if (HasDoor) return ToggleDoor(player);   // the shell stands: a right click works the door (the hover list says what is still needed)
                 ToastNotificationSystem.ShowWarning("Not ready: " + StageTitle(stage), "Still needed: " + string.Join(", ", missing) + ".");
                 return false;
             }
@@ -727,6 +738,7 @@ namespace Homesteader.Growth
         private System.Collections.IEnumerator BuildRoutine(PedController ped)
         {
             Building = true;
+            _buildStilts = Stage == 0 && StructureLook.FoundationStyle(PayerIds()) == "stilts";
             _buildStart = Time.time;
             _buildEnd = _buildStart + BuildSeconds;
             ConstructionStageData stage = CurrentStage;
@@ -808,6 +820,7 @@ namespace Homesteader.Growth
             foreach (LineStatus line in _status)
             {
                 LineStatus l = line.Payer;   // an "or" line uses up only the alternative that paid
+                RememberLooks(l);
                 foreach (PlacedObject o in l.Matches) if (o != null) o.Remove();
                 foreach (WorldItem w in l.Loose) if (w != null) Destroy(w.gameObject);
                 GiveChange(l.Line.item_id, l.Over);
@@ -921,7 +934,7 @@ namespace Homesteader.Growth
         /// <summary>While the foundation is being built the ground rises with the progress.</summary>
         private void GradeWhileBuilding()
         {
-            if (!Building || Stage != 0 || !EnsureGrade()) return;
+            if (!Building || Stage != 0 || _buildStilts || !EnsureGrade()) return;
             _grade.Apply(BuildProgress);
             if (Time.time >= _nextGrassRefresh) { _nextGrassRefresh = Time.time + 3f; Homesteader.World.TerrainGrade.RefreshGrass(); }
         }
@@ -934,7 +947,7 @@ namespace Homesteader.Growth
             {
                 _cleared = true;   // the foundation is down: whatever grew or lay under it goes
                 Homesteader.World.SiteClearing.ClearFootprint(transform.position, YawDeg, _foot);
-                if (EnsureGrade())
+                if (!Stilted && EnsureGrade())
                 {
                     _grade.Apply(1f);   // the ground meets the foundation: no footing needed
                     _drop = 0f;
@@ -977,6 +990,8 @@ namespace Homesteader.Growth
             model.transform.localRotation = Quaternion.identity;
             EnsureCollider(model);
             FindDoor(model.transform);
+            StructureLook.Apply(model.transform, _lookItems);   // birch logs, a tin roof: the look follows what it was built from
+            ShowFoundationVariant(model.transform);
             // windows let light through: the pane casts no shadow (and the walls, roof and a closed door do)
             foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
                 if (r.name == "WindowGlass") r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -993,6 +1008,98 @@ namespace Homesteader.Growth
         private const float DoorSwingSpeed = 180f;
 
         private Collider[] _leafColliders;
+
+        // The items that set how the building looks (see StructureLook): the last log / siding item used for the walls, the last roofing for the roof.
+        private readonly List<string> _lookItems = new List<string>();
+        public List<string> LookItems => _lookItems;
+
+        public void SetLooks(List<string> ids)
+        {
+            _lookItems.Clear();
+            if (ids != null) _lookItems.AddRange(ids);
+            StructureLook.Apply(VisualRoot, _lookItems);   // when the model is already showing
+        }
+
+        private void RememberLooks(LineStatus l)
+        {
+            var ids = new List<string>();
+            foreach (PlacedObject o in l.Matches) if (o != null) ids.Add(o.ItemId);
+            foreach (Draw dr in l.Draws) ids.Add(dr.ItemId);
+            foreach (WorldItem w in l.Loose) if (w != null) ids.Add(w.ItemId);
+            foreach (string id in ids)
+            {
+                if (!StructureLook.TryLook(id, out AssetCatalogItem item)) continue;
+                // an item replaces whatever set the same parts before it (new bricks over old for the chimney, new paint over old)
+                _lookItems.RemoveAll(e => StructureLook.TryLook(e, out AssetCatalogItem other) && SharesPart(item, other));
+                _lookItems.Add(id);
+            }
+        }
+
+        private static bool SharesPart(AssetCatalogItem a, AssetCatalogItem b)
+        {
+            foreach (string p in a.look_target.Split(',')) if (StructureLook.Styles(b, p.Trim())) return true;
+            return false;
+        }
+
+        /// <summary>The item ids that will pay for the stage being built.</summary>
+        private List<string> PayerIds()
+        {
+            var ids = new List<string>();
+            if (_status == null) return ids;
+            foreach (LineStatus line in _status)
+            {
+                LineStatus l = line.Payer;
+                foreach (PlacedObject o in l.Matches) if (o != null) ids.Add(o.ItemId);
+                foreach (Draw dr in l.Draws) ids.Add(dr.ItemId);
+                foreach (WorldItem w in l.Loose) if (w != null) ids.Add(w.ItemId);
+            }
+            return ids;
+        }
+
+        private bool _buildStilts;   // the foundation being built stands on stilts: the ground is not graded for it
+
+        private bool Stilted => _buildStilts || StructureLook.FoundationStyle(_lookItems) == "stilts";
+
+        // ------------------------------------------------------------------ foundation styles
+
+        /// <summary>
+        /// Foundation items other than cement make a different foundation (block, brick, stilts): the stage model's "Foundation" object is hidden
+        /// and the variant model (struct_foundation_&lt;id&gt;_&lt;style&gt;) stands in its place.
+        /// </summary>
+        private void ShowFoundationVariant(Transform model)
+        {
+            string style = StructureLook.FoundationStyle(_lookItems);
+            if (style == null || _stages == null || _stages.Count == 0) return;
+            string variantId = _stages[0].item_id + "_" + style;
+            if (!ItemRegistry.TryGet(variantId, out ItemRegistry.ItemInfo info) || info.Prefab == null) return;
+            foreach (Transform t in model.GetComponentsInChildren<Transform>(true))
+            {
+                if (t.name != "Foundation") continue;
+                foreach (Renderer r in t.GetComponentsInChildren<Renderer>(true)) r.enabled = false;
+                foreach (Collider c in t.GetComponentsInChildren<Collider>(true)) c.enabled = false;
+            }
+            StartCoroutine(AddFoundationVariant(info.Prefab, model.parent));
+        }
+
+        private System.Collections.IEnumerator AddFoundationVariant(GameObject prefab, Transform parent)
+        {
+            GlbTemplate glb = prefab.GetComponent<GlbTemplate>();
+            while (glb != null && !glb.Ready)
+            {
+                glb.EnsureLoading();
+                if (glb.Failed) yield break;
+                yield return null;
+            }
+            if (parent == null) yield break;
+            GameObject inst = Instantiate(prefab, parent);
+            inst.SetActive(true);
+            inst.transform.localRotation = Quaternion.identity;
+            Vector3 pos = Vector3.zero;
+            foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
+                if (t.name == "GroundLevel") { pos.y = -t.localPosition.y; break; }   // stilts are modelled with the ground part way up their piles
+            inst.transform.localPosition = pos;
+            StructureLook.Apply(inst.transform, _lookItems);
+        }
 
         public bool DoorOpen { get; private set; }
         public bool HasDoor => _hinge != null;

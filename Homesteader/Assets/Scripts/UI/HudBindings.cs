@@ -1789,6 +1789,10 @@ namespace Homesteader.UI
         public int max_stack;
         public float weight_kg;
         public bool support_surface;                                // a placed one carries items on top (a pallet, see PalletDeck.cs)
+        public string look_target;                                  // comma list of roof, walls, interior, floor, chimney, foundation: what it styles as a construction material (StructureLook.cs)
+        public string look_style;                                   // a foundation item: poured, block, brick or stilts
+        public string look_color;                                   // #RRGGBB
+        public float look_smoothness, look_metallic;
         public List<StoreListing> store_listings;                   // the phone shops that sell it (null = not for sale)
         public List<ConstructionStageData> construction_stages;   // a structure built in stages (see ConstructionSite.cs)
         public float liquid_capacity_l;            // > 0: holds one liquid by volume (see Liquids.cs)

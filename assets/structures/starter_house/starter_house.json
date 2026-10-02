@@ -11,25 +11,37 @@
     "species": "starter_house",
     "max_age": 100,
     "time_unit": "percent",
-    "total_stages": 4,
-    "icon_stage": 4,
+    "total_stages": 5,
+    "icon_stage": 5,
     "stages": [
       {
         "stage": 1,
         "name": "foundation",
         "age_min": 0,
-        "age_max": 33,
+        "age_max": 20,
         "resource": "stages/struct_foundation/",
         "model": "",
         "icon": "struct_foundation_starter_house.png",
         "construction_recipe": [
           {
-            "item_id": "80lb_cement_bag",
-            "quantity": 16
-          },
-          {
-            "item_id": "#rebar",
-            "quantity": 4
+            "any_of": [
+              {
+                "item_id": "80lb_cement_bag",
+                "quantity": 10
+              },
+              {
+                "item_id": "masonry_cinder_block",
+                "quantity": 150
+              },
+              {
+                "item_id": "#brick",
+                "quantity": 5
+              },
+              {
+                "item_id": "post_wood_round_6inch",
+                "quantity": 12
+              }
+            ]
           }
         ],
         "required_tools": [
@@ -47,15 +59,15 @@
       {
         "stage": 2,
         "name": "framing",
-        "age_min": 33,
-        "age_max": 66,
+        "age_min": 20,
+        "age_max": 40,
         "resource": "stages/struct_framing/",
         "model": "",
         "icon": "struct_framing_starter_house.png",
         "construction_recipe": [
           {
             "item_id": "#framing_lumber",
-            "quantity": 40
+            "quantity": 160
           },
           {
             "item_id": "lumber_joist_2x8",
@@ -63,7 +75,11 @@
           },
           {
             "item_id": "lumber_post_4x4",
-            "quantity": 4
+            "quantity": 3
+          },
+          {
+            "item_id": "hardware_hurricane_ties",
+            "quantity": 2
           },
           {
             "item_id": "item_hardware_framingnails_box",
@@ -88,23 +104,31 @@
       {
         "stage": 3,
         "name": "walls",
-        "age_min": 66,
-        "age_max": 99,
+        "age_min": 40,
+        "age_max": 60,
         "resource": "stages/struct_walls/",
         "model": "",
         "icon": "struct_walls_starter_house.png",
         "construction_recipe": [
           {
             "item_id": "#sheathing",
-            "quantity": 6
+            "quantity": 14
           },
           {
             "item_id": "#romex_wire",
-            "quantity": 8
+            "quantity": 4
           },
           {
             "item_id": "#plumbing_pipe",
-            "quantity": 8
+            "quantity": 6
+          },
+          {
+            "item_id": "building_insulation_fiberglass_batt",
+            "quantity": 6
+          },
+          {
+            "item_id": "item_hardware_deckscrews_box",
+            "quantity": 2
           }
         ],
         "required_tools": [
@@ -124,28 +148,68 @@
       },
       {
         "stage": 4,
-        "name": "complete",
-        "age_min": 99,
-        "age_max": 100,
+        "name": "exterior",
+        "age_min": 60,
+        "age_max": 80,
         "resource": "stages/struct_complete/",
-        "model": "struct_complete_starter_house.fbx",
+        "model": "",
         "icon": "struct_complete_starter_house.png",
         "construction_recipe": [
           {
             "item_id": "#roofing",
-            "quantity": 6
+            "quantity": 12
           },
           {
             "item_id": "building_glass",
+            "quantity": 7
+          },
+          {
+            "item_id": "#siding",
+            "quantity": 12
+          },
+          {
+            "item_id": "#chimney_masonry",
+            "quantity": 2
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_trowel_hand"
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "finishings",
+        "age_min": 80,
+        "age_max": 100,
+        "resource": "stages/struct_finishings/",
+        "model": "",
+        "icon": "struct_finishings_starter_house.png",
+        "construction_recipe": [
+          {
+            "item_id": "sheet_drywall_stack_large",
             "quantity": 4
           },
           {
-            "item_id": "sheet_drywall_stack_large",
+            "item_id": "#paint",
             "quantity": 2
           },
           {
             "item_id": "#flooring",
-            "quantity": 38
+            "quantity": 45
           }
         ],
         "required_tools": [

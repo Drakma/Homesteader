@@ -20,7 +20,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "look_target": "walls",
+    "look_color": "#8a6e46",
+    "look_smoothness": 0.2,
+    "look_metallic": 0.0
   },
   "models": [
     {

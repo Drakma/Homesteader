@@ -21,7 +21,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "look_target": "floor",
+    "look_color": "#8d8c88",
+    "look_smoothness": 0.5,
+    "look_metallic": 0.0
   },
   "models": [
     {
