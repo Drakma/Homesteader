@@ -1,65 +1,79 @@
 {
-	"$schema": "https://homesteader.game/schemas/growth_group_v1.json",
-	"id": "oak",
-	"name": "Oak Tree",
-	"category": "logging",
-	"description": "A hardy deciduous hardwood, the backbone of any homestead's lumber supply. Grows from a planted sapling to a broad-canopied mature oak over 100 days, passing through small and medium stages along the way.",
-	"icon": "oak.png",
-	"is_growable": true,
-	"growth": {
-		"growth_type": "tree",
-		"species": "oak",
-		"max_age": 100,
-		"time_unit": "days",
-		"total_stages": 4,
-		"icon_stage": 4,
-		"stages": [
-			{
-				"stage": 1,
-				"name": "sapling",
-				"age_min": 0,
-				"age_max": 15,
-				"resource": "stages/tree_sapling/",
-				"model": "tree_sapling_oak.fbx",
-				"icon": "tree_sapling_oak.png"
-			},
-			{
-				"stage": 2,
-				"name": "small",
-				"age_min": 15,
-				"age_max": 40,
-				"resource": "stages/tree_small/",
-				"model": "tree_small_oak.fbx",
-				"icon": "tree_small_oak.png"
-			},
-			{
-				"stage": 3,
-				"name": "medium",
-				"age_min": 40,
-				"age_max": 75,
-				"resource": "stages/tree_medium/",
-				"model": "tree_medium_oak.fbx",
-				"icon": "tree_medium_oak.png"
-			},
-			{
-				"stage": 4,
-				"name": "mature",
-				"age_min": 75,
-				"age_max": 100,
-				"resource": "stages/tree_mature/",
-				"model": "tree_mature_oak.fbx",
-				"icon": "tree_mature_oak.png"
-			}
-		],
-		"rules": {
-			"planting": {
-				"item_id": "plantable_oak_sapling"
-			}
-		}
-	},
-	"plugin_metadata": {
-		"version": "1.0.0",
-		"author": "Homesteader Core",
-		"compatible_api": "v1"
-	}
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "oak",
+  "name": "Oak Tree",
+  "category": "logging",
+  "description": "A hardy deciduous hardwood, the backbone of any homestead's lumber supply. Grows from a planted sapling to a broad-canopied mature oak over 100 days, passing through small and medium stages along the way.",
+  "icon": "oak.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "oak",
+    "max_age": 100,
+    "time_unit": "days",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0,
+        "age_max": 15,
+        "resource": "stages/tree_sapling/",
+        "model": "tree_sapling_oak.fbx",
+        "icon": "tree_sapling_oak.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 15,
+        "age_max": 40,
+        "resource": "stages/tree_small/",
+        "model": "tree_small_oak.fbx",
+        "icon": "tree_small_oak.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 40,
+        "age_max": 75,
+        "resource": "stages/tree_medium/",
+        "model": "tree_medium_oak.fbx",
+        "icon": "tree_medium_oak.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 75,
+        "age_max": 100,
+        "resource": "stages/tree_mature/",
+        "model": "tree_mature_oak.fbx",
+        "icon": "tree_mature_oak.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "mat_log_oak",
+        "amount_min": 3,
+        "amount_max": 4,
+        "harvest_stage": 4,
+        "tool": "#tool_axe"
+      },
+      "planting": {
+        "item_id": "plantable_oak_sapling"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_oak.glb",
+          "icon": "tree_dead_oak.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
 }

@@ -43,10 +43,63 @@ namespace Homesteader.Growth
     /// only. Every field has the schema's default, so a missing block means
     /// "no restriction / cannot fail".
     /// </summary>
+    /// <summary>One drop: an item and a whole-number range rolled each time it is given.</summary>
+    public sealed class GrowthDrop
+    {
+        public string ItemId;
+        public int Min = 1;
+        public int Max = 1;
+
+        public int Roll()
+        {
+            int lo = Mathf.Max(1, Min);
+            int hi = Mathf.Max(lo, Max);
+            return UnityEngine.Random.Range(lo, hi + 1);   // the int overload's upper bound is exclusive
+        }
+
+        public static List<GrowthDrop> ParseList(ModJsonValue v)
+        {
+            var list = new List<GrowthDrop>();
+            if (v == null || v.IsNull) return list;
+            foreach (ModJsonValue d in v.Items)
+            {
+                string id = d.Get("item_id").AsString();
+                if (string.IsNullOrEmpty(id)) continue;
+                int min = d.Get("amount_min").AsInt(1);
+                list.Add(new GrowthDrop { ItemId = id, Min = min, Max = d.Get("amount_max").AsInt(min) });
+            }
+            return list;
+        }
+
+        /// <summary>Puts every drop on the toolbar. Returns false when something did not fit (the rest still went in).</summary>
+        public static bool Give(IEnumerable<GrowthDrop> drops)
+        {
+            bool allFit = true;
+            foreach (GrowthDrop d in drops)
+            {
+                int amount = d.Roll();
+                int added = Homesteader.UI.HudState.Active.AddItemToToolbar(d.ItemId, amount, Homesteader.UI.HudBindings.GetMaxStack(d.ItemId));
+                if (added < amount) allFit = false;
+            }
+            if (Homesteader.UI.HudBindings.Instance != null) Homesteader.UI.HudBindings.Instance.RefreshToolbar();
+            return allFit;
+        }
+    }
+
     public sealed class GrowthRules
     {
         // yield
         public string YieldItemId;
+        /// <summary>More than one yield: further drops given on every harvest, on top of YieldItemId.</summary>
+        public readonly List<GrowthDrop> YieldExtras = new List<GrowthDrop>();
+
+        // fruit (trees): picking, separate from the harvest / felling above
+        public bool Fruiting;
+        public int FruitStage;                 // 0 = the final stage
+        public float FruitRegrowDays = 30f;
+        /// <summary>What picks the fruit: item ids / "#tags", comma separated, any ONE in the active slot (see GrowthRegistry.ToolMatches); empty = by hand.</summary>
+        public string FruitTool = "";
+        public readonly List<GrowthDrop> FruitDrops = new List<GrowthDrop>();
         public int YieldAmountMin;
         public int YieldAmountMax;
 
@@ -102,8 +155,23 @@ namespace Homesteader.Growth
             rules.HarvestStage = y.Get("harvest_stage").AsInt(0);
             rules.Regrows = y.Get("regrows").AsBool(false);
             rules.RegrowStage = y.Get("regrow_stage").AsInt(0);
-            rules.YieldTool = y.Get("tool").AsString();
+            // Harvest tools: "tools" (a list, any ONE of them works) or the legacy single "tool". Kept as one comma-separated
+            // spec so every consumer asks GrowthRegistry.ToolMatches, which understands the list.
+            var toolList = new List<string>(y.Get("tools").AsStringList());
+            if (toolList.Count == 0 && !string.IsNullOrEmpty(y.Get("tool").AsString())) toolList.Add(y.Get("tool").AsString());
+            rules.YieldTool = string.Join(",", toolList);
             rules.Stump = GrowthVariant.Parse(y.Get("stump"));
+            rules.YieldExtras.AddRange(GrowthDrop.ParseList(y.Get("extras")));
+
+            ModJsonValue fr = r.Get("fruit");
+            rules.Fruiting = fr.Get("is_fruiting").AsBool(false);
+            if (rules.Fruiting)
+            {
+                rules.FruitStage = fr.Get("fruit_stage").AsInt(0);
+                rules.FruitRegrowDays = Mathf.Max(1f, fr.Get("regrow_days").AsFloat(30f));
+                rules.FruitTool = string.Join(",", new List<string>(fr.Get("tools").AsStringList()));
+                rules.FruitDrops.AddRange(GrowthDrop.ParseList(fr.Get("drops")));
+            }
 
             ModJsonValue p = r.Get("planting");
             rules.PlantItemId = p.Get("item_id").AsString();
@@ -305,6 +373,13 @@ namespace Homesteader.Growth
         public static bool ToolMatches(string toolSpec, string itemId)
         {
             if (string.IsNullOrEmpty(toolSpec) || string.IsNullOrEmpty(itemId)) return false;
+            if (toolSpec.IndexOf(',') >= 0)
+            {
+                // A list of tools: any one of them (an item id or a #tag) is enough.
+                foreach (string one in toolSpec.Split(','))
+                    if (ToolMatches(one.Trim(), itemId)) return true;
+                return false;
+            }
             if (toolSpec[0] != '#')
                 return string.Equals(toolSpec, itemId, StringComparison.OrdinalIgnoreCase);
             return tags.TryGetValue(toolSpec.Substring(1), out HashSet<string> members) && members.Contains(itemId);

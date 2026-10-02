@@ -88,6 +88,8 @@ namespace Homesteader.UI
         // Toolbar
         private VisualElement[] _toolbarSlots = new VisualElement[10];
         private Label[] _toolbarSlotLabels = new Label[10];
+        private Label _activeItemHint;
+        private VisualElement _activeItemHintRow;
 
         // Speed chips
         private Button _speedPause;
@@ -287,6 +289,19 @@ namespace Homesteader.UI
                 }
             }
 
+            // Hint above the toolbar: the real name of the item in the active slot.
+            var toolbarRow = Q<VisualElement>("ToolbarSlots");
+            if (toolbarRow != null && toolbarRow.parent != null)
+            {
+                _activeItemHintRow = new VisualElement { name = "ActiveItemHintRow", pickingMode = PickingMode.Ignore };
+                _activeItemHintRow.AddToClassList("active-item-hint-row");
+                _activeItemHint = new Label { name = "ActiveItemHint", pickingMode = PickingMode.Ignore };
+                _activeItemHint.AddToClassList("active-item-hint");
+                _activeItemHint.style.display = DisplayStyle.None;   // shown by WriteToolbar once an item is active
+                _activeItemHintRow.Add(_activeItemHint);
+                toolbarRow.parent.Add(_activeItemHintRow);
+            }
+
             _speedPause = Q<Button>("SpeedPause");
             _speed1X = Q<Button>("Speed1X");
             _speed3X = Q<Button>("Speed3X");
@@ -326,6 +341,19 @@ namespace Homesteader.UI
             _weatherTimelineTrack = Q<VisualElement>("WeatherTimelineTrack");
             _currentTempLabel = Q<Label>("CurrentTempLabel");
             BuildWeatherTimelineTrack();
+
+            // Wind indicator on the left of the weather timeline.
+            _windSpeedLabel = Q<Label>("WindSpeedLabel");
+            _windDirLabel = Q<Label>("WindDirLabel");
+            var windHolder = Q<VisualElement>("WindArrowHolder");
+            if (windHolder != null)
+            {
+                windHolder.Clear();
+                _windArrow = new WindArrowElement();
+                _windArrow.style.width = 20;
+                _windArrow.style.height = 20;
+                windHolder.Add(_windArrow);
+            }
 
             _phone = new PhoneController(_root,
                 (title, message, onConfirm, onCancel) => ShowModal(title, message, onConfirm, onCancel));
@@ -618,22 +646,26 @@ namespace Homesteader.UI
                 else if (KeyboardCaptured)
                 {
                 }
-                else if (kb.tabKey.wasPressedThisFrame)
+                else if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.TogglePhone))
                 {
                     _phone?.Toggle();
                 }
-                // Speed Control Shortcuts
+                else if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.ToggleContainer) && !phoneOpen)
+                {
+                    ContainerPanel.Toggle(_root);
+                }
+                // Speed Control Shortcuts (rebindable in Settings > Controls)
                 else
                 {
-                    if (kb.spaceKey.wasPressedThisFrame)
+                    if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.PauseTime))
                     {
                         TogglePausePlay();
                     }
-                    else if (kb.rightBracketKey.wasPressedThisFrame)
+                    else if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.SpeedUp))
                     {
                         IncreaseSpeed();
                     }
-                    else if (kb.leftBracketKey.wasPressedThisFrame)
+                    else if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.SpeedDown))
                     {
                         DecreaseSpeed();
                     }
@@ -650,6 +682,8 @@ namespace Homesteader.UI
                         else if (kb.digit8Key.wasPressedThisFrame || kb.numpad8Key.wasPressedThisFrame) SelectToolbarSlot(7);
                         else if (kb.digit9Key.wasPressedThisFrame || kb.numpad9Key.wasPressedThisFrame) SelectToolbarSlot(8);
                         else if (kb.digit0Key.wasPressedThisFrame || kb.numpad0Key.wasPressedThisFrame) SelectToolbarSlot(9);
+                        // Delete: empty the active slot (the items are removed, not dropped)
+                        else if (kb.deleteKey.wasPressedThisFrame) DeleteSelectedSlotItems();
                     }
                 }
             }
@@ -673,7 +707,11 @@ namespace Homesteader.UI
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Delete) && !phoneOpen && !IsAssetSpawnerOpen)
+                {
+                    DeleteSelectedSlotItems();
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
                 {
                     TogglePausePlay();
                 }
@@ -743,6 +781,14 @@ namespace Homesteader.UI
                 && picked != _root
                 && !(picked is TemplateContainer)
                 && !picked.ClassListContains("screen-root");
+        }
+
+        /// <summary>The catalog entry for an item id, or null.</summary>
+        public static AssetCatalogItem GetCatalogItem(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) return null;
+            EnsureAssetCatalogLoaded();
+            return s_assetCatalog?.items?.Find(i => i.id == itemId);
         }
 
         /// <summary>Catalog max stack size for an item id (64 when unknown).</summary>
@@ -1147,10 +1193,52 @@ namespace Homesteader.UI
             JobBoard.Tick();
 
             var state = HudState.Active;
+            UpdateWindIndicator();
             if (_enableTimeUpdates) WriteTime();
             if (_enableResourceUpdates) WriteResources(state);
             if (_enableVitalUpdates) WriteVitals(state);
             if (_enableToolbarUpdates) WriteToolbar(state);
+        }
+
+        // ------------------------------------------------------------------ wind indicator
+
+        private Label _windSpeedLabel;
+        private Label _windDirLabel;
+        private WindArrowElement _windArrow;
+        private int _windShownMph = -1;
+        private string _windShownDir;
+        private Camera _windCam;
+        private static readonly string[] CompassPoints = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
+
+        /// <summary>Wind arrow (points where the wind blows, relative to the screen so it matches the grass and the rain),
+        /// speed in mph and the compass point the wind comes FROM, like a forecast.</summary>
+        private void UpdateWindIndicator()
+        {
+            if (_windArrow == null) return;
+            var weather = WeatherEffectsManager.Instance;
+            if (weather == null) return;
+
+            float mps = weather.WindSpeedMps;
+            int mph = Mathf.RoundToInt(mps * 2.23694f);
+            bool calm = mph < 1;
+
+            if (_windCam == null) _windCam = Camera.main;
+            float yaw = _windCam != null ? _windCam.transform.eulerAngles.y : 0f;
+
+            // Heading the wind blows toward, clockwise from +Z (north); then relative to where the camera looks.
+            Vector2 dir = weather.WindDirection;
+            float heading = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+            _windArrow.style.rotate = new Rotate(new Angle(heading - yaw, AngleUnit.Degree));
+            _windArrow.SetStrength(calm ? 0f : Mathf.Clamp01(mps / Mathf.Max(1f, weather.WindStormSpeedMps)) * 0.8f + 0.2f);
+
+            float from = Mathf.Repeat(heading + 180f, 360f);
+            string point = CompassPoints[Mathf.RoundToInt(from / 45f) % 8];
+            string dirText = calm ? "" : "from " + point;
+            if (mph == _windShownMph && dirText == _windShownDir) return;
+            _windShownMph = mph;
+            _windShownDir = dirText;
+            if (_windSpeedLabel != null) _windSpeedLabel.text = calm ? "Calm" : mph + " mph";
+            if (_windDirLabel != null) _windDirLabel.text = dirText;
         }
 
         private void WriteTime()
@@ -1517,6 +1605,23 @@ namespace Homesteader.UI
 
         private void WriteToolbar(HudState s)
         {
+            if (_activeItemHint != null)
+            {
+                string hint = "";
+                if (s.SelectedSlot >= 0 && s.SelectedSlot < s.Toolbar.Count)
+                {
+                    var active = s.Toolbar[s.SelectedSlot];
+                    if (active.Count > 0 && !string.IsNullOrEmpty(active.IconId))
+                    {
+                        hint = GetItemName(active.IconId);
+                        if (ContainerRules.IsContainer(active.IconId))
+                            hint += $"  ({ContainerRules.Used(active.Contents):0.0} / {ContainerRules.Capacity(active.IconId):0.0} kg)";
+                    }
+                }
+                _activeItemHint.text = hint;
+                _activeItemHint.style.display = hint.Length > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            }
+
             for (int i = 0; i < _toolbarSlots.Length; i++)
             {
                 var slot = _toolbarSlots[i];
@@ -1561,6 +1666,15 @@ namespace Homesteader.UI
             }
         }
 
+        /// <summary>The Delete key: removes whatever is in the active toolbar slot.</summary>
+        private void DeleteSelectedSlotItems()
+        {
+            ToolbarSlotData? removed = HudState.Active.ClearSelectedSlot();
+            if (removed == null) return;
+            RefreshToolbar();
+            ToastNotificationSystem.ShowInfo("Removed", GetItemName(removed.Value.IconId) + (removed.Value.Count > 1 ? " x" + removed.Value.Count : "") + " removed from the toolbar.");
+        }
+
         public void RefreshToolbar()
         {
             WriteToolbar(HudState.Active);
@@ -1594,5 +1708,12 @@ namespace Homesteader.UI
         public string description;
         public string icon;
         public int max_stack;
+        public float weight_kg;
+        public float container_capacity_kg;        // > 0: this item is a container (see Containers.cs)
+        public int container_stacking_limit;       // identical placed containers stack this high in the world (1 / 0 = they do not)
+        public List<string> fruiting_tools;        // the 'fruiting' add-on schema: what picks it (tools / #tags), what one fruit gives, days to regrow
+        public List<string> fruiting_drops;
+        public float fruiting_regrow_days;
+        public List<string> container_accepts;     // categories, #tags or item ids it accepts; empty = anything
     }
 }

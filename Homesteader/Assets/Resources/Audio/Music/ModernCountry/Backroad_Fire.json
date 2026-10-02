@@ -1,0 +1,14 @@
+{
+  "file": "01_Backroad_Fire.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 60 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 60 seconds, not cut off mid-song. Modern country rock anthem, 110 BPM, twangy electric guitar riffs, steady acoustic rhythm guitar, live drums with strong backbeat, warm bass, banjo accents, energetic feel-good stadium country mood, instrumental only, big singalong chorus section",
+  "requested_prompt": "Modern country rock anthem, 110 BPM, twangy electric guitar riffs, steady acoustic rhythm guitar, live drums with strong backbeat, warm bass, banjo accents, energetic feel-good stadium country mood, instrumental only, big singalong chorus section",
+  "requested_duration_seconds": 60,
+  "generated_at": "2026-10-01T04:09:02.482Z",
+  "downloaded_via": "download button (button[aria-label*=\"Download\" i])",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\01_Backroad_Fire.mp4",
+  "bytes": 2082094,
+  "sha256": "592514b71ffc3eb7e88228187ddb4c4ab0b42203ff9d9489efd6b8fcf0592659",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

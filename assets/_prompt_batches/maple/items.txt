@@ -1,0 +1,6 @@
+@group tree_maple | Maple tree | a sugar maple tree with a grey-brown trunk and broad five-pointed lobed green leaves, growing in a small mound of brown soil | logging
+  sack | Sapling in burlap sack | a young maple sapling with a thin straight stem and a few small green leaves, its root ball wrapped in a tied brown burlap sack ready for planting | 10
+  sapling | Sapling | a bare young maple sapling with a thin straight stem, a few branches and a small scatter of green leaves | 16
+  small | Small | a small young maple tree with a slender trunk, a handful of branches and a sparse rounded crown of green leaves | 35
+  medium | Medium | a medium maple tree with a thicker trunk, spreading branches and a full rounded crown of green leaves | 65
+  mature | Mature | a large mature maple tree with a thick grey-brown trunk, heavy spreading branches and a huge dense rounded crown of green leaves | 100

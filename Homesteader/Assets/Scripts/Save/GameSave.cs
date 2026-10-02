@@ -43,8 +43,17 @@ namespace Homesteader.Save
         public List<SavedPlant> plants = new List<SavedPlant>();
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
+        public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
+        public List<Vector3> pickedBushes = new List<Vector3>();   // x, z, game day the berries are back, of berry bushes that were picked
+        public List<int> pickedBushMasks = new List<int>();        // per pickedBushes entry: which berries are gone (bit mask)
+        public List<int> pickedTreeMasks = new List<int>();   // per pickedTrees entry: which fruit is gone (bit mask; fruit is picked one at a time)
+        public List<Vector3> pickedTrees = new List<Vector3>();   // x, z, game day the fruit is back, of procedural fruit trees that were picked
+        public List<Vector2> fellTrees = new List<Vector2>();   // x, z of every procedural forest tree the player has chopped down
+        public bool miniPlayerOpen;     // the Steadify pop-out player: whether it is showing, and where on the screen
+        public float miniPlayerX = 40f, miniPlayerY = 90f;
+        public List<Vector2> deadTrees = new List<Vector2>();   // x, z of trees killed by lightning
 
-        [Serializable] public struct SavedSlot { public string iconId; public int count; }
+        [Serializable] public struct SavedSlot { public string iconId; public int count; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedVital { public int id; public int value; }
         [Serializable]
         public struct SavedResource
@@ -62,8 +71,10 @@ namespace Homesteader.Save
             public float yaw;
             public float ageDays;
             public int state;           // PlantedGrowth.PlantState
+            public int fruitGoneMask;       // which fruit of a planted fruit tree is picked (bit mask; 0 with fruitPickedUntil > 0 = an older save: all picked)
+            public float fruitPickedUntil;   // game day a picked fruit tree's fruit is back (0 = not picked)
         }
-        [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; }
+        [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; }
 
         // ------------------------------------------------------------------ file

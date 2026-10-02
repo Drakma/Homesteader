@@ -5,6 +5,16 @@
  * Toggled via Tab key with smooth translation animation.
  */
 
+/* The template container HudUI.uxml puts the phone in: a full-screen, click-through layer, so the phone's own
+   absolute positioning (right / top 50%) is measured against the screen exactly as before. */
+.phone-host {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
 /* Container anchored to the right-middle of the screen */
 .phone-wrapper {
     position: absolute;
@@ -211,7 +221,7 @@
     margin-bottom: 6px;
     border-width: 0;
     flex-shrink: 0;
-    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-scale-mode: scale-and-crop;
     background-color: rgba(18, 22, 29, 0);
 }
 
@@ -614,6 +624,342 @@
     white-space: normal;
 }
 
+/* =========================================================================
+   STEADIFY (MUSIC PLAYER) APP
+   ========================================================================= */
+
+.steadify-playlist-selector-row {
+   flex-direction: row;
+   align-items: center;
+   padding: 8px 12px;
+   margin-bottom: 4px;
+   flex-shrink: 0;
+}
+
+.steadify-shuffle-row {
+   flex-direction: row;
+   align-items: center;
+   margin: 0 12px 6px 12px;
+   flex-shrink: 0;
+}
+
+.steadify-popout-btn {
+   -unity-font: var(--font-bold);
+   width: 30px;
+   height: 30px;
+   margin: 0 0 0 8px;
+   padding: 0;
+   flex-shrink: 0;
+   font-size: 18px;
+   -unity-text-align: middle-center;
+   color: rgb(232, 236, 241);
+   background-color: rgb(43, 52, 66);
+   border-width: 0;
+   border-radius: 15px;
+}
+
+.steadify-popout-btn:hover {
+   background-color: rgb(56, 67, 84);
+}
+
+.steadify-shuffle-all-btn {
+   flex-grow: 1;
+   height: 30px;
+   margin: 0;
+   padding: 0;
+   flex-shrink: 0;
+   -unity-text-align: middle-center;
+   -unity-font-style: bold;
+   font-size: 13px;
+   color: rgb(255, 255, 255);
+   background-color: rgb(29, 185, 84);
+   border-width: 0;
+   border-radius: 15px;
+}
+
+.steadify-shuffle-all-btn:hover {
+   background-color: rgb(46, 214, 105);
+}
+
+.steadify-playlist-selector-label {
+   color: rgb(160, 170, 185);
+   font-size: 12px;
+   margin-right: 8px;
+   flex-shrink: 0;
+}
+
+.steadify-playlist-selector {
+   flex-grow: 1;
+   font-size: 12px;
+}
+
+/* The chosen playlist name inside the dropdown. */
+.steadify-playlist-selector .unity-base-popup-field__text,
+.steadify-playlist-selector .unity-popup-field__text {
+   color: rgb(255, 255, 255);
+}
+
+.steadify-now-playing-card {
+    background-color: rgb(26, 33, 43);
+    border-radius: 14px;
+    border-width: 1px;
+    border-color: rgb(43, 52, 66);
+    padding: 16px;
+    margin-bottom: 12px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.steadify-album-art {
+    width: 96px;
+    height: 96px;
+    border-radius: 14px;
+    background-color: rgb(43, 52, 66);
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    background-image: none;
+    -unity-background-image-tint-color: rgb(246, 157, 75);
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+}
+
+.steadify-album-art-glyph {
+    -unity-font: var(--font-bold);   /* the HUD font carries the media glyphs; without it Unity falls back to a system emoji font */
+    color: rgb(139, 150, 165);
+    font-size: 40px;
+    -unity-text-align: middle-center;
+}
+
+.steadify-track-title {
+    color: rgb(232, 236, 241);
+    font-size: 16px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.steadify-track-meta {
+    color: rgb(139, 150, 165);
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.steadify-seek-row {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+    min-height: 24px;
+}
+
+.steadify-time-label {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    width: 34px;
+    -unity-text-align: middle-center;
+}
+
+.steadify-seek-slider {
+    flex-grow: 1;
+    margin: 0 4px;
+}
+
+/* The runtime theme draws no slider parts by itself (the Settings sliders style their own tracker and dragger the
+   same way), so without these the seek bar and the volume slider were there but invisible. */
+.steadify-seek-slider,
+.steadify-volume-slider {
+    height: 22px;
+    min-height: 22px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    flex-shrink: 1;
+}
+
+/* The drag container is what gives a horizontal slider its height (see .admin-slider). */
+.steadify-seek-slider .unity-base-slider__drag-container,
+.steadify-volume-slider .unity-base-slider__drag-container {
+    height: 22px;
+    justify-content: center;
+}
+
+.steadify-seek-slider .unity-base-slider__tracker,
+.steadify-volume-slider .unity-base-slider__tracker {
+    height: 6px;
+    background-color: rgb(58, 70, 88);
+    border-radius: 3px;
+    border-width: 0;
+}
+
+.steadify-seek-slider .unity-base-slider__dragger,
+.steadify-volume-slider .unity-base-slider__dragger {
+    width: 14px;
+    height: 14px;
+    margin-top: -4px;
+    border-radius: 7px;
+    background-color: rgb(246, 157, 75);
+    border-width: 1px;
+    border-color: rgb(250, 190, 130);
+}
+
+.steadify-transport-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.steadify-transport-btn {
+    -unity-font: var(--font-bold);   /* the HUD font carries the media glyphs; without it Unity falls back to a system emoji font */
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgb(43, 52, 66);
+    border-width: 0;
+    font-size: 18px;
+    color: rgb(232, 236, 241);
+    margin: 0 6px;
+    -unity-text-align: middle-center;
+}
+
+.steadify-transport-btn:hover {
+    background-color: rgb(56, 67, 84);
+}
+
+.steadify-transport-btn--small {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    background-color: transparent;
+    color: rgb(139, 150, 165);
+}
+
+.steadify-transport-btn--small.steadify-transport-btn--active {
+    color: rgb(246, 157, 75);
+}
+
+.steadify-transport-btn--primary {
+    width: 52px;
+    height: 52px;
+    border-radius: 26px;
+    background-color: rgb(246, 157, 75);
+    color: rgb(26, 33, 43);
+    font-size: 24px;
+}
+
+.steadify-transport-btn--primary:hover {
+    background-color: rgb(250, 179, 112);
+}
+
+.steadify-volume-row {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 14px;
+    flex-shrink: 0;
+    min-height: 28px;
+}
+
+.steadify-volume-glyph {
+    -unity-font: var(--font-bold);   /* the HUD font carries the media glyphs; without it Unity falls back to a system emoji font */
+    font-size: 20px;
+    color: rgb(139, 150, 165);
+    min-width: 46px;
+    -unity-text-align: middle-left;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.steadify-volume-slider {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.steadify-volume-value {
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+    color: rgb(246, 175, 109);
+    min-width: 38px;
+    margin-left: 8px;
+    -unity-text-align: middle-right;
+    flex-shrink: 0;
+}
+
+.steadify-playlist-heading {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    -unity-font: var(--font-bold);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.steadify-track-row {
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(43, 52, 66);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.steadify-track-row--active {
+    border-width: 1px;
+    border-color: rgb(246, 157, 75);
+    background-color: rgba(246, 157, 75, 0.12);
+}
+
+.steadify-track-row-glyph {
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    flex-shrink: 0;
+    font-size: 15px;
+    width: 22px;
+    color: rgb(246, 157, 75);
+}
+
+.steadify-track-row-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(43, 52, 66);
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+}
+
+.steadify-track-row-glyph--overlay {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(26, 33, 43, 0.45);
+    -unity-text-align: middle-center;
+    border-radius: 8px;
+}
+
+.steadify-track-row-info {
+    flex-grow: 1;
+}
+
+.steadify-track-row-title {
+    color: rgb(232, 236, 241);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+}
+
+.steadify-track-row-sub {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    margin-top: 1px;
+}
+
 .store-checkout-bar {
     height: 56px;
     background-color: rgb(26, 33, 43);
@@ -775,7 +1121,6 @@
    ========================================================================= */
 
 .app-icon-admin {
-    background-color: rgb(178, 29, 34);
     border-color: rgb(224, 66, 71);
 }
 
@@ -1335,7 +1680,10 @@
 
 /* Mods App Styles */
 .app-icon-mods {
-    background-color: rgb(75, 45, 120);
+}
+
+/* Steadify App Styles */
+.app-icon-steadify {
 }
 
 .mods-search-row {
@@ -1610,6 +1958,10 @@
 .app-icon-voltvision        { background-image: resource("HUDTree/PhoneIcons/app_voltvision"); }
 .app-icon-trailer-shack     { background-image: resource("HUDTree/PhoneIcons/app_trailer_shack"); }
 .app-icon-gigs              { background-image: resource("HUDTree/PhoneIcons/app_gigs"); }
+.app-icon-land-office       { background-image: resource("HUDTree/PhoneIcons/app_land_office"); }
+.app-icon-steadify          { background-image: resource("HUDTree/PhoneIcons/app_steadify"); }
+.app-icon-mods              { background-image: resource("HUDTree/PhoneIcons/app_mods"); }
+.app-icon-admin             { background-image: resource("HUDTree/PhoneIcons/app_admin"); }
 
 /* Additional Store Banners */
 .store-banner-lumber        { background-color: rgb(110, 65, 30); }
@@ -1703,3 +2055,301 @@
 }
 
 
+
+/* ============================================== */
+/* STEADIFY MINI PLAYER (pop-out window)           */
+/* ============================================== */
+.steadify-mini {
+    width: 320px;
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    border-top-color: rgb(224, 138, 60);
+}
+
+.steadify-mini-header {
+    flex-direction: row;
+    align-items: center;
+    height: 18px;
+    padding: 0 2px 0 8px;
+    background-color: rgb(34, 43, 56);
+}
+
+.steadify-mini-header-title {
+    -unity-font: var(--font-bold);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgb(246, 157, 75);
+    flex-grow: 1;
+}
+
+.steadify-mini-shuffleall {
+    -unity-font: var(--font-bold);
+    height: 14px;
+    margin: 0 4px 0 0;
+    padding: 0 6px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    color: rgb(26, 33, 43);
+    background-color: rgb(246, 157, 75);
+    border-width: 0;
+    border-radius: 7px;
+}
+
+.steadify-mini-shuffleall:hover {
+    background-color: rgb(250, 179, 112);
+}
+
+.steadify-mini-close {
+    -unity-font: var(--font-bold);
+    width: 18px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    -unity-text-align: middle-center;
+    color: rgb(139, 150, 165);
+    background-color: transparent;
+    border-width: 0;
+}
+
+.steadify-mini-close:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(170, 60, 50);
+}
+
+/* The art fills the whole left side; the text and controls stack to its right. */
+.steadify-mini-body {
+    flex-direction: row;
+    padding: 6px;
+}
+
+.steadify-mini-art {
+    width: 62px;
+    height: 62px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background-color: rgb(43, 52, 66);
+    justify-content: center;
+    align-items: center;
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+}
+
+.steadify-mini-art-glyph {
+    font-size: 28px;
+}
+
+.steadify-mini-mid {
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: space-between;
+    margin-left: 8px;
+    overflow: hidden;
+}
+
+.steadify-mini-meta {
+    color: rgb(139, 150, 165);
+    font-size: 13px;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.steadify-mini-songbox {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.steadify-mini-title {
+    -unity-font: var(--font-bold);
+    color: rgb(232, 236, 241);
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.steadify-mini-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.steadify-mini-time {
+    color: rgb(139, 150, 165);
+    font-size: 10px;
+    width: 36px;
+    -unity-text-align: middle-left;
+}
+
+/* Glyph-only buttons: grey at rest, white on hover, orange while on. */
+.steadify-mini-btn {
+    -unity-font: var(--font-bold);
+    width: 24px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    -unity-text-align: middle-center;
+    color: rgb(120, 132, 148);
+    background-color: transparent;
+    border-width: 0;
+}
+
+.steadify-mini-btn:hover {
+    color: rgb(255, 255, 255);
+}
+
+.steadify-mini-btn--on,
+.steadify-mini-btn--on:hover {
+    color: rgb(246, 157, 75);
+}
+
+/* The vertical volume slider on the right. The runtime theme draws no slider parts, so the drag area, the track and the handle are all
+   given explicit sizes and positions (a vertical slider needs a height on the drag container or there is nothing to drag). */
+.steadify-mini-volume {
+    width: 18px;
+    height: 62px;
+    min-width: 18px;
+    min-height: 62px;
+    margin: 0 0 0 6px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.steadify-mini-volume .unity-base-slider__drag-container {
+    width: 18px;
+    height: 62px;
+    flex-grow: 0;
+}
+
+.steadify-mini-volume .unity-base-slider__tracker {
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: rgb(58, 70, 88);
+    border-radius: 2px;
+    border-width: 0;
+}
+
+.steadify-mini-volume .unity-base-slider__dragger {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 2px;
+    border-radius: 7px;
+    background-color: rgb(246, 157, 75);
+    border-width: 1px;
+    border-color: rgb(250, 190, 130);
+}
+
+/* ============================================== */
+/* CONTAINER CONTENTS WINDOW (the C key)           */
+/* ============================================== */
+.container-panel {
+    width: 300px;
+    background-color: rgb(26, 33, 43);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    border-top-color: rgb(224, 138, 60);
+}
+
+.container-panel-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 22px;
+    padding: 0 2px 0 10px;
+    background-color: rgb(34, 43, 56);
+}
+
+.container-panel-title {
+    -unity-font: var(--font-bold);
+    font-size: 12px;
+    color: rgb(246, 157, 75);
+}
+
+.container-panel-body {
+    padding: 8px 10px 10px 10px;
+}
+
+.container-panel-capacity {
+    color: rgb(232, 236, 241);
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.container-panel-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgb(43, 52, 66);
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.container-panel-bar-fill {
+    height: 8px;
+    background-color: rgb(110, 190, 90);
+}
+
+.container-panel-bar-fill--full {
+    background-color: rgb(224, 138, 60);
+}
+
+.container-panel-heading {
+    -unity-font: var(--font-bold);
+    color: rgb(139, 150, 165);
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin: 6px 0 3px 0;
+}
+
+.container-panel-hint {
+    color: rgb(139, 150, 165);
+    font-size: 11px;
+    white-space: normal;
+}
+
+.container-panel-row {
+    flex-direction: row;
+    align-items: center;
+    height: 28px;
+}
+
+.container-panel-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-right: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.container-panel-row-name {
+    flex-grow: 1;
+    color: rgb(232, 236, 241);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container-panel-btn {
+    -unity-font: var(--font-bold);
+    height: 20px;
+    margin: 0 0 0 6px;
+    padding: 0 8px;
+    font-size: 10px;
+    -unity-text-align: middle-center;
+    color: rgb(26, 33, 43);
+    background-color: rgb(246, 157, 75);
+    border-width: 0;
+    border-radius: 10px;
+}
+
+.container-panel-btn:hover {
+    background-color: rgb(250, 179, 112);
+}

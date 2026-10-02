@@ -47,20 +47,117 @@
 
     <!-- Settings dialog (modal overlay, hidden by default) -->
     <ui:VisualElement name="SettingsDialog" class="settings-dialog settings--hidden">
-        <ui:VisualElement class="settings-card">
+        <ui:VisualElement class="settings-card settings-card--wide">
             <ui:Label text="SETTINGS" class="settings-title" />
 
-            <!-- Zoom Max Level row -->
-            <ui:VisualElement class="settings-row">
-                <ui:Label text="Zoom Max Level" class="settings-label" />
-                <ui:VisualElement class="settings-controls">
-                    <ui:IntegerField name="ZoomMaxLevel" value="15" class="settings-field" />
-                    <ui:Toggle name="ZoomLockToggle" label="Lock" class="settings-toggle" />
+            <ui:VisualElement class="settings-body">
+                <!-- Category navigation (SettingsDialogController switches the pages) -->
+                <ui:VisualElement name="SettingsNav" class="settings-nav">
+                    <ui:Button name="SettingsNavGeneral" text="General" class="settings-nav-btn settings-nav-btn--active" />
+                    <ui:Button name="SettingsNavGraphics" text="Graphics" class="settings-nav-btn" />
+                    <ui:Button name="SettingsNavAudio" text="Audio" class="settings-nav-btn" />
+                    <ui:Button name="SettingsNavControls" text="Controls" class="settings-nav-btn" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="settings-pages">
+
+                    <!-- GENERAL -->
+                    <ui:ScrollView name="SettingsPageGeneral" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page">
+                        <ui:Label text="Camera" class="settings-section-title" />
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Zoom Max Level" class="settings-label" />
+                            <ui:VisualElement class="settings-controls">
+                                <ui:IntegerField name="ZoomMaxLevel" value="15" class="settings-field" />
+                                <ui:Toggle name="ZoomLockToggle" label="Lock" class="settings-toggle" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label name="ZoomHint" text="Uncheck Lock for no zoom limit." class="settings-hint" />
+
+                        <ui:Label text="Defaults" class="settings-section-title" />
+                        <ui:Label text="Puts colour, audio, controls and zoom back to how the game shipped. Display options (quality, fullscreen, v-sync) are left as they are." class="settings-hint" />
+                        <ui:Button name="SettingsResetAllBtn" text="Reset All Settings" class="welcome-btn settings-action-btn" />
+                    </ui:ScrollView>
+
+                    <!-- GRAPHICS -->
+                    <ui:ScrollView name="SettingsPageGraphics" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page settings-page--hidden">
+                        <ui:Label text="Quality" class="settings-section-title" />
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Preset" class="settings-label" tooltip="Auto picks the best preset for this computer." />
+                            <ui:DropdownField name="GfxPresetDropdown" class="settings-dropdown" />
+                        </ui:VisualElement>
+                        <ui:Label name="GfxPresetDetected" text="" class="settings-hint" />
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Water Reflections" class="settings-label" tooltip="The sky reflected in water. Costs very little." />
+                            <ui:Toggle name="GfxWaterReflectionsToggle" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Shadows" class="settings-label" tooltip="The sun's shadows. Off is the biggest fps gain." />
+                            <ui:Toggle name="GfxShadowsToggle" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Cloud Shadows" class="settings-label" tooltip="Soft shadows of drifting clouds across the land." />
+                            <ui:Toggle name="GfxCloudShadowsToggle" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Wind Animation" class="settings-label" tooltip="Trees, bushes and grass sway in the wind." />
+                            <ui:Toggle name="GfxWindAnimationToggle" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Anti-Aliasing" class="settings-label" tooltip="Smooths jagged edges. FXAA/SMAA are cheap, MSAA costs more." />
+                            <ui:DropdownField name="GfxAntiAliasingDropdown" class="settings-dropdown" />
+                        </ui:VisualElement>
+
+                        <ui:Label text="Display" class="settings-section-title" />
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Display Mode" class="settings-label" tooltip="Fullscreen, Borderless Windowed or Windowed." />
+                            <ui:DropdownField name="GfxDisplayModeDropdown" class="settings-dropdown" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Resolution" class="settings-label" tooltip="The size of the game window or screen." />
+                            <ui:DropdownField name="GfxResolutionDropdown" class="settings-dropdown" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="V-Sync" class="settings-label" tooltip="Match the monitor's refresh rate." />
+                            <ui:Toggle name="VsyncToggle" class="settings-toggle" />
+                        </ui:VisualElement>
+
+                        <ui:Label text="Interface" class="settings-section-title" />
+                        <ui:Slider name="GfxHudScaleSlider" label="HUD Scale (%)" low-value="50" high-value="300" value="100" show-input-field="true" class="window-slider" />
+                        <ui:Button name="GfxHudScaleResetBtn" text="Reset HUD Scale" class="welcome-btn settings-action-btn" />
+
+                        <ui:Label text="Colour" class="settings-section-title" />
+                        <ui:Slider name="GfxSaturationSlider" label="Saturation" low-value="-100" high-value="100" value="35" class="window-slider" />
+                        <ui:Slider name="GfxContrastSlider" label="Contrast" low-value="-100" high-value="100" value="10" class="window-slider" />
+                        <ui:Slider name="GfxBrightnessSlider" label="Brightness" low-value="-2" high-value="2" value="0.2" class="window-slider" />
+                        <ui:Button name="GfxResetBtn" text="Reset Colour" class="welcome-btn settings-action-btn" />
+                    </ui:ScrollView>
+
+                    <!-- AUDIO -->
+                    <ui:ScrollView name="SettingsPageAudio" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page settings-page--hidden">
+                        <ui:Label text="Volume" class="settings-section-title" />
+                        <ui:Slider name="AudioMasterSlider" label="Master Volume" low-value="0" high-value="100" value="80" class="window-slider" />
+                        <ui:Slider name="AudioMusicSlider" label="Music &amp; Ambience" low-value="0" high-value="100" value="65" class="window-slider" />
+                        <ui:Slider name="AudioSfxSlider" label="Sound Effects" low-value="0" high-value="100" value="80" class="window-slider" />
+                        <ui:Label text="Wind and rain follow the weather and use the Sound Effects level." class="settings-hint" />
+
+                        <ui:Label text="Music Credits" class="settings-section-title" />
+                        <ui:Label text="&quot;Apple Cider&quot; by Zane Little Music and &quot;Fields of Cabbage&quot; by ARoachIFoundOnMyPillow (both CC0, via OpenGameArt.org)." class="settings-hint" />
+                        <ui:Label text="&quot;Casual game track&quot; by Alexandr Zhelanov (soundcloud.com/alexandr-zhelanov), licensed under CC-BY 3.0." class="settings-hint" />
+                      </ui:ScrollView>
+
+                    <!-- CONTROLS (rows are built in code from KeyBindings) -->
+                    <ui:ScrollView name="SettingsPageControls" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page settings-page--hidden">
+                        <ui:Label name="ControlsHint" text="Click a key, then press the new one. Esc cancels." class="settings-hint" />
+                        <ui:VisualElement name="ControlsList" />
+                        <ui:Button name="ControlsResetBtn" text="Reset Controls" class="welcome-btn settings-action-btn" />
+                    </ui:ScrollView>
+
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label name="ZoomHint" text="Uncheck Lock for no zoom limit." class="settings-hint" />
 
-            <ui:Button name="SettingsCloseBtn" text="Close" class="welcome-btn welcome-btn--primary settings-close-btn" />
+            <ui:VisualElement class="settings-footer">
+                <ui:Button name="SettingsCloseBtn" text="Close" class="welcome-btn welcome-btn--primary settings-footer-btn" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 

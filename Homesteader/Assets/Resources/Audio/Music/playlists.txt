@@ -1,0 +1,8 @@
+LoFiBeats
+LoFiMeadow
+LoFiHarvest
+LoFiNeon
+ModernPop
+ModernCountry
+SmoothJazz
+ClassicRock

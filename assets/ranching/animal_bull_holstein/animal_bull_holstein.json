@@ -3,7 +3,7 @@
   "id": "animal_bull_holstein",
   "name": "Holstein Bull",
   "category": "ranching",
-  "description": "An adult Holstein bull with a black and white patched coat, thick muscular neck, dewlap and short curved horns.",
+  "description": "An adult Holstein bull with a black and white patched coat, thick muscular neck, dewlap and short curved horns. Contact sheet generated via Gemini (gemini.google.com), cropped to one animal, then used as the reference image for Meshy AI image-to-3D (smart-topology model meshy-t2, textured).",
   "icon": "animal_bull_holstein.png",
   "properties": {
     "weight_kg": 1.0,
@@ -22,7 +22,14 @@
   "models": [
     {
       "file": "animal_bull_holstein.glb",
-      "format": "glb"
+      "format": "glb",
+      "dimensions_m": { "x": 0.8041, "y": 1.65, "z": 2.6922 },
+      "vertices": 3629,
+      "faces": 4206,
+      "bounding_box": {
+        "min": [-0.402, 0.0, -1.3461],
+        "max": [0.402, 1.65, 1.3461]
+      }
     }
   ],
   "utilities": {
@@ -53,6 +60,6 @@
     "gender": "male",
     "temperament": "aggressive",
     "same_sex_aggression": true,
-    "dimensions_m": { "width": 2.7077, "depth": 0.8779, "height": 1.65 }
+    "dimensions_m": { "width": 0.8041, "depth": 2.6922, "height": 1.65 }
   }
 }

@@ -1,0 +1,32 @@
+{
+  "id": "biome_sand",
+  "name": "Sand",
+  "priority": 5,
+  "description": "Pale sand: stretches of the shoreline and a few small, irregular sand pits.",
+  "color_hex": "#d9c58c",
+  "moisture": 0.2,
+  "nutrients": 0.05,
+  "noise": {
+    "frequency": 0.05,
+    "octaves": 2,
+    "persistence": 0.5,
+    "threshold": 0.55,
+    "dither_bandwidth": 0.04
+  },
+  "elevation": {
+    "base_offset_m": 0.1,
+    "noise_amplitude_m": 0.4,
+    "noise_frequency": 0.03,
+    "max_slope_deg": 10.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#d1b97a",
+    "secondary_color_hex": "#e6d6a0",
+    "slope_color_hex": "#a89870",
+    "pattern_scale": 0.9,
+    "pattern_intensity": 0.3,
+    "normal_micro_roughness": 0.1
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

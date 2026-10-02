@@ -1,0 +1,32 @@
+{
+  "id": "biome_willow_grove",
+  "name": "Willow Grove",
+  "priority": 5,
+  "description": "Damp, lush ground along the water under weeping willows: soft yellow-green grass, shaded hollows and drifts of fallen willow leaves.",
+  "color_hex": "#9cc04a",
+  "moisture": 0.8,
+  "nutrients": 0.65,
+  "noise": {
+    "frequency": 0.016,
+    "octaves": 2,
+    "persistence": 0.5,
+    "threshold": 0.5,
+    "dither_bandwidth": 0.05
+  },
+  "elevation": {
+    "base_offset_m": 0.2,
+    "noise_amplitude_m": 1.2,
+    "noise_frequency": 0.016,
+    "max_slope_deg": 14.0
+  },
+  "generative_ground": {
+    "shader_mode": "standard_dither",
+    "primary_color_hex": "#6a9a2e",
+    "secondary_color_hex": "#a9c85a",
+    "slope_color_hex": "#a8a29e",
+    "pattern_scale": 1.3,
+    "pattern_intensity": 0.55,
+    "normal_micro_roughness": 0.25
+  },
+  "$schema": "https://homesteader.game/schemas/biome.schema.json"
+}

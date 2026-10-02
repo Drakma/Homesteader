@@ -3,7 +3,7 @@
   "id": "animal_calf_holstein_cow",
   "name": "Holstein Cow Calf",
   "category": "ranching",
-  "description": "A Holstein cattle calf, the baby stage of the Holstein-breed cow. Icon generated via Creative Claw as part of a batched contact sheet, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "description": "A Holstein cattle calf, the baby stage of the Holstein-breed cow. Contact sheet generated via Gemini (gemini.google.com), cropped to one animal, then used as the reference image for Meshy AI image-to-3D (smart-topology model meshy-t2, textured).",
   "icon": "animal_calf_holstein_cow.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,8 +19,15 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Cow_Holstein_Calf.fbx",
-      "format": "fbx"
+      "file": "SM_Animal_Cow_Holstein_Calf.glb",
+      "format": "glb",
+      "dimensions_m": { "x": 0.5938, "y": 0.9, "z": 1.3943 },
+      "vertices": 3886,
+      "faces": 4272,
+      "bounding_box": {
+        "min": [-0.2969, 0.0, -0.6972],
+        "max": [0.2969, 0.9, 0.6972]
+      }
     }
   ],
   "utilities": {
@@ -57,9 +64,9 @@
     "temperament": "passive",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 0.45,
-      "depth": 1.1,
-      "height": 0.8
+      "width": 0.5938,
+      "depth": 1.3943,
+      "height": 0.9
     }
   }
 }

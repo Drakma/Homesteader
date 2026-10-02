@@ -23,6 +23,7 @@ namespace Homesteader.DebugTools
         private Label _zoomLabel;
         private Label _gridLabel;
         private Label _ramLabel;
+        private Label _vramLabel;
         private Label _drawLabel;
         private Label _trisLabel;
         private Label _screenLabel;
@@ -96,6 +97,7 @@ namespace Homesteader.DebugTools
             _zoomLabel   = root.Q<Label>("StatsZoomLabel");
             _gridLabel   = root.Q<Label>("StatsGridLabel");
             _ramLabel    = root.Q<Label>("StatsRamLabel");
+            _vramLabel   = root.Q<Label>("StatsVramLabel");
             _drawLabel   = root.Q<Label>("StatsDrawLabel");
             _trisLabel   = root.Q<Label>("StatsTrisLabel");
             _screenLabel = root.Q<Label>("StatsScreenLabel");
@@ -151,6 +153,12 @@ namespace Homesteader.DebugTools
             long unityMem = UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong();
             string unityReserved = unityMem > 0 ? FormatBytes(unityMem) : "";
             if (_ramLabel != null) _ramLabel.text = $"RAM  {ramStr}" + (string.IsNullOrEmpty(unityReserved) ? "" : $"  (Unity {unityReserved})");
+
+            // VRAM — driver-reported graphics memory (textures, meshes, render targets). Editor-only APIs report
+            // 0 in some configurations; fall back to "N/A" rather than showing a misleading zero.
+            long vramBytes = UnityEngine.Profiling.Profiler.GetAllocatedMemoryForGraphicsDriver();
+            if (_vramLabel != null)
+                _vramLabel.text = vramBytes > 0 ? $"VRAM  {FormatBytes(vramBytes)}" : "VRAM  N/A";
 
             // Render stats
             int drawCalls = GetRenderStat("drawCalls");

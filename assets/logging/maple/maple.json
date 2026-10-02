@@ -52,8 +52,22 @@
       }
     ],
     "rules": {
+      "yield": {
+        "item_id": "mat_log_maple",
+        "amount_min": 3,
+        "amount_max": 4,
+        "harvest_stage": 4,
+        "tool": "#tool_axe"
+      },
       "planting": {
         "item_id": "plantable_maple_sapling"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_maple.glb",
+          "icon": "tree_dead_maple.png"
+        }
       }
     }
   },

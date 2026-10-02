@@ -35,7 +35,11 @@ namespace Homesteader.Growth
         private static void Bootstrap()
         {
             if (FindAnyObjectByType<PlacementController>() != null) return;
-            new GameObject("PlacementController").AddComponent<PlacementController>();
+            // Survives the scene reload New Game / Continue does: [RuntimeInitializeOnLoadMethod(AfterSceneLoad)] runs
+            // only once at startup, so a controller that is not persistent is gone after the first reload and never comes back.
+            var go = new GameObject("PlacementController");
+            DontDestroyOnLoad(go);
+            go.AddComponent<PlacementController>();
         }
 
         private void Update()
@@ -56,6 +60,9 @@ namespace Homesteader.Growth
             if (!TryCursorPoint(cam, pointer, out Vector3 hitPoint)) { HideGhost(); return; }
             Vector3 cell = PlantingValidator.SnapToGrid(hitPoint);
             cell.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(cell);
+            // Stackable containers: an identical container already standing here is built on, not refused.
+            PlacedObject below = PlacedObject.At(cell);
+            if (below != null && CanStack(below, heldId)) cell.y = below.transform.position.y + below.Height;
 
             if (!EnsureGhost(heldId, info)) return;   // model still loading
 
@@ -80,10 +87,14 @@ namespace Homesteader.Growth
         private void Place(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, Quaternion rotation)
         {
             HudState state = HudState.Active;
+            // A container keeps what is in it when it is put down.
+            List<ContainerStack> contents = state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count ? state.Toolbar[state.SelectedSlot].Contents : null;
+            PlacedObject below = PlacedObject.At(cell);
+            int level = below != null && CanStack(below, itemId) ? below.Level + 1 : 0;
             if (!state.ConsumeFromSelectedSlot(1)) return;
             HudBindings.Instance.RefreshToolbar();
 
-            SpawnPlaced(itemId, info, cell, rotationSteps * GameRules.Placement.RotateStepDeg, true);
+            SpawnPlaced(itemId, info, cell, rotationSteps * GameRules.Placement.RotateStepDeg, true, level, contents);
         }
 
         private static Transform s_placedRoot;
@@ -92,16 +103,17 @@ namespace Homesteader.Growth
         /// Creates a placed object from a loaded model template. fade = true starts as the translucent shadow and
         /// fades to solid (a fresh placement); false is a solid object at once (restoring a save).
         /// </summary>
-        public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade)
+        public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade, int level = 0, List<ContainerStack> contents = null)
         {
             if (s_placedRoot == null) s_placedRoot = new GameObject("PlacedObjects").transform;
-            // Snap to the terrain surface (just above, not 3 m above).
-            cell = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(cell);
+            // Snap to the terrain surface (just above, not 3 m above); a container stacked on another keeps the height it was given.
+            if (level <= 0) cell = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(cell);
             GameObject obj = Instantiate(info.Prefab, s_placedRoot);
             obj.SetActive(true);                       // templates live inactive
             obj.transform.SetPositionAndRotation(cell, Quaternion.Euler(0f, yawDeg, 0f));
             var placed = obj.AddComponent<PlacedObject>();
-            placed.Init(itemId, cell, yawDeg);
+            placed.Init(itemId, cell, yawDeg, level);
+            if (contents != null) placed.Contents = new List<ContainerStack>(contents);
             LightEmitter.Attach(obj, itemId, info.Lights);   // its lights come on with the game clock
             if (fade)
             {
@@ -109,6 +121,29 @@ namespace Homesteader.Growth
                 placed.StartCoroutine(placed.FadeToSolid(ValidTint, GhostAlpha, 0.4f));
             }
             return placed;
+        }
+
+        /// <summary>An identical stackable container can be put on top of this one while the stack is under its limit.</summary>
+        public static bool CanStack(PlacedObject below, string itemId)
+        {
+            return below != null && !string.IsNullOrEmpty(itemId) && below.ItemId == itemId && ContainerRules.StackingLimit(itemId) > below.Level + 1;
+        }
+
+        /// <summary>The placed object under the mouse pointer (a direct hit on its collider), or null.</summary>
+        public static PlacedObject PlacedUnderCursor()
+        {
+            Camera cam = GameCamera();
+            if (cam == null) return null;
+            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(PointerPosition()), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                PlacedObject p = h.collider.GetComponentInParent<PlacedObject>();
+                if (p != null) return p;
+                return null;   // something else is in front
+            }
+            return null;
         }
 
         private bool Validate(Vector3 cell, Transform player, out string reason)
@@ -129,9 +164,10 @@ namespace Homesteader.Growth
                 reason = "The ground is too steep here.";
                 return false;
             }
-            if (PlacedObject.At(cell) != null)
+            PlacedObject here = PlacedObject.At(cell);
+            if (here != null && !CanStack(here, HeldItemId()))
             {
-                reason = "Something is already placed in that square.";
+                reason = here.ItemId == HeldItemId() && ContainerRules.StackingLimit(here.ItemId) > 1 ? "That stack is as high as it goes." : "Something is already placed in that square.";
                 return false;
             }
             foreach (PlantedGrowth p in PlantedGrowth.All)
@@ -202,7 +238,8 @@ namespace Homesteader.Growth
         {
             if (string.IsNullOrEmpty(itemId)) return false;
             if (!ItemRegistry.TryGet(itemId, out ItemRegistry.ItemInfo info)) return false;
-            if (!GameRules.Placement.Categories.Contains(info.Category ?? "")) return false;
+            // Stackable containers (boxes) can be put down in the world whatever their category; other items follow the placement rules.
+            if (!GameRules.Placement.Categories.Contains(info.Category ?? "") && ContainerRules.StackingLimit(itemId) <= 1) return false;
             return !GrowthRegistry.TryGetGroupPlantedBy(itemId, out _);
         }
 
@@ -216,7 +253,7 @@ namespace Homesteader.Growth
         private static bool TryCursorPoint(Camera cam, Vector2 screenPos, out Vector3 point)
         {
             point = default;
-            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(screenPos), 1000f, ~0, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(screenPos), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
             System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
             foreach (RaycastHit h in hits)
             {
@@ -279,7 +316,7 @@ namespace Homesteader.Growth
 #if ENABLE_INPUT_SYSTEM
             Keyboard kb = Keyboard.current;
             reverse = kb != null && kb.shiftKey.isPressed;
-            return kb != null && kb.rKey.wasPressedThisFrame;
+            return Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.PlaceRotate);
 #else
             reverse = Input.GetKey(KeyCode.LeftShift);
             return Input.GetKeyDown(KeyCode.R);
@@ -290,37 +327,67 @@ namespace Homesteader.Growth
     /// <summary>A structure or prop the player placed. Permanent: it stays until something calls <see cref="Remove"/>.</summary>
     public sealed class PlacedObject : MonoBehaviour
     {
-        private static readonly Dictionary<Vector2Int, PlacedObject> cells = new Dictionary<Vector2Int, PlacedObject>();
-        public static IEnumerable<PlacedObject> All => cells.Values;
+        // Each grid square holds a stack of placed objects, bottom first (one object unless it is a stackable container).
+        private static readonly Dictionary<Vector2Int, List<PlacedObject>> stacks = new Dictionary<Vector2Int, List<PlacedObject>>();
+        public static IEnumerable<PlacedObject> All
+        {
+            get
+            {
+                var all = new List<PlacedObject>();
+                foreach (List<PlacedObject> l in stacks.Values) all.AddRange(l);
+                return all;
+            }
+        }
 
         public string ItemId { get; private set; }
         public float YawDeg { get; private set; }
+        public int Level { get; private set; }         // 0 = on the ground, 1 = on top of one box, ...
+        public float Height { get; private set; }      // the model's height in metres (what the next one in a stack sits on)
+        public List<ContainerStack> Contents = new List<ContainerStack>();   // what a placed container holds
         private Vector2Int cell;
 
-        public void Init(string itemId, Vector3 position, float yawDeg)
+        public bool IsTopOfStack => stacks.TryGetValue(cell, out List<PlacedObject> l) && l.Count > 0 && l[l.Count - 1] == this;
+
+        public void Init(string itemId, Vector3 position, float yawDeg, int level = 0)
         {
             ItemId = itemId;
             YawDeg = yawDeg;
+            Level = level;
             cell = CellOf(position);
-            cells[cell] = this;
+            if (!stacks.TryGetValue(cell, out List<PlacedObject> list)) { list = new List<PlacedObject>(); stacks[cell] = list; }
+            list.Add(this);
+            list.Sort((a, b) => a.Level.CompareTo(b.Level));
+
+            var renderers = GetComponentsInChildren<Renderer>();
+            if (renderers.Length > 0)
+            {
+                Bounds b = renderers[0].bounds;
+                for (int i = 1; i < renderers.Length; i++) b.Encapsulate(renderers[i].bounds);
+                Height = b.size.y;
+            }
         }
 
-        /// <summary>The placed object standing in the grid square containing the point, if any.</summary>
+        /// <summary>The placed object on top of the stack in the grid square containing the point, if any.</summary>
         public static PlacedObject At(Vector3 point)
         {
-            return cells.TryGetValue(CellOf(point), out PlacedObject p) && p != null ? p : null;
+            return stacks.TryGetValue(CellOf(point), out List<PlacedObject> l) && l.Count > 0 && l[l.Count - 1] != null ? l[l.Count - 1] : null;
         }
 
         /// <summary>Takes it out of the world and frees its square (call from a demolish tool / any gameplay rule).</summary>
         public void Remove()
         {
-            if (cells.TryGetValue(cell, out PlacedObject p) && p == this) cells.Remove(cell);
+            Unregister();
             Destroy(gameObject);
         }
 
-        private void OnDestroy()
+        private void OnDestroy() => Unregister();
+
+        private void Unregister()
         {
-            if (cells.TryGetValue(cell, out PlacedObject p) && p == this) cells.Remove(cell);
+            if (!stacks.TryGetValue(cell, out List<PlacedObject> list)) return;
+            list.Remove(this);
+            list.RemoveAll(p => p == null);
+            if (list.Count == 0) stacks.Remove(cell);
         }
 
         private static Vector2Int CellOf(Vector3 p)

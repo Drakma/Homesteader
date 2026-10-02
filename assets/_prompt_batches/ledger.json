@@ -133,6 +133,56 @@
         "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_solar_garden.png",
         "assets/_prompt_batches/lightpoles/clean/electricity_lightpole_lantern_post.png"
       ]
+    },
+    "6TDY": {
+      "batch": "maple",
+      "item_id": "tree_maple",
+      "name": "Maple tree",
+      "category": "logging",
+      "description": "a sugar maple tree with a grey-brown trunk and broad five-pointed lobed green leaves, growing in a small mound of brown soil",
+      "prompt": "One single image showing 5 stages of the same Maple tree (a sugar maple tree with a grey-brown trunk and broad five-pointed lobed green leaves, growing in a small mound of brown soil), arranged in ONE horizontal row from left to right in this exact order, with a clear empty gap between neighbours so nothing overlaps or touches: 1. Sapling in burlap sack: a young maple sapling with a thin straight stem and a few small green leaves, its root ball wrapped in a tied brown burlap sack ready for planting (about 10% of the tallest one's height); 2. Sapling: a bare young maple sapling with a thin straight stem, a few branches and a small scatter of green leaves (about 16% of the tallest one's height); 3. Small: a small young maple tree with a slender trunk, a handful of branches and a sparse rounded crown of green leaves (about 35% of the tallest one's height); 4. Medium: a medium maple tree with a thicker trunk, spreading branches and a full rounded crown of green leaves (about 65% of the tallest one's height); 5. Mature: a large mature maple tree with a thick grey-brown trunk, heavy spreading branches and a huge dense rounded crown of green leaves (about 100% of the tallest one's height). All 5 are the SAME object (same design, base, colours and style); only the growth/state changes. SCALE: they all stand on one shared ground line and are drawn with the same camera, zoom and angle, each at its true size relative to the others, so a small stage stays small and is NOT enlarged to match the biggest; do not crop any of them. STYLE: a true low-poly 3D model render, like a low-polygon game asset. The whole object is built from a small number of large flat triangular and angular polygon facets with hard visible edges between them; every surface is flat-shaded, each facet a single flat colour with soft simple lighting, so you can count the planes. Chunky simplified shapes, no fine detail, no smooth curves or gradients, no realistic textures, no fur/leaf/bark detail, no outlines, not painterly, not photographic, not pixel art, not a cartoon illustration. Limited natural colour palette. Soft top-left key light. Isometric 3/4 front view, modern-day items, plain flat solid light-grey background, no shadow on the ground, no text except the tag. In the bottom-left corner, write the code 6TDY in small, plain, dark, sans-serif capital letters on the flat background, well clear of the object. Write it exactly, nothing else.",
+      "status": "prompted",
+      "created": "2026-09-30 12:55:22",
+      "group": "tree_maple",
+      "group_name": "Maple tree",
+      "stages": 5,
+      "stage_defs": [
+        {
+          "suffix": "sack",
+          "item_id": "tree_maple_sack",
+          "name": "Sapling in burlap sack",
+          "desc": "a young maple sapling with a thin straight stem and a few small green leaves, its root ball wrapped in a tied brown burlap sack ready for planting",
+          "height": "10"
+        },
+        {
+          "suffix": "sapling",
+          "item_id": "tree_maple_sapling",
+          "name": "Sapling",
+          "desc": "a bare young maple sapling with a thin straight stem, a few branches and a small scatter of green leaves",
+          "height": "16"
+        },
+        {
+          "suffix": "small",
+          "item_id": "tree_maple_small",
+          "name": "Small",
+          "desc": "a small young maple tree with a slender trunk, a handful of branches and a sparse rounded crown of green leaves",
+          "height": "35"
+        },
+        {
+          "suffix": "medium",
+          "item_id": "tree_maple_medium",
+          "name": "Medium",
+          "desc": "a medium maple tree with a thicker trunk, spreading branches and a full rounded crown of green leaves",
+          "height": "65"
+        },
+        {
+          "suffix": "mature",
+          "item_id": "tree_maple_mature",
+          "name": "Mature",
+          "desc": "a large mature maple tree with a thick grey-brown trunk, heavy spreading branches and a huge dense rounded crown of green leaves",
+          "height": "100"
+        }
+      ]
     }
   }
 }

@@ -78,5 +78,11 @@
       "depth": 0.2,
       "height": 0.18
     }
+  },
+  "container": {
+    "capacity_kg": 4.0,
+    "accepts": [
+      "#fishing_gear"
+    ]
   }
 }

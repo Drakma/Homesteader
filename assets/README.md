@@ -15,24 +15,24 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **540**
+Total Indexed Items: **544**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 19 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 85 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 91 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 16 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 27 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
-| [**Logging**](logging/) | 41 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
+| [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
-| [**Tools**](tools/) | 54 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
+| [**Tools**](tools/) | 58 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
 | [**Electricity**](electricity/) | 37 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
 | [**Water**](water/) | 31 items | Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks. |
 | [**Waste**](waste/) | 19 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
 | [**Internet**](internet/) | 16 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
 | [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
-| [**Food**](food/) | 26 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
+| [**Food**](food/) | 36 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
 | [**Materials**](materials/) | 69 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
 | [**Ingredients**](ingredients/) | 15 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
@@ -70,19 +70,19 @@ Total Indexed Items: **540**
 | `struct_tent_dome` | Dome Tent | ✅ Yes | — | [struct_tent_dome.json](structures/struct_tent_dome/struct_tent_dome.json) |
 | `struct_woodshed` | Woodshed | ✅ Yes | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
 
-### 📂 [Building](building/) (85 items)
+### 📂 [Building](building/) (91 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
-| `box_large_brown` | Large Brown Box | — | — | [box_large_brown.json](building/box_large_brown/box_large_brown.json) |
-| `box_large_tan` | Large Kraft Box | — | — | [box_large_tan.json](building/box_large_tan/box_large_tan.json) |
-| `box_large_white` | Large White Box | — | — | [box_large_white.json](building/box_large_white/box_large_white.json) |
-| `box_medium_brown` | Medium Brown Box | — | — | [box_medium_brown.json](building/box_medium_brown/box_medium_brown.json) |
-| `box_medium_tan` | Medium Kraft Box | — | — | [box_medium_tan.json](building/box_medium_tan/box_medium_tan.json) |
-| `box_medium_white` | Medium White Box | — | — | [box_medium_white.json](building/box_medium_white/box_medium_white.json) |
-| `box_small_brown` | Small Brown Box | — | — | [box_small_brown.json](building/box_small_brown/box_small_brown.json) |
-| `box_small_tan` | Small Kraft Box | — | — | [box_small_tan.json](building/box_small_tan/box_small_tan.json) |
-| `box_small_white` | Small White Box | — | — | [box_small_white.json](building/box_small_white/box_small_white.json) |
+| `box_large_brown` | Large Brown Box | ✅ Yes | — | [box_large_brown.json](building/box_large_brown/box_large_brown.json) |
+| `box_large_tan` | Large Kraft Box | ✅ Yes | — | [box_large_tan.json](building/box_large_tan/box_large_tan.json) |
+| `box_large_white` | Large White Box | ✅ Yes | — | [box_large_white.json](building/box_large_white/box_large_white.json) |
+| `box_medium_brown` | Medium Brown Box | ✅ Yes | — | [box_medium_brown.json](building/box_medium_brown/box_medium_brown.json) |
+| `box_medium_tan` | Medium Kraft Box | ✅ Yes | — | [box_medium_tan.json](building/box_medium_tan/box_medium_tan.json) |
+| `box_medium_white` | Medium White Box | ✅ Yes | — | [box_medium_white.json](building/box_medium_white/box_medium_white.json) |
+| `box_small_brown` | Small Brown Box | ✅ Yes | — | [box_small_brown.json](building/box_small_brown/box_small_brown.json) |
+| `box_small_tan` | Small Kraft Box | ✅ Yes | — | [box_small_tan.json](building/box_small_tan/box_small_tan.json) |
+| `box_small_white` | Small White Box | ✅ Yes | — | [box_small_white.json](building/box_small_white/box_small_white.json) |
 | `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |
 | `building_glass` | Glass Pane | — | — | [building_glass.json](building/building_glass/building_glass.json) |
 | `building_insulation_fiberglass_batt` | Fiberglass Insulation Batt | — | — | [building_insulation_fiberglass_batt.json](building/building_insulation_fiberglass_batt/building_insulation_fiberglass_batt.json) |
@@ -95,6 +95,12 @@ Total Indexed Items: **540**
 | `building_steel_stud_framing` | Steel Stud (Metal Framing) | ✅ Yes | — | [building_steel_stud_framing.json](building/building_steel_stud_framing/building_steel_stud_framing.json) |
 | `camp_campfire_ring` | Camp Campfire Ring | ✅ Yes | — | [camp_campfire_ring.json](building/camp_campfire_ring/camp_campfire_ring.json) |
 | `camp_picnictable_wood` | Camp Picnictable Wood | ✅ Yes | — | [camp_picnictable_wood.json](building/camp_picnictable_wood/camp_picnictable_wood.json) |
+| `crate_plastic_large` | Large Plastic Crate | ✅ Yes | — | [crate_plastic_large.json](building/crate_plastic_large/crate_plastic_large.json) |
+| `crate_plastic_medium` | Medium Plastic Crate | ✅ Yes | — | [crate_plastic_medium.json](building/crate_plastic_medium/crate_plastic_medium.json) |
+| `crate_plastic_small` | Small Plastic Crate | ✅ Yes | — | [crate_plastic_small.json](building/crate_plastic_small/crate_plastic_small.json) |
+| `crate_wood_large` | Large Wooden Crate | ✅ Yes | — | [crate_wood_large.json](building/crate_wood_large/crate_wood_large.json) |
+| `crate_wood_medium` | Medium Wooden Crate | ✅ Yes | — | [crate_wood_medium.json](building/crate_wood_medium/crate_wood_medium.json) |
+| `crate_wood_small` | Small Wooden Crate | ✅ Yes | — | [crate_wood_small.json](building/crate_wood_small/crate_wood_small.json) |
 | `dock_large_new` | Large New Dock | — | — | [dock_large_new.json](building/dock_large_new/dock_large_new.json) |
 | `dock_large_old` | Large Old Dock | — | — | [dock_large_old.json](building/dock_large_old/dock_large_old.json) |
 | `dock_small_new` | Small New Dock | — | — | [dock_small_new.json](building/dock_small_new/dock_small_new.json) |
@@ -213,12 +219,17 @@ Total Indexed Items: **540**
 | `white_goat` | White Goat | — | — | [white_goat.json](ranching/white_goat/white_goat.json) |
 | `white_sheep` | White Sheep | — | — | [white_sheep.json](ranching/white_sheep/white_sheep.json) |
 
-### 📂 [Logging](logging/) (41 items)
+### 📂 [Logging](logging/) (25 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `apple` | Apple Tree | — | — | [apple.json](logging/apple/apple.json) |
 | `birch` | Birch Tree | — | — | [birch.json](logging/birch/birch.json) |
+| `bush_blueberry` | Blueberry Bush | — | — | [bush_blueberry.json](logging/bush_blueberry/bush_blueberry.json) |
+| `bush_elderberry` | Elderberry Bush | — | — | [bush_elderberry.json](logging/bush_elderberry/bush_elderberry.json) |
+| `bush_haskap` | Haskap Bush | — | — | [bush_haskap.json](logging/bush_haskap/bush_haskap.json) |
+| `bush_huckleberry` | Huckleberry Bush | — | — | [bush_huckleberry.json](logging/bush_huckleberry/bush_huckleberry.json) |
+| `bush_raspberry` | Raspberry Bush | — | — | [bush_raspberry.json](logging/bush_raspberry/bush_raspberry.json) |
 | `lemon` | Lemon | — | — | [lemon.json](logging/lemon/lemon.json) |
 | `maple` | Maple Tree | — | — | [maple.json](logging/maple/maple.json) |
 | `oak` | Oak Tree | — | — | [oak.json](logging/oak/oak.json) |
@@ -234,27 +245,6 @@ Total Indexed Items: **540**
 | `plantable_sapling_orange` | Plantable Sapling Orange | ✅ Yes | — | [plantable_sapling_orange.json](logging/plantable_sapling_orange/plantable_sapling_orange.json) |
 | `plantable_willow_sapling` | Plantable Willow Sapling | ✅ Yes | — | [plantable_willow_sapling.json](logging/plantable_willow_sapling/plantable_willow_sapling.json) |
 | `poplar` | Poplar Tree | — | — | [poplar.json](logging/poplar/poplar.json) |
-| `stump_apple_large` | Stump Apple Large | ✅ Yes | — | [stump_apple_large.json](logging/stump_apple_large/stump_apple_large.json) |
-| `stump_apple_medium` | Stump Apple Medium | ✅ Yes | — | [stump_apple_medium.json](logging/stump_apple_medium/stump_apple_medium.json) |
-| `stump_apple_small` | Stump Apple Small | ✅ Yes | — | [stump_apple_small.json](logging/stump_apple_small/stump_apple_small.json) |
-| `stump_birch_large` | Stump Birch Large | ✅ Yes | — | [stump_birch_large.json](logging/stump_birch_large/stump_birch_large.json) |
-| `stump_birch_medium` | Stump Birch Medium | ✅ Yes | — | [stump_birch_medium.json](logging/stump_birch_medium/stump_birch_medium.json) |
-| `stump_birch_small` | Stump Birch Small | ✅ Yes | — | [stump_birch_small.json](logging/stump_birch_small/stump_birch_small.json) |
-| `stump_maple_large` | Stump Maple Large | ✅ Yes | — | [stump_maple_large.json](logging/stump_maple_large/stump_maple_large.json) |
-| `stump_maple_medium` | Stump Maple Medium | ✅ Yes | — | [stump_maple_medium.json](logging/stump_maple_medium/stump_maple_medium.json) |
-| `stump_maple_small` | Stump Maple Small | ✅ Yes | — | [stump_maple_small.json](logging/stump_maple_small/stump_maple_small.json) |
-| `stump_oak_large` | Stump Oak Large | ✅ Yes | — | [stump_oak_large.json](logging/stump_oak_large/stump_oak_large.json) |
-| `stump_oak_medium` | Stump Oak Medium | ✅ Yes | — | [stump_oak_medium.json](logging/stump_oak_medium/stump_oak_medium.json) |
-| `stump_oak_small` | Stump Oak Small | ✅ Yes | — | [stump_oak_small.json](logging/stump_oak_small/stump_oak_small.json) |
-| `stump_pine_large` | Stump Pine Large | ✅ Yes | — | [stump_pine_large.json](logging/stump_pine_large/stump_pine_large.json) |
-| `stump_pine_medium` | Stump Pine Medium | ✅ Yes | — | [stump_pine_medium.json](logging/stump_pine_medium/stump_pine_medium.json) |
-| `stump_pine_small` | Stump Pine Small | ✅ Yes | — | [stump_pine_small.json](logging/stump_pine_small/stump_pine_small.json) |
-| `stump_poplar_large` | Stump Poplar Large | ✅ Yes | — | [stump_poplar_large.json](logging/stump_poplar_large/stump_poplar_large.json) |
-| `stump_poplar_medium` | Stump Poplar Medium | ✅ Yes | — | [stump_poplar_medium.json](logging/stump_poplar_medium/stump_poplar_medium.json) |
-| `stump_poplar_small` | Stump Poplar Small | ✅ Yes | — | [stump_poplar_small.json](logging/stump_poplar_small/stump_poplar_small.json) |
-| `stump_willow_large` | Stump Willow Large | ✅ Yes | — | [stump_willow_large.json](logging/stump_willow_large/stump_willow_large.json) |
-| `stump_willow_medium` | Stump Willow Medium | ✅ Yes | — | [stump_willow_medium.json](logging/stump_willow_medium/stump_willow_medium.json) |
-| `stump_willow_small` | Stump Willow Small | ✅ Yes | — | [stump_willow_small.json](logging/stump_willow_small/stump_willow_small.json) |
 | `tree_dead_snag` | Tree Dead Snag | ✅ Yes | — | [tree_dead_snag.json](logging/tree_dead_snag/tree_dead_snag.json) |
 | `tree_sapling` | Tree Sapling | ✅ Yes | — | [tree_sapling.json](logging/tree_sapling/tree_sapling.json) |
 | `willow` | Willow Tree | — | — | [willow.json](logging/willow/willow.json) |
@@ -283,7 +273,7 @@ Total Indexed Items: **540**
 | `fishing_rod_spincast_combo` | Spincast Rod & Reel Combo | ✅ Yes | — | [fishing_rod_spincast_combo.json](fishing/fishing_rod_spincast_combo/fishing_rod_spincast_combo.json) |
 | `fishing_sinkers_lead` | Split Shot Lead Sinkers | ✅ Yes | — | [fishing_sinkers_lead.json](fishing/fishing_sinkers_lead/fishing_sinkers_lead.json) |
 
-### 📂 [Tools](tools/) (54 items)
+### 📂 [Tools](tools/) (58 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -293,6 +283,9 @@ Total Indexed Items: **540**
 | `tool_anvil_stump` | Tool Anvil Stump | ✅ Yes | — | [tool_anvil_stump.json](tools/tool_anvil_stump/tool_anvil_stump.json) |
 | `tool_axe` | Axe | ✅ Yes | — | [tool_axe.json](tools/tool_axe/tool_axe.json) |
 | `tool_axe_felling` | Felling Axe | ✅ Yes | — | [tool_axe_felling.json](tools/tool_axe_felling/tool_axe_felling.json) |
+| `tool_basket_large` | Large Basket | — | — | [tool_basket_large.json](tools/tool_basket_large/tool_basket_large.json) |
+| `tool_basket_medium` | Medium Basket | — | — | [tool_basket_medium.json](tools/tool_basket_medium/tool_basket_medium.json) |
+| `tool_basket_small` | Small Basket | — | — | [tool_basket_small.json](tools/tool_basket_small/tool_basket_small.json) |
 | `tool_bucket_empty` | Empty Utility Bucket | — | — | [tool_bucket_empty.json](tools/tool_bucket_empty/tool_bucket_empty.json) |
 | `tool_cant_hook_peavey` | Cant Hook Peavey | ✅ Yes | — | [tool_cant_hook_peavey.json](tools/tool_cant_hook_peavey/tool_cant_hook_peavey.json) |
 | `tool_chain_choker_logging` | Logging Choker Chain | ✅ Yes | — | [tool_chain_choker_logging.json](tools/tool_chain_choker_logging/tool_chain_choker_logging.json) |
@@ -305,6 +298,7 @@ Total Indexed Items: **540**
 | `tool_drill_corded` | Corded Power Drill | — | — | [tool_drill_corded.json](tools/tool_drill_corded/tool_drill_corded.json) |
 | `tool_drill_cordless_basic` | Basic Cordless Drill | — | — | [tool_drill_cordless_basic.json](tools/tool_drill_cordless_basic/tool_drill_cordless_basic.json) |
 | `tool_drill_cordless_pro` | Pro Cordless Drill | — | — | [tool_drill_cordless_pro.json](tools/tool_drill_cordless_pro/tool_drill_cordless_pro.json) |
+| `tool_fruit_basket` | Fruit Basket | — | — | [tool_fruit_basket.json](tools/tool_fruit_basket/tool_fruit_basket.json) |
 | `tool_hammer` | Hammer | ✅ Yes | — | [tool_hammer.json](tools/tool_hammer/tool_hammer.json) |
 | `tool_hammer_claw` | Claw Hammer | ✅ Yes | — | [tool_hammer_claw.json](tools/tool_hammer_claw/tool_hammer_claw.json) |
 | `tool_hammer_club` | Club Hammer | ✅ Yes | — | [tool_hammer_club.json](tools/tool_hammer_club/tool_hammer_club.json) |
@@ -524,13 +518,14 @@ Total Indexed Items: **540**
 | `textures` | Textures | — | — | [textures.json](ground/textures/textures.json) |
 | `tile_grass_tuft_meadow` | Grass Tuft Meadow | ✅ Yes | — | [tile_grass_tuft_meadow.json](ground/tile_grass_tuft_meadow/tile_grass_tuft_meadow.json) |
 
-### 📂 [Food](food/) (26 items)
+### 📂 [Food](food/) (36 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `food_apple` | Fresh Red Apple | ✅ Yes | — | [food_apple.json](food/food_apple/food_apple.json) |
 | `food_bass_deepfried` | Bass Fillet Deep Fried | — | — | [food_bass_deepfried.json](food/food_bass_deepfried/food_bass_deepfried.json) |
 | `food_bass_grilled` | Bass Grilled Fillet | — | — | [food_bass_grilled.json](food/food_bass_grilled/food_bass_grilled.json) |
+| `food_blueberry` | Blueberry | — | — | [food_blueberry.json](food/food_blueberry/food_blueberry.json) |
 | `food_bread` | Bread | — | — | [food_bread.json](food/food_bread/food_bread.json) |
 | `food_carrot` | Fresh Garden Carrot | ✅ Yes | — | [food_carrot.json](food/food_carrot/food_carrot.json) |
 | `food_catfish_deepfried` | Catfish Fillet Deep Fried | — | — | [food_catfish_deepfried.json](food/food_catfish_deepfried/food_catfish_deepfried.json) |
@@ -538,10 +533,19 @@ Total Indexed Items: **540**
 | `food_cheese` | Aged Farmhouse Cheese | — | — | [food_cheese.json](food/food_cheese/food_cheese.json) |
 | `food_crappie_deepfried` | Crappie Fillet Deep Fried | — | — | [food_crappie_deepfried.json](food/food_crappie_deepfried/food_crappie_deepfried.json) |
 | `food_crappie_grilled` | Crappie Grilled Fillet | — | — | [food_crappie_grilled.json](food/food_crappie_grilled/food_crappie_grilled.json) |
+| `food_elderberry` | Elderberry | — | — | [food_elderberry.json](food/food_elderberry/food_elderberry.json) |
+| `food_haskap` | Haskap | — | — | [food_haskap.json](food/food_haskap/food_haskap.json) |
+| `food_huckleberry` | Huckleberry | — | — | [food_huckleberry.json](food/food_huckleberry/food_huckleberry.json) |
+| `food_jam_blueberry` | Blueberry Jam | — | — | [food_jam_blueberry.json](food/food_jam_blueberry/food_jam_blueberry.json) |
+| `food_jam_elderberry` | Elderberry Jam | — | — | [food_jam_elderberry.json](food/food_jam_elderberry/food_jam_elderberry.json) |
+| `food_jam_haskap` | Haskap Jam | — | — | [food_jam_haskap.json](food/food_jam_haskap/food_jam_haskap.json) |
+| `food_jam_huckleberry` | Huckleberry Jam | — | — | [food_jam_huckleberry.json](food/food_jam_huckleberry/food_jam_huckleberry.json) |
+| `food_jam_raspberry` | Raspberry Jam | — | — | [food_jam_raspberry.json](food/food_jam_raspberry/food_jam_raspberry.json) |
 | `food_lemon` | Fresh Lemon | ✅ Yes | — | [food_lemon.json](food/food_lemon/food_lemon.json) |
 | `food_orange` | Fresh Navel Orange | ✅ Yes | — | [food_orange.json](food/food_orange/food_orange.json) |
 | `food_potato` | Russet Potato | ✅ Yes | — | [food_potato.json](food/food_potato/food_potato.json) |
 | `food_pumpkin` | Autumn Pumpkin | ✅ Yes | — | [food_pumpkin.json](food/food_pumpkin/food_pumpkin.json) |
+| `food_raspberry` | Raspberry | — | — | [food_raspberry.json](food/food_raspberry/food_raspberry.json) |
 | `food_salmon_grilled` | Salmon Grilled Fillet | — | — | [food_salmon_grilled.json](food/food_salmon_grilled/food_salmon_grilled.json) |
 | `food_strawberry` | Fresh Strawberry | ✅ Yes | — | [food_strawberry.json](food/food_strawberry/food_strawberry.json) |
 | `food_tomato` | Vine Ripe Tomato | ✅ Yes | — | [food_tomato.json](food/food_tomato/food_tomato.json) |

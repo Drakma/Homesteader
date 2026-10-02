@@ -49,6 +49,21 @@
       "env": {
         "PYTHONPATH": "C:/Users/casey/Desktop/Homesteader/tools"
       }
-    }
+    },
+    "gemini": {
+      "command": "node",
+      "args": [
+        "C:/Users/casey/Desktop/CodeGPT/mcp-servers/gemini/index.js"
+      ]
+    },
+    "gemini-music": {
+      "command": "node",
+      "args": [
+          "C:/Users/casey/Desktop/Homesteader/tools/gemini_music_mcp/index.js"
+        ],
+        "env": {
+          "GEMINI_MUSIC_HEADED": "1"
+        }
+      }
   }
 }

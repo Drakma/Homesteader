@@ -9,12 +9,12 @@ namespace Homesteader.UI
 {
     /// <summary>
     /// F3 toggles a "what am I looking at" panel directly under the header's date/time
-    /// cell, showing whatever HoverOutline is currently hovering (or, over bare ground,
+    /// cell, showing whatever HoverTarget finds under the cursor (or, over bare ground,
     /// the grid cell + biome under the cursor). Built entirely in C#, not HudUI.uxml -
     /// it only needs to find the existing HUD's root and the "ToastContainer" element
     /// by name to push toasts down while open, so it doesn't need to touch the already
     /// large HudBindings.cs wiring.
-    /// Bootstraps itself on scene load, same pattern as FpsCounter/HoverOutline.
+    /// Bootstraps itself on scene load, same pattern as FpsCounter.
     /// </summary>
     public sealed class WailaPanel : MonoBehaviour
     {
@@ -33,6 +33,7 @@ namespace Homesteader.UI
         private Label _titleLabel;
         private VisualElement _rows;
         private string _lastContentKey;
+        private static HomesteaderTerrainGenerator _cachedGenerator;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -137,7 +138,7 @@ namespace Homesteader.UI
 
         private void RefreshContent()
         {
-            Transform hovered = HoverOutline.Current;
+            Transform hovered = HoverTarget.Find();
             string title;
             Texture2D icon;
             var details = new List<(string, string)>();
@@ -145,6 +146,14 @@ namespace Homesteader.UI
             if (hovered != null)
             {
                 DescribeObject(hovered, out title, out icon, details);
+            }
+            else if (TryDescribeForestTree(out title, out icon, details))
+            {
+                // a procedural forest tree under the cursor
+            }
+            else if (TryDescribeBerryBush(out title, out icon, details))
+            {
+                // a berry bush under the cursor
             }
             else if (TryFindNearbyPlantOrItem(out title, out icon, details))
             {
@@ -236,7 +245,7 @@ namespace Homesteader.UI
         /// <summary>
         /// Crops and dropped items disable their own colliders (they're walk-through by
         /// design - PlantedGrowth.ShowModel / WorldItem.TryShow both turn theirs off), so
-        /// HoverOutline's physics raycast can never find them. This raycasts the mouse
+        /// HoverTarget's physics raycast can never find them. This raycasts the mouse
         /// onto the ground plane instead and picks whichever tracked crop/item is
         /// closest to that point, within a small radius.
         /// </summary>
@@ -280,6 +289,49 @@ namespace Homesteader.UI
             return false;
         }
 
+        /// <summary>The forest trees have no colliders, so the hover is found by ray against the tree registry.</summary>
+        private static bool TryDescribeForestTree(out string title, out Texture2D icon, List<(string, string)> details)
+        {
+            title = null;
+            icon = null;
+            details.Clear();
+            if (Homesteader.World.ForestTrees.Count == 0) return false;
+
+            var cam = Camera.main;
+            if (cam == null)
+            {
+                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                if (iso != null) cam = iso.GetComponent<Camera>();
+            }
+            if (cam == null) return false;
+
+            Vector2 mousePos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
+            if (!Homesteader.World.ForestTrees.TryPick(cam.ScreenPointToRay(mousePos), out Homesteader.World.ForestTree tree)) return false;
+
+            Homesteader.World.ForestTrees.Describe(tree, out title, details);
+            return true;
+        }
+
+        private static bool TryDescribeBerryBush(out string title, out Texture2D icon, List<(string, string)> details)
+        {
+            title = null;
+            icon = null;
+            details.Clear();
+            if (Homesteader.World.BerryBushes.Count == 0) return false;
+            var cam = Camera.main;
+            if (cam == null)
+            {
+                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                if (iso != null) cam = iso.GetComponent<Camera>();
+            }
+            if (cam == null) return false;
+            Vector2 mousePos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
+            if (!Homesteader.World.BerryBushes.TryPick(cam.ScreenPointToRay(mousePos), out Homesteader.World.BerryBush bush)) return false;
+            Homesteader.World.BerryBushes.Describe(bush, out title, details);
+            icon = PhoneController.GetItemIcon(bush.AssetId + ".png", bush.AssetId);
+            return true;
+        }
+
         private static bool TryGroundHit(out Vector3 hit)
         {
             hit = default;
@@ -296,10 +348,26 @@ namespace Homesteader.UI
 
             // Prefer the real (rolling) terrain surface over a flat y=0 plane - otherwise the
             // reported grid cell/biome drifts from what's actually under the cursor on hills.
-            if (Physics.Raycast(ray, out RaycastHit rayHit, 2000f))
+            // This runs every frame WAILA is open over bare ground, so keep the common case a single
+            // cheap Raycast; only pay for RaycastAll+sort on the rare frame that actually hits an
+            // invisible LandWall border collider (see LandBoundaryController), which a plain Raycast
+            // would otherwise stop dead on well short of the real ground.
+            if (Physics.Raycast(ray, out RaycastHit rayHit, 2000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
-                hit = rayHit.point;
-                return true;
+                if (!rayHit.collider.gameObject.name.StartsWith("LandWall_"))
+                {
+                    hit = rayHit.point;
+                    return true;
+                }
+
+                RaycastHit[] rayHits = Physics.RaycastAll(ray, 2000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+                System.Array.Sort(rayHits, (a, b) => a.distance.CompareTo(b.distance));
+                foreach (RaycastHit rh in rayHits)
+                {
+                    if (rh.collider.gameObject.name.StartsWith("LandWall_")) continue;
+                    hit = rh.point;
+                    return true;
+                }
             }
 
             var groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -328,7 +396,10 @@ namespace Homesteader.UI
             string biomeLabel = biome;
             if (biome == null)
             {
-                var generator = FindAnyObjectByType<HomesteaderTerrainGenerator>();
+                // Cached: this runs every frame WAILA is showing bare, unzoned ground, and the
+                // generator is a single persistent object for the whole session.
+                if (_cachedGenerator == null) _cachedGenerator = FindAnyObjectByType<HomesteaderTerrainGenerator>();
+                var generator = _cachedGenerator;
                 if (generator != null && generator.GetComponent<Terrain>() != null)
                 {
                     Vector3 origin = generator.transform.position;

@@ -1,11 +1,11 @@
 # Homesteader - Project Instructions & Guidelines for Agents
 
-> **IMPORTANT ARCHITECTURAL & PIPELINE UPDATE (2026-09-16)**:
+> **IMPORTANT ARCHITECTURAL & PIPELINE UPDATE (2026-09-28)**:
 >
-> 1. **Engine Target**: The project has officially transitioned from Unreal Engine to **Unity 6 (`6000.6.0f1`)**.
-> 2. **Meshy-Only Policy (supersedes the old free stack)**: There is **no free pipeline any more — everything costs money**. The 100% Free Stack (FLUX.1 [schnell] + Tencent Hunyuan3D-2.0) and `tools/free_generator.py` are **RETIRED**; do not call or offer them. The **one and only pipeline is Meshy text-to-3D** (`tools/meshy_client.py` -> `create_text_to_3d()`), which returns the model **and its texture**. Pass the user's `PROMPT='...'` through **as-is** and append the standing technical rules to it. **LOW POLY IS MANDATORY, ALWAYS** (`model_type='lowpoly'`). The icon is **rendered from the finished model** with `tools/render_icon_from_model.py`. Always confirm the credit cost against `GET /api/meshy-balance` and get explicit approval before spending (see `PAID_ITEM_PIPELINE` in `tools/watch_asset_requests.py`).
-> 3. **Retired Helper Library**: `tools/free_generator.py` is **dead code — do not use it**. The live client is `tools/meshy_client.py`.
-> 4. **Detailed Reference**: See [MESHY_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MESHY_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md).
+> 1. **Engine Target**: The project has officially transitioned from Unreal Engine to **Unity 6 (`6000.6.0f1)`**.
+> 2. **Reference-Image + Meshy Image-to-3D Policy (supersedes the old text-to-3D-only policy)**: There is **no free pipeline any more — everything costs money**. The 100% Free Stack, `tools/free_generator.py`, and plain **Meshy text-to-3D are all RETIRED as the default path** — do not call or offer them for a normal new-asset request. The **one and only pipeline is now**: (a) generate a reference image via the `gemini_generate` MCP tool (batch multiple items into one contact sheet where possible, per the batching rule in `ITEM_ICON_STYLE_GUIDE.md`), (b) crop the sheet into one image per item, (c) feed each crop into **Meshy image-to-3D** with `ai_model='meshy-t2'`, `model_type='smart-topology'`, `should_texture=true`. **`model_type='smart-topology'` (meshy-t2) is now MANDATORY, ALWAYS — never `'lowpoly'` or `'standard'`** (this reverses the old lowpoly-only rule). (d) Scale the downloaded GLB to a realistic real-world height and ground its pivot (`Y_min=0`) via a headless Blender script (import → uniform scale → recenter/drop to ground → `transform_apply` → re-export GLB) — do this for every new model, matching realistic sizes already established elsewhere in the catalog. (e) The icon is still **rendered from the finished model** with `tools/render_icon_from_model.py` — that step is unchanged. Always confirm the credit cost against `GET /api/meshy-balance` (or `meshy_check_balance`) and get explicit approval before spending (see `PAID_ITEM_PIPELINE` in `tools/watch_asset_requests.py`).
+> 3. **Retired Helper Library**: `tools/free_generator.py` is **dead code — do not use it**. `tools/meshy_client.py`'s `create_text_to_3d()` is no longer the default entry point; `create_image_to_3d()` (updated for `meshy-t2`/`smart-topology`) is.
+> 4. **Detailed Reference**: See [MESHY_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MESHY_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md). **Known open issue**: models built this way may render with fragmented/jagged-looking shading on curved organic surfaces (e.g. animal faces) specifically in Unity/glTFast at runtime, even though the source GLB, its normals, and Blender's own render are all clean — root cause not yet confirmed (leading theory: texture compression across meshy-t2's small UV islands). Check for this after generating and report findings rather than assuming it's fixed.
 
 ---
 
@@ -32,6 +32,7 @@
 - **Text fields** (TextField, number fields, search boxes, dropdowns): text is ALWAYS vertically centered in the box, including placeholder text. Style the inner input, not just the outer element: justify-content: center; -unity-text-align: middle-left; padding-top: 0; padding-bottom: 0; on .unity-base-text-field__input / .unity-base-popup-field__input, and zero margin/padding on the inner TextElement. Horizontal alignment stays left.
 - **Buttons**: label text is ALWAYS centered vertically AND horizontally (-unity-text-align: middle-center).
 - Reference implementations: .asset-search-input and .asset-category-dropdown in Resources/HUDTree/HudUI.uss.
+- **There is ONE phone.** Its markup is `Homesteader/Assets/Resources/HUDTree/PhoneUI.uxml` and its styles are `PhoneUI.uss` (apps such as Steadify, Volt, Almanac are all in that one uxml). `HudUI.uxml` only instantiates it (`<ui:Instance template="PhoneUI" name="PhoneHost" />`), and `Scripts/UI/Phone/PhoneController.cs` drives it. Never add phone markup to `HudUI.uxml` and never keep a second copy. A horizontal `Slider` needs an explicit height and `.unity-base-slider__drag-container` / tracker / dragger styling (see `.admin-slider` and `.steadify-seek-slider`), or it collapses to zero height and is invisible.
 
 ---
 
@@ -67,15 +68,21 @@ biomes are baked into the world.
 
 ---
 
-## 2. Asset Generation Pipeline (Meshy text-to-3D - the only pipeline)
+## 2. Asset Generation Pipeline (Reference image + Meshy image-to-3D - the only pipeline)
 
-**There is no free generation pipeline any more — everything costs money.** `tools/free_generator.py`, FLUX.1 [schnell], Tencent Hunyuan3D-2.0 and Creative Claw concept images are all **RETIRED**. Do not call them, do not offer them, do not write new code against them.
+**There is no free generation pipeline any more — everything costs money.** `tools/free_generator.py`, FLUX.1 [schnell], Tencent Hunyuan3D-2.0 and Creative Claw concept images are all **RETIRED**. Do not call them, do not offer them, do not write new code against them. Plain Meshy **text**-to-3D is also no longer the default path (see below).
 
-The one and only pipeline is **Meshy text-to-3D** via `tools/meshy_client.py` -> `create_text_to_3d()`. It returns the **model and its texture in a single task**.
+The one and only pipeline is **reference image -> Meshy image-to-3D**:
 
-**The user's prompt is the input.** A request carries a `PROMPT='...'` marker written by the user. Pass it to Meshy **as-is** and **append** the standing technical rules below. Never rewrite, replace or paraphrase the user's intent.
+1. Generate a reference photo/render of the subject with the `gemini_generate` MCP tool. Batch multiple related items (e.g. every stage of a growth group) into a single contact-sheet prompt where possible, per the batching rule in `docs/ITEM_ICON_STYLE_GUIDE.md`.
+2. Crop the sheet into one image per item (`PIL.Image.crop`).
+3. Feed each crop to Meshy image-to-3D via `tools/meshy_client.py` -> `create_image_to_3d()`, with `ai_model='meshy-t2'`, `model_type='smart-topology'`, `should_texture=True`. This returns the **model and its texture in a single task**.
+4. Scale the downloaded GLB to a realistic real-world height and drop its pivot to the ground (`Y_min=0`) with a headless Blender script (import -> uniform-scale an empty parent to the target height -> recenter XY and drop to Y=0 -> `transform_apply` -> re-export GLB). Match realistic sizes already used elsewhere in the same category.
+5. Render the icon from the scaled model exactly as before (unchanged, see (B) below).
 
-**LOW POLY IS MANDATORY, ALWAYS, NO EXCEPTIONS**: `model_type='lowpoly'` on every generation. Never `standard`, never `smart-topology`.
+**The user's prompt is the input.** A request carries a `PROMPT='...'` marker written by the user. Fold it into the Gemini reference-image prompt **as-is** — never rewrite, replace or paraphrase the user's intent — then append the standing technical rules below.
+
+**`model_type='smart-topology'` (`ai_model='meshy-t2'`) IS MANDATORY, ALWAYS, NO EXCEPTIONS** on every image-to-3D generation. Never `'lowpoly'`, never `'standard'`. (This reverses the old lowpoly-only rule from the text-to-3D era.)
 
 ### (A) 3D Model + Texture generation (paid)
 
@@ -84,14 +91,18 @@ import sys
 sys.path.append(r"C:\Users\casey\Desktop\Homesteader\tools")
 import meshy_client as mc
 
-# user_prompt is the PROMPT='...' text from the request, verbatim.
-prompt = f"{user_prompt}, low-poly game asset, modern, faceted low-poly styling"
-preview_id = mc.create_text_to_3d(prompt, ai_model="meshy-6", model_type="lowpoly")
-# then poll get_task('text-to-3d', preview_id), and refine for the texture pass
+# 1. Reference image via the gemini_generate MCP tool (batched sheet, then crop
+#    with PIL to one image per item) - not shown here, see gemini_generate's own tool docs.
+# 2. Image-to-3D from the cropped reference:
+preview_id = mc.create_image_to_3d(cropped_image_path, ai_model="meshy-t2", model_type="smart-topology", should_texture=True)
+# then poll get_task('image-to-3d', preview_id) and download the GLB.
+# 3. Scale + ground the GLB via a headless Blender script (see docs/MESHY_PIPELINE_GUIDE.md
+#    for the exact script), then render the icon per (B) below.
 ```
 
 - Confirm the credit cost and resulting balance against `GET /api/meshy-balance` **before** spending, and wait for explicit approval.
 - Download the **GLB** (the project's model format, textures embedded).
+- **Known open issue**: this method can produce fragmented/jagged-looking shading on curved organic surfaces (e.g. an animal's face) specifically when viewed in Unity/glTFast at runtime — not visible in the raw GLB data, its normals, or Blender's own render. Root cause unconfirmed (leading theory: texture compression artifacts across meshy-t2's many small UV islands). Flag this to the user after generating rather than assuming it's resolved.
 
 ### (B) Icon rendered FROM the model (free, local)
 
@@ -172,3 +183,21 @@ Every asset must live in `assets/<category>/<item_id>/`:
   7. Assemble `<item_id>.json` and `README.md`.
   8. Mark done: `POST /api/update-asset-request` with `{"id": req_id, "status": "done", "item_id": item_id, "step": "Done - generated via Meshy text-to-3D (lowpoly)", "credits_used": {"creative_claw": 0, "meshy": <credits spent>}}`.
   9. Run `python tools/update_catalog_readme.py` to keep the master catalog in sync.
+
+---
+
+## 5. Procedural World Rules (terrain dressing, road, camera)
+
+Full list of what changed and why: `docs/PROCEDURAL_WORLD_CHANGES.md`. Plant and bridge code: `docs/PROCEDURAL_VEGETATION.md`.
+
+- **World dressing is procedural, not Meshy.** Plants, rocks, debris and small props are built in code (`Assets/Scripts/World/`). Meshy image-to-3D stays for structures, tools, animals and anything that needs detail.
+- **One shader.** Every procedural mesh uses `Homesteader/Vegetation` (wind sway, season growth and colour, tree age growth, snow, rain). Register seasonal materials with `Seasonal(...)` in `ProceduralVegetation.cs`.
+- **No mass renderers.** Never leave tens of thousands of separate renderers in the world; scatter output is merged into 32 m chunk meshes (`ProceduralVegetation.Combine`).
+- **Felling is decided by the asset kit.** A tree species' growth group (`growth.rules.yield.tool`, `item_id`, amounts) says what fells it (the ACTIVE toolbar item, right-click); `ForestTrees` reads it. Trunks and rocks are solid through a streamed collider pool on the Ignore Raycast layer, so mouse raycasts must use `Physics.DefaultRaycastLayers`, never `~0`.
+- **Keep off the road and the water.** Anything scattered checks `IsNearRoad` and water. The owned-land fence (`ProceduralFence`) does the same: no fence over water, an opening where the road passes.
+- **Tree growth follows the asset kit.** Four stages (sapling, small, medium, mature) at 16 / 35 / 65 / 100 percent height, windows read from the species' growth group. Nothing is saved: age comes from the seed and the game clock.
+- **Maintained grass is player-made only.** World generation never produces `biome_maintained_grass`.
+- **Starter zone, road and bridges are game rules as mod data** (`starter_zone`, `starter_road` in `gamerules.json`). Change the mod copy, `assets/_gamerules/`, `assets/_schemas/gamerules.schema.json` and `docs/MODDING_GUIDE.md` together (see 3b).
+- **Camera:** orthographic, pulled back along its view direction so the near plane stays at 0.3. Never use a negative near plane (it skews shadow cascades and fog). Shadow distance is fitted to the zoom each frame; fog density is scaled by `IsometricLockedCamera.FogCompensation`.
+- **Shaders:** `Mathf.SmoothStep(a, b, t)` is not GLSL `smoothstep(e0, e1, x)`; use `InverseLerp` first. The bog colour in the terrain shader is point sampled (a bilinear tint leaks the river's blue). The water edge may only recede from the smooth shoreline, never advance.
+- **Testing in the editor:** one `GenerateTerrain()` per command (several froze Unity). To look at a change, render a temporary camera to a PNG in the scratchpad and read it.

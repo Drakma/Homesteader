@@ -180,7 +180,7 @@ namespace Homesteader.UI
             // Create a dedicated wallpaper element that sits between the HUD (already
             // in _root) and the welcome card tree. Z-order in UIToolkit is child order:
             // HUD children (added first) → wallpaper → welcome card tree (added last, on top).
-            _wallpaper = new VisualElement();
+            _wallpaper = new VisualElement { name = "WelcomeWallpaper" };
             _wallpaper.style.position = Position.Absolute;
             _wallpaper.style.left = 0;
             _wallpaper.style.top = 0;
@@ -710,6 +710,10 @@ namespace Homesteader.UI
                 Input.GetKeyDown(KeyCode.Escape);
 #endif
             if (!escPressed) return;
+
+            // Esc while the Controls page is waiting for a key press cancels that rebind (handled there) and
+            // must not also close the menu.
+            if (Homesteader.Controls.KeyBindings.IsRebinding) return;
 
             if (_isVisible)
             {

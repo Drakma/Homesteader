@@ -312,7 +312,9 @@ about its lifecycle** (nothing about it lives on the seed or sapling item):
 | :--- | :--- |
 | `planting.item_id` | The item that plants it (seed / sapling). One item plants one group. |
 | `yield.item_id` / `yield.amount_min`..`amount_max` | The ingredient dropped when harvested, and how many: a random whole number from min to max, inclusive. |
-| `yield.tool` | What harvests it: empty = by hand, an item id, or a `#tag`. |
+| `yield.extras` | More than one yield: a list of `{ item_id, amount_min, amount_max }` given on every harvest (and when a full-grown tree is felled), on top of `yield.item_id`. |
+| `fruit` (trees) | Picking: `is_fruiting`, `fruit_stage` (from which stage; default the last), `regrow_days` (default 30), `tools` (what picks it: any ONE of these in the active slot, e.g. `tool_fruit_basket`; none = by hand) and `drops` (a list of `{ item_id, amount_min, amount_max }`). A ripe fruiting tree is picked by right-clicking it by hand (the tree stays); the fruit is back after `regrow_days` game days. |
+| `yield.tools` | What harvests it: a list, ANY ONE works. Empty = by hand; each entry is an item id or a `#tag`. (The legacy single `yield.tool` is read as a list of one.) |
 | `failure.withered` (crops) / `yield.stump` (trees) / `failure.dead` | The withered version (crops only), the stump left after a tree is harvested (trees only), and the dead version. Each is `resource` + `model`, like a stage. |
 | `planting.seasons/biomes`, temperature, `needs`, `failure` | Where and when it grows and what stops it. |
 
@@ -367,6 +369,16 @@ the defaults for anything the file leaves out.
 
 - **Rules:** grid size, reach (in squares), steepest plantable slope, plant spacing, and the biomes
   that can never be planted in.
+- **Starter zone:** `starter_zone` sets the rules for the land tile the player begins in (the map centre
+  by default: `tile` [2, 2]). World generation enforces them for every seed: a `grass_area_m` (16) metre square
+  around the spawn point is one of `land_biomes` (grass plains and meadow; maintained grass is player-made only) and the
+  rest of the zone is ordinary biome generation; at least `min_water_features` rivers or ponds
+  have water in the zone (a small pond is added if the seed gave none), and water covers at most
+  `max_water_fraction` (0.15) of the zone's area (rivers are narrowed, ponds shrunk or dropped).
+- **Starter road:** `starter_road` (`enabled`, `width_m` 3.4, `meander_m` 4.5) is the dirt and gravel road from a
+  map edge to the edge of the starter grass area. It is generated with the world (routed around water and
+  steep ground, soft and meandering, never straight) and drawn by the terrain shader with a procedural dirt and
+  gravel surface (ruts, patchy gravel, weeds down the crown). Trees, rocks, flowers and tufts keep off it.
 - **Zones:** rectangular patches of ground that count as a biome (e.g. farmland) on flat-ground
   worlds. The game builds a flat textured quad for each one when the mod loads, so a mod supplies
   its own farmland plots and their texture.
@@ -532,3 +544,7 @@ Debug.Log($"{manager.ModdedBiomeCount} biomes came from mods");
 - [ ] Every `contents` entry has a valid `type` and a `path` that exists.
 - [ ] Biome ids start with `biome_` and don't collide with core biomes.
 - [ ] Test by dropping the folder in `Mods/` and checking `modload_report.txt`.
+
+## Graphics presets (gamerules.json `graphics`)
+
+The Settings > Graphics preset list is mod data. A preset sets `shadow_distance`, `shadow_resolution`, `shadow_cascades`, `render_scale`, `antialiasing`, `small_plant_range`, `terrain_blend`, `water_reflections` and `max_fps`; `min_vram_mb` / `min_cores` are what **Auto** needs to choose it. Presets only change how the world is drawn, never what is in it (no density settings: positions and save records come from the world seed). The code is `Assets/Scripts/UI/GraphicsOptions.cs`; the player's choices (preset, display mode, resolution, V-Sync, HUD scale) are saved in PlayerPrefs and applied at startup.

@@ -7,7 +7,7 @@
   "icon": "box_medium_tan.png",
   "properties": {
     "weight_kg": 3.0,
-    "max_stack_size": 10,
+    "max_stack_size": 1,
     "base_value": 4.0,
     "is_consumable": false,
     "footprint": null,
@@ -17,7 +17,17 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "box_medium_tan.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.45,
+        "y": 0.3,
+        "z": 0.3
+      }
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -61,5 +71,10 @@
       "depth": 0.3,
       "height": 0.3
     }
+  },
+  "container": {
+    "capacity_kg": 15.0,
+    "stacking_limit": 3,
+    "accepts": []
   }
 }

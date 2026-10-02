@@ -4,9 +4,10 @@ Shader "Homesteader/WaterSurface"
     {
         _WaterMask ("Water Mask (R=depth, G=water flag)", 2D) = "white" {}
         _TerrainBounds ("Terrain Bounds (X, Z, Height, 0)", Vector) = (500.0, 500.0, 60.0, 0.0)
-        _BaseColor ("Base Water Color", Color) = (0.04, 0.18, 0.32, 0.88)
-        _DeepDarken ("Deep Darken Amount", Range(0, 1)) = 0.6
+        _BaseColor ("Base Water Color", Color) = (0.02, 0.10, 0.19, 0.92)
+        _DeepDarken ("Deep Darken Amount", Range(0, 1)) = 0.7
         _RippleAmplitude ("Ripple Amplitude", Range(0, 0.3)) = 0.12
+        _WaveSpeed ("Wave Speed (1 = physical)", Range(0.02, 1.5)) = 0.2
         _RippleFrequency ("Ripple Frequency", Range(0.5, 5.0)) = 1.8
         _FoamWidth ("Foam Width (metres)", Range(0.3, 3.0)) = 0.8
         _FoamColor ("Foam Color", Color) = (0.85, 0.92, 0.98, 1.0)
@@ -27,6 +28,9 @@ Shader "Homesteader/WaterSurface"
             Cull Back
 
             HLSLPROGRAM
+            // Real (wall-clock) time, set by RealTimeClock - unaffected by pausing/timeScale.
+            float _RealTime;
+            float _WaterReflectionQuality;   // set globally by the graphics preset: 0 = just the sun glint, 1 = the sky is reflected too
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
@@ -34,6 +38,10 @@ Shader "Homesteader/WaterSurface"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "HomesteaderSky.hlsl"
+
+            TEXTURE2D(_WaterMask);
+            SAMPLER(sampler_WaterMask);
 
             struct Attributes
             {
@@ -48,15 +56,13 @@ Shader "Homesteader/WaterSurface"
                 float2 uv         : TEXCOORD1;
             };
 
-            TEXTURE2D(_WaterMask);
-            SAMPLER(sampler_WaterMask);
-
             CBUFFER_START(UnityPerMaterial)
                 float4 _TerrainBounds;
                 half4 _BaseColor;
                 float _DeepDarken;
                 float _RippleAmplitude;
                 float _RippleFrequency;
+                float _WaveSpeed;
                 float _FoamWidth;
                 half4 _FoamColor;
             CBUFFER_END
@@ -76,19 +82,163 @@ Shader "Homesteader/WaterSurface"
                             lerp(hash21(i + float2(0, 1)), hash21(i + float2(1, 1)), u.x), u.y);
             }
 
+            // Global wind, set every frame by WeatherEffectsManager and shared with the grass:
+            // (dirX, dirZ, speed, gust 0..1). Zero when nothing is driving it, so a calm default applies.
+            float4 _GrassWindParams;
+
+            // (snowCoverage, groundWetness, rainNow 0..1, unused) - set by WeatherEffectsManager. rainNow is the
+            // smoothed "raining right now" value, so ripples fade in and out with the weather.
+            float4 _WeatherGroundEffects;
+            float RainNow() { return saturate(_WeatherGroundEffects.z); }
+
+            // The water's own wind, from RealTimeClock: (dirX, dirZ, gust, waveClock). Direction turns very slowly
+            // and the clock ACCUMULATES the gust's speed factor - both are what stop the waves racing when the
+            // gameplay wind changes (see RealTimeClock). Zero before it is set, so a calm default applies.
+            float4 _WaterWind;
+
+            void GetWind(out float2 dir, out float gust)
+            {
+                float2 d = _WaterWind.xy;
+                if (dot(d, d) < 1e-4) { dir = float2(1, 0); gust = 0.3; return; }
+                dir = normalize(d);
+                gust = saturate(_WaterWind.z);
+            }
+
+            // WIND-DRIVEN WAVES. Three travelling sine waves (long swell, mid chop, short ripple) whose
+            // headings are spread around the wind direction and drift slowly, so the surface is never a
+            // clean grid. Wind changes them three ways: amplitude grows with the gust strength, waves
+            // travel faster in stronger wind, and a patchy "gust front" noise advected DOWNWIND makes some
+            // stretches of water rougher than others. Returns (height, dh/dx, dh/dz) so the fragment stage
+            // can light the same surface it displaced.
+            float3 WindWaves(float2 p, float tIgnored)
+            {
+                // Wave clock: real seconds, with the wind's speed factor already integrated in (RealTimeClock).
+                float t = _WaterWind.w;
+                float2 wd; float gust;
+                GetWind(wd, gust);
+
+                // Rain roughens the surface too, on top of whatever the wind is doing.
+                float roughness = 0.25 + 1.5 * gust + 0.6 * RainNow();
+                // Rougher patches move with the wind at a fraction of its speed.
+                // THE FAST FLICKER WAS HERE. The noise is sampled at p * 0.06, so its coordinate moves 1/0.06 =
+                // 16.7 world metres per unit of offset: an offset rate of 0.29/s was a 4.8 m/s sweep, and the
+                // roughness patches raced across the water. The offset is now specified in WORLD metres per
+                // second (a slow drift, ~0.4 m/s) and scaled into noise space.
+                float patchSpeed = 0.7 * _WaveSpeed * 2.0;
+                float patch = 0.7 + 0.6 * valueNoise2D((p - wd * t * patchSpeed) * 0.06);
+                float scale = _RippleAmplitude * roughness * patch;
+
+                const float wavelength[3] = { 4.2, 2.3, 1.15 };
+                const float spread[3]     = { 0.0, 0.45, -0.6 };
+                const float amp[3]        = { 0.55, 0.30, 0.15 };
+
+                float3 acc = float3(0, 0, 0);
+                [unroll]
+                for (int i = 0; i < 3; i++)
+                {
+                    // Heading drift kept ~0.0006 rad/s: phase error grows with distance from the origin (see RealTimeClock).
+                    float ang = spread[i] + sin(t * 0.004 + i * 2.1) * 0.15;
+                    float cs = cos(ang), sn = sin(ang);
+                    float2 dir = float2(wd.x * cs - wd.y * sn, wd.x * sn + wd.y * cs);
+                    float k = 6.2832 / wavelength[i] * (_RippleFrequency / 1.8);
+                    float omega = sqrt(9.81 * k) * _WaveSpeed; // the gust's speed factor lives in the accumulated clock
+                    float phase = dot(p, dir) * k - omega * t;
+                    float h = amp[i] * sin(phase);
+                    float dh = amp[i] * k * cos(phase);
+                    acc += float3(h, dh * dir.x, dh * dir.y);
+                }
+                return acc * scale;
+            }
+
+            // 0..1 how much of the water is frozen over. Set by WeatherEffectsManager from the temperature.
+            float _WaterFreeze;
+
+            // ICE. Freezes from the SHORE INWARDS: the mask's B channel is the distance from the bank in
+            // metres (0..32), and the ice front sits at `_WaterFreeze * reach` metres in from it, with a ragged
+            // noise-perturbed edge. How far in the front can ever get depends on the kind of water (mask A):
+            //   pond  (A=1): still water, reach is far larger than any pond, so it freezes across.
+            //   river (A=0): moving water keeps an open channel - the front stops ~3.5 m from each bank, so a
+            //                narrow river (<~7 m across) freezes solid and a wide one stays open in the middle.
+            float IceAmount(float4 mask, float2 xz)
+            {
+                float freeze = saturate(_WaterFreeze);
+                if (freeze <= 0.001) return 0.0;
+                float dist = mask.b * 32.0;
+                dist += (valueNoise2D(xz * 0.45) - 0.5) * 1.6 + (valueNoise2D(xz * 1.7) - 0.5) * 0.5;
+                float reach = lerp(3.5, 80.0, step(0.5, mask.a));
+                float front = freeze * reach;
+                return smoothstep(0.0, 0.6, front - dist);
+            }
+
+            float2 hash22(float2 p)
+            {
+                return float2(hash21(p), hash21(p + 47.31));
+            }
+
+            // RAINDROP IMPACT RINGS. The surface is cut into cells; each cell owns one drop that lands at a
+            // random spot, sends out an expanding ring, and fades over its life before the next one starts
+            // (staggered per cell so they never pulse in sync). `rain` decides how many cells are active at
+            // all, so a drizzle is a few scattered rings and a storm covers the water. Returns
+            // (ring height, dh/dx, dh/dz) in the same form as WindWaves, plus the ring mask in w.
+            float4 RainRings(float2 p, float rain, float cellSize, float seed)
+            {
+                float2 q = p / cellSize;
+                float2 base = floor(q);
+                float2 f = frac(q);
+                float4 acc = float4(0, 0, 0, 0);
+                [unroll]
+                for (int oz = -1; oz <= 1; oz++)
+                {
+                    [unroll]
+                    for (int ox = -1; ox <= 1; ox++)
+                    {
+                        float2 o = float2(ox, oz);
+                        float2 id = base + o + seed;
+                        float2 h = hash22(id);
+                        if (h.x > rain) continue; // this cell has no drop right now
+                        float2 centre = o + 0.15 + 0.7 * hash22(id + 13.7);
+                        float phase = frac(_RealTime * (0.7 + 0.5 * h.y) * (_WaveSpeed * 1.6) + hash21(id + 5.3));
+                        float radius = phase * 0.55;
+                        float2 d = f - centre;
+                        float dist = max(length(d), 1e-4);
+                        float w = 0.05;
+                        float x = (dist - radius) / w;
+                        float ring = exp(-x * x);
+                        float fade = (1.0 - phase) * (1.0 - phase);
+                        float dhdd = -2.0 * x / w * ring * fade;   // slope across the ring
+                        float2 dir = d / dist;
+                        acc.x += ring * fade;
+                        acc.yz += dir * dhdd / cellSize;
+                        acc.w = max(acc.w, ring * fade);
+                    }
+                }
+                return acc;
+            }
+
             Varyings vert(Attributes input)
             {
                 Varyings output;
                 float3 posOS = input.positionOS.xyz;
 
-                // Vertex displacement: animated ripples (two layers for directional + cross flow)
-                float t = _Time.y;
-                float ripple1 = sin(posOS.x * 1.2 * _RippleFrequency + t * 1.8) * 0.5
-                              + cos(posOS.z * 0.9 * _RippleFrequency - t * 1.5) * 0.5;
-                float ripple2 = sin(posOS.x * 2.5 * _RippleFrequency + t * 2.3) * 0.15
-                              + sin(posOS.z * -1.8 * _RippleFrequency + t * 2.3) * 0.15;
-                float ripple3 = valueNoise2D(posOS.xz * 0.8 + t * 0.3) * 0.4 - 0.2;
-                float displacement = (ripple1 + ripple2 + ripple3) * _RippleAmplitude;
+                // Vertex displacement: wind-driven waves (see WindWaves).
+                float t = _RealTime;
+                float displacement = WindWaves(posOS.xz, t).x;
+                float4 iceMask = SAMPLE_TEXTURE2D_LOD(_WaterMask, sampler_WaterMask, input.uv, 0);
+                displacement *= 1.0 - IceAmount(iceMask, posOS.xz); // ice is flat
+
+                // Fade ripples out right at the shore: the ripple wavelength (a few metres) is close to the
+                // shoreline's own tooth spacing, so undamped ripples bob the edge vertices up and down enough
+                // to read as a sharp zigzag in an isometric near-edge-on view - the water's XZ outline was
+                // already smooth, it was the ripple HEIGHT wobbling along that outline that looked jagged.
+                float shoreCoverage = SAMPLE_TEXTURE2D_LOD(_WaterMask, sampler_WaterMask, input.uv, 0).g;
+                displacement *= smoothstep(0.4, 0.9, shoreCoverage);
+                // Ripples must never dip the surface below the bed. Near the shore the water is only a few
+                // centimetres deep, so an undamped +-0.15m ripple lifted the bed clear of the surface and the
+                // terrain showed through. The mask's R channel is depth/4m; scale the ripple with it.
+                float bedDepthN = SAMPLE_TEXTURE2D_LOD(_WaterMask, sampler_WaterMask, input.uv, 0).r;
+                displacement *= smoothstep(0.03, 0.10, bedDepthN);
+                // What is left of the ripple can only push the surface UP, never below the flat water level.
+                displacement = max(displacement, -0.02);
 
                 posOS.y += displacement;
 
@@ -104,66 +254,137 @@ Shader "Homesteader/WaterSurface"
                 float3 posWS = input.positionWS;
                 float2 uv = input.uv;
 
-                // Sample water mask: R = depth (0-1), G = water flag
+                // Sample water mask: R = depth (0-1), G = smoothed shore coverage (0..1, blurred on the CPU
+                // side - see BlurCoverage in HomesteaderTerrainGenerator.cs). Used to be a hard 0/1 flag that
+                // this shader discarded on, which - combined with the mesh being built one quad per whole
+                // metre cell - gave a literal staircase shoreline. Fading alpha across the blurred band
+                // instead of cutting on it is what actually makes the edge read as smooth.
                 float4 mask = SAMPLE_TEXTURE2D(_WaterMask, sampler_WaterMask, uv);
-                if (mask.g < 0.5) discard;
+                clip(mask.g - 0.02); // still skip fully-dry pixels outright, cheap early-out
                 float depth = mask.r; // 0 = shallow, 1 = deep
+                float ice = IceAmount(mask, posWS.xz);
 
-                // Edge distance: sample neighbors to find how close we are to the shore
-                float2 texelSize = float2(1.0 / _TerrainBounds.x, 1.0 / _TerrainBounds.y);
-                float edgeDist = 999.0;
-                [unroll]
-                for (int r = 1; r <= 4; r++)
-                {
-                    [unroll]
-                    for (int a = 0; a < 8; a++)
-                    {
-                        float ang = a * 0.785; // 45 degrees
-                        float2 offset = float2(cos(ang), sin(ang)) * r * texelSize;
-                        float s = SAMPLE_TEXTURE2D(_WaterMask, sampler_WaterMask, uv + offset).g;
-                        if (s < 0.5)
-                        {
-                            float d = length(offset) * _TerrainBounds.x;
-                            edgeDist = min(edgeDist, d);
-                        }
-                    }
-                    if (edgeDist < 999.0) break;
-                }
+                // THE SHORELINE IS THE 0.5 CONTOUR OF A SMOOTH FIELD. The mask is a Gaussian blur of the fine
+                // water mask (see GaussianCoverage), and the mesh extends past that contour, so the visible edge
+                // is drawn here - an anti-aliased ramp across the contour - and never by a polygon boundary.
+                float g = mask.g;
+                float2 wdirEdge; float wgustEdge;
+                GetWind(wdirEdge, wgustEdge);
+                wgustEdge = saturate(wgustEdge);
+                // The waterline laps in and out: a slow swell, offset along the shore by noise so it is not in
+                // lockstep, moves the contour a few tenths of a metre. It stays on the smooth field, so the
+                // edge is still never jagged. Livelier in wind.
+                float lapPhase = _RealTime * (0.55 + 0.25 * wgustEdge) + valueNoise2D(posWS.xz * 0.22) * 6.2831;
+                float lap = sin(lapPhase) * 0.6 + sin(lapPhase * 2.1 + 1.3) * 0.25;
+                // Only ever RECEDE from the smooth shoreline, never advance past it: out beyond the contour the bank sits
+                // within centimetres of the water plane, and water drawn there washes the bank a cyan glow.
+                float lapIn = saturate(lap * 0.5 + 0.5);
+                float contour = 0.5 + lapIn * (0.06 + 0.03 * wgustEdge);
+                float edgeAlpha = smoothstep(contour - 0.08, contour + 0.08, g);
+                float shoreAlpha = saturate((g - 0.5) * 4.0); // damps ripple normals right at the edge
+
 
                 // Single base color, darkened by depth
                 half4 waterCol = _BaseColor;
                 waterCol.rgb *= (1.0 - depth * _DeepDarken);
 
-                // Flowing directional ripples in the fragment shader (subtle color variation)
-                float flow = sin(posWS.x * 0.4 + posWS.z * 1.1 + _Time.y * 1.8) * 0.5
-                           + cos(posWS.z * 1.3 - posWS.x * 0.3 - _Time.y * 2.2) * 0.5;
-                waterCol.rgb = lerp(waterCol.rgb * 0.85, waterCol.rgb * 1.15, saturate(flow * 0.3 + 0.4));
+                // Colour variation that travels WITH the wind, so the water visibly streams downwind.
+                float2 wdir; float wgust;
+                GetWind(wdir, wgust);
+                float flow = valueNoise2D((posWS.xz - wdir * _WaterWind.w * 0.7 * _WaveSpeed * 2.0) * 0.5) * 2.0 - 1.0;
+                waterCol.rgb = lerp(waterCol.rgb * 0.85, waterCol.rgb * 1.15, saturate(flow * 0.3 + 0.5));
 
                 // Celestial reflection: specular highlight from the main light
                 Light mainLight = GetMainLight();
                 float3 viewDir = normalize(_WorldSpaceCameraPos - posWS);
-                // Perturb normal with the same ripple function
-                float nx = cos(posWS.x * 1.2 * _RippleFrequency + _Time.y * 1.8) * 0.15;
-                float nz = sin(posWS.z * 0.9 * _RippleFrequency - _Time.y * 1.5) * 0.15;
-                float3 normal = normalize(float3(nx, 1.0, nz));
+                // Perturb normal with the same ripple function, faded at the shore for the same reason the
+                // vertex displacement is (see vert()) - an undamped perturbation here reads as a speckled
+                // sparkle pattern right along the edge instead of a smooth specular sheen.
+                // Slope of the very waves the vertices were displaced by, so the sheen follows the wind.
+                float3 wave = WindWaves(posWS.xz, _RealTime);
+                float damp = shoreAlpha * smoothstep(0.03, 0.10, depth) * (1.0 - ice);
+                // Rain: two layers of drop rings at different scales, bent into the normal.
+                float rain = RainNow();
+                float4 rings = float4(0, 0, 0, 0);
+                if (rain > 0.001)
+                {
+                    rings = RainRings(posWS.xz, rain, 1.3, 0.0) + RainRings(posWS.xz + 9.1, rain * 0.8, 0.85, 31.0);
+                }
+                float2 slope = wave.yz + rings.yz * 0.12;
+                float3 normal = normalize(float3(-slope.x * damp, 1.0, -slope.y * damp));
 
                 float3 halfDir = normalize(viewDir + mainLight.direction);
                 float spec = pow(max(0.0, dot(normal, halfDir)), 64.0);
                 half3 reflection = mainLight.color * spec * 0.6;
                 waterCol.rgb += reflection;
+                // Sky reflection (High and Ultra): the environment reflected by the rippled surface, strongest at grazing angles (Fresnel).
+                if (_WaterReflectionQuality > 0.5)
+                {
+                    float3 vdir = GetWorldSpaceNormalizeViewDir(posWS);   // right for the orthographic game camera too
+                    // The game camera looks down at about 45 degrees, so plain Fresnel is tiny; start from a visible base and exaggerate the ripples so the sky shimmers.
+                    float3 rn = normalize(normal + (normal - float3(0, 1, 0)) * 3.0);
+                    float fresnel = pow(1.0 - saturate(dot(normal, vdir)), 2.0);
+                    float3 rdir = reflect(-vdir, rn);
+                    half3 sky = GlossyEnvironmentReflection(rdir, 0.0, 1.0);
+                    // Drifting clouds, lit by the sun and greyer the thicker the weather.
+                    float cloud = CloudDensityAlongRay(posWS, rdir);
+                    half3 cloudCol = saturate(mainLight.color * 0.85 + unity_AmbientSky.rgb * 0.4) * lerp(1.0, 0.6, _CloudParams.x);
+                    sky = lerp(sky, cloudCol, cloud * 0.85);
+                    float reflW = saturate(0.3 + fresnel * 0.6) * (1.0 - ice);
+                    waterCol.rgb = lerp(waterCol.rgb, sky, reflW);
+                    // Night: stars and the moon's glitter on the ripples, hidden behind clouds.
+                    float night = _SkyParams.x;
+                    if (night > 0.02)
+                    {
+                        float cd = saturate(dot(rdir, mainLight.direction));
+                        float moon = pow(cd, 900.0) * 2.0 + pow(cd, 60.0) * 0.12;
+                        half3 nightRefl = SkyStars(rdir, _RealTime) * 0.9 + mainLight.color * (moon * 4.0);
+                        waterCol.rgb += nightRefl * night * (1.0 - cloud * 0.85) * (1.0 - ice);
+                    }
+                }
+                // Rain greys and darkens the water a little, and each ring catches a faint light.
+                waterCol.rgb = lerp(waterCol.rgb, waterCol.rgb * 0.8 + 0.03, rain * 0.5);
+                waterCol.rgb += rings.w * rain * 0.06 * damp;
 
-                // Foam at edges
-                float foamMask = saturate(1.0 - edgeDist / _FoamWidth);
-                foamMask = smoothstep(0.0, 0.5, foamMask);
-                float foamNoise = valueNoise2D(posWS.xz * 3.0 + _Time.y * 0.5);
-                foamMask *= (0.6 + foamNoise * 0.4);
-                waterCol.rgb = lerp(waterCol.rgb, _FoamColor.rgb, foamMask * _FoamColor.a);
-                waterCol.a = max(waterCol.a, foamMask);
+                // No shoreline foam: it read as a white fringe around the water and is intentionally gone.
 
                 // Simple cel lighting
                 float ndotl = max(0.0, dot(normal, mainLight.direction));
                 float celLight = step(0.12, ndotl) * 0.35 + step(0.45, ndotl) * 0.35 + 0.3;
                 waterCol.rgb *= celLight;
+
+                // Ice: opaque pale blue-white with a crack network, flat and unlit by waves.
+                if (ice > 0.001)
+                {
+                    float2 cp = posWS.xz * 0.55;
+                    float2 ci = floor(cp), cf = frac(cp);
+                    float f1 = 9.0, f2 = 9.0;
+                    [unroll]
+                    for (int cz = -1; cz <= 1; cz++)
+                    {
+                        [unroll]
+                        for (int cx = -1; cx <= 1; cx++)
+                        {
+                            float2 o = float2(cx, cz);
+                            float2 pt = o + 0.15 + 0.7 * hash22(ci + o);
+                            float dd = length(cf - pt);
+                            if (dd < f1) { f2 = f1; f1 = dd; } else if (dd < f2) { f2 = dd; }
+                        }
+                    }
+                    float crack = 1.0 - smoothstep(0.0, 0.07, f2 - f1);
+                    float mottling = valueNoise2D(posWS.xz * 0.9);
+                    half3 iceCol = lerp(half3(0.60, 0.78, 0.88), half3(0.86, 0.94, 0.98), mottling);
+                    iceCol *= 1.0 - crack * 0.28;
+                    // Deeper water shows through the ice a little, so it is not a flat sticker on the bed.
+                    iceCol = lerp(iceCol, waterCol.rgb, depth * 0.25);
+                    iceCol *= 0.8 + 0.2 * saturate(dot(float3(0, 1, 0), mainLight.direction));
+                    waterCol.rgb = lerp(waterCol.rgb, iceCol, ice);
+                    waterCol.a = lerp(waterCol.a, 0.97, ice);
+                }
+
+                // Fade out across the shore blur band instead of the old hard cutoff - this is what actually
+                // turns the boundary into a smooth edge rather than a crisp (and thus staircase-shaped) one.
+                waterCol.a *= edgeAlpha;
 
                 return waterCol;
             }

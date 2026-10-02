@@ -246,7 +246,9 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    background-color: rgba(18, 22, 29, 0.6);
+    /* No full-screen tint here on purpose: the settings dialog opens on top of the pause/welcome
+       menu, which is already its own dim overlay - stacking a second one made the view darken
+       twice. The settings-card panel's own background is enough to separate it visually. */
 }
 
 .settings-dialog.settings--hidden {
@@ -256,7 +258,7 @@
 .settings-card {
     width: 320px;
     padding: 28px 24px 20px 24px;
-    background-color: rgba(43, 52, 66, 0.96);
+    background-color: rgb(43, 52, 66);
     border-width: 1px;
     border-color: rgb(18, 22, 29);
     border-top-color: rgb(92, 102, 117);
@@ -302,7 +304,7 @@
     color: rgb(238, 242, 246);
     font-size: 14px;
     -unity-font: var(--font-medium);
-    background-color: rgba(26, 33, 43, 0.85);
+    background-color: rgb(29, 36, 46);
     border-width: 1px;
     border-color: rgb(61, 74, 92);
 }
@@ -313,14 +315,40 @@
     -unity-font: var(--font-medium);
 }
 
-.settings-toggle > .unity-toggle__input {
-    background-color: rgb(26, 33, 43);
-    border-width: 1px;
-    border-color: rgb(61, 74, 92);
+.settings-toggle {
+    flex-shrink: 0;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 0;
 }
 
+.settings-toggle > .unity-toggle__input {
+    flex-grow: 0;
+    width: 28px;
+    height: 28px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(26, 33, 43);
+    border-width: 2px;
+    border-color: rgb(61, 74, 92);
+    border-radius: 3px;
+}
+
+.settings-toggle .unity-toggle__checkmark {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(18, 22, 29);
+}
+
+.settings-toggle:checked > .unity-toggle__input,
 .settings-toggle > .unity-toggle__input:checked {
     background-color: rgb(224, 138, 60);
+    border-color: rgb(232, 163, 98);
+}
+
+.settings-toggle:hover > .unity-toggle__input {
     border-color: rgb(232, 163, 98);
 }
 
@@ -334,4 +362,222 @@
 
 .settings-close-btn {
     margin-top: 4px;
+}
+
+/* ----- SETTINGS: wide layout with category navigation on the left ----- */
+
+.settings-card--wide {
+    width: 880px;
+    max-width: 94%;
+    height: 580px;
+    max-height: 92%;
+    min-height: 0;
+    padding: 22px 26px 16px 26px;
+    /* Nothing inside may draw outside the card: pages scroll, long text wraps. */
+    overflow: hidden;
+}
+
+.settings-body {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.settings-nav {
+    width: 180px;
+    flex-shrink: 0;
+    padding-right: 14px;
+    margin-right: 20px;
+    border-right-width: 1px;
+    border-right-color: rgb(61, 74, 92);
+}
+
+.settings-nav-btn {
+    height: 42px;
+    margin: 0 0 6px 0;
+    border-width: 0;
+    border-left-width: 3px;
+    border-left-color: rgb(34, 42, 53);
+    border-radius: 0;
+    background-color: rgb(34, 42, 53);
+    color: rgb(176, 188, 204);
+    font-size: 15px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-center;
+}
+
+.settings-nav-btn:hover {
+    background-color: rgb(61, 74, 92);
+    color: rgb(255, 255, 255);
+}
+
+.settings-nav-btn--active,
+.settings-nav-btn--active:hover {
+    background-color: rgb(61, 74, 92);
+    border-left-color: rgb(224, 138, 60);
+    color: rgb(255, 255, 255);
+    -unity-font: var(--font-bold);
+}
+
+.settings-pages {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.settings-page {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    min-height: 0;
+    padding-right: 6px;
+}
+
+/* Long text wraps inside its column instead of pushing the page wider than the card. */
+.settings-label,
+.settings-hint {
+    white-space: normal;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.controls-row .settings-label {
+    flex-shrink: 1;
+    flex-grow: 1;
+    min-width: 0;
+    margin-right: 12px;
+}
+
+.controls-key-btn,
+.controls-fixed-key {
+    flex-shrink: 0;
+}
+
+.settings-page--hidden {
+    display: none;
+}
+
+/* Everything inside a page keeps its own height and the page scrolls instead. UI Toolkit children shrink by
+   default (flex-shrink: 1), so a long page (Controls has ~30 rows) was getting squashed into the visible
+   height rather than scrolling. */
+.settings-page .unity-scroll-view__content-container {
+    flex-shrink: 0;
+}
+
+.settings-page .unity-scroll-view__content-container > * {
+    flex-shrink: 0;
+}
+
+.settings-section-title {
+    color: rgb(224, 138, 60);
+    font-size: 15px;
+    -unity-font: var(--font-bold);
+    letter-spacing: 1px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(61, 74, 92);
+}
+
+.settings-action-btn {
+    width: 200px;
+    height: 34px;
+    margin-top: 10px;
+    -unity-text-align: middle-center;
+}
+
+.settings-footer {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top-width: 1px;
+    border-top-color: rgb(61, 74, 92);
+}
+
+.settings-footer-btn {
+    width: 160px;
+    height: 36px;
+    margin: 0;
+    -unity-text-align: middle-center;
+}
+
+/* Dropdown: text vertically centred in the box (project UI rule), matching .asset-category-dropdown. */
+.settings-dropdown {
+    width: 200px;
+    margin: 0;
+}
+
+.settings-dropdown .unity-base-popup-field__input {
+    justify-content: center;
+    -unity-text-align: middle-left;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(238, 242, 246);
+    font-size: 14px;
+    background-color: rgb(29, 36, 46);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+}
+
+.settings-dropdown .unity-base-popup-field__text {
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
+}
+
+/* Controls page rows (built in code by SettingsDialogController) */
+.controls-group-title {
+    flex-shrink: 0;
+    color: rgb(139, 150, 165);
+    font-size: 12px;
+    -unity-font: var(--font-bold);
+    letter-spacing: 1.5px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.controls-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    height: 34px;
+    min-height: 34px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(54, 65, 82);
+}
+
+.controls-key-btn {
+    width: 150px;
+    height: 26px;
+    margin: 0;
+    background-color: rgb(29, 36, 46);
+    border-width: 1px;
+    border-color: rgb(61, 74, 92);
+    color: rgb(238, 242, 246);
+    font-size: 13px;
+    -unity-text-align: middle-center;
+}
+
+.controls-key-btn:hover {
+    background-color: rgb(61, 74, 92);
+}
+
+.controls-key-btn--capturing {
+    background-color: rgb(224, 138, 60);
+    border-color: rgb(232, 163, 98);
+    color: rgb(18, 22, 29);
+}
+
+.controls-fixed-key {
+    color: rgb(176, 188, 204);
+    font-size: 13px;
+    -unity-text-align: middle-right;
 }

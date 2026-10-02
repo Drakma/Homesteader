@@ -121,9 +121,23 @@ namespace Homesteader.Modding
         {
             prefab = null;
             string glbName = FirstGlb(assetManifest);
-            if (glbName == null) return false;
+            string path = glbName != null ? FindFile(mod, glbName) : null;
 
-            string path = FindFile(mod, glbName);
+            // The manifest still lists a legacy model (obj / fbx) but a converted GLB of the same name sits beside it.
+            // (Tools only for now: that is what the held-item display needs; the other categories switch over with apply_glb_to_manifests.py.)
+            if (path == null && assetManifest.Get("id").AsString("").StartsWith("tool_", StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (ModJsonValue m in assetManifest.Get("models").Items)
+                {
+                    string file = m.IsObject ? m.Get("file").AsString() : m.AsString();
+                    if (string.IsNullOrEmpty(file)) continue;
+                    string ext = System.IO.Path.GetExtension(file).ToLowerInvariant();
+                    if (ext != ".obj" && ext != ".fbx") continue;
+                    glbName = System.IO.Path.GetFileNameWithoutExtension(file) + ".glb";
+                    path = FindFile(mod, glbName);
+                    if (path != null) break;
+                }
+            }
             if (path == null) return false;
 
             string key = mod.Id + "|" + path;

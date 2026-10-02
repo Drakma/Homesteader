@@ -63,6 +63,27 @@ def main():
                         ms = props.get("max_stack_size")
                         if ms and isinstance(ms, int) and ms > 0:
                             item_data["max_stack"] = ms
+                        wk = props.get("weight_kg")
+                        if isinstance(wk, (int, float)) and not isinstance(wk, bool):
+                            item_data["weight_kg"] = float(wk)
+                    # the fruiting component schema: a plant picked by hand one fruit at a time
+                    fb = m.get("fruiting")
+                    if isinstance(fb, dict):
+                        item_data["fruiting_tools"] = [str(x) for x in fb.get("tools", [])] if isinstance(fb.get("tools"), list) else []
+                        item_data["fruiting_drops"] = [str(x) for x in fb.get("drops", [])] if isinstance(fb.get("drops"), list) else []
+                        rd = fb.get("regrow_days")
+                        item_data["fruiting_regrow_days"] = float(rd) if isinstance(rd, (int, float)) and not isinstance(rd, bool) else 8.0
+                    # the container component schema (its own top-level block)
+                    cb = m.get("container")
+                    if isinstance(cb, dict):
+                        cap = cb.get("capacity_kg")
+                        if isinstance(cap, (int, float)) and not isinstance(cap, bool) and cap > 0:
+                            item_data["container_capacity_kg"] = float(cap)
+                            sl = cb.get("stacking_limit")
+                            if isinstance(sl, (int, float)) and not isinstance(sl, bool) and sl > 1:
+                                item_data["container_stacking_limit"] = int(sl)
+                            acc = cb.get("accepts")
+                            item_data["container_accepts"] = [str(x) for x in acc] if isinstance(acc, list) else []
                 except Exception as ex:
                     print(f"Warning reading {manifest_path}: {ex}")
 

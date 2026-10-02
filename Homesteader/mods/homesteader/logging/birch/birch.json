@@ -52,8 +52,28 @@
       }
     ],
     "rules": {
+      "yield": {
+        "item_id": "mat_log_birch_uncut_long",
+        "amount_min": 1,
+        "amount_max": 1,
+        "tools": [
+          "#tool_axe",
+          "#tool_chainsaw"
+        ],
+        "harvest_stage": 4
+      },
       "planting": {
+        "seasons": [
+          "year_round"
+        ],
         "item_id": "plantable_birch_sapling"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_birch.glb",
+          "icon": "tree_dead_birch.png"
+        }
       }
     }
   },

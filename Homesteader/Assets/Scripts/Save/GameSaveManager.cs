@@ -131,7 +131,16 @@ namespace Homesteader.Save
 
             HudState hud = HudState.Active;
             foreach (ToolbarSlotData slot in hud.Toolbar)
-                s.toolbar.Add(new GameSave.SavedSlot { iconId = slot.IconId ?? "", count = slot.Count });
+            {
+                var saved = new GameSave.SavedSlot { iconId = slot.IconId ?? "", count = slot.Count };
+                if (slot.Contents != null && slot.Contents.Count > 0)
+                {
+                    saved.contentIds = new List<string>();
+                    saved.contentCounts = new List<int>();
+                    foreach (ContainerStack c in slot.Contents) { saved.contentIds.Add(c.ItemId); saved.contentCounts.Add(c.Count); }
+                }
+                s.toolbar.Add(saved);
+            }
             s.selectedSlot = hud.SelectedSlot;
             foreach (var kv in hud.Vitals)
                 s.vitals.Add(new GameSave.SavedVital { id = (int)kv.Key, value = kv.Value.Value });
@@ -150,13 +159,31 @@ namespace Homesteader.Save
                 s.plants.Add(new GameSave.SavedPlant
                 {
                     group = p.Group.QualifiedId, position = p.transform.position, yaw = p.transform.eulerAngles.y,
-                    ageDays = p.AgeDays, state = (int)p.State,
+                    ageDays = p.AgeDays, state = (int)p.State, fruitPickedUntil = p.FruitPickedUntil, fruitGoneMask = (int)p.FruitGone,
                 });
             }
             foreach (PlacedObject o in PlacedObject.All)
-                if (o != null) s.placed.Add(new GameSave.SavedPlaced { itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg });
+            {
+                if (o == null) continue;
+                var sp = new GameSave.SavedPlaced { itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg, level = o.Level };
+                if (o.Contents != null && o.Contents.Count > 0)
+                {
+                    sp.contentIds = new List<string>();
+                    sp.contentCounts = new List<int>();
+                    foreach (ContainerStack c in o.Contents) { sp.contentIds.Add(c.ItemId); sp.contentCounts.Add(c.Count); }
+                }
+                s.placed.Add(sp);
+            }
             foreach (WorldItem w in WorldItem.All)
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position });
+            s.fellTrees = Homesteader.World.ForestTrees.SavedFelled();
+            s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
+            s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
+            s.pickedTreeMasks = Homesteader.World.ForestTrees.SavedPickedMasks();
+            s.pickedBushes = Homesteader.World.BerryBushes.SavedPicked();
+            s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
+            s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
+            Homesteader.UI.SteadifyMiniPlayer.Capture(out s.miniPlayerOpen, out s.miniPlayerX, out s.miniPlayerY);
             return s;
         }
 
@@ -175,9 +202,17 @@ namespace Homesteader.Save
             HudState hud = HudState.Active;
             hud.Toolbar.Clear();
             for (int i = 0; i < HudState.ToolbarSize; i++)
-                hud.Toolbar.Add(i < s.toolbar.Count
-                    ? new ToolbarSlotData { IconId = s.toolbar[i].iconId, Count = s.toolbar[i].count }
-                    : ToolbarSlotData.Empty());
+            {
+                if (i >= s.toolbar.Count) { hud.Toolbar.Add(ToolbarSlotData.Empty()); continue; }
+                var slot = new ToolbarSlotData { IconId = s.toolbar[i].iconId, Count = s.toolbar[i].count };
+                if (s.toolbar[i].contentIds != null && s.toolbar[i].contentCounts != null)
+                {
+                    slot.Contents = new List<ContainerStack>();
+                    for (int c = 0; c < s.toolbar[i].contentIds.Count && c < s.toolbar[i].contentCounts.Count; c++)
+                        slot.Contents.Add(new ContainerStack { ItemId = s.toolbar[i].contentIds[c], Count = s.toolbar[i].contentCounts[c] });
+                }
+                hud.Toolbar.Add(slot);
+            }
             hud.SelectedSlot = Mathf.Clamp(s.selectedSlot, 0, HudState.ToolbarSize - 1);
             foreach (var v in s.vitals) hud.SetVitalValue((VitalId)v.id, v.value);
             foreach (var r in s.resources)
@@ -209,7 +244,21 @@ namespace Homesteader.Save
                 if (c != null && s.cameraOrthoSize > 0f) c.orthographicSize = s.cameraOrthoSize;
             }
 
-            // plants
+            // chopped forest trees (the forest itself is regenerated from the seed)
+            Homesteader.World.VegetationSeasons.RestoreGrowthDay(s.forestGrowthDay);
+            Homesteader.World.ForestTrees.ApplyFelled(s.fellTrees);
+            Homesteader.World.ForestTrees.ApplyDead(s.deadTrees);
+            Homesteader.World.ForestTrees.ApplyPicked(s.pickedTrees, s.pickedTreeMasks);
+            Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
+            Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen, s.miniPlayerX, s.miniPlayerY);
+
+            // plants: the ones standing now belong to the world being left (or to a stale session); the save puts back exactly its own
+            foreach (PlantedGrowth old in new List<PlantedGrowth>(PlantedGrowth.All))
+            {
+                if (old == null) continue;
+                PlantedGrowth.All.Remove(old);   // now, so nothing below (or this frame) still sees it; OnDisable would only do it at the end of the frame
+                Object.Destroy(old.gameObject);
+            }
             var groups = new Dictionary<string, GrowthGroup>(System.StringComparer.OrdinalIgnoreCase);
             foreach (GrowthGroup g in GrowthRegistry.Groups) groups[g.QualifiedId] = g;
             Transform plantedRoot = (GameObject.Find("PlantedGrowth") ?? new GameObject("PlantedGrowth")).transform;
@@ -220,6 +269,7 @@ namespace Homesteader.Save
                 p.transform.rotation = Quaternion.Euler(0f, sp.yaw, 0f);
                 p.SetAgeDays(sp.ageDays);
                 p.RestoreState((PlantedGrowth.PlantState)sp.state);
+                if (sp.fruitPickedUntil > 0f) p.RestoreFruit(sp.fruitPickedUntil, sp.fruitGoneMask == 0 ? uint.MaxValue : (uint)sp.fruitGoneMask);
             }
 
             // placed structures / props: their models load lazily, so wait for each template
@@ -234,7 +284,14 @@ namespace Homesteader.Save
                     while (!glb.Ready && !glb.Failed && Time.realtimeSinceStartup < until) yield return null;
                     if (!glb.Ready) continue;
                 }
-                PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false);
+                List<ContainerStack> contents = null;
+                if (so.contentIds != null && so.contentCounts != null)
+                {
+                    contents = new List<ContainerStack>();
+                    for (int c = 0; c < so.contentIds.Count && c < so.contentCounts.Count; c++)
+                        contents.Add(new ContainerStack { ItemId = so.contentIds[c], Count = so.contentCounts[c] });
+                }
+                PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents);
             }
 
             // dropped items

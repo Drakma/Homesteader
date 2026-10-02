@@ -95,6 +95,80 @@
         }
       }
     },
+    "starter_zone": {
+      "type": "object",
+      "required": false,
+      "note": "Rules for the land tile the player begins in (the centre of the map by default). World generation enforces them whatever the seed: a square of ground around the spawn point is some form of grass, there is at least one water feature in the zone, and water covers no more than max_water_fraction of the zone. The rest of the zone is ordinary biome generation.",
+      "fields": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "note": "Turns the whole rule off."
+        },
+        "tile": {
+          "type": "array",
+          "default": [
+            2,
+            2
+          ],
+          "note": "[x, z] land tile (0-4 on the 5 x 5 grid of 100 m tiles) that counts as the starter zone. The player spawns at its centre."
+        },
+        "grass_area_m": {
+          "type": "number",
+          "min": 0,
+          "default": 16,
+          "note": "Side length in metres of the square around the spawn point (the centre of the tile) whose land is always one of land_biomes. 0 turns the grass area off."
+        },
+        "land_biomes": {
+          "type": "array",
+          "item_type": "string",
+          "default": [
+            "biome_grass_plains",
+            "biome_meadow"
+          ],
+          "note": "Biome ids the grass area's land is made of (patchy mix; biome_maintained_grass is left out on purpose, it only comes from the player). Every non-water point in the grass area is one of these."
+        },
+        "min_water_features": {
+          "type": "number",
+          "min": 0,
+          "default": 1,
+          "note": "At least this many rivers or ponds must have water inside the zone. A small pond is added when the seed gave none."
+        },
+        "max_water_fraction": {
+          "type": "number",
+          "min": 0.01,
+          "max": 1,
+          "default": 0.15,
+          "note": "Water may cover at most this fraction of the zone's area. Rivers are narrowed and ponds shrunk or removed until it holds."
+        }
+      }
+    },
+    "starter_road": {
+      "type": "object",
+      "required": false,
+      "note": "The dirt and gravel road from a map edge to the edge of the starter grass area. Generated with the world: routed around water and steep ground, soft and meandering, never straight, and painted by the terrain shader (procedural dirt and gravel with ruts). Trees, rocks and flowers keep off it.",
+      "fields": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "note": "Turns the road off."
+        },
+        "width_m": {
+          "type": "number",
+          "min": 1.5,
+          "max": 8,
+          "default": 3.4,
+          "note": "Width of the road surface in metres, edge to edge (it varies a little along the road)."
+        },
+        "meander_m": {
+          "type": "number",
+          "min": 0,
+          "max": 15,
+          "default": 4.5,
+          "note": "How far the road wanders from side to side, in metres, on top of the turns it makes to avoid water and hills. 0 = only those turns."
+        }
+      }
+    },
     "zones": {
       "type": "array",
       "required": false,
@@ -138,6 +212,87 @@
           "required": false,
           "default": 0.005,
           "note": "How far above the ground the quad sits."
+        }
+      }
+    },
+    "graphics": {
+      "type": "object",
+      "required": false,
+      "note": "Graphics quality presets (Settings > Graphics > Preset). A preset only changes how the world is DRAWN, never what is in it: tree and bush positions and the save records come from the world seed, so density is not a quality setting. Auto picks the highest preset whose min_vram_mb and min_cores the machine meets. The presets list replaces the built-in one; list them lowest quality first.",
+      "fields": {
+        "default_preset": {
+          "type": "string",
+          "default": "auto",
+          "note": "The preset a new player starts with: 'auto' or a preset id."
+        },
+        "presets": {
+          "type": "array",
+          "item_fields": {
+            "id": {
+              "type": "string",
+              "required": true,
+              "note": "Unique id (low, medium, high, ultra ...)."
+            },
+            "name": {
+              "type": "string",
+              "note": "The name shown in the dropdown."
+            },
+            "min_vram_mb": {
+              "type": "number",
+              "note": "Graphics memory Auto needs to pick this preset.",
+              "min": 0
+            },
+            "min_cores": {
+              "type": "number",
+              "note": "CPU cores Auto needs to pick this preset.",
+              "min": 0
+            },
+            "shadow_distance": {
+              "type": "number",
+              "note": "Metres the sun casts shadows; 0 = no shadows.",
+              "min": 0
+            },
+            "shadow_resolution": {
+              "type": "number",
+              "note": "Size of the sun's shadow map (1024, 2048, 4096).",
+              "min": 256,
+              "max": 8192
+            },
+            "shadow_cascades": {
+              "type": "number",
+              "note": "Shadow cascades (1 to 4).",
+              "min": 1,
+              "max": 4
+            },
+            "render_scale": {
+              "type": "number",
+              "note": "Share of the screen resolution the world is drawn at (0.5 to 1.5).",
+              "min": 0.5,
+              "max": 1.5
+            },
+            "small_plant_range": {
+              "type": "number",
+              "note": "Metres from the middle of the view that flowers, tufts and bushes are drawn.",
+              "min": 10
+            },
+            "terrain_blend": {
+              "type": "boolean",
+              "note": "The soft biome boundaries on the terrain. Off = hard edges (the cheapest)."
+            },
+            "max_fps": {
+              "type": "number",
+              "note": "Frame rate cap with V-Sync off; 0 = none.",
+              "min": 0
+            },
+            "antialiasing": {
+              "type": "string",
+              "note": "Anti-aliasing: off, fxaa, smaa, msaa2, msaa4 or msaa8. FXAA / SMAA are cheap post-process smoothing; MSAA costs more frame rate and graphics memory. The player can override it in Settings."
+            },
+            "water_reflections": {
+              "type": "boolean",
+              "note": "The sky reflected in water (Fresnel-weighted, from the environment). Off = only the sun's glint. Costs very little; the player can override it in Settings."
+            }
+          }
         }
       }
     }

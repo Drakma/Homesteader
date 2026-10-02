@@ -375,6 +375,29 @@ TemplateContainer {
     background-color: rgba(18, 22, 29, 0);
 }
 
+/* Name of the active toolbar item, in a game-style panel just above the toolbar. */
+.active-item-hint-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 84px;
+    align-items: center;
+}
+
+.active-item-hint {
+    padding: 5px 16px;
+    border-width: 1px;
+    border-radius: 0;
+    border-color: rgba(224, 138, 60, 0.45);
+    background-color: rgba(26, 33, 43, 0.95);
+    color: rgb(238, 242, 246);
+    font-size: 13px;
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    margin: 0;
+}
+
 .tool-slot {
     position: relative;
     width: 56px;
@@ -1000,6 +1023,61 @@ TemplateContainer {
     border-width: 0;
     position: relative;
     overflow: hidden;
+}
+
+/* Wind cell attached to the left of the weather timeline: an arrow (screen-relative, points where the wind blows)
+   beside the speed and the compass point the wind comes from. */
+.wind-cell {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    max-height: 36px;
+    width: 84px;
+    min-width: 84px;
+    margin-right: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: rgb(58, 70, 88);
+    border-width: 0;
+}
+
+.wind-arrow-holder {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-right: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.wind-text-col {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 1;
+}
+
+.wind-speed-label {
+    font-size: 14px;
+    color: rgb(158, 204, 245);
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+.wind-dir-label {
+    font-size: 10px;
+    color: rgb(150, 168, 190);
+    -unity-font: var(--font-bold);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
 }
 
 /* Offset cell attached to the right of the weather timeline displaying current temp */

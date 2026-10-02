@@ -48,7 +48,7 @@
         "amount_min": 2,
         "amount_max": 2,
         "harvest_stage": 3,
-        "tool": "#sickle"
+        "tool": "#tool_sickle"
       },
       "planting": {
         "seasons": [

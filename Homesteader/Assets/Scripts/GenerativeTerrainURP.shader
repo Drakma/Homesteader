@@ -3,6 +3,8 @@ Shader "Homesteader/GenerativeTerrainURP"
     Properties
     {
         _BiomeMap ("Biome Control Map (R=Mode, G=Moisture, B=Nutrients, A=Slope)", 2D) = "black" {}
+        _RoadMask ("Road Mask (R=coverage, G=lateral offset)", 2D) = "black" {}
+        _RoadParams ("Road Params (lateral range, half width)", Vector) = (6, 1.7, 0, 0)
         _BiomeBorderTex ("Biome Border Factor", 2D) = "black" {}
         _TerrainBounds ("Terrain Bounds (X, Z, Height, 0)", Vector) = (500.0, 500.0, 60.0, 0.0)
         _NormalStrength ("Facet Normal Strength", Range(0, 1)) = 0.25
@@ -24,6 +26,8 @@ Shader "Homesteader/GenerativeTerrainURP"
             Tags { "LightMode"="UniversalForward" }
 
             HLSLPROGRAM
+            // Real (wall-clock) time, set by RealTimeClock - unaffected by pausing/timeScale.
+            float _RealTime;
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
@@ -34,6 +38,7 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "HomesteaderSky.hlsl"
 
             struct Attributes
             {
@@ -52,6 +57,15 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             TEXTURE2D(_BiomeMap);
             SAMPLER(sampler_BiomeMap);
+            // Same smooth blurred coverage texture WaterSurface.shader fades its own alpha across (R=depth,
+            // G=coverage - see HomesteaderTerrainGenerator.GenerateWaterMask/BlurCoverage). Used here to blend
+            // the water-bed color into the land color across that same real band, instead of switching at the
+            // hard point-sampled biomeMode boundary - isWater itself can't be smooth (mode ids don't blend),
+            // so the fix has to be blending the two colors rather than the branch condition.
+            TEXTURE2D(_WaterMask);
+            // The starter road (HomesteaderTerrainGenerator.Road.cs): R = coverage, G = lateral offset from the centreline
+            // (0.5 = centre, +-_RoadParams.x metres at the ends). Painted over the biome as a procedural dirt / gravel road.
+            TEXTURE2D(_RoadMask);
             // Unity inline sampler state: point filtering + clamp. The biome map's alpha channel
             // stores a biome mode id, so it must not be interpolated (that would invent
             // in-between ids that don't correspond to any real biome).
@@ -67,6 +81,7 @@ Shader "Homesteader/GenerativeTerrainURP"
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _TerrainBounds;
+                float4 _RoadParams; // x = lateral range (m), y = road half width (m)
                 float _NormalStrength;
                 float _NutrientDarkening;
                 half4 _GridColor;
@@ -122,6 +137,61 @@ Shader "Homesteader/GenerativeTerrainURP"
                     amp *= 0.5;
                 }
                 return val;
+            }
+
+            // --- Procedural dirt and gravel road ---
+            // Packed dirt with two wheel ruts and a worn crown down the middle, gravel scattered and patchy (heavier in
+            // the ruts and along the shoulders), grit spilling onto the verge, a few weeds through the crown.
+            half3 RoadTexture(float2 pos, float lateralN, float coverage)
+            {
+                float lat = (lateralN - 0.5) * 2.0 * _RoadParams.x;       // metres from the centreline, signed
+                float aLat = abs(lat);
+
+                // Dirt: two warm browns mottled by large and fine noise.
+                float large = FBM(pos * 0.35, 3);
+                float fine = SnowValueNoise(pos * 5.0);
+                half3 dirtA = half3(0.50, 0.38, 0.22);
+                half3 dirtB = half3(0.40, 0.30, 0.17);
+                half3 col = lerp(dirtB, dirtA, smoothstep(0.25, 0.75, large));
+                col *= 0.92 + 0.16 * fine;
+
+                // Compacted ruts: darker, smoother tracks about 0.9 m either side of the centre.
+                float rutCentre = 0.72;
+                float rut = 1.0 - smoothstep(0.0, 0.36, abs(aLat - rutCentre));
+                rut *= smoothstep(0.45, 0.95, coverage);   // ruts fade out where the road frays into the grass
+                col = lerp(col, col * 0.72, rut * 0.75);
+
+                // Crown between the ruts: paler, dustier, sometimes grown over with weeds.
+                float crown = 1.0 - smoothstep(0.15, 0.55, aLat);
+                col = lerp(col, col * 1.12 + 0.02, crown * 0.5);
+                float fray = 1.0 - smoothstep(0.35, 0.95, coverage);
+                float weeds = smoothstep(0.58 - 0.25 * fray, 0.8 - 0.2 * fray, FBM(pos * 1.3 + 17.0, 3)) * saturate(crown + fray);
+                col = lerp(col, half3(0.26, 0.40, 0.17), weeds * 0.7);
+
+                // Gravel: pebble cells with jittered centres, light greys and tans. More in the ruts and on the
+                // shoulders, patchy along the road.
+                float patch = smoothstep(0.30, 0.70, FBM(pos * 0.22 + 41.0, 3));
+                float gravelAmount = saturate(0.30 + 0.45 * patch + 0.25 * rut + 0.20 * smoothstep(1.0, 1.7, aLat));
+                float2 cellP = pos * 6.0;
+                float2 cellId = floor(cellP);
+                float2 cellF = frac(cellP);
+                float2 h = SnowHash2(cellId);
+                float2 centre = 0.3 + 0.4 * h;
+                float pd = length(cellF - centre);
+                float size = 0.18 + 0.16 * SnowHash(cellId + 7.7);
+                float pebble = smoothstep(size, size * 0.55, pd) * step(1.0 - gravelAmount, SnowHash(cellId + 3.3));
+                half3 stoneA = half3(0.62, 0.58, 0.50);
+                half3 stoneB = half3(0.50, 0.49, 0.47);
+                half3 stoneC = half3(0.70, 0.63, 0.52);
+                float pick = SnowHash(cellId + 19.1);
+                half3 stone = pick < 0.33 ? stoneA : (pick < 0.66 ? stoneB : stoneC);
+                stone *= 0.85 + 0.25 * SnowHash(cellId + 5.5);
+                col = lerp(col, stone, pebble * 0.9);
+
+                // A scuffed, gritty rim where the road meets the verge.
+                float rim = 1.0 - smoothstep(0.35, 0.95, coverage);
+                col = lerp(col, col * 0.85 + half3(0.05, 0.04, 0.02), rim * 0.5);
+                return col;
             }
 
             // --- Procedural grass texture (no extra geometry, no extra draw calls) ---
@@ -554,14 +624,48 @@ Shader "Homesteader/GenerativeTerrainURP"
             // Wetland marsh: dark muddy ground with water pools and reeds
             half3 WetlandTexture(float2 pos, half3 baseTint)
             {
-                half3 muck = half3(0.20, 0.18, 0.12);
-                half3 water = half3(0.12, 0.18, 0.15);
-                half3 reed = half3(0.30, 0.32, 0.14);
+                // Peat and moss: dark brown-green ground, moss hummocks, and a few shallow dark pools - the same
+                // low-contrast, large-scale noise the other biomes use, so it sits in the palette with them.
+                half3 peat = half3(0.20, 0.19, 0.11);
+                half3 moss = half3(0.27, 0.34, 0.14);
+                half3 mossLight = half3(0.36, 0.42, 0.20);
+                half3 water = half3(0.13, 0.19, 0.16);
                 float n = FBM(pos * 0.05, 3);
-                half3 col = lerp(muck, reed, smoothstep(0.3, 0.7, n));
-                // Dark water pools
+                half3 col = lerp(peat, moss, smoothstep(0.25, 0.7, n));
+                float hummock = SnowValueNoise(pos * 0.18 + 11.0);
+                col = lerp(col, mossLight, smoothstep(0.62, 0.85, hummock) * 0.35);
                 float pool = SnowValueNoise(pos * 0.03 + 25.0);
-                col = lerp(col, water, smoothstep(0.6, 0.85, pool) * 0.5);
+                col = lerp(col, water, smoothstep(0.62, 0.85, pool) * 0.4);
+                return col;
+            }
+
+            // Willow grove: lush, damp, yellow-green ground with soft shaded hollows and the odd drift of fallen willow leaves
+            half3 WillowGroveTexture(float2 pos, half3 baseTint)
+            {
+                half3 grass = half3(0.36, 0.50, 0.19);
+                half3 lush = half3(0.45, 0.58, 0.22);
+                half3 shade = half3(0.22, 0.34, 0.14);
+                half3 leaf = half3(0.58, 0.58, 0.26);
+                float n = FBM(pos * 0.07, 3);
+                half3 col = lerp(shade, grass, smoothstep(0.2, 0.65, n));
+                col = lerp(col, lush, smoothstep(0.55, 0.9, FBM(pos * 0.11 + 7.0, 3)) * 0.5);
+                float drift = SnowValueNoise(pos * 0.16 + 33.0);
+                col = lerp(col, leaf, smoothstep(0.7, 0.9, drift) * 0.3);
+                return col;
+            }
+
+            // Sand: pale, fine-grained, with soft ripples and the odd darker damp streak
+            half3 SandTexture(float2 pos, half3 baseTint)
+            {
+                half3 sand = half3(0.82, 0.72, 0.48);
+                half3 pale = half3(0.90, 0.82, 0.60);
+                half3 damp = half3(0.66, 0.56, 0.36);
+                float n = FBM(pos * 0.09, 3);
+                half3 col = lerp(sand, pale, smoothstep(0.3, 0.75, n));
+                float ripple = sin((pos.x * 0.7 + pos.y * 0.35) * 1.6 + FBM(pos * 0.2, 2) * 6.0) * 0.5 + 0.5;
+                col = lerp(col, damp, smoothstep(0.82, 1.0, ripple) * 0.18);
+                col = lerp(col, damp, smoothstep(0.7, 0.9, SnowValueNoise(pos * 0.05 + 11.0)) * 0.25);
+                col += (SnowValueNoise(pos * 6.0) - 0.5) * 0.04;   // grain
                 return col;
             }
 
@@ -601,9 +705,91 @@ Shader "Homesteader/GenerativeTerrainURP"
                     c = PoplarStandTexture(pos, half3(0,0,0));      // 14: poplar
                 else if (mode < 15.5)
                     c = PoplarStandTexture(pos, half3(0,0,0));      // 15: mixed (use poplar as base)
+                else if (mode < 16.5)
+                    c = WillowGroveTexture(pos, half3(0,0,0));      // 16: willow grove
+                else if (mode < 17.5)
+                    c = SandTexture(pos, half3(0,0,0));             // 17: sand
                 else
                     c = ShortGrassTexture(pos, half3(0,0,0));      // fallback
                 return c;
+            }
+
+            // The ground of one biome mode at a world position (water modes give their bed texture, which the water blend below covers anyway).
+            half3 BiomeLandColor(float mode, float2 pos)
+            {
+                if (mode > 5.5 && mode < 6.5)
+                    return WetlandTexture(pos, half3(0, 0, 0));
+                if (mode > 4.5 && mode < 5.5)
+                {
+                    float stripe = step(0.5, frac(pos.y / 1.2));   // 1.2m mower pass
+                    return lerp(half3(0.10, 0.60, 0.22), half3(0.18, 0.82, 0.36), stripe);
+                }
+                if (mode > 3.5 && mode < 4.5)
+                {
+                    float furrow = sin(pos.x * 3.14159 / 1.0);     // 1-meter tilled rows
+                    return lerp(half3(0.24, 0.11, 0.03), half3(0.12, 0.05, 0.01), step(0.0, furrow) * 0.65);
+                }
+                return GetBiomeTexture(mode, pos);
+            }
+
+            // Smooth biome boundaries. The baked biome map stores discrete mode ids, which cannot be filtered, so the ground texture used to switch
+            // at the (blocky) texel edge. Instead the mode is point-sampled at the four corners of a small lattice cell round the pixel, every
+            // distinct mode's texture is evaluated, and they are mixed with smoothed bilinear weights: the boundary becomes a soft blend a few
+            // metres wide that follows the biome shapes. Away from a boundary all four taps agree and it costs one texture, as before.
+            // (The loop over the distinct modes is a real loop: see below.)
+            float _TerrainBlendQuality;   // set globally by the graphics preset: 0 = hard biome edges (one texture per pixel), 1 = the soft blend
+
+            half3 BlendedBiomeGround(float2 localXZ, float2 worldXZ)
+            {
+                if (_TerrainBlendQuality < 0.5)
+                {
+                    float a0 = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, localXZ / _TerrainBounds.xy, 0).a;
+                    return BiomeLandColor(floor(a0 * 18.0), worldXZ);
+                }
+                const float cell = 3.0;
+                float2 g = localXZ / cell - 0.5;
+                float2 i0 = floor(g);
+                float2 t = frac(g);
+                t = t * t * (3.0 - 2.0 * t);
+                float ws[4];
+                ws[0] = (1.0 - t.x) * (1.0 - t.y);
+                ws[1] = t.x * (1.0 - t.y);
+                ws[2] = (1.0 - t.x) * t.y;
+                ws[3] = t.x * t.y;
+                float ms[4];
+                [unroll] for (int k = 0; k < 4; k++)
+                {
+                    float2 p = (i0 + float2(k % 2, k / 2) + 0.5) * cell;
+                    float a = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, p / _TerrainBounds.xy, 0).a;
+                    ms[k] = floor(a * 18.0);
+                }
+                // Each distinct mode's total weight (taps on the same mode share one texture evaluation); only the TWO strongest are drawn, so a
+                // pixel never pays for more than two biome textures (a third or fourth only appears at a triple junction and is a few percent).
+                float mw[4];
+                [unroll] for (int a2 = 0; a2 < 4; a2++)
+                {
+                    bool seen = false;
+                    float wa = ws[a2];
+                    [unroll] for (int c = 0; c < 4; c++) if (c < a2 && ms[c] == ms[a2]) seen = true;
+                    [unroll] for (int d = 0; d < 4; d++) if (d > a2 && ms[d] == ms[a2]) wa += ws[d];
+                    mw[a2] = seen ? 0.0 : wa;
+                }
+                int i1 = 0;
+                [unroll] for (int k1 = 1; k1 < 4; k1++) if (mw[k1] > mw[i1]) i1 = k1;
+                int i2 = -1; float w2 = 0.0;
+                [unroll] for (int k2 = 0; k2 < 4; k2++) if (k2 != i1 && mw[k2] > w2) { w2 = mw[k2]; i2 = k2; }
+                // a real loop of at most two passes, so the big per-biome texture code is compiled once (see the note on compile time above)
+                half3 col = half3(0, 0, 0);
+                float used = 0.0;
+                [loop] for (int pi = 0; pi < 2; pi++)
+                {
+                    int idx = pi == 0 ? i1 : i2;
+                    float wgt = pi == 0 ? mw[i1] : w2;
+                    if (idx < 0 || wgt <= 0.02) continue;
+                    col += BiomeLandColor(ms[idx], worldXZ) * wgt;
+                    used += wgt;
+                }
+                return col / max(used, 1e-4);
             }
 
             // Footprint mask written by SnowFootprints.cs: R = print strength, top-down over the terrain.
@@ -650,64 +836,70 @@ Shader "Homesteader/GenerativeTerrainURP"
                 // evaluation (water/wetland/lawn/farmland placement, elevation-based highlands, and
                 // the domain-warped forest/meadow noise fields) once on the CPU. The shader's job is
                 // just to decode and paint it, not to re-derive placement with its own noise.
-                // A encodes (biomeMode + 0.5) / 16 (point-sampled: mode ids must never blend into
+                // A encodes (biomeMode + 0.5) / 18 (point-sampled: mode ids must never blend into
                 // each other), RGB is the biome's actual tint color (bilinear-sampled below, so
                 // adjacent biomes fade smoothly across their shared texel border instead of
                 // stair-stepping). See HomesteaderTerrainGenerator.GenerateTerrain.
                 float2 biomeUv = float2(x / _TerrainBounds.x, z / _TerrainBounds.y);
                 half4 biomeSample = SAMPLE_TEXTURE2D(_BiomeMap, sampler_point_clamp, biomeUv);
-                int biomeMode = (int)floor(biomeSample.a * 16.0);
+                int biomeMode = (int)floor(biomeSample.a * 18.0);
 
                 // Water is now rendered by a separate vertex-displaced water mesh (WaterSurface.shader).
                 // The terrain shader just paints biome colors — under water, the baked biome map's
                 // river/lake/pond tint shows through as the riverbed/pondbed color.
+                //
+                // isWater itself is still a hard, point-sampled switch (biomeMode ids can't blend), but the
+                // COLOR either side of it doesn't have to snap with it: sample the same smoothly-blurred
+                // coverage texture WaterSurface.shader fades its own alpha across, compute both the water-bed
+                // color and the land color unconditionally, and lerp between them by that coverage. That's
+                // what actually removes the visible seam - blending the branch condition itself is impossible
+                // since mode ids are discrete, but blending its two outcomes isn't.
                 bool isWater = (biomeMode >= 1 && biomeMode <= 3); // river=1, lake=2, pond=3
                 bool isWetland = (biomeMode == 6);
                 bool isLawn = !isWater && !isWetland && biomeMode == 5;
                 bool isFarmland = !isWater && !isWetland && biomeMode == 4;
 
-                // Color & Biome Evaluation
-                if (isWater)
-                {
-                    // Riverbed/pondbed: dark, wet ground — the water mesh renders the actual
-                    // water surface on top. Just read the biome tint darkened.
-                    half3 bedColor = SAMPLE_TEXTURE2D(_BiomeMap, sampler_linear_clamp, biomeUv).rgb;
-                    col = bedColor * 0.35; // dark wet riverbed
-                }
-                else if (isWetland)
-                {
-                    half3 shoreColor = SAMPLE_TEXTURE2D(_BiomeMap, sampler_linear_clamp, biomeUv).rgb;
-                    float gravelDither = step(0.5, frac(posWS.x * 2.0 + posWS.z * 2.0));
-                    col = shoreColor * lerp(0.86, 0.96, gravelDither);
-                }
-                else if (isLawn)
-                {
-                    half3 lawnLight = half3(0.18, 0.82, 0.36);
-                    half3 lawnDark = half3(0.10, 0.60, 0.22);
-                    float stripe = step(0.5, frac(posWS.z / 1.2)); // 1.2m mower pass
-                    col = lerp(lawnDark, lawnLight, stripe);
-                }
-                else if (isFarmland)
-                {
-                    half3 richLoam = half3(0.24, 0.11, 0.03);
-                    half3 furrowShadow = half3(0.12, 0.05, 0.01);
-                    float furrow = sin(posWS.x * 3.14159 / 1.0); // 1-meter tilled rows
-                    col = lerp(richLoam, furrowShadow, step(0.0, furrow) * 0.65);
-                }
-                else
-                {
-                    // --- Biome texture blending ---
-                    // At biome borders, blend between the two adjacent biomes' procedural
-                    // textures (not flat colors) for smooth transitions without square edges.
+                // Riverbed/lakebed/pondbed: sediment/mud noise layered on the biome map's own smooth
+                // bilinear-sampled tint. Deliberately NOT GetBiomeTexture(biomeMode, ...) here even though
+                // that has real mud/silt/sand patterns - picking the pattern by (point-sampled) mode made the
+                // pattern itself hard-switch at the same blocky per-texel boundary as the old flat tile. The
+                // bilinear tint stays continuous right across that boundary, so noise on top of it reads as
+                // real riverbed detail without reintroducing a visible seam.
+                // DIRT, NOT THE BIOME TINT. The bed used to be the water biomes' blue color_hex darkened, which
+                // read as a flat blue floor under and around the water. It is now one continuous dirt palette
+                // (same for river, lake and pond, so there is still no per-mode seam), darkened with depth.
+                // Because the shore blend below lerps land -> waterCol, this is also the dirt on the shore.
+                float sediment = FBM(posWS.xz * 0.08, 3);
+                half3 dirtDark = half3(0.20, 0.14, 0.09);
+                half3 dirtMid = half3(0.36, 0.26, 0.16);
+                half3 dirtLight = half3(0.50, 0.38, 0.24);
+                half3 waterCol = lerp(dirtDark, dirtMid, sediment);
+                waterCol = lerp(waterCol, dirtLight, smoothstep(0.6, 0.85, FBM(posWS.xz * 0.3 + 7.0, 2)) * 0.45);
+                float bedDepth = SAMPLE_TEXTURE2D(_WaterMask, sampler_linear_clamp, biomeUv).r;
+                waterCol *= lerp(1.0, 0.65, saturate(bedDepth));
 
-                    // Procedural texture for this biome (no blending)
-                    col = GetBiomeTexture(biomeMode, posWS.xz);
-                }
+                // Color & Biome Evaluation: every biome (wetland, lawn and farmland included) goes through the same smooth blend.
+                col = BlendedBiomeGround(float2(x, z), posWS.xz);
+
+                // Blend the land color just computed into the water-bed color across the same smoothly
+                // blurred band WaterSurface.shader fades its own alpha over - this is the actual fix for the
+                // shore's colour seam; isWater above stays a hard switch only for things that have no
+                // meaningful "half water" state (cliffs, snow/wetness accumulation below).
+                float waterCoverage = SAMPLE_TEXTURE2D(_WaterMask, sampler_linear_clamp, biomeUv).g;
+                col = lerp(col, waterCol, smoothstep(0.02, 0.5, waterCoverage));
 
                 // Automatic cliffs on steep slopes (for non-water)
                 if (!isWater && slope > 0.38)
                 {
                     col = cliffColor;
+                }
+
+                // The starter road, painted over whatever biome it crosses (before weather, so snow and rain reach it too).
+                half4 road = SAMPLE_TEXTURE2D(_RoadMask, sampler_linear_clamp, biomeUv);
+                if (road.r > 0.004)
+                {
+                    float roadCover = road.r * (1.0 - smoothstep(0.38, 0.55, slope)) * (1.0 - smoothstep(0.1, 0.5, waterCoverage));
+                    col = lerp(col, RoadTexture(posWS.xz, road.g, road.r), roadCover);
                 }
 
                 // Global Weather Ground Effects (Wetness & Snow Accumulation)
@@ -717,7 +909,15 @@ Shader "Homesteader/GenerativeTerrainURP"
                 half3 puddleGlint = half3(0, 0, 0); // added after lighting so it stays a bright highlight
                 float snowMask = 0.0; // how much of this pixel is snow-covered (drives neutral lighting below)
 
-                if (!isWater)
+                // WEATHER REACHES THE SHORE. This block used to be gated on the hard, point-sampled `!isWater`
+                // biome flag, so the whole river/pond biome - including the dirt shore band - skipped snow and
+                // rain and stayed brown in a blocky per-texel outline while the land around it turned white.
+                // It is now weighted by the smooth water coverage instead: full on land and on the bank
+                // (coverage < ~0.35), fading out only where real water sits (>= ~0.6), so the shoreline takes
+                // snow and wetness with a soft edge and the submerged bed stays clear.
+                float weatherW = 1.0 - smoothstep(0.35, 0.6, waterCoverage);
+                half3 colBeforeWeather = col;
+                if (weatherW > 0.01)
                 {
                     // Darken and enrich ground saturation when soaked with rain
                     if (globalWet > 0.01)
@@ -755,7 +955,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                             float2 cell = floor(g);
                             float2 fcell = frac(g) - 0.5;
                             float2 rc = (float2(SnowHash(cell), SnowHash(cell + 7.3)) - 0.5) * 0.6;
-                            float ph = frac(_Time.y * 0.9 + SnowHash(cell + 3.1));
+                            float ph = frac(_RealTime * 0.9 + SnowHash(cell + 3.1));
                             float ring = (1.0 - smoothstep(0.0, 0.03, abs(length(fcell - rc) - ph * 0.45))) * (1.0 - ph);
                             pudCol += ring * rainNow * 0.22;
 
@@ -806,6 +1006,10 @@ Shader "Homesteader/GenerativeTerrainURP"
                         col = lerp(col, groundCol * 0.8, rawSnow * footprint);
                     }
                 }
+
+                col = lerp(colBeforeWeather, col, weatherW);
+                snowMask *= weatherW;
+                puddleGlint *= weatherW;
 
                 // Cel / low-poly faceted lighting
                 // Receive the sun's shadows (poles, buildings, trees fall across the ground). The cel look keeps them as a
@@ -862,6 +1066,8 @@ Shader "Homesteader/GenerativeTerrainURP"
                     }
                 }
                 #endif
+
+                finalRGB *= CloudShadowFactor(posWS);
 
                 // Ground grid: 1 m world-space lines drawn over EVERY ground texture (biomes,
                 // water, snow, ...), matching the old T_Ground_GrassGrid tile (2 px of 64 = 3.1 cm).

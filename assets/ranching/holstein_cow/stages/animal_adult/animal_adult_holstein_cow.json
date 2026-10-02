@@ -3,7 +3,7 @@
   "id": "animal_adult_holstein_cow",
   "name": "Animal Cow Holstein",
   "category": "ranching",
-  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "description": "A mature adult Holstein dairy cow, the final growth stage. Contact sheet generated via Gemini (gemini.google.com), cropped to one animal, then used as the reference image for Meshy AI image-to-3D (smart-topology model meshy-t2, textured).",
   "icon": "animal_adult_holstein_cow.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,71 +19,14 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Cow_Holstein.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SKM_Animal_Cow_Holstein.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SKM_Animal_Cow_Holstein.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 69.0,
-        "y": 157.0,
-        "z": 148.0
-      },
-      "dimensions_m": {
-        "x": 0.69,
-        "y": 1.57,
-        "z": 1.48
-      },
-      "vertices": 272,
-      "faces": 202,
+      "file": "SM_Animal_Cow_Holstein.glb",
+      "format": "glb",
+      "dimensions_m": { "x": 0.6984, "y": 1.48, "z": 2.2855 },
+      "vertices": 3777,
+      "faces": 4238,
       "bounding_box": {
-        "min": [
-          -34.5,
-          -100.000015,
-          -1e-06
-        ],
-        "max": [
-          34.5,
-          57.0,
-          148.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Animal_Cow_Holstein.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Cow_Holstein.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 69.0,
-        "y": 157.0,
-        "z": 148.0
-      },
-      "dimensions_m": {
-        "x": 0.69,
-        "y": 1.57,
-        "z": 1.48
-      },
-      "vertices": 284,
-      "faces": 436,
-      "bounding_box": {
-        "min": [
-          -34.5,
-          -100.0,
-          0.0
-        ],
-        "max": [
-          34.5,
-          57.0,
-          148.0
-        ]
+        "min": [-0.3492, 0.0, -1.1427],
+        "max": [0.3492, 1.48, 1.1427]
       }
     }
   ],
@@ -115,31 +58,14 @@
     "compatible_api": "v1"
   },
   "dimensions": {
-    "file": "SKM_Animal_Cow_Holstein.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 69.0,
-      "y": 157.0,
-      "z": 148.0
-    },
-    "dimensions_m": {
-      "x": 0.69,
-      "y": 1.57,
-      "z": 1.48
-    },
-    "vertices": 272,
-    "faces": 202,
+    "file": "SM_Animal_Cow_Holstein.glb",
+    "format": "glb",
+    "dimensions_m": { "x": 0.6984, "y": 1.48, "z": 2.2855 },
+    "vertices": 3777,
+    "faces": 4238,
     "bounding_box": {
-      "min": [
-        -34.5,
-        -100.000015,
-        -1e-06
-      ],
-      "max": [
-        34.5,
-        57.0,
-        148.0
-      ]
+      "min": [-0.3492, 0.0, -1.1427],
+      "max": [0.3492, 1.48, 1.1427]
     }
   },
   "category_fields": {
@@ -149,8 +75,8 @@
     "temperament": "passive",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 0.69,
-      "depth": 1.57,
+      "width": 0.6984,
+      "depth": 2.2855,
       "height": 1.48
     }
   }

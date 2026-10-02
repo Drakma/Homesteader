@@ -54,6 +54,13 @@
     "rules": {
       "planting": {
         "item_id": "plantable_willow_sapling"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_willow.glb",
+          "icon": "tree_dead_willow.png"
+        }
       }
     }
   },

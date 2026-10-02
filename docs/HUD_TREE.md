@@ -401,7 +401,7 @@ Dropdown toast notifications mounted in `ToastContainer`. Features:
 **File**: `Assets/Scripts/UI/WailaPanel.cs`
 
 "What Am I Looking At" panel, toggled with **F3**. Shows the name and
-details of whatever `HoverOutline` is currently hovering (or the grid
+details of whatever `HoverTarget` finds under the cursor (or the grid
 cell + biome under bare ground). Built entirely in C# (not in
 `HudUI.uxml`) — it finds the existing HUD root and `ToastContainer` by
 name and attaches itself.

@@ -21,8 +21,8 @@ namespace Homesteader
     {
         // ── Inspector overrides ──────────────────────────────────────────
         [Header("Emitter Box (half-extents around player/camera)")]
-        [SerializeField] private float _emitterHalfWidth = 50f;
-        [SerializeField] private float _emitterHalfDepth = 50f;
+        [SerializeField] private float _emitterHalfWidth = 65f;
+        [SerializeField] private float _emitterHalfDepth = 65f;
         [SerializeField] private float _emitterHeight = 20f;
 
         [Header("Rain")]
@@ -39,7 +39,8 @@ namespace Homesteader
         [Header("Wind")]
         [SerializeField] private int _windMaxParticles = 180;
         [SerializeField] private float _windSpeed = 10f;
-        [SerializeField] private float _windSize = 0.2f;
+        [SerializeField] private float _windSize = 0.06f;
+        [SerializeField] private float _windMaxTurnDegPerSec = 1f;   // the wind direction never turns faster than this
         [SerializeField] private float _windGustInterval = 5f;     // seconds between gust changes
         [SerializeField] private float _windBaseSpeed = 4f;        // calm-day wind speed
         [SerializeField] private float _windStormSpeed = 18f;      // storm peak wind speed
@@ -52,6 +53,8 @@ namespace Homesteader
         [SerializeField] private float _lightningMinInterval = 4f;
         [SerializeField] private float _lightningMaxInterval = 14f;
         [SerializeField] private float _lightningFlashDuration = 0.12f;
+        [SerializeField, Range(0f, 1f)] private float _lightningTreeStrikeChance = 0.05f;
+        [SerializeField] private float _lightningTreeStrikeRadius = 55f;
 
         [Header("Accumulation Dynamics")]
         [SerializeField] private float _snowAccumulationPerGameHour = 0.4f; // 1.0 = about one inch: 2.5 game hours of normal snow, 1 hour in a blizzard (x2.5)
@@ -69,12 +72,22 @@ namespace Homesteader
         private Transform _cachedPlayer;
 
         private float _currentSnowCoverage = 0f;
+        // How far the ice has advanced 0..1 (0 = open water, 1 = fully frozen for this body). Read by
+        // WaterSurface.shader as the global _WaterFreeze; the shader decides WHERE it freezes (from the shore
+        // inwards, and how far in), this only says how much.
+        private float _waterFreeze = 0f;
+        [SerializeField] private float _realSecondsPerWeatherHour = 120f; // real seconds per "hour" of snow/melt/freeze rates
+        private float _waterTempC = 10f;
+        private float _waterTempTimer = 0f;
+        [SerializeField] private float _freezePerGameHour = 0.06f;   // at just below 0C; colder freezes faster
+        [SerializeField] private float _thawPerGameHour = 0.15f;     // at just above 0C; warmer thaws faster
         private float _currentGroundWetness = 0f;
         private float _currentRainNow = 0f;   // smoothed 0..1 "raining right now" for ripples
 
         private HomesteaderWeather _currentWeather = HomesteaderWeather.Sunny;
         private bool _weatherInitialized = false;
         private float _targetFogDensity;
+        private float _fogBaseDensity;   // density before the camera-distance compensation
         private Color _targetFogColor;
         private bool _fogEnabled;
 
@@ -88,13 +101,21 @@ namespace Homesteader
         private float _windEmission;
 
         // Dynamic wind state
-        private Vector2 _windDir = new Vector2(1f, 0f);   // current wind direction (XZ)
+        private Vector2 _windDir = new Vector2(1f, 0f);   // current, smoothed wind direction (XZ, unit length)
+        private Vector2 _windTargetDir = new Vector2(1f, 0f); // gust target direction, turned toward gradually
         private float _windCurrentSpeed = 0f;               // current wind speed (m/s)
         private float _windTargetSpeed = 0f;                 // target speed we're lerping toward
         private float _windGustTimer = 0f;                    // countdown to next gust change
 
         private static WeatherEffectsManager s_instance;
         public static WeatherEffectsManager Instance => s_instance;
+
+        /// <summary>The current wind direction as a unit vector in world X, Z: the way the wind is BLOWING toward.</summary>
+        public Vector2 WindDirection => _windDir;
+        /// <summary>The current wind speed in metres per second.</summary>
+        public float WindSpeedMps => _windCurrentSpeed;
+        /// <summary>The strongest wind the weather produces (a storm), in metres per second.</summary>
+        public float WindStormSpeedMps => _windStormSpeed;
 
         // Set by lightning coroutine; read by DayNightCycle to apply flash without fighting the per-frame multiply
         public float LightningBoost { get; private set; } = 1f;
@@ -192,14 +213,11 @@ namespace Homesteader
 
         private void UpdateGroundAccumulation()
         {
-            float dt = Time.deltaTime;
-            // Snow depth follows GAME time (so it respects the time-speed setting), not real seconds.
-            float gameHours = 0f;
-            if (TimeSystem.Instance != null)
-            {
-                gameHours = dt * TimeConstants.GameMinutesPerRealSecondAt1X
-                            * TimeSystem.SpeedToMultiplier(TimeSystem.Instance.CurrentSpeed) / 60f;
-            }
+            float dt = Time.unscaledDeltaTime;
+            // Snow, melt, wetness and ice run on REAL time, not the in-game clock: they no longer stop when
+            // the game is paused or speed up with the time-speed setting. The per-"hour" rates keep their
+            // meaning; one such hour is _realSecondsPerWeatherHour real seconds (120 = the old 1x pace).
+            float gameHours = dt / Mathf.Max(1f, _realSecondsPerWeatherHour);
             bool isRaining = (_currentWeather == HomesteaderWeather.Rain || _currentWeather == HomesteaderWeather.Thunderstorm);
             bool isSnowing = (_currentWeather == HomesteaderWeather.Snow || _currentWeather == HomesteaderWeather.Blizzard);
             float snowRateMult = (_currentWeather == HomesteaderWeather.Blizzard) ? 2.5f : 1.0f;
@@ -226,6 +244,20 @@ namespace Homesteader
                 float meltMult = isRaining ? 3.0f : 1.0f;
                 _currentSnowCoverage = Mathf.MoveTowards(_currentSnowCoverage, 0f, _snowMeltPerGameHour * meltMult * gameHours);
             }
+
+            // Water freezing/thawing follows the live temperature, in GAME time like the snow. The temperature is
+            // sampled a couple of times a second rather than every frame - it changes over game minutes.
+            _waterTempTimer -= dt;
+            if (_waterTempTimer <= 0f && TimeSystem.Instance != null)
+            {
+                _waterTempTimer = 0.5f;
+                _waterTempC = TimeSystem.Instance.Snapshot().TemperatureC;
+            }
+            if (_waterTempC < 0f)
+                _waterFreeze = Mathf.MoveTowards(_waterFreeze, 1f, _freezePerGameHour * (1f + -_waterTempC / 5f) * gameHours);
+            else if (_waterTempC > 0.5f)
+                _waterFreeze = Mathf.MoveTowards(_waterFreeze, 0f, _thawPerGameHour * (1f + _waterTempC / 5f) * gameHours);
+            Shader.SetGlobalFloat("_WaterFreeze", _waterFreeze);
 
             // Push global parameters to shaders (terrain, foliage, buildings)
             // X = SnowCoverage [0..1], Y = GroundWetness [0..1], Z = rain-now [0..1]
@@ -336,7 +368,7 @@ namespace Homesteader
             var emission = ps.emission;
             float target = targetNorm * maxParticles;
             float current = emission.rateOverTime.constant;
-            emission.rateOverTime = Mathf.MoveTowards(current, target, maxParticles * Time.deltaTime * 1.5f);
+            emission.rateOverTime = Mathf.MoveTowards(current, target, maxParticles * Time.unscaledDeltaTime * 1.5f);
 
             if (targetNorm > 0.01f && !ps.isPlaying) ps.Play();
             else if (targetNorm < 0.01f && emission.rateOverTime.constant < 0.5f) ps.Stop();
@@ -344,17 +376,20 @@ namespace Homesteader
 
         private void SmoothFog()
         {
-            RenderSettings.fog = _fogEnabled || RenderSettings.fogDensity > 0.001f;
+            RenderSettings.fog = _fogEnabled || _fogBaseDensity > 0.001f;
 
-            RenderSettings.fogDensity = Mathf.MoveTowards(
-                RenderSettings.fogDensity,
+            _fogBaseDensity = Mathf.MoveTowards(
+                _fogBaseDensity,
                 _fogEnabled ? _targetFogDensity : 0f,
-                _fogFadeSpeed * Time.deltaTime * 0.01f);
+                _fogFadeSpeed * Time.unscaledDeltaTime * 0.01f);
+            // The orthographic camera sits far back from the action so nothing is clipped; fog is measured from the
+            // camera, so scale the density down by the same ratio or everything in view greys out (the player too).
+            RenderSettings.fogDensity = _fogBaseDensity * IsometricLockedCamera.FogCompensation;
 
             if (_fogEnabled && _targetFogColor != Color.clear)
             {
                 RenderSettings.fogColor = Color.Lerp(
-                    RenderSettings.fogColor, _targetFogColor, Time.deltaTime * _fogFadeSpeed);
+                    RenderSettings.fogColor, _targetFogColor, Time.unscaledDeltaTime * _fogFadeSpeed);
             }
         }
 
@@ -374,12 +409,16 @@ namespace Homesteader
             }
 
             // Periodically pick a new gust target: random direction + random speed
-            _windGustTimer -= Time.deltaTime;
+            _windGustTimer -= Time.unscaledDeltaTime;
             if (_windGustTimer <= 0f)
             {
                 _windGustTimer = _windGustInterval * Random.Range(0.7f, 1.3f);
-                float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
-                _windDir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                // Real wind meanders rather than reversing outright: turn the target by a bounded amount from
+                // its current heading instead of picking a fresh direction out of thin air each gust.
+                float curAngle = Mathf.Atan2(_windDir.y, _windDir.x) * Mathf.Rad2Deg;
+                float turn = Random.Range(-25f, 25f);
+                float angle = (curAngle + turn) * Mathf.Deg2Rad;
+                _windTargetDir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
                 float maxSpeed = Mathf.Lerp(_windBaseSpeed, _windStormSpeed, weatherWind);
                 _windTargetSpeed = maxSpeed * Random.Range(0.4f, 1f);
             }
@@ -389,7 +428,17 @@ namespace Homesteader
                 _windTargetSpeed = 0f;
 
             // Smoothly interpolate current speed toward target
-            _windCurrentSpeed = Mathf.MoveTowards(_windCurrentSpeed, _windTargetSpeed, _windLerpSpeed * 20f * Time.deltaTime);
+            _windCurrentSpeed = Mathf.MoveTowards(_windCurrentSpeed, _windTargetSpeed, _windLerpSpeed * 20f * Time.unscaledDeltaTime);
+
+            // Turn the direction gradually too — a hard snap to a new gust direction would instantly reverse the
+            // velocity of every particle already in flight (velocityOverLifetime is re-evaluated every frame).
+            // The heading turns at a capped, constant rate (default 1 degree a second) instead of easing toward
+            // each new gust target. The easing was fast for a big turn - a 70 degree swing took a few seconds - and
+            // everything downwind of the direction (grass, particles, water) visibly swung with it.
+            float curDeg = Mathf.Atan2(_windDir.y, _windDir.x) * Mathf.Rad2Deg;
+            float tgtDeg = Mathf.Atan2(_windTargetDir.y, _windTargetDir.x) * Mathf.Rad2Deg;
+            float newDeg = Mathf.MoveTowardsAngle(curDeg, tgtDeg, _windMaxTurnDegPerSec * Time.unscaledDeltaTime);
+            _windDir = new Vector2(Mathf.Cos(newDeg * Mathf.Deg2Rad), Mathf.Sin(newDeg * Mathf.Deg2Rad));
 
             // Apply wind force to all active particle systems
             ApplyWindToParticles();
@@ -406,27 +455,35 @@ namespace Homesteader
             float wx = _windDir.x * _windCurrentSpeed;
             float wz = _windDir.y * _windCurrentSpeed;
 
+            // Rain and snow keep a mostly-straight fall with only a gentle lean from wind: at full gust speed
+            // (up to ~18 m/s in a storm) applying that directly as lateral velocity drifts particles tens of
+            // metres sideways over their multi-second lifetime, carrying them out of the emitter box and leaving
+            // only a lopsided sliver of the viewport filled depending on which way the wind is blowing. Precipitation
+            // physically leans into wind far less than that, so scale it down to a small fraction of the gust.
+            const float RainWindCoupling = 0.12f;
+            const float SnowWindCoupling = 0.18f;
+
             // Rain: mostly falls down, but wind pushes it sideways
             if (_rainPS != null)
             {
                 var vel = _rainPS.velocityOverLifetime;
                 vel.enabled = true;
                 vel.space = ParticleSystemSimulationSpace.World;
-                vel.x = new ParticleSystem.MinMaxCurve(wx * 0.6f, wx * 0.8f);
+                vel.x = new ParticleSystem.MinMaxCurve(wx * RainWindCoupling * 0.85f, wx * RainWindCoupling);
                 vel.y = new ParticleSystem.MinMaxCurve(-_rainSpeed, -_rainSpeed);
-                vel.z = new ParticleSystem.MinMaxCurve(wz * 0.6f, wz * 0.8f);
+                vel.z = new ParticleSystem.MinMaxCurve(wz * RainWindCoupling * 0.85f, wz * RainWindCoupling);
             }
 
-            // Snow: light, so wind pushes it more dramatically
+            // Snow: light, so wind pushes it a bit more than rain, but still nowhere near full gust speed
             if (_snowPS != null)
             {
                 var vel = _snowPS.velocityOverLifetime;
                 vel.enabled = true;
                 vel.space = ParticleSystemSimulationSpace.World;
                 float snowFall = (_currentWeather == HomesteaderWeather.Blizzard) ? _blizzardSnowSpeed : _snowSpeed;
-                vel.x = new ParticleSystem.MinMaxCurve(wx * 0.8f, wx * 1.2f);
+                vel.x = new ParticleSystem.MinMaxCurve(wx * SnowWindCoupling * 0.85f, wx * SnowWindCoupling);
                 vel.y = new ParticleSystem.MinMaxCurve(-snowFall, -snowFall);
-                vel.z = new ParticleSystem.MinMaxCurve(wz * 0.8f, wz * 1.2f);
+                vel.z = new ParticleSystem.MinMaxCurve(wz * SnowWindCoupling * 0.85f, wz * SnowWindCoupling);
             }
 
             // Wind streaks: blow in the wind direction at the current speed
@@ -480,12 +537,15 @@ namespace Homesteader
             // and perspective depth match the view frustum seamlessly.
             Quaternion camRot = (_cachedCam != null) ? _cachedCam.transform.rotation : Quaternion.identity;
 
-            // Offset the emitter forward (in the camera's ground-plane forward direction)
-            // so it covers the far half of the viewport, which extends beyond the player.
+            // centerPos is the viewport-center ground point (the midpoint between camera and player). A large
+            // forward shift here used to push the whole emitter away from the camera to "cover the far half" of
+            // the screen, which starved the near/bottom half - wind blowing further away emptied everything but a
+            // thin strip at the top, and even at rest the bottom third of the screen got no coverage. A small pull
+            // *toward* the camera instead keeps the near/bottom edge of the screen filled too.
             Vector3 camFwd = (_cachedCam != null) ? _cachedCam.transform.forward : Vector3.forward;
             camFwd.y = 0f;
             camFwd.Normalize();
-            float forwardOffset = _emitterHalfDepth * 0.5f; // shift box forward by half its depth
+            float forwardOffset = -_emitterHalfDepth * 0.2f;
 
             // In isometric/perspective view, offsetting the emitter up prevents the lower
             // viewport area from having a gap in falling precipitation.
@@ -599,11 +659,33 @@ namespace Homesteader
             return m;
         }
 
+        /// <summary>A small soft radial-gradient dot, generated at runtime since there's no dust/streak art asset:
+        /// without a texture the particle renders as an opaque hard-edged quad, which reads as a big square.</summary>
+        private static Texture2D CreateSoftDotTexture()
+        {
+            const int size = 32;
+            var tex = new Texture2D(size, size, TextureFormat.RGBA32, false) { hideFlags = HideFlags.HideAndDontSave };
+            float center = (size - 1) * 0.5f;
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float d = Vector2.Distance(new Vector2(x, y), new Vector2(center, center)) / center;
+                    float a = Mathf.Clamp01(1f - d);
+                    a = a * a; // softer falloff toward the edge
+                    tex.SetPixel(x, y, new Color(1f, 1f, 1f, a));
+                }
+            }
+            tex.Apply(false);
+            return tex;
+        }
+
         private void BuildParticleSystems()
         {
             var raindropTex = Resources.Load<Texture2D>("WeatherFX/tex_raindrop");
             var snowflakeTex = Resources.Load<Texture2D>("WeatherFX/tex_snowflake");
             var splashTex = Resources.Load<Texture2D>("WeatherFX/tex_splash");
+            var windTex = CreateSoftDotTexture(); // no art asset for this one: a plain quad renders as a hard square
 
             _rainPS = CreatePS("WeatherFX_Rain", Color.white, raindropTex);
             ConfigureRain(_rainPS);
@@ -614,7 +696,7 @@ namespace Homesteader
             _snowPS = CreatePS("WeatherFX_Snow", Color.white, snowflakeTex);
             ConfigureSnow(_snowPS);
 
-            _windPS = CreatePS("WeatherFX_Wind", new Color(0.85f, 0.82f, 0.75f, 0.35f), null);
+            _windPS = CreatePS("WeatherFX_Wind", new Color(0.85f, 0.82f, 0.75f, 0.35f), windTex);
             ConfigureWind(_windPS);
         }
 
@@ -628,6 +710,12 @@ namespace Homesteader
             var main = ps.main;
             main.loop = true;
             main.duration = 999f;
+            // These are camera-anchored (repositioned onto the view every frame) so Unity's frustum culling can
+            // wrongly decide the emitter box isn't visible yet and freeze the whole system before it ever gets a
+            // bounds it can see - Automatic culling then never lets it simulate. Always simulate instead.
+            main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+            // Real time, so rain/snow keep falling while the game is paused.
+            main.useUnscaledTime = true;
 
             // Assign material so particles don't render as magenta error quads
             var renderer = ps.GetComponent<ParticleSystemRenderer>();
@@ -809,6 +897,173 @@ namespace Homesteader
             }
         }
 
+        // ── Visible bolt at a struck tree ────────────────────────────────
+
+        [SerializeField] private float _boltFadeSeconds = 0.8f;   // how long the bolt stays visible
+        [SerializeField] private float _boltStartHeight = 40f;     // how high above the tree the bolt appears
+        [SerializeField] private float _boltJitter = 1.6f;         // metres a segment can wander sideways
+        [SerializeField] private int _boltSegments = 14;
+        [SerializeField] private float _boltWidth = 0.32f;
+        [SerializeField] private Color _boltColor = new Color(0.82f, 0.90f, 1.00f, 1f);
+
+        private static AudioClip _thunderClip;
+
+        /// <summary>
+        /// Draws a jagged lightning bolt from the sky down to the struck tree: an additive LineRenderer with
+        /// random sideways jitter, one short branch offshoot, a bright glow light and dust burst at the impact,
+        /// and a thunder crack. Everything fades out together over _boltFadeSeconds and is then removed.
+        /// </summary>
+        private void SpawnLightningBolt(Vector3 treePos)
+        {
+            var root = new GameObject("LightningBolt");
+            var fade = root.AddComponent<BoltFade>();
+            fade.Life = _boltFadeSeconds;
+
+            // Main channel: sky to treetop, wandering sideways as it falls.
+            Vector3 top = treePos + Vector3.up * _boltStartHeight;
+            var points = new Vector3[_boltSegments + 1];
+            points[0] = top;
+            points[_boltSegments] = treePos + Vector3.up * 0.1f;
+            for (int i = 1; i < _boltSegments; i++)
+            {
+                float t = i / (float)_boltSegments;
+                Vector3 p = Vector3.Lerp(top, points[_boltSegments], t);
+                // Tighten the jitter near the strike so it lands on the tree.
+                p.x += Random.Range(-_boltJitter, _boltJitter) * t;
+                p.z += Random.Range(-_boltJitter, _boltJitter) * t;
+                points[i] = p;
+            }
+
+            var lr = root.AddComponent<LineRenderer>();
+            lr.positionCount = points.Length;
+            lr.SetPositions(points);
+            lr.useWorldSpace = true;
+            lr.widthCurve = new AnimationCurve(
+                new Keyframe(0f, 1.0f), new Keyframe(0.7f, 0.7f), new Keyframe(1f, 1.6f));   // wider at the impact
+            lr.widthMultiplier = _boltWidth;
+            lr.numCapVertices = 2;
+            lr.numCornerVertices = 2;
+            lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            lr.receiveShadows = false;
+
+            Shader shader = Shader.Find("Universal Render Pipeline/Particles/Unlit")
+                            ?? Shader.Find("Sprites/Default");
+            var mat = new Material(shader) { hideFlags = HideFlags.DontSave };
+            mat.SetColor("_BaseColor", _boltColor);
+            if (mat.HasProperty("_Surface")) { mat.SetFloat("_Surface", 1f); mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha); mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.One); mat.SetInt("_ZWrite", 0); }
+            mat.renderQueue = 3000;
+            lr.material = mat;
+
+            // One branch: splits off a middle segment and streaks away, rejoining nothing.
+            int branchAt = Random.Range(4, _boltSegments - 3);
+            // (a GameObject can hold only one LineRenderer: AddComponent on the root returned null here, which threw and cut the bolt short)
+            var branchGo = new GameObject("BoltBranch");
+            branchGo.transform.SetParent(root.transform, false);
+            var branch = branchGo.AddComponent<LineRenderer>();
+            Vector3 b0 = points[branchAt];
+            Vector3 b1 = b0 + new Vector3(Random.Range(-3f, 3f), -Random.Range(2f, 5f), Random.Range(-3f, 3f));
+            Vector3 b2 = b1 + new Vector3(Random.Range(-2f, 2f), -Random.Range(1f, 3f), Random.Range(-2f, 2f));
+            branch.positionCount = 3;
+            branch.SetPositions(new[] { b0, b1, b2 });
+            branch.useWorldSpace = true;
+            branch.widthMultiplier = _boltWidth * 0.5f;
+            branch.numCapVertices = 2;
+            branch.material = mat;
+            branch.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+            // The flash: a short-lived bright light right at the tree.
+            var lightGo = new GameObject("BoltLight");
+            lightGo.transform.SetParent(root.transform, false);
+            lightGo.transform.position = treePos + Vector3.up * 2f;
+            Light light = lightGo.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.color = _boltColor;
+            light.intensity = 12f;
+            light.range = 30f;
+            light.shadows = LightShadows.None;
+            fade.Light = light;
+
+            // Scorched burst at the impact: the wood-chip system already exists, reuse it in reverse (toward the sky).
+            ForestTreesSpawnChips(treePos + Vector3.up * 1.2f, Vector3.up);
+
+            // A thunder crack follows the bolt (a rough burst of decaying noise).
+            PlayThunder(treePos);
+
+            root.hideFlags = HideFlags.None;
+        }
+
+        // ForestTrees.SpawnChips is private; this tiny helper keeps the bolt code free of reflection.
+        private static void ForestTreesSpawnChips(Vector3 at, Vector3 toward)
+        {
+            var method = typeof(World.ForestTrees).GetMethod("SpawnChips",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            method?.Invoke(null, new object[] { at, toward });
+        }
+
+        /// <summary>A sharp thunder crack: filtered noise with a fast decay and a low rumble tail, made in code.</summary>
+        private static void PlayThunder(Vector3 at)
+        {
+            var audio = Homesteader.Audio.AudioManager.Instance;
+            if (audio == null) return;
+            if (_thunderClip == null)
+            {
+                const int rate = 44100;
+                int n = (int)(rate * 1.6f);
+                var data = new float[n];
+                var rng = new System.Random(901);
+                float lp = 0f, rumble = 0f;
+                for (int i = 0; i < n; i++)
+                {
+                    float t = i / (float)rate;
+                    float crack = (((float)rng.NextDouble() * 2f - 1f) - lp) * 0.6f * Mathf.Exp(-t * 14f);
+                    lp += crack;
+                    rumble += (((float)rng.NextDouble() * 2f - 1f) - rumble) * 0.04f * Mathf.Exp(-t * 1.8f);
+                    data[i] = Mathf.Clamp(crack * 0.9f + rumble * 0.8f, -1f, 1f);
+                }
+                _thunderClip = AudioClip.Create("ThunderCrack", n, 1, rate, false);
+                _thunderClip.SetData(data, 0);
+            }
+            audio.PlaySfx2D(_thunderClip, 0.85f);
+        }
+
+        /// <summary>Fades a spawned bolt (lines, glow light) out and removes it. Lives on the bolt's root object.</summary>
+        private sealed class BoltFade : MonoBehaviour
+        {
+            public float Life = 0.55f;
+            public Light Light;
+            private float _t;
+            private LineRenderer[] _lines;
+            private Color[] _start;
+
+            // Start, not Awake: the bolt's lines are added to this object right after the component, so they did not exist yet in Awake
+            // (nothing was found to fade).
+            private void Start()
+            {
+                _lines = GetComponentsInChildren<LineRenderer>();
+                _start = new Color[_lines.Length];
+                for (int i = 0; i < _lines.Length; i++)
+                {
+                    Material m = _lines[i].material;
+                    _start[i] = m != null && m.HasProperty("_BaseColor") ? m.GetColor("_BaseColor") : Color.white;
+                }
+            }
+
+            private void Update()
+            {
+                _t += Time.unscaledDeltaTime;
+                if (_lines == null) return;   // Start has not run yet
+                float k = 1f - Mathf.Clamp01(_t / Life);
+                for (int i = 0; i < _lines.Length; i++)
+                {
+                    Material m = _lines[i].material;
+                    if (m != null && m.HasProperty("_BaseColor"))
+                        m.SetColor("_BaseColor", _start[i] * new Color(1f, 1f, 1f, k));
+                }
+                if (Light != null) Light.intensity = 12f * k * k;
+                if (_t >= Life) Destroy(gameObject);
+            }
+        }
+
         private IEnumerator LightningRoutine()
         {
             // Store pre-flash ambient settings to restore perfectly
@@ -823,10 +1078,19 @@ namespace Homesteader
                 }
 
                 // Random wait between flashes
-                yield return new WaitForSeconds(
+                yield return new WaitForSecondsRealtime(
                     Random.Range(_lightningMinInterval, _lightningMaxInterval));
 
                 if (_currentWeather != HomesteaderWeather.Thunderstorm || TimeSystem.Instance.IsPaused) continue;
+
+                // Each flash has a 5% chance to kill the nearest standing procedural tree in the storm area:
+                // a jagged bolt is drawn from the sky down to it, with a flash and a thunder crack.
+                Vector3 strikeOrigin = _cachedPlayer != null ? _cachedPlayer.position : transform.position;
+                if (World.ForestTrees.TryStrikeLightning(strikeOrigin, _lightningTreeStrikeRadius, _lightningTreeStrikeChance, out Vector3 struckTree))
+                {
+                    SpawnLightningBolt(struckTree);
+                    Debug.Log($"[Weather] Lightning struck a tree at ({struckTree.x:F0}, {struckTree.z:F0}); it is now dead.");
+                }
 
                 // ── First pulse ──────────────────────────────────────────────
                 // Set LightningBoost to 4×; DayNightCycle reads this and applies it
@@ -834,19 +1098,19 @@ namespace Homesteader
                 LightningBoost = 4.5f;
                 RenderSettings.ambientIntensity = 3.5f;
                 RenderSettings.ambientLight = new Color(0.85f, 0.90f, 1.00f);
-                yield return new WaitForSeconds(_lightningFlashDuration * 0.35f);
+                yield return new WaitForSecondsRealtime(_lightningFlashDuration * 0.35f);
 
                 // Brief dark gap between double-flash
                 LightningBoost = 1f;
                 RenderSettings.ambientIntensity = origAmbientIntensity;
                 RenderSettings.ambientLight = origAmbientLight;
-                yield return new WaitForSeconds(_lightningFlashDuration * 0.25f);
+                yield return new WaitForSecondsRealtime(_lightningFlashDuration * 0.25f);
 
                 // ── Second pulse (dimmer) ───────────────────────────────────
                 LightningBoost = 3.2f;
                 RenderSettings.ambientIntensity = 2.5f;
                 RenderSettings.ambientLight = new Color(0.80f, 0.86f, 1.00f);
-                yield return new WaitForSeconds(_lightningFlashDuration * 0.45f);
+                yield return new WaitForSecondsRealtime(_lightningFlashDuration * 0.45f);
 
                 // ── Return to normal storm lighting ─────────────────────────
                 LightningBoost = 1f;

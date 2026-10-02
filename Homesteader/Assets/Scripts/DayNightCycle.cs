@@ -272,6 +272,7 @@ namespace Homesteader
                 // Set shader globals so the water shader can use the actual sun direction and color
                 Shader.SetGlobalVector("_CelestialDir", dirToSun);
                 Shader.SetGlobalVector("_CelestialColor", new Vector4(sunColor.r, sunColor.g, sunColor.b, horizonFade));
+                Shader.SetGlobalVector("_SkyParams", new Vector4(1f - horizonFade, 0f, 0f, 0f));
 
                 // Ambient light
                 RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, _dayAmbientColor, horizonFade);
@@ -314,6 +315,7 @@ namespace Homesteader
                 // Set shader globals so the water shader can use the actual moon direction and color
                 Shader.SetGlobalVector("_CelestialDir", dirToMoon);
                 Shader.SetGlobalVector("_CelestialColor", new Vector4(moonColor.r, moonColor.g, moonColor.b, moonFade * moonCycleBrightness));
+                Shader.SetGlobalVector("_SkyParams", new Vector4(1f, 0f, 0f, 0f));
 
                 RenderSettings.ambientLight = Color.Lerp(_nightAmbientColor, moonColor * (0.16f + 0.25f * moonCycleBrightness), moonFade);
             }

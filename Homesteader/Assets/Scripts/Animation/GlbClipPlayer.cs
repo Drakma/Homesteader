@@ -395,6 +395,18 @@ namespace Homesteader.Animation
             return true;
         }
 
+        /// <summary>Playback position of the running action clip (so sounds and hits can be timed to the pose).</summary>
+        public bool ActionClock(string clipName, out float time, out float length)
+        {
+            time = length = 0f;
+            if (!actionLocked || CurrentAction != clipName || legacyAnimation == null) return false;
+            AnimationState state = legacyAnimation[clipName];
+            if (state == null || state.length <= 0f) return false;
+            time = state.time;
+            length = state.length;
+            return true;
+        }
+
         /// <summary>Releases the action; the next SetLocomotion call fades back to idle / walk.</summary>
         public void EndAction()
         {

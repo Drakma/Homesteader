@@ -1,44 +1,152 @@
 {
-	"_readme": "A tag is a virtual/fake asset - not a real catalog item - that stands in for a list of interchangeable real items in a recipe (construction_recipe, and any future crafting recipe). Reference a tag in a recipe's item_id as '#tag_name' instead of a real item id; at build/craft time, any ONE of the tag's member items can be consumed to satisfy that recipe line, player's choice. Tags live here, not in any one category's schema, since they can span categories (e.g. #flooring pulls from the building category regardless of which category the recipe itself belongs to). Every member item_id listed below must be a real, existing catalog item - this file doesn't create new items, it just groups existing ones.",
-	"tags": {
-		"flooring": [
-			"part_floor_wood_1m",
-			"part_floor_stone_1m",
-			"sheet_plywood_cdx"
-		],
-		"sheathing": [
-			"sheet_osb_stack_small",
-			"sheet_osb_stack_large",
-			"sheet_plywood_cdx"
-		],
-		"framing_lumber": [
-			"lumber_stud_2x4",
-			"lumber_bundle_2x4_small",
-			"lumber_bundle_2x4_large"
-		],
-		"roofing": [
-			"roofing_shingles_bundle",
-			"roofing_steel_corrugated"
-		],
-		"romex_wire": [
-			"item_spool_romex_12_2",
-			"spool_wire_romex_12_2"
-		],
-		"plumbing_pipe": [
-			"pipe_pvc_half_inch",
-			"pipe_pvc_one_inch",
-			"pipe_pvc_two_inch"
-		],
-		"steel_framing": [
-			"building_steel_stud_framing",
-			"building_steel_frame_beam"
-		],
-		"metal_siding": [
-			"building_steel_siding_corrugated"
-		],
-		"sickle": [
-			"tool_sickle",
-			"tool_sickle_grass"
-		]
-	}
+  "_readme": "A tag is a virtual/fake asset - not a real catalog item - that stands in for a list of interchangeable real items in a recipe (construction_recipe, and any future crafting recipe). Reference a tag in a recipe's item_id as '#tag_name' instead of a real item id; at build/craft time, any ONE of the tag's member items can be consumed to satisfy that recipe line, player's choice. Tags live here, not in any one category's schema, since they can span categories (e.g. #flooring pulls from the building category regardless of which category the recipe itself belongs to). Every member item_id listed below must be a real, existing catalog item - this file doesn't create new items, it just groups existing ones.",
+  "tags": {
+    "flooring": [
+      "part_floor_wood_1m",
+      "part_floor_stone_1m",
+      "sheet_plywood_cdx"
+    ],
+    "sheathing": [
+      "sheet_osb_stack_small",
+      "sheet_osb_stack_large",
+      "sheet_plywood_cdx"
+    ],
+    "framing_lumber": [
+      "lumber_stud_2x4",
+      "lumber_bundle_2x4_small",
+      "lumber_bundle_2x4_large"
+    ],
+    "roofing": [
+      "roofing_shingles_bundle",
+      "roofing_steel_corrugated"
+    ],
+    "romex_wire": [
+      "item_spool_romex_12_2",
+      "spool_wire_romex_12_2"
+    ],
+    "plumbing_pipe": [
+      "pipe_pvc_half_inch",
+      "pipe_pvc_one_inch",
+      "pipe_pvc_two_inch"
+    ],
+    "steel_framing": [
+      "building_steel_stud_framing",
+      "building_steel_frame_beam"
+    ],
+    "metal_siding": [
+      "building_steel_siding_corrugated"
+    ],
+    "tool_axe": [
+      "tool_axe",
+      "tool_axe_felling",
+      "tool_hatchet_camp"
+    ],
+    "tool_chainsaw": [
+      "tool_cordless_chainsaw_16",
+      "tool_chainsaw_gas_20"
+    ],
+    "tool_wheelbarrow": [
+      "tool_plastic_wheelbarrow",
+      "tool_steel_wheelbarrow",
+      "tool_wheelbarrow"
+    ],
+    "tool_sickle": [
+      "tool_sickle",
+      "tool_sickle_grass"
+    ],
+    "tool_shovel": [
+      "tool_shovel_round_point",
+      "tool_shovel",
+      "tool_shovel_trenching"
+    ],
+    "tool_hammer": [
+      "tool_hammer_claw",
+      "tool_hammer_club",
+      "tool_hammer"
+    ],
+    "tool_hoe": [
+      "tool_hoe"
+    ],
+    "tool_pickaxe": [
+      "tool_pickaxe"
+    ],
+    "tool_drill": [
+      "tool_drill_cordless_basic",
+      "tool_drill_corded",
+      "tool_drill_cordless_pro"
+    ],
+    "food": [
+      "food_apple",
+      "food_bass_deepfried",
+      "food_bass_grilled",
+      "food_bread",
+      "food_carrot",
+      "food_catfish_deepfried",
+      "food_catfish_grilled",
+      "food_cheese",
+      "food_crappie_deepfried",
+      "food_crappie_grilled",
+      "food_lemon",
+      "food_orange",
+      "food_potato",
+      "food_pumpkin",
+      "food_salmon_grilled",
+      "food_strawberry",
+      "food_tomato",
+      "food_trout_deepfried",
+      "food_trout_grilled",
+      "food_truffle",
+      "food_walleye_deepfried",
+      "food_walleye_grilled",
+      "ingredient_beef_grilled",
+      "ingredient_chicken_grilled",
+      "ingredient_milk",
+      "ingredient_pork_grilled",
+      "food_elderberry",
+      "food_haskap",
+      "food_huckleberry",
+      "food_raspberry"
+    ],
+    "ingredients": [
+      "ingredient_beef",
+      "ingredient_chicken",
+      "ingredient_corn",
+      "ingredient_cotton",
+      "ingredient_egg",
+      "ingredient_fillet_bass",
+      "ingredient_fillet_catfish",
+      "ingredient_fillet_crappie",
+      "ingredient_fillet_salmon",
+      "ingredient_fillet_trout",
+      "ingredient_fillet_walleye",
+      "ingredient_herbs",
+      "ingredient_pork",
+      "ingredient_sunflower",
+      "ingredient_wheat"
+    ],
+    "fishing_gear": [
+      "animal_fish_bass",
+      "animal_fish_catfish",
+      "animal_fish_crappie",
+      "animal_fish_salmon",
+      "animal_fish_trout",
+      "animal_fish_walleye",
+      "fishing_bait",
+      "fishing_basket_wire",
+      "fishing_bobbers_clip_pack",
+      "fishing_line_spool",
+      "fishing_lure",
+      "fishing_net_landing_telescopic",
+      "fishing_rod",
+      "fishing_rod_fly",
+      "fishing_rod_heavy_trolling",
+      "fishing_rod_spincast_combo",
+      "fishing_sinkers_lead"
+    ],
+    "tool_basket": [
+      "tool_basket_large",
+      "tool_basket_medium",
+      "tool_basket_small"
+    ]
+  }
 }

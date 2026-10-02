@@ -47,6 +47,7 @@ namespace Homesteader.UI
     {
         public string IconId;     // matches an asset_id from the catalog; "" = empty
         public int Count;        // 0 = empty slot
+        public List<ContainerStack> Contents;   // what a container item in this slot holds (null for everything else, see Containers.cs)
 
         public static ToolbarSlotData Empty()
         {
@@ -458,6 +459,18 @@ namespace Homesteader.UI
             return true;
         }
 
+        /// <summary>Empties the selected slot (the Delete key). Returns the item id and count that were removed, or null if it was empty.</summary>
+        public ToolbarSlotData? ClearSelectedSlot()
+        {
+            EnsureToolbarSlots();
+            if (SelectedSlot < 0 || SelectedSlot >= Toolbar.Count) return null;
+            var slot = Toolbar[SelectedSlot];
+            if (string.IsNullOrEmpty(slot.IconId) || slot.Count <= 0) return null;
+            Toolbar[SelectedSlot] = ToolbarSlotData.Empty();
+            HeldAssetId = string.Empty;
+            return slot;
+        }
+
         public void EnsureToolbarSlots()
         {
             while (Toolbar.Count < ToolbarSize)
@@ -472,7 +485,7 @@ namespace Homesteader.UI
         /// 2. If remainder remains, places into the first available empty slot(s) (up to maxStack per slot).
         /// Returns the number of items successfully added.
         /// </summary>
-        public int AddItemToToolbar(string itemId, int countToAdd, int maxStack = 64)
+        public int AddItemToToolbar(string itemId, int countToAdd, int maxStack = 64, bool useContainers = true)
         {
             if (string.IsNullOrEmpty(itemId) || countToAdd <= 0) return 0;
             if (maxStack <= 0) maxStack = 64;
@@ -480,6 +493,21 @@ namespace Homesteader.UI
             EnsureToolbarSlots();
 
             int remaining = countToAdd;
+
+            // Pass 0: a container in the toolbar that accepts this item takes it first (the active slot's container, then the others), up to its capacity.
+            if (useContainers)
+            {
+                for (int n = 0; n < ToolbarSize && remaining > 0; n++)
+                {
+                    int i = (SelectedSlot + n) % ToolbarSize;
+                    var slot = Toolbar[i];
+                    if (slot.Count != 1 || string.IsNullOrEmpty(slot.IconId) || !ContainerRules.Accepts(slot.IconId, itemId)) continue;   // a stack of containers is not one container
+                    if (slot.Contents == null) slot.Contents = new List<ContainerStack>();
+                    int took = ContainerRules.Add(slot.IconId, slot.Contents, itemId, remaining);
+                    remaining -= took;
+                    Toolbar[i] = slot;
+                }
+            }
 
             // Pass 1: Fill existing matching slots that are not yet full
             for (int i = 0; i < ToolbarSize && remaining > 0; i++)

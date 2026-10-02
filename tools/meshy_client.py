@@ -68,15 +68,20 @@ def create_text_to_3d_refine(preview_task_id):
     res = _request("/openapi/v2/text-to-3d", method="POST", data=payload)
     return res.get("result")
 
-def create_image_to_3d(image_url, enable_pbr=True, target_polycount=1500, topology="triangle"):
+def create_image_to_3d(image_url, ai_model="meshy-t2", model_type="smart-topology", should_texture=True, enable_pbr=False, topology="triangle"):
     """
-    Initiates an Image-to-3D task.
+    Initiates an Image-to-3D task. This is now the default generation route
+    (reference image -> image-to-3D), superseding create_text_to_3d(). Always
+    ai_model='meshy-t2' / model_type='smart-topology' per project policy -
+    never 'lowpoly' or 'standard'.
     Returns: task_id (string)
     """
     payload = {
         "image_url": image_url,
+        "ai_model": ai_model,
+        "model_type": model_type,
+        "should_texture": should_texture,
         "enable_pbr": enable_pbr,
-        "target_polycount": target_polycount,
         "topology": topology
     }
     res = _request("/openapi/v1/image-to-3d", method="POST", data=payload)

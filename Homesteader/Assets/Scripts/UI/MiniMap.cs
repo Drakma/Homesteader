@@ -536,7 +536,7 @@ namespace Homesteader.UI
         private static bool TogglePressed()
         {
 #if ENABLE_INPUT_SYSTEM
-            return Keyboard.current != null && Keyboard.current.mKey.wasPressedThisFrame;
+            return Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.ToggleMap);
 #else
             return Input.GetKeyDown(KeyCode.M);
 #endif

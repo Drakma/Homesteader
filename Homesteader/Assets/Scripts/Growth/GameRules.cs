@@ -38,6 +38,62 @@ namespace Homesteader.Growth
 
         public static PlacementRules Placement { get; private set; } = new PlacementRules();
 
+        /// <summary>One graphics quality preset (see GraphicsOptions). It only changes how the world is drawn, never what is in it.</summary>
+        public sealed class GraphicsPreset
+        {
+            public string Id = "high";
+            public string Name = "High";
+            public int MinVramMb = 0;          // what "Auto" needs to pick this preset: graphics memory ...
+            public int MinCores = 0;           // ... and CPU cores
+            public float ShadowDistance = 200f;   // metres; 0 = no shadows
+            public int ShadowResolution = 4096;   // the sun's shadow map
+            public int ShadowCascades = 2;
+            public float RenderScale = 1f;
+            public string Antialiasing = "msaa2"; // off, fxaa, smaa, msaa2, msaa4, msaa8
+            public float SmallPlantRange = 46f;   // metres from the middle of the view that flowers, tufts and bushes are drawn
+            public bool TerrainBlend = true;      // the soft biome boundaries (off = hard edges, the cheapest)
+            public bool WaterReflections = true;  // the sky reflected in water (off = just the sun's glint)
+            public int MaxFps = 0;                // with V-Sync off; 0 = no cap
+        }
+
+        /// <summary>The graphics presets: the default choice and the list, lowest quality first.</summary>
+        public sealed class GraphicsRules
+        {
+            public string DefaultPreset = "auto";
+            public List<GraphicsPreset> Presets = new List<GraphicsPreset> { new GraphicsPreset() };   // the built-in fallback; gamerules.json supplies the real list
+        }
+
+        public static GraphicsRules Graphics { get; private set; } = new GraphicsRules();
+
+        /// <summary>
+        /// The starter zone: the land tile the player begins in (centre of the map by default). World generation
+        /// enforces these, whatever the seed: a square of ground around the spawn point is some form of grass, there is
+        /// at least one water feature in the zone, and water never covers more than a set fraction of it. The rest of
+        /// the zone is ordinary biome generation.
+        /// </summary>
+        public sealed class StarterZoneRules
+        {
+            public bool Enabled = true;
+            public int TileX = Homesteader.Land.LandOwnershipSystem.StarterX;
+            public int TileZ = Homesteader.Land.LandOwnershipSystem.StarterZ;
+            public float GrassAreaM = 16f;   // side of the square around the spawn point that must be grass
+            public List<string> LandBiomes = new List<string> { "biome_grass_plains", "biome_meadow" };   // maintained grass is player-made only
+            public int MinWaterFeatures = 1;
+            public float MaxWaterFraction = 0.15f;   // of the whole zone's area
+        }
+
+        public static StarterZoneRules StarterZone { get; private set; } = new StarterZoneRules();
+
+        /// <summary>The road from a map edge to the starter grass area: generated with the world, soft and meandering.</summary>
+        public sealed class StarterRoadRules
+        {
+            public bool Enabled = true;
+            public float WidthM = 3.4f;     // dirt / gravel surface, edge to edge
+            public float MeanderM = 4.5f;   // how far the road wanders sideways (on top of routing around water and hills)
+        }
+
+        public static StarterRoadRules StarterRoad { get; private set; } = new StarterRoadRules();
+
         /// <summary>How many squares away from the player's own square a plant can be harvested.</summary>
         public static int HarvestReachCells { get; private set; } = 1;
 
@@ -51,6 +107,9 @@ namespace Homesteader.Growth
         {
             Planting = new PlantingRules();
             Placement = new PlacementRules();
+            Graphics = new GraphicsRules();
+            StarterZone = new StarterZoneRules();
+            StarterRoad = new StarterRoadRules();
             HarvestReachCells = 1;
             foreach (GameObject go in zoneObjects.Values)
                 if (go != null) UnityEngine.Object.Destroy(go);
@@ -82,6 +141,70 @@ namespace Homesteader.Growth
                 if (pl.Has("rotate_step_deg")) Placement.RotateStepDeg = Mathf.Clamp(pl.Get("rotate_step_deg").AsFloat(Placement.RotateStepDeg), 0.5f, 180f);
                 if (pl.Has("categories"))
                     Placement.Categories = new HashSet<string>(pl.Get("categories").AsStringList(), StringComparer.OrdinalIgnoreCase);
+            }
+
+            ModJsonValue gfx = root.Get("graphics");
+            if (gfx.IsObject)
+            {
+                if (gfx.Has("default_preset")) Graphics.DefaultPreset = gfx.Get("default_preset").AsString(Graphics.DefaultPreset);
+                if (gfx.Has("presets"))
+                {
+                    var list = new List<GraphicsPreset>();
+                    foreach (ModJsonValue v in gfx.Get("presets").Items)
+                    {
+                        string id = v.Get("id").AsString();
+                        if (string.IsNullOrEmpty(id)) continue;
+                        var d = new GraphicsPreset();
+                        list.Add(new GraphicsPreset
+                        {
+                            Id = id,
+                            Name = v.Get("name").AsString(id),
+                            MinVramMb = Mathf.Max(0, v.Get("min_vram_mb").AsInt(d.MinVramMb)),
+                            MinCores = Mathf.Max(0, v.Get("min_cores").AsInt(d.MinCores)),
+                            ShadowDistance = Mathf.Max(0f, v.Get("shadow_distance").AsFloat(d.ShadowDistance)),
+                            ShadowResolution = Mathf.Clamp(v.Get("shadow_resolution").AsInt(d.ShadowResolution), 256, 8192),
+                            ShadowCascades = Mathf.Clamp(v.Get("shadow_cascades").AsInt(d.ShadowCascades), 1, 4),
+                            RenderScale = Mathf.Clamp(v.Get("render_scale").AsFloat(d.RenderScale), 0.5f, 1.5f),
+                            Antialiasing = v.Has("antialiasing") ? v.Get("antialiasing").AsString(d.Antialiasing) : (v.Has("msaa") ? (v.Get("msaa").AsInt(1) <= 1 ? "off" : "msaa" + v.Get("msaa").AsInt(2)) : d.Antialiasing),
+                            SmallPlantRange = Mathf.Max(10f, v.Get("small_plant_range").AsFloat(d.SmallPlantRange)),
+                            TerrainBlend = v.Get("terrain_blend").AsBool(d.TerrainBlend),
+                            WaterReflections = v.Get("water_reflections").AsBool(d.WaterReflections),
+                            MaxFps = Mathf.Max(0, v.Get("max_fps").AsInt(d.MaxFps)),
+                        });
+                    }
+                    if (list.Count > 0) Graphics.Presets = list;
+                }
+            }
+
+            ModJsonValue sz = root.Get("starter_zone");
+            if (sz.IsObject)
+            {
+                if (sz.Has("enabled")) StarterZone.Enabled = sz.Get("enabled").AsBool(StarterZone.Enabled);
+                if (sz.Has("tile"))
+                {
+                    ModJsonValue tile = sz.Get("tile");
+                    if (tile.Count >= 2)
+                    {
+                        StarterZone.TileX = Mathf.Clamp(tile.ArrayValue[0].AsInt(StarterZone.TileX), 0, Homesteader.Land.LandOwnershipSystem.GridSize - 1);
+                        StarterZone.TileZ = Mathf.Clamp(tile.ArrayValue[1].AsInt(StarterZone.TileZ), 0, Homesteader.Land.LandOwnershipSystem.GridSize - 1);
+                    }
+                }
+                if (sz.Has("grass_area_m")) StarterZone.GrassAreaM = Mathf.Max(0f, sz.Get("grass_area_m").AsFloat(StarterZone.GrassAreaM));
+                if (sz.Has("land_biomes"))
+                {
+                    var list = new List<string>(sz.Get("land_biomes").AsStringList());
+                    if (list.Count > 0) StarterZone.LandBiomes = list;
+                }
+                if (sz.Has("min_water_features")) StarterZone.MinWaterFeatures = Mathf.Max(0, sz.Get("min_water_features").AsInt(StarterZone.MinWaterFeatures));
+                if (sz.Has("max_water_fraction")) StarterZone.MaxWaterFraction = Mathf.Clamp(sz.Get("max_water_fraction").AsFloat(StarterZone.MaxWaterFraction), 0.01f, 1f);
+            }
+
+            ModJsonValue sr = root.Get("starter_road");
+            if (sr.IsObject)
+            {
+                if (sr.Has("enabled")) StarterRoad.Enabled = sr.Get("enabled").AsBool(StarterRoad.Enabled);
+                if (sr.Has("width_m")) StarterRoad.WidthM = Mathf.Clamp(sr.Get("width_m").AsFloat(StarterRoad.WidthM), 1.5f, 8f);
+                if (sr.Has("meander_m")) StarterRoad.MeanderM = Mathf.Clamp(sr.Get("meander_m").AsFloat(StarterRoad.MeanderM), 0f, 15f);
             }
 
             ModJsonValue h = root.Get("harvest");

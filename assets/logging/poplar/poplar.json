@@ -52,8 +52,22 @@
       }
     ],
     "rules": {
+      "yield": {
+        "item_id": "mat_log_poplar_uncut_medium",
+        "amount_min": 3,
+        "amount_max": 4,
+        "harvest_stage": 4,
+        "tool": "#tool_axe"
+      },
       "planting": {
         "item_id": "plantable_poplar_sapling"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_poplar.glb",
+          "icon": "tree_dead_poplar.png"
+        }
       }
     }
   },

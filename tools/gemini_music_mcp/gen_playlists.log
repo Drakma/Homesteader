@@ -1,0 +1,89 @@
+[2026-09-30T23:33:46.904Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:33:47.158Z] OK HomesteaderChill/hc_01_sunrise_porch: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:47.158Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:33:47.359Z] OK HomesteaderChill/hc_02_hammock_grove: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:47.360Z] GEN HomesteaderChill/hc_03_rain_on_tin (3/18)
+[2026-09-30T23:33:47.572Z] OK HomesteaderChill/hc_03_rain_on_tin: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:47.572Z] GEN HomesteaderChill/hc_04_greenhouse_hum (4/18)
+[2026-09-30T23:33:47.770Z] OK HomesteaderChill/hc_04_greenhouse_hum: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:47.771Z] GEN HomesteaderChill/hc_05_evening_harvest (5/18)
+[2026-09-30T23:33:47.967Z] OK HomesteaderChill/hc_05_evening_harvest: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:47.967Z] GEN HomesteaderChill/hc_06_cider_and_blankets (6/18)
+[2026-09-30T23:33:48.194Z] OK HomesteaderChill/hc_06_cider_and_blankets: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:48.195Z] GEN ModernHomesteading/mh_01_golden_hour_drive (7/18)
+[2026-09-30T23:33:48.392Z] OK ModernHomesteading/mh_01_golden_hour_drive: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:48.393Z] GEN ModernHomesteading/mh_02_city_to_country (8/18)
+[2026-09-30T23:33:48.600Z] OK ModernHomesteading/mh_02_city_to_country: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:48.601Z] GEN ModernHomesteading/mh_03_neon_barn_lights (9/18)
+[2026-09-30T23:33:48.816Z] OK ModernHomesteading/mh_03_neon_barn_lights: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:48.816Z] GEN ModernHomesteading/mh_04_sunroom_dance (10/18)
+[2026-09-30T23:33:49.010Z] OK ModernHomesteading/mh_04_sunroom_dance: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:49.010Z] GEN ModernHomesteading/mh_05_late_night_stream (11/18)
+[2026-09-30T23:33:49.206Z] OK ModernHomesteading/mh_05_late_night_stream: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:49.207Z] GEN ModernHomesteading/mh_06_graptopia (12/18)
+[2026-09-30T23:33:49.428Z] OK ModernHomesteading/mh_06_graptopia: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:49.429Z] GEN FarmCountry/fc_01_dirt_road_dawn (13/18)
+[2026-09-30T23:33:49.640Z] OK FarmCountry/fc_01_dirt_road_dawn: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:49.641Z] GEN FarmCountry/fc_02_old_truck_radio (14/18)
+[2026-09-30T23:33:49.917Z] OK FarmCountry/fc_02_old_truck_radio: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:49.917Z] GEN FarmCountry/fc_03_hay_bale_harmony (15/18)
+[2026-09-30T23:33:50.129Z] OK FarmCountry/fc_03_hay_bale_harmony: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:50.129Z] GEN FarmCountry/fc_04_front_porch_pickin (16/18)
+[2026-09-30T23:33:50.335Z] OK FarmCountry/fc_04_front_porch_pickin: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:50.336Z] GEN FarmCountry/fc_05_moonshine_mellow (17/18)
+[2026-09-30T23:33:50.545Z] OK FarmCountry/fc_05_moonshine_mellow: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:50.545Z] GEN FarmCountry/fc_06_wildflower_waltz (18/18)
+[2026-09-30T23:33:50.748Z] OK FarmCountry/fc_06_wildflower_waltz: Error in gemini_music_generate: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium. Call lo
+[2026-09-30T23:33:50.749Z] ALL DONE 18/18
+[2026-09-30T23:37:09.151Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:40:34.298Z] FAIL HomesteaderChill/hc_01_sunrise_porch: locator.count: Target page, context or browser has been closed
+[2026-09-30T23:40:34.300Z] FAIL HomesteaderChill/hc_01_sunrise_porch: retryQueue is not defined
+[2026-09-30T23:40:34.300Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:42:19.003Z] FAIL HomesteaderChill/hc_02_hammock_grove: locator.count: Target page, context or browser has been closed
+[2026-09-30T23:42:19.004Z] FAIL HomesteaderChill/hc_02_hammock_grove: retryQueue is not defined
+[2026-09-30T23:42:19.004Z] LIMIT reached (2) — stopping
+[2026-09-30T23:42:19.004Z] ALL DONE 2/18
+[2026-09-30T23:43:01.022Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:44:53.900Z] FAIL HomesteaderChill/hc_01_sunrise_porch: locator.count: Target page, context or browser has been closed
+[2026-09-30T23:44:53.900Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:47:14.725Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:47:14.975Z] server stderr: [gemini-music] profile busy — killing leftover Chromium using it
+
+[2026-09-30T23:47:15.556Z] FAIL HomesteaderChill/hc_02_hammock_grove: page.waitForTimeout: Target page, context or browser has been closed
+[2026-09-30T23:47:15.557Z] LIMIT reached (2) — stopping
+[2026-09-30T23:47:15.558Z] RETRY pass: 2 track(s)
+[2026-09-30T23:47:15.559Z] GEN HomesteaderChill/hc_01_sunrise_porch (3/18)
+[2026-09-30T23:47:17.804Z] FAIL HomesteaderChill/hc_01_sunrise_porch: browserType.launchPersistentContext: Opening in existing browser session. This usually means that the profile is already in use by another instance of Chromium.
+[2026-09-30T23:47:17.804Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:47:18.032Z] server stderr: [gemini-music] profile busy — killing leftover Chromium using it
+
+[2026-09-30T23:47:18.465Z] FAIL HomesteaderChill/hc_01_sunrise_porch: page.waitForTimeout: Target page, context or browser has been closed
+[2026-09-30T23:47:18.466Z] LIMIT reached (3) — stopping
+[2026-09-30T23:47:18.466Z] ALL DONE 3/18
+[2026-09-30T23:48:28.699Z] FAIL HomesteaderChill/hc_02_hammock_grove: locator.count: Target page, context or browser has been closed
+[2026-09-30T23:48:28.699Z] LIMIT reached (2) — stopping
+[2026-09-30T23:48:28.700Z] RETRY pass: 2 track(s)
+[2026-09-30T23:48:28.700Z] GEN HomesteaderChill/hc_01_sunrise_porch (3/18)
+[2026-09-30T23:48:39.944Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:48:40.222Z] FAIL HomesteaderChill/hc_01_sunrise_porch: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:40.223Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:48:40.442Z] FAIL HomesteaderChill/hc_02_hammock_grove: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:40.442Z] LIMIT reached (2) — stopping
+[2026-09-30T23:48:40.443Z] RETRY pass: 2 track(s)
+[2026-09-30T23:48:40.443Z] GEN HomesteaderChill/hc_01_sunrise_porch (3/18)
+[2026-09-30T23:48:40.664Z] FAIL HomesteaderChill/hc_01_sunrise_porch: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:40.665Z] LIMIT reached (3) — stopping
+[2026-09-30T23:48:40.665Z] ALL DONE 3/18
+[2026-09-30T23:48:46.037Z] GEN HomesteaderChill/hc_01_sunrise_porch (1/18)
+[2026-09-30T23:48:46.276Z] FAIL HomesteaderChill/hc_01_sunrise_porch: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:46.276Z] GEN HomesteaderChill/hc_02_hammock_grove (2/18)
+[2026-09-30T23:48:46.509Z] FAIL HomesteaderChill/hc_02_hammock_grove: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:46.510Z] LIMIT reached (2) — stopping
+[2026-09-30T23:48:46.510Z] RETRY pass: 2 track(s)
+[2026-09-30T23:48:46.511Z] GEN HomesteaderChill/hc_01_sunrise_porch (3/18)
+[2026-09-30T23:48:46.734Z] FAIL HomesteaderChill/hc_01_sunrise_porch: browserType.launchPersistentContext: Target page, context or browser has been closed
+[2026-09-30T23:48:46.735Z] LIMIT reached (3) — stopping
+[2026-09-30T23:48:46.735Z] ALL DONE 3/18
+[2026-09-30T23:50:58.707Z] FAIL HomesteaderChill/hc_01_sunrise_porch: page.waitForTimeout: Target page, context or browser has been closed
+[2026-09-30T23:50:58.708Z] LIMIT reached (3) — stopping
+[2026-09-30T23:50:58.708Z] ALL DONE 3/18

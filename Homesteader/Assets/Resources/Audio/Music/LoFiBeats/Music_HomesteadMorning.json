@@ -1,0 +1,16 @@
+{
+  "file": "Music_HomesteadMorning.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 90 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 90 seconds, not cut off mid-song. Genre: lo-fi hip-hop / chillhop, about 75 BPM, centered on the feeling of homesteading: a slow early-morning farm chore vibe. Warm Rhodes electric piano chords, a soft fingerpicked acoustic guitar melody, upright bass, mellow dusty boom-bap drums with brushed snare, gentle vinyl crackle and tape warmth. Subtle country-life touches in the mix such as a distant rooster, light wind and a creaking porch swing, kept very quiet. Mood: cozy, unhurried, pastoral, nostalgic, like coffee on the porch at sunrise. Structure: soft intro, steady loop with a gentle variation in the middle, then a relaxed outro.",
+  "requested_prompt": "Genre: lo-fi hip-hop / chillhop, about 75 BPM, centered on the feeling of homesteading: a slow early-morning farm chore vibe. Warm Rhodes electric piano chords, a soft fingerpicked acoustic guitar melody, upright bass, mellow dusty boom-bap drums with brushed snare, gentle vinyl crackle and tape warmth. Subtle country-life touches in the mix such as a distant rooster, light wind and a creaking porch swing, kept very quiet. Mood: cozy, unhurried, pastoral, nostalgic, like coffee on the porch at sunrise. Structure: soft intro, steady loop with a gentle variation in the middle, then a relaxed outro.",
+  "requested_duration_seconds": 90,
+  "generated_at": "2026-09-30T23:11:42.901Z",
+  "downloaded_via": "download button (button[aria-label*=\"Download\" i])",
+  "bytes": 2655213,
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in",
+  "converted_from": "mp4 download (video + AAC audio) kept at tools/gemini_music_mcp/raw/Music_HomesteadMorning.mp4; audio extracted with ffmpeg libmp3lame -q:a 0",
+  "source_sha256": "96e375775aa3d7e982f6b2c7d7f47897b81c0dd485a7c7f692242471717602e9",
+  "sha256": "6ffc49a3f0fc0c3df16408b69c874403b1f5c80f232fbeb225044b9ed4eb583b",
+  "duration_seconds": 91.35
+}

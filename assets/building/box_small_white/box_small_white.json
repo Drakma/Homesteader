@@ -7,7 +7,7 @@
   "icon": "box_small_white.png",
   "properties": {
     "weight_kg": 1.0,
-    "max_stack_size": 20,
+    "max_stack_size": 1,
     "base_value": 2.0,
     "is_consumable": false,
     "footprint": null,
@@ -17,7 +17,17 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "box_small_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.3,
+        "y": 0.2,
+        "z": 0.2
+      }
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -61,5 +71,10 @@
       "depth": 0.2,
       "height": 0.2
     }
+  },
+  "container": {
+    "capacity_kg": 5.0,
+    "stacking_limit": 5,
+    "accepts": []
   }
 }

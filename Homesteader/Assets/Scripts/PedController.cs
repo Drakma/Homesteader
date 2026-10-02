@@ -17,7 +17,40 @@ public class PedController : MonoBehaviour
     private Homesteader.Animation.GlbClipPlayer glbPlayer;
     private float verticalVelocity;
 
+    // Distance-accumulator footsteps: no animation-event hookup exists yet, so trigger on metres travelled
+    // instead - simple, and correct regardless of which clip/animator drives the visual walk.
+    private float footstepDistance;
+    private const float WalkStepInterval = 2.1f;   // metres per footstep at a walk
+    private const float RunStepInterval = 3.0f;    // longer stride at a run, but faster cadence overall
+
     public bool IsMoving { get; private set; }
+
+    /// <summary>Starts a looping full-body work clip (Chop_Tree_RT, Dig, Hoe ...) and turns to face a point. Walking cancels it.</summary>
+    public bool BeginWork(string clip, Vector3 faceToward)
+    {
+        if (glbPlayer == null) return false;
+        Vector3 d = faceToward - transform.position;
+        d.y = 0f;
+        if (d.sqrMagnitude > 0.01f)
+            transform.rotation = Quaternion.LookRotation(d.normalized) * Quaternion.Euler(0f, modelRotationOffset, 0f);
+        if (glbPlayer.ActionActive && glbPlayer.CurrentAction == clip) return true;
+        return glbPlayer.BeginAction(clip, true, 0.15f);
+    }
+
+    /// <summary>Playback time within the running work clip, wrapped to one cycle (false if that clip is not running).</summary>
+    public bool WorkPhase(string clip, out float seconds, out float length)
+    {
+        seconds = length = 0f;
+        if (glbPlayer == null || !glbPlayer.ActionClock(clip, out float t, out length)) return false;
+        seconds = t % length;
+        return true;
+    }
+
+    /// <summary>Ends a work clip started by BeginWork.</summary>
+    public void EndWork(string clip)
+    {
+        if (glbPlayer != null && glbPlayer.ActionActive && glbPlayer.CurrentAction == clip) glbPlayer.EndAction();
+    }
 
     /// <summary>When true, walking uses the two-arm carry clip (Walk_Carry).</summary>
     public bool Carrying { get; set; }
@@ -112,11 +145,12 @@ public class PedController : MonoBehaviour
         }
         else if (kb != null)
         {
-            if (kb.aKey.isPressed) h -= 1f;
-            if (kb.dKey.isPressed) h += 1f;
-            if (kb.sKey.isPressed) v -= 1f;
-            if (kb.wKey.isPressed) v += 1f;
-            running = kb.leftShiftKey.isPressed;
+            // Read through KeyBindings so the keys can be rebound in Settings > Controls.
+            if (Homesteader.Controls.KeyBindings.IsPressed(Homesteader.Controls.BindAction.MoveLeft)) h -= 1f;
+            if (Homesteader.Controls.KeyBindings.IsPressed(Homesteader.Controls.BindAction.MoveRight)) h += 1f;
+            if (Homesteader.Controls.KeyBindings.IsPressed(Homesteader.Controls.BindAction.MoveDown)) v -= 1f;
+            if (Homesteader.Controls.KeyBindings.IsPressed(Homesteader.Controls.BindAction.MoveUp)) v += 1f;
+            running = Homesteader.Controls.KeyBindings.IsPressed(Homesteader.Controls.BindAction.Run);
         }
         else
         {
@@ -164,6 +198,8 @@ public class PedController : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+
+        UpdateFootsteps(worldMove, running);
 
         // Turn character smoothly towards the direction of movement, offset by modelRotationOffset
         if (IsMoving && worldMove.sqrMagnitude > 0.001f)
@@ -216,5 +252,30 @@ public class PedController : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>Triggers a footstep sound every WalkStepInterval/RunStepInterval metres travelled while
+    /// grounded - not tied to any specific animation clip, so it works regardless of which walk/run clip is
+    /// currently assigned.</summary>
+    private void UpdateFootsteps(Vector3 worldMove, bool running)
+    {
+        var audio = Homesteader.Audio.AudioManager.Instance;
+        if (audio == null || !IsMoving || !controller.isGrounded) return;
+
+        footstepDistance += worldMove.magnitude * Time.deltaTime;
+        float interval = running ? RunStepInterval : WalkStepInterval;
+        if (footstepDistance < interval) return;
+        footstepDistance = 0f;
+
+        // Cheap surface guess: the same global snow-coverage value WeatherEffectsManager already drives the
+        // ground shader with. Real per-biome surface detection (grass/dirt/gravel/wood) can replace this
+        // once it's worth the lookup cost - footsteps working at all matters more right now than which of
+        // five near-identical procedural ticks plays.
+        Vector4 groundFx = Shader.GetGlobalVector("_WeatherGroundEffects");
+        var surface = groundFx.x > 0.5f
+            ? Homesteader.Audio.AudioManager.FootstepSurface.Snow
+            : Homesteader.Audio.AudioManager.FootstepSurface.Grass;
+
+        audio.PlayFootstep(transform.position, surface);
     }
 }

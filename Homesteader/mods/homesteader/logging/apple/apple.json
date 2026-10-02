@@ -3,16 +3,16 @@
   "id": "apple",
   "name": "Apple Tree",
   "category": "logging",
-  "description": "A tree lifecycle growing through 4 stages (sapling -> small -> medium -> mature) over 80 days. This group is the authoritative owner of the apple scheme.",
+  "description": "A tree lifecycle growing through 5 stages (sapling -> small -> medium -> mature -> fruiting) over 81 days. No fruit is visible until the final fruiting stage. This group is the authoritative owner of the apple scheme.",
   "icon": "apple.png",
   "is_growable": true,
   "growth": {
     "growth_type": "tree",
     "species": "apple",
-    "max_age": 80,
+    "max_age": 81,
     "time_unit": "days",
-    "total_stages": 4,
-    "icon_stage": 4,
+    "total_stages": 5,
+    "icon_stage": 5,
     "stages": [
       {
         "stage": 1,
@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 12,
         "resource": "stages/tree_sapling/",
-        "model": "tree_sapling_apple.fbx",
+        "model": "tree_sapling_apple.glb",
         "icon": "tree_sapling_apple.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 12,
         "age_max": 32,
         "resource": "stages/tree_small/",
-        "model": "tree_small_apple.fbx",
+        "model": "tree_small_apple.glb",
         "icon": "tree_small_apple.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 32,
         "age_max": 60,
         "resource": "stages/tree_medium/",
-        "model": "tree_medium_apple.fbx",
+        "model": "tree_medium_apple.glb",
         "icon": "tree_medium_apple.png"
       },
       {
@@ -47,13 +47,54 @@
         "age_min": 60,
         "age_max": 80,
         "resource": "stages/tree_mature/",
-        "model": "tree_mature_apple.fbx",
+        "model": "tree_mature_apple.glb",
         "icon": "tree_mature_apple.png"
+      },
+      {
+        "stage": 5,
+        "name": "fruiting",
+        "age_min": 80,
+        "age_max": 81,
+        "resource": "stages/tree_fruiting/",
+        "model": "tree_fruiting_apple.glb",
+        "icon": "tree_fruiting_apple.png"
       }
     ],
     "rules": {
+      "yield": {
+        "item_id": "mat_log_oak_uncut_long",
+        "amount_min": 1,
+        "amount_max": 1,
+        "tools": [
+          "#tool_axe",
+          "#tool_chainsaw"
+        ],
+        "harvest_stage": 4
+      },
+      "fruit": {
+        "is_fruiting": true,
+        "drops": [
+          {
+            "item_id": "food_apple",
+            "amount_min": 1,
+            "amount_max": 1
+          }
+        ],
+        "tools": [
+          "tool_fruit_basket"
+        ],
+        "fruit_stage": 5,
+        "regrow_days": 30
+      },
       "planting": {
         "item_id": "plantable_sapling_apple"
+      },
+      "failure": {
+        "dead": {
+          "resource": "stages/tree_dead/",
+          "model": "tree_dead_apple.glb",
+          "icon": "tree_dead_apple.png"
+        }
       }
     }
   },

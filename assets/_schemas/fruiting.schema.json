@@ -1,0 +1,33 @@
+{
+  "category": "fruiting",
+  "component": true,
+  "title": "Fruiting (picked by hand)",
+  "target": "fruiting",
+  "note": "A COMPONENT schema, added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'fruiting' block. It makes a bush (or any plant the game scatters or places) bear fruit that is picked by hand ONE AT A TIME: right-click with one of the 'tools' in the active slot and one fruit comes off, giving one of each listed drop; the missing fruit all returns regrow_days after the latest pick. Used by the berry bushes (bush_blueberry and so on). Runtime: Assets/Scripts/World/BerryBushes.cs. Trees keep their own fruit rules in the growth group (growth.rules.fruit).",
+  "fields": {
+    "tools": {
+      "type": "array",
+      "required": false,
+      "editor": "item_refs",
+      "refs": "tools",
+      "label": "Pick With (any one works; none = by hand)",
+      "note": "The tools that can pick it: tool assets and/or tags (any member tool works). Empty = by hand."
+    },
+    "drops": {
+      "type": "array",
+      "required": true,
+      "editor": "item_refs",
+      "refs": "assets",
+      "label": "Gives (one of each per fruit)",
+      "note": "The assets one picked fruit gives: one of each listed item goes to the toolbar."
+    },
+    "regrow_days": {
+      "type": "number",
+      "required": false,
+      "min": 1,
+      "default": 8,
+      "label": "Regrow (days)",
+      "note": "Game days after the LATEST pick before all the picked fruit is back."
+    }
+  }
+}

@@ -4429,6 +4429,11 @@
         <span class="docs-btn-icon">📖</span>
         <span class="docs-btn-label">Docs</span>
       </button>
+      <!-- Pushes every asset change into the mod system the game loads (the game's item list, then the packaged mod). -->
+      <button type="button" id="push-mods-btn" class="docs-btn" title="Push all asset updates to the mod system: regenerates the game's item list and repackages Homesteader/mods/homesteader">
+        <span class="docs-btn-icon">⬆</span>
+        <span class="docs-btn-label">Push to Mods</span>
+      </button>
     </div>
  </header>
 
@@ -4651,6 +4656,23 @@
                     id="m-wellness" data-path="properties.wellness_modifier" placeholder="0">
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Add-on schemas: component schemas (assets/_schemas/*.schema.json with "component": true) added to THIS asset -->
+          <div class="info-section" id="sec-addons">
+            <div class="info-sec-title">
+              <span>Add-on Schemas</span>
+              <span class="collapse-chevron">▼</span>
+            </div>
+            <div class="info-sec-body">
+              <div id="m-addon-add-row" style="display: flex; gap: 6px; align-items: center; margin-bottom: 8px;">
+                <select class="kv-input" id="m-addon-select" style="max-width: 220px;"></select>
+                <button type="button" id="m-addon-add-btn" class="copy-json-btn"
+                  style="font-size: 11px; padding: 4px 10px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8;"
+                  title="Add this schema to the asset (its fields appear below and are saved in the manifest)">+ Add schema</button>
+              </div>
+              <div id="m-addons-body" style="display: flex; flex-direction: column; gap: 8px;"></div>
             </div>
           </div>
 
@@ -9363,9 +9385,8 @@
       let seedMembers = [];
       if (SELECTED_ITEMS.size > 0) {
         seedMembers = Array.from(SELECTED_ITEMS).map(k => k.split("/")[1]).filter(Boolean);
-      } else if (ALL_ITEMS.length > 0) {
-        seedMembers = [ALL_ITEMS[0].id];
       }
+      // With nothing selected the tag starts empty (drag assets onto it to fill it).
       try {
         const res = await fetch("/api/save-material-tag", {
           method: "POST",
@@ -9588,6 +9609,7 @@
           </span>
           <span style="display: flex; align-items: center; gap: 6px;">
             <span class="cat-prefix-edit" title="Manage tag in dialog" onclick="event.stopPropagation(); openTagRegistryDialogWithName('${tagName}');">Edit</span>
+            <span class="cat-prefix-edit" title="Rename this tag everywhere it is used" onclick="event.stopPropagation(); renameTagRegistryEntry('${tagName}');">Rename</span>
             <span class="cat-count">${members.length}</span>
           </span>
         `;
@@ -9598,6 +9620,7 @@
           e.dataTransfer.dropEffect = "copy";
           btn.classList.add("drag-target-hover");
         };
+        btn.ondragenter = (e) => { e.preventDefault(); btn.classList.add("drag-target-hover"); };
         btn.ondragleave = () => {
           btn.classList.remove("drag-target-hover");
         };
@@ -10086,6 +10109,7 @@
             </div>
             <div style="display: flex; gap: 6px; flex-shrink: 0;">
               <button class="btn-cancel" data-edit-tag="${name}" style="padding: 5px 10px; font-size: 12px;">Edit</button>
+              <button class="btn-cancel" data-rename-tag="${name}" style="padding: 5px 10px; font-size: 12px;">Rename</button>
               <button class="btn-cancel" data-delete-tag="${name}" style="padding: 5px 10px; font-size: 12px; color: #f87171;">Delete</button>
             </div>`;
           listEl.appendChild(row);
@@ -10099,6 +10123,9 @@
         });
         listEl.querySelectorAll("[data-delete-tag]").forEach(btn => {
           btn.onclick = () => deleteTagRegistryEntry(btn.getAttribute("data-delete-tag"));
+        });
+        listEl.querySelectorAll("[data-rename-tag]").forEach(btn => {
+          btn.onclick = () => renameTagRegistryEntry(btn.getAttribute("data-rename-tag"));
         });
       } catch (err) {
         listEl.innerHTML = `<div style="font-size: 12px; color: #f87171;">Failed to load tags: ${err.message}</div>`;
@@ -10135,6 +10162,31 @@
       } catch (err) {
         errEl.textContent = `Server error: ${err.message}`;
         errEl.style.display = "block";
+      }
+    }
+
+    // Renames a tag everywhere it is used: the server moves the registry entry and rewrites every manifest that names "#old"
+    // (recipes, growth-group yield tools ...) in the asset kit and the packaged core mod.
+    async function renameTagRegistryEntry(oldName) {
+      const entered = window.prompt(`Rename #${oldName} to (lowercase letters, numbers, underscores):`, oldName);
+      if (entered === null) return;
+      const newName = entered.trim().replace(/^#/, "").toLowerCase();
+      if (!newName || newName === oldName) return;
+      try {
+        const res = await fetch("/api/rename-material-tag", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ old_name: oldName, new_name: newName })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`🏷️ ${data.message}`, "success");
+          await refreshTagRegistryList();
+        } else {
+          showToast(`Error: ${data?.error || "Failed to rename tag"}`, "error");
+        }
+      } catch (err) {
+        showToast(`Server error: ${err.message}`, "error");
       }
     }
 
@@ -12273,7 +12325,20 @@
         </label>
       `;
       const escAttr = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-      const curTool = (r.yield || {}).tool || "";
+      // Harvest tools: any ONE of the listed tools / tags works. `tools` is the list; the legacy single `tool` reads as a list of one.
+      const curToolList = (() => {
+        const y = r.yield || {};
+        if (Array.isArray(y.tools) && y.tools.length) return y.tools.filter(Boolean);
+        if (typeof y.tools === "string" && y.tools.trim()) return y.tools.split(",").map(t => t.trim()).filter(Boolean);
+        return y.tool ? [y.tool] : [];
+      })();
+      const curTool = curToolList.join(",");
+      // Tools that pick the fruit of a fruiting tree (same shape as the harvest tools).
+      const fruitToolList = (() => {
+        const f = r.fruit || {};
+        if (Array.isArray(f.tools) && f.tools.length) return f.tools.filter(Boolean);
+        return [];
+      })();
       // Item pickers. The GROUP owns these links, so the choices are catalog items:
       //   planting item   -> the seeds / saplings that can plant it
       //   ingredient drop -> ingredients and food
@@ -12297,6 +12362,24 @@
           <input type="hidden" id="${id}" value="${escAttr(cur || "")}">
         </div>`;
       };
+      // A multi-entry item field (harvest tools): a row per chosen tool with a remove button, plus "+ Add tool". The
+      // hidden input holds the comma-separated ids and is what the save payload reads.
+      const toolsField = (key, id, list) => `
+        <div class="kv-box gg-tools-field" data-kind="tool">
+          <div class="kv-key">${key}</div>
+          <div class="gg-tools-list"></div>
+          <button type="button" class="btn-cancel gg-tools-add" style="padding: 5px 10px; font-size: 12px; margin-top: 6px;">+ Add tool</button>
+          <input type="hidden" id="${id}" value="${escAttr((list || []).join(","))}">
+        </div>`;
+      // A list of drops { item_id, amount_min, amount_max } (extra yields, picked fruit). The hidden input holds the JSON array and is what
+      // the save payload reads; wireDropsField builds the rows.
+      const dropsField = (key, id, list) => `
+        <div class="kv-box gg-drops-field" data-kind="drop" style="flex: 1 1 100%;">
+          <div class="kv-key">${key}</div>
+          <div class="gg-drops-list"></div>
+          <button type="button" class="btn-cancel gg-drops-add" style="padding: 5px 10px; font-size: 12px; margin-top: 6px;">+ Add item</button>
+          <input type="hidden" id="${id}" value="${escAttr(JSON.stringify((list || []).filter(d => d && d.item_id)))}">
+        </div>`;
       // Withered / dead / stump version: the same click-to-choose chip as the item fields, listing this group's own
       // stage folders (/api/group-stages). The hidden inputs keep the ids the save payload reads (-resource/-model/-icon).
       const variantRow = (label, prefix, v) => {
@@ -12382,7 +12465,10 @@
             <h5>Yield</h5>
             <div class="gg-row">
               ${itemField("Ingredient Dropped", "gg-r-yield-item", (r.yield || {}).item_id, "drop", "(nothing)")}
-              ${itemField("Harvest Tool", "gg-r-yield-tool", curTool, "tool", "(by hand)")}
+              ${toolsField("Harvest Tools (any one works; none = by hand)", "gg-r-yield-tool", curToolList)}
+            </div>
+            <div class="gg-row">
+              ${dropsField("Extra Yields (also given on every harvest)", "gg-r-yield-extras", (r.yield || {}).extras)}
             </div>
             <div class="gg-row">
               ${rfield("Min", "gg-r-yield-min", (r.yield || {}).amount_min, "number")}
@@ -12393,6 +12479,23 @@
             </div>
             ${g.growth_type === "tree" ? `<div class="gg-row">${variantRow("Stump", "gg-r-stump", (r.yield || {}).stump)}</div>` : ""}
           </div>
+
+          ${g.growth_type === "tree" ? `
+          <div class="gg-card">
+            <h5>Picking</h5>
+            <div class="gg-sub">Fruiting trees can be picked while standing: the tree stays, the fruit regrows.</div>
+            <div class="gg-row">
+              ${rcheck("Fruiting Tree", "gg-r-fruiting", (r.fruit || {}).is_fruiting)}
+              ${rfield("Fruit Stage", "gg-r-fruit-stage", (r.fruit || {}).fruit_stage, "number")}
+              ${rfield("Regrow Days", "gg-r-fruit-days", (r.fruit || {}).regrow_days, "number")}
+            </div>
+            <div class="gg-row">
+              ${toolsField("Pick With (any one works; none = by hand)", "gg-r-fruit-tool", fruitToolList)}
+            </div>
+            <div class="gg-row">
+              ${dropsField("Picked Fruit (drops)", "gg-r-fruit-drops", (r.fruit || {}).drops)}
+            </div>
+          </div>` : ""}
 
           <div class="gg-card">
             <h5>Planting</h5>
@@ -12448,7 +12551,11 @@
         setTimeout(() => {
           const btn = document.getElementById("gg-save-scheme");
           if (btn) btn.onclick = () => saveGroup(sp);
+          const pushBtn = document.getElementById("gg-push-to-game");
+          if (pushBtn) pushBtn.onclick = () => pushGrowthGroupToGame(pushBtn, sp.species);
           document.querySelectorAll(".gg-item-field").forEach(wireItemField);
+          document.querySelectorAll(".gg-tools-field").forEach(wireToolsField);
+          document.querySelectorAll(".gg-drops-field").forEach(wireDropsField);
           document.querySelectorAll(".gg-variant-field").forEach(wireVariantField);
           // year_round must stand alone: ticking it clears the individual seasons and vice versa.
           const seasonBox = document.getElementById("gg-r-seasons");
@@ -12596,11 +12703,19 @@
             amount_min: val("gg-r-yield-min"),
             amount_max: val("gg-r-yield-max"),
             harvest_stage: val("gg-r-harvest-stage"),
-            tool: val("gg-r-yield-tool"),
+            tools: val("gg-r-yield-tool").split(",").map(t => t.trim()).filter(Boolean),
             stump: { resource: val("gg-r-stump-resource"), model: val("gg-r-stump-model"), icon: val("gg-r-stump-icon") },
             regrows: chk("gg-r-regrows"),
             regrow_stage: val("gg-r-regrow-stage"),
+            extras: readDrops("gg-r-yield-extras"),
           },
+          fruit: document.getElementById("gg-r-fruiting") ? {
+            is_fruiting: chk("gg-r-fruiting"),
+            fruit_stage: val("gg-r-fruit-stage"),
+            regrow_days: val("gg-r-fruit-days"),
+            tools: val("gg-r-fruit-tool").split(",").map(t => t.trim()).filter(Boolean),
+            drops: readDrops("gg-r-fruit-drops"),
+          } : undefined,
           planting: {
             seasons: Array.from(document.querySelectorAll("#gg-r-seasons input:checked")).map(cb => cb.value),
             biomes: Array.from(document.querySelectorAll("#gg-r-biomes input:checked")).map(cb => cb.value),
@@ -12781,8 +12896,7 @@
             <span style="display: inline-flex; align-items: center; gap: 8px;">
               <span>${activeSubfolder.icon}</span> ${activeSubfolder.name} Group
             </span>
-            <button type="button" onclick="openGrowthGroupForm('${activeSubfolder.species}')" class="banner-action-btn" style="border-color: rgba(34, 197, 94, 0.5); background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700;">Edit Stages</button>
-          </div>
+            <button type="button" onclick="openGrowthGroupForm('${activeSubfolder.species}')" class="banner-action-btn" style="border-color: rgba(34, 197, 94, 0.5); background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700;">Edit Stages</button>          </div>
         `;
         bannerDesc.innerText = `Viewing all stages/members of the "${activeSubfolder.name}" growth group. Click a card to inspect it, or Edit Stages to reassign/remove members.`;
       } else {
@@ -14235,7 +14349,7 @@
           category: it.category,
           name: it.name
         }));
-        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.effectAllowed = "copyMove";
         card.classList.add("dragging");
         showCategoryDropHints(true);
       };
@@ -14772,6 +14886,25 @@
       // Docs button (header, beside the search bar) opens the docs modal.
       const docsBtn = document.getElementById("docs-btn");
       if (docsBtn) docsBtn.onclick = () => openDocsDialog();
+
+      // Push to Mods (header, beside Docs): regenerates the game's item list and repackages the mod from the kit.
+      const pushModsBtn = document.getElementById("push-mods-btn");
+      if (pushModsBtn) pushModsBtn.onclick = async () => {
+        const label = pushModsBtn.querySelector(".docs-btn-label");
+        pushModsBtn.disabled = true;
+        if (label) label.textContent = "Pushing...";
+        try {
+          const res = await fetch("/api/import-mods", { method: "POST" });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.success) showToast(`Pushed to the mod system (${data.items_imported || 0} changed asset${data.items_imported === 1 ? "" : "s"}).`, "success");
+          else showToast(`Push to mods failed: ${data.error || res.status}${data.details ? "\n" + data.details : ""}`, "error");
+        } catch (e) {
+          showToast("Push to mods failed: " + e.message, "error");
+        } finally {
+          pushModsBtn.disabled = false;
+          if (label) label.textContent = "Push to Mods";
+        }
+      };
       const docsCloseBtn = document.getElementById("docs-close-btn");
       if (docsCloseBtn) docsCloseBtn.onclick = () => document.getElementById("docs-dialog").close();
 
@@ -14900,7 +15033,7 @@
             return;
           }
           e.dataTransfer.setData("application/json", JSON.stringify({ type: "batch" }));
-          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.effectAllowed = "copyMove";
           showCategoryDropHints(true);
         };
         batchMoveBtn.ondragend = () => {
@@ -14988,6 +15121,31 @@
       }
     }
 
+    // Push Growth Group to Game: pushes every stage member of a growth group into the
+    // "homesteader" mod in one call (see /api/push-growth-group, tools/server.py push_growth_group).
+    async function pushGrowthGroupToGame(btn, species) {
+      if (!species) return;
+      const label = btn ? btn.innerHTML : "";
+      if (btn) { btn.disabled = true; btn.innerHTML = "Pushing..."; }
+      try {
+        const res = await fetch("/api/push-growth-group", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ species })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          const kind = data.pushed.length && !data.skipped.length ? "success" : (data.pushed.length ? "warning" : "error");
+          showToast(data.message + (data.skipped.length ? ` (${data.skipped.length} stage(s) skipped)` : ""), kind);
+        } else {
+          showToast(`Push growth group: ${data.error || "Push failed"}`, "warning");
+        }
+      } catch (err) {
+        showToast(`Push growth group failed: ${err.message}`, "error");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = label; }
+      }
+    }
+
     // Automatically calculates and updates interior_area_m2 whenever dimensions_m changes
     function autoCalculateInteriorArea(manifest, itemContext = null) {
       if (!manifest || typeof manifest !== "object") return;
@@ -15046,6 +15204,14 @@
       } else if (kind === "int") {
         value = rawValue === "" ? null : parseInt(rawValue, 10);
         if (Number.isNaN(value)) return;
+      } else if (kind === "remove") {
+        value = undefined;
+      } else if (kind === "number_optional") {
+        value = rawValue === "" ? undefined : Number(rawValue);   // empty removes the key
+        if (Number.isNaN(value)) return;
+      } else if (kind === "csv_optional") {
+        const list = String(rawValue || "").split(",").map(x => x.trim()).filter(Boolean);
+        value = list.length ? list : undefined;   // empty removes the key
       } else if (kind === "bool") {
         value = rawValue === "true" || rawValue === true;
       } else if (kind === "string_or_null") {
@@ -15072,7 +15238,8 @@
         if (typeof node[parts[i]] !== "object" || node[parts[i]] === null) node[parts[i]] = {};
         node = node[parts[i]];
       }
-      node[parts[parts.length - 1]] = value;
+      if (value === undefined) delete node[parts[parts.length - 1]];
+      else node[parts[parts.length - 1]] = value;
 
       // Autofill interior_area_m2 automatically if dimensions_m changes
       if (path.startsWith("category_fields.dimensions_m")) {
@@ -15497,7 +15664,7 @@
     // What the group editor's item fields can choose from.
     function itemsForPicker(kind) {
       if (kind === "plant") return ALL_ITEMS.filter(i => /^(seed_|plantable_|sapling)/.test(i.id));
-      if (kind === "drop") return ALL_ITEMS.filter(i => i.category === "ingredients" || i.category === "food");
+      if (kind === "drop") return ALL_ITEMS;   // a harvest can drop any item
       // Harvest tools: real tool items plus tags (a tag accepts any one of its member tools).
       if (kind === "tool") return tagPickerItems(true).concat(ALL_ITEMS.filter(i => i.category === "tools" || i.id.startsWith("tool_")));
       return ALL_ITEMS;
@@ -15549,6 +15716,104 @@
       // The whole chip (icon, name, blank space) opens the picker; "Clear" inside the picker chooses nothing.
       const chip = box.querySelector(".gg-item-chip");
       if (chip) chip.onclick = open;
+    }
+
+    // The drop-list rows JSON stored in a hidden input (see dropsField): [{ item_id, amount_min, amount_max }, ...].
+    function readDrops(id) {
+      const el = document.getElementById(id);
+      if (!el) return [];
+      try { const v = JSON.parse(el.value || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+    }
+
+    // A list of drops: each row is an item chip (click to change), a min and a max, and a remove button.
+    function wireDropsField(box) {
+      const hidden = box.querySelector('input[type="hidden"]');
+      const listEl = box.querySelector(".gg-drops-list");
+      const esc = (v) => String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      const read = () => { try { const v = JSON.parse(hidden.value || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+      const write = (arr, redraw) => { hidden.value = JSON.stringify(arr); if (redraw) render(); };
+      const pick = (onPick) => openItemPicker({
+        title: "Choose an item",
+        hint: "Any item can be dropped.",
+        items: itemsForPicker("drop"),
+        current: "",
+        onPick: (id) => { if (id) onPick(id); },
+      });
+      const render = () => {
+        listEl.innerHTML = "";
+        const rows = read();
+        if (rows.length === 0) {
+          const none = document.createElement("div");
+          none.className = "gg-item-id";
+          none.textContent = "(none)";
+          listEl.appendChild(none);
+        }
+        rows.forEach((d, idx) => {
+          const item = lookupPickerItem("drop", d.item_id);
+          const row = document.createElement("div");
+          row.className = "gg-item-chip";
+          row.style.cssText = "margin-bottom: 4px; cursor: default; gap: 8px; align-items: center;";
+          row.innerHTML = `
+            <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
+            <div class="gg-item-text" style="cursor: pointer;" title="Click to change the item">
+              <div class="gg-item-name">${esc(item ? item.name : d.item_id + " (not found)")}</div>
+              <div class="gg-item-id">${esc(d.item_id)}</div>
+            </div>
+            <input type="number" min="1" step="1" class="gg-drop-min" value="${esc(d.amount_min ?? 1)}" title="Fewest" style="width: 56px;">
+            <input type="number" min="1" step="1" class="gg-drop-max" value="${esc(d.amount_max ?? d.amount_min ?? 1)}" title="Most" style="width: 56px;">
+            <button type="button" class="btn-cancel" title="Remove" style="padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
+          row.querySelector(".gg-item-text").onclick = () => pick((id) => { const arr = read(); arr[idx].item_id = id; write(arr, true); });
+          row.querySelector(".gg-drop-min").onchange = (e) => { const arr = read(); arr[idx].amount_min = e.target.value; write(arr, false); };
+          row.querySelector(".gg-drop-max").onchange = (e) => { const arr = read(); arr[idx].amount_max = e.target.value; write(arr, false); };
+          row.querySelector("button").onclick = () => { const arr = read(); arr.splice(idx, 1); write(arr, true); };
+          listEl.appendChild(row);
+        });
+      };
+      box.querySelector(".gg-drops-add").onclick = () => pick((id) => { const arr = read(); arr.push({ item_id: id, amount_min: 1, amount_max: 1 }); write(arr, true); });
+      render();
+    }
+
+    // The multi-entry harvest tool field: lists the chosen tools, "+ Add tool" opens the tool picker, "x" removes one.
+    function wireToolsField(box) {
+      const hidden = box.querySelector('input[type="hidden"]');
+      const listEl = box.querySelector(".gg-tools-list");
+      const esc = (v) => String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      const read = () => (hidden.value || "").split(",").map(t => t.trim()).filter(Boolean);
+      const render = () => {
+        listEl.innerHTML = "";
+        const ids = read();
+        if (ids.length === 0) {
+          const none = document.createElement("div");
+          none.className = "gg-item-id";
+          none.textContent = "(by hand)";
+          listEl.appendChild(none);
+        }
+        ids.forEach((id, idx) => {
+          const item = lookupPickerItem("tool", id);
+          const row = document.createElement("div");
+          row.className = "gg-item-chip";
+          row.style.cssText = "margin-bottom: 4px; cursor: default;";
+          row.innerHTML = `
+            <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
+            <div class="gg-item-text">
+              <div class="gg-item-name">${esc(item ? item.name : id + " (not found)")}</div>
+              <div class="gg-item-id">${esc(id)}</div>
+            </div>
+            <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
+          row.querySelector("button").onclick = () => { const arr = read(); arr.splice(idx, 1); hidden.value = arr.join(","); render(); };
+          listEl.appendChild(row);
+        });
+      };
+      box.querySelector(".gg-tools-add").onclick = () => {
+        openItemPicker({
+          title: "Add a harvest tool",
+          hint: "A tool item, or a tag that any one of its member tools satisfies. Any ONE of the listed tools harvests it.",
+          items: itemsForPicker("tool"),
+          current: "",
+          onPick: (id) => { if (!id) return; const arr = read(); if (!arr.includes(id)) arr.push(id); hidden.value = arr.join(","); render(); },
+        });
+      };
+      render();
     }
 
     // Withered / dead / stump chooser: a chip that opens the item picker over the group's stage folders.
@@ -15904,7 +16169,148 @@
       };
     }
 
+    // ---------------------------------------------------------------- add-on (component) schemas
+    // A component schema is its own schema file ("component": true) whose block lives at the manifest's top level under its "target" (for example
+    // "container"). The Add schema button attaches one to this asset with its defaults, its card edits the fields, Remove takes the block out again.
+    let ADDON_SCHEMAS = null;
+    async function loadAddonSchemas() {
+      if (ADDON_SCHEMAS) return ADDON_SCHEMAS;
+      const out = [];
+      try {
+        const list = await (await fetch("/api/schemas?all=1", { cache: "no-store" })).json();
+        for (const d of (list.details || [])) {
+          if (!d.component) continue;
+          const r = await (await fetch(`/api/schema?name=${encodeURIComponent(d.name)}`, { cache: "no-store" })).json();
+          if (r.success && r.schema) out.push({ name: d.name, ...r.schema });
+        }
+      } catch (e) { console.warn("Add-on schemas failed to load", e); }
+      ADDON_SCHEMAS = out;
+      return out;
+    }
+
+    function addonManifest() {
+      try { return JSON.parse(document.getElementById("m-raw-json").value); } catch (e) { return null; }
+    }
+
+    async function renderAddonsSection(it) {
+      const body = document.getElementById("m-addons-body");
+      const row = document.getElementById("m-addon-add-row");
+      if (!body || !row) return;
+      const schemas = await loadAddonSchemas();
+      const manifest = addonManifest() || (it && it.manifest) || {};
+      body.innerHTML = "";
+      const free = [];
+      for (const sc of schemas) {
+        const block = manifest[sc.target];
+        if (block && typeof block === "object" && !Array.isArray(block)) body.appendChild(buildAddonCard(it, sc, block));
+        else free.push(sc);
+      }
+      if (!body.children.length) {
+        const none = document.createElement("div");
+        none.className = "gg-item-id";
+        none.textContent = "(no add-on schemas on this asset)";
+        body.appendChild(none);
+      }
+      const sel = document.getElementById("m-addon-select");
+      const btn = document.getElementById("m-addon-add-btn");
+      sel.innerHTML = free.map(s => `<option value="${escapeHtml(s.name)}" title="${escapeHtml(s.note || "")}">${escapeHtml(s.title || s.name)}</option>`).join("");
+      row.style.display = free.length ? "flex" : "none";
+      btn.onclick = () => { const sc = free.find(s => s.name === sel.value); if (sc) addAddon(it, sc); };
+    }
+
+    function addAddon(it, sc) {
+      const block = {};
+      for (const [k, def] of Object.entries(sc.fields || {})) {
+        if (def.default !== undefined && (def.required || def.type === "number")) block[k] = def.default;
+        else if (def.required) block[k] = def.type === "array" ? [] : def.type === "number" ? 0 : "";
+      }
+      if (sc.fields && sc.fields.capacity_kg && block.capacity_kg === undefined) block.capacity_kg = 1;
+      applyManifestFieldEdit(sc.target, block, "raw");
+      for (const [path, value] of Object.entries(sc.on_add || {})) applyManifestFieldEdit(path, value, "raw");
+      const st = document.getElementById("m-stack");
+      const m = addonManifest();
+      if (st && m && m.properties && m.properties.max_stack_size !== undefined) st.value = m.properties.max_stack_size;
+      renderAddonsSection(it);
+    }
+
+    function buildAddonCard(it, sc, block) {
+      const card = document.createElement("div");
+      card.style.cssText = "border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 8px 10px; background: rgba(255,255,255,0.03);";
+      const head = document.createElement("div");
+      head.style.cssText = "display: flex; align-items: center; gap: 8px; margin-bottom: 6px;";
+      head.innerHTML = `<b style="flex: 1;" title="${escapeHtml(sc.note || "")}">${escapeHtml(sc.title || sc.name)}</b>
+        <button type="button" class="btn-cancel" style="padding: 2px 9px; font-size: 11px; color: #f87171;" title="Remove this schema from the asset">Remove</button>`;
+      head.querySelector("button").onclick = () => { applyManifestFieldEdit(sc.target, null, "remove"); renderAddonsSection(it); };
+      card.appendChild(head);
+
+      const grid = document.createElement("div");
+      grid.className = "kv-grid";
+      card.appendChild(grid);
+      const setField = (field, value, kind) => applyManifestFieldEdit(`${sc.target}.${field}`, value, kind);
+      for (const [field, def] of Object.entries(sc.fields || {})) {
+        const label = def.label || field.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+        const val = block[field];
+        const box = document.createElement("div");
+        box.className = "kv-box";
+        if (def.note) box.title = def.note;
+        if (def.editor === "item_refs") {
+          box.style.gridColumn = "1 / -1";
+          box.appendChild(buildItemRefs(it, sc, field, def, Array.isArray(val) ? val : [], label));
+        } else if (def.type === "boolean") {
+          box.innerHTML = `<div class="kv-key">${escapeHtml(label)}</div>
+            <select class="kv-input"><option value="false"${val ? "" : " selected"}>No</option><option value="true"${val ? " selected" : ""}>Yes</option></select>`;
+          box.querySelector("select").onchange = (e) => setField(field, e.target.value === "true", "bool");
+        } else if (def.type === "number") {
+          const min = def.min !== undefined ? ` min="${def.min}"` : "";
+          const max = def.max !== undefined ? ` max="${def.max}"` : "";
+          box.innerHTML = `<div class="kv-key">${escapeHtml(label)}</div>
+            <input class="kv-input" type="number" step="${def.integer ? 1 : "any"}"${min}${max} value="${val !== undefined && val !== null ? val : ""}">`;
+          box.querySelector("input").oninput = (e) => setField(field, e.target.value, def.required ? "number" : "number_optional");
+        } else {
+          box.innerHTML = `<div class="kv-key">${escapeHtml(label)}</div><input class="kv-input" type="text" value="${escapeHtml(val === undefined || val === null ? "" : val)}">`;
+          box.querySelector("input").oninput = (e) => setField(field, e.target.value, "string_or_null");
+        }
+        grid.appendChild(box);
+      }
+      return card;
+    }
+
+    // A list of tags and assets chosen with the asset picker (chips with a remove button, "+ Add tag or asset").
+    function buildItemRefs(it, sc, field, def, arr, label) {
+      const wrap = document.createElement("div");
+      wrap.innerHTML = `<div class="kv-key">${escapeHtml(label)}</div><div class="refs-list"></div>
+        <button type="button" class="copy-json-btn refs-add" style="margin-top: 4px; font-size: 11px; padding: 3px 10px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8;">+ Add tag or asset</button>`;
+      const listEl = wrap.querySelector(".refs-list");
+      const save = (next) => { applyManifestFieldEdit(`${sc.target}.${field}`, next, next.length || def.required ? "raw" : "remove"); renderAddonsSection(it); };
+      if (arr.length === 0) {
+        const none = document.createElement("div");
+        none.className = "gg-item-id";
+        none.textContent = "(anything)";
+        listEl.appendChild(none);
+      }
+      arr.forEach((id, idx) => {
+        const item = lookupPickerItem("accept", id);
+        const chip = document.createElement("div");
+        chip.className = "gg-item-chip";
+        chip.style.cssText = "margin-bottom: 4px; cursor: default;";
+        chip.innerHTML = `<img class="gg-item-thumb" src="${item && item.icon ? escapeHtml(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
+          <div class="gg-item-text"><div class="gg-item-name">${escapeHtml(item ? item.name : id + (id.startsWith("#") ? "" : " (not found)"))}</div><div class="gg-item-id">${escapeHtml(id)}</div></div>
+          <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
+        chip.querySelector("button").onclick = () => { const next = arr.slice(); next.splice(idx, 1); save(next); };
+        listEl.appendChild(chip);
+      });
+      wrap.querySelector(".refs-add").onclick = () => openItemPicker({
+        title: "Add a tag or asset",
+        hint: "A tag (any member item is accepted) or a single asset.",
+        items: def.refs === "assets" ? ALL_ITEMS : def.refs === "tools" ? itemsForPicker("tool") : tagPickerItems(false).concat(ALL_ITEMS),
+        current: "",
+        onPick: (id) => { if (!id || arr.includes(id)) return; save(arr.concat([id])); },
+      });
+      return wrap;
+    }
+
     async function renderCategorySchemaSection(it) {
+      renderAddonsSection(it);
       renderLightsSection(it);
       const catSec = document.getElementById("sec-category-schema");
       const catGrid = document.getElementById("m-cat-schema-grid");

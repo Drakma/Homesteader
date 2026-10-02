@@ -1,0 +1,12 @@
+{
+  "name": "homesteader-gemini-music-mcp",
+  "version": "1.0.0",
+  "description": "MCP server that asks Google Gemini (web app, Lyria) for music and downloads the MP3",
+  "type": "module",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "playwright": "^1.49.0"
+  }
+}

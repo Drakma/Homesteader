@@ -1,0 +1,36 @@
+{
+  "category": "container",
+  "component": true,
+  "title": "Container",
+  "target": "container",
+  "note": "A COMPONENT schema: it is not part of any category or the base schema. It is added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'container' block on the manifest. An asset with this block can hold other items up to a weight capacity: the sum of every stored item's weight_kg x count may not pass capacity_kg. Runtime: Assets/Scripts/UI/Containers.cs (the C key opens a container's contents). Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1); stacking_limit is WORLD stacking.",
+  "on_add": {
+    "properties.max_stack_size": 1
+  },
+  "fields": {
+    "capacity_kg": {
+      "type": "number",
+      "required": true,
+      "min": 0.01,
+      "default": 5,
+      "label": "Capacity (kg)",
+      "note": "The most weight this container can hold: the sum of weight_kg x count of what is inside."
+    },
+    "stacking_limit": {
+      "type": "number",
+      "integer": true,
+      "required": false,
+      "min": 1,
+      "default": 1,
+      "label": "Stack Limit (placed)",
+      "note": "How many identical placed containers can be stacked on each other in one grid square in the world, each keeping its own contents. 1 = they do not stack. In the toolbar a container is always one per slot."
+    },
+    "accepts": {
+      "type": "array",
+      "required": false,
+      "editor": "item_refs",
+      "label": "Accepts",
+      "note": "What the container accepts: tags (#tag, any member item) and/or exact assets, chosen with the asset picker. Empty = anything. Item categories (for example \"food\") are also understood by the game if written by hand."
+    }
+  }
+}

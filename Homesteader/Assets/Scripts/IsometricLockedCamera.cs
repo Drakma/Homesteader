@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using Homesteader.Generation;
 
 public class IsometricLockedCamera : MonoBehaviour
@@ -25,6 +26,9 @@ public class IsometricLockedCamera : MonoBehaviour
     private float targetYaw;
     private float orbitRadius;
 
+    /// <summary>Fog density multiplier that cancels the camera being pulled back: 1 when the camera sits at its base orbit radius.</summary>
+    public static float FogCompensation = 1f;
+
     [Header("Pan Settings (Right-Click Drag)")]
     public float panSpeed = 1.0f;
     public float recenterSpeed = 6.0f;
@@ -33,6 +37,7 @@ public class IsometricLockedCamera : MonoBehaviour
     private bool _isPanned = false;
 
     private Camera cam;
+    private Transform _listenerAnchor;
 
     void Awake()
     {
@@ -47,7 +52,24 @@ public class IsometricLockedCamera : MonoBehaviour
             // Ensure Camera.main works — many systems rely on it
             if (cam.gameObject.tag != "MainCamera")
                 cam.gameObject.tag = "MainCamera";
+
+            // Without this the scene's Global Volume (color grading, etc.) never renders at all — the camera
+            // silently skips the whole URP post-processing stack.
+            var camData = cam.GetUniversalAdditionalCameraData();
+            camData.renderPostProcessing = true;
         }
+
+        // The scene's Main Camera (which holds the only AudioListener) is disabled, so without
+        // this the game runs with zero active AudioListeners and all audio is silent.
+        // The listener must NOT sit on this camera: the orthographic camera is pulled far back from the action, and the 3D
+        // sounds (footsteps, chopping, animals) fall silent beyond 25 m. It lives on an anchor that follows the focal point.
+        foreach (AudioListener existing in FindObjectsByType<AudioListener>(FindObjectsSortMode.None))
+            existing.enabled = false;
+        var anchor = new GameObject("AudioListenerAnchor");
+        anchor.transform.SetParent(transform.parent, false);
+        _listenerAnchor = anchor.transform;
+        anchor.AddComponent<AudioListener>();
+
         targetYaw = yawDegrees;
         orbitRadius = Mathf.Sqrt(distance * distance + height * height);
     }
@@ -134,8 +156,8 @@ public class IsometricLockedCamera : MonoBehaviour
         }
         else if (kb != null)
         {
-            if (kb.qKey.wasPressedThisFrame) targetYaw -= 90f;
-            if (kb.eKey.wasPressedThisFrame) targetYaw += 90f;
+            if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.CameraRotateLeft)) targetYaw -= 90f;
+            if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.CameraRotateRight)) targetYaw += 90f;
         }
         else
         {
@@ -259,10 +281,18 @@ public class IsometricLockedCamera : MonoBehaviour
 
         // Locked isometric: pitch stays fixed, only yaw orbits (via Q/E snaps).
         Quaternion lookRot = Quaternion.Euler(pitchDegrees, yawDegrees, 0f);
-        Vector3 offset = lookRot * new Vector3(0f, 0f, -orbitRadius);
+        // Orthographic: distance changes nothing on screen, so sit far enough back that everything in view is in
+        // FRONT of the camera. That lets the near plane stay positive, which keeps shadow cascades and fade sane
+        // (a negative near plane skews them, darkening part of the screen).
+        float camDistance = orbitRadius;
+        if (cam != null && cam.orthographic)
+            camDistance = orbitRadius + 2.0f * cam.orthographicSize + 5f;
+        FogCompensation = Mathf.Clamp01(orbitRadius / Mathf.Max(camDistance, 0.01f));
+        Vector3 offset = lookRot * new Vector3(0f, 0f, -camDistance);
         transform.position = _focalPoint + offset;
 
         transform.rotation = lookRot;
+        if (_listenerAnchor != null) _listenerAnchor.SetPositionAndRotation(_focalPoint, lookRot);
 
         // Zoomed far out, the ground at the bottom of the screen is CLOSER to the camera than the near plane (the camera sits
         // orbitRadius from the focal point, and the bottom of the view reaches about 2 x zoom back along the ground), so it
@@ -271,11 +301,18 @@ public class IsometricLockedCamera : MonoBehaviour
         if (cam != null && cam.orthographic)
             {
                 float reach = 2.2f * cam.orthographicSize;
-                // Near plane: allow negative (orthographic cameras support it) but clamp to a minimum
-                // so we don't clip everything near the camera. -50 is far enough to include the full viewport.
-                cam.nearClipPlane = Mathf.Min(0.3f, orbitRadius - reach - 5f);
-                cam.nearClipPlane = Mathf.Max(cam.nearClipPlane, -50f);
-                cam.farClipPlane = Mathf.Max(cam.farClipPlane, orbitRadius + reach + 100f);
+                // The camera is pulled back (above) so the near plane can stay positive.
+                cam.nearClipPlane = 0.3f;
+                cam.farClipPlane = Mathf.Max(cam.farClipPlane, camDistance + reach + 100f);
+
+                // Fit the shadow range to what is actually on screen. A needlessly long range spreads the shadow map
+                // thin, and the edges shimmer as the camera pans. The view reaches about 1.8 x zoom either side of the focal point.
+                var urp = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline as UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset;
+                if (urp != null)
+                {
+                    float want = camDistance + 1.8f * cam.orthographicSize + 20f;
+                    if (Mathf.Abs(urp.shadowDistance - want) > 2f) urp.shadowDistance = want;
+                }
             }
     }
 }

@@ -1,0 +1,5 @@
+# Dead Apple Tree (`tree_dead_apple`)
+
+![icon](tree_dead_apple.png)
+
+The dead version of the apple growth group, shown when a tree dies (lightning, frost, bad season). Generated procedurally in the species' own dead shape.

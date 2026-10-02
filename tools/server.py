@@ -616,6 +616,13 @@ def sanitize_growth_rules(raw, total_stages, group_id=None, growth_type=None):
         if not drops:
             return None, "fruit.drops needs at least one item when the tree is fruiting."
         fruit = {"is_fruiting": True, "drops": drops}
+        fruit_tools = harvest_tools_of(fr)   # what picks it: any ONE of these in the active slot (none = by hand)
+        for tool in fruit_tools:
+            tool_err = check_tool_ref(tool)
+            if tool_err:
+                return None, "fruit.tools: " + tool_err
+        if fruit_tools:
+            fruit["tools"] = fruit_tools
         fs, err = num(fr.get("fruit_stage"), "fruit.fruit_stage", 1, total_stages or None, True)
         if err:
             return None, err
@@ -1221,6 +1228,47 @@ def load_material_tags():
     return data
 
 
+def rewrite_tag_references(old_name, new_name):
+    """After a tag rename: every manifest that names the tag as "#old" (recipe item ids, yield tools, ...) now names
+    "#new", in the asset kit (assets/) and the packaged core mod (Homesteader/mods/). The mod copy of the tag registry
+    (tags.json) gets the key renamed too. Returns the list of files changed."""
+    needle = '"#' + old_name + '"'
+    repl = '"#' + new_name + '"'
+    repo = os.path.dirname(BASE_DIR)
+    changed = []
+    for top in (BASE_DIR, os.path.join(repo, "Homesteader", "mods")):
+        for dirpath, dirnames, filenames in os.walk(top):
+            dirnames[:] = [d for d in dirnames if d not in ("node_modules", ".git", "_asset_requests")]
+            for fn in filenames:
+                if not fn.endswith(".json"):
+                    continue
+                path = os.path.join(dirpath, fn)
+                if os.path.abspath(path) == os.path.abspath(MATERIAL_TAGS_PATH):
+                    continue
+                try:
+                    with open(path, "r", encoding="utf-8", newline="") as f:
+                        text = f.read()
+                except Exception:
+                    continue
+                if fn == "tags.json":
+                    try:
+                        data = json.loads(text)
+                    except Exception:
+                        continue
+                    tags = data.get("tags")
+                    if isinstance(tags, dict) and old_name in tags and new_name not in tags:
+                        data["tags"] = {(new_name if k == old_name else k): v for k, v in tags.items()}
+                        with open(path, "w", encoding="utf-8", newline="") as f:
+                            f.write(json.dumps(data, indent=2, ensure_ascii=False) + ("\n" if text.endswith("\n") else ""))
+                        changed.append(path)
+                    continue
+                if needle in text:
+                    with open(path, "w", encoding="utf-8", newline="") as f:
+                        f.write(text.replace(needle, repl))
+                    changed.append(path)
+    return changed
+
+
 def save_material_tags(data):
     with open(MATERIAL_TAGS_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
@@ -1599,6 +1647,38 @@ def find_items_with_species(species_key):
             if (manifest.get("growth") or {}).get("species") == species_key:
                 found.append((cat, item_id))
     return found
+
+
+def push_growth_group(species_key):
+    """Pushes every stage of a growth group into the game as part of the 'homesteader' mod. A
+    growth group has no asset folder of its own - it's just the set of catalog items sharing this
+    species tag (see save_growth_group) - so "pushing the group" means pushing each member stage
+    via push_to_game.push_item, same as the per-item Push to Game button. One member failing (e.g.
+    a stage folder switched off with .disabled) doesn't stop the rest."""
+    species_key = (species_key or "").strip().lower()
+    if not species_key:
+        raise ValueError("Missing species key")
+    members = find_items_with_species(species_key)
+    if not members:
+        raise ValueError(f"No member items found for growth group '{species_key}'")
+
+    pushed, skipped, notes = [], [], []
+    for cat, item_id in members:
+        try:
+            result = push_to_game.push_item(cat, item_id)
+        except Exception as e:
+            skipped.append({"category": cat, "item_id": item_id, "error": str(e)})
+            continue
+        if result.get("pushed"):
+            pushed.append({"category": cat, "item_id": item_id})
+        else:
+            skipped.append({"category": cat, "item_id": item_id, "notes": result.get("notes")})
+        notes.extend(result.get("notes", []))
+
+    message = f"Pushed {len(pushed)}/{len(members)} stage(s) of '{species_key}' into the game."
+    if pushed:
+        message += " Restart Play (Unity re-reads mods when Play starts)."
+    return {"species": species_key, "pushed": pushed, "skipped": skipped, "notes": notes, "message": message}
 
 
 def find_items_with_species_in_embedded_catalog(species_key):
@@ -2148,6 +2228,20 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             items, _ = compute_asset_changes()
             log = []
 
+            # The game's own item list first (Assets/Resources/AssetCatalog.json: names, stack sizes, containers, fruiting rules ...).
+            cat = subprocess.run(
+                [sys.executable, os.path.join(SCRIPT_DIR, "generate_unity_asset_catalog.py")],
+                capture_output=True, text=True, timeout=180
+            )
+            log.append(cat.stdout[-500:] if cat.stdout else "")
+            if cat.returncode != 0:
+                self.send_json_response({
+                    "success": False,
+                    "error": "generate_unity_asset_catalog.py failed",
+                    "details": (cat.stderr or cat.stdout)[-2000:],
+                }, 500)
+                return
+
             pkg = subprocess.run(
                 [sys.executable, os.path.join(SCRIPT_DIR, "package_catalog_as_mods.py")],
                 capture_output=True, text=True, timeout=180
@@ -2412,6 +2506,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_validate_animal_ai()
         elif self.path == "/api/push-to-game":
             self.handle_push_to_game()
+        elif self.path == "/api/push-growth-group":
+            self.handle_push_growth_group()
         elif self.path == "/api/regen-icons":
             self.handle_regen_icons()
         elif self.path == "/api/regen-icon":
@@ -3320,6 +3416,22 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         except Exception as e:
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
+    def handle_push_growth_group(self):
+        """Pushes every stage of a growth group into the game as the 'homesteader' mod (see
+        push_growth_group above): one tools/push_to_game.push_item call per member item, so it
+        reuses the same per-item copy/version-bump/catalog-refresh path the single Push to Game
+        button already uses. Body: {"species": ...}."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            result = push_growth_group(data.get("species"))
+            print(f"[PUSH GROWTH GROUP] {data.get('species')} -> {len(result['pushed'])} pushed, {len(result['skipped'])} skipped")
+            self.send_json_response({"success": True, **result}, 200)
+        except ValueError as e:
+            self.send_json_response({"success": False, "error": str(e)}, 400)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
     def handle_validate_animal_ai(self):
         """Validates an animal AI definition (e.g. the one embedded in an animal's manifest) without saving it."""
         try:
@@ -3372,7 +3484,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                             "category": sdata.get("category", name),
                             "target": sdata.get("target", "category_fields"),
                             "field_count": len(sdata.get("fields", {})),
-                            "note": sdata.get("note", "")
+                            "note": sdata.get("note", ""),
+                            "component": bool(sdata.get("component", False)),
+                            "title": sdata.get("title", name),
                         })
                     except Exception:
                         details.append({"name": name, "category": name, "target": "category_fields", "field_count": 0, "note": ""})
@@ -3481,6 +3595,19 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                             growth_group_schema = json.load(gf)
                     except Exception:
                         growth_group_schema = None
+
+            # Component (add-on) schemas: validated only on assets that carry their block.
+            component_schemas = []
+            try:
+                for cfname in sorted(os.listdir(schemas_dir)):
+                    if not cfname.endswith(".schema.json"):
+                        continue
+                    with open(os.path.join(schemas_dir, cfname), "r", encoding="utf-8") as cf:
+                        cdata = json.load(cf)
+                    if cdata.get("component") and cdata.get("target"):
+                        component_schemas.append(cdata)
+            except Exception:
+                component_schemas = []
 
             cat_dir = os.path.join(BASE_DIR, category)
             if not os.path.isdir(cat_dir):
@@ -3646,6 +3773,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 else:
                     for s in schemas:
                         item_errs.extend(val_item(manifest, s))
+                    for cs in component_schemas:
+                        if isinstance(manifest.get(cs["target"]), dict):
+                            item_errs.extend(val_item(manifest, cs))
 
                 # Cross-checks the per-field schemas cannot express: a growth group's own links
                 # (the item that plants it, its variant models) and its harvest tool.
@@ -3696,8 +3826,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             if not re.match(r"^[a-z][a-z0-9_]*$", tag_name):
                 self.send_json_response({"success": False, "error": "Tag name must start with a letter and contain only lowercase letters, numbers, and underscores."}, 400)
                 return
-            if not isinstance(members, list) or not members:
-                self.send_json_response({"success": False, "error": "members must be a non-empty list of item ids"}, 400)
+            # An empty list is allowed: a freshly created tag starts empty and gets members by drag and drop.
+            if not isinstance(members, list):
+                self.send_json_response({"success": False, "error": "members must be a list of item ids"}, 400)
                 return
 
             real_ids = {item["id"] for item in get_cached_catalog()}
@@ -3776,12 +3907,15 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             data_store["tags"][new_name] = members
             save_material_tags(data_store)
 
-            print(f"[RENAME TAG] #{old_name} -> #{new_name}")
+            updated = rewrite_tag_references(old_name, new_name) if new_name != old_name else []
+
+            print(f"[RENAME TAG] #{old_name} -> #{new_name} ({len(updated)} file(s) updated)")
             self.send_json_response({
                 "success": True,
-                "message": f"Tag '#{old_name}' renamed to '#{new_name}'.",
+                "message": f"Tag '#{old_name}' renamed to '#{new_name}'" + (f"; {len(updated)} file(s) that used it were updated." if updated else "."),
                 "new_name": new_name,
-                "members": members
+                "members": members,
+                "updated_files": len(updated)
             }, 200)
 
         except Exception as e:

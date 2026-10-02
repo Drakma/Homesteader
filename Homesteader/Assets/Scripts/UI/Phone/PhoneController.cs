@@ -36,6 +36,7 @@ namespace Homesteader.UI
             Admin,
             Gigs,
             Land,
+            Steadify,
     }
 
         public struct StoreItem
@@ -76,6 +77,7 @@ namespace Homesteader.UI
         private VisualElement _viewMods;
         private VisualElement _viewGigs;
         private VisualElement _viewLand;
+        private VisualElement _viewSteadify;
         private Button _landBackBtn;
         private Label _landOwnedCount;
         private Label _landBalance;
@@ -103,6 +105,7 @@ namespace Homesteader.UI
         private VisualElement _appTileAdmin;
         private VisualElement _appTileGigs;
         private VisualElement _appTileLand;
+        private VisualElement _appTileSteadify;
 
         // Navigation
         private Button _voltBackBtn;
@@ -113,8 +116,10 @@ namespace Homesteader.UI
         private Button _modsBackBtn;
         private Button _adminBackBtn;
         private Button _gigsBackBtn;
+        private Button _steadifyBackBtn;
         private VisualElement _phoneHomeBtn;
         private GigsApp _gigsApp;
+        private SteadifyApp _steadifyApp;
 
         // Admin App Elements
         private Button _adminAssetsBtn;
@@ -286,6 +291,7 @@ namespace Homesteader.UI
         public PhoneController(VisualElement root, Action<string, string, Action, Action> showModalCallback)
         {
             _root = root;
+            SteadifyMiniPlayer.SetHost(root);
             _showModalCallback = showModalCallback;
             BindElements();
             WireEvents();
@@ -316,6 +322,7 @@ namespace Homesteader.UI
             _viewMarket = _root.Q<VisualElement>("ViewMarket");
             _viewMods = _root.Q<VisualElement>("ViewMods");
             _viewGigs = _root.Q<VisualElement>("ViewGigs");
+            _viewSteadify = _root.Q<VisualElement>("ViewSteadify");
         _viewLand = _root.Q<VisualElement>("ViewLand");
         _landBackBtn = _root.Q<Button>("LandBackBtn");
         _landOwnedCount = _root.Q<Label>("LandOwnedCount");
@@ -341,6 +348,7 @@ namespace Homesteader.UI
             _appTileFurniture = _root.Q<VisualElement>("AppTileFurniture");
             _appTileMods = _root.Q<VisualElement>("AppTileMods");
             _appTileGigs = _root.Q<VisualElement>("AppTileGigs");
+            _appTileSteadify = _root.Q<VisualElement>("AppTileSteadify");
         _appTileLand = _root.Q<VisualElement>("AppTileLand");
 
             _voltBackBtn = _root.Q<Button>("VoltBackBtn");
@@ -350,6 +358,7 @@ namespace Homesteader.UI
             _marketBackBtn = _root.Q<Button>("MarketBackBtn");
             _modsBackBtn = _root.Q<Button>("ModsBackBtn");
             _gigsBackBtn = _root.Q<Button>("GigsBackBtn");
+            _steadifyBackBtn = _root.Q<Button>("SteadifyBackBtn");
             _phoneHomeBtn = _root.Q<VisualElement>("PhoneHomeBtn");
 
             _gridSolarWatts = _root.Q<Label>("GridSolarWatts");
@@ -484,6 +493,63 @@ namespace Homesteader.UI
             _modsCategoryBackBtn = _root.Q<Button>("ModsCategoryBackBtn");
             _modsCategoryTitle = _root.Q<Label>("ModsCategoryTitle");
             _modsCategoryToggleBtn = _root.Q<Button>("ModsCategoryToggleBtn");
+
+            LoadPhoneAppIcons();
+        }
+
+        /// <summary>
+        /// Loads all phone app icon textures from Resources and applies them
+        /// as inline background images. USS resource() refs don't resolve
+        /// reliably at runtime, so we set them in code instead.
+        /// </summary>
+        private void LoadPhoneAppIcons()
+        {
+            if (_root == null) return;
+
+            var iconMap = new (string className, string texName)[]
+            {
+                ("app-icon-grid-os",         "app_grid_os"),
+                ("app-icon-resview-levels",  "app_resview_levels"),
+                ("app-icon-good-almanac",    "app_good_almanac"),
+                ("app-icon-board-meeting",    "app_board_meeting"),
+                ("app-icon-nail-it",         "app_nail_it"),
+                ("app-icon-lettuce-shop",    "app_lettuce_shop"),
+                ("app-icon-hay-there",       "app_hay_there"),
+                ("app-icon-cache-flow",      "app_cache_flow"),
+                ("app-icon-bazaar-behavior", "app_bazaar_behavior"),
+                ("app-icon-shift-happens",   "app_shift_happens"),
+                ("app-icon-tank-you",        "app_tank_you"),
+                ("app-icon-drafting-behind", "app_drafting_behind_you"),
+                ("app-icon-tractor-beam",    "app_tractor_beam"),
+                ("app-icon-wheel-deal",      "app_wheel_deal"),
+                ("app-icon-trailer-shack",   "app_trailer_shack"),
+                ("app-icon-voltvision",      "app_voltvision"),
+                ("app-icon-sofa-so-good",    "app_sofa_so_good"),
+                ("app-icon-gigs",            "app_gigs"),
+                ("app-icon-land-office",     "app_land_office"),
+                ("app-icon-steadify",        "app_steadify"),
+                ("app-icon-mods",            "app_mods"),
+                ("app-icon-admin",           "app_admin"),
+            };
+
+            foreach (var (className, texName) in iconMap)
+            {
+                var elements = _root.Query<VisualElement>(className: className).ToList();
+                if (elements.Count == 0) continue;
+
+                var tex = Resources.Load<Texture2D>("HUDTree/PhoneIcons/" + texName);
+                if (tex == null)
+                {
+                    Debug.LogWarning($"[Phone] Missing phone icon texture: {texName}");
+                    continue;
+                }
+
+                var bg = Background.FromTexture2D(tex);
+                foreach (var el in elements)
+                {
+                    el.style.backgroundImage = bg;
+                }
+            }
         }
 
         private void SuppressKeyboardNavigation(VisualElement element)
@@ -534,32 +600,282 @@ namespace Homesteader.UI
             }
         }
 
+        // ── Pinned app shortcuts (ctrl+click a launcher tile to pin it to the viewport) ────────────────
+        private struct PinDef { public string Label; public string IconClass; public Action Open; }
+        private readonly Dictionary<string, PinDef> _pinDefs = new Dictionary<string, PinDef>();
+        private readonly List<string> _pinnedIds = new List<string>();
+        private VisualElement _pinDock;
+        private VisualElement _pinDockContent;
+        private const string PinPrefsKey = "Homesteader.Phone.PinnedApps";
+
+        /// <summary>Wires a launcher tile's normal click to openAction, and ctrl+click to pin/unpin a shortcut
+        /// for it on the game viewport (outside the phone) that opens straight to this app.</summary>
+        private void Pin(VisualElement tile, string id, string label, Action openAction)
+        {
+            if (tile == null) return;
+
+            string iconClass = null;
+            if (tile.childCount > 0)
+            {
+                foreach (string c in tile[0].GetClasses())
+                {
+                    if (c.StartsWith("app-icon-")) { iconClass = c; break; }
+                }
+            }
+            _pinDefs[id] = new PinDef { Label = label, IconClass = iconClass, Open = openAction };
+
+            tile.RegisterCallback<ClickEvent>(evt =>
+            {
+                if (evt.ctrlKey || evt.commandKey)
+                {
+                    TogglePin(id);
+                    evt.StopPropagation();
+                    return;
+                }
+                openAction();
+            });
+        }
+
+        private void TogglePin(string id)
+        {
+            if (_pinnedIds.Contains(id)) _pinnedIds.Remove(id);
+            else _pinnedIds.Add(id);
+            SavePinnedApps();
+            RefreshPinDock();
+        }
+
+        private void SavePinnedApps()
+        {
+            PlayerPrefs.SetString(PinPrefsKey, string.Join(",", _pinnedIds));
+            PlayerPrefs.Save();
+        }
+
+        private void LoadPinnedApps()
+        {
+            _pinnedIds.Clear();
+            string saved = PlayerPrefs.GetString(PinPrefsKey, "");
+            if (string.IsNullOrEmpty(saved)) return;
+            foreach (string id in saved.Split(','))
+                if (!string.IsNullOrEmpty(id) && _pinDefs.ContainsKey(id)) _pinnedIds.Add(id);
+        }
+
+        private const string PinDockPosPrefKey = "Homesteader.Phone.PinDockPos";
+        private const string PinDockHorizontalPrefKey = "Homesteader.Phone.PinDockHorizontal";
+        private bool _pinHorizontal;      // right-click the grip: the dock lays its shortcuts out in a row and the grip moves to the left side
+        private VisualElement _pinHandle;
+        private const float PinDockDefaultLeft = 16f;
+        private const float PinDockDefaultTop = 90f;
+
+        /// <summary>Builds the small dock of pinned app shortcuts on the game viewport (top-left by default,
+        /// under the existing HUD chrome; draggable, see BuildPinDockHandle). Each shortcut reuses the same
+        /// icon USS class as its launcher tile.</summary>
+        private void BuildPinDock()
+        {
+            if (_root == null) return;
+            LoadPinnedApps();
+
+            _pinDock = new VisualElement { name = "PhonePinDock" };
+            _pinDock.pickingMode = PickingMode.Ignore;
+            _pinDock.style.position = Position.Absolute;
+            _pinDock.style.flexDirection = FlexDirection.Column;
+            _root.Add(_pinDock);
+
+            _pinDockContent = new VisualElement { name = "PhonePinDockContent" };
+            _pinDockContent.pickingMode = PickingMode.Ignore;
+            _pinDockContent.style.flexDirection = FlexDirection.Column;
+            _pinDock.Add(_pinDockContent);
+
+            LoadPinDockPosition();
+            _pinHorizontal = PlayerPrefs.GetInt(PinDockHorizontalPrefKey, 0) == 1;
+            BuildPinDockHandle();
+            ApplyPinLayout();
+            RefreshPinDock();
+        }
+
+        /// <summary>Vertical: shortcuts in a column with the grip above them. Horizontal: shortcuts in a row with the grip on the left.</summary>
+        private void ApplyPinLayout()
+        {
+            if (_pinDock == null || _pinHandle == null) return;
+            _pinDockContent.style.flexDirection = _pinHorizontal ? FlexDirection.Row : FlexDirection.Column;
+            if (_pinHorizontal)
+            {
+                _pinHandle.style.left = -16; _pinHandle.style.width = 14;
+                _pinHandle.style.right = StyleKeyword.Auto;
+                _pinHandle.style.top = -4; _pinHandle.style.bottom = -4;
+                _pinHandle.style.height = StyleKeyword.Auto;
+                _pinHandle.style.borderTopLeftRadius = _pinHandle.style.borderBottomLeftRadius = 6;
+                _pinHandle.style.borderTopRightRadius = _pinHandle.style.borderBottomRightRadius = 0;
+            }
+            else
+            {
+                _pinHandle.style.left = -4; _pinHandle.style.right = -4;
+                _pinHandle.style.width = StyleKeyword.Auto;
+                _pinHandle.style.top = -16; _pinHandle.style.bottom = StyleKeyword.Auto;
+                _pinHandle.style.height = 14;
+                _pinHandle.style.borderTopLeftRadius = _pinHandle.style.borderTopRightRadius = 6;
+                _pinHandle.style.borderBottomLeftRadius = _pinHandle.style.borderBottomRightRadius = 0;
+            }
+        }
+
+        private void TogglePinLayout()
+        {
+            _pinHorizontal = !_pinHorizontal;
+            PlayerPrefs.SetInt(PinDockHorizontalPrefKey, _pinHorizontal ? 1 : 0);
+            PlayerPrefs.Save();
+            ApplyPinLayout();
+            RefreshPinDock();
+        }
+
+        /// <summary>A small grip strip just above the dock, invisible until the mouse is over the dock area,
+        /// that drags the whole dock around the viewport. Position is remembered between sessions.</summary>
+        private void BuildPinDockHandle()
+        {
+            var handle = new VisualElement { name = "PhonePinDockHandle" };
+            handle.pickingMode = PickingMode.Position;
+            handle.style.position = Position.Absolute;
+            handle.style.left = -4; handle.style.right = -4;
+            handle.style.top = -16;
+            handle.style.height = 14;
+            handle.style.backgroundColor = new Color(1f, 1f, 1f, 0f); // invisible until hover below
+            handle.style.borderTopLeftRadius = handle.style.borderTopRightRadius = 6;
+            handle.tooltip = "Drag to move, right-click to switch between vertical and horizontal";
+            _pinHandle = handle;
+
+            bool dragging = false;
+            Vector2 dragStart = Vector2.zero;
+            Vector2 dockStart = Vector2.zero;
+
+            handle.RegisterCallback<PointerEnterEvent>(evt => handle.style.backgroundColor = new Color(1f, 1f, 1f, 0.22f));
+            handle.RegisterCallback<PointerLeaveEvent>(evt => { if (!dragging) handle.style.backgroundColor = new Color(1f, 1f, 1f, 0f); });
+
+            handle.RegisterCallback<PointerDownEvent>(evt =>
+            {
+                if (evt.button == 1) { TogglePinLayout(); evt.StopPropagation(); return; }
+                if (evt.button != 0) return;
+                dragging = true;
+                dragStart = evt.position;
+                dockStart = new Vector2(_pinDock.resolvedStyle.left, _pinDock.resolvedStyle.top);
+                handle.CapturePointer(evt.pointerId);
+                evt.StopPropagation();
+            });
+            handle.RegisterCallback<PointerMoveEvent>(evt =>
+            {
+                if (!dragging) return;
+                Vector2 delta = (Vector2)evt.position - dragStart;
+                float left = Mathf.Clamp(dockStart.x + delta.x, 0f, Mathf.Max(0f, _root.resolvedStyle.width - _pinDock.resolvedStyle.width));
+                float top = Mathf.Clamp(dockStart.y + delta.y, 20f, Mathf.Max(20f, _root.resolvedStyle.height - 20f));
+                _pinDock.style.left = left;
+                _pinDock.style.top = top;
+                evt.StopPropagation();
+            });
+            handle.RegisterCallback<PointerUpEvent>(evt =>
+            {
+                if (!dragging) return;
+                dragging = false;
+                handle.ReleasePointer(evt.pointerId);
+                handle.style.backgroundColor = new Color(1f, 1f, 1f, 0f);
+                SavePinDockPosition();
+                evt.StopPropagation();
+            });
+
+            _pinDock.Add(handle);
+        }
+
+        private void LoadPinDockPosition()
+        {
+            string saved = PlayerPrefs.GetString(PinDockPosPrefKey, "");
+            float left = PinDockDefaultLeft, top = PinDockDefaultTop;
+            if (!string.IsNullOrEmpty(saved))
+            {
+                string[] parts = saved.Split(',');
+                if (parts.Length == 2 && float.TryParse(parts[0], out float l) && float.TryParse(parts[1], out float t))
+                {
+                    left = l; top = t;
+                }
+            }
+            _pinDock.style.left = left;
+            _pinDock.style.top = top;
+        }
+
+        private void SavePinDockPosition()
+        {
+            PlayerPrefs.SetString(PinDockPosPrefKey, $"{_pinDock.resolvedStyle.left},{_pinDock.resolvedStyle.top}");
+            PlayerPrefs.Save();
+        }
+
+        private void RefreshPinDock()
+        {
+            if (_pinDockContent == null) return;
+            _pinDockContent.Clear();
+
+            foreach (string id in _pinnedIds)
+            {
+                if (!_pinDefs.TryGetValue(id, out PinDef def)) continue;
+
+                var btn = new VisualElement { name = "PhonePin_" + id };
+                btn.pickingMode = PickingMode.Position;
+                btn.tooltip = def.Label + " (ctrl+click to unpin)";
+                btn.style.width = 44;
+                btn.style.height = 44;
+                if (_pinHorizontal) btn.style.marginRight = 8; else btn.style.marginBottom = 8;
+                btn.style.backgroundColor = new Color(0.08f, 0.09f, 0.11f, 0.72f);
+                btn.style.borderTopLeftRadius = btn.style.borderTopRightRadius = 8;
+                btn.style.borderBottomLeftRadius = btn.style.borderBottomRightRadius = 8;
+                btn.style.borderTopWidth = btn.style.borderBottomWidth = btn.style.borderLeftWidth = btn.style.borderRightWidth = 1;
+                btn.style.borderTopColor = btn.style.borderBottomColor = btn.style.borderLeftColor = btn.style.borderRightColor = new Color(1f, 1f, 1f, 0.14f);
+
+                var icon = new VisualElement();
+                icon.pickingMode = PickingMode.Ignore;
+                icon.style.position = Position.Absolute;
+                icon.style.left = 4; icon.style.top = 4; icon.style.right = 4; icon.style.bottom = 4;
+                icon.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+                if (def.IconClass != null) icon.AddToClassList(def.IconClass);
+                btn.Add(icon);
+
+                btn.RegisterCallback<ClickEvent>(evt =>
+                {
+                    if (evt.ctrlKey || evt.commandKey)
+                    {
+                        TogglePin(id);
+                        evt.StopPropagation();
+                        return;
+                    }
+                    Open();
+                    def.Open();
+                });
+
+                _pinDockContent.Add(btn);
+            }
+        }
+
         private void WireEvents()
         {
             // Prevent WASD / Arrow directional navigation from scrolling phone scroll views while walking
             SuppressKeyboardNavigation(_phoneWrapper);
 
-            // App Tiles Launch
-            _appTileVolt?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Volt));
-            _appTileRes?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Res));
-            _appTileAlmanac?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Almanac));
-            _appTileLumber?.RegisterCallback<ClickEvent>(evt => OpenStore("Board Meeting", "store-banner-depot", "Milled Timber, Studs & Architectural Lumber", GetLumberItems()));
-            _appTileDepot?.RegisterCallback<ClickEvent>(evt => OpenStore("Nail It", "store-banner-depot", "Hardware, Tools, Construction & Electrical", GetDepotItems()));
-            _appTileGrocer?.RegisterCallback<ClickEvent>(evt => OpenStore("Lettuce Shop", "store-banner-grocer", "Fresh Valley Foods & Pantry Seed Supplies", GetGrocerItems()));
-            _appTileFeed?.RegisterCallback<ClickEvent>(evt => OpenStore("Hay There", "store-banner-feed", "Livestock Feed, Straw, Bales & Minerals", GetFeedItems()));
-            _appTileBank?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Bank));
-            _appTileMarket?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Market));
-            _appTileVehicles?.RegisterCallback<ClickEvent>(evt => OpenStore("Shift Happens", "store-banner-depot", "Vehicle Utility, Transmissions & Mechanical Parts", GetVehicleItems()));
-            _appTileWater?.RegisterCallback<ClickEvent>(evt => OpenStore("Tank You", "store-banner-depot", "Rain Cisterns, Jet Well Pumps & Plumbing Supply", GetWaterItems()));
-            _appTileLivestock?.RegisterCallback<ClickEvent>(evt => OpenStore("Drafting Behind You", "store-banner-feed", "Working Animals, Draft Harnesses & Livestock Care", GetLivestockItems()));
-            _appTileEquipment?.RegisterCallback<ClickEvent>(evt => OpenStore("Tractor Beam", "store-banner-depot", "Heavy Tractors, Skidsteers & Implements", GetEquipmentItems()));
-            _appTileDealership?.RegisterCallback<ClickEvent>(evt => OpenStore("Wheel Deal", "store-banner-depot", "Utility Vehicles, ATVs & Cargo Flatbeds", GetDealershipItems()));
-            _appTileTrailerShack?.RegisterCallback<ClickEvent>(evt => OpenStore("Trailer Shack", "store-banner-trailershack", "Heavy-Duty Utility Trailers, Haulers & Secure Parts", GetTrailerShackItems()));
-            _appTileVoltvision?.RegisterCallback<ClickEvent>(evt => OpenStore("Voltvision", "store-banner-voltvision", "Homestead Off-Grid Solar, Batteries & High-Tech Electronics", GetVoltvisionItems()));
-            _appTileFurniture?.RegisterCallback<ClickEvent>(evt => OpenStore("Sofa So Good", "store-banner-grocer", "Artisan Homestead Furniture, Storage & Decor", GetFurnitureItems()));
-            _appTileMods?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Mods));
-            _appTileGigs?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Gigs));
-        _appTileLand?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Land));
+            // App Tiles Launch. Ctrl+click any tile pins it to the game viewport (see Pin()) so it can be
+            // opened straight to that app without going through the phone launcher first.
+            Pin(_appTileVolt, "volt", "Grid OS", () => OpenApp(AppView.Volt));
+            Pin(_appTileRes, "res", "ResView", () => OpenApp(AppView.Res));
+            Pin(_appTileAlmanac, "almanac", "Almanac", () => OpenApp(AppView.Almanac));
+            Pin(_appTileLumber, "lumber", "Board Meeting", () => OpenStore("Board Meeting", "store-banner-depot", "Milled Timber, Studs & Architectural Lumber", GetLumberItems()));
+            Pin(_appTileDepot, "depot", "Nail It", () => OpenStore("Nail It", "store-banner-depot", "Hardware, Tools, Construction & Electrical", GetDepotItems()));
+            Pin(_appTileGrocer, "grocer", "Lettuce Shop", () => OpenStore("Lettuce Shop", "store-banner-grocer", "Fresh Valley Foods & Pantry Seed Supplies", GetGrocerItems()));
+            Pin(_appTileFeed, "feed", "Hay There", () => OpenStore("Hay There", "store-banner-feed", "Livestock Feed, Straw, Bales & Minerals", GetFeedItems()));
+            Pin(_appTileBank, "bank", "Bank", () => OpenApp(AppView.Bank));
+            Pin(_appTileMarket, "market", "Market", () => OpenApp(AppView.Market));
+            Pin(_appTileVehicles, "vehicles", "Shift Happens", () => OpenStore("Shift Happens", "store-banner-depot", "Vehicle Utility, Transmissions & Mechanical Parts", GetVehicleItems()));
+            Pin(_appTileWater, "water", "Tank You", () => OpenStore("Tank You", "store-banner-depot", "Rain Cisterns, Jet Well Pumps & Plumbing Supply", GetWaterItems()));
+            Pin(_appTileLivestock, "livestock", "Drafting Behind You", () => OpenStore("Drafting Behind You", "store-banner-feed", "Working Animals, Draft Harnesses & Livestock Care", GetLivestockItems()));
+            Pin(_appTileEquipment, "equipment", "Tractor Beam", () => OpenStore("Tractor Beam", "store-banner-depot", "Heavy Tractors, Skidsteers & Implements", GetEquipmentItems()));
+            Pin(_appTileDealership, "dealership", "Wheel Deal", () => OpenStore("Wheel Deal", "store-banner-depot", "Utility Vehicles, ATVs & Cargo Flatbeds", GetDealershipItems()));
+            Pin(_appTileTrailerShack, "trailershack", "Trailer Shack", () => OpenStore("Trailer Shack", "store-banner-trailershack", "Heavy-Duty Utility Trailers, Haulers & Secure Parts", GetTrailerShackItems()));
+            Pin(_appTileVoltvision, "voltvision", "Voltvision", () => OpenStore("Voltvision", "store-banner-voltvision", "Homestead Off-Grid Solar, Batteries & High-Tech Electronics", GetVoltvisionItems()));
+            Pin(_appTileFurniture, "furniture", "Sofa So Good", () => OpenStore("Sofa So Good", "store-banner-grocer", "Artisan Homestead Furniture, Storage & Decor", GetFurnitureItems()));
+            Pin(_appTileMods, "mods", "Mods", () => OpenApp(AppView.Mods));
+            Pin(_appTileGigs, "gigs", "Gigs", () => OpenApp(AppView.Gigs));
+            Pin(_appTileLand, "land", "Land", () => OpenApp(AppView.Land));
+            Pin(_appTileSteadify, "steadify", "Steadify", () => OpenApp(AppView.Steadify));
 
             _pageDot0?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(0));
             _pageDot1?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(1));
@@ -574,6 +890,7 @@ namespace Homesteader.UI
             _modsBackBtn?.RegisterCallback<ClickEvent>(evt => HandleModsBack());
             _gigsBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _landBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _steadifyBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _modsCategoryBackBtn?.RegisterCallback<ClickEvent>(evt => GoToModCategories());
             _modsCategoryToggleBtn?.RegisterCallback<ClickEvent>(evt => ToggleCurrentCategory());
             _phoneHomeBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
@@ -607,7 +924,7 @@ namespace Homesteader.UI
             _marketTabSellBtn?.RegisterCallback<ClickEvent>(evt => SwitchMarketTab(false));
 
             // Admin App
-            _appTileAdmin?.RegisterCallback<ClickEvent>(evt => OpenApp(AppView.Admin));
+            Pin(_appTileAdmin, "admin", "Admin", () => OpenApp(AppView.Admin));
             _adminBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _adminAssetsBtn?.RegisterCallback<ClickEvent>(evt => HudBindings.Instance?.OpenAssetSpawner());
             _adminAssetsCardBtn?.RegisterCallback<ClickEvent>(evt => HudBindings.Instance?.OpenAssetSpawner());
@@ -852,6 +1169,11 @@ namespace Homesteader.UI
             _adminWeatherBlizzardBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Blizzard); UpdateAdminDisplay(); });
             _adminWeatherWindBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Wind); UpdateAdminDisplay(); });
             _adminWeatherFogBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Fog); UpdateAdminDisplay(); });
+
+            // Built last, once every tile (including Admin, wired above) has registered itself with Pin() -
+            // building this earlier meant a saved pin for a tile wired later in this method (Admin was) would
+            // silently fail its _pinDefs.ContainsKey check in LoadPinnedApps() and get dropped every load.
+            BuildPinDock();
         }
 
         public void GoToLauncherPage(int page)
@@ -896,6 +1218,7 @@ namespace Homesteader.UI
                 _phoneWrapper.RemoveFromClassList("phone-wrapper--hidden");
             }
             UpdatePhoneStatus();
+            Homesteader.Audio.AudioManager.Instance?.PlayUi(Homesteader.Audio.AudioManager.UiSound.Click);
         }
 
         public void Close()
@@ -905,6 +1228,7 @@ namespace Homesteader.UI
             {
                 _phoneWrapper.AddToClassList("phone-wrapper--hidden");
             }
+            Homesteader.Audio.AudioManager.Instance?.PlayUi(Homesteader.Audio.AudioManager.UiSound.Click);
         }
 
         public void ReturnHome()
@@ -968,6 +1292,11 @@ namespace Homesteader.UI
                     if (_viewLand != null) _viewLand.RemoveFromClassList("phone-app-view--hidden");
                     RefreshLandApp();
                     break;
+                case AppView.Steadify:
+                    if (_viewSteadify != null) _viewSteadify.RemoveFromClassList("phone-app-view--hidden");
+                    if (_steadifyApp == null) _steadifyApp = new SteadifyApp(_root);
+                    _steadifyApp.Refresh();
+                    break;
                 default:
                     ReturnHome();
                     break;
@@ -988,6 +1317,7 @@ namespace Homesteader.UI
             if (_viewAdmin != null) _viewAdmin.AddToClassList("phone-app-view--hidden");
             if (_viewGigs != null) _viewGigs.AddToClassList("phone-app-view--hidden");
             if (_viewLand != null) _viewLand.AddToClassList("phone-app-view--hidden");
+            if (_viewSteadify != null) _viewSteadify.AddToClassList("phone-app-view--hidden");
         }
 
         public void Tick()
@@ -1013,6 +1343,12 @@ namespace Homesteader.UI
             else if (_currentView == AppView.Admin && !_isUpdatingAdminUI)
             {
                 UpdateAdminTimeLabel();
+            }
+            else if (_currentView == AppView.Steadify)
+            {
+                // Drives the seek bar / elapsed time forward each frame while a track plays. Only the cheap transport
+                // update: a full Refresh rebuilds the playlist and runs on state changes instead.
+                _steadifyApp?.RefreshTransport();
             }
         }
 

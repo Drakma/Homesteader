@@ -111,14 +111,28 @@
 					"required": false,
 					"note": "What harvesting produces. Only the harvest stage is harvestable; earlier stages never yield. Omit entirely for non-harvestable groups (ornamental trees, wild growth).",
 					"fields": {
-						"item_id": { "type": "string", "required": true, "note": "The INGREDIENT DROPPED when harvested: a catalog item id - a food_* item directly, or an ingredient_* item needing processing. Must exist in the catalog." },
-						"tool": { "type": "string", "required": false, "note": "What harvests it. Omitted or empty = by hand (right-click a ready plant with anything selected). Otherwise the player must have the tool as the ACTIVE toolbar slot when right-clicking a ready plant. Either a real item id (e.g. 'tool_sickle', normally from the tools category) or a tag written '#tag_name' (e.g. '#sickle'): any ONE member item of the tag from assets/_schemas/material_tags.json works. Must reference an existing item or tag." },
+						"item_id": { "type": "string", "required": true, "note": "The INGREDIENT DROPPED when harvested: a catalog item id - a food_* item directly, or an ingredient_* item needing processing; for TREES a mat_log_* material (the logs a felled tree gives). Must exist in the catalog. A tree's yield also drives the procedural forest: its tool decides what can fell those trees (the ACTIVE toolbar item, right-click), and amount_max is the log count of a mature tree (smaller trees give a fraction)." },
+						"tools": { "type": "array", "required": false, "note": "What harvests it: ANY ONE of these works. Empty or omitted = by hand (right-click a ready plant with anything selected). Otherwise the player must have one of them as the ACTIVE toolbar slot when right-clicking a ready plant. Each entry is a real item id (e.g. 'tool_sickle') or a tag written '#tag_name' (any ONE member of the tag from assets/_schemas/material_tags.json works). Every entry must reference an existing item or tag." },
+						"tool": { "type": "string", "required": false, "note": "Legacy single harvest tool; read as a list of one when 'tools' is absent. New data writes 'tools'." },
+						"extras": { "type": "array", "required": false, "note": "MORE THAN ONE YIELD: additional drops given on every harvest, on top of item_id. Each entry is { item_id, amount_min, amount_max } (a catalog item id and a whole-number range, 1 <= amount_min <= amount_max). Requires item_id to be set." },
 						"stump": { "type": "object", "required": false, "note": "TREES ONLY. The STUMP: what is left standing after the tree is harvested (felled), instead of the plant disappearing. Same shape as a stage entry: `resource` ('stages/<folder>/') and `model`, both or neither. Omitted = the harvested tree is simply removed. Ignored for perennials that regrow (yield.regrows), which go back to regrow_stage instead. Crops use failure.withered, not this.", "fields": { "resource": { "type": "string", "required": true, "pattern": "^stages/[^/]+/$" }, "model": { "type": "string", "required": true }, "icon": { "type": "string", "required": false } } },
 						"amount_min": { "type": "number", "required": true, "min": 1, "note": "Fewest units produced per harvest (a whole number)." },
 						"amount_max": { "type": "number", "required": true, "min": 1, "note": "Most units produced per harvest (a whole number, >= amount_min). Each harvest rolls a random WHOLE number from amount_min to amount_max INCLUSIVE, so 2..5 can give 2, 3, 4 or 5. Set both the same for a fixed yield." },
 						"harvest_stage": { "type": "number", "required": false, "min": 1, "note": "Stage number at which harvest is allowed. Defaults to the final stage (total_stages)." },
 						"regrows": { "type": "boolean", "required": false, "default": false, "note": "True for perennials (fruit trees, berry bushes): after harvest the group returns to regrow_stage instead of being removed." },
 						"regrow_stage": { "type": "number", "required": false, "min": 1, "note": "Stage to return to after a harvest when regrows is true. Required if regrows is true; must be less than harvest_stage." }
+					}
+				},
+				"fruit": {
+					"type": "object",
+					"required": false,
+					"note": "TREES ONLY. PICKING: a fruiting tree can be picked while it stands (the tree is not felled). Picking gives the drops, then the fruit regrows after regrow_days game days. Separate from the yield block, which is the harvest / felling.",
+					"fields": {
+						"is_fruiting": { "type": "boolean", "required": true, "note": "True for a fruiting tree. When false the whole block is ignored." },
+						"drops": { "type": "array", "required": true, "note": "What one pick gives: a list of { item_id, amount_min, amount_max } (catalog item ids, whole-number ranges). At least one entry when is_fruiting is true." },
+						"tools": { "type": "array", "required": false, "note": "What picks the fruit: ANY ONE of these in the ACTIVE toolbar slot (an item id, e.g. 'tool_fruit_basket', or a '#tag'). Empty or omitted = by hand. Every entry must reference an existing item or tag." },
+						"fruit_stage": { "type": "number", "required": false, "min": 1, "note": "Stage number from which the tree bears fruit. Defaults to the final stage." },
+						"regrow_days": { "type": "number", "required": false, "min": 1, "default": 30, "note": "Game days until the fruit is back after a pick." }
 					}
 				},
 				"planting": {
@@ -158,7 +172,7 @@
 				}
 			},
 			"example": {
-				"yield": { "item_id": "ingredient_wheat", "amount_min": 4, "amount_max": 8, "harvest_stage": 3, "tool": "#sickle" },
+				"yield": { "item_id": "ingredient_wheat", "amount_min": 4, "amount_max": 8, "harvest_stage": 3, "tool": "#tool_sickle" },
 				"planting": { "seasons": ["spring", "summer"], "biomes": ["biome_farmland", "biome_meadow"], "min_temp_c": 4 },
 				"needs": { "water_interval_days": 4 },
 				"failure": { "out_of_season": "pause", "frost_kills": true, "drought_days_before_wither": 3, "wither_behavior": "stall" }

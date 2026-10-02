@@ -26,6 +26,103 @@ namespace Homesteader.Growth
 
         private GameObject model;
         private float lastClockDay;
+
+        // ---- picking fruit (kit: growth.rules.fruit) - the tree stays; only its fruit goes, and comes back
+        /// <summary>The game day (VegetationSeasons.GrowthDay) the fruit is back after a pick; 0 = not picked.</summary>
+        public float FruitPickedUntil { get; private set; }
+
+        /// <summary>Bit i set = fruit i has been picked (fruit comes off one at a time; they all return FruitPickedUntil).</summary>
+        public uint FruitGone { get; private set; }
+
+        private int FruitTotal => Homesteader.World.ForestTrees.PlantFruitLayout(Group.Id, out _, out _, out int total, out _) ? total : 1;
+
+        /// <summary>How many fruit are still on the tree.</summary>
+        public int FruitLeft
+        {
+            get
+            {
+                uint left = Homesteader.World.ForestTrees.FullFruitMask(FruitTotal) & ~FruitGone;
+                int n = 0;
+                for (; left != 0; left &= left - 1) n++;
+                return n;
+            }
+        }
+
+        private Mesh ownFruitMesh;   // a copy of the tree's mesh with the picked fruit hidden (the species mesh is shared and is never edited)
+
+        /// <summary>The stage number from which this tree bears fruit (the kit's fruit_stage, default the last stage).</summary>
+        public int FruitStageNumber
+        {
+            get
+            {
+                if (Group.Rules.FruitStage > 0) return Group.Rules.FruitStage;
+                return Group.Stages.Count > 0 ? Group.Stages[Group.Stages.Count - 1].Stage : 1;
+            }
+        }
+
+        /// <summary>True while the fruit is on the tree: a fruiting tree at its fruiting stage that has not just been picked.</summary>
+        public bool FruitOn
+        {
+            get
+            {
+                return Group != null && Group.Rules.Fruiting && CurrentStage != null && CurrentStage.Stage >= FruitStageNumber && FruitLeft > 0;
+            }
+        }
+
+        /// <summary>Ripe fruit that can be picked by hand now.</summary>
+        public bool CanPickFruit => State == PlantState.Alive && Group.Rules.FruitDrops.Count > 0 && FruitOn;
+
+        /// <summary>Picks the fruit: the drops go to the toolbar (first free slot), the tree stays and shows its no-fruit look until the fruit regrows.</summary>
+        public bool PickFruit(string heldId = null, Transform picker = null)
+        {
+            if (!CanPickFruit) return false;
+            if (FruitPickAnimator.Busy) return true;   // the player's hand is still on the last one
+            string need = Group.Rules.FruitTool;
+            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.ToolMatches(need, heldId))
+            {
+                ToastNotificationSystem.ShowWarning("Need a tool", "You need the right tool in your active slot to pick this fruit.");
+                return false;
+            }
+            // One fruit at a time: a random one of those still on the tree comes off.
+            int total = FruitTotal;
+            uint left = Homesteader.World.ForestTrees.FullFruitMask(total) & ~FruitGone;
+            int leftCount = FruitLeft;
+            if (leftCount <= 0) return false;
+            int nth = Random.Range(0, leftCount), bit = 0;
+            for (int seen = -1; bit < 32; bit++)
+                if ((left & (1u << bit)) != 0 && ++seen == nth) break;
+
+            void TakeOffTree()
+            {
+                FruitGone |= 1u << bit;
+                FruitPickedUntil = Homesteader.World.VegetationSeasons.GrowthDay + Group.Rules.FruitRegrowDays;   // the missing fruit is all back this long after the latest pick
+                ShowStageModel();
+            }
+
+            void IntoBasket()
+            {
+                if (!GrowthDrop.Give(Group.Rules.FruitDrops)) ToastNotificationSystem.ShowWarning("Toolbar full", "The fruit didn't fit and was lost.");
+            }
+
+            // The left hand reaches up for it, the fruit comes off, the hand bends in to the right hand (the basket) and it lands in the toolbar.
+            if (picker != null && model != null && Homesteader.World.ForestTrees.PlantFruitLayout(Group.Id, out _, out _, out _, out Color fruitColor))
+            {
+                Vector3 fruitPos = model.transform.TransformPoint(Homesteader.World.ForestTrees.PlantFruitCentre(Group.Id, bit));
+                if (FruitPickAnimator.TryBegin(picker, fruitPos, fruitColor, TakeOffTree, IntoBasket)) return true;
+            }
+            TakeOffTree();
+            IntoBasket();
+            return true;
+        }
+
+        /// <summary>Puts a saved pick back (loading a game).</summary>
+        public void RestoreFruit(float pickedUntil, uint goneMask = uint.MaxValue)
+        {
+            FruitPickedUntil = pickedUntil;
+            // an older save has no mask: everything on the tree counted as picked
+            FruitGone = goneMask == uint.MaxValue ? Homesteader.World.ForestTrees.FullFruitMask(FruitTotal) : goneMask;
+            ShowStageModel();
+        }
         private float nextConditionCheck;
         private bool growthAllowed = true;
 
@@ -59,6 +156,9 @@ namespace Homesteader.Growth
             get
             {
                 if (Group.Rules.HarvestStage > 0) return Group.Rules.HarvestStage;
+                // A fruiting tree with no harvest stage of its own is cut down from its mature stage (the one before the fruiting
+                // stage), not only once it is bearing fruit.
+                if (Group.Rules.Fruiting && FruitStageNumber > 1) return FruitStageNumber - 1;
                 return Group.Stages.Count > 0 ? Group.Stages[Group.Stages.Count - 1].Stage : 1;
             }
         }
@@ -123,6 +223,13 @@ namespace Homesteader.Growth
             float clock = ClockDay();
             float dt = clock - lastClockDay;
             lastClockDay = clock;
+            if (FruitPickedUntil > 0f && Homesteader.World.VegetationSeasons.GrowthDay >= FruitPickedUntil)
+            {
+                FruitPickedUntil = 0f;   // the fruit has regrown
+                FruitGone = 0;
+                if (State == PlantState.Alive) ShowStageModel();
+            }
+
             if (dt <= 0f) return;   // paused, or the clock was set backwards
 
             // The season/temperature rules are cheap but not free; re-check twice a second.
@@ -219,8 +326,51 @@ namespace Homesteader.Growth
         private void SetStage(GrowthStage stage)
         {
             CurrentStage = stage;
-            if (stage == null || stage.Prefab == null) return;
+            ShowStageModel();
+        }
+
+        /// <summary>Shows the current stage's model; a fruiting tree whose fruit was just picked shows the stage before (no fruit).</summary>
+        private void ShowStageModel()
+        {
+            GrowthStage stage = CurrentStage;
+            if (stage == null) return;
+            if (Group.Rules.Fruiting && stage.Stage >= FruitStageNumber && !FruitOn)
+            {
+                int i = Group.Stages.IndexOf(stage);
+                if (i > 0 && Group.Stages[i - 1].Prefab != null) stage = Group.Stages[i - 1];
+            }
+            if (stage.Prefab == null) return;
             ShowModel(stage.Prefab);
+            // some of the fruit is picked but not all: this tree gets its own copy of the mesh with those fruit hidden
+            if (Group.Rules.Fruiting && stage.Stage >= FruitStageNumber && FruitOn && FruitGone != 0) HidePickedFruit();
+        }
+
+        private void HidePickedFruit()
+        {
+            if (model == null) return;
+            var mf = model.GetComponentInChildren<MeshFilter>();
+            if (mf == null || mf.sharedMesh == null || !Homesteader.World.ForestTrees.PlantFruitLayout(Group.Id, out int first, out int per, out int total, out _)) return;
+            Mesh copy = Instantiate(mf.sharedMesh);
+            Vector3[] verts = copy.vertices;
+            for (int f = 0; f < total; f++)
+            {
+                if ((FruitGone & (1u << f)) == 0) continue;
+                for (int k = 0; k < per; k++)
+                {
+                    int i = first + f * per + k;
+                    if (i < verts.Length) verts[i] = Vector3.zero;
+                }
+            }
+            copy.vertices = verts;
+            copy.RecalculateBounds();
+            mf.sharedMesh = copy;
+            if (ownFruitMesh != null) Destroy(ownFruitMesh);
+            ownFruitMesh = copy;
+        }
+
+        private void OnDestroy()
+        {
+            if (ownFruitMesh != null) Destroy(ownFruitMesh);
         }
 
         /// <summary>Puts the plant back in the state it was saved in (dead / stump are permanent; withered re-evaluates).</summary>

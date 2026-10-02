@@ -1,9 +1,9 @@
 {
   "id": "homesteader",
   "name": "Homesteader",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "author": "Homesteader Team",
-  "date": "2026-09-26",
+  "date": "2026-10-01",
   "description": "The Homesteader core catalog: every category of asset, plus the game rules.",
   "namespace": "homesteader",
   "compatibility": {

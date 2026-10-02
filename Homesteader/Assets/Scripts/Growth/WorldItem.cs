@@ -22,7 +22,24 @@ namespace Homesteader.Growth
         /// <summary>Puts the item on the ground at a point. False when the item has no model to show.</summary>
         public static bool TryDrop(string itemId, Vector3 point)
         {
-            if (!ItemRegistry.TryGet(itemId, out ItemRegistry.ItemInfo info)) return false;
+            if (!ItemRegistry.TryGet(itemId, out ItemRegistry.ItemInfo info))
+            {
+                // No model: the icon becomes a thin 3D slab lying on the ground.
+                GameObject slab = SpriteSlab.Create(itemId, 0.5f);
+                if (slab == null) return false;
+                if (root == null) root = new GameObject("WorldItems").transform;
+                var holder = new GameObject("Item_" + itemId);
+                holder.transform.SetParent(root, false);
+                holder.transform.position = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(point);
+                var drop = holder.AddComponent<WorldItem>();
+                drop.ItemId = itemId;
+                slab.transform.SetParent(holder.transform, false);
+                // Face up, with a random heading, resting on the surface.
+                slab.transform.localRotation = Quaternion.Euler(90f, Random.Range(0f, 360f), 0f);
+                slab.transform.localPosition = Vector3.up * 0.02f;
+                drop.model = slab;
+                return true;
+            }
 
             if (root == null) root = new GameObject("WorldItems").transform;
             var go = new GameObject("Item_" + itemId);

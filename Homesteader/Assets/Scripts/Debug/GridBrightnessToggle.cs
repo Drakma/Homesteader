@@ -22,7 +22,10 @@ namespace Homesteader.DebugTools
         private const int LevelCount = 4;
         private const float HalfExtent = 60f; // draws a 120x120m grid centered on the origin
         private const float LineY = 0.025f;
-        private int _level = 2;
+        private int _level = 0;   // the grid starts off; F2 cycles it on
+
+        private Material _appliedMat;
+        private float _nextTerrainCheck;
 
         private LineRenderer _outline;
         private GameObject _gridLines;
@@ -40,7 +43,7 @@ namespace Homesteader.DebugTools
 
         private void Start()
         {
-            // Apply the initial level (defaults to 3 = Bright).
+            // Apply the initial level (defaults to 0 = Off).
             ApplyLevel();
         }
 
@@ -54,8 +57,19 @@ namespace Homesteader.DebugTools
             {
                 _level = (_level + 1) % LevelCount;
                 ApplyLevel();
-                string[] names = { "Off", "Cell under the cursor", "Dim", "Bright" };
-                Homesteader.UI.ToastNotificationSystem.ShowInfo("Ground grid", names[Mathf.Clamp(_level, 0, names.Length - 1)]);
+            }
+
+            // The terrain is generated after this starts and its material comes up with the grid fully on; re-apply the chosen level once it exists.
+            if (Time.unscaledTime >= _nextTerrainCheck)
+            {
+                _nextTerrainCheck = Time.unscaledTime + 0.5f;
+                Terrain t = Terrain.activeTerrain;
+                Material m = t != null ? t.materialTemplate : null;
+                if (m != null && m != _appliedMat && m.HasProperty("_GridOpacity"))
+                {
+                    _appliedMat = m;   // a new terrain (first generation or a New Game) comes with the grid on
+                    ApplyLevel();
+                }
             }
 
             if (_level == 1) UpdateOutlinePosition();

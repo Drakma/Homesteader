@@ -36,3 +36,8 @@ Delete `autosave.json` and `autosave.bak.json` and start the game.
 
 Add a field to `GameSave`, fill it in `GameSaveManager.Capture()` and apply it in `ApplySave()`. Bump
 `GameSave.CurrentVersion` only when an old save could no longer be read.
+
+- **Steadify mini player:** `miniPlayerOpen`, `miniPlayerX`, `miniPlayerY` (whether the pop-out player is showing and where). Captured and restored through `SteadifyMiniPlayer.Capture` / `Restore`.
+
+- **Containers:** each toolbar slot saves the contents of a container item in it (`SavedSlot.contentIds` / `contentCounts`).
+- **Placed containers:** `SavedPlaced.level` (position in a stack, 0 = on the ground) and `contentIds` / `contentCounts` (what the container holds).

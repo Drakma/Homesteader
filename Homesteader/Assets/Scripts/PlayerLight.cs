@@ -119,7 +119,7 @@ public sealed class PlayerLight : MonoBehaviour
     private static bool PressedF()
     {
         var kb = Keyboard.current;
-        if (kb != null) return kb.fKey.wasPressedThisFrame;
+        if (kb != null) return Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.PlayerLight);
         return Input.GetKeyDown(KeyCode.F);
     }
 

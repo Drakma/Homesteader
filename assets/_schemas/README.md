@@ -86,3 +86,15 @@ The optional top-level `lights` list on any asset manifest: each entry is a ligh
 world (type point / spot, colour, intensity, range, position offset on the model, when it is on: always / night / hours,
 fade, flicker, shadows, requires_power). Edited in the asset popup's **Lights** card; runtime is
 `Assets/Scripts/Growth/LightEmitter.cs`; validated by `tools/light_emitter.py` on save.
+
+## Component (add-on) schemas
+
+A component schema is its own schema file with `"component": true`. It is not part of the base schema or a category: it is ADDED to an individual
+asset (the asset popup's "Add schema" button) and lives in its own top-level block on the manifest, named by the schema's `target`. The block is
+validated only on assets that have it. `on_add` lists manifest values set when the schema is added.
+
+- `container` (`container.schema.json`, target `container`): the asset holds other items up to a weight.
+  - `capacity_kg` (number > 0, required): the most weight it can hold (sum of weight_kg x count inside).
+  - `stacking_limit` (integer >= 1, optional): identical placed containers can be stacked this high in one grid square in the world; omitted or 1 = no stacking.
+  - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.
+  - `on_add`: sets `properties.max_stack_size` to 1 (a container carries its own contents, so it is one per toolbar slot).

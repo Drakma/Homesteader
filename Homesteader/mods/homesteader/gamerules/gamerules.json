@@ -15,6 +15,25 @@
   "harvest": {
     "reach_cells": 1
   },
+  "starter_zone": {
+    "enabled": true,
+    "tile": [
+      2,
+      2
+    ],
+    "grass_area_m": 16,
+    "land_biomes": [
+      "biome_grass_plains",
+      "biome_meadow"
+    ],
+    "min_water_features": 1,
+    "max_water_fraction": 0.15
+  },
+  "starter_road": {
+    "enabled": true,
+    "width_m": 3.4,
+    "meander_m": 4.5
+  },
   "zones": [],
   "placement": {
     "reach_cells": 3,
@@ -25,6 +44,71 @@
       "water",
       "waste",
       "internet"
+    ]
+  },
+  "graphics": {
+    "default_preset": "auto",
+    "presets": [
+      {
+        "id": "low",
+        "name": "Low",
+        "min_vram_mb": 0,
+        "min_cores": 0,
+        "shadow_distance": 60,
+        "shadow_resolution": 1024,
+        "shadow_cascades": 1,
+        "render_scale": 0.75,
+        "small_plant_range": 24,
+        "terrain_blend": false,
+        "max_fps": 0,
+        "antialiasing": "fxaa",
+        "water_reflections": false
+      },
+      {
+        "id": "medium",
+        "name": "Medium",
+        "min_vram_mb": 2000,
+        "min_cores": 4,
+        "shadow_distance": 120,
+        "shadow_resolution": 2048,
+        "shadow_cascades": 2,
+        "render_scale": 1.0,
+        "small_plant_range": 34,
+        "terrain_blend": true,
+        "max_fps": 0,
+        "antialiasing": "smaa",
+        "water_reflections": false
+      },
+      {
+        "id": "high",
+        "name": "High",
+        "min_vram_mb": 4000,
+        "min_cores": 6,
+        "shadow_distance": 200,
+        "shadow_resolution": 4096,
+        "shadow_cascades": 2,
+        "render_scale": 1.0,
+        "small_plant_range": 46,
+        "terrain_blend": true,
+        "max_fps": 0,
+        "antialiasing": "msaa2",
+        "water_reflections": true
+      },
+      {
+        "id": "ultra",
+        "name": "Ultra",
+        "min_vram_mb": 8000,
+        "min_cores": 8,
+        "shadow_distance": 300,
+        "shadow_resolution": 4096,
+        "shadow_cascades": 4,
+        "render_scale": 1.0,
+        "small_plant_range": 70,
+        "terrain_blend": true,
+        "max_fps": 0,
+        "antialiasing": "msaa4",
+        "water_reflections": true
+      }
     ]
   }
 }
