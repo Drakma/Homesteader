@@ -46,6 +46,7 @@ namespace Homesteader.Save
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
         public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
+        public List<SavedFence> fences = new List<SavedFence>();   // fences the player built (FenceRun)
         public List<SavedSite> sites = new List<SavedSite>();   // structures under construction (and finished ones): see ConstructionSite
         public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
         public List<Vector3> pickedBushes = new List<Vector3>();   // x, z, game day the berries are back, of berry bushes that were picked
@@ -83,6 +84,15 @@ namespace Homesteader.Save
         }
         [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; }
+        [Serializable] public struct SavedGate { public int segment; public float s; public float width; public string itemId; public string style; public bool open; }
+        [Serializable] public struct SavedFence
+        {
+            public string style, panelItem, postItem;
+            public float panelLength, height;
+            public bool closed;
+            public List<Vector3> posts;
+            public List<SavedGate> gates;
+        }
         [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; public bool hasYaw; public float yawDeg; }
 
         // ------------------------------------------------------------------ file

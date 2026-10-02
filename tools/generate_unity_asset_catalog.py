@@ -75,6 +75,16 @@ def main():
                             item_data["weight_kg"] = float(wk)
                         if props.get("support_surface") is True:
                             item_data["support_surface"] = True
+                        # fences and gates (see FenceBuilder.cs)
+                        if props.get("fence_style") in ("wood", "wire"):
+                            item_data["fence_style"] = props["fence_style"]
+                            item_data["fence_panel_m"] = float(props.get("fence_panel_m", 2.4))
+                            item_data["fence_height_m"] = float(props.get("fence_height_m", 1.2))
+                            item_data["fence_post_item"] = str(props.get("fence_post_item", "post_wood_round_6inch"))
+                        gw = props.get("gate_width_m")
+                        if isinstance(gw, (int, float)) and not isinstance(gw, bool) and gw > 0:
+                            item_data["gate_width_m"] = float(gw)
+                            item_data["gate_style"] = str(props.get("gate_style", "wood") or "wood")
                         # fireplace fuel and lighters (see Fireplace.cs)
                         bm = props.get("burn_minutes")
                         if isinstance(bm, (int, float)) and not isinstance(bm, bool) and bm > 0:

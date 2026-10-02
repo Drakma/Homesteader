@@ -102,6 +102,7 @@ namespace Homesteader.UI
                 H("Flashlight and lantern", K(BindAction.PlayerLight)),
                 H("Cutaway view inside a building", K(BindAction.ToggleCutaway)),
                 H("Firewood or a lighter on a chimney", "Right Click"),
+                H("Fence: post, first post closes, gate on a fence", "Left Click"),
                 H("Map", K(BindAction.ToggleMap)),
                 H("Pause time", K(BindAction.PauseTime)),
                 H("Time speed", K(BindAction.SpeedDown), K(BindAction.SpeedUp)),

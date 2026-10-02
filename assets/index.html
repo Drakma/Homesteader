@@ -4657,6 +4657,32 @@
                   </select>
                 </div>
 
+                <!-- Fences and gates (the fence builder): see docs/FENCES.md -->
+                <div class="kv-box" title="A fence material: with it in hand each click places a post and the panels fill in between the posts.">
+                  <div class="kv-key">Fence Style</div>
+                  <select class="kv-input" id="m-fence-style" data-path="properties.fence_style">
+                    <option value="">Not a fence</option>
+                    <option value="wood">Wood (post and rail)</option>
+                    <option value="wire">Wire</option>
+                  </select>
+                </div>
+                <div class="kv-box"><div class="kv-key">Fence Panel Length (m)</div><input class="kv-input" type="number" step="0.1" min="0.5" id="m-fence-panel"
+                    data-path="properties.fence_panel_m"></div>
+                <div class="kv-box"><div class="kv-key">Fence Height (m)</div><input class="kv-input" type="number" step="0.1" min="0.5" id="m-fence-height"
+                    data-path="properties.fence_height_m"></div>
+                <div class="kv-box" title="The post item one of these fences is built on (one per post, taken from the hotbar).">
+                  <div class="kv-key">Fence Post Item</div><input class="kv-input" type="text" id="m-fence-post" data-path="properties.fence_post_item" placeholder="post_wood_round_6inch"></div>
+                <div class="kv-box" title="A gate: with it in hand a click on a built fence takes the fence out for this width and stands the gate in the gap. Empty = not a gate.">
+                  <div class="kv-key">Gate Width (m)</div><input class="kv-input" type="number" step="0.1" min="0.5" id="m-gate-width" data-path="properties.gate_width_m"></div>
+                <div class="kv-box">
+                  <div class="kv-key">Gate Style</div>
+                  <select class="kv-input" id="m-gate-style" data-path="properties.gate_style">
+                    <option value="">None</option>
+                    <option value="wood">Wood</option>
+                    <option value="metal">Metal</option>
+                  </select>
+                </div>
+
                 <!-- Spawn Biome Picker: only meaningful while is_spawnable is Yes.
                      Choosing biomes here writes spawning.biomes[] on the manifest. -->
                 <div class="kv-box" id="m-spawn-biomes-box" style="grid-column: 1 / -1; display: none;">
@@ -17411,6 +17437,12 @@
       document.getElementById("m-energy").value = p.energy_restore !== undefined && p.energy_restore !== null ? p.energy_restore : "";
       document.getElementById("m-stamina").value = p.stamina_restore !== undefined && p.stamina_restore !== null ? p.stamina_restore : "";
       document.getElementById("m-wellness").value = p.wellness_modifier !== undefined && p.wellness_modifier !== null ? p.wellness_modifier : "";
+      document.getElementById("m-fence-style").value = p.fence_style || "";
+      document.getElementById("m-fence-panel").value = p.fence_panel_m !== undefined && p.fence_panel_m !== null ? p.fence_panel_m : "";
+      document.getElementById("m-fence-height").value = p.fence_height_m !== undefined && p.fence_height_m !== null ? p.fence_height_m : "";
+      document.getElementById("m-fence-post").value = p.fence_post_item || "";
+      document.getElementById("m-gate-width").value = p.gate_width_m !== undefined && p.gate_width_m !== null ? p.gate_width_m : "";
+      document.getElementById("m-gate-style").value = p.gate_style || "";
       document.getElementById("m-burn").value = p.burn_minutes !== undefined && p.burn_minutes !== null ? p.burn_minutes : "";
       document.getElementById("m-lights").value = p.lights_fires ? "true" : "false";
       document.getElementById("m-look-target").value = p.look_target || "";
@@ -17436,6 +17468,12 @@
         ["m-energy", "properties.energy_restore", "number"],
         ["m-stamina", "properties.stamina_restore", "number"],
         ["m-wellness", "properties.wellness_modifier", "number"],
+        ["m-fence-style", "properties.fence_style", "string_or_null"],
+        ["m-fence-panel", "properties.fence_panel_m", "number_optional"],
+        ["m-fence-height", "properties.fence_height_m", "number_optional"],
+        ["m-fence-post", "properties.fence_post_item", "string_or_null"],
+        ["m-gate-width", "properties.gate_width_m", "number_optional"],
+        ["m-gate-style", "properties.gate_style", "string_or_null"],
         ["m-burn", "properties.burn_minutes", "number_optional"],
         ["m-lights", "properties.lights_fires", "bool"],
         ["m-look-target", "properties.look_target", "string_or_null"],

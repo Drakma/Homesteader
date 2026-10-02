@@ -164,6 +164,61 @@
       "default": false,
       "label": "Lights Fires",
       "note": "A lighter or match: right click a fireplace that has fuel in it with this item in hand to light the fire. It is not used up."
+    },
+    "fence_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "wood",
+        "wire"
+      ],
+      "default": "",
+      "label": "Fence Style",
+      "note": "A fence material the player builds with: wood (post and rail) or wire. With it in hand each click places a post; the panels fill in between the posts when the fence is built."
+    },
+    "fence_panel_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 2.4,
+      "label": "Fence Panel Length (m)",
+      "note": "How far one panel of this fencing reaches between two posts; a run of L metres uses ceil(L / this) panels."
+    },
+    "fence_height_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Fence Height (m)",
+      "note": "How tall the finished fence stands."
+    },
+    "fence_post_item": {
+      "type": "string",
+      "required": false,
+      "default": "post_wood_round_6inch",
+      "label": "Fence Post Item",
+      "note": "The item id of the post this fencing is built on (one per post, taken from the hotbar when the fence is built)."
+    },
+    "gate_width_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Gate Width (m)",
+      "note": "A gate: with it in hand, a click on a built fence takes the fence out for this width and stands the gate in the gap. Empty = not a gate."
+    },
+    "gate_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "wood",
+        "metal"
+      ],
+      "default": "",
+      "label": "Gate Style",
+      "note": "How the gate looks: wood or metal."
     }
   }
 }

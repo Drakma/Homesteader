@@ -20,7 +20,11 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "fence_style": "wood",
+    "fence_panel_m": 2.4,
+    "fence_height_m": 1.2,
+    "fence_post_item": "post_wood_round_6inch"
   },
   "models": [],
   "utilities": {

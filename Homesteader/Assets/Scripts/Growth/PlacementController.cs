@@ -199,6 +199,13 @@ namespace Homesteader.Growth
             _pickDown = false;
             if ((pointer - _pickDownPos).sqrMagnitude > 36f) return;   // a camera drag, not a click
 
+            // A right click on a fence gate opens or shuts it.
+            {
+                Camera gateCam = GameCamera();
+                var gatePed = FindAnyObjectByType<PedController>();
+                if (gateCam != null && FenceBuilder.TryToggleGate(gateCam.ScreenPointToRay(pointer), gatePed != null ? gatePed.transform : null)) return;
+            }
+
             // A right click on a construction site itself (its dirt area or structure) builds the next stage when it is ready.
             ConstructionSite site = ConstructionSite.UnderCursor();
             if (site != null)

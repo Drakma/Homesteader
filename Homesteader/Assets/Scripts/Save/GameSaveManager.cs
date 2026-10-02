@@ -122,6 +122,7 @@ namespace Homesteader.Save
             foreach (PlacedObject o in PlacedObject.All) if (o != null) o.Remove();
             foreach (WorldItem w in new List<WorldItem>(WorldItem.All)) if (w != null) Object.Destroy(w.gameObject);
             ConstructionSite.Clear();
+            FenceRun.Clear();
             foreach (PlantedGrowth p in new List<PlantedGrowth>(PlantedGrowth.All))
             {
                 if (p == null) continue;
@@ -218,6 +219,15 @@ namespace Homesteader.Save
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
                 if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit });
+            foreach (FenceRun f in FenceRun.All)
+            {
+                if (f == null) continue;
+                var sf = new GameSave.SavedFence { style = f.Style, panelItem = f.PanelItemId, postItem = f.PostItemId, panelLength = f.PanelLength, height = f.Height,
+                                                   closed = f.Closed, posts = new List<Vector3>(f.Posts), gates = new List<GameSave.SavedGate>() };
+                foreach (FenceRun.Gate g in f.Gates)
+                    sf.gates.Add(new GameSave.SavedGate { segment = g.Segment, s = g.S, width = g.Width, itemId = g.ItemId, style = g.Style, open = g.Open });
+                s.fences.Add(sf);
+            }
             s.fellTrees = Homesteader.World.ForestTrees.SavedFelled();
             s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
             s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
@@ -346,6 +356,17 @@ namespace Homesteader.Save
             {
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
                 if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; }   // before the model loads, or on it at once when it is already showing
+            }
+
+            // fences
+            foreach (GameSave.SavedFence sf in s.fences)
+            {
+                var gates = new List<FenceRun.Gate>();
+                if (sf.gates != null)
+                    foreach (GameSave.SavedGate g in sf.gates)
+                        gates.Add(new FenceRun.Gate { Segment = g.segment, S = g.s, Width = g.width, ItemId = g.itemId, Style = g.style, Open = g.open });
+                if (sf.posts != null && sf.posts.Count >= 2)
+                    FenceRun.Create(sf.style, sf.panelItem, sf.postItem, sf.panelLength, sf.height, sf.posts, sf.closed, gates);
             }
 
             // dropped items

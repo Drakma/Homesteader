@@ -2016,6 +2016,10 @@
       "icon": "fence_wire.png",
       "max_stack": 20,
       "weight_kg": 9.0,
+      "fence_style": "wire",
+      "fence_panel_m": 3.0,
+      "fence_height_m": 1.2,
+      "fence_post_item": "post_wood_round_6inch",
       "store_listings": [
         {
           "store": "depot",
@@ -2033,6 +2037,10 @@
       "icon": "fence_wood.png",
       "max_stack": 20,
       "weight_kg": 12.0,
+      "fence_style": "wood",
+      "fence_panel_m": 2.4,
+      "fence_height_m": 1.2,
+      "fence_post_item": "post_wood_round_6inch",
       "store_listings": [
         {
           "store": "depot",
@@ -2050,6 +2058,8 @@
       "icon": "gate_metal.png",
       "max_stack": 5,
       "weight_kg": 35.0,
+      "gate_width_m": 1.2,
+      "gate_style": "metal",
       "store_listings": [
         {
           "store": "depot",
@@ -2067,6 +2077,8 @@
       "icon": "gate_wood.png",
       "max_stack": 5,
       "weight_kg": 25.0,
+      "gate_width_m": 1.2,
+      "gate_style": "wood",
       "store_listings": [
         {
           "store": "depot",

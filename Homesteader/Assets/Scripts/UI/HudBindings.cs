@@ -644,6 +644,7 @@ namespace Homesteader.UI
                         if (IsAssetSpawnerOpen) CloseAssetSpawner();
                         else if (IsModalOpen) CloseModal();
                         else if (ContainerPanel.CloseOpen()) { }
+                        else if (Homesteader.Growth.FenceBuilder.CancelPlan()) { }
                         else if (phoneOpen) _phone.Close();
                         else EscapeHandledFrame = -1;   // nothing to close: Esc is the welcome menu's
                     }
@@ -1791,6 +1792,11 @@ namespace Homesteader.UI
         public bool support_surface;                                // a placed one carries items on top (a pallet, see PalletDeck.cs)
         public string look_target;                                  // comma list of roof, walls, interior, floor, chimney, foundation: what it styles as a construction material (StructureLook.cs)
         public string look_style;                                   // a foundation item: poured, block, brick or stilts
+        public string fence_style;                                  // wood or wire: a fence material (FenceBuilder.cs)
+        public float fence_panel_m, fence_height_m;
+        public string fence_post_item;                              // the post one of these fences is built on
+        public float gate_width_m;                                  // > 0: a gate
+        public string gate_style;
         public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)
         public bool lights_fires;                                   // a lighter: right click a fireplace with it to light it
         public string look_color;                                   // #RRGGBB
