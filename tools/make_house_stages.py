@@ -48,6 +48,11 @@ class Ctx:
         self.yh0 = -d / 2 + PORCH_D             # the front wall's outer plane (behind the porch)
         self.ov = 0.35                          # roof overhang
         self.zr = h_total - 0.2                 # rafter centre line at the ridge
+        # the rafters bear on the double top plates: their centre line crosses the wall line (x = w/2) 0.4 m above the wall top, clear of the
+        # ceiling joists, and carries on down to the end of the overhang. Every stage uses the FINAL height, so the roof is the same in all of them.
+        self.zw = self.top + 0.40
+        self.slope = (self.zr - self.zw) / (w / 2 - 0.04)
+        self.eave_z = self.zw - self.slope * self.ov
         self.half = w / 2
         # openings per wall: u0, u1 along the wall (x for front/back, y for left/right), z0, z1 above the floor
         win = lambda c: (c - WIN_W / 2, c + WIN_W / 2, WIN_SILL, WIN_SILL + WIN_H)
@@ -140,10 +145,10 @@ def rafters(b, c, M, spacing=0.6, collar=True):
     for k in range(n):
         y = y0 + (y1 - y0) * k / (n - 1)
         for side in (-1, 1):
-            b.log((side * (w / 2 + ov), y, top - 0.12), (side * 0.04, y, zr), 0.05, M['lumber'], sides=6)
+            b.log((side * (w / 2 + ov), y, c.eave_z), (side * 0.04, y, zr), 0.05, M['lumber'], sides=6)
         if collar and k % 2 == 0:
-            zc = top + (zr - top) * 0.55
-            xc = (w / 2 + ov) * (1 - (zc - (top - 0.12)) / (zr - (top - 0.12)))
+            zc = c.zw + (zr - c.zw) * 0.55
+            xc = 0.04 + (zr - zc) / c.slope
             b.box(-xc, xc, y - 0.03, y + 0.03, zc, zc + 0.05, M['lumber'])                           # collar ties
 
 
@@ -233,7 +238,7 @@ def framing(b, c, M):
     n = int((d / 2 - c.yh0) / 0.6) + 1
     for k in range(n):
         y = c.yh0 + 0.1 + (d / 2 - c.yh0 - 0.2) * k / max(1, n - 1)
-        b.box(-w / 2, w / 2, y - 0.03, y + 0.03, top + 0.18, top + 0.38, M['lumber'])
+        b.box(-w / 2, w / 2, y - 0.03, y + 0.03, top + 0.18, top + 0.34, M['lumber'])
     porch_posts(b, c, M, top)
     b.box(-w / 2, w / 2, -d / 2 + 0.08, -d / 2 + 0.22, top, top + 0.22, M['lumber'])                  # porch beam
     for x in (-w / 2 + 0.12, w / 2 - 0.12):
@@ -250,7 +255,7 @@ def gable_studs(b, c, M):
     w = c.w
     for y in (-c.d / 2 + 0.12, c.d / 2 - 0.1):
         for x in (-w * 0.4, -w * 0.25, -w * 0.1, w * 0.1, w * 0.25, w * 0.4):
-            zt = c.top + 0.18 + (c.zr - 0.1 - (c.top + 0.18)) * (1 - abs(x) / (w / 2 + 0.05))
+            zt = c.zr - c.slope * (abs(x) - 0.04) - 0.07          # up to the rafters' underside
             b.box(x - 0.025, x + 0.025, y - 0.035, y + 0.035, c.top + 0.18, zt, M['lumber'])
 
 
@@ -278,7 +283,7 @@ def porch_floor(b, c, M):
 def roof_deck(b, c, m, thick):
     w, d, ov = c.w, c.d, c.ov
     for side in (-1, 1):
-        b.roof_slab(side * (w / 2 + ov), c.top - 0.12 + 0.06 + thick, c.zr + 0.06 + thick, -d / 2 - ov, d / 2 + ov, thick, m)
+        b.roof_slab(side * (w / 2 + ov), c.eave_z + 0.06 + thick, c.zr + 0.06 + thick, -d / 2 - ov, d / 2 + ov, thick, m)
 
 
 def complete(b, c, M, glass, finishings=False):
@@ -314,7 +319,7 @@ def complete(b, c, M, glass, finishings=False):
                 window_dressing(parts[wall], c, M, M['glass'], wall, u0, u1, zl, zh, shutters=(wall == 'front'))
     # gable ends, clad: triangles with a vent window on the front
     for y in (-d / 2 + 0.1, d / 2 - 0.04):
-        parts['front' if y < 0 else 'back'].prism_gable(-w / 2, w / 2, y, 0.06, top + 0.18, c.zr + 0.02, M['siding'])
+        parts['front' if y < 0 else 'back'].prism_gable(-w / 2, w / 2, y, 0.06, c.zw - 0.07, c.zr - 0.05, M['siding'])
     # a small round-ish vent in the front gable
     parts['front'].box(-0.22, 0.22, -d / 2 + 0.05, -d / 2 + 0.08, top + 0.85, top + 1.25, M['trim'])
     glass_builder.box(-0.18, 0.18, -d / 2 + 0.04, -d / 2 + 0.065, top + 0.89, top + 1.21, M['glass'])
@@ -322,14 +327,14 @@ def complete(b, c, M, glass, finishings=False):
     roof_deck(parts['roof'], c, M['osb'], 0.035)
     for side in (-1, 1):
         zs = 0.035 + 0.035
-        parts['roof'].roof_slab(side * (w / 2 + ov), c.top - 0.12 + 0.06 + zs, c.zr + 0.06 + zs, -d / 2 - ov, d / 2 + ov, 0.035, M['shingle'])
+        parts['roof'].roof_slab(side * (w / 2 + ov), c.eave_z + 0.06 + zs, c.zr + 0.06 + zs, -d / 2 - ov, d / 2 + ov, 0.035, M['shingle'])
         # shingle course lines: thin darker strips along the slope at intervals
         for k in range(1, 6):
             t = k / 6
             xe = side * (w / 2 + ov) * (1 - t)
-            ze = (c.top - 0.12 + 0.06 + zs) + (c.zr + 0.06 + zs - (c.top - 0.12 + 0.06 + zs)) * t
+            ze = (c.eave_z + 0.06 + zs) + (c.zr + 0.06 + zs - (c.eave_z + 0.06 + zs)) * t
             parts['roof'].box(min(xe, xe + side * 0.02), max(xe, xe + side * 0.02), -d / 2 - ov, d / 2 + ov, ze, ze + 0.045, M['shingle_dark'])
-        parts['roof'].box(side * (w / 2 + ov) - 0.035, side * (w / 2 + ov) + 0.035, -d / 2 - ov, d / 2 + ov, c.top - 0.2, c.top - 0.12 + 0.12, M['trim'])      # fascia
+        parts['roof'].box(side * (w / 2 + ov) - 0.035, side * (w / 2 + ov) + 0.035, -d / 2 - ov, d / 2 + ov, c.eave_z - 0.1, c.eave_z + 0.12, M['trim'])      # fascia
     parts['roof'].box(-0.1, 0.1, -d / 2 - ov, d / 2 + ov, c.zr + 0.12, c.zr + 0.2, M['shingle_dark'])                          # ridge cap
     # the porch: deck boards, three posts, railing with balusters (a gap at the steps), a beam, step treads
     deck_boards(b, c, M, z0 - 0.035, -d / 2, c.yh0)
@@ -420,6 +425,7 @@ def main():
         'glass': base.glass_material(),
     }
     sizes = {}
+    final_h = json.load(open(manifest_for(structure, 'struct_complete')[1], encoding='utf-8'))['category_fields']['dimensions_m']['height']
     stage_folders = ['struct_foundation', 'struct_framing', 'struct_walls', 'struct_complete']
     if os.path.isdir(os.path.join(STRUCTURES, structure, 'stages', 'struct_finishings')):
         stage_folders.append('struct_finishings')
@@ -432,7 +438,7 @@ def main():
         for o in list(bpy.data.objects):
             bpy.data.objects.remove(o, do_unlink=True)
         del base.EXTRA_OBJECTS[:]
-        c = Ctx(w, depth, h, found)
+        c = Ctx(w, depth, final_h, found)
         b = Builder(d['id'])
         global glass_builder
         glass_builder = Builder('WindowGlass')
