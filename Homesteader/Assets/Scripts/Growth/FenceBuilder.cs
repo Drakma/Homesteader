@@ -32,6 +32,8 @@ namespace Homesteader.Growth
         private VisualElement _panel;
         private Label _title, _l1, _l2, _l3;
         private Material _lineMat;
+        private bool _rightDown;
+        private Vector2 _rightDownAt;
         private bool _working;            // the ped is building a fence
         private bool _stopWork;
         private const string WorkClip = "Fixing_Kneeling_RT";
@@ -111,6 +113,18 @@ namespace Homesteader.Growth
 
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.backspaceKey.wasPressedThisFrame && _posts.Count > 0) _posts.RemoveAt(_posts.Count - 1);
+            // a right CLICK (not a camera-pan drag) takes the last post back too
+            Mouse mouse = Mouse.current;
+            if (mouse != null)
+            {
+                Vector2 at = mouse.position.ReadValue();
+                if (mouse.rightButton.wasPressedThisFrame) { _rightDown = true; _rightDownAt = at; }
+                else if (_rightDown && mouse.rightButton.wasReleasedThisFrame)
+                {
+                    _rightDown = false;
+                    if ((at - _rightDownAt).sqrMagnitude <= 36f && _posts.Count > 0) _posts.RemoveAt(_posts.Count - 1);
+                }
+            }
             if (keyboard != null && keyboard.enterKey.wasPressedThisFrame && _posts.Count >= 2) { TryComplete(item, false); return; }
 
             if (click)
@@ -549,7 +563,7 @@ namespace Homesteader.Growth
             _l2.text = $"{HudBindings.GetItemName(postId)}: {postsNeeded} of {Available(postId, firstPost)}";
             _l3.text = _posts.Count == 0 ? "Click to place the first post (the 4 m square round it is the work site for materials)"
                      : closing ? "Click to close the fence"
-                     : _posts.Count < 3 ? "Click to add posts, Enter finishes a line, Backspace undoes"
+                     : _posts.Count < 3 ? "Click to add posts, Enter finishes a line, right click undoes"
                      : "Click the first post to close it, Enter finishes a line";
             _panel.style.display = DisplayStyle.Flex;
             Mouse mouse = Mouse.current;
