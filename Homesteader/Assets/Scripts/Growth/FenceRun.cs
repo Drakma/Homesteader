@@ -35,6 +35,7 @@ namespace Homesteader.Growth
         public string PanelItemId, PostItemId;
         public float PanelLength = 2.4f, Height = 1.2f;
         public bool Closed;
+        public int Limit = int.MaxValue;            // how many panels of the run are built so far (all of them for a finished fence)
         public readonly List<Vector3> Posts = new List<Vector3>();
         public readonly List<Gate> Gates = new List<Gate>();
 
@@ -106,6 +107,29 @@ namespace Homesteader.Growth
             }
         }
 
+        /// <summary>The two ends of the n-th panel of the run, in order along it (false past the last one).</summary>
+        public bool PanelEnds(int index, out Vector3 a, out Vector3 b)
+        {
+            a = b = default;
+            int n = 0;
+            for (int seg = 0; seg < SegmentCount; seg++)
+            {
+                SegmentEnds(seg, out Vector3 sa, out Vector3 sb);
+                float len = Flat(sa, sb);
+                if (len < 0.05f) continue;
+                int np = Mathf.Max(1, Mathf.CeilToInt(len / PanelLength - 0.001f));
+                if (index < n + np)
+                {
+                    int pn = index - n;
+                    a = PointOn(sa, sb, len * pn / np, len);
+                    b = PointOn(sa, sb, len * (pn + 1) / np, len);
+                    return true;
+                }
+                n += np;
+            }
+            return false;
+        }
+
         /// <summary>Which post-to-post segment a ray passes closest to (within maxDistance of it), the metres along it, and the point.</summary>
         public bool NearestSegment(Ray ray, float maxDistance, out int segment, out float s, out float distance)
         {
@@ -170,6 +194,7 @@ namespace Homesteader.Growth
             Vector3 railSize = wire ? new Vector3(0.012f, 0.012f, 1f) : new Vector3(0.04f, 0.1f, 1f);
             List<int> railTris = wire ? mb.WireTris : mb.RailTris;
             var postSpots = new List<Vector3>();
+            int panelNo = 0;
 
             for (int seg = 0; seg < SegmentCount; seg++)
             {
@@ -183,39 +208,46 @@ namespace Homesteader.Growth
                     if (g.Segment == seg) gaps.Add(new Vector2(Mathf.Clamp(g.S - g.Width * 0.5f, 0f, len), Mathf.Clamp(g.S + g.Width * 0.5f, 0f, len)));
                 gaps.Sort((p, q) => p.x.CompareTo(q.x));
 
-                // posts: the ends, one between panels (not inside a gap), and two at each gate (hinge and latch)
-                for (int k = 0; k <= np; k++)
+                // panel by panel: only the first Limit panels of the whole run exist (the builder raises it as the ped finishes each section)
+                int firstPanel = panelNo;
+                panelNo += np;
+                for (int pn = 0; pn < np; pn++)
                 {
-                    if (k == np && !(!Closed && seg == SegmentCount - 1)) continue;   // the next segment's first post is this one
-                    float s = len * k / np;
-                    if (k == 0 || k == np || !InGap(gaps, s)) postSpots.Add(PointOn(a, b, s, len));
-                }
-                foreach (Vector2 gp in gaps) { postSpots.Add(PointOn(a, b, gp.x, len)); postSpots.Add(PointOn(a, b, gp.y, len)); }
+                    int g = firstPanel + pn;
+                    bool built = g < Limit;
+                    float ps0 = len * pn / np, ps1 = len * (pn + 1) / np;
+                    // the post at the start of a panel stands once the panel before it is built (the very first post always does)
+                    if ((g == 0 || g <= Limit) && (pn == 0 || !InGap(gaps, ps0))) postSpots.Add(PointOn(a, b, ps0, len));
+                    if (!Closed && seg == SegmentCount - 1 && pn == np - 1 && built) postSpots.Add(PointOn(a, b, ps1, len));   // the last post of an open line
+                    if (!built) continue;
 
-                // the fencing between, in pieces that stop at the gaps (each piece also gets a collider)
-                var cuts = new List<float> { 0f };
-                foreach (Vector2 gp in gaps) { cuts.Add(gp.x); cuts.Add(gp.y); }
-                cuts.Add(len);
-                for (int c = 0; c < cuts.Count; c += 2)
-                {
-                    float s0 = cuts[c], s1 = cuts[c + 1];
-                    if (s1 - s0 < 0.05f) continue;
-                    int pieces = Mathf.Max(1, Mathf.CeilToInt((s1 - s0) / 1.2f));
-                    for (int p = 0; p < pieces; p++)
+                    // the fencing of this panel, in pieces that stop at the gate gaps (each piece also gets a collider)
+                    var cuts = new List<float> { ps0 };
+                    foreach (Vector2 gp in gaps)
+                        if (gp.y > ps0 && gp.x < ps1) { cuts.Add(Mathf.Max(gp.x, ps0)); cuts.Add(Mathf.Min(gp.y, ps1)); }
+                    cuts.Add(ps1);
+                    for (int c = 0; c < cuts.Count; c += 2)
                     {
-                        float ps0 = Mathf.Lerp(s0, s1, (float)p / pieces), ps1 = Mathf.Lerp(s0, s1, (float)(p + 1) / pieces);
-                        Vector3 p0 = PointOn(a, b, ps0, len), p1 = PointOn(a, b, ps1, len);
-                        foreach (float h in rails)
+                        float s0 = cuts[c], s1 = cuts[c + 1];
+                        if (s1 - s0 < 0.05f) continue;
+                        int pieces = Mathf.Max(1, Mathf.CeilToInt((s1 - s0) / 1.2f));
+                        for (int pc = 0; pc < pieces; pc++)
                         {
-                            Vector3 q0 = p0 + Vector3.up * h, q1 = p1 + Vector3.up * h;
-                            Vector3 dir = q1 - q0;
-                            if (dir.sqrMagnitude < 1e-6f) continue;
-                            Quaternion rot = Quaternion.LookRotation(dir.normalized, Vector3.up);
-                            mb.Box(railTris, (q0 + q1) * 0.5f, rot, new Vector3(railSize.x, railSize.y, dir.magnitude + 0.02f));
+                            float qs0 = Mathf.Lerp(s0, s1, (float)pc / pieces), qs1 = Mathf.Lerp(s0, s1, (float)(pc + 1) / pieces);
+                            Vector3 p0 = PointOn(a, b, qs0, len), p1 = PointOn(a, b, qs1, len);
+                            foreach (float h in rails)
+                            {
+                                Vector3 q0 = p0 + Vector3.up * h, q1 = p1 + Vector3.up * h;
+                                Vector3 dir = q1 - q0;
+                                if (dir.sqrMagnitude < 1e-6f) continue;
+                                Quaternion rot = Quaternion.LookRotation(dir.normalized, Vector3.up);
+                                mb.Box(railTris, (q0 + q1) * 0.5f, rot, new Vector3(railSize.x, railSize.y, dir.magnitude + 0.02f));
+                            }
                         }
+                        AddCollider(PointOn(a, b, s0, len), PointOn(a, b, s1, len));
                     }
-                    AddCollider(PointOn(a, b, s0, len), PointOn(a, b, s1, len));
                 }
+                foreach (Vector2 gp in gaps) { postSpots.Add(PointOn(a, b, gp.x, len)); postSpots.Add(PointOn(a, b, gp.y, len)); }   // a gate's hinge and latch posts
             }
 
             foreach (Vector3 spot in postSpots)

@@ -32,6 +32,10 @@ namespace Homesteader.Growth
         private VisualElement _panel;
         private Label _title, _l1, _l2, _l3;
         private Material _lineMat;
+        private bool _working;            // the ped is building a fence
+        private bool _stopWork;
+        private const string WorkClip = "Fixing_Kneeling_RT";
+        private const float SecondsPerPanel = 2.4f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -47,7 +51,9 @@ namespace Homesteader.Growth
         /// <summary>Esc while a fence is being planned throws the plan away (HudBindings calls this).</summary>
         public static bool CancelPlan()
         {
-            if (s_instance == null || s_instance._posts.Count == 0) return false;
+            if (s_instance == null) return false;
+            if (s_instance._working) { s_instance._stopWork = true; return true; }
+            if (s_instance._posts.Count == 0) return false;
             s_instance.Reset();
             return true;
         }
@@ -56,7 +62,7 @@ namespace Homesteader.Growth
 
         private void Update()
         {
-            if (WelcomeMenuController.IsLoading) { HidePreview(); return; }
+            if (WelcomeMenuController.IsLoading || _working) { HidePreview(); return; }
             string held = ConstructionSite.HeldItem();
             AssetCatalogItem item = held != null ? HudBindings.GetCatalogItem(held) : null;
             bool fence = item != null && !string.IsNullOrEmpty(item.fence_style);
@@ -164,11 +170,88 @@ namespace Homesteader.Growth
         {
             // the plan may have changed while a confirmation was open: check what is there again
             if (CountInToolbar(panelId) < panels || CountInToolbar(postId) < postCount) { ToastNotificationSystem.ShowWarning("Not enough materials", "The materials are no longer in your hotbar."); return; }
-            TakeFromToolbar(panelId, panels);
-            TakeFromToolbar(postId, postCount);
-            FenceRun.Create(item.fence_style, panelId, postId, Mathf.Max(0.5f, item.fence_panel_m), item.fence_height_m > 0f ? item.fence_height_m : 1.2f, posts, closed, null);
+            var ped = FindAnyObjectByType<PedController>();
+            FenceRun run = FenceRun.Create(item.fence_style, panelId, postId, Mathf.Max(0.5f, item.fence_panel_m), item.fence_height_m > 0f ? item.fence_height_m : 1.2f, posts, closed, null);
+            run.Limit = 0;   // only the first post stands; the ped builds the rest, a section at a time
+            run.Rebuild();
+            bool startedInside = closed && ped != null && run.Encloses(ped.transform.position);
             Reset();
+            StartCoroutine(BuildWalk(run, ped, panelId, postId, panels, startedInside));
+        }
+
+        /// <summary>
+        /// The ped builds the fence: the first post, then along the fence line section by section (a panel and the post at its end each), kneeling
+        /// to work on each one for a couple of seconds. The materials of a section come out of the hotbar when it is finished. Pressing a
+        /// movement key (or Esc) stops it where it is.
+        /// </summary>
+        private System.Collections.IEnumerator BuildWalk(FenceRun run, PedController ped, string panelId, string postId, int panels, bool startedInside)
+        {
+            _working = true;
+            _stopWork = false;
+            TakeFromToolbar(postId, 1);   // the first post
             HudBindings.Instance?.RefreshToolbar();
+            bool stopped = false;
+            for (int i = 0; i < panels && !_stopWork && !stopped; i++)
+            {
+                if (run == null) break;
+                if (CountInToolbar(panelId) < 1 || CountInToolbar(postId) < 1)
+                {
+                    ToastNotificationSystem.ShowWarning("Out of materials", "The rest of the fence needs more " + HudBindings.GetItemName(CountInToolbar(panelId) < 1 ? panelId : postId) + ".");
+                    break;
+                }
+                if (!run.PanelEnds(i, out Vector3 a, out Vector3 b)) break;
+                if (ped != null)
+                {
+                    // stand beside the section, on the side the ped started on
+                    Vector3 mid = (a + b) * 0.5f, dir = new Vector3(b.x - a.x, 0f, b.z - a.z).normalized;
+                    Vector3 side = Vector3.Cross(Vector3.up, dir) * 0.9f;
+                    Vector3 stand = mid + side;
+                    if (run.Closed) { if (run.Encloses(stand) != startedInside) stand = mid - side; }
+                    else if ((stand - ped.transform.position).sqrMagnitude > (mid - side - ped.transform.position).sqrMagnitude) stand = mid - side;
+                    stand.y = TerrainHeightDetector.GetGroundY(stand.x, stand.z);
+                    bool ok = true;
+                    yield return WalkTo(ped, stand, r => ok = r);
+                    if (!ok) { stopped = true; break; }
+                    bool kneeling = ped.BeginWork(WorkClip, mid);
+                    float until = Time.time + SecondsPerPanel;
+                    while (Time.time < until)
+                    {
+                        if (ped.ManualInput || _stopWork) { stopped = true; break; }
+                        yield return null;
+                    }
+                    if (kneeling) ped.EndWork(WorkClip);
+                    if (stopped) break;
+                }
+                // the section stands: its panel and the post at its end are used up
+                TakeFromToolbar(panelId, 1);
+                TakeFromToolbar(postId, 1);
+                HudBindings.Instance?.RefreshToolbar();
+                run.Limit = i + 1;
+                run.Rebuild();
+            }
+            if (ped != null) ped.AutoStop();
+            if (run != null && (stopped || _stopWork) && run.Limit < panels) ToastNotificationSystem.ShowInfo("Fence", "Building stopped. What is built stands.");
+            if (run != null && run.Limit >= panels) { run.Limit = int.MaxValue; run.Rebuild(); }   // all of it: a finished fence
+            _working = false;
+        }
+
+        private System.Collections.IEnumerator WalkTo(PedController ped, Vector3 target, System.Action<bool> done)
+        {
+            ped.AutoWalkTo(target);
+            float giveUp = Time.time + 8f, best = float.MaxValue, mark = Time.time;
+            while (true)
+            {
+                if (ped.AutoCancelled || _stopWork) { ped.AutoStop(); done(false); yield break; }
+                Vector3 d = target - ped.transform.position;
+                d.y = 0f;
+                float dist = d.magnitude;
+                if (dist <= 0.5f || Time.time > giveUp) break;
+                if (dist < best - 0.3f) { best = dist; mark = Time.time; }
+                else if (Time.time - mark > 1.5f) break;   // not getting closer: work from here
+                yield return null;
+            }
+            ped.AutoStop();
+            done(true);
         }
 
         // ------------------------------------------------------------------ gate mode

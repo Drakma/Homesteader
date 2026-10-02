@@ -223,7 +223,7 @@ namespace Homesteader.Save
             {
                 if (f == null) continue;
                 var sf = new GameSave.SavedFence { style = f.Style, panelItem = f.PanelItemId, postItem = f.PostItemId, panelLength = f.PanelLength, height = f.Height,
-                                                   closed = f.Closed, posts = new List<Vector3>(f.Posts), gates = new List<GameSave.SavedGate>() };
+                                                   closed = f.Closed, partial = f.Limit != int.MaxValue, builtPanels = f.Limit, posts = new List<Vector3>(f.Posts), gates = new List<GameSave.SavedGate>() };
                 foreach (FenceRun.Gate g in f.Gates)
                     sf.gates.Add(new GameSave.SavedGate { segment = g.Segment, s = g.S, width = g.Width, itemId = g.ItemId, style = g.Style, open = g.Open });
                 s.fences.Add(sf);
@@ -366,7 +366,10 @@ namespace Homesteader.Save
                     foreach (GameSave.SavedGate g in sf.gates)
                         gates.Add(new FenceRun.Gate { Segment = g.segment, S = g.s, Width = g.width, ItemId = g.itemId, Style = g.style, Open = g.open });
                 if (sf.posts != null && sf.posts.Count >= 2)
-                    FenceRun.Create(sf.style, sf.panelItem, sf.postItem, sf.panelLength, sf.height, sf.posts, sf.closed, gates);
+                {
+                    FenceRun fr = FenceRun.Create(sf.style, sf.panelItem, sf.postItem, sf.panelLength, sf.height, sf.posts, sf.closed, gates);
+                    if (sf.partial) { fr.Limit = sf.builtPanels; fr.Rebuild(); }
+                }
             }
 
             // dropped items

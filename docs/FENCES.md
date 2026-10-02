@@ -20,6 +20,11 @@ then the posts (the item named by `fence_post_item`, one per post, intermediate 
 fence_panel_m)` per run between posts) are taken from the hotbar, and the fencing is filled in between the posts, following the ground.
 Not enough: a warning says what is missing and the plan stays.
 
+**The ped builds it.** Once the plan is accepted the ped sets the first post and then walks the fence line, a section at a time (one panel and the
+post at its end), kneeling to work on each for about 2.4 seconds; the section appears when the work is done and its panel and post come out of the
+hotbar then. It stands beside the fence on the side it started on (inside a closed fence if it was inside). Pressing a movement key or Esc stops it:
+what is built stands (saved as a partly built fence), the rest is not made and its materials stay in the hotbar.
+
 ## Gates
 
 Select a gate item (`properties.gate_width_m`, Wood / Metal Farm Gate) and left click a built fence: the fence there is taken out for the gate's

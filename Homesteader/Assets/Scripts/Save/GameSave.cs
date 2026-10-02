@@ -90,6 +90,8 @@ namespace Homesteader.Save
             public string style, panelItem, postItem;
             public float panelLength, height;
             public bool closed;
+            public bool partial;          // saved while the ped was still building it
+            public int builtPanels;
             public List<Vector3> posts;
             public List<SavedGate> gates;
         }
