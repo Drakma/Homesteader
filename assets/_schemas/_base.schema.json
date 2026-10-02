@@ -149,6 +149,21 @@
       "default": "",
       "label": "Building Look: Foundation Style",
       "note": "For an item whose parts include foundation: the foundation style it builds: poured (the slab), block (concrete block stem wall), brick (brick or stone stem wall, coloured by Look Colour) or stilts (piles under a deck)."
+    },
+    "burn_minutes": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 0,
+      "label": "Burns For (game minutes)",
+      "note": "Fuel for a fireplace: placed in a fireplace (right click the chimney of a finished building with it) it burns for this many game minutes. 0 = not a fireplace fuel."
+    },
+    "lights_fires": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Lights Fires",
+      "note": "A lighter or match: right click a fireplace that has fuel in it with this item in hand to light the fire. It is not used up."
     }
   }
 }

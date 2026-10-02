@@ -204,6 +204,9 @@ namespace Homesteader.Growth
             if (site != null)
             {
                 var builder = FindAnyObjectByType<PedController>();
+                // The chimney of a finished building: firewood goes into its fireplace, a lighter lights it.
+                if (site.Fireplace != null && site.Fireplace.CursorOnChimney() && site.Fireplace.Use(ConstructionSite.HeldItem(), builder != null ? builder.transform : null))
+                    return;
                 bool shiftHeld = Keyboard.current != null && Keyboard.current.shiftKey.isPressed;
                 // Shift + right click takes back a site that has not been started; a plain right click builds the stage.
                 if (shiftHeld && site.Stage == 0) site.TryCancel(builder != null ? builder.transform : null);

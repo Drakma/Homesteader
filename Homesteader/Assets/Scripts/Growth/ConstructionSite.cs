@@ -992,6 +992,7 @@ namespace Homesteader.Growth
             FindDoor(model.transform);
             StructureLook.Apply(model.transform, _lookItems);   // birch logs, a tin roof: the look follows what it was built from
             ShowFoundationVariant(model.transform);
+            Fireplace = Fireplace.Attach(this, model.transform);   // a chimney with a firebox: logs, fire and smoke
             // windows let light through: the pane casts no shadow (and the walls, roof and a closed door do)
             foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
                 if (r.name == "WindowGlass") r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -1102,6 +1103,11 @@ namespace Homesteader.Growth
         }
 
         public bool DoorOpen { get; private set; }
+
+        // the fireplace of a finished building (see Fireplace.cs): the fuel in it, in game minutes, and whether it burns. Saved with the site.
+        public Fireplace Fireplace { get; private set; }
+        public float FuelMinutes;
+        public bool FireLit;
         public bool HasDoor => _hinge != null;
 
         private void FindDoor(Transform model)
@@ -1251,6 +1257,8 @@ namespace Homesteader.Growth
             }
             if (_ring != null && _ring.enabled != show) _ring.enabled = show;
         }
+
+        public static string HeldItem() { return HeldItemId(); }
 
         private static string HeldItemId()
         {

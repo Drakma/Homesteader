@@ -275,6 +275,55 @@ def walls(b, w, d, h_total, found_h, mats, parts=None):
 EXTRA_OBJECTS = []   # the hinge and the door leaf of the finished stage (exported with the building)
 
 
+def chimney_with_fireplace(b, masonry, soot, stone, x_out, x_wall, bx, cy, half, z_floor, z_ceil, z_top):
+    """
+    A chimney against an EXTERIOR wall with a working fireplace (docs/STRUCTURE_STAGES_GUIDE.md, rules). The stack stands outside the wall
+    (x_out to x_wall, from the ground up to z_top) with a flue hole in its cap; the breast continues inside the room (to bx) around a firebox
+    opening 0.8 m high with a hearth in front. Build it into its own Builder named "Chimney": the game finds that object to know where a
+    right click hit the chimney, and the empties FireboxPoint (where logs lie and the fire burns) and SmokePoint (the flue) it exports.
+    """
+    ow = half * 0.58                       # half the width of the firebox opening
+    breast_top = z_floor + 0.4 * (z_ceil - z_floor)          # the breast inside is a MANTEL-height fireplace, about 40% of the wall, not a column to the ceiling
+    fz0, fz1 = z_floor + 0.05, z_floor + 0.72
+    depth = 0.3
+    # the stack and its cap with the flue hole
+    b.box(x_out, x_wall, cy - half, cy + half, 0.0, z_top, masonry)
+    cap_out, ch = x_out - 0.06, half + 0.06
+    xm = (x_out + x_wall) / 2
+    hole = min(0.14, (x_wall - x_out) / 2 - 0.1)
+    zc0, zc1 = z_top - 0.04, z_top + 0.08
+    b.box(cap_out, xm - hole, cy - ch, cy + ch, zc0, zc1, stone)
+    b.box(xm + hole, x_wall, cy - ch, cy + ch, zc0, zc1, stone)
+    b.box(xm - hole, xm + hole, cy - ch, cy - hole, zc0, zc1, stone)
+    b.box(xm - hole, xm + hole, cy + hole, cy + ch, zc0, zc1, stone)
+    b.box(xm - hole, xm + hole, cy - hole, cy + hole, z_top, z_top + 0.003, soot)          # the dark flue
+    # the breast inside: back, two pillars, a lintel, the firebox floor
+    x0 = x_wall - 0.02
+    b.box(x0, bx - depth, cy - half, cy + half, z_floor, breast_top, masonry)
+    b.box(x0, bx, cy - half, cy - ow, z_floor, breast_top, masonry)
+    b.box(x0, bx, cy + ow, cy + half, z_floor, breast_top, masonry)
+    b.box(x0, bx, cy - half, cy + half, fz1, breast_top, masonry)
+    b.box(x0, bx + 0.08, cy - half - 0.08, cy + half + 0.08, breast_top, breast_top + 0.05, stone)          # the mantel shelf
+    b.box(x0, bx, cy - ow, cy + ow, z_floor, fz0, masonry)
+    # sooty lining on the back, sides and top of the firebox (4 mm proud: no coplanar faces)
+    e = 0.004
+    b.box(bx - depth, bx - depth + e, cy - ow, cy + ow, fz0, fz1, soot)
+    b.box(bx - depth, bx, cy - ow, cy - ow + e, fz0, fz1, soot)
+    b.box(bx - depth, bx, cy + ow - e, cy + ow, fz0, fz1, soot)
+    b.box(bx - depth, bx, cy - ow, cy + ow, fz1 - e, fz1, soot)
+    b.box(bx - depth, bx, cy - ow, cy + ow, fz0, fz0 + e, soot)
+    # a hearth slab in front
+    b.box(bx, bx + 0.4, cy - half - 0.1, cy + half + 0.1, z_floor, z_floor + 0.05, stone)
+    pts = {}
+    for name, loc in (('FireboxPoint', (bx - depth / 2, cy, fz0)), ('SmokePoint', (xm, cy, z_top + 0.08))):
+        e_obj = bpy.data.objects.new(name, None)
+        e_obj.location = loc
+        bpy.context.collection.objects.link(e_obj)
+        EXTRA_OBJECTS.append(e_obj)
+        pts[name] = loc
+    return pts
+
+
 def interior_layer(parts, w, d, z0, top, interiorm):
     """A thin painted layer on the inside of the log walls (material 'Interior'), cut round the door and the window."""
     t = 0.02
@@ -372,10 +421,11 @@ def complete(b, w, d, h_total, found_h, mats, finishings=False):
     parts['right'].box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
     for part in parts.values():
         EXTRA_OBJECTS.append(part.finish())   # Wall_Front / Wall_Back / Wall_Left / Wall_Right / Roof: the game can hide them (cutaway view)
-    # a stone chimney up the -X wall
-    cx0, cx1, cy0, cy1 = -w / 2 - 0.42, -w / 2 + 0.12, 0.2, 0.9
-    b.box(cx0, cx1, cy0, cy1, z0, h_total - 0.02, masonrym)
-    b.box(cx0 - 0.06, cx1 + 0.02, cy0 - 0.06, cy1 + 0.06, h_total - 0.02, h_total + 0.08, masonrym)
+    # a stone chimney against the -X wall with a fireplace inside (its own object: "Chimney")
+    chim = Builder('Chimney')
+    chimney_with_fireplace(chim, masonrym, material('Soot', (0.08, 0.07, 0.07), 1.0), material('Hearth', (0.5, 0.49, 0.47), 0.95),
+                           -w / 2 - 0.42, -w / 2 + 0.12, -w / 2 + 0.72, 0.55, 0.35, z0, top + 0.1, h_total)
+    EXTRA_OBJECTS.append(chim.finish())
 
 
 def finishings(b, w, d, h_total, found_h, mats):

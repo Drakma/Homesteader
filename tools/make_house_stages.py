@@ -381,14 +381,12 @@ def complete(b, c, M, glass, finishings=False):
     cy = (ops[0][1] + ops[1][0]) / 2          # centred on the solid wall BETWEEN the two windows, never across a window
     cx0, cx1 = -w / 2 - 0.5, -w / 2 + 0.1
     ctop = c.zw + 1.0
-    b.box(cx0, cx1, cy - 0.45, cy + 0.45, 0.0, ctop, M['brick'])
-    b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, ctop - 0.04, ctop + 0.08, M['concrete'])                    # the cap
-    # the chimney breast: the stack continues INSIDE the room, standing 0.4 m clear of the finished wall up to the ceiling, with a hearth
-    # in front of it. It must show inside: a chimney that ends in the wall leaves its end face level with the interior finish (z-fighting)
-    bx1 = -w / 2 + 0.6
-    b.box(cx1 - 0.02, bx1, cy - 0.45, cy + 0.45, c.z0, top + 0.1, M['brick'])
-    b.box(bx1 - 0.001, bx1 + 0.4, cy - 0.55, cy + 0.55, c.z0, c.z0 + 0.05, M['concrete'])
-    b.box(cx0 - 0.06, cx1, cy - 0.51, cy + 0.51, c.z0 - 0.3, c.z0 - 0.05, M['concrete'])                     # the hearth's base course
+    # the stack and, inside the room, a mantel-height chimney breast with a firebox, a hearth and the flue hole in the cap (one object:
+    # "Chimney"). It must show inside: a chimney that ends in the wall leaves its end face level with the interior finish (z-fighting)
+    chim = Builder('Chimney')
+    base.chimney_with_fireplace(chim, M['brick'], colour('Soot', (0.08, 0.07, 0.07), 1.0), M['concrete'], cx0, cx1, -w / 2 + 0.6, cy, 0.45,
+                                c.z0, top + 0.1, ctop)
+    base.EXTRA_OBJECTS.append(chim.finish())
     for k in range(1, 7):                                                                                    # brick course lines, 6 mm proud
         zz = 0.3 + k * 0.55
         if zz < ctop - 0.1:

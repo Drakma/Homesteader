@@ -82,7 +82,7 @@ namespace Homesteader.Save
             public float fruitPickedUntil;   // game day a picked fruit tree's fruit is back (0 = not picked)
         }
         [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
-        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; }
+        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; }
         [Serializable] public struct SavedDrop { public string itemId; public Vector3 position; public bool hasYaw; public float yawDeg; }
 
         // ------------------------------------------------------------------ file

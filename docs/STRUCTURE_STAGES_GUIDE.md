@@ -120,6 +120,7 @@ in `starter_house.json` (`growth.stages[].construction_recipe` and `required_too
 
 ## Rules for structure models
 
+- **A chimney has a working fireplace:** build it with `chimney_with_fireplace` (tools/make_structure_stages.py) into its own Builder named `Chimney`: it makes the stack, a flue hole in the cap, a mantel-height breast (about 40% of the wall) with a firebox and hearth inside, and the empties `FireboxPoint` and `SmokePoint` the game uses (`Fireplace.cs`).
 - **Chimneys stand against an exterior wall,** outside the footprint's walls, from the ground up past the eaves (the cabin's is on its -X wall,
   the house's on its left wall): never in the middle of a room, where it would leave walkable space around it. It also stands on solid wall between the windows (derive its position from the opening table), never across a window. The stack must also show on the inside (a chimney breast standing clear of the finished wall, with a hearth): a chimney that ends inside the wall leaves its end face level with the interior finish, which z-fights.
 - The shell has one door that is wide and tall enough for the player (1.2 m by 2.3 m) and walls clad or framed right up to the roof.

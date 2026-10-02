@@ -5110,6 +5110,7 @@
       "icon": "fuel_firewood.png",
       "max_stack": 30,
       "weight_kg": 3.0,
+      "burn_minutes": 45.0,
       "store_listings": [
         {
           "store": "water",
@@ -5127,6 +5128,7 @@
       "icon": "fuel_firewood_bundle_tied.png",
       "max_stack": 10,
       "weight_kg": 15.0,
+      "burn_minutes": 225.0,
       "store_listings": [
         {
           "store": "water",
@@ -10245,6 +10247,24 @@
           "category": "Tools",
           "unit": "ea",
           "price": 20.0
+        }
+      ]
+    },
+    {
+      "id": "tool_lighter",
+      "name": "Lighter",
+      "category": "tools",
+      "description": "A pocket lighter. Right click a fireplace with firewood in it to light the fire. It is not used up.",
+      "icon": "tool_lighter.png",
+      "max_stack": 1,
+      "weight_kg": 0.05,
+      "lights_fires": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Tools",
+          "unit": "ea",
+          "price": 6.0
         }
       ]
     },

@@ -75,6 +75,12 @@ def main():
                             item_data["weight_kg"] = float(wk)
                         if props.get("support_surface") is True:
                             item_data["support_surface"] = True
+                        # fireplace fuel and lighters (see Fireplace.cs)
+                        bm = props.get("burn_minutes")
+                        if isinstance(bm, (int, float)) and not isinstance(bm, bool) and bm > 0:
+                            item_data["burn_minutes"] = float(bm)
+                        if props.get("lights_fires") is True:
+                            item_data["lights_fires"] = True
                         # how this item makes a building look when it is used as a construction material (see StructureLook.cs)
                         if props.get("look_target"):
                             item_data["look_target"] = str(props["look_target"])

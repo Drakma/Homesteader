@@ -1791,6 +1791,8 @@ namespace Homesteader.UI
         public bool support_surface;                                // a placed one carries items on top (a pallet, see PalletDeck.cs)
         public string look_target;                                  // comma list of roof, walls, interior, floor, chimney, foundation: what it styles as a construction material (StructureLook.cs)
         public string look_style;                                   // a foundation item: poured, block, brick or stilts
+        public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)
+        public bool lights_fires;                                   // a lighter: right click a fireplace with it to light it
         public string look_color;                                   // #RRGGBB
         public float look_smoothness, look_metallic;
         public List<StoreListing> store_listings;                   // the phone shops that sell it (null = not for sale)
