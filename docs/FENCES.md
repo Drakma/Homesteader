@@ -12,7 +12,7 @@ Select a fence item in the hotbar (a manifest with `properties.fence_style`: Woo
 | Left click | Place a post on the ground (snapped to 0.5 m). Owned land only, not in water, not on top of the last post |
 | Left click on the FIRST post | Close the fence into an enclosure (needs at least 3 posts) |
 | Enter | Finish an open fence line (at least 2 posts) |
-| Backspace | Take the last post back |
+| Right click (or Backspace) | Take the last post back (a right drag still pans the camera) |
 | Esc, or choosing another slot | Throw the plan away |
 
 A card beside the cursor shows how many panels and posts the plan needs and how many are in the hotbar. Nothing is used until the fence is built;
