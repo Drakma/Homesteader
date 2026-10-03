@@ -112,3 +112,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Steadify radio voice runtime (fetched per machine by tools/fetch_tts_runtime.py; ~110 MB)
+/[Aa]ssets/[Ss]treamingAssets/Tts/
+/[Aa]ssets/[Pp]lugins/x86_64/*.dll

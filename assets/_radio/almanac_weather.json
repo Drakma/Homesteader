@@ -1,0 +1,126 @@
+{
+  "id": "almanac_weather",
+  "name": "Almanac Weather",
+  "tagline": "The forecast, the sky and the season, every morning.",
+  "frequency": "88.3 FM",
+  "format": "weather",
+  "episode_minutes": 3,
+  "speakers": [
+    { "id": "host", "name": "June", "voice": 3, "style": "warm, unhurried, a little dry" },
+    { "id": "cohost", "name": "Hank", "voice": 16, "style": "plain-spoken, practical, likes a number" }
+  ],
+  "persona": "A small-town community radio weather and almanac programme for homesteaders. Two hosts, friendly and practical, no hype. Everything they say comes from the facts they are given; they never invent events, places or people.",
+  "segments": ["intro", "today", "outlook", "week", "sky", "farm", "signoff"],
+  "lines": {
+    "intro": [
+      "{host}: Good {part_of_day} and welcome to Almanac Weather on {frequency}. I'm {host_name}, {cohost_name} is here with me, and it is {weekday}, the {ordinal_day} of {month}.",
+      "{host}: You're listening to Almanac Weather, {frequency}. {host_name} here, {cohost_name} beside me, and it's {weekday} the {ordinal_day} of {month}, {season_phrase}.",
+      "{cohost}: Morning, everybody. {cohost_name} and {host_name} with you for Almanac Weather. It's {weekday}, {month} {day_of_month}, day {day_of_year} of the year."
+    ],
+    "today": [
+      "{cohost}: Right now we've got {weather_now_lower} out there. Today's high should reach {high_today}, with a low tonight around {low_today}.",
+      "{host}: Looking at today: {weather_now_lower}, a high near {high_today} and a low of about {low_today} after dark.",
+      "{cohost}: Today is {weather_now_lower}. Expect {high_today} at the warmest point of the afternoon and {low_today} overnight."
+    ],
+    "today_rain": [
+      "{host}: Keep the rain gear by the door. Anything you've laid out to dry, bring it in.",
+      "{cohost}: Good day to let the sky do the watering and catch up on indoor work."
+    ],
+    "today_thunderstorm": [
+      "{host}: Thunderstorms today, so get the animals under cover and stay off open ground when it rolls through.",
+      "{cohost}: Storm day. Check your tie-downs and give the lightning plenty of respect."
+    ],
+    "today_snow": [
+      "{host}: Snow today. Clear your paths early and check the water troughs aren't iced over.",
+      "{cohost}: Snow on the way. Firewood in, water lines checked, and take it slow on the road."
+    ],
+    "today_blizzard": [
+      "{host}: Blizzard conditions today. Stay close to home and keep the stove fed.",
+      "{cohost}: This is a stay-home day. Blizzard. Nothing out there is worth the trip."
+    ],
+    "today_wind": [
+      "{cohost}: Windy today, so anything loose is going to travel. Tarps, feed sacks, empty buckets.",
+      "{host}: A blustery one. Hold off on spraying or burning until it settles."
+    ],
+    "today_fog": [
+      "{host}: Fog this morning. It should lift as the day warms, but take the road slowly until it does.",
+      "{cohost}: Foggy start. Give it a couple of hours before you trust your eyes on the far field."
+    ],
+    "today_sunny": [
+      "{cohost}: A fine, clear day. If you've been waiting on good weather for outside work, this is it.",
+      "{host}: Clear skies. Good drying weather, good building weather."
+    ],
+    "frost": [
+      "{cohost}: Frost warning: {frost_day} drops to {frost_low}, so cover anything tender or bring it in.",
+      "{host}: A heads-up for growers: {frost_day} looks like a frost, down to {frost_low} overnight."
+    ],
+    "outlook": [
+      "{host}: Over the next few days: {outlook_phrase}.",
+      "{cohost}: Here's the short range. {outlook_phrase}.",
+      "{host}: The next three days shape up as {outlook_phrase}."
+    ],
+    "week": [
+      "{cohost}: Further out, the week ahead is mostly {week_dominant_lower}, with highs around {week_high} and lows near {week_low}. {week_note}",
+      "{host}: For the week ahead the almanac leans {week_dominant_lower}. Highs about {week_high}, lows about {week_low}. {week_note}"
+    ],
+    "week_note_wet": [
+      "Count on {wet_days} wet days in there, so plan your field work around them.",
+      "{wet_days} of those days bring rain or worse. Keep that in mind for anything that needs dry ground."
+    ],
+    "week_note_dry": [
+      "Not much rain in sight, so keep an eye on your water.",
+      "A dry stretch. Good for building, hard on seedlings, so water by hand if you have to."
+    ],
+    "week_note_cold": [
+      "It stays cold all week. Animals will eat more, so budget the feed.",
+      "Cold right through. Check the water doesn't freeze and the chickens have somewhere out of the wind."
+    ],
+    "sky": [
+      "{host}: Sunrise today at {sunrise}, sunset at {sunset}, giving us {daylight_hours} of daylight. {daylight_trend}",
+      "{cohost}: The sun's up at {sunrise} and down at {sunset}. That's {daylight_hours} of light to work with. {daylight_trend}"
+    ],
+    "moon": [
+      "{host}: Tonight's sky gives us {moon_phrase}.",
+      "{cohost}: Up above, we've got {moon_phrase}."
+    ],
+    "astro": [
+      "{host}: And mark the almanac: today is the {astro_badge}.",
+      "{cohost}: Worth noting, today is the {astro_badge}."
+    ],
+    "farm_crops": [
+      "{cohost}: Out on your place, you've got {crop_count} {crop_word} in the ground, mostly {crop_top}. {crop_nearest_phrase}",
+      "{host}: Farm notes: {crop_count} {crop_word} planted, {crop_top} leading the way. {crop_nearest_phrase}"
+    ],
+    "farm_no_crops": [
+      "{cohost}: Nothing in the ground yet on your place. {planting_hint}",
+      "{host}: No crops planted so far. {planting_hint}"
+    ],
+    "farm_animals": [
+      "{host}: On the livestock side you're keeping {animal_phrase}.",
+      "{cohost}: In the yard: {animal_phrase}. Keep them watered and fed through this weather."
+    ],
+    "farm_money": [
+      "{cohost}: And the ledger says {money} in the bank{loan_phrase}.",
+      "{host}: Money-wise you're sitting on {money}{loan_phrase}."
+    ],
+    "signoff": [
+      "{host}: That's Almanac Weather for {weekday}. I'm {host_name}, that's {cohost_name}, and we'll see you tomorrow morning.",
+      "{cohost}: That's the forecast. {cohost_name} and {host_name} signing off from {frequency}. Mind the weather, and we'll talk tomorrow.",
+      "{host}: All we've got for today. Thanks for listening to Almanac Weather. Back tomorrow, same time."
+    ]
+  },
+  "phrases": {
+    "planting_hint": {
+      "Spring": "Spring's the time: the soil is warming up and the frosts are easing off.",
+      "Summer": "Quick crops will still make it before autumn if you get them in soon.",
+      "Autumn": "Garlic and cover crops are about all that go in now. Think about next spring.",
+      "Winter": "Nothing goes in frozen ground. Rest, plan, and order your seed."
+    },
+    "season_phrase": {
+      "Spring": "deep in spring",
+      "Summer": "high summer",
+      "Autumn": "well into autumn",
+      "Winter": "the heart of winter"
+    }
+  }
+}

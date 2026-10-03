@@ -406,6 +406,22 @@ Full reference, the rule format, terms and actions: [ANIMAL_AI.md](ANIMAL_AI.md)
 
 ---
 
+## 4g. Radio stations as mod data
+
+Steadify's radio stations are **data in a mod**: list a `radio` content entry and ship one JSON per station. A
+station names its speakers (with a voice id), the order of its segments, and the sentence banks the almanac script
+writer fills from the day's facts; the optional `persona` is what the Claude script writer is told.
+
+```json
+{ "contents": [ { "type": "radio", "path": "radio/*.json" } ] }
+```
+
+Full reference, the placeholders and the voice ids: [RADIO.md](RADIO.md). Schema:
+`assets/_schemas/radio_station.schema.json`. Example: `assets/_radio/almanac_weather.json`. A station whose id
+collides with a core station is rejected and logged.
+
+---
+
 ## 5. Biome files
 
 Biome JSON mirrors `assets/biomes/*.json` exactly:

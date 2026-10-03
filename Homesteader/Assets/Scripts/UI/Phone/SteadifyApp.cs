@@ -28,6 +28,13 @@ namespace Homesteader.UI
         private readonly VisualElement _playlistContainer;
         private readonly DropdownField _playlistSelector;
 
+        // Music / Radio switch: the radio pane and every music block (class steadify-music) swap visibility.
+        private readonly SteadifyRadioPanel _radio;
+        private readonly Button _modeMusicBtn;
+        private readonly Button _modeRadioBtn;
+        private readonly List<VisualElement> _musicBlocks = new List<VisualElement>();
+        private bool _radioMode;
+
         private bool _draggingSeek;
 
         private void EndSeekDrag()
@@ -57,6 +64,17 @@ namespace Homesteader.UI
             _playlistContainer = root.Q<VisualElement>("SteadifyPlaylistContainer");
             _playlistSelector = root.Q<DropdownField>("SteadifyPlaylistSelector");
             PopupStyles.Ensure(root);   // the dropdown list is built outside the document and needs its own style sheet
+
+            // Music / Radio switch
+            VisualElement view = root.Q<VisualElement>("ViewSteadify") ?? root;
+            _musicBlocks.AddRange(view.Query<VisualElement>(className: "steadify-music").ToList());
+            _modeMusicBtn = root.Q<Button>("SteadifyModeMusicBtn");
+            _modeRadioBtn = root.Q<Button>("SteadifyModeRadioBtn");
+            _radio = new SteadifyRadioPanel(root);
+            _modeMusicBtn?.Clickable()?.RegisterCallback<ClickEvent>(evt => SetRadioMode(false));
+            _modeRadioBtn?.Clickable()?.RegisterCallback<ClickEvent>(evt => SetRadioMode(true));
+            // open on whichever is playing; the radio when it is on air, else the music
+            SetRadioMode(Homesteader.Radio.RadioPlayer.Instance != null && Homesteader.Radio.RadioPlayer.Instance.IsOn);
 
             var audio = AudioManager.Instance;
             if (audio != null)
@@ -89,17 +107,17 @@ namespace Homesteader.UI
                 });
             }
 
-            _prevBtn?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicPrevious());
-            _nextBtn?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicNext());
-            _playPauseBtn?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicTogglePlayPause());
-            _shuffleBtn?.RegisterCallback<ClickEvent>(evt =>
+            _prevBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicPrevious());
+            _nextBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicNext());
+            _playPauseBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicTogglePlayPause());
+            _shuffleBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 var a = AudioManager.Instance;
                 if (a != null) a.MusicSetShuffle(!a.ShuffleEnabled);
             });
-            _repeatBtn?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicCycleRepeatMode());
-            root.Q<Button>("SteadifyPopoutBtn")?.RegisterCallback<ClickEvent>(evt => SteadifyMiniPlayer.Toggle(root));
-            root.Q<Button>("SteadifyShuffleAllBtn")?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicShuffleAll());
+            _repeatBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicCycleRepeatMode());
+            root.Q<Button>("SteadifyPopoutBtn").Clickable()?.RegisterCallback<ClickEvent>(evt => SteadifyMiniPlayer.Toggle(root));
+            root.Q<Button>("SteadifyShuffleAllBtn").Clickable()?.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicShuffleAll());
 
             if (_seekSlider != null)
             {
@@ -125,6 +143,15 @@ namespace Homesteader.UI
                 AudioManager.Instance?.MusicSetVolume01(evt.newValue / 100f);
                 if (_volumeValue != null) _volumeValue.text = Mathf.RoundToInt(evt.newValue) + "%";
             });
+        }
+
+        private void SetRadioMode(bool radio)
+        {
+            _radioMode = radio;
+            foreach (VisualElement b in _musicBlocks) b.EnableInClassList("steadify-music--hidden", radio);
+            _radio?.SetVisible(radio);
+            _modeMusicBtn?.EnableInClassList("steadify-mode-btn--active", !radio);
+            _modeRadioBtn?.EnableInClassList("steadify-mode-btn--active", radio);
         }
 
         private void OnPlaylistChanged()
@@ -155,6 +182,7 @@ namespace Homesteader.UI
         /// </summary>
         public void RefreshTransport()
         {
+            if (_radioMode) { _radio?.Tick(); return; }
             var audio = AudioManager.Instance;
             if (audio == null) return;
 
@@ -268,7 +296,7 @@ namespace Homesteader.UI
 
             row.Add(info);
 
-            row.RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicPlayTrackAt(index));
+            row.Clickable().RegisterCallback<ClickEvent>(evt => AudioManager.Instance?.MusicPlayTrackAt(index));
             return row;
         }
 

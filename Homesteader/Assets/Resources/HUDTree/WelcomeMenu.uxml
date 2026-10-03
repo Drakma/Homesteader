@@ -67,7 +67,7 @@
 
                     <!-- GENERAL -->
                     <ui:ScrollView name="SettingsPageGeneral" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page">
-                        <ui:Label text="Camera" class="settings-section-title" />
+                        <ui:Label text="Camera" class="settings-section-title settings-section-title--first" />
                         <ui:SliderInt name="ZoomMaxLevel" label="Zoom Max Level" low-value="3" high-value="50" value="15" class="hs-slider" tooltip="How far the camera can zoom out (3 to 50)." />
 
                         <ui:Label text="Defaults" class="settings-section-title" />
@@ -77,7 +77,7 @@
 
                     <!-- GRAPHICS -->
                     <ui:ScrollView name="SettingsPageGraphics" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page settings-page--hidden">
-                        <ui:Label text="Quality" class="settings-section-title" />
+                        <ui:Label text="Quality" class="settings-section-title settings-section-title--first" />
                         <ui:VisualElement class="settings-row">
                             <ui:Label text="Preset" class="settings-label" tooltip="Auto picks the best preset for this computer." />
                             <ui:DropdownField name="GfxPresetDropdown" class="hs-dropdown settings-dropdown" />
@@ -102,6 +102,10 @@
                         <ui:VisualElement class="settings-row">
                             <ui:Label text="Seasonal Lighting" class="settings-label" tooltip="The sun and moon change colour and strength with the seasons." />
                             <ui:Toggle name="GfxSeasonalLightingToggle" class="hs-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Colorized Mouse Cursors" class="settings-label" tooltip="Amber, shaded mouse cursors. Off gives plain black-and-white cursors." />
+                            <ui:Toggle name="GfxColorizedCursorsToggle" class="hs-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement class="settings-row">
                             <ui:Label text="Anti-Aliasing" class="settings-label" tooltip="Smooths jagged edges. FXAA/SMAA are cheap, MSAA costs more." />
@@ -135,11 +139,18 @@
 
                     <!-- AUDIO -->
                     <ui:ScrollView name="SettingsPageAudio" mode="Vertical" horizontal-scroller-visibility="Hidden" class="settings-page settings-page--hidden">
-                        <ui:Label text="Volume" class="settings-section-title" />
+                        <ui:Label text="Volume" class="settings-section-title settings-section-title--first" />
                         <ui:Slider name="AudioMasterSlider" label="Master Volume" low-value="0" high-value="100" value="80" class="hs-slider" />
                         <ui:Slider name="AudioMusicSlider" label="Music &amp; Ambience" low-value="0" high-value="100" value="65" class="hs-slider" />
                         <ui:Slider name="AudioSfxSlider" label="Sound Effects" low-value="0" high-value="100" value="80" class="hs-slider" />
                         <ui:Label text="Wind and rain follow the weather and use the Sound Effects level." class="settings-hint" />
+
+                        <ui:Label text="Radio" class="settings-section-title" />
+                        <ui:Label text="Steadify's radio stations are written from the day's almanac and your farm, then read aloud by a voice that runs on this computer (no internet needed). Radio plays at the Music level." class="settings-hint" />
+                        <ui:DropdownField name="RadioScriptMode" label="Script Writer" class="settings-dropdown" tooltip="Almanac: free, offline, built from the station's sentence banks. Claude: a fresh script written live from the day's facts; needs an API key and costs a few cents per episode." />
+                        <ui:TextField name="RadioApiKey" label="Claude API Key" password="true" class="settings-field settings-radio-key" tooltip="Stored on this computer only. Leave empty to use the ANTHROPIC_API_KEY environment variable." />
+                        <ui:TextField name="RadioModel" label="Claude Model" class="settings-field" tooltip="The model id used for Claude-written episodes." />
+                        <ui:Label name="RadioVoiceStatus" text="" class="settings-hint" />
 
                         <ui:Label text="Music Credits" class="settings-section-title" />
                         <ui:Label text="&quot;Apple Cider&quot; by Zane Little Music and &quot;Fields of Cabbage&quot; by ARoachIFoundOnMyPillow (both CC0, via OpenGameArt.org)." class="settings-hint" />

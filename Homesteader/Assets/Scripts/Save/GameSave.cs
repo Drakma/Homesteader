@@ -46,6 +46,7 @@ namespace Homesteader.Save
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
         public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
+        public List<SavedPath> paths = new List<SavedPath>();      // paths and roads the player laid (PathRun)
         public List<SavedFence> fences = new List<SavedFence>();   // fences the player built (FenceRun)
         public List<SavedSite> sites = new List<SavedSite>();   // structures under construction (and finished ones): see ConstructionSite
         public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
@@ -54,10 +55,14 @@ namespace Homesteader.Save
         public List<int> pickedTreeMasks = new List<int>();   // per pickedTrees entry: which fruit is gone (bit mask; fruit is picked one at a time)
         public List<Vector3> pickedTrees = new List<Vector3>();   // x, z, game day the fruit is back, of procedural fruit trees that were picked
         public List<Vector2> fellTrees = new List<Vector2>();   // x, z of every procedural forest tree the player has chopped down
+        public bool musicPlaying = true;   // Steadify music was playing (older saves: yes)
         public bool miniPlayerOpen;     // the Steadify pop-out player: whether it is showing, and where on the screen
         public float miniPlayerX = 40f, miniPlayerY = 90f;   // legacy: positions now live in `windows`
         public List<SavedWindow> windows = new List<SavedWindow>();   // where each movable window was left
         public List<Vector2> deadTrees = new List<Vector2>();   // x, z of trees killed by lightning
+        public string radioStation = "";   // Steadify radio: the station tuned in ("" = off), the line reached and whether it was paused
+        public int radioLine;
+        public bool radioPaused;
 
         [Serializable] public struct SavedWindow { public string id; public float x, y; }
         [Serializable] public struct SavedSlot { public string iconId; public int count; public List<string> contentIds; public List<int> contentCounts; }
@@ -85,6 +90,7 @@ namespace Homesteader.Save
         [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; }
         [Serializable] public struct SavedGate { public int segment; public float s; public float width; public string itemId; public string style; public bool open; }
+        [Serializable] public struct SavedPath { public string kind, style, itemId; public float width, metresPerItem, built; public List<Vector3> points; }
         [Serializable] public struct SavedFence
         {
             public string style, panelItem, postItem;
@@ -139,6 +145,7 @@ namespace Homesteader.Save
         {
             foreach (string path in new[] { SavePath, BackupPath })
                 if (File.Exists(path)) File.Delete(path);
+            Homesteader.Generation.WorldSnapshot.Delete();   // the ground of the world being thrown away goes with it
         }
     }
 }

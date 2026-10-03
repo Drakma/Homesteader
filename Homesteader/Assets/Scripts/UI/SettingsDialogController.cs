@@ -136,6 +136,7 @@ namespace Homesteader.UI
             ShowPage(0);
 
             WireDisplayOptions();
+            Homesteader.Radio.RadioSettingsPanel.Wire(root);
             BuildControlsPage();
             KeyBindings.Changed += RefreshKeyButtons;
 
@@ -319,6 +320,8 @@ namespace Homesteader.UI
 
             if (GraphicsSettingsPanel.Instance != null) GraphicsSettingsPanel.Instance.ResetToDefaults();
             if (Homesteader.Audio.AudioManager.Instance != null) Homesteader.Audio.AudioManager.Instance.ResetVolumes();
+            Homesteader.Radio.RadioSettings.ResetToDefaults();   // script writer and model; the API key is kept
+            Homesteader.Radio.RadioSettingsPanel.Refresh();
         }
     }
 }

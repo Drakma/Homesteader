@@ -81,6 +81,10 @@ namespace Homesteader.Save
                 Debug.Log("[Save] no save found: new game. Autosave is on.");
             }
 
+            // the music starts only now: the game is loaded and the saved state is known (a radio station tuned in means no music)
+            if (Homesteader.Audio.AudioManager.Instance != null)
+                Homesteader.Audio.AudioManager.Instance.StartMusicAfterLoad(save == null || (save.musicPlaying && string.IsNullOrEmpty(save.radioStation)));
+
             Restored = true;
             nextSave = Time.realtimeSinceStartup + autosaveSeconds;
         }
@@ -123,6 +127,7 @@ namespace Homesteader.Save
             foreach (WorldItem w in new List<WorldItem>(WorldItem.All)) if (w != null) Object.Destroy(w.gameObject);
             ConstructionSite.Clear();
             FenceRun.Clear();
+            PathRun.Clear();
             foreach (PlantedGrowth p in new List<PlantedGrowth>(PlantedGrowth.All))
             {
                 if (p == null) continue;
@@ -136,6 +141,21 @@ namespace Homesteader.Save
         {
             try { Capture().WriteToDisk(); }
             catch (System.Exception e) { Debug.LogWarning("[Save] could not save: " + e.Message); }
+            SaveWorldSnapshot();
+        }
+
+        /// <summary>Writes the generated ground beside the save, once per world (it never changes while the world exists), so the next run does not regenerate it.</summary>
+        private static void SaveWorldSnapshot()
+        {
+            try
+            {
+                var gen = FindAnyObjectByType<Homesteader.Generation.HomesteaderTerrainGenerator>();
+                if (gen == null || gen.LastGenerated == null || (!gen.SnapshotDirty && Homesteader.Generation.WorldSnapshot.Exists)) return;
+                gen.LastGenerated.Write();
+                gen.MarkSnapshotSaved();
+                Debug.Log("[Save] the generated world was saved (world.snapshot).");
+            }
+            catch (System.Exception e) { Debug.LogWarning("[Save] could not save the world snapshot: " + e.Message); }
         }
 
         // ------------------------------------------------------------------ capture
@@ -219,6 +239,12 @@ namespace Homesteader.Save
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
                 if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit });
+            foreach (PathRun pr in PathRun.All)
+            {
+                if (pr == null) continue;
+                s.paths.Add(new GameSave.SavedPath { kind = pr.Kind, style = pr.Style, itemId = pr.ItemId, width = pr.Width, metresPerItem = pr.MetresPerItem,
+                                                     built = pr.Built, points = new List<Vector3>(pr.Points) });
+            }
             foreach (FenceRun f in FenceRun.All)
             {
                 if (f == null) continue;
@@ -236,7 +262,10 @@ namespace Homesteader.Save
             s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
             s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
             s.miniPlayerOpen = Homesteader.UI.SteadifyMiniPlayer.IsOpen;
+            s.musicPlaying = Homesteader.Audio.AudioManager.Instance != null && Homesteader.Audio.AudioManager.Instance.IsMusicPlaying;
             s.windows = Homesteader.UI.WindowPositions.Capture();
+            Homesteader.Radio.RadioPlayer.Saved radio = Homesteader.Radio.RadioPlayer.Capture();
+            s.radioStation = radio.station; s.radioLine = radio.line; s.radioPaused = radio.paused;
             return s;
         }
 
@@ -303,6 +332,7 @@ namespace Homesteader.Save
             Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
             Homesteader.UI.WindowPositions.Restore(s.windows);
             Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
+            Homesteader.Radio.RadioPlayer.Restore(new Homesteader.Radio.RadioPlayer.Saved { station = s.radioStation, line = s.radioLine, paused = s.radioPaused });
 
             ClearPlayerMadeWorld();   // whatever is standing belongs to the world being left; the save puts back exactly its own
 
@@ -357,6 +387,10 @@ namespace Homesteader.Save
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
                 if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; }   // before the model loads, or on it at once when it is already showing
             }
+
+            // paths and roads
+            foreach (GameSave.SavedPath sp in s.paths)
+                if (sp.points != null && sp.points.Count >= 2) PathRun.Create(sp.kind, sp.style, sp.itemId, sp.width, sp.metresPerItem, sp.points, sp.built).ClearGround();
 
             // fences
             foreach (GameSave.SavedFence sf in s.fences)

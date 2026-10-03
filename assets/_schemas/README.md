@@ -80,6 +80,13 @@ Format of an animal AI definition (`assets/_ai/<id>.json`, mod content type `ani
 schema: it describes a root-level data file, like `gamerules.schema.json`. `ranching.schema.json` gains the
 optional `ai` object field (`editor: "animal_ai"`): the animal's own AI definition, edited in the Animal AI card of the asset popup and packaged to `ai/<item_id>.json`. Shared/species profiles live in `assets/_ai`. Validation lives in `tools/animal_ai.py`. See `docs/ANIMAL_AI.md`.
 
+## radio_station.schema.json
+
+Format of a Steadify radio station (`assets/_radio/<id>.json`, mod content type `radio`). A root-level data file like
+`animal_ai.schema.json`: speakers (name, voice id, style), the segment order, the sentence banks the almanac script
+writer fills from the day's facts, and the persona given to the Claude script writer. Packaged to `radio/<id>.json` by
+`tools/package_catalog_as_mods.py`. See `docs/RADIO.md`.
+
 ## light_emitter.schema.json
 
 The optional top-level `lights` list on any asset manifest: each entry is a light the asset emits once placed in the

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://homesteader.dev/schemas/radio_station.schema.json",
+  "title": "Radio station",
+  "description": "A Steadify radio station: who speaks, what segments an episode has, and the sentence banks the templated script writer picks from. Loaded as mod content type 'radio'. Code: Assets/Scripts/Radio/RadioStationDefinition.cs.",
+  "type": "object",
+  "required": ["id", "name", "speakers", "segments", "lines"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "name": { "type": "string" },
+    "tagline": { "type": "string" },
+    "frequency": { "type": "string", "description": "Shown on the dial, e.g. '88.3 FM'." },
+    "format": { "type": "string", "enum": ["weather", "news", "market", "talk", "music"], "description": "What the script writer builds; 'weather' is the almanac programme." },
+    "episode_minutes": { "type": "number", "minimum": 0.5, "maximum": 15 },
+    "speakers": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["id", "name"], "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Referenced by lines as '{id}:' at the start of a line." },
+          "name": { "type": "string" },
+          "voice": { "type": "integer", "minimum": 0, "description": "Speaker id in the Kokoro voices file (kokoro-multi-lang-v1_0: 0..10 American female, 11..19 American male, 20..27 British; see docs/RADIO.md)." },
+          "speed": { "type": "number", "minimum": 0.5, "maximum": 2 },
+          "style": { "type": "string", "description": "A few words on delivery; given to the Claude script writer." }
+        }
+      }
+    },
+    "persona": { "type": "string", "description": "The programme's character, given to the Claude script writer." },
+    "segments": { "type": "array", "items": { "type": "string" } },
+    "lines": {
+      "type": "object",
+      "description": "Sentence banks keyed by segment (plus conditional banks such as today_rain, frost, week_note_wet). Placeholders in braces are filled from the day's facts.",
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    },
+    "phrases": {
+      "type": "object",
+      "description": "Named phrase tables keyed by season name.",
+      "additionalProperties": { "type": "object", "additionalProperties": { "type": "string" } }
+    }
+  }
+}

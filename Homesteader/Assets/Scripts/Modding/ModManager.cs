@@ -128,6 +128,7 @@ namespace Homesteader.Modding
             Homesteader.Growth.ItemRegistry.Clear();
             Homesteader.Growth.GameRules.Clear();
             Homesteader.Animals.AnimalAIRegistry.Clear();
+            Homesteader.Radio.RadioRegistry.Clear();
             LoadedMods.Clear();
             Results.Clear();
             LoadComplete = false;

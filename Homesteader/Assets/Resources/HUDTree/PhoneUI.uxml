@@ -465,17 +465,50 @@
                             <ui:Label text="Steadify" class="phone-app-title" />
                         </ui:VisualElement>
 
-                        <ui:VisualElement class="steadify-playlist-selector-row">
+                        <!-- Music / Radio switch. Radio content lives in SteadifyRadioPane; every music block carries steadify-music so the switch can hide it. -->
+                        <ui:VisualElement class="steadify-mode-row">
+                            <ui:Button name="SteadifyModeMusicBtn" text="Music" class="steadify-mode-btn steadify-mode-btn--active" />
+                            <ui:Button name="SteadifyModeRadioBtn" text="Radio" class="steadify-mode-btn" />
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="SteadifyRadioPane" class="steadify-radio-pane steadify-radio-pane--hidden">
+                            <ui:VisualElement class="steadify-playlist-selector-row">
+                                <ui:Label text="Station:" class="steadify-playlist-selector-label" />
+                                <ui:DropdownField name="SteadifyRadioStation" class="steadify-playlist-selector" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="steadify-now-playing-card">
+                                <ui:Label name="SteadifyRadioFrequency" text="88.3 FM" class="steadify-radio-frequency" />
+                                <ui:Label name="SteadifyRadioTitle" text="Radio off" class="steadify-track-title" />
+                                <ui:Label name="SteadifyRadioStatus" text="Pick a station to tune in." class="steadify-track-meta" />
+                                <ui:VisualElement name="SteadifyRadioProgress" class="steadify-radio-progress">
+                                    <ui:VisualElement name="SteadifyRadioProgressFill" class="steadify-radio-progress-fill" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="steadify-transport-row">
+                                    <ui:Button name="SteadifyRadioPowerBtn" text="On Air" class="steadify-transport-btn steadify-transport-btn--primary steadify-radio-power-btn" />
+                                    <ui:Button name="SteadifyRadioPauseBtn" text="&#x23F8;" class="steadify-transport-btn" />
+                                    <ui:Button name="SteadifyRadioRewriteBtn" text="Rewrite" class="steadify-transport-btn steadify-radio-text-btn" />
+                                </ui:VisualElement>
+                                <ui:Label name="SteadifyRadioVoice" text="" class="steadify-radio-voice" />
+                            </ui:VisualElement>
+
+                            <ui:Label text="TRANSCRIPT" class="steadify-playlist-heading" />
+                            <ui:ScrollView name="SteadifyRadioScroll" class="phone-app-scroll">
+                                <ui:VisualElement name="SteadifyRadioTranscript" class="almanac-cards-container" />
+                            </ui:ScrollView>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="steadify-playlist-selector-row steadify-music">
                             <ui:Label text="Playlist:" class="steadify-playlist-selector-label" />
                             <ui:DropdownField name="SteadifyPlaylistSelector" class="steadify-playlist-selector" />
                         </ui:VisualElement>
 
-                        <ui:VisualElement class="steadify-shuffle-row">
+                        <ui:VisualElement class="steadify-shuffle-row steadify-music">
                             <ui:Button name="SteadifyShuffleAllBtn" text="Shuffle All" class="steadify-shuffle-all-btn" />
                             <ui:Button name="SteadifyPopoutBtn" text="&#xE010;" class="steadify-popout-btn" />
                         </ui:VisualElement>
 
-                        <ui:VisualElement class="steadify-now-playing-card">
+                        <ui:VisualElement class="steadify-now-playing-card steadify-music">
                             <ui:VisualElement name="SteadifyAlbumArt" class="steadify-album-art">
                                 <ui:Label text="&#x266B;" class="steadify-album-art-glyph" />
                             </ui:VisualElement>
@@ -503,8 +536,8 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
 
-                        <ui:Label text="PLAYLIST" class="steadify-playlist-heading" />
-                        <ui:ScrollView class="phone-app-scroll">
+                        <ui:Label text="PLAYLIST" class="steadify-playlist-heading steadify-music" />
+                        <ui:ScrollView class="phone-app-scroll steadify-music">
                             <ui:VisualElement name="SteadifyPlaylistContainer" class="almanac-cards-container" />
                         </ui:ScrollView>
                     </ui:VisualElement>

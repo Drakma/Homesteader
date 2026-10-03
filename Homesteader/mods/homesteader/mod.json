@@ -107,6 +107,10 @@
     {
       "type": "animal_ai",
       "path": "ai/*.json"
+    },
+    {
+      "type": "radio",
+      "path": "radio/*.json"
     }
   ]
 }

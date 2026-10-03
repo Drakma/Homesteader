@@ -40,6 +40,8 @@ namespace Homesteader.Audio
         private const string TrackPrefKey = "Homesteader.Audio.Track";          // clip name of the track that was playing
         private const string TrackTimePrefKey = "Homesteader.Audio.TrackTime";  // seconds into it
         private float _nextMusicSave;
+        private float _lastMusicTime;     // how far into the track it was when last heard playing
+        private bool _appPaused;          // the application or window is paused / unfocused
 
         private List<AudioClip> _playlist => _playlists.TryGetValue(CurrentPlaylistName, out var pl) ? pl : _emptyList;
         private static readonly List<AudioClip> _emptyList = new List<AudioClip>();
@@ -154,11 +156,25 @@ namespace Homesteader.Audio
                             break;
                         }
                 }
+                // The track is made ready but NOT started: the music begins when the game has loaded and the saved state is known (StartMusicAfterLoad).
                 musicSource.clip = _playlist[_currentTrack];
-                if (resumeAt > 1f && resumeAt < musicSource.clip.length - 3f) musicSource.time = resumeAt;
-                musicSource.Play();
-                _musicPlaying = true;
+                _resumeAt = resumeAt > 1f && resumeAt < musicSource.clip.length - 3f ? resumeAt : 0f;
+                _lastMusicTime = _resumeAt;
+                _musicPlaying = false;
             }
+        }
+
+        private float _resumeAt;
+
+        /// <summary>Called once the game is loaded (GameSaveManager): starts the prepared track where the last session stopped, or leaves it paused.</summary>
+        public void StartMusicAfterLoad(bool play)
+        {
+            if (!play || _musicPlaying || _currentTrack < 0 || musicSource == null || musicSource.clip == null) return;
+            musicSource.time = _resumeAt;
+            musicSource.Play();
+            _lastMusicTime = musicSource.time;
+            _musicPlaying = true;
+            MusicStateChanged?.Invoke();
         }
 
         /// <summary>Scans Resources/Audio/Music for subfolders and builds a separate playlist per subfolder.
@@ -333,10 +349,30 @@ namespace Homesteader.Audio
             }
 
             // A track finished on its own (not via Skip/Previous) - advance the playlist per repeat mode.
+            // "Not playing" is NOT "finished": the source also reports not playing while the window has lost focus, the application is paused,
+            // or the clip is still starting. Treating that as the end of the song started a new one every time the player went out of the game
+            // and back in. A track has finished only when it ran to the end of its clip.
+            if (musicSource.isPlaying) _lastMusicTime = musicSource.time;
             if (_musicPlaying && _currentTrack >= 0 && musicSource.clip != null && !musicSource.isPlaying)
             {
-                if (_repeatMode == RepeatMode.One) PlayTrack(_currentTrack);
-                else AdvanceTrack(+1, userInitiated: false);
+                bool ranOut = musicSource.clip.length - _lastMusicTime < 1.0f;
+                if (ranOut)
+                {
+                    _lastMusicTime = 0f;
+                    if (_repeatMode == RepeatMode.One) PlayTrack(_currentTrack);
+                    else AdvanceTrack(+1, userInitiated: false);
+                }
+                else if (!_appPaused)
+                {
+                    // it should be playing: carry on from where it was (a pause by the engine is lifted; a stopped source is started again there)
+                    musicSource.UnPause();
+                    if (!musicSource.isPlaying)
+                    {
+                        float at = _lastMusicTime;
+                        musicSource.Play();
+                        musicSource.time = Mathf.Clamp(at, 0f, Mathf.Max(0f, musicSource.clip.length - 0.1f));
+                    }
+                }
             }
         }
 
@@ -460,6 +496,8 @@ namespace Homesteader.Audio
         public bool ShuffleEnabled => _shuffle;
         public RepeatMode CurrentRepeatMode => _repeatMode;
         public float MusicVolume01 => musicVolume;
+        /// <summary>The master slider (0..1); the radio multiplies its own volume by this and the music level.</summary>
+        public float MasterVolume01 => masterVolume;
         public float TrackPosition01 => (musicSource.clip != null && musicSource.clip.length > 0f)
             ? Mathf.Clamp01(musicSource.time / musicSource.clip.length) : 0f;
         public float TrackTimeSeconds => musicSource.clip != null ? musicSource.time : 0f;
@@ -609,7 +647,8 @@ namespace Homesteader.Audio
         }
 
         private void OnApplicationQuit() => SaveMusicPosition();
-        private void OnApplicationPause(bool paused) { if (paused) SaveMusicPosition(); }
+        private void OnApplicationPause(bool paused) { _appPaused = paused; if (paused) SaveMusicPosition(); }
+        private void OnApplicationFocus(bool focus) { _appPaused = !focus; }
 
         private void PlayTrack(int index)
         {
@@ -617,6 +656,7 @@ namespace Homesteader.Audio
             _currentTrack = index;
             musicSource.clip = _playlist[index];
             musicSource.Play();
+            _lastMusicTime = 0f;
             _musicPlaying = true;
             SaveMusicPosition();
             MusicStateChanged?.Invoke();

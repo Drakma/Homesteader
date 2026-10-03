@@ -86,6 +86,10 @@ namespace Homesteader.Modding
                                 LoadAnimalAi(mod, entry, result, log);
                                 break;
 
+                            case ModContentType.Radio:
+                                LoadRadio(mod, entry, result, log);
+                                break;
+
                             case ModContentType.Script:
                                 result.Messages.Add(
                                     $"Content type 'script' is declared but not executable in this build; " +
@@ -146,6 +150,22 @@ namespace Homesteader.Modding
                 Homesteader.Animals.AnimalAIRegistry.LoadFromJson(root, mod.Id, msg => mod.Warnings.Add($"Animal AI: {msg}"));
                 result.Messages.Add("Loaded animal AI from " + Path.GetFileName(file));
                 log?.Invoke($"[Mods] {mod.Id}: loaded animal AI ({Path.GetFileName(file)}).");
+            }
+        }
+
+        /// <summary>Registers the radio station JSON files a mod ships (Steadify radio: speakers, segments, sentence banks).</summary>
+        private static void LoadRadio(ModInfo mod, ModContentEntry entry, ModLoadResult result, Action<string> log)
+        {
+            foreach (string file in ModFileResolver.ResolveFiles(mod, entry.Path, ".json"))
+            {
+                if (!ModJson.TryParse(File.ReadAllText(file), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"Radio station file '{file}' is not valid JSON - {error}");
+                    continue;
+                }
+                Homesteader.Radio.RadioRegistry.LoadFromJson(root, mod.Id, msg => mod.Warnings.Add($"Radio: {msg}"));
+                result.Messages.Add("Loaded radio station from " + Path.GetFileName(file));
+                log?.Invoke($"[Mods] {mod.Id}: loaded radio station ({Path.GetFileName(file)}).");
             }
         }
 

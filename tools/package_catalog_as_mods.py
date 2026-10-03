@@ -172,6 +172,13 @@ def build_mods():
             copy_tree_incremental(ai_src, os.path.join(mod_dir, "ai"))
         mod_contents.append({"type": "animal_ai", "path": "ai/*.json"})
 
+    # Radio stations (assets/_radio/*.json) ride along the same way (Steadify radio, content type "radio").
+    radio_src = os.path.join(SRC_ASSETS_DIR, "_radio")
+    if os.path.isdir(radio_src):
+        if not os.path.isdir(os.path.join(mod_dir, "radio") + ".disabled"):
+            copy_tree_incremental(radio_src, os.path.join(mod_dir, "radio"))
+        mod_contents.append({"type": "radio", "path": "radio/*.json"})
+
     # Animals carry their own AI in the manifest (category_fields.ai); write each to ai/<item_id>.json.
     import glob as _glob
     ai_out = os.path.join(mod_dir, "ai")

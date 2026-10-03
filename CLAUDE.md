@@ -171,6 +171,7 @@ named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named mater
 
 ---
 
+- **Steadify radio**: stations are mod data (`assets/_radio/*.json`, content type `radio`, schema `assets/_schemas/radio_station.schema.json`); scripts come from the almanac writer or, when set in Settings > Audio, the Claude API; the voice is local Kokoro through sherpa-onnx, fetched per machine with `python tools/fetch_tts_runtime.py` (never checked in). Reference `docs/RADIO.md`. Code `Assets/Scripts/Radio/`.
 - **Animal AI**: behaviour rules are mod data (`assets/_ai/*.json`, content type `animal_ai`). Schema `assets/_schemas/animal_ai.schema.json`, validator `tools/animal_ai.py` (must stay in step with `Assets/Scripts/Animals/AnimalAIDefinition.cs`), reference `docs/ANIMAL_AI.md`. An animal's own AI is `category_fields.ai` in its manifest (ranching schema, edited in the asset popup's Animal AI card, packaged to `ai/<item_id>.json`); `assets/_ai` holds shared/species profiles.
 
 ---
