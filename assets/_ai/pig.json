@@ -15,6 +15,8 @@
   },
   "movement": {
     "walk_speed": 1.2,
-    "run_speed": 4.2
+    "run_speed": 4.2,
+    "walk_native_mps": 0.61,
+    "run_native_mps": 1.7
   }
 }

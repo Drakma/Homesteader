@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_barn",
-  "name": "Barn",
+  "name": "Barn - Complete",
   "category": "structures",
-  "description": "A classic red barn with a gambrel roof.",
+  "description": "The complete construction phase of the barn.",
   "icon": "struct_complete_barn.png",
   "properties": {
-    "weight_kg": 15000.0,
+    "weight_kg": 12600.0,
     "max_stack_size": 1,
-    "base_value": 30000.0,
+    "base_value": 21000.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 15,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,72 +19,14 @@
   },
   "models": [
     {
-      "file": "SM_Building_SmallBarn.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Building_SmallBarn.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 611.7,
-        "y": 810.0,
-        "z": 641.0
-      },
+      "file": "struct_complete_barn.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 6.12,
-        "y": 8.1,
-        "z": 6.41
+        "x": 10.0,
+        "y": 7.6,
+        "z": 14.0
       },
-      "vertices": 3078,
-      "faces": 1026,
-      "bounding_box": {
-        "min": [
-          -305.858,
-          -405.0,
-          0.0
-        ],
-        "max": [
-          305.858,
-          405.0,
-          641.0
-        ]
-      }
-    },
-    {
-      "file": "struct_complete_barn.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_barn.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_barn.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 640.0,
-        "y": 850.0,
-        "z": 720.0
-      },
-      "dimensions_m": {
-        "x": 6.4,
-        "y": 8.5,
-        "z": 7.2
-      },
-      "vertices": 975,
-      "faces": 360,
-      "bounding_box": {
-        "min": [
-          -320.0,
-          -425.0,
-          0.0
-        ],
-        "max": [
-          320.0,
-          425.0,
-          720.0
-        ]
-      }
+      "triangles": 4644
     }
   ],
   "utilities": {
@@ -114,45 +56,17 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "SM_Building_SmallBarn.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 611.7,
-      "y": 810.0,
-      "z": 641.0
-    },
-    "dimensions_m": {
-      "x": 6.12,
-      "y": 8.1,
-      "z": 6.41
-    },
-    "vertices": 3078,
-    "faces": 1026,
-    "bounding_box": {
-      "min": [
-        -305.858,
-        -405.0,
-        0.0
-      ],
-      "max": [
-        305.858,
-        405.0,
-        641.0
-      ]
-    }
-  },
   "category_fields": {
-    "interior_area_m2": 45.4,
-    "room_count": 1,
+    "interior_area_m2": 25.0,
+    "room_count": 6,
     "dimensions_m": {
-      "width": 6.12,
-      "depth": 8.1,
-      "height": 6.41
+      "width": 10.0,
+      "depth": 14.0,
+      "height": 7.6
     },
     "electrical_service_capacity_w": 12000,
-    "water_supply_capacity_lpm": 20,
-    "roof_area_m2": 49.6,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",

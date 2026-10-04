@@ -24,7 +24,12 @@ namespace Homesteader.UI
 
     public static class ContainerRules
     {
-        public static bool IsContainer(string itemId) => Capacity(itemId) > 0f;
+        /// <summary>A carried / placed container. A STRUCTURE blueprint with a container block (a grain silo) is not one: it is storage built into the structure.</summary>
+        public static bool IsContainer(string itemId)
+        {
+            var info = HudBindings.GetCatalogItem(itemId);
+            return info != null && info.container_capacity_kg > 0f && !info.is_blueprint;
+        }
 
         /// <summary>A single-use container (a cardboard box): a placed one goes away when it has been emptied.</summary>
         public static bool IsDisposable(string itemId)

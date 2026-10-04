@@ -1,0 +1,14 @@
+{
+  "file": "Starlight_Cassette.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 97 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 97 seconds, not cut off mid-song and with NO fade-out. Nostalgic synthwave ballad instrumental, 80 BPM: slow lush pads, tape-wobble texture, soft gated snare, emotional lead synth with pitch bends, end-credits feeling.",
+  "requested_prompt": "Nostalgic synthwave ballad instrumental, 80 BPM: slow lush pads, tape-wobble texture, soft gated snare, emotional lead synth with pitch bends, end-credits feeling.",
+  "requested_duration_seconds": 97,
+  "generated_at": "2026-10-03T22:24:20.764Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Starlight_Cassette.mp4",
+  "bytes": 2918098,
+  "sha256": "087e7be412f4cdb737f42ff61568268ee460990485c2ab167ebe7a5094c28ede",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

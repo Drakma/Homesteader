@@ -64,5 +64,9 @@
       "base": 0.5,
       "min_s": 2
     }
-  ]
+  ],
+  "movement": {
+    "walk_native_mps": 0.64,
+    "run_native_mps": 1.79
+  }
 }

@@ -73,7 +73,7 @@ public sealed class PlayerLight : MonoBehaviour
         l.intensity = intensity;
         l.range = range;
         // shadows on: the cabin's walls stop the flashlight and the lantern (the window glass casts none, so light still gets through it)
-        l.shadows = type == LightType.Spot ? LightShadows.Soft : LightShadows.Hard;
+        l.shadows = type == LightType.Spot ? LightShadows.Soft : LightShadows.None;   // the flashlight (a spot) casts shadows; a point lantern would draw the scene six times for them
         l.shadowStrength = 1f;
         l.enabled = false;
         return l;

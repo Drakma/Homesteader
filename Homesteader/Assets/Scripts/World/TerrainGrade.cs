@@ -119,11 +119,9 @@ namespace Homesteader.World
             }
         }
 
-        /// <summary>Tells the grass to place its blades on the new ground (call when a grade has finished or been undone).</summary>
-        public static void RefreshGrass()
+        /// <summary>Tells what stands on the ground that it has changed (call when a grade has finished or been undone): the forest colliders follow it.</summary>
+        public static void GroundChanged()
         {
-            var grass = Object.FindAnyObjectByType<Homesteader.Grass.GrassRenderer>();
-            if (grass != null) grass.RefreshHeights();
             ForestSolids.MarkDirty();
         }
     }

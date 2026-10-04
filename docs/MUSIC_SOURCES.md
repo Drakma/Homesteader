@@ -21,7 +21,7 @@ Not allowed: anything from Epidemic Sound (its standard licence does not cover g
 - `gemini_music_generate(prompt, output_dir, filename, duration_seconds?, timeout_seconds?)`: asks Gemini for an instrumental track
   and saves `<filename>.mp3` plus `<filename>.json` (prompt, time, hash, licence note). Takes 30 to 180 seconds.
   The tool ALWAYS adds two instructions to the prompt, because Gemini needs them: "instrumental only, no vocals" and "starts and
-  stops within X seconds, with a proper ending" (X = `duration_seconds`, default 90, minimum 60, maximum 120). Without the second one a track just stops
+  stops within X seconds, with a definite ending and no fade-out" (X = `duration_seconds`, default 90, minimum 60, maximum 120). Without the second one a track just stops
   mid-song.
 - `gemini_music_inspect`: dumps the page's buttons, audio elements and text and a screenshot, for re-tuning the selectors
   when Google changes the page. The download step tries the page's Download control first, then the audio element.
@@ -40,7 +40,7 @@ It talks to the MCP server over stdio (no 2-minute app timeout), skips tracks th
     LIMIT=1 node tools/gemini_music_mcp/bump_playlists.mjs  # smoke test
 
 Gemini has a daily music-generation quota. When Gemini's latest reply says the limit is reached the server stops at once
-and the script aborts its run; `retry_bump.ps1` re-runs it every 30 minutes (up to 24 hours) until every folder is full.
+and the script aborts its run; `retry_bump.ps1` re-runs it every hour (up to 24 hours) until every folder is full.
 Progress is in `tools/gemini_music_mcp/bump_playlists.log`.
 
 Two lessons from 2026-10-02: the quota check must read only Gemini's latest reply (the sidebar lists old chat titles such as
@@ -53,6 +53,20 @@ If Chrome starts crashing the instant the Download button is clicked (Crashpad d
 the profile's download database is corrupt from a force-kill mid-download: stop everything and delete
 `~/.codegpt/gemini-music-session/Default/History`, `History-journal` and `DownloadMetadata` (sign-in survives). Never
 force-kill the tool's Chrome while a download is in flight.
+
+## Loopable beds (menu / intro music)
+
+`gemini_music_generate` takes `loop: true`, which swaps the standing "clear beginning, definite ending" text for a request
+for one steady texture with no intro, no ending and no fades. `tools/gemini_music_mcp/gen_loop.mjs` uses it and then makes
+the result loop seamlessly: it trims 5 s from each end and crossfades the last 8 s into the first 8 s (equal power), so the
+final sample flows into the first one.
+
+    node tools/gemini_music_mcp/gen_loop.mjs Intro_Serene_Dawn "<prompt>" 120
+
+Output is a WAV in `Homesteader/Assets/Resources/Audio/Intro/` with its licence sidecar; the source MP3 stays in
+`tools/gemini_music_mcp/raw/`. WAV on purpose: MP3 carries encoder padding that leaves a small gap at the loop point, and
+this machine's ffmpeg has no Ogg Vorbis encoder. Unity compresses the WAV on import (set Load Type to Streaming or
+Compressed In Memory). The folder is not listed in `playlists.txt`, so these never show up in Steadify.
 
 ## Per-track checklist
 

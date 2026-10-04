@@ -1,0 +1,147 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "house_garage",
+  "name": "House wtih Garage",
+  "category": "structures",
+  "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
+  "icon": "house_garage.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "house_garage",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 12,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 12,
+        "age_max": 30,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 30,
+        "age_max": 60,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 4,
+        "name": "exterior",
+        "age_min": 60,
+        "age_max": 80,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_house_garage.png",
+        "construction_recipe": [
+          {
+            "item_id": "#roofing",
+            "quantity": 14
+          },
+          {
+            "item_id": "building_glass",
+            "quantity": 9
+          },
+          {
+            "item_id": "#chimney_masonry",
+            "quantity": 9
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_trowel_hand"
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "finishings",
+        "age_min": 80,
+        "age_max": 100,
+        "resource": "stages/struct_finishings/",
+        "model": "",
+        "icon": "struct_finishings_house_garage.png",
+        "construction_recipe": [
+          {
+            "item_id": "sheet_drywall_stack_small",
+            "quantity": 9
+          },
+          {
+            "item_id": "#paint",
+            "quantity": 5
+          },
+          {
+            "item_id": "#flooring",
+            "quantity": 113
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 1500,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
+  }
+}

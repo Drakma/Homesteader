@@ -418,7 +418,7 @@
     border-bottom-color: var(--c-raised);
 }
 
-.settings-page .settings-section-title:first-child {
+.settings-section-title--first {
     margin-top: 0;
 }
 
@@ -484,4 +484,157 @@
     color: rgb(176, 188, 204);
     font-size: 13px;
     -unity-text-align: middle-right;
+}
+
+/* ----- SAVE DIALOGS (new game name, load list) ----- */
+/* Colours are the design tokens (docs/UI_DESIGN_SYSTEM.md): a well for the list, text on it, muted for the small print, one amber accent for the selection. */
+
+.save-card--narrow {
+    width: 460px;
+    max-width: 94%;
+}
+
+.save-card--wide {
+    width: 760px;
+    max-width: 94%;
+    height: 82%;
+    max-height: 640px;
+    min-height: 380px;
+}
+
+.save-list {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;          /* sized by the card, not by its rows: the list scrolls inside the box */
+    min-height: 0;
+    height: 0;
+    overflow: hidden;
+    margin-top: 6px;
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: var(--r);
+    background-color: var(--c-well);
+}
+
+.save-list .unity-scroll-view__content-container {
+    flex-shrink: 0;
+}
+
+.save-row {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    height: 86px;
+    min-height: 86px;
+    padding: 6px 8px 6px 8px;
+    border-left-width: 3px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--c-ink);
+}
+
+.save-row:hover {
+    background-color: var(--c-raised);
+}
+
+.save-row--selected,
+.save-row--selected:hover {
+    background-color: rgba(224, 138, 60, 0.22);
+    border-left-color: var(--c-accent);
+}
+
+.save-thumb {
+    width: 128px;
+    height: 72px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    border-radius: var(--r);
+    background-color: var(--c-ink);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.save-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    justify-content: center;
+}
+
+.save-name {
+    flex-shrink: 0;
+    color: var(--c-text);
+    font-size: 16px;
+    -unity-font: var(--font-bold);
+    margin-bottom: 2px;
+}
+
+.save-name--auto {
+    -unity-font: var(--font-medium);
+}
+
+.save-meta {
+    flex-shrink: 0;
+    color: var(--c-muted);
+    font-size: 12px;
+    -unity-font: var(--font);
+}
+
+.save-row--selected .save-name {
+    color: var(--c-text-strong);
+}
+
+.save-footer {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top-width: 1px;
+    border-top-color: var(--c-raised);
+    flex-shrink: 0;
+}
+
+.save-footer-btn {
+    width: 120px;
+    height: 36px;
+    margin: 0 0 0 8px;
+}
+
+/* Text and number fields of the save dialogs and the autosave settings: label in the text colour, the input a well with its text centred vertically. */
+.save-field {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.save-field > .unity-base-field__label {
+    color: var(--c-text);
+    font-size: 14px;
+    -unity-font: var(--font-light);
+    min-width: 200px;
+    -unity-text-align: middle-left;
+}
+
+.save-field .unity-base-text-field__input {
+    color: var(--c-text);
+    font-size: 14px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 8px;
+    background-color: var(--c-field);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: var(--r);
+    min-height: 28px;
+}
+
+.save-field .unity-base-text-field__input:focus {
+    border-color: var(--c-accent-hi);
+}
+
+.save-field .unity-base-text-field__input > .unity-text-element {
+    margin: 0;
+    padding: 0;
 }

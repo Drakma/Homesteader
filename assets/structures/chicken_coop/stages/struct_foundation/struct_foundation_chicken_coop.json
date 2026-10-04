@@ -6,9 +6,9 @@
   "description": "The foundation construction phase of the chicken coop.",
   "icon": "struct_foundation_chicken_coop.png",
   "properties": {
-    "weight_kg": 80.0,
+    "weight_kg": 1080.0,
     "max_stack_size": 1,
-    "base_value": 120.0,
+    "base_value": 1800.0,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_foundation_chicken_coop.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 3.0,
+        "y": 0.2,
+        "z": 4.0
+      },
+      "triangles": 240
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -47,10 +58,10 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 0,
+    "room_count": 1,
     "dimensions_m": {
-      "width": 4.14,
-      "depth": 3.76,
+      "width": 3.0,
+      "depth": 4.0,
       "height": 0.2
     },
     "electrical_service_capacity_w": 0,

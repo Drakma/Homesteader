@@ -111,6 +111,7 @@ def wall_box(b, c, wall, depth0, depth1, za, zb, m, openings=None, gap_pad=0.0, 
 
 # ------------------------------------------------------------------ pieces shared by several stages
 
+PB = None   # the separate "Porch" object (posts, beam, railing) while a stage is built
 FB = None   # the separate "Foundation" object while a stage is built (the game can swap it for another foundation style)
 
 
@@ -203,7 +204,8 @@ def trim_box(b, c, wall, u0, u1, za, zb, d0, d1, m, to=None):
 
 def wall_top(c, wall):
     """Where the cladding of a wall ends: the front and back walls at the plates (a gable stands on them), the side walls right up to the roof."""
-    return c.zw + 0.05 if wall in ('left', 'right') else c.top + 0.18
+    eave = ('front', 'back') if getattr(c, 'cfg', {}).get('ridge_x') else ('left', 'right')   # a roof whose ridge runs left to right rests on the front and back walls
+    return c.zw + 0.05 if wall in eave else c.top + 0.18
 
 
 def gable_poly(builder, c, y, thick, m):
@@ -268,10 +270,11 @@ def framing(b, c, M):
     for k in range(n):
         y = c.yh0 + 0.1 + (d / 2 - c.yh0 - 0.2) * k / max(1, n - 1)
         b.box(-w / 2, w / 2, y - 0.03, y + 0.03, top + 0.18, top + 0.34, M['lumber'])
-    porch_posts(b, c, M, top)
-    b.box(-w / 2, w / 2, -d / 2 + 0.08, -d / 2 + 0.22, top, top + 0.22, M['lumber'])                  # porch beam
+    pb = PB if PB is not None else b
+    porch_posts(pb, c, M, top)
+    pb.box(-w / 2, w / 2, -d / 2 + 0.08, -d / 2 + 0.22, top, top + 0.22, M['lumber'])                  # porch beam
     for x in (-w / 2 + 0.12, w / 2 - 0.12):
-        b.box(x - 0.04, x + 0.04, -d / 2 + 0.1, c.yh0, top - 0.1, top, M['lumber'])                  # porch ceiling beams to the house
+        pb.box(x - 0.04, x + 0.04, -d / 2 + 0.1, c.yh0, top - 0.1, top, M['lumber'])                  # porch ceiling beams to the house
     rafters(b, c, M)
     gable_studs(b, c, M)
 
@@ -372,9 +375,10 @@ def complete(b, c, M, glass, finishings=False):
     parts['roof'].box(-0.1, 0.1, -d / 2 - ov, d / 2 + ov, c.zr + 0.12, c.zr + 0.2, M['shingle_dark'])                          # ridge cap
     # the porch: deck boards, three posts, railing with balusters (a gap at the steps), a beam, step treads
     deck_boards(b, c, M, z0 - 0.035, -d / 2, c.yh0)
-    porch_posts(b, c, M, top)
-    b.box(-w / 2, w / 2, -d / 2 + 0.06, -d / 2 + 0.24, top, top + 0.2, M['trim'])
-    railing(b, c, M)
+    pb = PB if PB is not None else b
+    porch_posts(pb, c, M, top)
+    pb.box(-w / 2, w / 2, -d / 2 + 0.06, -d / 2 + 0.24, top, top + 0.2, M['trim'])
+    railing(pb, c, M)
     for k in range(3):                                                                                       # tread boards on the concrete steps
         b.box(-0.82, 0.82, -d / 2 - 0.3 * (k + 1), -d / 2 - 0.3 * k, (z0 - 0.04) * (1 - (k + 1) * 0.28), (z0 - 0.04) * (1 - (k + 1) * 0.28) + 0.03, M['deck'])
     # the front door: its own object on a hinge, with panels and a small light
@@ -391,10 +395,6 @@ def complete(b, c, M, glass, finishings=False):
     base.chimney_with_fireplace(chim, M['brick'], colour('Soot', (0.08, 0.07, 0.07), 1.0), M['concrete'], cx0, cx1, -w / 2 + 0.6, cy, 0.45,
                                 c.z0, top + 0.1, ctop)
     base.EXTRA_OBJECTS.append(chim.finish())
-    for k in range(1, 7):                                                                                    # brick course lines, 6 mm proud
-        zz = 0.3 + k * 0.55
-        if zz < ctop - 0.1:
-            b.box(cx0 - 0.006, cx1, cy - 0.456, cy + 0.456, zz, zz + 0.025, M['concrete_dark'])
     # a downspout at the front corner
     b.box(w / 2 + 0.0, w / 2 + 0.07, c.yh0 - 0.1, c.yh0 - 0.03, z0, top - 0.1, M['trim'])
     for part in parts.values():
@@ -484,8 +484,9 @@ def main():
         b = Builder(d['id'])
         global glass_builder
         glass_builder = Builder('WindowGlass')
-        global FB
+        global FB, PB
         FB = Builder('Foundation')
+        PB = Builder('Porch')
         if stage_folder == 'struct_foundation':
             foundation(b, c, M)
         elif stage_folder == 'struct_framing':
@@ -497,6 +498,11 @@ def main():
             base.EXTRA_OBJECTS.append(glass_builder.finish())
         base.EXTRA_OBJECTS.append(FB.finish())
         FB = None
+        if PB.bm.verts:
+            base.EXTRA_OBJECTS.append(PB.finish())   # the porch posts, beam and railing: the game hides them with the roof
+        else:
+            PB.bm.free()
+        PB = None
         obj = b.finish()
         marker = bpy.data.objects.new('FrontMarker', None)
         marker.location = (0.0, -depth / 2 - 0.8, 0.05)

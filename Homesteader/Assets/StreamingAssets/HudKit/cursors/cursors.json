@@ -7,8 +7,9 @@
   ],
   "margin": 12,
   "variants": {
-    "mono": "Black line art on transparency, as scanned.",
-    "color": "Category-coloured: outline kept, enclosed interiors flood-filled."
+    "mono": "Black and white only: black outline, enclosed interiors filled white.",
+    "color": "Category-coloured: outline kept, enclosed interiors flood-filled.",
+    "amber": "HUD accent: outline kept, interiors filled with an amber gradient and bevel lit from the upper left (3D look)."
   },
   "palette": {
     "tool": [
@@ -42,6 +43,7 @@
       "category": "tool",
       "mono": "mono/cursor_axe.png",
       "color": "color/cursor_axe.png",
+      "amber": "amber/cursor_axe.png",
       "size": [
         128,
         128
@@ -58,13 +60,14 @@
       "category": "tool",
       "mono": "mono/cursor_handsaw.png",
       "color": "color/cursor_handsaw.png",
+      "amber": "amber/cursor_handsaw.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        40,
-        64
+        20,
+        16
       ],
       "hotspot_mode": "tip",
       "hotspot_note": "Leading corner of the saw blade.",
@@ -74,6 +77,7 @@
       "category": "resource",
       "mono": "mono/cursor_log_rings.png",
       "color": "color/cursor_log_rings.png",
+      "amber": "amber/cursor_log_rings.png",
       "size": [
         128,
         128
@@ -90,6 +94,7 @@
       "category": "tool",
       "mono": "mono/cursor_sawing.png",
       "color": "color/cursor_sawing.png",
+      "amber": "amber/cursor_sawing.png",
       "size": [
         128,
         128
@@ -106,13 +111,14 @@
       "category": "tool",
       "mono": "mono/cursor_mattock.png",
       "color": "color/cursor_mattock.png",
+      "amber": "amber/cursor_mattock.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        55,
-        54
+        33,
+        21
       ],
       "hotspot_mode": "tip",
       "hotspot_note": "Leading corner of the mattock blade.",
@@ -122,6 +128,7 @@
       "category": "action",
       "mono": "mono/cursor_plant_seedling.png",
       "color": "color/cursor_plant_seedling.png",
+      "amber": "amber/cursor_plant_seedling.png",
       "size": [
         128,
         128
@@ -138,6 +145,7 @@
       "category": "resource",
       "mono": "mono/cursor_wheat_sheaf.png",
       "color": "color/cursor_wheat_sheaf.png",
+      "amber": "amber/cursor_wheat_sheaf.png",
       "size": [
         128,
         128
@@ -154,15 +162,16 @@
       "category": "tool",
       "mono": "mono/cursor_trowel.png",
       "color": "color/cursor_trowel.png",
+      "amber": "amber/cursor_trowel.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        41,
-        56
+        112,
+        114
       ],
-      "hotspot_mode": "tip",
+      "hotspot_mode": "tip_br",
       "hotspot_note": "Tip of the trowel blade.",
       "source_glyph": "r0c07"
     },
@@ -170,6 +179,7 @@
       "category": "tool",
       "mono": "mono/cursor_axe_filled.png",
       "color": "color/cursor_axe_filled.png",
+      "amber": "amber/cursor_axe_filled.png",
       "size": [
         128,
         128
@@ -186,6 +196,7 @@
       "category": "action",
       "mono": "mono/cursor_plant_seedling_filled.png",
       "color": "color/cursor_plant_seedling_filled.png",
+      "amber": "amber/cursor_plant_seedling_filled.png",
       "size": [
         128,
         128
@@ -202,6 +213,7 @@
       "category": "resource",
       "mono": "mono/cursor_wheat_sheaf_filled.png",
       "color": "color/cursor_wheat_sheaf_filled.png",
+      "amber": "amber/cursor_wheat_sheaf_filled.png",
       "size": [
         128,
         128
@@ -218,6 +230,7 @@
       "category": "action",
       "mono": "mono/cursor_bucket_carry.png",
       "color": "color/cursor_bucket_carry.png",
+      "amber": "amber/cursor_bucket_carry.png",
       "size": [
         128,
         128
@@ -234,22 +247,24 @@
       "category": "tool",
       "mono": "mono/cursor_sickle.png",
       "color": "color/cursor_sickle.png",
+      "amber": "amber/cursor_sickle.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        20,
-        19
+        25,
+        69
       ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Tip of the sickle point.",
-      "source_glyph": "r1c04"
+      "hotspot_mode": "point",
+      "hotspot_note": "Point of the blade.",
+      "source_glyph": "drawn:sickle"
     },
     "cursor_egg": {
       "category": "resource",
       "mono": "mono/cursor_egg.png",
       "color": "color/cursor_egg.png",
+      "amber": "amber/cursor_egg.png",
       "size": [
         128,
         128
@@ -266,6 +281,7 @@
       "category": "resource",
       "mono": "mono/cursor_egg_basket.png",
       "color": "color/cursor_egg_basket.png",
+      "amber": "amber/cursor_egg_basket.png",
       "size": [
         128,
         128
@@ -282,6 +298,7 @@
       "category": "tool",
       "mono": "mono/cursor_wrenches.png",
       "color": "color/cursor_wrenches.png",
+      "amber": "amber/cursor_wrenches.png",
       "size": [
         128,
         128
@@ -298,6 +315,7 @@
       "category": "action",
       "mono": "mono/cursor_gear.png",
       "color": "color/cursor_gear.png",
+      "amber": "amber/cursor_gear.png",
       "size": [
         128,
         128
@@ -314,6 +332,7 @@
       "category": "resource",
       "mono": "mono/cursor_jerrycan.png",
       "color": "color/cursor_jerrycan.png",
+      "amber": "amber/cursor_jerrycan.png",
       "size": [
         128,
         128
@@ -330,13 +349,14 @@
       "category": "tool",
       "mono": "mono/cursor_screwdriver.png",
       "color": "color/cursor_screwdriver.png",
+      "amber": "amber/cursor_screwdriver.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        54,
-        54
+        15,
+        15
       ],
       "hotspot_mode": "tip",
       "hotspot_note": "Tip of the screwdriver blade.",
@@ -346,13 +366,14 @@
       "category": "tool",
       "mono": "mono/cursor_hammer.png",
       "color": "color/cursor_hammer.png",
+      "amber": "amber/cursor_hammer.png",
       "size": [
         128,
         128
       ],
       "hotspot": [
-        41,
-        23
+        30,
+        25
       ],
       "hotspot_mode": "tip",
       "hotspot_note": "Face of the hammer head.",
@@ -362,6 +383,7 @@
       "category": "tool",
       "mono": "mono/cursor_pickaxe.png",
       "color": "color/cursor_pickaxe.png",
+      "amber": "amber/cursor_pickaxe.png",
       "size": [
         128,
         128
@@ -378,6 +400,7 @@
       "category": "system",
       "mono": "mono/cursor_finger_point.png",
       "color": "color/cursor_finger_point.png",
+      "amber": "amber/cursor_finger_point.png",
       "size": [
         128,
         128
@@ -394,6 +417,7 @@
       "category": "resource",
       "mono": "mono/cursor_seed_sack.png",
       "color": "color/cursor_seed_sack.png",
+      "amber": "amber/cursor_seed_sack.png",
       "size": [
         128,
         128
@@ -410,6 +434,7 @@
       "category": "item",
       "mono": "mono/cursor_tool_belt.png",
       "color": "color/cursor_tool_belt.png",
+      "amber": "amber/cursor_tool_belt.png",
       "size": [
         128,
         128
@@ -426,6 +451,7 @@
       "category": "system",
       "mono": "mono/cursor_arrow.png",
       "color": "color/cursor_arrow.png",
+      "amber": "amber/cursor_arrow.png",
       "size": [
         128,
         128
@@ -442,6 +468,7 @@
       "category": "system",
       "mono": "mono/cursor_hand_open.png",
       "color": "color/cursor_hand_open.png",
+      "amber": "amber/cursor_hand_open.png",
       "size": [
         128,
         128
@@ -458,6 +485,7 @@
       "category": "system",
       "mono": "mono/cursor_finger_tap.png",
       "color": "color/cursor_finger_tap.png",
+      "amber": "amber/cursor_finger_tap.png",
       "size": [
         128,
         128
@@ -474,6 +502,7 @@
       "category": "system",
       "mono": "mono/cursor_move.png",
       "color": "color/cursor_move.png",
+      "amber": "amber/cursor_move.png",
       "size": [
         128,
         128
@@ -490,6 +519,7 @@
       "category": "system",
       "mono": "mono/cursor_ibeam.png",
       "color": "color/cursor_ibeam.png",
+      "amber": "amber/cursor_ibeam.png",
       "size": [
         128,
         128
@@ -506,6 +536,7 @@
       "category": "system",
       "mono": "mono/cursor_arrow_wait.png",
       "color": "color/cursor_arrow_wait.png",
+      "amber": "amber/cursor_arrow_wait.png",
       "size": [
         128,
         128
@@ -522,6 +553,7 @@
       "category": "system",
       "mono": "mono/cursor_arrow_unavailable.png",
       "color": "color/cursor_arrow_unavailable.png",
+      "amber": "amber/cursor_arrow_unavailable.png",
       "size": [
         128,
         128
@@ -538,6 +570,7 @@
       "category": "system",
       "mono": "mono/cursor_wait_settings.png",
       "color": "color/cursor_wait_settings.png",
+      "amber": "amber/cursor_wait_settings.png",
       "size": [
         128,
         128
@@ -554,6 +587,7 @@
       "category": "system",
       "mono": "mono/cursor_wait_settings_2.png",
       "color": "color/cursor_wait_settings_2.png",
+      "amber": "amber/cursor_wait_settings_2.png",
       "size": [
         128,
         128
@@ -570,6 +604,7 @@
       "category": "system",
       "mono": "mono/cursor_resize_vertical.png",
       "color": "color/cursor_resize_vertical.png",
+      "amber": "amber/cursor_resize_vertical.png",
       "size": [
         128,
         128
@@ -586,6 +621,7 @@
       "category": "system",
       "mono": "mono/cursor_resize_horizontal.png",
       "color": "color/cursor_resize_horizontal.png",
+      "amber": "amber/cursor_resize_horizontal.png",
       "size": [
         128,
         128
@@ -602,6 +638,7 @@
       "category": "system",
       "mono": "mono/cursor_resize_nwse.png",
       "color": "color/cursor_resize_nwse.png",
+      "amber": "amber/cursor_resize_nwse.png",
       "size": [
         128,
         128
@@ -618,6 +655,7 @@
       "category": "system",
       "mono": "mono/cursor_resize_nesw.png",
       "color": "color/cursor_resize_nesw.png",
+      "amber": "amber/cursor_resize_nesw.png",
       "size": [
         128,
         128
@@ -634,6 +672,7 @@
       "category": "system",
       "mono": "mono/cursor_resize_all.png",
       "color": "color/cursor_resize_all.png",
+      "amber": "amber/cursor_resize_all.png",
       "size": [
         128,
         128
@@ -650,6 +689,7 @@
       "category": "system",
       "mono": "mono/cursor_help.png",
       "color": "color/cursor_help.png",
+      "amber": "amber/cursor_help.png",
       "size": [
         128,
         128
@@ -661,6 +701,40 @@
       "hotspot_mode": "tip",
       "hotspot_note": "Top of the question mark, which still reads as a pointer.",
       "source_glyph": "r4c09"
+    },
+    "cursor_steering_wheel": {
+      "category": "action",
+      "mono": "mono/cursor_steering_wheel.png",
+      "color": "color/cursor_steering_wheel.png",
+      "amber": "amber/cursor_steering_wheel.png",
+      "size": [
+        128,
+        128
+      ],
+      "hotspot": [
+        64,
+        64
+      ],
+      "hotspot_mode": "centre",
+      "hotspot_note": "Centroid: the wheel turns about its hub.",
+      "source_glyph": "drawn:steering_wheel"
+    },
+    "cursor_shears": {
+      "category": "tool",
+      "mono": "mono/cursor_shears.png",
+      "color": "color/cursor_shears.png",
+      "amber": "amber/cursor_shears.png",
+      "size": [
+        128,
+        128
+      ],
+      "hotspot": [
+        23,
+        23
+      ],
+      "hotspot_mode": "point",
+      "hotspot_note": "Where the two blade tips meet.",
+      "source_glyph": "drawn:shears"
     }
   },
   "removed_duplicates": [

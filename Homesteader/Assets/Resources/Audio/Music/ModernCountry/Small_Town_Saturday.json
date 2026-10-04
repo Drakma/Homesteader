@@ -1,0 +1,14 @@
+{
+  "file": "Small_Town_Saturday.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 94 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 94 seconds, not cut off mid-song and with NO fade-out. Upbeat modern country pop instrumental, 120 BPM: bright acoustic strumming, clapping, fiddle hook, punchy drums, hometown festival feeling.",
+  "requested_prompt": "Upbeat modern country pop instrumental, 120 BPM: bright acoustic strumming, clapping, fiddle hook, punchy drums, hometown festival feeling.",
+  "requested_duration_seconds": 94,
+  "generated_at": "2026-10-03T02:00:57.279Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Small_Town_Saturday.mp4",
+  "bytes": 3002527,
+  "sha256": "613e6eb2a430eca0e03c6b9522fc9768ffda5b21fc3aa433a48cdaf876f889d2",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

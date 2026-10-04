@@ -1,0 +1,14 @@
+{
+  "file": "Neon_Silo.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 105 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 105 seconds, not cut off mid-song and with NO fade-out. Mid-tempo synthwave instrumental, 104 BPM: steady pulsing bass, glassy digital bell chords, warm analog strings, simple memorable lead melody, glowing farm at night seen from far away.",
+  "requested_prompt": "Mid-tempo synthwave instrumental, 104 BPM: steady pulsing bass, glassy digital bell chords, warm analog strings, simple memorable lead melody, glowing farm at night seen from far away.",
+  "requested_duration_seconds": 105,
+  "generated_at": "2026-10-03T22:17:04.034Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Neon_Silo.mp4",
+  "bytes": 4116589,
+  "sha256": "3f744417d2517c7daf5d51dcaf2112318944bf97db6a88b369fdc9f68727dbdb",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

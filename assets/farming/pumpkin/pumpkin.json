@@ -3,7 +3,7 @@
   "id": "pumpkin",
   "name": "Pumpkin Plant",
   "category": "farming",
-  "description": "A pumpkin lifecycle growing through 4 stages (sprout -> small -> medium -> mature) over 90 days, with withered and dead versions. This group is the authoritative owner of the pumpkin scheme.",
+  "description": "A pumpkin lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
   "icon": "pumpkin.png",
   "is_growable": true,
   "growth": {
@@ -11,8 +11,8 @@
     "species": "pumpkin",
     "max_age": 90,
     "time_unit": "days",
-    "total_stages": 4,
-    "icon_stage": 4,
+    "total_stages": 5,
+    "icon_stage": 5,
     "stages": [
       {
         "stage": 1,
@@ -36,7 +36,7 @@
         "stage": 3,
         "name": "medium",
         "age_min": 30,
-        "age_max": 60,
+        "age_max": 54,
         "resource": "stages/crop_medium/",
         "model": "crop_medium_pumpkin.glb",
         "icon": "crop_medium_pumpkin.png"
@@ -44,11 +44,20 @@
       {
         "stage": 4,
         "name": "mature",
-        "age_min": 60,
-        "age_max": 90,
+        "age_min": 54,
+        "age_max": 75,
         "resource": "stages/crop_mature/",
         "model": "crop_mature_pumpkin.glb",
         "icon": "crop_mature_pumpkin.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 75,
+        "age_max": 90,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_pumpkin.glb",
+        "icon": "crop_ripe_pumpkin.png"
       }
     ],
     "rules": {
@@ -56,7 +65,7 @@
         "item_id": "food_pumpkin",
         "amount_min": 1,
         "amount_max": 2,
-        "harvest_stage": 4
+        "harvest_stage": 5
       },
       "planting": {
         "seasons": [

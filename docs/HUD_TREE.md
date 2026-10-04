@@ -438,9 +438,33 @@ Confidence tiers: 95% (days 1-21), 70% (days 22-42), 50% (days 43-56),
 
 **File**: `Assets/Scripts/UI/CursorManager.cs`
 
-Applies custom cursor textures from `cursors.json`. Each cursor has a
-hotspot authored per-image (a tool cursor clicks at its blade, not its
-center). Supports Mono and Color variants.
+Applies custom cursor textures from `cursors.json` (the kit set in
+`assets/hud_kit/cursors/`, copied to `StreamingAssets/HudKit/cursors/`).
+Each cursor has a hotspot authored per-image (a tool cursor clicks at its
+blade, not its center). Variants: Mono (black outline, white interior),
+Color (category-coloured interiors) and Amber (the HUD accent as a gradient
+with a bevel, lit from the upper left, so the cursor looks raised; the
+default). It bootstraps
+itself at startup (no scene object) and scales the 128 px art down to
+`displaySize` (40 px) on load, hotspots included.
+
+### 3.11 CursorHints.cs
+
+**File**: `Assets/Scripts/UI/CursorHints.cs`
+
+Picks the cursor every frame:
+
+| Cursor | When |
+|---|---|
+| `cursor_arrow` | Default |
+| `cursor_finger_point` | Over a clickable HUD element: a Button, Toggle, slider, dropdown, text field, or any element carrying the `clickable` USS class |
+| `cursor_shears` | Sheep shears (`tool_shears_sheepwool`) in the active slot and a sheep that can be sheared under the cursor (`CursorHints.CanBeSheared`; today "a grown sheep", since shearing itself is not in the game yet) |
+| `cursor_hand_open` | Over something in the world a right click picks up: a dropped item or log (`WorldItem`), ripe fruit on a planted or forest tree, berries on a bush |
+
+Elements wired with `RegisterCallback<ClickEvent>` are tagged by calling
+`.Clickable()` on them first (an extension that adds the `clickable` class);
+UI Toolkit cannot be asked whether an element has a click handler. Do the
+same for any new clickable element that is not a Button.
 
 ---
 

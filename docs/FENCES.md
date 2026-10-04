@@ -29,6 +29,10 @@ post at its end), kneeling to work on each for about 2.4 seconds; the section ap
 hotbar then. It stands beside the fence on the side it started on (inside a closed fence if it was inside). Pressing a movement key or Esc stops it:
 what is built stands (saved as a partly built fence), the rest is not made and its materials stay in the hotbar.
 
+## Taking a fence down
+
+Right click a post of a built fence with an axe (anything tagged tool_axe) in the active slot: the post-to-post section nearest the cursor comes down, gates in it with it. A closed loop opens; an open run splits in two. No materials are returned.
+
 ## Gates
 
 Select a gate item (`properties.gate_width_m`, Wood / Metal Farm Gate) and left click a built fence: the fence there is taken out for the gate's

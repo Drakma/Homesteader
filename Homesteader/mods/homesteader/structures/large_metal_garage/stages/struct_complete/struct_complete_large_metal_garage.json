@@ -3,44 +3,52 @@
   "id": "struct_complete_large_metal_garage",
   "name": "Large Metal Garage - Complete",
   "category": "structures",
-  "description": "Fully enclosed large metal workshop garage with light-gray corrugated aluminum siding, black standing seam metal roof, commercial roll-up garage door, and heavy-duty pedestrian entry.",
+  "description": "The complete construction phase of the large metal garage.",
   "icon": "struct_complete_large_metal_garage.png",
   "properties": {
-    "weight_kg": 9500.0,
+    "weight_kg": 9720.0,
     "max_stack_size": 1,
-    "base_value": 18500.0,
+    "base_value": 16200.0,
     "is_consumable": false,
-    "footprint": {
-      "width_m": 9.0,
-      "depth_m": 12.0
-    },
-    "happiness_modifier": 8,
+    "footprint": null,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_complete_large_metal_garage.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 9.0,
+        "y": 5.6,
+        "z": 12.0
+      },
+      "triangles": 3692
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
       "details": "None (unplumbed / dry)"
     },
     "electricity": {
-      "metric": "100A 120/240V Service",
-      "details": "Subpanel connection ready"
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
     },
     "sewage": {
-      "metric": "None (no discharge)",
-      "details": "None (no discharge)"
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
     },
     "battery": {
-      "metric": "None",
-      "details": "None"
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
     },
     "internet": {
-      "metric": "None",
-      "details": "None"
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
     }
   },
   "plugin_metadata": {
@@ -49,16 +57,16 @@
     "compatible_api": "v1"
   },
   "category_fields": {
-    "interior_area_m2": 108.0,
-    "room_count": 1,
+    "interior_area_m2": 25.0,
+    "room_count": 2,
     "dimensions_m": {
       "width": 9.0,
       "depth": 12.0,
-      "height": 5.2
+      "height": 5.6
     },
-    "electrical_service_capacity_w": 24000,
-    "water_supply_capacity_lpm": 0,
-    "roof_area_m2": 113.0,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [],
     "required_tools": []
   }

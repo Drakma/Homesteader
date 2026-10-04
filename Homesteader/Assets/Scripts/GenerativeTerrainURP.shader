@@ -274,9 +274,9 @@ Shader "Homesteader/GenerativeTerrainURP"
             half3 MapleForestTexture(float2 pos, half3 baseTint)
             {
                 half3 soil = half3(0.20, 0.14, 0.08);
-                half3 leafOrange = half3(0.50, 0.28, 0.10);
-                half3 leafBrown  = half3(0.35, 0.20, 0.08);
-                half3 leafRed    = half3(0.45, 0.15, 0.08);
+                half3 leafOrange = half3(0.42, 0.24, 0.09);
+                half3 leafBrown  = half3(0.33, 0.20, 0.09);
+                half3 leafRed    = half3(0.36, 0.14, 0.07);
                 half3 moss       = half3(0.18, 0.30, 0.12);
                 half3 twig      = half3(0.15, 0.10, 0.05);
                 half3 mapleKey  = half3(0.40, 0.25, 0.12);
@@ -323,10 +323,10 @@ Shader "Homesteader/GenerativeTerrainURP"
             // Birch grove floor: pale yellow leaves, white birch bark strips, catkins, sparse ferns
             half3 BirchGroveTexture(float2 pos, half3 baseTint)
             {
-                half3 soil = half3(0.25, 0.22, 0.16);
-                half3 leafPale  = half3(0.68, 0.60, 0.28);
-                half3 leafYellow = half3(0.55, 0.48, 0.18);
-                half3 barkWhite  = half3(0.72, 0.68, 0.58);
+                half3 soil = half3(0.19, 0.14, 0.09);
+                half3 leafPale  = half3(0.42, 0.30, 0.15);
+                half3 leafYellow = half3(0.34, 0.24, 0.11);
+                half3 barkWhite  = half3(0.62, 0.58, 0.50);
                 half3 barkDark   = half3(0.35, 0.30, 0.22);
                 half3 catkin     = half3(0.45, 0.38, 0.20);
                 half3 fern       = half3(0.15, 0.28, 0.10);
@@ -379,7 +379,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                 half3 soil = half3(0.18, 0.12, 0.06);
                 half3 leafDeep  = half3(0.28, 0.16, 0.06);
                 half3 leafBrown = half3(0.40, 0.24, 0.10);
-                half3 leafOlive = half3(0.35, 0.30, 0.12);
+                half3 leafOlive = half3(0.30, 0.24, 0.10);
                 half3 acorn     = half3(0.30, 0.18, 0.08);
                 half3 acornCap  = half3(0.20, 0.12, 0.04);
                 half3 root      = half3(0.25, 0.18, 0.10);
@@ -435,10 +435,10 @@ Shader "Homesteader/GenerativeTerrainURP"
             // Poplar stand floor: golden-yellow leaves, catkins, smooth bark pieces, wind drifts
             half3 PoplarStandTexture(float2 pos, half3 baseTint)
             {
-                half3 soil = half3(0.22, 0.16, 0.08);
-                half3 leafGold   = half3(0.60, 0.46, 0.12);
-                half3 leafYellow = half3(0.52, 0.40, 0.10);
-                half3 leafOrange = half3(0.48, 0.32, 0.08);
+                half3 soil = half3(0.19, 0.13, 0.08);
+                half3 leafGold   = half3(0.42, 0.29, 0.12);
+                half3 leafYellow = half3(0.36, 0.25, 0.10);
+                half3 leafOrange = half3(0.38, 0.23, 0.09);
                 half3 catkin    = half3(0.35, 0.28, 0.12);
                 half3 barkPiece = half3(0.30, 0.25, 0.15);
 
@@ -670,6 +670,57 @@ Shader "Homesteader/GenerativeTerrainURP"
             }
 
             // Get procedural texture for a given biome mode
+            // Fallen sticks lying at random angles: cells of `size` metres, each with at most one stick (probability `prob`) at a random place, turned a
+            // random way, between lenMin and lenMax long. The 3x3 cells round the point are searched, so a stick crosses cell borders without a cut.
+            half3 ScatterSticks(float2 pos, half3 col, float size, float prob, float lenMin, float lenMax, float thMin, float thMax, float seed, half3 woodA, half3 woodB, float aa)
+            {
+                // one stick per cell, kept inside its cell (the centre is at least 0.2 cell from every border and lenMax is at most 0.4 cell), so only
+                // the pixel's own cell has to be looked at: this runs for every forest pixel on the screen
+                float2 cell = floor(pos / size);
+                float2 r = ForestHash2(cell + seed);
+                if (r.x > prob) return col;
+                float2 r2 = ForestHash2(cell + seed * 1.7 + 17.7);
+                float2 centre = (cell + 0.2 + 0.6 * r2) * size;
+                float ang = r.y * 6.2832;
+                float2 dir = float2(cos(ang), sin(ang));
+                float halfLen = 0.5 * lerp(lenMin, lenMax, r2.x);
+                float2 d = pos - centre;
+                float along = clamp(dot(d, dir), -halfLen, halfLen);
+                float dist = length(d - dir * along);
+                float th = lerp(thMin, thMax, r2.y);
+                float m = smoothstep(th, th * 0.35, dist);
+                half3 wood = lerp(woodA, woodB, frac(r2.x * 7.3 + r2.y * 3.1));
+                return lerp(col, wood, m * 0.9 * aa);
+            }
+
+            // Scattered forest debris over a forest floor: fallen sticks and branches at random angles, leaf clumps of two browns, flecks of bark and
+            // the odd pale patch of rotting wood. Hashed per cell, so it is random, not a pattern; it fades out where a pixel covers many of them.
+            half3 ForestDebris(float2 pos, half3 col)
+            {
+                float aa = saturate(1.0 - length(fwidth(pos)) * 3.0);
+                // leaf clumps: soft blobs a few tens of centimetres across
+                float2 lc = floor(pos / 2.3 + 40.0);
+                float2 lr = ForestHash2(lc);
+                float2 lf = frac(pos / 2.3 + 40.0) - 0.5 - (lr - 0.5) * 0.5;
+                float blob = smoothstep(0.36 + 0.1 * lr.y, 0.1, length(lf) + (SnowValueNoise(pos * 3.0) - 0.5) * 0.16);
+                half3 clump = lerp(half3(0.22, 0.13, 0.06), half3(0.34, 0.20, 0.08), lr.y);
+                col = lerp(col, clump, blob * step(lr.x, 0.55) * 0.55);
+                // pale rotting wood
+                float2 rc = floor(pos / 5.3 + 13.0);
+                float2 rr = ForestHash2(rc);
+                float2 rf = frac(pos / 5.3 + 13.0) - 0.5 - (rr - 0.5) * 0.4;
+                col = lerp(col, half3(0.42, 0.36, 0.28), smoothstep(0.1, 0.03, length(rf * float2(1.0, 2.2))) * step(rr.x, 0.18) * 0.5 * aa);
+                // bark flecks
+                float2 bc = floor(pos / 0.45 + 70.0);
+                float2 br = ForestHash2(bc);
+                float2 bf = frac(pos / 0.45 + 70.0) - 0.5 - (br - 0.5) * 0.5;
+                col = lerp(col, half3(0.30, 0.15, 0.08), smoothstep(0.1, 0.04, length(bf)) * step(br.x, 0.22) * 0.8 * aa);
+                // twigs and branches
+                col = ScatterSticks(pos, col, 1.7, 0.6, 0.3, 0.65, 0.014, 0.03, 3.0, half3(0.14, 0.09, 0.05), half3(0.28, 0.19, 0.11), aa);
+                col = ScatterSticks(pos, col, 6.0, 0.35, 1.2, 2.3, 0.04, 0.08, 9.0, half3(0.20, 0.13, 0.07), half3(0.34, 0.26, 0.17), aa);
+                return col;
+            }
+
             half3 GetBiomeTexture(float mode, float2 pos)
             {
                 half3 c;
@@ -704,7 +755,11 @@ Shader "Homesteader/GenerativeTerrainURP"
                 else if (mode < 14.5)
                     c = PoplarStandTexture(pos, half3(0,0,0));      // 14: poplar
                 else if (mode < 15.5)
-                    c = PoplarStandTexture(pos, half3(0,0,0));      // 15: mixed (use poplar as base)
+                    {
+                        // 15: mixed: patches of oak floor and of pine needles (ONE of the two per pixel: evaluating both doubled the cost of every mixed forest pixel)
+                        if (SnowValueNoise(pos * 0.03 + 7.0) > 0.5) c = OakWoodlandTexture(pos, half3(0,0,0));
+                        else c = PineNeedleTexture(pos, half3(0,0,0));
+                    }
                 else if (mode < 16.5)
                     c = WillowGroveTexture(pos, half3(0,0,0));      // 16: willow grove
                 else if (mode < 17.5)
@@ -739,12 +794,18 @@ Shader "Homesteader/GenerativeTerrainURP"
             // (The loop over the distinct modes is a real loop: see below.)
             float _TerrainBlendQuality;   // set globally by the graphics preset: 0 = hard biome edges (one texture per pixel), 1 = the soft blend
 
+            // maple, birch, oak, pine, poplar and mixed forests: the modes whose floor carries the scattered debris (added ONCE per pixel, after the blend)
+            float IsForestMode(float mode) { return ((mode > 6.5 && mode < 10.5) || (mode > 13.5 && mode < 15.5)) ? 1.0 : 0.0; }
+
             half3 BlendedBiomeGround(float2 localXZ, float2 worldXZ)
             {
                 if (_TerrainBlendQuality < 0.5)
                 {
                     float a0 = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, localXZ / _TerrainBounds.xy, 0).a;
-                    return BiomeLandColor(floor(a0 * 18.0), worldXZ);
+                    float m0 = floor(a0 * 18.0);
+                    half3 c0 = BiomeLandColor(m0, worldXZ);
+                    if (IsForestMode(m0) > 0.5) c0 = ForestDebris(worldXZ, c0);
+                    return c0;
                 }
                 const float cell = 3.0;
                 float2 g = localXZ / cell - 0.5;
@@ -780,7 +841,7 @@ Shader "Homesteader/GenerativeTerrainURP"
                 [unroll] for (int k2 = 0; k2 < 4; k2++) if (k2 != i1 && mw[k2] > w2) { w2 = mw[k2]; i2 = k2; }
                 // a real loop of at most two passes, so the big per-biome texture code is compiled once (see the note on compile time above)
                 half3 col = half3(0, 0, 0);
-                float used = 0.0;
+                float used = 0.0, forestW = 0.0;
                 [loop] for (int pi = 0; pi < 2; pi++)
                 {
                     int idx = pi == 0 ? i1 : i2;
@@ -788,8 +849,12 @@ Shader "Homesteader/GenerativeTerrainURP"
                     if (idx < 0 || wgt <= 0.02) continue;
                     col += BiomeLandColor(ms[idx], worldXZ) * wgt;
                     used += wgt;
+                    forestW += IsForestMode(ms[idx]) * wgt;
                 }
-                return col / max(used, 1e-4);
+                half3 blended = col / max(used, 1e-4);
+                float fw = forestW / max(used, 1e-4);
+                if (fw > 0.02) blended = lerp(blended, ForestDebris(worldXZ, blended), fw);   // the debris, once per pixel
+                return blended;
             }
 
             // Footprint mask written by SnowFootprints.cs: R = print strength, top-down over the terrain.

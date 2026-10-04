@@ -1,0 +1,14 @@
+{
+  "file": "Smoke_On_The_Ridge.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 92 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 92 seconds, not cut off mid-song and with NO fade-out. Heavy classic rock instrumental, 116 BPM: thick fuzz guitar riff, pounding drums, growling bass, organ swells, extended guitar solo.",
+  "requested_prompt": "Heavy classic rock instrumental, 116 BPM: thick fuzz guitar riff, pounding drums, growling bass, organ swells, extended guitar solo.",
+  "requested_duration_seconds": 92,
+  "generated_at": "2026-10-03T20:00:29.330Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Smoke_On_The_Ridge.mp4",
+  "bytes": 2904651,
+  "sha256": "64fa9589d001d246413b6bdc150e7adcfd6eea4e96d0e2eed131f7caf8b88384",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

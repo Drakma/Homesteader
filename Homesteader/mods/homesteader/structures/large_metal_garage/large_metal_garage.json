@@ -64,5 +64,18 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 1500,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
   }
 }

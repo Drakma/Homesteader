@@ -1,0 +1,130 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_light_fluorescent_4bulb",
+  "name": "Fluorescent Light (4 Bulb)",
+  "category": "electricity",
+  "description": "A 4-tube fluorescent fixture: a bright white light with a wide, deep throw that sputters for a few seconds when it comes on. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+  "icon": "electricity_light_fluorescent_4bulb.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 10,
+    "base_value": 80,
+    "is_consumable": false,
+    "footprint": "1.20m W x 0.33m D x 0.07m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "ceiling",
+    "attach_side": "interior"
+  },
+  "models": [
+    {
+      "file": "electricity_light_fluorescent_4bulb.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.2,
+        "y": 0.075,
+        "z": 0.33
+      },
+      "triangles": 244
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.2,
+      "depth": 0.33,
+      "height": 0.075
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 0,
+    "tank_capacity_l": 0
+  },
+  "lights": [
+    {
+      "id": "tube1",
+      "color": "#F2F7FF",
+      "intensity": 8.0,
+      "range_m": 20.0,
+      "offset_m": [
+        -0.3,
+        -0.14,
+        0.0
+      ],
+      "on": "always",
+      "power_w": 64,
+      "flicker": 0.05,
+      "startup_flicker": 0.85,
+      "startup_seconds": 3.0,
+      "min_level": 0.2,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    },
+    {
+      "id": "tube2",
+      "color": "#F2F7FF",
+      "intensity": 8.0,
+      "range_m": 20.0,
+      "offset_m": [
+        0.3,
+        -0.14,
+        0.0
+      ],
+      "on": "always",
+      "power_w": 64,
+      "flicker": 0.05,
+      "startup_flicker": 0.85,
+      "startup_seconds": 3.0,
+      "min_level": 0.2,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ]
+}

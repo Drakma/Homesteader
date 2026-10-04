@@ -1,0 +1,15 @@
+{
+  "file": "Intro_Quiet_Pasture.wav",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. About 120 seconds long. It must work as a seamless background loop: one steady, continuous texture at a constant tempo and in a single key from the first second to the last, with no intro build-up, no breakdown, no key change, no big finale, no fade-in and no fade-out, so that the end can be joined straight back to the start. Very serene, peaceful ambient pastoral piece at about 56 BPM in a major key: a slow, gentle fingerpicked acoustic guitar pattern with long ringing notes, a soft warm synth pad underneath, occasional sparse glockenspiel or harp notes, a faint bed of evening crickets and a light breeze kept very quiet. No drums, no percussion, no bass drops, no piano. Golden evening light over a quiet pasture: still, warm, contented and unhurried.",
+  "requested_prompt": "Very serene, peaceful ambient pastoral piece at about 56 BPM in a major key: a slow, gentle fingerpicked acoustic guitar pattern with long ringing notes, a soft warm synth pad underneath, occasional sparse glockenspiel or harp notes, a faint bed of evening crickets and a light breeze kept very quiet. No drums, no percussion, no bass drops, no piano. Golden evening light over a quiet pasture: still, warm, contented and unhurried.",
+  "requested_duration_seconds": 120,
+  "generated_at": "2026-10-04T03:06:03.303Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Intro_Quiet_Pasture.mp4",
+  "bytes": 3701635,
+  "sha256": "30fdd2294c1aefb35c8a0e3e77cac23e3b912c8fbe21758192ab1da705e5f1d7",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in",
+  "loop_processing": "seamless loop: 5s trimmed from each end of the 119.2s source, last 8s crossfaded (equal power) into the first 8s; loop length 101.17s; source MP3 kept at tools/gemini_music_mcp/raw/Intro_Quiet_Pasture.mp3"
+}

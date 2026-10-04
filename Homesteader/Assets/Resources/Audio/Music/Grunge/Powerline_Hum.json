@@ -1,0 +1,14 @@
+{
+  "file": "Powerline_Hum.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 114 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 114 seconds, not cut off mid-song and with NO fade-out. Noisy grunge instrumental, 108 BPM: dissonant guitar riff, feedback, punchy bass, aggressive drums, tense and restless.",
+  "requested_prompt": "Noisy grunge instrumental, 108 BPM: dissonant guitar riff, feedback, punchy bass, aggressive drums, tense and restless.",
+  "requested_duration_seconds": 114,
+  "generated_at": "2026-10-03T20:15:13.855Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Powerline_Hum.mp4",
+  "bytes": 3303711,
+  "sha256": "aaa466189f0c9e399717356a73600e974864b0c6c8fa3d07eb8aa6420c7399e4",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

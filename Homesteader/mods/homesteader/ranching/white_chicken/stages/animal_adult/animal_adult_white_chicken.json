@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_adult_white_chicken",
-  "name": "Animal Chicken White",
+  "name": "White Chicken - Adult",
   "category": "ranching",
-  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "description": "The adult stage of the white chicken.",
   "icon": "animal_adult_white_chicken.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,72 +19,24 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Chicken_White.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SKM_Animal_Chicken_White.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SKM_Animal_Chicken_White.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 33.0,
-        "y": 67.2,
-        "z": 59.0
-      },
+      "file": "white_chicken_adult_female.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.33,
-        "y": 0.67,
-        "z": 0.59
+        "x": 0.231,
+        "y": 0.42,
+        "z": 0.42
       },
-      "vertices": 192,
-      "faces": 140,
-      "bounding_box": {
-        "min": [
-          -16.5,
-          -35.200001,
-          0.0
-        ],
-        "max": [
-          16.5,
-          31.999996,
-          59.0
-        ]
-      }
+      "triangles": 4027
     },
     {
-      "file": "SM_Animal_Chicken_White.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Chicken_White.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 27.0,
-        "y": 58.0,
-        "z": 54.0
-      },
+      "file": "white_chicken_adult_male.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.27,
-        "y": 0.58,
-        "z": 0.54
+        "x": 0.274,
+        "y": 0.6,
+        "z": 0.599
       },
-      "vertices": 104,
-      "faces": 160,
-      "bounding_box": {
-        "min": [
-          -13.5,
-          -30.0,
-          0.0
-        ],
-        "max": [
-          13.5,
-          28.0,
-          54.0
-        ]
-      }
+      "triangles": 4136
     }
   ],
   "utilities": {

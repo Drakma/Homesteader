@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_calf_holstein_cow",
-  "name": "Holstein Cow Calf",
+  "name": "Holstein Cow - Calf",
   "category": "ranching",
-  "description": "A Holstein cattle calf, the baby stage of the Holstein-breed cow. Contact sheet generated via Gemini (gemini.google.com), cropped to one animal, then used as the reference image for Meshy AI image-to-3D (smart-topology model meshy-t2, textured).",
+  "description": "The calf stage of the holstein cow.",
   "icon": "animal_calf_holstein_cow.png",
   "properties": {
     "weight_kg": 1.0,
@@ -11,7 +11,7 @@
     "base_value": 10.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 8,
+    "happiness_modifier": 5,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,15 +19,22 @@
   },
   "models": [
     {
-      "file": "SM_Animal_Cow_Holstein_Calf.glb",
+      "file": "holstein_cow_calf.glb",
       "format": "glb",
-      "dimensions_m": { "x": 0.5938, "y": 0.9, "z": 1.3943 },
-      "vertices": 3886,
-      "faces": 4272,
-      "bounding_box": {
-        "min": [-0.2969, 0.0, -0.6972],
-        "max": [0.2969, 0.9, 0.6972]
-      }
+      "dimensions_m": {
+        "x": 0.438,
+        "y": 0.85,
+        "z": 1.195
+      },
+      "triangles": 4416,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -59,14 +66,14 @@
   },
   "category_fields": {
     "species": "cow",
-    "produces": "",
-    "gender": "unspecified",
+    "produces": "milk",
+    "gender": "female",
     "temperament": "passive",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 0.5938,
-      "depth": 1.3943,
-      "height": 0.9
+      "width": 0.6984,
+      "depth": 2.2855,
+      "height": 1.48
     }
   }
 }

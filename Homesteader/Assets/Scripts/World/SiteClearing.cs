@@ -55,12 +55,7 @@ namespace Homesteader.World
             BerryBushes.ClearIn(inside);
             ForestSolids.ClearRocksIn(inside);
 
-            foreach (PlantedGrowth p in new List<PlantedGrowth>(PlantedGrowth.All))
-            {
-                if (p == null || !inside(p.transform.position.x, p.transform.position.z)) continue;
-                PlantedGrowth.All.Remove(p);
-                Object.Destroy(p.gameObject);
-            }
+            // Plantables are treated like placed objects: never cleared (what the player planted stays; builders refuse to start over it).
             ForestSolids.MarkDirty();
         }
     }

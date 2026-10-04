@@ -1,0 +1,14 @@
+{
+  "file": "Sleigh_Bell_Lane.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 95 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 95 seconds, not cut off mid-song and with NO fade-out. Upbeat festive winter instrumental, 132 BPM: jingling sleigh bells, bouncy walking bass, bright brass section stabs, swinging big-band drums, cheerful sleigh ride through the countryside. Entirely original melody: not an arrangement of, and not resembling, any existing carol, hymn or holiday song. Secular winter mood only.",
+  "requested_prompt": "Upbeat festive winter instrumental, 132 BPM: jingling sleigh bells, bouncy walking bass, bright brass section stabs, swinging big-band drums, cheerful sleigh ride through the countryside. Entirely original melody: not an arrangement of, and not resembling, any existing carol, hymn or holiday song. Secular winter mood only.",
+  "requested_duration_seconds": 95,
+  "generated_at": "2026-10-04T01:19:15.857Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Sleigh_Bell_Lane.mp4",
+  "bytes": 3001875,
+  "sha256": "23078dafc4053e1f524d6c2186bd3dfa5e42ffa11c1dbf7020eb91c02641332b",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

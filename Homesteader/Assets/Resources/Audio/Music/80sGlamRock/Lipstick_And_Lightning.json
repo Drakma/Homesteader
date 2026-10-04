@@ -1,0 +1,14 @@
+{
+  "file": "Lipstick_And_Lightning.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 116 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 116 seconds, not cut off mid-song and with NO fade-out. Fast 1980s glam rock instrumental, 150 BPM: galloping rhythm guitars, double-time drums, tapping guitar solo, melodic bass runs, big stadium chorus riff, flashy and fun.",
+  "requested_prompt": "Fast 1980s glam rock instrumental, 150 BPM: galloping rhythm guitars, double-time drums, tapping guitar solo, melodic bass runs, big stadium chorus riff, flashy and fun.",
+  "requested_duration_seconds": 116,
+  "generated_at": "2026-10-03T21:49:00.981Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Lipstick_And_Lightning.mp4",
+  "bytes": 3630849,
+  "sha256": "ebf2268a4b7c160391c613f847f592eb049041c05b06b07a341536b922b2cb13",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

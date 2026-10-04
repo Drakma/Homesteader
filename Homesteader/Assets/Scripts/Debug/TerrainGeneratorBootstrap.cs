@@ -121,19 +121,35 @@ namespace Homesteader.DebugTools
 
             var generator = terrainGO.AddComponent<HomesteaderTerrainGenerator>();
             generator.SetupDefaultBiomes();
-            if (SeedOverride > 0)
+            // The world is regenerated from its seed, so a save's seed must be used however the scene came to load (Continue, Load, Play in
+            // the editor, a reload): the menu hands it over through SeedOverride, but any other path would otherwise build the default
+            // seed's world and put the save's buildings on different ground. So when nothing was handed over, read it from the save itself.
+            int seed = SeedOverride;
+            string loadPath = Homesteader.Save.SaveSlots.ResolveLoadPath();   // the save picked in the Load list, else the newest; makes its game the current one
+            if (seed <= 0 && loadPath != null)
             {
-                generator.worldSeed = SeedOverride;
+                Homesteader.Save.GameSave saved = Homesteader.Save.GameSave.ReadFrom(loadPath);
+                if (saved != null && saved.worldSeed > 0) seed = saved.worldSeed;
+            }
+            if (seed > 0)
+            {
+                generator.worldSeed = seed;
                 generator.InvalidateSeedCache();
-                Debug.Log($"[TerrainGeneratorBootstrap] Using the saved world seed {SeedOverride}.");
+                Debug.Log($"[TerrainGeneratorBootstrap] Using the saved world seed {seed}.");
                 SeedOverride = 0;
             }
+            // continuing a world: its generated ground comes from the snapshot saved beside the save (the generator checks that it fits)
+            if (loadPath != null) generator.PendingSnapshot = WorldSnapshot.TryRead();
 
             // Always generate synchronously. If a New Game is pending, the
             // WelcomeMenuController will regenerate with the new seed + a
             // progress bar afterward. This avoids leaving an empty terrain
             // (grid-only shader) if the async path is interrupted.
-            generator.GenerateTerrain();
+            // A Continue / Load reloads the scene: its world is built by the welcome menu behind the loading bar (async, with progress) instead of
+            // here, where the whole generation would freeze the screen before the bar could even be drawn.
+            bool deferred = Homesteader.UI.WelcomeMenuController.DeferWorldGeneration;
+            Homesteader.UI.WelcomeMenuController.DeferWorldGeneration = false;
+            if (!deferred) generator.GenerateTerrain();
 
             var terrainCollider = terrainGO.GetComponent<TerrainCollider>();
             if (terrainCollider == null)

@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_piglet_duroc_pig",
-  "name": "Duroc Piglet",
+  "name": "Duroc Pig - Piglet",
   "category": "ranching",
-  "description": "A Duroc piglet, the baby stage of the Duroc-breed pig. Icon generated via Creative Claw as part of a batched contact sheet, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "description": "The piglet stage of the duroc pig.",
   "icon": "animal_piglet_duroc_pig.png",
   "properties": {
     "weight_kg": 1.0,
@@ -11,7 +11,7 @@
     "base_value": 10.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 8,
+    "happiness_modifier": 5,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,8 +19,22 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Pig_Duroc_Piglet.fbx",
-      "format": "fbx"
+      "file": "duroc_pig_piglet.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.237,
+        "y": 0.3,
+        "z": 0.484
+      },
+      "triangles": 4251,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -57,9 +71,9 @@
     "temperament": "passive",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 0.2,
-      "depth": 0.4,
-      "height": 0.25
+      "width": 0.54,
+      "depth": 1.14,
+      "height": 0.7
     }
   }
 }

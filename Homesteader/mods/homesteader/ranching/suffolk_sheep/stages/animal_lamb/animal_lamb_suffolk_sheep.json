@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_lamb_suffolk_sheep",
-  "name": "Suffolk Lamb",
+  "name": "Suffolk Sheep - Lamb",
   "category": "ranching",
-  "description": "A young Suffolk lamb with a black face, black legs, and a puffy white wool coat.",
+  "description": "The lamb stage of the suffolk sheep.",
   "icon": "animal_lamb_suffolk_sheep.png",
   "properties": {
-    "weight_kg": 25.0,
-    "max_stack_size": 1,
-    "base_value": 90.0,
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 8,
+    "happiness_modifier": 5,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,8 +19,22 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Lamb_Suffolk.fbx",
-      "format": "fbx"
+      "file": "suffolk_sheep_lamb.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.252,
+        "y": 0.45,
+        "z": 0.692
+      },
+      "triangles": 4266,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -52,14 +66,14 @@
   },
   "category_fields": {
     "species": "sheep",
-    "produces": "",
-    "gender": "unspecified",
+    "produces": "wool",
+    "gender": "female",
     "temperament": "passive",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 0.25,
-      "depth": 0.55,
-      "height": 0.45
+      "width": 0.58,
+      "depth": 1.32,
+      "height": 1.04
     }
   }
 }

@@ -4,7 +4,7 @@
     "vehicle_type": {
       "type": "string",
       "required": true,
-      "note": "pickup, tractor, combine, excavator, skid_steer, sawmill, trailer"
+      "note": "pickup, utv, tractor, combine, excavator, skid_steer, sawmill, trailer"
     },
     "fuel_type": {
       "type": "string",

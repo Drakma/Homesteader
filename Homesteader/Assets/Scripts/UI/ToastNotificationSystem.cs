@@ -268,7 +268,7 @@ namespace Homesteader.UI
             };
 
             // Click to dismiss early (or dismiss severe toast)
-            toastElem.RegisterCallback<ClickEvent>(evt =>
+            toastElem.Clickable().RegisterCallback<ClickEvent>(evt =>
             {
                 DismissToast(activeToast);
             });

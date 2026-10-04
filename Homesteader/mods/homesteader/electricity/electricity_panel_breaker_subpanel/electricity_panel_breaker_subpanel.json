@@ -3,34 +3,39 @@
   "id": "electricity_panel_breaker_subpanel",
   "name": "Outdoor Breaker Subpanel",
   "category": "electricity",
-  "description": "Weatherproof electrical subpanel.",
+  "description": "A weatherproof breaker box. Mount it on the OUTSIDE of a building (left click a wall with it in hand) to bring electricity to that building: its lights then work.",
   "icon": "electricity_panel_breaker_subpanel.png",
   "properties": {
     "weight_kg": 12.0,
-    "max_stack_size": 1,
+    "max_stack_size": 10,
     "base_value": 150,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.40m W x 0.15m D x 0.60m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true,
+    "placeable": false,
     "is_buyable": true,
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "exterior",
+    "provides_power": true
   },
   "models": [
     {
-      "file": "panel_breaker_subpanel.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "panel_breaker_subpanel.obj",
-      "format": "obj"
+      "file": "electricity_panel_breaker_subpanel.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.4,
+        "y": 0.6,
+        "z": 0.15
+      },
+      "triangles": 112
     }
   ],
   "utilities": {

@@ -1,7 +1,9 @@
-# Panel Breaker Subpanel
+# Outdoor Breaker Subpanel
 
 **Item ID:** `electricity_panel_breaker_subpanel`  
 **Category:** `electricity`  
-**Icon:** ![Panel Breaker Subpanel](electricity_panel_breaker_subpanel.png)
+**Icon:** ![Outdoor Breaker Subpanel](electricity_panel_breaker_subpanel.png)
 
-Standardized Homesteader asset manifest for `electricity_panel_breaker_subpanel`.
+A weatherproof breaker box. Mount it on the OUTSIDE of a building (left click a wall with it in hand) to bring electricity to that building: its lights then work.
+
+Mounts on a wall (exterior side). See docs/ATTACHED_ITEMS.md.

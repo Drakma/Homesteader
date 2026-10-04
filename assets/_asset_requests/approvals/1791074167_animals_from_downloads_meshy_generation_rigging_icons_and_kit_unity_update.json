@@ -1,0 +1,28 @@
+{
+  "id": "1791074167_animals_from_downloads_meshy_generation_rigging_icons_and_kit_unity_update",
+  "title": "Animals from Downloads: Meshy generation, rigging, icons and kit/Unity update",
+  "plan": [
+    "Done (free): the 28 sheets in Downloads/animals are split into 112 single-animal images (baby, juvenile, adult female, adult male per breed), neighbours whitened out. Crops: assets/_scratch/animals/<breed>/<stage>.png",
+    "Meshy balance now: 1,143 credits.",
+    "Per animal: image-to-3D with meshy-t2 smart-topology + texture = 15 credits, then rigging = 5 credits (walking and running animations included free). 20 credits per rigged animal.",
+    "Rigging is built for humanoids: four-legged animals may be refused or rig badly, and poultry (two legs and wings) is least likely to work. So STEP 1 is a PILOT of one animal (Holstein adult female): 20 credits. If it rigs and walks, the rest follows; if not, the animals are generated unrigged (15 credits each) and I report back before spending more.",
+    "Poultry (turkey, 3 chickens: 16 animals) are generated as models only unless the pilot shows they rig (15 credits each).",
+    "Full set: 112 animals = 2,240 credits (mesh + rig), more than the balance (shortfall 1,097). Proposed first run inside the balance: ADULTS only (female and male of every breed) = 24 four-legged breeds x 2 x 20 = 960, plus 4 poultry breeds x 2 x 15 = 120: 1,080 credits (leaves 63). Babies and juveniles in a second run when credits allow.",
+    "Each model: scaled to a realistic height and grounded in Blender, poly count checked (under 5,000 triangles), gait matched to walking speed (no foot skating), looping clips checked, icon rendered from the model.",
+    "Asset kit: ONE growth group per breed. Baby and yearling are sexless; the juvenile image becomes the yearling stage (created for the 16 of 18 existing groups that have none: stage folder, manifest, icon, stage list; ages baby 0-90, yearling 90-365, adult 365-730 unless the group has its own). The final stage (adult) carries the female/male choice itself: its `sexes` list (female 80% / male 20%) names both models, which sit in the same stage folder (female = the old adult model's place, replaced; male next to it). The old separate male items/groups (e.g. the Holstein bull, the black and white billy goat) are folded into their breed's group. Breeds not in the kit yet (donkey, ox, alpaca, black and white cat, border collie, australian shepherd, great pyrenees, painted/arabian/draft horse, turkey, ...) are created as new groups with baby, yearling and adult (female and male) stages.",
+    "Then regenerate the catalog, package the mods and check them in Unity."
+  ],
+  "cost": {
+    "pilot_credits": 20,
+    "adults_run_credits": 1080,
+    "full_set_credits": 2240,
+    "balance_credits": 1143,
+    "per_animal": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15,
+      "rigging_with_walk_and_run": 5
+    }
+  },
+  "status": "denied",
+  "created_at": "2026-10-04T00:36:07Z",
+  "resolved_at": "2026-10-04T02:49:24Z"
+}

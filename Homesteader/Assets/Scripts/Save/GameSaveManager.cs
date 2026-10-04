@@ -16,7 +16,7 @@ namespace Homesteader.Save
     /// Only after that does it autosave (every <see cref="autosaveSeconds"/> real seconds, when Play stops or the app pauses
     /// or quits, and on F9), so a fresh world can never overwrite a save that has not been restored yet.
     ///
-    /// The file is Application.persistentDataPath/Saves/autosave.json (previous good one: autosave.bak.json). Delete it to
+    /// The files are in the Saves folder next to the game (see SaveSlots.cs and docs/SAVE_GAME.md). Delete them to
     /// start a new game. Bootstraps itself; see docs/SAVE_GAME.md.
     /// </summary>
     public sealed class GameSaveManager : MonoBehaviour
@@ -24,6 +24,10 @@ namespace Homesteader.Save
         public float autosaveSeconds = 30f;
 
         public static bool Restored { get; private set; }
+        /// <summary>How far the load of a save has got (0 to 1) and what it is doing: the welcome menu's progress bar shows them.</summary>
+        public static float LoadProgress { get; private set; }
+        public static string LoadPhase { get; private set; } = "";
+        private static void Step(float progress, string phase) { LoadProgress = progress; LoadPhase = phase; }
         private float nextSave;
 
         private static bool s_hooked;
@@ -35,6 +39,7 @@ namespace Homesteader.Save
         private static void Bootstrap()
         {
             Restored = false;
+            Step(0f, "Loading...");
             // New Game and Continue reload the scene after destroying the old manager. AfterSceneLoad only runs once when the
             // game starts, so without this hook nothing re-created the manager: no autosave, no save on quit, and the
             // placed objects and toolbar of that session were never written.
@@ -62,6 +67,7 @@ namespace Homesteader.Save
             {
                 bool ready = ModManager.Instance != null && ModManager.Instance.LoadComplete
                              && Terrain.activeTerrain != null
+                             && (FindAnyObjectByType<Homesteader.Generation.HomesteaderTerrainGenerator>() == null || FindAnyObjectByType<Homesteader.Generation.HomesteaderTerrainGenerator>().Generated)
                              && FindAnyObjectByType<PedController>() != null
                              && HudBindings.Instance != null
                              && TimeSystem.Instance != null;
@@ -70,11 +76,25 @@ namespace Homesteader.Save
             }
             yield return new WaitForSecondsRealtime(1.0f);   // let the world settle (ground colliders, ped controller)
 
-            GameSave save = GameSave.ReadFromDisk();
+            string loadPath = SaveSlots.ResolveLoadPath();   // the save picked in the Load list, else the newest (also makes its game the current one)
+            SaveSlots.PendingLoadPath = null;
+            GameSave save = GameSave.ReadFrom(loadPath);
             if (save != null)
             {
+                if (!string.IsNullOrEmpty(save.gameName)) SaveSlots.CurrentName = save.gameName;
                 yield return ApplySave(save);
-                Debug.Log($"[Save] restored the game saved {save.savedAtUtc} ({save.plants.Count} plants, {save.placed.Count} placed).");
+                // everything must be standing before the load screen goes: the buildings' models put up, the ground graded under them, the
+                // objects set down onto the ground as it is now
+                Step(0.85f, "Raising buildings...");
+                float upUntil = Time.realtimeSinceStartup + 40f;
+                while (ConstructionSite.AnyModelPending && Time.realtimeSinceStartup < upUntil) yield return null;
+                yield return new WaitForSecondsRealtime(0.3f);
+                Step(0.95f, "Settling objects...");
+                PlacedObject.SettleOnGround();
+                yield return null;
+                PlacedObject.SettleOnGround();
+                Step(1f, "Ready");
+                Debug.Log($"[Save] restored '{SaveSlots.CurrentName}' saved {save.savedAtUtc} ({save.plants.Count} plants, {save.placed.Count} placed) from {System.IO.Path.GetFileName(loadPath)}.");
             }
             else
             {
@@ -86,26 +106,25 @@ namespace Homesteader.Save
                 Homesteader.Audio.AudioManager.Instance.StartMusicAfterLoad(save == null || (save.musicPlaying && string.IsNullOrEmpty(save.radioStation)));
 
             Restored = true;
-            nextSave = Time.realtimeSinceStartup + autosaveSeconds;
+            s_lastAuto = Time.realtimeSinceStartup;
+            StartCoroutine(ThumbnailLoop());
         }
 
         private void Update()
         {
             if (!Restored) return;
-            if (Time.realtimeSinceStartup >= nextSave)
-            {
-                SaveNow();
-                nextSave = Time.realtimeSinceStartup + autosaveSeconds;
-            }
+            // the interval is read every frame, so a change in Settings > General > Saving applies at once (it counts from the last autosave)
+            if (Time.realtimeSinceStartup - s_lastAuto >= SaveSlots.AutosaveMinutes * 60f)
+                SaveNow(true);
             if (SavePressed() && !HudBindings.KeyboardCaptured)
             {
-                SaveNow();
-                ToastNotificationSystem.ShowWarning("Game saved", "Your progress is saved.");
+                SaveNow(false);
+                ToastNotificationSystem.ShowWarning("Game saved", "Saved as \"" + SaveSlots.CurrentName + "\".");
             }
         }
 
-        private void OnApplicationPause(bool paused) { if (paused && Restored) SaveNow(); }
-        private void OnApplicationQuit() { if (Restored) SaveNow(); }
+        private void OnApplicationPause(bool paused) { if (paused && Restored && Time.realtimeSinceStartup - s_lastSave > 30f) SaveNow(true); }   // (not on every focus change: it would roll the real autosaves away)
+        private void OnApplicationQuit() { if (Restored) SaveNow(true); }
 
         private static bool SavePressed()
         {
@@ -137,11 +156,59 @@ namespace Homesteader.Save
             Homesteader.World.DeliveryService.Reset();
         }
 
-        public static void SaveNow()
+        /// <summary>
+        /// Saves the game. An autosave goes to Name-autosave.1 after rolling the older ones up (the oldest past the number kept is deleted); a
+        /// manual save (the Save button, F9) goes to Name. Each gets the latest picture of the game beside it.
+        /// </summary>
+        private static float s_lastSave = -1000f, s_lastAuto;
+
+        public static void SaveNow(bool autosave = false)
         {
-            try { Capture().WriteToDisk(); }
+            s_lastSave = Time.realtimeSinceStartup;
+            if (autosave) s_lastAuto = s_lastSave;
+            try
+            {
+                GameSave save = Capture();
+                save.gameName = SaveSlots.CurrentName;
+                string path;
+                if (autosave) { SaveSlots.RollAutosaves(SaveSlots.CurrentName); path = SaveSlots.AutoPath(SaveSlots.CurrentName, 1); }
+                else path = SaveSlots.ManualPath(SaveSlots.CurrentName);
+                save.WriteTo(path);
+                SaveSlots.WriteThumb(path);
+            }
             catch (System.Exception e) { Debug.LogWarning("[Save] could not save: " + e.Message); }
             SaveWorldSnapshot();
+        }
+
+        /// <summary>
+        /// Takes a small picture of the game every 45 seconds while it is being played (a screen read-back stalls the frame for a moment, so not oftener) (not while a menu covers it), the one saved beside a save and
+        /// shown in the Load list.
+        /// </summary>
+        private IEnumerator ThumbnailLoop()
+        {
+            while (true)
+            {
+                yield return new WaitForSecondsRealtime(SaveSlots.Thumbnail == null ? 5f : 45f);
+                if (!Restored || Homesteader.UI.WelcomeMenuController.MenuOpen || Homesteader.UI.WelcomeMenuController.IsLoading) continue;
+                yield return new WaitForEndOfFrame();
+                Texture2D shot = null;
+                try { shot = ScreenCapture.CaptureScreenshotAsTexture(); }
+                catch (System.Exception) { }
+                if (shot == null) continue;
+                const int w = 384, h = 216;
+                var rt = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32);
+                Graphics.Blit(shot, rt);
+                RenderTexture prev = RenderTexture.active;
+                RenderTexture.active = rt;
+                var small = new Texture2D(w, h, TextureFormat.RGB24, false);
+                small.ReadPixels(new Rect(0, 0, w, h), 0, 0);
+                small.Apply();
+                RenderTexture.active = prev;
+                RenderTexture.ReleaseTemporary(rt);
+                SaveSlots.Thumbnail = small.EncodeToJPG(80);
+                Destroy(shot);
+                Destroy(small);
+            }
         }
 
         /// <summary>Writes the generated ground beside the save, once per world (it never changes while the world exists), so the next run does not regenerate it.</summary>
@@ -169,7 +236,8 @@ namespace Homesteader.Save
             TimeSystem t = TimeSystem.Instance;
             s.dayOfYear = t.DayOfYear;
             s.minuteOfDay = t.MinuteOfDay;
-            s.speed = (int)t.CurrentSpeed;
+            // a game paused by the menu (it pauses the clock while it is open) must not be saved as paused: it would load with time stopped and the player unable to walk
+            s.speed = t.CurrentSpeed == HomesteaderSpeed.Pause ? (int)HomesteaderSpeed.Speed1X : (int)t.CurrentSpeed;
             s.weatherOverridden = t.IsWeatherOverridden;
             s.weather = (int)t.Weather;
 
@@ -234,11 +302,12 @@ namespace Homesteader.Save
                 }
                 s.placed.Add(sp);
             }
+            s.attached = AttachedObject.Capture();
             foreach (WorldItem w in WorldItem.All)
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
-                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit });
+                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count) });
             foreach (PathRun pr in PathRun.All)
             {
                 if (pr == null) continue;
@@ -260,6 +329,8 @@ namespace Homesteader.Save
             s.pickedTreeMasks = Homesteader.World.ForestTrees.SavedPickedMasks();
             s.pickedBushes = Homesteader.World.BerryBushes.SavedPicked();
             s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
+            s.dugBushes = Homesteader.World.BerryBushes.SavedDug();
+            s.plantedBushes = Homesteader.World.BerryBushes.SavedPlanted();
             s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
             s.miniPlayerOpen = Homesteader.UI.SteadifyMiniPlayer.IsOpen;
             s.musicPlaying = Homesteader.Audio.AudioManager.Instance != null && Homesteader.Audio.AudioManager.Instance.IsMusicPlaying;
@@ -273,12 +344,14 @@ namespace Homesteader.Save
 
         private IEnumerator ApplySave(GameSave s)
         {
+            Step(0.02f, "Restoring the world...");
             // time
             TimeSystem t = TimeSystem.Instance;
             t.SetDayOfYear(s.dayOfYear);
             t.SetMinuteOfDay(s.minuteOfDay);
             if (s.weatherOverridden) t.SetWeather((HomesteaderWeather)s.weather, true);
-            t.SetSpeed((HomesteaderSpeed)s.speed);
+            // saves made while the menu had paused the clock (earlier versions) come back running, not frozen
+            t.SetSpeed((HomesteaderSpeed)s.speed == HomesteaderSpeed.Pause ? HomesteaderSpeed.Speed1X : (HomesteaderSpeed)s.speed);
 
             // HUD state
             HudState hud = HudState.Active;
@@ -329,7 +402,10 @@ namespace Homesteader.Save
             Homesteader.World.ForestTrees.ApplyFelled(s.fellTrees);
             Homesteader.World.ForestTrees.ApplyDead(s.deadTrees);
             Homesteader.World.ForestTrees.ApplyPicked(s.pickedTrees, s.pickedTreeMasks);
+            Homesteader.World.BerryBushes.ClearPlanted();
+            Homesteader.World.BerryBushes.ApplyPlanted(s.plantedBushes);   // before the picked and dug spots are applied: they may be on these
             Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
+            Homesteader.World.BerryBushes.ApplyDug(s.dugBushes);
             Homesteader.UI.WindowPositions.Restore(s.windows);
             Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
             Homesteader.Radio.RadioPlayer.Restore(new Homesteader.Radio.RadioPlayer.Saved { station = s.radioStation, line = s.radioLine, paused = s.radioPaused });
@@ -357,8 +433,11 @@ namespace Homesteader.Save
             }
 
             // placed structures / props: their models load lazily, so wait for each template
+            Step(0.2f, "Placing objects...");
+            int placedDone = 0;
             foreach (var so in s.placed)
             {
+                Step(0.2f + 0.45f * (placedDone++ / (float)System.Math.Max(1, s.placed.Count)), "Placing objects...");
                 if (!ItemRegistry.TryGet(so.itemId, out ItemRegistry.ItemInfo info)) { Debug.LogWarning($"[Save] placed item '{so.itemId}' is not loaded; skipped."); continue; }
                 GlbTemplate glb = info.Prefab != null ? info.Prefab.GetComponent<GlbTemplate>() : null;
                 if (glb != null)
@@ -381,14 +460,34 @@ namespace Homesteader.Save
             Homesteader.World.DeliveryService.RestoreOrders(s.deliveries);
 
             // structures under construction
+            Step(0.65f, "Building structures...");
             ConstructionSite.Clear();
             foreach (var cs in s.sites)
             {
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
-                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; }   // before the model loads, or on it at once when it is already showing
+                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.SetWallPaints(cs.wallPaints); site.SetOpenDoors(cs.openDoors); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; if (cs.contentIds != null) for (int ci = 0; ci < cs.contentIds.Count && ci < (cs.contentCounts?.Count ?? 0); ci++) site.Contents.Add(new Homesteader.UI.ContainerStack { ItemId = cs.contentIds[ci], Count = cs.contentCounts[ci] }); }   // before the model loads, or on it at once when it is already showing
+            }
+
+            // what is mounted on them (breaker boxes, lights): the sites exist now, in the order they were saved
+            foreach (GameSave.SavedAttached sa in s.attached)
+            {
+                if (sa.siteIndex < 0 || sa.siteIndex >= ConstructionSite.All.Count || !ItemRegistry.TryGet(sa.itemId, out ItemRegistry.ItemInfo ai)) continue;
+                ConstructionSite host = ConstructionSite.All[sa.siteIndex];
+                if (host == null) continue;
+                GlbTemplate aglb = ai.Prefab != null ? ai.Prefab.GetComponent<GlbTemplate>() : null;   // its model loads lazily: an instance made before that is empty
+                if (aglb != null)
+                {
+                    aglb.EnsureLoading();
+                    float aUntil = Time.realtimeSinceStartup + 20f;
+                    while (!aglb.Ready && !aglb.Failed && Time.realtimeSinceStartup < aUntil) yield return null;
+                    if (!aglb.Ready) continue;
+                }
+                if (host == null) continue;
+                AttachedObject.Spawn(sa.itemId, ai, host, host.transform.TransformPoint(sa.localPosition), host.transform.rotation * sa.localRotation);
             }
 
             // paths and roads
+            Step(0.72f, "Laying paths and fences...");
             foreach (GameSave.SavedPath sp in s.paths)
                 if (sp.points != null && sp.points.Count >= 2) PathRun.Create(sp.kind, sp.style, sp.itemId, sp.width, sp.metresPerItem, sp.points, sp.built).ClearGround();
 
@@ -407,6 +506,7 @@ namespace Homesteader.Save
             }
 
             // dropped items
+            Step(0.8f, "Dropping items...");
             foreach (var d in s.drops) WorldItem.TryDrop(d.itemId, d.position, d.hasYaw ? d.yawDeg : (float?)null);
         }
     }

@@ -103,6 +103,29 @@
       "label": "Carries Things (pallet)",
       "note": "A placed one carries items on top (a pallet): things placed over its deck rest on it, packed side by side and stacked up to their stacking limit. A pallet that still carries things cannot be picked up. Needs placeable = true."
     },
+    "attach_surface": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "enum": ["", "wall", "ceiling"],
+      "label": "Mounts On",
+      "note": "An item that mounts on a FINISHED building instead of standing on the ground: wall (a breaker box, a wall sconce, a switch) or ceiling (a ceiling light). With the item in hand a left click brings out a preview over the walls / ceiling, a second click or Enter mounts it, a right click takes it down. Leave empty for everything else. Such an item is not placeable (placeable false). See docs/ATTACHED_ITEMS.md. Model: the back of a wall item is the plane y = 0 sticking out towards -y; a ceiling item hangs from its top."
+    },
+    "attach_side": {
+      "type": "string",
+      "required": false,
+      "default": "either",
+      "enum": ["interior", "exterior", "either"],
+      "label": "Mount Side",
+      "note": "For a wall mount: which side of the wall it goes on. interior = inside a room (switches, sconces), exterior = outside the building (a breaker box, a wall lantern), either = both."
+    },
+    "provides_power": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Brings Power",
+      "note": "Mounted on the OUTSIDE of a building it brings electricity to that building (the outdoor breaker box). Lights whose manifest entry says requires_power stay dark in a building without it."
+    },
     "look_target": {
       "type": "string",
       "required": false,
@@ -219,6 +242,62 @@
       "default": "",
       "label": "Gate Style",
       "note": "How the gate looks: wood or metal."
+    },
+    "path_kind": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "path",
+        "road"
+      ],
+      "default": "",
+      "label": "Path / Road Kind",
+      "note": "A surface the player lays as a smooth curved route (PathBuilder): path (narrow, for walking) or road (wide, for vehicles). Empty = not a path material."
+    },
+    "path_width_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Path Width (m)",
+      "note": "How wide the laid surface is (paths about 1.2 m, roads about 4 m)."
+    },
+    "path_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "dirt",
+        "gravel",
+        "stone",
+        "asphalt"
+      ],
+      "default": "",
+      "label": "Path Surface",
+      "note": "How the surface looks. Asphalt also gets a centre lane marking."
+    },
+    "path_m_per_item": {
+      "type": "number",
+      "required": false,
+      "min": 0.25,
+      "default": 2.0,
+      "label": "Metres Per Item",
+      "note": "How many metres of route one item lays; a route of L metres uses ceil(L / this) items."
+    },
+    "is_blueprint": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Blueprint",
+      "note": "Bought once, starts a build when held (structure site, path or road route) and is never used up. Shown on the blueprint blue (#35637C). Structures that build in stages are blueprints automatically."
+    },
+    "path_material_item": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Path Material Item",
+      "note": "On a path or road blueprint: the item id of the material it lays (one per path_m_per_item metres), taken from the hotbar or the work site."
     }
   }
 }

@@ -11,8 +11,8 @@
     "species": "jersey_cow",
     "max_age": 730,
     "time_unit": "days",
-    "total_stages": 2,
-    "icon_stage": 2,
+    "total_stages": 3,
+    "icon_stage": 3,
     "stages": [
       {
         "stage": 1,
@@ -20,17 +20,40 @@
         "age_min": 0,
         "age_max": 90,
         "resource": "stages/animal_calf/",
-        "model": "SKM_Animal_Cow_Jersey_Calf.fbx",
+        "model": "jersey_cow_calf.glb",
         "icon": "animal_calf_jersey_cow.png"
       },
       {
         "stage": 2,
-        "name": "adult",
+        "name": "yearling",
         "age_min": 90,
+        "age_max": 365,
+        "resource": "stages/animal_yearling/",
+        "model": "jersey_cow_yearling.glb",
+        "icon": "animal_yearling_jersey_cow.png"
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "age_min": 365,
         "age_max": 730,
         "resource": "stages/animal_adult/",
-        "model": "SKM_Animal_Cow_Jersey.fbx",
-        "icon": "animal_adult_jersey_cow.png"
+        "model": "jersey_cow_adult_female.glb",
+        "icon": "animal_adult_jersey_cow.png",
+        "sexes": [
+          {
+            "sex": "female",
+            "chance_pct": 80,
+            "model": "jersey_cow_adult_female.glb",
+            "icon": "animal_adult_jersey_cow.png"
+          },
+          {
+            "sex": "male",
+            "chance_pct": 20,
+            "model": "jersey_cow_adult_male.glb",
+            "icon": "animal_adult_jersey_cow_male.png"
+          }
+        ]
       }
     ]
   },

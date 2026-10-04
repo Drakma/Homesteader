@@ -1,0 +1,14 @@
+{
+  "file": "Three_Chord_Sunrise.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 98 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 98 seconds, not cut off mid-song and with NO fade-out. Fast punk rock instrumental, 180 BPM: buzzsaw distorted power chords, relentless eighth-note bass, driving fast drums, short catchy riff hooks, raw and energetic.",
+  "requested_prompt": "Fast punk rock instrumental, 180 BPM: buzzsaw distorted power chords, relentless eighth-note bass, driving fast drums, short catchy riff hooks, raw and energetic.",
+  "requested_duration_seconds": 98,
+  "generated_at": "2026-10-03T20:17:28.561Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Three_Chord_Sunrise.mp4",
+  "bytes": 3587196,
+  "sha256": "86a7a3caceb01fc576ac103483d333d74d8ebc7bdee5008155fd3c12ee89bfd1",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

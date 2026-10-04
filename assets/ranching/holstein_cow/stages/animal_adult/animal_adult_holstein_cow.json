@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_adult_holstein_cow",
-  "name": "Animal Cow Holstein",
+  "name": "Holstein Cow - Adult",
   "category": "ranching",
-  "description": "A mature adult Holstein dairy cow, the final growth stage. Contact sheet generated via Gemini (gemini.google.com), cropped to one animal, then used as the reference image for Meshy AI image-to-3D (smart-topology model meshy-t2, textured).",
+  "description": "The adult stage of the holstein cow.",
   "icon": "animal_adult_holstein_cow.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,15 +19,40 @@
   },
   "models": [
     {
-      "file": "SM_Animal_Cow_Holstein.glb",
+      "file": "holstein_cow_adult_female.glb",
       "format": "glb",
-      "dimensions_m": { "x": 0.6984, "y": 1.48, "z": 2.2855 },
-      "vertices": 3777,
-      "faces": 4238,
-      "bounding_box": {
-        "min": [-0.3492, 0.0, -1.1427],
-        "max": [0.3492, 1.48, 1.1427]
-      }
+      "dimensions_m": {
+        "x": 0.772,
+        "y": 1.55,
+        "z": 2.344
+      },
+      "triangles": 4278,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
+    },
+    {
+      "file": "holstein_cow_adult_male.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.842,
+        "y": 1.7,
+        "z": 2.527
+      },
+      "triangles": 4285,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -56,17 +81,6 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
-  },
-  "dimensions": {
-    "file": "SM_Animal_Cow_Holstein.glb",
-    "format": "glb",
-    "dimensions_m": { "x": 0.6984, "y": 1.48, "z": 2.2855 },
-    "vertices": 3777,
-    "faces": 4238,
-    "bounding_box": {
-      "min": [-0.3492, 0.0, -1.1427],
-      "max": [0.3492, 1.48, 1.1427]
-    }
   },
   "category_fields": {
     "species": "cow",

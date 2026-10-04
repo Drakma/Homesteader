@@ -8,666 +8,823 @@
   "cursors": [
     {
       "name": "cursor_axe",
-      "category": "tool",
-      "mono": "mono/cursor_axe.png",
-      "color": "color/cursor_axe.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        16,
-        40
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Cutting corner of the axe head.",
-      "source_glyph": "r0c00"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_axe.png",
+        "color": "color/cursor_axe.png",
+        "amber": "amber/cursor_axe.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          16,
+          40
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Cutting corner of the axe head.",
+        "source_glyph": "r0c00"
+      }
     },
     {
       "name": "cursor_handsaw",
-      "category": "tool",
-      "mono": "mono/cursor_handsaw.png",
-      "color": "color/cursor_handsaw.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        40,
-        64
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Leading corner of the saw blade.",
-      "source_glyph": "r0c01"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_handsaw.png",
+        "color": "color/cursor_handsaw.png",
+        "amber": "amber/cursor_handsaw.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          20,
+          16
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Leading corner of the saw blade.",
+        "source_glyph": "r0c01"
+      }
     },
     {
       "name": "cursor_log_rings",
-      "category": "resource",
-      "mono": "mono/cursor_log_rings.png",
-      "color": "color/cursor_log_rings.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        64,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r0c02"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_log_rings.png",
+        "color": "color/cursor_log_rings.png",
+        "amber": "amber/cursor_log_rings.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          64,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r0c02"
+      }
     },
     {
       "name": "cursor_sawing",
-      "category": "tool",
-      "mono": "mono/cursor_sawing.png",
-      "color": "color/cursor_sawing.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        26,
-        18
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Where the saw meets the log.",
-      "source_glyph": "r0c03"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_sawing.png",
+        "color": "color/cursor_sawing.png",
+        "amber": "amber/cursor_sawing.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          26,
+          18
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Where the saw meets the log.",
+        "source_glyph": "r0c03"
+      }
     },
     {
       "name": "cursor_mattock",
-      "category": "tool",
-      "mono": "mono/cursor_mattock.png",
-      "color": "color/cursor_mattock.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        55,
-        54
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Leading corner of the mattock blade.",
-      "source_glyph": "r0c04"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_mattock.png",
+        "color": "color/cursor_mattock.png",
+        "amber": "amber/cursor_mattock.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          33,
+          21
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Leading corner of the mattock blade.",
+        "source_glyph": "r0c04"
+      }
     },
     {
       "name": "cursor_plant_seedling",
-      "category": "action",
-      "mono": "mono/cursor_plant_seedling.png",
-      "color": "color/cursor_plant_seedling.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        58,
-        65
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r0c05"
+      "def": {
+        "category": "action",
+        "mono": "mono/cursor_plant_seedling.png",
+        "color": "color/cursor_plant_seedling.png",
+        "amber": "amber/cursor_plant_seedling.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          58,
+          65
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r0c05"
+      }
     },
     {
       "name": "cursor_wheat_sheaf",
-      "category": "resource",
-      "mono": "mono/cursor_wheat_sheaf.png",
-      "color": "color/cursor_wheat_sheaf.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        58
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r0c06"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_wheat_sheaf.png",
+        "color": "color/cursor_wheat_sheaf.png",
+        "amber": "amber/cursor_wheat_sheaf.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          58
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r0c06"
+      }
     },
     {
       "name": "cursor_trowel",
-      "category": "tool",
-      "mono": "mono/cursor_trowel.png",
-      "color": "color/cursor_trowel.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        41,
-        56
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Tip of the trowel blade.",
-      "source_glyph": "r0c07"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_trowel.png",
+        "color": "color/cursor_trowel.png",
+        "amber": "amber/cursor_trowel.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          112,
+          114
+        ],
+        "hotspot_mode": "tip_br",
+        "hotspot_note": "Tip of the trowel blade.",
+        "source_glyph": "r0c07"
+      }
     },
     {
       "name": "cursor_axe_filled",
-      "category": "tool",
-      "mono": "mono/cursor_axe_filled.png",
-      "color": "color/cursor_axe_filled.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        36,
-        23
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Cutting corner of the axe head.",
-      "source_glyph": "r1c00"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_axe_filled.png",
+        "color": "color/cursor_axe_filled.png",
+        "amber": "amber/cursor_axe_filled.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          36,
+          23
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Cutting corner of the axe head.",
+        "source_glyph": "r1c00"
+      }
     },
     {
       "name": "cursor_plant_seedling_filled",
-      "category": "action",
-      "mono": "mono/cursor_plant_seedling_filled.png",
-      "color": "color/cursor_plant_seedling_filled.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        69,
-        66
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r1c01"
+      "def": {
+        "category": "action",
+        "mono": "mono/cursor_plant_seedling_filled.png",
+        "color": "color/cursor_plant_seedling_filled.png",
+        "amber": "amber/cursor_plant_seedling_filled.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          69,
+          66
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r1c01"
+      }
     },
     {
       "name": "cursor_wheat_sheaf_filled",
-      "category": "resource",
-      "mono": "mono/cursor_wheat_sheaf_filled.png",
-      "color": "color/cursor_wheat_sheaf_filled.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        60,
-        62
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r1c02"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_wheat_sheaf_filled.png",
+        "color": "color/cursor_wheat_sheaf_filled.png",
+        "amber": "amber/cursor_wheat_sheaf_filled.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          60,
+          62
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r1c02"
+      }
     },
     {
       "name": "cursor_bucket_carry",
-      "category": "action",
-      "mono": "mono/cursor_bucket_carry.png",
-      "color": "color/cursor_bucket_carry.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        64,
-        66
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r1c03"
+      "def": {
+        "category": "action",
+        "mono": "mono/cursor_bucket_carry.png",
+        "color": "color/cursor_bucket_carry.png",
+        "amber": "amber/cursor_bucket_carry.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          64,
+          66
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r1c03"
+      }
     },
     {
       "name": "cursor_sickle",
-      "category": "tool",
-      "mono": "mono/cursor_sickle.png",
-      "color": "color/cursor_sickle.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        20,
-        19
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Tip of the sickle point.",
-      "source_glyph": "r1c04"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_sickle.png",
+        "color": "color/cursor_sickle.png",
+        "amber": "amber/cursor_sickle.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          25,
+          69
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "Point of the blade.",
+        "source_glyph": "drawn:sickle"
+      }
     },
     {
       "name": "cursor_egg",
-      "category": "resource",
-      "mono": "mono/cursor_egg.png",
-      "color": "color/cursor_egg.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        65
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r1c05"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_egg.png",
+        "color": "color/cursor_egg.png",
+        "amber": "amber/cursor_egg.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          65
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r1c05"
+      }
     },
     {
       "name": "cursor_egg_basket",
-      "category": "resource",
-      "mono": "mono/cursor_egg_basket.png",
-      "color": "color/cursor_egg_basket.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r1c06"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_egg_basket.png",
+        "color": "color/cursor_egg_basket.png",
+        "amber": "amber/cursor_egg_basket.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r1c06"
+      }
     },
     {
       "name": "cursor_wrenches",
-      "category": "tool",
-      "mono": "mono/cursor_wrenches.png",
-      "color": "color/cursor_wrenches.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        62,
-        65
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r2c00"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_wrenches.png",
+        "color": "color/cursor_wrenches.png",
+        "amber": "amber/cursor_wrenches.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          62,
+          65
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r2c00"
+      }
     },
     {
       "name": "cursor_gear",
-      "category": "action",
-      "mono": "mono/cursor_gear.png",
-      "color": "color/cursor_gear.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: the gear rotates about itself.",
-      "source_glyph": "r2c01"
+      "def": {
+        "category": "action",
+        "mono": "mono/cursor_gear.png",
+        "color": "color/cursor_gear.png",
+        "amber": "amber/cursor_gear.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: the gear rotates about itself.",
+        "source_glyph": "r2c01"
+      }
     },
     {
       "name": "cursor_jerrycan",
-      "category": "resource",
-      "mono": "mono/cursor_jerrycan.png",
-      "color": "color/cursor_jerrycan.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        66,
-        59
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r2c02"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_jerrycan.png",
+        "color": "color/cursor_jerrycan.png",
+        "amber": "amber/cursor_jerrycan.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          66,
+          59
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r2c02"
+      }
     },
     {
       "name": "cursor_screwdriver",
-      "category": "tool",
-      "mono": "mono/cursor_screwdriver.png",
-      "color": "color/cursor_screwdriver.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        54,
-        54
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Tip of the screwdriver blade.",
-      "source_glyph": "r2c03"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_screwdriver.png",
+        "color": "color/cursor_screwdriver.png",
+        "amber": "amber/cursor_screwdriver.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          15,
+          15
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Tip of the screwdriver blade.",
+        "source_glyph": "r2c03"
+      }
     },
     {
       "name": "cursor_hammer",
-      "category": "tool",
-      "mono": "mono/cursor_hammer.png",
-      "color": "color/cursor_hammer.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        41,
-        23
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Face of the hammer head.",
-      "source_glyph": "r2c04"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_hammer.png",
+        "color": "color/cursor_hammer.png",
+        "amber": "amber/cursor_hammer.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          30,
+          25
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Face of the hammer head.",
+        "source_glyph": "r2c04"
+      }
     },
     {
       "name": "cursor_pickaxe",
-      "category": "tool",
-      "mono": "mono/cursor_pickaxe.png",
-      "color": "color/cursor_pickaxe.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        32,
-        31
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Leading point of the pick.",
-      "source_glyph": "r2c05"
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_pickaxe.png",
+        "color": "color/cursor_pickaxe.png",
+        "amber": "amber/cursor_pickaxe.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          32,
+          31
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Leading point of the pick.",
+        "source_glyph": "r2c05"
+      }
     },
     {
       "name": "cursor_finger_point",
-      "category": "system",
-      "mono": "mono/cursor_finger_point.png",
-      "color": "color/cursor_finger_point.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        34,
-        16
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Index fingertip.",
-      "source_glyph": "r2c06"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_finger_point.png",
+        "color": "color/cursor_finger_point.png",
+        "amber": "amber/cursor_finger_point.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          34,
+          16
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Index fingertip.",
+        "source_glyph": "r2c06"
+      }
     },
     {
       "name": "cursor_seed_sack",
-      "category": "resource",
-      "mono": "mono/cursor_seed_sack.png",
-      "color": "color/cursor_seed_sack.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        66,
-        61
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r2c07"
+      "def": {
+        "category": "resource",
+        "mono": "mono/cursor_seed_sack.png",
+        "color": "color/cursor_seed_sack.png",
+        "amber": "amber/cursor_seed_sack.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          66,
+          61
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r2c07"
+      }
     },
     {
       "name": "cursor_tool_belt",
-      "category": "item",
-      "mono": "mono/cursor_tool_belt.png",
-      "color": "color/cursor_tool_belt.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        64,
-        55
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r2c08"
+      "def": {
+        "category": "item",
+        "mono": "mono/cursor_tool_belt.png",
+        "color": "color/cursor_tool_belt.png",
+        "amber": "amber/cursor_tool_belt.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          64,
+          55
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r2c08"
+      }
     },
     {
       "name": "cursor_arrow",
-      "category": "system",
-      "mono": "mono/cursor_arrow.png",
-      "color": "color/cursor_arrow.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        31,
-        13
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Arrow tip: the click point is the point of the arrow.",
-      "source_glyph": "r3c00"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_arrow.png",
+        "color": "color/cursor_arrow.png",
+        "amber": "amber/cursor_arrow.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          31,
+          13
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Arrow tip: the click point is the point of the arrow.",
+        "source_glyph": "r3c00"
+      }
     },
     {
       "name": "cursor_hand_open",
-      "category": "system",
-      "mono": "mono/cursor_hand_open.png",
-      "color": "color/cursor_hand_open.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        68,
-        58
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "",
-      "source_glyph": "r3c01"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_hand_open.png",
+        "color": "color/cursor_hand_open.png",
+        "amber": "amber/cursor_hand_open.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          68,
+          58
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "",
+        "source_glyph": "r3c01"
+      }
     },
     {
       "name": "cursor_finger_tap",
-      "category": "system",
-      "mono": "mono/cursor_finger_tap.png",
-      "color": "color/cursor_finger_tap.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        38,
-        21
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Tapping fingertip.",
-      "source_glyph": "r3c02"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_finger_tap.png",
+        "color": "color/cursor_finger_tap.png",
+        "amber": "amber/cursor_finger_tap.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          38,
+          21
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Tapping fingertip.",
+        "source_glyph": "r3c02"
+      }
     },
     {
       "name": "cursor_move",
-      "category": "system",
-      "mono": "mono/cursor_move.png",
-      "color": "color/cursor_move.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        64,
-        63
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: all four directions are equidistant.",
-      "source_glyph": "r3c03"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_move.png",
+        "color": "color/cursor_move.png",
+        "amber": "amber/cursor_move.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          64,
+          63
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: all four directions are equidistant.",
+        "source_glyph": "r3c03"
+      }
     },
     {
       "name": "cursor_ibeam",
-      "category": "system",
-      "mono": "mono/cursor_ibeam.png",
-      "color": "color/cursor_ibeam.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        63
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: the text insertion point.",
-      "source_glyph": "r3c04"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_ibeam.png",
+        "color": "color/cursor_ibeam.png",
+        "amber": "amber/cursor_ibeam.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          63
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: the text insertion point.",
+        "source_glyph": "r3c04"
+      }
     },
     {
       "name": "cursor_arrow_wait",
-      "category": "system",
-      "mono": "mono/cursor_arrow_wait.png",
-      "color": "color/cursor_arrow_wait.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        21,
-        12
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Arrow tip, so the pointer still points while busy.",
-      "source_glyph": "r3c06"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_arrow_wait.png",
+        "color": "color/cursor_arrow_wait.png",
+        "amber": "amber/cursor_arrow_wait.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          21,
+          12
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Arrow tip, so the pointer still points while busy.",
+        "source_glyph": "r3c06"
+      }
     },
     {
       "name": "cursor_arrow_unavailable",
-      "category": "system",
-      "mono": "mono/cursor_arrow_unavailable.png",
-      "color": "color/cursor_arrow_unavailable.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        19,
-        13
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Arrow tip, so the pointer still points when blocked.",
-      "source_glyph": "r3c07"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_arrow_unavailable.png",
+        "color": "color/cursor_arrow_unavailable.png",
+        "amber": "amber/cursor_arrow_unavailable.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          19,
+          13
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Arrow tip, so the pointer still points when blocked.",
+        "source_glyph": "r3c07"
+      }
     },
     {
       "name": "cursor_wait_settings",
-      "category": "system",
-      "mono": "mono/cursor_wait_settings.png",
-      "color": "color/cursor_wait_settings.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        59,
-        69
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: status cursor, no click point.",
-      "source_glyph": "r4c00"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_wait_settings.png",
+        "color": "color/cursor_wait_settings.png",
+        "amber": "amber/cursor_wait_settings.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          59,
+          69
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: status cursor, no click point.",
+        "source_glyph": "r4c00"
+      }
     },
     {
       "name": "cursor_wait_settings_2",
-      "category": "system",
-      "mono": "mono/cursor_wait_settings_2.png",
-      "color": "color/cursor_wait_settings_2.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        57,
-        67
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: status cursor, no click point.",
-      "source_glyph": "r4c01"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_wait_settings_2.png",
+        "color": "color/cursor_wait_settings_2.png",
+        "amber": "amber/cursor_wait_settings_2.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          57,
+          67
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: status cursor, no click point.",
+        "source_glyph": "r4c01"
+      }
     },
     {
       "name": "cursor_resize_vertical",
-      "category": "system",
-      "mono": "mono/cursor_resize_vertical.png",
-      "color": "color/cursor_resize_vertical.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: up and down are equidistant.",
-      "source_glyph": "r4c04"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_resize_vertical.png",
+        "color": "color/cursor_resize_vertical.png",
+        "amber": "amber/cursor_resize_vertical.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: up and down are equidistant.",
+        "source_glyph": "r4c04"
+      }
     },
     {
       "name": "cursor_resize_horizontal",
-      "category": "system",
-      "mono": "mono/cursor_resize_horizontal.png",
-      "color": "color/cursor_resize_horizontal.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: left and right are equidistant.",
-      "source_glyph": "r4c05"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_resize_horizontal.png",
+        "color": "color/cursor_resize_horizontal.png",
+        "amber": "amber/cursor_resize_horizontal.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: left and right are equidistant.",
+        "source_glyph": "r4c05"
+      }
     },
     {
       "name": "cursor_resize_nwse",
-      "category": "system",
-      "mono": "mono/cursor_resize_nwse.png",
-      "color": "color/cursor_resize_nwse.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: both diagonal ends are equidistant.",
-      "source_glyph": "r4c06"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_resize_nwse.png",
+        "color": "color/cursor_resize_nwse.png",
+        "amber": "amber/cursor_resize_nwse.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: both diagonal ends are equidistant.",
+        "source_glyph": "r4c06"
+      }
     },
     {
       "name": "cursor_resize_nesw",
-      "category": "system",
-      "mono": "mono/cursor_resize_nesw.png",
-      "color": "color/cursor_resize_nesw.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        63
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: both diagonal ends are equidistant.",
-      "source_glyph": "r4c07"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_resize_nesw.png",
+        "color": "color/cursor_resize_nesw.png",
+        "amber": "amber/cursor_resize_nesw.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          63
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: both diagonal ends are equidistant.",
+        "source_glyph": "r4c07"
+      }
     },
     {
       "name": "cursor_resize_all",
-      "category": "system",
-      "mono": "mono/cursor_resize_all.png",
-      "color": "color/cursor_resize_all.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        63,
-        64
-      ],
-      "hotspot_mode": "centre",
-      "hotspot_note": "Centroid: all four directions are equidistant.",
-      "source_glyph": "r4c08"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_resize_all.png",
+        "color": "color/cursor_resize_all.png",
+        "amber": "amber/cursor_resize_all.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          63,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: all four directions are equidistant.",
+        "source_glyph": "r4c08"
+      }
     },
     {
       "name": "cursor_help",
-      "category": "system",
-      "mono": "mono/cursor_help.png",
-      "color": "color/cursor_help.png",
-      "size": [
-        128,
-        128
-      ],
-      "hotspot": [
-        38,
-        24
-      ],
-      "hotspot_mode": "tip",
-      "hotspot_note": "Top of the question mark, which still reads as a pointer.",
-      "source_glyph": "r4c09"
+      "def": {
+        "category": "system",
+        "mono": "mono/cursor_help.png",
+        "color": "color/cursor_help.png",
+        "amber": "amber/cursor_help.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          38,
+          24
+        ],
+        "hotspot_mode": "tip",
+        "hotspot_note": "Top of the question mark, which still reads as a pointer.",
+        "source_glyph": "r4c09"
+      }
+    },
+    {
+      "name": "cursor_steering_wheel",
+      "def": {
+        "category": "action",
+        "mono": "mono/cursor_steering_wheel.png",
+        "color": "color/cursor_steering_wheel.png",
+        "amber": "amber/cursor_steering_wheel.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          64,
+          64
+        ],
+        "hotspot_mode": "centre",
+        "hotspot_note": "Centroid: the wheel turns about its hub.",
+        "source_glyph": "drawn:steering_wheel"
+      }
+    },
+    {
+      "name": "cursor_shears",
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_shears.png",
+        "color": "color/cursor_shears.png",
+        "amber": "amber/cursor_shears.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          23,
+          23
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "Where the two blade tips meet.",
+        "source_glyph": "drawn:shears"
+      }
     }
   ]
 }

@@ -70,7 +70,7 @@
     "construction_recipe": [
       {
         "item_id": "#framing_lumber",
-        "quantity": 40
+        "quantity": 160
       },
       {
         "item_id": "lumber_joist_2x8",
@@ -78,7 +78,11 @@
       },
       {
         "item_id": "lumber_post_4x4",
-        "quantity": 4
+        "quantity": 3
+      },
+      {
+        "item_id": "hardware_hurricane_ties",
+        "quantity": 2
       },
       {
         "item_id": "item_hardware_framingnails_box",

@@ -52,6 +52,13 @@
       }
     ],
     "rules": {
+      "yield": {
+        "item_id": "mat_log_willow",
+        "amount_min": 3,
+        "amount_max": 4,
+        "harvest_stage": 4,
+        "tool": "#tool_axe"
+      },
       "planting": {
         "item_id": "plantable_willow_sapling"
       },

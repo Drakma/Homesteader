@@ -11,8 +11,8 @@
     "species": "tan_sheep",
     "max_age": 730,
     "time_unit": "days",
-    "total_stages": 2,
-    "icon_stage": 2,
+    "total_stages": 3,
+    "icon_stage": 3,
     "stages": [
       {
         "stage": 1,
@@ -20,17 +20,40 @@
         "age_min": 0,
         "age_max": 90,
         "resource": "stages/animal_lamb/",
-        "model": "SKM_Animal_Lamb_Tan.fbx",
+        "model": "tan_sheep_lamb.glb",
         "icon": "animal_lamb_tan_sheep.png"
       },
       {
         "stage": 2,
-        "name": "adult",
+        "name": "yearling",
         "age_min": 90,
+        "age_max": 365,
+        "resource": "stages/animal_yearling/",
+        "model": "tan_sheep_yearling.glb",
+        "icon": "animal_yearling_tan_sheep.png"
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "age_min": 365,
         "age_max": 730,
         "resource": "stages/animal_adult/",
-        "model": "SKM_Animal_Sheep_Tan.fbx",
-        "icon": "animal_adult_tan_sheep.png"
+        "model": "tan_sheep_adult_female.glb",
+        "icon": "animal_adult_tan_sheep.png",
+        "sexes": [
+          {
+            "sex": "female",
+            "chance_pct": 80,
+            "model": "tan_sheep_adult_female.glb",
+            "icon": "animal_adult_tan_sheep.png"
+          },
+          {
+            "sex": "male",
+            "chance_pct": 20,
+            "model": "tan_sheep_adult_male.glb",
+            "icon": "animal_adult_tan_sheep_male.png"
+          }
+        ]
       }
     ]
   },

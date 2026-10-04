@@ -1,0 +1,14 @@
+{
+  "file": "Midnight_Sparklers.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 96 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 96 seconds, not cut off mid-song and with NO fade-out. Celebratory new-year festive instrumental, 124 BPM: funky rhythm guitar, punchy horn section, driving drums, sparkling synth bells, countdown-party excitement building to a big final hit. Entirely original melody that is not based on any existing song. Cozy wintertime mood.",
+  "requested_prompt": "Celebratory new-year festive instrumental, 124 BPM: funky rhythm guitar, punchy horn section, driving drums, sparkling synth bells, countdown-party excitement building to a big final hit. Entirely original melody that is not based on any existing song. Cozy wintertime mood.",
+  "requested_duration_seconds": 96,
+  "generated_at": "2026-10-04T01:56:17.014Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Midnight_Sparklers.mp4",
+  "bytes": 2861801,
+  "sha256": "8f0d36ae6e8df6f21c3673125402b5d310a40e5ccfa37dd6c8f9a3c59ec2e41b",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

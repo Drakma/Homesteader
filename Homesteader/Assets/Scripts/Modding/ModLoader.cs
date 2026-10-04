@@ -425,7 +425,10 @@ namespace Homesteader.Modding
                 if (summary.prefab != null)
                     Homesteader.Growth.ItemRegistry.Register(localId, summary.name, category, summary.prefab,
                         Homesteader.Growth.LightDef.ParseList(root.Get("lights")),
-                        root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(false)));
+                        root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(false)),
+                        root.Get("properties").Get("attach_surface").AsString(""),
+                        root.Get("properties").Get("attach_side").AsString("either"),
+                        root.Get("properties").Get("provides_power").AsBool(false));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

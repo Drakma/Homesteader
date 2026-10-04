@@ -72,6 +72,17 @@
 					"required": true,
 					"note": "Exclusive upper age bound in time_unit. Must be greater than age_min."
 				},
+				"sexes": {
+					"type": "array",
+					"required": false,
+					"note": "ANIMALS ONLY. The female / male choice, part of the stage it happens at (normally the final stage: baby and yearling are sexless). When an animal reaches the stage it becomes ONE of these at random, by `chance_pct` (female 80 / male 20 is the norm; the chances add up to 100). The models live in the stage's own resource folder, next to the stage model. Without `sexes` every animal becomes the stage as it is. Runtime: GrowthStage.Sexes / GrowthStage.PickSex in Assets/Scripts/Growth/GrowthGroup.cs.",
+					"items": {
+						"sex": { "type": "string", "enum": ["female", "male"], "required": true },
+						"chance_pct": { "type": "number", "min": 0, "max": 100, "required": true, "note": "Chance (percent) that an animal reaching the stage becomes this sex." },
+						"model": { "type": "string", "required": true, "note": "Model filename inside the stage's resource folder." },
+						"icon": { "type": "string", "required": false, "note": "Icon filename inside the stage's resource folder." }
+					}
+				},
 				"construction_recipe": {
 					"type": "array",
 					"required": false,

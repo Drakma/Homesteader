@@ -28,8 +28,9 @@ namespace Homesteader.UI
     {
         public enum CursorVariant
         {
-            Mono,
-            Color
+            Mono,   // black outline, white interior
+            Color,  // category-coloured interiors
+            Amber   // HUD accent gradient with a bevel (3D look)
         }
 
         [Serializable]
@@ -38,6 +39,7 @@ namespace Homesteader.UI
             public string category;
             public string mono;
             public string color;
+            public string amber;
             public int[] size;
             public int[] hotspot;
             public string hotspot_mode;
@@ -69,10 +71,35 @@ namespace Homesteader.UI
         [SerializeField] private string cursorRoot = "HudKit/cursors";
 
         [Tooltip("Which art variant to apply at runtime.")]
-        [SerializeField] private CursorVariant variant = CursorVariant.Color;
+        [SerializeField] private CursorVariant variant = CursorVariant.Amber;
 
         [Tooltip("Fall back to the OS cursor if the set fails to load.")]
         [SerializeField] private bool fallBackToHardwareCursor = true;
+
+        [Tooltip("On-screen size of a cursor in pixels. The art is authored at 128 px and is scaled down to this on load " +
+                 "(hotspots scale with it); a 128 px cursor would cover a toolbar slot.")]
+        [SerializeField, Range(24, 128)] private int displaySize = 40;
+
+        public const string Arrow = "cursor_arrow";
+        public const string Finger = "cursor_finger_point";
+        public const string HandOpen = "cursor_hand_open";
+        public const string Shears = "cursor_shears";
+        public const string Hammer = "cursor_hammer";
+        public const string Axe = "cursor_axe";
+        public const string Basket = "cursor_egg_basket";
+
+        public static CursorManager Instance { get; private set; }
+
+        /// <summary>Created at startup so the game always runs with the kit cursor, no scene object needed.</summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void Bootstrap()
+        {
+            if (FindAnyObjectByType<CursorManager>() != null) return;
+            var go = new GameObject("CursorManager");
+            DontDestroyOnLoad(go);
+            go.AddComponent<CursorManager>();
+            go.AddComponent<CursorHints>();
+        }
 
         // Loaded textures, keyed by cursor name, so switching state does not
         // re-read a PNG every time the player moves the mouse.
@@ -94,6 +121,9 @@ namespace Homesteader.UI
 
         private void Awake()
         {
+            Instance = this;
+            // The Settings toggle (Graphics > Colorized Mouse Cursors) decides between the amber and the black-and-white set.
+            variant = GraphicsOptions.ColorizedCursorsOn() ? CursorVariant.Amber : CursorVariant.Mono;
             if (!LoadManifest())
             {
                 if (fallBackToHardwareCursor)
@@ -151,17 +181,19 @@ namespace Homesteader.UI
                 return false;
             }
 
-            bool wantColor = variant == CursorVariant.Color;
 
             foreach (CursorEntry entry in doc.cursors)
             {
                 CursorDef def = entry.def;
                 if (def == null) continue;
-                string rel = wantColor ? def.color : def.mono;
+                string rel = variant == CursorVariant.Color ? def.color
+                           : variant == CursorVariant.Amber ? def.amber
+                           : def.mono;
+                if (string.IsNullOrEmpty(rel)) rel = def.mono;   // an older manifest without this variant
                 if (string.IsNullOrEmpty(rel)) continue;
 
                 string pngPath = Path.Combine(root, rel.Replace('/', Path.DirectorySeparatorChar));
-                Texture2D tex = LoadTexture(pngPath);
+                Texture2D tex = LoadTexture(pngPath, displaySize);
                 if (tex == null)
                 {
                     // A missing texture is not fatal for the whole set: the other
@@ -175,7 +207,10 @@ namespace Homesteader.UI
 
                 if (def.hotspot != null && def.hotspot.Length >= 2)
                 {
-                    hotspots[entry.name] = new Vector2(def.hotspot[0], def.hotspot[1]);
+                    // The hotspot was measured on the 128 px source, so it shrinks with the art.
+                    int srcSize = def.size != null && def.size.Length >= 1 && def.size[0] > 0 ? def.size[0] : 128;
+                    float k = (float)tex.width / srcSize;
+                    hotspots[entry.name] = new Vector2(def.hotspot[0] * k, def.hotspot[1] * k);
                 }
                 else
                 {
@@ -190,7 +225,7 @@ namespace Homesteader.UI
             return textures.Count > 0;
         }
 
-        private static Texture2D LoadTexture(string path)
+        private static Texture2D LoadTexture(string path, int size)
         {
             if (!File.Exists(path))
             {
@@ -210,7 +245,56 @@ namespace Homesteader.UI
             tex.filterMode = FilterMode.Bilinear;
             tex.wrapMode = TextureWrapMode.Clamp;
             tex.name = Path.GetFileNameWithoutExtension(path);
+            if (size > 0 && size < tex.width)
+            {
+                Texture2D small = Downscale(tex, size);
+                Destroy(tex);
+                tex = small;
+            }
             return tex;
+        }
+
+        /// <summary>
+        /// Box-filtered resample on the CPU (a cursor is read once, so speed does not matter). Colour is weighted by
+        /// alpha while averaging so the transparent canvas does not bleed dark fringes into the edge of the glyph.
+        /// </summary>
+        private static Texture2D Downscale(Texture2D src, int size)
+        {
+            int sw = src.width, sh = src.height;
+            Color32[] px = src.GetPixels32();
+            var dst = new Texture2D(size, size, TextureFormat.RGBA32, false, true)
+            {
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp,
+                name = src.name
+            };
+            var outPx = new Color32[size * size];
+            float sx = (float)sw / size, sy = (float)sh / size;
+            for (int y = 0; y < size; y++)
+            {
+                int y0 = Mathf.FloorToInt(y * sy), y1 = Mathf.Min(sh, Mathf.CeilToInt((y + 1) * sy));
+                for (int x = 0; x < size; x++)
+                {
+                    int x0 = Mathf.FloorToInt(x * sx), x1 = Mathf.Min(sw, Mathf.CeilToInt((x + 1) * sx));
+                    float r = 0, g = 0, b = 0, a = 0; int n = 0;
+                    for (int yy = y0; yy < y1; yy++)
+                    for (int xx = x0; xx < x1; xx++)
+                    {
+                        Color32 c = px[yy * sw + xx];
+                        float ca = c.a / 255f;
+                        r += c.r * ca; g += c.g * ca; b += c.b * ca; a += ca; n++;
+                    }
+                    if (n == 0 || a <= 0f) { outPx[y * size + x] = new Color32(0, 0, 0, 0); continue; }
+                    outPx[y * size + x] = new Color32(
+                        (byte)Mathf.Clamp(Mathf.RoundToInt(r / a), 0, 255),
+                        (byte)Mathf.Clamp(Mathf.RoundToInt(g / a), 0, 255),
+                        (byte)Mathf.Clamp(Mathf.RoundToInt(b / a), 0, 255),
+                        (byte)Mathf.Clamp(Mathf.RoundToInt(a / n * 255f), 0, 255));
+                }
+            }
+            dst.SetPixels32(outPx);
+            dst.Apply(false, false);
+            return dst;
         }
 
         /// <summary>
@@ -274,6 +358,7 @@ namespace Homesteader.UI
 
         private void OnDestroy()
         {
+            if (Instance == this) Instance = null;
             ReleaseTextures();
         }
     }

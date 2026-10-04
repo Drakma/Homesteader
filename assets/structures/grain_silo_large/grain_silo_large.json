@@ -1,0 +1,162 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "grain_silo_large",
+  "name": "Grain Silo (Large)",
+  "category": "structures",
+  "description": "A grain silo (large): a round concrete slab, a steel frame, a corrugated steel tower and a conical roof with a ladder and a discharge chute, built in 4 stages (foundation -> framing -> walls -> complete).",
+  "icon": "grain_silo_large.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "grain_silo_large",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 25,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_grain_silo_large.png",
+        "construction_recipe": [
+          {
+            "item_id": "80lb_cement_bag",
+            "quantity": 24
+          },
+          {
+            "item_id": "#rebar",
+            "quantity": 16
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_trowel_hand"
+          ]
+        ]
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 25,
+        "age_max": 50,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_grain_silo_large.png",
+        "construction_recipe": [
+          {
+            "item_id": "#steel_framing",
+            "quantity": 32
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 50,
+        "age_max": 75,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_grain_silo_large.png",
+        "construction_recipe": [
+          {
+            "item_id": "#metal_siding",
+            "quantity": 80
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 75,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_grain_silo_large.png",
+        "construction_recipe": [
+          {
+            "item_id": "#roofing",
+            "quantity": 24
+          },
+          {
+            "item_id": "#metal_siding",
+            "quantity": 16
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ]
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 36000,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
+  },
+  "container": {
+    "capacity_kg": 36000,
+    "stacking_limit": 1,
+    "accepts": [
+      "#grain"
+    ],
+    "show_fill": false,
+    "single_type": false,
+    "disposable": false
+  }
+}

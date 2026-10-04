@@ -124,7 +124,7 @@
         "age_min": 99,
         "age_max": 100,
         "resource": "stages/struct_complete/",
-        "model": "struct_complete_chicken_coop.fbx",
+        "model": "",
         "icon": "struct_complete_chicken_coop.png",
         "construction_recipe": [
           {
@@ -165,5 +165,18 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 150,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
   }
 }

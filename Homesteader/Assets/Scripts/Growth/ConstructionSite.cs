@@ -35,6 +35,17 @@ namespace Homesteader.Growth
         private float _drop;                         // how far the ground falls away below the foundation's top edge (the footing fills it)
         private GameObject _patch;
         private GameObject _visual;
+        private bool _modelPending;   // a stage model is still loading into the site
+
+        /// <summary>True while any building's model is still being loaded or put up (a load screen waits for this to be false).</summary>
+        public static bool AnyModelPending
+        {
+            get
+            {
+                foreach (ConstructionSite s in All) if (s != null && s._modelPending) return true;
+                return false;
+            }
+        }
         private int _visualStage = -1;
         private LineRenderer _ring;
         private float _nextEval;
@@ -170,12 +181,108 @@ namespace Homesteader.Growth
 
         public bool InYard(Vector3 world) { return DistanceOutside(world) <= YardM; }
 
+        /// <summary>
+        /// Moves a point that lies within a building's footprint (plus a margin; buildings with a foundation down) out through the nearest side, so
+        /// what falls from a felled tree never lands inside a structure. Other points come back unchanged.
+        /// </summary>
+        public static Vector3 KeepOut(Vector3 world, float margin)
+        {
+            foreach (ConstructionSite s in All)
+            {
+                if (s == null || s.Stage < 1) continue;
+                Vector3 local = Quaternion.Euler(0f, -s.YawDeg, 0f) * (world - s.transform.position);
+                float hx = s._foot.x * 0.5f + margin, hz = s._foot.y * 0.5f + margin;
+                if (Mathf.Abs(local.x) >= hx || Mathf.Abs(local.z) >= hz) continue;
+                if (hx - Mathf.Abs(local.x) < hz - Mathf.Abs(local.z)) local.x = (local.x < 0f ? -1f : 1f) * hx;
+                else local.z = (local.z < 0f ? -1f : 1f) * hz;
+                Vector3 pushed = s.transform.position + Quaternion.Euler(0f, s.YawDeg, 0f) * local;
+                pushed.y = world.y;
+                world = pushed;
+            }
+            return world;
+        }
+
         public Vector2 Footprint => _foot;
 
         /// <summary>The model of the current stage (null before one is built or while it loads).</summary>
         public Transform VisualRoot => _visual != null ? _visual.transform : null;
 
         /// <summary>True when a point is within the building's footprint (on the ground plane).</summary>
+        private Rect _wallRect;               // x, z (as x, y) of the walls in the building's own space
+        private Transform _wallRectFor;
+
+        /// <summary>
+        /// The rectangle the WALLS of a finished building enclose (in its own space, x and z as x and y), from the walls' parts of the model. The
+        /// footprint is not that: a porch is inside the footprint but outside the walls, so "inside the building" for mounting a light or a breaker
+        /// box is measured against this.
+        /// </summary>
+        public Rect WallRect()
+        {
+            Transform root = VisualRoot;
+            if (root != null && _wallRectFor == root) return _wallRect;
+            Quaternion inv = Quaternion.Inverse(transform.rotation);
+            // x from every wall part; z from the side walls (Wall_Left, Wall_Right) when there are some: on a house with a porch the FRONT wall part
+            // includes a gable that stands at the porch's edge, so its extent would put the porch inside the walls
+            float x0 = float.MaxValue, x1 = float.MinValue, zAll0 = float.MaxValue, zAll1 = float.MinValue, zSide0 = float.MaxValue, zSide1 = float.MinValue;
+            bool any = false, side = false;
+            if (root != null)
+                foreach (Renderer r in root.GetComponentsInChildren<Renderer>(true))
+                {
+                    bool wall = false, sideWall = false;
+                    for (Transform t = r.transform; t != null && t != root.parent; t = t.parent)
+                        if (t.name.StartsWith("Wall_")) { wall = true; sideWall = t.name == "Wall_Left" || t.name == "Wall_Right"; break; }
+                    if (!wall) continue;
+                    Bounds b = r.bounds;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Vector3 c = b.center + Vector3.Scale(b.extents, new Vector3((i & 1) == 0 ? -1 : 1, (i & 2) == 0 ? -1 : 1, (i & 4) == 0 ? -1 : 1));
+                        Vector3 l = inv * (c - transform.position);
+                        x0 = Mathf.Min(x0, l.x); x1 = Mathf.Max(x1, l.x);
+                        zAll0 = Mathf.Min(zAll0, l.z); zAll1 = Mathf.Max(zAll1, l.z);
+                        if (sideWall) { zSide0 = Mathf.Min(zSide0, l.z); zSide1 = Mathf.Max(zSide1, l.z); side = true; }
+                        any = true;
+                    }
+                }
+            Rect rect = !any ? new Rect(-_foot.x * 0.5f, -_foot.y * 0.5f, _foot.x, _foot.y)
+                             : side ? Rect.MinMaxRect(x0, zSide0, x1, zSide1) : Rect.MinMaxRect(x0, zAll0, x1, zAll1);
+            if (root != null && any) { _wallRectFor = root; _wallRect = rect; }
+            return rect;
+        }
+
+        /// <summary>True when a world point is inside the walls (not on a porch, not outside).</summary>
+        public bool IsInsideWalls(Vector3 world)
+        {
+            Rect r = WallRect();
+            Vector3 l = Quaternion.Inverse(transform.rotation) * (world - transform.position);
+            return l.x >= r.xMin && l.x <= r.xMax && l.z >= r.yMin && l.z <= r.yMax;
+        }
+
+        private float _ceilingY;
+        private Transform _ceilingFor;
+
+        /// <summary>
+        /// The height (world y) of the ceiling inside a finished building, for ceiling lights: the plates the roof rests on, found from the tops of the
+        /// walls of the model (an eave wall ends 0.45 m above the ceiling). Kept for as long as the model stands.
+        /// </summary>
+        public float CeilingY()
+        {
+            Transform root = VisualRoot;
+            if (root != null && _ceilingFor == root) return _ceilingY;
+            float floor = transform.position.y;
+            float top = float.MaxValue;
+            if (root != null)
+                foreach (Renderer r in root.GetComponentsInChildren<Renderer>(true))
+                {
+                    bool wall = false;
+                    for (Transform t = r.transform; t != null && t != root.parent; t = t.parent)
+                        if (t.name.StartsWith("Wall_")) { wall = true; break; }
+                    if (wall) top = Mathf.Min(top, r.bounds.max.y);
+                }
+            float y = top == float.MaxValue ? floor + 2.6f : Mathf.Clamp(top - 0.45f, floor + 2.2f, floor + 4.5f);
+            if (root != null) { _ceilingFor = root; _ceilingY = y; }
+            return y;
+        }
+
         public bool IsInside(Vector3 world)
         {
             Vector3 local = Quaternion.Euler(0f, -YawDeg, 0f) * (world - transform.position);
@@ -551,7 +658,7 @@ namespace Homesteader.Growth
         /// <summary>Right click on the site: build the current stage if everything is there.</summary>
         public bool TryBuild(Transform player)
         {
-            if (Finished) return ToggleDoor(player);   // a finished building: the right click works its door
+            if (Finished) return false;   // a finished building: only a click on its door works the door (TryDoorAtCursor), not the walls
             if (Building) return false;
             if (player != null && DistanceOutside(player.position) > YardM + 1f)
             {
@@ -576,7 +683,6 @@ namespace Homesteader.Growth
                 if (!t.Have) missing.Add(ToolGroupName(t.Group));
             if (missing.Count > 0)
             {
-                if (HasDoor) return ToggleDoor(player);   // the shell stands: a right click works the door (the hover list says what is still needed)
                 ToastNotificationSystem.ShowWarning("Not ready: " + StageTitle(stage), "Still needed: " + string.Join(", ", missing) + ".");
                 return false;
             }
@@ -804,7 +910,7 @@ namespace Homesteader.Growth
             foreach (GameObject g in hidden) Show(g, true);   // (the used ones are removed by Complete)
             if (cancelled)
             {
-                if (Stage == 0 && _grade != null) { _grade.Apply(0f); Homesteader.World.TerrainGrade.RefreshGrass(); }   // the ground goes back
+                if (Stage == 0 && _grade != null) { _grade.Apply(0f); Homesteader.World.TerrainGrade.GroundChanged(); }   // the ground goes back
                 _status = null;
                 ToastNotificationSystem.ShowInfo(Name(), "Building stopped.");
                 yield break;
@@ -923,7 +1029,7 @@ namespace Homesteader.Growth
         // The ground is graded up to the foundation's level (see TerrainGrade): gradually while the foundation is built, fully when it exists.
         private float _level;
         private Homesteader.World.TerrainGrade _grade;
-        private float _nextGrassRefresh;
+        private float _nextGroundRefresh;
 
         private bool EnsureGrade()
         {
@@ -936,7 +1042,7 @@ namespace Homesteader.Growth
         {
             if (!Building || Stage != 0 || _buildStilts || !EnsureGrade()) return;
             _grade.Apply(BuildProgress);
-            if (Time.time >= _nextGrassRefresh) { _nextGrassRefresh = Time.time + 3f; Homesteader.World.TerrainGrade.RefreshGrass(); }
+            if (Time.time >= _nextGroundRefresh) { _nextGroundRefresh = Time.time + 3f; Homesteader.World.TerrainGrade.GroundChanged(); }
         }
 
         private void RefreshVisual()
@@ -951,7 +1057,7 @@ namespace Homesteader.Growth
                 {
                     _grade.Apply(1f);   // the ground meets the foundation: no footing needed
                     _drop = 0f;
-                    Homesteader.World.TerrainGrade.RefreshGrass();
+                    Homesteader.World.TerrainGrade.GroundChanged();
                 }
             }
             if (_visual != null) Destroy(_visual);
@@ -967,6 +1073,7 @@ namespace Homesteader.Growth
             // A stage with its own model shows it; otherwise a stand-in from the stage's size.
             if (done.item_id != null && ItemRegistry.TryGet(done.item_id, out ItemRegistry.ItemInfo info) && info.Prefab != null)
             {
+                _modelPending = true;
                 StartCoroutine(ShowModel(info.Prefab, _visual.transform));
                 return;
             }
@@ -979,10 +1086,10 @@ namespace Homesteader.Growth
             while (glb != null && !glb.Ready)
             {
                 glb.EnsureLoading();
-                if (glb.Failed) { BuildStandIn(_stages[Mathf.Max(0, Stage - 1)], parent); yield break; }
+                if (glb.Failed) { BuildStandIn(_stages[Mathf.Max(0, Stage - 1)], parent); _modelPending = false; yield break; }
                 yield return null;
             }
-            if (parent == null) yield break;
+            if (parent == null) { _modelPending = false; yield break; }
             LearnFront(prefab);
             GameObject model = Instantiate(prefab, parent);
             model.SetActive(true);
@@ -991,11 +1098,13 @@ namespace Homesteader.Growth
             EnsureCollider(model);
             FindDoor(model.transform);
             StructureLook.Apply(model.transform, _lookItems);   // birch logs, a tin roof: the look follows what it was built from
+            ApplyWallPaints(model.transform);                    // and the walls painted one by one
             ShowFoundationVariant(model.transform);
             Fireplace = Fireplace.Attach(this, model.transform);   // a chimney with a firebox: logs, fire and smoke
             // windows let light through: the pane casts no shadow (and the walls, roof and a closed door do)
             foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
                 if (r.name == "WindowGlass") r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            _modelPending = false;
         }
 
         // ------------------------------------------------------------------ the door
@@ -1019,6 +1128,358 @@ namespace Homesteader.Growth
             _lookItems.Clear();
             if (ids != null) _lookItems.AddRange(ids);
             StructureLook.Apply(VisualRoot, _lookItems);   // when the model is already showing
+            ApplyWallPaints(VisualRoot);
+        }
+
+        // ------------------------------------------------------------------ painting walls and doors
+
+        // A right click with a paint can in the active slot paints what is under the cursor:
+        //   * the OUTSIDE of a wall: that whole wall's siding or logs ("Wall_Front|out" = item id);
+        //   * a DOOR: that door leaf ("Door:DoorSlide_b1L" = item id);
+        //   * a wall inside: just the section of it in that room, a patch of paint laid over the wall (see PaintPatch).
+        // Saved with the site (wallPaints); painted again whenever the model shows (a stage change loads a new one).
+        private readonly Dictionary<string, string> _wallPaints = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Paint on the inside of a wall, one room's section of it: the connected stretch of wall face around the click (it ends at the corners,
+        /// the partitions, the doorways and the window openings), found by testing a grid of cells against the wall with rays, then laid as flat
+        /// quads just off the surface. Stored as the grid (origin, directions, cell size) and the runs of painted cells in each row, in the site's
+        /// local space, so it is saved small and rebuilt without any rays.
+        /// </summary>
+        private sealed class PaintPatch
+        {
+            public string Item;
+            public Vector3 O, N, T;                 // grid origin (the bottom left corner of cell 0,0), the wall normal and the direction along the wall
+            public float Cell;
+            public int Order;                        // newer patches lie over older ones
+            public List<Vector3Int> Runs = new List<Vector3Int>();   // row, first column, last column
+            public GameObject Go;
+        }
+
+        private readonly List<PaintPatch> _patches = new List<PaintPatch>();
+        private const float PaintCell = 0.125f;
+
+        private static string F(float v) { return v.ToString("R", System.Globalization.CultureInfo.InvariantCulture); }
+        private static float P(string s) { return float.Parse(s, System.Globalization.CultureInfo.InvariantCulture); }
+        private static string V(Vector3 v) { return F(v.x) + "," + F(v.y) + "," + F(v.z); }
+        private static Vector3 ParseV(string s) { string[] a = s.Split(','); return new Vector3(P(a[0]), P(a[1]), P(a[2])); }
+
+        public List<string> WallPaintList()
+        {
+            var list = new List<string>();
+            foreach (KeyValuePair<string, string> kv in _wallPaints) list.Add(kv.Key + "=" + kv.Value);
+            foreach (PaintPatch p in _patches)
+            {
+                var runs = new System.Text.StringBuilder();
+                foreach (Vector3Int r in p.Runs) runs.Append(r.x).Append(':').Append(r.y).Append(':').Append(r.z).Append(';');
+                list.Add("P|" + p.Item + "|" + V(p.O) + "|" + V(p.N) + "|" + V(p.T) + "|" + F(p.Cell) + "|" + p.Order + "|" + runs);
+            }
+            return list;
+        }
+
+        public void SetWallPaints(List<string> list)
+        {
+            _wallPaints.Clear();
+            ClearPatches();
+            if (list != null)
+                foreach (string e in list)
+                {
+                    try
+                    {
+                        if (e.StartsWith("P|"))
+                        {
+                            string[] f = e.Split('|');
+                            var p = new PaintPatch { Item = f[1], O = ParseV(f[2]), N = ParseV(f[3]), T = ParseV(f[4]), Cell = P(f[5]), Order = int.Parse(f[6]) };
+                            foreach (string r in f[7].Split(';'))
+                            {
+                                if (r.Length == 0) continue;
+                                string[] a = r.Split(':');
+                                p.Runs.Add(new Vector3Int(int.Parse(a[0]), int.Parse(a[1]), int.Parse(a[2])));
+                            }
+                            _patches.Add(p);
+                            continue;
+                        }
+                        int k = e.IndexOf('=');
+                        if (k > 0 && !e.Contains("|in=")) _wallPaints[e.Substring(0, k)] = e.Substring(k + 1);   // (older saves painted whole inside walls: dropped)
+                    }
+                    catch (System.Exception ex) { Debug.LogWarning("[Paint] a saved paint entry could not be read: " + ex.Message); }
+                }
+            ApplyWallPaints(VisualRoot);
+        }
+
+        private void ClearPatches()
+        {
+            foreach (PaintPatch p in _patches) if (p.Go != null) Destroy(p.Go);
+            _patches.Clear();
+        }
+
+        private static bool IsWallRoot(string n) { return n == "Wall_Front" || n == "Wall_Back" || n == "Wall_Left" || n == "Wall_Right"; }
+
+        private static Transform WallRootOf(Transform t, Transform stop)
+        {
+            for (; t != null && t != stop; t = t.parent) if (IsWallRoot(t.name)) return t;
+            return null;
+        }
+
+        private static bool IsDoorName(string n) { return n == "DoorHinge" || n.StartsWith("DoorHinge_") || n.StartsWith("DoorSlide_") || n.StartsWith("DoorRoll_"); }
+
+        /// <summary>The door object (hinge, slide or roll node) a collider belongs to, or null.</summary>
+        private static Transform DoorRootOf(Transform t, Transform stop)
+        {
+            for (; t != null && t != stop; t = t.parent) if (IsDoorName(t.name)) return t;
+            return null;
+        }
+
+        private static string Plain(string n)
+        {
+            int k = n.IndexOf(" (Instance)", System.StringComparison.Ordinal);
+            return k >= 0 ? n.Substring(0, k) : n;
+        }
+
+        private static bool OutsideMaterial(string n) { return n.StartsWith("Siding") || n.StartsWith("Log"); }
+        private static bool InsideMaterial(string n) { return n.StartsWith("Interior"); }
+        private static bool DoorMaterial(string n) { return n.StartsWith("Door"); }
+        private static bool ShutterMaterial(string n) { return n.StartsWith("Shutter"); }
+
+        private void ApplyWallPaints(Transform root)
+        {
+            if (root == null) return;
+            foreach (KeyValuePair<string, string> kv in _wallPaints)
+            {
+                AssetCatalogItem paint = HudBindings.GetCatalogItem(kv.Value);
+                if (paint == null) continue;
+                if (kv.Key.StartsWith("Door:"))
+                {
+                    string door = kv.Key.Substring(5);
+                    foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+                        if (t.name == door) { StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), DoorMaterial, paint); break; }
+                    continue;
+                }
+                if (kv.Key.StartsWith("Shutter:"))
+                {
+                    string wallName = kv.Key.Substring(8);
+                    foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+                        if (t.name == wallName && IsWallRoot(t.name)) { StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), ShutterMaterial, paint); break; }
+                    continue;
+                }
+                string[] parts = kv.Key.Split('|');
+                if (parts.Length != 2 || parts[1] != "out") continue;
+                foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+                    if (t.name == parts[0] && IsWallRoot(t.name)) { StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), OutsideMaterial, paint); break; }
+            }
+            foreach (PaintPatch p in _patches) BuildPatch(p, root);
+        }
+
+        /// <summary>Lays a patch as quads on the model: one per run of cells, a hair off the wall (newer patches a hair further).</summary>
+        private void BuildPatch(PaintPatch p, Transform root)
+        {
+            AssetCatalogItem paint = HudBindings.GetCatalogItem(p.Item);
+            if (paint == null || p.Runs.Count == 0) return;
+            if (p.Go != null) Destroy(p.Go);
+            Vector3 n = transform.TransformDirection(p.N), t = transform.TransformDirection(p.T), o = transform.TransformPoint(p.O);
+            o += n * (0.004f + 0.0015f * Mathf.Min(p.Order, 20));
+            var verts = new List<Vector3>();
+            var tris = new List<int>();
+            foreach (Vector3Int r in p.Runs)
+            {
+                Vector3 a = o + t * (r.y * p.Cell) + Vector3.up * (r.x * p.Cell);
+                Vector3 b = a + t * ((r.z - r.y + 1) * p.Cell);
+                Vector3 up = Vector3.up * p.Cell;
+                int i = verts.Count;
+                verts.Add(root.InverseTransformPoint(a)); verts.Add(root.InverseTransformPoint(b));
+                verts.Add(root.InverseTransformPoint(b + up)); verts.Add(root.InverseTransformPoint(a + up));
+                tris.AddRange(new[] { i, i + 1, i + 2, i, i + 2, i + 3 });
+            }
+            var mesh = new Mesh { name = "PaintPatch" };
+            mesh.SetVertices(verts);
+            mesh.SetTriangles(tris, 0);
+            var nrm = new Vector3[verts.Count];
+            for (int k = 0; k < nrm.Length; k++) nrm[k] = root.InverseTransformDirection(n);
+            mesh.normals = nrm;
+            mesh.RecalculateBounds();
+            p.Go = new GameObject("PaintPatch");
+            p.Go.transform.SetParent(root, false);
+            p.Go.AddComponent<MeshFilter>().sharedMesh = mesh;
+            var mr = p.Go.AddComponent<MeshRenderer>();
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit")) { hideFlags = HideFlags.DontSave };
+            Color c = Color.white;
+            ColorUtility.TryParseHtmlString(paint.look_color, out c);
+            mat.SetColor("_BaseColor", c);
+            mat.SetFloat("_Smoothness", paint.look_smoothness);
+            mat.SetFloat("_Metallic", paint.look_metallic);
+            mat.SetFloat("_Cull", 0f);                      // visible from either side, whatever the winding
+            mr.sharedMaterial = mat;
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+
+        private static readonly RaycastHit[] s_rayBuf = new RaycastHit[24];
+
+        /// <summary>A collider the paint passes over: people, placed things, window panes and doors (a door is painted as a door).</summary>
+        private bool Ignorable(Collider col)
+        {
+            if (col.GetComponentInParent<PedController>() != null || col.GetComponentInParent<PlacedObject>() != null || col.GetComponentInParent<WorldItem>() != null) return true;
+            for (Transform t = col.transform; t != null && t != transform; t = t.parent)
+                if (t.name == "WindowGlass" || t.name.StartsWith("Door") || t.name.StartsWith("RollLeaf")) return true;
+            return false;
+        }
+
+        /// <summary>True when there is wall face at a cell centre: a ray from just in front of it, straight at the wall, meets this building's wall near.</summary>
+        private bool WallAt(Vector3 center, Vector3 n)
+        {
+            int count = Physics.RaycastNonAlloc(center + n * 0.12f, -n, s_rayBuf, 0.3f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            float best = float.MaxValue;
+            int bi = -1;
+            for (int i = 0; i < count; i++)
+            {
+                if (Ignorable(s_rayBuf[i].collider)) continue;
+                if (s_rayBuf[i].distance < best) { best = s_rayBuf[i].distance; bi = i; }
+            }
+            if (bi < 0 || best < 0.04f || best > 0.2f || Vector3.Dot(s_rayBuf[bi].normal, n) < 0.7f) return false;
+            return s_rayBuf[bi].collider.GetComponentInParent<ConstructionSite>() == this;
+        }
+
+        private PaintPatch MakePatch(RaycastHit hit, string itemId)
+        {
+            Vector3 n = hit.normal;
+            n.y = 0f;
+            if (n.sqrMagnitude < 0.25f) return null;
+            n.Normalize();
+            Vector3 t = Vector3.Cross(Vector3.up, n);
+            float c = PaintCell;
+            // the floor under the click is row 0
+            float yf = hit.point.y - 0.01f;
+            int fc = Physics.RaycastNonAlloc(hit.point + n * 0.12f + Vector3.up * 0.15f, Vector3.down, s_rayBuf, 6f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            float fbest = float.MaxValue;
+            for (int i = 0; i < fc; i++)
+                if (!Ignorable(s_rayBuf[i].collider) && s_rayBuf[i].distance < fbest && s_rayBuf[i].normal.y > 0.5f) { fbest = s_rayBuf[i].distance; yf = s_rayBuf[i].point.y; }
+            Vector3 origin = new Vector3(hit.point.x, yf, hit.point.z) - t * (c * 0.5f);
+            int startRow = Mathf.Max(0, Mathf.FloorToInt((hit.point.y - yf) / c));
+            Vector3 CenterOf(int k, int r) { return origin + t * ((k + 0.5f) * c) + Vector3.up * ((r + 0.5f) * c); }
+
+            var known = new Dictionary<long, bool>();
+            bool Valid(int k, int r)
+            {
+                if (k < -90 || k > 90 || r < 0 || r > 120) return false;
+                long key = ((long)(k + 100) << 16) | (long)r;
+                if (!known.TryGetValue(key, out bool v)) { v = WallAt(CenterOf(k, r), n); known[key] = v; }
+                return v;
+            }
+            if (!Valid(0, startRow)) return null;
+
+            var rows = new SortedDictionary<int, List<int>>();
+            var seen = new HashSet<long>();
+            var queue = new Queue<Vector2Int>();
+            queue.Enqueue(new Vector2Int(0, startRow));
+            seen.Add(((long)100 << 16) | (long)startRow);
+            int total = 0;
+            while (queue.Count > 0 && total < 9000)
+            {
+                Vector2Int q = queue.Dequeue();
+                if (!rows.TryGetValue(q.y, out List<int> ks)) { ks = new List<int>(); rows[q.y] = ks; }
+                ks.Add(q.x);
+                total++;
+                foreach (Vector2Int d in new[] { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1) })
+                {
+                    var nb = new Vector2Int(q.x + d.x, q.y + d.y);
+                    long key = ((long)(nb.x + 100) << 16) | (long)nb.y;
+                    if (nb.y < 0 || nb.x < -90 || nb.x > 90 || nb.y > 120 || !seen.Add(key)) continue;
+                    if (Valid(nb.x, nb.y)) queue.Enqueue(nb);
+                }
+            }
+            var patch = new PaintPatch { Item = itemId, Cell = c, Order = _patches.Count };
+            patch.O = transform.InverseTransformPoint(origin);
+            patch.N = transform.InverseTransformDirection(n);
+            patch.T = transform.InverseTransformDirection(t);
+            foreach (KeyValuePair<int, List<int>> row in rows)
+            {
+                row.Value.Sort();
+                int start = row.Value[0], prev = start;
+                for (int i = 1; i <= row.Value.Count; i++)
+                {
+                    if (i < row.Value.Count && row.Value[i] == prev + 1) { prev = row.Value[i]; continue; }
+                    patch.Runs.Add(new Vector3Int(row.Key, start, prev));
+                    if (i < row.Value.Count) { start = row.Value[i]; prev = start; }
+                }
+            }
+            return patch;
+        }
+
+        private static string DoorLabel(string door) { return door == "DoorHinge" ? "the front door" : "that door"; }
+
+        /// <summary>Paints what a ray hit with a paint item: a door, the outside of a wall, or the section of an inside wall. False when it is none of them.</summary>
+        public bool TryPaint(RaycastHit hit, AssetCatalogItem paint, Transform player)
+        {
+            Transform root = VisualRoot;
+            if (root == null || paint == null || !hit.collider.transform.IsChildOf(root)) return false;
+            if (player != null && DistanceOutside(player.position) > YardM + 4f)
+            {
+                ToastNotificationSystem.ShowInfo("Too far", "Move closer to paint it.");
+                return true;
+            }
+            Transform door = DoorRootOf(hit.collider.transform, root);
+            if (door != null)
+            {
+                _wallPaints["Door:" + door.name] = paint.id;
+                ApplyWallPaints(root);
+                ToastNotificationSystem.ShowInfo(Name(), "Painted " + DoorLabel(door.name) + " " + paint.name + ".");
+                return true;
+            }
+            Transform wall = WallRootOf(hit.collider.transform, root);
+            Renderer hr = hit.collider.GetComponent<Renderer>();
+            if (wall != null && hr != null)
+                foreach (Material m in hr.sharedMaterials)
+                    if (m != null && ShutterMaterial(Plain(m.name)))
+                    {
+                        _wallPaints["Shutter:" + wall.name] = paint.id;      // the shutters are part of the wall: all of that wall's shutters
+                        ApplyWallPaints(root);
+                        ToastNotificationSystem.ShowInfo(Name(), "Painted the shutters on the " + wall.name.Substring("Wall_".Length).ToLowerInvariant() + " wall " + paint.name + ".");
+                        return true;
+                    }
+            Vector3 o = hit.point - transform.position, n = hit.normal;
+            o.y = 0f; n.y = 0f;
+            if (wall != null && Vector3.Dot(o, n) > 0f)
+            {
+                _wallPaints[wall.name + "|out"] = paint.id;      // the outside: the whole wall
+                ApplyWallPaints(root);
+                ToastNotificationSystem.ShowInfo(Name(), "Painted the outside of the " + wall.name.Substring("Wall_".Length).ToLowerInvariant() + " wall " + paint.name + ".");
+                return true;
+            }
+            Renderer r = hit.collider.GetComponent<Renderer>();
+            bool interior = wall != null;
+            if (r != null)
+                foreach (Material m in r.sharedMaterials)
+                {
+                    if (m == null) continue;
+                    if (InsideMaterial(Plain(m.name))) interior = true;
+                    if (Plain(m.name).StartsWith("Log")) return false;          // the logs of a log wall are not painted
+                }
+            if (!interior || Mathf.Abs(hit.normal.y) > 0.35f) return false;       // not a wall face (floor, roof, trim)
+            PaintPatch patch = MakePatch(hit, paint.id);
+            if (patch == null || patch.Runs.Count == 0)
+            {
+                ToastNotificationSystem.ShowInfo(Name(), "That spot can't be painted.");
+                return true;
+            }
+            _patches.Add(patch);
+            BuildPatch(patch, root);
+            ToastNotificationSystem.ShowInfo(Name(), "Painted that section of the wall " + paint.name + ".");
+            return true;
+        }
+
+        /// <summary>A right click with a paint can: paints the wall of the building under the cursor. False when nothing paintable is there.</summary>
+        public static bool TryPaintAtRay(Ray ray, string paintItemId, Transform player)
+        {
+            AssetCatalogItem paint = HudBindings.GetCatalogItem(paintItemId);
+            if (paint == null) return false;
+            RaycastHit[] hits = Physics.RaycastAll(ray, 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                ConstructionSite cs = h.collider.GetComponentInParent<ConstructionSite>();
+                return cs != null && cs.TryPaint(h, paint, player);   // the first thing hit decides
+            }
+            return false;
         }
 
         private void RememberLooks(LineStatus l)
@@ -1108,11 +1569,273 @@ namespace Homesteader.Growth
         public Fireplace Fireplace { get; private set; }
         public float FuelMinutes;
         public bool FireLit;
+
+        // storage built into a finished structure (a grain silo: the structure's manifest has a container block): what is in it, saved with the site
+        public readonly List<ContainerStack> Contents = new List<ContainerStack>();
+        public bool IsStorage => Finished && ContainerRules.Capacity(StructureId) > 0f;
+        public float StorageCapacityKg => ContainerRules.Capacity(StructureId);
+        public float StorageUsedKg => ContainerRules.Used(Contents);
+
+        /// <summary>One line for a toast: how full it is and what is in it.</summary>
+        public string StorageSummary()
+        {
+            string what = "";
+            foreach (ContainerStack c in Contents)
+                if (c.Count > 0) what += (what.Length > 0 ? ", " : "") + c.Count + "x " + HudBindings.GetItemName(c.ItemId);
+            return UnitFormat.WeightPair(StorageUsedKg, StorageCapacityKg) + (what.Length > 0 ? "  (" + what + ")" : "  (empty)");
+        }
         public bool HasDoor => _hinge != null;
+
+        // Interior doors: objects of a finished model that a right click opens. "DoorHinge_<n>" (a leaf "DoorLeaf_<n>" as its child) swings like the front
+        // door; "DoorSlide_<n>" slides along the wall by the position of its child "SlideTo..." (barn doors, stall doors); "DoorRoll_<n>" rolls up
+        // into its header (garage doors: its origin is the top edge, so it is squashed upwards). A closed leaf is solid, an open or moving one is not.
+        // Their open state is saved with the site (openDoors) and applied as the model loads.
+        private sealed class InteriorDoor
+        {
+            public Transform Hinge;
+            public int Kind;                         // 0 swings, 1 slides, 2 rolls up
+            public Quaternion Closed;
+            public float Sign = 1f, Angle;           // swing: the way it turns and how far (degrees)
+            public Vector3 ClosedPos, Offset, ClosedScale;   // slide: where it rests and how far it travels; roll: its shut scale
+            public float T;                          // slide and roll: 0 shut to 1 open
+            public bool Open;
+            public Collider[] Leaf;
+            public Bounds ClosedBounds;              // the leaf while shut, in the world: the doorway
+            public float Progress { get { return Kind == 0 ? Angle / DoorOpenDegrees : T; } }
+        }
+
+        private readonly List<InteriorDoor> _interior = new List<InteriorDoor>();
+
+        // Which interior doors stand open, by the name of the door object in the model. Saved with the site (openDoors) and applied as the model loads.
+        private readonly HashSet<string> _openDoors = new HashSet<string>();
+
+        public List<string> OpenDoorList() { return new List<string>(_openDoors); }
+
+        public void SetOpenDoors(List<string> names)
+        {
+            _openDoors.Clear();
+            if (names != null) foreach (string n in names) _openDoors.Add(n);
+            foreach (InteriorDoor d in _interior) if (d.Hinge != null) SnapInterior(d, _openDoors.Contains(d.Hinge.name));   // the model is already showing
+        }
+
+        private void SetInteriorOpen(InteriorDoor d, bool open)
+        {
+            d.Open = open;
+            if (open) _openDoors.Add(d.Hinge.name); else _openDoors.Remove(d.Hinge.name);
+        }
+
+        /// <summary>Puts a door straight into its open or shut state (no animation): a building that loads with its doors as they were left.</summary>
+        private static void SnapInterior(InteriorDoor d, bool open)
+        {
+            d.Open = open;
+            if (d.Kind == 0)
+            {
+                d.Angle = open ? DoorOpenDegrees : 0f;
+                d.Hinge.localRotation = d.Closed * Quaternion.AngleAxis(d.Sign * d.Angle, Vector3.up);
+            }
+            else
+            {
+                d.T = open ? 1f : 0f;
+                if (d.Kind == 1) d.Hinge.localPosition = d.ClosedPos + d.Offset * d.T;
+                else d.Hinge.localScale = new Vector3(d.ClosedScale.x, Mathf.Lerp(d.ClosedScale.y, d.ClosedScale.y * RolledScale, d.T), d.ClosedScale.z);
+            }
+        }
+        private const float InteriorReach = 2f;   // a door answers only within 2 m of the player (measured to the door, not the building)
+        private Bounds _hingeBounds;
+        private const float SlideSeconds = 1.6f, RollSeconds = 2.4f, RolledScale = 0.06f;
+
+        /// <summary>Distance on the ground from a point to a box (0 inside it).</summary>
+        private static float FlatDistance(Bounds b, Vector3 p)
+        {
+            float dx = Mathf.Max(b.min.x - p.x, 0f, p.x - b.max.x), dz = Mathf.Max(b.min.z - p.z, 0f, p.z - b.max.z);
+            return Mathf.Sqrt(dx * dx + dz * dz);
+        }
+
+        private void FindInteriorDoors(Transform model)
+        {
+            _interior.Clear();
+            foreach (Transform t in model.GetComponentsInChildren<Transform>(true))
+            {
+                int kind = t.name.StartsWith("DoorHinge_") ? 0 : t.name.StartsWith("DoorSlide_") ? 1 : t.name.StartsWith("DoorRoll_") ? 2 : -1;
+                if (kind < 0) continue;
+                // the leaf meshes inside a door (and their parts) carry names that start the same way: only the door itself counts
+                bool inside = false;
+                for (Transform up = t.parent; up != null && up != model; up = up.parent)
+                    if (up.name.StartsWith("DoorHinge_") || up.name.StartsWith("DoorSlide_") || up.name.StartsWith("DoorRoll_")) { inside = true; break; }
+                if (inside) continue;
+                var door = new InteriorDoor { Hinge = t, Kind = kind, Closed = t.localRotation, ClosedPos = t.localPosition, ClosedScale = t.localScale, Leaf = t.GetComponentsInChildren<Collider>(true) };
+                Renderer leaf = t.GetComponentInChildren<Renderer>(true);
+                door.ClosedBounds = leaf != null ? leaf.bounds : new Bounds(t.position, Vector3.one * 0.5f);
+                if (kind == 1)
+                {
+                    foreach (Transform child in t)
+                        if (child.name.StartsWith("SlideTo")) { door.Offset = child.localPosition; break; }
+                }
+                if (kind == 0 && leaf != null)
+                {
+                    // swing towards the front of the building, like the front door
+                    Vector3 arm = leaf.bounds.center - t.position;
+                    arm.y = 0f;
+                    Vector3 front = transform.TransformDirection(s_front.sqrMagnitude > 0.01f ? s_front.normalized : Vector3.back);
+                    front.y = 0f;
+                    float plus = Vector3.Dot(Quaternion.AngleAxis(DoorOpenDegrees, Vector3.up) * arm, front);
+                    float minus = Vector3.Dot(Quaternion.AngleAxis(-DoorOpenDegrees, Vector3.up) * arm, front);
+                    door.Sign = plus >= minus ? 1f : -1f;
+                }
+                _interior.Add(door);
+                if (_openDoors.Contains(t.name)) SnapInterior(door, true);   // left open: it loads open
+            }
+            if (_interior.Count > 0) Debug.Log("[Doors] " + Name() + ": " + _interior.Count + " openable door(s) found (swing, slide, roll-up).");
+        }
+
+        private void AnimateInteriorDoors()
+        {
+            foreach (InteriorDoor d in _interior)
+            {
+                if (d.Hinge == null) continue;
+                if (d.Kind == 0)
+                {
+                    float target = d.Open ? DoorOpenDegrees : 0f;
+                    if (!Mathf.Approximately(d.Angle, target))
+                    {
+                        d.Angle = Mathf.MoveTowards(d.Angle, target, DoorSwingSpeed * Time.deltaTime);
+                        d.Hinge.localRotation = d.Closed * Quaternion.AngleAxis(d.Sign * d.Angle, Vector3.up);
+                    }
+                }
+                else
+                {
+                    float target = d.Open ? 1f : 0f;
+                    if (!Mathf.Approximately(d.T, target))
+                    {
+                        d.T = Mathf.MoveTowards(d.T, target, Time.deltaTime / (d.Kind == 1 ? SlideSeconds : RollSeconds));
+                        float e = Mathf.SmoothStep(0f, 1f, d.T);
+                        if (d.Kind == 1) d.Hinge.localPosition = d.ClosedPos + d.Offset * e;
+                        else d.Hinge.localScale = new Vector3(d.ClosedScale.x, Mathf.Lerp(d.ClosedScale.y, d.ClosedScale.y * RolledScale, e), d.ClosedScale.z);
+                    }
+                }
+                // the leaf blocks only while it is shut, and this is enforced every frame (not only while it moves), with the colliders looked up
+                // again when none were found at the start: a leaf's collider that was added after the model was found must not stay solid
+                if (d.Leaf == null || d.Leaf.Length == 0) d.Leaf = d.Hinge.GetComponentsInChildren<Collider>(true);
+                bool solid = !d.Open && d.Progress <= 0.005f;
+                foreach (Collider c in d.Leaf) if (c != null && c.enabled != solid) c.enabled = solid;
+            }
+        }
+
+        /// <summary>
+        /// A right click aimed at an interior door (its leaf, or the doorway while it stands open) opens or shuts it, whatever stage the building is at:
+        /// the click goes to the door first, so it is never taken for "build the next stage".
+        /// </summary>
+        private InteriorDoor DoorAimedAt(Ray ray)
+        {
+            InteriorDoor hit = null;
+            float bestT = float.MaxValue;
+            foreach (InteriorDoor d in _interior)
+            {
+                if (d.Hinge == null) continue;
+                Renderer leaf = d.Hinge.GetComponentInChildren<Renderer>(true);
+                if (leaf == null) continue;
+                // the leaf in its closed place (open, it stands against the wall or is rolled away): the doorway is what the player aims at
+                Bounds b = d.ClosedBounds;
+                if (d.Progress > 0.02f) b.Encapsulate(leaf.bounds);
+                b.Expand(0.08f);   // the door itself, not the wall around it
+                if (b.IntersectRay(ray, out float t) && t < bestT) { bestT = t; hit = d; }
+            }
+            return hit;
+        }
+
+        /// <summary>True when the cursor is on a door of this building that a right click would work from where the player stands (the cursor shows the hand).</summary>
+        public bool DoorUnderCursor(Ray ray, Vector3 playerPos)
+        {
+            InteriorDoor inner = DoorAimedAt(ray);
+            if (inner != null) return FlatDistance(inner.ClosedBounds, playerPos) <= InteriorReach;
+            if (Finished && _hinge != null)
+            {
+                Renderer r = _hinge.GetComponentInChildren<Renderer>(true);
+                if (r != null)
+                {
+                    if (MainDoorBounds().IntersectRay(ray, out float t) && FlatDistance(_hingeBounds, playerPos) <= InteriorReach) return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// What a click on the front door must hit: the doorway (the leaf where it hangs shut) and the leaf where it is now, so an open door
+        /// can be shut by clicking the leaf standing open or the empty doorway. Padded sideways so a thin door is not hard to hit.
+        /// </summary>
+        private Bounds MainDoorBounds()
+        {
+            Bounds b = _hingeBounds;
+            if (_hinge != null && _doorAngle > 0.5f)
+            {
+                Renderer leaf = _hinge.GetComponentInChildren<Renderer>(true);
+                if (leaf != null) b.Encapsulate(leaf.bounds);
+            }
+            b.Expand(new Vector3(0.2f, 0.1f, 0.2f));
+            return b;
+        }
+
+        /// <summary>The ray reaches the door box without a wall of the building in front of it (the door's own leaf does not count).</summary>
+        private bool DoorNotHiddenBehindWall(Ray ray, float doorDistance)
+        {
+            // the casing, trim and cladding around a door stand up to a few tens of centimetres proud of it: only something further in front than that hides it
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Max(0f, doorDistance - 0.7f), Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                if (_hinge != null && h.collider.transform.IsChildOf(_hinge)) continue;
+                if (h.collider.GetComponentInParent<ConstructionSite>() == this) return false;
+            }
+            return true;
+        }
+
+        public bool TryDoorAtCursor(Ray ray, Transform player)
+        {
+            InteriorDoor hit = DoorAimedAt(ray);
+            if (hit == null)
+            {
+                // the front door: only a click on the door itself (its leaf in the doorway) works it
+                if ((Finished || HasDoor) && _hinge != null)
+                {
+                    if (MainDoorBounds().IntersectRay(ray, out float t) && DoorNotHiddenBehindWall(ray, t)) return ToggleDoor(player);
+                }
+                return false;
+            }
+            if (player != null)
+            {
+                if (FlatDistance(hit.ClosedBounds, player.position) > InteriorReach)
+                {
+                    ToastNotificationSystem.ShowInfo("Too far", "Move closer to the door.");
+                    return true;
+                }
+                if (hit.Open && FlatDistance(hit.ClosedBounds, player.position) < 0.45f)
+                {
+                    ToastNotificationSystem.ShowInfo(Name(), "Step away from the doorway first.");
+                    return true;
+                }
+            }
+            SetInteriorOpen(hit, !hit.Open);
+            return true;
+        }
+
+        /// <summary>The interior door nearest to a point within reach, or null.</summary>
+        private InteriorDoor NearestInteriorDoor(Vector3 p)
+        {
+            InteriorDoor best = null;
+            float bestD = InteriorReach;
+            foreach (InteriorDoor d in _interior)
+            {
+                if (d.Hinge == null) continue;
+                float dist = FlatDistance(d.ClosedBounds, p);
+                if (dist < bestD) { bestD = dist; best = d; }
+            }
+            return best;
+        }
 
         private void FindDoor(Transform model)
         {
             _hinge = null;
+            FindInteriorDoors(model);
             foreach (Transform t in model.GetComponentsInChildren<Transform>(true))
                 if (t.name == "DoorHinge") { _hinge = t; break; }
             if (_hinge == null) return;
@@ -1121,6 +1844,7 @@ namespace Homesteader.Growth
 
             // it swings OUTWARD: the way that carries the leaf towards the front of the building
             Renderer leaf = _hinge.GetComponentInChildren<Renderer>(true);
+            _hingeBounds = leaf != null ? leaf.bounds : new Bounds(_hinge.position, Vector3.one * 0.5f);
             if (leaf != null)
             {
                 Vector3 arm = leaf.bounds.center - _hinge.position;
@@ -1139,15 +1863,17 @@ namespace Homesteader.Growth
         /// <summary>The leaf blocks only while it is shut: open or swinging it has no collider, so it can never trap the player or push them about.</summary>
         private void SetLeafSolid(bool solid)
         {
+            if ((_leafColliders == null || _leafColliders.Length == 0) && _hinge != null) _leafColliders = _hinge.GetComponentsInChildren<Collider>(true);
             if (_leafColliders == null) return;
             foreach (Collider c in _leafColliders) if (c != null && c.enabled != solid) c.enabled = solid;
         }
 
         private void AnimateDoor()
         {
+            AnimateInteriorDoors();
             if (_hinge == null) return;
             float target = DoorOpen ? DoorOpenDegrees : 0f;
-            if (Mathf.Approximately(_doorAngle, target)) return;
+            if (Mathf.Approximately(_doorAngle, target)) { if (DoorOpen) SetLeafSolid(false); return; }
             _doorAngle = Mathf.MoveTowards(_doorAngle, target, DoorSwingSpeed * Time.deltaTime);
             _hinge.localRotation = _hingeClosed * Quaternion.AngleAxis(_swingSign * _doorAngle, Vector3.up);
             SetLeafSolid(_doorAngle <= 0.5f);
@@ -1157,7 +1883,7 @@ namespace Homesteader.Growth
         public bool ToggleDoor(Transform player)
         {
             if (_hinge == null) { ToastNotificationSystem.ShowInfo(Name(), "This structure is finished."); return false; }
-            if (player != null && DistanceOutside(player.position) > 4f)
+            if (player != null && FlatDistance(_hingeBounds, player.position) > InteriorReach)
             {
                 ToastNotificationSystem.ShowInfo("Too far", "Move closer to the door.");
                 return false;
@@ -1165,11 +1891,8 @@ namespace Homesteader.Growth
             if (DoorOpen && player != null)
             {
                 // never shut it on someone standing in the doorway
-                Vector3 doorway = _hinge.position;
-                Renderer leaf = _hinge.GetComponentInChildren<Renderer>(true);
-                if (leaf != null) doorway = leaf.bounds.center;
-                Vector2 apart = new Vector2(player.position.x - doorway.x, player.position.z - doorway.z);
-                if (apart.magnitude < 1.5f) { ToastNotificationSystem.ShowInfo(Name(), "Step away from the doorway first."); return false; }
+                // only when the player stands in the doorway itself (the door is within reach, so 1.5 m round it would make it impossible to shut)
+                if (FlatDistance(_hingeBounds, player.position) < 0.45f) { ToastNotificationSystem.ShowInfo(Name(), "Step away from the doorway first."); return false; }
             }
             SetDoor(!DoorOpen);
             return true;
@@ -1290,6 +2013,21 @@ namespace Homesteader.Growth
         }
 
         // ------------------------------------------------------------------ picking
+
+        /// <summary>
+        /// True when a building or a placed object stands between the camera and a point `distance` along the ray: a click on a house is not a
+        /// click on the bush behind it. (Hidden roofs and walls of the cutaway are on the Ignore Raycast layer, so the inside of a building stays open.)
+        /// </summary>
+        public static bool SolidBefore(Ray ray, float distance)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Max(0f, distance - 0.2f), Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                if (h.collider.GetComponentInParent<ConstructionSite>() != null || h.collider.GetComponentInParent<PlacedObject>() != null) return true;
+            }
+            return false;
+        }
 
         /// <summary>The construction site under the cursor (its dirt area or structure is the first thing hit), or null.</summary>
         public static ConstructionSite UnderCursor()

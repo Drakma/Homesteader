@@ -102,7 +102,7 @@ namespace Homesteader.UI
             return best;
         }
 
-        private static Camera GameCamera()
+        internal static Camera GameCamera()
         {
             Camera cam = Camera.main;
             if (cam != null) return cam;
@@ -113,7 +113,7 @@ namespace Homesteader.UI
             return Object.FindAnyObjectByType<Camera>();
         }
 
-        private static bool TryGetPointerPos(out Vector2 pos)
+        internal static bool TryGetPointerPos(out Vector2 pos)
         {
 #if ENABLE_INPUT_SYSTEM
             Mouse m = Mouse.current;

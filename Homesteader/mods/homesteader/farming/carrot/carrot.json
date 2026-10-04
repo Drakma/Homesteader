@@ -1,0 +1,107 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "carrot",
+  "name": "Carrot Plant",
+  "category": "farming",
+  "description": "A carrot lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 70 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+  "icon": "carrot.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "carrot",
+    "max_age": 70,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 8,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_carrot.glb",
+        "icon": "crop_sprout_carrot.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 8,
+        "age_max": 23,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_carrot.glb",
+        "icon": "crop_small_carrot.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 23,
+        "age_max": 42,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_carrot.glb",
+        "icon": "crop_medium_carrot.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 42,
+        "age_max": 58,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_carrot.glb",
+        "icon": "crop_mature_carrot.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 58,
+        "age_max": 70,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_carrot.glb",
+        "icon": "crop_ripe_carrot.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "food_carrot",
+        "amount_min": 2,
+        "amount_max": 4,
+        "harvest_stage": 5
+      },
+      "planting": {
+        "seasons": [
+          "spring"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_carrot",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 4
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_carrot.glb",
+          "icon": "crop_withered_carrot.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_carrot.glb",
+          "icon": "crop_dead_carrot.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

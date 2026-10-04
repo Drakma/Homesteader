@@ -1247,6 +1247,16 @@
       background: var(--bg-card);
     }
 
+    /* The OR between the female and male card of a split stage. */
+    .gg-stage-or {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin: -2px 0;
+    }
+
     .gg-stage-thumb {
       width: 56px;
       height: 56px;
@@ -4631,6 +4641,29 @@
                     <option value="true">Yes</option>
                   </select>
                 </div>
+                <div class="kv-box" title="An item that mounts on a FINISHED building: a wall mount (breaker box, sconce, switch) or a ceiling mount (ceiling light). Empty = a normal item. See docs/ATTACHED_ITEMS.md.">
+                  <div class="kv-key">Mounts On</div>
+                  <select class="kv-input" id="m-attach-surface" data-path="properties.attach_surface">
+                    <option value="">Nothing</option>
+                    <option value="wall">Wall</option>
+                    <option value="ceiling">Ceiling</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A wall mount: the side of the wall it goes on.">
+                  <div class="kv-key">Mount Side</div>
+                  <select class="kv-input" id="m-attach-side" data-path="properties.attach_side">
+                    <option value="">Either</option>
+                    <option value="interior">Inside</option>
+                    <option value="exterior">Outside</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="Mounted on the outside of a building it brings electricity to that building (the outdoor breaker box).">
+                  <div class="kv-key">Brings Power</div>
+                  <select class="kv-input" id="m-provides-power" data-path="properties.provides_power">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
                 <div class="kv-box" style="grid-column: 1 / -1;" title="Used as a construction material, this item decides how those parts of the building LOOK (roof, walls, interior, floor, chimney, foundation; separate several with commas, bricks are chimney,foundation).">
                   <div class="kv-key">Building Look: Parts</div><input class="kv-input" type="text" id="m-look-target"
                     data-path="properties.look_target" placeholder="roof, walls, interior, floor, chimney, foundation">
@@ -4672,6 +4705,31 @@
                     data-path="properties.fence_height_m"></div>
                 <div class="kv-box" title="The post item one of these fences is built on (one per post, taken from the hotbar).">
                   <div class="kv-key">Fence Post Item</div><input class="kv-input" type="text" id="m-fence-post" data-path="properties.fence_post_item" placeholder="post_wood_round_6inch"></div>
+                <!-- Paths and roads (the path builder): see docs/PATHS.md -->
+                <div class="kv-box" title="A surface laid as a smooth curved route: with it in hand each click adds a control point.">
+                  <div class="kv-key">Path / Road Kind</div>
+                  <select class="kv-input" id="m-path-kind" data-path="properties.path_kind">
+                    <option value="">Not a path material</option>
+                    <option value="path">Path</option>
+                    <option value="road">Road</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="Bought once, starts a build when held, never used up. Shown on the blueprint blue.">
+                  <div class="kv-key">Blueprint</div><select class="kv-input" id="m-blueprint" data-path="properties.is_blueprint"><option value="false">No</option><option value="true">Yes</option></select></div>
+                <div class="kv-box" title="The material a path or road blueprint lays: one item per Metres Per Item.">
+                  <div class="kv-key">Path Material Item</div><input class="kv-input" type="text" id="m-path-material" data-path="properties.path_material_item" placeholder="mat_pile_gravel_small"></div>
+                <div class="kv-box"><div class="kv-key">Path Width (m)</div><input class="kv-input" type="number" step="0.1" min="0.5" id="m-path-width" data-path="properties.path_width_m"></div>
+                <div class="kv-box">
+                  <div class="kv-key">Path Surface</div>
+                  <select class="kv-input" id="m-path-style" data-path="properties.path_style">
+                    <option value="">None</option>
+                    <option value="dirt">Dirt</option>
+                    <option value="gravel">Gravel</option>
+                    <option value="stone">Stone</option>
+                    <option value="asphalt">Asphalt</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="How many metres of route one item lays."><div class="kv-key">Metres Per Item</div><input class="kv-input" type="number" step="0.25" min="0.25" id="m-path-per" data-path="properties.path_m_per_item"></div>
                 <div class="kv-box" title="A gate: with it in hand a click on a built fence takes the fence out for this width and stands the gate in the gap. Empty = not a gate.">
                   <div class="kv-key">Gate Width (m)</div><input class="kv-input" type="number" step="0.1" min="0.5" id="m-gate-width" data-path="properties.gate_width_m"></div>
                 <div class="kv-box">
@@ -7180,6 +7238,7 @@
     let activeFilter = "all";
     let searchQuery = "";
     let activeSubfolder = null;
+    let subfolderReturnCategory = null;   // the category the open group was entered from: Back returns there
     const EXPANDED_CATEGORIES = new Set();
     const GROWTH_GROUPS = {};
 
@@ -7220,6 +7279,7 @@
     }
 
     function openSubfolder(speciesKey, meta, cat) {
+      if (subfolderReturnCategory === null) subfolderReturnCategory = activeCategory;
       activeSubfolder = {
         species: speciesKey,
         name: meta.name || speciesKey.replace("_", " ").toUpperCase(),
@@ -7232,9 +7292,9 @@
     }
 
     function exitSubfolder() {
-      activeSubfolder = null;
-      buildCategorySidebar();
-      renderGallery();
+      const back = subfolderReturnCategory || activeCategory;
+      subfolderReturnCategory = null;
+      selectCategory(back);   // clears the group, rebuilds the sidebar and the banner for the category it was opened from
     }
 
     // Three.js instance handles
@@ -7355,6 +7415,10 @@
           const spA = a.growth?.species;
           const spB = b.growth?.species;
           if (spA && spB && spA === spB) continue;
+
+          // A growth group (id == its species, e.g. "carrot") is the plant, not a copy of its seed packet, food or ingredient
+          const lifecycleId = (id) => ["seed_", "crop_", "food_", "ingredient_", "tree_", "plantable_"].some(p => id.startsWith(p));
+          if ((spA && spA === a.id && lifecycleId(b.id)) || (spB && spB === b.id && lifecycleId(a.id))) continue;
 
           // Skip fish creature vs fish fillet
           if ((a.id.startsWith("animal_fish_") && b.id.startsWith("ingredient_fillet_")) ||
@@ -10164,6 +10228,7 @@
     }
 
     function selectSubfolderFromSidebar(cat, species, meta) {
+      if (subfolderReturnCategory === null) subfolderReturnCategory = activeCategory;   // the category the click was made from (the sidebar also changes it to the group's own)
       activeCategory = cat;
       EXPANDED_CATEGORIES.add(cat);
       openSubfolder(species, meta, cat); // also rebuilds the sidebar
@@ -12280,6 +12345,7 @@
     function selectCategory(cat) {
       activeCategory = cat;
       activeSubfolder = null;
+      subfolderReturnCategory = null;
       buildCategorySidebar();
 
       // Update banner
@@ -12345,6 +12411,7 @@
           id: sp.species,
           resource: st.resource || "",
         });
+        if (st.pickModel) { q.set("model", st.pickModel); if (st.pickIcon) q.set("icon", st.pickIcon); }
         const res = await fetch(`/api/catalog-entry?${q.toString()}`, { cache: "no-store" });
         const data = await res.json();
         if (res.ok && data.success && data.entry) {
@@ -12441,6 +12508,30 @@
           </div>
         `;
         rail.appendChild(card);
+
+        // A stage that splits into female / male (animals): the male card sits below the female with an OR between them.
+        const maleSex = (Array.isArray(st.sexes) ? st.sexes : []).find(e => e.sex === "male" && e.model);
+        if (maleSex) {
+          const orEl = document.createElement("div");
+          orEl.className = "gg-stage-or";
+          orEl.textContent = "OR";
+          rail.appendChild(orEl);
+          const stM = Object.assign({}, st, { model: maleSex.model, icon: maleSex.icon || st.icon, name: `${st.name} (male)`, pickModel: maleSex.model, pickIcon: maleSex.icon || "" });
+          const mCard = document.createElement("div");
+          mCard.className = "gg-stage-card";
+          mCard.title = `Open stage ${st.stage} (${stM.name})`;
+          mCard.onclick = () => openStageModal(sp, stM, it);
+          const mIcon = [sp.category, sp.species, resDir, stM.icon].filter(Boolean).join("/");
+          mCard.innerHTML = `
+            <img class="gg-stage-thumb" src="${mIcon}" alt="${stM.name}" loading="lazy" onerror="this.style.visibility='hidden'; this.parentElement.classList.add('gg-thumb-missing')">
+            <div>
+              <div class="gg-stage-num">STAGE ${st.stage}</div>
+              <div class="gg-stage-name">${st.name} - male (${100 - (Number((st.sexes.find(e => e.sex === "female") || {}).chance_pct) || 80)}%)</div>
+              <div class="gg-stage-age">${ageLabel}</div>
+            </div>
+          `;
+          rail.appendChild(mCard);
+        }
       });
 
       grid.appendChild(rail);
@@ -12618,6 +12709,18 @@
                   <input class="gg-input gg-se-agemax" type="number" value="${st.age_max != null ? st.age_max : ""}">
                   <input class="gg-input gg-se-model" value="${esc(st.model)}" placeholder="(none)">
                   <input class="gg-input gg-se-icon" value="${esc(st.icon)}" placeholder="(none)">
+                  ${g.growth_type === "animal" && n === Math.max(...stages.map(x => Number(x.stage) || 0)) ? (() => {
+                    const sx = Array.isArray(st.sexes) ? st.sexes : [];
+                    const fem = sx.find(e => e.sex === "female") || {};
+                    const mal = sx.find(e => e.sex === "male") || {};
+                    const femPct = fem.chance_pct != null ? fem.chance_pct : (mal.chance_pct != null ? 100 - mal.chance_pct : 80);
+                    return `<div class="gg-se-sex" style="grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; padding: 2px 0 4px 33px;">
+                      <span class="gg-rules-hint" style="margin: 0;">At this stage an animal becomes female (the model above) or male:</span>
+                      <label class="gg-rules-hint" style="margin: 0;">Male model <input class="gg-input gg-se-male-model" style="width: 190px;" value="${esc(mal.model)}" placeholder="(none = no split)"></label>
+                      <label class="gg-rules-hint" style="margin: 0;">Male icon <input class="gg-input gg-se-male-icon" style="width: 150px;" value="${esc(mal.icon)}" placeholder="(none)"></label>
+                      <label class="gg-rules-hint" style="margin: 0;">Female chance % <input class="gg-input gg-se-female-pct" type="number" min="0" max="100" style="width: 56px;" value="${femPct}"></label>
+                    </div>`;
+                  })() : ""}
                 </div>
               `;
             }).join("")}
@@ -13002,6 +13105,15 @@
           delete entry.model;
         }
         if (!entry.icon) delete entry.icon;
+        // animals: the female / male choice of the final stage (the female is the stage's own model)
+        if (row.querySelector(".gg-se-male-model")) {
+          const maleModel = get(".gg-se-male-model");
+          const femPct = Math.max(0, Math.min(100, Number(get(".gg-se-female-pct")) || 0));
+          entry.sexes = maleModel && entry.model ? [
+            Object.assign({ sex: "female", chance_pct: femPct, model: entry.model }, entry.icon ? { icon: entry.icon } : {}),
+            Object.assign({ sex: "male", chance_pct: 100 - femPct, model: maleModel }, get(".gg-se-male-icon") ? { icon: get(".gg-se-male-icon") } : {}),
+          ] : [];
+        }
         if (row._construction) {
           // structures: what the stage takes to build (materials with quantities, tool groups)
           const cleanLine = (l) => ({ item_id: l.item_id, quantity: Math.max(1, Number(l.quantity) || 1) });
@@ -13142,6 +13254,20 @@
       // A growth group takes over the collection view with the split report,
       // the same way the biome editor does above.
       if (activeSubfolder && GROWTH_GROUPS[activeSubfolder.species]) {
+        // The banner of a group: Back returns to the category the group was opened from (not "all").
+        const gbTitle = document.getElementById("banner-title");
+        const gbDesc = document.getElementById("banner-desc");
+        const backCat = subfolderReturnCategory || activeCategory;
+        const backName = backCat === "all" ? "All Categories" : ((CATEGORIES_META[backCat] || {}).name || backCat);
+        if (gbTitle) {
+          gbTitle.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+              <button type="button" class="banner-back-btn" onclick="exitSubfolder()" title="Back to ${backName}" aria-label="Back to ${backName}">‹</button>
+              <span style="display: inline-flex; align-items: center; gap: 8px;"><span>${activeSubfolder.icon}</span> ${activeSubfolder.name} Group</span>
+            </div>
+          `;
+        }
+        if (gbDesc) gbDesc.innerText = `The "${activeSubfolder.name}" growth group: its stages on the left, its scheme on the right.`;
         renderGrowthGroupView(grid);
         return;
       }
@@ -13246,9 +13372,7 @@
       } else if (activeSubfolder) {
         bannerTitle.innerHTML = `
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <button class="btn-subfolder-back" onclick="exitSubfolder()" title="Return to parent category">
-              Back to ${activeCategory === "all" ? "All Categories" : (CATEGORIES_META[activeCategory]?.name || activeCategory)}
-            </button>
+            <button type="button" class="banner-back-btn" onclick="exitSubfolder()" title="Return to parent category" aria-label="Return to parent category">‹</button>
             <span style="display: inline-flex; align-items: center; gap: 8px;">
               <span>${activeSubfolder.icon}</span> ${activeSubfolder.name} Group
             </span>
@@ -17441,10 +17565,19 @@
       document.getElementById("m-fence-panel").value = p.fence_panel_m !== undefined && p.fence_panel_m !== null ? p.fence_panel_m : "";
       document.getElementById("m-fence-height").value = p.fence_height_m !== undefined && p.fence_height_m !== null ? p.fence_height_m : "";
       document.getElementById("m-fence-post").value = p.fence_post_item || "";
+      document.getElementById("m-blueprint").value = p.is_blueprint ? "true" : "false";
+      document.getElementById("m-path-material").value = p.path_material_item || "";
+      document.getElementById("m-path-kind").value = p.path_kind || "";
+      document.getElementById("m-path-width").value = p.path_width_m !== undefined && p.path_width_m !== null ? p.path_width_m : "";
+      document.getElementById("m-path-style").value = p.path_style || "";
+      document.getElementById("m-path-per").value = p.path_m_per_item !== undefined && p.path_m_per_item !== null ? p.path_m_per_item : "";
       document.getElementById("m-gate-width").value = p.gate_width_m !== undefined && p.gate_width_m !== null ? p.gate_width_m : "";
       document.getElementById("m-gate-style").value = p.gate_style || "";
       document.getElementById("m-burn").value = p.burn_minutes !== undefined && p.burn_minutes !== null ? p.burn_minutes : "";
       document.getElementById("m-lights").value = p.lights_fires ? "true" : "false";
+      document.getElementById("m-attach-surface").value = p.attach_surface || "";
+      document.getElementById("m-attach-side").value = p.attach_side || "";
+      document.getElementById("m-provides-power").value = p.provides_power ? "true" : "false";
       document.getElementById("m-look-target").value = p.look_target || "";
       document.getElementById("m-look-color").value = /^#[0-9a-fA-F]{6}$/.test(p.look_color || "") ? p.look_color : "#a8742f";
       document.getElementById("m-look-smooth").value = p.look_smoothness !== undefined && p.look_smoothness !== null ? p.look_smoothness : "";
@@ -17472,10 +17605,19 @@
         ["m-fence-panel", "properties.fence_panel_m", "number_optional"],
         ["m-fence-height", "properties.fence_height_m", "number_optional"],
         ["m-fence-post", "properties.fence_post_item", "string_or_null"],
+        ["m-blueprint", "properties.is_blueprint", "bool"],
+        ["m-path-material", "properties.path_material_item", "string_or_null"],
+        ["m-path-kind", "properties.path_kind", "string_or_null"],
+        ["m-path-width", "properties.path_width_m", "number_optional"],
+        ["m-path-style", "properties.path_style", "string_or_null"],
+        ["m-path-per", "properties.path_m_per_item", "number_optional"],
         ["m-gate-width", "properties.gate_width_m", "number_optional"],
         ["m-gate-style", "properties.gate_style", "string_or_null"],
         ["m-burn", "properties.burn_minutes", "number_optional"],
         ["m-lights", "properties.lights_fires", "bool"],
+        ["m-attach-surface", "properties.attach_surface", "string_or_null"],
+        ["m-attach-side", "properties.attach_side", "string_or_null"],
+        ["m-provides-power", "properties.provides_power", "bool"],
         ["m-look-target", "properties.look_target", "string_or_null"],
         ["m-look-color", "properties.look_color", "string_or_null"],
         ["m-look-smooth", "properties.look_smoothness", "number_optional"],

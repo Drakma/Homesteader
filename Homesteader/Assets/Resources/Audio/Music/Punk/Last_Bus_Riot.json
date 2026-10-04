@@ -1,0 +1,14 @@
+{
+  "file": "Last_Bus_Riot.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 103 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 103 seconds, not cut off mid-song and with NO fade-out. Fast punk rock instrumental, 178 BPM: driving buzzsaw guitars, pounding drums, rolling bass, breakneck energy, abrupt tight ending.",
+  "requested_prompt": "Fast punk rock instrumental, 178 BPM: driving buzzsaw guitars, pounding drums, rolling bass, breakneck energy, abrupt tight ending.",
+  "requested_duration_seconds": 103,
+  "generated_at": "2026-10-03T20:37:40.723Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Last_Bus_Riot.mp4",
+  "bytes": 3211810,
+  "sha256": "0605a36e992469851eca3f406c5281d565014ac8df5ef1d4939e442ab9e0a68f",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

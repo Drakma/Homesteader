@@ -1,0 +1,14 @@
+{
+  "file": "Thrift_Store_Halo.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 91 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 91 seconds, not cut off mid-song and with NO fade-out. Melodic grunge instrumental, 104 BPM: jangly distorted guitars, driving bass, big drums, bittersweet chord progression, anthemic chorus riff.",
+  "requested_prompt": "Melodic grunge instrumental, 104 BPM: jangly distorted guitars, driving bass, big drums, bittersweet chord progression, anthemic chorus riff.",
+  "requested_duration_seconds": 91,
+  "generated_at": "2026-10-03T20:14:00.011Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Thrift_Store_Halo.mp4",
+  "bytes": 2833235,
+  "sha256": "5091340492980a4fc64eae5063f299348cbc46dd644c58845d268dee1b98fdcd",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

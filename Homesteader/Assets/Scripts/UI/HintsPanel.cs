@@ -46,7 +46,7 @@ namespace Homesteader.UI
                 PlayerPrefs.Save();
             }
             EnsureBuilt();
-            if (_panel != null) _panel.style.display = _visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_panel != null) _panel.style.display = _visible && !HudVisibility.Hidden ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private void EnsureBuilt()
@@ -92,26 +92,23 @@ namespace Homesteader.UI
                 H("Rotate the camera", K(BindAction.CameraRotateLeft), K(BindAction.CameraRotateRight)),
                 H("Zoom", "Ctrl", "Wheel"),
                 H("Pick a toolbar slot", "1 - 0"),
-                H("Use the item, or start placing it", "Left Click"),
-                H("Plant, harvest, chop, build, open a door, pick up", "Right Click"),
+                H("Swap two toolbar slots", "Drag one onto the other"),
+                H("Use or place the held item; add a fence, path or road point; mount a breaker box or light on a building", "Left Click"),
+                H("Act on what is under the cursor: plant, harvest, chop, dig, paint, pick up, open a door, build", "Right Click"),
                 H("Rotate what you are placing", K(BindAction.PlaceRotate)),
-                H("Place it", "Enter"),
+                H("Place it, or lay the path", "Enter"),
                 H("Open a container", K(BindAction.ToggleContainer)),
                 H("Drop the held item (Shift: the stack)", K(BindAction.DropItem)),
-                H("Pin a build site list (over the site), drag to move", "P"),
+                H("Pin a build site list, drag to move", "P"),
                 H("Flashlight and lantern", K(BindAction.PlayerLight)),
                 H("Cutaway view inside a building", K(BindAction.ToggleCutaway)),
-                H("Firewood or a lighter on a chimney", "Right Click"),
-                H("Fence: post, first post closes, gate on a fence", "Left Click"),
                 H("Map", K(BindAction.ToggleMap)),
-                H("Pause time", K(BindAction.PauseTime)),
-                H("Time speed", K(BindAction.SpeedDown), K(BindAction.SpeedUp)),
+                H("Pause time, slower, faster", K(BindAction.PauseTime), K(BindAction.SpeedDown), K(BindAction.SpeedUp)),
                 H("Phone", K(BindAction.TogglePhone)),
                 H("Settings, or close a window", "Esc"),
-                H("Hints on and off", "F1"),
-                H("Grid overlay", "F2"),
-                H("Look-at panel", "F3"),
+                H("Hints, grid overlay, look-at panel", "F1", "F2", "F3"),
                 H("Save now", "F9"),
+                H("Hide the whole HUD", "F11"),
             };
         }
 

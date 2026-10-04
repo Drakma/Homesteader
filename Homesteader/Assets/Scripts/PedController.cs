@@ -121,12 +121,45 @@ public class PedController : MonoBehaviour
         controller.stepOffset = 0.5f;
         controller.slopeLimit = 60f;
 
+        // Interior doorways are 1.1 m wide and about 2.0 m high: the capsule (its size is multiplied by the transform scale) must fit with room to spare.
+        Vector3 sc = transform.lossyScale;
+        float sy = Mathf.Max(0.01f, sc.y), sxz = Mathf.Max(0.01f, Mathf.Max(sc.x, sc.z));
+        controller.skinWidth = Mathf.Min(controller.skinWidth, 0.02f);
+        controller.radius = Mathf.Min(controller.radius, 0.28f / sxz);
+        // the capsule top, measured from the player's feet (the transform), must clear a 2.0 m doorway: its centre may sit above the feet
+        float bottom = (controller.center.y - controller.height * 0.5f) * sy;
+        float top = (controller.center.y + controller.height * 0.5f) * sy;
+        Debug.Log("[PedController] capsule before: radius " + (controller.radius * sxz).ToString("F2") + " m, bottom " + bottom.ToString("F2") + " m, top " + top.ToString("F2") + " m above the feet, scale " + sc);
+        const float maxTop = 1.85f;
+        if (top > maxTop)
+        {
+            float h = Mathf.Max(controller.radius * 2f + 0.05f, (maxTop - bottom) / sy);
+            controller.height = h;
+            controller.center = new Vector3(controller.center.x, bottom / sy + h * 0.5f, controller.center.z);
+            Debug.Log("[PedController] capsule limited to " + (controller.height * sy).ToString("F2") + " m, top " + ((controller.center.y + controller.height * 0.5f) * sy).ToString("F2") + " m");
+        }
+
         // Initialize land ownership so the movement check works even before
         // the welcome menu runs (e.g. Continue/Load).
         Homesteader.Land.LandOwnershipSystem.Initialize();
         animator = GetComponentInChildren<Animator>();
         glbPlayer = GetComponentInChildren<Homesteader.Animation.GlbClipPlayer>();
         ResolveCamera();
+    }
+
+    private Collider _lastSideHit; private float _lastSideLog;
+
+    /// <summary>Diagnostic: names the collider that stops the player from the side (an unexplained invisible wall), at most every 2 s per collider.</summary>
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.normal.y > 0.5f || hit.collider == null) return;
+        if (hit.collider == _lastSideHit && Time.time - _lastSideLog < 2f) return;
+        _lastSideHit = hit.collider; _lastSideLog = Time.time;
+        Transform t = hit.collider.transform; string path = t.name;
+        for (int i = 0; i < 6 && t.parent != null; i++) { t = t.parent; path = t.name + "/" + path; }
+        var site = hit.collider.GetComponentInParent<Homesteader.Growth.ConstructionSite>();
+        string local = site != null ? site.transform.InverseTransformPoint(hit.point).ToString("F2") : "n/a";
+        Debug.Log("[PedController] blocked from the side by " + path + " (" + hit.collider.GetType().Name + (hit.collider is MeshCollider mc0 ? ", convex " + mc0.convex : "") + "), point " + hit.point.ToString("F2") + ", in the building " + local + ", normal " + hit.normal.ToString("F2") + ", player " + transform.position.ToString("F2") + ", capsule world y " + hit.controller.bounds.min.y.ToString("F2") + " to " + hit.controller.bounds.max.y.ToString("F2") + ", moving " + hit.moveDirection.ToString("F2") + ", hit collider y " + hit.collider.bounds.min.y.ToString("F2") + " to " + hit.collider.bounds.max.y.ToString("F2"));
     }
 
     void Start()
@@ -271,6 +304,25 @@ public class PedController : MonoBehaviour
                 velocity.x = 0f;
                 velocity.z = 0f;
             }
+        }
+
+        // The controller lifts itself by stepOffset before every sideways move (to climb a step), so it needs its height plus the step in headroom:
+        // under a doorway beam or a ceiling joist the step shrinks to what fits, or the beam stops the player like an invisible wall.
+        {
+            const float fullStep = 0.5f;
+            float top = controller.bounds.max.y;
+            float step = fullStep;
+            Vector3 ahead = new Vector3(worldMove.x, 0f, worldMove.z);
+            ahead = ahead.sqrMagnitude > 0.0001f ? ahead.normalized : Vector3.zero;
+            // the lifted capsule moves forward too, so the beam to look for is over the player and just ahead of them
+            for (int i = 0; i < 4; i++)
+            {
+                Vector3 o = controller.bounds.center + ahead * (0.2f * i);
+                o.y = top - 0.1f;
+                if (Physics.SphereCast(o, 0.2f, Vector3.up, out RaycastHit ceil, fullStep + 0.3f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                    step = Mathf.Min(step, Mathf.Clamp(ceil.distance + 0.03f, 0.02f, fullStep));
+            }
+            controller.stepOffset = step;
         }
 
         controller.Move(velocity * Time.deltaTime);

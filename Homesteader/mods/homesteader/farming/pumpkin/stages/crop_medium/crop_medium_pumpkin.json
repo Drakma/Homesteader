@@ -3,7 +3,7 @@
   "id": "crop_medium_pumpkin",
   "name": "Pumpkin (Medium)",
   "category": "farming",
-  "description": "A medium stage pumpkin plant.",
+  "description": "The medium look of a pumpkin plant.",
   "icon": "crop_medium_pumpkin.png",
   "properties": {
     "weight_kg": 0.5,
@@ -20,7 +20,8 @@
   "models": [
     {
       "file": "crop_medium_pumpkin.glb",
-      "format": "glb"
+      "format": "glb",
+      "triangles": 260
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "pumpkin",
     "dimensions_m": {
-      "width": 1.0,
-      "depth": 0.72,
-      "height": 0.66
+      "width": 1.351,
+      "depth": 1.361,
+      "height": 0.291
     }
   }
 }

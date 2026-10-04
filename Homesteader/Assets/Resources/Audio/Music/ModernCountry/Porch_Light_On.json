@@ -1,0 +1,14 @@
+{
+  "file": "Porch_Light_On.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 112 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 112 seconds, not cut off mid-song and with NO fade-out. Mid-tempo modern country ballad instrumental, 84 BPM: fingerpicked acoustic guitar, soft piano, pedal steel, brushed drums, heartfelt and warm.",
+  "requested_prompt": "Mid-tempo modern country ballad instrumental, 84 BPM: fingerpicked acoustic guitar, soft piano, pedal steel, brushed drums, heartfelt and warm.",
+  "requested_duration_seconds": 112,
+  "generated_at": "2026-10-03T01:58:44.953Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Porch_Light_On.mp4",
+  "bytes": 3322902,
+  "sha256": "b7bc2490baab8cf47f594db7a366be3fd0e23de6b1cc566d692f063514af0e2c",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

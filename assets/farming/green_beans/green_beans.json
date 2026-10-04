@@ -1,0 +1,108 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "green_beans",
+  "name": "Green Bean Plant",
+  "category": "farming",
+  "description": "A green bean lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 60 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+  "icon": "green_beans.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "green_beans",
+    "max_age": 60,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 7,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_green_beans.glb",
+        "icon": "crop_sprout_green_beans.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 7,
+        "age_max": 20,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_green_beans.glb",
+        "icon": "crop_small_green_beans.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 20,
+        "age_max": 36,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_green_beans.glb",
+        "icon": "crop_medium_green_beans.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 36,
+        "age_max": 50,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_green_beans.glb",
+        "icon": "crop_mature_green_beans.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 50,
+        "age_max": 60,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_green_beans.glb",
+        "icon": "crop_ripe_green_beans.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "food_green_beans",
+        "amount_min": 3,
+        "amount_max": 6,
+        "harvest_stage": 5
+      },
+      "planting": {
+        "seasons": [
+          "spring",
+          "summer"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_green_beans",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 3
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_green_beans.glb",
+          "icon": "crop_withered_green_beans.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_green_beans.glb",
+          "icon": "crop_dead_green_beans.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

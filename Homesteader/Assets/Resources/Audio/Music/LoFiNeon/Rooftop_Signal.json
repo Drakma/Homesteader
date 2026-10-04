@@ -1,0 +1,14 @@
+{
+  "file": "Rooftop_Signal.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 110 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 110 seconds, not cut off mid-song and with NO fade-out. Atmospheric lo-fi instrumental, 76 BPM: wide pads, soft piano, slow drums, sub bass, city skyline from a rooftop at midnight.",
+  "requested_prompt": "Atmospheric lo-fi instrumental, 76 BPM: wide pads, soft piano, slow drums, sub bass, city skyline from a rooftop at midnight.",
+  "requested_duration_seconds": 110,
+  "generated_at": "2026-10-03T01:39:23.033Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Rooftop_Signal.mp4",
+  "bytes": 3261467,
+  "sha256": "b926a2942e099bdcddb82b53f3bf3d87c7b3d8328fcde2b21f5f7bfbf803131a",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

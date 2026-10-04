@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_stable",
-  "name": "Stable",
+  "name": "Stable - Complete",
   "category": "structures",
-  "description": "A stable with multiple stall doors.",
+  "description": "The complete construction phase of the stable.",
   "icon": "struct_complete_stable.png",
   "properties": {
-    "weight_kg": 9000.0,
+    "weight_kg": 10080.0,
     "max_stack_size": 1,
-    "base_value": 15000.0,
+    "base_value": 16800.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 15,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,40 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_stable.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_stable.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 550.0,
-        "y": 910.0,
-        "z": 400.0
-      },
+      "file": "struct_complete_stable.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 5.5,
-        "y": 9.1,
-        "z": 4.0
+        "x": 8.0,
+        "y": 5.6,
+        "z": 14.0
       },
-      "vertices": 1908,
-      "faces": 656,
-      "bounding_box": {
-        "min": [
-          -275.0,
-          -455.0,
-          0.0
-        ],
-        "max": [
-          275.0,
-          455.0,
-          400.0
-        ]
-      }
-    },
-    {
-      "file": "struct_complete_stable.fbx",
-      "format": "fbx"
+      "triangles": 4548
     }
   ],
   "utilities": {
@@ -82,45 +56,17 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "struct_complete_stable.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 550.0,
-      "y": 910.0,
-      "z": 400.0
-    },
-    "dimensions_m": {
-      "x": 5.5,
-      "y": 9.1,
-      "z": 4.0
-    },
-    "vertices": 1908,
-    "faces": 656,
-    "bounding_box": {
-      "min": [
-        -275.0,
-        -455.0,
-        0.0
-      ],
-      "max": [
-        275.0,
-        455.0,
-        400.0
-      ]
-    }
-  },
   "category_fields": {
-    "interior_area_m2": 45.8,
-    "room_count": 4,
+    "interior_area_m2": 25.0,
+    "room_count": 10,
     "dimensions_m": {
-      "width": 5.5,
-      "depth": 9.1,
-      "height": 4.0
+      "width": 8.0,
+      "depth": 14.0,
+      "height": 5.6
     },
-    "electrical_service_capacity_w": 8000,
-    "water_supply_capacity_lpm": 15,
-    "roof_area_m2": 50.1,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",

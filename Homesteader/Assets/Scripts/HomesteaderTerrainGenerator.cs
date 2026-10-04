@@ -1666,18 +1666,24 @@ namespace Homesteader.Generation
         //  TERRAIN GENERATION
         // ========================================================================
 
+        /// <summary>True once the terrain and everything scattered on it has been generated (the scene may load with it still to come: see TerrainGeneratorBootstrap).</summary>
+        public bool Generated { get; private set; }
+
         [ContextMenu("Generate Terrain")]
         public void GenerateTerrain()
         {
+            Generated = false;
             Random.InitState(worldSeed);
             targetTerrain = GetComponent<Terrain>();
             if (targetTerrain == null) return;
             terrainData = targetTerrain.terrainData;
             terrainData.size = new Vector3(terrainSizeX, terrainHeight, terrainSizeZ);
+            BeginSnapshotUse();   // a continued world is restored from its snapshot (HomesteaderTerrainGenerator.Snapshot.cs)
 
             // Generate water features + mask + distance field BEFORE heightmap
             GenerateWaterFeatures();
             EnforceStarterZoneWater();
+            RestoreFeaturesFromSnapshot();
             GenerateWaterMask();
             ComputeWaterDistanceField();
             GenerateStarterRoad();
@@ -1702,7 +1708,8 @@ namespace Homesteader.Generation
             Color[] mapPixels = new Color[mapRes * mapRes];
 
             // 1. Generate procedural heightmap
-            for (int z = 0; z < heightmapResolution; z++)
+            bool heightsRestored = TryRestoreHeights(heights);
+            for (int z = 0; !heightsRestored && z < heightmapResolution; z++)
             {
                 for (int x = 0; x < heightmapResolution; x++)
                 {
@@ -1716,7 +1723,8 @@ namespace Homesteader.Generation
             terrainData.SetHeights(0, 0, heights);
 
             // 2. Bake biome control map
-            for (int py = 0; py < mapRes; py++)
+            bool biomeRestored = TryRestoreBiomeMap(mapPixels);
+            for (int py = 0; !biomeRestored && py < mapRes; py++)
             {
                 for (int px = 0; px < mapRes; px++)
                 {
@@ -1764,6 +1772,7 @@ namespace Homesteader.Generation
 
             bakedBiomeMap.SetPixels(mapPixels);
             bakedBiomeMap.Apply();
+            EndSnapshotUse(heights, mapPixels, mapRes);
 
             // Build border factor texture: 0 = interior, 1 = border.
             Texture2D borderTex = new Texture2D(mapRes, mapRes, TextureFormat.R8, false);
@@ -1814,7 +1823,7 @@ namespace Homesteader.Generation
             CreateWaterSurface();
 
             SpawnBiomeAssets();
-            RegenerateGrass();
+            Generated = true;
         }
 
         public Texture2D GetBakedBiomeMap()
@@ -1878,21 +1887,6 @@ namespace Homesteader.Generation
         }
 
         /// <summary>
-        /// Regenerates GPU-instanced grass blades from the baked biome map.
-        /// </summary>
-        /// <summary>TEMPORARY switch: turn the GPU grass off entirely (set true to bring it back).</summary>
-        public bool grassEnabled = false;
-
-        private void RegenerateGrass()
-        {
-            if (!grassEnabled) return;
-            var grassRenderer = GetComponent<Homesteader.Grass.GrassRenderer>();
-            if (grassRenderer == null)
-                grassRenderer = gameObject.AddComponent<Homesteader.Grass.GrassRenderer>();
-            grassRenderer.Regenerate();
-        }
-
-        /// <summary>
         /// Async version of GenerateTerrain that yields periodically so the main thread
         /// can update a progress bar.
         /// </summary>
@@ -1902,22 +1896,26 @@ namespace Homesteader.Generation
             Debug.Log($"[TerrainGen] GenerateTerrainAsync started with seed {worldSeed}");
 
             IsGenerating = true;
+            Generated = false;
             GenerationProgress = 0f;
 
             targetTerrain = GetComponent<Terrain>();
             if (targetTerrain == null)
             {
                 IsGenerating = false;
+                Generated = true;
                 GenerationProgress = 1f;
                 yield break;
             }
             terrainData = targetTerrain.terrainData;
             terrainData.size = new Vector3(terrainSizeX, terrainHeight, terrainSizeZ);
+            BeginSnapshotUse();   // a continued world is restored from its snapshot (HomesteaderTerrainGenerator.Snapshot.cs)
 
             // Generate water features + mask + distance field BEFORE heightmap
             GenerationPhase = "Generating water features...";
             GenerateWaterFeatures();
             EnforceStarterZoneWater();
+            RestoreFeaturesFromSnapshot();
             GenerateWaterMask();
             ComputeWaterDistanceField();
             GenerationPhase = "Laying the road...";
@@ -1946,7 +1944,8 @@ namespace Homesteader.Generation
 
             // Phase 1: Heightmap (5% .. 40%)
             GenerationPhase = "Generating heightmap...";
-            for (int z = 0; z < heightmapResolution; z++)
+            bool heightsRestored = TryRestoreHeights(heights);
+            for (int z = 0; !heightsRestored && z < heightmapResolution; z++)
             {
                 for (int x = 0; x < heightmapResolution; x++)
                 {
@@ -1968,7 +1967,8 @@ namespace Homesteader.Generation
 
             // Phase 2: Biome control map (40% .. 70%)
             GenerationPhase = "Baking biome map...";
-            for (int py = 0; py < mapRes; py++)
+            bool biomeRestored = TryRestoreBiomeMap(mapPixels);
+            for (int py = 0; !biomeRestored && py < mapRes; py++)
             {
                 for (int px = 0; px < mapRes; px++)
                 {
@@ -2026,6 +2026,7 @@ namespace Homesteader.Generation
 
             bakedBiomeMap.SetPixels(mapPixels);
             bakedBiomeMap.Apply();
+            EndSnapshotUse(heights, mapPixels, mapRes);
 
             // Build border factor texture: 0 = interior, 1 = border.
             GenerationPhase = "Computing biome borders...";
@@ -2083,15 +2084,12 @@ namespace Homesteader.Generation
             GenerationPhase = "Scattering biome assets...";
             SpawnBiomeAssets();
 
-            // Phase 6: Grass rendering
-            GenerationPhase = "Planting grass...";
-            RegenerateGrass();
-
             Homesteader.UI.MiniMap.InvalidateCache();
 
             GenerationProgress = 1f;
             GenerationPhase = "";
             IsGenerating = false;
+            Generated = true;
         }
     }
 }

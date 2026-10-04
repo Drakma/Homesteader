@@ -391,6 +391,8 @@ When creating a new item icon:
 - [ ] Rendered on solid dark slate chroma-key background `#2b3442` with $\ge 80\text{ px}$ spacing.
 - [ ] Extracted using outside-in flood fill (preserving all internal dark grooves).
 - [ ] Scaled with Lanczos to $\le 104\text{ px}$ and centered on a $128 \times 128\text{ px}$ canvas.
+- [ ] A BLUEPRINT item (`is_blueprint`, structures, paths, roads) keeps the same transparent icon; the game puts it on the blueprint blue `#35637C` (`--c-blueprint`, docs/UI_DESIGN_SYSTEM.md) in its slot and shop box. Never bake that blue into the icon.
+- [ ] A BLUEPRINT item (`is_blueprint`, structures, paths, roads) keeps the same transparent icon; the game puts it on the blueprint blue `#35637C` (`--c-blueprint`, docs/UI_DESIGN_SYSTEM.md) in its slot and shop box. Never bake that blue into the icon.
 - [ ] 100% transparent edge boundary (`alpha = 0` on all outer pixels).
 - [ ] Saved as 32-bit RGBA `.png` with correct prefix (`seed_`, `crop_`, `tool_`, etc.).
 - [ ] Placed in `assets/items/`, `assets/<category>/<subcategory>/`, and `Homesteader/Assets/Homesteader/UI/Icons/<category>/<subcategory>/`.

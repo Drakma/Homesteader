@@ -81,6 +81,15 @@ def main():
                             item_data["fence_panel_m"] = float(props.get("fence_panel_m", 2.4))
                             item_data["fence_height_m"] = float(props.get("fence_height_m", 1.2))
                             item_data["fence_post_item"] = str(props.get("fence_post_item", "post_wood_round_6inch"))
+                        if props.get("is_blueprint") is True:
+                            item_data["is_blueprint"] = True
+                        if props.get("path_material_item"):
+                            item_data["path_material_item"] = str(props["path_material_item"])
+                        if props.get("path_kind") in ("path", "road"):
+                            item_data["path_kind"] = props["path_kind"]
+                            item_data["path_width_m"] = float(props.get("path_width_m", 4.0 if props["path_kind"] == "road" else 1.2))
+                            item_data["path_style"] = str(props.get("path_style", "gravel") or "gravel")
+                            item_data["path_m_per_item"] = float(props.get("path_m_per_item", 2.0))
                         gw = props.get("gate_width_m")
                         if isinstance(gw, (int, float)) and not isinstance(gw, bool) and gw > 0:
                             item_data["gate_width_m"] = float(gw)

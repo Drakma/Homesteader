@@ -17,7 +17,7 @@ namespace Homesteader.EditorTools
 
         private static readonly string[] OwnShaders =
         {
-            "Homesteader/Vegetation", "Homesteader/GenerativeTerrainURP", "Homesteader/WaterSurface", "Homesteader/GrassGpu",
+            "Homesteader/Vegetation", "Homesteader/GenerativeTerrainURP", "Homesteader/WaterSurface", "Homesteader/PathSurface",
         };
 
         private static readonly string[] UrpShaders =
@@ -72,6 +72,22 @@ namespace Homesteader.EditorTools
             string report = $"[ShaderVariants] {Path}: {added} variants added, {rejected} combinations rejected by the shaders, {missing} shaders missing; {svc.shaderCount} shaders, {svc.variantCount} variants.";
             Debug.Log(report);
             return report;
+        }
+
+        /// <summary>
+        /// Compiles every variant of the collection NOW, in the editor, so entering Play mode (ShaderWarmup) finds them already in the shader
+        /// cache instead of compiling them while the game loads. Run it after changing a shader; the editor is busy until it is done.
+        /// </summary>
+        [MenuItem("Homesteader/Precompile Shaders")]
+        public static void Precompile()
+        {
+            if (EditorApplication.isPlaying) { Debug.LogWarning("[ShaderVariants] stop Play mode first."); return; }
+            Build();
+            var svc = AssetDatabase.LoadAssetAtPath<ShaderVariantCollection>(Path);
+            if (svc == null) return;
+            double t = EditorApplication.timeSinceStartup;
+            svc.WarmUp();
+            Debug.Log($"[ShaderVariants] precompiled {svc.variantCount} variants in {(EditorApplication.timeSinceStartup - t):F0}s.");
         }
 
         private static bool TryAdd(ShaderVariantCollection svc, Shader shader, PassType pass, string[] keywords)

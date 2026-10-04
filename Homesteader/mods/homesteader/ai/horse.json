@@ -10,6 +10,8 @@
   "movement": {
     "walk_speed": 1.6,
     "run_speed": 8.5,
+    "walk_native_mps": 1.75,
+    "run_native_mps": 5.5,
     "turn_speed_deg": 160
   },
   "senses": {

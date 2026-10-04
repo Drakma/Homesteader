@@ -290,6 +290,15 @@
       "masonry_brick_old_mill",
       "masonry_brick_pressed_red",
       "masonry_fieldstone"
+    ],
+    "grain": [
+      "ingredient_wheat",
+      "ingredient_corn",
+      "ingredient_oats",
+      "ingredient_barley",
+      "ingredient_soybeans",
+      "ingredient_sunflower",
+      "ingredient_alfalfa"
     ]
   },
   "tag_values": {

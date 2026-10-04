@@ -47,7 +47,7 @@ Free, fast and deterministic: re-run it whenever a dimension or detail changes. 
   the game reads it to point the amber front arrow and to know which way the building faces.
 - The same footprint in every stage, so a stage grows into the next. Foundation: slab with a low lip and a front step. Framing: studs,
   plates, openings, rafters. Walls: logs, gables, rafters. Complete: see below.
-- Under 5,000 triangles per model (the cabin stages are 72 / 976 / 2,484 / 2,656).
+- Under 10,000 triangles per model (structures are few, so they may be heavier than trees and props; the cabin stages are 72 / 976 / 2,484 / 2,656).
 - No `.fbx`, `.obj`, `.mtl` beside a stage: GLB only (the generator deletes legacy files of the complete stage).
 - Materials are plain colours (Principled BSDF base colour); no textures needed for the procedural stages.
 
@@ -118,6 +118,34 @@ in `starter_house.json` (`growth.stages[].construction_recipe` and `required_too
   manifest with `properties.look_*`, README), then `tools/finish_items_icons.py` renders their icons from the models. Add a row to `ITEMS`
   for a new finish; tags (`#paint`, `#flooring`, `#siding`, `#roofing`, `#brick`, `#chimney_masonry`) in `assets/_schemas/material_tags.json`.
 
+## 3d. The other buildings, with rooms: `tools/make_building_stages.py`
+
+The chicken coop, barn, stable, farmhouse, large log cabin, large metal garage, 3-bay truck garage and greenhouse are built by one config driven
+generator (`CONFIGS` at the top of the script: footprint, wall height, porch, cladding `siding` / `log` / `metal` / `glass`, the openings of each wall,
+big doors, chimney, partitions, palette). It reuses the starter house's helpers and also creates the stage manifests (from the cabin's) and the
+group manifest's five stages for the houses when they are missing.
+
+    blender --background --python tools/make_building_stages.py -- barn stable      (no names = all)
+    blender --background --python tools/make_foundation_variants.py -- <ids>
+    python tools/render_icon_from_model.py <stage glb> <stage png>                   (every stage)
+
+- **Interior partitions** (`partitions` in the config): `axis` y = a wall running across x at y = `pos`, axis x = a wall running along y at x = `pos`;
+  `lo` / `hi` are its ends (None = the clear span inside the walls), `h` its height (None = ceiling; a low value makes a stall wall), `doors` the
+  doorways `(u0, u1)` along it, `open_doors` cased openings with no leaf. Framing shows studs, plates and headers; walls shows drywall slabs
+  with the doorways clear; exterior and finishings add the casings and a real leaf per doorway (baseboards in finishings).
+- **Interior doors** are objects `DoorHinge_<n>` with a child `DoorLeaf_<n>` (the front door stays `DoorHinge` / `DoorLeaf`). The game swings
+  the nearest one within 2.4 m of the player on a right click (`ConstructionSite.ToggleDoor`); a closed leaf is solid, an open one is not.
+  Their open / shut state is saved with the building (by door object name) and restored on load.
+- **Sliding doors** are objects `DoorSlide_<n>` (the leaf mesh is their child) with an empty child `SlideTo_<n>` whose position is how far the leaf travels
+  when it opens (the game slides it there and back); a building with `slide_doors` in its config (barn, stable) gets them for every partition door,
+  running along the partition on the side facing the middle of the building. **Roll-up doors** are `DoorRoll_<n>`: the origin is the TOP centre of the
+  door and the leaf hangs below it; the game squashes it upwards to open. Both are solid only while shut. A half-height partition has no head casing
+  and no lintel over its doorways (a bar at 1.5 m would stop the player).
+- **Big doors**: a barn door is two leaves (`DoorSlide_b<k>L` / `R`, braces mirroring each other) hanging in front of the wall on a track, sliding apart
+  along the front wall as far as the next opening allows; a roll-up door is one `DoorRoll_<k>`. They open on a right click like interior doors;
+  the personal door (`door_x`) is still the way in when they are shut. A gable stands flush with the cladding below it (a porch building's gable stands at the porch edge).
+- Budget: every stage is under 10,000 triangles (the config tunes `rib_course` / `log_course`, stud spacing and railing spacing for the big ones).
+
 ## Rules for structure models
 
 - **A chimney has a working fireplace:** build it with `chimney_with_fireplace` (tools/make_structure_stages.py) into its own Builder named `Chimney`: it makes the stack, a flue hole in the cap, a mantel-height breast (about 40% of the wall) with a firebox and hearth inside, and the empties `FireboxPoint` and `SmokePoint` the game uses (`Fireplace.cs`).
@@ -158,3 +186,15 @@ in `starter_house.json` (`growth.stages[].construction_recipe` and `required_too
 
 Use this for blocky, hard-edged things (buildings, sheds, crates, tanks, vans): clean low-poly shapes, a consistent look, zero credit cost.
 Organic things (animals, people, plants) and fine detail still go through the reference image + Meshy image-to-3D pipeline in CLAUDE.md.
+
+## 3e. Grain silos and storage structures
+
+`tools/build_silo_groups.py` makes the three grain silos (`grain_silo_small` / `medium` / `large`: tower radius 1.1 / 2.0 / 3.0 m, body height 6 / 10 / 15 m,
+footprint 3 / 5 / 7 m) from `tools/make_silo_stages.py` (round slab, steel posts and hoops, corrugated tower, conical roof with vent cap, roof hatch, front ladder,
+discharge chute). A silo has no door.
+
+**Storage.** A structure group manifest with a top-level `container` block (the container component schema: `capacity_kg`, `accepts`, `single_type`) is a
+STORAGE structure: `ConstructionSite.IsStorage` is true once it is finished, its `Contents` are saved with the site (`SavedSite.contentIds` / `contentCounts`), and a
+right click on it with something in the active slot moves items in or out like a placed container (`PlacementController.TransferWithContainer`); with an empty slot it
+says what is in it. The hover card (WAILA) shows "Stored". The silos take the `#grain` tag (wheat, corn, oats, barley, soybeans, sunflower, alfalfa) up to 3,000 /
+12,000 / 36,000 kg. `ContainerRules.IsContainer` is false for a blueprint, so the blueprint in your toolbar is never treated as a basket.

@@ -2832,6 +2832,75 @@
       ]
     },
     {
+      "id": "path_dirt",
+      "name": "Dirt Path Blueprint",
+      "category": "building",
+      "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+      "icon": "path_dirt.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "path_material_item": "mat_pile_dirt_small",
+      "path_kind": "path",
+      "path_width_m": 1.2,
+      "path_style": "dirt",
+      "path_m_per_item": 3.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "blueprint",
+          "price": 40.0
+        }
+      ]
+    },
+    {
+      "id": "path_gravel",
+      "name": "Gravel Path Blueprint",
+      "category": "building",
+      "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+      "icon": "path_gravel.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "path_material_item": "mat_pile_gravel_small",
+      "path_kind": "path",
+      "path_width_m": 1.2,
+      "path_style": "gravel",
+      "path_m_per_item": 3.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "blueprint",
+          "price": 60.0
+        }
+      ]
+    },
+    {
+      "id": "path_stone",
+      "name": "Flagstone Path Blueprint",
+      "category": "building",
+      "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+      "icon": "path_stone.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "path_material_item": "mat_pile_bedding_stone_small",
+      "path_kind": "path",
+      "path_width_m": 1.2,
+      "path_style": "stone",
+      "path_m_per_item": 2.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "blueprint",
+          "price": 120.0
+        }
+      ]
+    },
+    {
       "id": "pipe_leach_perforated_4inch",
       "name": "4\" Perforated Leach Pipe",
       "category": "building",
@@ -2969,6 +3038,52 @@
           "category": "Building",
           "unit": "kit",
           "price": 12.0
+        }
+      ]
+    },
+    {
+      "id": "road_asphalt",
+      "name": "Asphalt Road Blueprint",
+      "category": "building",
+      "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+      "icon": "road_asphalt.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "path_material_item": "mat_pile_gravel_medium",
+      "path_kind": "road",
+      "path_width_m": 4.0,
+      "path_style": "asphalt",
+      "path_m_per_item": 2.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "blueprint",
+          "price": 600.0
+        }
+      ]
+    },
+    {
+      "id": "road_gravel",
+      "name": "Gravel Road Blueprint",
+      "category": "building",
+      "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+      "icon": "road_gravel.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "path_material_item": "mat_pile_gravel_medium",
+      "path_kind": "road",
+      "path_width_m": 4.0,
+      "path_style": "gravel",
+      "path_m_per_item": 2.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building",
+          "unit": "blueprint",
+          "price": 250.0
         }
       ]
     },
@@ -3905,6 +4020,125 @@
       ]
     },
     {
+      "id": "electricity_light_ceiling_flush",
+      "name": "Flush Ceiling Light",
+      "category": "electricity",
+      "description": "A round dome light that sits flat on the ceiling. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_ceiling_flush.png",
+      "max_stack": 10,
+      "weight_kg": 0.8,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 26.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_ceiling_pendant",
+      "name": "Pendant Ceiling Light",
+      "category": "electricity",
+      "description": "A shaded light that hangs from the ceiling on a cord. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_ceiling_pendant.png",
+      "max_stack": 10,
+      "weight_kg": 1.0,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 38.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_fluorescent_2bulb",
+      "name": "Fluorescent Light (2 Bulb)",
+      "category": "electricity",
+      "description": "A 2-tube fluorescent fixture: a bright white light with a wide, deep throw that sputters for a few seconds when it comes on. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_fluorescent_2bulb.png",
+      "max_stack": 10,
+      "weight_kg": 2.5,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 45.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_fluorescent_4bulb",
+      "name": "Fluorescent Light (4 Bulb)",
+      "category": "electricity",
+      "description": "A 4-tube fluorescent fixture: a bright white light with a wide, deep throw that sputters for a few seconds when it comes on. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_fluorescent_4bulb.png",
+      "max_stack": 10,
+      "weight_kg": 4.0,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 80.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_fluorescent_8bulb",
+      "name": "Fluorescent Light (8 Bulb)",
+      "category": "electricity",
+      "description": "A 8-tube fluorescent fixture: a bright white light with a wide, deep throw that sputters for a few seconds when it comes on. Mount it inside a building; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_fluorescent_8bulb.png",
+      "max_stack": 10,
+      "weight_kg": 7.0,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_sconce_exterior",
+      "name": "Exterior Wall Lantern",
+      "category": "electricity",
+      "description": "A weatherproof lantern for the outside of a building. It lights from dusk to dawn while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_sconce_exterior.png",
+      "max_stack": 10,
+      "weight_kg": 1.1,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "electricity_light_sconce_interior",
+      "name": "Wall Sconce",
+      "category": "electricity",
+      "description": "A small wall light for a room. Mount it on an inside wall; it lights while the building has power (a breaker box on the outside).",
+      "icon": "electricity_light_sconce_interior.png",
+      "max_stack": 10,
+      "weight_kg": 0.6,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Electronics",
+          "unit": "ea",
+          "price": 22.0
+        }
+      ]
+    },
+    {
       "id": "electricity_mpptcontroller",
       "name": "MPPT Solar Charge Controller",
       "category": "electricity",
@@ -3942,9 +4176,9 @@
       "id": "electricity_panel_breaker_subpanel",
       "name": "Outdoor Breaker Subpanel",
       "category": "electricity",
-      "description": "Weatherproof electrical subpanel.",
+      "description": "A weatherproof breaker box. Mount it on the OUTSIDE of a building (left click a wall with it in hand) to bring electricity to that building: its lights then work.",
       "icon": "electricity_panel_breaker_subpanel.png",
-      "max_stack": 1,
+      "max_stack": 10,
       "weight_kg": 12.0,
       "store_listings": [
         {
@@ -4177,11 +4411,75 @@
       ]
     },
     {
+      "id": "alfalfa",
+      "name": "Alfalfa Plant",
+      "category": "farming",
+      "description": "A alfalfa lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 80 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "alfalfa.png",
+      "max_stack": 64
+    },
+    {
+      "id": "barley",
+      "name": "Barley Plant",
+      "category": "farming",
+      "description": "A barley lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "barley.png",
+      "max_stack": 64
+    },
+    {
+      "id": "beet",
+      "name": "Beet Plant",
+      "category": "farming",
+      "description": "A beet lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 60 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "beet.png",
+      "max_stack": 64
+    },
+    {
+      "id": "broccoli",
+      "name": "Broccoli Plant",
+      "category": "farming",
+      "description": "A broccoli lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 70 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "broccoli.png",
+      "max_stack": 64
+    },
+    {
+      "id": "cabbage",
+      "name": "Cabbage Plant",
+      "category": "farming",
+      "description": "A cabbage lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 80 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "cabbage.png",
+      "max_stack": 64
+    },
+    {
+      "id": "cantaloupe",
+      "name": "Cantaloupe Plant",
+      "category": "farming",
+      "description": "A cantaloupe lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 80 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "cantaloupe.png",
+      "max_stack": 64
+    },
+    {
+      "id": "carrot",
+      "name": "Carrot Plant",
+      "category": "farming",
+      "description": "A carrot lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 70 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "carrot.png",
+      "max_stack": 64
+    },
+    {
       "id": "corn",
       "name": "Corn Plant",
       "category": "farming",
-      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 80 days. This group is the authoritative owner of the corn scheme.",
+      "description": "A corn lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 80 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
       "icon": "corn.png",
+      "max_stack": 64
+    },
+    {
+      "id": "cotton",
+      "name": "Cotton Plant",
+      "category": "farming",
+      "description": "A cotton lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 150 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "cotton.png",
       "max_stack": 64
     },
     {
@@ -4203,12 +4501,234 @@
       "weight_kg": 0.5
     },
     {
+      "id": "cucumber",
+      "name": "Cucumber Plant",
+      "category": "farming",
+      "description": "A cucumber lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 55 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "cucumber.png",
+      "max_stack": 64
+    },
+    {
+      "id": "flax",
+      "name": "Flax Plant",
+      "category": "farming",
+      "description": "A flax lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 100 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "flax.png",
+      "max_stack": 64
+    },
+    {
+      "id": "garlic",
+      "name": "Garlic Plant",
+      "category": "farming",
+      "description": "A garlic lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 120 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "garlic.png",
+      "max_stack": 64
+    },
+    {
+      "id": "green_beans",
+      "name": "Green Bean Plant",
+      "category": "farming",
+      "description": "A green bean lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 60 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "green_beans.png",
+      "max_stack": 64
+    },
+    {
+      "id": "herb",
+      "name": "Herb Plant",
+      "category": "farming",
+      "description": "A herb lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 30 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "herb.png",
+      "max_stack": 64
+    },
+    {
+      "id": "hops",
+      "name": "Hops Plant",
+      "category": "farming",
+      "description": "A hops lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 120 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "hops.png",
+      "max_stack": 64
+    },
+    {
+      "id": "lettuce",
+      "name": "Lettuce Plant",
+      "category": "farming",
+      "description": "A lettuce lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 45 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "lettuce.png",
+      "max_stack": 64
+    },
+    {
+      "id": "oats",
+      "name": "Oat Plant",
+      "category": "farming",
+      "description": "A oat lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "oats.png",
+      "max_stack": 64
+    },
+    {
+      "id": "onion",
+      "name": "Onion Plant",
+      "category": "farming",
+      "description": "A onion lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 100 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "onion.png",
+      "max_stack": 64
+    },
+    {
+      "id": "peanuts",
+      "name": "Peanut Plant",
+      "category": "farming",
+      "description": "A peanut lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 110 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "peanuts.png",
+      "max_stack": 64
+    },
+    {
+      "id": "peas",
+      "name": "Peas Plant",
+      "category": "farming",
+      "description": "A peas lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 60 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "peas.png",
+      "max_stack": 64
+    },
+    {
+      "id": "peppers",
+      "name": "Pepper Plant",
+      "category": "farming",
+      "description": "A pepper lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 75 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "peppers.png",
+      "max_stack": 64
+    },
+    {
+      "id": "potato",
+      "name": "Potato Plant",
+      "category": "farming",
+      "description": "A potato lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 80 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "potato.png",
+      "max_stack": 64
+    },
+    {
       "id": "pumpkin",
       "name": "Pumpkin Plant",
       "category": "farming",
-      "description": "A pumpkin lifecycle growing through 4 stages (sprout -> small -> medium -> mature) over 90 days, with withered and dead versions. This group is the authoritative owner of the pumpkin scheme.",
+      "description": "A pumpkin lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
       "icon": "pumpkin.png",
       "max_stack": 64
+    },
+    {
+      "id": "radish",
+      "name": "Radish Plant",
+      "category": "farming",
+      "description": "A radish lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 30 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "radish.png",
+      "max_stack": 64
+    },
+    {
+      "id": "rhubarb",
+      "name": "Rhubarb Plant",
+      "category": "farming",
+      "description": "A rhubarb lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "rhubarb.png",
+      "max_stack": 64
+    },
+    {
+      "id": "seed_alfalfa",
+      "name": "Alfalfa Seeds",
+      "category": "farming",
+      "description": "Seeds for planting alfalfa.",
+      "icon": "seed_alfalfa.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_barley",
+      "name": "Barley Seeds",
+      "category": "farming",
+      "description": "Seeds for planting barley.",
+      "icon": "seed_barley.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_beet",
+      "name": "Beet Seeds",
+      "category": "farming",
+      "description": "Seeds for planting beet.",
+      "icon": "seed_beet.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_broccoli",
+      "name": "Broccoli Seeds",
+      "category": "farming",
+      "description": "Seeds for planting broccoli.",
+      "icon": "seed_broccoli.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_cabbage",
+      "name": "Cabbage Seeds",
+      "category": "farming",
+      "description": "Seeds for planting cabbage.",
+      "icon": "seed_cabbage.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_cantaloupe",
+      "name": "Cantaloupe Seeds",
+      "category": "farming",
+      "description": "Seeds for planting cantaloupe.",
+      "icon": "seed_cantaloupe.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
     },
     {
       "id": "seed_carrot",
@@ -4262,6 +4782,74 @@
       ]
     },
     {
+      "id": "seed_cucumber",
+      "name": "Cucumber Seeds",
+      "category": "farming",
+      "description": "Seeds for planting cucumber.",
+      "icon": "seed_cucumber.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_flax",
+      "name": "Flax Seeds",
+      "category": "farming",
+      "description": "Seeds for planting flax.",
+      "icon": "seed_flax.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_garlic",
+      "name": "Garlic Seeds",
+      "category": "farming",
+      "description": "Seeds for planting garlic.",
+      "icon": "seed_garlic.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_green_beans",
+      "name": "Green Bean Seeds",
+      "category": "farming",
+      "description": "Seeds for planting green bean.",
+      "icon": "seed_green_beans.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
       "id": "seed_herb",
       "name": "Herb Seeds",
       "category": "farming",
@@ -4275,6 +4863,125 @@
           "category": "Farming",
           "unit": "packet",
           "price": 6.0
+        }
+      ]
+    },
+    {
+      "id": "seed_hops",
+      "name": "Hops Seeds",
+      "category": "farming",
+      "description": "Seeds for planting hops.",
+      "icon": "seed_hops.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_lettuce",
+      "name": "Lettuce Seeds",
+      "category": "farming",
+      "description": "Seeds for planting lettuce.",
+      "icon": "seed_lettuce.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_oats",
+      "name": "Oat Seeds",
+      "category": "farming",
+      "description": "Seeds for planting oat.",
+      "icon": "seed_oats.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_onion",
+      "name": "Onion Seeds",
+      "category": "farming",
+      "description": "Seeds for planting onion.",
+      "icon": "seed_onion.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_peanuts",
+      "name": "Peanut Seeds",
+      "category": "farming",
+      "description": "Seeds for planting peanut.",
+      "icon": "seed_peanuts.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_peas",
+      "name": "Pea Seeds",
+      "category": "farming",
+      "description": "Seeds for planting peas.",
+      "icon": "seed_peas.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_peppers",
+      "name": "Pepper Seeds",
+      "category": "farming",
+      "description": "Seeds for planting pepper.",
+      "icon": "seed_peppers.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
         }
       ]
     },
@@ -4313,6 +5020,74 @@
       ]
     },
     {
+      "id": "seed_radish",
+      "name": "Radish Seeds",
+      "category": "farming",
+      "description": "Seeds for planting radish.",
+      "icon": "seed_radish.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_rhubarb",
+      "name": "Rhubarb Seeds",
+      "category": "farming",
+      "description": "Seeds for planting rhubarb.",
+      "icon": "seed_rhubarb.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_soybeans",
+      "name": "Soybean Seeds",
+      "category": "farming",
+      "description": "Seeds for planting soybean.",
+      "icon": "seed_soybeans.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "seed_spinach",
+      "name": "Spinach Seeds",
+      "category": "farming",
+      "description": "Seeds for planting spinach.",
+      "icon": "seed_spinach.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
       "id": "seed_strawberry",
       "name": "Strawberry Seeds",
       "category": "farming",
@@ -4347,6 +5122,23 @@
       ]
     },
     {
+      "id": "seed_tobacco",
+      "name": "Tobacco Seeds",
+      "category": "farming",
+      "description": "Seeds for planting tobacco.",
+      "icon": "seed_tobacco.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
       "id": "seed_tomato",
       "name": "Tomato Seeds",
       "category": "farming",
@@ -4360,6 +5152,23 @@
           "category": "Farming",
           "unit": "packet",
           "price": 3.0
+        }
+      ]
+    },
+    {
+      "id": "seed_watermelon",
+      "name": "Watermelon Seeds",
+      "category": "farming",
+      "description": "Seeds for planting watermelon.",
+      "icon": "seed_watermelon.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
         }
       ]
     },
@@ -4381,19 +5190,92 @@
       ]
     },
     {
+      "id": "seed_zucchini",
+      "name": "Zucchini Seeds",
+      "category": "farming",
+      "description": "Seeds for planting zucchini.",
+      "icon": "seed_zucchini.png",
+      "max_stack": 99,
+      "weight_kg": 0.1,
+      "store_listings": [
+        {
+          "store": "feed",
+          "category": "Farming",
+          "unit": "packet",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "id": "soybeans",
+      "name": "Soybean Plant",
+      "category": "farming",
+      "description": "A soybean lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 100 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "soybeans.png",
+      "max_stack": 64
+    },
+    {
+      "id": "spinach",
+      "name": "Spinach Plant",
+      "category": "farming",
+      "description": "A spinach lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 40 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "spinach.png",
+      "max_stack": 64
+    },
+    {
+      "id": "strawberry",
+      "name": "Strawberry Plant",
+      "category": "farming",
+      "description": "A strawberry lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 60 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "strawberry.png",
+      "max_stack": 64
+    },
+    {
       "id": "sunflower",
       "name": "Sunflower Plant",
       "category": "farming",
-      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 100 days. This group is the authoritative owner of the sunflower scheme.",
+      "description": "A sunflower lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 100 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
       "icon": "sunflower.png",
+      "max_stack": 64
+    },
+    {
+      "id": "tobacco",
+      "name": "Tobacco Plant",
+      "category": "farming",
+      "description": "A tobacco lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 120 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "tobacco.png",
+      "max_stack": 64
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato Plant",
+      "category": "farming",
+      "description": "A tomato lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 75 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "tomato.png",
+      "max_stack": 64
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon Plant",
+      "category": "farming",
+      "description": "A watermelon lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 90 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "watermelon.png",
       "max_stack": 64
     },
     {
       "id": "wheat",
       "name": "Wheat Plant",
       "category": "farming",
-      "description": "A plant lifecycle growing through 3 stages (sprout -> growing -> mature) over 180 days. This group is the authoritative owner of the wheat scheme.",
+      "description": "A wheat lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 180 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
       "icon": "wheat.png",
+      "max_stack": 64
+    },
+    {
+      "id": "zucchini",
+      "name": "Zucchini Plant",
+      "category": "farming",
+      "description": "A zucchini lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 50 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+      "icon": "zucchini.png",
       "max_stack": 64
     },
     {
@@ -4633,6 +5515,23 @@
       ]
     },
     {
+      "id": "food_beet",
+      "name": "Fresh Beet",
+      "category": "food",
+      "description": "The harvest of a beet plant.",
+      "icon": "food_beet.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "food_blueberry",
       "name": "Blueberry",
       "category": "food",
@@ -4655,6 +5554,57 @@
           "category": "Food",
           "unit": "ea",
           "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_broccoli",
+      "name": "Broccoli Crown",
+      "category": "food",
+      "description": "The harvest of a broccoli plant.",
+      "icon": "food_broccoli.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_cabbage",
+      "name": "Head of Cabbage",
+      "category": "food",
+      "description": "The harvest of a cabbage plant.",
+      "icon": "food_cabbage.png",
+      "max_stack": 99,
+      "weight_kg": 1.2,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_cantaloupe",
+      "name": "Cantaloupe",
+      "category": "food",
+      "description": "The harvest of a cantaloupe plant.",
+      "icon": "food_cantaloupe.png",
+      "max_stack": 99,
+      "weight_kg": 1.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 15.0
         }
       ]
     },
@@ -4761,6 +5711,23 @@
       ]
     },
     {
+      "id": "food_cucumber",
+      "name": "Fresh Cucumber",
+      "category": "food",
+      "description": "The harvest of a cucumber plant.",
+      "icon": "food_cucumber.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "food_elderberry",
       "name": "Elderberry",
       "category": "food",
@@ -4768,6 +5735,40 @@
       "icon": "food_elderberry.png",
       "max_stack": 99,
       "weight_kg": 0.005
+    },
+    {
+      "id": "food_garlic",
+      "name": "Garlic Bulb",
+      "category": "food",
+      "description": "The harvest of a garlic plant.",
+      "icon": "food_garlic.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 12.0
+        }
+      ]
+    },
+    {
+      "id": "food_green_beans",
+      "name": "Green Beans",
+      "category": "food",
+      "description": "The harvest of a green bean plant.",
+      "icon": "food_green_beans.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
     },
     {
       "id": "food_haskap",
@@ -4842,6 +5843,40 @@
       "weight_kg": 0.15
     },
     {
+      "id": "food_lettuce",
+      "name": "Head of Lettuce",
+      "category": "food",
+      "description": "The harvest of a lettuce plant.",
+      "icon": "food_lettuce.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_onion",
+      "name": "Fresh Onion",
+      "category": "food",
+      "description": "The harvest of a onion plant.",
+      "icon": "food_onion.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "food_orange",
       "name": "Fresh Navel Orange",
       "category": "food",
@@ -4849,6 +5884,57 @@
       "icon": "food_orange.png",
       "max_stack": 20,
       "weight_kg": 0.2
+    },
+    {
+      "id": "food_peanuts",
+      "name": "Raw Peanuts",
+      "category": "food",
+      "description": "The harvest of a peanut plant.",
+      "icon": "food_peanuts.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_peas",
+      "name": "Fresh Peas",
+      "category": "food",
+      "description": "The harvest of a peas plant.",
+      "icon": "food_peas.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "food_pepper",
+      "name": "Bell Pepper",
+      "category": "food",
+      "description": "The harvest of a pepper plant.",
+      "icon": "food_pepper.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
     },
     {
       "id": "food_potato",
@@ -4885,6 +5971,23 @@
       ]
     },
     {
+      "id": "food_radish",
+      "name": "Fresh Radish",
+      "category": "food",
+      "description": "The harvest of a radish plant.",
+      "icon": "food_radish.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 6.0
+        }
+      ]
+    },
+    {
       "id": "food_raspberry",
       "name": "Raspberry",
       "category": "food",
@@ -4892,6 +5995,23 @@
       "icon": "food_raspberry.png",
       "max_stack": 99,
       "weight_kg": 0.005
+    },
+    {
+      "id": "food_rhubarb",
+      "name": "Rhubarb Stalks",
+      "category": "food",
+      "description": "The harvest of a rhubarb plant.",
+      "icon": "food_rhubarb.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
     },
     {
       "id": "food_salmon_grilled",
@@ -4907,6 +6027,23 @@
           "category": "Food",
           "unit": "ea",
           "price": 14.0
+        }
+      ]
+    },
+    {
+      "id": "food_spinach",
+      "name": "Fresh Spinach",
+      "category": "food",
+      "description": "The harvest of a spinach plant.",
+      "icon": "food_spinach.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
         }
       ]
     },
@@ -5026,6 +6163,40 @@
           "category": "Food",
           "unit": "ea",
           "price": 14.0
+        }
+      ]
+    },
+    {
+      "id": "food_watermelon",
+      "name": "Watermelon",
+      "category": "food",
+      "description": "The harvest of a watermelon plant.",
+      "icon": "food_watermelon.png",
+      "max_stack": 99,
+      "weight_kg": 5.0,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 25.0
+        }
+      ]
+    },
+    {
+      "id": "food_zucchini",
+      "name": "Zucchini",
+      "category": "food",
+      "description": "The harvest of a zucchini plant.",
+      "icon": "food_zucchini.png",
+      "max_stack": 99,
+      "weight_kg": 0.8,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Food",
+          "unit": "ea",
+          "price": 10.0
         }
       ]
     },
@@ -5440,6 +6611,40 @@
       ]
     },
     {
+      "id": "ingredient_alfalfa",
+      "name": "Alfalfa Hay",
+      "category": "ingredients",
+      "description": "The harvest of a alfalfa plant.",
+      "icon": "ingredient_alfalfa.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "ingredient_barley",
+      "name": "Barley Grain",
+      "category": "ingredients",
+      "description": "The harvest of a barley plant.",
+      "icon": "ingredient_barley.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "ingredient_beef",
       "name": "Raw Beef Cut",
       "category": "ingredients",
@@ -5627,6 +6832,23 @@
       ]
     },
     {
+      "id": "ingredient_flax",
+      "name": "Flax Stems",
+      "category": "ingredients",
+      "description": "The harvest of a flax plant.",
+      "icon": "ingredient_flax.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "ingredient_herbs",
       "name": "Fresh Culinary Herbs",
       "category": "ingredients",
@@ -5634,6 +6856,40 @@
       "icon": "ingredient_herbs.png",
       "max_stack": 99,
       "weight_kg": 1.0,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "ingredient_hops",
+      "name": "Hops Cones",
+      "category": "ingredients",
+      "description": "The harvest of a hops plant.",
+      "icon": "ingredient_hops.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "ingredient_oats",
+      "name": "Oat Grain",
+      "category": "ingredients",
+      "description": "The harvest of a oat plant.",
+      "icon": "ingredient_oats.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
       "store_listings": [
         {
           "store": "grocer",
@@ -5661,6 +6917,23 @@
       ]
     },
     {
+      "id": "ingredient_soybeans",
+      "name": "Soybeans",
+      "category": "ingredients",
+      "description": "The harvest of a soybean plant.",
+      "icon": "ingredient_soybeans.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
       "id": "ingredient_sunflower",
       "name": "Sunflower Heads",
       "category": "ingredients",
@@ -5668,6 +6941,23 @@
       "icon": "ingredient_sunflower.png",
       "max_stack": 99,
       "weight_kg": 1.0,
+      "store_listings": [
+        {
+          "store": "grocer",
+          "category": "Ingredients",
+          "unit": "ea",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "ingredient_tobacco",
+      "name": "Tobacco Leaf",
+      "category": "ingredients",
+      "description": "The harvest of a tobacco plant.",
+      "icon": "ingredient_tobacco.png",
+      "max_stack": 99,
+      "weight_kg": 0.5,
       "store_listings": [
         {
           "store": "grocer",
@@ -7033,6 +8323,23 @@
       ]
     },
     {
+      "id": "mat_log_willow",
+      "name": "Willow Log",
+      "category": "materials",
+      "description": "A cut willow log with pale, stringy bark.",
+      "icon": "mat_log_willow.png",
+      "max_stack": 20,
+      "weight_kg": 16.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Materials",
+          "unit": "ea",
+          "price": 5.0
+        }
+      ]
+    },
+    {
       "id": "mat_log_willowood_uncut_long",
       "name": "Long Willowood Uncut Log",
       "category": "materials",
@@ -7871,6 +9178,14 @@
       "max_stack": 64
     },
     {
+      "id": "black_goat",
+      "name": "Black Goat",
+      "category": "ranching",
+      "description": "The black goat.",
+      "icon": "black_goat.png",
+      "max_stack": 64
+    },
+    {
       "id": "black_white_billy_goat",
       "name": "Black White Billy Goat",
       "category": "ranching",
@@ -8059,11 +9374,59 @@
     },
     {
       "id": "3_bay_truck_garage",
-      "name": "3 Bay Truck Garage",
+      "name": "3-Bay Truck Garage",
       "category": "structures",
-      "description": "",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
       "icon": "3_bay_truck_garage.png",
-      "max_stack": 64
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 2200.0
+        }
+      ],
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_3_bay_truck_garage",
+          "width": 16.0,
+          "depth": 10.0,
+          "height": 0.22,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_3_bay_truck_garage",
+          "width": 16.0,
+          "depth": 10.0,
+          "height": 6.8,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_3_bay_truck_garage",
+          "width": 16.0,
+          "depth": 10.0,
+          "height": 6.8,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_3_bay_truck_garage",
+          "width": 16.0,
+          "depth": 10.0,
+          "height": 6.8,
+          "recipe": [],
+          "tool_groups": []
+        }
+      ]
     },
     {
       "id": "barn",
@@ -8071,14 +9434,24 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the barn scheme.",
       "icon": "barn.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 1800.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_barn",
-          "width": 6.12,
-          "depth": 8.1,
-          "height": 0.38,
+          "width": 10.0,
+          "depth": 14.0,
+          "height": 0.26,
           "recipe": [
             {
               "item_id": "80lb_cement_bag",
@@ -8108,9 +9481,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_barn",
-          "width": 6.12,
-          "depth": 8.1,
-          "height": 4.81,
+          "width": 10.0,
+          "depth": 14.0,
+          "height": 7.6,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -8151,9 +9524,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_barn",
-          "width": 6.12,
-          "depth": 8.1,
-          "height": 5.77,
+          "width": 10.0,
+          "depth": 14.0,
+          "height": 7.6,
           "recipe": [
             {
               "item_id": "#sheathing",
@@ -8190,9 +9563,9 @@
         {
           "name": "complete",
           "item_id": "struct_complete_barn",
-          "width": 6.12,
-          "depth": 8.1,
-          "height": 6.41,
+          "width": 10.0,
+          "depth": 14.0,
+          "height": 7.6,
           "recipe": [
             {
               "item_id": "#roofing",
@@ -8238,13 +9611,23 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the chicken_coop scheme.",
       "icon": "chicken_coop.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 150.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_chicken_coop",
-          "width": 4.14,
-          "depth": 3.76,
+          "width": 3.0,
+          "depth": 4.0,
           "height": 0.2,
           "recipe": [
             {
@@ -8275,9 +9658,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_chicken_coop",
-          "width": 4.14,
-          "depth": 3.76,
-          "height": 2.44,
+          "width": 3.0,
+          "depth": 4.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -8314,9 +9697,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_chicken_coop",
-          "width": 4.14,
-          "depth": 3.76,
-          "height": 2.93,
+          "width": 3.0,
+          "depth": 4.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#sheathing",
@@ -8353,9 +9736,9 @@
         {
           "name": "complete",
           "item_id": "struct_complete_chicken_coop",
-          "width": 4.14,
-          "depth": 3.76,
-          "height": 3.25,
+          "width": 3.0,
+          "depth": 4.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#roofing",
@@ -8401,14 +9784,24 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the farmhouse scheme.",
       "icon": "farmhouse.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 2500.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_farmhouse",
-          "width": 8.65,
-          "depth": 9.05,
-          "height": 0.4,
+          "width": 10.0,
+          "depth": 12.0,
+          "height": 0.3,
           "recipe": [
             {
               "item_id": "80lb_cement_bag",
@@ -8438,9 +9831,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_farmhouse",
-          "width": 8.65,
-          "depth": 9.05,
-          "height": 4.95,
+          "width": 10.0,
+          "depth": 12.0,
+          "height": 6.6,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -8481,9 +9874,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_farmhouse",
-          "width": 8.65,
-          "depth": 9.05,
-          "height": 5.94,
+          "width": 10.0,
+          "depth": 12.0,
+          "height": 6.6,
           "recipe": [
             {
               "item_id": "#sheathing",
@@ -8518,27 +9911,67 @@
           ]
         },
         {
-          "name": "complete",
+          "name": "exterior",
           "item_id": "struct_complete_farmhouse",
-          "width": 8.65,
-          "depth": 9.05,
+          "width": 10.0,
+          "depth": 12.0,
           "height": 6.6,
           "recipe": [
             {
               "item_id": "#roofing",
-              "quantity": 10
+              "quantity": 13
             },
             {
               "item_id": "building_glass",
-              "quantity": 6
+              "quantity": 9
             },
             {
-              "item_id": "sheet_drywall_stack_large",
-              "quantity": 4
+              "item_id": "#chimney_masonry",
+              "quantity": 9
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finishings",
+          "item_id": "struct_finishings_farmhouse",
+          "width": 10.0,
+          "depth": 12.0,
+          "height": 6.6,
+          "recipe": [
+            {
+              "item_id": "sheet_drywall_stack_small",
+              "quantity": 9
+            },
+            {
+              "item_id": "#paint",
+              "quantity": 5
             },
             {
               "item_id": "#flooring",
-              "quantity": 78
+              "quantity": 108
             }
           ],
           "tool_groups": [
@@ -8563,19 +9996,479 @@
       ]
     },
     {
+      "id": "grain_silo_large",
+      "name": "Grain Silo (Large)",
+      "category": "structures",
+      "description": "A grain silo (large): a round concrete slab, a steel frame, a corrugated steel tower and a conical roof with a ladder and a discharge chute, built in 4 stages (foundation -> framing -> walls -> complete).",
+      "icon": "grain_silo_large.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 36000.0
+        }
+      ],
+      "container_capacity_kg": 36000.0,
+      "container_accepts": [
+        "#grain"
+      ],
+      "container_show_fill": false,
+      "container_single_type": false,
+      "container_disposable": false,
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_large",
+          "width": 7.0,
+          "depth": 7.0,
+          "height": 0.4,
+          "recipe": [
+            {
+              "item_id": "80lb_cement_bag",
+              "quantity": 24
+            },
+            {
+              "item_id": "#rebar",
+              "quantity": 16
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_shovel",
+                "tool_shovel_round_point",
+                "tool_shovel_trenching",
+                "tool_pickaxe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_large",
+          "width": 7.0,
+          "depth": 7.0,
+          "height": 15.4,
+          "recipe": [
+            {
+              "item_id": "#steel_framing",
+              "quantity": 32
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_large",
+          "width": 7.0,
+          "depth": 7.0,
+          "height": 15.4,
+          "recipe": [
+            {
+              "item_id": "#metal_siding",
+              "quantity": 80
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_large",
+          "width": 7.0,
+          "depth": 7.0,
+          "height": 17.5,
+          "recipe": [
+            {
+              "item_id": "#roofing",
+              "quantity": 24
+            },
+            {
+              "item_id": "#metal_siding",
+              "quantity": 16
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grain_silo_medium",
+      "name": "Grain Silo (Medium)",
+      "category": "structures",
+      "description": "A grain silo (medium): a round concrete slab, a steel frame, a corrugated steel tower and a conical roof with a ladder and a discharge chute, built in 4 stages (foundation -> framing -> walls -> complete).",
+      "icon": "grain_silo_medium.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 16000.0
+        }
+      ],
+      "container_capacity_kg": 12000.0,
+      "container_accepts": [
+        "#grain"
+      ],
+      "container_show_fill": false,
+      "container_single_type": false,
+      "container_disposable": false,
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_medium",
+          "width": 5.0,
+          "depth": 5.0,
+          "height": 0.4,
+          "recipe": [
+            {
+              "item_id": "80lb_cement_bag",
+              "quantity": 13
+            },
+            {
+              "item_id": "#rebar",
+              "quantity": 9
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_shovel",
+                "tool_shovel_round_point",
+                "tool_shovel_trenching",
+                "tool_pickaxe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_medium",
+          "width": 5.0,
+          "depth": 5.0,
+          "height": 10.4,
+          "recipe": [
+            {
+              "item_id": "#steel_framing",
+              "quantity": 18
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_medium",
+          "width": 5.0,
+          "depth": 5.0,
+          "height": 10.4,
+          "recipe": [
+            {
+              "item_id": "#metal_siding",
+              "quantity": 44
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_medium",
+          "width": 5.0,
+          "depth": 5.0,
+          "height": 11.95,
+          "recipe": [
+            {
+              "item_id": "#roofing",
+              "quantity": 13
+            },
+            {
+              "item_id": "#metal_siding",
+              "quantity": 9
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grain_silo_small",
+      "name": "Grain Silo (Small)",
+      "category": "structures",
+      "description": "A grain silo (small): a round concrete slab, a steel frame, a corrugated steel tower and a conical roof with a ladder and a discharge chute, built in 4 stages (foundation -> framing -> walls -> complete).",
+      "icon": "grain_silo_small.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 6000.0
+        }
+      ],
+      "container_capacity_kg": 3000.0,
+      "container_accepts": [
+        "#grain"
+      ],
+      "container_show_fill": false,
+      "container_single_type": false,
+      "container_disposable": false,
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_small",
+          "width": 3.0,
+          "depth": 3.0,
+          "height": 0.4,
+          "recipe": [
+            {
+              "item_id": "80lb_cement_bag",
+              "quantity": 6
+            },
+            {
+              "item_id": "#rebar",
+              "quantity": 4
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_shovel",
+                "tool_shovel_round_point",
+                "tool_shovel_trenching",
+                "tool_pickaxe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_small",
+          "width": 3.0,
+          "depth": 3.0,
+          "height": 6.4,
+          "recipe": [
+            {
+              "item_id": "#steel_framing",
+              "quantity": 8
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_small",
+          "width": 3.0,
+          "depth": 3.0,
+          "height": 6.4,
+          "recipe": [
+            {
+              "item_id": "#metal_siding",
+              "quantity": 20
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_small",
+          "width": 3.0,
+          "depth": 3.0,
+          "height": 7.46,
+          "recipe": [
+            {
+              "item_id": "#roofing",
+              "quantity": 6
+            },
+            {
+              "item_id": "#metal_siding",
+              "quantity": 4
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_wrench_adjustable",
+                "tool_wrench_pipe"
+              ]
+            },
+            {
+              "tools": [
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "greenhouse",
       "name": "Greenhouse",
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the greenhouse scheme.",
       "icon": "greenhouse.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 600.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_greenhouse",
-          "width": 2.96,
-          "depth": 4.0,
-          "height": 0.16,
+          "width": 4.0,
+          "depth": 8.0,
+          "height": 0.18,
           "recipe": [
             {
               "item_id": "80lb_cement_bag",
@@ -8605,9 +10498,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_greenhouse",
-          "width": 2.96,
-          "depth": 4.0,
-          "height": 2.0,
+          "width": 4.0,
+          "depth": 8.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -8644,9 +10537,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_greenhouse",
-          "width": 2.96,
-          "depth": 4.0,
-          "height": 2.4,
+          "width": 4.0,
+          "depth": 8.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#sheathing",
@@ -8683,9 +10576,9 @@
         {
           "name": "complete",
           "item_id": "struct_complete_greenhouse",
-          "width": 2.96,
-          "depth": 4.0,
-          "height": 2.67,
+          "width": 4.0,
+          "depth": 8.0,
+          "height": 3.6,
           "recipe": [
             {
               "item_id": "#roofing",
@@ -8726,19 +10619,159 @@
       ]
     },
     {
+      "id": "house_garage",
+      "name": "House wtih Garage",
+      "category": "structures",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
+      "icon": "house_garage.png",
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 1500.0
+        }
+      ],
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_house_garage",
+          "width": 14.0,
+          "depth": 9.0,
+          "height": 0.26,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_house_garage",
+          "width": 14.0,
+          "depth": 9.0,
+          "height": 6.0,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_house_garage",
+          "width": 14.0,
+          "depth": 9.0,
+          "height": 6.0,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "exterior",
+          "item_id": "struct_complete_house_garage",
+          "width": 14.0,
+          "depth": 9.0,
+          "height": 6.0,
+          "recipe": [
+            {
+              "item_id": "#roofing",
+              "quantity": 14
+            },
+            {
+              "item_id": "building_glass",
+              "quantity": 9
+            },
+            {
+              "item_id": "#chimney_masonry",
+              "quantity": 9
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finishings",
+          "item_id": "struct_finishings_house_garage",
+          "width": 14.0,
+          "depth": 9.0,
+          "height": 6.0,
+          "recipe": [
+            {
+              "item_id": "sheet_drywall_stack_small",
+              "quantity": 9
+            },
+            {
+              "item_id": "#paint",
+              "quantity": 5
+            },
+            {
+              "item_id": "#flooring",
+              "quantity": 113
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "large_log_cabin",
       "name": "Large Log Cabin",
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_log_cabin scheme.",
       "icon": "large_log_cabin.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 2600.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_large_log_cabin",
-          "width": 7.5,
-          "depth": 8.0,
-          "height": 0.36,
+          "width": 9.0,
+          "depth": 11.0,
+          "height": 0.3,
           "recipe": [
             {
               "item_id": "80lb_cement_bag",
@@ -8768,9 +10801,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_large_log_cabin",
-          "width": 7.5,
-          "depth": 8.0,
-          "height": 4.5,
+          "width": 9.0,
+          "depth": 11.0,
+          "height": 6.2,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -8811,9 +10844,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_large_log_cabin",
-          "width": 7.5,
-          "depth": 8.0,
-          "height": 5.4,
+          "width": 9.0,
+          "depth": 11.0,
+          "height": 6.2,
           "recipe": [
             {
               "item_id": "mat_log_pine",
@@ -8848,27 +10881,67 @@
           ]
         },
         {
-          "name": "complete",
+          "name": "exterior",
           "item_id": "struct_complete_large_log_cabin",
-          "width": 7.5,
-          "depth": 8.0,
-          "height": 6.0,
+          "width": 9.0,
+          "depth": 11.0,
+          "height": 6.2,
           "recipe": [
             {
               "item_id": "#roofing",
-              "quantity": 10
+              "quantity": 11
             },
             {
               "item_id": "building_glass",
-              "quantity": 6
+              "quantity": 8
             },
             {
-              "item_id": "sheet_drywall_stack_large",
+              "item_id": "#chimney_masonry",
+              "quantity": 8
+            }
+          ],
+          "tool_groups": [
+            {
+              "tools": [
+                "tool_circular_saw_corded",
+                "tool_circular_saw_cordless",
+                "tool_saw_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_hammer_claw",
+                "tool_drill_corded",
+                "tool_drill_cordless_basic",
+                "tool_drill_cordless_pro",
+                "tool_impact_driver_cordless"
+              ]
+            },
+            {
+              "tools": [
+                "tool_trowel_hand"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finishings",
+          "item_id": "struct_finishings_large_log_cabin",
+          "width": 9.0,
+          "depth": 11.0,
+          "height": 6.2,
+          "recipe": [
+            {
+              "item_id": "sheet_drywall_stack_small",
+              "quantity": 8
+            },
+            {
+              "item_id": "#paint",
               "quantity": 4
             },
             {
               "item_id": "#flooring",
-              "quantity": 55
+              "quantity": 89
             }
           ],
           "tool_groups": [
@@ -8898,14 +10971,24 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
       "icon": "large_metal_garage.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 1500.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_large_metal_garage",
           "width": 9.0,
           "depth": 12.0,
-          "height": 0.35,
+          "height": 0.22,
           "recipe": [],
           "tool_groups": []
         },
@@ -8914,7 +10997,7 @@
           "item_id": "struct_framing_large_metal_garage",
           "width": 9.0,
           "depth": 12.0,
-          "height": 4.5,
+          "height": 5.6,
           "recipe": [],
           "tool_groups": []
         },
@@ -8923,7 +11006,7 @@
           "item_id": "struct_walls_large_metal_garage",
           "width": 9.0,
           "depth": 12.0,
-          "height": 4.5,
+          "height": 5.6,
           "recipe": [],
           "tool_groups": []
         },
@@ -8932,7 +11015,7 @@
           "item_id": "struct_complete_large_metal_garage",
           "width": 9.0,
           "depth": 12.0,
-          "height": 5.2,
+          "height": 5.6,
           "recipe": [],
           "tool_groups": []
         }
@@ -8944,7 +11027,17 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the small_cabin scheme.",
       "icon": "small_cabin.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 800.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
@@ -9161,14 +11254,24 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the stable scheme.",
       "icon": "stable.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 1200.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
           "item_id": "struct_foundation_stable",
-          "width": 5.5,
-          "depth": 9.1,
-          "height": 0.24,
+          "width": 8.0,
+          "depth": 14.0,
+          "height": 0.26,
           "recipe": [
             {
               "item_id": "80lb_cement_bag",
@@ -9198,9 +11301,9 @@
         {
           "name": "framing",
           "item_id": "struct_framing_stable",
-          "width": 5.5,
-          "depth": 9.1,
-          "height": 3.0,
+          "width": 8.0,
+          "depth": 14.0,
+          "height": 5.6,
           "recipe": [
             {
               "item_id": "#framing_lumber",
@@ -9241,9 +11344,9 @@
         {
           "name": "walls",
           "item_id": "struct_walls_stable",
-          "width": 5.5,
-          "depth": 9.1,
-          "height": 3.6,
+          "width": 8.0,
+          "depth": 14.0,
+          "height": 5.6,
           "recipe": [
             {
               "item_id": "#sheathing",
@@ -9280,9 +11383,9 @@
         {
           "name": "complete",
           "item_id": "struct_complete_stable",
-          "width": 5.5,
-          "depth": 9.1,
-          "height": 4.0,
+          "width": 8.0,
+          "depth": 14.0,
+          "height": 5.6,
           "recipe": [
             {
               "item_id": "#roofing",
@@ -9328,7 +11431,17 @@
       "category": "structures",
       "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the starter_house scheme.",
       "icon": "starter_house.png",
-      "max_stack": 64,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Structures",
+          "unit": "blueprint",
+          "price": 1000.0
+        }
+      ],
       "construction_stages": [
         {
           "name": "foundation",
@@ -9594,23 +11707,6 @@
       ]
     },
     {
-      "id": "struct_garage_truck_3bay",
-      "name": "3 Bay Truck Garage",
-      "category": "structures",
-      "description": "Heavy-duty 3-bay metal workshop truck garage featuring light-gray corrugated aluminum siding, black standing seam metal roof, two high-clearance overhead machinery bay doors, one standard car bay door with awnings, and a pedestrian side entrance.",
-      "icon": "struct_garage_truck_3bay.png",
-      "max_stack": 1,
-      "weight_kg": 14500.0,
-      "store_listings": [
-        {
-          "store": "livestock",
-          "category": "Structures",
-          "unit": "kit",
-          "price": 28500.0
-        }
-      ]
-    },
-    {
       "id": "struct_light_pole_barn",
       "name": "Yard Barn Light Pole",
       "category": "structures",
@@ -9623,16 +11719,55 @@
       "id": "struct_shed",
       "name": "Tool Shed",
       "category": "structures",
-      "description": "A small wooden tool shed.",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
       "icon": "struct_shed.png",
       "max_stack": 1,
-      "weight_kg": 450.0,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
       "store_listings": [
         {
-          "store": "livestock",
+          "store": "depot",
           "category": "Structures",
-          "unit": "kit",
-          "price": 700.0
+          "unit": "blueprint",
+          "price": 300.0
+        }
+      ],
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_struct_shed",
+          "width": 4.0,
+          "depth": 5.0,
+          "height": 0.2,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_struct_shed",
+          "width": 4.0,
+          "depth": 5.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_struct_shed",
+          "width": 4.0,
+          "depth": 5.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_struct_shed",
+          "width": 4.0,
+          "depth": 5.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
         }
       ]
     },
@@ -9691,16 +11826,55 @@
       "id": "struct_woodshed",
       "name": "Woodshed",
       "category": "structures",
-      "description": "Standard building asset used in the Homesteader simulation.",
+      "description": "A percent lifecycle growing through 4 stages (foundation -> framing -> walls -> complete) over 100 percent. This group is the authoritative owner of the large_metal_garage scheme.",
       "icon": "struct_woodshed.png",
-      "max_stack": 99,
-      "weight_kg": 1.0,
+      "max_stack": 1,
+      "weight_kg": 0.0,
+      "is_blueprint": true,
       "store_listings": [
         {
-          "store": "livestock",
+          "store": "depot",
           "category": "Structures",
-          "unit": "kit",
-          "price": 10.0
+          "unit": "blueprint",
+          "price": 250.0
+        }
+      ],
+      "construction_stages": [
+        {
+          "name": "foundation",
+          "item_id": "struct_foundation_struct_woodshed",
+          "width": 5.0,
+          "depth": 3.0,
+          "height": 0.16,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "framing",
+          "item_id": "struct_framing_struct_woodshed",
+          "width": 5.0,
+          "depth": 3.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "walls",
+          "item_id": "struct_walls_struct_woodshed",
+          "width": 5.0,
+          "depth": 3.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
+        },
+        {
+          "name": "complete",
+          "item_id": "struct_complete_struct_woodshed",
+          "width": 5.0,
+          "depth": 3.0,
+          "height": 3.7,
+          "recipe": [],
+          "tool_groups": []
         }
       ]
     },
@@ -10844,6 +13018,23 @@
       ]
     },
     {
+      "id": "vehicle_pickup_new_black",
+      "name": "New Black Double Cab Pickup (Raised)",
+      "category": "vehicles",
+      "description": "A new black double cab pickup on a lift kit with big knobby tires, a brush guard and a winch. Room for five and a short bed.",
+      "icon": "vehicle_pickup_new_black.png",
+      "max_stack": 1,
+      "weight_kg": 2200.0,
+      "store_listings": [
+        {
+          "store": "vehicles",
+          "category": "Vehicles",
+          "unit": "unit",
+          "price": 46000.0
+        }
+      ]
+    },
+    {
       "id": "vehicle_pickup_new_silver",
       "name": "New Silver Pickup",
       "category": "vehicles",
@@ -10874,6 +13065,23 @@
           "category": "Vehicles",
           "unit": "unit",
           "price": 46000.0
+        }
+      ]
+    },
+    {
+      "id": "vehicle_pickup_old_lightblue",
+      "name": "Old Light Blue Pickup Truck",
+      "category": "vehicles",
+      "description": "An old light blue pickup truck with faded paint and a little rust. It still runs.",
+      "icon": "vehicle_pickup_old_lightblue.png",
+      "max_stack": 1,
+      "weight_kg": 1800.0,
+      "store_listings": [
+        {
+          "store": "vehicles",
+          "category": "Vehicles",
+          "unit": "unit",
+          "price": 3600.0
         }
       ]
     },
@@ -11193,6 +13401,23 @@
           "category": "Trailers",
           "unit": "ea",
           "price": 1200.0
+        }
+      ]
+    },
+    {
+      "id": "vehicle_utv_camo",
+      "name": "Camo Side by Side UTV",
+      "category": "vehicles",
+      "description": "A camouflage side by side utility vehicle: two seats, a roll cage and a small cargo bed. Goes where a truck cannot.",
+      "icon": "vehicle_utv_camo.png",
+      "max_stack": 1,
+      "weight_kg": 1800.0,
+      "store_listings": [
+        {
+          "store": "vehicles",
+          "category": "Vehicles",
+          "unit": "unit",
+          "price": 18500.0
         }
       ]
     },

@@ -99,9 +99,22 @@ namespace Homesteader.Modding
                 ? Path.Combine(Application.persistentDataPath, "Mods")
                 : modsDirectoryOverride;
 
-            var provider = new ResourcesPrefabProvider(m => Debug.Log(m));
+            var provider = new ResourcesPrefabProvider(ResolverLog);
             // GLB is the standard model format (loaded at runtime, no editor step); generated prefabs are the fallback.
-            return new CompositeAssetResolver(new GlbAssetResolver(), new FileAssetResolver(provider, modsRoot, m => Debug.Log(m)));
+            return new CompositeAssetResolver(new GlbAssetResolver(), new FileAssetResolver(provider, modsRoot, ResolverLog));
+        }
+
+        private int _resolverMessages;
+
+        /// <summary>
+        /// The resolvers say so for every asset that has no model (about three thousand lines a load, each a Debug.Log with a stack trace: seconds of
+        /// frozen editor at startup). Only the first few are written; the load report still lists every asset.
+        /// </summary>
+        private void ResolverLog(string message)
+        {
+            _resolverMessages++;
+            if (_resolverMessages <= 10) Debug.Log(message);
+            else if (_resolverMessages == 11) Debug.Log("[Mods] ... more assets without a model are not logged one by one.");
         }
 
         private void OnDestroy()
@@ -117,6 +130,7 @@ namespace Homesteader.Modding
         [ContextMenu("Load Mods")]
         public void LoadMods()
         {
+            _resolverMessages = 0;
             var log = new StringBuilder();
             void Log(string message)
             {

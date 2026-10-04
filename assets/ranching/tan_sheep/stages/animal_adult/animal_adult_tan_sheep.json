@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_adult_tan_sheep",
-  "name": "Animal Sheep Tan",
+  "name": "Tan Sheep - Adult",
   "category": "ranching",
-  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "description": "The adult stage of the tan sheep.",
   "icon": "animal_adult_tan_sheep.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,72 +19,40 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Sheep_Tan.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SKM_Animal_Sheep_Tan.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SKM_Animal_Sheep_Tan.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 58.0,
-        "y": 132.0,
-        "z": 104.0
-      },
+      "file": "tan_sheep_adult_female.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.58,
-        "y": 1.32,
-        "z": 1.04
+        "x": 0.444,
+        "y": 0.85,
+        "z": 1.196
       },
-      "vertices": 160,
-      "faces": 120,
-      "bounding_box": {
-        "min": [
-          -29.0,
-          -84.0,
-          -1e-06
-        ],
-        "max": [
-          29.0,
-          47.999996,
-          104.0
-        ]
-      }
+      "triangles": 4341,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     },
     {
-      "file": "SM_Animal_Sheep_Tan.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Sheep_Tan.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 67.0,
-        "y": 110.0,
-        "z": 94.0
-      },
+      "file": "tan_sheep_adult_male.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.67,
-        "y": 1.1,
-        "z": 0.94
+        "x": 0.531,
+        "y": 1.0,
+        "z": 1.298
       },
-      "vertices": 984,
-      "faces": 504,
-      "bounding_box": {
-        "min": [
-          -33.5,
-          -68.0,
-          0.0
-        ],
-        "max": [
-          33.5,
-          42.0,
-          94.0
-        ]
-      }
+      "triangles": 4312,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -113,34 +81,6 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
-  },
-  "dimensions": {
-    "file": "SKM_Animal_Sheep_Tan.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 58.0,
-      "y": 132.0,
-      "z": 104.0
-    },
-    "dimensions_m": {
-      "x": 0.58,
-      "y": 1.32,
-      "z": 1.04
-    },
-    "vertices": 160,
-    "faces": 120,
-    "bounding_box": {
-      "min": [
-        -29.0,
-        -84.0,
-        -1e-06
-      ],
-      "max": [
-        29.0,
-        47.999996,
-        104.0
-      ]
-    }
   },
   "category_fields": {
     "species": "sheep",

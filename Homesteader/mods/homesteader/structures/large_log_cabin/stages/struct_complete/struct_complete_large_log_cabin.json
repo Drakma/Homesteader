@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_large_log_cabin",
-  "name": "Large Log Cabin",
+  "name": "Large Log Cabin - Exterior",
   "category": "structures",
-  "description": "A two-story log cabin with a porch and stone chimney.",
+  "description": "The exterior construction phase of the large log cabin.",
   "icon": "struct_complete_large_log_cabin.png",
   "properties": {
-    "weight_kg": 9000.0,
+    "weight_kg": 8910.0,
     "max_stack_size": 1,
-    "base_value": 18000.0,
+    "base_value": 14850.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 30,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,8 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_large_log_cabin.fbx",
-      "format": "fbx"
+      "file": "struct_complete_large_log_cabin.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 9.0,
+        "y": 6.2,
+        "z": 11.0
+      },
+      "triangles": 7160
     }
   ],
   "utilities": {
@@ -51,32 +57,28 @@
     "compatible_api": "v1"
   },
   "category_fields": {
-    "interior_area_m2": 55.4,
+    "interior_area_m2": 25.0,
     "room_count": 2,
     "dimensions_m": {
-      "width": 7.5,
-      "depth": 8.0,
-      "height": 6.0
+      "width": 9.0,
+      "depth": 11.0,
+      "height": 6.2
     },
-    "electrical_service_capacity_w": 30000,
-    "water_supply_capacity_lpm": 50,
-    "roof_area_m2": 60.0,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",
-        "quantity": 10
+        "quantity": 11
       },
       {
         "item_id": "building_glass",
-        "quantity": 6
+        "quantity": 8
       },
       {
-        "item_id": "sheet_drywall_stack_large",
-        "quantity": 4
-      },
-      {
-        "item_id": "#flooring",
-        "quantity": 55
+        "item_id": "#chimney_masonry",
+        "quantity": 8
       }
     ],
     "required_tools": [
@@ -91,6 +93,9 @@
         "tool_drill_cordless_basic",
         "tool_drill_cordless_pro",
         "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_trowel_hand"
       ]
     ]
   }

@@ -1,0 +1,14 @@
+{
+  "file": "Chrome_Horizon.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 100 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 100 seconds, not cut off mid-song and with NO fade-out. Dreamy synthwave instrumental, 92 BPM: lush detuned pads, slow arpeggiated plucks, soft electronic toms, wistful lead melody, wide open horizon at dusk.",
+  "requested_prompt": "Dreamy synthwave instrumental, 92 BPM: lush detuned pads, slow arpeggiated plucks, soft electronic toms, wistful lead melody, wide open horizon at dusk.",
+  "requested_duration_seconds": 100,
+  "generated_at": "2026-10-03T22:08:34.409Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Chrome_Horizon.mp4",
+  "bytes": 3126990,
+  "sha256": "9242624fa9f9e548622dc34384a57c606bda1b867885974d79be45945e3262a5",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

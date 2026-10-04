@@ -15,18 +15,18 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **569**
+Total Indexed Items: **637**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 19 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 91 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 149 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 16 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
-| [**Ranching**](ranching/) | 27 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
+| [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
-| [**Tools**](tools/) | 59 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
-| [**Electricity**](electricity/) | 37 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
+| [**Tools**](tools/) | 60 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
+| [**Electricity**](electricity/) | 44 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
 | [**Water**](water/) | 31 items | Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks. |
 | [**Waste**](waste/) | 20 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
 | [**Internet**](internet/) | 16 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
@@ -34,7 +34,7 @@ Total Indexed Items: **569**
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
 | [**Food**](food/) | 36 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 17 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
-| [**Materials**](materials/) | 69 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
+| [**Materials**](materials/) | 70 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
 | [**Ingredients**](ingredients/) | 15 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
 | [**Liquids**](liquids/) | 23 items | Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per litre, a fluid colour and an opacity. |
 
@@ -51,11 +51,12 @@ Total Indexed Items: **569**
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
-| `3_bay_truck_garage` | 3 Bay Truck Garage | — | — | [3_bay_truck_garage.json](structures/3_bay_truck_garage/3_bay_truck_garage.json) |
+| `3_bay_truck_garage` | 3-Bay Truck Garage | — | — | [3_bay_truck_garage.json](structures/3_bay_truck_garage/3_bay_truck_garage.json) |
 | `barn` | Barn | — | — | [barn.json](structures/barn/barn.json) |
 | `chicken_coop` | Chicken Coop | — | — | [chicken_coop.json](structures/chicken_coop/chicken_coop.json) |
 | `farmhouse` | Farmhouse | — | — | [farmhouse.json](structures/farmhouse/farmhouse.json) |
 | `greenhouse` | Greenhouse | — | — | [greenhouse.json](structures/greenhouse/greenhouse.json) |
+| `house_garage` | House wtih Garage | — | — | [house_garage.json](structures/house_garage/house_garage.json) |
 | `large_log_cabin` | Large Log Cabin | — | — | [large_log_cabin.json](structures/large_log_cabin/large_log_cabin.json) |
 | `large_metal_garage` | Large Metal Garage | — | — | [large_metal_garage.json](structures/large_metal_garage/large_metal_garage.json) |
 | `small_cabin` | Small Cabin | — | — | [small_cabin.json](structures/small_cabin/small_cabin.json) |
@@ -63,15 +64,14 @@ Total Indexed Items: **569**
 | `starter_house` | Starter House | — | — | [starter_house.json](structures/starter_house/starter_house.json) |
 | `struct_camper_rv` | Travel Trailer RV | ✅ Yes | — | [struct_camper_rv.json](structures/struct_camper_rv/struct_camper_rv.json) |
 | `struct_camper_teardrop` | Teardrop Camper | ✅ Yes | — | [struct_camper_teardrop.json](structures/struct_camper_teardrop/struct_camper_teardrop.json) |
-| `struct_garage_truck_3bay` | 3 Bay Truck Garage | ✅ Yes | — | [struct_garage_truck_3bay.json](structures/struct_garage_truck_3bay/struct_garage_truck_3bay.json) |
 | `struct_light_pole_barn` | Yard Barn Light Pole | ✅ Yes | — | [struct_light_pole_barn.json](structures/struct_light_pole_barn/struct_light_pole_barn.json) |
-| `struct_shed` | Tool Shed | ✅ Yes | — | [struct_shed.json](structures/struct_shed/struct_shed.json) |
+| `struct_shed` | Tool Shed | — | — | [struct_shed.json](structures/struct_shed/struct_shed.json) |
 | `struct_silo` | Grain Silo | ✅ Yes | — | [struct_silo.json](structures/struct_silo/struct_silo.json) |
 | `struct_tent_canvas` | Canvas Wall Tent | ✅ Yes | — | [struct_tent_canvas.json](structures/struct_tent_canvas/struct_tent_canvas.json) |
 | `struct_tent_dome` | Dome Tent | ✅ Yes | — | [struct_tent_dome.json](structures/struct_tent_dome/struct_tent_dome.json) |
-| `struct_woodshed` | Woodshed | ✅ Yes | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
+| `struct_woodshed` | Woodshed | — | — | [struct_woodshed.json](structures/struct_woodshed/struct_woodshed.json) |
 
-### 📂 [Building](building/) (91 items)
+### 📂 [Building](building/) (149 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -86,12 +86,42 @@ Total Indexed Items: **569**
 | `box_small_tan` | Small Kraft Box | ✅ Yes | — | [box_small_tan.json](building/box_small_tan/box_small_tan.json) |
 | `box_small_white` | Small White Box | ✅ Yes | — | [box_small_white.json](building/box_small_white/box_small_white.json) |
 | `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |
+| `building_floor_carpet_beige` | Beige Carpet | ✅ Yes | — | [building_floor_carpet_beige.json](building/building_floor_carpet_beige/building_floor_carpet_beige.json) |
+| `building_floor_carpet_brown` | Brown Carpet | ✅ Yes | — | [building_floor_carpet_brown.json](building/building_floor_carpet_brown/building_floor_carpet_brown.json) |
+| `building_floor_carpet_burgundy` | Burgundy Carpet | ✅ Yes | — | [building_floor_carpet_burgundy.json](building/building_floor_carpet_burgundy/building_floor_carpet_burgundy.json) |
+| `building_floor_carpet_grey` | Grey Carpet | ✅ Yes | — | [building_floor_carpet_grey.json](building/building_floor_carpet_grey/building_floor_carpet_grey.json) |
+| `building_floor_carpet_navy` | Navy Carpet | ✅ Yes | — | [building_floor_carpet_navy.json](building/building_floor_carpet_navy/building_floor_carpet_navy.json) |
+| `building_floor_tile_slate` | Slate Tile | ✅ Yes | — | [building_floor_tile_slate.json](building/building_floor_tile_slate/building_floor_tile_slate.json) |
+| `building_floor_tile_speckled` | Speckled Grey Tile | ✅ Yes | — | [building_floor_tile_speckled.json](building/building_floor_tile_speckled/building_floor_tile_speckled.json) |
+| `building_floor_tile_terracotta` | Terracotta Tile | ✅ Yes | — | [building_floor_tile_terracotta.json](building/building_floor_tile_terracotta/building_floor_tile_terracotta.json) |
+| `building_floor_tile_white` | White Ceramic Tile | ✅ Yes | — | [building_floor_tile_white.json](building/building_floor_tile_white/building_floor_tile_white.json) |
+| `building_floor_vinyl_plank` | Wood-look Vinyl Plank | ✅ Yes | — | [building_floor_vinyl_plank.json](building/building_floor_vinyl_plank/building_floor_vinyl_plank.json) |
 | `building_glass` | Glass Pane | — | — | [building_glass.json](building/building_glass/building_glass.json) |
 | `building_insulation_fiberglass_batt` | Fiberglass Insulation Batt | — | — | [building_insulation_fiberglass_batt.json](building/building_insulation_fiberglass_batt/building_insulation_fiberglass_batt.json) |
 | `building_metal` | Metal Sheet | — | — | [building_metal.json](building/building_metal/building_metal.json) |
+| `building_paint_barn_red` | Interior Paint: Barn Red | ✅ Yes | — | [building_paint_barn_red.json](building/building_paint_barn_red/building_paint_barn_red.json) |
+| `building_paint_charcoal` | Interior Paint: Charcoal | ✅ Yes | — | [building_paint_charcoal.json](building/building_paint_charcoal/building_paint_charcoal.json) |
+| `building_paint_cream` | Interior Paint: Warm Cream | ✅ Yes | — | [building_paint_cream.json](building/building_paint_cream/building_paint_cream.json) |
 | `building_paint_interior_wall` | Interior Wall Paint | — | — | [building_paint_interior_wall.json](building/building_paint_interior_wall/building_paint_interior_wall.json) |
+| `building_paint_ivory` | Interior Paint: Ivory | ✅ Yes | — | [building_paint_ivory.json](building/building_paint_ivory/building_paint_ivory.json) |
+| `building_paint_lavender` | Interior Paint: Lavender | ✅ Yes | — | [building_paint_lavender.json](building/building_paint_lavender/building_paint_lavender.json) |
+| `building_paint_mustard` | Interior Paint: Mustard Yellow | ✅ Yes | — | [building_paint_mustard.json](building/building_paint_mustard/building_paint_mustard.json) |
+| `building_paint_navy` | Interior Paint: Deep Navy | ✅ Yes | — | [building_paint_navy.json](building/building_paint_navy/building_paint_navy.json) |
+| `building_paint_sage` | Interior Paint: Sage Green | ✅ Yes | — | [building_paint_sage.json](building/building_paint_sage/building_paint_sage.json) |
+| `building_paint_sky_blue` | Interior Paint: Sky Blue | ✅ Yes | — | [building_paint_sky_blue.json](building/building_paint_sky_blue/building_paint_sky_blue.json) |
+| `building_paint_terracotta` | Interior Paint: Terracotta | ✅ Yes | — | [building_paint_terracotta.json](building/building_paint_terracotta/building_paint_terracotta.json) |
 | `building_pallet_wood` | Mat Pallet Wood | ✅ Yes | — | [building_pallet_wood.json](building/building_pallet_wood/building_pallet_wood.json) |
 | `building_rebar_steel_bundle` | Rebar Bundle | ✅ Yes | — | [building_rebar_steel_bundle.json](building/building_rebar_steel_bundle/building_rebar_steel_bundle.json) |
+| `building_siding_barn_red` | Barn Red Board Siding | ✅ Yes | — | [building_siding_barn_red.json](building/building_siding_barn_red/building_siding_barn_red.json) |
+| `building_siding_brick_veneer` | Red Brick Veneer | ✅ Yes | — | [building_siding_brick_veneer.json](building/building_siding_brick_veneer/building_siding_brick_veneer.json) |
+| `building_siding_cedar_shake` | Cedar Shake Siding | ✅ Yes | — | [building_siding_cedar_shake.json](building/building_siding_cedar_shake/building_siding_cedar_shake.json) |
+| `building_siding_charcoal_batten` | Charcoal Board and Batten | ✅ Yes | — | [building_siding_charcoal_batten.json](building/building_siding_charcoal_batten/building_siding_charcoal_batten.json) |
+| `building_siding_cream` | Cream Clapboard Siding | ✅ Yes | — | [building_siding_cream.json](building/building_siding_cream/building_siding_cream.json) |
+| `building_siding_sage` | Sage Green Clapboard Siding | ✅ Yes | — | [building_siding_sage.json](building/building_siding_sage/building_siding_sage.json) |
+| `building_siding_slate_blue` | Slate Blue Clapboard Siding | ✅ Yes | — | [building_siding_slate_blue.json](building/building_siding_slate_blue/building_siding_slate_blue.json) |
+| `building_siding_stucco_tan` | Tan Stucco Panels | ✅ Yes | — | [building_siding_stucco_tan.json](building/building_siding_stucco_tan/building_siding_stucco_tan.json) |
+| `building_siding_weathered_grey` | Weathered Grey Shiplap | ✅ Yes | — | [building_siding_weathered_grey.json](building/building_siding_weathered_grey/building_siding_weathered_grey.json) |
+| `building_siding_white` | White Clapboard Siding | ✅ Yes | — | [building_siding_white.json](building/building_siding_white/building_siding_white.json) |
 | `building_steel_frame_beam` | Steel Rigid Frame Beam | ✅ Yes | — | [building_steel_frame_beam.json](building/building_steel_frame_beam/building_steel_frame_beam.json) |
 | `building_steel_siding_corrugated` | Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated.json](building/building_steel_siding_corrugated/building_steel_siding_corrugated.json) |
 | `building_steel_stud_framing` | Steel Stud (Metal Framing) | ✅ Yes | — | [building_steel_stud_framing.json](building/building_steel_stud_framing/building_steel_stud_framing.json) |
@@ -135,10 +165,25 @@ Total Indexed Items: **569**
 | `lumber_joist_2x8` | 2x8 Joist Beam | ✅ Yes | — | [lumber_joist_2x8.json](building/lumber_joist_2x8/lumber_joist_2x8.json) |
 | `lumber_post_4x4` | 4x4 Treated Post | ✅ Yes | — | [lumber_post_4x4.json](building/lumber_post_4x4/lumber_post_4x4.json) |
 | `lumber_stud_2x4` | 2x4 Lumber Stud | ✅ Yes | — | [lumber_stud_2x4.json](building/lumber_stud_2x4/lumber_stud_2x4.json) |
+| `masonry_brick_brown` | Brown Brick | ✅ Yes | — | [masonry_brick_brown.json](building/masonry_brick_brown/masonry_brick_brown.json) |
+| `masonry_brick_charcoal` | Charcoal Brick | ✅ Yes | — | [masonry_brick_charcoal.json](building/masonry_brick_charcoal/masonry_brick_charcoal.json) |
+| `masonry_brick_dark_red` | Dark Red Brick | ✅ Yes | — | [masonry_brick_dark_red.json](building/masonry_brick_dark_red/masonry_brick_dark_red.json) |
+| `masonry_brick_grey` | Grey Brick | ✅ Yes | — | [masonry_brick_grey.json](building/masonry_brick_grey/masonry_brick_grey.json) |
+| `masonry_brick_old_mill` | Old Mill Red Brick | ✅ Yes | — | [masonry_brick_old_mill.json](building/masonry_brick_old_mill/masonry_brick_old_mill.json) |
+| `masonry_brick_oxblood` | Oxblood Brick | ✅ Yes | — | [masonry_brick_oxblood.json](building/masonry_brick_oxblood/masonry_brick_oxblood.json) |
+| `masonry_brick_pressed_red` | Pressed Red Brick | ✅ Yes | — | [masonry_brick_pressed_red.json](building/masonry_brick_pressed_red/masonry_brick_pressed_red.json) |
 | `masonry_brick_red` | Red Clay Brick | ✅ Yes | — | [masonry_brick_red.json](building/masonry_brick_red/masonry_brick_red.json) |
+| `masonry_brick_rust` | Rust Red Brick | ✅ Yes | — | [masonry_brick_rust.json](building/masonry_brick_rust/masonry_brick_rust.json) |
+| `masonry_brick_salmon` | Salmon Red Brick | ✅ Yes | — | [masonry_brick_salmon.json](building/masonry_brick_salmon/masonry_brick_salmon.json) |
+| `masonry_brick_tan` | Tan Brick | ✅ Yes | — | [masonry_brick_tan.json](building/masonry_brick_tan/masonry_brick_tan.json) |
+| `masonry_brick_white` | White Washed Brick | ✅ Yes | — | [masonry_brick_white.json](building/masonry_brick_white/masonry_brick_white.json) |
 | `masonry_cinder_block` | Cinder Block | ✅ Yes | — | [masonry_cinder_block.json](building/masonry_cinder_block/masonry_cinder_block.json) |
+| `masonry_fieldstone` | Field Stone | ✅ Yes | — | [masonry_fieldstone.json](building/masonry_fieldstone/masonry_fieldstone.json) |
 | `part_floor_stone_1m` | Part Floor Stone 1M | ✅ Yes | — | [part_floor_stone_1m.json](building/part_floor_stone_1m/part_floor_stone_1m.json) |
 | `part_floor_wood_1m` | Part Floor Wood 1M | ✅ Yes | — | [part_floor_wood_1m.json](building/part_floor_wood_1m/part_floor_wood_1m.json) |
+| `path_dirt` | Dirt Path Blueprint | — | — | [path_dirt.json](building/path_dirt/path_dirt.json) |
+| `path_gravel` | Gravel Path Blueprint | — | — | [path_gravel.json](building/path_gravel/path_gravel.json) |
+| `path_stone` | Flagstone Path Blueprint | — | — | [path_stone.json](building/path_stone/path_stone.json) |
 | `pipe_leach_perforated_4inch` | 4" Perforated Leach Pipe | ✅ Yes | — | [pipe_leach_perforated_4inch.json](building/pipe_leach_perforated_4inch/pipe_leach_perforated_4inch.json) |
 | `pipe_pvc_elbow` | PVC 90-Degree Elbow | ✅ Yes | — | [pipe_pvc_elbow.json](building/pipe_pvc_elbow/pipe_pvc_elbow.json) |
 | `pipe_pvc_half_inch` | 1/2" PVC Pipe | ✅ Yes | — | [pipe_pvc_half_inch.json](building/pipe_pvc_half_inch/pipe_pvc_half_inch.json) |
@@ -147,8 +192,21 @@ Total Indexed Items: **569**
 | `pipe_pvc_two_inch` | 2" PVC Pipe | ✅ Yes | — | [pipe_pvc_two_inch.json](building/pipe_pvc_two_inch/pipe_pvc_two_inch.json) |
 | `pipe_sewer_solid_4inch` | 4" Sewer Pipe | ✅ Yes | — | [pipe_sewer_solid_4inch.json](building/pipe_sewer_solid_4inch/pipe_sewer_solid_4inch.json) |
 | `post_wood_round_6inch` | 6" Round Wood Post | ✅ Yes | — | [post_wood_round_6inch.json](building/post_wood_round_6inch/post_wood_round_6inch.json) |
+| `road_asphalt` | Asphalt Road Blueprint | — | — | [road_asphalt.json](building/road_asphalt/road_asphalt.json) |
+| `road_gravel` | Gravel Road Blueprint | — | — | [road_gravel.json](building/road_gravel/road_gravel.json) |
+| `roofing_cedar_shakes` | Cedar Shake Roofing | ✅ Yes | — | [roofing_cedar_shakes.json](building/roofing_cedar_shakes/roofing_cedar_shakes.json) |
+| `roofing_clay_tile` | Terracotta Clay Tile | ✅ Yes | — | [roofing_clay_tile.json](building/roofing_clay_tile/roofing_clay_tile.json) |
+| `roofing_seam_black` | Standing Seam Black Metal Roofing | ✅ Yes | — | [roofing_seam_black.json](building/roofing_seam_black/roofing_seam_black.json) |
+| `roofing_seam_green` | Standing Seam Green Metal Roofing | ✅ Yes | — | [roofing_seam_green.json](building/roofing_seam_green/roofing_seam_green.json) |
+| `roofing_seam_red` | Standing Seam Red Metal Roofing | ✅ Yes | — | [roofing_seam_red.json](building/roofing_seam_red/roofing_seam_red.json) |
+| `roofing_shingles_brown` | Brown Asphalt Shingles | ✅ Yes | — | [roofing_shingles_brown.json](building/roofing_shingles_brown/roofing_shingles_brown.json) |
 | `roofing_shingles_bundle` | Asphalt Shingles Bundle | ✅ Yes | — | [roofing_shingles_bundle.json](building/roofing_shingles_bundle/roofing_shingles_bundle.json) |
+| `roofing_shingles_green` | Forest Green Shingles | ✅ Yes | — | [roofing_shingles_green.json](building/roofing_shingles_green/roofing_shingles_green.json) |
+| `roofing_shingles_red` | Red Asphalt Shingles | ✅ Yes | — | [roofing_shingles_red.json](building/roofing_shingles_red/roofing_shingles_red.json) |
+| `roofing_shingles_weathered` | Weathered Wood Shingles | ✅ Yes | — | [roofing_shingles_weathered.json](building/roofing_shingles_weathered/roofing_shingles_weathered.json) |
+| `roofing_slate_tile` | Natural Slate Tile | ✅ Yes | — | [roofing_slate_tile.json](building/roofing_slate_tile/roofing_slate_tile.json) |
 | `roofing_steel_corrugated` | Corrugated Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated.json](building/roofing_steel_corrugated/roofing_steel_corrugated.json) |
+| `roofing_thatch` | Reed Thatch Bundle | ✅ Yes | — | [roofing_thatch.json](building/roofing_thatch/roofing_thatch.json) |
 | `sheet_drywall_stack_large` | Large Drywall Stack | — | — | [sheet_drywall_stack_large.json](building/sheet_drywall_stack_large/sheet_drywall_stack_large.json) |
 | `sheet_drywall_stack_small` | Small Drywall Stack | — | — | [sheet_drywall_stack_small.json](building/sheet_drywall_stack_small/sheet_drywall_stack_small.json) |
 | `sheet_osb_stack_large` | Large OSB Stack | — | — | [sheet_osb_stack_large.json](building/sheet_osb_stack_large/sheet_osb_stack_large.json) |
@@ -188,7 +246,7 @@ Total Indexed Items: **569**
 | `sunflower` | Sunflower Plant | — | — | [sunflower.json](farming/sunflower/sunflower.json) |
 | `wheat` | Wheat Plant | — | — | [wheat.json](farming/wheat/wheat.json) |
 
-### 📂 [Ranching](ranching/) (27 items)
+### 📂 [Ranching](ranching/) (28 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -199,6 +257,7 @@ Total Indexed Items: **569**
 | `animal_pan_feed_rubber_55l` | Rubber Feed Pan (55L) | ✅ Yes | — | [animal_pan_feed_rubber_55l.json](ranching/animal_pan_feed_rubber_55l/animal_pan_feed_rubber_55l.json) |
 | `animal_salt_lick_mineral_23kg` | 23kg Mineral Salt Lick | ✅ Yes | — | [animal_salt_lick_mineral_23kg.json](ranching/animal_salt_lick_mineral_23kg/animal_salt_lick_mineral_23kg.json) |
 | `barred_chicken` | Barred Chicken | — | — | [barred_chicken.json](ranching/barred_chicken/barred_chicken.json) |
+| `black_goat` | Black Goat | — | — | [black_goat.json](ranching/black_goat/black_goat.json) |
 | `black_white_billy_goat` | Black White Billy Goat | — | — | [black_white_billy_goat.json](ranching/black_white_billy_goat/black_white_billy_goat.json) |
 | `black_white_goat` | Black White Goat | — | — | [black_white_goat.json](ranching/black_white_goat/black_white_goat.json) |
 | `brown_goat` | Brown Goat | — | — | [brown_goat.json](ranching/brown_goat/brown_goat.json) |
@@ -274,7 +333,7 @@ Total Indexed Items: **569**
 | `fishing_rod_spincast_combo` | Spincast Rod & Reel Combo | ✅ Yes | — | [fishing_rod_spincast_combo.json](fishing/fishing_rod_spincast_combo/fishing_rod_spincast_combo.json) |
 | `fishing_sinkers_lead` | Split Shot Lead Sinkers | ✅ Yes | — | [fishing_sinkers_lead.json](fishing/fishing_sinkers_lead/fishing_sinkers_lead.json) |
 
-### 📂 [Tools](tools/) (59 items)
+### 📂 [Tools](tools/) (60 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -309,6 +368,7 @@ Total Indexed Items: **569**
 | `tool_hose_garden_reel` | Garden Hose & Reel | ✅ Yes | — | [tool_hose_garden_reel.json](tools/tool_hose_garden_reel/tool_hose_garden_reel.json) |
 | `tool_impact_driver_cordless` | Cordless Impact Driver | — | — | [tool_impact_driver_cordless.json](tools/tool_impact_driver_cordless/tool_impact_driver_cordless.json) |
 | `tool_kit_chainsaw_file_pouch` | Chainsaw File Kit | ✅ Yes | — | [tool_kit_chainsaw_file_pouch.json](tools/tool_kit_chainsaw_file_pouch/tool_kit_chainsaw_file_pouch.json) |
+| `tool_lighter` | Lighter | ✅ Yes | — | [tool_lighter.json](tools/tool_lighter/tool_lighter.json) |
 | `tool_loppers_heavy` | Heavy Loppers | ✅ Yes | — | [tool_loppers_heavy.json](tools/tool_loppers_heavy/tool_loppers_heavy.json) |
 | `tool_maul_splitting` | Splitting Maul | ✅ Yes | — | [tool_maul_splitting.json](tools/tool_maul_splitting/tool_maul_splitting.json) |
 | `tool_miter_saw` | Miter Saw | — | — | [tool_miter_saw.json](tools/tool_miter_saw/tool_miter_saw.json) |
@@ -338,7 +398,7 @@ Total Indexed Items: **569**
 | `tool_wrench_adjustable` | Adjustable Wrench | ✅ Yes | — | [tool_wrench_adjustable.json](tools/tool_wrench_adjustable/tool_wrench_adjustable.json) |
 | `tool_wrench_pipe` | Pipe Wrench | ✅ Yes | — | [tool_wrench_pipe.json](tools/tool_wrench_pipe/tool_wrench_pipe.json) |
 
-### 📂 [Electricity](electricity/) (37 items)
+### 📂 [Electricity](electricity/) (44 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -363,6 +423,13 @@ Total Indexed Items: **569**
 | `electricity_generator_standby_15kw` | 15kW Standby Generator | ✅ Yes | — | [electricity_generator_standby_15kw.json](electricity/electricity_generator_standby_15kw/electricity_generator_standby_15kw.json) |
 | `electricity_inverter_hybrid_3000w` | 3000W Hybrid Inverter | ✅ Yes | — | [electricity_inverter_hybrid_3000w.json](electricity/electricity_inverter_hybrid_3000w/electricity_inverter_hybrid_3000w.json) |
 | `electricity_inverter_wall` | Electric Inverter Wall | ✅ Yes | — | [electricity_inverter_wall.json](electricity/electricity_inverter_wall/electricity_inverter_wall.json) |
+| `electricity_light_ceiling_flush` | Flush Ceiling Light | ✅ Yes | — | [electricity_light_ceiling_flush.json](electricity/electricity_light_ceiling_flush/electricity_light_ceiling_flush.json) |
+| `electricity_light_ceiling_pendant` | Pendant Ceiling Light | ✅ Yes | — | [electricity_light_ceiling_pendant.json](electricity/electricity_light_ceiling_pendant/electricity_light_ceiling_pendant.json) |
+| `electricity_light_fluorescent_2bulb` | Fluorescent Light (2 Bulb) | ✅ Yes | — | [electricity_light_fluorescent_2bulb.json](electricity/electricity_light_fluorescent_2bulb/electricity_light_fluorescent_2bulb.json) |
+| `electricity_light_fluorescent_4bulb` | Fluorescent Light (4 Bulb) | ✅ Yes | — | [electricity_light_fluorescent_4bulb.json](electricity/electricity_light_fluorescent_4bulb/electricity_light_fluorescent_4bulb.json) |
+| `electricity_light_fluorescent_8bulb` | Fluorescent Light (8 Bulb) | ✅ Yes | — | [electricity_light_fluorescent_8bulb.json](electricity/electricity_light_fluorescent_8bulb/electricity_light_fluorescent_8bulb.json) |
+| `electricity_light_sconce_exterior` | Exterior Wall Lantern | ✅ Yes | — | [electricity_light_sconce_exterior.json](electricity/electricity_light_sconce_exterior/electricity_light_sconce_exterior.json) |
+| `electricity_light_sconce_interior` | Wall Sconce | ✅ Yes | — | [electricity_light_sconce_interior.json](electricity/electricity_light_sconce_interior/electricity_light_sconce_interior.json) |
 | `electricity_mpptcontroller` | MPPT Solar Charge Controller | — | — | [electricity_mpptcontroller.json](electricity/electricity_mpptcontroller/electricity_mpptcontroller.json) |
 | `electricity_networkswitch_poe` | Item Electric Networkswitch Poe | ✅ Yes | — | [electricity_networkswitch_poe.json](electricity/electricity_networkswitch_poe/electricity_networkswitch_poe.json) |
 | `electricity_panel_breaker_subpanel` | Outdoor Breaker Subpanel | ✅ Yes | — | [electricity_panel_breaker_subpanel.json](electricity/electricity_panel_breaker_subpanel/electricity_panel_breaker_subpanel.json) |
@@ -584,7 +651,7 @@ Total Indexed Items: **569**
 | `large_gas_fuel_container` | Large Gas Fuel Container | — | — | [large_gas_fuel_container.json](fuel/large_gas_fuel_container/large_gas_fuel_container.json) |
 | `small_gas_fuel_container` | Small Gas Fuel Container | — | — | [small_gas_fuel_container.json](fuel/small_gas_fuel_container/small_gas_fuel_container.json) |
 
-### 📂 [Materials](materials/) (69 items)
+### 📂 [Materials](materials/) (70 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -614,6 +681,7 @@ Total Indexed Items: **569**
 | `mat_log_poplar_uncut_long` | Long Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_long.json](materials/mat_log_poplar_uncut_long/mat_log_poplar_uncut_long.json) |
 | `mat_log_poplar_uncut_medium` | Medium Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_medium.json](materials/mat_log_poplar_uncut_medium/mat_log_poplar_uncut_medium.json) |
 | `mat_log_poplar_uncut_small` | Small Poplar Uncut Log | ✅ Yes | — | [mat_log_poplar_uncut_small.json](materials/mat_log_poplar_uncut_small/mat_log_poplar_uncut_small.json) |
+| `mat_log_willow` | Willow Log | — | — | [mat_log_willow.json](materials/mat_log_willow/mat_log_willow.json) |
 | `mat_log_willowood_uncut_long` | Long Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_long.json](materials/mat_log_willowood_uncut_long/mat_log_willowood_uncut_long.json) |
 | `mat_log_willowood_uncut_medium` | Medium Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_medium.json](materials/mat_log_willowood_uncut_medium/mat_log_willowood_uncut_medium.json) |
 | `mat_log_willowood_uncut_small` | Small Willowood Uncut Log | ✅ Yes | — | [mat_log_willowood_uncut_small.json](materials/mat_log_willowood_uncut_small/mat_log_willowood_uncut_small.json) |

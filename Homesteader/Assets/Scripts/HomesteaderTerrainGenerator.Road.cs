@@ -68,7 +68,11 @@ namespace Homesteader.Generation
 
             var rule = GameRules.StarterRoad;
             var zone = GameRules.StarterZone;
-            if (rule.Enabled && zone.Enabled)
+            if (RestoreRoadFromSnapshot())
+            {
+                // a continued world keeps the road it was made with
+            }
+            else if (rule.Enabled && zone.Enabled)
             {
                 roadHalfWidth = Mathf.Max(0.8f, rule.WidthM * 0.5f);
                 BuildRoadRoute(rule, zone);

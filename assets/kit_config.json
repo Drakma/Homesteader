@@ -2,19 +2,19 @@
   "categories": {
     "peds": {
       "name": "Peds",
-      "icon": "\ud83d\ude4d\u200d\u2642",
+      "icon": "🙍‍♂",
       "desc": "Player Characters",
       "prefix": "peds"
     },
     "vehicles": {
       "name": "Vehicles",
-      "icon": "\ud83d\ude97",
+      "icon": "🚗",
       "desc": "Cars, Trucks, Machinery",
       "prefix": "vehicle"
     },
     "appliances": {
       "name": "Appliances & Furniture",
-      "icon": "\ud83d\udecb\ufe0f",
+      "icon": "🛋️",
       "desc": "Household appliances and furniture placed inside buildings - kitchen appliances, laundry, outdoor cooking, and living/bedroom furniture, each with real-world dimensions for interior space planning.",
       "prefix": "appliance"
     }
@@ -22,214 +22,419 @@
   "subfolders": {
     "quarter_horse": {
       "name": "American Quarter Horse",
-      "icon": "\ud83d\udc0e",
+      "icon": "🐎",
       "category": "ranching"
     },
     "barred_chicken": {
       "name": "Barred Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching"
     },
     "red_chicken": {
       "name": "Red Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching"
     },
     "white_chicken": {
       "name": "White Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching"
     },
     "pink_pig": {
       "name": "Pink Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching"
     },
     "hampshire_pig": {
       "name": "Hampshire Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching"
     },
     "duroc_pig": {
       "name": "Duroc Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching"
     },
     "white_goat": {
       "name": "White Goat",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching"
     },
     "brown_goat": {
       "name": "Brown Goat",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching"
     },
     "black_white_goat": {
       "name": "Black & White Goat",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching"
     },
     "jersey_cow": {
       "name": "Jersey Cow",
-      "icon": "\ud83d\udc04",
+      "icon": "🐄",
       "category": "ranching"
     },
     "holstein_cow": {
       "name": "Holstein Cow",
-      "icon": "\ud83d\udc04",
+      "icon": "🐄",
       "category": "ranching"
     },
     "highland_cow": {
       "name": "Highland Cow",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching"
     },
     "apple": {
       "name": "Apple Tree",
-      "icon": "\ud83c\udf4e",
+      "icon": "🍎",
       "category": "logging"
     },
     "birch": {
       "name": "Birch Tree",
-      "icon": "\ud83e\udeb5",
+      "icon": "🪵",
       "category": "logging"
     },
     "maple": {
       "name": "Maple Tree",
-      "icon": "\ud83c\udf41",
+      "icon": "🍁",
       "category": "logging"
     },
     "oak": {
       "name": "Oak Tree",
-      "icon": "\ud83c\udf33",
+      "icon": "🌳",
       "category": "logging"
     },
     "pine": {
       "name": "Pine Tree",
-      "icon": "\ud83c\udf32",
+      "icon": "🌲",
       "category": "logging"
     },
     "poplar": {
       "name": "Poplar Tree",
-      "icon": "\ud83c\udf3f",
+      "icon": "🌿",
       "category": "logging"
     },
     "willow": {
       "name": "Willow Tree",
-      "icon": "\ud83c\udf3e",
+      "icon": "🌾",
       "category": "logging"
     },
     "large_log_cabin": {
       "name": "Large Log Cabin",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "corn_crop": {
       "name": "Corn Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming"
     },
     "wheat_crop": {
       "name": "Wheat Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming"
     },
     "sunflower_crop": {
       "name": "Sunflower Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming"
     },
     "sunflower": {
-      "name": "Sunflower",
-      "icon": "\ud83c\udf3e",
+      "name": "Sunflower Plant",
+      "icon": "🌾",
       "category": "farming"
     },
     "wheat": {
-      "name": "Wheat",
-      "icon": "\ud83c\udf3e",
+      "name": "Wheat Plant",
+      "icon": "🌾",
       "category": "farming"
     },
     "corn": {
-      "name": "Corn",
-      "icon": "\ud83c\udf3e",
+      "name": "Corn Plant",
+      "icon": "🌾",
       "category": "farming"
     },
     "welsummer_chicken": {
       "name": "Welsummer Chicken",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "ranching"
     },
     "black_white_billy_goat": {
       "name": "Black & White Billy Goat",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching"
     },
     "white_sheep": {
       "name": "White Sheep",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "ranching"
     },
     "suffolk_sheep": {
       "name": "Suffolk Sheep",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching"
     },
     "tan_sheep": {
       "name": "Tan Sheep",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching"
     },
     "welsummer_rooter": {
       "name": "Welsummer Rooster",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching"
     },
     "barn": {
       "name": "Barn",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "chicken_coop": {
       "name": "Chicken Coop",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "farmhouse": {
       "name": "Farmhouse",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "greenhouse": {
       "name": "Greenhouse",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "small_cabin": {
       "name": "Small Cabin",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "stable": {
       "name": "Stable",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures"
     },
     "starter_house": {
       "name": "Starter House",
-      "icon": "??",
+      "icon": "🏠",
       "category": "structures"
     },
     "large_metal_garage": {
       "name": "Large Metal Garage",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "pumpkin": {
+      "name": "Pumpkin Plant",
+      "icon": "🌱",
+      "category": "farming"
+    },
+    "lemon": {
+      "name": "Lemon",
+      "icon": "🍎",
+      "category": "logging"
+    },
+    "orange": {
+      "name": "Orange",
+      "icon": "🍎",
+      "category": "logging"
+    },
+    "3_bay_truck_garage": {
+      "name": "3-Bay Truck Garage",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "struct_shed": {
+      "name": "Tool Shed",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "struct_woodshed": {
+      "name": "Woodshed",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "black_goat": {
+      "name": "Black Goat",
+      "icon": "🐎",
+      "category": "ranching"
+    },
+    "house_garage": {
+      "name": "House wtih Garage",
+      "icon": "🏠",
+      "category": "structures"
+    },
+    "carrot": {
+      "name": "Carrot Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "potato": {
+      "name": "Potato Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "tomato": {
+      "name": "Tomato Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "strawberry": {
+      "name": "Strawberry Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "herb": {
+      "name": "Herb Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "cotton": {
+      "name": "Cotton Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "onion": {
+      "name": "Onion Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "garlic": {
+      "name": "Garlic Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "lettuce": {
+      "name": "Lettuce Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "cabbage": {
+      "name": "Cabbage Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "spinach": {
+      "name": "Spinach Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "broccoli": {
+      "name": "Broccoli Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "beet": {
+      "name": "Beet Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "radish": {
+      "name": "Radish Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "rhubarb": {
+      "name": "Rhubarb Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "peas": {
+      "name": "Peas Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "green_beans": {
+      "name": "Green Bean Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "cucumber": {
+      "name": "Cucumber Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "zucchini": {
+      "name": "Zucchini Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "peppers": {
+      "name": "Pepper Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "peanuts": {
+      "name": "Peanut Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "watermelon": {
+      "name": "Watermelon Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "cantaloupe": {
+      "name": "Cantaloupe Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "oats": {
+      "name": "Oat Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "barley": {
+      "name": "Barley Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "soybeans": {
+      "name": "Soybean Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "alfalfa": {
+      "name": "Alfalfa Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "hops": {
+      "name": "Hops Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "tobacco": {
+      "name": "Tobacco Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "flax": {
+      "name": "Flax Plant",
+      "icon": "",
+      "category": "farming"
+    },
+    "grain_silo_small": {
+      "name": "Grain Silo (Small)",
+      "icon": "",
+      "category": "structures"
+    },
+    "grain_silo_medium": {
+      "name": "Grain Silo (Medium)",
+      "icon": "",
+      "category": "structures"
+    },
+    "grain_silo_large": {
+      "name": "Grain Silo (Large)",
+      "icon": "",
       "category": "structures"
     }
   },
   "growth_groups": {
     "quarter_horse": {
       "name": "American Quarter Horse",
-      "icon": "\ud83d\udc0e",
+      "icon": "🐎",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -260,7 +465,7 @@
     },
     "barred_chicken": {
       "name": "Barred Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -284,7 +489,7 @@
     },
     "red_chicken": {
       "name": "Red Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -308,7 +513,7 @@
     },
     "white_chicken": {
       "name": "White Chicken",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -332,7 +537,7 @@
     },
     "pink_pig": {
       "name": "Pink Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -356,7 +561,7 @@
     },
     "hampshire_pig": {
       "name": "Hampshire Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -380,7 +585,7 @@
     },
     "duroc_pig": {
       "name": "Duroc Pig",
-      "icon": "\ud83d\udc16",
+      "icon": "🐖",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -404,7 +609,7 @@
     },
     "white_goat": {
       "name": "White Goat",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -428,7 +633,7 @@
     },
     "brown_goat": {
       "name": "Brown Goat",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -452,7 +657,7 @@
     },
     "black_white_goat": {
       "name": "Black & White Goat",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -476,7 +681,7 @@
     },
     "jersey_cow": {
       "name": "Jersey Cow",
-      "icon": "\ud83d\udc04",
+      "icon": "🐄",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -500,7 +705,7 @@
     },
     "holstein_cow": {
       "name": "Holstein Cow",
-      "icon": "\ud83d\udc04",
+      "icon": "🐄",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -524,7 +729,7 @@
     },
     "highland_cow": {
       "name": "Highland Cow",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -548,7 +753,7 @@
     },
     "apple": {
       "name": "Apple Tree",
-      "icon": "\ud83c\udf4e",
+      "icon": "🍎",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 80,
@@ -586,7 +791,7 @@
     },
     "birch": {
       "name": "Birch Tree",
-      "icon": "\ud83e\udeb5",
+      "icon": "🪵",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -624,7 +829,7 @@
     },
     "maple": {
       "name": "Maple Tree",
-      "icon": "\ud83c\udf41",
+      "icon": "🍁",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -662,7 +867,7 @@
     },
     "oak": {
       "name": "Oak Tree",
-      "icon": "\ud83c\udf33",
+      "icon": "🌳",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -700,7 +905,7 @@
     },
     "pine": {
       "name": "Pine Tree",
-      "icon": "\ud83c\udf32",
+      "icon": "🌲",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 100,
@@ -738,7 +943,7 @@
     },
     "poplar": {
       "name": "Poplar Tree",
-      "icon": "\ud83c\udf3f",
+      "icon": "🌿",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 80,
@@ -776,7 +981,7 @@
     },
     "willow": {
       "name": "Willow Tree",
-      "icon": "\ud83c\udf3e",
+      "icon": "🌾",
       "category": "logging",
       "growth_type": "tree",
       "max_age": 90,
@@ -814,7 +1019,7 @@
     },
     "large_log_cabin": {
       "name": "Large Log Cabin",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -852,7 +1057,7 @@
     },
     "corn_crop": {
       "name": "Corn Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -883,7 +1088,7 @@
     },
     "wheat_crop": {
       "name": "Wheat Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -914,7 +1119,7 @@
     },
     "sunflower_crop": {
       "name": "Sunflower Crop",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "farming",
       "growth_type": "crop",
       "max_age": 90,
@@ -944,10 +1149,10 @@
       ]
     },
     "sunflower": {
-      "name": "Sunflower",
-      "icon": "\ud83c\udf3e",
+      "name": "Sunflower Plant",
+      "icon": "🌾",
       "category": "farming",
-      "growth_type": "plant",
+      "growth_type": "crop",
       "max_age": 100,
       "time_unit": "days",
       "stages": [
@@ -956,29 +1161,43 @@
           "name": "sprout",
           "item_id": "crop_sprout_sunflower",
           "age_min": 0,
-          "age_max": 33
+          "age_max": 11
         },
         {
           "stage": 2,
-          "name": "growing",
-          "item_id": "crop_growing_sunflower",
-          "age_min": 33,
-          "age_max": 66
+          "name": "small",
+          "item_id": "crop_small_sunflower",
+          "age_min": 11,
+          "age_max": 33
         },
         {
           "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_sunflower",
+          "age_min": 33,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
           "name": "mature",
           "item_id": "crop_mature_sunflower",
-          "age_min": 66,
+          "age_min": 60,
+          "age_max": 83
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_sunflower",
+          "age_min": 83,
           "age_max": 100
         }
       ]
     },
     "wheat": {
-      "name": "Wheat",
-      "icon": "\ud83c\udf3e",
+      "name": "Wheat Plant",
+      "icon": "🌾",
       "category": "farming",
-      "growth_type": "plant",
+      "growth_type": "crop",
       "max_age": 180,
       "time_unit": "days",
       "stages": [
@@ -987,29 +1206,43 @@
           "name": "sprout",
           "item_id": "crop_sprout_wheat",
           "age_min": 0,
-          "age_max": 33
+          "age_max": 20
         },
         {
           "stage": 2,
-          "name": "growing",
-          "item_id": "crop_growing_wheat",
-          "age_min": 33,
-          "age_max": 66
+          "name": "small",
+          "item_id": "crop_small_wheat",
+          "age_min": 20,
+          "age_max": 59
         },
         {
           "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_wheat",
+          "age_min": 59,
+          "age_max": 108
+        },
+        {
+          "stage": 4,
           "name": "mature",
           "item_id": "crop_mature_wheat",
-          "age_min": 66,
-          "age_max": 100
+          "age_min": 108,
+          "age_max": 149
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_wheat",
+          "age_min": 149,
+          "age_max": 180
         }
       ]
     },
     "corn": {
-      "name": "Corn",
-      "icon": "\ud83c\udf3e",
+      "name": "Corn Plant",
+      "icon": "🌾",
       "category": "farming",
-      "growth_type": "plant",
+      "growth_type": "crop",
       "max_age": 80,
       "time_unit": "days",
       "stages": [
@@ -1018,27 +1251,41 @@
           "name": "sprout",
           "item_id": "crop_sprout_corn",
           "age_min": 0,
-          "age_max": 33
+          "age_max": 9
         },
         {
           "stage": 2,
-          "name": "growing",
-          "item_id": "crop_growing_corn",
-          "age_min": 33,
-          "age_max": 66
+          "name": "small",
+          "item_id": "crop_small_corn",
+          "age_min": 9,
+          "age_max": 26
         },
         {
           "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_corn",
+          "age_min": 26,
+          "age_max": 48
+        },
+        {
+          "stage": 4,
           "name": "mature",
           "item_id": "crop_mature_corn",
+          "age_min": 48,
+          "age_max": 66
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_corn",
           "age_min": 66,
-          "age_max": 100
+          "age_max": 80
         }
       ]
     },
     "welsummer_chicken": {
       "name": "Welsummer Chicken",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 60,
@@ -1062,7 +1309,7 @@
     },
     "black_white_billy_goat": {
       "name": "Black & White Billy Goat",
-      "icon": "\ud83d\udc10",
+      "icon": "🐐",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1086,7 +1333,7 @@
     },
     "white_sheep": {
       "name": "White Sheep",
-      "icon": "\ud83c\udf31",
+      "icon": "🌱",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1110,7 +1357,7 @@
     },
     "suffolk_sheep": {
       "name": "Suffolk Sheep",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1134,7 +1381,7 @@
     },
     "tan_sheep": {
       "name": "Tan Sheep",
-      "icon": "\ud83d\udc11",
+      "icon": "🐑",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1158,7 +1405,7 @@
     },
     "welsummer_rooter": {
       "name": "Welsummer Rooster",
-      "icon": "\ud83d\udc14",
+      "icon": "🐔",
       "category": "ranching",
       "growth_type": "animal",
       "max_age": 730,
@@ -1182,7 +1429,7 @@
     },
     "barn": {
       "name": "Barn",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1220,7 +1467,7 @@
     },
     "chicken_coop": {
       "name": "Chicken Coop",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1258,7 +1505,7 @@
     },
     "farmhouse": {
       "name": "Farmhouse",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1296,7 +1543,7 @@
     },
     "greenhouse": {
       "name": "Greenhouse",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1334,7 +1581,7 @@
     },
     "small_cabin": {
       "name": "Small Cabin",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1372,7 +1619,7 @@
     },
     "stable": {
       "name": "Stable",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1410,7 +1657,7 @@
     },
     "starter_house": {
       "name": "Starter House",
-      "icon": "??",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1448,7 +1695,7 @@
     },
     "large_metal_garage": {
       "name": "Large Metal Garage",
-      "icon": "\ud83c\udfe0",
+      "icon": "🏠",
       "category": "structures",
       "growth_type": "building",
       "max_age": 100,
@@ -1480,6 +1727,1795 @@
           "name": "complete",
           "item_id": "struct_complete_large_metal_garage",
           "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Pumpkin Plant",
+      "icon": "🌱",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_pumpkin",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_pumpkin",
+          "age_min": 10,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_pumpkin",
+          "age_min": 30,
+          "age_max": 54
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_pumpkin",
+          "age_min": 54,
+          "age_max": 75
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_pumpkin",
+          "age_min": 75,
+          "age_max": 90
+        }
+      ]
+    },
+    "lemon": {
+      "name": "Lemon",
+      "icon": "🍎",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 300,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_lemon",
+          "age_min": 0,
+          "age_max": 125
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_lemon",
+          "age_min": 125,
+          "age_max": 200
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_lemon",
+          "age_min": 200,
+          "age_max": 250
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_lemon",
+          "age_min": 250,
+          "age_max": 299
+        },
+        {
+          "stage": 5,
+          "name": "fruiting",
+          "item_id": "tree_fruiting_lemon",
+          "age_min": 299,
+          "age_max": 300
+        }
+      ]
+    },
+    "orange": {
+      "name": "Orange",
+      "icon": "🍎",
+      "category": "logging",
+      "growth_type": "tree",
+      "max_age": 300,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sapling",
+          "item_id": "tree_sapling_orange",
+          "age_min": 0,
+          "age_max": 100
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "tree_small_orange",
+          "age_min": 100,
+          "age_max": 199
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "tree_medium_orange",
+          "age_min": 199,
+          "age_max": 290
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "tree_mature_orange",
+          "age_min": 290,
+          "age_max": 299
+        },
+        {
+          "stage": 5,
+          "name": "fruiting",
+          "item_id": "tree_fruiting_orange",
+          "age_min": 299,
+          "age_max": 300
+        }
+      ]
+    },
+    "3_bay_truck_garage": {
+      "name": "3-Bay Truck Garage",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_3_bay_truck_garage",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_3_bay_truck_garage",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_3_bay_truck_garage",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_3_bay_truck_garage",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "struct_shed": {
+      "name": "Tool Shed",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_struct_shed",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_struct_shed",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_struct_shed",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_struct_shed",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "struct_woodshed": {
+      "name": "Woodshed",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_struct_woodshed",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_struct_woodshed",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_struct_woodshed",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_struct_woodshed",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "black_goat": {
+      "name": "Black Goat",
+      "icon": "🐎",
+      "category": "ranching",
+      "growth_type": "animal",
+      "max_age": 730,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "kid",
+          "item_id": "animal_kid_black_goat",
+          "age_min": 0,
+          "age_max": 90
+        },
+        {
+          "stage": 2,
+          "name": "yearling",
+          "item_id": "animal_yearling_black_goat",
+          "age_min": 90,
+          "age_max": 365
+        },
+        {
+          "stage": 3,
+          "name": "adult",
+          "item_id": "animal_adult_black_goat",
+          "age_min": 365,
+          "age_max": 730
+        }
+      ]
+    },
+    "house_garage": {
+      "name": "House wtih Garage",
+      "icon": "🏠",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_house_garage",
+          "age_min": 0,
+          "age_max": 12
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_house_garage",
+          "age_min": 12,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_house_garage",
+          "age_min": 30,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "exterior",
+          "item_id": "struct_complete_house_garage",
+          "age_min": 60,
+          "age_max": 80
+        },
+        {
+          "stage": 5,
+          "name": "finishings",
+          "item_id": "struct_finishings_house_garage",
+          "age_min": 80,
+          "age_max": 100
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Carrot Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 70,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_carrot",
+          "age_min": 0,
+          "age_max": 8
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_carrot",
+          "age_min": 8,
+          "age_max": 23
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_carrot",
+          "age_min": 23,
+          "age_max": 42
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_carrot",
+          "age_min": 42,
+          "age_max": 58
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_carrot",
+          "age_min": 58,
+          "age_max": 70
+        }
+      ]
+    },
+    "potato": {
+      "name": "Potato Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_potato",
+          "age_min": 0,
+          "age_max": 9
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_potato",
+          "age_min": 9,
+          "age_max": 26
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_potato",
+          "age_min": 26,
+          "age_max": 48
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_potato",
+          "age_min": 48,
+          "age_max": 66
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_potato",
+          "age_min": 66,
+          "age_max": 80
+        }
+      ]
+    },
+    "tomato": {
+      "name": "Tomato Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 75,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_tomato",
+          "age_min": 0,
+          "age_max": 8
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_tomato",
+          "age_min": 8,
+          "age_max": 25
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_tomato",
+          "age_min": 25,
+          "age_max": 45
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_tomato",
+          "age_min": 45,
+          "age_max": 62
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_tomato",
+          "age_min": 62,
+          "age_max": 75
+        }
+      ]
+    },
+    "strawberry": {
+      "name": "Strawberry Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 60,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_strawberry",
+          "age_min": 0,
+          "age_max": 7
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_strawberry",
+          "age_min": 7,
+          "age_max": 20
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_strawberry",
+          "age_min": 20,
+          "age_max": 36
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_strawberry",
+          "age_min": 36,
+          "age_max": 50
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_strawberry",
+          "age_min": 50,
+          "age_max": 60
+        }
+      ]
+    },
+    "herb": {
+      "name": "Herb Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 30,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_herb",
+          "age_min": 0,
+          "age_max": 3
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_herb",
+          "age_min": 3,
+          "age_max": 10
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_herb",
+          "age_min": 10,
+          "age_max": 18
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_herb",
+          "age_min": 18,
+          "age_max": 25
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_herb",
+          "age_min": 25,
+          "age_max": 30
+        }
+      ]
+    },
+    "cotton": {
+      "name": "Cotton Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 150,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_cotton",
+          "age_min": 0,
+          "age_max": 16
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_cotton",
+          "age_min": 16,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_cotton",
+          "age_min": 50,
+          "age_max": 90
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_cotton",
+          "age_min": 90,
+          "age_max": 124
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_cotton",
+          "age_min": 124,
+          "age_max": 150
+        }
+      ]
+    },
+    "onion": {
+      "name": "Onion Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_onion",
+          "age_min": 0,
+          "age_max": 11
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_onion",
+          "age_min": 11,
+          "age_max": 33
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_onion",
+          "age_min": 33,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_onion",
+          "age_min": 60,
+          "age_max": 83
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_onion",
+          "age_min": 83,
+          "age_max": 100
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Garlic Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 120,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_garlic",
+          "age_min": 0,
+          "age_max": 13
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_garlic",
+          "age_min": 13,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_garlic",
+          "age_min": 40,
+          "age_max": 72
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_garlic",
+          "age_min": 72,
+          "age_max": 100
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_garlic",
+          "age_min": 100,
+          "age_max": 120
+        }
+      ]
+    },
+    "lettuce": {
+      "name": "Lettuce Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 45,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_lettuce",
+          "age_min": 0,
+          "age_max": 5
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_lettuce",
+          "age_min": 5,
+          "age_max": 15
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_lettuce",
+          "age_min": 15,
+          "age_max": 27
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_lettuce",
+          "age_min": 27,
+          "age_max": 37
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_lettuce",
+          "age_min": 37,
+          "age_max": 45
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Cabbage Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_cabbage",
+          "age_min": 0,
+          "age_max": 9
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_cabbage",
+          "age_min": 9,
+          "age_max": 26
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_cabbage",
+          "age_min": 26,
+          "age_max": 48
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_cabbage",
+          "age_min": 48,
+          "age_max": 66
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_cabbage",
+          "age_min": 66,
+          "age_max": 80
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Spinach Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 40,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_spinach",
+          "age_min": 0,
+          "age_max": 4
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_spinach",
+          "age_min": 4,
+          "age_max": 13
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_spinach",
+          "age_min": 13,
+          "age_max": 24
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_spinach",
+          "age_min": 24,
+          "age_max": 33
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_spinach",
+          "age_min": 33,
+          "age_max": 40
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Broccoli Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 70,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_broccoli",
+          "age_min": 0,
+          "age_max": 8
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_broccoli",
+          "age_min": 8,
+          "age_max": 23
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_broccoli",
+          "age_min": 23,
+          "age_max": 42
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_broccoli",
+          "age_min": 42,
+          "age_max": 58
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_broccoli",
+          "age_min": 58,
+          "age_max": 70
+        }
+      ]
+    },
+    "beet": {
+      "name": "Beet Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 60,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_beet",
+          "age_min": 0,
+          "age_max": 7
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_beet",
+          "age_min": 7,
+          "age_max": 20
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_beet",
+          "age_min": 20,
+          "age_max": 36
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_beet",
+          "age_min": 36,
+          "age_max": 50
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_beet",
+          "age_min": 50,
+          "age_max": 60
+        }
+      ]
+    },
+    "radish": {
+      "name": "Radish Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 30,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_radish",
+          "age_min": 0,
+          "age_max": 3
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_radish",
+          "age_min": 3,
+          "age_max": 10
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_radish",
+          "age_min": 10,
+          "age_max": 18
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_radish",
+          "age_min": 18,
+          "age_max": 25
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_radish",
+          "age_min": 25,
+          "age_max": 30
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Rhubarb Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_rhubarb",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_rhubarb",
+          "age_min": 10,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_rhubarb",
+          "age_min": 30,
+          "age_max": 54
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_rhubarb",
+          "age_min": 54,
+          "age_max": 75
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_rhubarb",
+          "age_min": 75,
+          "age_max": 90
+        }
+      ]
+    },
+    "peas": {
+      "name": "Peas Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 60,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_peas",
+          "age_min": 0,
+          "age_max": 7
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_peas",
+          "age_min": 7,
+          "age_max": 20
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_peas",
+          "age_min": 20,
+          "age_max": 36
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_peas",
+          "age_min": 36,
+          "age_max": 50
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_peas",
+          "age_min": 50,
+          "age_max": 60
+        }
+      ]
+    },
+    "green_beans": {
+      "name": "Green Bean Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 60,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_green_beans",
+          "age_min": 0,
+          "age_max": 7
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_green_beans",
+          "age_min": 7,
+          "age_max": 20
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_green_beans",
+          "age_min": 20,
+          "age_max": 36
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_green_beans",
+          "age_min": 36,
+          "age_max": 50
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_green_beans",
+          "age_min": 50,
+          "age_max": 60
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Cucumber Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 55,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_cucumber",
+          "age_min": 0,
+          "age_max": 6
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_cucumber",
+          "age_min": 6,
+          "age_max": 18
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_cucumber",
+          "age_min": 18,
+          "age_max": 33
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_cucumber",
+          "age_min": 33,
+          "age_max": 46
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_cucumber",
+          "age_min": 46,
+          "age_max": 55
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Zucchini Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 50,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_zucchini",
+          "age_min": 0,
+          "age_max": 6
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_zucchini",
+          "age_min": 6,
+          "age_max": 16
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_zucchini",
+          "age_min": 16,
+          "age_max": 30
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_zucchini",
+          "age_min": 30,
+          "age_max": 42
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_zucchini",
+          "age_min": 42,
+          "age_max": 50
+        }
+      ]
+    },
+    "peppers": {
+      "name": "Pepper Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 75,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_peppers",
+          "age_min": 0,
+          "age_max": 8
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_peppers",
+          "age_min": 8,
+          "age_max": 25
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_peppers",
+          "age_min": 25,
+          "age_max": 45
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_peppers",
+          "age_min": 45,
+          "age_max": 62
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_peppers",
+          "age_min": 62,
+          "age_max": 75
+        }
+      ]
+    },
+    "peanuts": {
+      "name": "Peanut Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 110,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_peanuts",
+          "age_min": 0,
+          "age_max": 12
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_peanuts",
+          "age_min": 12,
+          "age_max": 36
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_peanuts",
+          "age_min": 36,
+          "age_max": 66
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_peanuts",
+          "age_min": 66,
+          "age_max": 91
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_peanuts",
+          "age_min": 91,
+          "age_max": 110
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Watermelon Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_watermelon",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_watermelon",
+          "age_min": 10,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_watermelon",
+          "age_min": 30,
+          "age_max": 54
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_watermelon",
+          "age_min": 54,
+          "age_max": 75
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_watermelon",
+          "age_min": 75,
+          "age_max": 90
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Cantaloupe Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_cantaloupe",
+          "age_min": 0,
+          "age_max": 9
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_cantaloupe",
+          "age_min": 9,
+          "age_max": 26
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_cantaloupe",
+          "age_min": 26,
+          "age_max": 48
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_cantaloupe",
+          "age_min": 48,
+          "age_max": 66
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_cantaloupe",
+          "age_min": 66,
+          "age_max": 80
+        }
+      ]
+    },
+    "oats": {
+      "name": "Oat Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_oats",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_oats",
+          "age_min": 10,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_oats",
+          "age_min": 30,
+          "age_max": 54
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_oats",
+          "age_min": 54,
+          "age_max": 75
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_oats",
+          "age_min": 75,
+          "age_max": 90
+        }
+      ]
+    },
+    "barley": {
+      "name": "Barley Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 90,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_barley",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_barley",
+          "age_min": 10,
+          "age_max": 30
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_barley",
+          "age_min": 30,
+          "age_max": 54
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_barley",
+          "age_min": 54,
+          "age_max": 75
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_barley",
+          "age_min": 75,
+          "age_max": 90
+        }
+      ]
+    },
+    "soybeans": {
+      "name": "Soybean Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_soybeans",
+          "age_min": 0,
+          "age_max": 11
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_soybeans",
+          "age_min": 11,
+          "age_max": 33
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_soybeans",
+          "age_min": 33,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_soybeans",
+          "age_min": 60,
+          "age_max": 83
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_soybeans",
+          "age_min": 83,
+          "age_max": 100
+        }
+      ]
+    },
+    "alfalfa": {
+      "name": "Alfalfa Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 80,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_alfalfa",
+          "age_min": 0,
+          "age_max": 9
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_alfalfa",
+          "age_min": 9,
+          "age_max": 26
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_alfalfa",
+          "age_min": 26,
+          "age_max": 48
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_alfalfa",
+          "age_min": 48,
+          "age_max": 66
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_alfalfa",
+          "age_min": 66,
+          "age_max": 80
+        }
+      ]
+    },
+    "hops": {
+      "name": "Hops Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 120,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_hops",
+          "age_min": 0,
+          "age_max": 13
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_hops",
+          "age_min": 13,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_hops",
+          "age_min": 40,
+          "age_max": 72
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_hops",
+          "age_min": 72,
+          "age_max": 100
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_hops",
+          "age_min": 100,
+          "age_max": 120
+        }
+      ]
+    },
+    "tobacco": {
+      "name": "Tobacco Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 120,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_tobacco",
+          "age_min": 0,
+          "age_max": 13
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_tobacco",
+          "age_min": 13,
+          "age_max": 40
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_tobacco",
+          "age_min": 40,
+          "age_max": 72
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_tobacco",
+          "age_min": 72,
+          "age_max": 100
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_tobacco",
+          "age_min": 100,
+          "age_max": 120
+        }
+      ]
+    },
+    "flax": {
+      "name": "Flax Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 100,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_flax",
+          "age_min": 0,
+          "age_max": 11
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_flax",
+          "age_min": 11,
+          "age_max": 33
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_flax",
+          "age_min": 33,
+          "age_max": 60
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_flax",
+          "age_min": 60,
+          "age_max": 83
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_flax",
+          "age_min": 83,
+          "age_max": 100
+        }
+      ]
+    },
+    "grain_silo_small": {
+      "name": "Grain Silo (Small)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_small",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_small",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_small",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_small",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "grain_silo_medium": {
+      "name": "Grain Silo (Medium)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_medium",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_medium",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_medium",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_medium",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "grain_silo_large": {
+      "name": "Grain Silo (Large)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_grain_silo_large",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_grain_silo_large",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_grain_silo_large",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_grain_silo_large",
+          "age_min": 75,
           "age_max": 100
         }
       ]

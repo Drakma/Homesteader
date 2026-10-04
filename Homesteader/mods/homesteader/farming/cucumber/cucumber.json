@@ -1,0 +1,108 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "cucumber",
+  "name": "Cucumber Plant",
+  "category": "farming",
+  "description": "A cucumber lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 55 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+  "icon": "cucumber.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "cucumber",
+    "max_age": 55,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 6,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_cucumber.glb",
+        "icon": "crop_sprout_cucumber.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 6,
+        "age_max": 18,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_cucumber.glb",
+        "icon": "crop_small_cucumber.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 18,
+        "age_max": 33,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_cucumber.glb",
+        "icon": "crop_medium_cucumber.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 33,
+        "age_max": 46,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_cucumber.glb",
+        "icon": "crop_mature_cucumber.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 46,
+        "age_max": 55,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_cucumber.glb",
+        "icon": "crop_ripe_cucumber.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "food_cucumber",
+        "amount_min": 2,
+        "amount_max": 4,
+        "harvest_stage": 5
+      },
+      "planting": {
+        "seasons": [
+          "spring",
+          "summer"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_cucumber",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 3
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_cucumber.glb",
+          "icon": "crop_withered_cucumber.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_cucumber.glb",
+          "icon": "crop_dead_cucumber.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

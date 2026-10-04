@@ -1,0 +1,14 @@
+{
+  "file": "Steel_Town_Anthem.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 108 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 108 seconds, not cut off mid-song and with NO fade-out. Arena classic rock instrumental, 120 BPM: big power chords, stomping drums, soaring guitar melody, piano accents, anthemic chorus.",
+  "requested_prompt": "Arena classic rock instrumental, 120 BPM: big power chords, stomping drums, soaring guitar melody, piano accents, anthemic chorus.",
+  "requested_duration_seconds": 108,
+  "generated_at": "2026-10-03T18:43:21.135Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Steel_Town_Anthem.mp4",
+  "bytes": 3648924,
+  "sha256": "50908addc1ed567981ae817b8a538f227833b86ecc1857da26dd1c9ebf0c0443",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

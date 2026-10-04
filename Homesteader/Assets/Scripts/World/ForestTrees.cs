@@ -117,6 +117,37 @@ namespace Homesteader.World
             ForestSolids.MarkDirty();
         }
 
+        /// <summary>
+        /// True when a standing tree (or a dead one still on the ground) has its trunk within <paramref name="clearance"/> metres of the route,
+        /// so a path or road cannot be laid through it. The route's own bounding box rules most trees out before any distance is measured.
+        /// </summary>
+        public static bool TreeNearRoute(IList<Vector3> route, float clearance)
+        {
+            if (route == null || route.Count == 0) return false;
+            float minX = float.MaxValue, maxX = float.MinValue, minZ = float.MaxValue, maxZ = float.MinValue;
+            foreach (Vector3 p in route)
+            {
+                if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x;
+                if (p.z < minZ) minZ = p.z; if (p.z > maxZ) maxZ = p.z;
+            }
+            float reach = clearance + 1.5f;   // the trunk radius is added per tree below
+            minX -= reach; maxX += reach; minZ -= reach; maxZ += reach;
+            foreach (ForestTree t in Trees)
+            {
+                if (t.Felled) continue;
+                Vector3 tp = t.Position;
+                if (tp.x < minX || tp.x > maxX || tp.z < minZ || tp.z > maxZ) continue;
+                float radius = Species.ContainsKey(t.Species) ? Species[t.Species].TrunkRadius * t.Scale.x * StageSize[StageIndex(t)] : 0.3f;
+                float limit = clearance + Mathf.Max(0.2f, radius), limit2 = limit * limit;
+                for (int i = 0; i < route.Count; i++)
+                {
+                    float dx = route[i].x - tp.x, dz = route[i].z - tp.z;
+                    if (dx * dx + dz * dz <= limit2) return true;
+                }
+            }
+            return false;
+        }
+
         public static void RegisterSpecies(SpeciesInfo info) { Species[info.Name] = info; }
 
         public static void Register(ForestTree tree)
@@ -283,6 +314,7 @@ namespace Homesteader.World
                     }
                 }
             }
+            if (picked != null && Homesteader.Growth.ConstructionSite.SolidBefore(ray, bestT)) picked = null;   // a building in front of it
             return picked != null;
         }
 
@@ -853,6 +885,14 @@ namespace Homesteader.World
             return stage == 0 ? 0 : (stage >= 3 ? max : Mathf.Max(1, Mathf.RoundToInt(max * LogFractionByStage[stage])));
         }
 
+        /// <summary>The tree has ripe fruit and the tool held is the one its growth group asks for to pick it (none asked: any hand).</summary>
+        public static bool CanPickWith(ForestTree tree, string heldId)
+        {
+            if (!CanPick(tree)) return false;
+            GrowthRules r = FruitRules(tree.Species);
+            return r == null || string.IsNullOrEmpty(r.FruitTool) || GrowthRegistry.ToolMatches(r.FruitTool, heldId);
+        }
+
         /// <summary>Right-clicked a tree without the right tool in the active slot: tell the player what it needs.</summary>
         public static void HintTool(ForestTree tree, string heldId = null)
         {
@@ -1232,7 +1272,7 @@ namespace Homesteader.World
             foreach (string id in items)
             {
                 Vector2 o = Random.insideUnitCircle * 1.3f;
-                WorldItem.TryDrop(id, centre + new Vector3(o.x, 0f, o.y));
+                WorldItem.TryDrop(id, Homesteader.Growth.ConstructionSite.KeepOut(centre + new Vector3(o.x, 0f, o.y), 0.5f));   // never into a building
             }
         }
 
@@ -1245,7 +1285,7 @@ namespace Homesteader.World
             {
                 float length = id.EndsWith("_long") ? 4f : id.EndsWith("_medium") ? 2.4f : 1.3f;
                 Vector3 centre = stump + away * (along + length * 0.5f);
-                WorldItem.TryDrop(id, centre, yaw);
+                WorldItem.TryDrop(id, Homesteader.Growth.ConstructionSite.KeepOut(centre, length * 0.5f + 0.3f), yaw);   // a long log: clear of the building whichever way it lies
                 along += length + 0.25f;
             }
         }

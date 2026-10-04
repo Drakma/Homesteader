@@ -12,16 +12,16 @@ DST = ROOT / 'Homesteader' / 'Assets' / 'StreamingAssets' / 'HudKit' / 'cursors'
 if not SRC.exists():
     raise SystemExit('source cursor dir missing: ' + str(SRC))
 
-if DST.exists():
-    shutil.rmtree(DST)
-DST.mkdir(parents=True)
+# Overwrite in place rather than wiping the folder: Unity's .meta files live
+# beside every PNG here, and deleting them makes the editor reimport the lot.
+DST.mkdir(parents=True, exist_ok=True)
 
 count = 0
-for variant in ('mono', 'color'):
+for variant in ('mono', 'color', 'amber'):
     src_dir = SRC / variant
     if not src_dir.exists():
         raise SystemExit('missing variant dir: ' + str(src_dir))
-    (DST / variant).mkdir(parents=True)
+    (DST / variant).mkdir(parents=True, exist_ok=True)
     for png in sorted(src_dir.glob('*.png')):
         shutil.copy2(png, DST / variant / png.name)
         count += 1

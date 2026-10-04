@@ -390,12 +390,15 @@ namespace Homesteader.Growth
         {
             if (g == null || g.Pivot == null) return;
             g.Open = !g.Open;
-            // swing away from whoever works it
-            SegmentEnds(g.Segment, out Vector3 a, out Vector3 b);
-            Vector3 along = (b - a); along.y = 0f; along.Normalize();
-            Vector3 mid = PointOn(a, b, g.S, Flat(a, b));
-            Vector3 side = Vector3.Cross(Vector3.up, along);
-            g.OpenSign = Vector3.Dot(from - mid, side) > 0f ? 1f : -1f;
+            // opening swings away from whoever works it; closing swings back the same way (the side is not re-picked, or the leaf would jump across first)
+            if (g.Open)
+            {
+                SegmentEnds(g.Segment, out Vector3 a, out Vector3 b);
+                Vector3 along = (b - a); along.y = 0f; along.Normalize();
+                Vector3 mid = PointOn(a, b, g.S, Flat(a, b));
+                Vector3 side = Vector3.Cross(Vector3.up, along);
+                g.OpenSign = Vector3.Dot(from - mid, side) > 0f ? 1f : -1f;
+            }
             if (g.Collider != null) g.Collider.enabled = !g.Open;
         }
 
@@ -412,6 +415,61 @@ namespace Homesteader.Growth
                     if (g.Collider != null) g.Collider.enabled = !g.Open && g.Angle <= 0.5f;   // solid again only once it is shut
                 }
             }
+        }
+
+        /// <summary>
+        /// A right click with an axe on a post: takes down the post-to-post section nearest the cursor (with any gate in it). A closed loop becomes an open
+        /// run; an open run splits in two at the gap. Runs left with fewer than two posts go. Returns false when the ray is not on a post.
+        /// </summary>
+        public bool ChopSectionAt(Ray ray)
+        {
+            if (Limit != int.MaxValue) return false;   // still being built
+            if (!NearestSegment(ray, 0.4f, out int seg, out float s, out float d)) return false;
+            SegmentEnds(seg, out Vector3 a, out Vector3 b);
+            float len = Flat(a, b);
+            if (len < 0.05f) return false;
+            int np = Mathf.Max(1, Mathf.CeilToInt(len / PanelLength - 0.001f));
+            float step = len / np;
+            float off = Mathf.Abs(s - Mathf.Round(s / step) * step);
+            if (off > 0.45f) return false;   // on the fencing, not on a post
+
+            int n = Posts.Count;
+            var left = new List<Vector3>();
+            var leftGates = new List<Gate>();
+            List<Vector3> right = null;
+            var rightGates = new List<Gate>();
+            if (Closed)
+            {
+                // the loop opens at the removed section: start at the post after it and go all the way round
+                for (int k = 0; k < n; k++) left.Add(Posts[(seg + 1 + k) % n]);
+                foreach (Gate g in Gates)
+                {
+                    if (g.Segment == seg) continue;
+                    g.Segment = (g.Segment - (seg + 1) + n) % n;
+                    leftGates.Add(g);
+                }
+                Closed = false;
+            }
+            else
+            {
+                for (int k = 0; k <= seg; k++) left.Add(Posts[k]);
+                right = new List<Vector3>();
+                for (int k = seg + 1; k < n; k++) right.Add(Posts[k]);
+                foreach (Gate g in Gates)
+                {
+                    if (g.Segment < seg) leftGates.Add(g);
+                    else if (g.Segment > seg) { g.Segment -= seg + 1; rightGates.Add(g); }
+                }
+            }
+
+            if (right != null && right.Count >= 2) Create(Style, PanelItemId, PostItemId, PanelLength, Height, right, false, rightGates);
+            Posts.Clear();
+            Posts.AddRange(left);
+            Gates.Clear();
+            Gates.AddRange(leftGates);
+            if (Posts.Count < 2) { Destroy(gameObject); return true; }
+            Rebuild();
+            return true;
         }
 
         public void AddGate(Gate g)

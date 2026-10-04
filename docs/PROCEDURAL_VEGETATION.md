@@ -122,3 +122,17 @@ WAILA) uses `Physics.DefaultRaycastLayers`, so the mouse still sees through them
 - **Picking gesture.** `FruitPickAnimator` (on the ped) plays a code-driven two-bone IK on LeftArm / LeftForeArm over the current animation: the left hand reaches up toward the fruit, the fruit comes off the tree, the hand bends in to the right hand (the basket) and the item lands in the toolbar (about 1.5 s; a click during it is ignored).
 
 - **Berry bushes** (in `ScatterShrubs`): elderberry near the water (2 to 14 m), haskap on wet ground (marsh, willow grove, or 5 to 22 m from the water), blueberry and raspberry along the edges of the forests, huckleberry inside them. Each kind has its own noise field, so it comes in tight clumps and is uncommon. They are the ordinary bush with berries (a third submesh, in fruit from summer, bare in winter), and they take the place of some of the ordinary bushes, which are now 45% fewer. They are picked like the fruit trees (`BerryBushes.cs`): right-click with the tool, one berry at a time, the same reach gesture; the rules are the bush assets' `fruiting` add-on schema (`bush_blueberry` etc.: tools, drops, regrow_days). Picking a bush takes the WHOLE bush in one go: the player kneels (`Fixing_Kneeling_RT`, else `Farm_PlantSeed_RT`) and stays down while the left arm goes straight out for the berries in up to four quick cycles (twice the tree speed), then stands. Moving cancels any pick (tree or bush): a berry already in the hand goes in the basket, the rest stays on the plant. No berries in winter. Saved as `pickedBushes` / `pickedBushMasks`.
+
+## Crops
+
+`World/ProceduralCrops.cs`. The ten crop groups (corn, sunflower, wheat, pumpkin, carrot, potato, tomato, strawberry, herb, cotton) are drawn from meshes
+built in code, not from GLB models. A crop has the looks of a fruiting tree: stages 1-5 sprout, small, medium, mature, ripe (the harvest stage), plus
+`failure.withered` and `failure.dead`. Crops never occur naturally: nothing scatters them, they exist only as planted crops (seeds, `rules.planting.item_id`),
+the planting preview, and asset-kit models. `ProceduralCrops.ApplyCropPrefabs()` (called with `ForestTrees.ApplyPlantPrefabs` at world generation) replaces each
+group's stage and withered / dead prefabs; crops stay walk-through. Materials use `Homesteader/Vegetation` (wind sway), five submeshes: stem, leaf, fruit, accent, soil.
+
+- **Kit side.** The kit's stage folders (`assets/farming/<crop>/stages/crop_<look>/`) hold GLBs exported from the same meshes: Unity menu
+  Homesteader / Export Crop Models writes `assets/_scratch/crop_models/<crop>__<look>.glb`, then `python tools/build_crop_groups.py` builds the group manifests,
+  stage folders, icons and `kit_config.json` entries (age windows are 0 / 11 / 33 / 60 / 83 / 100 percent of max_age). The old group folders, with the old models,
+  are saved in `assets/_originals/crops_old/`. Run `generate_unity_asset_catalog.py` and `package_catalog_as_mods.py` afterwards.
+- **Changing a shape:** edit the crop's method in `ProceduralCrops.cs`, export, run the build script again (it rewrites the stage folders).

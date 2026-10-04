@@ -1,0 +1,14 @@
+{
+  "file": "Backstage_Thunder.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 113 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 113 seconds, not cut off mid-song and with NO fade-out. 1980s hard rock instrumental, 138 BPM: chugging riff in E, pounding toms intro, thick bass, screaming pinch-harmonic lead guitar, call-and-response between two guitars, loud and tight.",
+  "requested_prompt": "1980s hard rock instrumental, 138 BPM: chugging riff in E, pounding toms intro, thick bass, screaming pinch-harmonic lead guitar, call-and-response between two guitars, loud and tight.",
+  "requested_duration_seconds": 113,
+  "generated_at": "2026-10-03T21:53:06.978Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Backstage_Thunder.mp4",
+  "bytes": 3552688,
+  "sha256": "6b1c08d47cb2f0655b76afc996ddf08dea6ca26fe09422a320376d7efe7d586c",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

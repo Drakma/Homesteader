@@ -622,7 +622,7 @@ namespace Homesteader.UI
             }
             _pinDefs[id] = new PinDef { Label = label, IconClass = iconClass, Open = openAction };
 
-            tile.RegisterCallback<ClickEvent>(evt =>
+            tile.Clickable().RegisterCallback<ClickEvent>(evt =>
             {
                 if (evt.ctrlKey || evt.commandKey)
                 {
@@ -640,7 +640,7 @@ namespace Homesteader.UI
             if (button == null) return;
             _pinDefs[id] = new PinDef { Label = label, IconClass = iconClass, Open = action, KeepPhoneClosed = keepPhoneClosed };
             button.tooltip = "Ctrl+click to pin a shortcut to the screen";
-            button.RegisterCallback<ClickEvent>(evt =>
+            button.Clickable().RegisterCallback<ClickEvent>(evt =>
             {
                 if (evt.ctrlKey || evt.commandKey) { TogglePin(id); evt.StopPropagation(); return; }
                 action();
@@ -843,7 +843,7 @@ namespace Homesteader.UI
                 if (def.IconClass != null) icon.AddToClassList(def.IconClass);
                 btn.Add(icon);
 
-                btn.RegisterCallback<ClickEvent>(evt =>
+                btn.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     if (evt.ctrlKey || evt.commandKey)
                     {
@@ -888,27 +888,27 @@ namespace Homesteader.UI
             Pin(_appTileLand, "land", "Land", () => OpenApp(AppView.Land));
             Pin(_appTileSteadify, "steadify", "Steadify", () => OpenApp(AppView.Steadify));
 
-            _pageDot0?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(0));
-            _pageDot1?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(1));
+            _pageDot0.Clickable()?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(0));
+            _pageDot1.Clickable()?.RegisterCallback<ClickEvent>(evt => GoToLauncherPage(1));
 
             // Back & Home Navigation
-            _voltBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _resBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _storeBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _bankBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _marketBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _almanacBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _modsBackBtn?.RegisterCallback<ClickEvent>(evt => HandleModsBack());
-            _gigsBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _landBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _steadifyBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _modsCategoryBackBtn?.RegisterCallback<ClickEvent>(evt => GoToModCategories());
-            _modsCategoryToggleBtn?.RegisterCallback<ClickEvent>(evt => ToggleCurrentCategory());
-            _phoneHomeBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _voltBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _resBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _storeBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _bankBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _marketBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _almanacBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _modsBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => HandleModsBack());
+            _gigsBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _landBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _steadifyBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _modsCategoryBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => GoToModCategories());
+            _modsCategoryToggleBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ToggleCurrentCategory());
+            _phoneHomeBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
 
             // Almanac Tabs
-            _almanacTabDailyBtn?.RegisterCallback<ClickEvent>(evt => SwitchAlmanacTab(false));
-            _almanacTabWeeklyBtn?.RegisterCallback<ClickEvent>(evt => SwitchAlmanacTab(true));
+            _almanacTabDailyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => SwitchAlmanacTab(false));
+            _almanacTabWeeklyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => SwitchAlmanacTab(true));
 
             // Store Checkout & Search
             if (_storeCheckoutBtn != null)
@@ -923,20 +923,20 @@ namespace Homesteader.UI
             });
 
             // Bank Actions
-            _bankPay100Btn?.RegisterCallback<ClickEvent>(evt => RepayLoan(100f));
-            _bankPay500Btn?.RegisterCallback<ClickEvent>(evt => RepayLoan(500f));
-            _bankPayAllBtn?.RegisterCallback<ClickEvent>(evt => RepayLoan(HudState.Active.LoanDebt));
-            _bankTake500Btn?.RegisterCallback<ClickEvent>(evt => BorrowLoan(500f));
-            _bankTake2500Btn?.RegisterCallback<ClickEvent>(evt => BorrowLoan(2500f));
-            _bankTake10000Btn?.RegisterCallback<ClickEvent>(evt => BorrowLoan(10000f));
+            _bankPay100Btn.Clickable()?.RegisterCallback<ClickEvent>(evt => RepayLoan(100f));
+            _bankPay500Btn.Clickable()?.RegisterCallback<ClickEvent>(evt => RepayLoan(500f));
+            _bankPayAllBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => RepayLoan(HudState.Active.LoanDebt));
+            _bankTake500Btn.Clickable()?.RegisterCallback<ClickEvent>(evt => BorrowLoan(500f));
+            _bankTake2500Btn.Clickable()?.RegisterCallback<ClickEvent>(evt => BorrowLoan(2500f));
+            _bankTake10000Btn.Clickable()?.RegisterCallback<ClickEvent>(evt => BorrowLoan(10000f));
 
             // Market Tabs
-            _marketTabBuyBtn?.RegisterCallback<ClickEvent>(evt => SwitchMarketTab(true));
-            _marketTabSellBtn?.RegisterCallback<ClickEvent>(evt => SwitchMarketTab(false));
+            _marketTabBuyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => SwitchMarketTab(true));
+            _marketTabSellBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => SwitchMarketTab(false));
 
             // Admin App
             Pin(_appTileAdmin, "admin", "Admin", () => OpenApp(AppView.Admin));
-            _adminBackBtn?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _adminBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             string adminIcon = null;
             if (_appTileAdmin != null && _appTileAdmin.childCount > 0)
                 foreach (string c in _appTileAdmin[0].GetClasses()) if (c.StartsWith("app-icon-")) { adminIcon = c; break; }
@@ -944,16 +944,16 @@ namespace Homesteader.UI
             PinButton(_adminAssetsCardBtn, "assets", "Assets", adminIcon, () => HudBindings.Instance?.ToggleAssetSpawner(), true);
 
             // Seasons
-            _adminSeasonWinterBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Winter); UpdateAdminDisplay(); });
-            _adminSeasonSpringBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Spring); UpdateAdminDisplay(); });
-            _adminSeasonSummerBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Summer); UpdateAdminDisplay(); });
-            _adminSeasonAutumnBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Autumn); UpdateAdminDisplay(); });
+            _adminSeasonWinterBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Winter); UpdateAdminDisplay(); });
+            _adminSeasonSpringBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Spring); UpdateAdminDisplay(); });
+            _adminSeasonSummerBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Summer); UpdateAdminDisplay(); });
+            _adminSeasonAutumnBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetSeason(HomesteaderSeason.Autumn); UpdateAdminDisplay(); });
 
             // Day steppers & slider
-            _adminDaySub7?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear - 7); UpdateAdminDisplay(); });
-            _adminDaySub1?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear - 1); UpdateAdminDisplay(); });
-            _adminDayAdd1?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear + 1); UpdateAdminDisplay(); });
-            _adminDayAdd7?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear + 7); UpdateAdminDisplay(); });
+            _adminDaySub7.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear - 7); UpdateAdminDisplay(); });
+            _adminDaySub1.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear - 1); UpdateAdminDisplay(); });
+            _adminDayAdd1.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear + 1); UpdateAdminDisplay(); });
+            _adminDayAdd7.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeSystem.Instance.DayOfYear + 7); UpdateAdminDisplay(); });
             _adminDaySlider?.RegisterValueChangedCallback(evt =>
             {
                 if (!_isUpdatingAdminUI)
@@ -964,16 +964,16 @@ namespace Homesteader.UI
             });
 
             // Solstices & Equinoxes Jump buttons
-            _adminJumpSpringEquinoxBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.SpringEquinoxDay); UpdateAdminDisplay(); });
-            _adminJumpSummerSolsticeBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.SummerSolsticeDay); UpdateAdminDisplay(); });
-            _adminJumpAutumnEquinoxBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.AutumnalEquinoxDay); UpdateAdminDisplay(); });
-            _adminJumpWinterSolsticeBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.WinterSolsticeDay); UpdateAdminDisplay(); });
+            _adminJumpSpringEquinoxBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.SpringEquinoxDay); UpdateAdminDisplay(); });
+            _adminJumpSummerSolsticeBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.SummerSolsticeDay); UpdateAdminDisplay(); });
+            _adminJumpAutumnEquinoxBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.AutumnalEquinoxDay); UpdateAdminDisplay(); });
+            _adminJumpWinterSolsticeBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetDayOfYear(TimeConstants.WinterSolsticeDay); UpdateAdminDisplay(); });
 
             // Time presets & slider
-            _adminTimeDawnBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(6f); UpdateAdminDisplay(); });
-            _adminTimeNoonBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(12f); UpdateAdminDisplay(); });
-            _adminTimeDuskBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(18f); UpdateAdminDisplay(); });
-            _adminTimeNightBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(0f); UpdateAdminDisplay(); });
+            _adminTimeDawnBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(6f); UpdateAdminDisplay(); });
+            _adminTimeNoonBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(12f); UpdateAdminDisplay(); });
+            _adminTimeDuskBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(18f); UpdateAdminDisplay(); });
+            _adminTimeNightBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetTimePreset(0f); UpdateAdminDisplay(); });
             _adminTimeSlider?.RegisterValueChangedCallback(evt =>
             {
                 if (!_isUpdatingAdminUI)
@@ -984,17 +984,17 @@ namespace Homesteader.UI
             });
 
             // Vitals
-            _adminVitalsResetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalsResetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.ResetVitalsToNeutral();
                 UpdateAdminVitalsDisplay();
             });
-            _adminVitalsMaxBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalsMaxBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.MaxAllVitals();
                 UpdateAdminVitalsDisplay();
             });
-            _adminVitalWellnessZeroBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalWellnessZeroBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.SetVitalValue(VitalId.Wellness, 0);
                 UpdateAdminVitalsDisplay();
@@ -1008,7 +1008,7 @@ namespace Homesteader.UI
                 }
             });
 
-            _adminVitalStaminaZeroBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalStaminaZeroBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.SetVitalValue(VitalId.Stamina, 0);
                 UpdateAdminVitalsDisplay();
@@ -1022,7 +1022,7 @@ namespace Homesteader.UI
                 }
             });
 
-            _adminVitalThirstZeroBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalThirstZeroBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.SetVitalValue(VitalId.Thirst, 0);
                 UpdateAdminVitalsDisplay();
@@ -1036,7 +1036,7 @@ namespace Homesteader.UI
                 }
             });
 
-            _adminVitalHungerZeroBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminVitalHungerZeroBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.SetVitalValue(VitalId.Hunger, 0);
                 UpdateAdminVitalsDisplay();
@@ -1051,13 +1051,13 @@ namespace Homesteader.UI
             });
 
             // Measurement System
-            _adminUnitMetricBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminUnitMetricBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.Units = UnitSystem.Metric;
                 UpdateAdminUnitButtons();
                 UpdateAdminResourcesDisplay();
             });
-            _adminUnitImperialBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminUnitImperialBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.Units = UnitSystem.Imperial;
                 UpdateAdminUnitButtons();
@@ -1065,7 +1065,7 @@ namespace Homesteader.UI
             });
 
             // Resources (typed value)
-            _adminResResetDefaultsBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResResetDefaultsBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.ResetResourcesToDefault();
                 UpdateAdminResourcesDisplay();
@@ -1079,7 +1079,7 @@ namespace Homesteader.UI
                     HudState.Active.SetWaterFromDisplay(val);
                 }
             });
-            _adminResWaterSetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResWaterSetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 if (float.TryParse(_adminResWaterInput?.value, out float val))
                 {
@@ -1096,7 +1096,7 @@ namespace Homesteader.UI
                     HudState.Active.SetElectricityFromDisplay(val);
                 }
             });
-            _adminResElecSetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResElecSetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 if (float.TryParse(_adminResElecInput?.value, out float val))
                 {
@@ -1113,7 +1113,7 @@ namespace Homesteader.UI
                     HudState.Active.SetResourceAmount(ResourceId.Bandwidth, val);
                 }
             });
-            _adminResBandwidthSetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResBandwidthSetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 if (float.TryParse(_adminResBandwidthInput?.value, out float val))
                 {
@@ -1130,7 +1130,7 @@ namespace Homesteader.UI
                     HudState.Active.SetFuelFromDisplay(val);
                 }
             });
-            _adminResFuelSetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResFuelSetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 if (float.TryParse(_adminResFuelInput?.value, out float val))
                 {
@@ -1147,7 +1147,7 @@ namespace Homesteader.UI
                     HudState.Active.Money = val;
                 }
             });
-            _adminResMoneySetBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminResMoneySetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 if (float.TryParse(_adminResMoneyInput?.value, out float val))
                 {
@@ -1156,33 +1156,33 @@ namespace Homesteader.UI
                 }
             });
 
-            _adminAddMoney500?.RegisterCallback<ClickEvent>(evt =>
+            _adminAddMoney500.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.AddMoney(500f);
                 UpdateAdminResourcesDisplay();
             });
-            _adminAddMoney5000?.RegisterCallback<ClickEvent>(evt =>
+            _adminAddMoney5000.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.AddMoney(5000f);
                 UpdateAdminResourcesDisplay();
             });
-            _adminClearDebtBtn?.RegisterCallback<ClickEvent>(evt =>
+            _adminClearDebtBtn.Clickable()?.RegisterCallback<ClickEvent>(evt =>
             {
                 HudState.Active.ClearDebt();
                 UpdateAdminResourcesDisplay();
             });
 
             // Weather
-            _adminWeatherAutoBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.ResetWeatherToAuto(); UpdateAdminDisplay(); });
-            _adminWeatherSunnyBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Sunny); UpdateAdminDisplay(); });
-            _adminWeatherPartlyCloudyBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.PartlyCloudy); UpdateAdminDisplay(); });
-            _adminWeatherCloudyBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Cloudy); UpdateAdminDisplay(); });
-            _adminWeatherRainBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Rain); UpdateAdminDisplay(); });
-            _adminWeatherThunderstormBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Thunderstorm); UpdateAdminDisplay(); });
-            _adminWeatherSnowBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Snow); UpdateAdminDisplay(); });
-            _adminWeatherBlizzardBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Blizzard); UpdateAdminDisplay(); });
-            _adminWeatherWindBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Wind); UpdateAdminDisplay(); });
-            _adminWeatherFogBtn?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Fog); UpdateAdminDisplay(); });
+            _adminWeatherAutoBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.ResetWeatherToAuto(); UpdateAdminDisplay(); });
+            _adminWeatherSunnyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Sunny); UpdateAdminDisplay(); });
+            _adminWeatherPartlyCloudyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.PartlyCloudy); UpdateAdminDisplay(); });
+            _adminWeatherCloudyBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Cloudy); UpdateAdminDisplay(); });
+            _adminWeatherRainBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Rain); UpdateAdminDisplay(); });
+            _adminWeatherThunderstormBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Thunderstorm); UpdateAdminDisplay(); });
+            _adminWeatherSnowBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Snow); UpdateAdminDisplay(); });
+            _adminWeatherBlizzardBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Blizzard); UpdateAdminDisplay(); });
+            _adminWeatherWindBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Wind); UpdateAdminDisplay(); });
+            _adminWeatherFogBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { TimeSystem.Instance.SetWeather(HomesteaderWeather.Fog); UpdateAdminDisplay(); });
 
             // Built last, once every tile (including Admin, wired above) has registered itself with Pin() -
             // building this earlier meant a saved pin for a tile wired later in this method (Admin was) would
@@ -1493,6 +1493,7 @@ namespace Homesteader.UI
                 var iconBox = new VisualElement();
                 iconBox.AddToClassList("store-item-icon-box");
                 ApplyItemIcon(iconBox, item.IconGlyph, item.Id);
+                if (Blueprints.IsBlueprint(item.Id)) iconBox.AddToClassList("store-item-icon-box--blueprint");
 
                 var info = new VisualElement();
                 info.AddToClassList("store-item-info");
@@ -1512,6 +1513,13 @@ namespace Homesteader.UI
                 string itemId = item.Id;
                 buyBtn.clicked += () =>
                 {
+                    if (Blueprints.IsBlueprint(itemId))
+                    {
+                        if (Blueprints.Owned(itemId) || _cart.ContainsKey(itemId)) { ToastNotificationSystem.ShowInfo("Blueprint", "You already have this blueprint."); return; }
+                        _cart[itemId] = 1;
+                        UpdateCartDisplay();
+                        return;
+                    }
                     if (!_cart.ContainsKey(itemId)) _cart[itemId] = 0;
                     _cart[itemId]++;
                     UpdateCartDisplay();
@@ -1574,8 +1582,16 @@ namespace Homesteader.UI
                         return;
                     }
                     Debug.Log($"<color=green>[Phone Delivery]</color> Order placed successfully! Paid ${totalPrice:F2} for {totalCount} items.");
-                    // The goods come with the delivery van the next morning (Homesteader.World.DeliveryService).
-                    Homesteader.World.DeliveryService.Schedule(new Dictionary<string, int>(_cart));
+                    // Blueprints are not goods: they go straight to the toolbar, once. The rest comes with the delivery van the next morning.
+                    var goods = new Dictionary<string, int>();
+                    foreach (var pair in _cart)
+                    {
+                        if (!Blueprints.IsBlueprint(pair.Key)) { goods[pair.Key] = pair.Value; continue; }
+                        if (HudState.Active.AddItemToToolbar(pair.Key, 1, 1, false) > 0) ToastNotificationSystem.ShowSuccess("Blueprint", HudBindings.GetItemName(pair.Key) + " is yours. Hold it to start a build.");
+                        else goods[pair.Key] = 1;   // the toolbar is full: it comes with the van
+                    }
+                    HudBindings.Instance?.RefreshToolbar();
+                    if (goods.Count > 0) Homesteader.World.DeliveryService.Schedule(goods);
                     ToastNotificationSystem.ShowSuccess("Order Placed", $"Your order of {totalCount} item(s) (${totalPrice:F2}) will arrive tomorrow morning.");
                     _cart.Clear();
                     UpdateCartDisplay();
@@ -1700,6 +1716,7 @@ namespace Homesteader.UI
                 var iconBox = new VisualElement();
                 iconBox.AddToClassList("store-item-icon-box");
                 ApplyItemIcon(iconBox, item.IconGlyph, item.Id);
+                if (Blueprints.IsBlueprint(item.Id)) iconBox.AddToClassList("store-item-icon-box--blueprint");
 
                 var info = new VisualElement();
                 info.AddToClassList("store-item-info");
@@ -1758,6 +1775,7 @@ namespace Homesteader.UI
                 var iconBox = new VisualElement();
                 iconBox.AddToClassList("store-item-icon-box");
                 ApplyItemIcon(iconBox, item.IconGlyph, item.Id);
+                if (Blueprints.IsBlueprint(item.Id)) iconBox.AddToClassList("store-item-icon-box--blueprint");
 
                 var info = new VisualElement();
                 info.AddToClassList("store-item-info");
@@ -2740,7 +2758,7 @@ namespace Homesteader.UI
                 card.Add(right);
 
                 // Click card (outside button) to drill into category
-                card.RegisterCallback<ClickEvent>(evt =>
+                card.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     if (evt.target == toggleBtn) return;
                     OpenModCategory(currentCat);
@@ -3158,7 +3176,7 @@ namespace Homesteader.UI
                 buyBtn.AddToClassList("bank-action-btn");
                 buyBtn.style.marginTop = 8;
                 int capturedX = tx, capturedZ = tz;
-                buyBtn.RegisterCallback<ClickEvent>(evt =>
+                buyBtn.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     if (Homesteader.Land.LandOwnershipSystem.TryPurchaseTile(capturedX, capturedZ))
                     {

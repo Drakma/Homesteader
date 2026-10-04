@@ -6,9 +6,9 @@
   "description": "The framing construction phase of the stable.",
   "icon": "struct_framing_stable.png",
   "properties": {
-    "weight_kg": 3500.0,
+    "weight_kg": 10080.0,
     "max_stack_size": 1,
-    "base_value": 6300.0,
+    "base_value": 16800.0,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_framing_stable.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 8.0,
+        "y": 5.6,
+        "z": 14.0
+      },
+      "triangles": 4160
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -47,11 +58,11 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 0,
+    "room_count": 10,
     "dimensions_m": {
-      "width": 5.5,
-      "depth": 9.1,
-      "height": 3.0
+      "width": 8.0,
+      "depth": 14.0,
+      "height": 5.6
     },
     "electrical_service_capacity_w": 0,
     "water_supply_capacity_lpm": 0,

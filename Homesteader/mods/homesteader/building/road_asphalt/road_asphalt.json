@@ -1,0 +1,76 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "road_asphalt",
+  "name": "Asphalt Road Blueprint",
+  "category": "building",
+  "description": "A blueprint, bought once and yours for good. Hold it to lay the route; the materials are used up, the blueprint is not.",
+  "icon": "road_asphalt.png",
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 600,
+    "is_consumable": false,
+    "footprint": "(X=1,Y=1)",
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "path_kind": "road",
+    "path_width_m": 4.0,
+    "path_style": "asphalt",
+    "path_m_per_item": 2.0,
+    "is_blueprint": true,
+    "path_material_item": "mat_pile_gravel_medium"
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 0.4,
+      "height": 0.2
+    }
+  }
+}

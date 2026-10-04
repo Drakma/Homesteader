@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_pickup_new_black",
+  "name": "New Black Double Cab Pickup (Raised)",
+  "category": "vehicles",
+  "description": "A new black double cab pickup on a lift kit with big knobby tires, a brush guard and a winch. Room for five and a short bed.",
+  "icon": "vehicle_pickup_new_black.png",
+  "properties": {
+    "weight_kg": 2200.0,
+    "max_stack_size": 1,
+    "base_value": 46000,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 15,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "vehicles"
+    ],
+    "sale_unit": "unit"
+  },
+  "models": [
+    {
+      "file": "vehicle_pickup_new_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.3,
+        "y": 2.35,
+        "z": 6.3
+      },
+      "triangles": 5716
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "vehicle_type": "pickup",
+    "fuel_type": "gasoline",
+    "fuel_consumption_l_per_min": 0.005,
+    "tank_capacity_l": 98,
+    "top_speed_kmh": 180,
+    "seats": 5,
+    "cargo_capacity_m3": 1.5,
+    "dimensions_m": {
+      "width": 2.3,
+      "depth": 6.3,
+      "height": 2.35
+    }
+  }
+}

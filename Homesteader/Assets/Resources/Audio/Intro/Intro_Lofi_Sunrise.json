@@ -1,0 +1,15 @@
+{
+  "file": "Intro_Lofi_Sunrise.wav",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. About 135 seconds long. It must work as a seamless loop with a gentle arc: it opens soft, sparse and serene, gradually picks up a little through the middle (fuller and with a bit more movement, but never loud), then settles back down so that the final 15 seconds are the same soft, sparse texture, tempo and key as the opening 15 seconds. No final chord, no slowing down at the end, no fade-in and no fade-out, so the end can be joined straight back to the start. Lo-fi chillhop, about 72 BPM, warm major key. It begins and ends with only a soft dusty electric piano, gentle slow chords, faint vinyl crackle and no drums. In the middle, mellow lo-fi drums, a round warm bass and a simple hopeful flute melody ease in, then ease back out. Mood: peaceful early morning on a quiet farm, serene, cozy and unhurried.",
+  "requested_prompt": "Lo-fi chillhop, about 72 BPM, warm major key. It begins and ends with only a soft dusty electric piano, gentle slow chords, faint vinyl crackle and no drums. In the middle, mellow lo-fi drums, a round warm bass and a simple hopeful flute melody ease in, then ease back out. Mood: peaceful early morning on a quiet farm, serene, cozy and unhurried.",
+  "requested_duration_seconds": 135,
+  "generated_at": "2026-10-04T03:20:11.066Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Intro_Lofi_Sunrise.mp4",
+  "bytes": 4097217,
+  "sha256": "46d76eb7c1e498d97f1bf05a64cc8cf925338f6c3294ade4c14a43e1a022729c",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in",
+  "loop_processing": "seamless loop: 3s trimmed from each end of the 135.5s source, last 8s crossfaded (equal power) into the first 8s; loop length 121.47s; source MP3 kept at tools/gemini_music_mcp/raw/Intro_Lofi_Sunrise.mp3; then rotated to start 104.88s into that loop (the quietest instant in the middle of the soft section), so it opens soft, picks up and ends soft"
+}

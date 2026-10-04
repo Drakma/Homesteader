@@ -1,0 +1,14 @@
+{
+  "file": "Sunset_Grid.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 108 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 108 seconds, not cut off mid-song and with NO fade-out. Synthwave instrumental, 100 BPM: pulsing analog bass arpeggio, warm polysynth pads, gated-reverb snare, bright lead synth melody, neon sunset over a retro grid mood, 1980s nostalgia.",
+  "requested_prompt": "Synthwave instrumental, 100 BPM: pulsing analog bass arpeggio, warm polysynth pads, gated-reverb snare, bright lead synth melody, neon sunset over a retro grid mood, 1980s nostalgia.",
+  "requested_duration_seconds": 108,
+  "generated_at": "2026-10-03T22:06:20.679Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Sunset_Grid.mp4",
+  "bytes": 3523858,
+  "sha256": "7b58ba9c9f07fb4e923fa142ee1d4720f6a49bfe46e391be72d0f09f97e04855",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

@@ -3,7 +3,7 @@
   "id": "crop_dead_pumpkin",
   "name": "Pumpkin (Dead)",
   "category": "farming",
-  "description": "A dead stage pumpkin plant.",
+  "description": "The dead look of a pumpkin plant.",
   "icon": "crop_dead_pumpkin.png",
   "properties": {
     "weight_kg": 0.5,
@@ -20,7 +20,8 @@
   "models": [
     {
       "file": "crop_dead_pumpkin.glb",
-      "format": "glb"
+      "format": "glb",
+      "triangles": 120
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "pumpkin",
     "dimensions_m": {
-      "width": 1.1,
-      "depth": 0.68,
-      "height": 0.53
+      "width": 0.502,
+      "depth": 0.458,
+      "height": 0.232
     }
   }
 }

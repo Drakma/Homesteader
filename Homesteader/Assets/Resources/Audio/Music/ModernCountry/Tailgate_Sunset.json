@@ -1,0 +1,14 @@
+{
+  "file": "Tailgate_Sunset.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 93 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 93 seconds, not cut off mid-song and with NO fade-out. Modern country instrumental, 104 BPM: twangy electric guitar hooks, acoustic rhythm guitar, live drums with a solid backbeat, warm bass, pedal steel swells, feel-good summer evening mood.",
+  "requested_prompt": "Modern country instrumental, 104 BPM: twangy electric guitar hooks, acoustic rhythm guitar, live drums with a solid backbeat, warm bass, pedal steel swells, feel-good summer evening mood.",
+  "requested_duration_seconds": 93,
+  "generated_at": "2026-10-03T01:52:11.790Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Tailgate_Sunset.mp4",
+  "bytes": 2932797,
+  "sha256": "f3bed4b6f716a53c432442072495674dfea34be4a2bde1e590c656d953a079ce",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

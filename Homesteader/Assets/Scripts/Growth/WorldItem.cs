@@ -24,6 +24,24 @@ namespace Homesteader.Growth
         private void OnDisable() => All.Remove(this);
 
         /// <summary>Puts the item on the ground at a point. False when the item has no model to show.</summary>
+        /// <summary>Where something dropped at a spot comes to rest: on the floor, foundation or deck of a building under it (a ray down from a metre above), else on the terrain.</summary>
+        public static Vector3 LandingPoint(Vector3 point)
+        {
+            Vector3 ground = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(point);
+            var origin = new Vector3(point.x, Mathf.Max(point.y, ground.y) + 1f, point.z);
+            RaycastHit[] hits = Physics.RaycastAll(origin, Vector3.down, 3f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null || h.collider.GetComponentInParent<PlacedObject>() != null
+                    || h.collider.GetComponentInParent<WorldItem>() != null) continue;
+                if (h.normal.y < 0.5f || h.collider.GetComponentInParent<ConstructionSite>() == null) continue;
+                if (h.point.y > ground.y) ground.y = h.point.y + (ground.y - Homesteader.Generation.TerrainHeightDetector.GetGroundY(point));
+                break;
+            }
+            return ground;
+        }
+
         public static bool TryDrop(string itemId, Vector3 point) { return TryDrop(itemId, point, null); }
 
         /// <summary>As above, lying at a given heading (a log along the line a tree fell) instead of a random one.</summary>
@@ -37,7 +55,7 @@ namespace Homesteader.Growth
                 if (root == null) root = new GameObject("WorldItems").transform;
                 var holder = new GameObject("Item_" + itemId);
                 holder.transform.SetParent(root, false);
-                holder.transform.position = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(point);
+                holder.transform.position = LandingPoint(point);
                 var drop = holder.AddComponent<WorldItem>();
                 drop.ItemId = itemId;
                 slab.transform.SetParent(holder.transform, false);
@@ -52,7 +70,7 @@ namespace Homesteader.Growth
             if (!yaw.HasValue) point = Scatter(point, out yaw);
             var go = new GameObject("Item_" + itemId);
             go.transform.SetParent(root, false);
-            go.transform.position = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(point);
+            go.transform.position = LandingPoint(point);
             var item = go.AddComponent<WorldItem>();
             item.ItemId = itemId;
             item.prefab = info.Prefab;
@@ -114,6 +132,18 @@ namespace Homesteader.Growth
             Ray ray = cam.ScreenPointToRay(screenPos);
             WorldItem best = null;
             float bestDist = 0.7f;
+            // a long item (an uncut log, 4 m or more) is hit anywhere along its length: the ray is tested against its bounds, not its middle point
+            // when several are hit (a fruit lying on a felled tree's log), the SMALLEST wins: the log's long bounds must not swallow the fruit on it
+            WorldItem hitBounds = null;
+            float hitSize = float.MaxValue;
+            foreach (WorldItem it in All)
+            {
+                if (it == null || !it.TryBounds(out Bounds b)) continue;
+                float size = b.size.sqrMagnitude;
+                b.Expand(0.3f);
+                if (b.IntersectRay(ray, out float t) && size < hitSize) { hitSize = size; hitBounds = it; }
+            }
+            if (hitBounds != null) return hitBounds;
             foreach (WorldItem it in All)
             {
                 if (it == null) continue;
@@ -124,12 +154,29 @@ namespace Homesteader.Growth
             return best;
         }
 
+        /// <summary>The world bounds of the item's model (false while it has no model yet).</summary>
+        public bool TryBounds(out Bounds bounds)
+        {
+            bounds = default;
+            if (model == null) return false;
+            bool any = false;
+            foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
+            {
+                if (!any) { bounds = r.bounds; any = true; }
+                else bounds.Encapsulate(r.bounds);
+            }
+            return any;
+        }
+
         /// <summary>Puts one of it into the toolbar and removes it from the ground. False (with a toast) when it cannot.</summary>
         public bool PickUp(Transform player)
         {
             var hud = Homesteader.UI.HudState.Active;
             if (hud == null) return false;
-            if (player != null && !PlantingValidator.InReach(player, transform.position, GameRules.Placement.ReachCells + 1))
+            // reach is to the nearest part of the item (a 4 m log is reachable from its end, not only its middle)
+            Vector3 nearest = transform.position;
+            if (player != null && TryBounds(out Bounds reachBounds)) nearest = reachBounds.ClosestPoint(player.position);
+            if (player != null && !PlantingValidator.InReach(player, nearest, GameRules.Placement.ReachCells + 1))
             {
                 Homesteader.UI.ToastNotificationSystem.ShowInfo("Too far", "Move closer to pick that up.");
                 return false;

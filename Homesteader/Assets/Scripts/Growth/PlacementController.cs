@@ -134,6 +134,7 @@ namespace Homesteader.Growth
             if (hud.SelectedSlot < 0 || hud.SelectedSlot >= hud.Toolbar.Count) return;
             ToolbarSlotData slot = hud.Toolbar[hud.SelectedSlot];
             if (string.IsNullOrEmpty(slot.IconId) || slot.Count <= 0) return;
+            if (Blueprints.IsBlueprint(slot.IconId)) { ToastNotificationSystem.ShowInfo("Blueprint", "A blueprint is yours for good and cannot be dropped."); return; }
             var ped = FindAnyObjectByType<PedController>();
             if (ped == null) return;
 
@@ -199,11 +200,61 @@ namespace Homesteader.Growth
             _pickDown = false;
             if ((pointer - _pickDownPos).sqrMagnitude > 36f) return;   // a camera drag, not a click
 
-            // A right click on a fence gate opens or shuts it.
+            // A right click on a breaker box or light mounted on a building takes it down.
+            {
+                Camera mountCam = GameCamera();
+                var mountPed = FindAnyObjectByType<PedController>();
+                if (mountCam != null && AttachedObject.TryPickUpAtRay(mountCam.ScreenPointToRay(pointer), mountPed != null ? mountPed.transform.position : Vector3.zero)) return;
+            }
+
+            // A right click on a fence post with an axe takes that section down; on a gate it opens or shuts it.
             {
                 Camera gateCam = GameCamera();
+                if (gateCam != null && FenceBuilder.TryChopPost(gateCam.ScreenPointToRay(pointer), ConstructionSite.HeldItem())) return;
                 var gatePed = FindAnyObjectByType<PedController>();
                 if (gateCam != null && FenceBuilder.TryToggleGate(gateCam.ScreenPointToRay(pointer), gatePed != null ? gatePed.transform : null)) return;
+            }
+
+            // A right click with a paint can in the active slot paints the wall under the cursor (one wall, the side that was clicked).
+            {
+                string held = ConstructionSite.HeldItem();
+                Camera paintCam = GameCamera();
+                if (held != null && held.StartsWith("building_paint_") && paintCam != null)
+                {
+                    var paintPed = FindAnyObjectByType<PedController>();
+                    if (ConstructionSite.TryPaintAtRay(paintCam.ScreenPointToRay(pointer), held, paintPed != null ? paintPed.transform : null)) return;
+                }
+            }
+
+            // A right click aimed at an interior door of a building swings it (before anything else reads the click as "build").
+            {
+                Camera doorCam = GameCamera();
+                var doorPed = FindAnyObjectByType<PedController>();
+                if (doorCam != null)
+                {
+                    Ray doorRay = doorCam.ScreenPointToRay(pointer);
+                    foreach (ConstructionSite cs in new List<ConstructionSite>(ConstructionSite.All))
+                        if (cs != null && cs.TryDoorAtCursor(doorRay, doorPed != null ? doorPed.transform : null)) return;
+                }
+            }
+
+            // An item lying on the floor of a building: the click that reaches it is for the item, not for the building it lies in (the floor is part of
+            // the site, so the site branch below would take the click). Only when nothing of the building stands between the camera and the item:
+            // a roof or a wall in front of it (the cutaway hides them while the player is inside) means it is not the item that was clicked.
+            {
+                Camera floorCam = GameCamera();
+                WorldItem onFloor = floorCam != null ? WorldItem.UnderCursor(floorCam, pointer) : null;
+                if (onFloor != null && onFloor.TryBounds(out Bounds floorBounds))
+                {
+                    Ray floorRay = floorCam.ScreenPointToRay(pointer);
+                    float toItem = Vector3.Dot(floorBounds.center - floorRay.origin, floorRay.direction);
+                    if (!ConstructionSite.SolidBefore(floorRay, toItem))
+                    {
+                        var floorPed = FindAnyObjectByType<PedController>();
+                        onFloor.PickUp(floorPed != null ? floorPed.transform : null);
+                        return;
+                    }
+                }
             }
 
             // A right click on a construction site itself (its dirt area or structure) builds the next stage when it is ready.
@@ -214,6 +265,15 @@ namespace Homesteader.Growth
                 // The chimney of a finished building: firewood goes into its fireplace, a lighter lights it.
                 if (site.Fireplace != null && site.Fireplace.CursorOnChimney() && site.Fireplace.Use(ConstructionSite.HeldItem(), builder != null ? builder.transform : null))
                     return;
+                // A finished storage structure (a grain silo): with something in the active slot items move in or out like a container; with an empty slot it says what is in it.
+                if (site.IsStorage)
+                {
+                    HudState sh = HudState.Active;
+                    bool slotEmpty = sh == null || sh.SelectedSlot < 0 || sh.SelectedSlot >= sh.Toolbar.Count || sh.Toolbar[sh.SelectedSlot].Count <= 0 || string.IsNullOrEmpty(sh.Toolbar[sh.SelectedSlot].IconId);
+                    if (slotEmpty) ToastNotificationSystem.ShowInfo(site.Name(), site.StorageSummary());
+                    else TransferWithContainer(site.StructureId, site.Contents, site.transform.position, null);
+                    return;
+                }
                 bool shiftHeld = Keyboard.current != null && Keyboard.current.shiftKey.isPressed;
                 // Shift + right click takes back a site that has not been started; a plain right click builds the stage.
                 if (shiftHeld && site.Stage == 0) site.TryCancel(builder != null ? builder.transform : null);
@@ -249,8 +309,15 @@ namespace Homesteader.Growth
         /// </summary>
         private static void TransferWithContainer(PlacedObject box)
         {
+            if (box.Contents == null) box.Contents = new List<ContainerStack>();
+            TransferWithContainer(box.ItemId, box.Contents, box.transform.position, box);
+        }
+
+        /// <summary>The same for any container-like thing: a placed container (box != null) or a storage structure (a silo: box == null, boxId its structure id).</summary>
+        private static void TransferWithContainer(string boxId, List<ContainerStack> contents, Vector3 position, PlacedObject box)
+        {
             var ped = FindAnyObjectByType<PedController>();
-            if (ped != null && !PlantingValidator.InReach(ped.transform, box.transform.position, GameRules.Placement.ReachCells))
+            if (ped != null && !PlantingValidator.InReach(ped.transform, position, GameRules.Placement.ReachCells))
             {
                 ToastNotificationSystem.ShowInfo("Too far", "Move closer to reach that.");
                 return;
@@ -261,21 +328,21 @@ namespace Homesteader.Growth
             int index = hud.SelectedSlot;
             if (index < 0 || index >= hud.Toolbar.Count) return;
             ToolbarSlotData slot = hud.Toolbar[index];
-            string boxName = HudBindings.GetItemName(box.ItemId);
-            if (box.Contents == null) box.Contents = new List<ContainerStack>();
+            string boxName = HudBindings.GetItemName(boxId);
             bool slotHasItems = slot.Count > 0 && !string.IsNullOrEmpty(slot.IconId);
 
             // A container in the active slot (a basket in hand): it is its CONTENTS that move, not the basket itself.
             if (slotHasItems && ContainerRules.IsContainer(slot.IconId))
             {
-                TransferBetweenContainers(box, slot, index, hud, boxName);
+                if (box != null) TransferBetweenContainers(box, slot, index, hud, boxName);
+                else ToastNotificationSystem.ShowInfo(boxName, "Put the items straight in: pick them out of the basket first.");
                 return;
             }
 
             // IN: the slot's items go into the container.
-            if (slotHasItems && ContainerRules.Accepts(box.ItemId, slot.IconId, box.Contents))
+            if (slotHasItems && ContainerRules.Accepts(boxId, slot.IconId, contents))
             {
-                int moved = ContainerRules.Add(box.ItemId, box.Contents, slot.IconId, slot.Count);
+                int moved = ContainerRules.Add(boxId, contents, slot.IconId, slot.Count);
                 if (moved > 0)
                 {
                     slot.Count -= moved;
@@ -291,7 +358,7 @@ namespace Homesteader.Growth
             string item = null;
             int room = 0;
             int maxStack = 0;
-            if (slotHasItems && box.Contents.Exists(c => c.ItemId == slot.IconId) && !ContainerRules.IsContainer(slot.IconId))
+            if (slotHasItems && contents.Exists(c => c.ItemId == slot.IconId) && !ContainerRules.IsContainer(slot.IconId))
             {
                 item = slot.IconId;
                 maxStack = Mathf.Max(1, HudBindings.GetMaxStack(item));
@@ -300,26 +367,26 @@ namespace Homesteader.Growth
 
             if (item == null || room <= 0)
             {
-                if (slotHasItems && !ContainerRules.Accepts(box.ItemId, slot.IconId, box.Contents))
+                if (slotHasItems && !ContainerRules.Accepts(boxId, slot.IconId, contents))
                     ToastNotificationSystem.ShowInfo(boxName, boxName + " does not take " + HudBindings.GetItemName(slot.IconId) + ".");
-                else if (slotHasItems && ContainerRules.RoomFor(box.ItemId, box.Contents, slot.IconId) <= 0)
+                else if (slotHasItems && ContainerRules.RoomFor(boxId, contents, slot.IconId) <= 0)
                     ToastNotificationSystem.ShowInfo(boxName, boxName + " is full.");
-                else if (box.Contents.Count == 0)
+                else if (contents.Count == 0)
                     ToastNotificationSystem.ShowInfo(boxName, boxName + " is empty.");
                 else
                     ToastNotificationSystem.ShowInfo(boxName, "Your active slot is full.");
                 return;
             }
 
-            ContainerStack stack = box.Contents.Find(c => c.ItemId == item);
+            ContainerStack stack = contents.Find(c => c.ItemId == item);
             int take = Mathf.Min(room, stack != null ? stack.Count : 0);
             if (take <= 0) return;
-            ContainerRules.Remove(box.Contents, item, take);
+            ContainerRules.Remove(contents, item, take);
             slot = slotHasItems ? slot : new ToolbarSlotData { IconId = item, Count = 0 };
             slot.Count += take;
             hud.Toolbar[index] = slot;
             FinishTransfer(hud);
-            if (box.Contents.Count == 0 && ContainerRules.IsDisposable(box.ItemId)) box.Remove();   // an emptied cardboard box goes away
+            if (box != null && box.Contents.Count == 0 && ContainerRules.IsDisposable(box.ItemId)) box.Remove();   // an emptied cardboard box goes away
             ToastNotificationSystem.ShowCounted("transfer_out:" + item, boxName, "Took {0}x " + Brace(HudBindings.GetItemName(item)) + " out.", take);
         }
 
@@ -459,8 +526,10 @@ namespace Homesteader.Growth
         public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade, int level = 0, List<ContainerStack> contents = null)
         {
             if (s_placedRoot == null) s_placedRoot = new GameObject("PlacedObjects").transform;
-            // Snap to the terrain surface (just above, not 3 m above); a container stacked on another keeps the height it was given.
-            if (level <= 0) cell = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(cell);
+            // Snap to the terrain surface (just above, not 3 m above) when it is below it; a container stacked on another, or a thing standing on a
+            // floor, foundation or deck, keeps the height it was given (the plan and the save already hold the right one).
+            if (level <= 0 && cell.y < Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(cell) + 0.02f)
+                cell = Homesteader.Generation.TerrainHeightDetector.PlaceOnGround(cell);
             GameObject obj = Instantiate(info.Prefab, s_placedRoot);
             obj.SetActive(true);                       // templates live inactive
             obj.transform.SetPositionAndRotation(cell, Quaternion.Euler(0f, yawDeg, 0f));
@@ -580,7 +649,8 @@ namespace Homesteader.Growth
         private void PlaceSite(string structureId, Plan plan, float yawDeg)
         {
             HudState state = HudState.Active;
-            if (!state.ConsumeFromSelectedSlot(1)) return;
+            // the blueprint starts the site and stays with the player
+            if (!Blueprints.IsBlueprint(structureId) && !state.ConsumeFromSelectedSlot(1)) return;
             HudBindings.Instance.RefreshToolbar();
             ConstructionSite.Create(structureId, plan.Position, yawDeg);
             ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(structureId), "Site marked. Hover it to see what the foundation needs.");
@@ -643,7 +713,9 @@ namespace Homesteader.Growth
             var plan = new Plan();
             float g = PlantingValidator.GridSizeM;
             Vector3 center = PlantingValidator.SnapToGrid(hit);
-            center.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(center);
+            center.y = RestY(center, hit.y);
+            float restY = center.y;
+            bool onTop = restY > Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(center) + 0.04f;   // on a floor, foundation or deck
             plan.Position = center;
             if (!ValidateGround(center, player, out string reason)) { plan.Reason = reason; return plan; }
 
@@ -690,7 +762,7 @@ namespace Homesteader.Growth
             }
             if (found)
             {
-                plan.Position = GroundAt(best);
+                plan.Position = GroundAt(best, restY, onTop);
                 plan.Valid = true;
                 return plan;
             }
@@ -709,7 +781,7 @@ namespace Homesteader.Growth
                         Vector2 from = PlacedObject.ColumnRect(columns[i]).center;
                         plan.Shifts.Add(new KeyValuePair<List<PlacedObject>, Vector2>(columns[i], centers[i] - from));
                     }
-                    plan.Position = GroundAt(centers[centers.Length - 1]);
+                    plan.Position = GroundAt(centers[centers.Length - 1], restY, onTop);
                     plan.Valid = true;
                     return plan;
                 }
@@ -719,10 +791,10 @@ namespace Homesteader.Growth
             return plan;
         }
 
-        private static Vector3 GroundAt(Vector2 xz)
+        private static Vector3 GroundAt(Vector2 xz, float restY, bool onTop)
         {
             var p = new Vector3(xz.x, 0f, xz.y);
-            p.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);
+            p.y = onTop ? restY : Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);   // on a floor the whole square rests at its height
             return p;
         }
 
@@ -904,9 +976,33 @@ namespace Homesteader.Growth
                 // Aim at the ground behind a placed object so its square (not the object's top) is picked.
                 if (h.collider.GetComponentInParent<PlacedObject>() != null) continue;
                 point = h.point;
+                // pointing at the top of a building's floor, foundation or deck: things go on it, not on the terrain under it
+                s_cursorOnStructure = h.normal.y > 0.5f && h.collider.GetComponentInParent<ConstructionSite>() != null;
                 return true;
             }
             return false;
+        }
+
+        private static bool s_cursorOnStructure;
+
+        /// <summary>
+        /// The height a thing rests at on a spot: the top of the floor, foundation or deck of the building the cursor is on (the ray goes down
+        /// from just above the cursor, at the spot's own x and z), else the terrain.
+        /// </summary>
+        private static float RestY(Vector3 p, float cursorY)
+        {
+            float terrain = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);
+            if (!s_cursorOnStructure || cursorY <= terrain + 0.05f) return terrain;
+            float offset = terrain - Homesteader.Generation.TerrainHeightDetector.GetGroundY(p);
+            RaycastHit[] hits = Physics.RaycastAll(new Vector3(p.x, cursorY + 0.4f, p.z), Vector3.down, 2f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null || h.collider.GetComponentInParent<PlacedObject>() != null) continue;
+                if (h.normal.y < 0.5f || h.collider.GetComponentInParent<ConstructionSite>() == null) continue;
+                return Mathf.Max(terrain, h.point.y + offset);
+            }
+            return Mathf.Max(terrain, cursorY + offset);
         }
 
         private static float GroundY(Vector3 p)
@@ -1027,6 +1123,43 @@ namespace Homesteader.Growth
                     if (col.Contains(this)) return col[col.Count - 1] == this;
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Puts every placed object that stands on the GROUND back on the ground as it is now. The ground under a building site is graded (cut
+        /// or filled) as its foundation goes in, which on a restart happens after the objects were put back at their saved heights, so a box
+        /// placed before the grading was left floating (or buried). A stack moves as one; anything standing on a floor, foundation or deck is left alone.
+        /// </summary>
+        public static void SettleOnGround()
+        {
+            foreach (PlacedObject o in new List<PlacedObject>(All))
+            {
+                if (o == null || o.Level > 0) continue;
+                Vector3 p = o.transform.position;
+                float surface = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);
+                float dy = surface - p.y;
+                if (Mathf.Abs(dy) < 0.02f) continue;
+                if (OnStructure(o, p)) continue;
+                foreach (List<PlacedObject> col in ColumnsAt(p))
+                {
+                    if (!col.Contains(o)) continue;
+                    foreach (PlacedObject c in col) if (c != null) c.transform.position += new Vector3(0f, dy, 0f);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>True when the first thing under the object (other than other placed objects and the player) is part of a building.</summary>
+        private static bool OnStructure(PlacedObject o, Vector3 p)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(p + Vector3.up * 0.25f, Vector3.down, 4f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null || h.collider.GetComponentInParent<PlacedObject>() != null) continue;
+                return h.collider.GetComponentInParent<ConstructionSite>() != null;
+            }
+            return false;
         }
 
         public void Init(string itemId, Vector3 position, float yawDeg, int level = 0)

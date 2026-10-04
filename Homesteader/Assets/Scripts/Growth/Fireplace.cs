@@ -260,15 +260,15 @@ namespace Homesteader.Growth
             {
                 var main = ps.main;
                 main.loop = true;
-                main.startLifetime = 6.5f;
-                main.startSpeed = 1.0f;
-                main.startSize = new ParticleSystem.MinMaxCurve(0.45f, 0.7f);                    // big enough to read from the isometric camera
-                main.startColor = new Color(0.55f, 0.55f, 0.58f, 0.95f);
+                main.startLifetime = 4.5f;                              // short enough to stay on screen from the isometric camera (it rises about 4 m)
+                main.startSpeed = 0.9f;
+                main.startSize = new ParticleSystem.MinMaxCurve(0.6f, 0.9f);                    // big enough to read from the isometric camera
+                main.startColor = new Color(0.4f, 0.4f, 0.43f, 1f);
                 main.simulationSpace = ParticleSystemSimulationSpace.World;
                 main.gravityModifier = -0.02f;
                 main.maxParticles = 120;
                 var emission = ps.emission;
-                emission.rateOverTime = 14f;
+                emission.rateOverTime = 22f;
                 var shape = ps.shape;
                 shape.shapeType = ParticleSystemShapeType.Cone;
                 shape.angle = 6f;
@@ -283,8 +283,8 @@ namespace Homesteader.Growth
                 var col = ps.colorOverLifetime;
                 col.enabled = true;
                 var g = new Gradient();
-                g.SetKeys(new[] { new GradientColorKey(new Color(0.45f, 0.45f, 0.48f), 0f), new GradientColorKey(new Color(0.8f, 0.8f, 0.83f), 1f) },
-                          new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.85f, 0.12f), new GradientAlphaKey(0.5f, 0.6f), new GradientAlphaKey(0f, 1f) });
+                g.SetKeys(new[] { new GradientColorKey(new Color(0.3f, 0.3f, 0.33f), 0f), new GradientColorKey(new Color(0.62f, 0.62f, 0.66f), 1f) },
+                          new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.08f), new GradientAlphaKey(0.85f, 0.55f), new GradientAlphaKey(0f, 1f) });
                 col.color = g;
                 var size = ps.sizeOverLifetime;
                 size.enabled = true;
@@ -298,7 +298,7 @@ namespace Homesteader.Growth
             _light.color = new Color(1f, 0.6f, 0.26f);
             _light.range = 7f;
             _light.intensity = 2.4f;
-            _light.shadows = LightShadows.Soft;
+            _light.shadows = LightShadows.None;   // a point light with shadows draws the whole room six times: too dear for a flickering fire
             _light.enabled = false;
         }
 

@@ -1,0 +1,14 @@
+{
+  "file": "Spandex_Sunset.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 119 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 119 seconds, not cut off mid-song and with NO fade-out. 1980s arena rock power ballad instrumental, 72 BPM: clean chorus-effect guitar arpeggios, warm synth pad, slow huge drums with gated reverb, soaring emotional lead guitar solo, lighter-in-the-air mood.",
+  "requested_prompt": "1980s arena rock power ballad instrumental, 72 BPM: clean chorus-effect guitar arpeggios, warm synth pad, slow huge drums with gated reverb, soaring emotional lead guitar solo, lighter-in-the-air mood.",
+  "requested_duration_seconds": 119,
+  "generated_at": "2026-10-03T21:50:39.445Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Spandex_Sunset.mp4",
+  "bytes": 3700565,
+  "sha256": "bd9ae1cd0d1035e99a1b455730d8900bc9021e0c94381cf73942c39e2ec1d44b",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

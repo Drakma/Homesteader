@@ -1,0 +1,65 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "black_goat",
+  "name": "Black Goat",
+  "category": "ranching",
+  "description": "The black goat.",
+  "icon": "black_goat.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "animal",
+    "species": "black_goat",
+    "max_age": 730,
+    "time_unit": "days",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "kid",
+        "age_min": 0,
+        "age_max": 90,
+        "resource": "stages/animal_kid/",
+        "model": "black_goat_kid.glb",
+        "icon": "animal_kid_black_goat.png"
+      },
+      {
+        "stage": 2,
+        "name": "yearling",
+        "age_min": 90,
+        "age_max": 365,
+        "resource": "stages/animal_yearling/",
+        "model": "black_goat_yearling.glb",
+        "icon": "animal_yearling_black_goat.png"
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "age_min": 365,
+        "age_max": 730,
+        "resource": "stages/animal_adult/",
+        "model": "black_goat_adult_female.glb",
+        "icon": "animal_adult_black_goat.png",
+        "sexes": [
+          {
+            "sex": "female",
+            "chance_pct": 80,
+            "model": "black_goat_adult_female.glb",
+            "icon": "animal_adult_black_goat.png"
+          },
+          {
+            "sex": "male",
+            "chance_pct": 20,
+            "model": "black_goat_adult_male.glb",
+            "icon": "animal_adult_black_goat_male.png"
+          }
+        ]
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

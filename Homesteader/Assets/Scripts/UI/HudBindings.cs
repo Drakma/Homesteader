@@ -281,10 +281,12 @@ namespace Homesteader.UI
                 if (_toolbarSlots[i] != null)
                 {
                     int slotIndex = i;
-                    _toolbarSlots[i].RegisterCallback<ClickEvent>(evt =>
+                    _toolbarSlots[i].Clickable().RegisterCallback<ClickEvent>(evt =>
                     {
+                        if (_toolbarDragEnded) { _toolbarDragEnded = false; return; }   // the click that ends a drag is not a selection
                         SelectToolbarSlot(slotIndex);
                     });
+                    WireToolbarDrag(_toolbarSlots[i], slotIndex);
                 }
             }
 
@@ -645,6 +647,7 @@ namespace Homesteader.UI
                         else if (IsModalOpen) CloseModal();
                         else if (ContainerPanel.CloseOpen()) { }
                         else if (Homesteader.Growth.FenceBuilder.CancelPlan()) { }
+                        else if (Homesteader.Growth.PathBuilder.CancelPlan()) { }
                         else if (phoneOpen) _phone.Close();
                         else EscapeHandledFrame = -1;   // nothing to close: Esc is the welcome menu's
                     }
@@ -822,6 +825,93 @@ namespace Homesteader.UI
             EnsureAssetCatalogLoaded();
             var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
             return item != null && !string.IsNullOrEmpty(item.name) ? item.name : itemId;
+        }
+
+        // ------------------------------------------------------------------ dragging items between toolbar slots
+
+        private VisualElement _dragGhost;
+        private int _dragFrom = -1;
+        private Vector2 _dragStart;
+        private bool _dragging, _toolbarDragEnded;
+        private const float DragThreshold = 6f;
+
+        /// <summary>Press on a slot that holds something, move past a few pixels and a copy of its icon follows the pointer; let go over another slot and the two swap.</summary>
+        private void WireToolbarDrag(VisualElement slot, int index)
+        {
+            slot.RegisterCallback<PointerDownEvent>(evt =>
+            {
+                if (evt.button != 0) return;
+                _toolbarDragEnded = false;
+                HudState hs = HudState.Active;
+                if (hs == null || index >= hs.Toolbar.Count || hs.Toolbar[index].Count <= 0 || string.IsNullOrEmpty(hs.Toolbar[index].IconId)) return;
+                _dragFrom = index;
+                _dragStart = evt.position;
+                _dragging = false;
+                slot.CapturePointer(evt.pointerId);
+            });
+            slot.RegisterCallback<PointerMoveEvent>(evt =>
+            {
+                if (_dragFrom != index || !slot.HasPointerCapture(evt.pointerId)) return;
+                if (!_dragging)
+                {
+                    if (((Vector2)evt.position - _dragStart).magnitude < DragThreshold) return;
+                    _dragging = true;
+                    HudState hs = HudState.Active;
+                    ToolbarSlotData d = hs.Toolbar[index];
+                    _dragGhost = new VisualElement { pickingMode = PickingMode.Ignore };
+                    _dragGhost.style.position = Position.Absolute;
+                    _dragGhost.style.width = 56;
+                    _dragGhost.style.height = 56;
+                    _dragGhost.style.opacity = 0.85f;
+                    var tex = PhoneController.GetItemIcon(d.IconId + ".png", d.IconId);
+                    if (tex != null) _dragGhost.style.backgroundImage = new StyleBackground(tex);
+                    (_root ?? slot.panel.visualTree).Add(_dragGhost);
+                    slot.AddToClassList("tool-slot--dragging");
+                }
+                Vector2 local = _dragGhost.parent.WorldToLocal(evt.position);
+                _dragGhost.style.left = local.x - 28;
+                _dragGhost.style.top = local.y - 28;
+            });
+            slot.RegisterCallback<PointerUpEvent>(evt =>
+            {
+                if (_dragFrom != index) return;
+                if (slot.HasPointerCapture(evt.pointerId)) slot.ReleasePointer(evt.pointerId);
+                bool wasDragging = _dragging;
+                _dragFrom = -1;
+                _dragging = false;
+                slot.RemoveFromClassList("tool-slot--dragging");
+                if (_dragGhost != null) { _dragGhost.RemoveFromHierarchy(); _dragGhost = null; }
+                if (!wasDragging) return;
+                _toolbarDragEnded = true;
+                for (int j = 0; j < _toolbarSlots.Length; j++)
+                {
+                    if (j == index || _toolbarSlots[j] == null || !_toolbarSlots[j].worldBound.Contains(evt.position)) continue;
+                    SwapToolbarSlots(index, j);
+                    break;
+                }
+            });
+            slot.RegisterCallback<PointerCaptureOutEvent>(evt =>
+            {
+                if (_dragFrom != index) return;   // the capture was taken away (a menu opened): drop the drag without swapping
+                _dragFrom = -1;
+                _dragging = false;
+                slot.RemoveFromClassList("tool-slot--dragging");
+                if (_dragGhost != null) { _dragGhost.RemoveFromHierarchy(); _dragGhost = null; }
+            });
+        }
+
+        private void SwapToolbarSlots(int a, int b)
+        {
+            HudState hs = HudState.Active;
+            hs.EnsureToolbarSlots();
+            if (a < 0 || b < 0 || a >= hs.Toolbar.Count || b >= hs.Toolbar.Count) return;
+            ToolbarSlotData tmp = hs.Toolbar[a];
+            hs.Toolbar[a] = hs.Toolbar[b];
+            hs.Toolbar[b] = tmp;
+            // the active slot follows the item it held
+            int selected = hs.SelectedSlot == a ? b : hs.SelectedSlot == b ? a : hs.SelectedSlot;
+            hs.SelectSlot(selected);
+            WriteToolbar(hs);
         }
 
         public void SelectToolbarSlot(int slotIndex)
@@ -1193,7 +1283,7 @@ namespace Homesteader.UI
                 }
 
                 var currentItem = item;
-                tile.RegisterCallback<ClickEvent>(evt =>
+                tile.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     bool isShift = evt.shiftKey || (evt.modifiers & EventModifiers.Shift) != 0 || IsShiftHeld();
                     int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : 1;
@@ -1681,6 +1771,8 @@ namespace Homesteader.UI
                     if (slot.ClassListContains("tool-slot--selected"))
                         slot.RemoveFromClassList("tool-slot--selected");
                 }
+                bool blueprint = i < s.Toolbar.Count && s.Toolbar[i].Count > 0 && Blueprints.IsBlueprint(s.Toolbar[i].IconId);
+                if (blueprint != slot.ClassListContains("tool-slot--blueprint")) slot.EnableInClassList("tool-slot--blueprint", blueprint);
                 if (i < s.Toolbar.Count)
                 {
                     var data = s.Toolbar[i];
@@ -1714,6 +1806,12 @@ namespace Homesteader.UI
         /// <summary>The Delete key: removes whatever is in the active toolbar slot.</summary>
         private void DeleteSelectedSlotItems()
         {
+            HudState hs = HudState.Active;
+            if (hs != null && hs.SelectedSlot >= 0 && hs.SelectedSlot < hs.Toolbar.Count && Blueprints.IsBlueprint(hs.Toolbar[hs.SelectedSlot].IconId))
+            {
+                ToastNotificationSystem.ShowInfo("Blueprint", "A blueprint is yours for good and cannot be removed.");
+                return;
+            }
             ToolbarSlotData? removed = HudState.Active.ClearSelectedSlot();
             if (removed == null) return;
             RefreshToolbar();
@@ -1795,6 +1893,11 @@ namespace Homesteader.UI
         public string fence_style;                                  // wood or wire: a fence material (FenceBuilder.cs)
         public float fence_panel_m, fence_height_m;
         public string fence_post_item;                              // the post one of these fences is built on
+        public bool is_blueprint;                                   // bought once, starts a build, never used up (Blueprints.cs)
+        public string path_material_item;                           // the material a path or road blueprint lays (taken per path_m_per_item metres)
+        public string path_kind;                                    // path or road: a surface laid as a curved route (PathBuilder.cs)
+        public float path_width_m, path_m_per_item;
+        public string path_style;
         public float gate_width_m;                                  // > 0: a gate
         public string gate_style;
         public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)

@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_chicken_coop",
-  "name": "Chicken Coop",
+  "name": "Chicken Coop - Complete",
   "category": "structures",
-  "description": "A small chicken coop with a fenced run.",
+  "description": "The complete construction phase of the chicken coop.",
   "icon": "struct_complete_chicken_coop.png",
   "properties": {
-    "weight_kg": 600.0,
+    "weight_kg": 1080.0,
     "max_stack_size": 1,
-    "base_value": 900.0,
+    "base_value": 1800.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 10,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,40 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_chicken_coop.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_chicken_coop.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_chicken_coop.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 414.0,
-        "y": 376.0,
-        "z": 325.0
-      },
+      "file": "struct_complete_chicken_coop.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 4.14,
-        "y": 3.76,
-        "z": 3.25
+        "x": 3.0,
+        "y": 3.6,
+        "z": 4.0
       },
-      "vertices": 1130,
-      "faces": 416,
-      "bounding_box": {
-        "min": [
-          -228.0,
-          -190.0,
-          0.0
-        ],
-        "max": [
-          186.0,
-          186.0,
-          325.0
-        ]
-      }
+      "triangles": 2392
     }
   ],
   "utilities": {
@@ -82,45 +56,17 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "struct_complete_chicken_coop.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 414.0,
-      "y": 376.0,
-      "z": 325.0
-    },
-    "dimensions_m": {
-      "x": 4.14,
-      "y": 3.76,
-      "z": 3.25
-    },
-    "vertices": 1130,
-    "faces": 416,
-    "bounding_box": {
-      "min": [
-        -228.0,
-        -190.0,
-        0.0
-      ],
-      "max": [
-        186.0,
-        186.0,
-        325.0
-      ]
-    }
-  },
   "category_fields": {
-    "interior_area_m2": 13.3,
+    "interior_area_m2": 25.0,
     "room_count": 1,
     "dimensions_m": {
-      "width": 4.14,
-      "depth": 3.76,
-      "height": 3.25
+      "width": 3.0,
+      "depth": 4.0,
+      "height": 3.6
     },
-    "electrical_service_capacity_w": 3000,
-    "water_supply_capacity_lpm": 5,
-    "roof_area_m2": 15.6,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",

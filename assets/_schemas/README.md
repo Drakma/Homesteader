@@ -124,4 +124,6 @@ validated only on assets that have it. `on_add` lists manifest values set when t
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.
   - `on_add`: sets `properties.max_stack_size` to 1 (a container carries its own contents, so it is one per toolbar slot).
 
+- `attach_surface` / `attach_side` / `provides_power` (base properties): an item that mounts on a finished building's wall or ceiling (a breaker box, sconces, ceiling lights); see docs/ATTACHED_ITEMS.md.
+
 - `look_target` / `look_color` / `look_smoothness` / `look_metallic` (base properties): a construction material that sets how a building looks (roof or walls colour and sheen); see docs/CONSTRUCTION.md "Look follows the materials".

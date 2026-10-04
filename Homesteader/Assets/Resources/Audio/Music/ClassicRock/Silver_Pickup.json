@@ -1,0 +1,14 @@
+{
+  "file": "Silver_Pickup.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 103 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 103 seconds, not cut off mid-song and with NO fade-out. Upbeat classic rock instrumental, 132 BPM: jangly rhythm guitar, bright lead guitar hooks, crisp drums, melodic bass, windows-down road trip mood.",
+  "requested_prompt": "Upbeat classic rock instrumental, 132 BPM: jangly rhythm guitar, bright lead guitar hooks, crisp drums, melodic bass, windows-down road trip mood.",
+  "requested_duration_seconds": 103,
+  "generated_at": "2026-10-03T18:39:48.478Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Silver_Pickup.mp4",
+  "bytes": 3260110,
+  "sha256": "680f5b0f716656cc5f51451b911f00753fd78cda46c570a9a81f84fef32a8e0f",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

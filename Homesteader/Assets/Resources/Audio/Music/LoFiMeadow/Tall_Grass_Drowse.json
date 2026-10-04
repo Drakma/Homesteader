@@ -1,0 +1,14 @@
+{
+  "file": "Tall_Grass_Drowse.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 110 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 110 seconds, not cut off mid-song and with NO fade-out. Sleepy lo-fi beat, 66 BPM: hazy tape-warped piano, slow heavy drums, deep warm bass, cicada hum very quiet, lying in tall grass at noon.",
+  "requested_prompt": "Sleepy lo-fi beat, 66 BPM: hazy tape-warped piano, slow heavy drums, deep warm bass, cicada hum very quiet, lying in tall grass at noon.",
+  "requested_duration_seconds": 110,
+  "generated_at": "2026-10-03T01:07:59.302Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Tall_Grass_Drowse.mp4",
+  "bytes": 3495341,
+  "sha256": "60174ec56f7b8d218e5924ce8390bd0c147c3bd17fe0ecc4e9d387f08c8548a0",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

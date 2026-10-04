@@ -9,7 +9,7 @@ namespace Homesteader.Save
 {
     /// <summary>
     /// The saved state of the game. Plain serializable data (JsonUtility): no references into the scene, so a save is
-    /// a small readable JSON file at <see cref="SavePath"/>. GameSaveManager captures and applies it.
+    /// a small readable JSON file in the Saves folder (see SaveSlots). GameSaveManager captures and applies it.
     /// </summary>
     [Serializable]
     public sealed class GameSave
@@ -17,6 +17,7 @@ namespace Homesteader.Save
         public const int CurrentVersion = 1;
         public int version = CurrentVersion;
         public string savedAtUtc;
+        public string gameName;                  // what the game is called (its saves are Name.json and Name-autosave.N.json)
         public int worldSeed;
 
         // time
@@ -48,6 +49,7 @@ namespace Homesteader.Save
         public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
         public List<SavedPath> paths = new List<SavedPath>();      // paths and roads the player laid (PathRun)
         public List<SavedFence> fences = new List<SavedFence>();   // fences the player built (FenceRun)
+        public List<SavedAttached> attached = new List<SavedAttached>();   // breaker boxes and lights mounted on buildings (AttachedObject)
         public List<SavedSite> sites = new List<SavedSite>();   // structures under construction (and finished ones): see ConstructionSite
         public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
         public List<Vector3> pickedBushes = new List<Vector3>();   // x, z, game day the berries are back, of berry bushes that were picked
@@ -55,6 +57,8 @@ namespace Homesteader.Save
         public List<int> pickedTreeMasks = new List<int>();   // per pickedTrees entry: which fruit is gone (bit mask; fruit is picked one at a time)
         public List<Vector3> pickedTrees = new List<Vector3>();   // x, z, game day the fruit is back, of procedural fruit trees that were picked
         public List<Vector2> fellTrees = new List<Vector2>();   // x, z of every procedural forest tree the player has chopped down
+        public List<Homesteader.World.PlantedBushData> plantedBushes = new List<Homesteader.World.PlantedBushData>();   // berry bushes planted by the player
+        public List<Vector2> dugBushes = new List<Vector2>();   // berry bushes dug up with a shovel (x, z)
         public bool musicPlaying = true;   // Steadify music was playing (older saves: yes)
         public bool miniPlayerOpen;     // the Steadify pop-out player: whether it is showing, and where on the screen
         public float miniPlayerX = 40f, miniPlayerY = 90f;   // legacy: positions now live in `windows`
@@ -88,7 +92,8 @@ namespace Homesteader.Save
             public float fruitPickedUntil;   // game day a picked fruit tree's fruit is back (0 = not picked)
         }
         [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public List<string> contentIds; public List<int> contentCounts; }
-        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; }
+        [Serializable] public struct SavedAttached { public string itemId; public int siteIndex; public Vector3 localPosition; public Quaternion localRotation; }   // in the building's own space; siteIndex = its place in the saved sites
+        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; public List<string> wallPaints; public List<string> openDoors; public List<string> contentIds; public List<int> contentCounts; }
         [Serializable] public struct SavedGate { public int segment; public float s; public float width; public string itemId; public string style; public bool open; }
         [Serializable] public struct SavedPath { public string kind, style, itemId; public float width, metresPerItem, built; public List<Vector3> points; }
         [Serializable] public struct SavedFence
@@ -105,47 +110,36 @@ namespace Homesteader.Save
 
         // ------------------------------------------------------------------ file
 
-        public static string SaveDir => Path.Combine(Application.persistentDataPath, "Saves");
-        public static string SavePath => Path.Combine(SaveDir, "autosave.json");
-        public static string BackupPath => Path.Combine(SaveDir, "autosave.bak.json");
+        public static string SaveDir => SaveSlots.Dir;
 
-        public static bool Exists => File.Exists(SavePath);
+        /// <summary>True when there is at least one save in the Saves folder.</summary>
+        public static bool Exists => SaveSlots.Any;
 
-        public void WriteToDisk()
+        /// <summary>Writes the save to a file (through a temporary file, so a crash never leaves half a save).</summary>
+        public void WriteTo(string path)
         {
-            Directory.CreateDirectory(SaveDir);
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
             savedAtUtc = DateTime.UtcNow.ToString("o");
-            string tmp = SavePath + ".tmp";
+            string tmp = path + ".tmp";
             File.WriteAllText(tmp, JsonUtility.ToJson(this, true));
-            if (File.Exists(SavePath)) File.Copy(SavePath, BackupPath, true);   // the previous good save
-            if (File.Exists(SavePath)) File.Delete(SavePath);
-            File.Move(tmp, SavePath);
+            if (File.Exists(path)) File.Delete(path);
+            File.Move(tmp, path);
         }
 
-        /// <summary>Reads the save, falling back to the backup if the main file is unreadable. Null when there is none.</summary>
-        public static GameSave ReadFromDisk()
+        /// <summary>Reads a save file. Null when it is missing or unreadable.</summary>
+        public static GameSave ReadFrom(string path)
         {
-            foreach (string path in new[] { SavePath, BackupPath })
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
+            try
             {
-                if (!File.Exists(path)) continue;
-                try
-                {
-                    var s = JsonUtility.FromJson<GameSave>(File.ReadAllText(path));
-                    if (s != null && s.version <= CurrentVersion) return s;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning($"[Save] could not read {path}: {e.Message}");
-                }
+                var s = JsonUtility.FromJson<GameSave>(File.ReadAllText(path));
+                if (s != null && s.version <= CurrentVersion) return s;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Save] could not read {path}: {e.Message}");
             }
             return null;
-        }
-
-        public static void Delete()
-        {
-            foreach (string path in new[] { SavePath, BackupPath })
-                if (File.Exists(path)) File.Delete(path);
-            Homesteader.Generation.WorldSnapshot.Delete();   // the ground of the world being thrown away goes with it
         }
     }
 }

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_framing_grain_silo_medium",
+  "name": "Grain Silo (Medium) - Framing",
+  "category": "structures",
+  "description": "The framing construction phase of the grain silo (medium).",
+  "icon": "struct_framing_grain_silo_medium.png",
+  "properties": {
+    "weight_kg": 6600.0,
+    "max_stack_size": 1,
+    "base_value": 6400.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_framing_grain_silo_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 5,
+        "y": 10.4,
+        "z": 5
+      },
+      "triangles": 1178
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 5,
+      "depth": 5,
+      "height": 10.4
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "#steel_framing",
+        "quantity": 18
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_wrench_adjustable",
+        "tool_wrench_pipe"
+      ],
+      [
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
+  }
+}

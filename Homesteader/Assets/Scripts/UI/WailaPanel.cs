@@ -145,6 +145,7 @@ namespace Homesteader.UI
 
         private void RefreshContent()
         {
+            if (HudVisibility.Hidden) { if (_panel != null) _panel.style.display = DisplayStyle.None; return; }   // F11 hides the whole HUD, this panel too
             Transform hovered = HoverTarget.Find();
             string title;
             Texture2D icon;
@@ -158,6 +159,7 @@ namespace Homesteader.UI
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, site.StructureId);
                 if (!site.Finished) details.Add(("Stage", site.CurrentStage != null ? site.CurrentStage.name + $"  ({site.Stage + 1} of {site.StageCount})" : ""));
                 else details.Add(("Stage", "Finished"));
+                if (site.IsStorage) details.Add(("Stored", site.StorageSummary()));
             }
             else if (hovered != null)
             {

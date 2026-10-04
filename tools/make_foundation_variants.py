@@ -62,7 +62,16 @@ def block(b, w, d, h, M):
 
 
 def brick(b, w, d, h, M):
-    courses(b, w, d, h, M['face'], M['mortar'], 0.25, 3)
+    """A brick or stone stem wall: a solid skin on a core. The brick or stone picture is laid on it by the game (the face has UVs in metres), so
+    the courses and the mortar come from the picture, not from separate boxes."""
+    depth = 0.2
+    b.box(-w / 2 + 0.1, w / 2 - 0.1, -d / 2 + 0.1, d / 2 - 0.1, 0.0, h, M['mortar'])
+    b.box(-w / 2, w / 2, -d / 2, -d / 2 + depth, 0.0, h, M['face'])
+    b.box(-w / 2, w / 2, d / 2 - depth, d / 2, 0.0, h, M['face'])
+    b.box(-w / 2, -w / 2 + depth, -d / 2 + depth, d / 2 - depth, 0.0, h, M['face'])
+    b.box(w / 2 - depth, w / 2, -d / 2 + depth, d / 2 - depth, 0.0, h, M['face'])
+    for k in range(3):                                                                                  # the front steps
+        b.box(-0.8, 0.8, -d / 2 - 0.3 * (k + 1), -d / 2, 0.0, h * (1 - (k + 1) * 0.28), M['face'])
 
 
 def stilts(b, w, d, h, M):

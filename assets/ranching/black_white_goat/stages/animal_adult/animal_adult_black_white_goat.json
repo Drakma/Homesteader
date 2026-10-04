@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_adult_black_white_goat",
-  "name": "Animal Goat Blackwhite",
+  "name": "Black White Goat - Adult",
   "category": "ranching",
-  "description": "Standard ranching asset used in the Homesteader simulation.",
+  "description": "The adult stage of the black white goat.",
   "icon": "animal_adult_black_white_goat.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,72 +19,40 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Goat_BlackWhite.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SKM_Animal_Goat_BlackWhite.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SKM_Animal_Goat_BlackWhite.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 42.0,
-        "y": 122.0,
-        "z": 138.0
+      "file": "black_white_goat_adult_female.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.349,
+        "y": 0.9,
+        "z": 1.172
       },
+      "triangles": 4340,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
+    },
+    {
+      "file": "black_white_goat_adult_male.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.42,
-        "y": 1.22,
-        "z": 1.38
+        "y": 1.15,
+        "z": 1.544
       },
-      "vertices": 216,
-      "faces": 160,
-      "bounding_box": {
-        "min": [
-          -21.0,
-          -81.999992,
-          -1e-06
-        ],
-        "max": [
-          21.0,
-          40.0,
-          137.999985
-        ]
-      }
-    },
-    {
-      "file": "SM_Animal_Goat_BlackWhite.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Goat_BlackWhite.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 37.0,
-        "y": 110.2,
-        "z": 126.0
-      },
-      "dimensions_m": {
-        "x": 0.37,
-        "y": 1.1,
-        "z": 1.26
-      },
-      "vertices": 188,
-      "faces": 292,
-      "bounding_box": {
-        "min": [
-          -18.5,
-          -66.2,
-          0.0
-        ],
-        "max": [
-          18.5,
-          44.0,
-          126.0
-        ]
-      }
+      "triangles": 4404,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {
@@ -113,34 +81,6 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
-  },
-  "dimensions": {
-    "file": "SKM_Animal_Goat_BlackWhite.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 42.0,
-      "y": 122.0,
-      "z": 138.0
-    },
-    "dimensions_m": {
-      "x": 0.42,
-      "y": 1.22,
-      "z": 1.38
-    },
-    "vertices": 216,
-    "faces": 160,
-    "bounding_box": {
-      "min": [
-        -21.0,
-        -81.999992,
-        -1e-06
-      ],
-      "max": [
-        21.0,
-        40.0,
-        137.999985
-      ]
-    }
   },
   "category_fields": {
     "species": "goat",

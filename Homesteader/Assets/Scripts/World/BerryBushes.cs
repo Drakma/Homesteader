@@ -20,7 +20,12 @@ namespace Homesteader.World
         public float PickedUntil;        // game day all the picked berries are back (set at every pick)
         public Vector3[] FruitOrig;      // the berries' original vertices
         public int PickStamp;
+        public bool Planted;             // put there by the player (saved as a planted bush, not as a generated one)
+        public float Yaw, Size;          // a planted bush: how it was turned and sized
     }
+
+    [System.Serializable]
+    public struct PlantedBushData { public int kind; public Vector3 position; public float yawDeg; public float size; }
 
     /// <summary>
     /// Berry bushes you can pick by hand, like the fruit trees: right-click with the kit's tool (the basket) and ONE berry comes off, the left hand does
@@ -40,6 +45,7 @@ namespace Homesteader.World
         private static readonly Dictionary<long, List<BerryBush>> Grid = new Dictionary<long, List<BerryBush>>();
         private static readonly Dictionary<Mesh, (int first, int per, int total)> Layouts = new Dictionary<Mesh, (int, int, int)>();
         private static readonly List<BerryBush> Picked = new List<BerryBush>();
+        private static readonly List<Vector2> Dug = new List<Vector2>();   // where bushes were dug up (x, z): saved, the bushes are generated from the seed
         private static int _pickStamp;
         private static float _lastNotify;
         private static Ticker _ticker;
@@ -55,6 +61,7 @@ namespace Homesteader.World
             Grid.Clear();
             Layouts.Clear();
             Picked.Clear();
+            Dug.Clear();
         }
 
         /// <summary>Bushes whose base is inside an area are gone (the ground under a foundation was cleared; the mesh part is SiteClearing's).</summary>
@@ -107,6 +114,15 @@ namespace Homesteader.World
         }
 
         /// <summary>Ripe berries on it, the kit gives rules for it, and it is the season (winter bushes bear nothing).</summary>
+        /// <summary>The bush has ripe berries and the tool held is the one its kit rules ask for (no tool asked: any hand).</summary>
+        public static bool CanPickWith(BerryBush b, string heldId)
+        {
+            if (!CanPick(b)) return false;
+            var rules = Rules(b);
+            string need = rules.fruiting_tools != null && rules.fruiting_tools.Count > 0 ? string.Join(",", rules.fruiting_tools) : null;
+            return string.IsNullOrEmpty(need) || GrowthRegistry.ToolMatches(need, heldId);
+        }
+
         public static bool CanPick(BerryBush b) => b != null && b.FruitTotal > 0 && HasRules(b) && InSeason() && Left(b) > 0;
 
         private static bool InSeason()
@@ -151,7 +167,148 @@ namespace Homesteader.World
                         }
                     }
             }
+            if (picked != null && Homesteader.Growth.ConstructionSite.SolidBefore(ray, bestT)) picked = null;   // a building in front of it
             return picked != null;
+        }
+
+        // ------------------------------------------------------------------ planting
+
+        private static readonly List<PlantedBushData> PlantedList = new List<PlantedBushData>();
+
+        /// <summary>Which bush kind an item is (the dug-up bush items), or -1.</summary>
+        public static int KindOfItem(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) return -1;
+            for (int i = 0; i < AssetIds.Length; i++) if (AssetIds[i] == itemId) return i;
+            return -1;
+        }
+
+        /// <summary>
+        /// Plants the bush item in hand on the open ground the cursor is on: within reach, not in water, not in a building, not on top of another
+        /// bush. The item is used up. True when the click was used (also for a refusal that was explained).
+        /// </summary>
+        public static bool TryPlant(string heldId, RaycastHit ground, Transform player)
+        {
+            int kind = KindOfItem(heldId);
+            if (kind < 0) return false;
+            if (!(ground.collider is TerrainCollider)) { Notify("Can't plant", "Plant a bush in open ground."); return true; }
+            Vector3 p = ground.point;
+            if (player != null)
+            {
+                Vector3 d = p - player.position;
+                d.y = 0f;
+                if (d.magnitude > ReachMetres) { Notify("Too far", "Move closer to plant it."); return true; }
+            }
+            if (Homesteader.Generation.TerrainHeightDetector.GetGroundY(p) < Homesteader.Generation.TerrainHeightDetector.GetWaterY() + 0.05f)
+            { Notify("Can't plant", "A bush won't grow in water."); return true; }
+            foreach (Homesteader.Growth.ConstructionSite site in Homesteader.Growth.ConstructionSite.All)
+                if (site != null && site.DistanceOutside(p) < 0.6f) { Notify("Can't plant", "Not that close to a building."); return true; }
+            foreach (BerryBush other in All)
+            {
+                float dx = other.Position.x - p.x, dz = other.Position.z - p.z;
+                if (dx * dx + dz * dz < 0.9f * 0.9f) { Notify("Can't plant", "There is a bush there already."); return true; }
+            }
+            float yaw = Random.Range(0f, 360f), size = 0.9f + Random.value * 0.3f;
+            if (!ProceduralVegetation.SpawnPlantedBush(kind, p, yaw, size, out BerryBush bush)) return false;
+            bush.Yaw = yaw; bush.Size = size;
+            PlantedList.Add(new PlantedBushData { kind = kind, position = p, yawDeg = yaw, size = size });
+            HudState.Active.ConsumeFromSelectedSlot(1);
+            HudBindings.Instance?.RefreshToolbar();
+            ToastNotificationSystem.ShowInfo("Planted", HudBindings.GetItemName(heldId) + " planted.");
+            return true;
+        }
+
+        public static List<PlantedBushData> SavedPlanted() { return new List<PlantedBushData>(PlantedList); }
+
+        public static void ApplyPlanted(List<PlantedBushData> planted)
+        {
+            if (planted == null) return;
+            foreach (PlantedBushData d in planted)
+                if (ProceduralVegetation.SpawnPlantedBush(d.kind, d.position, d.yawDeg, d.size, out BerryBush bush))
+                {
+                    bush.Yaw = d.yawDeg; bush.Size = d.size;
+                    PlantedList.Add(d);
+                }
+        }
+
+        /// <summary>The bushes the player planted go with the world being left.</summary>
+        public static void ClearPlanted()
+        {
+            for (int i = All.Count - 1; i >= 0; i--) if (All[i].Planted) { BerryBush b = All[i]; Remove(b); }
+            PlantedList.Clear();
+            ProceduralVegetation.ClearPlantedBushes();
+        }
+
+        // ------------------------------------------------------------------ digging up
+
+        /// <summary>A shovel (any item tagged tool_shovel) digs a bush up.</summary>
+        public static bool CanDigWith(string heldId) { return GrowthRegistry.ToolMatches("#tool_shovel", heldId); }
+
+        /// <summary>
+        /// Digs the bush up with the shovel held: the bush goes into the toolbar as its item (when there is room) and disappears from the world for good
+        /// (its vertices in the chunk mesh collapse to its base; the place is saved). True when the click was used (also for "too far" and "toolbar full").
+        /// </summary>
+        public static bool TryDig(BerryBush b, Transform player, string heldId)
+        {
+            if (b == null || !CanDigWith(heldId)) return false;
+            if (player != null)
+            {
+                Vector3 d = b.Position - player.position;
+                d.y = 0f;
+                if (d.magnitude > ReachMetres) { Notify("Too far", "Move closer to dig up the bush."); return true; }
+            }
+            string item = b.AssetId;
+            if (!string.IsNullOrEmpty(item) && HudBindings.GetCatalogItem(item) != null)
+            {
+                int added = HudState.Active.AddItemToToolbar(item, 1, Mathf.Max(1, HudBindings.GetMaxStack(item)));
+                if (added <= 0) { Notify("Toolbar full", "No room in the toolbar to carry the bush."); return true; }
+                HudBindings.Instance?.RefreshToolbar();
+            }
+            Remove(b);
+            if (b.Planted)
+            {
+                int pi = PlantedList.FindIndex(d => (d.position - b.Position).sqrMagnitude < 0.3f * 0.3f);
+                if (pi >= 0) PlantedList.RemoveAt(pi);
+            }
+            else Dug.Add(new Vector2(b.Position.x, b.Position.z));
+            ToastNotificationSystem.ShowInfo("Dug up", HudBindings.GetItemName(item) + " dug up.");
+            return true;
+        }
+
+        /// <summary>Takes a bush out of the world: its part of the chunk mesh collapses to a point and it is no longer found by the cursor.</summary>
+        private static void Remove(BerryBush b)
+        {
+            if (b.Mesh != null && b.VertCount > 0)
+            {
+                List<Vector3> verts = ForestTrees.VertexListFor(b.Mesh);
+                int end = Mathf.Min(verts.Count, b.VertStart + b.VertCount);
+                for (int i = b.VertStart; i < end; i++) verts[i] = b.Position;
+                b.Mesh.SetVertices(verts);
+            }
+            All.Remove(b);
+            Picked.Remove(b);
+            foreach (List<BerryBush> cell in Grid.Values) cell.Remove(b);
+        }
+
+        public static List<Vector2> SavedDug() { return new List<Vector2>(Dug); }
+
+        public static void ApplyDug(List<Vector2> dug)
+        {
+            if (dug == null) return;
+            foreach (Vector2 p in dug)
+            {
+                BerryBush best = null;
+                float bestD = 0.6f * 0.6f;
+                foreach (BerryBush b in All)
+                {
+                    float dx = b.Position.x - p.x, dz = b.Position.z - p.y;
+                    float d = dx * dx + dz * dz;
+                    if (d < bestD) { bestD = d; best = b; }
+                }
+                if (best == null) continue;
+                Remove(best);
+                Dug.Add(p);
+            }
         }
 
         // ------------------------------------------------------------------ picking

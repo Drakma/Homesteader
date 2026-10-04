@@ -1,0 +1,92 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_foundation_barn_block",
+  "name": "Barn - Block Foundation",
+  "category": "structures",
+  "description": "The block foundation style of the structure (shown instead of the poured slab when it was built from block materials).",
+  "icon": "struct_foundation_barn.png",
+  "properties": {
+    "weight_kg": 12600.0,
+    "max_stack_size": 1,
+    "base_value": 21000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_foundation_barn_block.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 10.0,
+        "y": 0.26,
+        "z": 14.0
+      },
+      "triangles": 2928
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 6,
+    "dimensions_m": {
+      "width": 10.0,
+      "depth": 14.0,
+      "height": 0.26
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "80lb_cement_bag",
+        "quantity": 16
+      },
+      {
+        "item_id": "#rebar",
+        "quantity": 4
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_shovel",
+        "tool_shovel_round_point",
+        "tool_shovel_trenching",
+        "tool_pickaxe"
+      ],
+      [
+        "tool_trowel_hand"
+      ]
+    ]
+  }
+}

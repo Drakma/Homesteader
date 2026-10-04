@@ -3,7 +3,7 @@
   "id": "crop_small_pumpkin",
   "name": "Pumpkin (Small)",
   "category": "farming",
-  "description": "A small stage pumpkin plant.",
+  "description": "The small look of a pumpkin plant.",
   "icon": "crop_small_pumpkin.png",
   "properties": {
     "weight_kg": 0.5,
@@ -20,7 +20,8 @@
   "models": [
     {
       "file": "crop_small_pumpkin.glb",
-      "format": "glb"
+      "format": "glb",
+      "triangles": 180
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "pumpkin",
     "dimensions_m": {
-      "width": 0.74,
-      "depth": 0.48,
-      "height": 0.43
+      "width": 0.979,
+      "depth": 0.98,
+      "height": 0.133
     }
   }
 }

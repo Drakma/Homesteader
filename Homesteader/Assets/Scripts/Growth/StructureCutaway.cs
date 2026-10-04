@@ -9,7 +9,7 @@ namespace Homesteader.Growth
     /// Cutaway view of a finished building while the player is inside it: the roof and the walls between the camera and the player stop
     /// being drawn (they keep casting their shadows, so the light inside does not change), so the interior shows. The models split these
     /// parts into their own objects (Roof, Wall_Front, Wall_Back, Wall_Left, Wall_Right; see docs/STRUCTURE_STAGES_GUIDE.md). The window
-    /// panes stay visible so you can see where the windows are. The key (V by default, rebindable) turns the cutaway on and off; the
+    /// panes go with the cutaway, and an outside door in a hidden wall is faded (translucent, still there to click and walk through). The key (V by default, rebindable) turns the cutaway on and off; the
     /// choice is remembered.
     /// </summary>
     public sealed class StructureCutaway : MonoBehaviour
@@ -24,7 +24,7 @@ namespace Homesteader.Growth
         private struct Entry
         {
             public Renderer R;
-            public int Kind;                  // 0 roof, 1 wall, 2 glass
+            public int Kind;                  // 0 roof, 1 wall, 2 glass, 3 a door (faded, still there to click and walk through)
             public Vector3 OutwardLocal;      // walls: which way the wall faces, in the site's local space
             public Collider[] Cols;           // the part's colliders and the layers they were on
             public int[] Layers;
@@ -81,20 +81,29 @@ namespace Homesteader.Growth
             {
                 // the part's name is on the renderer's object or on one above it (a mesh with several materials can come in as children)
                 string n = null;
+                Transform part = null;
                 for (Transform t = r.transform; t != null && t != root.parent; t = t.parent)
-                    if (t.name == "Roof" || t.name == "WindowGlass" || t.name.StartsWith("Wall_")) { n = t.name; break; }
+                    if (t.name == "Roof" || t.name == "Porch" || t.name == "WindowGlass" || t.name.StartsWith("Wall_") || t.name.StartsWith("Door")) { n = t.name; part = t; break; }
                 if (n == null) continue;
-                Collider[] cols = r.GetComponents<Collider>();
+                // every collider of the part: glTFast puts the MeshCollider on the part's own object while a multi-material mesh renders from child
+                // primitives, so the renderer's own object alone misses it and the hidden wall kept catching clicks
+                Collider[] cols = part.GetComponentsInChildren<Collider>(true);
                 var layers = new int[cols.Length];
                 for (int ci = 0; ci < cols.Length; ci++) layers[ci] = cols[ci].gameObject.layer;
-                if (n == "Roof") _entries.Add(new Entry { R = r, Kind = 0, Cols = cols, Layers = layers });
-                else if (n == "WindowGlass") continue;   // the panes stay, so you can see where the windows are (and keep things away from them)
+                if (n == "Roof" || n == "Porch") _entries.Add(new Entry { R = r, Kind = 0, Cols = cols, Layers = layers });
+                else if (n == "WindowGlass") _entries.Add(new Entry { R = r, Kind = 0, Cols = cols, Layers = layers });   // the panes go with the cutaway (they are one object for the whole building, so all together)
                 else
                 {
                     // which way the wall faces: from the middle of the building to the middle of the wall
                     Vector3 local = _site.transform.InverseTransformPoint(r.bounds.center);
+                    // a door of the building's outside hides with the wall it is in; a door inside (between rooms) stays
+                    if (n.StartsWith("Door"))
+                    {
+                        Vector2 foot = _site.Footprint;
+                        if (Mathf.Abs(local.x) < foot.x * 0.5f - 0.6f && Mathf.Abs(local.z) < foot.y * 0.5f - 0.6f) continue;
+                    }
                     Vector3 outward = Mathf.Abs(local.x) > Mathf.Abs(local.z) ? new Vector3(Mathf.Sign(local.x), 0f, 0f) : new Vector3(0f, 0f, Mathf.Sign(local.z));
-                    _entries.Add(new Entry { R = r, Kind = 1, OutwardLocal = outward, Cols = cols, Layers = layers });
+                    _entries.Add(new Entry { R = r, Kind = n.StartsWith("Door") ? 3 : 1, OutwardLocal = outward, Cols = cols, Layers = layers });
                 }
             }
         }
@@ -108,9 +117,65 @@ namespace Homesteader.Growth
             foreach (Entry e in _entries)
             {
                 if (e.R == null) continue;
-                bool hide = e.Kind != 1 || Vector3.Dot(_site.transform.TransformDirection(e.OutwardLocal), toCamera) > 0.25f;
+                bool facing = Vector3.Dot(_site.transform.TransformDirection(e.OutwardLocal), toCamera) > 0.25f;
+                if (e.Kind == 3) { Fade(e.R, facing); continue; }
+                bool hide = e.Kind != 1 || facing;
                 Show(e, !hide);
             }
+        }
+
+        // ------------------------------------------------------------------ fading a door
+
+        private const float DoorAlpha = 0.28f;
+        private static readonly Dictionary<Renderer, Material[]> s_faded = new Dictionary<Renderer, Material[]>();   // renderer -> its own materials while faded
+        private static readonly Dictionary<Renderer, Material[]> s_madeFor = new Dictionary<Renderer, Material[]>();
+
+        /// <summary>Fades a door (translucent copies of its materials, same colour and picture) or puts its own materials back.</summary>
+        private static void Fade(Renderer r, bool faded)
+        {
+            if (r == null) return;
+            if (faded)
+            {
+                if (s_faded.ContainsKey(r)) return;
+                Material[] src = r.sharedMaterials;
+                var made = new Material[src.Length];
+                for (int i = 0; i < src.Length; i++) made[i] = FadedCopy(src[i]);
+                s_faded[r] = src;
+                s_madeFor[r] = made;
+                r.sharedMaterials = made;
+            }
+            else if (s_faded.TryGetValue(r, out Material[] own))
+            {
+                r.sharedMaterials = own;
+                if (s_madeFor.TryGetValue(r, out Material[] made)) foreach (Material m in made) if (m != null) Destroy(m);
+                s_faded.Remove(r);
+                s_madeFor.Remove(r);
+            }
+        }
+
+        private static Material FadedCopy(Material src)
+        {
+            var f = new Material(Shader.Find("Universal Render Pipeline/Lit")) { name = "DoorFaded" };
+            Color c = Color.white;
+            if (src != null)
+            {
+                if (src.HasProperty("baseColorFactor")) c = src.GetColor("baseColorFactor");
+                else if (src.HasProperty("_BaseColor")) c = src.GetColor("_BaseColor");
+                Texture tex = src.HasProperty("baseColorTexture") ? src.GetTexture("baseColorTexture") : src.HasProperty("_BaseMap") ? src.GetTexture("_BaseMap") : null;
+                if (tex != null) f.SetTexture("_BaseMap", tex);
+            }
+            c.a = DoorAlpha;
+            f.SetColor("_BaseColor", c);
+            f.SetFloat("_Smoothness", 0.25f);
+            f.SetFloat("_Surface", 1f);
+            f.SetFloat("_Blend", 0f);
+            f.SetFloat("_ZWrite", 0f);
+            f.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            f.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            f.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            f.SetOverrideTag("RenderType", "Transparent");
+            f.renderQueue = 3000;
+            return f;
         }
 
         private static void Show(Entry e, bool visible)
@@ -130,6 +195,7 @@ namespace Homesteader.Growth
             foreach (Entry e in _entries)
             {
                 if (e.R == null) continue;
+                if (e.Kind == 3) Fade(e.R, false);
                 e.R.enabled = true;
                 e.R.shadowCastingMode = e.Kind == 2 ? UnityEngine.Rendering.ShadowCastingMode.Off : UnityEngine.Rendering.ShadowCastingMode.On;   // glass casts no shadow
                 if (e.Cols != null)

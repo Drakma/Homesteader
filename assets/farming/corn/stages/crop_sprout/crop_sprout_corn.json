@@ -3,7 +3,7 @@
   "id": "crop_sprout_corn",
   "name": "Corn (Sprout)",
   "category": "farming",
-  "description": "A sprout stage corn plant.",
+  "description": "The sprout look of a corn plant.",
   "icon": "crop_sprout_corn.png",
   "properties": {
     "weight_kg": 0.5,
@@ -11,7 +11,7 @@
     "base_value": 0.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 2,
+    "happiness_modifier": 4,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,8 +19,9 @@
   },
   "models": [
     {
-      "file": "crop_sprout_corn.fbx",
-      "format": "fbx"
+      "file": "crop_sprout_corn.glb",
+      "format": "glb",
+      "triangles": 96
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "corn",
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 0.3
+      "width": 0.656,
+      "depth": 0.552,
+      "height": 0.804
     }
   }
 }

@@ -169,3 +169,11 @@ Gameplay hooks: `AnimalBrain.RaiseEvent("called")`, `SetNeed` / `AddNeed` (feedi
   executable in this build). A mod extends behaviour by composing existing actions, terms and animation slots.
 - Herds, predator/prey rules and per-animal personality are not built in yet. `sense: animal:<species>` and
   `threat`-tagged targets are the hooks for them.
+
+## Sex at maturity (animal growth groups)
+
+Baby and yearling animals are sexless. When an animal reaches the FINAL stage of its growth group it becomes female or male at random: 80% female and 20% male by default. The choice is part of the stage, in the same group; there is no separate male group or stage.
+
+- The final stage entry has a `sexes` list: `[{"sex": "female", "chance_pct": 80, "model": "...glb", "icon": "...png"}, {"sex": "male", "chance_pct": 20, "model": "...glb", "icon": "...png"}]`. Both models sit in the stage's own folder (`stages/animal_adult/`); the chances add up to 100. Without `sexes` every animal becomes the stage as it is.
+- Edited in the asset kit's growth group editor: under the final stage of an animal group, "Male model", "Male icon" and "Female chance %" (the female is the stage's own model). Validated by `sanitize_stage_sexes` in `tools/server.py`; schema `assets/_schemas/growth_group.schema.json` (stage field `sexes`).
+- Runtime: `GrowthStage.Sexes` and `GrowthStage.PickSex(float roll01)` / `PickSex(int seed)` in `Assets/Scripts/Growth/GrowthGroup.cs`. Use the seeded form (an animal's id) so an animal keeps its sex across a reload.

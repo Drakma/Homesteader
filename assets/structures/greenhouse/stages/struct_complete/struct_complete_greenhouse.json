@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_greenhouse",
-  "name": "Greenhouse",
+  "name": "Greenhouse - Complete",
   "category": "structures",
-  "description": "A greenhouse with glass panels.",
+  "description": "The complete construction phase of the greenhouse.",
   "icon": "struct_complete_greenhouse.png",
   "properties": {
-    "weight_kg": 2500.0,
+    "weight_kg": 2880.0,
     "max_stack_size": 1,
-    "base_value": 4000.0,
+    "base_value": 4800.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 18,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,82 +19,24 @@
   },
   "models": [
     {
-      "file": "SM_Building_Greenhouse.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Building_Greenhouse.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 296.0,
-        "y": 400.0,
-        "z": 267.0
-      },
+      "file": "struct_complete_greenhouse.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 2.96,
-        "y": 4.0,
-        "z": 2.67
+        "x": 4.0,
+        "y": 3.6,
+        "z": 8.0
       },
-      "vertices": 1422,
-      "faces": 474,
-      "bounding_box": {
-        "min": [
-          -148.0,
-          -200.0,
-          0.0
-        ],
-        "max": [
-          148.0,
-          200.0,
-          267.0
-        ]
-      }
-    },
-    {
-      "file": "struct_complete_greenhouse.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_greenhouse.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_greenhouse.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 368.0,
-        "y": 528.0,
-        "z": 324.0
-      },
-      "dimensions_m": {
-        "x": 3.68,
-        "y": 5.28,
-        "z": 3.24
-      },
-      "vertices": 876,
-      "faces": 316,
-      "bounding_box": {
-        "min": [
-          -184.0,
-          -264.0,
-          0.0
-        ],
-        "max": [
-          184.0,
-          264.0,
-          324.0
-        ]
-      }
+      "triangles": 1736
     }
   ],
   "utilities": {
     "water": {
-      "metric": "Consumes 2.0 L/hr drip irrigation",
-      "details": "Consumes 2.0 L/hr drip irrigation"
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
     },
     "electricity": {
-      "metric": "Consumes 1.5 kW heating & ventilation fan power",
-      "details": "Consumes 1.5 kW heating & ventilation fan power"
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
     },
     "sewage": {
       "metric": "None (no waste discharge)",
@@ -114,45 +56,17 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "SM_Building_Greenhouse.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 296.0,
-      "y": 400.0,
-      "z": 267.0
-    },
-    "dimensions_m": {
-      "x": 2.96,
-      "y": 4.0,
-      "z": 2.67
-    },
-    "vertices": 1422,
-    "faces": 474,
-    "bounding_box": {
-      "min": [
-        -148.0,
-        -200.0,
-        0.0
-      ],
-      "max": [
-        148.0,
-        200.0,
-        267.0
-      ]
-    }
-  },
   "category_fields": {
-    "interior_area_m2": 9.8,
+    "interior_area_m2": 25.0,
     "room_count": 1,
     "dimensions_m": {
-      "width": 2.96,
-      "depth": 4.0,
-      "height": 2.67
+      "width": 4.0,
+      "depth": 8.0,
+      "height": 3.6
     },
-    "electrical_service_capacity_w": 6000,
-    "water_supply_capacity_lpm": 15,
-    "roof_area_m2": 11.8,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",

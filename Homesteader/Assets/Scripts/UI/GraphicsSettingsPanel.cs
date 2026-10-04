@@ -99,7 +99,7 @@ namespace Homesteader.UI
             _contrastSlider.RegisterValueChangedCallback(evt => OnSliderChanged(ContrastKey, evt.newValue, v => _colorAdjustments.contrast.value = v));
             _brightnessSlider.RegisterValueChangedCallback(evt => OnSliderChanged(BrightnessKey, evt.newValue, v => _colorAdjustments.postExposure.value = v));
 
-            _resetBtn?.RegisterCallback<ClickEvent>(evt => ResetToDefaults());
+            _resetBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ResetToDefaults());
 
             GraphicsOptions.WireUi(root);   // preset, display mode, resolution, V-Sync, HUD scale
 

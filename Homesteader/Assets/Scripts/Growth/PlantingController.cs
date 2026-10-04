@@ -251,6 +251,21 @@ namespace Homesteader.Growth
                 return;
             }
 
+            // A dug-up bush in hand: plant it where the cursor is (open ground).
+            if (heldId != null && Homesteader.World.BerryBushes.KindOfItem(heldId) >= 0 && TryGroundHit(cam, screenPos, out RaycastHit bushGround))
+            {
+                var bushPlanter = FindAnyObjectByType<PedController>();
+                if (Homesteader.World.BerryBushes.TryPlant(heldId, bushGround, bushPlanter != null ? bushPlanter.transform : null)) return;
+            }
+
+            // A shovel (tag tool_shovel) in hand on a berry bush: dig it up.
+            if (heldId != null && Homesteader.World.BerryBushes.CanDigWith(heldId)
+                && Homesteader.World.BerryBushes.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.BerryBush digBush))
+            {
+                var digger = FindAnyObjectByType<PedController>();
+                if (Homesteader.World.BerryBushes.TryDig(digBush, digger != null ? digger.transform : null, heldId)) return;
+            }
+
             // A berry bush under the cursor: right-click picks ONE berry (kit rules: the bush asset's 'fruiting' schema).
             if (!canPlant && Homesteader.World.BerryBushes.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.BerryBush bush) && Homesteader.World.BerryBushes.HasRules(bush))
             {

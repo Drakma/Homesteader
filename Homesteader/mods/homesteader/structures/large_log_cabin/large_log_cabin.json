@@ -11,16 +11,16 @@
     "species": "large_log_cabin",
     "max_age": 100,
     "time_unit": "percent",
-    "total_stages": 4,
-    "icon_stage": 4,
+    "total_stages": 5,
+    "icon_stage": 5,
     "stages": [
       {
         "stage": 1,
         "name": "foundation",
         "age_min": 0,
-        "age_max": 33,
+        "age_max": 12,
         "resource": "stages/struct_foundation/",
-        "model": "struct_foundation_large_log_cabin.fbx",
+        "model": "",
         "icon": "struct_foundation_large_log_cabin.png",
         "construction_recipe": [
           {
@@ -47,10 +47,10 @@
       {
         "stage": 2,
         "name": "framing",
-        "age_min": 33,
-        "age_max": 66,
+        "age_min": 12,
+        "age_max": 30,
         "resource": "stages/struct_framing/",
-        "model": "struct_framing_large_log_cabin.fbx",
+        "model": "",
         "icon": "struct_framing_large_log_cabin.png",
         "construction_recipe": [
           {
@@ -88,10 +88,10 @@
       {
         "stage": 3,
         "name": "walls",
-        "age_min": 66,
-        "age_max": 99,
+        "age_min": 30,
+        "age_max": 60,
         "resource": "stages/struct_walls/",
-        "model": "struct_walls_large_log_cabin.fbx",
+        "model": "",
         "icon": "struct_walls_large_log_cabin.png",
         "construction_recipe": [
           {
@@ -124,28 +124,64 @@
       },
       {
         "stage": 4,
-        "name": "complete",
-        "age_min": 99,
-        "age_max": 100,
+        "name": "exterior",
+        "age_min": 60,
+        "age_max": 80,
         "resource": "stages/struct_complete/",
-        "model": "struct_complete_large_log_cabin.fbx",
+        "model": "",
         "icon": "struct_complete_large_log_cabin.png",
         "construction_recipe": [
           {
             "item_id": "#roofing",
-            "quantity": 10
+            "quantity": 11
           },
           {
             "item_id": "building_glass",
-            "quantity": 6
+            "quantity": 8
           },
           {
-            "item_id": "sheet_drywall_stack_large",
+            "item_id": "#chimney_masonry",
+            "quantity": 8
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_saw_hand"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_trowel_hand"
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "finishings",
+        "age_min": 80,
+        "age_max": 100,
+        "resource": "stages/struct_finishings/",
+        "model": "",
+        "icon": "struct_finishings_large_log_cabin.png",
+        "construction_recipe": [
+          {
+            "item_id": "sheet_drywall_stack_small",
+            "quantity": 8
+          },
+          {
+            "item_id": "#paint",
             "quantity": 4
           },
           {
             "item_id": "#flooring",
-            "quantity": 55
+            "quantity": 89
           }
         ],
         "required_tools": [
@@ -169,5 +205,18 @@
     "version": "1.0.0",
     "author": "Homesteader Core",
     "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 2600,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "file": "Corn_Crib_Dusk.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 90 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 90 seconds, not cut off mid-song and with NO fade-out. Golden lo-fi instrumental, 74 BPM: wistful electric piano, soft slide guitar touches, relaxed drums, warm bass, harvest sunset over the fields.",
+  "requested_prompt": "Golden lo-fi instrumental, 74 BPM: wistful electric piano, soft slide guitar touches, relaxed drums, warm bass, harvest sunset over the fields.",
+  "requested_duration_seconds": 90,
+  "generated_at": "2026-10-03T01:13:29.823Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Corn_Crib_Dusk.mp4",
+  "bytes": 2743676,
+  "sha256": "30efa8430930f52ff342b7807d6e8536217e7b118adbefed8a6a27aa68bad1c8",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

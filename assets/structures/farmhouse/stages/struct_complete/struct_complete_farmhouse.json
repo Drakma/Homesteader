@@ -1,17 +1,17 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "struct_complete_farmhouse",
-  "name": "Farmhouse",
+  "name": "Farmhouse - Exterior",
   "category": "structures",
-  "description": "A two-story farmhouse with a wraparound porch.",
+  "description": "The exterior construction phase of the farmhouse.",
   "icon": "struct_complete_farmhouse.png",
   "properties": {
-    "weight_kg": 22000.0,
+    "weight_kg": 10800.0,
     "max_stack_size": 1,
-    "base_value": 55000.0,
+    "base_value": 18000.0,
     "is_consumable": false,
     "footprint": null,
-    "happiness_modifier": 35,
+    "happiness_modifier": 20,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
@@ -19,40 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_complete_farmhouse.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "struct_complete_farmhouse.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "struct_complete_farmhouse.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 865.0,
-        "y": 905.0,
-        "z": 660.0
-      },
+      "file": "struct_complete_farmhouse.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 8.65,
-        "y": 9.05,
-        "z": 6.6
+        "x": 10.0,
+        "y": 6.6,
+        "z": 12.0
       },
-      "vertices": 930,
-      "faces": 342,
-      "bounding_box": {
-        "min": [
-          -360.0,
-          -525.0,
-          0.0
-        ],
-        "max": [
-          505.0,
-          380.0,
-          660.0
-        ]
-      }
+      "triangles": 4708
     }
   ],
   "utilities": {
@@ -82,61 +56,29 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "struct_complete_farmhouse.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 865.0,
-      "y": 905.0,
-      "z": 660.0
-    },
-    "dimensions_m": {
-      "x": 8.65,
-      "y": 9.05,
-      "z": 6.6
-    },
-    "vertices": 930,
-    "faces": 342,
-    "bounding_box": {
-      "min": [
-        -360.0,
-        -525.0,
-        0.0
-      ],
-      "max": [
-        505.0,
-        380.0,
-        660.0
-      ]
-    }
-  },
   "category_fields": {
-    "interior_area_m2": 73.1,
+    "interior_area_m2": 25.0,
     "room_count": 4,
     "dimensions_m": {
-      "width": 8.65,
-      "depth": 9.05,
+      "width": 10.0,
+      "depth": 12.0,
       "height": 6.6
     },
-    "electrical_service_capacity_w": 48000,
-    "water_supply_capacity_lpm": 70,
-    "roof_area_m2": 78.3,
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
     "construction_recipe": [
       {
         "item_id": "#roofing",
-        "quantity": 10
+        "quantity": 13
       },
       {
         "item_id": "building_glass",
-        "quantity": 6
+        "quantity": 9
       },
       {
-        "item_id": "sheet_drywall_stack_large",
-        "quantity": 4
-      },
-      {
-        "item_id": "#flooring",
-        "quantity": 78
+        "item_id": "#chimney_masonry",
+        "quantity": 9
       }
     ],
     "required_tools": [
@@ -151,6 +93,9 @@
         "tool_drill_cordless_basic",
         "tool_drill_cordless_pro",
         "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_trowel_hand"
       ]
     ]
   }

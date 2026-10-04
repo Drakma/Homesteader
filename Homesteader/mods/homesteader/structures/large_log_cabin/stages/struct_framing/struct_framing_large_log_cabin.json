@@ -3,12 +3,12 @@
   "id": "struct_framing_large_log_cabin",
   "name": "Large Log Cabin - Framing",
   "category": "structures",
-  "description": "The framing stage of the Large Log Cabin's construction sequence - post-and-beam skeletal frame erected on the foundation, no wall infill yet. Icon generated via Creative Claw as part of a batched 3-stage contact sheet matched in style to struct_cabin_large, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "description": "The framing construction phase of the large log cabin.",
   "icon": "struct_framing_large_log_cabin.png",
   "properties": {
-    "weight_kg": 5000.0,
+    "weight_kg": 8910.0,
     "max_stack_size": 1,
-    "base_value": 9000.0,
+    "base_value": 14850.0,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -19,8 +19,14 @@
   },
   "models": [
     {
-      "file": "struct_framing_large_log_cabin.fbx",
-      "format": "fbx"
+      "file": "struct_framing_large_log_cabin.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 9.0,
+        "y": 6.2,
+        "z": 11.0
+      },
+      "triangles": 3356
     }
   ],
   "utilities": {
@@ -52,11 +58,11 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 0,
+    "room_count": 2,
     "dimensions_m": {
-      "width": 7.5,
-      "depth": 8.0,
-      "height": 4.5
+      "width": 9.0,
+      "depth": 11.0,
+      "height": 6.2
     },
     "electrical_service_capacity_w": 0,
     "water_supply_capacity_lpm": 0,

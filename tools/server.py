@@ -271,7 +271,7 @@ def build_catalog_entry(category, item_id):
     }
 
 
-def build_stage_entry(category, group_id, stage_resource):
+def build_stage_entry(category, group_id, stage_resource, prefer_model=None, prefer_icon=None):
     # Builds a catalog-entry-shaped dict for ONE growth stage.
     #
     # A stage is a resource folder inside its group, not a catalog asset -
@@ -321,9 +321,13 @@ def build_stage_entry(category, group_id, stage_resource):
         if m.get("description"):
             entry["description"] = m["description"]
         models.append(entry)
-        if best_model is None:
+        if best_model is None or (prefer_model and m["file"] == prefer_model):
             best_model = rel
             model_format = m.get("format")
+    if prefer_icon and os.path.exists(os.path.join(res_dir, prefer_icon)):
+        icon_rel = f"{rel_dir}/{prefer_icon}"          # e.g. the male icon of a female / male stage
+    if prefer_model:
+        models.sort(key=lambda e: e["file"] != prefer_model)
 
     return {
         "id": manifest.get("id", stage_id),
@@ -596,6 +600,46 @@ def sync_stage_manifests(category, group_id, growth):
             except Exception as ex:
                 print(f"Warning: could not sync {path}: {ex}")
             break
+
+
+def sanitize_stage_sexes(raw, growth_type, resource):
+    """Validates a stage's `sexes` list (animals only): the models an animal can become when it reaches the stage, with the chance of each.
+    [{"sex": "female", "chance_pct": 80, "model": "x.glb", "icon": "x.png"}, {"sex": "male", "chance_pct": 20, ...}]. The models live in the
+    stage's own resource folder. Returns (list, None) or (None, error); an empty list means 'no split'."""
+    if raw is None or raw == []:
+        return [], None
+    if growth_type != "animal":
+        return None, "sexes is for animal groups only."
+    if not isinstance(raw, list):
+        return None, "sexes must be a list."
+    out, seen, total = [], set(), 0.0
+    for e in raw:
+        if not isinstance(e, dict):
+            return None, "each sex entry must be an object."
+        sex = str(e.get("sex") or "").strip().lower()
+        if sex not in ("female", "male"):
+            return None, "sex must be 'female' or 'male'."
+        if sex in seen:
+            return None, f"'{sex}' is listed twice."
+        seen.add(sex)
+        try:
+            chance = float(e.get("chance_pct"))
+        except (TypeError, ValueError):
+            return None, f"{sex}: chance_pct must be a number."
+        if chance < 0 or chance > 100:
+            return None, f"{sex}: chance_pct must be between 0 and 100."
+        model = str(e.get("model") or "").strip()
+        if not model:
+            return None, f"{sex}: model is required."
+        item = {"sex": sex, "chance_pct": int(chance) if chance.is_integer() else chance, "model": model}
+        icon = str(e.get("icon") or "").strip()
+        if icon:
+            item["icon"] = icon
+        total += chance
+        out.append(item)
+    if abs(total - 100.0) > 0.01:
+        return None, f"the chances must add up to 100 (they add up to {total:g})."
+    return out, None
 
 
 def sanitize_growth_rules(raw, total_stages, group_id=None, growth_type=None):
@@ -2425,7 +2469,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             # group: `id` is then the group, and the stage is a resource
             # folder inside it rather than a catalog asset of its own.
             resource = (params.get('resource', [''])[0]).strip()
-            entry = (build_stage_entry(category, item_id, resource) if resource
+            entry = (build_stage_entry(category, item_id, resource, (params.get('model', [''])[0]).strip() or None,
+                                       (params.get('icon', [''])[0]).strip() or None) if resource
                      else build_catalog_entry(category, item_id))
             if entry is None:
                 what = f"{category}/{item_id}/{resource}" if resource else f"{category}/{item_id}"
@@ -5286,6 +5331,16 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                                 target[fld] = v
                             elif fld == "icon" and fld in target:
                                 del target[fld]
+                    # Animals: the female / male choice is part of the stage (see growth_group.schema.json `sexes`).
+                    if "sexes" in entry:
+                        sexes, serr = sanitize_stage_sexes(entry.get("sexes"), growth.get("growth_type"), target.get("resource"))
+                        if serr:
+                            self.send_json_response({"success": False, "error": f"Stage {num}: {serr}"}, 400)
+                            return
+                        if sexes:
+                            target["sexes"] = sexes
+                        else:
+                            target.pop("sexes", None)
                     for fld in ("age_min", "age_max"):
                         if fld in entry:
                             try:

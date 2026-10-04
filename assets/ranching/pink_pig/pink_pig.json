@@ -11,8 +11,8 @@
     "species": "pink_pig",
     "max_age": 730,
     "time_unit": "days",
-    "total_stages": 2,
-    "icon_stage": 2,
+    "total_stages": 3,
+    "icon_stage": 3,
     "stages": [
       {
         "stage": 1,
@@ -20,17 +20,40 @@
         "age_min": 0,
         "age_max": 90,
         "resource": "stages/animal_piglet/",
-        "model": "SKM_Animal_Pig_Pink_Piglet.fbx",
+        "model": "pink_pig_piglet.glb",
         "icon": "animal_piglet_pink_pig.png"
       },
       {
         "stage": 2,
-        "name": "adult",
+        "name": "yearling",
         "age_min": 90,
+        "age_max": 365,
+        "resource": "stages/animal_yearling/",
+        "model": "pink_pig_yearling.glb",
+        "icon": "animal_yearling_pink_pig.png"
+      },
+      {
+        "stage": 3,
+        "name": "adult",
+        "age_min": 365,
         "age_max": 730,
         "resource": "stages/animal_adult/",
-        "model": "SKM_Animal_Pig_Pink.fbx",
-        "icon": "animal_adult_pink_pig.png"
+        "model": "pink_pig_adult_female.glb",
+        "icon": "animal_adult_pink_pig.png",
+        "sexes": [
+          {
+            "sex": "female",
+            "chance_pct": 80,
+            "model": "pink_pig_adult_female.glb",
+            "icon": "animal_adult_pink_pig.png"
+          },
+          {
+            "sex": "male",
+            "chance_pct": 20,
+            "model": "pink_pig_adult_male.glb",
+            "icon": "animal_adult_pink_pig_male.png"
+          }
+        ]
       }
     ]
   },

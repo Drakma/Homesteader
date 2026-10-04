@@ -6,9 +6,9 @@
   "description": "The framing construction phase of the greenhouse.",
   "icon": "struct_framing_greenhouse.png",
   "properties": {
-    "weight_kg": 1050.0,
+    "weight_kg": 2880.0,
     "max_stack_size": 1,
-    "base_value": 2800.0,
+    "base_value": 4800.0,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "struct_framing_greenhouse.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 4.0,
+        "y": 3.6,
+        "z": 8.0
+      },
+      "triangles": 1128
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -47,11 +58,11 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 0,
+    "room_count": 1,
     "dimensions_m": {
-      "width": 2.96,
-      "depth": 4.0,
-      "height": 2.0
+      "width": 4.0,
+      "depth": 8.0,
+      "height": 3.6
     },
     "electrical_service_capacity_w": 0,
     "water_supply_capacity_lpm": 0,

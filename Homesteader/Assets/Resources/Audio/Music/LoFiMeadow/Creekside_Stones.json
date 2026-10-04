@@ -1,0 +1,14 @@
+{
+  "file": "Creekside_Stones.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 116 seconds: a complete piece with a clear beginning and a proper, natural ending (a final resolving chord or gentle fade-out) that finishes by 116 seconds, not cut off mid-song. Mellow lo-fi beat, 70 BPM: light running-water ambience, soft felt piano, slow drums, round bass, peaceful creekside afternoon.",
+  "requested_prompt": "Mellow lo-fi beat, 70 BPM: light running-water ambience, soft felt piano, slow drums, round bass, peaceful creekside afternoon.",
+  "requested_duration_seconds": 116,
+  "generated_at": "2026-10-03T01:02:02.073Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Creekside_Stones.mp4",
+  "bytes": 3676888,
+  "sha256": "743d6364c40b295f53ab5ca6b21858dfa0382c0f179476e34da7f083ad3cf67d",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

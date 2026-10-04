@@ -16,7 +16,9 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const MUSIC = 'C:/Users/casey/Desktop/Homesteader/Homesteader/Assets/Resources/Audio/Music';
 const LOG = path.join(here, 'bump_playlists.log');
 const TARGET = 10;
-const DURATION = 120;
+// Each track gets a random length between these bounds so the playlists do not feel uniform.
+const DURATION_MIN = 90, DURATION_MAX = 120;
+const pickDuration = () => DURATION_MIN + Math.floor(Math.random() * (DURATION_MAX - DURATION_MIN + 1));
 
 // No artist or band names anywhere in these prompts (docs/MUSIC_SOURCES.md).
 const playlists = {
@@ -127,6 +129,45 @@ const playlists = {
     ['Duct_Tape_Dreams', 'Melodic punk instrumental, 185 BPM: fast skate-punk riffs, soaring twin-guitar harmony, rapid drums, bouncy bass, triumphant chorus riff.'],
     ['Last_Bus_Riot', 'Fast punk rock instrumental, 178 BPM: driving buzzsaw guitars, pounding drums, rolling bass, breakneck energy, abrupt tight ending.'],
   ],
+  '80sGlamRock': [
+    ['Hairspray_Highway', '1980s glam rock instrumental, 132 BPM: big gated-reverb drums, crunchy palm-muted power chords, flashy harmonised lead guitar hooks, driving bass, anthemic arena chorus riff, bright polished 1980s production.'],
+    ['Neon_Leather_Nights', '1980s glam metal instrumental, 126 BPM: swaggering mid-tempo guitar riff, cowbell groove, huge snare with gated reverb, wailing whammy-bar lead guitar, gang-chant style chorus played on guitars, party energy.'],
+    ['Lipstick_And_Lightning', 'Fast 1980s glam rock instrumental, 150 BPM: galloping rhythm guitars, double-time drums, tapping guitar solo, melodic bass runs, big stadium chorus riff, flashy and fun.'],
+    ['Spandex_Sunset', '1980s arena rock power ballad instrumental, 72 BPM: clean chorus-effect guitar arpeggios, warm synth pad, slow huge drums with gated reverb, soaring emotional lead guitar solo, lighter-in-the-air mood.'],
+    ['Backstage_Thunder', '1980s hard rock instrumental, 138 BPM: chugging riff in E, pounding toms intro, thick bass, screaming pinch-harmonic lead guitar, call-and-response between two guitars, loud and tight.'],
+    ['Glitter_On_The_Tractor', 'Upbeat 1980s glam rock instrumental, 144 BPM: bouncy shuffle riff, handclaps, bright piano stabs under crunchy guitars, singalong-style lead melody on guitar, cheerful and cheeky.'],
+    ['Tease_The_Radio', '1980s pop metal instrumental, 120 BPM: shiny keyboard hook over power chords, steady four-on-the-floor kick, big backing-vocal style synth pads, melodic guitar solo, radio-anthem feel.'],
+    ['Midnight_Marquee', 'Moody 1980s glam metal instrumental, 110 BPM: dark minor-key riff, slow heavy groove, dramatic drum fills with gated reverb, expressive bluesy lead guitar, smoky club at midnight mood.'],
+    ['Whammy_Bar_Heart', '1980s melodic rock instrumental, 128 BPM: twin harmonised lead guitars, driving eighth-note bass, crisp drums, key change into a final triumphant chorus riff, uplifting.'],
+    ['Encore_In_Chrome', 'Big 1980s arena rock finale instrumental, 136 BPM: stadium drum intro, massive power-chord riff, shredding guitar solo, crowd-anthem chorus riff repeated with a ritardando ending on one huge final chord.'],
+    ['Leopard_Print_Lane', '1980s glam rock boogie instrumental, 140 BPM: swinging riff, slide guitar licks, honky-tonk piano accents, big drums, playful strutting attitude.'],
+  ],
+  Synthwave: [
+    ['Sunset_Grid', 'Synthwave instrumental, 100 BPM: pulsing analog bass arpeggio, warm polysynth pads, gated-reverb snare, bright lead synth melody, neon sunset over a retro grid mood, 1980s nostalgia.'],
+    ['Midnight_Overdrive', 'Outrun synthwave instrumental, 118 BPM: driving sixteenth-note bassline, punchy electronic drums, soaring saw-wave lead, shimmering arpeggios, fast night drive on an empty highway.'],
+    ['Chrome_Horizon', 'Dreamy synthwave instrumental, 92 BPM: lush detuned pads, slow arpeggiated plucks, soft electronic toms, wistful lead melody, wide open horizon at dusk.'],
+    ['Laser_Orchard', 'Upbeat synthwave instrumental, 124 BPM: bouncy octave bass, bright bell-like synth hook, crisp drum machine with big clap, sparkling arpeggios, joyful retro-futuristic feel.'],
+    ['VHS_Rain', 'Moody darksynth-leaning synthwave instrumental, 96 BPM: deep growling bass, cold pads, sparse gated drums, haunting minor-key lead, rainy neon alley at night.'],
+    ['Pixel_Coast', 'Chill synthwave instrumental, 88 BPM: soft electric-piano style synth chords, mellow bass, relaxed drum machine, gentle saxophone-like synth lead, palm trees and ocean breeze mood.'],
+    ['Turbo_Dawn', 'Energetic synthwave instrumental, 128 BPM: aggressive arpeggiated bass, big tom fills, heroic brass-style synth stabs, fast lead runs, training-montage energy.'],
+    ['Neon_Silo', 'Mid-tempo synthwave instrumental, 104 BPM: steady pulsing bass, glassy digital bell chords, warm analog strings, simple memorable lead melody, glowing farm at night seen from far away.'],
+    ['Starlight_Cassette', 'Nostalgic synthwave ballad instrumental, 80 BPM: slow lush pads, tape-wobble texture, soft gated snare, emotional lead synth with pitch bends, end-credits feeling.'],
+    ['Arcade_Afterglow', 'Playful synthwave instrumental, 112 BPM: chiptune-flavoured arpeggios layered with analog pads, punchy bass, snappy drums, catchy lead hook, late-night arcade glow.'],
+    ['Polygon_Drive', 'Cinematic synthwave instrumental, 108 BPM: slow-building intro, throbbing bass, wide stereo pads, powerful drum entrance, triumphant lead theme, ends on a held final chord.'],
+  ],
+  WinterHoliday: [
+    ['First_Snow_On_The_Barn', 'Cozy festive winter instrumental, 96 BPM: sleigh bells, warm upright piano, soft brushed drums, pizzicato strings, glockenspiel sparkle, gentle and joyful first-snowfall feeling. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Sleigh_Bell_Lane', 'Upbeat festive winter instrumental, 132 BPM: jingling sleigh bells, bouncy walking bass, bright brass section stabs, swinging big-band drums, cheerful sleigh ride through the countryside. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Woodstove_And_Cocoa', 'Warm lo-fi winter instrumental, 76 BPM: crackling fire texture, mellow Rhodes chords, soft boom-bap drums, quiet sleigh bells on the off-beat, celesta melody, hot cocoa by the stove mood. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Lantern_Parade', 'Festive folk winter instrumental, 108 BPM: fiddle and mandolin trading a merry tune, acoustic guitar strumming, hand claps and tambourine, accordion pads, village lantern parade at dusk. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Frosted_Windowpane', 'Gentle solo-piano-led winter instrumental, 72 BPM: tender piano melody, soft string quartet swells, distant chimes, quiet and reflective snowy evening by the window. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Tinsel_Tractor_Boogie', 'Playful festive boogie instrumental, 148 BPM: rolling boogie-woogie piano, slap upright bass, jingle bells, twangy guitar licks, swinging drums, silly joyful barn-party energy. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Evergreen_Waltz', 'Elegant winter waltz instrumental in 3/4, 100 BPM: sweeping strings, harp arpeggios, celesta and glockenspiel melody, soft French horn, graceful ballroom-in-the-snow feeling. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Mittens_And_Maple', 'Bright acoustic winter pop instrumental, 116 BPM: ukulele and acoustic guitar, finger snaps, sleigh bells, whistled-style flute melody, light drums, cheerful walk in fresh snow. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Midnight_Sparklers', 'Celebratory new-year festive instrumental, 124 BPM: funky rhythm guitar, punchy horn section, driving drums, sparkling synth bells, countdown-party excitement building to a big final hit. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Long_Night_Hearth', 'Slow warm jazz winter instrumental, 66 BPM: brushed drums, upright bass, mellow muted trumpet melody, soft piano comping, vibraphone shimmer, late night by the hearth on the longest night of the year. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+    ['Snowed_In_Shuffle', 'Easygoing festive shuffle instrumental, 104 BPM: shuffling drums with sleigh bells, clean jazzy guitar melody, Hammond organ pads, walking bass, happily snowed in at home. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
+  ],
 };
 
 function log(msg) {
@@ -178,13 +219,19 @@ async function main() {
   const genOne = async (playlist, filename, prompt) => {
     const dir = path.join(MUSIC, playlist);
     mkdirSync(dir, { recursive: true });
-    log(`GEN ${playlist}/${filename} (${mp3Count(dir)}/${TARGET} in folder)`);
+    const duration = pickDuration();
+    log(`GEN ${playlist}/${filename} (${mp3Count(dir)}/${TARGET} in folder, ${duration}s)`);
     try {
       const res = await call('tools/call', {
         name: 'gemini_music_generate',
-        arguments: { prompt, output_dir: dir, filename, duration_seconds: DURATION, timeout_seconds: 400 },
-      }, 480000);
+        arguments: { prompt, output_dir: dir, filename, duration_seconds: duration, timeout_seconds: 600 },
+      }, 720000);
       const txt = String(res?.result?.content?.[0]?.text ?? JSON.stringify(res));
+      if (/limit reached/i.test(txt)) {
+        log(`QUOTA ${playlist}/${filename}: Gemini music limit reached - aborting this run`);
+        quotaHit = true;
+        return false;
+      }
       if (/^(Error|Not signed in|No track)/.test(txt) || !existsSync(path.join(dir, filename + '.mp3'))) {
         log(`FAIL ${playlist}/${filename}: ${txt.slice(0, 240).replace(/\n/g, ' ')}`);
         return false;
@@ -216,7 +263,9 @@ async function main() {
 
   const summary = Object.keys(playlists)
     .map((p) => `${p}=${mp3Count(path.join(MUSIC, p))}`).join(' ');
-  log(`ALL DONE generated=${generated} failed=${failed}${quotaHit ? ' quota-limit-reached' : ''} counts: ${summary}`);
+  // "incomplete" tells retry_bump.ps1 to come back later even when the shortfall was not a quota hit.
+  const short = Object.keys(playlists).filter((p) => (!only.length || only.includes(p)) && mp3Count(path.join(MUSIC, p)) < TARGET);
+  log(`ALL DONE generated=${generated} failed=${failed}${quotaHit ? ' quota-limit-reached' : ''}${short.length ? ' incomplete' : ''} counts: ${summary}`);
   if (failures.length) log('Unresolved: ' + failures.join(', '));
   proc.kill();
   process.exit(0);

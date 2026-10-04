@@ -18,6 +18,41 @@ namespace Homesteader.Growth
         public string Model;
         /// <summary>Resolved through the mod asset resolver; null when no prefab was generated.</summary>
         public GameObject Prefab;
+
+        /// <summary>
+        /// Animals: what an animal becomes when it reaches this stage (female 80% / male 20%), each with its own model in the stage's folder. Empty = no
+        /// split (baby and yearling are sexless). The stage's own Model is the default.
+        /// </summary>
+        public readonly List<GrowthSex> Sexes = new List<GrowthSex>();
+
+        /// <summary>The sex an animal reaching this stage becomes, for a roll of 0..1 (null when the stage has no split): the chances run in the order they are listed.</summary>
+        public GrowthSex PickSex(float roll01)
+        {
+            float at = roll01 * 100f, sum = 0f;
+            foreach (GrowthSex s in Sexes)
+            {
+                sum += s.ChancePct;
+                if (at < sum) return s;
+            }
+            return Sexes.Count > 0 ? Sexes[Sexes.Count - 1] : null;
+        }
+
+        /// <summary>The same roll from a stable seed (an animal's id), so it keeps its sex across a reload.</summary>
+        public GrowthSex PickSex(int seed)
+        {
+            return PickSex(new System.Random(seed).Next(0, 10000) / 10000f);
+        }
+    }
+
+    /// <summary>One of the sexes an animal can become at a stage (stage `sexes`): its chance, and its model.</summary>
+    public sealed class GrowthSex
+    {
+        public string Sex;          // female | male
+        public float ChancePct;
+        public string Model;
+        public string Icon;
+        public GameObject Prefab;   // resolved from the stage's resource folder; null when no prefab was generated
+        public bool IsMale => Sex == "male";
     }
 
     /// <summary>A withered / dead version of a plant (failure.withered / failure.dead): a model like a stage.</summary>
@@ -269,6 +304,14 @@ namespace Homesteader.Growth
                     Model = s.Get("model").AsString(),
                 };
                 stage.Prefab = ResolveStagePrefab(mod, groupDir, stage, resolver, warn);
+                foreach (ModJsonValue sx in s.Get("sexes").Items)
+                {
+                    var sex = new GrowthSex { Sex = sx.Get("sex").AsString("female"), ChancePct = sx.Get("chance_pct").AsFloat(0f), Model = sx.Get("model").AsString(), Icon = sx.Get("icon").AsString() };
+                    if (string.IsNullOrEmpty(sex.Model)) continue;
+                    var asStage = new GrowthStage { Stage = stage.Stage, Name = sex.Sex, Resource = stage.Resource, Model = sex.Model };
+                    sex.Prefab = ResolveStagePrefab(mod, groupDir, asStage, resolver, warn);
+                    stage.Sexes.Add(sex);
+                }
                 result.Stages.Add(stage);
             }
             result.Stages.Sort((a, b) => a.Stage.CompareTo(b.Stage));

@@ -20,6 +20,7 @@ namespace Homesteader.Growth
     {
         private static FenceBuilder s_instance;
         public static bool Building => s_instance != null && s_instance._posts.Count > 0;
+        internal static bool Working => s_instance != null && s_instance._working;
 
         private const float SnapMetres = 0.5f;
         private const float CloseDistance = 0.9f;
@@ -86,7 +87,7 @@ namespace Homesteader.Growth
             else GateMode(item, ray, click);
         }
 
-        private static bool GroundPoint(Ray ray, out Vector3 point)
+        internal static bool GroundPoint(Ray ray, out Vector3 point)
         {
             point = default;
             if (Physics.Raycast(ray, out RaycastHit hit, 2000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) { point = hit.point; return true; }
@@ -95,7 +96,7 @@ namespace Homesteader.Growth
             return false;
         }
 
-        private static Vector3 Snap(Vector3 p)
+        internal static Vector3 Snap(Vector3 p)
         {
             float x = Mathf.Round(p.x / SnapMetres) * SnapMetres, z = Mathf.Round(p.z / SnapMetres) * SnapMetres;
             return new Vector3(x, TerrainHeightDetector.GetGroundY(x, z), z);
@@ -315,6 +316,15 @@ namespace Homesteader.Growth
         }
 
         /// <summary>A right click on a gate opens or shuts it. True when the ray was on one.</summary>
+        /// <summary>A right click with an axe in the active slot on a post of a built fence takes that section down.</summary>
+        public static bool TryChopPost(Ray ray, string heldId)
+        {
+            if (string.IsNullOrEmpty(heldId) || !GrowthRegistry.ToolMatches("#tool_axe", heldId)) return false;
+            foreach (FenceRun run in new List<FenceRun>(FenceRun.All))
+                if (run != null && run.ChopSectionAt(ray)) return true;
+            return false;
+        }
+
         public static bool TryToggleGate(Ray ray, Transform player)
         {
             foreach (FenceRun run in FenceRun.All)
@@ -343,7 +353,7 @@ namespace Homesteader.Growth
         /// <summary>Half the side of the work site round the first post: a 4 m x 4 m square where the fence's materials can be dropped, so the ped need not carry them.</summary>
         public const float SiteHalf = 2f;
 
-        private static bool InSite(Vector3 centre, Vector3 p)
+        internal static bool InSite(Vector3 centre, Vector3 p)
         {
             return Mathf.Abs(p.x - centre.x) <= SiteHalf && Mathf.Abs(p.z - centre.z) <= SiteHalf;
         }
@@ -362,10 +372,10 @@ namespace Homesteader.Growth
         }
 
         /// <summary>What is on hand for the fence: the hotbar plus the work site.</summary>
-        private static int Available(string id, Vector3 siteCentre) { return CountInToolbar(id) + CountAtSite(id, siteCentre); }
+        internal static int Available(string id, Vector3 siteCentre) { return CountInToolbar(id) + CountAtSite(id, siteCentre); }
 
         /// <summary>Uses up count items: first what lies at the work site (loose items, placed ones, the contents of boxes), then the hotbar.</summary>
-        private static void Take(string id, int count, Vector3 centre)
+        internal static void Take(string id, int count, Vector3 centre)
         {
             foreach (WorldItem w in new List<WorldItem>(WorldItem.All))
             {

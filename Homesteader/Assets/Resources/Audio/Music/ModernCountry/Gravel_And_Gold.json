@@ -1,0 +1,14 @@
+{
+  "file": "Gravel_And_Gold.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 109 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 109 seconds, not cut off mid-song and with NO fade-out. Modern country rock instrumental, 112 BPM: crunchy guitar riff, driving drums, banjo accents, big anthemic chorus, dirt-road energy.",
+  "requested_prompt": "Modern country rock instrumental, 112 BPM: crunchy guitar riff, driving drums, banjo accents, big anthemic chorus, dirt-road energy.",
+  "requested_duration_seconds": 109,
+  "generated_at": "2026-10-03T01:53:21.714Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Gravel_And_Gold.mp4",
+  "bytes": 3308534,
+  "sha256": "99954e8f8058bc67a18e28493ff80e28e31553dec391ab5eb2573f58213a6633",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

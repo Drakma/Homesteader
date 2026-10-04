@@ -32,6 +32,7 @@ namespace Homesteader.UI
         private const string ShadowsKey = "Homesteader.Graphics.Shadows";   // -1 / unset = the preset's choice
         private const string WindKey = "Homesteader.Graphics.WindAnimation";
         private const string SeasonLightKey = "Homesteader.Graphics.SeasonalLighting";
+        private const string ColorCursorsKey = "Homesteader.Graphics.ColorizedCursors";
         private const string WaterReflKey = "Homesteader.Graphics.WaterReflections";   // -1 / unset = the preset's choice
 
         public static readonly string[] DisplayModes = { "Fullscreen", "Borderless Windowed", "Windowed" };
@@ -127,6 +128,7 @@ namespace Homesteader.UI
             root.Q<Toggle>("GfxCloudShadowsToggle")?.SetValueWithoutNotify(CloudShadowsOn());
             root.Q<Toggle>("GfxWindAnimationToggle")?.SetValueWithoutNotify(WindAnimationOn());
             root.Q<Toggle>("GfxSeasonalLightingToggle")?.SetValueWithoutNotify(SeasonalLightingOn());
+            root.Q<Toggle>("GfxColorizedCursorsToggle")?.SetValueWithoutNotify(ColorizedCursorsOn());
             RefreshPresetDropdown();
         }
 
@@ -172,6 +174,17 @@ namespace Homesteader.UI
 
         /// <summary>The sun and moon change colour and strength with the season (on by default; off = the summer light all year).</summary>
         public static bool SeasonalLightingOn() => PlayerPrefs.GetInt(SeasonLightKey, 1) == 1;
+
+        /// <summary>The amber, bevelled cursor set (on) or the plain black-and-white one (off). A taste setting, so it is not part of the presets.</summary>
+        public static bool ColorizedCursorsOn() => PlayerPrefs.GetInt(ColorCursorsKey, 1) == 1;
+
+        public static void SetColorizedCursors(bool on)
+        {
+            PlayerPrefs.SetInt(ColorCursorsKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            if (CursorManager.Instance != null)
+                CursorManager.Instance.SetVariant(on ? CursorManager.CursorVariant.Amber : CursorManager.CursorVariant.Mono);
+        }
 
         public static void SetSeasonalLighting(bool on)
         {
@@ -405,7 +418,7 @@ namespace Homesteader.UI
             {
                 Toggle tg = row.Q<Toggle>(className: "hs-toggle");
                 Label lb = row.Q<Label>(className: "settings-label");
-                if (tg != null && lb != null) lb.RegisterCallback<ClickEvent>(_ => tg.value = !tg.value);
+                if (tg != null && lb != null) lb.Clickable().RegisterCallback<ClickEvent>(_ => tg.value = !tg.value);
             });
 
             var shadows = root.Q<Toggle>("GfxShadowsToggle");
@@ -430,6 +443,14 @@ namespace Homesteader.UI
                 wind.SetValueWithoutNotify(WindAnimationOn());
                 wind.RegisterValueChangedCallback(evt => SetWindAnimation(evt.newValue));
                 wind.tooltip = "Trees, bushes and grass sway in the wind. Turn off for perfectly still plants.";
+            }
+
+            var cursors = root.Q<Toggle>("GfxColorizedCursorsToggle");
+            if (cursors != null)
+            {
+                cursors.SetValueWithoutNotify(ColorizedCursorsOn());
+                cursors.RegisterValueChangedCallback(evt => SetColorizedCursors(evt.newValue));
+                cursors.tooltip = "Amber, shaded mouse cursors. Turn off for plain black-and-white cursors.";
             }
 
             var seasonLight = root.Q<Toggle>("GfxSeasonalLightingToggle");
@@ -511,7 +532,7 @@ namespace Homesteader.UI
                 if (reset != null)
                 {
                     reset.tooltip = "Back to the size that suits this screen.";
-                    reset.RegisterCallback<ClickEvent>(evt =>
+                    reset.Clickable().RegisterCallback<ClickEvent>(evt =>
                     {
                         PlayerPrefs.DeleteKey(HudScaleKey);
                         float d = DefaultHudScale();

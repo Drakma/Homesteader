@@ -70,7 +70,23 @@ function killStrayChromium() {
 
 /** Launch the persistent context, clearing a leftover holder of the profile and retrying
  *  with backoff so we do not race the dying process. */
+/** True while some Chrome still holds this tool's profile dir. */
+function profileInUse() {
+  const r = spawnSync('powershell', ['-NoProfile', '-Command',
+    `(Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" -ErrorAction SilentlyContinue | ` +
+    `Where-Object { $_.CommandLine -and $_.CommandLine -like '*gemini-music-session*' } | Measure-Object).Count`],
+    { encoding: 'utf8' });
+  return Number(String(r.stdout || '0').trim()) > 0;
+}
+
 async function launchContext() {
+  // A Chrome that is still shutting down (or was left behind) makes the new one hand off to it and
+  // exit at once, which then fails every call with "Target page, context or browser has been closed".
+  // Clear it and wait until the profile is really free before launching.
+  if (profileInUse()) {
+    killStrayChromium();
+    for (let i = 0; i < 20 && profileInUse(); i++) await new Promise((r) => setTimeout(r, 500));
+  }
   const launch = () => chromium.launchPersistentContext(SESSION_DIR, {
     // Headed: in headless Chrome Gemini answers "An error occurred while generating the track" (tested twice, 2026-10-02).
     // The window is kept tiny, parked in the bottom-right corner and pushed behind other windows (pushWindowBack).
@@ -223,9 +239,12 @@ async function startFreshChat(page) {
 
 async function sendPrompt(page, prompt) {
   await page.waitForSelector(INPUT_SELECTOR, { timeout: 30_000 });
+  // A locator re-resolves the element on each action: Gemini re-renders the prompt box while the page
+  // settles, and a stale element handle fails with "Element is not attached to the DOM".
+  const inputLoc = page.locator(INPUT_SELECTOR).first();
+  await inputLoc.click({ timeout: 15_000 });
   const input = await page.$(INPUT_SELECTOR);
   if (!input) throw new Error('could not find the Gemini prompt box');
-  await input.click();
   // Typing (not fill) so the rich editor registers it.
   await page.keyboard.type(prompt, { delay: 5 });
   const typed = await input.evaluate((el) => (el.innerText || el.textContent || el.value || '').trim());
@@ -379,6 +398,20 @@ async function generationLimitReached(page) {
   });
 }
 
+/** Gemini declines some prompts outright ("That request is a bit out of my range ... avoid potentially
+ *  sensitive topics. How about we try a different idea?"). Returns the reply text, or null. */
+async function generationRefused(page) {
+  return page.evaluate(() => {
+    const replies = [...document.querySelectorAll('model-response, .model-response, message-content, .response-container')];
+    if (!replies.length) return null;
+    const raw = (replies.at(-1).innerText || '').trim();
+    const t = raw.toLowerCase();
+    const hit = t.includes('out of my range') || t.includes('try a different idea') ||
+      t.includes('potentially sensitive topics') || t.includes("i can't generate that") || t.includes("can't make that");
+    return hit ? raw.replace(/\s+/g, ' ').slice(0, 200) : null;
+  });
+}
+
 /** True when Gemini itself reported a generation failure (it also says "your track", so it must be
  *  checked BEFORE hasAudioUi, whose text match "your track" would otherwise mask this). */
 async function generationFailed(page) {
@@ -411,7 +444,7 @@ async function hasAudioUi(page) {
   });
 }
 
-async function generate({ prompt, outputDir, filename, timeoutSeconds, durationSeconds }) {
+async function generate({ prompt, outputDir, filename, timeoutSeconds, durationSeconds, loop = false }) {
   mkdirSync(outputDir, { recursive: true });
   const page = await getPage();
   if (!(await openGemini(page))) {
@@ -422,11 +455,24 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
 
   // Two things Gemini must be told every time, or it misbehaves: INSTRUMENTAL ONLY (otherwise it adds vocals), and a fixed
   // duration with a real ending (otherwise the track just stops mid-song).
-  const fullPrompt =
-    `Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. ` +
-    `It must start and stop within ${durationSeconds} seconds: a complete piece with a clear beginning and a proper, ` +
-    `natural ending (a final resolving chord or gentle fade-out) that finishes by ${durationSeconds} seconds, ` +
-    `not cut off mid-song. ${prompt}`;
+  // loop mode asks for the opposite shape: one steady texture with no intro, no ending and no fades, so the tail can be
+  // crossfaded back into the head (gen_loop.mjs does that) for menu / ambient beds.
+  const fullPrompt = loop === 'arc'
+    ? `Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. ` +
+      `About ${durationSeconds} seconds long. It must work as a seamless loop with a gentle arc: it opens soft, sparse and ` +
+      `serene, gradually picks up a little through the middle (fuller and with a bit more movement, but never loud), then ` +
+      `settles back down so that the final 15 seconds are the same soft, sparse texture, tempo and key as the opening ` +
+      `15 seconds. No final chord, no slowing down at the end, no fade-in and no fade-out, so the end can be joined ` +
+      `straight back to the start. ${prompt}`
+    : loop
+    ? `Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. ` +
+      `About ${durationSeconds} seconds long. It must work as a seamless background loop: one steady, continuous texture ` +
+      `at a constant tempo and in a single key from the first second to the last, with no intro build-up, no breakdown, ` +
+      `no key change, no big finale, no fade-in and no fade-out, so that the end can be joined straight back to the start. ${prompt}`
+    : `Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. ` +
+      `It must start and stop within ${durationSeconds} seconds: a complete piece with a clear beginning and a proper, ` +
+      `definite ending on a final resolving chord or hit that finishes by ${durationSeconds} seconds, ` +
+      `not cut off mid-song and with NO fade-out. ${prompt}`;
 
     // Old quota messages remain in Gemini's sidebar; always submit in a fresh chat.
     await startFreshChat(page);
@@ -452,6 +498,13 @@ async function generate({ prompt, outputDir, filename, timeoutSeconds, durationS
         const message = 'Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.';
         console.error(`[gemini-music] ${message}`);
         return text(message);
+      }
+      const refusal = await generationRefused(page2);
+      if (refusal) {
+        // Retrying the same prompt in a fresh chat just gets refused again; report it so the caller can move on.
+        const message = `Gemini refused this prompt (not a quota or tool problem): "${refusal}"`;
+        console.error(`[gemini-music] ${message}`);
+        return text('Error: ' + message);
       }
       if (await generationFailed(page2)) {
         // Gemini's server-side generation failed ("something went wrong"). A manual retry in a
@@ -580,7 +633,7 @@ function writeJobState(outputDir, filename, state) {
   } catch { /* best effort */ }
 }
 
-async function generateBackground({ prompt, outputDir, filename, timeoutSeconds, durationSeconds }) {
+async function generateBackground({ prompt, outputDir, filename, timeoutSeconds, durationSeconds, loop = false }) {
   if (_jobs.has(filename)) {
     return text(`A job for "${filename}" is already running. Poll ${outputDir}\\${filename}.job.json for its state.`);
   }
@@ -600,7 +653,7 @@ async function generateBackground({ prompt, outputDir, filename, timeoutSeconds,
   writeJobState(outputDir, filename, { state: 'running', note: 'generation started' });
   (async () => {
     try {
-      const result = await generate({ prompt, outputDir, filename, timeoutSeconds, durationSeconds });
+      const result = await generate({ prompt, outputDir, filename, timeoutSeconds, durationSeconds, loop });
       const ok = !/^(Error|Not signed in)/.test(result.content?.[0]?.text ?? 'Error');
       writeJobState(outputDir, filename, {
         state: ok ? 'done' : 'failed',
@@ -672,8 +725,9 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
           prompt: { type: 'string', description: 'Describe the genre, instruments, mood, tempo and structure (no artist names).' },
           output_dir: { type: 'string', description: 'Where to save the file. Defaults to the current directory.' },
           filename: { type: 'string', description: 'File name without extension. Defaults to a timestamp.' },
-          duration_seconds: { type: 'number', description: 'The track must start and stop within this many seconds (it is added to the prompt with a request for a proper ending). Default 90, minimum 60, maximum 160.' },
+          duration_seconds: { type: 'number', description: 'The track must start and stop within this many seconds (it is added to the prompt with a request for a definite ending and no fade-out). Default 90, minimum 60, maximum 160.' },
           timeout_seconds: { type: 'number', description: 'How long to wait for the track. Default 240.' },
+          loop: { type: ['boolean', 'string'], description: 'true: ask for a steady, loopable bed (no intro, no ending, no fades) instead of a complete piece with a definite ending. "arc": a loop that opens soft, lifts a little in the middle and settles back to the opening texture. Use tools/gemini_music_mcp/gen_loop.mjs to turn the result into a seamless loop.' },
           background: { type: 'boolean', description: 'Return immediately and keep generating in the background. Poll <output_dir>/<filename>.job.json (state running -> done/failed) for the outcome. Use this when the caller imposes a short request timeout.' },
         },
         required: ['prompt'],
@@ -704,6 +758,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         filename: args?.filename ? String(args.filename).replace(/[^\w.-]+/g, '_') : `gemini_music_${Date.now()}`,
         timeoutSeconds: Math.min(Math.max(Number(args?.timeout_seconds) || 240, 30), 900),
         durationSeconds: Math.min(Math.max(Math.round(Number(args?.duration_seconds) || 90), 60), 160),
+        loop: args?.loop === 'arc' ? 'arc' : !!args?.loop,   // true = steady bed, 'arc' = soft -> lift -> soft
       };
       if (args?.background) return await generateBackground(genArgs);
       return await generate(genArgs);

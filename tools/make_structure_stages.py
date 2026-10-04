@@ -143,6 +143,20 @@ class Builder:
         self.bm.free()
         for m in self.mats:
             me.materials.append(m)
+        # box-projected UVs in METRES (1 unit = 1 m) on the masonry materials (the chimney's "Masonry", a brick foundation's "FoundationFace"): the game
+        # lays a brick or stone picture on them (StructureLook.cs); courses run level. Everything else keeps no UVs.
+        textured = [i for i, m in enumerate(self.mats) if m.name.split('.')[0] in ('Masonry', 'FoundationFace', 'Floor')]   # (Blender numbers repeated names: FoundationFace.010)
+        if textured:
+            uvl = me.uv_layers.new(name='UVMap')
+            for poly in me.polygons:
+                if poly.material_index not in textured:
+                    continue
+                n = poly.normal
+                ax = max(range(3), key=lambda i: abs(n[i]))
+                a2, b2 = ((1, 2), (0, 2), (0, 1))[ax]
+                for li in poly.loop_indices:
+                    v = me.vertices[me.loops[li].vertex_index].co
+                    uvl.data[li].uv = (v[a2], v[b2])
         o = bpy.data.objects.new(self.name, me)
         bpy.context.collection.objects.link(o)
         return o

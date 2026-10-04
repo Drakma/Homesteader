@@ -69,12 +69,24 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "80lb_cement_bag",
-        "quantity": 16
-      },
-      {
-        "item_id": "#rebar",
-        "quantity": 4
+        "any_of": [
+          {
+            "item_id": "80lb_cement_bag",
+            "quantity": 10
+          },
+          {
+            "item_id": "masonry_cinder_block",
+            "quantity": 150
+          },
+          {
+            "item_id": "#brick",
+            "quantity": 5
+          },
+          {
+            "item_id": "post_wood_round_6inch",
+            "quantity": 12
+          }
+        ]
       }
     ],
     "required_tools": [

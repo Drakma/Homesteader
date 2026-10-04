@@ -95,6 +95,8 @@ namespace Homesteader.World
 
             // A sapling of one of these species grows the same procedural tree the forests use (see ForestTrees.ApplyPlantPrefabs).
             ForestTrees.ApplyPlantPrefabs();
+            // Crops (corn, wheat, pumpkin, ...) are drawn procedurally too: their groups' stage prefabs become the ProceduralCrops looks.
+            ProceduralCrops.ApplyCropPrefabs();
 
             return new Dictionary<string, Species[]>
             {
@@ -140,7 +142,14 @@ namespace Homesteader.World
             if (terrain == null) return 0;
 
             Transform old = gen.transform.Find(RootName);
-            if (old != null) Object.DestroyImmediate(old.gameObject);
+            if (old != null)
+            {
+                // the old chunk meshes are runtime meshes nothing else owns: destroying only the objects left them in memory, a world's worth each time
+                // one was regenerated (New Game, Load, a new Play session in the editor)
+                foreach (MeshFilter mf in old.GetComponentsInChildren<MeshFilter>(true))
+                    if (mf.sharedMesh != null && mf.sharedMesh.name.StartsWith("VegChunk_")) Object.DestroyImmediate(mf.sharedMesh);
+                Object.DestroyImmediate(old.gameObject);
+            }
             var root = new GameObject(RootName).transform;
             root.SetParent(gen.transform, false);
             Tracked.Clear();
@@ -582,6 +591,64 @@ namespace Homesteader.World
             return t * t * (3f - 2f * t);
         }
 
+        private static Material s_twigMat;
+        private static Material[] s_leafMats, s_berryMats;
+        private static Mesh[][] s_berryMeshes;
+        private static Transform s_plantedBushRoot;
+
+        /// <summary>
+        /// A berry bush the player planted: built from the same meshes and materials as the generated ones, but on its own mesh (its vertices in
+        /// world space, so the picking and digging code treats it like any other bush). `pos` is the ground under it.
+        /// </summary>
+        public static bool SpawnPlantedBush(int kind, Vector3 pos, float yawDeg, float size, out BerryBush bush)
+        {
+            bush = null;
+            if (s_berryMeshes == null || kind < 0 || kind >= s_berryMeshes.Length) return false;
+            int variant = Mathf.Abs(Mathf.RoundToInt(pos.x * 7.3f + pos.z * 3.1f)) % 3;
+            Mesh src = s_berryMeshes[kind][variant];
+            Mesh m = Object.Instantiate(src);
+            Vector3 at = pos + Vector3.down * 0.05f;
+            Quaternion rot = Quaternion.Euler(0f, yawDeg, 0f);
+            Matrix4x4 trs = Matrix4x4.TRS(at, rot, new Vector3(size, size, size));
+            Vector3[] v = m.vertices;
+            for (int i = 0; i < v.Length; i++) v[i] = trs.MultiplyPoint3x4(v[i]);
+            Vector3[] n = m.normals;
+            for (int i = 0; i < n.Length; i++) n[i] = rot * n[i];
+            m.vertices = v;
+            m.normals = n;
+            // the vegetation shader sways and grows each plant round its base, read from these channels (what Combine writes for every bush)
+            var uv1 = new List<Vector2>(v.Length);
+            var uv2 = new List<Vector2>(v.Length);
+            var uv3 = new List<Vector2>(v.Length);
+            for (int i = 0; i < v.Length; i++)
+            {
+                uv1.Add(new Vector2(at.x, at.z));
+                uv2.Add(new Vector2(at.y, size));
+                uv3.Add(new Vector2(0f, 0f));
+            }
+            m.SetUVs(1, uv1);
+            m.SetUVs(2, uv2);
+            m.SetUVs(3, uv3);
+            m.RecalculateBounds();
+            if (s_plantedBushRoot == null) s_plantedBushRoot = new GameObject("PlantedBushes").transform;
+            var go = new GameObject("PlantedBush_" + kind);
+            go.transform.SetParent(s_plantedBushRoot, false);
+            go.AddComponent<MeshFilter>().sharedMesh = m;
+            var mr = go.AddComponent<MeshRenderer>();
+            mr.sharedMaterials = new[] { s_twigMat, s_leafMats[variant % s_leafMats.Length], s_berryMats[kind] };
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            bush = new BerryBush { Kind = kind, AssetId = BerryBushes.AssetFor(kind), Position = at, Mesh = m, VertStart = 0, VertCount = m.vertexCount, Planted = true };
+            BerryBushes.Register(bush, src);
+            return true;
+        }
+
+        /// <summary>Removes the bushes the player planted (a world being left).</summary>
+        public static void ClearPlantedBushes()
+        {
+            if (s_plantedBushRoot != null) Object.Destroy(s_plantedBushRoot.gameObject);
+            s_plantedBushRoot = null;
+        }
+
         private static int ScatterShrubs(HomesteaderTerrainGenerator gen, Terrain terrain, Transform root, System.Random rng)
         {
             Shader lit = Shader.Find("Universal Render Pipeline/Lit");
@@ -608,6 +675,7 @@ namespace Homesteader.World
                 berryMeshes[k] = new Mesh[3];
                 for (int v = 0; v < 3; v++) berryMeshes[k][v] = BuildShrubMesh(new System.Random(2300 + k * 101 + v * 13), k);
             }
+            s_twigMat = twigMat; s_leafMats = leafMats; s_berryMats = berryMats; s_berryMeshes = berryMeshes;   // kept: a bush planted later is built from the same parts
             float seedB = (gen.worldSeed % 613) * 0.57f;
 
             // The habitats. Each kind grows in its own clumps (its own noise field), so the five never sit in the same patch.

@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_adult_quarter_horse",
-  "name": "Adult American Quarter Horse",
+  "name": "Quarter Horse - Adult",
   "category": "ranching",
-  "description": "A fully adult American Quarter Horse, the final growth stage of the quarter horse lifecycle. Icon generated via Creative Claw as part of a batched 3-item contact sheet with the foal and yearling stages, then used as the reference image for Meshy AI image-to-3D (smart-topology model, textured).",
+  "description": "The adult stage of the quarter horse.",
   "icon": "animal_adult_quarter_horse.png",
   "properties": {
     "weight_kg": 1.0,
@@ -19,8 +19,40 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Adult_Quarter_Horse.fbx",
-      "format": "fbx"
+      "file": "quarter_horse_adult_female.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.6,
+        "y": 2.0,
+        "z": 2.8
+      },
+      "triangles": 4337,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
+    },
+    {
+      "file": "quarter_horse_adult_male.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.814,
+        "y": 2.1,
+        "z": 2.631
+      },
+      "triangles": 4378,
+      "rigged": true,
+      "skeleton": "auto_rig_quadruped",
+      "animations": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Eating"
+      ]
     }
   ],
   "utilities": {

@@ -3,7 +3,7 @@
   "id": "crop_mature_pumpkin",
   "name": "Pumpkin (Mature)",
   "category": "farming",
-  "description": "A mature stage pumpkin plant.",
+  "description": "The mature look of a pumpkin plant.",
   "icon": "crop_mature_pumpkin.png",
   "properties": {
     "weight_kg": 0.5,
@@ -20,7 +20,8 @@
   "models": [
     {
       "file": "crop_mature_pumpkin.glb",
-      "format": "glb"
+      "format": "glb",
+      "triangles": 240
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "pumpkin",
     "dimensions_m": {
-      "width": 1.06,
-      "depth": 1.03,
-      "height": 0.9
+      "width": 1.75,
+      "depth": 1.775,
+      "height": 0.624
     }
   }
 }

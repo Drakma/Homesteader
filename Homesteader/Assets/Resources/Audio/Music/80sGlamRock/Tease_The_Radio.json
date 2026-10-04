@@ -1,0 +1,14 @@
+{
+  "file": "Tease_The_Radio.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 101 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 101 seconds, not cut off mid-song and with NO fade-out. 1980s pop metal instrumental, 120 BPM: shiny keyboard hook over power chords, steady four-on-the-floor kick, big backing-vocal style synth pads, melodic guitar solo, radio-anthem feel.",
+  "requested_prompt": "1980s pop metal instrumental, 120 BPM: shiny keyboard hook over power chords, steady four-on-the-floor kick, big backing-vocal style synth pads, melodic guitar solo, radio-anthem feel.",
+  "requested_duration_seconds": 101,
+  "generated_at": "2026-10-03T21:56:03.834Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Tease_The_Radio.mp4",
+  "bytes": 3175549,
+  "sha256": "1bd997a71e1966324116752286a5d1fc6c4e28368d1128297aaa57194477ea1f",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

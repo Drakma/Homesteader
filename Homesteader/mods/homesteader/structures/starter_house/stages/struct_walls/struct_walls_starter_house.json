@@ -70,15 +70,23 @@
     "construction_recipe": [
       {
         "item_id": "#sheathing",
-        "quantity": 6
+        "quantity": 14
       },
       {
         "item_id": "#romex_wire",
-        "quantity": 8
+        "quantity": 4
       },
       {
         "item_id": "#plumbing_pipe",
-        "quantity": 8
+        "quantity": 6
+      },
+      {
+        "item_id": "building_insulation_fiberglass_batt",
+        "quantity": 6
+      },
+      {
+        "item_id": "item_hardware_deckscrews_box",
+        "quantity": 2
       }
     ],
     "required_tools": [

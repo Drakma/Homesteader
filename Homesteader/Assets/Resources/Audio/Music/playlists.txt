@@ -8,3 +8,6 @@ SmoothJazz
 ClassicRock
 Grunge
 Punk
+80sGlamRock
+Synthwave
+WinterHoliday

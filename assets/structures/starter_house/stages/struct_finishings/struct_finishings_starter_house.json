@@ -26,7 +26,7 @@
         "y": 4.6,
         "z": 7.3
       },
-      "triangles": 4556
+      "triangles": 4484
     }
   ],
   "utilities": {
@@ -66,6 +66,34 @@
     },
     "electrical_service_capacity_w": 24000,
     "water_supply_capacity_lpm": 40,
-    "roof_area_m2": 41.6
+    "roof_area_m2": 41.6,
+    "construction_recipe": [
+      {
+        "item_id": "sheet_drywall_stack_large",
+        "quantity": 4
+      },
+      {
+        "item_id": "#paint",
+        "quantity": 2
+      },
+      {
+        "item_id": "#flooring",
+        "quantity": 45
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless",
+        "tool_saw_hand"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ]
+    ]
   }
 }

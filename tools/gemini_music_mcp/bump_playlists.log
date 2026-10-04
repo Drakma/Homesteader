@@ -128,3 +128,449 @@
 [2026-10-02T09:12:16.066Z] server stderr: [gemini-music] page closed (tabs left=1)
 [2026-10-02T09:12:16.070Z] server stderr: [gemini-music] page closed (tabs left=0)
 [2026-10-02T09:12:16.070Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: keyboard.type: Target page, context or browser has been closed
+[2026-10-03T00:59:10.162Z] GEN LoFiMeadow/Creekside_Stones (6/10 in folder)
+[2026-10-03T00:59:32.609Z] GEN LoFiMeadow/Creekside_Stones (6/10 in folder, 116s)
+[2026-10-03T01:00:53.340Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:01:59.490Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T01:02:02.076Z] OK LoFiMeadow/Creekside_Stones: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiMeadow\Creekside_Stones.mp3 (3591 
+[2026-10-03T01:02:02.077Z] GEN LoFiMeadow/Wildflower_Breeze (7/10 in folder, 98s)
+[2026-10-03T01:04:26.632Z] server stderr: [gemini-music] audio UI present 132s after send; trying download
+[2026-10-03T01:04:28.314Z] OK LoFiMeadow/Wildflower_Breeze: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiMeadow\Wildflower_Breeze.mp3 (2854
+[2026-10-03T01:04:28.315Z] GEN LoFiMeadow/Butterfly_Path (8/10 in folder, 106s)
+[2026-10-03T01:05:48.846Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:06:39.129Z] server stderr: [gemini-music] audio UI present 40s after send; trying download
+[2026-10-03T01:06:41.574Z] OK LoFiMeadow/Butterfly_Path: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiMeadow\Butterfly_Path.mp3 (3154 KB
+[2026-10-03T01:06:41.575Z] GEN LoFiMeadow/Tall_Grass_Drowse (9/10 in folder, 116s)
+[2026-10-03T01:06:53.616Z] GEN LoFiMeadow/Tall_Grass_Drowse (9/10 in folder, 110s)
+[2026-10-03T01:07:55.091Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T01:07:59.310Z] OK LoFiMeadow/Tall_Grass_Drowse: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiMeadow\Tall_Grass_Drowse.mp3 (3413
+[2026-10-03T01:07:59.311Z] GEN LoFiHarvest/Orchard_Ladder (4/10 in folder, 120s)
+[2026-10-03T01:09:01.475Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T01:09:03.105Z] OK LoFiHarvest/Orchard_Ladder: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Orchard_Ladder.mp3 (3595 K
+[2026-10-03T01:09:03.106Z] GEN LoFiHarvest/Pumpkin_Rows (5/10 in folder, 95s)
+[2026-10-03T01:10:07.332Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T01:10:08.869Z] OK LoFiHarvest/Pumpkin_Rows: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Pumpkin_Rows.mp3 (2717 KB,
+[2026-10-03T01:10:08.871Z] GEN LoFiHarvest/Corn_Crib_Dusk (6/10 in folder, 90s)
+[2026-10-03T01:11:21.490Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:13:28.538Z] server stderr: [gemini-music] audio UI present 116s after send; trying download
+[2026-10-03T01:13:29.824Z] OK LoFiHarvest/Corn_Crib_Dusk: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Corn_Crib_Dusk.mp3 (2679 K
+[2026-10-03T01:13:29.825Z] GEN LoFiHarvest/Root_Cellar (7/10 in folder, 93s)
+[2026-10-03T01:17:46.819Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:17:47.545Z] FAIL LoFiHarvest/Root_Cellar: Error in gemini_music_generate: elementHandle.click: Element is not attached to the DOM Call log: [2m  - attempting click action[22m [2m    - waiting for element to be visible, enabled and stable[22m 
+[2026-10-03T01:17:47.546Z] GEN LoFiHarvest/Threshing_Floor (7/10 in folder, 111s)
+[2026-10-03T01:18:51.901Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T01:18:54.315Z] OK LoFiHarvest/Threshing_Floor: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Threshing_Floor.mp3 (3543 
+[2026-10-03T01:18:54.317Z] GEN LoFiHarvest/Pie_Cooling (8/10 in folder, 107s)
+[2026-10-03T01:22:19.576Z] server stderr: [gemini-music] audio UI present 193s after send; trying download
+[2026-10-03T01:22:21.027Z] OK LoFiHarvest/Pie_Cooling: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Pie_Cooling.mp3 (3216 KB, 
+[2026-10-03T01:22:21.028Z] GEN LoFiHarvest/Hayride_Home (9/10 in folder, 115s)
+[2026-10-03T01:23:29.484Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T01:23:30.998Z] OK LoFiHarvest/Hayride_Home: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiHarvest\Hayride_Home.mp3 (3458 KB,
+[2026-10-03T01:23:30.999Z] GEN LoFiNeon/Vending_Machine_Glow (1/10 in folder, 90s)
+[2026-10-03T01:25:07.731Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:26:21.685Z] server stderr: [gemini-music] audio UI present 64s after send; trying download
+[2026-10-03T01:26:23.056Z] OK LoFiNeon/Vending_Machine_Glow: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Vending_Machine_Glow.mp3 (261
+[2026-10-03T01:26:23.057Z] GEN LoFiNeon/Rain_On_Glass (2/10 in folder, 117s)
+[2026-10-03T01:27:23.590Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T01:27:25.469Z] OK LoFiNeon/Rain_On_Glass: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Rain_On_Glass.mp3 (3439 KB, v
+[2026-10-03T01:27:25.471Z] GEN LoFiNeon/After_Hours_Diner (3/10 in folder, 118s)
+[2026-10-03T01:30:26.449Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:32:00.515Z] server stderr: [gemini-music] audio UI present 84s after send; trying download
+[2026-10-03T01:32:03.326Z] OK LoFiNeon/After_Hours_Diner: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\After_Hours_Diner.mp3 (3374 K
+[2026-10-03T01:32:03.328Z] GEN LoFiNeon/Pink_Static (4/10 in folder, 120s)
+[2026-10-03T01:33:11.622Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T01:33:13.430Z] OK LoFiNeon/Pink_Static: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Pink_Static.mp3 (3523 KB, via
+[2026-10-03T01:33:13.431Z] GEN LoFiNeon/Subway_Hum (5/10 in folder, 100s)
+[2026-10-03T01:34:01.712Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:35:11.657Z] server stderr: [gemini-music] Gemini failed to generate (attempt 2) — retrying in a fresh chat
+[2026-10-03T01:36:09.345Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T01:36:10.920Z] OK LoFiNeon/Subway_Hum: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Subway_Hum.mp3 (3237 KB, via 
+[2026-10-03T01:36:10.921Z] GEN LoFiNeon/Arcade_Carpet (6/10 in folder, 90s)
+[2026-10-03T01:37:31.255Z] server stderr: [gemini-music] audio UI present 68s after send; trying download
+[2026-10-03T01:37:32.759Z] OK LoFiNeon/Arcade_Carpet: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Arcade_Carpet.mp3 (2733 KB, v
+[2026-10-03T01:37:32.761Z] GEN LoFiNeon/Rooftop_Signal (7/10 in folder, 110s)
+[2026-10-03T01:39:21.311Z] server stderr: [gemini-music] audio UI present 96s after send; trying download
+[2026-10-03T01:39:23.034Z] OK LoFiNeon/Rooftop_Signal: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Rooftop_Signal.mp3 (3185 KB, 
+[2026-10-03T01:39:23.035Z] GEN LoFiNeon/Taxi_Light_Drift (8/10 in folder, 103s)
+[2026-10-03T01:44:16.191Z] server stderr: [gemini-music] audio UI present 281s after send; trying download
+[2026-10-03T01:44:18.450Z] OK LoFiNeon/Taxi_Light_Drift: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Taxi_Light_Drift.mp3 (3173 KB
+[2026-10-03T01:44:18.451Z] GEN LoFiNeon/Blue_Hour_Mall (9/10 in folder, 112s)
+[2026-10-03T01:45:10.746Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:46:04.568Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-03T01:46:06.923Z] OK LoFiNeon/Blue_Hour_Mall: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\LoFiNeon\Blue_Hour_Mall.mp3 (3201 KB, 
+[2026-10-03T01:46:06.925Z] GEN ModernCountry/Tailgate_Sunset (6/10 in folder, 93s)
+[2026-10-03T01:49:40.591Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T01:51:11.270Z] server stderr: [gemini-music] Gemini failed to generate (attempt 2) — retrying in a fresh chat
+[2026-10-03T01:52:09.866Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T01:52:11.792Z] OK ModernCountry/Tailgate_Sunset: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ModernCountry\Tailgate_Sunset.mp3 (286
+[2026-10-03T01:52:11.793Z] GEN ModernCountry/Gravel_And_Gold (7/10 in folder, 109s)
+[2026-10-03T01:53:20.160Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T01:53:21.715Z] OK ModernCountry/Gravel_And_Gold: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ModernCountry\Gravel_And_Gold.mp3 (323
+[2026-10-03T01:53:21.716Z] GEN ModernCountry/Porch_Light_On (8/10 in folder, 112s)
+[2026-10-03T01:58:43.021Z] server stderr: [gemini-music] audio UI present 309s after send; trying download
+[2026-10-03T01:58:44.955Z] OK ModernCountry/Porch_Light_On: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ModernCountry\Porch_Light_On.mp3 (3245
+[2026-10-03T01:58:44.956Z] GEN ModernCountry/Small_Town_Saturday (9/10 in folder, 94s)
+[2026-10-03T01:59:46.742Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T01:59:46.743Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:00:55.497Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T02:00:57.281Z] OK ModernCountry/Small_Town_Saturday: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ModernCountry\Small_Town_Saturday.mp3 
+[2026-10-03T02:00:57.283Z] GEN ClassicRock/Highway_Thunder (0/10 in folder, 105s)
+[2026-10-03T02:02:06.571Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T02:02:08.179Z] OK ClassicRock/Highway_Thunder: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Highway_Thunder.mp3 (3202 
+[2026-10-03T02:02:08.180Z] GEN ClassicRock/Barnburner_Boogie (1/10 in folder, 120s)
+[2026-10-03T02:02:24.457Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:24.457Z] FAIL ClassicRock/Barnburner_Boogie: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:24.458Z] GEN ClassicRock/Smoke_On_The_Ridge (1/10 in folder, 112s)
+[2026-10-03T02:02:40.628Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:40.629Z] FAIL ClassicRock/Smoke_On_The_Ridge: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:40.630Z] GEN ClassicRock/Silver_Pickup (1/10 in folder, 113s)
+[2026-10-03T02:02:56.991Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:56.992Z] FAIL ClassicRock/Silver_Pickup: Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T02:02:56.994Z] GEN ClassicRock/Thunderhead_Blues (1/10 in folder, 114s)
+[2026-10-03T02:03:15.786Z] GEN ClassicRock/Barnburner_Boogie (1/10 in folder, 92s)
+[2026-10-03T02:03:23.912Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:23.913Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: keyboard.type: Target page, context or browser has been closed
+[2026-10-03T02:03:28.109Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:28.112Z] FAIL ClassicRock/Barnburner_Boogie: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:28.113Z] GEN ClassicRock/Smoke_On_The_Ridge (1/10 in folder, 100s)
+[2026-10-03T02:03:28.148Z] FAIL ClassicRock/Smoke_On_The_Ridge: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:28.149Z] GEN ClassicRock/Silver_Pickup (1/10 in folder, 91s)
+[2026-10-03T02:03:28.152Z] FAIL ClassicRock/Silver_Pickup: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:28.153Z] GEN ClassicRock/Thunderhead_Blues (1/10 in folder, 91s)
+[2026-10-03T02:03:30.473Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:30.474Z] FAIL ClassicRock/Thunderhead_Blues: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:30.475Z] GEN ClassicRock/Steel_Town_Anthem (1/10 in folder, 118s)
+[2026-10-03T02:03:30.501Z] FAIL ClassicRock/Steel_Town_Anthem: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:30.502Z] GEN ClassicRock/Backwoods_Rambler (1/10 in folder, 94s)
+[2026-10-03T02:03:30.509Z] FAIL ClassicRock/Backwoods_Rambler: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:30.511Z] GEN ClassicRock/Midnight_Freight (1/10 in folder, 106s)
+[2026-10-03T02:03:31.583Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:31.584Z] FAIL ClassicRock/Midnight_Freight: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:31.585Z] GEN ClassicRock/Copper_Sunrise (1/10 in folder, 98s)
+[2026-10-03T02:03:31.724Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:32.318Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:32.319Z] FAIL ClassicRock/Copper_Sunrise: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:32.320Z] GEN ClassicRock/Last_Exit_Riff (1/10 in folder, 106s)
+[2026-10-03T02:03:32.341Z] FAIL ClassicRock/Last_Exit_Riff: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:32.342Z] GEN Grunge/Basement_Amp (5/10 in folder, 91s)
+[2026-10-03T02:03:32.348Z] FAIL Grunge/Basement_Amp: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:32.349Z] GEN Grunge/Grey_Sky_Garage (5/10 in folder, 90s)
+[2026-10-03T02:03:33.069Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:33.069Z] FAIL Grunge/Grey_Sky_Garage: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:33.070Z] GEN Grunge/Sludge_Creek (5/10 in folder, 113s)
+[2026-10-03T02:03:33.092Z] FAIL Grunge/Sludge_Creek: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:33.093Z] GEN Grunge/Thrift_Store_Halo (5/10 in folder, 110s)
+[2026-10-03T02:03:33.096Z] FAIL Grunge/Thrift_Store_Halo: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:33.097Z] GEN Grunge/Powerline_Hum (5/10 in folder, 109s)
+[2026-10-03T02:03:34.345Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:34.346Z] FAIL Grunge/Powerline_Hum: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:34.346Z] GEN Grunge/Cold_Coffee_Riot (5/10 in folder, 102s)
+[2026-10-03T02:03:34.374Z] FAIL Grunge/Cold_Coffee_Riot: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:34.375Z] GEN Grunge/Overcast_Anthem (5/10 in folder, 94s)
+[2026-10-03T02:03:35.391Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:35.392Z] FAIL Grunge/Overcast_Anthem: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:35.393Z] GEN Grunge/Wet_Leaves (5/10 in folder, 114s)
+[2026-10-03T02:03:35.413Z] FAIL Grunge/Wet_Leaves: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:35.415Z] GEN Punk/Three_Chord_Sunrise (0/10 in folder, 103s)
+[2026-10-03T02:03:36.730Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:36.730Z] FAIL Punk/Three_Chord_Sunrise: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:36.731Z] GEN Punk/Skate_The_Silo (0/10 in folder, 96s)
+[2026-10-03T02:03:36.752Z] FAIL Punk/Skate_The_Silo: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:36.752Z] GEN Punk/Chicken_Wire_Fence (0/10 in folder, 98s)
+[2026-10-03T02:03:37.959Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:37.959Z] FAIL Punk/Chicken_Wire_Fence: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:37.960Z] GEN Punk/Mohawk_Mower (0/10 in folder, 114s)
+[2026-10-03T02:03:37.985Z] FAIL Punk/Mohawk_Mower: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:37.986Z] GEN Punk/Pogo_In_The_Pasture (0/10 in folder, 90s)
+[2026-10-03T02:03:37.987Z] FAIL Punk/Pogo_In_The_Pasture: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:37.989Z] GEN Punk/Spray_Paint_Barn (0/10 in folder, 95s)
+[2026-10-03T02:03:39.132Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:39.132Z] FAIL Punk/Spray_Paint_Barn: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:39.133Z] GEN Punk/Safety_Pin_Sky (0/10 in folder, 114s)
+[2026-10-03T02:03:39.156Z] FAIL Punk/Safety_Pin_Sky: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:39.158Z] GEN Punk/Combat_Boots_Mud (0/10 in folder, 100s)
+[2026-10-03T02:03:40.246Z] FAIL Punk/Combat_Boots_Mud: Error in gemini_music_generate: page.goto: net::ERR_ABORTED; maybe frame was detached? Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:40.248Z] GEN Punk/Duct_Tape_Dreams (0/10 in folder, 108s)
+[2026-10-03T02:03:40.249Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:40.262Z] FAIL Punk/Duct_Tape_Dreams: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed
+[2026-10-03T02:03:40.263Z] GEN Punk/Last_Bus_Riot (0/10 in folder, 99s)
+[2026-10-03T02:03:40.277Z] FAIL Punk/Last_Bus_Riot: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:40.278Z] PASS 1 done - second pass picks up anything still short
+[2026-10-03T02:03:40.280Z] GEN ClassicRock/Barnburner_Boogie (1/10 in folder, 94s)
+[2026-10-03T02:03:41.429Z] FAIL ClassicRock/Barnburner_Boogie: Error in gemini_music_generate: page.goto: net::ERR_ABORTED; maybe frame was detached? Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:41.430Z] GEN ClassicRock/Smoke_On_The_Ridge (1/10 in folder, 114s)
+[2026-10-03T02:03:41.433Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:41.434Z] FAIL ClassicRock/Smoke_On_The_Ridge: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed
+[2026-10-03T02:03:41.435Z] GEN ClassicRock/Silver_Pickup (1/10 in folder, 118s)
+[2026-10-03T02:03:41.460Z] FAIL ClassicRock/Silver_Pickup: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:41.461Z] GEN ClassicRock/Thunderhead_Blues (1/10 in folder, 91s)
+[2026-10-03T02:03:42.574Z] FAIL ClassicRock/Thunderhead_Blues: Error in gemini_music_generate: page.goto: net::ERR_ABORTED; maybe frame was detached? Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:42.576Z] GEN ClassicRock/Steel_Town_Anthem (1/10 in folder, 105s)
+[2026-10-03T02:03:42.577Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:42.578Z] FAIL ClassicRock/Steel_Town_Anthem: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed
+[2026-10-03T02:03:42.579Z] GEN ClassicRock/Backwoods_Rambler (1/10 in folder, 103s)
+[2026-10-03T02:03:42.699Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:43.659Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:43.659Z] FAIL ClassicRock/Backwoods_Rambler: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:43.660Z] GEN ClassicRock/Midnight_Freight (1/10 in folder, 117s)
+[2026-10-03T02:03:43.781Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:44.638Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:44.639Z] FAIL ClassicRock/Midnight_Freight: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:44.641Z] GEN ClassicRock/Copper_Sunrise (1/10 in folder, 99s)
+[2026-10-03T02:03:44.768Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:50.238Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:50.238Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: keyboard.type: Target page, context or browser has been closed
+[2026-10-03T02:03:53.805Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:53.805Z] FAIL ClassicRock/Copper_Sunrise: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:53.806Z] GEN ClassicRock/Last_Exit_Riff (1/10 in folder, 120s)
+[2026-10-03T02:03:53.937Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:54.701Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:54.702Z] FAIL ClassicRock/Last_Exit_Riff: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:54.703Z] GEN Grunge/Basement_Amp (5/10 in folder, 92s)
+[2026-10-03T02:03:54.809Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:55.331Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:55.332Z] FAIL Grunge/Basement_Amp: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:55.333Z] GEN Grunge/Grey_Sky_Garage (5/10 in folder, 93s)
+[2026-10-03T02:03:55.436Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T02:03:55.819Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:55.820Z] FAIL Grunge/Grey_Sky_Garage: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T02:03:55.821Z] GEN Grunge/Sludge_Creek (5/10 in folder, 103s)
+[2026-10-03T02:03:55.845Z] FAIL Grunge/Sludge_Creek: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:55.846Z] GEN Grunge/Thrift_Store_Halo (5/10 in folder, 101s)
+[2026-10-03T02:03:55.863Z] FAIL Grunge/Thrift_Store_Halo: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:55.864Z] GEN Grunge/Powerline_Hum (5/10 in folder, 106s)
+[2026-10-03T02:03:56.614Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T02:03:56.615Z] FAIL Grunge/Powerline_Hum: Error in gemini_music_generate: page.goto: Target page, context or browser has been closed Call log: [2m  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"[22m 
+[2026-10-03T02:03:56.616Z] GEN Grunge/Cold_Coffee_Riot (5/10 in folder, 104s)
+[2026-10-03T02:03:56.651Z] FAIL Grunge/Cold_Coffee_Riot: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:56.653Z] GEN Grunge/Overcast_Anthem (5/10 in folder, 96s)
+[2026-10-03T02:03:56.657Z] FAIL Grunge/Overcast_Anthem: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T02:03:56.658Z] GEN Grunge/Wet_Leaves (5/10 in folder, 90s)
+[2026-10-03T18:23:15.552Z] GEN ClassicRock/Barnburner_Boogie (1/10 in folder, 94s)
+[2026-10-03T18:28:57.847Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T18:29:43.642Z] server stderr: [gemini-music] audio UI present 36s after send; trying download
+[2026-10-03T18:29:46.442Z] OK ClassicRock/Barnburner_Boogie: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Barnburner_Boogie.mp3 (290
+[2026-10-03T18:29:46.444Z] GEN ClassicRock/Smoke_On_The_Ridge (2/10 in folder, 103s)
+[2026-10-03T18:36:32.253Z] FAIL ClassicRock/Smoke_On_The_Ridge: No track was downloaded within 400s (waiting for audio to appear). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Smoke_On_The_Ridge_failed.png. Run gemini_music_inspect to see wha
+[2026-10-03T18:36:32.254Z] GEN ClassicRock/Silver_Pickup (2/10 in folder, 103s)
+[2026-10-03T18:39:45.529Z] server stderr: [gemini-music] audio UI present 181s after send; trying download
+[2026-10-03T18:39:48.479Z] OK ClassicRock/Silver_Pickup: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Silver_Pickup.mp3 (3184 KB
+[2026-10-03T18:39:48.480Z] GEN ClassicRock/Thunderhead_Blues (3/10 in folder, 103s)
+[2026-10-03T18:41:21.112Z] server stderr: [gemini-music] audio UI present 80s after send; trying download
+[2026-10-03T18:41:22.801Z] OK ClassicRock/Thunderhead_Blues: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Thunderhead_Blues.mp3 (318
+[2026-10-03T18:41:22.802Z] GEN ClassicRock/Steel_Town_Anthem (4/10 in folder, 108s)
+[2026-10-03T18:43:19.365Z] server stderr: [gemini-music] audio UI present 104s after send; trying download
+[2026-10-03T18:43:21.137Z] OK ClassicRock/Steel_Town_Anthem: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Steel_Town_Anthem.mp3 (356
+[2026-10-03T18:43:21.138Z] GEN ClassicRock/Backwoods_Rambler (5/10 in folder, 95s)
+[2026-10-03T18:44:25.468Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T18:44:26.883Z] OK ClassicRock/Backwoods_Rambler: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Backwoods_Rambler.mp3 (298
+[2026-10-03T18:44:26.884Z] GEN ClassicRock/Midnight_Freight (6/10 in folder, 115s)
+[2026-10-03T18:45:31.340Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T18:45:33.027Z] OK ClassicRock/Midnight_Freight: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Midnight_Freight.mp3 (3413
+[2026-10-03T18:45:33.028Z] GEN ClassicRock/Copper_Sunrise (7/10 in folder, 102s)
+[2026-10-03T18:50:10.930Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T18:50:10.930Z] server stderr: [gemini-music] browser closed mid-run (1) — relaunching: page.evaluate: Target page, context or browser has been closed
+[2026-10-03T18:50:17.861Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T18:50:18.997Z] server stderr: [gemini-music] browser closed mid-run (2) — relaunching: page.waitForSelector: Target page, context or browser has been closed
+[2026-10-03T18:50:29.644Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T18:50:29.645Z] server stderr: [gemini-music] browser closed mid-run (3) — relaunching: keyboard.type: Target page, context or browser has been closed
+[2026-10-03T18:50:33.861Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T18:50:33.861Z] FAIL ClassicRock/Copper_Sunrise: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T18:50:33.863Z] GEN ClassicRock/Last_Exit_Riff (7/10 in folder, 91s)
+[2026-10-03T18:50:33.887Z] FAIL ClassicRock/Last_Exit_Riff: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T18:50:33.889Z] GEN Grunge/Basement_Amp (5/10 in folder, 101s)
+[2026-10-03T18:50:33.903Z] FAIL Grunge/Basement_Amp: Error in gemini_music_generate: browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+[2026-10-03T18:50:33.904Z] GEN Grunge/Grey_Sky_Garage (5/10 in folder, 116s)
+[2026-10-03T18:50:35.335Z] server stderr: [gemini-music] page closed (tabs left=0)
+[2026-10-03T18:50:35.336Z] FAIL Grunge/Grey_Sky_Garage: Error in gemini_music_generate: page.waitForTimeout: Target page, context or browser has been closed
+[2026-10-03T18:50:35.337Z] GEN Grunge/Sludge_Creek (5/10 in folder, 116s)
+[2026-10-03T18:50:35.452Z] server stderr: [gemini-music] new tab opened: about:blank (tabs=1)
+[2026-10-03T19:59:17.004Z] GEN ClassicRock/Smoke_On_The_Ridge (7/10 in folder, 92s)
+[2026-10-03T20:00:27.025Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-03T20:00:29.333Z] OK ClassicRock/Smoke_On_The_Ridge: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Smoke_On_The_Ridge.mp3 (28
+[2026-10-03T20:00:29.335Z] GEN ClassicRock/Copper_Sunrise (8/10 in folder, 95s)
+[2026-10-03T20:00:50.304Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T20:01:32.051Z] server stderr: [gemini-music] audio UI present 32s after send; trying download
+[2026-10-03T20:01:33.326Z] OK ClassicRock/Copper_Sunrise: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Copper_Sunrise.mp3 (2615 K
+[2026-10-03T20:01:33.327Z] GEN ClassicRock/Last_Exit_Riff (9/10 in folder, 95s)
+[2026-10-03T20:02:37.901Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T20:02:39.317Z] OK ClassicRock/Last_Exit_Riff: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\ClassicRock\Last_Exit_Riff.mp3 (3024 K
+[2026-10-03T20:02:39.319Z] GEN Grunge/Basement_Amp (5/10 in folder, 95s)
+[2026-10-03T20:05:44.085Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T20:06:25.603Z] server stderr: [gemini-music] Gemini failed to generate (attempt 2) — retrying in a fresh chat
+[2026-10-03T20:07:07.358Z] server stderr: [gemini-music] audio UI present 32s after send; trying download
+[2026-10-03T20:07:09.207Z] OK Grunge/Basement_Amp: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Basement_Amp.mp3 (2845 KB, via 
+[2026-10-03T20:07:09.208Z] GEN Grunge/Grey_Sky_Garage (6/10 in folder, 104s)
+[2026-10-03T20:11:02.205Z] server stderr: [gemini-music] audio UI present 221s after send; trying download
+[2026-10-03T20:11:04.271Z] OK Grunge/Grey_Sky_Garage: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Grey_Sky_Garage.mp3 (3714 KB, v
+[2026-10-03T20:11:04.272Z] GEN Grunge/Sludge_Creek (7/10 in folder, 94s)
+[2026-10-03T20:12:16.633Z] server stderr: [gemini-music] audio UI present 60s after send; trying download
+[2026-10-03T20:12:17.967Z] OK Grunge/Sludge_Creek: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Sludge_Creek.mp3 (2893 KB, via 
+[2026-10-03T20:12:17.967Z] GEN Grunge/Thrift_Store_Halo (8/10 in folder, 91s)
+[2026-10-03T20:13:58.617Z] server stderr: [gemini-music] audio UI present 88s after send; trying download
+[2026-10-03T20:14:00.012Z] OK Grunge/Thrift_Store_Halo: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Thrift_Store_Halo.mp3 (2767 KB,
+[2026-10-03T20:14:00.013Z] GEN Grunge/Powerline_Hum (9/10 in folder, 114s)
+[2026-10-03T20:15:12.220Z] server stderr: [gemini-music] audio UI present 60s after send; trying download
+[2026-10-03T20:15:13.857Z] OK Grunge/Powerline_Hum: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Grunge\Powerline_Hum.mp3 (3226 KB, via
+[2026-10-03T20:15:13.858Z] GEN Punk/Three_Chord_Sunrise (0/10 in folder, 98s)
+[2026-10-03T20:17:26.972Z] server stderr: [gemini-music] audio UI present 120s after send; trying download
+[2026-10-03T20:17:28.564Z] OK Punk/Three_Chord_Sunrise: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Three_Chord_Sunrise.mp3 (3503 KB,
+[2026-10-03T20:17:28.565Z] GEN Punk/Skate_The_Silo (1/10 in folder, 113s)
+[2026-10-03T20:19:33.390Z] server stderr: [gemini-music] audio UI present 112s after send; trying download
+[2026-10-03T20:19:35.032Z] OK Punk/Skate_The_Silo: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Skate_The_Silo.mp3 (3479 KB, via 
+[2026-10-03T20:19:35.032Z] GEN Punk/Chicken_Wire_Fence (2/10 in folder, 115s)
+[2026-10-03T20:20:59.745Z] server stderr: [gemini-music] audio UI present 72s after send; trying download
+[2026-10-03T20:21:01.443Z] OK Punk/Chicken_Wire_Fence: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Chicken_Wire_Fence.mp3 (3536 KB, 
+[2026-10-03T20:21:01.443Z] GEN Punk/Mohawk_Mower (3/10 in folder, 111s)
+[2026-10-03T20:21:57.809Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-03T20:21:59.691Z] OK Punk/Mohawk_Mower: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Mohawk_Mower.mp3 (3516 KB, via me
+[2026-10-03T20:21:59.692Z] GEN Punk/Pogo_In_The_Pasture (4/10 in folder, 112s)
+[2026-10-03T20:23:03.958Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T20:23:05.629Z] OK Punk/Pogo_In_The_Pasture: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Pogo_In_The_Pasture.mp3 (3638 KB,
+[2026-10-03T20:23:05.630Z] GEN Punk/Spray_Paint_Barn (5/10 in folder, 100s)
+[2026-10-03T20:24:42.113Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T20:25:31.667Z] server stderr: [gemini-music] audio UI present 40s after send; trying download
+[2026-10-03T20:25:33.183Z] OK Punk/Spray_Paint_Barn: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Spray_Paint_Barn.mp3 (3161 KB, vi
+[2026-10-03T20:25:33.184Z] GEN Punk/Safety_Pin_Sky (6/10 in folder, 105s)
+[2026-10-03T20:26:29.492Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-03T20:26:31.087Z] OK Punk/Safety_Pin_Sky: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Safety_Pin_Sky.mp3 (3215 KB, via 
+[2026-10-03T20:26:31.088Z] GEN Punk/Combat_Boots_Mud (7/10 in folder, 104s)
+[2026-10-03T20:29:59.633Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T20:34:37.597Z] server stderr: [gemini-music] audio UI present 269s after send; trying download
+[2026-10-03T20:34:39.735Z] OK Punk/Combat_Boots_Mud: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Combat_Boots_Mud.mp3 (3761 KB, vi
+[2026-10-03T20:34:39.736Z] GEN Punk/Duct_Tape_Dreams (8/10 in folder, 102s)
+[2026-10-03T20:36:16.676Z] server stderr: [gemini-music] audio UI present 84s after send; trying download
+[2026-10-03T20:36:18.321Z] OK Punk/Duct_Tape_Dreams: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Duct_Tape_Dreams.mp3 (3226 KB, vi
+[2026-10-03T20:36:18.322Z] GEN Punk/Last_Bus_Riot (9/10 in folder, 103s)
+[2026-10-03T20:37:39.178Z] server stderr: [gemini-music] audio UI present 68s after send; trying download
+[2026-10-03T20:37:40.724Z] OK Punk/Last_Bus_Riot: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Punk\Last_Bus_Riot.mp3 (3137 KB, via m
+[2026-10-03T20:37:40.724Z] PASS 1 done - second pass picks up anything still short
+[2026-10-03T20:37:40.729Z] ALL DONE generated=18 failed=0 counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10
+[2026-10-03T21:42:34.828Z] GEN 80sGlamRock/Hairspray_Highway (0/10 in folder, 119s)
+[2026-10-03T21:45:02.223Z] server stderr: [gemini-music] audio UI present 132s after send; trying download
+[2026-10-03T21:45:05.185Z] OK 80sGlamRock/Hairspray_Highway: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Hairspray_Highway.mp3 (336
+[2026-10-03T21:45:05.187Z] GEN 80sGlamRock/Neon_Leather_Nights (1/10 in folder, 98s)
+[2026-10-03T21:47:19.178Z] server stderr: [gemini-music] audio UI present 120s after send; trying download
+[2026-10-03T21:47:21.442Z] OK 80sGlamRock/Neon_Leather_Nights: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Neon_Leather_Nights.mp3 (2
+[2026-10-03T21:47:21.443Z] GEN 80sGlamRock/Lipstick_And_Lightning (2/10 in folder, 116s)
+[2026-10-03T21:48:58.788Z] server stderr: [gemini-music] audio UI present 84s after send; trying download
+[2026-10-03T21:49:00.983Z] OK 80sGlamRock/Lipstick_And_Lightning: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Lipstick_And_Lightning.mp3
+[2026-10-03T21:49:00.985Z] GEN 80sGlamRock/Spandex_Sunset (3/10 in folder, 119s)
+[2026-10-03T21:49:50.533Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T21:50:37.506Z] server stderr: [gemini-music] audio UI present 36s after send; trying download
+[2026-10-03T21:50:39.449Z] OK 80sGlamRock/Spandex_Sunset: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Spandex_Sunset.mp3 (3614 K
+[2026-10-03T21:50:39.451Z] GEN 80sGlamRock/Backstage_Thunder (4/10 in folder, 113s)
+[2026-10-03T21:53:05.002Z] server stderr: [gemini-music] audio UI present 132s after send; trying download
+[2026-10-03T21:53:06.983Z] OK 80sGlamRock/Backstage_Thunder: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Backstage_Thunder.mp3 (346
+[2026-10-03T21:53:06.984Z] GEN 80sGlamRock/Glitter_On_The_Tractor (5/10 in folder, 115s)
+[2026-10-03T21:54:12.040Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T21:54:14.293Z] OK 80sGlamRock/Glitter_On_The_Tractor: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Glitter_On_The_Tractor.mp3
+[2026-10-03T21:54:14.294Z] GEN 80sGlamRock/Tease_The_Radio (6/10 in folder, 101s)
+[2026-10-03T21:55:11.582Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T21:56:02.022Z] server stderr: [gemini-music] audio UI present 40s after send; trying download
+[2026-10-03T21:56:03.835Z] OK 80sGlamRock/Tease_The_Radio: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Tease_The_Radio.mp3 (3101 
+[2026-10-03T21:56:03.836Z] GEN 80sGlamRock/Midnight_Marquee (7/10 in folder, 100s)
+[2026-10-03T21:56:37.108Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T21:57:27.578Z] server stderr: [gemini-music] audio UI present 40s after send; trying download
+[2026-10-03T21:57:29.460Z] OK 80sGlamRock/Midnight_Marquee: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Midnight_Marquee.mp3 (3540
+[2026-10-03T21:57:29.461Z] GEN 80sGlamRock/Whammy_Bar_Heart (8/10 in folder, 105s)
+[2026-10-03T21:59:46.600Z] server stderr: [gemini-music] audio UI present 124s after send; trying download
+[2026-10-03T21:59:49.015Z] OK 80sGlamRock/Whammy_Bar_Heart: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Whammy_Bar_Heart.mp3 (3269
+[2026-10-03T21:59:49.017Z] GEN 80sGlamRock/Encore_In_Chrome (9/10 in folder, 106s)
+[2026-10-03T22:00:58.671Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T22:01:57.750Z] server stderr: [gemini-music] audio UI present 48s after send; trying download
+[2026-10-03T22:01:59.795Z] OK 80sGlamRock/Encore_In_Chrome: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\80sGlamRock\Encore_In_Chrome.mp3 (3185
+[2026-10-03T22:01:59.797Z] GEN Synthwave/Sunset_Grid (0/10 in folder, 108s)
+[2026-10-03T22:06:17.994Z] server stderr: [gemini-music] audio UI present 245s after send; trying download
+[2026-10-03T22:06:20.682Z] OK Synthwave/Sunset_Grid: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Sunset_Grid.mp3 (3441 KB, vi
+[2026-10-03T22:06:20.683Z] GEN Synthwave/Midnight_Overdrive (1/10 in folder, 118s)
+[2026-10-03T22:07:17.873Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-03T22:07:20.003Z] OK Synthwave/Midnight_Overdrive: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Midnight_Overdrive.mp3 (3524
+[2026-10-03T22:07:20.004Z] GEN Synthwave/Chrome_Horizon (2/10 in folder, 100s)
+[2026-10-03T22:08:32.857Z] server stderr: [gemini-music] audio UI present 60s after send; trying download
+[2026-10-03T22:08:34.411Z] OK Synthwave/Chrome_Horizon: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Chrome_Horizon.mp3 (3054 KB,
+[2026-10-03T22:08:34.412Z] GEN Synthwave/Laser_Orchard (3/10 in folder, 98s)
+[2026-10-03T22:09:31.394Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-03T22:09:33.003Z] OK Synthwave/Laser_Orchard: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Laser_Orchard.mp3 (2986 KB, 
+[2026-10-03T22:09:33.004Z] GEN Synthwave/VHS_Rain (4/10 in folder, 117s)
+[2026-10-03T22:10:38.095Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T22:10:39.927Z] OK Synthwave/VHS_Rain: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\VHS_Rain.mp3 (3672 KB, via m
+[2026-10-03T22:10:39.928Z] GEN Synthwave/Pixel_Coast (5/10 in folder, 102s)
+[2026-10-03T22:12:33.266Z] server stderr: [gemini-music] audio UI present 100s after send; trying download
+[2026-10-03T22:12:35.215Z] OK Synthwave/Pixel_Coast: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Pixel_Coast.mp3 (3242 KB, vi
+[2026-10-03T22:12:35.216Z] GEN Synthwave/Turbo_Dawn (6/10 in folder, 95s)
+[2026-10-03T22:13:40.327Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-03T22:13:41.952Z] OK Synthwave/Turbo_Dawn: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Turbo_Dawn.mp3 (2830 KB, via
+[2026-10-03T22:13:41.953Z] GEN Synthwave/Neon_Silo (7/10 in folder, 105s)
+[2026-10-03T22:16:15.706Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T22:17:01.912Z] server stderr: [gemini-music] audio UI present 36s after send; trying download
+[2026-10-03T22:17:04.035Z] OK Synthwave/Neon_Silo: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Neon_Silo.mp3 (4020 KB, via 
+[2026-10-03T22:17:04.036Z] GEN Synthwave/Starlight_Cassette (8/10 in folder, 97s)
+[2026-10-03T22:24:18.229Z] server stderr: [gemini-music] audio UI present 421s after send; trying download
+[2026-10-03T22:24:20.765Z] OK Synthwave/Starlight_Cassette: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Starlight_Cassette.mp3 (2850
+[2026-10-03T22:24:20.766Z] GEN Synthwave/Arcade_Afterglow (9/10 in folder, 104s)
+[2026-10-03T22:26:21.733Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-03T22:27:04.170Z] server stderr: [gemini-music] audio UI present 32s after send; trying download
+[2026-10-03T22:27:06.618Z] OK Synthwave/Arcade_Afterglow: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Synthwave\Arcade_Afterglow.mp3 (3554 K
+[2026-10-03T22:27:06.618Z] PASS 1 done - second pass picks up anything still short
+[2026-10-03T22:27:06.625Z] ALL DONE generated=20 failed=0 counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10
+[2026-10-03T22:33:49.526Z] GEN WinterHoliday/First_Snow_On_The_Barn (0/10 in folder, 105s)
+[2026-10-03T22:36:13.910Z] server stderr: [gemini-music] audio UI present 128s after send; trying download
+[2026-10-03T22:36:16.598Z] OK WinterHoliday/First_Snow_On_The_Barn: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\First_Snow_On_The_Barn.m
+[2026-10-03T22:36:16.600Z] GEN WinterHoliday/Sleigh_Bell_Lane (1/10 in folder, 119s)
+[2026-10-03T22:36:35.712Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T22:36:35.713Z] QUOTA WinterHoliday/Sleigh_Bell_Lane: Gemini music limit reached - aborting this run
+[2026-10-03T22:36:35.716Z] ALL DONE generated=1 failed=1 quota-limit-reached counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=1
+[2026-10-03T22:36:35.717Z] Unresolved: WinterHoliday/Sleigh_Bell_Lane
+[2026-10-03T23:06:36.645Z] GEN WinterHoliday/Sleigh_Bell_Lane (1/10 in folder, 103s)
+[2026-10-03T23:06:57.384Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T23:06:57.385Z] QUOTA WinterHoliday/Sleigh_Bell_Lane: Gemini music limit reached - aborting this run
+[2026-10-03T23:06:57.388Z] ALL DONE generated=0 failed=1 quota-limit-reached counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=1
+[2026-10-03T23:06:57.389Z] Unresolved: WinterHoliday/Sleigh_Bell_Lane
+[2026-10-03T23:16:39.687Z] GEN WinterHoliday/Sleigh_Bell_Lane (1/10 in folder, 112s)
+[2026-10-03T23:16:56.414Z] FAIL WinterHoliday/Sleigh_Bell_Lane: Error in gemini_music_generate: Gemini prompt was not visibly entered; refusing to submit
+[2026-10-03T23:16:56.415Z] GEN WinterHoliday/Woodstove_And_Cocoa (1/10 in folder, 97s)
+[2026-10-03T23:17:15.698Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-03T23:17:15.698Z] QUOTA WinterHoliday/Woodstove_And_Cocoa: Gemini music limit reached - aborting this run
+[2026-10-03T23:17:15.701Z] ALL DONE generated=0 failed=2 quota-limit-reached counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=1
+[2026-10-03T23:17:15.701Z] Unresolved: WinterHoliday/Sleigh_Bell_Lane, WinterHoliday/Woodstove_And_Cocoa
+[2026-10-04T00:17:50.394Z] GEN WinterHoliday/Sleigh_Bell_Lane (1/10 in folder, 94s)
+[2026-10-04T00:18:11.532Z] server stderr: [gemini-music] Gemini music generation limit reached; stopping without retrying. Wait for the limit to reset.
+[2026-10-04T00:18:11.534Z] QUOTA WinterHoliday/Sleigh_Bell_Lane: Gemini music limit reached - aborting this run
+[2026-10-04T00:18:11.547Z] ALL DONE generated=0 failed=1 quota-limit-reached incomplete counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=1
+[2026-10-04T00:18:11.547Z] Unresolved: WinterHoliday/Sleigh_Bell_Lane
+[2026-10-04T01:18:12.368Z] GEN WinterHoliday/Sleigh_Bell_Lane (1/10 in folder, 95s)
+[2026-10-04T01:19:12.968Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-04T01:19:15.861Z] OK WinterHoliday/Sleigh_Bell_Lane: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Sleigh_Bell_Lane.mp3 (29
+[2026-10-04T01:19:15.862Z] GEN WinterHoliday/Woodstove_And_Cocoa (2/10 in folder, 93s)
+[2026-10-04T01:20:47.590Z] server stderr: [gemini-music] audio UI present 76s after send; trying download
+[2026-10-04T01:20:49.299Z] OK WinterHoliday/Woodstove_And_Cocoa: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Woodstove_And_Cocoa.mp3 
+[2026-10-04T01:20:49.300Z] GEN WinterHoliday/Lantern_Parade (3/10 in folder, 105s)
+[2026-10-04T01:30:54.508Z] FAIL WinterHoliday/Lantern_Parade: No track was downloaded within 600s (waiting for audio to appear). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Lantern_Parade_failed.png. Run gemini_music_inspect to see what 
+[2026-10-04T01:30:54.509Z] GEN WinterHoliday/Frosted_Windowpane (3/10 in folder, 106s)
+[2026-10-04T01:40:59.236Z] FAIL WinterHoliday/Frosted_Windowpane: No track was downloaded within 600s (waiting for audio to appear). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Frosted_Windowpane_failed.png. Run gemini_music_inspect to see w
+[2026-10-04T01:40:59.237Z] GEN WinterHoliday/Tinsel_Tractor_Boogie (3/10 in folder, 105s)
+[2026-10-04T01:41:36.709Z] GEN WinterHoliday/Lantern_Parade (3/10 in folder, 119s)
+[2026-10-04T01:42:48.282Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-04T01:42:51.460Z] OK WinterHoliday/Lantern_Parade: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Lantern_Parade.mp3 (3856
+[2026-10-04T01:42:51.462Z] GEN WinterHoliday/Frosted_Windowpane (4/10 in folder, 92s)
+[2026-10-04T01:43:45.549Z] server stderr: [gemini-music] audio UI present 40s after send; trying download
+[2026-10-04T01:43:46.936Z] OK WinterHoliday/Frosted_Windowpane: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Frosted_Windowpane.mp3 (
+[2026-10-04T01:43:46.938Z] GEN WinterHoliday/Tinsel_Tractor_Boogie (5/10 in folder, 115s)
+[2026-10-04T01:44:57.484Z] server stderr: [gemini-music] audio UI present 56s after send; trying download
+[2026-10-04T01:44:59.188Z] OK WinterHoliday/Tinsel_Tractor_Boogie: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Tinsel_Tractor_Boogie.mp
+[2026-10-04T01:44:59.190Z] GEN WinterHoliday/Evergreen_Waltz (6/10 in folder, 119s)
+[2026-10-04T01:45:57.617Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-04T01:45:59.340Z] OK WinterHoliday/Evergreen_Waltz: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Evergreen_Waltz.mp3 (349
+[2026-10-04T01:45:59.341Z] GEN WinterHoliday/Mittens_And_Maple (7/10 in folder, 115s)
+[2026-10-04T01:47:17.756Z] server stderr: [gemini-music] audio UI present 64s after send; trying download
+[2026-10-04T01:47:19.758Z] OK WinterHoliday/Mittens_And_Maple: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Mittens_And_Maple.mp3 (3
+[2026-10-04T01:47:19.759Z] GEN WinterHoliday/Midnight_Sparklers (8/10 in folder, 96s)
+[2026-10-04T01:55:19.524Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-04T01:56:15.280Z] server stderr: [gemini-music] audio UI present 44s after send; trying download
+[2026-10-04T01:56:17.015Z] OK WinterHoliday/Midnight_Sparklers: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Midnight_Sparklers.mp3 (
+[2026-10-04T01:56:17.016Z] GEN WinterHoliday/Long_Night_Hearth (9/10 in folder, 93s)
+[2026-10-04T01:57:43.860Z] server stderr: [gemini-music] audio UI present 72s after send; trying download
+[2026-10-04T01:57:45.282Z] OK WinterHoliday/Long_Night_Hearth: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Long_Night_Hearth.mp3 (2
+[2026-10-04T01:57:45.283Z] PASS 1 done - second pass picks up anything still short
+[2026-10-04T01:57:45.290Z] ALL DONE generated=7 failed=0 counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=10

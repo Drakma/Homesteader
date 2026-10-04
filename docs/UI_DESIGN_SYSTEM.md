@@ -56,6 +56,8 @@ Surfaces (dark to light):
 | `--c-panel` | rgb(43, 52, 66) | Window, card and modal bodies |
 | `--c-raised` | rgb(61, 74, 92) | Borders, hover fill on slate buttons, dividers |
 | `--c-rim` | rgb(92, 102, 117) | Top-edge highlight on windows, disabled borders |
+| `--c-blueprint` | #35637C = rgb(53, 99, 124) | The background of every BLUEPRINT item (structures, paths, roads): its toolbar slot and its shop icon box. A blueprint is bought once, starts a build, and is never used up. Only blueprints use this blue |
+| `--c-blueprint` | #35637C = rgb(53, 99, 124) | The background of every BLUEPRINT item (structures, paths, roads): its toolbar slot and its shop icon box. A blueprint is bought once, starts a build, and is never used up. Only blueprints use this blue |
 
 Text:
 

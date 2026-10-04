@@ -3,7 +3,7 @@
   "id": "crop_withered_pumpkin",
   "name": "Pumpkin (Withered)",
   "category": "farming",
-  "description": "A withered stage pumpkin plant.",
+  "description": "The withered look of a pumpkin plant.",
   "icon": "crop_withered_pumpkin.png",
   "properties": {
     "weight_kg": 0.5,
@@ -20,7 +20,8 @@
   "models": [
     {
       "file": "crop_withered_pumpkin.glb",
-      "format": "glb"
+      "format": "glb",
+      "triangles": 240
     }
   ],
   "utilities": {
@@ -53,9 +54,9 @@
   "category_fields": {
     "crop_species": "pumpkin",
     "dimensions_m": {
-      "width": 0.64,
-      "depth": 0.47,
-      "height": 0.76
+      "width": 1.534,
+      "depth": 1.535,
+      "height": 0.771
     }
   }
 }

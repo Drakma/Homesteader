@@ -1,0 +1,14 @@
+{
+  "file": "Long_Night_Hearth.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 93 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 93 seconds, not cut off mid-song and with NO fade-out. Slow warm jazz winter instrumental, 66 BPM: brushed drums, upright bass, mellow muted trumpet melody, soft piano comping, vibraphone shimmer, late night by the hearth on the longest night of the year. Entirely original melody that is not based on any existing song. Cozy wintertime mood.",
+  "requested_prompt": "Slow warm jazz winter instrumental, 66 BPM: brushed drums, upright bass, mellow muted trumpet melody, soft piano comping, vibraphone shimmer, late night by the hearth on the longest night of the year. Entirely original melody that is not based on any existing song. Cozy wintertime mood.",
+  "requested_duration_seconds": 93,
+  "generated_at": "2026-10-04T01:57:45.281Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Long_Night_Hearth.mp4",
+  "bytes": 2749927,
+  "sha256": "cbdddf704ba0a5f4867a12768e77dbf9151a132664c40d31c70b4ca24bcbea1c",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}
