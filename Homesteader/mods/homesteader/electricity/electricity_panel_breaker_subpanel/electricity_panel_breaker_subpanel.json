@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "attach_surface": "wall",
     "attach_side": "exterior",
-    "provides_power": true
+    "provides_power": true,
+    "wire_role": "ac_panel"
   },
   "models": [
     {

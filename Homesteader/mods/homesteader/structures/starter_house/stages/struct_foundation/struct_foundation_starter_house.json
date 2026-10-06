@@ -69,7 +69,9 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "any_of": [
+        "section": "",
+        "mode": "any",
+        "items": [
           {
             "item_id": "80lb_cement_bag",
             "quantity": 10
@@ -83,7 +85,7 @@
             "quantity": 5
           },
           {
-            "item_id": "post_wood_round_6inch",
+            "item_id": "~post_wood_round_6inch",
             "quantity": 12
           }
         ]

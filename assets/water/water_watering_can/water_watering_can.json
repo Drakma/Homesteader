@@ -82,7 +82,8 @@
   "liquid_container": {
     "capacity_l": 9,
     "accepts": [
-      "liquid_water"
+      "liquid_water",
+      "liquid_water_raw"
     ]
   }
 }

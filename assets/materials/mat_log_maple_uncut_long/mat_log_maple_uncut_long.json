@@ -24,7 +24,8 @@
     "look_target": "walls",
     "look_color": "#b88a55",
     "look_smoothness": 0.2,
-    "look_metallic": 0.0
+    "look_metallic": 0.0,
+    "display_weight": true
   },
   "models": [
     {

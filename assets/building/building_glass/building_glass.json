@@ -20,9 +20,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "building_glass.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.22,
+        "y": 0.01,
+        "z": 1.52
+      },
+      "triangles": 108
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 0.01,
-      "height": 1.5
+      "width": 1.22,
+      "depth": 1.52,
+      "height": 0.01
     }
   }
 }

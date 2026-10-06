@@ -3,12 +3,12 @@
   "id": "sheet_drywall_stack_large",
   "name": "Large Drywall Stack",
   "category": "building",
-  "description": "A large stack of drywall sheets.",
+  "description": "A strapped stack of 25 drywall sheets on a pallet.",
   "icon": "sheet_drywall_stack_large.png",
   "properties": {
-    "weight_kg": 240.0,
+    "weight_kg": 577.5,
     "max_stack_size": 2,
-    "base_value": 55,
+    "base_value": 270,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -20,9 +20,23 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "pack_quantity": 25,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "sheet_drywall_stack_large.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.24,
+        "y": 0.461,
+        "z": 2.44
+      },
+      "triangles": 204
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +76,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 2.4,
-      "height": 0.6
+      "width": 1.24,
+      "depth": 2.44,
+      "height": 0.461
     }
   }
 }

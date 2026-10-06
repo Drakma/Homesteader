@@ -47,10 +47,42 @@ namespace Homesteader.Growth
                 return;
             }
             if (!_shown) SetShown(true);
+            EnsureBox();
 
             int sig = Signature(_placed.Contents);
             if (sig == _signature) return;
             if (Rebuild()) _signature = sig;   // not ready yet (the model is still loading): try again on the next tick
+        }
+
+        private bool _boxDone;
+
+        /// <summary>
+        /// A container with slots (a battery rack) is an open frame: a click between its posts would meet nothing. Once its model has loaded it gets one solid box over its whole
+        /// volume, so the batteries can be slid in (a right click anywhere on it) and it can be picked.
+        /// </summary>
+        private void EnsureBox()
+        {
+            if (_boxDone) return;
+            AssetCatalogItem info = HudBindings.GetCatalogItem(_placed.ItemId);
+            if (info == null || info.container_slot_pitch_m <= 0f) { _boxDone = true; return; }
+            bool any = false;
+            Bounds b = default;
+            foreach (MeshFilter mf in GetComponentsInChildren<MeshFilter>())
+            {
+                if (mf.sharedMesh == null || mf.name.StartsWith("Fill")) continue;
+                Bounds mb = mf.sharedMesh.bounds;
+                for (int i = 0; i < 8; i++)
+                {
+                    Vector3 corner = mb.center + new Vector3((i & 1) == 0 ? -mb.extents.x : mb.extents.x, (i & 2) == 0 ? -mb.extents.y : mb.extents.y, (i & 4) == 0 ? -mb.extents.z : mb.extents.z);
+                    Vector3 local = transform.InverseTransformPoint(mf.transform.TransformPoint(corner));
+                    if (!any) { b = new Bounds(local, Vector3.zero); any = true; } else b.Encapsulate(local);
+                }
+            }
+            if (!any) return;                       // the model has not loaded yet
+            var box = gameObject.AddComponent<BoxCollider>();
+            box.center = b.center;
+            box.size = b.size;
+            _boxDone = true;
         }
 
         private void SetShown(bool on)
@@ -76,6 +108,9 @@ namespace Homesteader.Growth
             List<ContainerStack> contents = _placed.Contents;
             if (contents == null || contents.Count == 0) return true;
             if (!EnsureInner()) return false;
+
+            AssetCatalogItem slotInfo = HudBindings.GetCatalogItem(_placed.ItemId);
+            if (slotInfo != null && slotInfo.container_slot_pitch_m > 0f) return BuildModels(slotInfo);   // a rack: the real items, one above the other
 
             float capacity = ContainerRules.Capacity(_placed.ItemId);
             if (capacity <= 0f) return true;
@@ -103,6 +138,56 @@ namespace Homesteader.Growth
                 y += h;
             }
             return true;
+        }
+
+        /// <summary>
+        /// A container with slots (a battery rack): every item inside is drawn as its own model, one above the other, the first at the slot start, each a slot pitch above
+        /// the one before, centred on the container. False while a model is still loading, so it is tried again.
+        /// </summary>
+        private bool BuildModels(AssetCatalogItem info)
+        {
+            float x = _inner.center.x, z = _inner.center.z;
+            float baseY = GetComponentInChildren<Renderer>() != null ? ModelBottom() : 0f;
+            int slot = 0;
+            foreach (ContainerStack c in _placed.Contents)
+            {
+                if (c == null || c.Count <= 0 || !ItemRegistry.TryGet(c.ItemId, out ItemRegistry.ItemInfo item) || item.Prefab == null) continue;
+                var glb = item.Prefab.GetComponent<Homesteader.Modding.GlbTemplate>();
+                if (glb != null)
+                {
+                    glb.EnsureLoading();
+                    if (glb.Failed) continue;
+                    if (!glb.Ready) return false;
+                }
+                for (int i = 0; i < c.Count; i++, slot++)
+                {
+                    GameObject m = Instantiate(item.Prefab, transform);
+                    m.name = "FillModel";
+                    m.SetActive(true);
+                    m.transform.localPosition = new Vector3(x, baseY + info.container_slot_start_m + slot * info.container_slot_pitch_m, z);
+                    m.transform.localRotation = Quaternion.identity;
+                    foreach (Collider col in m.GetComponentsInChildren<Collider>(true)) Destroy(col);
+                    _slabs.Add(m);
+                }
+            }
+            return true;
+        }
+
+        /// <summary>The lowest point of the container's own model in its local space.</summary>
+        private float ModelBottom()
+        {
+            float bottom = float.MaxValue;
+            foreach (MeshFilter mf in GetComponentsInChildren<MeshFilter>())
+            {
+                if (mf.sharedMesh == null || mf.name.StartsWith("Fill")) continue;
+                Bounds mb = mf.sharedMesh.bounds;
+                for (int i = 0; i < 8; i++)
+                {
+                    Vector3 corner = mb.center + new Vector3((i & 1) == 0 ? -mb.extents.x : mb.extents.x, (i & 2) == 0 ? -mb.extents.y : mb.extents.y, (i & 4) == 0 ? -mb.extents.z : mb.extents.z);
+                    bottom = Mathf.Min(bottom, transform.InverseTransformPoint(mf.transform.TransformPoint(corner)).y);
+                }
+            }
+            return bottom == float.MaxValue ? 0f : bottom;
         }
 
         private void BuildSlab(string itemId, float y, float h)
@@ -160,6 +245,14 @@ namespace Homesteader.Growth
             float floorThickness = 0.025f, rimGap = 0.02f;
             Vector3 min = new Vector3(b.min.x + inset, b.min.y + floorThickness, b.min.z + inset);
             Vector3 max = new Vector3(b.max.x - inset, b.max.y - rimGap, b.max.z - inset);
+            AssetCatalogItem info = HudBindings.GetCatalogItem(_placed.ItemId);
+            if (info != null && info.container_fill_region != null && info.container_fill_region.Length == 6)
+            {
+                // the manifest says where the opening is (fractions of the model's bounds): a wheelbarrow tub, not the whole barrow
+                float[] r = info.container_fill_region;
+                min = new Vector3(Mathf.Lerp(b.min.x, b.max.x, r[0]), Mathf.Lerp(b.min.y, b.max.y, r[2]), Mathf.Lerp(b.min.z, b.max.z, r[4]));
+                max = new Vector3(Mathf.Lerp(b.min.x, b.max.x, r[1]), Mathf.Lerp(b.min.y, b.max.y, r[3]), Mathf.Lerp(b.min.z, b.max.z, r[5]));
+            }
             if (max.x <= min.x || max.y <= min.y || max.z <= min.z) return false;
             _inner = new Bounds((min + max) * 0.5f, max - min);
             _hasInner = true;
@@ -287,7 +380,7 @@ namespace Homesteader.Growth
             _next = Time.unscaledTime + 0.25f;
             if (_player == null)
             {
-                var ped = FindAnyObjectByType<PedController>();
+                var ped = PedController.Current;
                 _player = ped != null ? ped.transform : null;
             }
             for (int i = Views.Count - 1; i >= 0; i--)

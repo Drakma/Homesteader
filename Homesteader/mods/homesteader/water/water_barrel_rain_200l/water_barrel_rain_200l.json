@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "water_barrel_rain_200l",
-  "name": "200L Rain Barrel",
+  "name": "Rain Barrel",
   "category": "water",
   "description": "Blue plastic barrel for collecting rainwater.",
   "icon": "water_barrel_rain_200l.png",
@@ -16,7 +16,9 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "display_weight": true,
+    "wire_role": "water_tank"
   },
   "models": [
     {
@@ -134,7 +136,8 @@
   "liquid_container": {
     "capacity_l": 200,
     "accepts": [
-      "liquid_water"
+      "liquid_water",
+      "liquid_water_raw"
     ]
   }
 }

@@ -112,7 +112,7 @@
           "shadows": {
             "type": "boolean",
             "default": false,
-            "note": "Cast shadows (costly; use sparingly)."
+            "note": "Ignored: every light is stopped by walls when the Graphics setting Light Occlusion is on."
           },
           "requires_power": {
             "type": "boolean",

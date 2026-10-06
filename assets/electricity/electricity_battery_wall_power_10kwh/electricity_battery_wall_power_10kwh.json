@@ -1,36 +1,43 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "electricity_battery_wall_power_10kwh",
-  "name": "Wall Power Battery (10kWh)",
+  "name": "Wall Power Battery, Medium",
   "category": "electricity",
-  "description": "Wall-mounted home battery cabinet.",
+  "description": "A 10 kWh LiFePO4 home battery that mounts on a building's wall (inside or outside): aim at a wall of a finished building and left click. 5 kW continuous.",
   "icon": "electricity_battery_wall_power_10kwh.png",
   "properties": {
-    "weight_kg": 100.0,
+    "weight_kg": 100,
     "max_stack_size": 1,
     "base_value": 6000,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.65m W x 0.15m D x 1.10m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true,
+    "placeable": false,
     "is_buyable": true,
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "wire_role": "battery",
+    "capacity_wh": 10000,
+    "voltage_v": 51.2
   },
   "models": [
     {
-      "file": "battery_wall_power_10kwh.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "battery_wall_power_10kwh.obj",
-      "format": "obj"
+      "file": "electricity_battery_wall_power_10kwh.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.65,
+        "y": 1.1,
+        "z": 0.15
+      },
+      "triangles": 1238
     }
   ],
   "utilities": {
@@ -47,8 +54,8 @@
       "details": "None (no waste discharge)"
     },
     "battery": {
-      "metric": "Deep-cycle LiFePO4 / AGM battery bank (10 kWh capacity, 95% round-trip efficiency)",
-      "details": "Deep-cycle LiFePO4 / AGM battery bank (10 kWh capacity, 95% round-trip efficiency)"
+      "metric": "10 kWh LiFePO4 (51.2 V), 5 kW continuous, about 6,000 cycles, 96% round trip",
+      "details": "10 kWh LiFePO4 (51.2 V), 5 kW continuous, about 6,000 cycles, 96% round trip"
     },
     "internet": {
       "metric": "None (offline / non-networked)",
@@ -72,13 +79,13 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.7,
-      "depth": 0.2,
-      "height": 1.2
+      "width": 0.65,
+      "depth": 0.15,
+      "height": 1.1
     },
     "fuel_type": "none",
     "fuel_consumption_l_per_min": 0,
-    "max_power_w": 0,
+    "max_power_w": 5000,
     "tank_capacity_l": 0
   }
 }

@@ -1,7 +1,5 @@
 # Round Straw Bale
 
-**Item ID:** `mat_bale_straw_round`  
-**Category:** `ranching`  
-**Icon:** ![Round Straw Bale](mat_bale_straw_round.png)
+A round rolled straw bale.
 
-Standardized Homesteader asset manifest for `mat_bale_straw_round`.
+Procedural model (tools/make_simple_props.py), 1920 triangles, 1.22 x 1.22 x 1.21 m. A net-wrapped round bale lying on its side, the roll showing on the ends.

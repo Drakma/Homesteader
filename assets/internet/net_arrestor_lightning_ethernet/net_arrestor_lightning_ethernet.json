@@ -10,7 +10,7 @@
     "max_stack_size": 5,
     "base_value": 30,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.11m W x 0.14m D x 0.05m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -25,12 +25,14 @@
   },
   "models": [
     {
-      "file": "arrestor_lightning_ethernet.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "arrestor_lightning_ethernet.obj",
-      "format": "obj"
+      "file": "net_arrestor_lightning_ethernet.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.111,
+        "y": 0.049,
+        "z": 0.142
+      },
+      "triangles": 140
     }
   ],
   "utilities": {
@@ -72,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.06,
-      "depth": 0.03,
-      "height": 0.03
+      "width": 0.11,
+      "depth": 0.14,
+      "height": 0.05
     },
     "power_draw_w": 0,
     "bandwidth_mbps": 0,

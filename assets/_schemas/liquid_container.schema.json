@@ -3,7 +3,7 @@
   "component": true,
   "title": "Liquid Container",
   "target": "liquid_container",
-  "note": "A COMPONENT schema, added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'liquid_container' block. The asset holds ONE kind of liquid (an asset of the liquids category) at a time, up to capacity_l litres; the liquid weighs litres x its weight_kg per litre. Buckets, jugs, jerry cans, drums, barrels and tanks use it. It is separate from the 'container' component, which holds solid items by weight. Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1).",
+  "note": "A COMPONENT schema, added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'liquid_container' block. The asset holds ONE kind of liquid (an asset of the liquids category) at a time, up to capacity_l liters; the liquid weighs liters x its weight_kg per liter. Buckets, jugs, jerry cans, drums, barrels and tanks use it. It is separate from the 'container' component, which holds solid items by weight. A container can come full: filled_with and filled_l say what is in it when it is bought. Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1).",
   "on_add": {
     "properties.max_stack_size": 1
   },
@@ -14,7 +14,7 @@
       "min": 0.01,
       "default": 10,
       "label": "Capacity (L)",
-      "note": "The most litres this container holds."
+      "note": "The most liters this container holds."
     },
     "accepts": {
       "type": "array",
@@ -22,6 +22,19 @@
       "editor": "item_refs",
       "label": "Accepts",
       "note": "Which liquids it takes: tags (#liquid_fuel, #liquid_dairy, #liquid_oil, #liquid) and/or exact liquid assets, chosen with the asset picker. Empty = any liquid."
+    },
+    "filled_with": {
+      "type": "string",
+      "required": false,
+      "label": "Comes Filled With",
+      "note": "A container that is SOLD FULL (a jug of drinking water, a can of fuel): the liquid asset it holds when bought (liquid_water, liquid_gasoline ...). Leave empty for a container that is sold empty. Must be a liquid the container accepts."
+    },
+    "filled_l": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Filled Liters",
+      "note": "How many liters of filled_with it holds when bought (its capacity for a full one). 0 or empty with filled_with set means full."
     }
   }
 }

@@ -4,7 +4,6 @@
     "flooring": [
       "part_floor_wood_1m",
       "part_floor_stone_1m",
-      "sheet_plywood_cdx",
       "building_floor_carpet_beige",
       "building_floor_carpet_grey",
       "building_floor_carpet_brown",
@@ -21,11 +20,6 @@
       "sheet_osb_stack_large",
       "sheet_plywood_cdx"
     ],
-    "framing_lumber": [
-      "lumber_stud_2x4",
-      "lumber_bundle_2x4_small",
-      "lumber_bundle_2x4_large"
-    ],
     "roofing": [
       "roofing_shingles_bundle",
       "roofing_steel_corrugated",
@@ -39,7 +33,10 @@
       "roofing_seam_red",
       "roofing_seam_green",
       "roofing_seam_black",
-      "roofing_thatch"
+      "roofing_thatch",
+      "roofing_steel_corrugated_red",
+      "roofing_steel_corrugated_green",
+      "roofing_steel_corrugated_black"
     ],
     "romex_wire": [
       "item_spool_romex_12_2",
@@ -55,7 +52,10 @@
       "building_steel_frame_beam"
     ],
     "metal_siding": [
-      "building_steel_siding_corrugated"
+      "building_steel_siding_corrugated",
+      "building_steel_siding_corrugated_red",
+      "building_steel_siding_corrugated_green",
+      "building_steel_siding_corrugated_black"
     ],
     "tool_axe": [
       "tool_axe",
@@ -64,7 +64,8 @@
     ],
     "tool_chainsaw": [
       "tool_cordless_chainsaw_16",
-      "tool_chainsaw_gas_20"
+      "tool_chainsaw_gas_20",
+      "tool_chainsaw_gas_16"
     ],
     "tool_wheelbarrow": [
       "tool_plastic_wheelbarrow",
@@ -260,24 +261,12 @@
       "building_siding_weathered_grey",
       "building_siding_charcoal_batten",
       "building_siding_brick_veneer",
-      "building_siding_stucco_tan"
+      "building_siding_stucco_tan",
+      "building_steel_siding_corrugated_red",
+      "building_steel_siding_corrugated_green",
+      "building_steel_siding_corrugated_black"
     ],
     "brick": [
-      "masonry_brick_red",
-      "masonry_brick_brown",
-      "masonry_brick_tan",
-      "masonry_brick_white",
-      "masonry_brick_grey",
-      "masonry_brick_charcoal",
-      "masonry_brick_salmon",
-      "masonry_brick_rust",
-      "masonry_brick_dark_red",
-      "masonry_brick_oxblood",
-      "masonry_brick_old_mill",
-      "masonry_brick_pressed_red"
-    ],
-    "chimney_masonry": [
-      "masonry_brick_red",
       "masonry_brick_brown",
       "masonry_brick_tan",
       "masonry_brick_white",
@@ -289,7 +278,22 @@
       "masonry_brick_oxblood",
       "masonry_brick_old_mill",
       "masonry_brick_pressed_red",
-      "masonry_fieldstone"
+      "masonry_brick_red"
+    ],
+    "chimney_masonry": [
+      "masonry_brick_brown",
+      "masonry_brick_tan",
+      "masonry_brick_white",
+      "masonry_brick_grey",
+      "masonry_brick_charcoal",
+      "masonry_brick_salmon",
+      "masonry_brick_rust",
+      "masonry_brick_dark_red",
+      "masonry_brick_oxblood",
+      "masonry_brick_old_mill",
+      "masonry_brick_pressed_red",
+      "masonry_fieldstone",
+      "masonry_brick_red"
     ],
     "grain": [
       "ingredient_wheat",
@@ -299,16 +303,73 @@
       "ingredient_soybeans",
       "ingredient_sunflower",
       "ingredient_alfalfa"
+    ],
+    "beams": [
+      "building_beam_glulam"
+    ],
+    "tile_setting": [
+      "building_grout_bag",
+      "building_thinset_bucket"
+    ],
+    "drywall_finishing": [
+      "building_joint_compound_bucket",
+      "building_drywall_tape_roll"
+    ],
+    "bulk": [
+      "mat_scoop_sand",
+      "mat_scoop_gravel",
+      "mat_scoop_dirt",
+      "mat_scoop_mulch",
+      "mat_scoop_bedding_stone",
+      "mat_scoop_manure"
+    ],
+    "stone": [
+      "mat_stone",
+      "masonry_fieldstone",
+      "clutter_rock_small",
+      "clutter_rock_medium",
+      "clutter_rock_large"
+    ],
+    "door_exterior": [
+      "building_door_exterior",
+      "building_door_exterior_craftsman",
+      "building_door_exterior_half_lite",
+      "building_door_exterior_plank",
+      "building_door_exterior_six_panel"
+    ],
+    "door_interior": [
+      "building_door_interior",
+      "building_door_interior_flush",
+      "building_door_interior_french",
+      "building_door_interior_shaker",
+      "building_door_interior_six_panel"
+    ],
+    "floor_tile": [
+      "building_floor_tile_slate",
+      "building_floor_tile_slate_stack_10",
+      "building_floor_tile_slate_stack_20",
+      "building_floor_tile_speckled",
+      "building_floor_tile_speckled_stack_10",
+      "building_floor_tile_speckled_stack_20",
+      "building_floor_tile_terracotta",
+      "building_floor_tile_terracotta_stack_10",
+      "building_floor_tile_terracotta_stack_20",
+      "building_floor_tile_white",
+      "building_floor_tile_white_stack_10",
+      "building_floor_tile_white_stack_20"
+    ],
+    "window": [
+      "building_window_double_hung",
+      "building_window_picture",
+      "building_window_slider"
+    ],
+    "rack_battery": [
+      "electricity_battery_rack_lifepo4_48v",
+      "electricity_battery_rack_agm_48v",
+      "electricity_battery_rack_nmc_48v"
+    ],
+    "tool_wire_cutters": [
+      "tool_wire_cutters"
     ]
-  },
-  "tag_values": {
-    "framing_lumber": {
-      "unit": "studs",
-      "values": {
-        "lumber_bundle_2x4_small": 20,
-        "lumber_bundle_2x4_large": 40
-      }
-    }
-  },
-  "_readme_values": "tag_values: equivalencies inside a tag. Each member is worth `values[id]` units (default 1); a recipe line \"#tag x N\" is paid by ANY mix of members worth N units or more (1 large bundle = 2 small = 20 studs). `unit` is the word the hover card shows after the count."
+  }
 }

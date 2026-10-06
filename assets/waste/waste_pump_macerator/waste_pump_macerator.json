@@ -3,7 +3,7 @@
   "id": "waste_pump_macerator",
   "name": "Macerator Waste Pump",
   "category": "waste",
-  "description": "Grinder pump for RV/septic waste discharge.",
+  "description": "A grinder pump that stands inside a building between its waste outlet and the septic tank: it grinds the solids fine, so the tank fills with sludge half as fast and needs pumping out less often. It runs on the building's power; without power nothing drains through it.",
   "icon": "waste_pump_macerator.png",
   "properties": {
     "weight_kg": 6.0,
@@ -16,16 +16,23 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "wire_role": "sewer_pump",
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ]
   },
   "models": [
     {
-      "file": "tool_pump_macerator_waste.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_pump_macerator_waste.obj",
-      "format": "obj"
+      "file": "waste_pump_macerator.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.42,
+        "z": 0.32
+      },
+      "triangles": 132
     }
   ],
   "utilities": {
@@ -67,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 0.35
+      "width": 0.6,
+      "depth": 0.32,
+      "height": 0.42
     },
     "power_draw_w": 500
   }

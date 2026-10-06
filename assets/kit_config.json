@@ -429,6 +429,61 @@
       "name": "Grain Silo (Large)",
       "icon": "",
       "category": "structures"
+    },
+    "water_well_manual": {
+      "name": "Manual Well",
+      "icon": "",
+      "category": "structures"
+    },
+    "wind_turbine_200w_metal": {
+      "name": "200W Metal Wind Turbine",
+      "icon": "",
+      "category": "structures"
+    },
+    "wind_turbine_500w_metal": {
+      "name": "500W Metal Wind Turbine",
+      "icon": "",
+      "category": "structures"
+    },
+    "wind_turbine_100w_wood": {
+      "name": "100W Wooden Wind Turbine",
+      "icon": "",
+      "category": "structures"
+    },
+    "water_well_concrete": {
+      "name": "Drilled Well (Concrete Wellhead)",
+      "icon": "",
+      "category": "structures"
+    },
+    "water_well_wooden": {
+      "name": "Drilled Well (Wooden Well House)",
+      "icon": "",
+      "category": "structures"
+    },
+    "struct_pump_house": {
+      "name": "Pump House",
+      "icon": "",
+      "category": "structures"
+    },
+    "waste_septic_tank_concrete": {
+      "name": "Septic Tank (Concrete)",
+      "icon": "",
+      "category": "structures"
+    },
+    "waste_septic_tank_poly": {
+      "name": "Septic Tank (Poly)",
+      "icon": "",
+      "category": "structures"
+    },
+    "waste_leach_field_small": {
+      "name": "Small Leach Field",
+      "icon": "",
+      "category": "structures"
+    },
+    "waste_leach_field_large": {
+      "name": "Large Leach Field",
+      "icon": "",
+      "category": "structures"
     }
   },
   "growth_groups": {
@@ -3516,6 +3571,382 @@
           "name": "complete",
           "item_id": "struct_complete_grain_silo_large",
           "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "water_well_manual": {
+      "name": "Manual Well",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_water_well_manual",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_water_well_manual",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_water_well_manual",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_water_well_manual",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "wind_turbine_200w_metal": {
+      "name": "200W Metal Wind Turbine",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_wind_turbine_200w_metal",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "mast",
+          "item_id": "struct_mast_wind_turbine_200w_metal",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "head",
+          "item_id": "struct_head_wind_turbine_200w_metal",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_wind_turbine_200w_metal",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "wind_turbine_500w_metal": {
+      "name": "500W Metal Wind Turbine",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_wind_turbine_500w_metal",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "mast",
+          "item_id": "struct_mast_wind_turbine_500w_metal",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "head",
+          "item_id": "struct_head_wind_turbine_500w_metal",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_wind_turbine_500w_metal",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "wind_turbine_100w_wood": {
+      "name": "100W Wooden Wind Turbine",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_wind_turbine_100w_wood",
+          "age_min": 0,
+          "age_max": 25
+        },
+        {
+          "stage": 2,
+          "name": "mast",
+          "item_id": "struct_mast_wind_turbine_100w_wood",
+          "age_min": 25,
+          "age_max": 50
+        },
+        {
+          "stage": 3,
+          "name": "head",
+          "item_id": "struct_head_wind_turbine_100w_wood",
+          "age_min": 50,
+          "age_max": 75
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_wind_turbine_100w_wood",
+          "age_min": 75,
+          "age_max": 100
+        }
+      ]
+    },
+    "water_well_concrete": {
+      "name": "Drilled Well (Concrete Wellhead)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "drill",
+          "item_id": "struct_drill_water_well_concrete",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "pump",
+          "item_id": "struct_pump_water_well_concrete",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "wellhead",
+          "item_id": "struct_wellhead_water_well_concrete",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "water_well_wooden": {
+      "name": "Drilled Well (Wooden Well House)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "drill",
+          "item_id": "struct_drill_water_well_wooden",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "pump",
+          "item_id": "struct_pump_water_well_wooden",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "wellhead",
+          "item_id": "struct_wellhead_water_well_wooden",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "struct_pump_house": {
+      "name": "Pump House",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "foundation",
+          "item_id": "struct_foundation_struct_pump_house",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "framing",
+          "item_id": "struct_framing_struct_pump_house",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "walls",
+          "item_id": "struct_walls_struct_pump_house",
+          "age_min": 66,
+          "age_max": 99
+        },
+        {
+          "stage": 4,
+          "name": "complete",
+          "item_id": "struct_complete_struct_pump_house",
+          "age_min": 99,
+          "age_max": 100
+        }
+      ]
+    },
+    "waste_septic_tank_concrete": {
+      "name": "Septic Tank (Concrete)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "excavate",
+          "item_id": "struct_excavate_waste_septic_tank_concrete",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "set",
+          "item_id": "struct_set_waste_septic_tank_concrete",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "backfill",
+          "item_id": "struct_backfill_waste_septic_tank_concrete",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "waste_septic_tank_poly": {
+      "name": "Septic Tank (Poly)",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "excavate",
+          "item_id": "struct_excavate_waste_septic_tank_poly",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "set",
+          "item_id": "struct_set_waste_septic_tank_poly",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "backfill",
+          "item_id": "struct_backfill_waste_septic_tank_poly",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "waste_leach_field_small": {
+      "name": "Small Leach Field",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "excavate",
+          "item_id": "struct_excavate_waste_leach_field_small",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "set",
+          "item_id": "struct_set_waste_leach_field_small",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "backfill",
+          "item_id": "struct_backfill_waste_leach_field_small",
+          "age_min": 66,
+          "age_max": 100
+        }
+      ]
+    },
+    "waste_leach_field_large": {
+      "name": "Large Leach Field",
+      "icon": "",
+      "category": "structures",
+      "growth_type": "percent",
+      "max_age": 100,
+      "time_unit": "percent",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "excavate",
+          "item_id": "struct_excavate_waste_leach_field_large",
+          "age_min": 0,
+          "age_max": 33
+        },
+        {
+          "stage": 2,
+          "name": "set",
+          "item_id": "struct_set_waste_leach_field_large",
+          "age_min": 33,
+          "age_max": 66
+        },
+        {
+          "stage": 3,
+          "name": "backfill",
+          "item_id": "struct_backfill_waste_leach_field_large",
+          "age_min": 66,
           "age_max": 100
         }
       ]

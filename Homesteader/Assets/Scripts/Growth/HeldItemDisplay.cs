@@ -60,7 +60,7 @@ namespace Homesteader.Growth
             _item = null;
             if (want == null) return;
 
-            var player = FindAnyObjectByType<PedController>();
+            var player = PedController.Current;
             var clips = player != null ? player.GetComponentInChildren<GlbClipPlayer>() : null;
             Transform hand = clips != null ? clips.FindBone("RightHand") : null;
             if (hand == null) return;                                   // character still loading: try again next tick

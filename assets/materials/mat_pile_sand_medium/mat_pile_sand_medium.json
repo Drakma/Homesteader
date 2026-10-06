@@ -20,9 +20,20 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_pile_sand_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 0.5,
+        "z": 1.0
+      }
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

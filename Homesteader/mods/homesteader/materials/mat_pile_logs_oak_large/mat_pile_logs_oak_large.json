@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_pile_logs_oak_large.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.156,
+        "y": 0.87,
+        "z": 1.032
+      },
+      "triangles": 2760
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 2.2,
-      "depth": 1.0,
-      "height": 0.9
+      "width": 2.16,
+      "depth": 1.03,
+      "height": 0.87
     }
   }
 }

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_light_grow_2bulb",
+  "name": "Small Grow Light",
+  "category": "building",
+  "description": "A hanging grow light with 2 magenta tubes under a finned black housing: a steady violet light for plants indoors. Mount it on a ceiling inside a building; it lights while the building has power (a breaker box on the outside).",
+  "icon": "building_light_grow_2bulb.png",
+  "properties": {
+    "weight_kg": 3.0,
+    "max_stack_size": 10,
+    "base_value": 60,
+    "is_consumable": false,
+    "footprint": "1.20m W x 0.27m D x 0.30m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "ceiling",
+    "attach_side": "interior"
+  },
+  "models": [
+    {
+      "file": "building_light_grow_2bulb.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.2,
+        "y": 0.302,
+        "z": 0.268
+      },
+      "triangles": 444
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.2,
+      "depth": 0.268,
+      "height": 0.302
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 0,
+    "tank_capacity_l": 0
+  },
+  "lights": [
+    {
+      "id": "tube1",
+      "color": "#E070FF",
+      "intensity": 6.0,
+      "range_m": 12.0,
+      "offset_m": [
+        -0.3,
+        -0.36,
+        0.0
+      ],
+      "on": "always",
+      "power_w": 30,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    },
+    {
+      "id": "tube2",
+      "color": "#E070FF",
+      "intensity": 6.0,
+      "range_m": 12.0,
+      "offset_m": [
+        0.3,
+        -0.36,
+        0.0
+      ],
+      "on": "always",
+      "power_w": 30,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ]
+}

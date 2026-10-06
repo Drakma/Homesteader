@@ -397,6 +397,142 @@ namespace Homesteader.Growth
             new Dictionary<string, Dictionary<string, float>>(StringComparer.OrdinalIgnoreCase);
         private static readonly Dictionary<string, string> tagUnits = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>One member of an equivalency: an item OR a tag (every item of the tag counts), worth <see cref="Value"/> units.</summary>
+        public sealed class EquivalencyMember
+        {
+            public string Item;      // an item id, or null
+            public string Tag;       // a tag name (without '#'), or null
+            public float Value = 1f;
+        }
+
+        private sealed class Equivalency
+        {
+            public string Unit = "";
+            public string Label = "";
+            public readonly List<EquivalencyMember> Members = new List<EquivalencyMember>();
+        }
+
+        // Equivalencies (equivalencies.json of a mod): unit systems a recipe asks for as "~name x N"; any mix of members worth N units pays.
+        private static readonly Dictionary<string, Equivalency> equivalencies = new Dictionary<string, Equivalency>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>A recipe / tool spec that names a GROUP of items: "#tag" (any one member) or "~equivalency" (any mix worth the quantity).</summary>
+        public static bool IsGroupSpec(string spec) { return !string.IsNullOrEmpty(spec) && (spec[0] == '#' || spec[0] == '~'); }
+
+        public static bool IsEquivalency(string spec) { return !string.IsNullOrEmpty(spec) && spec[0] == '~'; }
+
+        /// <summary>Adds (or replaces) an equivalency.</summary>
+        public static void RegisterEquivalency(string name, string unit, string label, IEnumerable<EquivalencyMember> members)
+        {
+            if (string.IsNullOrEmpty(name) || members == null) return;
+            var eq = new Equivalency { Unit = unit ?? "", Label = label ?? "" };
+            foreach (EquivalencyMember m in members)
+                if (m != null && m.Value > 0f && (!string.IsNullOrEmpty(m.Item) || !string.IsNullOrEmpty(m.Tag))) eq.Members.Add(m);
+            equivalencies[name] = eq;
+        }
+
+        /// <summary>What an item is worth in an equivalency (the best of the members it matches, directly or through a tag), or 0 when it is not part of it.</summary>
+        public static float EquivalencyValue(string name, string itemId)
+        {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(itemId) || !equivalencies.TryGetValue(name, out Equivalency eq)) return 0f;
+            float best = 0f;
+            foreach (EquivalencyMember m in eq.Members)
+            {
+                bool hit = !string.IsNullOrEmpty(m.Item)
+                    ? string.Equals(m.Item, itemId, StringComparison.OrdinalIgnoreCase)
+                    : tags.TryGetValue(m.Tag, out HashSet<string> set) && set.Contains(itemId);
+                if (hit && m.Value > best) best = m.Value;
+            }
+            return best;
+        }
+
+        /// <summary>
+        /// Bulk material piles: an item that is a member of an equivalency measured in m3, next to a "scoop" member (an item of the #bulk tag, a
+        /// shovelful). Gives the scoop item and how many scoops the item is worth (a small pile is 10).
+        /// </summary>
+        public static bool BulkOf(string itemId, out string scoopId, out int scoops)
+        {
+            scoopId = null; scoops = 0;
+            if (string.IsNullOrEmpty(itemId)) return false;
+            foreach (Equivalency eq in equivalencies.Values)
+            {
+                if (!string.Equals(eq.Unit, "m3", StringComparison.OrdinalIgnoreCase)) continue;
+                float value = 0f; string scoop = null; float scoopValue = 0f;
+                foreach (EquivalencyMember m in eq.Members)
+                {
+                    if (string.IsNullOrEmpty(m.Item)) continue;
+                    if (string.Equals(m.Item, itemId, StringComparison.OrdinalIgnoreCase)) value = m.Value;
+                    if (tags.TryGetValue("bulk", out HashSet<string> bulk) && bulk.Contains(m.Item)) { scoop = m.Item; scoopValue = m.Value; }
+                }
+                if (value > 0f && scoop != null && scoopValue > 0f && !string.Equals(scoop, itemId, StringComparison.OrdinalIgnoreCase))
+                {
+                    scoopId = scoop;
+                    scoops = Mathf.Max(1, Mathf.RoundToInt(value / scoopValue));
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// The packs an item comes in, biggest first: (pack item id, how many single items it holds), found in the equivalencies the item is in. A pack is an
+        /// item worth more units than the single, that is named after it ("masonry_brick_red_stack_10") or is the only way the single is counted (studs in bundles).
+        /// </summary>
+        public static List<KeyValuePair<string, int>> PacksOf(string itemId)
+        {
+            var result = new List<KeyValuePair<string, int>>();
+            if (string.IsNullOrEmpty(itemId)) return result;
+            foreach (Equivalency eq in equivalencies.Values)
+            {
+                float unit = 0f;
+                foreach (EquivalencyMember m in eq.Members)
+                    if (string.Equals(m.Item, itemId, StringComparison.OrdinalIgnoreCase)) unit = m.Value;
+                if (unit <= 0f) { foreach (EquivalencyMember m in eq.Members) if (!string.IsNullOrEmpty(m.Tag) && tags.TryGetValue(m.Tag, out HashSet<string> set) && set.Contains(itemId)) unit = m.Value; }
+                if (unit <= 0f) continue;
+                int sameUnit = 0;   // how many members count as one single (a tag of many bricks: the pack must be named after the item)
+                foreach (EquivalencyMember m in eq.Members) if (Mathf.Abs(m.Value - unit) < 0.0001f) sameUnit++;
+                foreach (EquivalencyMember m in eq.Members)
+                {
+                    if (string.IsNullOrEmpty(m.Item) || m.Value <= unit * 1.5f) continue;
+                    if (string.Equals(m.Item, itemId, StringComparison.OrdinalIgnoreCase)) continue;
+                    if (m.Item.StartsWith("mat_pile_") || m.Item.StartsWith("waste_pile_")) continue;
+                    bool named = m.Item.StartsWith(itemId + "_", StringComparison.OrdinalIgnoreCase);
+                    if (!named && sameUnit != 1) continue;
+                    int q = Mathf.RoundToInt(m.Value / unit);
+                    if (q >= 2 && !result.Exists(r => r.Key == m.Item)) result.Add(new KeyValuePair<string, int>(m.Item, q));
+                }
+            }
+            result.Sort((a, b) => b.Value.CompareTo(a.Value));
+            return result;
+        }
+
+        /// <summary>The piles of the material a scoop belongs to, smallest first: (item id, scoops).</summary>
+        public static List<KeyValuePair<string, int>> PilesOfScoop(string scoopId)
+        {
+            var result = new List<KeyValuePair<string, int>>();
+            foreach (Equivalency eq in equivalencies.Values)
+            {
+                if (!string.Equals(eq.Unit, "m3", StringComparison.OrdinalIgnoreCase)) continue;
+                bool has = false;
+                foreach (EquivalencyMember m in eq.Members) if (string.Equals(m.Item, scoopId, StringComparison.OrdinalIgnoreCase)) has = true;
+                if (!has) continue;
+                foreach (EquivalencyMember m in eq.Members)
+                {
+                    if (string.IsNullOrEmpty(m.Item) || (!m.Item.StartsWith("mat_pile_") && !m.Item.StartsWith("waste_pile_"))) continue;
+                    if (BulkOf(m.Item, out string s, out int n) && s == scoopId) result.Add(new KeyValuePair<string, int>(m.Item, n));
+                }
+            }
+            result.Sort((a, b) => a.Value.CompareTo(b.Value));
+            return result;
+        }
+
+        /// <summary>The display label of an equivalency ("Framing Lumber"), or its name.</summary>
+        public static string EquivalencyLabel(string spec)
+        {
+            if (!IsEquivalency(spec)) return null;
+            string name = spec.Substring(1);
+            return equivalencies.TryGetValue(name, out Equivalency eq) && !string.IsNullOrEmpty(eq.Label) ? eq.Label : name.Replace('_', ' ');
+        }
+
         public static void Clear()
         {
             groups.Clear();
@@ -404,6 +540,7 @@ namespace Homesteader.Growth
             tags.Clear();
             tagValues.Clear();
             tagUnits.Clear();
+            equivalencies.Clear();
         }
 
         /// <summary>Sets what members of a tag are worth (1 large bundle = 20, 1 small = 10, a stud = 1 ...) and the unit word.</summary>
@@ -420,6 +557,7 @@ namespace Homesteader.Growth
         /// <summary>What one of this item counts for against a recipe spec: its value in the "#tag" (default 1), or 1 for a plain item id.</summary>
         public static float UnitValue(string spec, string itemId)
         {
+            if (IsEquivalency(spec)) { float ev = EquivalencyValue(spec.Substring(1), itemId); return ev > 0f ? ev : 1f; }
             if (string.IsNullOrEmpty(spec) || spec[0] != '#') return 1f;
             return tagValues.TryGetValue(spec.Substring(1), out Dictionary<string, float> map) && map.TryGetValue(itemId, out float v) ? v : 1f;
         }
@@ -427,6 +565,7 @@ namespace Homesteader.Growth
         /// <summary>The unit word of a "#tag" (for example "studs"), or null.</summary>
         public static string UnitName(string spec)
         {
+            if (IsEquivalency(spec)) return equivalencies.TryGetValue(spec.Substring(1), out Equivalency eq) && !string.IsNullOrEmpty(eq.Unit) ? eq.Unit : null;
             return !string.IsNullOrEmpty(spec) && spec[0] == '#' && tagUnits.TryGetValue(spec.Substring(1), out string u) ? u : null;
         }
 
@@ -453,6 +592,19 @@ namespace Homesteader.Growth
             {
                 string spec = one.Trim();
                 if (spec.Length == 0) continue;
+                if (spec[0] == '~')
+                {
+                    if (!equivalencies.TryGetValue(spec.Substring(1), out Equivalency eqs)) continue;
+                    var found = new List<string>();
+                    foreach (EquivalencyMember m in eqs.Members)
+                    {
+                        if (!string.IsNullOrEmpty(m.Item)) { if (!found.Contains(m.Item)) found.Add(m.Item); }
+                        else if (tags.TryGetValue(m.Tag, out HashSet<string> tm)) foreach (string tid in tm) if (!found.Contains(tid)) found.Add(tid);
+                    }
+                    found.Sort(StringComparer.OrdinalIgnoreCase);
+                    foreach (string id in found) if (!result.Contains(id)) result.Add(id);
+                    continue;
+                }
                 if (spec[0] != '#') { if (!result.Contains(spec)) result.Add(spec); continue; }
                 if (!tags.TryGetValue(spec.Substring(1), out HashSet<string> members)) continue;
                 var sorted = new List<string>(members);
@@ -472,9 +624,32 @@ namespace Homesteader.Growth
                     if (ToolMatches(one.Trim(), itemId)) return true;
                 return false;
             }
+            if (toolSpec[0] == '~') return EquivalencyValue(toolSpec.Substring(1), itemId) > 0f;
             if (toolSpec[0] != '#')
                 return string.Equals(toolSpec, itemId, StringComparison.OrdinalIgnoreCase);
             return tags.TryGetValue(toolSpec.Substring(1), out HashSet<string> members) && members.Contains(itemId);
+        }
+
+        /// <summary>
+        /// The tool test for what the player HOLDS: the held item is the tool, or it is a toolbox (any container in the active slot) with such a
+        /// tool inside it. So a toolbox in hand works as every tool it holds: the action under the cursor picks the one it needs.
+        /// </summary>
+        public static bool HeldToolMatches(string toolSpec, string heldId)
+        {
+            if (ToolMatches(toolSpec, heldId)) return true;
+            return !string.IsNullOrEmpty(toolSpec) && ToolInHeldBox(toolSpec, heldId) != null;
+        }
+
+        /// <summary>The tool inside the held toolbox that satisfies the spec, or null (the held item is not a box, or holds no such tool).</summary>
+        public static string ToolInHeldBox(string toolSpec, string heldId)
+        {
+            Homesteader.UI.HudState hud = Homesteader.UI.HudState.Active;
+            if (hud == null || string.IsNullOrEmpty(heldId) || hud.SelectedSlot < 0 || hud.SelectedSlot >= hud.Toolbar.Count) return null;
+            Homesteader.UI.ToolbarSlotData slot = hud.Toolbar[hud.SelectedSlot];
+            if (slot.Count <= 0 || slot.IconId != heldId || slot.Contents == null) return null;
+            foreach (Homesteader.UI.ContainerStack st in slot.Contents)
+                if (st != null && st.Count > 0 && ToolMatches(toolSpec, st.ItemId)) return st.ItemId;
+            return null;
         }
 
         /// <summary>First registration of a qualified id wins; returns false for a duplicate.</summary>

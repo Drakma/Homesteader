@@ -1,0 +1,112 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_wind_kit_100w_wood",
+  "name": "100W Wooden Wind Turbine Kit",
+  "category": "electricity",
+  "description": "A kit with every part of a 100w wooden wind turbine, shipped in a crate. Left click the ground with it to lay out the work site (R turns it), then build it in four stages (footing, mast, head, blades) with the tools each one asks for. It cannot be made from building materials.",
+  "icon": "electricity_wind_kit_100w_wood.png",
+  "properties": {
+    "weight_kg": 28.0,
+    "max_stack_size": 1,
+    "base_value": 260,
+    "is_consumable": false,
+    "footprint": "0.34m W x 1.50m L x 0.24m H",
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "kit",
+    "builds_structure": "wind_turbine_100w_wood"
+  },
+  "models": [
+    {
+      "file": "electricity_wind_kit_100w_wood.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.34,
+        "y": 0.24,
+        "z": 1.5
+      },
+      "triangles": 218
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Builds a turbine that generates up to 100 W (wind dependent)",
+      "details": "Builds a turbine that generates up to 100 W (wind dependent)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "turbine_wind_400w.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 45.0,
+      "y": 82.0,
+      "z": 90.0
+    },
+    "dimensions_m": {
+      "x": 0.45,
+      "y": 0.82,
+      "z": 0.9
+    },
+    "vertices": 516,
+    "faces": 172,
+    "bounding_box": {
+      "min": [
+        -15.5,
+        -60.0,
+        0.0
+      ],
+      "max": [
+        29.5,
+        22.0,
+        90.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.34,
+      "depth": 1.5,
+      "height": 0.24
+    },
+    "max_power_w": 0
+  }
+}

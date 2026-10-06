@@ -1,0 +1,81 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "struct_pump_house",
+  "name": "Pump House",
+  "category": "structures",
+  "description": "A small shed (2.4 x 2.4 m) for the well water system: the sediment filter, carbon filter and UV sterilizer, the pressure tank and the water heater stand inside it, piped from the well to the tanks.",
+  "icon": "struct_pump_house.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "struct_pump_house",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 66,
+        "age_max": 99,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 99,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_large_metal_garage.png",
+        "construction_recipe": [],
+        "required_tools": []
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 180,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
+  }
+}

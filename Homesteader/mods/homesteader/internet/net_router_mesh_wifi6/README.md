@@ -1,7 +1,5 @@
-# Router Mesh Wifi6
+# Wi-Fi 6 Mesh Router
 
-**Item ID:** `net_router_mesh_wifi6`  
-**Category:** `internet`  
-**Icon:** ![Router Mesh Wifi6](net_router_mesh_wifi6.png)
+Mesh networking router tower.
 
-Standardized Homesteader asset manifest for `net_router_mesh_wifi6`.
+Procedural model (tools/make_internet.py): a white cloth-wrapped mesh router. Its detail is painted (tools/net_pictures.py). 162 triangles, 0.11 x 0.11 x 0.19 m.

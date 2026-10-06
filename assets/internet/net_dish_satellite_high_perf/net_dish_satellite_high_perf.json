@@ -10,7 +10,7 @@
     "max_stack_size": 1,
     "base_value": 650,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.57m W x 0.44m D x 0.81m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,22 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "roof",
+    "wire_role": "net_dish",
+    "net_ports": 1,
+    "roof_mount": true
   },
   "models": [
     {
-      "file": "dish_satellite_high_perf.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "dish_satellite_high_perf.obj",
-      "format": "obj"
+      "file": "net_dish_satellite_high_perf.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.57,
+        "y": 0.806,
+        "z": 0.437
+      },
+      "triangles": 194
     }
   ],
   "utilities": {
@@ -72,12 +78,12 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 1.2,
-      "height": 0.4
+      "width": 0.57,
+      "depth": 0.44,
+      "height": 0.81
     },
-    "power_draw_w": 150,
-    "bandwidth_mbps": 200,
+    "power_draw_w": 110,
+    "bandwidth_mbps": 500,
     "range_m": 0,
     "is_connected": true
   }

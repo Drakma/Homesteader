@@ -1,0 +1,22 @@
+{
+  "id": "1791132437_cement_mixer_tools_reference_image_meshy_image_to_3d",
+  "title": "Cement Mixer (tools): reference image + Meshy image-to-3D",
+  "plan": [
+    "Batch batch_1791132410, 1 item: Cement Mixer (tools) - 'basic 6.0 cu ft electric cement mixer'. New item id: tool_cement_mixer.",
+    "Meshy balance now: 178 credits.",
+    "Reference image via gemini_generate (no Meshy credits): modern 6.0 cu ft electric cement mixer, single item.",
+    "Meshy image-to-3D, meshy-t2 smart-topology + texture: 15 credits. Balance after: 163.",
+    "Scale to real size (about 1.4 m tall) and ground the pivot in Blender, check under 5,000 triangles, render the icon from the model, write manifest + README, validate the tools schema, update the catalog."
+  ],
+  "cost": {
+    "total_credits": 15,
+    "balance_credits": 178,
+    "balance_after_credits": 163,
+    "per_item": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15
+    }
+  },
+  "status": "approved",
+  "created_at": "2026-10-04T16:47:17Z",
+  "resolved_at": "2026-10-04T16:47:40Z"
+}

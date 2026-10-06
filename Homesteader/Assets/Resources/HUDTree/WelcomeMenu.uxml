@@ -92,6 +92,10 @@
                             <ui:Toggle name="GfxShadowsToggle" class="hs-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement class="settings-row">
+                            <ui:Label text="Light Occlusion" class="settings-label" tooltip="Walls stop the light of lamps, the fire, the lantern and the flashlight. Off lets light shine through walls." />
+                            <ui:Toggle name="GfxLightOcclusionToggle" class="hs-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
                             <ui:Label text="Cloud Shadows" class="settings-label" tooltip="Soft shadows of drifting clouds across the land." />
                             <ui:Toggle name="GfxCloudShadowsToggle" class="hs-toggle" />
                         </ui:VisualElement>

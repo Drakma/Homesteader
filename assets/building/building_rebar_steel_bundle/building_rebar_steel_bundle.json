@@ -3,12 +3,12 @@
   "id": "building_rebar_steel_bundle",
   "name": "Rebar Bundle",
   "category": "building",
-  "description": "Bundle of ribbed steel rebar stakes.",
+  "description": "Ten 3 m bars of 12 mm ribbed steel rebar, tied with wire.",
   "icon": "building_rebar_steel_bundle.png",
   "properties": {
-    "weight_kg": 20.0,
+    "weight_kg": 28.4,
     "max_stack_size": 10,
-    "base_value": 15,
+    "base_value": 54,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -21,40 +21,20 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "pack_quantity": 10,
+    "display_weight": true
   },
   "models": [
     {
-      "file": "building_rebar_steel_bundle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "building_rebar_steel_bundle.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 36.8,
-        "y": 26.8,
-        "z": 92.0
-      },
+      "file": "building_rebar_steel_bundle.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.37,
-        "y": 0.27,
-        "z": 0.92
+        "x": 3.0,
+        "y": 0.052,
+        "z": 0.061
       },
-      "vertices": 6312,
-      "faces": 2104,
-      "bounding_box": {
-        "min": [
-          -18.4,
-          -13.4,
-          0.0
-        ],
-        "max": [
-          18.4,
-          13.4,
-          92.0
-        ]
-      }
+      "triangles": 236
     }
   ],
   "utilities": {
@@ -94,39 +74,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "building_rebar_steel_bundle.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 36.8,
-      "y": 26.8,
-      "z": 92.0
-    },
-    "dimensions_m": {
-      "x": 0.37,
-      "y": 0.27,
-      "z": 0.92
-    },
-    "vertices": 6312,
-    "faces": 2104,
-    "bounding_box": {
-      "min": [
-        -18.4,
-        -13.4,
-        0.0
-      ],
-      "max": [
-        18.4,
-        13.4,
-        92.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.37,
-      "depth": 0.27,
-      "height": 0.92
+      "width": 3.0,
+      "depth": 0.061,
+      "height": 0.052
     }
   }
 }

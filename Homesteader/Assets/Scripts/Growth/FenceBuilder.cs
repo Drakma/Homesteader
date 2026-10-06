@@ -65,7 +65,7 @@ namespace Homesteader.Growth
 
         private void Update()
         {
-            if (WelcomeMenuController.IsLoading || _working) { HidePreview(); return; }
+            if (WelcomeMenuController.IsLoading || _working || AreaTidy.Active) { HidePreview(); return; }   // (the tidy mode owns the left button)
             string held = ConstructionSite.HeldItem();
             AssetCatalogItem item = held != null ? HudBindings.GetCatalogItem(held) : null;
             bool fence = item != null && !string.IsNullOrEmpty(item.fence_style);
@@ -160,7 +160,7 @@ namespace Homesteader.Growth
                     $"This fence needs {panelsNeeded} x {HudBindings.GetItemName(_panelId)} (you have {havePanels}) and {postsNeeded} x {HudBindings.GetItemName(postId)} (you have {havePosts}).");
                 return;
             }
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             bool inside = false;
             if (closed && ped != null)
             {
@@ -185,7 +185,7 @@ namespace Homesteader.Growth
         {
             // the plan may have changed while a confirmation was open: check what is there again
             if (Available(panelId, posts[0]) < panels || Available(postId, posts[0]) < postCount) { ToastNotificationSystem.ShowWarning("Not enough materials", "The materials are no longer in your hotbar or at the work site."); return; }
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             FenceRun run = FenceRun.Create(item.fence_style, panelId, postId, Mathf.Max(0.5f, item.fence_panel_m), item.fence_height_m > 0f ? item.fence_height_m : 1.2f, posts, closed, null);
             run.Limit = 0;   // only the first post stands; the ped builds the rest, a section at a time
             run.Rebuild();
@@ -245,7 +245,6 @@ namespace Homesteader.Growth
                 run.Rebuild();
             }
             if (ped != null) ped.AutoStop();
-            if (run != null && (stopped || _stopWork) && run.Limit < panels) ToastNotificationSystem.ShowInfo("Fence", "Building stopped. What is built stands.");
             if (run != null && run.Limit >= panels) { run.Limit = int.MaxValue; run.Rebuild(); }   // all of it: a finished fence
             _working = false;
         }
@@ -319,9 +318,17 @@ namespace Homesteader.Growth
         /// <summary>A right click with an axe in the active slot on a post of a built fence takes that section down.</summary>
         public static bool TryChopPost(Ray ray, string heldId)
         {
-            if (string.IsNullOrEmpty(heldId) || !GrowthRegistry.ToolMatches("#tool_axe", heldId)) return false;
+            if (string.IsNullOrEmpty(heldId)) return false;
+            bool axe = GrowthRegistry.HeldToolMatches("#tool_axe", heldId);
+            // Wire cutters cut a WIRE fence, and anywhere along the wire, not only at a post.
+            bool cutters = GrowthRegistry.HeldToolMatches("#tool_wire_cutters", heldId);
+            if (!axe && !cutters) return false;
             foreach (FenceRun run in new List<FenceRun>(FenceRun.All))
-                if (run != null && run.ChopSectionAt(ray)) return true;
+            {
+                if (run == null) continue;
+                if (axe && run.ChopSectionAt(ray)) return true;
+                if (cutters && run.Style == "wire" && run.ChopSectionAt(ray, true)) return true;
+            }
             return false;
         }
 

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_pump_submersible_three_quarter_hp",
+  "name": "3/4 HP Submersible Well Pump",
+  "category": "water",
+  "description": "A 3/4 HP stainless submersible well pump: it lifts up to 2300 liters an hour (the well's own yield may be less). It goes down a drilled well when the pump stage is built, and runs on the well's sub panel (1200 W).",
+  "icon": "water_pump_submersible_three_quarter_hp.png",
+  "properties": {
+    "weight_kg": 11.0,
+    "max_stack_size": 1,
+    "base_value": 560,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "flow_lph": 2300
+  },
+  "models": [
+    {
+      "file": "water_pump_submersible_three_quarter_hp.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.34,
+        "y": 0.96,
+        "z": 0.24
+      },
+      "triangles": 792
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "Output: 15 GPM at 100ft head",
+      "details": "High-pressure deep well continuous pumping."
+    },
+    "electricity": {
+      "metric": "Power draw: 750W (120V / 240V)",
+      "details": "Electric motor with submersible waterproof cord."
+    },
+    "waste": {
+      "metric": "None",
+      "details": "None"
+    },
+    "battery": {
+      "metric": "None",
+      "details": "None"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "species": null,
+    "max_age": null,
+    "total_stages": 0,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Free Pipeline",
+    "api_version": "1.0"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.34,
+      "depth": 0.24,
+      "height": 0.96
+    },
+    "power_draw_w": 1200,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 56.8,
+    "water_usage_lpm": 0,
+    "is_connected": true,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

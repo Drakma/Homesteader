@@ -1,0 +1,19 @@
+{
+  "id": "1791159493_3_sawhorses_wooden_plastic_metal_via_meshy",
+  "title": "3 sawhorses (wooden, plastic, metal) via Meshy",
+  "plan": [
+    "Gemini: one reference sheet with the wooden, plastic and metal sawhorse",
+    "Crop to one image each",
+    "Meshy image-to-3D meshy-t2 smart-topology with texture, 3 models at 15 credits",
+    "Scale to real size (about 0.75 m tall, 0.9 m wide), ground the pivot, check under 5,000 triangles",
+    "Render icons from the models, write manifests in assets/tools, package"
+  ],
+  "cost": {
+    "meshy": 45,
+    "balance_before": 88,
+    "balance_after": 43
+  },
+  "status": "denied",
+  "created_at": "2026-10-05T00:18:13Z",
+  "resolved_at": "2026-10-05T00:21:24Z"
+}

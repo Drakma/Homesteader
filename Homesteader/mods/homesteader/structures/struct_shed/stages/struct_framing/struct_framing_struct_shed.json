@@ -26,7 +26,7 @@
         "y": 3.7,
         "z": 5.0
       },
-      "triangles": 2164
+      "triangles": 2020
     }
   ],
   "utilities": {
@@ -58,7 +58,7 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 1,
+    "room_count": 0,
     "dimensions_m": {
       "width": 4.0,
       "depth": 5.0,

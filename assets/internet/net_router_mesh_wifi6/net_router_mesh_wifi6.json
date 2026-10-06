@@ -10,7 +10,7 @@
     "max_stack_size": 1,
     "base_value": 150,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.11m W x 0.11m D x 0.19m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,20 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "wire_role": "net_router",
+    "net_ports": 2
   },
   "models": [
     {
-      "file": "router_mesh_wifi6.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "router_mesh_wifi6.obj",
-      "format": "obj"
+      "file": "net_router_mesh_wifi6.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.111,
+        "y": 0.191,
+        "z": 0.111
+      },
+      "triangles": 162
     }
   ],
   "utilities": {
@@ -72,13 +76,13 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.1,
-      "depth": 0.1,
-      "height": 0.15
+      "width": 0.11,
+      "depth": 0.11,
+      "height": 0.19
     },
-    "power_draw_w": 15,
+    "power_draw_w": 12,
     "bandwidth_mbps": 1200,
-    "range_m": 90,
+    "range_m": 45,
     "is_connected": false
   }
 }

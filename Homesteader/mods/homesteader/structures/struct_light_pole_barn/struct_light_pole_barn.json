@@ -126,7 +126,7 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "lumber_post_4x4",
+        "item_id": "~lumber_post_4x4",
         "quantity": 1
       },
       {

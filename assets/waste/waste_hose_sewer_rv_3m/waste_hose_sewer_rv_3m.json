@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "waste_hose_sewer_rv_3m",
-  "name": "3m RV Sewer Hose",
+  "name": "Short RV Sewer Hose",
   "category": "waste",
   "description": "Collapsible accordion RV sewer hose.",
   "icon": "waste_hose_sewer_rv_3m.png",

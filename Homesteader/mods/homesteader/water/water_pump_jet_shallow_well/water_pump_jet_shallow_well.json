@@ -16,16 +16,20 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "wire_role": "water_pump",
+    "flow_lph": 2400
   },
   "models": [
     {
-      "file": "pump_jet_shallow_well.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "pump_jet_shallow_well.obj",
-      "format": "obj"
+      "file": "water_pump_jet_shallow_well.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.44,
+        "y": 0.5,
+        "z": 0.21
+      },
+      "triangles": 864
     }
   ],
   "utilities": {
@@ -67,9 +71,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.35,
-      "depth": 0.35,
-      "height": 0.4
+      "width": 0.44,
+      "depth": 0.21,
+      "height": 0.5
     },
     "power_draw_w": 1000,
     "capacity_l": 0,

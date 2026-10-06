@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_log_pine.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.204,
+        "y": 0.357,
+        "z": 0.321
+      },
+      "triangles": 260
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 1.2
+      "width": 1.2,
+      "depth": 0.32,
+      "height": 0.36
     }
   }
 }

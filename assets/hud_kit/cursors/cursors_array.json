@@ -825,6 +825,86 @@
         "hotspot_note": "Where the two blade tips meet.",
         "source_glyph": "drawn:shears"
       }
+    },
+    {
+      "name": "cursor_shovel",
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_shovel.png",
+        "color": "color/cursor_shovel.png",
+        "amber": "amber/cursor_shovel.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          23,
+          23
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "Tip of the shovel blade.",
+        "source_glyph": "drawn:shovel"
+      }
+    },
+    {
+      "name": "cursor_wire_cutters",
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_wire_cutters.png",
+        "color": "color/cursor_wire_cutters.png",
+        "amber": "amber/cursor_wire_cutters.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          23,
+          23
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "Where the two cutting jaws meet.",
+        "source_glyph": "drawn:wire_cutters"
+      }
+    },
+    {
+      "name": "cursor_fuel_nozzle",
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_fuel_nozzle.png",
+        "color": "color/cursor_fuel_nozzle.png",
+        "amber": "amber/cursor_fuel_nozzle.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          23,
+          23
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "The end of the spout, where the fuel pours.",
+        "source_glyph": "drawn:fuel_nozzle"
+      }
+    },
+    {
+      "name": "cursor_shovel_pour",
+      "def": {
+        "category": "tool",
+        "mono": "mono/cursor_shovel_pour.png",
+        "color": "color/cursor_shovel_pour.png",
+        "amber": "amber/cursor_shovel_pour.png",
+        "size": [
+          128,
+          128
+        ],
+        "hotspot": [
+          23,
+          23
+        ],
+        "hotspot_mode": "point",
+        "hotspot_note": "Tip of the shovel blade.",
+        "source_glyph": "drawn:shovel_pour"
+      }
     }
   ]
 }

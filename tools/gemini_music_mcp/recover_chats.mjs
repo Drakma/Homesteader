@@ -1,7 +1,7 @@
 // Walks the Gemini sidebar, opens every music chat and downloads any finished track that was
 // never saved (the browser crashed on the Download click for a while on 2026-10-02). Tracks whose
 // prompt matches one in bump_playlists.mjs / gen_playlists.mjs land in that playlist folder under
-// that filename; anything else goes to Resources/Audio/Music/_Recovered/<slug>.mp3 to be sorted
+// that filename; anything else goes to tools/gemini_music_mcp/recovered/<slug>.mp3 (OUTSIDE the Unity project) to be sorted
 // by hand. Every file gets the usual licence sidecar, plus the chat URL.
 //
 // Run: node recover_chats.mjs            (DRY=1 lists what it would do without downloading)
@@ -36,6 +36,7 @@ for (const f of ['bump_playlists.mjs', 'gen_playlists.mjs']) {
 function norm(s) { return s.toLowerCase().replace(/\s+/g, ' ').replace(/[^\w ]/g, '').trim(); }
 log(`known prompts: ${promptMap.size}`);
 
+const UNSORTED = '(unsorted)';   // not a playlist: see where `dir` is chosen
 function guessPlaylist(t) {
   if (/grunge/i.test(t)) return 'Grunge';
   if (/punk/i.test(t)) return 'Punk';
@@ -44,7 +45,7 @@ function guessPlaylist(t) {
   if (/classic rock|arena rock|hard rock|rock/i.test(t)) return 'ClassicRock';
   if (/pop|synth|electro|anthem|dance/i.test(t)) return 'ModernPop';
   if (/lo-?fi|chill|homestead|farm|cozy|mellow/i.test(t)) return 'LoFiBeats';
-  return '_Recovered';
+  return UNSORTED;
 }
 const MUSIC_TITLE = /instrumental|track|music|lo-?fi|grunge|jazz|country|pop|beat|punk|rock|synth|anthem|lounge|piano|sax|blues|folk|bossa|funk|chill/i;
 const SKIP_TITLE = /^(failed|denied|music generation (usage )?limit)/i;
@@ -105,7 +106,9 @@ for (const c of targets) {
       filename = c.title.replace(/(instrumental|track|generation|creation|request|production|blueprint|prompt|script|the|a|an|for|of)/gi, ' ')
         .replace(/[^\w]+/g, '_').replace(/^_+|_+$/g, '').replace(/_+/g, '_').slice(0, 48) || 'Track';
     }
-    const dir = path.join(MUSIC, playlist);
+    // Unsorted tracks must never land under Resources/Audio/Music: in the editor every folder there that holds audio
+    // becomes a Steadify playlist, and in a build its clips fall into the "Default" playlist.
+    const dir = playlist === UNSORTED ? path.join(here, 'recovered') : path.join(MUSIC, playlist);
     // Several chats can share one prompt (retries): keep up to three takes as _v2/_v3.
     let mp3 = path.join(dir, filename + '.mp3');
     if (existsSync(mp3)) {

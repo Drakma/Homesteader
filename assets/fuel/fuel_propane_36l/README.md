@@ -1,7 +1,5 @@
-# Fuel Propane Large
+# Large Propane Tank
 
-**Item ID:** `fuel_propane_large`  
-**Category:** `electricity`  
-**Icon:** ![Fuel Propane Large](fuel_propane_large.png)
+A large portable propane gas cylinder that holds more fuel than the small size.
 
-Standardized Homesteader asset manifest for `fuel_propane_large`.
+Procedural model (tools/make_simple_props.py), 856 triangles, 0.30 x 0.30 x 0.77 m. A tall cylinder with a collar guard and foot ring.

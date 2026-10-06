@@ -201,6 +201,7 @@ def write_manifest_and_readme(cfg, target_dir, icon_path, fbx_path):
         "properties": {
             "weight_kg": cfg.get("weight_kg", 5.0),
             "max_stack_size": cfg.get("max_stack", 1),
+            "display_weight": category in ("materials", "building"),   # shown as "Name (9 kg)", generated; never type a weight into the name
             "base_value": cfg.get("base_value", 50.0),
             "is_consumable": cfg.get("is_consumable", category == "food"),
             "is_buyable": False,

@@ -1,0 +1,14 @@
+{
+  "file": "Harvest_Overture.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 92 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 92 seconds, not cut off mid-song and with NO fade-out. Bright chamber orchestra overture, energetic, about 132 BPM: bustling strings, crisp woodwinds, horns and timpani, a bold opening theme and a triumphant close. Entirely original composition that is not based on any existing piece.",
+  "requested_prompt": "Bright chamber orchestra overture, energetic, about 132 BPM: bustling strings, crisp woodwinds, horns and timpani, a bold opening theme and a triumphant close. Entirely original composition that is not based on any existing piece.",
+  "requested_duration_seconds": 92,
+  "generated_at": "2026-10-05T14:57:16.180Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Harvest_Overture.mp4",
+  "bytes": 2738439,
+  "sha256": "0698e2bc046dcb15edbc7e173c3b4f4b1739734abffed2741e66613d7c044497",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

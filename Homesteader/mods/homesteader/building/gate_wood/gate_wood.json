@@ -22,7 +22,8 @@
     ],
     "sale_unit": "kit",
     "gate_width_m": 1.2,
-    "gate_style": "wood"
+    "gate_style": "wood",
+    "display_weight": true
   },
   "models": [],
   "utilities": {

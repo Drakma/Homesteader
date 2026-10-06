@@ -1,3 +1,5 @@
 # Hops Cones
 
-Icon rendered from the ripe hops plant. No 3D model yet.
+The harvest of a hops plant.
+
+Model: the 20 lb sand bag (`20lb_sand_bag`) scaled by 0.60 (0.22 x 0.12 x 0.06 m, lying flat), recoloured and relabelled HOPS by tools/make_sacks.py. 4240 triangles, texture embedded.

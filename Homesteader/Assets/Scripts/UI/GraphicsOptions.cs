@@ -29,6 +29,7 @@ namespace Homesteader.UI
         private const string HudScaleKey = "Homesteader.Graphics.HudScale";
         private const string AaKey = "Homesteader.Graphics.Antialiasing";   // "" = the preset's choice
         private const string CloudShadowsKey = "Homesteader.Graphics.CloudShadows";
+        private const string LightOcclusionKey = "Homesteader.Graphics.LightOcclusion";
         private const string ShadowsKey = "Homesteader.Graphics.Shadows";   // -1 / unset = the preset's choice
         private const string WindKey = "Homesteader.Graphics.WindAnimation";
         private const string SeasonLightKey = "Homesteader.Graphics.SeasonalLighting";
@@ -84,7 +85,7 @@ namespace Homesteader.UI
         {
             PlayerPrefs.SetString(PresetKey, id);
             // Picking a preset takes back every individual choice (anti-aliasing, reflections, shadows, clouds, wind).
-            foreach (string k in new[] { AaKey, WaterReflKey, ShadowsKey, CloudShadowsKey, WindKey, SeasonLightKey }) PlayerPrefs.DeleteKey(k);
+            foreach (string k in new[] { AaKey, WaterReflKey, ShadowsKey, LightOcclusionKey, CloudShadowsKey, WindKey, SeasonLightKey }) PlayerPrefs.DeleteKey(k);
             PlayerPrefs.Save();
             ApplyPreset(id);
         }
@@ -99,7 +100,7 @@ namespace Homesteader.UI
             if (!string.Equals(EffectiveAa(), Current.Antialiasing, StringComparison.OrdinalIgnoreCase)) return true;
             if (WaterReflectionsOn() != Current.WaterReflections) return true;
             if (ShadowsOn() != (Current.ShadowDistance > 0f)) return true;
-            return !CloudShadowsOn() || !WindAnimationOn() || !SeasonalLightingOn();
+            return !LightOcclusionOn() || !CloudShadowsOn() || !WindAnimationOn() || !SeasonalLightingOn();
         }
 
         /// <summary>Shows Custom in the preset dropdown while any quality choice differs from the preset, otherwise the preset itself.</summary>
@@ -125,6 +126,7 @@ namespace Homesteader.UI
             root.Q<DropdownField>("GfxAntiAliasingDropdown")?.SetValueWithoutNotify(AaNames[Mathf.Max(0, Array.IndexOf(AaIds, EffectiveAa()))]);
             root.Q<Toggle>("GfxWaterReflectionsToggle")?.SetValueWithoutNotify(WaterReflectionsOn());
             root.Q<Toggle>("GfxShadowsToggle")?.SetValueWithoutNotify(ShadowsOn());
+            root.Q<Toggle>("GfxLightOcclusionToggle")?.SetValueWithoutNotify(LightOcclusionOn());
             root.Q<Toggle>("GfxCloudShadowsToggle")?.SetValueWithoutNotify(CloudShadowsOn());
             root.Q<Toggle>("GfxWindAnimationToggle")?.SetValueWithoutNotify(WindAnimationOn());
             root.Q<Toggle>("GfxSeasonalLightingToggle")?.SetValueWithoutNotify(SeasonalLightingOn());
@@ -151,6 +153,7 @@ namespace Homesteader.UI
             ApplyAntialiasing(EffectiveAa());
             ApplyShadows(ShadowsOn());
             Homesteader.World.CloudSystem.ShadowsEnabled = CloudShadowsOn();
+            Homesteader.Growth.LightOcclusion.Enabled = LightOcclusionOn();
 
             Homesteader.World.VegetationFocusFade.RangeScale = Mathf.Max(0.3f, p.SmallPlantRange / Homesteader.World.VegetationFocusFade.ReferenceRange);
             Shader.SetGlobalFloat("_TerrainBlendQuality", p.TerrainBlend ? 1f : 0f);
@@ -159,6 +162,17 @@ namespace Homesteader.UI
             DayNightCycle.SeasonalLighting = SeasonalLightingOn();
             // With V-Sync on the monitor sets the rate; the cap is only for V-Sync off.
             Application.targetFrameRate = QualitySettings.vSyncCount > 0 ? -1 : (p.MaxFps > 0 ? p.MaxFps : -1);
+        }
+
+        /// <summary>Lamps, the fire, the lantern and the flashlight are stopped by walls (on by default). Off lets light shine through them and saves frame rate.</summary>
+        public static bool LightOcclusionOn() => PlayerPrefs.GetInt(LightOcclusionKey, 1) == 1;
+
+        public static void SetLightOcclusion(bool on)
+        {
+            PlayerPrefs.SetInt(LightOcclusionKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            Homesteader.Growth.LightOcclusion.Enabled = on;
+            RefreshPresetDropdown();
         }
 
         /// <summary>Soft shadows of drifting clouds on the ground (cheap; on by default).</summary>
@@ -427,6 +441,14 @@ namespace Homesteader.UI
                 shadows.SetValueWithoutNotify(ShadowsOn());
                 shadows.RegisterValueChangedCallback(evt => SetShadows(evt.newValue));
                 shadows.tooltip = "The sun's shadows. Turning them off gives the biggest frame-rate gain on older graphics cards.";
+            }
+
+            var lightOcc = root.Q<Toggle>("GfxLightOcclusionToggle");
+            if (lightOcc != null)
+            {
+                lightOcc.SetValueWithoutNotify(LightOcclusionOn());
+                lightOcc.RegisterValueChangedCallback(evt => SetLightOcclusion(evt.newValue));
+                lightOcc.tooltip = "Walls stop the light of lamps, the fire, the lantern and the flashlight. Turn off to let light shine through walls (faster on older graphics cards).";
             }
 
             var cloudShadows = root.Q<Toggle>("GfxCloudShadowsToggle");

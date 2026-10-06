@@ -54,11 +54,11 @@
         "icon": "struct_framing_greenhouse.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "item_id": "~framing_lumber",
             "quantity": 20
           },
           {
-            "item_id": "lumber_joist_2x8",
+            "item_id": "~lumber_joist_2x8",
             "quantity": 8
           },
           {
@@ -132,7 +132,7 @@
             "quantity": 3
           },
           {
-            "item_id": "building_glass",
+            "item_id": "~glass",
             "quantity": 2
           },
           {

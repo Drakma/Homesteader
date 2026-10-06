@@ -24,7 +24,9 @@
         "icon": "struct_foundation_starter_house.png",
         "construction_recipe": [
           {
-            "any_of": [
+            "section": "",
+            "mode": "any",
+            "items": [
               {
                 "item_id": "80lb_cement_bag",
                 "quantity": 10
@@ -38,7 +40,7 @@
                 "quantity": 5
               },
               {
-                "item_id": "post_wood_round_6inch",
+                "item_id": "~post_wood_round_6inch",
                 "quantity": 12
               }
             ]
@@ -66,19 +68,19 @@
         "icon": "struct_framing_starter_house.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "item_id": "~framing_lumber",
             "quantity": 160
           },
           {
-            "item_id": "lumber_joist_2x8",
+            "item_id": "~lumber_joist_2x8",
             "quantity": 16
           },
           {
-            "item_id": "lumber_post_4x4",
+            "item_id": "~lumber_post_4x4",
             "quantity": 3
           },
           {
-            "item_id": "hardware_hurricane_ties",
+            "item_id": "~hurricane_ties",
             "quantity": 2
           },
           {
@@ -123,7 +125,7 @@
             "quantity": 6
           },
           {
-            "item_id": "building_insulation_fiberglass_batt",
+            "item_id": "~insulation_fiberglass_batt",
             "quantity": 6
           },
           {
@@ -160,7 +162,7 @@
             "quantity": 12
           },
           {
-            "item_id": "building_glass",
+            "item_id": "#window",
             "quantity": 7
           },
           {
@@ -168,7 +170,7 @@
             "quantity": 12
           },
           {
-            "item_id": "#chimney_masonry",
+            "item_id": "~chimney_masonry",
             "quantity": 2
           }
         ],

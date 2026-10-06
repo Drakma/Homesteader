@@ -1,7 +1,5 @@
 # Live Fishing Bait
 
-**Item ID:** `fishing_bait`  
-**Category:** `fishing`  
-**Icon:** ![Live Fishing Bait](fishing_bait.png)
+A tin of live earthworms dug from moist garden compost.
 
-Standardized Homesteader asset manifest for `fishing_bait`.
+Procedural model (tools/make_simple_props.py), 476 triangles, 0.13 x 0.08 x 0.08 m. An open tin of soil and earthworms, the lid beside it.

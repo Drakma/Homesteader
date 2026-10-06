@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "bale"
+    "sale_unit": "bale",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_bale_straw_square.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.914,
+        "y": 0.359,
+        "z": 0.46
+      },
+      "triangles": 1488
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.9,
-      "depth": 0.45,
-      "height": 0.35
+      "width": 0.91,
+      "depth": 0.46,
+      "height": 0.36
     }
   }
 }

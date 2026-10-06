@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_drill_water_well_wooden",
+  "name": "Drilled Well (Wooden Well House) - Drill",
+  "category": "structures",
+  "description": "The drill phase of the drilled well (wooden well house).",
+  "icon": "struct_drill_water_well_wooden.png",
+  "properties": {
+    "weight_kg": 50.0,
+    "max_stack_size": 1,
+    "base_value": 0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_drill_water_well_wooden.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2,
+        "y": 0.5,
+        "z": 2
+      },
+      "triangles": 116
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 2,
+      "depth": 2,
+      "height": 0.5
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [],
+    "required_tools": [
+      [
+        "tool_shovel",
+        "tool_shovel_round_point",
+        "tool_shovel_trenching",
+        "tool_pickaxe"
+      ]
+    ],
+    "build_clips": [
+      "Dig",
+      "Hoe"
+    ],
+    "build_motion": ""
+  }
+}

@@ -1,7 +1,7 @@
-# Solar Panel 100W Rigid
+# 100W Rigid Solar Panel
 
 **Item ID:** `electricity_solar_panel_100w_rigid`  
 **Category:** `electricity`  
-**Icon:** ![Solar Panel 100W Rigid](electricity_solar_panel_100w_rigid.png)
+**Icon:** ![100W Rigid Solar Panel](electricity_solar_panel_100w_rigid.png)
 
-Standardized Homesteader asset manifest for `electricity_solar_panel_100w_rigid`.
+A small rigid 100 watt solar panel: 30 monocrystalline cells under glass in an aluminium frame. It does not stand alone: fit it on a roof mount or a ground mount (right click the mount with the panel in hand).

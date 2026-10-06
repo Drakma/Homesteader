@@ -16,7 +16,9 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "wire_role": "water_tank",
+    "pressurized": true
   },
   "models": [
     {
@@ -82,7 +84,8 @@
   "liquid_container": {
     "capacity_l": 100,
     "accepts": [
-      "liquid_water"
+      "liquid_water",
+      "liquid_water_raw"
     ]
   }
 }

@@ -1,0 +1,22 @@
+{
+  "id": "1791136577_blown_insulation_bag_new_model_replaces_the_old_box",
+  "title": "Blown Insulation Bag: new model (replaces the old box)",
+  "plan": [
+    "You asked in chat for a whole new blown insulation bag mesh to replace the old one (building_insulation_blown_bag, a 36-triangle box).",
+    "Meshy balance now: 103 credits.",
+    "Reference image via gemini_generate (no Meshy credits): a modern compressed plastic-wrapped bale of loose-fill blown-in attic insulation, pink and white wrap, lying flat, labelled BLOWN INSULATION.",
+    "Meshy image-to-3D, meshy-t2 smart-topology + texture: 15 credits. Balance after: 88.",
+    "Scale to about 0.75 x 0.5 x 0.3 m and ground it, check under 5,000 triangles, check the label text and repaint it if garbled, render the icon from the model, update the manifest and README (price, weight, stack size unchanged), stop the procedural script overwriting it, package the mods."
+  ],
+  "cost": {
+    "total_credits": 15,
+    "balance_credits": 103,
+    "balance_after_credits": 88,
+    "per_item": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15
+    }
+  },
+  "status": "approved",
+  "created_at": "2026-10-04T17:56:17Z",
+  "resolved_at": "2026-10-04T17:56:21Z"
+}

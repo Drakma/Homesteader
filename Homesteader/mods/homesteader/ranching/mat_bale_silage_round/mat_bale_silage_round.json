@@ -22,7 +22,18 @@
     ],
     "sale_unit": "bale"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_bale_silage_round.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.214,
+        "y": 1.214,
+        "z": 1.224
+      },
+      "triangles": 1224
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -67,9 +78,9 @@
     "temperament": "none",
     "same_sex_aggression": false,
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 1.2,
-      "height": 1.2
+      "width": 1.21,
+      "depth": 1.22,
+      "height": 1.21
     }
   }
 }

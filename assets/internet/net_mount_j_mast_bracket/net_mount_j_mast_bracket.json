@@ -10,7 +10,7 @@
     "max_stack_size": 5,
     "base_value": 25,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.16m W x 0.32m D x 0.80m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -25,36 +25,14 @@
   },
   "models": [
     {
-      "file": "net_mount_j_mast_bracket.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "net_mount_j_mast_bracket.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 46.0,
-        "y": 49.0,
-        "z": 100.0
-      },
+      "file": "net_mount_j_mast_bracket.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.46,
-        "y": 0.49,
-        "z": 1.0
+        "x": 0.16,
+        "y": 0.797,
+        "z": 0.32
       },
-      "vertices": 300,
-      "faces": 100,
-      "bounding_box": {
-        "min": [
-          -23.0,
-          -18.0,
-          0.0
-        ],
-        "max": [
-          23.0,
-          31.0,
-          100.0
-        ]
-      }
+      "triangles": 274
     }
   ],
   "utilities": {
@@ -96,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.05,
-      "depth": 0.3,
-      "height": 0.9
+      "width": 0.16,
+      "depth": 0.32,
+      "height": 0.8
     },
     "power_draw_w": 0,
     "bandwidth_mbps": 0,

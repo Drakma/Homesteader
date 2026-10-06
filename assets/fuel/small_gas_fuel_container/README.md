@@ -1,7 +1,5 @@
-# Fuel Diesel Small
+# Small Gas Fuel Container
 
-**Item ID:** `small_gas_fuel_container`  
-**Category:** `electricity`  
-**Icon:** ![Fuel Diesel Small](small_gas_fuel_container.png)
+A small red plastic fuel can for gasoline.
 
-Standardized Homesteader asset manifest for `small_gas_fuel_container`.
+Procedural model (tools/make_fuel_props.py), 240 triangles, 0.31 x 0.12 x 0.33 m. A slim red plastic fuel can, the spout at the left.

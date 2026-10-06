@@ -3,7 +3,7 @@
   "name": "Homesteader",
   "version": "1.0.0",
   "author": "Homesteader Team",
-  "date": "2026-10-04",
+  "date": "2026-10-05",
   "description": "The Homesteader core catalog: every category of asset, plus the game rules.",
   "namespace": "homesteader",
   "compatibility": {

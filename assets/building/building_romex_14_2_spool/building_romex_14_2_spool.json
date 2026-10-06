@@ -1,0 +1,86 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_romex_14_2_spool",
+  "name": "Romex 14-2 Spool",
+  "category": "building",
+  "description": "A 75 m spool of 14-2 NM cable for lighting circuits.",
+  "icon": "building_romex_14_2_spool.png",
+  "properties": {
+    "weight_kg": 9.0,
+    "max_stack_size": 4,
+    "base_value": 70,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "display_weight": true,
+    "wire_kind": "ac",
+    "wire_length_m": 75,
+    "stacking_limit": 4,
+    "placeable": true
+  },
+  "models": [
+    {
+      "file": "building_romex_14_2_spool.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.403,
+        "y": 0.175,
+        "z": 0.436
+      },
+      "triangles": 3592
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.4,
+      "depth": 0.44,
+      "height": 0.18
+    }
+  }
+}

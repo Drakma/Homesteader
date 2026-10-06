@@ -22,7 +22,8 @@
       "depot"
     ],
     "sale_unit": "kit",
-    "support_surface": true
+    "support_surface": true,
+    "display_weight": true
   },
   "models": [
     {

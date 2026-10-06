@@ -3,7 +3,7 @@
   "component": true,
   "title": "Container",
   "target": "container",
-  "note": "A COMPONENT schema: it is not part of any category or the base schema. It is added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'container' block on the manifest. An asset with this block can hold other items up to a weight capacity: the sum of every stored item's weight_kg x count may not pass capacity_kg. Runtime: Assets/Scripts/UI/Containers.cs (the C key opens a container's contents). Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1); stacking_limit is WORLD stacking.",
+  "note": "A COMPONENT schema: it is not part of any category or the base schema. It is added to an individual asset (the asset popup's Add schema button) and stored as its own top-level 'container' block on the manifest. An asset with this block can hold other items up to a weight capacity: the sum of every stored item's weight_kg x count may not pass capacity_kg. Runtime: Assets/Scripts/UI/Containers.cs (the C key opens a container's contents). Containers do not stack in the toolbar (adding the schema sets properties.max_stack_size to 1); stacking_limit is WORLD stacking. The fill_* fractions are measured in the GAME's space, not Blender's: a GLB is mirrored along its length when it loads (glTFast inverts X) and Blender's Y becomes the game's -Z, so a tub that sits at 0.10 to 0.55 of the length in Blender is at 0.45 to 0.90 in the game (1 minus each, swapped), and the same for the width.",
   "on_add": {
     "properties.max_stack_size": 1
   },
@@ -38,6 +38,89 @@
       "default": true,
       "label": "Show Contents",
       "note": "Draw what is inside a PLACED container as blocks that rise as it fills (one slab per kind of item: its average colour on the sides and its icon on top). Turn it off for closed boxes, where the inside is not visible."
+    },
+    "fill_x_min": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0,
+      "label": "Fill length from (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its length (X axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "fill_x_max": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 1,
+      "label": "Fill length to (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its length (X axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "fill_y_min": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0,
+      "label": "Fill height from (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its height (Y axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "fill_y_max": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 1,
+      "label": "Fill height to (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its height (Y axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "fill_z_min": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0,
+      "label": "Fill width from (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its width (Z axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "fill_z_max": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 1,
+      "label": "Fill width to (0-1)",
+      "note": "Where the visible contents sit, as a FRACTION (0 to 1) of the model's overall size along its width (Z axis). Leave all six at 0 and 1 for a plain box (crates). Set them for a container whose opening is only part of the model, such as a wheelbarrow tub: the fill blocks then stay inside the tub instead of filling the whole model."
+    },
+    "max_items": {
+      "type": "number",
+      "integer": true,
+      "required": false,
+      "min": 1,
+      "label": "Max Items (slots)",
+      "note": "The most items it holds in all, whatever they weigh (a battery rack has this many slots). Empty = limited by weight only."
+    },
+    "slot_pitch_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.01,
+      "label": "Slot Pitch (m)",
+      "note": "When set, a PLACED container draws what is inside as the REAL item models, one above the other this far apart (a battery rack: one module per 3U, 0.1334 m), centred on the container, instead of the filling blocks. The item models stand with their pivot at the bottom."
+    },
+    "slot_start_m": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "First Slot Height (m)",
+      "note": "With Slot Pitch: how high above the bottom of the container's model the first slot stands."
+    },
+    "pushable": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Push Item",
+      "note": "A placed container the player GRABS and pushes instead of picking up (a wheelbarrow): right click it with an empty active slot to take the handles (slower, no running), right click again to put it down; Shift + right click empties it onto the ground as piles. A shovel (a container that accepts #bulk) in the active slot moves shovelfuls between the shovel and it."
     },
     "single_type": {
       "type": "boolean",

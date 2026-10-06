@@ -1,12 +1,12 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "electricity_generator",
-  "name": "Generator",
+  "name": "Portable Generator",
   "category": "electricity",
-  "description": "Modular Generator structure for homestead building.",
+  "description": "A wheeled open-frame gasoline generator with a recoil start, for backup power around the homestead.",
   "icon": "electricity_generator.png",
   "properties": {
-    "weight_kg": 1.0,
+    "weight_kg": 75.0,
     "max_stack_size": 99,
     "base_value": 350,
     "is_consumable": false,
@@ -21,32 +21,20 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "pushable": true,
+    "power_radius_tiles": 6
   },
   "models": [
     {
-      "file": "SM_Electric_Generator.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Electric_Generator_Portable.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Electric_Generator_Standby.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Electric_Generator.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Electric_Generator_Portable.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Electric_Generator_Standby.obj",
-      "format": "obj"
+      "file": "electricity_generator.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.73,
+        "y": 0.62,
+        "z": 0.578
+      },
+      "triangles": 1704
     }
   ],
   "utilities": {
@@ -88,9 +76,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.7,
-      "depth": 0.55,
-      "height": 0.55
+      "width": 0.73,
+      "depth": 0.58,
+      "height": 0.62
     },
     "fuel_type": "gasoline",
     "fuel_consumption_l_per_min": 0.004167,

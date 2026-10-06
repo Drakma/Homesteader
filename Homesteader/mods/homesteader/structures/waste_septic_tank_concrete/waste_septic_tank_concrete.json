@@ -1,0 +1,131 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "waste_septic_tank_concrete",
+  "name": "Septic Tank (Concrete)",
+  "category": "structures",
+  "description": "A precast concrete septic tank, buried with two green risers and lids showing just above the ground for the cleanout. Pipe a building's waste outlet to it with black waste pipe (a macerator pump on the way is optional); pipe it on to a distribution box and leach fields. Solids settle and build up in it: order a pump-out in the Tank You app before it fills.",
+  "icon": "waste_septic_tank_concrete.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "waste_septic_tank_concrete",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "excavate",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_excavate/",
+        "model": "",
+        "icon": "struct_excavate_waste_septic_tank_concrete.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 2,
+        "name": "set",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_set/",
+        "model": "",
+        "icon": "struct_set_waste_septic_tank_concrete.png",
+        "construction_recipe": [
+          {
+            "item_id": "~bedding_stone",
+            "quantity": 0.6
+          },
+          {
+            "item_id": "waste_riser_septic_lid",
+            "quantity": 2
+          },
+          {
+            "item_id": "~pipe_sewer_solid_4inch",
+            "quantity": 2
+          },
+          {
+            "item_id": "~pvc_cement_can",
+            "quantity": 1
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT",
+          "Dig"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 3,
+        "name": "backfill",
+        "age_min": 66,
+        "age_max": 100,
+        "resource": "stages/struct_backfill/",
+        "model": "",
+        "icon": "struct_backfill_waste_septic_tank_concrete.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 1450,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "wire_role": "septic_tank",
+    "sewage_capacity_l": 3800
+  }
+}

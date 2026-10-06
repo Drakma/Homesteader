@@ -190,7 +190,7 @@ namespace Homesteader
                 _cachedCam = Camera.main;
                 if (_cachedCam == null)
                 {
-                    var isoCam = FindAnyObjectByType<IsometricLockedCamera>();
+                    var isoCam = IsometricLockedCamera.Current;
                     if (isoCam != null) _cachedCam = isoCam.GetComponent<Camera>();
                 }
                 if (_cachedCam == null)
@@ -205,7 +205,7 @@ namespace Homesteader
                 if (p != null) _cachedPlayer = p.transform;
                 else
                 {
-                    var ped = FindAnyObjectByType<PedController>();
+                    var ped = PedController.Current;
                     if (ped != null) _cachedPlayer = ped.transform;
                 }
             }

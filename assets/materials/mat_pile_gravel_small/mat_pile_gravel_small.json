@@ -20,9 +20,20 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_pile_gravel_small.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.3,
+        "z": 0.6
+      }
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

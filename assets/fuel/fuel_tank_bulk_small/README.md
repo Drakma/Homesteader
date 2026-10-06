@@ -1,7 +1,5 @@
-# Tank Fuel Bulk Small
+# Small Bulk Fuel Storage Tank
 
-**Item ID:** `fuel_tank_bulk_small`  
-**Category:** `electricity`  
-**Icon:** ![Tank Fuel Bulk Small](fuel_tank_bulk_small.png)
+A skid-mounted bulk fuel storage tank for on-site diesel or gasoline storage.
 
-Standardized Homesteader asset manifest for `fuel_tank_bulk_small`.
+Procedural model (tools/make_simple_props.py), 660 triangles, 2.08 x 0.85 x 1.38 m. A red drum with a white band on a skid, hose and nozzle, a DIESEL FUEL sticker on each side.

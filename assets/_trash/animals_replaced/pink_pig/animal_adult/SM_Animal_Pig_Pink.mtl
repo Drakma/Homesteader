@@ -1,0 +1,26 @@
+# Material Library for SM_Animal_Pig_Pink
+
+newmtl pig_pink
+Ka 0.380 0.296 0.304
+Kd 0.950 0.740 0.760
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl snout_dark
+Ka 0.368 0.232 0.256
+Kd 0.920 0.580 0.640
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl hooves_pork
+Ka 0.180 0.140 0.128
+Kd 0.450 0.350 0.320
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+

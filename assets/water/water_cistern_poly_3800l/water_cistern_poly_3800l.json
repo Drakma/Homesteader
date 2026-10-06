@@ -1,14 +1,14 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "water_cistern_poly_3800l",
-  "name": "3800L Water Cistern",
+  "name": "Water Cistern",
   "category": "water",
-  "description": "A large 3800 liter poly water cistern for bulk storage.",
+  "description": "A black poly water cistern for bulk storage: stand it in the yard and pipe a well, a filter or a rain line into it.",
   "icon": "water_cistern_poly_3800l.png",
   "properties": {
-    "weight_kg": 1.0,
+    "weight_kg": 70.0,
     "max_stack_size": 1,
-    "base_value": 10.0,
+    "base_value": 650,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -16,24 +16,24 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "wire_role": "water_tank",
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "ea"
   },
   "models": [
     {
-      "file": "cistern_poly_1000gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Water_Cistern_Poly_1000gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "cistern_poly_1000gal.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Water_Cistern_Poly_1000gal.obj",
-      "format": "obj"
+      "file": "water_cistern_poly_3800l.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.746,
+        "y": 2.042,
+        "z": 1.893
+      },
+      "triangles": 2510
     }
   ],
   "utilities": {
@@ -75,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.6,
-      "depth": 1.6,
-      "height": 2.2
+      "width": 1.75,
+      "depth": 1.89,
+      "height": 2.04
     },
     "power_draw_w": 0,
     "capacity_l": 3800,
@@ -90,7 +90,8 @@
   "liquid_container": {
     "capacity_l": 3800,
     "accepts": [
-      "liquid_water"
+      "liquid_water",
+      "liquid_water_raw"
     ]
   }
 }

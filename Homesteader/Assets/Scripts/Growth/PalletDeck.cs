@@ -19,6 +19,65 @@ namespace Homesteader.Growth
             return c != null && c.support_surface;
         }
 
+        private static readonly Dictionary<string, List<float>> HeightCache = new Dictionary<string, List<float>>();
+        private static readonly List<float> NoDecks = new List<float>();
+        private const float BoardM = 0.035f;   // a shelf board's thickness and a little air: what is lost between one shelf's top face and the underside of the next
+
+        /// <summary>The height of each shelf's top face above the ground, lowest first (a shelving unit: properties.deck_heights), or empty for a pallet (one deck at the model height).</summary>
+        public static List<float> DeckHeights(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) return NoDecks;
+            if (HeightCache.TryGetValue(itemId, out List<float> cached)) return cached;
+            var list = new List<float>();
+            AssetCatalogItem c = HudBindings.GetCatalogItem(itemId);
+            if (c != null && c.support_surface && !string.IsNullOrEmpty(c.deck_heights))
+                foreach (string part in c.deck_heights.Split(','))
+                    if (float.TryParse(part.Trim(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float h) && h > 0f) list.Add(h);
+            list.Sort();
+            if (c != null) HeightCache[itemId] = list;
+            return list;
+        }
+
+        /// <summary>A shelving unit: a pallet with several decks (shelves).</summary>
+        public static bool IsShelving(string itemId) { return DeckHeights(itemId).Count > 1; }
+
+        /// <summary>How much room there is above a deck: up to the next shelf (or the top of the unit). A pallet's stacks go as high as <see cref="TopLimit"/>.</summary>
+        public static float Clearance(PlacedObject pallet, int deck)
+        {
+            List<float> hs = DeckHeights(pallet.ItemId);
+            if (hs.Count == 0) return TopLimit;
+            deck = Mathf.Clamp(deck, 0, hs.Count - 1);
+            float next = deck + 1 < hs.Count ? hs[deck + 1] : pallet.Height;
+            return Mathf.Max(0.05f, next - hs[deck] - BoardM);
+        }
+
+        /// <summary>
+        /// The shelving unit the camera ray goes into, and WHICH shelf: the ray is followed down through the unit and the first shelf whose top face it crosses inside the unit
+        /// is the one (an upper shelf covers the ones below it from above, so a lower shelf is reached by pointing at its open front). <paramref name="point"/> is where it crosses.
+        /// </summary>
+        public static bool UnderRay(Ray ray, out PlacedObject pallet, out int deck, out Vector3 point)
+        {
+            pallet = null; deck = 0; point = default;
+            float bestDist = float.MaxValue;
+            foreach (PlacedObject o in PlacedObject.All)
+            {
+                if (o == null || !IsShelving(o.ItemId)) continue;
+                if (!LocalRect(o.transform, o.gameObject, out Rect footprint)) continue;
+                List<float> hs = DeckHeights(o.ItemId);
+                for (int d = hs.Count - 1; d >= 0; d--)
+                {
+                    var plane = new Plane(Vector3.up, new Vector3(0f, o.transform.position.y + hs[d], 0f));
+                    if (!plane.Raycast(ray, out float enter)) continue;
+                    Vector3 p = ray.GetPoint(enter);
+                    Vector3 l = o.transform.InverseTransformPoint(p);
+                    if (!footprint.Contains(new Vector2(l.x, l.z))) continue;
+                    if (enter < bestDist) { bestDist = enter; pallet = o; deck = d; point = p; }
+                    break;   // the first shelf the ray comes to
+                }
+            }
+            return pallet != null;
+        }
+
         /// <summary>The footprint (x, z) of an object's meshes in the local space of <paramref name="frame"/>; false until a model has loaded.</summary>
         public static bool LocalRect(Transform frame, GameObject obj, out Rect rect)
         {
@@ -47,7 +106,7 @@ namespace Homesteader.Growth
         {
             foreach (PlacedObject o in PlacedObject.All)
             {
-                if (o == null || !IsPallet(o.ItemId)) continue;
+                if (o == null || !IsPallet(o.ItemId) || IsShelving(o.ItemId)) continue;   // a shelving unit is found by the ray (UnderRay)
                 if (!LocalRect(o.transform, o.gameObject, out Rect deck)) continue;
                 Vector3 l = o.transform.InverseTransformPoint(world);
                 if (deck.Contains(new Vector2(l.x, l.z))) return o;
@@ -55,19 +114,31 @@ namespace Homesteader.Growth
             return null;
         }
 
-        public static float DeckY(PlacedObject pallet) { return pallet.transform.position.y + pallet.Height; }
+        public static float DeckY(PlacedObject pallet, int deck = 0)
+        {
+            List<float> hs = DeckHeights(pallet.ItemId);
+            if (hs.Count > 0) return pallet.transform.position.y + hs[Mathf.Clamp(deck, 0, hs.Count - 1)];
+            return pallet.transform.position.y + pallet.Height;
+        }
 
-        /// <summary>What stands on the pallet now (everything above its deck inside its footprint), the pallet itself excluded.</summary>
-        public static List<PlacedObject> Carried(PlacedObject pallet)
+        /// <summary>What stands on the pallet now (everything above its deck inside its footprint), the pallet itself excluded. For a shelving unit <paramref name="deck"/> picks one shelf (-1: all of them).</summary>
+        public static List<PlacedObject> Carried(PlacedObject pallet, int deck = -1)
         {
             var list = new List<PlacedObject>();
-            if (!LocalRect(pallet.transform, pallet.gameObject, out Rect deck)) return list;
-            float y = pallet.transform.position.y + 0.05f;
+            if (!LocalRect(pallet.transform, pallet.gameObject, out Rect footprint)) return list;
+            float lo = pallet.transform.position.y + 0.05f, hi = float.MaxValue;
+            int decks = DeckHeights(pallet.ItemId).Count;
+            if (decks > 0 && deck >= 0)
+            {
+                lo = DeckY(pallet, deck) - 0.02f;
+                if (deck + 1 < decks) hi = DeckY(pallet, deck + 1) - 0.02f;
+            }
             foreach (PlacedObject o in PlacedObject.All)
             {
                 if (o == null || o == pallet) continue;
                 Vector3 l = pallet.transform.InverseTransformPoint(o.transform.position);
-                if (deck.Contains(new Vector2(l.x, l.z)) && o.transform.position.y > y) list.Add(o);
+                float y = o.transform.position.y;
+                if (footprint.Contains(new Vector2(l.x, l.z)) && y > lo && y < hi) list.Add(o);
             }
             return list;
         }
@@ -77,19 +148,21 @@ namespace Homesteader.Growth
         /// otherwise in the free spot nearest the point. <paramref name="ignore"/> is an object to leave out (the one being placed).
         /// </summary>
         public static bool FindSpot(PlacedObject pallet, string itemId, Vector2 size, Vector3 wantWorld, PlacedObject ignore,
-                                    out Vector3 position, out int level, out string reason)
+                                    out Vector3 position, out int level, out string reason, int deck = 0, float height = 0f)
         {
             position = default;
             level = 1;
             reason = null;
-            if (!LocalRect(pallet.transform, pallet.gameObject, out Rect deck)) { reason = "The pallet has not loaded yet."; return false; }
-            float deckY = DeckY(pallet);
+            if (!LocalRect(pallet.transform, pallet.gameObject, out Rect deckRect)) { reason = "The pallet has not loaded yet."; return false; }
+            float deckY = DeckY(pallet, deck);
+            float room = Clearance(pallet, deck);   // how high things may go on this deck
+            if (height > room + 0.01f) { reason = "It is too tall for this shelf."; return false; }
             Vector3 wl = pallet.transform.InverseTransformPoint(wantWorld);
             Vector2 want = new Vector2(wl.x, wl.z);
 
             // the columns already on it
             var cols = new List<List<PlacedObject>>();
-            foreach (PlacedObject o in Carried(pallet))
+            foreach (PlacedObject o in Carried(pallet, deck))
             {
                 if (o == ignore) continue;
                 List<PlacedObject> col = null;
@@ -123,7 +196,7 @@ namespace Homesteader.Growth
                 if (under && top.ItemId == itemId && c.Count < limit)
                 {
                     float topY = top.transform.position.y + top.Height;
-                    if (topY + 0.01f - deckY > TopLimit) { reason = "That stack is as high as it goes."; return false; }
+                    if (topY + 0.01f - deckY + Mathf.Max(0f, height - top.Height) > room) { reason = "That stack is as high as it goes."; return false; }
                     position = new Vector3(top.transform.position.x, topY, top.transform.position.z);
                     level = top.Level + 1;
                     return true;
@@ -132,13 +205,13 @@ namespace Homesteader.Growth
 
             // 2) the free spot nearest the point
             float w = size.x, d = size.y;
-            if (w > deck.width + 0.01f || d > deck.height + 0.01f) { reason = "That does not fit on the pallet."; return false; }
+            if (w > deckRect.width + 0.01f || d > deckRect.height + 0.01f) { reason = "That does not fit on the pallet."; return false; }
             const float gap = 0.01f, step = 0.05f;
             bool found = false;
             Vector2 best = default;
             float bestDist = float.MaxValue;
-            for (float x = deck.xMin + w * 0.5f; x <= deck.xMax - w * 0.5f + 0.001f; x += step)
-                for (float z = deck.yMin + d * 0.5f; z <= deck.yMax - d * 0.5f + 0.001f; z += step)
+            for (float x = deckRect.xMin + w * 0.5f; x <= deckRect.xMax - w * 0.5f + 0.001f; x += step)
+                for (float z = deckRect.yMin + d * 0.5f; z <= deckRect.yMax - d * 0.5f + 0.001f; z += step)
                 {
                     var cand = new Rect(x - w * 0.5f - gap, z - d * 0.5f - gap, w + 2f * gap, d + 2f * gap);
                     bool free = true;

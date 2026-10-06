@@ -20,9 +20,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "building_insulation_fiberglass_batt.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.441,
+        "y": 0.162,
+        "z": 1.2
+      },
+      "triangles": 108
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 0.4,
-      "height": 0.15
+      "width": 0.44,
+      "depth": 1.2,
+      "height": 0.16
     }
   }
 }

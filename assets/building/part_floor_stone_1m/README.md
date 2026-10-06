@@ -1,6 +1,6 @@
-# Part Floor Stone 1M (`part_floor_stone_1m`)
+# Part Floor Stone (`part_floor_stone_1m`)
 
-![Part Floor Stone 1M Icon](part_floor_stone_1m.png)
+![Part Floor Stone Icon](part_floor_stone_1m.png)
 
 ## Overview
 - **Category**: `building`

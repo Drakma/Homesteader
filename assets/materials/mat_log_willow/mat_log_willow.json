@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_log_willow.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.204,
+        "y": 0.345,
+        "z": 0.296
+      },
+      "triangles": 140
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
+      "width": 1.2,
       "depth": 0.3,
-      "height": 1.2
+      "height": 0.34
     }
   }
 }

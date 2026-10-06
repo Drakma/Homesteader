@@ -69,23 +69,113 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "#sheathing",
+        "section": "Sheathing",
+        "mode": "any",
+        "items": [
+          {
+            "item_id": "~osb",
+            "quantity": 40
+          },
+          {
+            "item_id": "~sheet_plywood_cdx",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "item_id": "building_house_wrap_roll",
+        "quantity": 4
+      },
+      {
+        "item_id": "~romex_14_2",
+        "quantity": 150
+      },
+      {
+        "item_id": "~romex_12_2",
+        "quantity": 150
+      },
+      {
+        "item_id": "~romex_10_3",
+        "quantity": 30
+      },
+      {
+        "item_id": "~pipe_pvc_half_inch",
+        "quantity": 30
+      },
+      {
+        "item_id": "~pipe_pvc_one_inch",
+        "quantity": 16
+      },
+      {
+        "item_id": "~pipe_pvc_two_inch",
         "quantity": 10
       },
       {
-        "item_id": "#romex_wire",
-        "quantity": 12
+        "item_id": "~pipe_sewer_solid_4inch",
+        "quantity": 8
       },
       {
-        "item_id": "#plumbing_pipe",
-        "quantity": 12
+        "item_id": "pipe_pvc_elbow",
+        "quantity": 30
+      },
+      {
+        "item_id": "pipe_pvc_tee",
+        "quantity": 20
+      },
+      {
+        "item_id": "building_valve_ball_pvc",
+        "quantity": 6
+      },
+      {
+        "item_id": "valve_ball_brass",
+        "quantity": 2
+      },
+      {
+        "item_id": "valve_gate_brass",
+        "quantity": 1
+      },
+      {
+        "item_id": "gland_cable_entry_wall",
+        "quantity": 4
+      },
+      {
+        "item_id": "~pvc_primer_can",
+        "quantity": 4
+      },
+      {
+        "item_id": "~pvc_cement_can",
+        "quantity": 4
+      },
+      {
+        "section": "Insulation",
+        "mode": "any",
+        "items": [
+          {
+            "item_id": "~insulation_fiberglass_batt",
+            "quantity": 60
+          },
+          {
+            "item_id": "~foam_board",
+            "quantity": 20
+          },
+          {
+            "item_id": "~insulation_blown",
+            "quantity": 20
+          }
+        ]
+      },
+      {
+        "item_id": "~insulation_spray_foam",
+        "quantity": 6
       }
     ],
     "required_tools": [
       [
         "tool_circular_saw_corded",
         "tool_circular_saw_cordless",
-        "tool_saw_hand"
+        "tool_saw_hand",
+        "tool_miter_saw",
+        "tool_table_saw"
       ],
       [
         "tool_hammer_claw",
@@ -93,6 +183,10 @@
         "tool_drill_cordless_basic",
         "tool_drill_cordless_pro",
         "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_wrench_adjustable",
+        "tool_wrench_pipe"
       ]
     ]
   }

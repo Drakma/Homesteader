@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_rope.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.52,
+        "y": 0.12,
+        "z": 0.406
+      },
+      "triangles": 2672
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.4,
-      "depth": 0.4,
-      "height": 0.2
+      "width": 0.52,
+      "depth": 0.41,
+      "height": 0.12
     }
   }
 }

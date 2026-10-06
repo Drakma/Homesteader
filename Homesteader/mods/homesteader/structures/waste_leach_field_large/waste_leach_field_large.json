@@ -1,0 +1,135 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "waste_leach_field_large",
+  "name": "Large Leach Field",
+  "category": "structures",
+  "description": "Four gravel trenches with perforated pipe, buried: the liquid from a septic tank soaks away into the ground here. Pipe it from a distribution box. It takes so much a day; more than that and the system backs up.",
+  "icon": "waste_leach_field_large.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "waste_leach_field_large",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "excavate",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_excavate/",
+        "model": "",
+        "icon": "struct_excavate_waste_leach_field_large.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 2,
+        "name": "set",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_set/",
+        "model": "",
+        "icon": "struct_set_waste_leach_field_large.png",
+        "construction_recipe": [
+          {
+            "item_id": "~gravel",
+            "quantity": 3.0
+          },
+          {
+            "item_id": "~pipe_leach_perforated_4inch",
+            "quantity": 16
+          },
+          {
+            "item_id": "~pipe_sewer_solid_4inch",
+            "quantity": 4
+          },
+          {
+            "item_id": "~pvc_cement_can",
+            "quantity": 1
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT",
+          "Dig"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 3,
+        "name": "backfill",
+        "age_min": 66,
+        "age_max": 100,
+        "resource": "stages/struct_backfill/",
+        "model": "",
+        "icon": "struct_backfill_waste_leach_field_large.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_rake_garden",
+            "tool_rake_leaf",
+            "tool_hoe",
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 320,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "wire_role": "leach_field",
+    "leach_lpd": 1200,
+    "leach_storage_l": 3000
+  }
+}

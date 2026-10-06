@@ -72,6 +72,8 @@ public class OcclusionFader : MonoBehaviour
         m.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
     }
 
+    private readonly RaycastHit[] _hitBuffer = new RaycastHit[64];
+
     void Update()
     {
         if (target == null || materials == null || fadeableStructures == null) return;
@@ -82,20 +84,21 @@ public class OcclusionFader : MonoBehaviour
         float dist = dir.magnitude;
         dir.Normalize();
 
-        var hits = Physics.RaycastAll(origin, dir, dist);
+        int hitCount = Physics.RaycastNonAlloc(origin, dir, _hitBuffer, dist);
 
         for (int i = 0; i < fadeableStructures.Length; i++)
         {
             if (materials[i] == null) continue;
             bool occluding = false;
-            foreach (var hit in hits)
+            for (int h = 0; h < hitCount; h++)
             {
-                if (hit.collider.gameObject == fadeableStructures[i])
+                if (_hitBuffer[h].collider.gameObject == fadeableStructures[i])
                 {
                     occluding = true;
                     break;
                 }
             }
+            if (!occluding && progress[i] <= 0.001f) continue;   // fully solid and staying so: nothing to change
 
             float target01 = occluding ? 1f : 0f;
             bool wasFullyReal = progress[i] <= 0.001f;

@@ -26,7 +26,14 @@
                         <ui:VisualElement name="PhoneCelestialIcon" class="phone-celestial-icon" />
                     </ui:VisualElement>
                     <ui:VisualElement class="phone-status-icons">
-                        <ui:Label text="5G" class="phone-status-icon" />
+                        <!-- the live signal: four bars and the link in use (5G, Wi-Fi, No service), driven by Connectivity.cs -->
+                        <ui:VisualElement name="PhoneSignal" class="phone-signal">
+                            <ui:VisualElement class="phone-signal-bar phone-signal-bar--1" />
+                            <ui:VisualElement class="phone-signal-bar phone-signal-bar--2" />
+                            <ui:VisualElement class="phone-signal-bar phone-signal-bar--3" />
+                            <ui:VisualElement class="phone-signal-bar phone-signal-bar--4" />
+                        </ui:VisualElement>
+                        <ui:Label name="PhoneNetLabel" text="5G" class="phone-status-icon" />
                         <ui:VisualElement class="phone-battery-pill">
                             <ui:VisualElement name="PhoneBatteryFill" class="phone-battery-fill" />
                         </ui:VisualElement>
@@ -207,29 +214,7 @@
                             <ui:Label text="Grid OS • Solar &amp; Power" class="phone-app-title" />
                         </ui:VisualElement>
                         <ui:ScrollView class="phone-app-scroll">
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="CURRENT SOLAR GENERATION" class="grid-card-title" />
-                                <ui:Label name="GridSolarWatts" text="1.85 kW" class="grid-metric-large" />
-                                <ui:Label text="Array Efficiency: 94% • 6 Active Panels" class="grid-metric-sub" />
-                                <ui:VisualElement class="grid-bar-track">
-                                    <ui:VisualElement name="GridSolarFill" class="grid-bar-fill-solar" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="HOMESTEAD BATTERY BANK" class="grid-card-title" />
-                                <ui:Label name="GridBatteryPct" text="84% (16.8 kWh)" class="grid-metric-large" />
-                                <ui:Label text="LiFePO4 Storage • Est. Runtime: 14h 20m" class="grid-metric-sub" />
-                                <ui:VisualElement class="grid-bar-track">
-                                    <ui:VisualElement name="GridBatteryFill" class="grid-bar-fill-battery" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="CURRENT HOUSE LOAD" class="grid-card-title" />
-                                <ui:Label name="GridLoadWatts" text="420 W" class="grid-metric-large" />
-                                <ui:Label text="Pumps: 180W • Internet: 40W • Baseline: 200W" class="grid-metric-sub" />
-                            </ui:VisualElement>
+                            <ui:VisualElement name="GridSystems" />
                         </ui:ScrollView>
                     </ui:VisualElement>
 
@@ -240,23 +225,8 @@
                             <ui:Label text="ResView • Homestead Utilities" class="phone-app-title" />
                         </ui:VisualElement>
                         <ui:ScrollView class="phone-app-scroll">
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="POTABLE WATER STORAGE" class="grid-card-title" />
-                                <ui:Label name="ResWaterText" text="820 L / 1,000 L" class="grid-metric-large" />
-                                <ui:Label text="Well Inflow: +4.2 L/min • Poly Cistern" class="grid-metric-sub" />
-                            </ui:VisualElement>
-
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="FUEL RESERVES (DIESEL / PROPANE)" class="grid-card-title" />
-                                <ui:Label name="ResFuelText" text="160 L Diesel • 250 Gal Propane" class="grid-metric-large" />
-                                <ui:Label text="Backup Generator Ready • Tank Level: 78%" class="grid-metric-sub" />
-                            </ui:VisualElement>
-
-                            <ui:VisualElement class="grid-card">
-                                <ui:Label text="INTERNET &amp; TELEMETRY" class="grid-card-title" />
-                                <ui:Label name="ResNetText" text="Starlink Satellite • 85 Mbps" class="grid-metric-large" />
-                                <ui:Label text="Latency: 32ms • Mesh WiFi Online" class="grid-metric-sub" />
-                            </ui:VisualElement>
+                            <!-- Water, fuel and internet cards, and the detail list behind each: built by PhoneController.UpdateResAppData from ResViewData -->
+                            <ui:VisualElement name="ResCards" />
                         </ui:ScrollView>
                     </ui:VisualElement>
 

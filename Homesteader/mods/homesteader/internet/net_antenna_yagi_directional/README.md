@@ -1,7 +1,5 @@
-# Antenna Yagi Directional
+# Yagi Directional Antenna
 
-**Item ID:** `net_antenna_yagi_directional`  
-**Category:** `internet`  
-**Icon:** ![Antenna Yagi Directional](net_antenna_yagi_directional.png)
+Long-range directional antenna array.
 
-Standardized Homesteader asset manifest for `net_antenna_yagi_directional`.
+Procedural model (tools/make_internet.py): a nine element yagi on a tripod mast, aimed forward. Its detail is painted (tools/net_pictures.py). 484 triangles, 0.61 x 0.84 x 1.15 m.

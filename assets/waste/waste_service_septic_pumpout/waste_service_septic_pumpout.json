@@ -1,0 +1,74 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "waste_service_septic_pumpout",
+  "name": "Septic Pump-Out",
+  "category": "waste",
+  "description": "The honey pot truck comes the next morning and pumps out one of your septic tanks: the sludge and the liquid, the fullest tank first. Order one pump-out for each tank.",
+  "icon": "waste_service_septic_pumpout.png",
+  "properties": {
+    "weight_kg": 0.0,
+    "max_stack_size": 9,
+    "base_value": 325,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "water"
+    ],
+    "sale_unit": "ea",
+    "placeable": false
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "fuel_type": "none",
+    "capacity_l": 0,
+    "burn_minutes_per_item": 0,
+    "dimensions_m": {
+      "width": 0.0,
+      "depth": 0.0,
+      "height": 0.0
+    }
+  }
+}

@@ -12,6 +12,8 @@ public class PedController : MonoBehaviour
     [Tooltip("Max Carry Weight (kg). The more the ped carries toward this, the slower it moves; past it the ped is encumbered and moves at 10 percent of its base speed.")]
     public float maxCarryWeight = 70f;
     public const float EncumberedSpeedFactor = 0.10f;
+    /// <summary>Encumbrance is OFF for now: carrying slows nothing and nothing warns. The weights are still counted (CarryWeight); set this to true to bring the slowdown back.</summary>
+    public const bool EncumbranceOn = false;
     public float gravity = -9.81f;
     public float turnSpeed = 10f;
     public float modelRotationOffset = 180f;
@@ -23,14 +25,14 @@ public class PedController : MonoBehaviour
 
     /// <summary>Weight of everything in the toolbar, in kg.</summary>
     public float CarryWeight => _carryWeight;
-    public bool IsEncumbered => maxCarryWeight > 0f && _carryWeight > maxCarryWeight;
+    public bool IsEncumbered => EncumbranceOn && maxCarryWeight > 0f && _carryWeight > maxCarryWeight;
 
     /// <summary>1 with an empty toolbar, easing down as the load nears Max Carry Weight (0.1 at the limit); 0.1 beyond it.</summary>
     public float CarrySpeedFactor
     {
         get
         {
-            if (maxCarryWeight <= 0f) return 1f;
+            if (!EncumbranceOn || maxCarryWeight <= 0f) return 1f;
             float r = _carryWeight / maxCarryWeight;
             if (r > 1f) return EncumberedSpeedFactor;
             return Mathf.Lerp(1f, EncumberedSpeedFactor, r * r);
@@ -113,6 +115,17 @@ public class PedController : MonoBehaviour
 
     /// <summary>When true, walking uses the two-arm carry clip (Walk_Carry).</summary>
     public bool Carrying { get; set; }
+
+    /// <summary>Pushing a wheelbarrow: movement is slowed by this factor and running is off (1 = not pushing).</summary>
+    public float PushSpeedFactor { get; set; } = 1f;
+    public bool NoRun { get; set; }
+
+    private static PedController s_current;
+    /// <summary>The player, found once (FindAnyObjectByType scans the scene, so it must not run every frame).</summary>
+    public static PedController Current
+    {
+        get { if (s_current == null) s_current = UnityEngine.Object.FindAnyObjectByType<PedController>(); return s_current; }
+    }
 
     void Awake()
     {
@@ -279,7 +292,8 @@ public class PedController : MonoBehaviour
         Quaternion camYawRot = Quaternion.Euler(0f, camYaw, 0f);
 
         RefreshCarryWeight();
-        float speed = (running ? runSpeed : walkSpeed) * CarrySpeedFactor;
+        if (NoRun) running = false;
+        float speed = (running ? runSpeed : walkSpeed) * CarrySpeedFactor * PushSpeedFactor;
         Vector3 worldMove = camYawRot * move * speed;
 
         if (controller.isGrounded)

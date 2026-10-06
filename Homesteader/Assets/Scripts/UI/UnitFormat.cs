@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Homesteader.UI
 {
     /// <summary>
-    /// The one place numbers with units are written for the player. Everything in the game is stored in metric (metres, kilograms, litres,
+    /// The one place numbers with units are written for the player. Everything in the game is stored in metric (metres, kilograms, liters,
     /// square metres); whenever one is SHOWN it goes through here, so the Metric / Imperial setting (HudState.Units) changes it everywhere:
     /// lengths in feet and inches, areas in square feet, weights in pounds, volumes in gallons. New UI text with a unit uses these.
     /// </summary>
@@ -38,10 +38,24 @@ namespace Homesteader.UI
             return Imperial ? $"{(kilograms * KilogramsToPounds).ToString(format)} lb" : $"{kilograms.ToString(format)} kg";
         }
 
+        /// <summary>A weight for a name: no needless decimals ("9 kg", "0.5 kg", "20 lb"): whole numbers from 10 up and in pounds from 10 lb up.</summary>
+        public static string WeightLabel(float kilograms)
+        {
+            float v = Imperial ? kilograms * KilogramsToPounds : kilograms;
+            string num = v >= 10f ? Mathf.Round(v).ToString("0") : (Mathf.Abs(v - Mathf.Round(v)) < 0.05f ? Mathf.Round(v).ToString("0") : v.ToString("0.#"));
+            return num + (Imperial ? " lb" : " kg");
+        }
+
         /// <summary>Two weights as "used / capacity unit": "12.5 / 40.0 kg" or "27.6 / 88.2 lb".</summary>
         public static string WeightPair(float used, float capacity)
         {
             return Imperial ? $"{used * KilogramsToPounds:0.0} / {capacity * KilogramsToPounds:0.0} lb" : $"{used:0.0} / {capacity:0.0} kg";
+        }
+
+        /// <summary>A bulk volume (piles of sand, gravel, dirt): "0.25 m3" or "0.33 yd3" (cubic yards).</summary>
+        public static string BulkVolume(float cubicMeters)
+        {
+            return Imperial ? $"{cubicMeters * 1.30795f:0.##} yd3" : $"{cubicMeters:0.###} m3";
         }
 
         /// <summary>A liquid volume: "5 L" or "1.3 gal".</summary>

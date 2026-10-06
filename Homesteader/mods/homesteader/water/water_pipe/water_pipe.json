@@ -17,7 +17,18 @@
     "stamina_restore": 0,
     "wellness_modifier": 0
   },
-  "models": [],
+  "models": [
+    {
+      "file": "water_pipe.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 3.002,
+        "y": 0.032,
+        "z": 0.032
+      },
+      "triangles": 92
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -57,9 +68,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.03,
+      "width": 3.0,
       "depth": 0.03,
-      "height": 3.0
+      "height": 0.03
     },
     "power_draw_w": 0,
     "capacity_l": 0,

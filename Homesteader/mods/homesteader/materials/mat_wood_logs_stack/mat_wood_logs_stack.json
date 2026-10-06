@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_wood_logs_stack.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.43,
+        "y": 1.0,
+        "z": 0.783
+      },
+      "triangles": 2088
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,8 +74,8 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.5,
-      "depth": 0.8,
+      "width": 1.43,
+      "depth": 0.78,
       "height": 1.0
     }
   }

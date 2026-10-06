@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "waste_tank_manure_slurry",
-  "name": "5000L Manure Slurry Tank",
+  "name": "Manure Slurry Tank",
   "category": "waste",
   "description": "A round concrete slurry store with steel bands and a hatch. Holds liquid manure from the barn.",
   "icon": "waste_tank_manure_slurry.png",

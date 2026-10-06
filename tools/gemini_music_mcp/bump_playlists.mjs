@@ -168,6 +168,19 @@ const playlists = {
     ['Long_Night_Hearth', 'Slow warm jazz winter instrumental, 66 BPM: brushed drums, upright bass, mellow muted trumpet melody, soft piano comping, vibraphone shimmer, late night by the hearth on the longest night of the year. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
     ['Snowed_In_Shuffle', 'Easygoing festive shuffle instrumental, 104 BPM: shuffling drums with sleigh bells, clean jazzy guitar melody, Hammond organ pads, walking bass, happily snowed in at home. Entirely original melody that is not based on any existing song. Cozy wintertime mood.'],
   ],
+  Classical: [
+    ['Morning_Sonatina', 'Classical solo piano piece, lively and bright, about 120 BPM in a major key: a clear singing melody in the right hand over a flowing broken-chord accompaniment, light and elegant, sunny morning mood. Entirely original composition that is not based on any existing piece.'],
+    ['Orchard_Quartet', 'Classical string quartet movement, graceful and warm, moderate tempo: two violins, viola and cello passing a gentle melody between them, clear phrases, pastoral and contented. Entirely original composition that is not based on any existing piece.'],
+    ['Harpsichord_Gigue', 'Baroque-style dance for harpsichord and small string ensemble, quick and bouncy in 6/8: bright plucked harpsichord figures, lively violins, a steady cello bass line, cheerful and precise. Entirely original composition that is not based on any existing piece.'],
+    ['Meadow_Nocturne', 'Slow romantic solo piano nocturne, about 60 BPM: a tender, expressive melody over soft rolling left-hand arpeggios, gentle rubato, quiet moonlit meadow mood. Entirely original composition that is not based on any existing piece.'],
+    ['Flute_And_Harp_Pastorale', 'Classical duet for flute and harp, calm and flowing: a lyrical flute melody over rippling harp arpeggios, light and airy, a stream running through a quiet pasture. Entirely original composition that is not based on any existing piece.'],
+    ['Harvest_Overture', 'Bright chamber orchestra overture, energetic, about 132 BPM: bustling strings, crisp woodwinds, horns and timpani, a bold opening theme and a triumphant close. Entirely original composition that is not based on any existing piece.'],
+    ['Cello_Reverie', 'Slow expressive piece for solo cello with soft piano accompaniment: a deep, warm, singing cello melody, sparse gentle piano chords, thoughtful and peaceful. Entirely original composition that is not based on any existing piece.'],
+    ['Garden_Minuet', 'Elegant classical minuet for chamber orchestra in 3/4, moderate tempo: poised strings with oboe and bassoon, balanced phrases, courtly and light on its feet. Entirely original composition that is not based on any existing piece.'],
+    ['Storm_Over_The_Ridge', 'Dramatic orchestral piece in a minor key, fast and urgent: driving tremolo strings, bold brass, rolling timpani, a tense theme that resolves strongly at the end. Entirely original composition that is not based on any existing piece.'],
+    ['Evening_Adagio', 'Slow adagio for string orchestra, about 54 BPM: long sustained lines, rich warm harmonies, a gradual swell and a calm resolution, serene sunset mood. Entirely original composition that is not based on any existing piece.'],
+    ['Woodwind_Serenade', 'Light classical serenade for wind quintet: flute, oboe, clarinet, horn and bassoon in playful conversation, moderate tempo, charming and good-humoured. Entirely original composition that is not based on any existing piece.'],
+  ],
 };
 
 function log(msg) {

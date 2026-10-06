@@ -154,6 +154,7 @@ namespace Homesteader.UI
         private string _assetSearchQuery = "";
         private static AssetCatalogDatabase s_assetCatalog;
         private readonly List<string> _assetCategoryKeys = new List<string>();
+        private DropdownField _builtCategoryDropdown;   // the dropdown the category list was built into
 
         public bool IsAssetSpawnerOpen => _assetSpawnerWindow != null && !_assetSpawnerWindow.ClassListContains("asset-spawner-window--hidden");
 
@@ -264,6 +265,7 @@ namespace Homesteader.UI
             _resourceBandwidth = Q<Label>("ResourceBandwidthLabel");
             _resourceFuel = Q<Label>("ResourceFuelLabel");
             _resourceMoney = Q<Label>("ResourceMoneyLabel");
+            SetUpResourceTips();
 
             _vitalWellnessFill = Q<VisualElement>("VitalWellnessFill");
             _vitalStaminaFill = Q<VisualElement>("VitalStaminaFill");
@@ -611,6 +613,9 @@ namespace Homesteader.UI
         /// <summary>The frame in which Esc closed something (a text field's focus, a window, the phone); the welcome menu leaves that Esc alone.</summary>
         public static int EscapeHandledFrame = -1;
 
+        /// <summary>True while the phone is up (the first person view frees the mouse for it).</summary>
+        public bool IsPhoneOpen => _phone != null && _phone.IsOpen;
+
         public static bool KeyboardCaptured =>
             Instance != null && (Instance.IsModalOpen || Instance.IsAssetSpawnerOpen || Instance.IsTextInputFocused());
 
@@ -648,6 +653,7 @@ namespace Homesteader.UI
                         else if (ContainerPanel.CloseOpen()) { }
                         else if (Homesteader.Growth.FenceBuilder.CancelPlan()) { }
                         else if (Homesteader.Growth.PathBuilder.CancelPlan()) { }
+                        else if (Homesteader.Growth.AreaTidy.Cancel()) { }
                         else if (phoneOpen) _phone.Close();
                         else EscapeHandledFrame = -1;   // nothing to close: Esc is the welcome menu's
                     }
@@ -820,6 +826,26 @@ namespace Homesteader.UI
         }
 
         /// <summary>Catalog display name for an item id (the id itself when unknown).</summary>
+        /// <summary>
+        /// The name the player SEES: the stored plain name plus what is generated from the item's data. A pack shows its quantity with an x, then its weight, "Cement Bag Pallet x10 (200 lb)";
+        /// a material or packaged good shows its weight in the player's units, "Cement Bag (20 lb)"; anything else is just the name.
+        /// Used in the stores, the active slot's description, WAILA and the construction lists.
+        /// </summary>
+        public static string GetDisplayName(string itemId)
+        {
+            EnsureAssetCatalogLoaded();
+            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            if (item == null || string.IsNullOrEmpty(item.name)) return itemId;
+            string shown = item.name;
+            if (item.pack_quantity > 1) shown += " x" + item.pack_quantity;   // a pack shows how many it holds, then its weight
+            if (item.max_power_w > 0f)                                         // a power source or regulator shows its rated power, "Standby Generator (10 kW)"
+                shown += " (" + (item.max_power_w >= 1000f ? (Mathf.Round(item.max_power_w / 100f) / 10f).ToString("0.#") + " kW" : Mathf.RoundToInt(item.max_power_w) + " W") + ")";
+            if (item.max_current_a > 0f) shown += " (" + item.max_current_a.ToString("0.#") + " A)";   // a breaker, fuse or disconnect shows its rated current, "DC Circuit Breaker (32 A)"
+            if (item.liquid_capacity_l > 0f) shown += " (" + UnitFormat.Volume(item.liquid_capacity_l) + ")";   // a liquid container shows how many liters it holds
+            else if (item.display_weight && item.weight_kg > 0f) shown += " (" + UnitFormat.WeightLabel(item.weight_kg) + ")";
+            return shown;
+        }
+
         public static string GetItemName(string itemId)
         {
             EnsureAssetCatalogLoaded();
@@ -929,13 +955,11 @@ namespace Homesteader.UI
             {
                 var playSpeed = (_lastActiveSpeed != HomesteaderSpeed.Pause) ? _lastActiveSpeed : HomesteaderSpeed.Speed1X;
                 TimeSystem.Instance.SetSpeed(playSpeed);
-                ToastNotificationSystem.ShowInfo("Game Resumed", $"Simulation running at {SpeedToString(playSpeed)}.");
             }
             else
             {
                 _lastActiveSpeed = TimeSystem.Instance.CurrentSpeed;
                 TimeSystem.Instance.SetSpeed(HomesteaderSpeed.Pause);
-                ToastNotificationSystem.ShowWarning("Game Paused", "Simulation paused. Press Spacebar or toggle speed to resume.");
             }
         }
 
@@ -1077,15 +1101,15 @@ namespace Homesteader.UI
 
         private static void DropAssetInFront(string itemId, int count)
         {
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             if (ped == null) return;
             Vector3 facing = Quaternion.Euler(0f, ped.transform.eulerAngles.y - ped.modelRotationOffset, 0f) * Vector3.forward;
             Vector3 front = ped.transform.position + facing * 1.5f;
             int dropped = 0;
             for (int i = 0; i < count; i++)
-                if (Homesteader.Growth.WorldItem.TryDrop(itemId, front)) dropped++;
-            if (dropped > 0) ToastNotificationSystem.ShowCounted("drop:" + itemId, "Dropped", "Dropped {0}x " + GetItemName(itemId).Replace("{", "{{").Replace("}", "}}") + ".", dropped);
-            else ToastNotificationSystem.ShowWarning("Can't drop", "That asset has no model or icon to drop.");
+                if (i == 0 && Homesteader.Growth.WheelbarrowPush.TryDropPlaced(itemId, front)) dropped++;   // a wheelbarrow is put down standing
+                else if (Homesteader.Growth.WorldItem.TryDrop(itemId, front)) dropped++;
+            if (dropped <= 0) ToastNotificationSystem.ShowWarning("Can't drop", "That asset has no model or icon to drop.");
         }
 
         private static bool IsShiftHeld()
@@ -1158,7 +1182,10 @@ namespace Homesteader.UI
         private void BuildAssetCategoryDropdown()
         {
             if (_assetCategoryDropdown == null) return;
-            if (_assetCategoryKeys.Count > 0) return;
+            // built once per dropdown: when the HUD's elements are made again (a new dropdown) it is filled again, never left empty
+            if (_assetCategoryKeys.Count > 0 && _builtCategoryDropdown == _assetCategoryDropdown && _assetCategoryDropdown.choices != null && _assetCategoryDropdown.choices.Count() > 0) return;
+            _assetCategoryKeys.Clear();
+            _builtCategoryDropdown = _assetCategoryDropdown;
 
             EnsureAssetCatalogLoaded();
 
@@ -1269,7 +1296,7 @@ namespace Homesteader.UI
                 }
                 tile.Add(iconEl);
 
-                var nameLabel = new Label(item.name);
+                var nameLabel = new Label(GetDisplayName(item.id));   // the full name and its quantity / weight / capacity
                 nameLabel.AddToClassList("asset-tile-name");
                 nameLabel.pickingMode = PickingMode.Ignore;
                 tile.Add(nameLabel);
@@ -1289,15 +1316,15 @@ namespace Homesteader.UI
                     int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : 1;
                     if (evt.altKey || (evt.modifiers & EventModifiers.Alt) != 0)
                     {
-                        // Alt+Click: straight onto the ground in front of the player (Shift: a full stack, up to 24)
-                        DropAssetInFront(currentItem.id, Mathf.Min(24, countToAdd));
+                        // Alt+Click: one straight onto the ground in front of the player (Alt+Shift+Click: ten)
+                        DropAssetInFront(currentItem.id, isShift ? 10 : 1);
                         return;
                     }
-                    int added = HudState.Active.AddItemToToolbar(currentItem.id, countToAdd, Mathf.Max(1, currentItem.max_stack));
+                    // Straight into a toolbar slot, never into a container on the toolbar: with a toolbox there, a spawned tool used to vanish into it.
+                    int added = HudState.Active.AddItemToToolbar(currentItem.id, countToAdd, Mathf.Max(1, currentItem.max_stack), useContainers: false);
                     if (added > 0)
                     {
                         WriteToolbar(HudState.Active);
-                        ToastNotificationSystem.ShowCounted("toolbar_add:" + currentItem.id, "Added to Toolbar", "Added {0}x " + currentItem.name.Replace("{", "{{").Replace("}", "}}") + " to toolbar.", added);
                     }
                     else
                     {
@@ -1329,11 +1356,16 @@ namespace Homesteader.UI
 
             var state = HudState.Active;
             UpdateWindIndicator();
-            if (_enableTimeUpdates) WriteTime();
-            if (_enableResourceUpdates) WriteResources(state);
-            if (_enableVitalUpdates) WriteVitals(state);
-            if (_enableToolbarUpdates) WriteToolbar(state);
+            // The labels, bars and toolbar are rewritten a few times a second, not every frame (every write formats strings and dirties the layout);
+            // actions that change the toolbar call RefreshToolbar themselves.
+            float now = Time.unscaledTime;
+            if (_enableTimeUpdates && now >= _nextTimeWrite) { _nextTimeWrite = now + 0.1f; WriteTime(); }
+            if (_enableResourceUpdates && now >= _nextResourceWrite) { _nextResourceWrite = now + 0.25f; WriteResources(state); }
+            if (_enableVitalUpdates && now >= _nextVitalWrite) { _nextVitalWrite = now + 0.25f; WriteVitals(state); }
+            if (_enableToolbarUpdates && now >= _nextToolbarWrite) { _nextToolbarWrite = now + 0.05f; WriteToolbar(state); }
         }
+
+        private float _nextTimeWrite, _nextResourceWrite, _nextVitalWrite, _nextToolbarWrite;
 
         // ------------------------------------------------------------------ wind indicator
 
@@ -1368,7 +1400,7 @@ namespace Homesteader.UI
 
             float from = Mathf.Repeat(heading + 180f, 360f);
             string point = CompassPoints[Mathf.RoundToInt(from / 45f) % 8];
-            string dirText = calm ? "" : "from " + point;
+            string dirText = calm ? "" : point;
             if (mph == _windShownMph && dirText == _windShownDir) return;
             _windShownMph = mph;
             _windShownDir = dirText;
@@ -1647,22 +1679,212 @@ namespace Homesteader.UI
             }
         }
 
+        // ------------------------------------------------------------------ the resource breakdowns on hover
+
+        private VisualElement _resTip;
+        private Label _resTipText;
+        // ------------------------------------------------------------------ a choice window (the sawmill asks what lumber to cut)
+
+        private VisualElement _choice;
+        public bool ChoiceMenuOpen { get { return _choice != null && _choice.parent != null; } }
+
+        /// <summary>
+        /// A "pick from a list" window beside the world, built to the design system's per-window checklist (docs/UI_DESIGN_SYSTEM.md section 10): the window chrome (<c>window</c>,
+        /// the accent edge, a 36 px header with the amber title and the shared <c>hs-close</c>), a body with a gauge (label medium 13, an 8 px bar), a hint (italic 11 muted), the
+        /// section title (<c>window-section-title</c>: bold amber 13) and list rows 40 px high (the item's icon, its name in medium 13, hover = <c>--c-raised</c>) each with one
+        /// <c>hs-btn</c> (30 px, centred text). A disabled button says why in its tooltip. Floating and draggable, it does not block the game: X, Escape (the caller) or
+        /// walking away closes it, and it remembers where it was left. The <c>choice-*</c> classes (HudUI.uss) are layout and the row hover only.
+        /// </summary>
+        public void ShowChoiceMenu(string title, string gaugeText, float gaugeFraction, string hint, string section, List<ChoiceOption> options, System.Action<int> onPick)
+        {
+            CloseChoiceMenu();
+            if (_root == null) return;
+            var window = new VisualElement { name = "ChoiceWindow" };
+            window.AddToClassList("window");
+            window.AddToClassList("choice-window");
+            window.style.position = Position.Absolute;
+            var edge = new VisualElement { pickingMode = PickingMode.Ignore };
+            edge.AddToClassList("hs-accent-edge");
+            window.Add(edge);
+            var header = new VisualElement();
+            header.AddToClassList("window-header");
+            header.tooltip = "Drag to move";
+            var heading = new Label(title) { pickingMode = PickingMode.Ignore };
+            heading.AddToClassList("window-title");
+            var close = new Button(CloseChoiceMenu) { text = "X", tooltip = "Close (Escape)" };
+            close.AddToClassList("hs-close");
+            header.Add(heading);
+            header.Add(close);
+            window.Add(header);
+            WindowPositions.MakeDraggable(window, header, "choice");
+            var body = new VisualElement();
+            body.AddToClassList("window-body");
+            window.Add(body);
+            if (!string.IsNullOrEmpty(gaugeText))
+            {
+                var cap = new Label(gaugeText);
+                cap.AddToClassList("choice-gauge");
+                body.Add(cap);
+                var bar = new VisualElement();
+                bar.AddToClassList("choice-bar");
+                var fill = new VisualElement();
+                fill.AddToClassList("choice-bar-fill");
+                fill.style.width = new Length(Mathf.Clamp01(gaugeFraction) * 100f, LengthUnit.Percent);
+                bar.Add(fill);
+                body.Add(bar);
+            }
+            if (!string.IsNullOrEmpty(hint))
+            {
+                var note = new Label(hint);
+                note.AddToClassList("choice-hint");
+                body.Add(note);
+            }
+            if (!string.IsNullOrEmpty(section))
+            {
+                var h = new Label(section);
+                h.AddToClassList("window-section-title");
+                body.Add(h);
+            }
+            for (int k = 0; k < options.Count; k++)
+            {
+                int index = k;
+                ChoiceOption opt = options[k];
+                var row = new VisualElement();
+                row.AddToClassList("choice-row");
+                var icon = new VisualElement { pickingMode = PickingMode.Ignore };
+                icon.AddToClassList("choice-icon");
+                Texture2D tex = string.IsNullOrEmpty(opt.IconId) ? null : PhoneController.GetItemIcon(opt.IconId + ".png", opt.IconId);
+                if (tex != null) icon.style.backgroundImage = new StyleBackground(tex);
+                row.Add(icon);
+                var name = new Label(opt.Label) { pickingMode = PickingMode.Ignore };
+                name.AddToClassList("choice-name");
+                row.Add(name);
+                var b = new Button(() => { if (!opt.Enabled) return; CloseChoiceMenu(); onPick?.Invoke(index); }) { text = opt.Action ?? "Choose" };
+                b.AddToClassList("hs-btn");
+                b.AddToClassList("choice-btn");
+                b.SetEnabled(opt.Enabled);
+                if (!opt.Enabled && !string.IsNullOrEmpty(opt.WhyNot)) { row.tooltip = opt.WhyNot; b.tooltip = opt.WhyNot; }   // a disabled control says why
+                row.Add(b);
+                body.Add(row);
+            }
+            VisualElement wallpaper = _root.Q<VisualElement>("WelcomeWallpaper");
+            if (wallpaper != null && wallpaper.parent == _root) _root.Insert(_root.IndexOf(wallpaper), window);
+            else _root.Add(window);
+            WindowPositions.Place(window, "choice");   // centred the first time, then where it was left
+            _choice = window;
+        }
+
+        public void CloseChoiceMenu()
+        {
+            if (_choice == null) return;
+            WindowPositions.Remember(_choice, "choice");
+            _choice.RemoveFromHierarchy();
+            _choice = null;
+        }
+
+        /// <summary>One row of <see cref="ShowChoiceMenu"/>: the item whose icon it shows, its text, the button's label, whether it can be pressed and, when not, why.</summary>
+        public struct ChoiceOption
+        {
+            public string Label, IconId, Action, WhyNot;
+            public bool Enabled;
+            public ChoiceOption(string label, string iconId, string action = "Choose", bool enabled = true, string whyNot = null) { Label = label; IconId = iconId; Action = action; Enabled = enabled; WhyNot = whyNot; }
+        }
+
+        private string _resTipFor;   // "water", "fuel" or "bandwidth" while the pointer is over that resource
+
+        /// <summary>Hovering the water or the fuel (icon or amount) shows what it is made of: potable / non-potable water; gasoline, diesel, propane.</summary>
+        private void SetUpResourceTips()
+        {
+            if (_root == null) return;
+            _resTip = new VisualElement { name = "ResourceTip", pickingMode = PickingMode.Ignore };
+            _resTip.style.position = Position.Absolute;
+            _resTip.style.backgroundColor = new Color(0.07f, 0.086f, 0.114f, 0.94f);
+            _resTip.style.borderTopLeftRadius = _resTip.style.borderTopRightRadius = _resTip.style.borderBottomLeftRadius = _resTip.style.borderBottomRightRadius = 4;
+            _resTip.style.paddingLeft = _resTip.style.paddingRight = 10;
+            _resTip.style.paddingTop = _resTip.style.paddingBottom = 6;
+            _resTip.style.display = DisplayStyle.None;
+            _resTipText = new Label { pickingMode = PickingMode.Ignore };
+            _resTipText.AddToClassList("resource-amount");
+            _resTipText.style.fontSize = 15;
+            _resTipText.style.whiteSpace = WhiteSpace.Normal;
+            _resTip.Add(_resTipText);
+            _root.Add(_resTip);
+            Hook(_resourceWater, "water");
+            Hook(_resourceFuel, "fuel");
+            Hook(_resourceBandwidth, "bandwidth");
+            Hook(_resourceElectricity, "electricity");
+        }
+
+        private void Hook(Label amount, string what)
+        {
+            VisualElement row = amount != null ? amount.parent : null;   // the icon and the amount together
+            if (row == null) return;
+            row.RegisterCallback<PointerEnterEvent>(_ => { _resTipFor = what; FillResourceTip(); PlaceResourceTip(row); });
+            row.RegisterCallback<PointerLeaveEvent>(_ => { if (_resTipFor == what) { _resTipFor = null; _resTip.style.display = DisplayStyle.None; } });
+        }
+
+        private void PlaceResourceTip(VisualElement row)
+        {
+            _resTip.style.display = DisplayStyle.Flex;
+            Rect r = row.worldBound;
+            Vector2 local = _root.WorldToLocal(new Vector2(r.xMin, r.yMax + 4f));
+            _resTip.style.left = Mathf.Max(4f, Mathf.Min(local.x, _root.layout.width - 230f));
+            _resTip.style.top = local.y;
+        }
+
+        private void FillResourceTip()
+        {
+            if (_resTip == null || _resTipFor == null) return;
+            if (_resTipFor == "electricity")
+            {
+                // the five things drawing the most power, most first
+                var top = Homesteader.Growth.WireNetwork.TopLoads(5, out float total);
+                var sb = new System.Text.StringBuilder();
+                sb.Append("Drawing: ").Append(Homesteader.Growth.SolarSun.Power(total));
+                if (top.Count == 0) sb.Append("\nNothing is drawing power");
+                foreach (var u in top) sb.Append("\n").Append(u.Key).Append(": ").Append(Homesteader.Growth.SolarSun.Power(u.Value));
+                _resTipText.text = sb.ToString();
+            }
+            else if (_resTipFor == "bandwidth")
+            {
+                // the five devices using the most, most first
+                var sb = new System.Text.StringBuilder();
+                sb.Append("In use: ").Append(ResViewData.Mbps(Homesteader.Growth.Net.UsedMbps)).Append(" of ").Append(ResViewData.Mbps(Homesteader.Growth.Net.TotalMbps));
+                var top = Homesteader.Growth.Net.TopUsers(5);
+                if (top.Count == 0) sb.Append("\nNothing is using it");
+                foreach (var u in top) sb.Append('\n').Append(u.Key).Append(": ").Append(ResViewData.Mbps(u.Value));
+                _resTipText.text = sb.ToString();
+            }
+            else if (_resTipFor == "water")
+                _resTipText.text = "Potable: " + UnitFormat.Volume(Homesteader.Growth.WireNetwork.PotableL) + "\nNon-potable: " + UnitFormat.Volume(Homesteader.Growth.WireNetwork.RawWaterL);
+            else
+                _resTipText.text = "Gasoline: " + UnitFormat.Volume(Homesteader.Growth.WireNetwork.GasolineL) + "\nDiesel: " + UnitFormat.Volume(Homesteader.Growth.WireNetwork.DieselL)
+                                 + "\nPropane: " + UnitFormat.Volume(Homesteader.Growth.WireNetwork.PropaneL);
+        }
+
         private void WriteResources(HudState s)
         {
+            FillResourceTip();   // the breakdown keeps up while it is shown
             if (_resourceWater != null)
             {
+                s.SetResourceAmount(ResourceId.Water, Homesteader.Growth.WireNetwork.PotableL);   // the HUD shows the potable water stored (clean water in tanks and containers)
                 _resourceWater.text = s.FormatWater();
             }
             if (_resourceElectricity != null)
             {
+                s.SetResourceAmount(ResourceId.Electricity, Homesteader.Growth.WireNetwork.TotalStoredWh() * 0.0036f);   // the HUD shows what the batteries hold (1 Wh = 0.0036 MJ)
                 _resourceElectricity.text = s.FormatElectricity();
             }
             if (_resourceBandwidth != null)
             {
+                Connectivity.PhoneInUse = _phone != null && _phone.IsOpen;
+                Connectivity.Refresh();   // keeps the phone's link (and what it takes of the bandwidth) up to date while the phone is away
+                s.SetResourceAmount(ResourceId.Bandwidth, Homesteader.Growth.Net.AvailableMbps);   // what the dish brings in now (the weather takes some), less what the cameras and TVs use
                 _resourceBandwidth.text = s.FormatBandwidth();
             }
             if (_resourceFuel != null)
             {
+                s.SetResourceAmount(ResourceId.Fuel, Homesteader.Growth.WireNetwork.FuelL);   // gasoline and diesel stored in tanks, drums and cans
                 _resourceFuel.text = s.FormatFuel();
             }
             if (_resourceMoney != null)
@@ -1748,7 +1970,7 @@ namespace Homesteader.UI
                     var active = s.Toolbar[s.SelectedSlot];
                     if (active.Count > 0 && !string.IsNullOrEmpty(active.IconId))
                     {
-                        hint = GetItemName(active.IconId) + $"  x{active.Count}";
+                        hint = GetDisplayName(active.IconId) + $"  x{active.Count}";
                         if (ContainerRules.IsContainer(active.IconId))
                             hint += $"  ({UnitFormat.WeightPair(ContainerRules.Used(active.Contents), ContainerRules.Capacity(active.IconId))})";
                     }
@@ -1815,7 +2037,6 @@ namespace Homesteader.UI
             ToolbarSlotData? removed = HudState.Active.ClearSelectedSlot();
             if (removed == null) return;
             RefreshToolbar();
-            ToastNotificationSystem.ShowInfo("Removed", GetItemName(removed.Value.IconId) + (removed.Value.Count > 1 ? " x" + removed.Value.Count : "") + " removed from the toolbar.");
         }
 
         public void RefreshToolbar()
@@ -1852,16 +2073,24 @@ namespace Homesteader.UI
         public float price;
     }
 
-    /// <summary>One alternative of an "or" line: this many of this item (or #tag).</summary>
-    [System.Serializable]
-    public class ConstructionOption { public string item_id; public int quantity = 1; }
-
     /// <summary>
-    /// One line of a stage's materials: this many of this item (or #tag), OR, when any_of is set, a choice: the stage takes ANY ONE of the
-    /// alternatives IN FULL (for example "2 x Large 2x4 Bundle" or "4 x Small 2x4 Bundle").
+    /// One node of a stage's materials (see tools/recipe_format.py). A LINE: this many of this item, #tag or ~equivalency (item_id, quantity).
+    /// A SECTION (items is set): mode "all" needs every child, mode "any" needs ANY ONE child in full; uses / not_uses make it conditional
+    /// (it only applies when an earlier line was paid with an item matching the spec, or was not).
     /// </summary>
     [System.Serializable]
-    public class ConstructionLine { public string item_id; public int quantity = 1; public List<ConstructionOption> any_of; }
+    public class ConstructionLine
+    {
+        public string item_id;
+        public float quantity = 1;
+        public float per_depth_m;                // a well: the line needs quantity + per_depth_m x the well's depth
+        public string section;
+        public string mode;
+        public string uses;
+        public string not_uses;
+        public List<ConstructionLine> items;
+        public bool IsSection => items != null && items.Count > 0;
+    }
 
     [System.Serializable]
     public class ConstructionToolGroup { public List<string> tools; }
@@ -1874,6 +2103,8 @@ namespace Homesteader.UI
         public string item_id;                         // the stage's own item (its model, when it has one)
         public float width, depth, height;             // metres
         public List<ConstructionLine> recipe;          // materials consumed to build this stage (an item id or a #tag)
+        public List<string> build_clips;               // the ped's work clips while this stage is built, one after the other (Dig, Hoe, Push_RT, Fixing_Kneeling_RT ...); empty = the default
+        public string build_motion;                    // how the stage's model moves while it is built: tilt_up (the node Mast is raised), lift (the node Yaw is hoisted), spin_up (the node Rotor is fitted and spun up); empty = none
         public List<ConstructionToolGroup> tool_groups; // the player needs ANY ONE tool of EACH group in the toolbar; tools are not consumed
     }
 
@@ -1887,7 +2118,11 @@ namespace Homesteader.UI
         public string icon;
         public int max_stack;
         public float weight_kg;
+        public float build_speed;                  // tools: 1 = the baseline build time, below 1 slower (a hammer), above 1 faster (0 = not set = 1)
+        public int pack_quantity;                  // a stack / pallet / case / bundle of N: shown as "Name (N)"
+        public bool display_weight;                // materials and packaged goods: shown as "Name (9 kg)"
         public bool support_surface;                                // a placed one carries items on top (a pallet, see PalletDeck.cs)
+        public string deck_heights;                                 // a shelving unit: the height of each shelf's top face in metres, lowest first, comma separated
         public string look_target;                                  // comma list of roof, walls, interior, floor, chimney, foundation: what it styles as a construction material (StructureLook.cs)
         public string look_style;                                   // a foundation item: poured, block, brick or stilts
         public string fence_style;                                  // wood or wire: a fence material (FenceBuilder.cs)
@@ -1911,6 +2146,8 @@ namespace Homesteader.UI
         public string liquid_color;                // a liquid item: its fluid colour as #RRGGBB
         public float liquid_opacity_pct;           // a liquid item: 100 = fully opaque (milk), about 70 for fuels
         public bool liquid_flammable;
+        public string liquid_filled_with;          // a liquid container sold full: the liquid in it (TankSticker.cs names it on a tank)
+        public float liquid_filled_l;
         public float container_capacity_kg;        // > 0: this item is a container (see Containers.cs)
         public int container_stacking_limit;       // identical placed containers stack this high in the world (1 / 0 = they do not)
         public List<string> fruiting_tools;        // the 'fruiting' add-on schema: what picks it (tools / #tags), what one fruit gives, days to regrow
@@ -1918,6 +2155,48 @@ namespace Homesteader.UI
         public float fruiting_regrow_days;
         public bool container_disposable;    // a placed one disappears when its last item is taken out (cardboard boxes)
         public bool container_single_type;   // takes only one kind of item at a time (crates)
+        public float[] container_fill_region;   // xmin, xmax, ymin, ymax, zmin, zmax as fractions of the model bounds (a container whose opening is only part of the model: a wheelbarrow tub)
+        public string wire_role;                 // solar_panel | wall_entry | dc_breaker | mppt | battery | inverter | ac_panel | busbar: a device the solar chain wires together (Wiring.cs)
+        public string wire_kind;                 // a coil or spool of wire: dc_indoor | dc_outdoor | ac
+        public bool pressurized;                 // a pressure tank (or a water heater): the taps draw from it with no pump running
+        public float heater_w;                   // a water heater: its element's watts
+        public string filter_stage;              // a water filter: sediment | carbon | uv
+        public float flow_lph;                   // a well pump: liters an hour it lifts
+        public bool is_well;                     // a drilled well structure (docs/WELLS.md)
+        public float sewage_capacity_l;          // a septic tank structure: the liters it holds (docs/SEPTIC.md)
+        public float leach_lpd;                  // a leach field: liters a game day that soak away
+        public float leach_storage_l;            // a leach field: liters its trenches hold
+        public float base_value;                 // what the item is worth (properties.base_value): the Market pays a share of it
+        public float water_per_use_l;            // a fixture (sink, toilet, shower, washer): liters one use takes and sends down the drain
+        public float fuel_lpm;                   // a standby generator: liters of fuel a minute at full load (category_fields.fuel_consumption_l_per_min)
+        public string attach_item;               // what fits on it (a well: its sub panel)
+        public float water_capacity_l;           // a water tank: how much a well's pipe can fill it with
+        public float power_draw_w;               // a corded electric tool: watts it draws while building (it needs a generator at the site)
+        public float power_radius_tiles;         // a portable generator: it powers everything that needs electricity this many tiles round it
+        public float panel_width_m, panel_depth_m;   // a solar mount: its panel seen from above
+        public float panel_offset_m;             // a solar mount: how far up its panel sits
+        public float panel_tilt_deg;             // a solar mount: the panel's tilt about the X axis
+        public float capacity_wh;                // a battery: energy capacity in watt-hours
+        public float voltage_v;                  // a battery: nominal voltage
+        public float wire_length_m;              // its length in metres
+        public float max_power_w;                // electricity items: rated power in watts (a wind turbine's output, a battery's continuous power)
+        public float max_current_a;              // breakers, fuses, disconnects: rated current in amps (shown in the name)
+        public bool shelf;                       // a wall shelf: things are stood on it (Shelf.cs)
+        public bool sawmill;                     // a stationary sawmill: logs laid on its track are cut into lumber (Sawmill.cs)
+        public bool roof_mount;                  // a ground item that may also be put up on a roof, upright, turned freely (a dish, a yagi, an access point)
+        public int net_ports;                    // network gear: how many cables it takes (a router: its LAN ports)
+        public bool poe;                         // ... and its ports give 15 W each over the cable
+        public bool poe_powered;                 // a device that runs from its cable: it only goes on a PoE port (a camera, an access point, a yagi)
+        public int rack_units;                   // a rackmount router or switch: the units it takes in a wall rack
+        public int rack_capacity_u;              // a rack: the units it holds
+        public float range_m;                    // internet gear: how far its radio reaches (Wi-Fi, a yagi link, a cellular booster)
+        public float bandwidth_mbps;             // internet gear: its rated throughput
+        public bool net_source;                  // ... and it brings the connection in by itself (a satellite dish, a directional antenna): its bandwidth is the homestead's
+        public float bandwidth_usage_mbps;       // a device that uses the internet (a TV): what it takes
+        public int container_max_items;          // > 0: at most this many items in all (a battery rack has this many slots), whatever their weight
+        public float container_slot_pitch_m;     // > 0: the contents are drawn as the real item models, one above the other this far apart (a battery rack)
+        public float container_slot_start_m;     // where the first slot stands: height above the bottom of the container's model
+        public bool container_pushable;          // a push item (a wheelbarrow): grabbed and pushed, not picked up
         public bool container_show_fill = true;   // draw what is inside as blocks (open crates and baskets; closed boxes turn it off)
         public List<string> container_accepts;     // categories, #tags or item ids it accepts; empty = anything
     }

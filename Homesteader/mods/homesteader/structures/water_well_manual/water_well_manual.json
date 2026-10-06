@@ -1,0 +1,262 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "water_well_manual",
+  "name": "Manual Well",
+  "category": "structures",
+  "description": "A traditional stone-walled well with a bucket on a rope, drawn up by hand with a windlass - no power or pump required. Built in 4 stages (foundation -> framing -> walls -> complete).",
+  "icon": "water_well_manual.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "water_well_manual",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 25,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_water_well_manual.png",
+        "construction_recipe": [
+          {
+            "item_id": "~gravel",
+            "quantity": 0.15
+          },
+          {
+            "section": "Concrete",
+            "mode": "any",
+            "items": [
+              {
+                "section": "Bagged concrete mix",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~concrete_mix",
+                    "quantity": 67
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 60
+                  }
+                ]
+              },
+              {
+                "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~cement",
+                    "quantity": 12
+                  },
+                  {
+                    "item_id": "~sand",
+                    "quantity": 0.14
+                  },
+                  {
+                    "item_id": "~gravel",
+                    "quantity": 0.22
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 52
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
+          ]
+        ]
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 25,
+        "age_max": 50,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_water_well_manual.png",
+        "construction_recipe": [
+          {
+            "section": "Stone lining",
+            "mode": "any",
+            "items": [
+              {
+                "item_id": "~masonry_fieldstone",
+                "quantity": 12
+              },
+              {
+                "item_id": "~masonry_units",
+                "quantity": 30
+              }
+            ]
+          },
+          {
+            "section": "Mortar",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~mortar",
+                "quantity": 4
+              },
+              {
+                "item_id": "~water",
+                "quantity": 14
+              }
+            ]
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
+          ]
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "walls",
+        "age_min": 50,
+        "age_max": 75,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_water_well_manual.png",
+        "construction_recipe": [
+          {
+            "item_id": "~masonry_units",
+            "quantity": 12
+          },
+          {
+            "section": "Mortar",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~mortar",
+                "quantity": 2
+              },
+              {
+                "item_id": "~water",
+                "quantity": 7
+              }
+            ]
+          },
+          {
+            "item_id": "~framing_lumber",
+            "quantity": 10
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_trowel_hand"
+          ],
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ],
+          [
+            "tool_hammer",
+            "tool_hammer_claw",
+            "tool_hammer_club"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
+          ]
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 75,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_water_well_manual.png",
+        "construction_recipe": [
+          {
+            "item_id": "~framing_lumber",
+            "quantity": 8
+          },
+          {
+            "item_id": "#roofing",
+            "quantity": 4
+          },
+          {
+            "item_id": "mat_rope",
+            "quantity": 1
+          },
+          {
+            "item_id": "tool_bucket_empty",
+            "quantity": 1
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ],
+          [
+            "tool_hammer",
+            "tool_hammer_claw",
+            "tool_hammer_club"
+          ]
+        ]
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 1200.0,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
+  }
+}

@@ -199,7 +199,7 @@ namespace Homesteader.DebugTools
             var cam = Camera.main;
             if (cam == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 if (iso != null) cam = iso.GetComponent<Camera>();
             }
             if (cam == null) return;

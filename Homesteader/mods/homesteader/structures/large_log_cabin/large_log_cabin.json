@@ -54,15 +54,15 @@
         "icon": "struct_framing_large_log_cabin.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "item_id": "~framing_lumber",
             "quantity": 60
           },
           {
-            "item_id": "lumber_joist_2x8",
+            "item_id": "~lumber_joist_2x8",
             "quantity": 24
           },
           {
-            "item_id": "lumber_post_4x4",
+            "item_id": "~lumber_post_4x4",
             "quantity": 8
           },
           {
@@ -136,11 +136,11 @@
             "quantity": 11
           },
           {
-            "item_id": "building_glass",
+            "item_id": "#window",
             "quantity": 8
           },
           {
-            "item_id": "#chimney_masonry",
+            "item_id": "~chimney_masonry",
             "quantity": 8
           }
         ],

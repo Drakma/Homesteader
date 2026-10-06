@@ -274,8 +274,8 @@ version and date, writes an animal's AI to `ai/<id>.json`, and refreshes the in-
 
 ## 4c2. Placing structures and props
 
-Select a placeable item on the toolbar (an item with a model that opts in with `"properties": { "placeable": true }`; category does not
-matter, the default is not placeable) and **left click**: a translucent shadow of it follows the grid square under the cursor, blue when the
+Select a placeable item on the toolbar (any item with a model; `"properties": { "placeable": false }` forbids it; category does not
+matter) and **left click**: a translucent shadow of it follows the grid square under the cursor, blue when the
 square is valid, red when not. **R** turns it (12.5 degrees a press, Shift+R the other way); **Enter** or a **second left click** places it
 (Esc, walking away or choosing another slot puts the shadow away): one item is consumed, the shadow
 fades to solid and it stays until something removes it (`PlacedObject.Remove()`). A square is invalid when it is farther
@@ -565,3 +565,13 @@ Debug.Log($"{manager.ModdedBiomeCount} biomes came from mods");
 ## Graphics presets (gamerules.json `graphics`)
 
 The Settings > Graphics preset list is mod data. A preset sets `shadow_distance`, `shadow_resolution`, `shadow_cascades`, `render_scale`, `antialiasing`, `small_plant_range`, `terrain_blend`, `water_reflections` and `max_fps`; `min_vram_mb` / `min_cores` are what **Auto** needs to choose it. Presets only change how the world is drawn, never what is in it (no density settings: positions and save records come from the world seed). The code is `Assets/Scripts/UI/GraphicsOptions.cs`; the player's choices (preset, display mode, resolution, V-Sync, HUD scale) are saved in PlayerPrefs and applied at startup.
+
+## Equivalencies (`equivalencies.json`)
+
+A mod may ship an `equivalencies.json` at its root next to `tags.json`: `{"equivalencies": {"name": {"unit": "studs", "label": "Framing Lumber", "members": [{"item": "id", "value": 1}, {"tag": "tag_name", "value": 1}]}}}`.
+A recipe line (`construction_recipe[].item_id`) asks for one as `"~name"` with a quantity in its units; any mix of members worth the quantity pays. A member is an item or a tag
+(all of the tag's items count at that value). Tags stay plain groups (`"#name"`, any one member). Full description: docs/CONSTRUCTION.md.
+
+## Shipping
+
+The core catalog (`Homesteader/mods`, the `homesteader` mod) ships with the game: after every player build `Assets/Editor/ShipModsPostBuild.cs` copies it into a `mods` folder next to the built game (switched-off `.disabled` folders and `.obj` / `.mtl` leftovers are left out), where `ModManager` finds it. Players add their own mods to `<persistentDataPath>/Mods`. Item icons are read from the mods first (`PhoneController.GetItemIcon`); `Assets/Resources/Icons` is only a fallback.

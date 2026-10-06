@@ -24,7 +24,9 @@
         "icon": "struct_foundation_small_cabin.png",
         "construction_recipe": [
           {
-            "any_of": [
+            "section": "",
+            "mode": "any",
+            "items": [
               {
                 "item_id": "80lb_cement_bag",
                 "quantity": 4
@@ -38,7 +40,7 @@
                 "quantity": 3
               },
               {
-                "item_id": "post_wood_round_6inch",
+                "item_id": "~post_wood_round_6inch",
                 "quantity": 8
               }
             ]
@@ -66,11 +68,11 @@
         "icon": "struct_framing_small_cabin.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "item_id": "~framing_lumber",
             "quantity": 100
           },
           {
-            "item_id": "lumber_joist_2x8",
+            "item_id": "~lumber_joist_2x8",
             "quantity": 8
           },
           {
@@ -144,11 +146,11 @@
             "quantity": 3
           },
           {
-            "item_id": "building_glass",
+            "item_id": "#window",
             "quantity": 2
           },
           {
-            "item_id": "#chimney_masonry",
+            "item_id": "~chimney_masonry",
             "quantity": 2
           }
         ],

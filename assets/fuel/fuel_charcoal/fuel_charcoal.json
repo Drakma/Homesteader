@@ -22,7 +22,18 @@
     ],
     "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "fuel_charcoal.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.414,
+        "y": 0.11,
+        "z": 0.24
+      },
+      "triangles": 4240
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +73,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.2,
-      "height": 0.4
+      "width": 0.41,
+      "depth": 0.24,
+      "height": 0.11
     },
     "fuel_type": "charcoal",
     "capacity_l": 0,

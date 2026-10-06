@@ -418,10 +418,10 @@ namespace Homesteader.Growth
         }
 
         /// <summary>
-        /// A right click with an axe on a post: takes down the post-to-post section nearest the cursor (with any gate in it). A closed loop becomes an open
+        /// A right click with an axe on a post (or, anywhere = true, with wire cutters anywhere along a wire fence): takes down the post-to-post section nearest the cursor (with any gate in it). A closed loop becomes an open
         /// run; an open run splits in two at the gap. Runs left with fewer than two posts go. Returns false when the ray is not on a post.
         /// </summary>
-        public bool ChopSectionAt(Ray ray)
+        public bool ChopSectionAt(Ray ray, bool anywhere = false)
         {
             if (Limit != int.MaxValue) return false;   // still being built
             if (!NearestSegment(ray, 0.4f, out int seg, out float s, out float d)) return false;
@@ -431,7 +431,7 @@ namespace Homesteader.Growth
             int np = Mathf.Max(1, Mathf.CeilToInt(len / PanelLength - 0.001f));
             float step = len / np;
             float off = Mathf.Abs(s - Mathf.Round(s / step) * step);
-            if (off > 0.45f) return false;   // on the fencing, not on a post
+            if (!anywhere && off > 0.45f) return false;   // on the fencing, not on a post (wire cutters cut anywhere along the wire)
 
             int n = Posts.Count;
             var left = new List<Vector3>();

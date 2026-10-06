@@ -1,0 +1,40 @@
+{
+  "batch_id": "batch_1791132985",
+  "finalized_at": "2026-10-04T16:56:25Z",
+  "items": [
+    {
+      "id": "1791132920_20lb_bag_of_sand",
+      "name": "20lb Bag of Sand",
+      "category": "building",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "a 20lb bag of sand in a sand colored bag with red accents",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-10-04T16:55:20Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "reference_category": "building",
+      "reference_item_id": "80lb_cement_bag",
+      "batch_id": "batch_1791132985",
+      "finalized_at": "2026-10-04T16:56:25Z"
+    },
+    {
+      "id": "1791132956_20lb_bag_of_aggregate_rock",
+      "name": "20lb Bag of Aggregate Rock",
+      "category": "building",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "a 20lb bag of aggregate rock in a stone colored back with black accents",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-10-04T16:55:56Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "reference_category": "building",
+      "reference_item_id": "80lb_cement_bag",
+      "batch_id": "batch_1791132985",
+      "finalized_at": "2026-10-04T16:56:25Z"
+    }
+  ]
+}

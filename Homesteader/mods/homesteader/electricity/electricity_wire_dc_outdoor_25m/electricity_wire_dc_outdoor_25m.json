@@ -1,0 +1,91 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_wire_dc_outdoor_25m",
+  "name": "Weatherproof DC Wire Spool",
+  "category": "electricity",
+  "description": "A 25 m spool of weather-rated flexible 6 mm2 tinned-copper DC wire (solar PV wire): a UV-resistant, wet-rated black jacket for runs outdoors, between panels and the building.",
+  "icon": "electricity_wire_dc_outdoor_25m.png",
+  "properties": {
+    "weight_kg": 7.8,
+    "max_stack_size": 5,
+    "base_value": 125,
+    "is_consumable": false,
+    "footprint": "0.38m W x 0.38m D x 0.34m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "display_weight": true,
+    "placeable": true,
+    "wire_kind": "dc_outdoor",
+    "wire_length_m": 25,
+    "stacking_limit": 4
+  },
+  "models": [
+    {
+      "file": "electricity_wire_dc_outdoor_25m.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.38,
+        "y": 0.167,
+        "z": 0.38
+      },
+      "triangles": 498
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Carries DC: 6 mm2 tinned copper, about 55 A, weather rated (UV, wet)",
+      "details": "Carries DC: 6 mm2 tinned copper, about 55 A, weather rated (UV, wet)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 0,
+    "tank_capacity_l": 0,
+    "max_current_a": 55,
+    "dimensions_m": {
+      "width": 0.38,
+      "depth": 0.38,
+      "height": 0.17
+    }
+  }
+}

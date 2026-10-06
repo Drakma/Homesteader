@@ -6,11 +6,11 @@
   "description": "Omnidirectional cellular signal antenna.",
   "icon": "net_antenna_omni_cellular.png",
   "properties": {
-    "weight_kg": 2.0,
+    "weight_kg": 2,
     "max_stack_size": 1,
     "base_value": 60,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.31m W x 0.21m D x 0.85m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,21 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "roof",
+    "wire_role": "net_antenna",
+    "roof_mount": true
   },
   "models": [
     {
-      "file": "antenna_omni_cellular.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "antenna_omni_cellular.obj",
-      "format": "obj"
+      "file": "net_antenna_omni_cellular.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.311,
+        "y": 0.85,
+        "z": 0.214
+      },
+      "triangles": 320
     }
   ],
   "utilities": {
@@ -72,13 +77,13 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.06,
-      "depth": 0.06,
-      "height": 1.0
+      "width": 0.31,
+      "depth": 0.21,
+      "height": 0.85
     },
-    "power_draw_w": 0,
+    "power_draw_w": 10,
     "bandwidth_mbps": 0,
-    "range_m": 5000,
+    "range_m": 60,
     "is_connected": false
   }
 }

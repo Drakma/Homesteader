@@ -71,6 +71,7 @@
     "power_draw_w": 1200,
     "bandwidth_usage_mbps": 0,
     "water_usage_lpm": 0,
-    "cold_resistance_pct": 0
+    "cold_resistance_pct": 0,
+    "water_per_use_l": 0
   }
 }

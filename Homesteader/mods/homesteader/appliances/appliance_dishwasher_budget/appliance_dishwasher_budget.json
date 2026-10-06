@@ -20,9 +20,21 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "placeable": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "appliance_dishwasher_budget.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.6,
+        "y": 0.85,
+        "z": 0.62
+      },
+      "triangles": 52
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -63,7 +75,7 @@
   "category_fields": {
     "dimensions_m": {
       "width": 0.6,
-      "depth": 0.6,
+      "depth": 0.62,
       "height": 0.85
     },
     "fuel_type": "electric",
@@ -71,6 +83,7 @@
     "power_draw_w": 1200,
     "bandwidth_usage_mbps": 0,
     "water_usage_lpm": 0.22,
-    "cold_resistance_pct": 0
+    "cold_resistance_pct": 0,
+    "water_per_use_l": 20
   }
 }

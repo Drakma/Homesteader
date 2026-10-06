@@ -1,7 +1,5 @@
-# Bucket Water
+# Bucket of Water
 
-**Item ID:** `water_bucket_water`  
-**Category:** `water`  
-**Icon:** ![Bucket Water](water_bucket_water.png)
+A galvanized steel bucket filled with water.
 
-Standardized Homesteader asset manifest for `water_bucket_water`.
+Procedural model (tools/make_simple_props.py), 680 triangles, 0.33 x 0.31 x 0.44 m. A galvanized bucket, full of water.

@@ -6,11 +6,11 @@
   "description": "Long-range directional antenna array.",
   "icon": "net_antenna_yagi_directional.png",
   "properties": {
-    "weight_kg": 4.0,
+    "weight_kg": 4,
     "max_stack_size": 1,
     "base_value": 80,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.61m W x 0.84m D x 1.15m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,23 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "roof",
+    "wire_role": "net_yagi",
+    "net_ports": 1,
+    "poe_powered": true,
+    "roof_mount": true
   },
   "models": [
     {
-      "file": "antenna_yagi_directional.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "antenna_yagi_directional.obj",
-      "format": "obj"
+      "file": "net_antenna_yagi_directional.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.614,
+        "y": 1.15,
+        "z": 0.84
+      },
+      "triangles": 484
     }
   ],
   "utilities": {
@@ -72,13 +79,13 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.15,
-      "depth": 0.6,
-      "height": 0.1
+      "width": 0.61,
+      "depth": 0.84,
+      "height": 1.15
     },
-    "power_draw_w": 15,
+    "power_draw_w": 8,
     "bandwidth_mbps": 150,
-    "range_m": 15000,
-    "is_connected": true
+    "range_m": 1500,
+    "is_connected": false
   }
 }

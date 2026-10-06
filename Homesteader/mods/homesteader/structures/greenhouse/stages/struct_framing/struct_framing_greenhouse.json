@@ -26,7 +26,7 @@
         "y": 3.6,
         "z": 8.0
       },
-      "triangles": 1128
+      "triangles": 1152
     }
   ],
   "utilities": {
@@ -69,11 +69,11 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "#framing_lumber",
+        "item_id": "~framing_lumber",
         "quantity": 20
       },
       {
-        "item_id": "lumber_joist_2x8",
+        "item_id": "~lumber_joist_2x8",
         "quantity": 8
       },
       {

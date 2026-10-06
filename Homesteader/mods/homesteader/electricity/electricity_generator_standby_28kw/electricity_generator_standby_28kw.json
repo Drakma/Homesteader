@@ -1,0 +1,87 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_generator_standby_28kw",
+  "name": "Standby Generator",
+  "category": "electricity",
+  "description": "A propane standby generator on its pad. Pipe it to a propane tank with propane pipe (pipe wrench) and wire it with AC wire to a Generator Lockout Box on the outside of a building: the box switches the building over to it by itself when the breaker box cannot carry the load or its batteries run low, and back when they recover. It burns propane from the tanks it is piped to, more the harder it works. Once placed it stays where it is.",
+  "icon": "electricity_generator_standby_28kw.png",
+  "properties": {
+    "weight_kg": 420.0,
+    "max_stack_size": 1,
+    "base_value": 4800,
+    "is_consumable": false,
+    "footprint": "2.2m W x 1.2m D x 1.3m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "placeable": true,
+    "wire_role": "standby_generator"
+  },
+  "models": [
+    {
+      "file": "electricity_generator_standby_28kw.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.24,
+        "y": 1.272,
+        "z": 1.24
+      },
+      "triangles": 584
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 2.24,
+      "depth": 1.24,
+      "height": 1.27
+    },
+    "fuel_type": "propane",
+    "fuel_consumption_l_per_min": 0.28,
+    "max_power_w": 28000,
+    "tank_capacity_l": 0
+  }
+}

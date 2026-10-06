@@ -1,7 +1,7 @@
-# Battery 12V Lifepo4 100Ah
+# 12V LiFePO4 1200Wh Battery
 
-**Item ID:** `electricity_battery_12v_lifepo4_100ah`  
+**Item ID:** `electricity_battery_12v_lifepo4_1200wh`  
 **Category:** `electricity`  
-**Icon:** ![Battery 12V Lifepo4 100Ah](electricity_battery_12v_lifepo4_100ah.png)
+**Icon:** ![12V LiFePO4 1200Wh Battery](electricity_battery_12v_lifepo4_1200wh.png)
 
-Standardized Homesteader asset manifest for `electricity_battery_12v_lifepo4_100ah`.
+A 12.8 volt, 100 amp-hour lithium iron phosphate deep-cycle battery with a built-in battery management system. Light, long-lived (about 4,000 cycles) and almost fully usable.

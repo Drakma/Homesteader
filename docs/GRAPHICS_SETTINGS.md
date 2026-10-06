@@ -9,6 +9,7 @@ Settings > Graphics. Code: `Assets/Scripts/UI/GraphicsOptions.cs`. Presets are m
 - **Anti-aliasing**: Off, FXAA, SMAA, MSAA 2x/4x/8x (MSAA is the pipeline asset's sample count; FXAA/SMAA are a camera setting).
 - **Water Reflections**: sky (and clouds, stars, moon) reflected in water. Shader global `_WaterReflectionQuality`.
 - **Shadows**: the sun's shadows on/off (sets the sun light's shadow mode; off skips the shadow pass).
+- **Light Occlusion**: walls stop the light of lamps, the fire, the lantern and the flashlight (they cast shadows); off lets light shine through walls and saves frame rate (`LightOcclusion`, on by default).
 - **Cloud Shadows**: soft shadows of drifting clouds on land (`CloudSystem.ShadowsEnabled`).
 - **Wind Animation**: sway of trees, bushes, tufts and grass (`_WindSwayOff` global).
 - **Colorized Mouse Cursors** (default on): the amber, bevelled cursor set; off uses the black-and-white set (`CursorManager.SetVariant`, art in `assets/hud_kit/cursors/`, chooser in `CursorHints`). A taste setting: it does not affect the preset.

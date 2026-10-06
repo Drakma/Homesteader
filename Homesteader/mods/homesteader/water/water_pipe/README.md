@@ -1,7 +1,5 @@
-# Pipe
+# Water Pipe
 
-**Item ID:** `water_pipe`  
-**Category:** `water`  
-**Icon:** ![Pipe](water_pipe.png)
+Standard water asset used in the Homesteader simulation.
 
-Standardized Homesteader asset manifest for `water_pipe`.
+Procedural model (tools/make_simple_props.py), 92 triangles, 3.00 x 0.03 x 0.03 m. A 3 m length of blue water pipe.

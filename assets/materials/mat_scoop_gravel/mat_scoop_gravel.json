@@ -1,0 +1,61 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "mat_scoop_gravel",
+  "name": "Shovelful of Gravel",
+  "category": "materials",
+  "description": "A shovelful (5 liters) of gravel, as carried on a shovel or in a wheelbarrow. Ten of these make a small pile.",
+  "icon": "mat_scoop_gravel.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 20,
+    "base_value": 0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": false,
+    "sale_unit": "ea",
+    "display_weight": true
+  },
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {}
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "waste_hose_sewer_rv_6m",
-  "name": "6m RV Sewer Hose",
+  "name": "Long RV Sewer Hose",
   "category": "waste",
   "description": "Long accordion RV sewer hose with clear elbow.",
   "icon": "waste_hose_sewer_rv_6m.png",

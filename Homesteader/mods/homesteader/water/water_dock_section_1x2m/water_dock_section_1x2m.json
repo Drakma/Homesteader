@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "water_dock_section_1x2m",
-  "name": "Water Dock Section 1X2M",
+  "name": "Water Dock Section",
   "category": "water",
   "description": "Standard water asset used in the Homesteader simulation.",
   "icon": "water_dock_section_1x2m.png",

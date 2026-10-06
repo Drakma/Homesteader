@@ -1,0 +1,83 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_mortar_mix_bag_pallet_10",
+  "name": "Mortar Mix Bag Pallet",
+  "category": "building",
+  "description": "A wooden pallet stacked with 10 of: a 60 lb bag of dry mortar mix for laying brick, block and stone.",
+  "icon": "building_mortar_mix_bag_pallet_10.png",
+  "properties": {
+    "weight_kg": 290.0,
+    "max_stack_size": 1,
+    "base_value": 140,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "pack_quantity": 10,
+    "display_weight": true
+  },
+  "models": [
+    {
+      "file": "building_mortar_mix_bag_pallet_10.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.2,
+        "y": 0.433,
+        "z": 1.0
+      },
+      "triangles": 276
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.2,
+      "depth": 1.0,
+      "height": 0.43
+    }
+  }
+}

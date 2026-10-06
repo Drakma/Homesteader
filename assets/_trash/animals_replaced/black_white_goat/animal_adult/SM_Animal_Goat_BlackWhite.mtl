@@ -1,0 +1,42 @@
+# Material Library for SM_Animal_Goat_BlackWhite
+
+newmtl goat_black
+Ka 0.064 0.064 0.072
+Kd 0.160 0.160 0.180
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl horns_dark
+Ka 0.112 0.112 0.120
+Kd 0.280 0.280 0.300
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl beard_dark
+Ka 0.072 0.072 0.080
+Kd 0.180 0.180 0.200
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl hooves_dark
+Ka 0.080 0.072 0.064
+Kd 0.200 0.180 0.160
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl goat_white
+Ka 0.376 0.376 0.380
+Kd 0.940 0.940 0.950
+Ks 0.180 0.180 0.180
+Ns 16.0
+d 1.0
+illum 2
+

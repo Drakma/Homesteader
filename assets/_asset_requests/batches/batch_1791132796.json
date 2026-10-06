@@ -1,0 +1,23 @@
+{
+  "batch_id": "batch_1791132796",
+  "finalized_at": "2026-10-04T16:53:16Z",
+  "items": [
+    {
+      "id": "1791132792_20lb_cement_bag",
+      "name": "20lb Cement Bag",
+      "category": "building",
+      "schema": "",
+      "pipeline": "paid",
+      "description": "a 20lb cement bag in a yellow bag with black accents",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-10-04T16:53:12Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "reference_category": "building",
+      "reference_item_id": "80lb_cement_bag",
+      "batch_id": "batch_1791132796",
+      "finalized_at": "2026-10-04T16:53:16Z"
+    }
+  ]
+}

@@ -25,48 +25,19 @@
     "look_target": "walls",
     "look_color": "#aeb4ba",
     "look_smoothness": 0.6,
-    "look_metallic": 0.85
+    "look_metallic": 0.85,
+    "display_weight": true
   },
   "models": [
     {
-      "file": "building_steel_siding_corrugated.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "building_steel_siding_corrugated.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 90.0,
-        "y": 4.0,
-        "z": 244.0
-      },
+      "file": "building_steel_siding_corrugated.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.9,
-        "y": 0.04,
-        "z": 2.44
+        "y": 0.038,
+        "z": 2.443
       },
-      "vertices": 442,
-      "faces": 284,
-      "bounding_box": {
-        "min": [
-          -0.45,
-          0.0,
-          -0.04
-        ],
-        "max": [
-          0.45,
-          2.44,
-          0.0
-        ]
-      }
-    },
-    {
-      "file": "building_steel_siding_corrugated.glb",
-      "format": "glb"
-    },
-    {
-      "file": "building_steel_siding_corrugated.fbx",
-      "format": "fbx"
+      "triangles": 284
     }
   ],
   "utilities": {
@@ -106,39 +77,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "mat_steel_siding_corrugated.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 90.0,
-      "y": 4.0,
-      "z": 244.0
-    },
-    "dimensions_m": {
-      "x": 0.9,
-      "y": 0.04,
-      "z": 2.44
-    },
-    "vertices": 442,
-    "faces": 284,
-    "bounding_box": {
-      "min": [
-        -0.45,
-        0.0,
-        -0.04
-      ],
-      "max": [
-        0.45,
-        2.44,
-        0.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
       "width": 0.9,
-      "depth": 0.04,
-      "height": 2.44
+      "depth": 2.44,
+      "height": 0.04
     }
   }
 }

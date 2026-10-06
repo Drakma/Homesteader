@@ -21,7 +21,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "can"
+    "sale_unit": "can",
+    "display_weight": true
   },
   "models": [
     {

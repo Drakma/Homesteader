@@ -11,3 +11,4 @@ Punk
 80sGlamRock
 Synthwave
 WinterHoliday
+Classical

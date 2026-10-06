@@ -1,7 +1,7 @@
-# Battery Wall Power 10Kwh
+# Wall Power Battery, Medium
 
 **Item ID:** `electricity_battery_wall_power_10kwh`  
 **Category:** `electricity`  
-**Icon:** ![Battery Wall Power 10Kwh](electricity_battery_wall_power_10kwh.png)
+**Icon:** ![Wall Power Battery, Medium](electricity_battery_wall_power_10kwh.png)
 
-Standardized Homesteader asset manifest for `electricity_battery_wall_power_10kwh`.
+A 10 kWh LiFePO4 home battery that mounts on a building's wall (inside or outside): aim at a wall of a finished building and left click. 5 kW continuous.

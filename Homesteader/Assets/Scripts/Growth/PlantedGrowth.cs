@@ -78,7 +78,7 @@ namespace Homesteader.Growth
             if (!CanPickFruit) return false;
             if (FruitPickAnimator.Busy) return true;   // the player's hand is still on the last one
             string need = Group.Rules.FruitTool;
-            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.ToolMatches(need, heldId))
+            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.HeldToolMatches(need, heldId))
             {
                 ToastNotificationSystem.ShowWarning("Need a tool", "You need the right tool in your active slot to pick this fruit.");
                 return false;

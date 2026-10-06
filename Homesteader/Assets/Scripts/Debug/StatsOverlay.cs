@@ -122,7 +122,7 @@ namespace Homesteader.DebugTools
             if (_fpsLabel != null) _fpsLabel.text = $"{_fps:F0} FPS  {_frameTimeMs:F1} ms";
 
             // Zoom
-            if (_isoCam == null) _isoCam = FindAnyObjectByType<IsometricLockedCamera>();
+            if (_isoCam == null) _isoCam = IsometricLockedCamera.Current;
             float zoom = 0f;
             if (_isoCam != null)
             {

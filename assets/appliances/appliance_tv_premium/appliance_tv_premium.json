@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "appliance_tv_premium",
-  "name": "Premium 65 Inch Television",
+  "name": "Premium Television",
   "category": "appliances",
   "description": "A large 65 inch flat-screen television with a slim metal stand.",
   "icon": "appliance_tv_premium.png",
@@ -20,7 +20,9 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "wire_role": "net_device",
+    "net_ports": 1
   },
   "models": [],
   "utilities": {
@@ -71,6 +73,7 @@
     "power_draw_w": 150,
     "bandwidth_usage_mbps": 25,
     "water_usage_lpm": 0,
-    "cold_resistance_pct": 0
+    "cold_resistance_pct": 0,
+    "water_per_use_l": 0
   }
 }

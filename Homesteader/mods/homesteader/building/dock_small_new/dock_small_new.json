@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "dock_small_new.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.93,
+        "y": 0.62,
+        "z": 2.952
+      },
+      "triangles": 400
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.8,
-      "depth": 3.0,
-      "height": 0.4
+      "width": 1.93,
+      "depth": 2.95,
+      "height": 0.62
     }
   }
 }

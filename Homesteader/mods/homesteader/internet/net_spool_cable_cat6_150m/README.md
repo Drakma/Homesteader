@@ -1,7 +1,5 @@
-# Spool Cable Cat6 500Ft
+# Cat6 Cable Spool
 
-**Item ID:** `net_spool_cable_cat6_500ft`  
-**Category:** `internet`  
-**Icon:** ![Spool Cable Cat6 500Ft](net_spool_cable_cat6_500ft.png)
+Bulk spool of direct-burial Cat6 cable.
 
-Standardized Homesteader asset manifest for `net_spool_cable_cat6_500ft`.
+Procedural model (tools/make_internet.py): a plywood reel of blue Cat6 cable, lying flat. Its detail is painted (tools/net_pictures.py). 566 triangles, 0.40 x 0.40 x 0.23 m.

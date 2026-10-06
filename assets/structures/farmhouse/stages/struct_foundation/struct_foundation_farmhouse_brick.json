@@ -69,12 +69,172 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "80lb_cement_bag",
+        "item_id": "~gravel",
+        "quantity": 0.5
+      },
+      {
+        "item_id": "~rebar",
+        "quantity": 12
+      },
+      {
+        "item_id": "~anchor_bolts",
         "quantity": 24
       },
       {
-        "item_id": "#rebar",
-        "quantity": 6
+        "item_id": "~drain_french_sock",
+        "quantity": 4
+      },
+      {
+        "section": "Foundation",
+        "mode": "any",
+        "items": [
+          {
+            "section": "Poured slab",
+            "mode": "all",
+            "items": [
+              {
+                "section": "Concrete",
+                "mode": "any",
+                "items": [
+                  {
+                    "section": "Bagged concrete mix",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~concrete_mix",
+                        "quantity": 100
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 90
+                      }
+                    ]
+                  },
+                  {
+                    "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~cement",
+                        "quantity": 18
+                      },
+                      {
+                        "item_id": "~sand",
+                        "quantity": 0.22
+                      },
+                      {
+                        "item_id": "~gravel",
+                        "quantity": 0.32
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 80
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "section": "Block foundation",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~masonry_units",
+                "quantity": 120
+              },
+              {
+                "item_id": "~mortar",
+                "quantity": 8
+              },
+              {
+                "item_id": "~water",
+                "quantity": 28
+              }
+            ]
+          },
+          {
+            "section": "Brick or fieldstone foundation",
+            "mode": "all",
+            "items": [
+              {
+                "section": "Masonry",
+                "mode": "any",
+                "items": [
+                  {
+                    "item_id": "~bricks",
+                    "quantity": 400
+                  },
+                  {
+                    "item_id": "~masonry_fieldstone",
+                    "quantity": 40
+                  }
+                ]
+              },
+              {
+                "item_id": "~mortar",
+                "quantity": 8
+              },
+              {
+                "item_id": "~water",
+                "quantity": 28
+              }
+            ]
+          },
+          {
+            "section": "On stilts",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~post_wood_round_6inch",
+                "quantity": 12
+              },
+              {
+                "section": "Concrete",
+                "mode": "any",
+                "items": [
+                  {
+                    "section": "Bagged concrete mix",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~concrete_mix",
+                        "quantity": 12
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 11
+                      }
+                    ]
+                  },
+                  {
+                    "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~cement",
+                        "quantity": 2
+                      },
+                      {
+                        "item_id": "~sand",
+                        "quantity": 0.03
+                      },
+                      {
+                        "item_id": "~gravel",
+                        "quantity": 0.04
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 10
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "required_tools": [
@@ -86,6 +246,16 @@
       ],
       [
         "tool_trowel_hand"
+      ],
+      [
+        "tool_wheelbarrow",
+        "tool_plastic_wheelbarrow",
+        "tool_steel_wheelbarrow",
+        "tool_cement_mixer"
+      ],
+      [
+        "tool_angle_grinder_corded",
+        "tool_angle_grinder_cordless"
       ]
     ]
   }

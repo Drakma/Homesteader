@@ -1,7 +1,5 @@
 # Round Hay Bale
 
-**Item ID:** `mat_bale_hay_round`  
-**Category:** `ranching`  
-**Icon:** ![Round Hay Bale](mat_bale_hay_round.png)
+A round rolled hay bale.
 
-Standardized Homesteader asset manifest for `mat_bale_hay_round`.
+Procedural model (tools/make_simple_props.py), 1920 triangles, 1.21 x 1.24 x 1.21 m. A net-wrapped round bale lying on its side, the roll showing on the ends.

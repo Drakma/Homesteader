@@ -1,0 +1,152 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "wind_turbine_100w_wood",
+  "name": "100W Wooden Wind Turbine",
+  "category": "structures",
+  "description": "A 100 watt homestead wind turbine: wooden blades and tail vane on a treated wooden post. It turns into the wind and the blades spin with it. Sold as a KIT only (the kit starts the work site); built in four stages with the tools each one asks for.",
+  "icon": "wind_turbine_100w_wood.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "wind_turbine_100w_wood",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 25,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_wind_turbine_100w_wood.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_hammer",
+            "tool_hammer_claw",
+            "tool_hammer_club"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 2,
+        "name": "mast",
+        "age_min": 25,
+        "age_max": 50,
+        "resource": "stages/struct_mast/",
+        "model": "",
+        "icon": "struct_mast_wind_turbine_100w_wood.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ],
+          [
+            "tool_hammer",
+            "tool_hammer_claw",
+            "tool_hammer_club"
+          ],
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ]
+        ],
+        "build_clips": [
+          "Chop_Tree_RT",
+          "Push_RT"
+        ],
+        "build_motion": "tilt_up"
+      },
+      {
+        "stage": 3,
+        "name": "head",
+        "age_min": 50,
+        "age_max": 75,
+        "resource": "stages/struct_head/",
+        "model": "",
+        "icon": "struct_head_wind_turbine_100w_wood.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT",
+          "Push_RT"
+        ],
+        "build_motion": "lift"
+      },
+      {
+        "stage": 4,
+        "name": "complete",
+        "age_min": 75,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_wind_turbine_100w_wood.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT"
+        ],
+        "build_motion": "spin_up"
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 25,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": false,
+    "is_blueprint": true,
+    "stores": [],
+    "sale_unit": "blueprint",
+    "wire_role": "wind_turbine"
+  },
+  "category_fields": {
+    "max_power_w": 100
+  }
+}

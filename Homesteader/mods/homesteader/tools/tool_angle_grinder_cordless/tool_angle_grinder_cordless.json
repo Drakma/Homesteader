@@ -28,7 +28,8 @@
         "unit": "ea",
         "price": 165
       }
-    }
+    },
+    "build_speed": 1.0
   },
   "models": [],
   "utilities": {

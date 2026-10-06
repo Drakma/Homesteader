@@ -39,6 +39,7 @@ namespace Homesteader.Growth
             foreach (PlantingZone zone in All)
                 if (zone != null && zone.Contains(worldPoint))
                     return zone.biomeId;
+            if (Homesteader.World.FarmlandSoil.Contains(worldPoint)) return Homesteader.World.FarmlandSoil.BiomeId;   // ground the player tilled with a hoe
             return null;
         }
 

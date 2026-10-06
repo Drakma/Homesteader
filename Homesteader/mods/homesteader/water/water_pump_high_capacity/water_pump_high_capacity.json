@@ -15,9 +15,23 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "wire_role": "water_pump",
+    "flow_lph": 3600,
+    "placeable": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "water_pump_high_capacity.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.55,
+        "y": 0.42,
+        "z": 0.26
+      },
+      "triangles": 728
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -57,9 +71,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.45,
-      "depth": 0.35,
-      "height": 0.4
+      "width": 0.55,
+      "depth": 0.26,
+      "height": 0.42
     },
     "power_draw_w": 1500,
     "capacity_l": 0,

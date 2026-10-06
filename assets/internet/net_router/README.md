@@ -1,7 +1,5 @@
-# Router
+# Internet Router
 
-**Item ID:** `net_router`  
-**Category:** `internet`  
-**Icon:** ![Router](net_router.png)
+A home router: it shares the internet connection over four wired ports and Wi-Fi.
 
-Standardized Homesteader asset manifest for `net_router`.
+Procedural model (tools/make_internet.py): a black router with four aerials. Its detail is painted (tools/net_pictures.py). 266 triangles, 0.27 x 0.19 x 0.21 m.

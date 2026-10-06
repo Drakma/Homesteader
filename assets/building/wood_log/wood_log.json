@@ -20,9 +20,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "wood_log.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.202,
+        "y": 0.285,
+        "z": 0.3
+      },
+      "triangles": 84
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 1.2,
-      "height": 0.3
+      "width": 1.2,
+      "depth": 0.3,
+      "height": 0.28
     }
   }
 }

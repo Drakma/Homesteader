@@ -271,6 +271,20 @@ namespace Homesteader.Growth
             return tex;
         }
 
+        /// <summary>A door item's paintable materials: its slab, panels, edges and trim ("Door..."), not its knob and hinges ("DoorHardware") or its glass.</summary>
+        public static bool DoorPaintable(string plainName) { return plainName.StartsWith("Door") && !plainName.StartsWith("DoorHardware"); }
+
+        /// <summary>True when any of the renderers has a material whose plain name satisfies `matches`.</summary>
+        public static bool HasMaterial(IEnumerable<Renderer> renderers, System.Func<string, bool> matches)
+        {
+            foreach (Renderer r in renderers)
+            {
+                if (r == null) continue;
+                foreach (Material m in r.sharedMaterials) if (m != null && matches(Plain(m.name))) return true;
+            }
+            return false;
+        }
+
         private static string Plain(string name)
         {
             int k = name.IndexOf(" (Instance)", System.StringComparison.Ordinal);

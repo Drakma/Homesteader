@@ -79,7 +79,7 @@ namespace Homesteader
 
             if (_referenceCamera == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 if (iso != null)
                 {
                     _referenceCamera = iso.GetComponent<Camera>();

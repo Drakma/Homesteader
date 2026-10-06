@@ -26,40 +26,19 @@
     "look_color": "#735236",
     "look_smoothness": 0.1,
     "look_metallic": 0.0,
-    "look_style": "stilts"
+    "look_style": "stilts",
+    "display_weight": true
   },
   "models": [
     {
-      "file": "post_wood_round_6inch.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "post_wood_round_6inch.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 36.0,
-        "y": 36.0,
-        "z": 94.0
-      },
+      "file": "post_wood_round_6inch.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.36,
-        "y": 0.36,
-        "z": 0.94
+        "x": 2.4,
+        "y": 0.145,
+        "z": 0.152
       },
-      "vertices": 288,
-      "faces": 96,
-      "bounding_box": {
-        "min": [
-          -18.0,
-          -18.0,
-          0.0
-        ],
-        "max": [
-          18.0,
-          18.0,
-          94.0
-        ]
-      }
+      "triangles": 36
     }
   ],
   "utilities": {
@@ -99,39 +78,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "post_wood_round_6inch.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 36.0,
-      "y": 36.0,
-      "z": 94.0
-    },
-    "dimensions_m": {
-      "x": 0.36,
-      "y": 0.36,
-      "z": 0.94
-    },
-    "vertices": 288,
-    "faces": 96,
-    "bounding_box": {
-      "min": [
-        -18.0,
-        -18.0,
-        0.0
-      ],
-      "max": [
-        18.0,
-        18.0,
-        94.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.36,
-      "depth": 0.36,
-      "height": 0.94
+      "width": 2.4,
+      "depth": 0.15,
+      "height": 0.14
     }
   }
 }

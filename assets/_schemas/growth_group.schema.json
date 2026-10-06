@@ -86,7 +86,7 @@
 				"construction_recipe": {
 					"type": "array",
 					"required": false,
-					"note": "STRUCTURES only (growth_type percent): the materials CONSUMED to build this stage, [{item_id, quantity}] where item_id is an item or a #tag; a line may instead be an OR group {"any_of": [{item_id, quantity}, ...]}: any ONE alternative in full (2 x Large 2x4 Bundle OR 4 x Small 2x4 Bundle). Authoritative here; the stage's own manifest copy (category_fields.construction_recipe) is derived. Edited in the stages table of the group's scheme panel with the asset picker."
+					"note": "STRUCTURES only (growth_type percent): the materials CONSUMED to build this stage, a TREE of nodes: a line {item_id (an item, #tag or ~equivalency), quantity} or a section {section, mode: all|any, if: {uses|not_uses: spec}, items: [nodes]} (all of / any ONE of / only if an earlier line was or was not paid with a matching item); see tools/recipe_format.py and docs/CONSTRUCTION.md. Authoritative here; the stage's own manifest copy (category_fields.construction_recipe) is derived. Edited in the stages table of the group's scheme panel with the asset picker."
 				},
 				"required_tools": {
 					"type": "array",

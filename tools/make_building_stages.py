@@ -50,7 +50,8 @@ CONFIGS = {
         palette=dict(siding=(0.62, 0.72, 0.58), trim=(0.95, 0.95, 0.92), shingle=(0.36, 0.24, 0.2), shingle_dark=(0.26, 0.17, 0.14)),
         door_x=0.55,
         openings=dict(front=[win(-0.75, 0.6, 0.5, 1.5)], back=[], left=[win(-0.6, 0.6, 0.5, 1.5)], right=[win(-0.6, 0.6, 0.5, 1.5)]),
-        partitions=[dict(axis='y', pos=0.5, lo=None, hi=None, h=None, doors=[(-0.55, 0.55)])]),
+        partitions=[],   # one open room (the inner wall was taken out)
+        roost=True),     # a roosting bar and a shallow nest box on the back wall (roost_and_nest)
     'barn': dict(
         name='Barn', w=10.0, d=14.0, wall_h=3.4, h_total=7.6, found_h=0.26, ov=0.45, stages=4, style='siding', rib_course=0.3,
         palette=dict(siding=(0.62, 0.17, 0.13), trim=(0.94, 0.93, 0.9), shingle=(0.3, 0.3, 0.32), shingle_dark=(0.22, 0.22, 0.24), door=(0.55, 0.15, 0.12)),
@@ -123,7 +124,13 @@ CONFIGS = {
         palette=dict(siding=(0.52, 0.6, 0.66), trim=(0.95, 0.95, 0.93), shingle=(0.3, 0.22, 0.2), shingle_dark=(0.22, 0.16, 0.14), door=(0.35, 0.22, 0.14), door_panel=(0.3, 0.18, 0.1)),
         door_x=0.9,
         openings=dict(front=[win(-0.9, 0.7, 0.8, 1.4)], back=[win(0, 0.7, 0.8, 1.4)], left=[win(0.2, 0.7, 0.8, 1.4)], right=[win(0.2, 0.7, 0.8, 1.4)]),
-        partitions=[dict(axis='y', pos=1.0, lo=None, hi=None, h=None, doors=[(-0.55, 0.55)])]),
+        partitions=[]),   # one open room: the interior wall was taken out
+    'struct_pump_house': dict(
+        name='Pump House', w=2.4, d=2.4, wall_h=2.4, h_total=3.3, found_h=0.2, ov=0.25, stages=4, style='siding', rib_course=0.24,
+        palette=dict(siding=(0.52, 0.6, 0.66), trim=(0.95, 0.95, 0.93), shingle=(0.3, 0.22, 0.2), shingle_dark=(0.22, 0.16, 0.14), door=(0.35, 0.22, 0.14), door_panel=(0.3, 0.18, 0.1)),
+        door_x=0.0,
+        openings=dict(front=[], back=[], left=[win(0.0, 1.2, 0.6, 0.6)], right=[]),
+        partitions=[]),   # a small tool shed for the well's filters, pressure tank and water heater (docs/WELLS.md)
     'struct_woodshed': dict(
         name='Woodshed', w=5.0, d=3.0, wall_h=2.5, h_total=3.7, found_h=0.16, ov=0.35, stages=4, style='siding', rib_course=0.24, open_front=True,
         palette=dict(siding=(0.5, 0.36, 0.24), trim=(0.62, 0.45, 0.3), shingle=(0.24, 0.26, 0.28), shingle_dark=(0.16, 0.17, 0.19)),
@@ -831,6 +838,33 @@ def roof_and_gables(tp, tg, c, M):
     tp['roof'].box(-0.1, 0.1, -d / 2 - ov, d / 2 + ov, c.zr + 0.12, c.zr + 0.2, M['shingle_dark'])
 
 
+def roost_and_nest(b, c, M):
+    """The chicken coop's fittings, on the BACK wall: a roosting bar across it (a round pole held out from the wall on two blocks) and, beside it, a shallow nest box
+    standing on the floor with straw in it, for the hens to roost and lay in."""
+    w, d, z0 = c.w, c.d, c.z0
+    yb = d / 2 - IN                                   # the inside face of the back wall
+    x0, x1 = -w / 2 + IN + 0.12, w / 2 - IN - 0.95    # the bar: the width of the room less the nest box's end
+    zr, out = z0 + 0.9, 0.3                           # its height and how far it stands out from the wall
+    b.log((x0, yb - out, zr), (x1, yb - out, zr), 0.03, M['lumber'], 10)
+    for x in (x0 + 0.08, x1 - 0.08):                  # the two arms that carry it, screwed to the wall
+        b.box(x - 0.025, x + 0.025, yb - out - 0.03, yb, zr - 0.05, zr + 0.01, M['lumber'])
+        b.box(x - 0.025, x + 0.025, yb - out - 0.03, yb - out + 0.03, zr - 0.05, zr - 0.02, M['lumber'])
+    # the nest box: a shallow open box (floor, back, two sides and a low front lip) in the corner, straw in it
+    bx1, bx0 = w / 2 - IN - 0.08, w / 2 - IN - 0.78
+    by1, by0 = yb, yb - 0.42
+    zb, t = z0 + 0.0, 0.025
+    b.box(bx0, bx1, by0, by1, zb + 0.18, zb + 0.18 + t, M['lumber'])                        # the floor, raised on two legs
+    for x in (bx0 + 0.04, bx1 - 0.04):
+        b.box(x - 0.03, x + 0.03, by0 + 0.03, by0 + 0.09, zb, zb + 0.18, M['lumber'])
+        b.box(x - 0.03, x + 0.03, by1 - 0.09, by1 - 0.03, zb, zb + 0.18, M['lumber'])
+    zt = zb + 0.18 + t
+    b.box(bx0, bx0 + t, by0, by1, zt, zt + 0.26, M['lumber'])                               # the sides
+    b.box(bx1 - t, bx1, by0, by1, zt, zt + 0.26, M['lumber'])
+    b.box(bx0, bx1, by1 - t, by1, zt, zt + 0.3, M['lumber'])                                # the back
+    b.box(bx0, bx1, by0, by0 + t, zt, zt + 0.12, M['lumber'])                               # the low lip the hens step over
+    b.box(bx0 + t, bx1 - t, by0 + t, by1 - t, zt, zt + 0.07, M['straw'])                    # the straw
+
+
 def complete(b, c, M, finishings=False):
     w, d = c.w, c.d
     z0, top, ov = c.z0, c.top, c.ov
@@ -853,7 +887,9 @@ def complete(b, c, M, finishings=False):
             y0, y1 = (y - 0.015, y + 0.08) if y < 0 else (y, y + 0.095)
             if abs(y - c.yh0) < 1e-6:
                 y0, y1 = y - 0.015, y + 0.08
-            b.box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
+            # each corner board belongs to the front or back wall's part, so the cutaway hides it with that wall (a post left standing blocked the view in)
+            cw = 'front' if abs(y - c.yh0) < 1e-6 else 'back'
+            (parts[cw] if cw in parts else b).box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
     # windows and the big doors
     for wall in c.walls:
         for u0, u1, zl, zh in c.openings[wall]:
@@ -901,6 +937,8 @@ def complete(b, c, M, finishings=False):
     for p in c.parts:
         partition_wall(b, c, M, p, finished=True, finishings=finishings)
         n = partition_doors(b, c, M, p, n)
+    if c.cfg.get('roost'):
+        roost_and_nest(b, c, M)
     for part in parts.values():
         base.EXTRA_OBJECTS.append(part.finish())
 
@@ -934,7 +972,10 @@ def gh_frame(P, c, M, glazed):
         W = P['front' if y < 0 else 'back']
         W.box(xa, xb, y - 0.03, y + 0.03, top - 0.06, top, alu)
         if y < 0:
-            W.box(door0, door1, y - 0.04, y + 0.04, z0 + DOOR_H, z0 + DOOR_H + 0.07, alu)
+            # the door frame: a header and two jambs, a little thicker than the leaf and lapping its edges, so no slit of light is left round the door
+            W.box(door0 - 0.04, door1 + 0.04, y - 0.04, y + 0.04, z0 + DOOR_H - 0.045, top - 0.06, alu)
+            for xj0, xj1 in ((door0 - 0.04, door0 + 0.035), (door1 - 0.035, door1 + 0.04)):
+                W.box(xj0, xj1, y - 0.04, y + 0.04, z0, z0 + DOOR_H, alu)
             W.box(xa, door0, y - 0.03, y + 0.03, z0 + 0.9, z0 + 0.96, alu)   # the mid rail stops at the doorway
             W.box(door1, xb, y - 0.03, y + 0.03, z0 + 0.9, z0 + 0.96, alu)
         else:
@@ -979,26 +1020,34 @@ def gh_knee_wall(P, c, M):
 
 def gh_glass(P, c, M):
     """The glazing goes into the same part as the frame it fills (a wall's panes hide with that wall, the roof's and the gable ends' with the roof)."""
+    # No gaps: every pane runs into the posts and rails round it (never short of them), the side walls' panes run up to the roof glass, the gable glass
+    # runs up into the roof glass and out to the corner posts, and the front wall is glazed right up to the door jambs. A slit lets sunlight through,
+    # which flickers on the benches.
     w, d, z0, top = c.w, c.d, c.z0, c.top
-    kh = 0.96
+    kh = 0.93                                             # inside the mid rail (0.90 to 0.96)
     g = M['glass']
+    roof_z = lambda x: c.zr - c.slope * abs(x) + 0.04     # just inside the underside of the roof glass (0.035 above the roof line) at x
     # panes between the posts, side walls and the front / back walls
     n = int(d / 1.0) + 1
     ys = [-d / 2 + 0.06 + (d - 0.12) * k / (n - 1) for k in range(n)]
     for y0, y1 in zip(ys[:-1], ys[1:]):
         for x, side in ((-w / 2 + 0.03, 'left'), (w / 2 - 0.03, 'right')):
-            P[side].box(x - 0.008, x + 0.008, y0 + 0.04, y1 - 0.04, z0 + kh, top - 0.08, g)
+            P[side].box(x - 0.008, x + 0.008, y0, y1, z0 + kh, roof_z(x), g)
     nx = int(w / 1.0) + 1
     xs = [-w / 2 + 0.06 + (w - 0.12) * k / (nx - 1) for k in range(nx)]
+    door0, door1 = c.dx - DOOR_W / 2, c.dx + DOOR_W / 2
     for y in (-d / 2 + 0.03, d / 2 - 0.03):
         for x0, x1 in zip(xs[:-1], xs[1:]):
-            if y < 0 and x0 < c.dx + DOOR_W / 2 and x1 > c.dx - DOOR_W / 2:
-                continue
-            P['front' if y < 0 else 'back'].box(x0 + 0.04, x1 - 0.04, y - 0.008, y + 0.008, z0 + kh, top - 0.08, g)
+            runs = [(x0, x1)]
+            if y < 0:                                     # the front wall: glazed up to the door jambs, not left open beside the door
+                runs = [(a, e) for a, e in ((x0, min(x1, door0)), (max(x0, door1), x1)) if e - a > 0.02]
+            for a, e in runs:
+                P['front' if y < 0 else 'back'].box(a, e, y - 0.008, y + 0.008, z0 + kh, top - 0.03, g)
     # gable ends: glass from the top rail up to the roof
     gb = P['roof']
     zt, zw, zr = top, c.zw, c.zr
-    pts = [(-w / 2 + 0.07, zt), (w / 2 - 0.07, zt), (w / 2 - 0.07, zw), (0.0, zr - 0.05), (-w / 2 + 0.07, zw)]
+    xg = w / 2 - 0.03
+    pts = [(-xg, zt - 0.03), (xg, zt - 0.03), (xg, roof_z(xg)), (0.0, roof_z(0.0)), (-xg, roof_z(xg))]
     gi = gb.mat_index(g)
     for y in (-d / 2 + 0.03, d / 2 - 0.03):
         f = [gb.bm.verts.new((x, y - 0.008, z)) for x, z in pts]
@@ -1170,6 +1219,7 @@ def palette(cfg):
         'brass': colour('Brass', (0.75, 0.6, 0.25), 0.4), 'brick': colour('Masonry', (0.55, 0.26, 0.2), 0.95),
         'alu': colour('Aluminium', (0.78, 0.8, 0.82), 0.4), 'pot': colour('Pot', (0.7, 0.36, 0.24), 0.9), 'plant': colour('Plant', (0.25, 0.5, 0.2), 0.9),
         'logend': colour('Firewood', (0.55, 0.38, 0.22), 0.9),
+        'straw': colour('Straw', (0.86, 0.72, 0.34), 0.95),
         'barrel': colour('Barrel', (0.2, 0.34, 0.5), 0.7),
         'glass': base.glass_material(),
     }

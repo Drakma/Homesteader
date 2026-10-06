@@ -20,7 +20,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true
   },
   "models": [],
   "utilities": {

@@ -47,7 +47,7 @@ CATEGORY_METADATA = {
     "fuel": {"name": "Fuel & Containers", "icon": "⛽", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment."},
     "materials": {"name": "Materials", "icon": "🪵", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources."},
     "ingredients": {"name": "Ingredients", "icon": "🥩", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients."},
-    "liquids": {"name": "Liquids", "icon": "💧", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per litre, a fluid colour and an opacity."}
+    "liquids": {"name": "Liquids", "icon": "💧", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per liter, a fluid colour and an opacity."}
 }
 
 def collect_all_items():

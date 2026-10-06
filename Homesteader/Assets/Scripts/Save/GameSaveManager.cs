@@ -68,7 +68,7 @@ namespace Homesteader.Save
                 bool ready = ModManager.Instance != null && ModManager.Instance.LoadComplete
                              && Terrain.activeTerrain != null
                              && (FindAnyObjectByType<Homesteader.Generation.HomesteaderTerrainGenerator>() == null || FindAnyObjectByType<Homesteader.Generation.HomesteaderTerrainGenerator>().Generated)
-                             && FindAnyObjectByType<PedController>() != null
+                             && PedController.Current != null
                              && HudBindings.Instance != null
                              && TimeSystem.Instance != null;
                 if (ready) break;
@@ -144,6 +144,7 @@ namespace Homesteader.Save
         {
             foreach (PlacedObject o in PlacedObject.All) if (o != null) o.Remove();
             foreach (WorldItem w in new List<WorldItem>(WorldItem.All)) if (w != null) Object.Destroy(w.gameObject);
+            WireNetwork.Clear();
             ConstructionSite.Clear();
             FenceRun.Clear();
             PathRun.Clear();
@@ -241,13 +242,13 @@ namespace Homesteader.Save
             s.weatherOverridden = t.IsWeatherOverridden;
             s.weather = (int)t.Weather;
 
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             if (ped != null)
             {
                 s.playerPosition = ped.transform.position;
                 s.playerYaw = ped.transform.eulerAngles.y;
             }
-            var cam = FindAnyObjectByType<IsometricLockedCamera>();
+            var cam = IsometricLockedCamera.Current;
             if (cam != null)
             {
                 s.cameraYaw = cam.TargetYaw;
@@ -260,7 +261,7 @@ namespace Homesteader.Save
             HudState hud = HudState.Active;
             foreach (ToolbarSlotData slot in hud.Toolbar)
             {
-                var saved = new GameSave.SavedSlot { iconId = slot.IconId ?? "", count = slot.Count };
+                var saved = new GameSave.SavedSlot { iconId = slot.IconId ?? "", count = slot.Count, wireUsed = slot.WireUsed, liquidId = slot.LiquidId };
                 if (slot.Contents != null && slot.Contents.Count > 0)
                 {
                     saved.contentIds = new List<string>();
@@ -280,6 +281,8 @@ namespace Homesteader.Save
                 s.resources.Add(r);
             }
             s.loanDebt = hud.LoanDebt;
+            s.netPlan = NetPlan.CurrentId;
+            s.netPlanDaysLeft = NetPlan.DaysLeft;
 
             foreach (PlantedGrowth p in PlantedGrowth.All)
             {
@@ -290,10 +293,12 @@ namespace Homesteader.Save
                     ageDays = p.AgeDays, state = (int)p.State, stumpRadius = p.StumpRadius, fruitPickedUntil = p.FruitPickedUntil, fruitGoneMask = (int)p.FruitGone,
                 });
             }
+            var placedIndex = new Dictionary<GameObject, int>();
             foreach (PlacedObject o in PlacedObject.All)
             {
                 if (o == null) continue;
-                var sp = new GameSave.SavedPlaced { itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg, level = o.Level };
+                placedIndex[o.gameObject] = s.placed.Count;   // the wiring refers to placed objects by their place in this list
+                var sp = new GameSave.SavedPlaced { itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg, level = o.Level, paintId = o.PaintId, liquidId = o.LiquidId, sawLog = o.SawLog, wireUsed = o.WireUsed, panelId = MountedPanel.PanelOn(o.gameObject), chargeWh = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().ChargeWh : 0f, waterL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().WaterL : 0f, rawL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().RawL : 0f, tempC = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().TempC : 12f };
                 if (o.Contents != null && o.Contents.Count > 0)
                 {
                     sp.contentIds = new List<string>();
@@ -303,11 +308,15 @@ namespace Homesteader.Save
                 s.placed.Add(sp);
             }
             s.attached = AttachedObject.Capture();
+            var attachedIndex = new Dictionary<GameObject, int>();
+            List<AttachedObject> attachedOrder = AttachedObject.CaptureOrder();
+            for (int ai = 0; ai < attachedOrder.Count; ai++) attachedIndex[attachedOrder[ai].gameObject] = ai;
+            s.wires = WireNetwork.Capture(placedIndex, attachedIndex);
             foreach (WorldItem w in WorldItem.All)
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
-                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count) });
+                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count), choices = cs.ChoiceList(), pumpId = cs.PumpId, fittedPanel = cs.FittedPanel, sewageL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SewageL : 0f, sludgeL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SludgeL : 0f });
             foreach (PathRun pr in PathRun.All)
             {
                 if (pr == null) continue;
@@ -324,12 +333,15 @@ namespace Homesteader.Save
                 s.fences.Add(sf);
             }
             s.fellTrees = Homesteader.World.ForestTrees.SavedFelled();
+            s.removedStumps = Homesteader.World.ForestTrees.SavedRemovedStumps();
             s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
             s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
             s.pickedTreeMasks = Homesteader.World.ForestTrees.SavedPickedMasks();
             s.pickedBushes = Homesteader.World.BerryBushes.SavedPicked();
             s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
             s.dugBushes = Homesteader.World.BerryBushes.SavedDug();
+            s.brokenRocks = Homesteader.World.WorldRocks.SavedBroken();
+            s.tilledCells = Homesteader.World.FarmlandSoil.Saved();
             s.plantedBushes = Homesteader.World.BerryBushes.SavedPlanted();
             s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
             s.miniPlayerOpen = Homesteader.UI.SteadifyMiniPlayer.IsOpen;
@@ -359,7 +371,7 @@ namespace Homesteader.Save
             for (int i = 0; i < HudState.ToolbarSize; i++)
             {
                 if (i >= s.toolbar.Count) { hud.Toolbar.Add(ToolbarSlotData.Empty()); continue; }
-                var slot = new ToolbarSlotData { IconId = s.toolbar[i].iconId, Count = s.toolbar[i].count };
+                var slot = new ToolbarSlotData { IconId = s.toolbar[i].iconId, Count = s.toolbar[i].count, WireUsed = s.toolbar[i].wireUsed, LiquidId = s.toolbar[i].liquidId };
                 if (s.toolbar[i].contentIds != null && s.toolbar[i].contentCounts != null)
                 {
                     slot.Contents = new List<ContainerStack>();
@@ -378,10 +390,11 @@ namespace Homesteader.Save
                     for (int i = 0; i < r.subKeys.Count && i < r.subValues.Count; i++) res.Subspecies[r.subKeys[i]] = r.subValues[i];
             }
             hud.LoanDebt = s.loanDebt;
+            NetPlan.Restore(s.netPlan, s.netPlanDaysLeft);
             HudBindings.Instance.RefreshToolbar();
 
             // player + camera
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             if (ped != null)
             {
                 var cc = ped.GetComponent<CharacterController>();
@@ -391,7 +404,7 @@ namespace Homesteader.Save
                 ped.transform.SetPositionAndRotation(ppos, Quaternion.Euler(0f, s.playerYaw, 0f));
                 if (cc != null) cc.enabled = true;
             }
-            var cam = FindAnyObjectByType<IsometricLockedCamera>();
+            var cam = IsometricLockedCamera.Current;
             if (cam != null)
             {
                 cam.RestoreView(s.cameraYaw, s.cameraOrthoSize, s.cameraPanned, s.cameraFocal);
@@ -400,12 +413,15 @@ namespace Homesteader.Save
             // chopped forest trees (the forest itself is regenerated from the seed)
             Homesteader.World.VegetationSeasons.RestoreGrowthDay(s.forestGrowthDay);
             Homesteader.World.ForestTrees.ApplyFelled(s.fellTrees);
+            Homesteader.World.ForestTrees.ApplyRemovedStumps(s.removedStumps);
             Homesteader.World.ForestTrees.ApplyDead(s.deadTrees);
             Homesteader.World.ForestTrees.ApplyPicked(s.pickedTrees, s.pickedTreeMasks);
             Homesteader.World.BerryBushes.ClearPlanted();
             Homesteader.World.BerryBushes.ApplyPlanted(s.plantedBushes);   // before the picked and dug spots are applied: they may be on these
             Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
             Homesteader.World.BerryBushes.ApplyDug(s.dugBushes);
+            Homesteader.World.WorldRocks.ApplyBroken(s.brokenRocks);
+            Homesteader.World.FarmlandSoil.ApplySaved(s.tilledCells);
             Homesteader.UI.WindowPositions.Restore(s.windows);
             Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
             Homesteader.Radio.RadioPlayer.Restore(new Homesteader.Radio.RadioPlayer.Saved { station = s.radioStation, line = s.radioLine, paused = s.radioPaused });
@@ -435,8 +451,10 @@ namespace Homesteader.Save
             // placed structures / props: their models load lazily, so wait for each template
             Step(0.2f, "Placing objects...");
             int placedDone = 0;
+            var restoredPlaced = new Dictionary<int, PlacedObject>();
             foreach (var so in s.placed)
             {
+                int placedIdx = placedDone;
                 Step(0.2f + 0.45f * (placedDone++ / (float)System.Math.Max(1, s.placed.Count)), "Placing objects...");
                 if (!ItemRegistry.TryGet(so.itemId, out ItemRegistry.ItemInfo info)) { Debug.LogWarning($"[Save] placed item '{so.itemId}' is not loaded; skipped."); continue; }
                 GlbTemplate glb = info.Prefab != null ? info.Prefab.GetComponent<GlbTemplate>() : null;
@@ -454,7 +472,11 @@ namespace Homesteader.Save
                     for (int c = 0; c < so.contentIds.Count && c < so.contentCounts.Count; c++)
                         contents.Add(new ContainerStack { ItemId = so.contentIds[c], Count = so.contentCounts[c] });
                 }
-                PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents);
+                PlacedObject restored = PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents);
+                if (restored != null && !string.IsNullOrEmpty(so.paintId)) restored.ApplyPaint(so.paintId);   // a painted door
+                if (restored != null && !string.IsNullOrEmpty(so.sawLog)) restored.SawLog = so.sawLog;   // the log on a sawmill's track (Sawmill shows it once its model is there)
+                if (restored != null && !string.IsNullOrEmpty(so.liquidId)) { restored.LiquidId = so.liquidId; TankSticker.Show(restored, so.liquidId); }   // what a tank holds
+                if (restored != null) { restored.WireUsed = so.wireUsed; if (!string.IsNullOrEmpty(so.panelId)) MountedPanel.Fit(restored.gameObject, so.itemId, so.panelId); if (so.chargeWh > 0f && restored.GetComponent<WireNode>() != null) restored.GetComponent<WireNode>().ChargeWh = so.chargeWh; if (so.waterL > 0f && restored.GetComponent<WireNode>() != null) { WireNode tank = restored.GetComponent<WireNode>(); tank.WaterL = so.waterL; tank.RawL = so.rawL; tank.TempC = so.tempC > 0f ? so.tempC : 12f; } restoredPlaced[placedIdx] = restored; }
             }
 
             Homesteader.World.DeliveryService.RestoreOrders(s.deliveries);
@@ -465,12 +487,15 @@ namespace Homesteader.Save
             foreach (var cs in s.sites)
             {
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
-                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.SetWallPaints(cs.wallPaints); site.SetOpenDoors(cs.openDoors); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; if (cs.contentIds != null) for (int ci = 0; ci < cs.contentIds.Count && ci < (cs.contentCounts?.Count ?? 0); ci++) site.Contents.Add(new Homesteader.UI.ContainerStack { ItemId = cs.contentIds[ci], Count = cs.contentCounts[ci] }); }   // before the model loads, or on it at once when it is already showing
+                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.SetWallPaints(cs.wallPaints); site.SetOpenDoors(cs.openDoors); site.SetChoices(cs.choices); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; site.PumpId = cs.pumpId; if (!string.IsNullOrEmpty(cs.fittedPanel)) site.FitPanel(cs.fittedPanel); if ((cs.sewageL > 0f || cs.sludgeL > 0f) && site.GetComponent<WireNode>() != null) { site.GetComponent<WireNode>().SewageL = cs.sewageL; site.GetComponent<WireNode>().SludgeL = cs.sludgeL; } if (cs.contentIds != null) for (int ci = 0; ci < cs.contentIds.Count && ci < (cs.contentCounts?.Count ?? 0); ci++) site.Contents.Add(new Homesteader.UI.ContainerStack { ItemId = cs.contentIds[ci], Count = cs.contentCounts[ci] }); }   // before the model loads, or on it at once when it is already showing
             }
 
             // what is mounted on them (breaker boxes, lights): the sites exist now, in the order they were saved
+            var restoredAttached = new Dictionary<int, AttachedObject>();
+            int attachedCounter = 0;
             foreach (GameSave.SavedAttached sa in s.attached)
             {
+                int attachedIdx = attachedCounter++;
                 if (sa.siteIndex < 0 || sa.siteIndex >= ConstructionSite.All.Count || !ItemRegistry.TryGet(sa.itemId, out ItemRegistry.ItemInfo ai)) continue;
                 ConstructionSite host = ConstructionSite.All[sa.siteIndex];
                 if (host == null) continue;
@@ -483,8 +508,12 @@ namespace Homesteader.Save
                     if (!aglb.Ready) continue;
                 }
                 if (host == null) continue;
-                AttachedObject.Spawn(sa.itemId, ai, host, host.transform.TransformPoint(sa.localPosition), host.transform.rotation * sa.localRotation);
+                AttachedObject restoredA = AttachedObject.Spawn(sa.itemId, ai, host, host.transform.TransformPoint(sa.localPosition), host.transform.rotation * sa.localRotation, sa.thickness);
+                if (restoredA != null && restoredA.GetComponent<NetRack>() != null) restoredA.GetComponent<NetRack>().Restore(sa.shelfIds);   // what was in a rack
+                if (restoredA != null && restoredA.GetComponent<Shelf>() != null) restoredA.GetComponent<Shelf>().Restore(sa.shelfIds, sa.shelfX, sa.shelfUsed, sa.shelfLiquids);   // what stood on a shelf
+                if (restoredA != null) { restoredAttached[attachedIdx] = restoredA; if (!string.IsNullOrEmpty(sa.panelId)) MountedPanel.Fit(restoredA.gameObject, sa.itemId, sa.panelId); if (sa.chargeWh > 0f && restoredA.GetComponent<WireNode>() != null) restoredA.GetComponent<WireNode>().ChargeWh = sa.chargeWh; if (sa.switchOff && restoredA.GetComponent<WireNode>() != null) { restoredA.GetComponent<WireNode>().SwitchOff = true; Disconnect.Show(restoredA.GetComponent<WireNode>()); } }
             }
+            WireNetwork.Restore(s.wires, restoredPlaced, restoredAttached);   // the wires between them
 
             // paths and roads
             Step(0.72f, "Laying paths and fences...");

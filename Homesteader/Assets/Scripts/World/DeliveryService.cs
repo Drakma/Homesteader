@@ -10,6 +10,7 @@ using UnityEngine;
 namespace Homesteader.World
 {
     /// <summary>
+    /// Bulk fuel (the fuel_bulk_* lots) and tank pickups are an order of their own: the fuel truck's, which drives to each tank (FuelDelivery.cs).
     /// Phone orders arrive the NEXT DAY. An order made at checkout waits until 07:00 the day after; then a delivery box van
     /// (vehicle_delivery_boxvan) enters from the map edge, drives down the starter road to the grass area, unloads the goods
     /// beside the road end in cardboard boxes, turns around and drives back out. Pending orders are saved (GameSave.deliveries).
@@ -31,6 +32,9 @@ namespace Homesteader.World
             public int dueDay;                       // day of year it is due (the day after the order)
             public List<string> ids = new List<string>();
             public List<int> counts = new List<int>();
+            public bool fuel;                        // bulk fuel (FuelDelivery.cs): the fuel truck brings it and fills the tanks, nothing is unloaded
+            public bool septic;                      // septic pump-outs (SepticPumpOut.cs): the honey pot truck comes and pumps the tanks out
+            public bool market;                      // goods sold in the Market app (MarketPickup.cs): the cargo truck collects them from the delivery zone
         }
 
         private static readonly List<Order> Pending = new List<Order>();
@@ -55,9 +59,39 @@ namespace Homesteader.World
         {
             TimeSystem time = TimeSystem.Instance;
             if (time == null) return;
-            var o = new Order { dueDay = time.DayOfYear % TimeConstants.DaysPerYear + 1 };
-            foreach (var kv in items) { if (kv.Value <= 0) continue; o.ids.Add(kv.Key); o.counts.Add(kv.Value); }
+            int due = time.DayOfYear % TimeConstants.DaysPerYear + 1;
+            var o = new Order { dueDay = due };
+            var fuel = new Order { dueDay = due, fuel = true };   // bulk fuel and tank pickups are an order of their own: the fuel truck's
+            var septic = new Order { dueDay = due, septic = true };   // and septic pump-outs the honey pot truck's
+            foreach (var kv in items)
+            {
+                if (kv.Value <= 0) continue;
+                Order to = SepticPumpOut.IsOrder(kv.Key) ? septic : FuelDelivery.IsTruckOrder(kv.Key) ? fuel : o;
+                to.ids.Add(kv.Key);
+                to.counts.Add(kv.Value);
+            }
             if (o.ids.Count > 0) Pending.Add(o);
+            if (fuel.ids.Count > 0) Pending.Add(fuel);
+            if (septic.ids.Count > 0) Pending.Add(septic);
+        }
+
+        /// <summary>The Market's sell orders: the goods the cargo truck collects tomorrow morning from the delivery zone, paid for when it has loaded them.</summary>
+        public static void ScheduleMarket(IDictionary<string, int> items)
+        {
+            TimeSystem time = TimeSystem.Instance;
+            if (time == null) return;
+            var o = new Order { dueDay = time.DayOfYear % TimeConstants.DaysPerYear + 1, market = true };
+            foreach (var kv in items) if (kv.Value > 0) { o.ids.Add(kv.Key); o.counts.Add(kv.Value); }
+            if (o.ids.Count > 0) Pending.Add(o);
+        }
+
+        /// <summary>How many of an item are already booked for the cargo truck (so the Sell tab does not offer them twice).</summary>
+        public static int PendingMarket(string itemId)
+        {
+            int n = 0;
+            foreach (Order o in Pending)
+                if (o.market) for (int i = 0; i < o.ids.Count; i++) if (o.ids[i] == itemId) n += o.counts[i];
+            return n;
         }
 
         public static List<Order> SavedOrders() { return new List<Order>(Pending); }
@@ -68,6 +102,8 @@ namespace Homesteader.World
             Pending.Clear();
             if (_van != null) Destroy(_van.gameObject);
             _van = null;
+            FuelDelivery.Reset();
+            SepticPumpOut.Reset();
         }
 
         public static void RestoreOrders(List<Order> orders)
@@ -89,7 +125,7 @@ namespace Homesteader.World
         {
             if (Time.unscaledTime < _next) return;
             _next = Time.unscaledTime + 1f;
-            if (_van != null || Pending.Count == 0) return;
+            if (_van != null || FuelDelivery.Busy || SepticPumpOut.Busy || Pending.Count == 0) return;
             if (WelcomeMenuController.IsLoading || !GameSaveManager.Restored) return;
             TimeSystem time = TimeSystem.Instance;
             if (time == null) return;
@@ -101,13 +137,60 @@ namespace Homesteader.World
         {
             HomesteaderTerrainGenerator gen = FindAnyObjectByType<HomesteaderTerrainGenerator>();
             IReadOnlyList<Vector2> road = gen != null ? gen.RoadPoints : null;
-            ToastNotificationSystem.ShowInfo("Delivery", "A Delivery is on the way");
+            if (order.septic)
+            {
+                SepticPumpOut.Begin(order, road, this, () => { Pending.Remove(order); });   // the honey pot truck's round (SepticPumpOut.cs)
+                return;
+            }
+            if (order.fuel)
+            {
+                // the fuel truck's round: it drives to each tank (FuelDelivery.cs); the order stays pending until it is done
+                FuelDelivery.Begin(order, road, this, () => { Pending.Remove(order); });
+                return;
+            }
+            if (order.market)
+            {
+                // every pickup booked for the same day goes on ONE trip (each booking is its own order: they used to come one truck after another)
+                TimeSystem now = TimeSystem.Instance;
+                foreach (Order other in new List<Order>(Pending))
+                {
+                    if (other == order || !other.market || (now != null && !Due(other, now))) continue;
+                    order.ids.AddRange(other.ids);
+                    order.counts.AddRange(other.counts);
+                    Pending.Remove(other);
+                }
+            }
+            ToastNotificationSystem.ShowInfo(order.market ? "Market pickup" : "Delivery", order.market ? "The cargo truck is on its way." : "A Delivery is on the way");
 
-            // Where the goods go: once a house has been placed (even only its dirt area) the delivery zone is 5 tiles from the house
-            // nearest the road; the van drives to the road point closest to that zone. Before any house: the end of the road.
-            Vector3 zone;
-            int stopIndex;
-            if (road == null || road.Count < 8)
+            // Where the goods go (and are collected from): see ResolveZone.
+            ResolveZone(gen, road, out Vector3 zone, out int stopIndex);
+            System.Action<Order, Vector3> work = order.market ? (System.Action<Order, Vector3>)MarketPickup.Collect : Deliver;   // the cargo truck loads up instead of unloading
+            string truckId = order.market ? MarketPickup.TruckItemId : VanItemId;
+
+            if (road == null || road.Count < 8 || !ItemRegistry.TryGet(truckId, out ItemRegistry.ItemInfo vanInfo) || vanInfo.Prefab == null)
+            {
+                // No road or no van model: the goods just turn up at the delivery zone (or are just collected from it).
+                Pending.Remove(order);
+                work(order, zone);
+                return;
+            }
+            var go = new GameObject(order.market ? "CargoTruck" : "DeliveryVan");
+            _van = go.AddComponent<DeliveryVan>();
+            _van.Begin(order, road, vanInfo.Prefab, zone, stopIndex, o => { Pending.Remove(o); }, () => { _van = null; }, work);
+        }
+
+        /// <summary>
+        /// Where the goods go: once a house has been placed (even only its dirt area) the delivery zone is 5 tiles from the house nearest the road; the van drives
+        /// to the road point closest to that zone. Before any house: the end of the road. The cargo truck collects from the same spot.
+        /// </summary>
+        public static void ResolveZone(HomesteaderTerrainGenerator gen, IReadOnlyList<Vector2> road, out Vector3 zone, out int stopIndex)
+        {
+            if (PickupFlag.TryZone(out Rect flagZone, out int flagStop))
+            {
+                zone = PickupFlag.CentreOf(flagZone);   // a planted pickup flag: the square it marks
+                stopIndex = flagStop;
+            }
+            else if (road == null || road.Count < 8)
             {
                 zone = DropPointNear(StarterCentre(gen));
                 stopIndex = 0;
@@ -117,17 +200,14 @@ namespace Homesteader.World
                 zone = DropPointBesideRoadEnd(road);
                 stopIndex = road.Count - 1;
             }
+        }
 
-            if (road == null || road.Count < 8 || !ItemRegistry.TryGet(VanItemId, out ItemRegistry.ItemInfo vanInfo) || vanInfo.Prefab == null)
-            {
-                // No road or no van model: the goods just turn up at the delivery zone.
-                Pending.Remove(order);
-                Unload(order, zone, Vector3.forward);
-                return;
-            }
-            var go = new GameObject("DeliveryVan");
-            _van = go.AddComponent<DeliveryVan>();
-            _van.Begin(order, road, vanInfo.Prefab, zone, stopIndex, o => { Pending.Remove(o); }, () => { _van = null; });
+        /// <summary>The delivery zone now (for the Market's sell tab).</summary>
+        public static Vector3 ZoneNow()
+        {
+            HomesteaderTerrainGenerator gen = FindAnyObjectByType<HomesteaderTerrainGenerator>();
+            ResolveZone(gen, gen != null ? gen.RoadPoints : null, out Vector3 zone, out _);
+            return zone;
         }
 
         /// <summary>The distance, in tiles (1 m grid squares), between a house and its delivery zone.</summary>
@@ -161,6 +241,7 @@ namespace Homesteader.World
                     float d = (road[i] - hp).sqrMagnitude;
                     if (d < bestDist) { bestDist = d; best = site; bestIdx = i; }
                 }
+                if (best != null) break;   // the FIRST house placed keeps the zone: a second house never moves it (it used to jump to whichever was nearer the road)
             }
             if (best == null) return false;
 
@@ -218,6 +299,9 @@ namespace Homesteader.World
         /// all facing the same way. The models load lazily, so it waits for them before placing anything (a box placed before its
         /// model had loaded was invisible).
         /// </summary>
+        /// <summary>The van or the truck has arrived: goods are unloaded at the delivery zone, bulk fuel is pumped into the tanks.</summary>
+        public static void Deliver(Order order, Vector3 centre) { Unload(order, centre, Vector3.forward); }
+
         public static void Unload(Order order, Vector3 centre, Vector3 roadDir)
         {
             if (_instance != null) _instance.StartCoroutine(UnloadRoutine(order, centre));
@@ -316,7 +400,7 @@ namespace Homesteader.World
             // Free grid squares in tidy rows starting at the delivery zone, clear of any foundation.
             int cols = Mathf.Clamp(Mathf.CeilToInt(Mathf.Sqrt(cellsNeeded * 1.5f)), 2, 8);
             var cells = new List<Vector3>();
-            Vector3 origin = PlantingValidator.SnapToGrid(centre);
+            Vector3 origin = DropOrigin(centre);
             for (int row = 0; cells.Count < cellsNeeded && row < 40; row++)
                 for (int col = 0; col < cols && cells.Count < cellsNeeded; col++)
                 {
@@ -367,7 +451,7 @@ namespace Homesteader.World
                 foreach (Unit v in units) if (v.Id == u.Id) order.Add(v);
             }
 
-            Vector3 origin = PlantingValidator.SnapToGrid(centre);
+            Vector3 origin = DropOrigin(centre);
             int palletCount = 0;
             const int perRow = 3;
             PlacedObject pallet = null;
@@ -414,6 +498,18 @@ namespace Homesteader.World
             }
         }
 
+        /// <summary>Where the rows of goods start: the middle of the zone, or, with a pickup flag, the square's own corner (the rows run +x and +z, so they stay inside the square).</summary>
+        private static Vector3 DropOrigin(Vector3 centre)
+        {
+            if (PickupFlag.TryZone(out Rect r, out _))
+            {
+                Vector3 c = PlantingValidator.SnapToGrid(new Vector3(r.xMin + 0.5f, 0f, r.yMin + 0.5f));
+                c.y = TerrainHeightDetector.GetSurfaceY(c.x, c.z);
+                return c;
+            }
+            return PlantingValidator.SnapToGrid(centre);
+        }
+
         public static Vector3 DropPointBesideRoadEnd(IReadOnlyList<Vector2> road)
         {
             int n = road.Count;
@@ -445,10 +541,16 @@ namespace Homesteader.World
             private float _turnFrom;
             private Vector3 _smoothPos;
 
-            public void Begin(Order order, IReadOnlyList<Vector2> road, GameObject prefab, Vector3 dropPoint, int stopIndex, System.Action<Order> delivered, System.Action finished)
+            private System.Action<Order, Vector3> _work = Deliver;   // what it does when it stops (the van unloads; the cargo truck loads)
+
+            public void Begin(Order order, IReadOnlyList<Vector2> road, GameObject prefab, Vector3 dropPoint, int stopIndex, System.Action<Order> delivered, System.Action finished,
+                              System.Action<Order, Vector3> work = null)
             {
                 _order = order; _road = road; _prefab = prefab; _dropPoint = dropPoint; _delivered = delivered; _finished = finished;
+                if (work != null) _work = work;
                 _length = Mathf.Clamp(stopIndex, 2, road.Count - 1);
+                _road = BuildPath(road, (int)_length);   // the road up to its stop, then (with a pickup flag) off the road into the flag's square
+                _length = _road.Count - 1;
                 _s = 0f;
                 Vector3 p = PointAt(0f);
                 transform.position = p;
@@ -456,6 +558,24 @@ namespace Homesteader.World
                 transform.rotation = Quaternion.Euler(0f, _heading, 0f);
                 _smoothPos = p;
                 StartCoroutine(LoadModel());
+            }
+
+            /// <summary>The road from its start to the stop; with a pickup flag the path goes on, straight across the ground, to the edge of the flag's square (a little inside it).</summary>
+            private static List<Vector2> BuildPath(IReadOnlyList<Vector2> road, int stop)
+            {
+                var path = new List<Vector2>();
+                for (int i = 0; i <= stop; i++) path.Add(road[i]);
+                if (!PickupFlag.TryZone(out Rect r, out _)) return path;
+                Vector2 from = road[stop];
+                Vector2 inside = new Vector2(Mathf.Clamp(from.x, r.xMin + 2f, r.xMax - 2f), Mathf.Clamp(from.y, r.yMin + 2f, r.yMax - 2f));
+                float leg = Vector2.Distance(from, inside);
+                if (leg < 1f) return path;
+                float step = 0f;
+                for (int i = 1; i <= stop; i++) step += Vector2.Distance(road[i - 1], road[i]);
+                step = Mathf.Max(0.5f, step / Mathf.Max(1, stop));   // the road's own spacing, so the van keeps its speed on the leg
+                int n = Mathf.Max(1, Mathf.CeilToInt(leg / step));
+                for (int k = 1; k <= n; k++) path.Add(Vector2.Lerp(from, inside, k / (float)n));
+                return path;
             }
 
             private IEnumerator LoadModel()
@@ -528,7 +648,7 @@ namespace Homesteader.World
                         {
                             Order o = _order;
                             _order = null;
-                            Unload(o, _dropPoint, Vector3.forward);
+                            _work(o, _dropPoint);
                             _delivered?.Invoke(o);
                         }
                         if (_timer > 3.5f) { _phase = 2; _timer = 0f; _turnFrom = _heading; }
@@ -575,7 +695,7 @@ namespace Homesteader.World
                     // the model never loaded: still bring the goods
                     Order o = _order;
                     _order = null;
-                    Unload(o, _dropPoint, Vector3.forward);
+                    _work(o, _dropPoint);
                     _delivered?.Invoke(o);
                 }
                 _finished?.Invoke();

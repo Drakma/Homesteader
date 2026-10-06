@@ -17,6 +17,8 @@
 - **No foot skating**: every rigged model with walk / run clips must have its gait matched to the game's movement speed. Measure with `python tools/gait_fix.py measure <glb>`; if playback would need to exceed ~1.3x to match, lengthen the stride with `gait_fix.py stretch --target <m/s>` (keeps a backup). Then set the native speed: `GlbClipPlayer.walkNativeSpeed` / `runNativeSpeed` (player) or `movement.walk_native_mps` / `run_native_mps` in the animal AI. Do this on import, not after the user notices.
 - **Looping clips must loop:** a clip whose last pose differs from its first pops every time it wraps (the idle clip did: the upper body wiggled every 3 s). Check every looping clip you import with `python tools/loop_fix.py measure <glb>` and blend the seam with `loop_fix.py fix <glb> <clip>` (it also updates the StreamingAssets copy).
 - **Save game**: the game autosaves and resumes (`Assets/Scripts/Save/`, `docs/SAVE_GAME.md`, F9 saves now). Anything new that changes the world or player state (new placeable things, inventory-like state, world objects) must be added to `GameSave` / `GameSaveManager.Capture()` / `ApplySave()` in the same change.
+- **Recipes (user rule)**: anything buildable or craftable (structure stages, and any future crafting) MUST use the recipe tree system: a list of lines `{item_id (asset | #tag | ~equivalency), quantity}` and sections `{section, mode: all|any, if: {uses|not_uses}, items}` (format: `tools/recipe_format.py`, docs: `docs/CONSTRUCTION.md`). Never write the legacy `any_of`, a flat hand-rolled list or a second recipe format. Edit them in the kit's recipe tree editor; new generators must emit this format and run `recipe_format.normalize`.
+- **Mixing rule (user rule)**: a recipe that calls for mortar, grout, concrete or cement must also ask for water (`~water`) and have a wheelbarrow or cement mixer tool group; for CONCRETE, cement is an available OR to the bagged mix and always also needs sand and aggregate (the cheap path: buy cement, collect sand and chop stones for aggregate); mortar is bagged mortar mix plus water. Proportions and the audit (`python tools/check_recipes.py`) are in `docs/CONSTRUCTION.md`.
 - **NO EMOJI (user rule)**: never use emoji anywhere: not in chat replies, not in UI text, labels, toasts, docs, commit messages or code comments. Plain text only.
 - **Poly budget**: keep every asset model **under 5,000 triangles** (the user's standard), EXCEPT things there are few of: structures and vehicles may go up to **10,000** (the user said structures can use more because there are not as many as, say, trees). Many-copy assets (trees, plants, props, crops) stay under 5,000. Check the count after any Meshy generation (`meshy-t2` image-to-3D lands around 4,000-4,400) and decimate anything over.
 - **Coordinate System**: Left-handed ($Y$-Up, $+Z$-Forward, $+X$-Right).
@@ -32,6 +34,7 @@
 
 - **Text fields** (TextField, number fields, search boxes, dropdowns): text is ALWAYS vertically centered in the box, including placeholder text. Style the inner input, not just the outer element: justify-content: center; -unity-text-align: middle-left; padding-top: 0; padding-bottom: 0; on .unity-base-text-field__input / .unity-base-popup-field__input, and zero margin/padding on the inner TextElement. Horizontal alignment stays left.
 - **Toasts**: a toast identical to the NEWEST one still showing (same title, message and kind) never stacks: the one on screen just restarts its timer. Repeats that carry a number use `ToastNotificationSystem.ShowCounted` (one toast, running total). Never fire the same toast several times.
+- **Toasts (user rule)**: a toast is only for something the player CANNOT see happen (why an action did nothing: too far, full, not ready, missing tool; events elsewhere: a delivery arrived, a warning). Never toast the confirmation of an action whose result is on screen (picked up, dropped, built, dug, tilled, put in, took out, painted, paused). New actions give feedback through the world and the HUD, not a toast.
 - **Units**: everything is stored metric; every number with a unit that is SHOWN to the player (lengths, areas, weights, volumes) goes through `UnitFormat` (`UI/UnitFormat.cs`), so the Metric / Imperial setting converts it. Never write `"kg"`, `" m"` or `" L"` into UI text.
 - **Buttons**: label text is ALWAYS centered vertically AND horizontally (-unity-text-align: middle-center).
 - Reference implementations: .asset-search-input and .asset-category-dropdown in Resources/HUDTree/HudUI.uss.
@@ -142,7 +145,7 @@ Every asset must live in `assets/<category>/<item_id>/`:
   - `seed_*`: plantable seeds (all use 3D seed packet models).
   - `crop_*`: growing crops.
   - `food_*`: direct edible harvests (e.g. `food_apple`, `food_truffle`).
-  - `liquid_*`: fluids that fill liquid containers by volume (`weight_kg` is per litre; fluid colour and opacity). No model.
+  - `liquid_*`: fluids that fill liquid containers by volume (`weight_kg` is per liter; fluid colour and opacity). No model.
   - `ingredient_*`: cooking/crafting drops (singular `ingredient_`, e.g. `ingredient_beef`, `ingredient_fillet_salmon`).
   - `fuel_*`: hydrocarbons, propane, firewood cords, bulk fuel tanks.
   - `mat_*`: lumber, gravel/dirt piles, bales, wool, pelts.
@@ -177,6 +180,7 @@ named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named mater
 ---
 
 - **One source for items**: an item's name, price, icon, weight, shop listing (`properties.stores`, `sale_unit`, `base_value`) and everything else live ONLY in its manifest under `assets/<category>/<id>/`. The game's `AssetCatalog.json` and the phone shops are generated from the manifests (`tools/generate_unity_asset_catalog.py`, `tools/package_catalog_as_mods.py`); never keep a second hand-edited list of items (the old `StoreCatalogs.json` was one and went stale on renames).
+- **WAILA sees everything (user rule)**: every object in the world (placed, mounted, trigger-only, behind a cutout wall, a wired device) must be hoverable and show a WAILA card with its name and stats. When adding a new kind of object, make sure `HoverTarget` can find it (`SoftTarget` covers triggers) and `WailaPanel` describes it; a trigger-only collider is never an excuse for WAILA to miss it.
 - **Controls**: `docs/CONTROLS.md` is the single list of every key/mouse binding. Check it before assigning a key (F2, F3, F4 are taken) and update it AND the F1 hints list (`HintsPanel.cs`) in the same change whenever a binding is added, moved or removed.
 
 ---

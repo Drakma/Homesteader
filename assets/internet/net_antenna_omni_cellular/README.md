@@ -1,7 +1,5 @@
-# Antenna Omni Cellular
+# Omni Cellular Antenna
 
-**Item ID:** `net_antenna_omni_cellular`  
-**Category:** `internet`  
-**Icon:** ![Antenna Omni Cellular](net_antenna_omni_cellular.png)
+Omnidirectional cellular signal antenna.
 
-Standardized Homesteader asset manifest for `net_antenna_omni_cellular`.
+Procedural model (tools/make_internet.py): a fibreglass stick antenna clamped to a short mast on a weighted base, its coax run down to the ground. Its detail is painted (tools/net_pictures.py). 320 triangles, 0.31 x 0.21 x 0.85 m.

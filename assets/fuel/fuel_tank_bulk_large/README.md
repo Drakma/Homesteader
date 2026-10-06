@@ -1,7 +1,5 @@
-# Tank Fuel Bulk Large
+# Large Bulk Fuel Storage Tank
 
-**Item ID:** `fuel_tank_bulk_large`  
-**Category:** `electricity`  
-**Icon:** ![Tank Fuel Bulk Large](fuel_tank_bulk_large.png)
+A large skid-mounted bulk fuel storage tank that holds more fuel than the small size.
 
-Standardized Homesteader asset manifest for `fuel_tank_bulk_large`.
+Procedural model (tools/make_simple_props.py), 660 triangles, 3.38 x 1.21 x 1.74 m. A red drum with a white band on a skid, hose and nozzle, a DIESEL FUEL sticker on each side.

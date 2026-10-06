@@ -20,9 +20,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "building_metal.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.002,
+        "y": 0.005,
+        "z": 2.004
+      },
+      "triangles": 36
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -63,8 +76,8 @@
   "category_fields": {
     "dimensions_m": {
       "width": 1.0,
-      "depth": 0.05,
-      "height": 2.0
+      "depth": 2.0,
+      "height": 0.01
     }
   }
 }

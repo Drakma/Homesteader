@@ -24,9 +24,21 @@
     "look_target": "interior",
     "look_color": "#f1eee6",
     "look_smoothness": 0.25,
-    "look_metallic": 0.0
+    "look_metallic": 0.0,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "building_paint_interior_wall.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.329,
+        "y": 0.358,
+        "z": 0.301
+      },
+      "triangles": 742
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -66,9 +78,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
+      "width": 0.33,
       "depth": 0.3,
-      "height": 0.35
+      "height": 0.36
     }
   }
 }

@@ -26,7 +26,7 @@
         "y": 3.6,
         "z": 4.0
       },
-      "triangles": 2392
+      "triangles": 2500
     }
   ],
   "utilities": {
@@ -58,7 +58,7 @@
   },
   "category_fields": {
     "interior_area_m2": 25.0,
-    "room_count": 1,
+    "room_count": 0,
     "dimensions_m": {
       "width": 3.0,
       "depth": 4.0,
@@ -73,7 +73,7 @@
         "quantity": 3
       },
       {
-        "item_id": "building_glass",
+        "item_id": "#window",
         "quantity": 2
       },
       {

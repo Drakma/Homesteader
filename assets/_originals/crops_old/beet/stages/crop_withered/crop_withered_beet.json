@@ -1,0 +1,62 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "crop_withered_beet",
+  "name": "Beet (Withered)",
+  "category": "farming",
+  "description": "The withered look of a beet plant.",
+  "icon": "crop_withered_beet.png",
+  "properties": {
+    "weight_kg": 0.5,
+    "max_stack_size": 1,
+    "base_value": 0.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 4,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "crop_withered_beet.glb",
+      "format": "glb",
+      "triangles": 132
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "crop_species": "beet",
+    "dimensions_m": {
+      "width": 0.366,
+      "depth": 0.39,
+      "height": 0.13
+    }
+  }
+}

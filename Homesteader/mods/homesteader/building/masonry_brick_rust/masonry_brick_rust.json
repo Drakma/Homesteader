@@ -25,7 +25,8 @@
     "look_color": "#a4472f",
     "look_smoothness": 0.1,
     "look_metallic": 0.0,
-    "look_style": "brick"
+    "look_style": "brick",
+    "display_weight": true
   },
   "models": [
     {

@@ -20,7 +20,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
   "models": [],
   "utilities": {

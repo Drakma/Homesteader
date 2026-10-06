@@ -20,12 +20,19 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "placeable": true,
+    "build_speed": 0.9
   },
   "models": [
     {
-      "file": "SM_Tool_Steel_Wheelbarrow.fbx",
-      "format": "fbx"
+      "file": "SM_Tool_Steel_Wheelbarrow.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.45,
+        "y": 0.564,
+        "z": 0.595
+      }
     }
   ],
   "utilities": {
@@ -67,13 +74,27 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.65,
-      "depth": 1.3,
-      "height": 0.6
+      "width": 0.595,
+      "depth": 1.45,
+      "height": 0.564
     },
     "fuel_type": "none",
     "fuel_consumption_l_per_min": 0,
     "power_draw_w": 0,
     "tank_capacity_l": 0
+  },
+  "container": {
+    "capacity_kg": 100,
+    "stacking_limit": 1,
+    "accepts": [],
+    "show_fill": true,
+    "single_type": false,
+    "fill_x_min": 0.42,
+    "fill_x_max": 0.75,
+    "fill_y_min": 0.53,
+    "fill_y_max": 0.81,
+    "fill_z_min": 0.19,
+    "fill_z_max": 0.7,
+    "pushable": true
   }
 }

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "water_well_wooden",
+  "name": "Drilled Well (Wooden Well House)",
+  "category": "structures",
+  "description": "An electric drilled well: a submersible pump down the bore, a PVC drop pipe bringing the water up and a small wooden well house over the head. Fit a well sub panel on its post and wire that to a breaker box with AC wire to run the pump; pipe it to a tank with PVC pipe. The pump stage asks for pipe and cable by the well's depth (hover the blueprint over a spot to see the depth and the most it can give).",
+  "icon": "water_well_wooden.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "water_well_wooden",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 3,
+    "icon_stage": 3,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "drill",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_drill/",
+        "model": "",
+        "icon": "struct_drill_water_well_wooden.png",
+        "construction_recipe": [],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_shovel_round_point",
+            "tool_shovel_trenching",
+            "tool_pickaxe"
+          ]
+        ],
+        "build_clips": [
+          "Dig",
+          "Hoe"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 2,
+        "name": "pump",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_pump/",
+        "model": "",
+        "icon": "struct_pump_water_well_wooden.png",
+        "construction_recipe": [
+          {
+            "item_id": "~well_pump",
+            "quantity": 1
+          },
+          {
+            "item_id": "~pipe_pvc_one_inch",
+            "quantity": 1,
+            "per_depth_m": 0.34
+          },
+          {
+            "item_id": "~romex_12_2",
+            "quantity": 5,
+            "per_depth_m": 1
+          },
+          {
+            "item_id": "~pvc_cement_can",
+            "quantity": 1
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_wrench_pipe",
+            "tool_wrench_adjustable"
+          ],
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ],
+          [
+            "tool_wire_cutters"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT",
+          "Push_RT"
+        ],
+        "build_motion": ""
+      },
+      {
+        "stage": 3,
+        "name": "wellhead",
+        "age_min": 66,
+        "age_max": 100,
+        "resource": "stages/struct_wellhead/",
+        "model": "",
+        "icon": "struct_wellhead_water_well_wooden.png",
+        "construction_recipe": [
+          {
+            "item_id": "~lumber_2x6",
+            "quantity": 8
+          },
+          {
+            "item_id": "~lumber_post_4x4",
+            "quantity": 1
+          },
+          {
+            "item_id": "~sheet_plywood_cdx",
+            "quantity": 1
+          },
+          {
+            "item_id": "~deck_screws",
+            "quantity": 60
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_saw_hand",
+            "tool_circular_saw_corded",
+            "tool_circular_saw_cordless",
+            "tool_miter_saw"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_basic",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_hammer",
+            "tool_hammer_claw",
+            "tool_hammer_club"
+          ]
+        ],
+        "build_clips": [
+          "Fixing_Kneeling_RT",
+          "Push_RT"
+        ],
+        "build_motion": ""
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 150,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "attach_item": "electricity_panel_well_sub",
+    "is_well": true
+  }
+}

@@ -64,6 +64,9 @@ Every item folder must contain `<item_id>.json` conforming to the Homesteader It
 	"properties": {
 		"weight_kg": 1.0,
 		"max_stack_size": 99,
+		"pack_quantity": null,
+		"build_speed": null,
+		"display_weight": false,
 		"base_value": 10.0,
 		"is_consumable": false,
 		"is_buyable": false,
@@ -218,3 +221,23 @@ To regenerate manifests, compute geometry bounding boxes, and update the catalog
 ```powershell
 python tools/build_unified_assets_catalog.py
 ```
+
+## Renaming an asset
+
+The kit's rename (and a category move, which renames the id) renames the folder, the files and the manifest, and now also **everything that refers to the old id**
+(`tools/asset_references.py`, also usable by hand: `python tools/asset_references.py <old_id> <new_id> [--dry]`): the members and `tag_values` of the material tags,
+construction recipes and required tools, growth rules (yield, planting, fruit drops), container `accepts` lists, `next_item_id` chains, path materials and the
+kit_config stages. Plain words that only look like the id (species names, descriptions) are left alone. Afterwards run `tools/generate_unity_asset_catalog.py` and
+`tools/package_catalog_as_mods.py` to carry the change into the game.
+
+## Textured cardboard boxes
+
+The boxes of the building materials (nails, anchor bolts, joist hangers, hurricane ties and their cases) are ONE 12-triangle box each, with the look in a texture:
+kraft cardboard, a colour band and a white label with the NAME of the contents on the sides, taped seam across the top. `python tools/rebuild_boxes.py` draws the
+atlases (`tools/box_textures.py`, PIL), builds the GLBs (`tools/make_box_models.py`, Blender), updates the manifests and renders the icons. Add a row to `BOXES` for a new box.
+
+**What a rename does now (kit server, `tools/asset_references.py`, `tools/refresh_game_content.py`):** the folder, files and manifest are renamed; EVERY string in the kit's JSON
+that is the old id (any key, any list, tag members, `tag_values` entries, recipes, accepts, drops, kit_config) becomes the new id; the catalog and the packaged mod are regenerated
+in the background so the game follows; the response lists what changed, which code files still mention the id (they are not edited) and warns when any reference points at
+an id that does not exist. The server prints the number of broken references at start-up; `python tools/asset_references.py --check` lists them. **Restart the kit server after
+pulling changes to these tools**: a rename done on an older running server only renames the folder.

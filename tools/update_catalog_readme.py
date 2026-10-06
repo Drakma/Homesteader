@@ -27,7 +27,7 @@ category_descriptions = {
     "fuel": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment.",
     "materials": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources.",
     "ingredients": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients.",
-    "liquids": "Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per litre, a fluid colour and an opacity."
+    "liquids": "Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per liter, a fluid colour and an opacity."
 }
 
 model_exts = {".obj", ".glb", ".fbx", ".gltf", ".stl", ".usdz"}

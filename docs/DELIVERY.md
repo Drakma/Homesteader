@@ -11,7 +11,7 @@ day**. Code: `Assets/Scripts/World/DeliveryService.cs`.
    along `HomesteaderTerrainGenerator.RoadPoints` at 9 m/s (it follows the ground, pitches with it and spins its `Wheel_*`
    objects, easing to a stop at the end), unloads, turns around and drives back out. The model's `FrontMarker` empty tells the
    game which way it faces.
-4. **The delivery zone.** Before any house is placed it is beside the road end. Once ANY house or cabin (an id containing "cabin" or "house", not a greenhouse) has been placed, even only its dirt area, the zone moves to **5 tiles from the house nearest the road**: a
+4. **The delivery zone.** Before any house is placed it is beside the road end. Once ANY house or cabin (an id containing "cabin" or "house", not a greenhouse) has been placed, even only its dirt area, the zone moves to **5 tiles from the FIRST house placed**, toward the road (a second house never moves it): a
    point 5 grid squares out from its foundation toward the road. The van drives to the road point closest to that zone and the
    goods are set down at the zone, clear of the foundation. (`DeliveryService.TryHouseZone`)
 5. **Pallets.** When the pallet asset exists, the goods are set down ON PALLETS (`building_pallet_wood`), one pallet per load, in a row

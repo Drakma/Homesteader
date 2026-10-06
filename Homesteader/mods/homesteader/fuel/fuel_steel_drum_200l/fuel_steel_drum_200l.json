@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "fuel_steel_drum_200l",
-  "name": "Steel Drum (200L)",
+  "name": "Steel Drum",
   "category": "fuel",
-  "description": "Standard building asset used in the Homesteader simulation.",
+  "description": "A blue 200 L steel drum with two bungs in the lid, for storing fuel or oil.",
   "icon": "fuel_steel_drum_200l.png",
   "properties": {
     "weight_kg": 1.0,
@@ -20,40 +20,19 @@
     "stores": [
       "water"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "placeable": true
   },
   "models": [
     {
-      "file": "SM_Mat_Steel_Drum_55gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Mat_Steel_Drum_55gal.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 58.4,
-        "y": 58.4,
-        "z": 91.0
-      },
+      "file": "fuel_steel_drum_200l.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.58,
-        "y": 0.58,
-        "z": 0.91
+        "x": 0.602,
+        "y": 0.88,
+        "z": 0.602
       },
-      "vertices": 1320,
-      "faces": 440,
-      "bounding_box": {
-        "min": [
-          -29.2,
-          -29.2,
-          0.0
-        ],
-        "max": [
-          29.2,
-          29.2,
-          91.0
-        ]
-      }
+      "triangles": 1324
     }
   ],
   "utilities": {
@@ -97,7 +76,7 @@
     "dimensions_m": {
       "width": 0.6,
       "depth": 0.6,
-      "height": 0.9
+      "height": 0.88
     },
     "fuel_type": "diesel",
     "capacity_l": 200,

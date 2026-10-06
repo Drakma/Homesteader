@@ -61,6 +61,9 @@ colliding qualified id is rejected - first one wins - rather than overwritten.
   - `base_value` (number >= 0, dollars)
   - `weight_kg` (number >= 0, kilograms)
   - `max_stack_size` (integer >= 1)
+  - `build_speed` (number >= 0.1, optional, tools): 1 = the baseline 30 s per stage, 0.5 = twice as long (a hammer, a hand saw), 2 = twice as fast. Each tool group counts its fastest tool at the site; a stage takes as long as its slowest group.
+  - `pack_quantity` (number >= 1, optional): a stack / pallet / case / bundle of N items. The SHOWN name is generated, `Name xN` then the weight when shown (`Name x10 (200 kg)`); the stored name stays plain (`Cement Bag Pallet`).
+  - `display_weight` (boolean, optional): materials and packaged goods show `Name (9 kg)` (or lb), generated from `weight_kg` through `UnitFormat`. Never put a weight, measurement or count in the stored name (`tools/migrate_item_names.py` moved the existing ones out). Shown names come from `HudBindings.GetDisplayName`: store lists, the active slot, WAILA and the construction lists.
   - `is_consumable` (boolean)
   - `is_spawnable` (boolean, optional - defaults to `false` when omitted so older
     manifests stay valid). When `true`, the item is scattered into the world by
@@ -101,14 +104,20 @@ asset (the asset popup's "Add schema" button) and lives in its own top-level blo
 validated only on assets that have it. `on_add` lists manifest values set when the schema is added.
 
 - `liquids` (`liquids.schema.json`, category_fields): a fluid that fills liquid containers by volume (category `liquids`, ids `liquid_*`, no model).
-  - `properties.weight_kg` is kilograms PER LITRE (water 1.0, diesel 0.83); a container weighs its own weight plus litres x this.
+  - `properties.weight_kg` is kilograms PER LITRE (water 1.0, diesel 0.83); a container weighs its own weight plus liters x this.
   - `color` (string `#RRGGBB`, required, shown as a colour swatch in the editor): the fluid colour.
   - `opacity_pct` (number 0 to 100, required): 100 = fully opaque (milk), about 70 for fuels, about 35 for water.
   - `flammable` (boolean, optional).
-  - `dimensions_m` is one litre (a 10 cm cube). Tags `#liquid`, `#liquid_fuel`, `#liquid_dairy`, `#liquid_oil` are in `material_tags.json`. Generator: `tools/make_liquid_assets.py`.
+  - `dimensions_m` is one liter (a 10 cm cube). Tags `#liquid`, `#liquid_fuel`, `#liquid_dairy`, `#liquid_oil` are in `material_tags.json`. Generator: `tools/make_liquid_assets.py`.
+- Placed stacking (base `properties.stacking_limit`, integer, optional): how many identical placed items stack on each other in one grid square (the building
+  bags: 4). Needs `placeable`. A container uses `container.stacking_limit` instead. Both are exported to the game as `container_stacking_limit`
+  (`ContainerRules.StackingLimit`), so no game code distinguishes them.
 - `liquid_container` (`liquid_container.schema.json`, component, target `liquid_container`): the asset holds ONE liquid at a time by volume.
-  - `capacity_l` (number > 0, required): the most litres it holds.
+  - `capacity_l` (number > 0, required): the most liters it holds.
   - `accepts` (array, optional): liquid assets and/or `#liquid...` tags chosen with the asset picker; empty = any liquid.
+  - `filled_with` (string, optional) and `filled_l` (number, optional): a container that is sold full names the liquid asset it holds when bought and how many liters
+    (the 1 L and 5 L water jugs, `tools/make_water_jugs.py`). Exported to the game catalog as `liquid_filled_with` / `liquid_filled_l`; the game does not track a
+    container's contents yet, so nothing reads them at runtime so far.
   - `on_add`: sets `properties.max_stack_size` to 1. Separate from `container` (solid items by weight). Runtime: `Assets/Scripts/UI/Liquids.cs` (`LiquidRules`).
 - Shop listing (base `properties`, set in the asset popup under **Sold At**): `stores` (the phone shops that sell it: depot, lumber, grocer, feed,
   water, vehicles, equipment, livestock, furniture, voltvision, trailershack), `sale_unit` (ea, kit, box ...), optional `store_category`
@@ -120,10 +129,14 @@ validated only on assets that have it. `on_add` lists manifest values set when t
   - `stacking_limit` (integer >= 1, optional): identical placed containers can be stacked this high in one grid square in the world; omitted or 1 = no stacking.
   - `disposable` (boolean, optional, default false): a PLACED container is removed from the world when its last item is taken out (cardboard delivery boxes); crates and baskets leave it off.
   - `show_fill` (boolean, optional, default true): a PLACED container draws what is inside as blocks that rise as it fills (one slab per kind of item: average colour on the sides, icon on top; `Assets/Scripts/Growth/ContainerFill.cs`). Set false for closed boxes.
+  - `fill_x_min` / `fill_x_max` / `fill_y_min` / `fill_y_max` / `fill_z_min` / `fill_z_max` (numbers 0-1, optional): where the visible contents sit, as fractions of the model's overall bounds (x = length, y = height, z = width). Omit for a plain open box; set them when the opening is only part of the model (a wheelbarrow tub). Catalog: `container_fill_region`.
+  - `pushable` (boolean, optional, default false): a push item (a wheelbarrow): a placed one is grabbed and pushed with right click rather than picked up; Shift + right click dumps its contents as piles. Catalog: `container_pushable`.
   - `single_type` (boolean, optional, default false): takes only one kind of item at a time; once it holds something only more of that item goes in (crates).
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.
   - `on_add`: sets `properties.max_stack_size` to 1 (a container carries its own contents, so it is one per toolbar slot).
 
+- `attach_item` / `attach_result` (base properties): a mount takes an item (a solar panel) and becomes its result. `attach_surface` may be `roof` (aimed at from the ground).
 - `attach_surface` / `attach_side` / `provides_power` (base properties): an item that mounts on a finished building's wall or ceiling (a breaker box, sconces, ceiling lights); see docs/ATTACHED_ITEMS.md.
 
 - `look_target` / `look_color` / `look_smoothness` / `look_metallic` (base properties): a construction material that sets how a building looks (roof or walls colour and sheen); see docs/CONSTRUCTION.md "Look follows the materials".
+- container `max_items` / `slot_pitch_m` / `slot_start_m`: a slotted container (a battery rack) holds at most `max_items` items and draws them as their real models, one `slot_pitch_m` above the other from `slot_start_m`; see docs/BATTERIES.md.

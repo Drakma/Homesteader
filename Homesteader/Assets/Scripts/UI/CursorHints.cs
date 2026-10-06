@@ -39,7 +39,14 @@ namespace Homesteader.UI
 
             if (HudBindings.KeyboardCaptured) return CursorManager.Arrow;
             if (CanShearUnderCursor(screenPos)) return CursorManager.Shears;
+            if (FuelNozzle.Holding) return CursorManager.FuelNozzle;   // the fuel nozzle in hand
+            if (FuelNozzle.PumpUnderCursor(HoverTarget.GameCamera(), screenPos) != null && !WireTool.JoinToolHeld()) return CursorManager.FuelNozzle;   // a pump whose nozzle can be taken
+            if (WireTool.JoinToolHeld() && WireTool.NodeUnderCursor(HoverTarget.GameCamera(), screenPos) != null) return CursorManager.WireCutters;   // a device the cutters can wire
             if (ChoppableTreeUnderCursor(screenPos)) return CursorManager.Axe;
+            if (BreakableStoneUnderCursor(screenPos)) return CursorManager.Pickaxe;
+            if (ShovelCanPourUnderCursor() || ShovelCanPourOnGround(screenPos)) return CursorManager.ShovelPour;
+            if (DiggableSandUnderCursor(screenPos)) return CursorManager.Shovel;
+            if (TillableGroundUnderCursor(screenPos)) return CursorManager.Mattock;
             if (FruitPickableUnderCursor(screenPos)) return CursorManager.Basket;
             if (CanPickUpUnderCursor(screenPos) || DoorUnderCursor(screenPos)) return CursorManager.HandOpen;
             return BuildableUnderCursor() ? CursorManager.Hammer : CursorManager.Arrow;
@@ -80,7 +87,61 @@ namespace Homesteader.UI
             if (plant == null || plant.Group == null || plant.Group.GrowthType != "tree" || !plant.CanHarvest) return false;
             GrowthRules rules = plant.Group.Rules;
             return !string.IsNullOrEmpty(rules.YieldItemId) && rules.YieldAmountMax > 0 && !string.IsNullOrEmpty(rules.YieldTool)
-                && GrowthRegistry.ToolMatches(rules.YieldTool, held);
+                && GrowthRegistry.HeldToolMatches(rules.YieldTool, held);
+        }
+
+        /// <summary>Open ground under the cursor with a hoe in the active slot: a right click would till a square of farmland.</summary>
+        private static bool TillableGroundUnderCursor(Vector2 screenPos)
+        {
+            if (!Tiller.HoeHeld()) return false;
+            Camera cam = HoverTarget.GameCamera();
+            if (cam == null) return false;
+            if (Homesteader.World.WorldRocks.TryPick(cam.ScreenPointToRay(screenPos)) != null) return false;
+            if (WorldItem.UnderCursor(cam, screenPos) != null) return false;
+            return Tiller.TillableUnderCursor(cam, screenPos, out _);
+        }
+
+        /// <summary>A shovel with something on it in the active slot, over a standing wheelbarrow that can take it (not being pushed, with room): a right click would empty the shovel into it.</summary>
+        private static bool ShovelCanPourUnderCursor()
+        {
+            if (WheelbarrowPush.Active != null) return false;
+            HudState state = HudState.Active;
+            if (state == null || state.SelectedSlot < 0 || state.SelectedSlot >= state.Toolbar.Count) return false;
+            ToolbarSlotData slot = state.Toolbar[state.SelectedSlot];
+            if (slot.Count <= 0 || string.IsNullOrEmpty(slot.IconId) || !ContainerRules.IsContainer(slot.IconId) || slot.Contents == null || slot.Contents.Count == 0) return false;
+            PlacedObject target = PlacementController.PlacedUnderCursor();
+            if (target == null || !WheelbarrowPush.IsPushItem(target.ItemId)) return false;
+            if (target.Contents == null) return false;
+            foreach (ContainerStack st in slot.Contents)
+                if (st.Count > 0 && ContainerRules.RoomFor(target.ItemId, target.Contents, st.ItemId) > 0) return true;
+            return false;
+        }
+
+        /// <summary>A shovel with bulk material on it over open ground (nothing standing or lying there): a right click would start a pile.</summary>
+        private static bool ShovelCanPourOnGround(Vector2 screenPos)
+        {
+            if (WheelbarrowPush.Active != null || !PileService.LoadedBulkShovel()) return false;
+            Camera cam = HoverTarget.GameCamera();
+            if (cam == null || PlacementController.PlacedUnderCursor() != null || WorldItem.UnderCursor(cam, screenPos) != null) return false;
+            return Tiller.GroundUnderCursor(cam, screenPos, out _);
+        }
+
+        /// <summary>Sandy ground under the cursor with a shovel that can carry sand in the active slot: a right click would dig a shovelful.</summary>
+        private static bool DiggableSandUnderCursor(Vector2 screenPos)
+        {
+            if (!SandDigger.ShovelHeld()) return false;
+            Camera cam = HoverTarget.GameCamera();
+            if (cam == null) return false;
+            if (Homesteader.World.WorldRocks.TryPick(cam.ScreenPointToRay(screenPos)) != null) return false;
+            if (WorldItem.UnderCursor(cam, screenPos) != null) return false;
+            return SandDigger.SandUnderCursor(cam, screenPos, out _);
+        }
+
+        /// <summary>A stone (a rock of the world, or a stone item on the ground) under the cursor with a pickaxe in the active slot: a right click would break it.</summary>
+        private static bool BreakableStoneUnderCursor(Vector2 screenPos)
+        {
+            if (!StoneBreaker.PickaxeHeld()) return false;
+            return StoneBreaker.StoneUnderCursor(HoverTarget.GameCamera(), screenPos, out _, out _);
         }
 
         /// <summary>Ripe fruit under the cursor (a berry bush, a forest tree or a planted plant) and the right picking tool in the active slot: the basket.</summary>
@@ -104,7 +165,7 @@ namespace Homesteader.UI
             var plant = hovered.GetComponentInChildren<PlantedGrowth>() ?? hovered.GetComponentInParent<PlantedGrowth>();
             if (plant == null || !plant.CanPickFruit) return false;
             string need = plant.Group.Rules.FruitTool;
-            return string.IsNullOrEmpty(need) || GrowthRegistry.ToolMatches(need, held);
+            return string.IsNullOrEmpty(need) || GrowthRegistry.HeldToolMatches(need, held);
         }
 
         private static PedController _ped;
@@ -114,7 +175,7 @@ namespace Homesteader.UI
         {
             Camera cam = HoverTarget.GameCamera();
             if (cam == null || ConstructionSite.All.Count == 0) return false;
-            if (_ped == null) _ped = Object.FindAnyObjectByType<PedController>();
+            if (_ped == null) _ped = PedController.Current;
             if (_ped == null) return false;
             Ray ray = cam.ScreenPointToRay(screenPos);
             foreach (ConstructionSite site in ConstructionSite.All)
@@ -173,6 +234,25 @@ namespace Homesteader.UI
             return sheep && !lamb;
         }
 
+        /// <summary>A placed object (a box, a pallet, a wheelbarrow, a stack, a pile a shovel can work) under the cursor: a right click takes, grabs or works it.</summary>
+        private static bool PlacedObjectPickable()
+        {
+            PlacedObject target = PlacementController.PlacedUnderCursor();
+            if (target == null) return false;
+            if (Homesteader.World.FuelDelivery.IsFixedTank(target.ItemId)) return false;
+            if (Homesteader.Growth.WaterTap.IsBoltedSolar(target.ItemId) && !AttachedObject.WrenchRemoval()) return false;   // bolted down: only a wrench takes it up
+            if (Homesteader.Growth.WaterTap.IsFixed(target.ItemId)) return false;   // a spigot post or a macerator is plumbed in   // a big fuel tank is not picked up: the fuel truck takes it
+            if (WheelbarrowPush.IsPile(target.ItemId) && target.Contents != null && target.Contents.Count > 0)
+            {
+                // a part-used pile cannot be lifted: only a shovel works it
+                HudState state = HudState.Active;
+                if (state == null || state.SelectedSlot < 0 || state.SelectedSlot >= state.Toolbar.Count) return false;
+                ToolbarSlotData slot = state.Toolbar[state.SelectedSlot];
+                return slot.Count > 0 && ContainerRules.IsContainer(slot.IconId);
+            }
+            return true;
+        }
+
         /// <summary>Mirrors what a plain right click picks up in PlacementController / PlantingController.</summary>
         private static bool CanPickUpUnderCursor(Vector2 screenPos)
         {
@@ -180,8 +260,10 @@ namespace Homesteader.UI
             if (cam == null) return false;
 
             if (WorldItem.UnderCursor(cam, screenPos) != null) return true;
+            if (PlacedObjectPickable()) return true;
 
             Ray ray = cam.ScreenPointToRay(screenPos);
+            if (AttachedObject.WrenchRemoval() && AttachedObject.IsUnderRay(ray)) return true;   // the hand shows over a mounted item only while a wrench could take it down
             if (Homesteader.World.ForestTrees.TryPick(ray, out Homesteader.World.ForestTree tree) && Homesteader.World.ForestTrees.CanPick(tree)) return true;
             if (Homesteader.World.BerryBushes.TryPick(ray, out Homesteader.World.BerryBush bush) && Homesteader.World.BerryBushes.CanPick(bush)) return true;
 

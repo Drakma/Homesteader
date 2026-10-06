@@ -1,0 +1,91 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_battery_wall_power_5kwh",
+  "name": "Wall Power Battery, Small",
+  "category": "electricity",
+  "description": "A 5 kWh LiFePO4 home battery that mounts on a building's wall (inside or outside): aim at a wall of a finished building and left click. 3 kW continuous.",
+  "icon": "electricity_battery_wall_power_5kwh.png",
+  "properties": {
+    "weight_kg": 55,
+    "max_stack_size": 1,
+    "base_value": 3200,
+    "is_consumable": false,
+    "footprint": "0.55m W x 0.14m D x 0.85m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "wire_role": "battery",
+    "capacity_wh": 5000,
+    "voltage_v": 51.2
+  },
+  "models": [
+    {
+      "file": "electricity_battery_wall_power_5kwh.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.55,
+        "y": 0.85,
+        "z": 0.14
+      },
+      "triangles": 1238
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Energy Storage",
+      "details": "Energy Storage: 10.0 kWh nominal capacity (48V DC, 200Ah)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "5 kWh LiFePO4 (51.2 V), 3 kW continuous, about 6,000 cycles, 96% round trip",
+      "details": "5 kWh LiFePO4 (51.2 V), 3 kW continuous, about 6,000 cycles, 96% round trip"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.55,
+      "depth": 0.14,
+      "height": 0.85
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 3000,
+    "tank_capacity_l": 0
+  }
+}

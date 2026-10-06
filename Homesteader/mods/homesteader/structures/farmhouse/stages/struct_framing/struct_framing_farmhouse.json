@@ -69,27 +69,109 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "#framing_lumber",
+        "section": "Frame",
+        "mode": "any",
+        "items": [
+          {
+            "section": "Wood frame",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~framing_lumber",
+                "quantity": 200
+              },
+              {
+                "item_id": "~lumber_2x6",
+                "quantity": 60
+              },
+              {
+                "item_id": "~joists",
+                "quantity": 40
+              },
+              {
+                "item_id": "~lumber_joist_2x8",
+                "quantity": 24
+              },
+              {
+                "item_id": "~lumber_post_4x4",
+                "quantity": 12
+              },
+              {
+                "item_id": "~beam_glulam",
+                "quantity": 4
+              }
+            ]
+          },
+          {
+            "section": "Steel frame",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~steel_stud_framing",
+                "quantity": 120
+              },
+              {
+                "item_id": "~steel_frame_beam",
+                "quantity": 8
+              },
+              {
+                "item_id": "~joists",
+                "quantity": 40
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Roof structure",
+        "mode": "any",
+        "items": [
+          {
+            "item_id": "~truss_large",
+            "quantity": 6
+          },
+          {
+            "item_id": "~truss_medium",
+            "quantity": 8
+          },
+          {
+            "item_id": "~truss_small",
+            "quantity": 10
+          },
+          {
+            "item_id": "~rafters",
+            "quantity": 48
+          }
+        ]
+      },
+      {
+        "item_id": "~framing_nails",
+        "quantity": 400
+      },
+      {
+        "item_id": "~joist_hangers",
+        "quantity": 40
+      },
+      {
+        "item_id": "~hurricane_ties",
         "quantity": 60
       },
       {
-        "item_id": "lumber_joist_2x8",
-        "quantity": 24
+        "item_id": "~lag_bolts",
+        "quantity": 16
       },
       {
-        "item_id": "lumber_post_4x4",
-        "quantity": 8
-      },
-      {
-        "item_id": "item_hardware_framingnails_box",
-        "quantity": 6
+        "item_id": "~deck_screws",
+        "quantity": 100
       }
     ],
     "required_tools": [
       [
         "tool_circular_saw_corded",
         "tool_circular_saw_cordless",
-        "tool_saw_hand"
+        "tool_saw_hand",
+        "tool_miter_saw",
+        "tool_table_saw"
       ],
       [
         "tool_hammer_claw",
@@ -97,6 +179,10 @@
         "tool_drill_cordless_basic",
         "tool_drill_cordless_pro",
         "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_wrench_adjustable",
+        "tool_wrench_pipe"
       ]
     ]
   }

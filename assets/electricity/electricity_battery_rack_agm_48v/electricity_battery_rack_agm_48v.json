@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_battery_rack_agm_48v",
+  "name": "48V AGM Rack Battery",
+  "category": "electricity",
+  "description": "A 3U, 19 inch rack-mount 48 volt, 100 amp-hour sealed AGM lead-acid module: four 12 volt AGM batteries in one rack-mount tray. Heavy and cheap. Slides into a battery rack.",
+  "icon": "electricity_battery_rack_agm_48v.png",
+  "properties": {
+    "weight_kg": 100.0,
+    "max_stack_size": 1,
+    "base_value": 700,
+    "is_consumable": false,
+    "footprint": "0.483m W x 0.45m D x 0.129m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "capacity_wh": 4800,
+    "voltage_v": 48
+  },
+  "models": [
+    {
+      "file": "electricity_battery_rack_agm_48v.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.483,
+        "y": 0.129,
+        "z": 0.45
+      },
+      "triangles": 854
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Energy Storage",
+      "details": "Energy Storage: 10.0 kWh nominal capacity (48V DC, 200Ah)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "4.8 kWh AGM lead-acid (48 V, 100 Ah), about 500 cycles, 50% usable",
+      "details": "4.8 kWh AGM lead-acid (48 V, 100 Ah), about 500 cycles, 50% usable"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.483,
+      "depth": 0.45,
+      "height": 0.129
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 0,
+    "tank_capacity_l": 0
+  }
+}

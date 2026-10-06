@@ -58,7 +58,7 @@ namespace Homesteader.Growth
 
         private void Update()
         {
-            if (WelcomeMenuController.IsLoading || _working) { HidePreview(); return; }
+            if (WelcomeMenuController.IsLoading || _working || AreaTidy.Active) { HidePreview(); return; }   // (the tidy mode owns the left button)
             string held = ConstructionSite.HeldItem();
             AssetCatalogItem item = held != null ? HudBindings.GetCatalogItem(held) : null;
             bool isPath = item != null && !string.IsNullOrEmpty(item.path_kind);
@@ -134,7 +134,7 @@ namespace Homesteader.Growth
             foreach (PlantedGrowth pg in PlantedGrowth.All)
                 if (pg != null && NearRoute(curve, pg.transform.position, keep)) return "Something is growing in the way.";
             foreach (PlacedObject po in PlacedObject.All)
-                if (po != null && NearRoute(curve, po.transform.position, keep)) return "Something is in the way.";
+                if (po != null && !WheelbarrowPush.IsPile(po.ItemId) && NearRoute(curve, po.transform.position, keep)) return "Something is in the way.";   // a pile of material (gravel, sand) for the road does not block it
             // Never through a tree: clear of the trunk by half the width plus the margin the laying clears plants in, so no tree is cut down by it.
             if (Homesteader.World.ForestTrees.TreeNearRoute(curve, width * 0.5f + Homesteader.World.SiteClearing.Margin + 0.1f)) return "A tree is in the way. Fell it first, or route around it.";
             return null;
@@ -181,7 +181,7 @@ namespace Homesteader.Growth
         {
             _working = true;
             _stopWork = false;
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             float width = item.path_width_m > 0f ? item.path_width_m : (item.path_kind == "road" ? 4f : 1.2f);
             string style = string.IsNullOrEmpty(item.path_style) ? "gravel" : item.path_style;
             Vector3 site = points[0];
@@ -228,7 +228,6 @@ namespace Homesteader.Growth
             if (run != null)
             {
                 if (laid >= items) { run.Built = float.MaxValue; run.Rebuild(); }
-                else ToastNotificationSystem.ShowInfo(Noun(item), "Laying stopped. What is laid stays.");
                 if (laid > 0) PathRun.ReplaceUnder(run.LaidCurve(), width, run);   // an older route under the new one is taken away
             }
             _working = false;

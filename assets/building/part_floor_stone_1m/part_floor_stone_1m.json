@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "part_floor_stone_1m",
-  "name": "Part Floor Stone 1M",
+  "name": "Part Floor Stone",
   "category": "building",
   "description": "Standard building asset used in the Homesteader simulation.",
   "icon": "part_floor_stone_1m.png",
@@ -25,7 +25,8 @@
     "look_target": "floor",
     "look_color": "#8d8c88",
     "look_smoothness": 0.5,
-    "look_metallic": 0.0
+    "look_metallic": 0.0,
+    "display_weight": true
   },
   "models": [
     {

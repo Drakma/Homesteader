@@ -1,0 +1,92 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_inlet_house",
+  "name": "Building Water Inlet",
+  "category": "water",
+  "description": "Brings water into a building: a ball valve with a blue lever on a PVC riser, on a wall bracket. Mount it on the OUTSIDE of a building (left click a wall with it in hand): it goes THROUGH the wall, with a valve on the inside too. Then pipe it to a tank, a filter or a well with PVC pipe and a pipe wrench. The building then has water at its spigots and faucets.",
+  "icon": "water_inlet_house.png",
+  "properties": {
+    "weight_kg": 1.2,
+    "max_stack_size": 5,
+    "base_value": 38,
+    "is_consumable": false,
+    "footprint": "0.17m W x 0.35m D x 0.44m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wire_role": "water_inlet",
+    "attach_surface": "wall",
+    "attach_side": "exterior",
+    "stores": [
+      "depot"
+    ],
+    "is_buyable": true,
+    "attach_through": true
+  },
+  "models": [
+    {
+      "file": "water_inlet_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.175,
+        "y": 0.44,
+        "z": 0.351
+      },
+      "triangles": 284
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "Extracts groundwater from deep aquifer (+500 L/day sustainable yield)",
+      "details": "Extracts groundwater from deep aquifer (+500 L/day sustainable yield)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.17,
+      "depth": 0.35,
+      "height": 0.44
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 0,
+    "is_connected": false,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "pipe_abs_waste_three_inch",
+  "name": "3\" Black Waste Pipe",
+  "category": "building",
+  "description": "A 3 m length of black ABS waste pipe for a building's drain line. With a pipe wrench in hand, right click a building's waste outlet and then a macerator pump or a septic tank to lay it (and on from the tank to a distribution box and its leach fields). Outside it runs underground.",
+  "icon": "pipe_abs_waste_three_inch.png",
+  "properties": {
+    "weight_kg": 2.2,
+    "max_stack_size": 20,
+    "base_value": 14,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "display_weight": true,
+    "wire_kind": "sewer",
+    "wire_length_m": 3
+  },
+  "models": [
+    {
+      "file": "pipe_abs_waste_three_inch.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 3.0,
+        "y": 0.11,
+        "z": 0.11
+      },
+      "triangles": 88
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 3.0,
+      "depth": 0.11,
+      "height": 0.11
+    }
+  }
+}

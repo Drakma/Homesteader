@@ -3,7 +3,7 @@
   "id": "waste_riser_septic_lid",
   "name": "Septic Riser & Lid",
   "category": "waste",
-  "description": "Access riser ring with locking lid.",
+  "description": "A green riser ring and its locking lid: it brings a buried septic tank's access opening up to the ground for the cleanout. A septic tank takes two.",
   "icon": "waste_riser_septic_lid.png",
   "properties": {
     "weight_kg": 5.0,
@@ -16,16 +16,22 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ]
   },
   "models": [
     {
-      "file": "riser_septic_lid.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "riser_septic_lid.obj",
-      "format": "obj"
+      "file": "waste_riser_septic_lid.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.62,
+        "y": 0.31,
+        "z": 0.62
+      },
+      "triangles": 184
     }
   ],
   "utilities": {
@@ -67,9 +73,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.6,
-      "depth": 0.6,
-      "height": 0.1
+      "width": 0.62,
+      "depth": 0.62,
+      "height": 0.31
     },
     "power_draw_w": 0
   }

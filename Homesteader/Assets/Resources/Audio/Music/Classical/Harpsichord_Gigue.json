@@ -1,0 +1,14 @@
+{
+  "file": "Harpsichord_Gigue.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 103 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 103 seconds, not cut off mid-song and with NO fade-out. Baroque-style dance for harpsichord and small string ensemble, quick and bouncy in 6/8: bright plucked harpsichord figures, lively violins, a steady cello bass line, cheerful and precise. Entirely original composition that is not based on any existing piece.",
+  "requested_prompt": "Baroque-style dance for harpsichord and small string ensemble, quick and bouncy in 6/8: bright plucked harpsichord figures, lively violins, a steady cello bass line, cheerful and precise. Entirely original composition that is not based on any existing piece.",
+  "requested_duration_seconds": 103,
+  "generated_at": "2026-10-05T14:41:54.911Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Harpsichord_Gigue.mp4",
+  "bytes": 3204406,
+  "sha256": "f24b9d07a433368e1faf109d3d0887c216061b71e07a0d4bc8acc2b131cb94df",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

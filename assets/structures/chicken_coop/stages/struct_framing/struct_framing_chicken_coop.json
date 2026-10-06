@@ -26,7 +26,7 @@
         "y": 3.6,
         "z": 4.0
       },
-      "triangles": 1820
+      "triangles": 1700
     }
   ],
   "utilities": {
@@ -58,7 +58,7 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 1,
+    "room_count": 0,
     "dimensions_m": {
       "width": 3.0,
       "depth": 4.0,
@@ -69,11 +69,11 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "#framing_lumber",
+        "item_id": "~framing_lumber",
         "quantity": 20
       },
       {
-        "item_id": "lumber_joist_2x8",
+        "item_id": "~lumber_joist_2x8",
         "quantity": 8
       },
       {

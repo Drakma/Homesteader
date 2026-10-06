@@ -1,7 +1,5 @@
-# Tank Propane 1000Gal
+# Large Propane Tank
 
-**Item ID:** `fuel_tank_propane_1000gal`  
-**Category:** `electricity`  
-**Icon:** ![Tank Propane 1000Gal](fuel_tank_propane_1000gal.png)
+A large residential propane gas tank that holds double the capacity of the 1900L tank.
 
-Standardized Homesteader asset manifest for `fuel_tank_propane_1000gal`.
+Procedural model (tools/make_simple_props.py), 636 triangles, 4.90 x 1.05 x 1.38 m. The same white capsule, longer: twice the capacity. A PROPANE sticker on each side.

@@ -1,6 +1,6 @@
-# Part Floor Wood 1M (`part_floor_wood_1m`)
+# Part Floor Wood (`part_floor_wood_1m`)
 
-![Part Floor Wood 1M Icon](part_floor_wood_1m.png)
+![Part Floor Wood Icon](part_floor_wood_1m.png)
 
 ## Overview
 - **Category**: `building`

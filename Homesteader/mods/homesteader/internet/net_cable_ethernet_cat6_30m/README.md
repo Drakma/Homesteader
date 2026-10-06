@@ -1,7 +1,5 @@
-# Cable Ethernet Cat6 100Ft
+# Cat6 Cable (Long)
 
-**Item ID:** `net_cable_ethernet_cat6_100ft`  
-**Category:** `internet`  
-**Icon:** ![Cable Ethernet Cat6 100Ft](net_cable_ethernet_cat6_100ft.png)
+Coiled 30m Cat6 cable with velcro strap.
 
-Standardized Homesteader asset manifest for `net_cable_ethernet_cat6_100ft`.
+Procedural model (tools/make_internet.py): a longer blue patch cable in a two layer coil, tied, a plug on each end. Its detail is painted (tools/net_pictures.py). 2786 triangles, 0.22 x 0.28 x 0.04 m.

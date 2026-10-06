@@ -10,7 +10,7 @@
     "max_stack_size": 1,
     "base_value": 60,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.28m W x 0.18m D x 0.05m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,40 +21,21 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "wire_role": "net_switch",
+    "net_ports": 8,
+    "poe": true
   },
   "models": [
     {
-      "file": "net_switch_poe_8port.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "net_switch_poe_8port.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 74.0,
-        "y": 47.5,
-        "z": 20.0
-      },
+      "file": "net_switch_poe_8port.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.74,
-        "y": 0.47,
-        "z": 0.2
+        "x": 0.281,
+        "y": 0.049,
+        "z": 0.181
       },
-      "vertices": 612,
-      "faces": 204,
-      "bounding_box": {
-        "min": [
-          -37.0,
-          -23.0,
-          0.0
-        ],
-        "max": [
-          37.0,
-          24.5,
-          20.0
-        ]
-      }
+      "triangles": 118
     }
   ],
   "utilities": {
@@ -96,11 +77,11 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.15,
-      "height": 0.04
+      "width": 0.28,
+      "depth": 0.18,
+      "height": 0.05
     },
-    "power_draw_w": 30,
+    "power_draw_w": 130,
     "bandwidth_mbps": 1000,
     "range_m": 0,
     "is_connected": false

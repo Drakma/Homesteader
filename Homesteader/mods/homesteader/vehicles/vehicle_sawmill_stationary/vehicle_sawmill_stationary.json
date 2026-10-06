@@ -3,14 +3,14 @@
   "id": "vehicle_sawmill_stationary",
   "name": "Stationary Sawmill",
   "category": "vehicles",
-  "description": "A stationary bandsaw sawmill on a rail track with raised leg supports for milling logs into lumber.",
+  "description": "A gasoline powered stationary sawmill: a 6 m bed with a saw carriage on rails. Left click it with an uncut log in hand to lay the log on the track, then right click it, choose the lumber you want and the carriage makes three passes. The cut lumber is stacked beside it. It runs on gasoline: pour a can into its tank (right click it with the can in hand); a cut burns half a liter.",
   "icon": "vehicle_sawmill_stationary.png",
   "properties": {
     "weight_kg": 850.0,
     "max_stack_size": 1,
     "base_value": 9500,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "6.35m W x 1.42m D x 1.77m H",
     "happiness_modifier": 8,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -20,40 +20,20 @@
     "stores": [
       "equipment"
     ],
-    "sale_unit": "unit"
+    "sale_unit": "unit",
+    "placeable": true,
+    "sawmill": true
   },
   "models": [
     {
-      "file": "SM_Machine_Sawmill_Stationary.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Machine_Sawmill_Stationary.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 144.0,
-        "y": 600.0,
-        "z": 215.0
-      },
+      "file": "vehicle_sawmill_stationary.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 1.44,
-        "y": 6.0,
-        "z": 2.15
+        "x": 6.35,
+        "y": 1.771,
+        "z": 1.415
       },
-      "vertices": 272,
-      "faces": 408,
-      "bounding_box": {
-        "min": [
-          -72.0,
-          -300.0,
-          0.0
-        ],
-        "max": [
-          72.0,
-          300.0,
-          215.0
-        ]
-      }
+      "triangles": 2656
     }
   ],
   "utilities": {
@@ -95,16 +75,22 @@
   },
   "category_fields": {
     "vehicle_type": "sawmill",
-    "fuel_type": "diesel",
-    "fuel_consumption_l_per_min": 0.004167,
-    "tank_capacity_l": 100,
+    "fuel_type": "gasoline",
+    "fuel_consumption_l_per_min": 0.1,
+    "tank_capacity_l": 20,
     "top_speed_kmh": 0,
     "seats": 1,
     "cargo_capacity_m3": 0,
     "dimensions_m": {
-      "width": 3.0,
-      "depth": 8.0,
-      "height": 2.5
+      "width": 1.42,
+      "depth": 6.35,
+      "height": 1.77
     }
+  },
+  "liquid_container": {
+    "capacity_l": 20,
+    "accepts": [
+      "liquid_gasoline"
+    ]
   }
 }

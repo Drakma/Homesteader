@@ -3,12 +3,12 @@
   "id": "sheet_drywall_stack_small",
   "name": "Small Drywall Stack",
   "category": "building",
-  "description": "A small stack of drywall sheets.",
+  "description": "A strapped stack of ten drywall sheets.",
   "icon": "sheet_drywall_stack_small.png",
   "properties": {
-    "weight_kg": 100.0,
+    "weight_kg": 231.0,
     "max_stack_size": 5,
-    "base_value": 25,
+    "base_value": 108,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -20,9 +20,23 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "pack_quantity": 10,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "sheet_drywall_stack_small.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.204,
+        "y": 0.135,
+        "z": 2.412
+      },
+      "triangles": 96
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +76,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 2.4,
-      "height": 0.3
+      "width": 1.204,
+      "depth": 2.412,
+      "height": 0.135
     }
   }
 }

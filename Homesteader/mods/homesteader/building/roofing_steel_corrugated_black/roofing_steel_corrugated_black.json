@@ -1,0 +1,115 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "roofing_steel_corrugated_black",
+  "name": "Black Corrugated Steel Roofing",
+  "category": "building",
+  "description": "Black corrugated steel roofing sheet, 1.6 m by 0.88 m.",
+  "icon": "roofing_steel_corrugated_black.png",
+  "properties": {
+    "weight_kg": 8.0,
+    "max_stack_size": 15,
+    "base_value": 28,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "look_target": "roof",
+    "look_color": "#25272b",
+    "look_smoothness": 0.65,
+    "look_metallic": 0.85,
+    "display_weight": true
+  },
+  "models": [
+    {
+      "file": "roofing_steel_corrugated_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.6,
+        "y": 0.03,
+        "z": 0.88
+      },
+      "triangles": 132
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "roofing_steel_corrugated.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 80.0,
+      "y": 88.0,
+      "z": 10.0
+    },
+    "dimensions_m": {
+      "x": 0.8,
+      "y": 0.88,
+      "z": 0.1
+    },
+    "vertices": 360,
+    "faces": 120,
+    "bounding_box": {
+      "min": [
+        -39.0,
+        -44.0,
+        0.0
+      ],
+      "max": [
+        41.0,
+        44.0,
+        10.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.6,
+      "depth": 0.88,
+      "height": 0.03
+    }
+  }
+}

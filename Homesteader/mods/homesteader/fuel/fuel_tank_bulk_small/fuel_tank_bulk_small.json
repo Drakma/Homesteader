@@ -20,9 +20,21 @@
     "stores": [
       "water"
     ],
-    "sale_unit": "tank"
+    "sale_unit": "tank",
+    "wire_role": "fuel_tank"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "fuel_tank_bulk_small.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.078,
+        "y": 1.377,
+        "z": 0.852
+      },
+      "triangles": 660
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.9,
-      "depth": 0.9,
-      "height": 1.8
+      "width": 2.08,
+      "depth": 0.85,
+      "height": 1.38
     },
     "fuel_type": "diesel",
     "capacity_l": 1136,

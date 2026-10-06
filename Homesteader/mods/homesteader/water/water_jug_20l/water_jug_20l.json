@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "water_jug_20l",
-  "name": "20L Water Jug",
+  "name": "Water Jug",
   "category": "water",
   "description": "Portable blue polyethylene water jug.",
   "icon": "water_jug_20l.png",
@@ -16,7 +16,8 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "display_weight": true
   },
   "models": [
     {
@@ -90,7 +91,8 @@
   "liquid_container": {
     "capacity_l": 20,
     "accepts": [
-      "liquid_water"
+      "liquid_water",
+      "liquid_water_raw"
     ]
   }
 }

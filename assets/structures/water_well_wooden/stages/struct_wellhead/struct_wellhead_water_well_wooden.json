@@ -1,0 +1,113 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_wellhead_water_well_wooden",
+  "name": "Drilled Well (Wooden Well House) - Wellhead",
+  "category": "structures",
+  "description": "The wellhead phase of the drilled well (wooden well house).",
+  "icon": "struct_wellhead_water_well_wooden.png",
+  "properties": {
+    "weight_kg": 150.0,
+    "max_stack_size": 1,
+    "base_value": 0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_wellhead_water_well_wooden.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2,
+        "y": 1.25,
+        "z": 2
+      },
+      "triangles": 264
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 2,
+      "depth": 2,
+      "height": 1.25
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "~lumber_2x6",
+        "quantity": 8
+      },
+      {
+        "item_id": "~lumber_post_4x4",
+        "quantity": 1
+      },
+      {
+        "item_id": "~sheet_plywood_cdx",
+        "quantity": 1
+      },
+      {
+        "item_id": "~deck_screws",
+        "quantity": 60
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_saw_hand",
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless",
+        "tool_miter_saw"
+      ],
+      [
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_hammer",
+        "tool_hammer_claw",
+        "tool_hammer_club"
+      ]
+    ],
+    "build_clips": [
+      "Fixing_Kneeling_RT",
+      "Push_RT"
+    ],
+    "build_motion": ""
+  }
+}

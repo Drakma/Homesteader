@@ -1,7 +1,5 @@
-# Ap Outdoor Weatherproof
+# Outdoor Access Point
 
-**Item ID:** `net_ap_outdoor_weatherproof`  
-**Category:** `internet`  
-**Icon:** ![Ap Outdoor Weatherproof](net_ap_outdoor_weatherproof.png)
+Weatherproof outdoor Wi-Fi access point.
 
-Standardized Homesteader asset manifest for `net_ap_outdoor_weatherproof`.
+Procedural model (tools/make_internet.py): a white weatherproof access point banded to a pole, two stub aerials. Its detail is painted (tools/net_pictures.py). 352 triangles, 0.32 x 0.23 x 0.70 m.

@@ -44,6 +44,13 @@ namespace Homesteader.UI
             return info != null ? info.container_capacity_kg : 0f;
         }
 
+        /// <summary>The most items the container holds in all, whatever they weigh (a battery rack's slots); 0 = limited by weight only.</summary>
+        public static int MaxItems(string itemId)
+        {
+            var info = HudBindings.GetCatalogItem(itemId);
+            return info != null && info.container_max_items > 0 ? info.container_max_items : 0;
+        }
+
         /// <summary>How many identical placed containers can be stacked in one grid square (1 = no stacking).</summary>
         public static int StackingLimit(string itemId)
         {
@@ -99,7 +106,15 @@ namespace Homesteader.UI
         {
             if (!Accepts(containerId, itemId, contents)) return 0;
             float free = Capacity(containerId) - Used(contents);
-            return free <= 0f ? 0 : Mathf.FloorToInt((free + 1e-4f) / WeightOf(itemId));
+            int room = free <= 0f ? 0 : Mathf.FloorToInt((free + 1e-4f) / WeightOf(itemId));
+            int slots = MaxItems(containerId);
+            if (slots > 0)
+            {
+                int held = 0;
+                if (contents != null) foreach (ContainerStack c in contents) held += c.Count;
+                room = Mathf.Min(room, Mathf.Max(0, slots - held));
+            }
+            return room;
         }
 
         /// <summary>Puts up to <paramref name="count"/> into the contents; returns how many went in.</summary>
@@ -150,7 +165,7 @@ namespace Homesteader.UI
             PlacedObject world = Homesteader.Growth.PlacementController.PlacedUnderCursor();
             if (world != null && ContainerRules.IsContainer(world.ItemId))
             {
-                var ped = UnityEngine.Object.FindAnyObjectByType<PedController>();
+                var ped = PedController.Current;
                 if (ped != null && !PlantingValidator.InReach(ped.transform, world.transform.position, GameRules.Placement.ReachCells))
                 {
                     ToastNotificationSystem.ShowInfo("Container", "That is too far away.");
@@ -322,7 +337,7 @@ namespace Homesteader.UI
             if (!_source.Valid) { Close(); return; }   // the container left the toolbar, or was picked up
             if (_source is WorldSource ws)
             {
-                var ped = UnityEngine.Object.FindAnyObjectByType<PedController>();
+                var ped = PedController.Current;
                 if (ped != null && !PlantingValidator.InReach(ped.transform, ws.Placed.transform.position, GameRules.Placement.ReachCells + 1)) { Close(); return; }
             }
 

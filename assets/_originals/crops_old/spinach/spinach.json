@@ -1,0 +1,108 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "spinach",
+  "name": "Spinach Plant",
+  "category": "farming",
+  "description": "A spinach lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 40 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+  "icon": "spinach.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "spinach",
+    "max_age": 40,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 4,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_spinach.glb",
+        "icon": "crop_sprout_spinach.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 4,
+        "age_max": 13,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_spinach.glb",
+        "icon": "crop_small_spinach.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 13,
+        "age_max": 24,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_spinach.glb",
+        "icon": "crop_medium_spinach.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 24,
+        "age_max": 33,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_spinach.glb",
+        "icon": "crop_mature_spinach.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 33,
+        "age_max": 40,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_spinach.glb",
+        "icon": "crop_ripe_spinach.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "food_spinach",
+        "amount_min": 2,
+        "amount_max": 4,
+        "harvest_stage": 5
+      },
+      "planting": {
+        "seasons": [
+          "spring",
+          "fall"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_spinach",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 2
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_spinach.glb",
+          "icon": "crop_withered_spinach.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_spinach.glb",
+          "icon": "crop_dead_spinach.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

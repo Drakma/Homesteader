@@ -10,7 +10,7 @@
     "max_stack_size": 1,
     "base_value": 120,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.32m W x 0.23m D x 0.70m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,23 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "roof",
+    "wire_role": "net_ap",
+    "net_ports": 1,
+    "poe_powered": true,
+    "roof_mount": true
   },
   "models": [
     {
-      "file": "ap_outdoor_weatherproof.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "ap_outdoor_weatherproof.obj",
-      "format": "obj"
+      "file": "net_ap_outdoor_weatherproof.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.321,
+        "y": 0.7,
+        "z": 0.234
+      },
+      "triangles": 352
     }
   ],
   "utilities": {
@@ -72,13 +79,13 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.25,
-      "depth": 0.25,
-      "height": 0.08
+      "width": 0.32,
+      "depth": 0.23,
+      "height": 0.7
     },
     "power_draw_w": 12,
     "bandwidth_mbps": 866,
-    "range_m": 150,
+    "range_m": 60,
     "is_connected": false
   }
 }

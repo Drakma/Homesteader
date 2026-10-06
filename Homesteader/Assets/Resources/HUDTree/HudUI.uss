@@ -1264,7 +1264,8 @@ TemplateContainer {
 
 .asset-tile {
     width: 100px;
-    height: 120px;
+    min-height: 120px;
+    padding-bottom: 5px;
     margin: 3px;
     background-color: var(--c-panel);
     border-width: 1px;
@@ -1292,9 +1293,7 @@ TemplateContainer {
     color: var(--c-text);
     -unity-text-align: upper-center;
     white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 24px;
+    min-height: 24px;
     margin-top: 3px;
     padding-left: 2px;
     padding-right: 2px;
@@ -1424,6 +1423,59 @@ TemplateContainer {
     border-radius: var(--r);
 }
 
+/* The card's buttons (the choices of a question, Reset choices): light text on a raised surface. Without a colour of their own they took Unity's
+   default button look, dark text, which cannot be read on this card. */
+.construction-hover-reset,
+.construction-hover-choice {
+    color: var(--c-text);
+    background-color: var(--c-raised);
+    border-width: 1px;
+    border-color: var(--c-rim);
+    border-radius: var(--r);
+    -unity-font: var(--font-medium);
+}
+
+.construction-hover-reset:hover,
+.construction-hover-choice:hover {
+    color: var(--c-text-strong);
+    background-color: var(--c-rim);
+    border-color: var(--c-accent);
+}
+
+.construction-hover-reset:active,
+.construction-hover-choice:active {
+    color: var(--c-ink);
+    background-color: var(--c-accent);
+    border-color: var(--c-accent-hi);
+}
+
+.construction-hover-reset {
+    -unity-text-align: middle-center;
+    height: 24px;
+    margin: 4px 0 2px 0;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.construction-hover-choice {
+    -unity-text-align: middle-center;
+    min-height: 26px;
+    margin: 2px 0;
+    padding: 2px 8px;
+    font-size: 12px;
+    white-space: normal;
+}
+
+.construction-hover-scroll {
+    flex-shrink: 1;
+    overflow: hidden;
+}
+
+.construction-hover-scroll .unity-scroll-view__content-container {
+    flex-shrink: 0;
+    padding-right: 4px;
+}
+
 .construction-hover-title {
     color: var(--c-accent);
     font-size: 15px;
@@ -1450,6 +1502,8 @@ TemplateContainer {
     flex-direction: row;
     align-items: center;
     min-height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .construction-hover-row--indent {
@@ -1478,6 +1532,8 @@ TemplateContainer {
     font-size: 13px;
     -unity-font: var(--font-medium);
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .construction-hover-name-fade {
@@ -1490,6 +1546,9 @@ TemplateContainer {
 
 .construction-hover-value {
     flex-shrink: 0;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 13px;
     -unity-font: var(--font-bold);
     -unity-text-align: middle-right;
@@ -1564,4 +1623,77 @@ TemplateContainer {
 
 .tool-slot--dragging {
     opacity: 0.45;
+}
+
+/* ----- CHOICE WINDOW (HudBindings.ShowChoiceMenu: the sawmill's "what lumber" list). Layout and the row hover only, from tokens: the chrome, the close and the buttons are the
+   shared ones (docs/UI_DESIGN_SYSTEM.md). Rows are 40 px with an icon (section 5), a gauge is an 8 px bar (6.8), labels medium 13, hints italic 11 muted. ----- */
+
+.choice-window {
+    width: 360px;
+}
+
+.choice-gauge {
+    color: var(--c-text);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    margin-bottom: 4px;
+}
+
+.choice-bar {
+    height: 8px;
+    background-color: var(--c-well);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    margin-bottom: 8px;
+}
+
+.choice-bar-fill {
+    height: 100%;
+    background-color: var(--c-accent);
+}
+
+.choice-hint {
+    color: var(--c-muted);
+    font-size: 11px;
+    -unity-font: var(--font-italic);
+    -unity-text-align: middle-left;
+    white-space: normal;
+    margin-bottom: 8px;
+}
+
+.choice-row {
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    padding: 0 8px;
+    border-radius: var(--r);
+}
+
+.choice-row:hover {
+    background-color: var(--c-raised);
+}
+
+.choice-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-right: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.choice-name {
+    flex-grow: 1;
+    color: var(--c-text);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.choice-btn {
+    margin: 0 0 0 8px;
+    min-width: 64px;
 }

@@ -1,4 +1,4 @@
-# 5000L Manure Slurry Tank (`waste_tank_manure_slurry`)
+# Manure Slurry Tank (`waste_tank_manure_slurry`)
 
 ![Icon](waste_tank_manure_slurry.png)
 

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_foundation_struct_pump_house",
+  "name": "Pump House - Foundation",
+  "category": "structures",
+  "description": "The foundation construction phase of the pump house.",
+  "icon": "struct_foundation_struct_pump_house.png",
+  "properties": {
+    "weight_kg": 518.4,
+    "max_stack_size": 1,
+    "base_value": 864.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_foundation_struct_pump_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.4,
+        "y": 0.2,
+        "z": 2.4
+      },
+      "triangles": 240
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 2.4,
+      "depth": 2.4,
+      "height": 0.2
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [],
+    "required_tools": []
+  }
+}

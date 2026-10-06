@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_inverter_hybrid_3kw",
+  "name": "Hybrid Inverter, Small",
+  "category": "electricity",
+  "description": "A 3 kW hybrid inverter: it turns the battery bank's direct current into household power, takes solar and the grid or a generator, and charges the batteries. It has a finned heat sink, a fan grille, an LCD readout and a DC isolator. It mounts on a building's wall: aim at a wall of a finished building and left click.",
+  "icon": "electricity_inverter_hybrid_3kw.png",
+  "properties": {
+    "weight_kg": 20,
+    "max_stack_size": 5,
+    "base_value": 600,
+    "is_consumable": false,
+    "footprint": "0.45m W x 0.18m D x 0.55m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "wire_role": "inverter"
+  },
+  "models": [
+    {
+      "file": "electricity_inverter_hybrid_3kw.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.45,
+        "y": 0.55,
+        "z": 0.18
+      },
+      "triangles": 1322
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Inverts battery power to AC: 3 kW continuous (hybrid: solar, grid or generator in)",
+      "details": "Inverts battery power to AC: 3 kW continuous (hybrid: solar, grid or generator in)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.45,
+      "depth": 0.18,
+      "height": 0.55
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 3000,
+    "tank_capacity_l": 0
+  }
+}

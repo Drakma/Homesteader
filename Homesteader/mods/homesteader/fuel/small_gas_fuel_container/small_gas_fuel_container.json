@@ -3,7 +3,7 @@
   "id": "small_gas_fuel_container",
   "name": "Small Gas Fuel Container",
   "category": "fuel",
-  "description": "A small red jerry can filled with diesel fuel.",
+  "description": "A small red plastic fuel can for gasoline.",
   "icon": "small_gas_fuel_container.png",
   "properties": {
     "weight_kg": 8.0,
@@ -22,7 +22,18 @@
     ],
     "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "small_gas_fuel_container.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.314,
+        "y": 0.326,
+        "z": 0.123
+      },
+      "triangles": 240
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +73,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.25,
-      "depth": 0.18,
-      "height": 0.35
+      "width": 0.31,
+      "depth": 0.12,
+      "height": 0.33
     },
     "fuel_type": "gasoline",
     "capacity_l": 9.5,

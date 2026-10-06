@@ -1,7 +1,9 @@
-# Riser Septic Lid
+# Septic Riser & Lid
 
 **Item ID:** `waste_riser_septic_lid`  
 **Category:** `waste`  
-**Icon:** ![Riser Septic Lid](waste_riser_septic_lid.png)
+**Icon:** ![Septic Riser & Lid](waste_riser_septic_lid.png)
 
-Standardized Homesteader asset manifest for `waste_riser_septic_lid`.
+A green riser ring and its locking lid: it brings a buried septic tank's access opening up to the ground for the cleanout. A septic tank takes two.
+
+Procedural model (tools/make_septic.py). See docs/SEPTIC.md.

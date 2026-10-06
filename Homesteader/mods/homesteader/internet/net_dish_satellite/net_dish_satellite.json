@@ -1,16 +1,16 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "net_dish_satellite",
-  "name": "Internet Satellite Dish",
+  "name": "Satellite Dish",
   "category": "internet",
-  "description": "Standard internet asset used in the Homesteader simulation.",
+  "description": "A flat satellite internet antenna on a kickstand. Stand it in the open with a clear view of the sky: it brings the internet to the homestead.",
   "icon": "net_dish_satellite.png",
   "properties": {
-    "weight_kg": 1.0,
-    "max_stack_size": 99,
-    "base_value": 10,
+    "weight_kg": 4.2,
+    "max_stack_size": 1,
+    "base_value": 450,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.50m W x 0.43m D x 0.17m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -20,9 +20,26 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "placeable": true,
+    "attach_side": "exterior",
+    "wire_role": "net_dish",
+    "net_ports": 1,
+    "roof_mount": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "net_dish_satellite.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.502,
+        "y": 0.172,
+        "z": 0.426
+      },
+      "triangles": 136
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,11 +79,11 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.9,
-      "depth": 0.9,
-      "height": 0.3
+      "width": 0.5,
+      "depth": 0.43,
+      "height": 0.17
     },
-    "power_draw_w": 75,
+    "power_draw_w": 60,
     "bandwidth_mbps": 250,
     "range_m": 0,
     "is_connected": true

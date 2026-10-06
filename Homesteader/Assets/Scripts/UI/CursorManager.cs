@@ -84,8 +84,14 @@ namespace Homesteader.UI
         public const string Finger = "cursor_finger_point";
         public const string HandOpen = "cursor_hand_open";
         public const string Shears = "cursor_shears";
+        public const string WireCutters = "cursor_wire_cutters";
+        public const string FuelNozzle = "cursor_fuel_nozzle";
         public const string Hammer = "cursor_hammer";
         public const string Axe = "cursor_axe";
+        public const string Pickaxe = "cursor_pickaxe";
+        public const string Mattock = "cursor_mattock";
+        public const string Shovel = "cursor_shovel";
+        public const string ShovelPour = "cursor_shovel_pour";
         public const string Basket = "cursor_egg_basket";
 
         public static CursorManager Instance { get; private set; }

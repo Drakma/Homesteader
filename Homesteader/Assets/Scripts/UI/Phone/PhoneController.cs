@@ -42,7 +42,9 @@ namespace Homesteader.UI
         public struct StoreItem
         {
             public string Id;
-            public string Name;
+            private string _name;
+            /// <summary>The shown name: generated from the item's data (HudBindings.GetDisplayName) unless one was set.</summary>
+            public string Name { get { return _name ?? (Id != null ? HudBindings.GetDisplayName(Id) : null); } set { _name = value; } }
             public string Category;
             public float Price;
             public string IconGlyph;
@@ -56,6 +58,8 @@ namespace Homesteader.UI
         private Label _phoneClock;
         private VisualElement _phoneCelestialIcon;
         private VisualElement _phoneBatteryFill;
+        private VisualElement _phoneSignal;
+        private Label _phoneNetLabel;
         private Label _phoneWeatherTemp;
         private Label _phoneWeatherDesc;
 
@@ -224,7 +228,9 @@ namespace Homesteader.UI
         public class ModItemEntry
         {
             public string Id;
-            public string Name;
+            private string _name;
+            /// <summary>The shown name: generated from the item's data (HudBindings.GetDisplayName) unless one was set.</summary>
+            public string Name { get { return _name ?? (Id != null ? HudBindings.GetDisplayName(Id) : null); } set { _name = value; } }
             public string Category;
             public string Description;
             public string Author;
@@ -243,11 +249,7 @@ namespace Homesteader.UI
         private Label _resFuelText;
 
         // Volt App Elements
-        private Label _gridSolarWatts;
-        private VisualElement _gridSolarFill;
-        private Label _gridBatteryPct;
-        private VisualElement _gridBatteryFill;
-        private Label _gridLoadWatts;
+        private VisualElement _gridSystems;   // one card group per separate wired system, built from the wiring
 
         // Store App Elements
         private Label _storeTitle;
@@ -306,6 +308,8 @@ namespace Homesteader.UI
             _phoneClock = _root.Q<Label>("PhoneClock");
             _phoneCelestialIcon = _root.Q<VisualElement>("PhoneCelestialIcon");
             _phoneBatteryFill = _root.Q<VisualElement>("PhoneBatteryFill");
+            _phoneSignal = _root.Q<VisualElement>("PhoneSignal");
+            _phoneNetLabel = _root.Q<Label>("PhoneNetLabel");
             _phoneWeatherTemp = _root.Q<Label>("PhoneWeatherTemp");
             _phoneWeatherDesc = _root.Q<Label>("PhoneWeatherDesc");
 
@@ -361,11 +365,7 @@ namespace Homesteader.UI
             _steadifyBackBtn = _root.Q<Button>("SteadifyBackBtn");
             _phoneHomeBtn = _root.Q<VisualElement>("PhoneHomeBtn");
 
-            _gridSolarWatts = _root.Q<Label>("GridSolarWatts");
-            _gridSolarFill = _root.Q<VisualElement>("GridSolarFill");
-            _gridBatteryPct = _root.Q<Label>("GridBatteryPct");
-            _gridBatteryFill = _root.Q<VisualElement>("GridBatteryFill");
-            _gridLoadWatts = _root.Q<Label>("GridLoadWatts");
+            _gridSystems = _root.Q<VisualElement>("GridSystems");
 
             _storeTitle = _root.Q<Label>("StoreTitle");
             _storeBanner = _root.Q<VisualElement>("StoreBanner");
@@ -893,7 +893,7 @@ namespace Homesteader.UI
 
             // Back & Home Navigation
             _voltBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
-            _resBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _resBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { if (_resDetail != "") { _resDetail = ""; UpdateResAppData(); } else ReturnHome(); });   // back out of a list first
             _storeBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _bankBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _marketBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
@@ -1255,6 +1255,7 @@ namespace Homesteader.UI
 
         public void OpenApp(AppView app)
         {
+            if ((app == AppView.Bank || app == AppView.Market || app == AppView.Gigs) && !Connectivity.Require(app.ToString())) return;   // these need the internet (the shops ask in OpenStore)
             _currentView = app;
             HideAllViews();
 
@@ -1334,18 +1335,22 @@ namespace Homesteader.UI
             if (_viewSteadify != null) _viewSteadify.AddToClassList("phone-app-view--hidden");
         }
 
+        private float _nextPhoneTick;
+        private string _celestialShownId;
+
         public void Tick()
         {
             if (!_isOpen) return;
 
-            UpdatePhoneStatus();
+            bool slow = Time.unscaledTime >= _nextPhoneTick;   // the clock, weather line and readouts change a few times a second at most
+            if (slow) { _nextPhoneTick = Time.unscaledTime + 0.25f; UpdatePhoneStatus(); }
             if (_currentView == AppView.Volt)
             {
-                UpdateVoltData();
+                if (slow) UpdateVoltData();
             }
             else if (_currentView == AppView.Res)
             {
-                UpdateResAppData();
+                if (slow) UpdateResAppData();
             }
             else if (_currentView == AppView.Almanac)
             {
@@ -1368,6 +1373,20 @@ namespace Homesteader.UI
 
         private void UpdatePhoneStatus()
         {
+            // the live signal: cellular or Wi-Fi, whichever the phone is on (Connectivity.cs)
+            Connectivity.Refresh();
+            if (_phoneSignal != null)
+            {
+                int bar = 0;
+                foreach (VisualElement b in _phoneSignal.Children())
+                {
+                    bar++;
+                    b.EnableInClassList("phone-signal-bar--on", bar <= Connectivity.Bars && Connectivity.Online);
+                    b.EnableInClassList("phone-signal-bar--bad", bar <= Mathf.Max(1, Connectivity.Bars) && !Connectivity.Online);
+                }
+            }
+            if (_phoneNetLabel != null) _phoneNetLabel.text = Connectivity.Label;
+
             if (_phoneClock != null)
             {
                 _phoneClock.text = TimeSystem.Instance.GetWallClock();
@@ -1376,11 +1395,15 @@ namespace Homesteader.UI
             var snap = TimeSystem.Instance.Snapshot();
             if (_phoneCelestialIcon != null)
             {
-                var tex = Resources.Load<Texture2D>("HUDTree/KitSprites/celestial/" + snap.CelestialIconId);
-                if (tex != null)
+                if (_celestialShownId != snap.CelestialIconId)
                 {
-                    _phoneCelestialIcon.style.backgroundImage = new StyleBackground(tex);
-                    _phoneCelestialIcon.style.display = DisplayStyle.Flex;
+                    var tex = Resources.Load<Texture2D>("HUDTree/KitSprites/celestial/" + snap.CelestialIconId);
+                    if (tex != null)
+                    {
+                        _celestialShownId = snap.CelestialIconId;
+                        _phoneCelestialIcon.style.backgroundImage = new StyleBackground(tex);
+                        _phoneCelestialIcon.style.display = DisplayStyle.Flex;
+                    }
                 }
             }
 
@@ -1395,23 +1418,289 @@ namespace Homesteader.UI
             }
         }
 
+        private static string KiloW(float w) { return w >= 1000f ? (w / 1000f).ToString("0.00") + " kW" : Mathf.RoundToInt(w) + " W"; }
+        private static string KiloWh(float wh) { return wh >= 1000f ? (wh / 1000f).ToString("0.0") + " kWh" : Mathf.RoundToInt(wh) + " Wh"; }
+
+        private static Label GridLabel(VisualElement parent, string text, string cls)
+        {
+            var l = new Label(text);
+            l.AddToClassList(cls);
+            parent.Add(l);
+            return l;
+        }
+
+        private static void GridBar(VisualElement parent, float fraction, string fillClass)
+        {
+            var track = new VisualElement();
+            track.AddToClassList("grid-bar-track");
+            var fill = new VisualElement();
+            fill.AddToClassList(fillClass);
+            fill.style.width = new Length(Mathf.Clamp01(fraction) * 100f, LengthUnit.Percent);
+            track.Add(fill);
+            parent.Add(track);
+        }
+
+        private int _gridSelected;   // the key of the system whose detail is open (0: the list)
+
+        private static VisualElement GridCard(VisualElement parent)
+        {
+            var c = new VisualElement();
+            c.AddToClassList("grid-card");
+            parent.Add(c);
+            return c;
+        }
+
+        private static void GridStat(VisualElement card, string key, string value)
+        {
+            var row = new VisualElement();
+            row.AddToClassList("grid-stat-row");
+            GridLabel(row, key, "grid-stat-key");
+            GridLabel(row, value, "grid-stat-val");
+            card.Add(row);
+        }
+
+        private static void GridChip(VisualElement flow, string name, string value, string extraClass)
+        {
+            var chip = new VisualElement();
+            chip.AddToClassList("grid-chip");
+            if (!string.IsNullOrEmpty(extraClass)) chip.AddToClassList(extraClass);
+            GridLabel(chip, name, "grid-chip-name");
+            GridLabel(chip, value, "grid-chip-value");
+            flow.Add(chip);
+        }
+
+        /// <summary>Grid OS: one group per separate wired system (buildings that share a wire are one system); tap a group for its components, stats and graphs.</summary>
         private void UpdateVoltData()
         {
-            // Calculate dynamic daylight factor from TimeSystem (0.0 at dawn/dusk/night to 1.0 at noon)
-            float sunFactor = TimeSystem.Instance.GetDaylightFactor();
-            float solarKw = Mathf.Max(0f, sunFactor * 3.6f);
-            if (_gridSolarWatts != null)
+            if (_gridSystems == null) return;
+            _gridSystems.Clear();
+            List<Homesteader.Growth.WireNetwork.GridSystem> systems = Homesteader.Growth.WireNetwork.SystemsCached();
+            if (_gridSelected != 0)
             {
-                _gridSolarWatts.text = $"{solarKw:F2} kW";
+                Homesteader.Growth.WireNetwork.GridSystem picked = systems.Find(x => x.Key == _gridSelected);
+                if (picked != null) { BuildGridDetail(picked); return; }
+                _gridSelected = 0;   // it is gone (its devices were taken down)
             }
-            if (_gridSolarFill != null)
+            if (systems.Count == 0)
             {
-                _gridSolarFill.style.width = new Length(Mathf.Clamp01(solarKw / 3.6f) * 100f, LengthUnit.Percent);
+                var empty = GridCard(_gridSystems);
+                GridLabel(empty, "NO SYSTEMS", "grid-card-title");
+                GridLabel(empty, "Wire solar panels, batteries and an inverter together with wire cutters.", "grid-metric-sub");
+                return;
+            }
+            foreach (var sys in systems)
+            {
+                var tile = new VisualElement();
+                tile.AddToClassList("grid-tile");
+                int key = sys.Key;
+                tile.RegisterCallback<PointerDownEvent>(evt => { _gridSelected = key; UpdateVoltData(); evt.StopPropagation(); });   // on the press: the list is rebuilt every few ticks
+
+                var head = new VisualElement();
+                head.AddToClassList("grid-tile-head");
+                GridLabel(head, sys.Name, "grid-tile-name");
+                GridLabel(head, sys.Live ? "LIVE" : "OFFLINE", sys.Live ? "grid-tile-live" : "grid-tile-off");
+                tile.Add(head);
+
+                if ((sys.Panels > 0 || sys.Turbines > 0) && sys.Batteries == 0 && sys.InverterRatedW <= 0f && sys.Turbines == 0)
+                    GridLabel(tile, "Not connected to the rest: wire one of these panels to a wall entry or a panel that is.", "grid-tile-warn");
+                // what generates, by kind, and how much each makes right now (a kind shows only when the system has one)
+                var gen = new VisualElement();
+                gen.AddToClassList("grid-tile-gen");
+                if (sys.Panels > 0) GridTileChip(gen, "Solar", KiloW(sys.SolarW), null);
+                if (sys.Turbines > 0) GridTileChip(gen, "Wind", KiloW(sys.WindW), "grid-tile-wind");
+                if (sys.Panels == 0 && sys.Turbines == 0) GridLabel(gen, "No generation wired", "grid-tile-key");
+                tile.Add(gen);
+
+                float pct = sys.CapacityWh > 0f ? sys.StoredWh / sys.CapacityWh : 0f;
+                var live = new VisualElement();
+                live.AddToClassList("grid-tile-row");
+                GridLabel(live, "Live", "grid-tile-key");
+                GridLabel(live, KiloW(sys.SolarW + sys.WindW), "grid-tile-val");
+                tile.Add(live);
+                var load = new VisualElement();
+                load.AddToClassList("grid-tile-row");
+                GridLabel(load, "Load", "grid-tile-key");
+                GridLabel(load, KiloW(sys.LoadW) + (sys.LoadW > 0.01f && sys.Ratio < 0.98f ? "  •  " + Mathf.RoundToInt(sys.Voltage) + " V (low)" : ""), "grid-tile-val");
+                tile.Add(load);
+                var stored = new VisualElement();
+                stored.AddToClassList("grid-tile-row");
+                GridLabel(stored, "Stored", "grid-tile-key");
+                GridLabel(stored, sys.Batteries == 0 ? "No batteries" : Mathf.RoundToInt(pct * 100f) + "%  " + KiloWh(sys.StoredWh) + " of " + KiloWh(sys.CapacityWh), "grid-tile-val");
+                tile.Add(stored);
+                if (sys.Batteries > 0) GridBar(tile, pct, "grid-bar-fill-battery");
+                var unstorable = new VisualElement();
+                unstorable.AddToClassList("grid-tile-row");
+                GridLabel(unstorable, "Unstorable", "grid-tile-key");
+                GridLabel(unstorable, "Direct " + KiloW(sys.DirectW) + "  \u2022  Wasted " + KiloW(sys.WastedW), "grid-tile-val");
+                tile.Add(unstorable);
+
+                GridLabel(tile, "Details  \u203A", "grid-tile-hint");
+                _gridSystems.Add(tile);
             }
         }
 
+        private static void GridTileChip(VisualElement parent, string kind, string value, string extraClass)
+        {
+            var chip = new VisualElement();
+            chip.AddToClassList("grid-tile-chip");
+            if (!string.IsNullOrEmpty(extraClass)) chip.AddToClassList(extraClass);
+            GridLabel(chip, kind, "grid-tile-chip-kind");
+            GridLabel(chip, value, "grid-tile-chip-val");
+            parent.Add(chip);
+        }
+
+        private static string Plural(Homesteader.Growth.WireRole r)
+        {
+            switch (r)
+            {
+                case Homesteader.Growth.WireRole.SolarPanel: return "SOLAR PANELS AND MOUNTS";
+                case Homesteader.Growth.WireRole.WallEntry: return "WALL ENTRIES";
+                case Homesteader.Growth.WireRole.DcBreaker: return "DC BREAKER BOXES";
+                case Homesteader.Growth.WireRole.Mppt: return "CHARGE CONTROLLERS";
+                case Homesteader.Growth.WireRole.Battery: return "BATTERIES";
+                case Homesteader.Growth.WireRole.Inverter: return "INVERTERS";
+                case Homesteader.Growth.WireRole.AcPanel: return "AC PANELS";
+                case Homesteader.Growth.WireRole.BusBar: return "BUS BARS";
+                case Homesteader.Growth.WireRole.WindTurbine: return "WIND TURBINES";
+                case Homesteader.Growth.WireRole.WaterTank: return "WATER TANKS";
+                case Homesteader.Growth.WireRole.WaterFilter: return "WATER FILTERS";
+                case Homesteader.Growth.WireRole.WaterInlet: return "BUILDING WATER INLETS";
+                case Homesteader.Growth.WireRole.WaterPump: return "WATER PUMPS";
+                default: return "OTHER";
+            }
+        }
+
+        private void BuildGridDetail(Homesteader.Growth.WireNetwork.GridSystem sys)
+        {
+            var back = new Label("\u2039  All systems");
+            back.AddToClassList("grid-back");
+            back.RegisterCallback<PointerDownEvent>(evt => { _gridSelected = 0; UpdateVoltData(); evt.StopPropagation(); });
+            _gridSystems.Add(back);
+
+            var head = GridCard(_gridSystems);
+            GridLabel(head, sys.Name.ToUpperInvariant(), "grid-card-title");
+            Label state = GridLabel(head, sys.Live ? "Live" : "Not live", "grid-metric-large");
+            if (sys.Live) state.AddToClassList("grid-live");
+            GridLabel(head, sys.Nodes.Count + " devices wired together", "grid-metric-sub");
+
+            // the flow, left to right: sun, the controller, the batteries, the inverter, the house
+            var flowCard = GridCard(_gridSystems);
+            GridLabel(flowCard, "POWER FLOW", "grid-card-title");
+            var flow = new VisualElement();
+            flow.AddToClassList("grid-flow");
+            float pct = sys.CapacityWh > 0f ? sys.StoredWh / sys.CapacityWh : 0f;
+            GridChip(flow, "Solar", KiloW(sys.SolarW), null);
+            GridLabel(flow, "\u203A", "grid-arrow");
+            GridChip(flow, "Batteries", sys.Batteries == 0 ? "None" : Mathf.RoundToInt(pct * 100f) + "%", "grid-chip-battery");
+            GridLabel(flow, "\u203A", "grid-arrow");
+            GridChip(flow, "Inverter", KiloW(sys.InverterW), null);
+            GridLabel(flow, "\u203A", "grid-arrow");
+            GridChip(flow, "AC", sys.Live ? "Live" : "Off", "grid-chip-ac");
+            flowCard.Add(flow);
+
+            Homesteader.Growth.WireNetwork.GridSeries series = Homesteader.Growth.WireNetwork.SeriesOf(sys.Key);
+
+            var gSolar = GridCard(_gridSystems);
+            GridLabel(gSolar, "SOLAR OUTPUT  \u2022  LAST 24 H", "grid-card-title");
+            GridLabel(gSolar, KiloW(sys.SolarW), "grid-metric-large");
+            GridLabel(gSolar, "Peak " + KiloW(Peak(series.Solar)) + " \u2022 rated " + KiloW(sys.RatedW), "grid-metric-sub");
+            var solarGraph = new GridGraph { MaxY = sys.RatedW };
+            solarGraph.SetData(series.Solar);
+            gSolar.Add(solarGraph);
+
+            var gBat = GridCard(_gridSystems);
+            GridLabel(gBat, "BATTERY CHARGE  \u2022  LAST 24 H", "grid-card-title");
+            GridLabel(gBat, sys.Batteries == 0 ? "None" : Mathf.RoundToInt(pct * 100f) + "% (" + KiloWh(sys.StoredWh) + ")", "grid-metric-large");
+            GridLabel(gBat, KiloWh(sys.CapacityWh) + " capacity" + (sys.Batteries > 0 ? " • full in " + Homesteader.Growth.WireNetwork.FormatFullIn(sys.FullInH).ToLowerInvariant() : ""), "grid-metric-sub");
+            var batGraph = new GridGraph { MaxY = 100f, Line = new Color(0.30f, 0.62f, 0.95f), Fill = new Color(0.30f, 0.62f, 0.95f, 0.22f) };
+            batGraph.SetData(series.BatteryPct);
+            gBat.Add(batGraph);
+
+            var gLoad = GridCard(_gridSystems);
+            GridLabel(gLoad, "LOAD  •  LAST 24 H", "grid-card-title");
+            GridLabel(gLoad, KiloW(sys.LoadW), "grid-metric-large");
+            GridLabel(gLoad, "Lights drawing now • " + Mathf.RoundToInt(sys.Voltage) + " V" + (sys.LoadW > 0.01f && sys.Ratio < 0.98f ? " (brownout: lights dim and flicker)" : ""), "grid-metric-sub");
+            var loadGraph = new GridGraph { MaxY = 0f, Line = new Color(0.95f, 0.80f, 0.30f), Fill = new Color(0.95f, 0.80f, 0.30f, 0.22f) };
+            loadGraph.SetData(series.Load);
+            gLoad.Add(loadGraph);
+
+            var gWaste = GridCard(_gridSystems);
+            GridLabel(gWaste, "UNSTORABLE  \u2022  LAST 24 H", "grid-card-title");
+            GridLabel(gWaste, KiloW(sys.DirectW + sys.WastedW), "grid-metric-large");
+            GridLabel(gWaste, "Direct " + KiloW(sys.DirectW) + " (wind, generators)  \u2022  wasted solar " + KiloW(sys.WastedW), "grid-metric-sub");
+            GridLabel(gWaste, KiloWh(series.WastedWh()) + " of solar wasted in the last 24 h (batteries full, no controller, or over its rating)", "grid-metric-sub");
+            var wasteGraph = new GridGraph { MaxY = Mathf.Max(sys.RatedW, 1f), Line = new Color(0.90f, 0.35f, 0.35f), Fill = new Color(0.90f, 0.35f, 0.35f, 0.22f) };
+            wasteGraph.SetData(series.Wasted);
+            gWaste.Add(wasteGraph);
+
+            var gInv = GridCard(_gridSystems);
+            GridLabel(gInv, "INVERTER OUTPUT  \u2022  LAST 24 H", "grid-card-title");
+            GridLabel(gInv, KiloW(sys.InverterW), "grid-metric-large");
+            GridLabel(gInv, KiloW(sys.InverterRatedW) + " rated", "grid-metric-sub");
+            var invGraph = new GridGraph { MaxY = sys.InverterRatedW, Line = new Color(0.47f, 0.84f, 0.55f), Fill = new Color(0.47f, 0.84f, 0.55f, 0.22f) };
+            invGraph.SetData(series.Inverter);
+            gInv.Add(invGraph);
+
+            var stats = GridCard(_gridSystems);
+            GridLabel(stats, "STATS", "grid-card-title");
+            GridStat(stats, "Solar now", KiloW(sys.SolarW) + (sys.RatedW > 0f ? "  (" + Mathf.RoundToInt(sys.SolarW / sys.RatedW * 100f) + "% of rated)" : ""));
+            GridStat(stats, "Panels fitted", sys.Panels.ToString());
+            if (sys.Turbines > 0) GridStat(stats, "Wind now", KiloW(sys.WindW) + " of " + KiloW(sys.WindRatedW));
+            GridStat(stats, "Stored", KiloWh(sys.StoredWh) + " of " + KiloWh(sys.CapacityWh));
+            GridStat(stats, "Full in", Homesteader.Growth.WireNetwork.FormatFullIn(sys.FullInH));
+            GridStat(stats, "Load", KiloW(sys.LoadW) + " of " + KiloW(sys.ServedW) + " served");
+            GridStat(stats, "Voltage", Mathf.RoundToInt(sys.Voltage) + " V");
+            GridStat(stats, "Direct supply", KiloW(sys.DirectW));
+            GridStat(stats, "Wasted solar", KiloW(sys.WastedW));
+            GridStat(stats, "Inverter", KiloW(sys.InverterW) + " of " + KiloW(sys.InverterRatedW));
+            float sun = Homesteader.Growth.SolarSun.Factor(out float sunShare, out float sky);
+            GridStat(stats, "Sun", sunShare <= 0f ? "Night" : Mathf.RoundToInt(sunShare * 100f) + "% of noon");
+            GridStat(stats, "Sky", Mathf.RoundToInt(sky * 100f) + "% gets through");
+
+            // the components, by kind, each with its icon and a line of its own stats (batteries a charge bar)
+            var comps = GridCard(_gridSystems);
+            GridLabel(comps, "COMPONENTS", "grid-card-title");
+            foreach (Homesteader.Growth.WireRole role in new[] { Homesteader.Growth.WireRole.SolarPanel, Homesteader.Growth.WireRole.WallEntry, Homesteader.Growth.WireRole.DcBreaker,
+                Homesteader.Growth.WireRole.BusBar, Homesteader.Growth.WireRole.Mppt, Homesteader.Growth.WireRole.Battery, Homesteader.Growth.WireRole.Inverter, Homesteader.Growth.WireRole.AcPanel, Homesteader.Growth.WireRole.WindTurbine, Homesteader.Growth.WireRole.WaterFilter, Homesteader.Growth.WireRole.WaterTank, Homesteader.Growth.WireRole.WaterPump, Homesteader.Growth.WireRole.WaterInlet })
+            {
+                bool any = false;
+                foreach (Homesteader.Growth.WireNode n in sys.Nodes)
+                {
+                    if (n == null || n.Role != role) continue;
+                    if (!any) { GridLabel(comps, Plural(role), "grid-comp-title"); any = true; }
+                    var row = new VisualElement();
+                    row.AddToClassList("grid-comp-row");
+                    var icon = new VisualElement();
+                    icon.AddToClassList("grid-comp-icon");
+                    Texture2D tex = GetItemIcon(null, n.ItemId);
+                    if (tex != null) icon.style.backgroundImage = new StyleBackground(tex);
+                    row.Add(icon);
+                    var text = new VisualElement();
+                    text.AddToClassList("grid-comp-text");
+                    GridLabel(text, HudBindings.GetItemName(n.ItemId), "grid-comp-name");
+                    GridLabel(text, Homesteader.Growth.WireNetwork.NodeStat(n), "grid-comp-stat");
+                    AssetCatalogItem ci = HudBindings.GetCatalogItem(n.ItemId);
+                    if (role == Homesteader.Growth.WireRole.Battery && n.CapacityWh > 0f)
+                    {
+                        var track = new VisualElement();
+                        track.AddToClassList("grid-mini-track");
+                        var fill = new VisualElement();
+                        fill.AddToClassList("grid-mini-fill");
+                        fill.style.width = new Length(Mathf.Clamp01(n.ChargeWh / n.CapacityWh) * 100f, LengthUnit.Percent);
+                        track.Add(fill);
+                        text.Add(track);
+                    }
+                    row.Add(text);
+                    comps.Add(row);
+                }
+            }
+        }
+
+        private static float Peak(List<float> v) { float m = 0f; foreach (float x in v) if (x > m) m = x; return m; }
+
         private void OpenStore(string title, string bannerClass, string bannerText, List<StoreItem> items)
         {
+            if (!Connectivity.Require(title)) return;   // a shop needs the internet
             _currentView = AppView.StoreDepot;
             HideAllViews();
             if (_viewStore == null) return;
@@ -1763,45 +2052,62 @@ namespace Homesteader.UI
             if (_marketSellContainer == null) return;
             _marketSellContainer.Clear();
 
-            var sellables = GetPlayerSellables();
-            foreach (var item in sellables)
+            // what lies in the pickup zone (the delivery zone, 5 tiles from the house toward the road): the cargo truck comes tomorrow at 07:00 for what is booked
+            bool flagged = Homesteader.World.PickupFlag.TryZone(out _, out _);
+            var note = new Label((flagged ? "Leave goods in the pickup zone: the " + Homesteader.World.PickupFlag.Tiles + " by " + Homesteader.World.PickupFlag.Tiles + " tile square your pickup flag marks (hover the flag to see it). "
+                                 : "Leave goods in the pickup zone (within " + Homesteader.World.MarketPickup.ZoneRadius.ToString("0") + " m of where deliveries are dropped; plant a pickup flag to choose it). ")
+                                 + "Book a pickup: the cargo truck comes tomorrow morning, loads them and pays " + Mathf.RoundToInt(Homesteader.World.MarketPickup.Share * 100f) + "% of their value.");
+            note.AddToClassList("store-item-price");
+            note.style.whiteSpace = WhiteSpace.Normal;
+            note.style.marginBottom = 8;
+            _marketSellContainer.Add(note);
+
+            var stock = Homesteader.World.MarketPickup.InZoneNow();
+            if (stock.Count == 0)
             {
+                var none = new Label("Nothing to sell in the pickup zone right now.");
+                none.AddToClassList("store-item-name");
+                _marketSellContainer.Add(none);
+                return;
+            }
+            foreach (var kv in stock)
+            {
+                string id = kv.Key;
+                int count = kv.Value;
+                float each = Homesteader.World.MarketPickup.PriceOf(id);
+                string name = HudBindings.GetItemName(id);
+
                 var card = new VisualElement();
                 card.AddToClassList("store-item-card");
-
                 var left = new VisualElement();
                 left.AddToClassList("store-item-left");
-
                 var iconBox = new VisualElement();
                 iconBox.AddToClassList("store-item-icon-box");
-                ApplyItemIcon(iconBox, item.IconGlyph, item.Id);
-                if (Blueprints.IsBlueprint(item.Id)) iconBox.AddToClassList("store-item-icon-box--blueprint");
-
+                ApplyItemIcon(iconBox, null, id);
                 var info = new VisualElement();
                 info.AddToClassList("store-item-info");
-                var nameLabel = new Label(item.Name);
+                var nameLabel = new Label(name + "  x" + count);
                 nameLabel.AddToClassList("store-item-name");
-                var priceLabel = new Label($"Sell for ${item.Price:F2} / {item.Unit}");
+                var priceLabel = new Label($"${each:F2} each, ${each * count:F2} in all");
                 priceLabel.AddToClassList("store-item-price");
                 info.Add(nameLabel);
                 info.Add(priceLabel);
-
                 left.Add(iconBox);
                 left.Add(info);
 
                 var sellBtn = new Button();
                 sellBtn.AddToClassList("store-item-buy-btn");
-                sellBtn.text = "Sell";
-                var sellItem = item;
+                sellBtn.text = "Sell all";
                 sellBtn.clicked += () =>
                 {
                     _showModalCallback?.Invoke(
-                        "Sell Homestead Goods",
-                        $"Sell 1x {sellItem.Name} to the local market exchange for +${sellItem.Price:F2}?",
+                        "Book a Market Pickup",
+                        $"Sell {count}x {name} for ${each * count:F2}? The cargo truck collects them from the pickup zone tomorrow morning.",
                         () =>
                         {
-                            HudState.Active.AddMoney(sellItem.Price);
-                            Debug.Log($"<color=green>[Exchange]</color> Sold {sellItem.Name} for +${sellItem.Price:F2}!");
+                            Homesteader.World.DeliveryService.ScheduleMarket(new Dictionary<string, int> { { id, count } });
+                            Homesteader.UI.ToastNotificationSystem.ShowInfo("Pickup booked", "The cargo truck comes tomorrow morning.");
+                            PopulateMarketSell();
                         },
                         null
                     );
@@ -1825,18 +2131,6 @@ namespace Homesteader.UI
             };
         }
 
-        private static List<StoreItem> GetPlayerSellables()
-        {
-            return new List<StoreItem>
-            {
-                new StoreItem { Id = "food_apple", Name = "Crisp Orchard Apples (x10)", Category = "Fruit", Price = 15.00f, IconGlyph = "", Unit = "crate" },
-                new StoreItem { Id = "mat_log_oak", Name = "Hewn Oak Timber Logs (x5)", Category = "Lumber", Price = 35.00f, IconGlyph = "", Unit = "stack" },
-                new StoreItem { Id = "food_truffle", Name = "Foraged Black Truffle", Category = "Gourmet", Price = 60.00f, IconGlyph = "", Unit = "oz" },
-                new StoreItem { Id = "mat_wool_fleece", Name = "Sheared Sheep Wool Fleece", Category = "Textiles", Price = 25.00f, IconGlyph = "", Unit = "fleece" },
-                new StoreItem { Id = "food_egg", Name = "Farm Fresh Eggs (x12)", Category = "Dairy", Price = 6.00f, IconGlyph = "", Unit = "dozen" }
-            };
-        }
-
         // =========================================================================
         // SHOPS (built from the asset catalog: each asset manifest says which shops sell it, see properties.stores)
         // =========================================================================
@@ -1856,10 +2150,11 @@ namespace Homesteader.UI
             if (s_iconFileMap != null) return;
             s_iconFileMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
+            // the mods first (what the kit packages and pushes: always current), the old copies in Resources/Icons last
             var searchFolders = new List<string>();
 
-            string resIcons = Path.Combine(Application.dataPath, "Resources", "Icons");
-            if (Directory.Exists(resIcons)) searchFolders.Add(resIcons);
+            string gameMods = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "mods"));
+            if (Directory.Exists(gameMods)) searchFolders.Add(gameMods);
 
             string modsFolder = Path.Combine(Application.dataPath, "Mods");
             if (Directory.Exists(modsFolder)) searchFolders.Add(modsFolder);
@@ -1872,6 +2167,9 @@ namespace Homesteader.UI
 
             string assetsFolder = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "assets"));
             if (Directory.Exists(assetsFolder)) searchFolders.Add(assetsFolder);
+
+            string resIcons = Path.Combine(Application.dataPath, "Resources", "Icons");
+            if (Directory.Exists(resIcons)) searchFolders.Add(resIcons);
 
             foreach (var folder in searchFolders)
             {
@@ -1902,20 +2200,8 @@ namespace Homesteader.UI
 
             string baseName = Path.GetFileNameWithoutExtension(key);
 
-            // 1. Resources.Load
-            Texture2D tex = Resources.Load<Texture2D>("Icons/" + baseName)
-                         ?? Resources.Load<Texture2D>("AssetCatalog/" + baseName)
-                         ?? Resources.Load<Texture2D>("HUDTree/KitSprites/" + baseName);
-
-            if (tex == null && !string.IsNullOrEmpty(itemId))
-            {
-                string idBase = Path.GetFileNameWithoutExtension(itemId);
-                tex = Resources.Load<Texture2D>("Icons/" + idBase)
-                   ?? Resources.Load<Texture2D>("AssetCatalog/" + idBase);
-            }
-
-            // 2. Direct disk file fallback via indexed map
-            if (tex == null)
+            // 1. The icon file in the mods (the kit's current icon), found through the indexed map
+            Texture2D tex = null;
             {
                 EnsureIconFileMap();
                 string filePath = null;
@@ -1945,6 +2231,19 @@ namespace Homesteader.UI
                         Debug.LogWarning("[PhoneController] Failed loading icon bytes for " + filePath + ": " + ex.Message);
                     }
                 }
+            }
+
+            // 2. Only when no mod has it: the copies built into Resources (they go stale: the kit does not always refresh them)
+            if (tex == null)
+                tex = Resources.Load<Texture2D>("Icons/" + baseName)
+                         ?? Resources.Load<Texture2D>("AssetCatalog/" + baseName)
+                         ?? Resources.Load<Texture2D>("HUDTree/KitSprites/" + baseName);
+
+            if (tex == null && !string.IsNullOrEmpty(itemId))
+            {
+                string idBase = Path.GetFileNameWithoutExtension(itemId);
+                tex = Resources.Load<Texture2D>("Icons/" + idBase)
+                   ?? Resources.Load<Texture2D>("AssetCatalog/" + idBase);
             }
 
             if (tex != null)
@@ -1999,7 +2298,6 @@ namespace Homesteader.UI
                     result.Add(new StoreItem
                     {
                         Id = item.id,
-                        Name = item.name,
                         Category = l.category,
                         Price = l.price,
                         Unit = l.unit,
@@ -2105,20 +2403,168 @@ namespace Homesteader.UI
             }
         }
 
+        private VisualElement _resCards;
+        private string _resDetail = "";   // "", "water", "fuel", "septic" or "net": which card's list is open
+
+        /// <summary>
+        /// ResView: four cards counted from the world (ResViewData): the water in the tanks by type, the fuel in the tanks and cans (gasoline, diesel, propane), the septic tanks'
+        /// sludge and the internet's
+        /// bandwidth and use. A tap on a card opens the list of everything that holds or uses that resource.
+        /// </summary>
         private void UpdateResAppData()
         {
-            var state = HudState.Active;
-            bool isImp = (state.Units == UnitSystem.Imperial);
+            if (_resCards == null) _resCards = _root.Q<VisualElement>("ResCards");
+            if (_resCards == null) return;
+            _resCards.Clear();
+            if (_resDetail != "") { BuildResDetail(); return; }
 
-            if (_resWaterText != null)
+            ResViewData.WaterTotals water = ResViewData.GetWater();
+            VisualElement wc = ResCard("WATER", "water");
+            GridLabel(wc, UnitFormat.Volume(water.Total) + " of " + UnitFormat.Volume(water.Capacity), "grid-metric-large");
+            GridBar(wc, water.Capacity > 0f ? water.Total / water.Capacity : 0f, "grid-bar-fill-battery");
+            GridStat(wc, "Clean (drinkable)", UnitFormat.Volume(water.Clean));
+            GridStat(wc, "Raw (unfiltered)", UnitFormat.Volume(water.Raw));
+            GridLabel(wc, water.Rows.Count == 0 ? "No water tanks yet" : water.Rows.Count + (water.Rows.Count == 1 ? " container" : " containers") + "  \u2022  tap for the list", "grid-metric-sub");
+
+            VisualElement fc = ResCard("FUEL", "fuel");
+            int holders = 0;
+            foreach (ResViewData.FuelTotals f in ResViewData.GetFuel())
             {
-                string cap = isImp ? $"{1000f * HudState.LitersToGallons:N0} gal" : "1,000 L";
-                _resWaterText.text = $"{state.FormatWater()} / {cap}";
+                GridStat(fc, HudBindings.GetItemName(f.Liquid), f.Capacity > 0f ? UnitFormat.Volume(f.Held) + " of " + UnitFormat.Volume(f.Capacity) : "None");
+                if (f.Capacity > 0f) GridBar(fc, f.Held / f.Capacity, "grid-bar-fill-battery");
+                holders += f.Rows.Count;
             }
-            if (_resFuelText != null)
+            GridLabel(fc, holders == 0 ? "No fuel tanks or cans yet" : holders + (holders == 1 ? " container" : " containers") + "  \u2022  tap for the list", "grid-metric-sub");
+
+            ResViewData.SepticTotals septic = ResViewData.GetSeptic();
+            VisualElement sc = ResCard("SEPTIC", "septic");
+            if (septic.Rows.Count == 0) GridLabel(sc, "No septic tank", "grid-metric-large");
+            else
             {
-                string dieselStr = isImp ? $"{state.FuelDisplay:0.#} gal Diesel" : $"{state.Fuel:0.#} L Diesel";
-                _resFuelText.text = $"{dieselStr} • 250 Gal Propane";
+                GridLabel(sc, "Sludge " + Mathf.RoundToInt(Mathf.Clamp01(septic.WorstFill) * 100f) + "% to full", "grid-metric-large");
+                GridBar(sc, septic.WorstFill, "grid-bar-fill-battery");
+                GridStat(sc, "Sludge", UnitFormat.Volume(septic.SludgeL));
+                GridStat(sc, "Liquid", UnitFormat.Volume(septic.LiquidL) + " of " + UnitFormat.Volume(septic.CapacityL));
+                GridStat(sc, "Status", septic.Status);
+            }
+            GridLabel(sc, septic.Rows.Count == 0 ? "Bury a septic tank and pipe a building's waste outlet to it" : septic.Rows.Count + (septic.Rows.Count == 1 ? " tank" : " tanks") + "  \u2022  tap for the list", "grid-metric-sub");
+
+            ResViewData.NetTotals net = ResViewData.GetNet();
+            VisualElement nc = ResCard("INTERNET", "net");
+            GridLabel(nc, net.TotalMbps > 0f ? ResViewData.Mbps(net.UsedMbps) + " of " + ResViewData.Mbps(net.TotalMbps) + " in use" : "Offline", "grid-metric-large");
+            if (net.TotalMbps > 0f) GridBar(nc, net.UsedMbps / net.TotalMbps, "grid-bar-fill-battery");
+            GridStat(nc, "Bandwidth", net.RatedMbps > net.TotalMbps + 0.5f ? ResViewData.Mbps(net.TotalMbps) + " of " + ResViewData.Mbps(net.RatedMbps) + " (weather)" : ResViewData.Mbps(net.TotalMbps));
+            GridStat(nc, "In use", ResViewData.Mbps(net.UsedMbps));
+            GridStat(nc, "This phone", net.Phone);
+            GridLabel(nc, net.Sources.Count == 0 ? "No dish placed" : net.Sources.Count + (net.Sources.Count == 1 ? " source, " : " sources, ") + net.Users.Count + (net.Users.Count == 1 ? " device" : " devices") + "  \u2022  tap for the list", "grid-metric-sub");
+        }
+
+        private VisualElement ResCard(string title, string detail)
+        {
+            VisualElement card = GridCard(_resCards);
+            card.RegisterCallback<PointerDownEvent>(evt => { _resDetail = detail; UpdateResAppData(); evt.StopPropagation(); });   // on the press: the cards are rebuilt every few ticks
+            GridLabel(card, title, "grid-card-title");
+            return card;
+        }
+
+        private void BuildResDetail()
+        {
+            var back = new Label("\u2039  All resources");
+            back.AddToClassList("grid-back");
+            back.RegisterCallback<PointerDownEvent>(evt => { _resDetail = ""; UpdateResAppData(); evt.StopPropagation(); });
+            _resCards.Add(back);
+            if (_resDetail == "water")
+            {
+                ResViewData.WaterTotals water = ResViewData.GetWater();
+                ResList("WATER  \u2022  " + UnitFormat.Volume(water.Total) + " of " + UnitFormat.Volume(water.Capacity), water.Rows, "Nothing holds water yet: place a cistern and pipe a well to it.");
+            }
+            else if (_resDetail == "fuel")
+            {
+                foreach (ResViewData.FuelTotals f in ResViewData.GetFuel())
+                    ResList(HudBindings.GetItemName(f.Liquid).ToUpperInvariant() + "  \u2022  " + (f.Capacity > 0f ? UnitFormat.Volume(f.Held) + " of " + UnitFormat.Volume(f.Capacity) : "none"), f.Rows,
+                        "Nothing holds it. Order it in Tank You once a tank is placed.");
+            }
+            else if (_resDetail == "septic")
+            {
+                ResViewData.SepticTotals septic = ResViewData.GetSeptic();
+                ResList("SEPTIC TANKS  \u2022  sludge " + UnitFormat.Volume(septic.SludgeL), septic.Rows, "No septic tank is in the ground.");
+            }
+            else
+            {
+                ResViewData.NetTotals net = ResViewData.GetNet();
+                ResList("SOURCES  \u2022  " + ResViewData.Mbps(net.TotalMbps), net.Sources, "No satellite dish or directional antenna is placed.");
+                ResList("IN USE  \u2022  " + ResViewData.Mbps(net.UsedMbps), net.Users, "Nothing placed uses the internet.");
+                ResList("NETWORK GEAR", net.Gear, "No router, switch, access point or antenna is placed.");
+                BuildNetPlans();
+            }
+        }
+
+        /// <summary>The internet subscription: the plan held and the days of its month left, then every plan with what it allows, its price and a button to take it.</summary>
+        private void BuildNetPlans()
+        {
+            VisualElement card = GridCard(_resCards);
+            GridLabel(card, "INTERNET PLAN", "grid-card-title");
+            Homesteader.Growth.NetPlan.Plan cur = Homesteader.Growth.NetPlan.Current;
+            GridLabel(card, cur != null ? cur.Name + "  \u2022  " + ResViewData.Mbps(cur.Mbps) : "No plan", "grid-metric-large");
+            GridLabel(card, cur != null ? "$" + cur.Price.ToString("0") + " a month  \u2022  renews in " + Homesteader.Growth.NetPlan.DaysLeft + (Homesteader.Growth.NetPlan.DaysLeft == 1 ? " day" : " days")
+                                        : "A dish brings nothing in without a plan", "grid-metric-sub");
+            foreach (Homesteader.Growth.NetPlan.Plan p in Homesteader.Growth.NetPlan.Plans)
+            {
+                bool mine = cur != null && cur.Id == p.Id;
+                GridStat(card, p.Name + "  \u2022  " + ResViewData.Mbps(p.Mbps), "$" + p.Price.ToString("0") + " a month" + (mine ? "  \u2022  yours" : ""));
+                if (mine) continue;
+                float cost = Homesteader.Growth.NetPlan.CostToSwitch(p);
+                var btn = new Button { text = (cur == null ? "Subscribe" : "Switch") + ": $" + cost.ToString("0") + " now" };
+                btn.AddToClassList("bank-action-btn");
+                string id = p.Id, name = p.Name;
+                btn.RegisterCallback<PointerDownEvent>(evt =>   // on the press: the list is rebuilt every few ticks
+                {
+                    if (!Homesteader.Growth.NetPlan.Subscribe(id)) ToastNotificationSystem.ShowWarning("Internet plan", "Not enough money for the " + name + " plan.");
+                    UpdateResAppData();
+                    evt.StopPropagation();
+                }, TrickleDown.TrickleDown);
+                card.Add(btn);
+            }
+            if (cur != null)
+            {
+                var cancel = new Button { text = "Cancel the plan" };
+                cancel.AddToClassList("bank-action-btn");
+                cancel.style.marginTop = 8;
+                cancel.RegisterCallback<PointerDownEvent>(evt => { Homesteader.Growth.NetPlan.Cancel(); UpdateResAppData(); evt.StopPropagation(); }, TrickleDown.TrickleDown);
+                card.Add(cancel);
+            }
+        }
+
+        private void ResList(string title, List<ResViewData.Row> rows, string empty)
+        {
+            VisualElement card = GridCard(_resCards);
+            GridLabel(card, title, "grid-card-title");
+            if (rows.Count == 0) { GridLabel(card, empty, "grid-metric-sub"); return; }
+            foreach (ResViewData.Row r in rows)
+            {
+                var row = new VisualElement();
+                row.AddToClassList("grid-comp-row");
+                var icon = new VisualElement();
+                icon.AddToClassList("grid-comp-icon");
+                Texture2D tex = GetItemIcon(null, r.ItemId);
+                if (tex != null) icon.style.backgroundImage = new StyleBackground(tex);
+                row.Add(icon);
+                var text = new VisualElement();
+                text.AddToClassList("grid-comp-text");
+                GridLabel(text, r.Name, "grid-comp-name");
+                GridLabel(text, r.Stat, "grid-comp-stat");
+                if (r.Fraction >= 0f)
+                {
+                    var track = new VisualElement();
+                    track.AddToClassList("grid-mini-track");
+                    var fill = new VisualElement();
+                    fill.AddToClassList("grid-mini-fill");
+                    fill.style.width = new Length(Mathf.Clamp01(r.Fraction) * 100f, LengthUnit.Percent);
+                    track.Add(fill);
+                    text.Add(track);
+                }
+                row.Add(text);
+                card.Add(row);
             }
         }
 

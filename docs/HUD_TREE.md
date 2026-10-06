@@ -215,7 +215,7 @@ scrollable content area.
 | View | name | Key features |
 |---|---|---|
 | Volt (Grid OS) | `ViewVolt` | Solar wattage, battery %, load |
-| Res (ResView) | `ViewRes` | Water, fuel, internet telemetry |
+| Res (ResView) | `ViewRes` | Four cards counted from the world (`ResViewData`): water by type, fuel (gasoline, diesel, propane), septic sludge, internet bandwidth and use. The cards are built in `ResCards` by `PhoneController.UpdateResAppData`; a tap opens the list of what holds or uses that resource |
 | Store | `ViewStore` | 3 stores (Depot, Grocer, Feed) with cart + checkout |
 | Bank | `ViewBank` | Balance, loan debt, take/repay loans |
 | Market | `ViewMarket` | Buy/sell tabs |

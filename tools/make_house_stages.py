@@ -348,7 +348,9 @@ def complete(b, c, M, glass, finishings=False):
         y0, y1 = (y - 0.015, y + 0.08) if y < 0 else (y, y + 0.095)
         if abs(y - c.yh0) < 1e-6:
             y0, y1 = y - 0.015, y + 0.08
-        b.box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
+        # each corner board belongs to the front or back wall's part, so the cutaway hides it with that wall (a post left standing blocked the view in)
+        cw = 'front' if abs(y - c.yh0) < 1e-6 else 'back'
+        (parts[cw] if cw in parts else b).box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
     # window trim, glass, shutters on the front windows
     for wall in ('front', 'back', 'left', 'right'):
         for i, (u0, u1, zl, zh) in enumerate(c.openings[wall]):

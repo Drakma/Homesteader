@@ -21,6 +21,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import regen_icons
 import animal_ai
 import light_emitter
+import asset_references
 import push_to_game
 import trash_store
 try:
@@ -518,37 +519,9 @@ RULE_WITHER_BEHAVIOR = ("stall", "regress_one_stage", "die")
 
 
 def sanitize_construction_recipe(raw):
-    """A structure stage's materials: [{item_id (an item id or a #tag), quantity (> 0)}]. Returns (list, None) or (None, error)."""
-    if raw is None:
-        return [], None
-    if not isinstance(raw, list):
-        return None, "construction_recipe must be an array."
-    out = []
-    for line in raw:
-        if not isinstance(line, dict):
-            return None, "each construction_recipe line must be an object."
-        # an "or" line: the stage takes ANY ONE of the alternatives in full ({"any_of": [{item_id, quantity}, ...]})
-        if "any_of" in line:
-            opts, oerr = sanitize_construction_recipe(line.get("any_of"))
-            if oerr:
-                return None, oerr
-            if any("any_of" in o for o in opts):
-                return None, "an any_of group cannot contain another any_of group."
-            if len(opts) < 2:
-                return None, "an any_of group needs at least two alternatives."
-            out.append({"any_of": opts})
-            continue
-        item_id = str(line.get("item_id", "")).strip()
-        if not item_id:
-            return None, "a construction_recipe line has no item_id."
-        try:
-            qty = float(line.get("quantity", 1))
-        except (TypeError, ValueError):
-            return None, f"quantity of {item_id} must be a number."
-        if qty <= 0:
-            return None, f"quantity of {item_id} must be greater than 0."
-        out.append({"item_id": item_id, "quantity": int(qty) if qty.is_integer() else qty})
-    return out, None
+    """A structure stage's materials as a tree of lines and sections (see tools/recipe_format.py). Returns (list, None) or (None, error)."""
+    import recipe_format
+    return recipe_format.normalize(raw)
 
 
 def sanitize_required_tools(raw):
@@ -577,7 +550,7 @@ def sync_stage_manifests(category, group_id, growth):
     """The group's stages[] are authoritative for a structure's construction_recipe / required_tools; a stage's own manifest
     (stages/<folder>/<id>.json) is derived, so copy them into its category_fields to keep the two in step."""
     for st in growth.get("stages") or []:
-        if not isinstance(st, dict) or ("construction_recipe" not in st and "required_tools" not in st):
+        if not isinstance(st, dict) or ("construction_recipe" not in st and "required_tools" not in st and "build_clips" not in st and "build_motion" not in st):
             continue
         folder = os.path.join(BASE_DIR, category, group_id, str(st.get("resource", "")).strip("/").replace("/", os.sep))
         if not os.path.isdir(folder):
@@ -594,6 +567,10 @@ def sync_stage_manifests(category, group_id, growth):
                     cf["construction_recipe"] = st["construction_recipe"]
                 if "required_tools" in st:
                     cf["required_tools"] = st["required_tools"]
+                if "build_clips" in st:
+                    cf["build_clips"] = st["build_clips"]
+                if "build_motion" in st:
+                    cf["build_motion"] = st["build_motion"]
                 with open(path, "w", encoding="utf-8", newline="\n") as f:
                     json.dump(sm, f, indent=2, ensure_ascii=False)
                     f.write("\n")
@@ -1400,8 +1377,89 @@ def rewrite_tag_references(old_name, new_name):
 
 
 def save_material_tags(data):
-    with open(MATERIAL_TAGS_PATH, "w", encoding="utf-8") as f:
+    tmp = MATERIAL_TAGS_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2)
+    os.replace(tmp, MATERIAL_TAGS_PATH)
+
+
+EQUIVALENCIES_PATH = os.path.join(BASE_DIR, "_schemas", "equivalencies.json")
+
+
+def load_equivalencies():
+    """The equivalencies (assets/_schemas/equivalencies.json): unit systems a recipe asks for as "~name x N". Each has a unit word, a label and members:
+    an item ({"item": id, "value": n}) or a tag ({"tag": name, "value": n}) worth n units. Separate from the tags, which are plain groups."""
+    try:
+        with open(EQUIVALENCIES_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        data = {}
+    data.setdefault("equivalencies", {})
+    return data
+
+
+def save_equivalencies(data):
+    tmp = EQUIVALENCIES_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    os.replace(tmp, EQUIVALENCIES_PATH)
+
+
+def rewrite_spec_references(old_spec, new_spec):
+    """Every manifest (assets/ and the packaged mod) that holds the spec string, for example "~old" (a recipe line), now holds "~new". Returns the files changed."""
+    needle = json.dumps(old_spec)
+    repl = json.dumps(new_spec)
+    repo = os.path.dirname(BASE_DIR)
+    changed = []
+    for top in (BASE_DIR, os.path.join(repo, "Homesteader", "mods")):
+        for dirpath, dirnames, filenames in os.walk(top):
+            dirnames[:] = [d for d in dirnames if d not in ("node_modules", ".git", "_asset_requests", "_scratch", "_originals", "_trash")]
+            for fn in filenames:
+                if not fn.endswith(".json"):
+                    continue
+                path = os.path.join(dirpath, fn)
+                if os.path.abspath(path) in (os.path.abspath(MATERIAL_TAGS_PATH), os.path.abspath(EQUIVALENCIES_PATH)):
+                    continue
+                try:
+                    with open(path, "r", encoding="utf-8", newline="") as f:
+                        text = f.read()
+                except Exception:
+                    continue
+                if needle in text:
+                    with open(path, "w", encoding="utf-8", newline="") as f:
+                        f.write(text.replace(needle, repl))
+                    changed.append(path)
+    return changed
+
+
+def files_using_spec(spec):
+    """Relative paths of the manifests (assets/) that name the spec string, e.g. "~framing_lumber"."""
+    needle = json.dumps(spec)
+    found = []
+    for dirpath, dirnames, filenames in os.walk(BASE_DIR):
+        dirnames[:] = [d for d in dirnames if d not in ("node_modules", ".git", "_asset_requests", "_scratch", "_originals", "_trash")]
+        for fn in filenames:
+            if not fn.endswith(".json"):
+                continue
+            path = os.path.join(dirpath, fn)
+            if os.path.abspath(path) in (os.path.abspath(MATERIAL_TAGS_PATH), os.path.abspath(EQUIVALENCIES_PATH)):
+                continue
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    if needle in f.read():
+                        found.append(os.path.relpath(path, BASE_DIR).replace("\\", "/"))
+            except Exception:
+                pass
+    return found
+
+
+def refresh_game_in_background():
+    """Carries a kit change into the game (AssetCatalog.json and the packaged mod) without waiting for anyone to remember."""
+    try:
+        subprocess.Popen([sys.executable, os.path.join(SCRIPT_DIR, "refresh_game_content.py")])
+    except Exception as e:
+        print(f"Warning refreshing game content: {e}")
 
 
 def get_prefix_strip_list():
@@ -1639,6 +1697,14 @@ def move_single_asset_on_disk(category, item_id, target_category):
         except Exception as e:
             print(f"Warning updating manifest JSON: {e}")
 
+    # 3b. what refers to the old id follows it (tags, recipes, ...)
+    refs = {"files": [], "replacements": 0}
+    if new_id != item_id:
+        try:
+            refs = asset_references.rewrite_asset_references(item_id, new_id)
+        except Exception as e:
+            print(f"Warning updating references to {item_id}: {e}")
+
     # 4. If OBJ references renamed MTL file, update mtllib line
     for old_fname, new_fname in renamed_files_map.items():
         if old_fname.endswith(".obj"):
@@ -1675,6 +1741,7 @@ def move_single_asset_on_disk(category, item_id, target_category):
         "old_category": category,
         "target_category": target_category,
         "new_name": new_name or new_id.replace("_", " ").title(),
+        "references": refs,
         "icon": f"{target_category}/{new_id}/{new_id}.png"
     }
 
@@ -2187,6 +2254,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         if self.path == "/api/material-tags":
             self.handle_get_material_tags()
             return
+        if self.path == "/api/equivalencies":
+            self.send_json_response({"success": True, **load_equivalencies()}, 200)
+            return
         if self.path == "/api/biomes" or self.path.startswith("/api/biomes?"):
             self.handle_get_biomes()
             return
@@ -2594,6 +2664,12 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_save_biome()
         elif self.path == "/api/schema/save":
             self.handle_save_schema()
+        elif self.path == "/api/save-equivalency":
+            self.handle_save_equivalency()
+        elif self.path == "/api/delete-equivalency":
+            self.handle_delete_equivalency()
+        elif self.path == "/api/rename-equivalency":
+            self.handle_rename_equivalency()
         elif self.path == "/api/delete-material-tag":
             self.handle_delete_material_tag()
         elif self.path == "/api/rename-material-tag":
@@ -3123,6 +3199,24 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
             rename_item_in_embedded_catalog(category, old_id, new_id, new_name)
 
+            # 3b. Everything that refers to the old id follows: material tags and their equivalencies, construction recipes and tools, growth rules,
+            # container accepts lists, conversion chains, kit_config stages (tools/asset_references.py)
+            refs = {"files": [], "replacements": 0}
+            if new_id != old_id:
+                try:
+                    refs = asset_references.rewrite_asset_references(old_id, new_id)
+                    print(f"[RENAME] {refs['replacements']} reference(s) to {old_id} updated in {len(refs['files'])} file(s): {refs['files']}")
+                    if refs.get("code"):
+                        print(f"[RENAME] {old_id} is also mentioned in code (not edited): {refs['code']}")
+                    left = asset_references.dangling_references()
+                    if left:
+                        print(f"[RENAME] WARNING: {len(left)} reference(s) point at ids that do not exist: {left[:8]}")
+                    refs["dangling"] = len(left)
+                    # carry the change into the game (catalog + packaged mod) without waiting for anyone to remember
+                    subprocess.Popen([sys.executable, os.path.join(SCRIPT_DIR, "refresh_game_content.py")])
+                except Exception as e:
+                    print(f"Warning updating references to {old_id}: {e}")
+
             # 4. If OBJ references renamed MTL file, update mtllib line
             for old_fname, new_fname in renamed_files_map.items():
                 if old_fname.endswith(".obj"):
@@ -3162,7 +3256,12 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
             self.send_json_response({
                 "success": True,
-                "message": f"Asset '{old_id}' was successfully renamed to '{new_name}' ({new_id}).",
+                "message": f"Asset '{old_id}' was successfully renamed to '{new_name}' ({new_id})."
+                           + (f" Updated {refs['replacements']} reference(s) in {len(refs['files'])} file(s) (tags, recipes, ...)." if refs["replacements"] else " Nothing else referred to it.")
+                           + (" The game catalog and mod are being regenerated." if new_id != old_id else "")
+                           + (f" Mentioned in code (not edited): {', '.join(refs['code'])}." if refs.get("code") else "")
+                           + (f" WARNING: {refs['dangling']} other reference(s) point at ids that do not exist (python tools/asset_references.py --check)." if refs.get("dangling") else ""),
+                "references": refs,
                 "category": category,
                 "old_id": old_id,
                 "new_id": new_id,
@@ -3990,8 +4089,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             data_store = load_material_tags()
             is_new = tag_name not in data_store["tags"]
             data_store["tags"][tag_name] = members
-            # equivalencies: what each member is worth (default 1) and the unit word, only when given
-            if "values" in data or "unit" in data:
+            # (equivalencies are their own thing now: equivalencies.json. A tag is a plain group; old clients may still send values / unit: ignored)
+            if False and ("values" in data or "unit" in data):
                 tv = data_store.setdefault("tag_values", {})
                 entry = tv.setdefault(tag_name, {})
                 if "unit" in data:
@@ -4051,6 +4150,10 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 self.send_json_response({"success": False, "error": f"Tag '#{tag_name}' does not exist."}, 404)
                 return
 
+            used_by = [n for n, e in load_equivalencies()["equivalencies"].items() if any(m.get("tag") == tag_name for m in e.get("members", []))]
+            if used_by:
+                self.send_json_response({"success": False, "error": f"The tag '#{tag_name}' is a member of the equivalenc{'y' if len(used_by) == 1 else 'ies'} {', '.join('~' + n for n in used_by)}: remove it there first."}, 409)
+                return
             del data_store["tags"][tag_name]
             data_store.get("tag_values", {}).pop(tag_name, None)
             save_material_tags(data_store)
@@ -4097,6 +4200,17 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             save_material_tags(data_store)
 
             updated = rewrite_tag_references(old_name, new_name) if new_name != old_name else []
+            if new_name != old_name:                      # the equivalencies that count this tag as a member follow it
+                eqs = load_equivalencies()
+                touched = False
+                for e in eqs["equivalencies"].values():
+                    for m in e.get("members", []):
+                        if m.get("tag") == old_name:
+                            m["tag"] = new_name
+                            touched = True
+                if touched:
+                    save_equivalencies(eqs)
+                    refresh_game_in_background()
 
             print(f"[RENAME TAG] #{old_name} -> #{new_name} ({len(updated)} file(s) updated)")
             self.send_json_response({
@@ -4109,6 +4223,111 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
 
         except Exception as e:
             print(f"Error renaming material tag: {e}")
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_save_equivalency(self):
+        """Create or replace one equivalency: {name, unit, label, members: [{item | tag, value}]}. Items must be real catalog items, tags must exist."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            name = str(data.get("name", "")).strip().lower().lstrip("~")
+            if not re.match(r"^[a-z][a-z0-9_]*$", name):
+                self.send_json_response({"success": False, "error": "The name must start with a letter and use only lowercase letters, numbers and underscores."}, 400)
+                return
+            raw = data.get("members")
+            if not isinstance(raw, list) or not raw:
+                self.send_json_response({"success": False, "error": "An equivalency needs at least one member."}, 400)
+                return
+            real_ids = {item["id"] for item in get_cached_catalog()}
+            tags = load_material_tags()["tags"]
+            members = []
+            for m in raw:
+                if not isinstance(m, dict):
+                    self.send_json_response({"success": False, "error": "A member must be an item or a tag with a value."}, 400)
+                    return
+                try:
+                    value = float(m.get("value", 1))
+                except (TypeError, ValueError):
+                    self.send_json_response({"success": False, "error": "A member's value must be a number."}, 400)
+                    return
+                if value <= 0:
+                    self.send_json_response({"success": False, "error": "A member's value must be greater than 0."}, 400)
+                    return
+                value = int(value) if value.is_integer() else value
+                if m.get("tag"):
+                    tag = str(m["tag"]).lstrip("#")
+                    if tag not in tags:
+                        self.send_json_response({"success": False, "error": f"The tag '#{tag}' does not exist."}, 400)
+                        return
+                    members.append({"tag": tag, "value": value})
+                elif m.get("item"):
+                    item = str(m["item"])
+                    if item not in real_ids:
+                        self.send_json_response({"success": False, "error": f"'{item}' is not a catalog item."}, 400)
+                        return
+                    members.append({"item": item, "value": value})
+                else:
+                    self.send_json_response({"success": False, "error": "A member needs an item or a tag."}, 400)
+                    return
+            members.sort(key=lambda m: (m["value"], m.get("item") or "~" + m.get("tag", "")))
+            store = load_equivalencies()
+            is_new = name not in store["equivalencies"]
+            store["equivalencies"][name] = {"unit": str(data.get("unit", "")).strip(), "label": str(data.get("label", "")).strip() or name.replace("_", " ").title(), "members": members}
+            save_equivalencies(store)
+            refresh_game_in_background()
+            print(f"[{'ADD' if is_new else 'UPDATE'} EQUIVALENCY] ~{name}: {len(members)} member(s)")
+            self.send_json_response({"success": True, "message": f"Equivalency '~{name}' saved with {len(members)} member(s).", "name": name}, 200)
+        except Exception as e:
+            print(f"Error saving equivalency: {e}")
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_delete_equivalency(self):
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            name = str(data.get("name", "")).strip().lower().lstrip("~")
+            store = load_equivalencies()
+            if name not in store["equivalencies"]:
+                self.send_json_response({"success": False, "error": f"Equivalency '~{name}' does not exist."}, 404)
+                return
+            used = files_using_spec("~" + name)
+            if used:
+                self.send_json_response({"success": False, "error": f"'~{name}' is used by {len(used)} file(s) (for example {used[0]}): change those recipes first."}, 409)
+                return
+            del store["equivalencies"][name]
+            save_equivalencies(store)
+            refresh_game_in_background()
+            print(f"[DELETE EQUIVALENCY] ~{name}")
+            self.send_json_response({"success": True, "message": f"Equivalency '~{name}' deleted."}, 200)
+        except Exception as e:
+            print(f"Error deleting equivalency: {e}")
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_rename_equivalency(self):
+        """Renames an equivalency and every recipe that asks for it ("~old" becomes "~new") in the asset kit and the packaged mod."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            old = str(data.get("old_name", "")).strip().lower().lstrip("~")
+            new = str(data.get("new_name", "")).strip().lower().lstrip("~")
+            if not re.match(r"^[a-z][a-z0-9_]*$", new):
+                self.send_json_response({"success": False, "error": "The name must start with a letter and use only lowercase letters, numbers and underscores."}, 400)
+                return
+            store = load_equivalencies()
+            if old not in store["equivalencies"]:
+                self.send_json_response({"success": False, "error": f"Equivalency '~{old}' does not exist."}, 404)
+                return
+            if new != old and new in store["equivalencies"]:
+                self.send_json_response({"success": False, "error": f"Equivalency '~{new}' already exists."}, 400)
+                return
+            store["equivalencies"] = {(new if k == old else k): v for k, v in store["equivalencies"].items()}
+            save_equivalencies(store)
+            updated = rewrite_spec_references("~" + old, "~" + new) if new != old else []
+            refresh_game_in_background()
+            print(f"[RENAME EQUIVALENCY] ~{old} -> ~{new} ({len(updated)} file(s) updated)")
+            self.send_json_response({"success": True, "message": f"Equivalency '~{old}' renamed to '~{new}'" + (f"; {len(updated)} file(s) that used it were updated." if updated else "."), "new_name": new}, 200)
+        except Exception as e:
+            print(f"Error renaming equivalency: {e}")
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
     def handle_edit_category_prefix(self):
@@ -5378,6 +5597,19 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                             self.send_json_response({"success": False, "error": f"Stage {num}: {terr}"}, 400)
                             return
                         target["required_tools"] = groups
+                    # how a stage is worked: the ped's clips and the model's motion (see structures.schema.json)
+                    if "build_clips" in entry:
+                        clips = entry.get("build_clips")
+                        if not isinstance(clips, list) or not all(isinstance(c, str) for c in clips):
+                            self.send_json_response({"success": False, "error": f"Stage {num}: build_clips must be a list of clip names."}, 400)
+                            return
+                        target["build_clips"] = [c.strip() for c in clips if c.strip()]
+                    if "build_motion" in entry:
+                        motion = entry.get("build_motion") or ""
+                        if motion not in ("", "tilt_up", "lift", "spin_up"):
+                            self.send_json_response({"success": False, "error": f"Stage {num}: build_motion must be tilt_up, lift, spin_up or empty."}, 400)
+                            return
+                        target["build_motion"] = motion
             # Group-level growth rules (see growth_group.schema.json `rules`).
             # They apply ONLY to trees and crops: for any other growth_type a
             # non-empty rules block is rejected and a stale one is dropped.
@@ -5711,6 +5943,11 @@ def main():
     print(f"  Directory: {BASE_DIR}")
     print(f"  URL: http://localhost:{PORT}/index.html")
     print("  API: POST /api/delete-asset (Enabled)")
+    try:
+        left = asset_references.dangling_references()
+        print(f"  References: {len(left)} broken (ids that no longer exist)" + ("  -> python tools/asset_references.py --check" if left else ""))
+    except Exception as e:
+        print(f"  References: check failed ({e})")
     print("=" * 60)
     try:
         httpd.serve_forever()

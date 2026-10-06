@@ -21,7 +21,7 @@ namespace Homesteader.Growth
     public sealed class ConstructionSite : MonoBehaviour
     {
         /// <summary>How far outside the foundation materials and tools still count.</summary>
-        public const float YardM = 4f;
+        public const float YardM = 5f;   // the footprint plus one more grid tile (it was 4 m)
 
         public static readonly List<ConstructionSite> All = new List<ConstructionSite>();
 
@@ -154,6 +154,7 @@ namespace Homesteader.Growth
             go.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yawDeg, 0f));
             var site = go.AddComponent<ConstructionSite>();
             site.StructureId = structureId;
+            WireNode.Attach(go, structureId);   // a wind turbine can be wired (its manifest's wire_role)
             site.YawDeg = yawDeg;
             site._stages = stages;
             site._foot = FootprintOf(structureId);
@@ -249,6 +250,9 @@ namespace Homesteader.Growth
             return rect;
         }
 
+        /// <summary>True once the walls of the finished model are known (WallRect is measured from them, not from the footprint).</summary>
+        public bool WallsKnown { get { Rect unused = WallRect(); return VisualRoot != null && _wallRectFor == VisualRoot; } }
+
         /// <summary>True when a world point is inside the walls (not on a porch, not outside).</summary>
         public bool IsInsideWalls(Vector3 world)
         {
@@ -269,17 +273,28 @@ namespace Homesteader.Growth
             Transform root = VisualRoot;
             if (root != null && _ceilingFor == root) return _ceilingY;
             float floor = transform.position.y;
-            float top = float.MaxValue;
+            float top = float.MaxValue, tallest = float.MinValue, roofLow = float.MaxValue;
             if (root != null)
                 foreach (Renderer r in root.GetComponentsInChildren<Renderer>(true))
                 {
-                    bool wall = false;
+                    bool wall = false, roof = false;
                     for (Transform t = r.transform; t != null && t != root.parent; t = t.parent)
+                    {
                         if (t.name.StartsWith("Wall_")) { wall = true; break; }
-                    if (wall) top = Mathf.Min(top, r.bounds.max.y);
+                        if (t.name == "Roof") { roof = true; break; }
+                    }
+                    if (roof) roofLow = Mathf.Min(roofLow, r.bounds.min.y);   // the lowest point of the roof: the eave
+                    if (!wall) continue;
+                    float wallTop = r.bounds.max.y;
+                    tallest = Mathf.Max(tallest, wallTop);
+                    if (wallTop >= floor + 2.3f) top = Mathf.Min(top, wallTop);   // the eave walls: a low piece (a half wall, a sill, a rail) is not the ceiling
                 }
-            float y = top == float.MaxValue ? floor + 2.6f : Mathf.Clamp(top - 0.45f, floor + 2.2f, floor + 4.5f);
-            if (root != null) { _ceilingFor = root; _ceilingY = y; }
+            if (top == float.MaxValue && tallest > float.MinValue) top = tallest;
+            // the eave walls (blocking up to the rafters) end 0.31 m above the underside of the ceiling joists, which is the ceiling a light hangs from (measured in the built models)
+            // the ceiling is just under the roof's eave (measured in the built models: 2.5 to 3.6 m above the floor); with no roof, from the wall tops
+            float y = roofLow != float.MaxValue ? Mathf.Clamp(roofLow - 0.06f, floor + 2.4f, floor + 4.5f)
+                    : top == float.MaxValue ? floor + 2.9f : Mathf.Clamp(top - 0.31f, floor + 2.4f, floor + 4.5f);
+            if (root != null && (top != float.MaxValue || roofLow != float.MaxValue)) { _ceilingFor = root; _ceilingY = y; }   // (not kept while the model is still loading)
             return y;
         }
 
@@ -431,16 +446,27 @@ namespace Homesteader.Growth
 
         // ------------------------------------------------------------------ what a stage needs
 
+        /// <summary>
+        /// How one node of the recipe stands. A leaf is a plain line (Have against its quantity). A section has Children: mode "all" needs every
+        /// child, mode "any" needs the Chosen child (the first complete one, else the nearest to complete). An inactive section (its "if" does not
+        /// hold) needs nothing.
+        /// </summary>
         public sealed class LineStatus
         {
             public ConstructionLine Line;
-            /// <summary>An "or" line: how each alternative stands, and which one pays (the first complete one, else the nearest to complete).</summary>
-            public List<LineStatus> Options;
+            public List<LineStatus> Children;
+            public bool Any;
             public int Chosen;
-            public bool IsChoice => Options != null;
-            /// <summary>The line that actually pays: itself, or the chosen alternative of an "or" line.</summary>
-            public LineStatus Payer => Options != null ? Options[Chosen] : this;
-            public int Have;
+            public bool Active = true;
+            /// <summary>An "any" section the player has not chosen an option of yet: nothing is evaluated under it, it is a question.</summary>
+            public bool Unresolved;
+            public string Path;            // where the section sits in the recipe ("2.0"): what a choice is stored under
+            public int PickedIndex = -1;   // the option chosen (an index into the section's items)
+            public bool IsSection => Children != null;
+            public float Have;
+            /// <summary>What this line needs here: its quantity, plus per_depth_m x the depth on a well.</summary>
+            public float Need;
+            public float Needed => Need > 0f ? Need : (Line != null ? Line.quantity : 0f);
             /// <summary>Units paid beyond the quantity (a tag line paid by an item bigger than what was left): given back as change when built.</summary>
             public float Over;
             public readonly List<PlacedObject> Matches = new List<PlacedObject>();
@@ -448,7 +474,119 @@ namespace Homesteader.Growth
             public readonly List<Draw> Draws = new List<Draw>();
             /// <summary>Items lying loose on the ground in the yard (dropped, or too heavy for a box) that pay for this line.</summary>
             public readonly List<WorldItem> Loose = new List<WorldItem>();
-            public bool Done => Options != null ? Options.Exists(o => o.Done) : Have >= Line.quantity;
+
+            public bool Done
+            {
+                get
+                {
+                    if (!Active) return true;
+                    if (Unresolved) return false;
+                    if (Children == null) return Have >= Needed - 0.0001f;
+                    if (Any) return Children.Count == 0 || Children[Chosen].Done;
+                    foreach (LineStatus c in Children) if (!c.Done) return false;
+                    return true;
+                }
+            }
+
+            /// <summary>0..1: how close the node is to complete.</summary>
+            public float Progress
+            {
+                get
+                {
+                    if (!Active) return 1f;
+                    if (Unresolved) return 0f;
+                    if (Children == null) return Mathf.Clamp01(Have / Mathf.Max(0.0001f, Needed));
+                    if (Children.Count == 0) return 1f;
+                    if (Any) return Children[Chosen].Progress;
+                    float sum = 0f;
+                    foreach (LineStatus c in Children) sum += c.Progress;
+                    return sum / Children.Count;
+                }
+            }
+        }
+
+        /// <summary>What an evaluation has used up so far, copied for each alternative of an "any" section (only the paying one is kept).</summary>
+        private sealed class EvalCtx
+        {
+            public HashSet<PlacedObject> Used = new HashSet<PlacedObject>();
+            public HashSet<WorldItem> UsedLoose = new HashSet<WorldItem>();
+            public Dictionary<string, int> Drawn = new Dictionary<string, int>();   // owner instance id + item id -> count
+            public List<string> Paid = new List<string>();                          // item ids that paid so far (for "uses" conditions)
+            public List<string> Specs = new List<string>();                         // the specs of the lines taken so far, paid or not (a chosen alternative counts before anything is placed)
+
+            public EvalCtx Clone() => new EvalCtx
+            {
+                Used = new HashSet<PlacedObject>(Used),
+                UsedLoose = new HashSet<WorldItem>(UsedLoose),
+                Drawn = new Dictionary<string, int>(Drawn),
+                Paid = new List<string>(Paid),
+                Specs = new List<string>(Specs),
+            };
+
+            public void CopyFrom(EvalCtx o) { Used = o.Used; UsedLoose = o.UsedLoose; Drawn = o.Drawn; Paid = o.Paid; Specs = o.Specs; }
+
+            public static string Key(PlacedObject owner, string itemId) => owner.GetHashCode() + "|" + itemId;
+        }
+
+        /// <summary>The leaves that actually pay: every active line, only the chosen child of an "any" section.</summary>
+        public static IEnumerable<LineStatus> PayingLeaves(IEnumerable<LineStatus> nodes)
+        {
+            if (nodes == null) yield break;
+            foreach (LineStatus n in nodes)
+            {
+                if (!n.Active) continue;
+                if (n.Children == null) { yield return n; continue; }
+                if (n.Any)
+                {
+                    if (n.Children.Count > 0) foreach (LineStatus l in PayingLeaves(new[] { n.Children[n.Chosen] })) yield return l;
+                }
+                else foreach (LineStatus l in PayingLeaves(n.Children)) yield return l;
+            }
+        }
+
+        /// <summary>Whether an item matching the spec (an item id, #tag or ~equivalency) paid for an earlier line.</summary>
+        private static bool PaidWith(EvalCtx ctx, string spec)
+        {
+            foreach (string id in ctx.Paid) if (Matches(spec, id)) return true;
+            foreach (string s in ctx.Specs) if (string.Equals(s, spec, System.StringComparison.OrdinalIgnoreCase)) return true;   // the stage asks for it (the chosen alternative), even before it is placed
+            return false;
+        }
+
+        /// <summary>Every spec any line of the recipe names (for the yard ring: show it while the player holds something the stage could use).</summary>
+        private static bool RecipeNeeds(List<ConstructionLine> nodes, string held)
+        {
+            if (nodes == null) return false;
+            foreach (ConstructionLine n in nodes)
+            {
+                if (n.IsSection) { if (RecipeNeeds(n.items, held)) return true; }
+                else if (Matches(n.item_id, held)) return true;
+            }
+            return false;
+        }
+
+        /// <summary>A quantity for text: whole numbers plain, fractions to 3 places.</summary>
+        public static string Num(float v) => Mathf.Abs(v - Mathf.Round(v)) < 0.0005f ? Mathf.Round(v).ToString("0") : v.ToString("0.###");
+
+        /// <summary>What is still missing, in words, for the "Not ready" toast.</summary>
+        private void DescribeMissing(IEnumerable<LineStatus> nodes, List<string> missing)
+        {
+            foreach (LineStatus n in nodes)
+            {
+                if (n.Done || n.Unresolved) continue;
+                if (n.Children == null) { missing.Add($"{Num(n.Needed - n.Have)} x {LineName(n.Line.item_id)}"); continue; }
+                if (n.Any)
+                {
+                    var alts = new List<string>();
+                    foreach (LineStatus c in n.Children)
+                    {
+                        var part = new List<string>();
+                        foreach (LineStatus l in PayingLeaves(new[] { c })) part.Add($"{Num(l.Needed)} x {LineName(l.Line.item_id)}");
+                        alts.Add(string.Join(" and ", part));
+                    }
+                    missing.Add(string.Join(" or ", alts));
+                }
+                else DescribeMissing(n.Children, missing);
+            }
         }
 
         public struct Draw
@@ -464,6 +602,35 @@ namespace Homesteader.Growth
             public bool Have;
             /// <summary>Which of the group's tools are there (in the toolbar, in the yard, in a box or lying loose): the hover card ticks them.</summary>
             public readonly HashSet<string> Present = new HashSet<string>();
+            /// <summary>The build speed of the fastest tool of the group that is there (1 = baseline).</summary>
+            public float Speed;
+            /// <summary>Corded electric tools of the group that are there but have no power (no portable generator reaches the site): they do not count.</summary>
+            public readonly HashSet<string> Unpowered = new HashSet<string>();
+            /// <summary>The most a corded tool that counts in this group draws (watts), 0 when none is corded.</summary>
+            public float DrawW;
+        }
+
+        /// <summary>A corded electric tool (its manifest draws power_draw_w): it works at a build site only with a portable generator's power.</summary>
+        public static bool IsCorded(string itemId)
+        {
+            AssetCatalogItem it = HudBindings.GetCatalogItem(itemId);
+            return it != null && it.power_draw_w > 0f;
+        }
+
+        /// <summary>What the corded tools building this stage draw right now: the most power-hungry corded tool that counts in each group, while building.</summary>
+        public float CordedDrawW()
+        {
+            if (!Building || Finished || _tools == null) return 0f;
+            float sum = 0f;
+            foreach (ToolStatus t in _tools) if (t.Have) sum += t.DrawW;
+            return sum;
+        }
+
+        /// <summary>The build speed of a tool (its manifest's build_speed; 1 when it sets none).</summary>
+        private static float ToolSpeed(string itemId)
+        {
+            AssetCatalogItem item = HudBindings.GetCatalogItem(itemId);
+            return item != null && item.build_speed > 0f ? item.build_speed : 1f;
         }
 
         public bool Finished => Stage >= _stages.Count;
@@ -475,16 +642,12 @@ namespace Homesteader.Growth
         private static bool Matches(string spec, string itemId)
         {
             if (string.IsNullOrEmpty(spec) || string.IsNullOrEmpty(itemId)) return false;
-            return spec[0] == '#' ? GrowthRegistry.ToolMatches(spec, itemId) : string.Equals(spec, itemId, System.StringComparison.OrdinalIgnoreCase);
+            return GrowthRegistry.IsGroupSpec(spec) ? GrowthRegistry.ToolMatches(spec, itemId) : string.Equals(spec, itemId, System.StringComparison.OrdinalIgnoreCase);
         }
 
-        private int AlreadyDrawn(PlacedObject owner, string itemId)
+        private static int AlreadyDrawn(EvalCtx ctx, PlacedObject owner, string itemId)
         {
-            int n = 0;
-            if (_status == null) return 0;
-            foreach (LineStatus earlier in _status)
-                foreach (Draw dr in earlier.Payer.Draws) if (dr.Owner == owner && dr.ItemId == itemId) n += dr.Count;
-            return n;
+            return ctx.Drawn.TryGetValue(EvalCtx.Key(owner, itemId), out int n) ? n : 0;
         }
 
         private sealed class Source
@@ -504,12 +667,15 @@ namespace Homesteader.Growth
         /// reach the quantity with the least left over: the biggest that still fits, then the smallest that covers the rest.
         /// Sources, in order: placed objects, what is inside containers in the yard, items lying loose.
         /// </summary>
-        private LineStatus EvaluateOne(ConstructionLine line, List<PlacedObject> inYard, List<WorldItem> looseInYard, HashSet<PlacedObject> used, HashSet<WorldItem> usedLoose)
+        private LineStatus EvaluateOne(ConstructionLine line, List<PlacedObject> inYard, List<WorldItem> looseInYard, EvalCtx ctx)
         {
-            var st = new LineStatus { Line = line };
+            HashSet<PlacedObject> used = ctx.Used;
+            HashSet<WorldItem> usedLoose = ctx.UsedLoose;
+            var st = new LineStatus { Line = line, Need = NeedOf(line) };
+            ctx.Specs.Add(line.item_id);
             var sources = new List<Source>();
             foreach (PlacedObject o in inYard)
-                if (!used.Contains(o) && Matches(line.item_id, o.ItemId))
+                if (!used.Contains(o) && Matches(line.item_id, o.ItemId) && !(o.Contents != null && o.Contents.Count > 0 && GrowthRegistry.BulkOf(o.ItemId, out _, out _)))
                     sources.Add(new Source { Kind = 0, Owner = o, ItemId = o.ItemId, Available = 1, Value = GrowthRegistry.UnitValue(line.item_id, o.ItemId) });
             foreach (PlacedObject o in inYard)
             {
@@ -517,7 +683,7 @@ namespace Homesteader.Growth
                 foreach (ContainerStack cs in o.Contents)
                 {
                     if (!Matches(line.item_id, cs.ItemId)) continue;
-                    int left = cs.Count - AlreadyDrawn(o, cs.ItemId);
+                    int left = cs.Count - AlreadyDrawn(ctx, o, cs.ItemId);
                     if (left > 0) sources.Add(new Source { Kind = 1, Owner = o, ItemId = cs.ItemId, Available = left, Value = GrowthRegistry.UnitValue(line.item_id, cs.ItemId) });
                 }
             }
@@ -525,7 +691,7 @@ namespace Homesteader.Growth
                 if (!usedLoose.Contains(w) && Matches(line.item_id, w.ItemId))
                     sources.Add(new Source { Kind = 2, Loose = w, ItemId = w.ItemId, Available = 1, Value = GrowthRegistry.UnitValue(line.item_id, w.ItemId) });
 
-            float need = line.quantity;
+            float need = st.Need;
             float have = 0f;
             while (have < need - 0.0001f)
             {
@@ -553,9 +719,129 @@ namespace Homesteader.Growth
                 else if (src.Kind == 1) st.Draws.Add(new Draw { Owner = src.Owner, ItemId = src.ItemId, Count = src.Taken });
                 else { st.Loose.Add(src.Loose); usedLoose.Add(src.Loose); }
             }
-            st.Have = Mathf.RoundToInt(have);
+            st.Have = have;
             st.Over = Mathf.Max(0f, have - need);
+            foreach (PlacedObject o in st.Matches) ctx.Paid.Add(o.ItemId);
+            foreach (Draw dr in st.Draws) { ctx.Paid.Add(dr.ItemId); string k = EvalCtx.Key(dr.Owner, dr.ItemId); ctx.Drawn[k] = AlreadyDrawn(ctx, dr.Owner, dr.ItemId) + dr.Count; }
+            foreach (WorldItem w in st.Loose) ctx.Paid.Add(w.ItemId);
             return st;
+        }
+
+        /// <summary>One node of the recipe (a line, or a section with its children) against the yard.</summary>
+        private LineStatus EvaluateNode(ConstructionLine node, List<PlacedObject> inYard, List<WorldItem> looseInYard, EvalCtx ctx, string path)
+        {
+            if (!node.IsSection) return EvaluateOne(node, inYard, looseInYard, ctx);
+            var st = new LineStatus { Line = node, Children = new List<LineStatus>(), Any = string.Equals(node.mode, "any", System.StringComparison.OrdinalIgnoreCase) };
+            if (!string.IsNullOrEmpty(node.uses) && !PaidWith(ctx, node.uses)) st.Active = false;
+            if (!string.IsNullOrEmpty(node.not_uses) && PaidWith(ctx, node.not_uses)) st.Active = false;
+            if (!st.Active)
+            {
+                // shown, but needs nothing; its lines are evaluated on a copy so they show what they would take
+                EvalCtx probe = ctx.Clone();
+                for (int pi = 0; pi < node.items.Count; pi++) st.Children.Add(EvaluateNode(node.items[pi], inYard, looseInYard, probe, path + "." + pi));
+                return st;
+            }
+            if (!st.Any)
+            {
+                for (int ai = 0; ai < node.items.Count; ai++) st.Children.Add(EvaluateNode(node.items[ai], inYard, looseInYard, ctx, path + "." + ai));
+                return st;
+            }
+            // "any": the player chooses ONE option up front (one option is chosen for them); only that option is on the list. Until it is chosen the
+            // section is a question and nothing under it is evaluated.
+            st.Path = path;
+            int picked = -1;
+            if (node.items.Count == 1) picked = 0;
+            else if (_choices.TryGetValue(Stage + ":" + path, out int ci) && ci >= 0 && ci < node.items.Count) picked = ci;
+            if (picked < 0) { st.Unresolved = true; return st; }
+            st.PickedIndex = picked;
+            st.Chosen = 0;   // the one child
+            st.Children.Add(EvaluateNode(node.items[picked], inYard, looseInYard, ctx, path + "." + picked));
+            return st;
+        }
+
+        // ------------------------------------------------------------------ choosing between options
+
+        private readonly Dictionary<string, int> _choices = new Dictionary<string, int>();   // "stage:path" -> the option chosen
+
+        /// <summary>The questions still to answer for this stage: the "any" sections with no option chosen yet (only inside the options already chosen).</summary>
+        public List<LineStatus> Unresolved()
+        {
+            Evaluate();
+            var found = new List<LineStatus>();
+            void Walk(LineStatus n)
+            {
+                if (n == null || !n.Active) return;
+                if (n.Unresolved) { found.Add(n); return; }
+                if (n.Children != null) foreach (LineStatus c in n.Children) Walk(c);
+            }
+            if (_status != null) foreach (LineStatus l in _status) Walk(l);
+            return found;
+        }
+
+        /// <summary>True when the current stage's recipe has any choice in it (so a reset button makes sense).</summary>
+        public bool HasChoices()
+        {
+            ConstructionStageData stage = CurrentStage;
+            if (stage == null || stage.recipe == null) return false;
+            bool Has(List<ConstructionLine> items)
+            {
+                foreach (ConstructionLine n in items)
+                    if (n.IsSection && ((string.Equals(n.mode, "any", System.StringComparison.OrdinalIgnoreCase) && n.items.Count > 1) || Has(n.items))) return true;
+                return false;
+            }
+            return Has(stage.recipe);
+        }
+
+        /// <summary>Chooses an option of a question (an "any" section). Choices made deeper under it are forgotten.</summary>
+        public void Choose(string path, int option)
+        {
+            if (Building) return;
+            string key = Stage + ":" + path;
+            var drop = new List<string>();
+            foreach (string k in _choices.Keys) if (k.StartsWith(key + ".")) drop.Add(k);
+            foreach (string k in drop) _choices.Remove(k);
+            _choices[key] = option;
+            _status = null;
+        }
+
+        /// <summary>Forgets the choices of the current stage: the questions are asked again.</summary>
+        public void ResetChoices()
+        {
+            if (Building) return;
+            var drop = new List<string>();
+            foreach (string k in _choices.Keys) if (k.StartsWith(Stage + ":")) drop.Add(k);
+            foreach (string k in drop) _choices.Remove(k);
+            _status = null;
+        }
+
+        public List<string> ChoiceList()
+        {
+            var list = new List<string>();
+            foreach (var kv in _choices) list.Add(kv.Key + "=" + kv.Value);
+            return list;
+        }
+
+        public void SetChoices(List<string> list)
+        {
+            _choices.Clear();
+            if (list == null) return;
+            foreach (string e in list)
+            {
+                int eq = e.LastIndexOf('=');
+                if (eq > 0 && int.TryParse(e.Substring(eq + 1), out int v)) _choices[e.Substring(0, eq)] = v;
+            }
+            _status = null;
+        }
+
+        /// <summary>A short label for one option of a question: its title, or what it takes.</summary>
+        public static string OptionLabel(ConstructionLine node)
+        {
+            if (node == null) return "?";
+            if (!node.IsSection) return Num(node.quantity) + " x " + LineName(node.item_id);
+            if (!string.IsNullOrEmpty(node.section)) return node.section;
+            var parts = new List<string>();
+            foreach (ConstructionLine c in node.items) parts.Add(OptionLabel(c));
+            return string.Join(" and ", parts);
         }
 
         /// <summary>Counts what is in the yard against the current stage's list (refreshed a few times a second).</summary>
@@ -573,43 +859,11 @@ namespace Homesteader.Growth
             foreach (PlacedObject o in PlacedObject.All) if (o != null && InYard(o.transform.position)) inYard.Add(o);
             var looseInYard = new List<WorldItem>();
             foreach (WorldItem w in WorldItem.All) if (w != null && InYard(w.transform.position)) looseInYard.Add(w);
-            var usedLoose = new HashSet<WorldItem>();
 
-            // Each placed object pays for one line only (the lines are taken in order). An "or" line takes ONE alternative, in full.
-            var used = new HashSet<PlacedObject>();
-            foreach (ConstructionLine line in stage.recipe)
-            {
-                if (line.any_of != null && line.any_of.Count > 0)
-                {
-                    var choice = new LineStatus { Line = line, Options = new List<LineStatus>() };
-                    var optUsed = new List<HashSet<PlacedObject>>();
-                    var optUsedLoose = new List<HashSet<WorldItem>>();
-                    foreach (ConstructionOption opt in line.any_of)
-                    {
-                        var u = new HashSet<PlacedObject>(used);
-                        var ul = new HashSet<WorldItem>(usedLoose);
-                        choice.Options.Add(EvaluateOne(new ConstructionLine { item_id = opt.item_id, quantity = Mathf.Max(1, opt.quantity) }, inYard, looseInYard, u, ul));
-                        optUsed.Add(u);
-                        optUsedLoose.Add(ul);
-                    }
-                    // the first complete alternative pays; none complete: the one nearest to it is shown
-                    int best = 0;
-                    float bestFrac = -1f;
-                    for (int k = 0; k < choice.Options.Count; k++)
-                    {
-                        if (choice.Options[k].Done) { best = k; bestFrac = 2f; break; }
-                        float frac = choice.Options[k].Have / (float)Mathf.Max(1, choice.Options[k].Line.quantity);
-                        if (frac > bestFrac) { bestFrac = frac; best = k; }
-                    }
-                    choice.Chosen = best;
-                    choice.Have = choice.Options[best].Have;
-                    used.UnionWith(optUsed[best]);       // only the paying alternative uses things up
-                    usedLoose.UnionWith(optUsedLoose[best]);
-                    _status.Add(choice);
-                    continue;
-                }
-                _status.Add(EvaluateOne(line, inYard, looseInYard, used, usedLoose));
-            }
+            // Each placed object pays for one line only (the lines are taken in order). A section takes its children as described on LineStatus.
+            var ctx = new EvalCtx();
+            for (int ri = 0; ri < stage.recipe.Count; ri++)
+                _status.Add(EvaluateNode(stage.recipe[ri], inYard, looseInYard, ctx, ri.ToString()));
 
             // Tools: in the toolbar, in the yard (placed, in a box, or lying loose). They stay where they are. Every tool of a group is
             // checked, so the hover card can tick the ones that are there; the group is met when any one is.
@@ -620,18 +874,31 @@ namespace Homesteader.Growth
                 foreach (string tool in group.tools)
                 {
                     bool has = false;
+                    float best = 0f;
+                    void Consider(string itemId)
+                    {
+                        if (!Matches(tool, itemId)) return;
+                        if (IsCorded(itemId) && !PortableGenerator.Powers(this)) { ts.Unpowered.Add(tool); return; }   // a corded tool needs a generator at the site
+                        has = true;
+                        AssetCatalogItem drawInfo = HudBindings.GetCatalogItem(itemId);
+                        if (drawInfo != null) ts.DrawW = Mathf.Max(ts.DrawW, drawInfo.power_draw_w);
+                        best = Mathf.Max(best, ToolSpeed(itemId));
+                    }
                     if (hud != null)
                         foreach (ToolbarSlotData slot in hud.Toolbar)
-                            if (slot.Count > 0 && Matches(tool, slot.IconId)) { has = true; break; }
-                    if (!has)
-                        foreach (PlacedObject o in inYard)
                         {
-                            if (Matches(tool, o.ItemId)) { has = true; break; }
-                            if (o.Contents != null) foreach (ContainerStack cs in o.Contents) if (cs.Count > 0 && Matches(tool, cs.ItemId)) { has = true; break; }
-                            if (has) break;
+                            if (slot.Count <= 0) continue;
+                            Consider(slot.IconId);
+                            // a toolbox (any container) carried in the toolbar: the tools inside it count too
+                            if (slot.Contents != null) foreach (ContainerStack cs in slot.Contents) if (cs != null && cs.Count > 0) Consider(cs.ItemId);
                         }
-                    if (!has) foreach (WorldItem w in looseInYard) if (Matches(tool, w.ItemId)) { has = true; break; }
-                    if (has) ts.Present.Add(tool);
+                    foreach (PlacedObject o in inYard)
+                    {
+                        Consider(o.ItemId);
+                        if (o.Contents != null) foreach (ContainerStack cs in o.Contents) if (cs.Count > 0) Consider(cs.ItemId);
+                    }
+                    foreach (WorldItem w in looseInYard) Consider(w.ItemId);
+                    if (has) { ts.Present.Add(tool); ts.Speed = Mathf.Max(ts.Speed, best); }
                 }
                 ts.Have = ts.Present.Count > 0;
                 _tools.Add(ts);
@@ -667,18 +934,14 @@ namespace Homesteader.Growth
             }
             Evaluate(true);
             ConstructionStageData stage = CurrentStage;
-            var missing = new List<string>();
-            foreach (LineStatus l in _status)
+            List<LineStatus> questions = Unresolved();
+            if (questions.Count > 0)
             {
-                if (l.Done) continue;
-                if (l.IsChoice)
-                {
-                    var alts = new List<string>();
-                    foreach (LineStatus o in l.Options) alts.Add($"{o.Line.quantity} x {LineName(o.Line.item_id)}");
-                    missing.Add(string.Join(" or ", alts));
-                }
-                else missing.Add($"{l.Line.quantity - l.Have} x {LineName(l.Line.item_id)}");
+                ToastNotificationSystem.ShowInfo("Choose how to build", "Pin the list (P) and choose an option first: " + (string.IsNullOrEmpty(questions[0].Line.section) ? "the materials" : questions[0].Line.section) + ".");
+                return false;
             }
+            var missing = new List<string>();
+            DescribeMissing(_status, missing);
             foreach (ToolStatus t in _tools)
                 if (!t.Have) missing.Add(ToolGroupName(t.Group));
             if (missing.Count > 0)
@@ -688,9 +951,24 @@ namespace Homesteader.Growth
             }
 
             PedController ped = player != null ? player.GetComponent<PedController>() : null;
-            if (ped == null) ped = FindAnyObjectByType<PedController>();
+            if (ped == null) ped = PedController.Current;
             if (ped == null) { Complete(); return true; }   // nobody to animate
             StartCoroutine(BuildRoutine(ped));
+            return true;
+        }
+
+        /// <summary>
+        /// TEMPORARY test shortcut (Alt + right click on the site): builds the current stage at once with no materials, no tools and no build time.
+        /// Nothing is used up. Remove it (and the Alt branch in PlacementController) when the recipes are settled.
+        /// </summary>
+        public bool TryBuildFree()
+        {
+            if (Finished || Building) return false;
+            ConstructionStageData stage = CurrentStage;
+            Stage++;
+            _status = null;
+            RefreshVisual();
+            if (Finished) ConstructionHover.ForgetPinAt(transform.position);   // (the yard is NOT tidied by itself any more: it moved things out of neighbouring buildings. Tidying is the player's: the Tidy Area key)
             return true;
         }
 
@@ -701,9 +979,34 @@ namespace Homesteader.Growth
 
         public bool Building { get; private set; }
         private float _buildStart, _buildEnd;
+        private float _buildSeconds = BuildSeconds;   // this build's length: the baseline over the speed of its slowest tool group
+
+        /// <summary>
+        /// How fast the tools at the site build this stage (1 = baseline): each tool group counts its fastest tool that is there, the stage is as slow as its
+        /// slowest group. A primitive tool (a hammer, a hand saw) is below 1, so it takes longer.
+        /// </summary>
+        public float ToolSpeedNow
+        {
+            get
+            {
+                Evaluate();
+                float speed = 0f;
+                bool any = false;
+                foreach (ToolStatus t in _tools)
+                {
+                    if (!t.Have) continue;
+                    speed = any ? Mathf.Min(speed, t.Speed) : t.Speed;
+                    any = true;
+                }
+                return any ? Mathf.Max(0.1f, speed) : 1f;
+            }
+        }
+
+        /// <summary>How long building the current stage would take now, in seconds.</summary>
+        public float EstimatedBuildSeconds => Building ? _buildSeconds : Mathf.Clamp(BuildSeconds / ToolSpeedNow, 5f, 600f);
 
         /// <summary>0 to 1 while a stage is being built: it follows the clock, so it never stalls while the ped is walking.</summary>
-        public float BuildProgress { get { return Building ? Mathf.Clamp01((Time.time - _buildStart) / BuildSeconds) : 0f; } }
+        public float BuildProgress { get { return Building ? Mathf.Clamp01((Time.time - _buildStart) / _buildSeconds) : 0f; } }
 
         private static readonly string[] FoundationClips = { "Dig", "Hoe" };
         private static readonly string[] FramingClips = { "Fixing_Kneeling_RT", "Chop_Tree_RT" };
@@ -843,18 +1146,19 @@ namespace Homesteader.Growth
         /// </summary>
         private System.Collections.IEnumerator BuildRoutine(PedController ped)
         {
+            Evaluate(true);
+            _buildSeconds = Mathf.Clamp(BuildSeconds / ToolSpeedNow, 5f, 600f);   // the tools at the site set the pace
             Building = true;
             _buildStilts = Stage == 0 && StructureLook.FoundationStyle(PayerIds()) == "stilts";
             _buildStart = Time.time;
-            _buildEnd = _buildStart + BuildSeconds;
+            _buildEnd = _buildStart + _buildSeconds;
             ConstructionStageData stage = CurrentStage;
-            ToastNotificationSystem.ShowInfo(Name(), "Building the " + StageTitle(stage).ToLowerInvariant() + "...");
+            StartCoroutine(RunBuildPreview(stage));   // a stage with a build_motion shows its model being raised, hoisted or fitted while the ped works
 
             // the materials to fetch: each distinct thing paying this stage, nearest first (a few trips at most)
             var sources = new List<GameObject>();
-            foreach (LineStatus line in _status)
+            foreach (LineStatus l in PayingLeaves(_status))
             {
-                LineStatus l = line.Payer;
                 foreach (PlacedObject o in l.Matches) if (o != null && !sources.Contains(o.gameObject)) sources.Add(o.gameObject);
                 foreach (Draw dr in l.Draws) if (dr.Owner != null && !sources.Contains(dr.Owner.gameObject)) sources.Add(dr.Owner.gameObject);
                 foreach (WorldItem w in l.Loose) if (w != null && !sources.Contains(w.gameObject)) sources.Add(w.gameObject);
@@ -864,8 +1168,8 @@ namespace Homesteader.Growth
             if (sources.Count > 5) sources.RemoveRange(5, sources.Count - 5);
             var hidden = new List<GameObject>();
 
-            float start = Time.time, end = start + BuildSeconds;
-            float fetchBudget = BuildSeconds * 0.45f;
+            float start = Time.time, end = start + _buildSeconds;
+            float fetchBudget = _buildSeconds * 0.45f;
             bool cancelled = false;
 
             foreach (GameObject src in sources)
@@ -888,9 +1192,11 @@ namespace Homesteader.Growth
             }
 
             // the work: a random spot at a time, hammering (digging, for the foundation) until the time is up
-            string clip = (Stage == 0 ? FoundationClips : FramingClips)[0];
+            string[] clips = stage != null && stage.build_clips != null && stage.build_clips.Count > 0 ? stage.build_clips.ToArray() : new[] { (Stage == 0 ? FoundationClips : FramingClips)[0] };
+            int burst = 0;
             while (!cancelled && Time.time < end)
             {
+                string clip = clips[burst++ % clips.Length];   // the stage's own work, one clip after the other
                 bool ok = true;
                 yield return WalkTo(ped, RandomSpot(), 0.6f, r => ok = r);
                 if (!ok) { cancelled = true; break; }
@@ -907,15 +1213,56 @@ namespace Homesteader.Growth
             ped.Carrying = false;
 
             Building = false;
+            EndBuildPreview();
             foreach (GameObject g in hidden) Show(g, true);   // (the used ones are removed by Complete)
             if (cancelled)
             {
                 if (Stage == 0 && _grade != null) { _grade.Apply(0f); Homesteader.World.TerrainGrade.GroundChanged(); }   // the ground goes back
                 _status = null;
-                ToastNotificationSystem.ShowInfo(Name(), "Building stopped.");
                 yield break;
             }
             Complete();
+        }
+
+        // ------------------------------------------------------------------ the stage's model moving while it is built
+
+        private GameObject _preview;
+        private bool _previewWanted;
+
+        /// <summary>
+        /// While a stage with a build_motion is built, its model stands in the site and moves with the progress (the mast is raised, the head hoisted, the blades fitted and spun up);
+        /// what was built before is hidden meanwhile (the preview has it too). <see cref="EndBuildPreview"/> puts the finished look back.
+        /// </summary>
+        private System.Collections.IEnumerator RunBuildPreview(ConstructionStageData stage)
+        {
+            _previewWanted = false;
+            if (stage == null || string.IsNullOrEmpty(stage.build_motion) || string.IsNullOrEmpty(stage.item_id)) yield break;
+            if (!ItemRegistry.TryGet(stage.item_id, out ItemRegistry.ItemInfo info) || info.Prefab == null) yield break;
+            _previewWanted = true;
+            GlbTemplate glb = info.Prefab.GetComponent<GlbTemplate>();
+            while (glb != null && !glb.Ready)
+            {
+                glb.EnsureLoading();
+                if (glb.Failed || !_previewWanted) yield break;
+                yield return null;
+            }
+            if (!_previewWanted || !Building) yield break;
+            _preview = Instantiate(info.Prefab, transform);
+            _preview.name = "BuildPreview";
+            _preview.SetActive(true);
+            _preview.transform.localPosition = Vector3.zero;
+            _preview.transform.localRotation = Quaternion.identity;
+            foreach (Collider c in _preview.GetComponentsInChildren<Collider>(true)) Destroy(c);
+            if (_visual != null) _visual.SetActive(false);
+            _preview.AddComponent<BuildMotionView>().Init(this, stage.build_motion);
+        }
+
+        private void EndBuildPreview()
+        {
+            _previewWanted = false;
+            if (_preview != null) Destroy(_preview);
+            _preview = null;
+            if (_visual != null) _visual.SetActive(true);
         }
 
         /// <summary>The time is up: the materials are used up and the stage exists.</summary>
@@ -923,9 +1270,8 @@ namespace Homesteader.Growth
         {
             ConstructionStageData stage = CurrentStage;
             // the materials are used up (placed ones, and what is drawn out of boxes); tools stay
-            foreach (LineStatus line in _status)
+            foreach (LineStatus l in PayingLeaves(_status))   // an "any" section uses up only the alternative that paid
             {
-                LineStatus l = line.Payer;   // an "or" line uses up only the alternative that paid
                 RememberLooks(l);
                 foreach (PlacedObject o in l.Matches) if (o != null) o.Remove();
                 foreach (WorldItem w in l.Loose) if (w != null) Destroy(w.gameObject);
@@ -934,15 +1280,14 @@ namespace Homesteader.Growth
                 {
                     if (dr.Owner == null) continue;
                     ContainerRules.Remove(dr.Owner.Contents, dr.ItemId, dr.Count);
-                    if (dr.Owner.Contents.Count == 0 && ContainerRules.IsDisposable(dr.Owner.ItemId)) dr.Owner.Remove();   // an emptied cardboard box goes away
+                    if (dr.Owner.Contents.Count == 0 && (ContainerRules.IsDisposable(dr.Owner.ItemId) || WheelbarrowPush.IsPile(dr.Owner.ItemId))) dr.Owner.Remove();   // an emptied cardboard box, or a heap used up, goes away
                 }
             }
 
             Stage++;
             _status = null;
             RefreshVisual();
-            ToastNotificationSystem.ShowInfo(Name(), Finished ? "Construction finished." : StageTitle(stage) + " built.");
-            if (Finished) ConstructionHover.ForgetPinAt(transform.position);
+            if (Finished) ConstructionHover.ForgetPinAt(transform.position);   // (the yard is NOT tidied by itself any more: it moved things out of neighbouring buildings. Tidying is the player's: the Tidy Area key)
         }
 
 
@@ -952,7 +1297,7 @@ namespace Homesteader.Growth
         /// </summary>
         private void GiveChange(string spec, float over)
         {
-            if (over < 0.999f || string.IsNullOrEmpty(spec) || spec[0] != '#') return;
+            if (over < 0.999f || !GrowthRegistry.IsGroupSpec(spec)) return;
             var members = GrowthRegistry.ToolItems(spec);
             members.Sort((a, b) => GrowthRegistry.UnitValue(spec, b).CompareTo(GrowthRegistry.UnitValue(spec, a)));
             int dropped = 0;
@@ -990,10 +1335,21 @@ namespace Homesteader.Growth
             int added = hud.AddItemToToolbar(StructureId, 1, HudBindings.GetMaxStack(StructureId));
             if (added <= 0) { ToastNotificationSystem.ShowWarning("Toolbar full", "Make room on the toolbar to take the structure back."); return false; }
             HudBindings.Instance?.RefreshToolbar();
-            ToastNotificationSystem.ShowInfo(Name(), "Site removed. The structure is back in your toolbar.");
             ConstructionHover.ForgetPinAt(transform.position);
             Destroy(gameObject);
             return true;
+        }
+
+        /// <summary>
+        /// Admin: removes the structure entirely, at any stage (Alt + right click with a hammer in hand). What is mounted on it goes with it; its wires and pipes are
+        /// cut (a link to a removed device is dropped on the next redraw). Nothing is given back.
+        /// </summary>
+        public void AdminRemove()
+        {
+            foreach (AttachedObject at in new List<AttachedObject>(AttachedObject.All))
+                if (at != null && at.Site == this) Destroy(at.gameObject);
+            ConstructionHover.ForgetPinAt(transform.position);
+            Destroy(gameObject);
         }
 
         public string Name() { return HudBindings.GetItemName(StructureId); }
@@ -1007,7 +1363,8 @@ namespace Homesteader.Growth
         public static string LineName(string spec)
         {
             if (string.IsNullOrEmpty(spec)) return "?";
-            if (spec[0] != '#') return HudBindings.GetItemName(spec);
+            if (spec[0] == '~') return GrowthRegistry.EquivalencyLabel(spec);
+            if (spec[0] != '#') return HudBindings.GetDisplayName(spec);
             string[] parts = spec.Substring(1).Split('_');
             for (int i = 0; i < parts.Length; i++) if (parts[i].Length > 0) parts[i] = char.ToUpperInvariant(parts[i][0]) + parts[i].Substring(1);
             return string.Join(" ", parts);
@@ -1100,6 +1457,8 @@ namespace Homesteader.Growth
             StructureLook.Apply(model.transform, _lookItems);   // birch logs, a tin roof: the look follows what it was built from
             ApplyWallPaints(model.transform);                    // and the walls painted one by one
             ShowFoundationVariant(model.transform);
+            if (Finished) WindTurbine.AttachToModel(model, HudBindings.GetCatalogItem(StructureId) != null ? HudBindings.GetCatalogItem(StructureId).max_power_w : 0f);   // a finished wind turbine turns into the wind
+            if (Finished && !string.IsNullOrEmpty(FittedPanel)) StartCoroutine(ShowFittedPanel(model.transform));   // a well's sub panel on its post
             Fireplace = Fireplace.Attach(this, model.transform);   // a chimney with a firebox: logs, fire and smoke
             // windows let light through: the pane casts no shadow (and the walls, roof and a closed door do)
             foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
@@ -1120,6 +1479,75 @@ namespace Homesteader.Growth
         private Collider[] _leafColliders;
 
         // The items that set how the building looks (see StructureLook): the last log / siding item used for the walls, the last roofing for the roof.
+        // ------------------------------------------------------------------ a drilled well (docs/WELLS.md)
+
+        /// <summary>True for a drilled well (its manifest's is_well).</summary>
+        public bool IsWell { get { AssetCatalogItem it = HudBindings.GetCatalogItem(StructureId); return it != null && it.is_well; } }
+
+        /// <summary>Metres down to water where this well stands (0 for anything that is not a well).</summary>
+        public float WellDepthM => IsWell ? WaterTable.DepthM(transform.position) : 0f;
+
+        /// <summary>The pump that went down the well (saved), or null.</summary>
+        public string PumpId { get; set; }
+
+        /// <summary>The sub panel fitted on the well's post (saved), or null.</summary>
+        public string FittedPanel { get; private set; }
+
+        /// <summary>What a recipe line needs at this site: its quantity, plus per_depth_m x the well's depth (whole units).</summary>
+        public float NeedOf(ConstructionLine line)
+        {
+            if (line == null) return 0f;
+            if (line.per_depth_m <= 0f) return line.quantity;
+            return Mathf.Ceil(line.quantity + line.per_depth_m * WellDepthM);
+        }
+
+        /// <summary>A finished well and its sub panel in hand: the panel is fitted on the well's post and the well becomes something to wire (AC wire to a breaker box). True when the click was for that.</summary>
+        public bool TryFitPanel(string heldId)
+        {
+            AssetCatalogItem it = HudBindings.GetCatalogItem(StructureId);
+            if (it == null || string.IsNullOrEmpty(it.attach_item) || it.attach_item != heldId) return false;
+            if (!Finished) { ToastNotificationSystem.ShowInfo("Not finished", "Finish building the well first."); return true; }
+            if (!string.IsNullOrEmpty(FittedPanel)) { ToastNotificationSystem.ShowInfo("Already fitted", "This well has its sub panel."); return true; }
+            HudState hud = HudState.Active;
+            if (hud == null || !hud.ConsumeFromSelectedSlot(1)) return true;
+            HudBindings.Instance?.RefreshToolbar();
+            FitPanel(heldId);
+            return true;
+        }
+
+        /// <summary>Puts the sub panel on (a fresh fit or a loaded game): its model on the post, and the well wired as that panel.</summary>
+        public void FitPanel(string panelId)
+        {
+            if (string.IsNullOrEmpty(panelId)) return;
+            FittedPanel = panelId;
+            WireNode.Attach(gameObject, panelId);
+            if (VisualRoot != null && Finished) StartCoroutine(ShowFittedPanel(VisualRoot));
+        }
+
+        private GameObject _panelModel;
+
+        private System.Collections.IEnumerator ShowFittedPanel(Transform model)
+        {
+            if (_panelModel != null || string.IsNullOrEmpty(FittedPanel)) yield break;
+            if (!ItemRegistry.TryGet(FittedPanel, out ItemRegistry.ItemInfo info) || info.Prefab == null) yield break;
+            var tpl = info.Prefab.GetComponent<Homesteader.Modding.GlbTemplate>();
+            if (tpl != null)
+            {
+                tpl.EnsureLoading();
+                float until = Time.realtimeSinceStartup + 15f;
+                while (!tpl.Ready && !tpl.Failed && Time.realtimeSinceStartup < until) yield return null;
+                if (!tpl.Ready) yield break;
+            }
+            if (_panelModel != null || model == null) yield break;
+            Transform mount = null;
+            foreach (Transform t in model.GetComponentsInChildren<Transform>(true)) if (t.name == "PanelMount") { mount = t; break; }
+            _panelModel = Instantiate(info.Prefab, mount != null ? mount : model);
+            _panelModel.name = "FittedSubPanel";
+            _panelModel.SetActive(true);
+            foreach (Collider c in _panelModel.GetComponentsInChildren<Collider>(true)) Destroy(c);
+            _panelModel.transform.localPosition = mount != null ? Vector3.zero : new Vector3(0.75f, 0.72f, 0.6f);
+        }
+
         private readonly List<string> _lookItems = new List<string>();
         public List<string> LookItems => _lookItems;
 
@@ -1277,7 +1705,7 @@ namespace Homesteader.Growth
             if (paint == null || p.Runs.Count == 0) return;
             if (p.Go != null) Destroy(p.Go);
             Vector3 n = transform.TransformDirection(p.N), t = transform.TransformDirection(p.T), o = transform.TransformPoint(p.O);
-            o += n * (0.004f + 0.0015f * Mathf.Min(p.Order, 20));
+            o += n * (0.008f + 0.002f * Mathf.Min(p.Order, 20));   // (a hair off the wall: far enough that the depth buffer keeps it apart from the wall at any zoom)
             var verts = new List<Vector3>();
             var tris = new List<int>();
             foreach (Vector3Int r in p.Runs)
@@ -1292,9 +1720,20 @@ namespace Homesteader.Growth
             }
             var mesh = new Mesh { name = "PaintPatch" };
             mesh.SetVertices(verts);
-            mesh.SetTriangles(tris, 0);
             var nrm = new Vector3[verts.Count];
-            for (int k = 0; k < nrm.Length; k++) nrm[k] = root.InverseTransformDirection(n);
+            Vector3 nLocal = root.InverseTransformDirection(n);
+            for (int k = 0; k < nrm.Length; k++) nrm[k] = nLocal;
+            // Each quad is wound so it faces out of the wall, and only that way is drawn (Cull Back): paint on the inside of a wall can not be seen from outside through it.
+            for (int q = 0; q + 5 < tris.Count; q += 6)
+            {
+                Vector3 f = Vector3.Cross(verts[tris[q + 1]] - verts[tris[q]], verts[tris[q + 2]] - verts[tris[q]]);
+                if (Vector3.Dot(f, nLocal) < 0f)
+                {
+                    (tris[q + 1], tris[q + 2]) = (tris[q + 2], tris[q + 1]);
+                    (tris[q + 4], tris[q + 5]) = (tris[q + 5], tris[q + 4]);
+                }
+            }
+            mesh.SetTriangles(tris, 0);
             mesh.normals = nrm;
             mesh.RecalculateBounds();
             p.Go = new GameObject("PaintPatch");
@@ -1307,7 +1746,7 @@ namespace Homesteader.Growth
             mat.SetColor("_BaseColor", c);
             mat.SetFloat("_Smoothness", paint.look_smoothness);
             mat.SetFloat("_Metallic", paint.look_metallic);
-            mat.SetFloat("_Cull", 0f);                      // visible from either side, whatever the winding
+            mat.SetFloat("_Cull", 2f);                      // seen from the front only (see the winding above)
             mr.sharedMaterial = mat;
             mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         }
@@ -1421,7 +1860,6 @@ namespace Homesteader.Growth
             {
                 _wallPaints["Door:" + door.name] = paint.id;
                 ApplyWallPaints(root);
-                ToastNotificationSystem.ShowInfo(Name(), "Painted " + DoorLabel(door.name) + " " + paint.name + ".");
                 return true;
             }
             Transform wall = WallRootOf(hit.collider.transform, root);
@@ -1432,7 +1870,6 @@ namespace Homesteader.Growth
                     {
                         _wallPaints["Shutter:" + wall.name] = paint.id;      // the shutters are part of the wall: all of that wall's shutters
                         ApplyWallPaints(root);
-                        ToastNotificationSystem.ShowInfo(Name(), "Painted the shutters on the " + wall.name.Substring("Wall_".Length).ToLowerInvariant() + " wall " + paint.name + ".");
                         return true;
                     }
             Vector3 o = hit.point - transform.position, n = hit.normal;
@@ -1441,7 +1878,6 @@ namespace Homesteader.Growth
             {
                 _wallPaints[wall.name + "|out"] = paint.id;      // the outside: the whole wall
                 ApplyWallPaints(root);
-                ToastNotificationSystem.ShowInfo(Name(), "Painted the outside of the " + wall.name.Substring("Wall_".Length).ToLowerInvariant() + " wall " + paint.name + ".");
                 return true;
             }
             Renderer r = hit.collider.GetComponent<Renderer>();
@@ -1462,7 +1898,6 @@ namespace Homesteader.Growth
             }
             _patches.Add(patch);
             BuildPatch(patch, root);
-            ToastNotificationSystem.ShowInfo(Name(), "Painted that section of the wall " + paint.name + ".");
             return true;
         }
 
@@ -1490,6 +1925,11 @@ namespace Homesteader.Growth
             foreach (WorldItem w in l.Loose) if (w != null) ids.Add(w.ItemId);
             foreach (string id in ids)
             {
+                AssetCatalogItem pump = HudBindings.GetCatalogItem(id);
+                if (pump != null && pump.flow_lph > 0f) PumpId = id;   // a well remembers the pump that went down it
+            }
+            foreach (string id in ids)
+            {
                 if (!StructureLook.TryLook(id, out AssetCatalogItem item)) continue;
                 // an item replaces whatever set the same parts before it (new bricks over old for the chimney, new paint over old)
                 _lookItems.RemoveAll(e => StructureLook.TryLook(e, out AssetCatalogItem other) && SharesPart(item, other));
@@ -1508,9 +1948,8 @@ namespace Homesteader.Growth
         {
             var ids = new List<string>();
             if (_status == null) return ids;
-            foreach (LineStatus line in _status)
+            foreach (LineStatus l in PayingLeaves(_status))
             {
-                LineStatus l = line.Payer;
                 foreach (PlacedObject o in l.Matches) if (o != null) ids.Add(o.ItemId);
                 foreach (Draw dr in l.Draws) ids.Add(dr.ItemId);
                 foreach (WorldItem w in l.Loose) if (w != null) ids.Add(w.ItemId);
@@ -1974,7 +2413,7 @@ namespace Homesteader.Growth
                 string held = HeldItemId();
                 if (held != null)
                 {
-                    foreach (ConstructionLine l in CurrentStage.recipe) if (Matches(l.item_id, held)) { show = true; break; }
+                    show = RecipeNeeds(CurrentStage.recipe, held);
                     if (!show) foreach (ConstructionToolGroup g in CurrentStage.tool_groups) foreach (string t in g.tools) if (Matches(t, held)) { show = true; break; }
                 }
             }
@@ -2036,10 +2475,10 @@ namespace Homesteader.Growth
             if (cam == null) return null;
             if (UnityEngine.InputSystem.Mouse.current == null) return null;
             Vector2 pointer = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
-            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(pointer), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            RaycastHit[] hits = Homesteader.UI.HoverTarget.SortedHits(cam, pointer);
             foreach (RaycastHit h in hits)
             {
+                if (h.collider == null) continue;
                 if (h.collider.GetComponentInParent<PedController>() != null) continue;
                 return h.collider.GetComponentInParent<ConstructionSite>();   // the first thing hit decides: a material lying on it is not the site
             }

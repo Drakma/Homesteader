@@ -24,7 +24,8 @@
     "look_target": "floor",
     "look_color": "#2c3a5c",
     "look_smoothness": 0.04,
-    "look_metallic": 0.0
+    "look_metallic": 0.0,
+    "display_weight": true
   },
   "models": [
     {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "fuel_tank_propane_3800l",
-  "name": "3800L Propane Tank",
+  "name": "Large Propane Tank",
   "category": "fuel",
   "description": "A large residential propane gas tank that holds double the capacity of the 1900L tank.",
   "icon": "fuel_tank_propane_3800l.png",
@@ -20,16 +20,20 @@
     "stores": [
       "water"
     ],
-    "sale_unit": "tank"
+    "sale_unit": "tank",
+    "wire_role": "propane_tank",
+    "placeable": true
   },
   "models": [
     {
-      "file": "SM_Item_Tank_Propane_1000gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Tank_Propane_1000gal.obj",
-      "format": "obj"
+      "file": "fuel_tank_propane_3800l.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 4.9,
+        "y": 1.38,
+        "z": 1.048
+      },
+      "triangles": 636
     }
   ],
   "utilities": {
@@ -71,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.4,
-      "depth": 1.4,
-      "height": 4.5
+      "width": 4.9,
+      "depth": 1.05,
+      "height": 1.38
     },
     "fuel_type": "propane",
     "capacity_l": 3800,

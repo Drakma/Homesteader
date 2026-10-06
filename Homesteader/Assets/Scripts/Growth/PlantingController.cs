@@ -46,11 +46,19 @@ namespace Homesteader.Growth
         private PedController workPed;
         private Homesteader.World.ForestTree pendingTree;   // a clicked swing waiting for its impact frame
         private string pendingHeld;
+        private Transform pendingStump;   // a chainsaw swing at a stump, waiting for its impact frame
 
         private void Update()
         {
             if (!ReadRightButton(out bool down, out bool up, out Vector2 pos)) return;
 
+            if (pendingStump != null && (workPed == null || ImpactReached(workPed) || Time.unscaledTime > workUntil))
+            {
+                Transform st = pendingStump;
+                pendingStump = null;
+                Homesteader.World.ForestTrees.ChainsawStump(st, workPed != null ? workPed.transform : null);   // the stump goes, a pile of wood chips lies in its place
+                if (workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+            }
             // A clicked swing: the hit lands when the axe does (or when the clip ran out without us seeing it).
             if (pendingTree != null)
             {
@@ -192,7 +200,7 @@ namespace Homesteader.Growth
             if (!Homesteader.World.ForestTrees.CanFell(heldId)) return false;
             if (!Homesteader.World.ForestTrees.TryPick(cam.ScreenPointToRay(screenPos), out tree)) return false;
             if (!Homesteader.World.ForestTrees.CanFellTree(tree, heldId)) { tree = null; return false; }
-            ped = FindAnyObjectByType<PedController>();
+            ped = PedController.Current;
             return true;
         }
 
@@ -223,7 +231,7 @@ namespace Homesteader.Growth
                 && Homesteader.World.ForestTrees.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.ForestTree tree)
                 && Homesteader.World.ForestTrees.CanFellTree(tree, heldId))
             {
-                var chopper = FindAnyObjectByType<PedController>();
+                var chopper = PedController.Current;
                 if (chopper != null && chopper.BeginWork(Homesteader.World.ForestTrees.ChopClip, tree.Position))
                 {
                     // One swing: the hit lands on the clip's impact frame (see Update).
@@ -240,11 +248,26 @@ namespace Homesteader.Growth
                 return;
             }
 
+            // Holding a chainsaw: a right-click on a stump cuts it out and leaves a pile of wood chips.
+            if (heldId != null && Homesteader.World.ForestTrees.ChainsawHeld(heldId) && Homesteader.World.ForestTrees.TryPickStump(cam.ScreenPointToRay(screenPos), out Transform stumpHit))
+            {
+                var sawyer = PedController.Current;
+                if (sawyer != null && sawyer.BeginWork(Homesteader.World.ForestTrees.ChopClip, stumpHit.position))
+                {
+                    workPed = sawyer;
+                    workUntil = Time.unscaledTime + Homesteader.World.ForestTrees.SwingSeconds * 1.6f;
+                    pendingStump = stumpHit;
+                    _prevPhase = -1f;
+                }
+                else Homesteader.World.ForestTrees.ChainsawStump(stumpHit, sawyer != null ? sawyer.transform : null);
+                return;
+            }
+
             // A fruiting tree with ripe fruit: right-click picks it by hand (the tree stays).
             if (!canPlant && Homesteader.World.ForestTrees.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.ForestTree fruitTree)
                 && Homesteader.World.ForestTrees.CanPick(fruitTree))
             {
-                var picker = FindAnyObjectByType<PedController>();
+                var picker = PedController.Current;
                 Transform pickerT = picker != null ? picker.transform : null;
                 if (Homesteader.World.ForestTrees.TryPickFruit(fruitTree, pickerT, heldId))
                     Homesteader.World.ForestTrees.RepeatPick(() => Homesteader.World.ForestTrees.TryPickFruit(fruitTree, pickerT, heldId), pickerT);   // one click picks it all
@@ -254,7 +277,7 @@ namespace Homesteader.Growth
             // A dug-up bush in hand: plant it where the cursor is (open ground).
             if (heldId != null && Homesteader.World.BerryBushes.KindOfItem(heldId) >= 0 && TryGroundHit(cam, screenPos, out RaycastHit bushGround))
             {
-                var bushPlanter = FindAnyObjectByType<PedController>();
+                var bushPlanter = PedController.Current;
                 if (Homesteader.World.BerryBushes.TryPlant(heldId, bushGround, bushPlanter != null ? bushPlanter.transform : null)) return;
             }
 
@@ -262,14 +285,14 @@ namespace Homesteader.Growth
             if (heldId != null && Homesteader.World.BerryBushes.CanDigWith(heldId)
                 && Homesteader.World.BerryBushes.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.BerryBush digBush))
             {
-                var digger = FindAnyObjectByType<PedController>();
+                var digger = PedController.Current;
                 if (Homesteader.World.BerryBushes.TryDig(digBush, digger != null ? digger.transform : null, heldId)) return;
             }
 
             // A berry bush under the cursor: right-click picks ONE berry (kit rules: the bush asset's 'fruiting' schema).
             if (!canPlant && Homesteader.World.BerryBushes.TryPick(cam.ScreenPointToRay(screenPos), out Homesteader.World.BerryBush bush) && Homesteader.World.BerryBushes.HasRules(bush))
             {
-                var berryPicker = FindAnyObjectByType<PedController>();
+                var berryPicker = PedController.Current;
                 Homesteader.World.BerryBushes.TryPickBerry(bush, berryPicker != null ? berryPicker.transform : null, heldId);
                 return;
             }
@@ -291,7 +314,7 @@ namespace Homesteader.Growth
             // Lock to the ground grid: everything below (zone, biome, spacing, reach) is
             // checked at, and the plant is placed on, the centre of the clicked cell.
             hit.point = PlantingValidator.SnapToGrid(hit.point);
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
 
             // Something already growing in that square: this click tries to harvest it.
             PlantedGrowth existing = PlantedAt(hit.point);
@@ -299,7 +322,7 @@ namespace Homesteader.Growth
             {
                 // Ripe fruit is picked by hand, unless the harvest tool (the axe that fells it) is in hand: then the click harvests the tree.
                 string tool = existing.Group.Rules.YieldTool;
-                bool holdingTool = !string.IsNullOrEmpty(tool) && GrowthRegistry.ToolMatches(tool, heldId);
+                bool holdingTool = !string.IsNullOrEmpty(tool) && GrowthRegistry.HeldToolMatches(tool, heldId);
                 if (existing.CanPickFruit && !holdingTool)
                 {
                     if (!PlantingValidator.InReach(ped != null ? ped.transform : null, hit.point, GameRules.HarvestReachCells))
@@ -314,7 +337,7 @@ namespace Homesteader.Growth
                 }
                 // The tool in hand fits the FRUIT (the basket) but nothing is ripe: that is allowed, there is just nothing to do.
                 string fruitTool = existing.Group.Rules.FruitTool;
-                if (!string.IsNullOrEmpty(fruitTool) && GrowthRegistry.ToolMatches(fruitTool, heldId))
+                if (!string.IsNullOrEmpty(fruitTool) && GrowthRegistry.HeldToolMatches(fruitTool, heldId))
                 {
                     ToastNotificationSystem.ShowInfo(existing.Group.Name, "No ripe fruit right now.");
                     return;
@@ -362,7 +385,7 @@ namespace Homesteader.Growth
             if (string.IsNullOrEmpty(rules.YieldItemId) || rules.YieldAmountMax <= 0) return;   // nothing to harvest
 
             bool needsTool = !string.IsNullOrEmpty(rules.YieldTool);
-            bool holdingTool = needsTool && GrowthRegistry.ToolMatches(rules.YieldTool, heldId);
+            bool holdingTool = needsTool && GrowthRegistry.HeldToolMatches(rules.YieldTool, heldId);
 
             if (!plant.CanHarvest)
             {
@@ -426,8 +449,7 @@ namespace Homesteader.Growth
         private static bool TryGroundHit(Camera cam, Vector2 screenPos, out RaycastHit result)
         {
             result = default;
-            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(screenPos), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            RaycastHit[] hits = Homesteader.UI.HoverTarget.SortedHits(cam, screenPos);
 
             foreach (RaycastHit h in hits)
             {
@@ -447,7 +469,7 @@ namespace Homesteader.Growth
             Camera cam = Camera.main;
             if (cam != null) return cam;
 
-            var iso = FindAnyObjectByType<IsometricLockedCamera>();
+            var iso = IsometricLockedCamera.Current;
             if (iso != null && iso.TryGetComponent(out cam)) return cam;
 
             return FindAnyObjectByType<Camera>();

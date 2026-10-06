@@ -3,53 +3,35 @@
   "id": "water_filter_reverse_osmosis",
   "name": "Reverse Osmosis Filter",
   "category": "water",
-  "description": "Multi-stage RO drinking water filtration system.",
+  "description": "A multi-stage reverse osmosis drinking water system. Mount it on a wall and pipe the line through it.",
   "icon": "water_filter_reverse_osmosis.png",
   "properties": {
     "weight_kg": 10.0,
     "max_stack_size": 1,
     "base_value": 150.0,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.42m W x 0.13m D x 0.49m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": false,
+    "wire_role": "water_filter",
+    "filter_stage": "carbon",
+    "attach_surface": "wall",
+    "attach_side": "either"
   },
   "models": [
     {
-      "file": "water_filter_reverse_osmosis.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_filter_reverse_osmosis.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 86.0,
-        "y": 40.0,
-        "z": 130.0
-      },
+      "file": "water_filter_reverse_osmosis.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.86,
-        "y": 0.4,
-        "z": 1.3
+        "x": 0.425,
+        "y": 0.49,
+        "z": 0.129
       },
-      "vertices": 840,
-      "faces": 280,
-      "bounding_box": {
-        "min": [
-          -43.0,
-          -10.4616,
-          0.0
-        ],
-        "max": [
-          43.0,
-          29.4967,
-          130.0
-        ]
-      }
+      "triangles": 2224
     }
   ],
   "utilities": {
@@ -89,39 +71,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "water_filter_reverse_osmosis.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 86.0,
-      "y": 40.0,
-      "z": 130.0
-    },
-    "dimensions_m": {
-      "x": 0.86,
-      "y": 0.4,
-      "z": 1.3
-    },
-    "vertices": 840,
-    "faces": 280,
-    "bounding_box": {
-      "min": [
-        -43.0,
-        -10.4616,
-        0.0
-      ],
-      "max": [
-        43.0,
-        29.4967,
-        130.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.86,
-      "depth": 0.4,
-      "height": 1.3
+      "width": 0.42,
+      "depth": 0.13,
+      "height": 0.49
     },
     "power_draw_w": 0,
     "capacity_l": 0,

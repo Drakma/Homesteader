@@ -73,7 +73,7 @@
         "quantity": 12
       },
       {
-        "item_id": "building_glass",
+        "item_id": "#window",
         "quantity": 7
       },
       {
@@ -81,7 +81,7 @@
         "quantity": 12
       },
       {
-        "item_id": "#chimney_masonry",
+        "item_id": "~chimney_masonry",
         "quantity": 2
       }
     ],

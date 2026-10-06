@@ -1,0 +1,87 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_market_cargo_truck",
+  "name": "Market Cargo Truck",
+  "category": "vehicles",
+  "description": "An open-bed stake truck. It comes the morning after you sell goods in the Market app, loads what you left in the pickup zone and pays you for it.",
+  "icon": "vehicle_market_cargo_truck.png",
+  "properties": {
+    "weight_kg": 4200.0,
+    "max_stack_size": 1,
+    "base_value": 58000.0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "display_weight": true,
+    "is_buyable": false,
+    "stores": []
+  },
+  "models": [
+    {
+      "file": "vehicle_market_cargo_truck.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.2,
+        "y": 2.25,
+        "z": 6.45
+      },
+      "triangles": 896
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 2.2,
+      "depth": 6.45,
+      "height": 2.25
+    },
+    "vehicle_type": "van",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.1,
+    "tank_capacity_l": 90,
+    "top_speed_kmh": 110,
+    "seats": 2,
+    "cargo_capacity_m3": 14
+  }
+}

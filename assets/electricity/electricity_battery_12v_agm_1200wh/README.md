@@ -1,7 +1,7 @@
-# Battery 12V Agm 100Ah
+# 12V AGM 1200Wh Battery
 
-**Item ID:** `electricity_battery_12v_agm_100ah`  
+**Item ID:** `electricity_battery_12v_agm_1200wh`  
 **Category:** `electricity`  
-**Icon:** ![Battery 12V Agm 100Ah](electricity_battery_12v_agm_100ah.png)
+**Icon:** ![12V AGM 1200Wh Battery](electricity_battery_12v_agm_1200wh.png)
 
-Standardized Homesteader asset manifest for `electricity_battery_12v_agm_100ah`.
+A 12 volt, 100 amp-hour sealed AGM lead-acid deep-cycle battery. Cheap and tough but heavy, and only about half of its capacity is usable (about 500 cycles).

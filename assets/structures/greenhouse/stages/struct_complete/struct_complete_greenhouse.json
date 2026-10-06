@@ -26,7 +26,7 @@
         "y": 3.6,
         "z": 8.0
       },
-      "triangles": 1736
+      "triangles": 1784
     }
   ],
   "utilities": {
@@ -73,7 +73,7 @@
         "quantity": 3
       },
       {
-        "item_id": "building_glass",
+        "item_id": "~glass",
         "quantity": 2
       },
       {

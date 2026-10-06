@@ -17,7 +17,7 @@ assets/structures/<id>/stages/struct_complete/        ...
 ```
 
 The stage manifests live under `stages/` and are NOT catalog items: `ModLoader.RegisterStageModel` registers only their model with
-`ItemRegistry` so the construction site can show them by id. The recipe (materials, `any_of` groups, `#tag` quantities in the tag's
+`ItemRegistry` so the construction site can show them by id. The recipe (materials, recipe sections (all of / any one of / if, see CONSTRUCTION.md), `#tag` quantities in the tag's
 smallest unit) and the required tools of each stage are edited in the asset kit (rich editor, structure group) and live in the group
 manifest, see CONSTRUCTION.md.
 
@@ -198,3 +198,12 @@ STORAGE structure: `ConstructionSite.IsStorage` is true once it is finished, its
 right click on it with something in the active slot moves items in or out like a placed container (`PlacementController.TransferWithContainer`); with an empty slot it
 says what is in it. The hover card (WAILA) shows "Stored". The silos take the `#grain` tag (wheat, corn, oats, barley, soybeans, sunflower, alfalfa) up to 3,000 /
 12,000 / 36,000 kg. `ContainerRules.IsContainer` is false for a blueprint, so the blueprint in your toolbar is never treated as a basket.
+
+## Auditing and cleaning the models
+
+`tools/audit_structures.py` checks every finished structure in headless Blender (`blender --background --python tools/audit_structures.py`, report in `assets/_scratch/audit/structures.txt`):
+rays are cast from a grid inside the walls to find GAPS (a wall that stops short of the roof, a hole at a corner), and faces that lie in the same plane and overlap (TEXTURE FIGHTING: trim flush with siding,
+a floor on the slab) are counted. `tools/fix_structure_overlaps.py` cures the fighting: the layer that sits on top (by material: trim over siding, floor over slab, glass over all) is lifted 5 mm along its
+own normal, and the GLB is written back (run it twice: some layers sit on layers that sit on layers). The generators write models that fight, so run it AFTER generating a structure, then
+`python tools/package_catalog_as_mods.py`. Paint laid on a wall (`ConstructionSite` paint patches) is drawn from its own side only (Cull Back) and 8 mm off the wall, so it cannot show through.
+Last audit: 13,299 fighting face pairs became 16; the walls reach the roof everywhere (the only escapes from the inside are a sliver round each door and the open front of the wood shed).

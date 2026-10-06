@@ -1,7 +1,5 @@
-# Tank Propane 500Gal
+# Propane Tank
 
-**Item ID:** `fuel_tank_propane_500gal`  
-**Category:** `electricity`  
-**Icon:** ![Tank Propane 500Gal](fuel_tank_propane_500gal.png)
+A residential propane gas tank resting on cradle feet that supplies the homestead.
 
-Standardized Homesteader asset manifest for `fuel_tank_propane_500gal`.
+Procedural model (tools/make_simple_props.py), 636 triangles, 3.00 x 0.97 x 1.30 m. A long white capsule on two cradle feet, a PROPANE sticker on each side.

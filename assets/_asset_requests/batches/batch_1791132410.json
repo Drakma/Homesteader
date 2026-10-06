@@ -1,0 +1,21 @@
+{
+  "batch_id": "batch_1791132410",
+  "finalized_at": "2026-10-04T16:46:50Z",
+  "items": [
+    {
+      "id": "1791132390_cement_mixer",
+      "name": "Cement Mixer",
+      "category": "tools",
+      "schema": "tools",
+      "pipeline": "paid",
+      "description": "I  basic 6.0 cu ft electric cement mixer",
+      "notes": "",
+      "status": "done",
+      "requested_at": "2026-10-04T16:46:30Z",
+      "also_rig": false,
+      "rig_type": "human",
+      "batch_id": "batch_1791132410",
+      "finalized_at": "2026-10-04T16:46:50Z"
+    }
+  ]
+}

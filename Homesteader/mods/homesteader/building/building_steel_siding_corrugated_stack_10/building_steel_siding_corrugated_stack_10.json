@@ -1,0 +1,84 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_steel_siding_corrugated_stack_10",
+  "name": "Corrugated Steel Wall Siding Stack",
+  "category": "building",
+  "description": "A stack of 10 corrugated steel wall siding panels lying flat, ribbed galvanized finish, for metal garages and pole barns.",
+  "icon": "building_steel_siding_corrugated_stack_10.png",
+  "properties": {
+    "weight_kg": 95.0,
+    "max_stack_size": 1,
+    "base_value": 240,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "pack_quantity": 10,
+    "display_weight": true
+  },
+  "models": [
+    {
+      "file": "building_steel_siding_corrugated_stack_10.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.9,
+        "y": 0.11,
+        "z": 2.443
+      },
+      "triangles": 1592
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.9,
+      "depth": 2.44,
+      "height": 0.11
+    }
+  }
+}

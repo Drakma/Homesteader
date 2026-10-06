@@ -3,14 +3,14 @@
   "id": "electricity_battery_12v_agm_1200wh",
   "name": "12V AGM 1200Wh Battery",
   "category": "electricity",
-  "description": "Sealed lead-acid deep cycle battery.",
+  "description": "A 12 volt, 100 amp-hour sealed AGM lead-acid deep-cycle battery. Cheap and tough but heavy, and only about half of its capacity is usable (about 500 cycles).",
   "icon": "electricity_battery_12v_agm_1200wh.png",
   "properties": {
     "weight_kg": 27.0,
     "max_stack_size": 4,
     "base_value": 180,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.33m W x 0.17m D x 0.22m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -21,16 +21,21 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "wire_role": "battery",
+    "capacity_wh": 1200,
+    "voltage_v": 12
   },
   "models": [
     {
-      "file": "battery_12v_agm_100ah.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "battery_12v_agm_100ah.obj",
-      "format": "obj"
+      "file": "electricity_battery_12v_agm_1200wh.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.33,
+        "y": 0.22,
+        "z": 0.17
+      },
+      "triangles": 418
     }
   ],
   "utilities": {
@@ -47,8 +52,8 @@
       "details": "None (no waste discharge)"
     },
     "battery": {
-      "metric": "Deep-cycle LiFePO4 / AGM battery bank (10 kWh capacity, 95% round-trip efficiency)",
-      "details": "Deep-cycle LiFePO4 / AGM battery bank (10 kWh capacity, 95% round-trip efficiency)"
+      "metric": "1.2 kWh AGM lead-acid (12 V, 100 Ah), about 500 cycles, 50% usable",
+      "details": "1.2 kWh AGM lead-acid (12 V, 100 Ah), about 500 cycles, 50% usable"
     },
     "internet": {
       "metric": "None (offline / non-networked)",

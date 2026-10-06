@@ -3,21 +3,42 @@
   "id": "water_filter",
   "name": "Water Filter",
   "category": "water",
-  "description": "Standard water asset used in the Homesteader simulation.",
+  "description": "A cartridge sediment filter on a wall bracket: a first, coarse stage for a water line. Mount it on a wall and pipe the line through it.",
   "icon": "water_filter.png",
   "properties": {
     "weight_kg": 1.0,
     "max_stack_size": 99,
     "base_value": 10.0,
     "is_consumable": false,
-    "footprint": null,
+    "footprint": "0.21m W x 0.12m D x 0.34m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "wire_role": "water_filter",
+    "filter_stage": "sediment",
+    "placeable": false,
+    "attach_surface": "wall",
+    "attach_side": "either",
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "water_filter.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.21,
+        "y": 0.34,
+        "z": 0.125
+      },
+      "triangles": 840
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "Water Treatment Throughput",
@@ -57,9 +78,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.1,
-      "depth": 0.1,
-      "height": 0.35
+      "width": 0.21,
+      "depth": 0.12,
+      "height": 0.34
     },
     "power_draw_w": 0,
     "capacity_l": 0,

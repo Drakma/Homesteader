@@ -54,15 +54,15 @@
         "icon": "struct_framing_barn.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "item_id": "~framing_lumber",
             "quantity": 40
           },
           {
-            "item_id": "lumber_joist_2x8",
+            "item_id": "~lumber_joist_2x8",
             "quantity": 16
           },
           {
-            "item_id": "lumber_post_4x4",
+            "item_id": "~lumber_post_4x4",
             "quantity": 4
           },
           {
@@ -136,7 +136,7 @@
             "quantity": 6
           },
           {
-            "item_id": "building_glass",
+            "item_id": "#window",
             "quantity": 4
           },
           {

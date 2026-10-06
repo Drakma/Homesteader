@@ -15,9 +15,21 @@
     "thirst_restore": 25,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "water_bucket_water.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.33,
+        "y": 0.44,
+        "z": 0.309
+      },
+      "triangles": 680
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -57,9 +69,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 0.35
+      "width": 0.33,
+      "depth": 0.31,
+      "height": 0.44
     },
     "power_draw_w": 0,
     "capacity_l": 10,

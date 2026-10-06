@@ -57,7 +57,10 @@
         "amount_min": 3,
         "amount_max": 4,
         "harvest_stage": 4,
-        "tool": "#tool_axe"
+        "tools": [
+          "#tool_axe",
+          "#tool_chainsaw"
+        ]
       },
       "planting": {
         "item_id": "plantable_oak_sapling"

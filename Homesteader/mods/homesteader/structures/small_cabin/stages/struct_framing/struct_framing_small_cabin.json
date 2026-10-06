@@ -69,11 +69,11 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "#framing_lumber",
+        "item_id": "~framing_lumber",
         "quantity": 100
       },
       {
-        "item_id": "lumber_joist_2x8",
+        "item_id": "~lumber_joist_2x8",
         "quantity": 8
       },
       {

@@ -21,6 +21,8 @@ namespace Homesteader.UI
         {
             public VisualElement Panel;
             public string Shown;
+            public ConstructionSite LastSite;
+            public object LastLines;   // the evaluation the card was last checked against (it is a new list a few times a second)
             public readonly List<Rotation> Rotations = new List<Rotation>();
             public VisualElement BarFill;
             public Label BarValue;
@@ -29,19 +31,30 @@ namespace Homesteader.UI
         private readonly Card _pin = new Card();
         private Card _cur;
         private ConstructionSite _pinned;
+        private ConstructionSite _site;   // the site the card is showing (the choice buttons talk to it)
+        private VisualElement _body;   // where the rows go (a scroll view on the pinned card)
+        private ScrollView _scroll;    // the pinned card's list, when there is one
         private VisualElement _panel { get { return _cur.Panel; } set { _cur.Panel = value; } }
-        private string _shown { get { return _cur.Shown; } set { _cur.Shown = value; } }
+        private string _shown { get { return _cur.Shown; } set { _cur.Shown = value; if (value == null) _cur.LastLines = null; } }
         private List<Rotation> _rotations { get { return _cur.Rotations; } }
 
         // A "#tag" line (any of several items will do) cycles through its member items, name and icon, like the look-at panel does for
         // tools. Holding Shift stops it so one can be read.
-        private sealed class Rotation { public Image Icon; public Label Name; public List<string> Items; public string Spec; public int Quantity; public int Shown = -1; }
+        private sealed class Rotation { public Image Icon; public Label Name; public List<string> Items; public string Spec; public float Quantity; public int Shown = -1; public bool Struck; }
         private float _rotationClock;
         private const float SecondsPerItem = 1.6f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
         {
+            // the saved position of the pinned list is reset once per layout version (an old or off-screen position broke the card)
+            if (PlayerPrefs.GetInt(LayoutVersionKey, 0) < LayoutVersion)
+            {
+                PlayerPrefs.DeleteKey(PinXKey);
+                PlayerPrefs.DeleteKey(PinYKey);
+                PlayerPrefs.SetInt(LayoutVersionKey, LayoutVersion);
+                PlayerPrefs.Save();
+            }
             if (FindAnyObjectByType<ConstructionHover>() != null) return;
             var go = new GameObject("ConstructionHover");
             DontDestroyOnLoad(go);
@@ -111,6 +124,8 @@ namespace Homesteader.UI
         }
 
         private const string PinXKey = "construction_pin_x", PinYKey = "construction_pin_y";
+        private const string LayoutVersionKey = "construction_pin_layout";
+        private const int LayoutVersion = 2;   // bump to reset every player's saved position of the pinned list
         private const string PinSiteKey = "construction_pin_site";
 
         private static void RememberPin(ConstructionSite site)
@@ -157,7 +172,7 @@ namespace Homesteader.UI
         private static void MakeDraggable(VisualElement panel)
         {
             panel.pickingMode = PickingMode.Position;
-            if (PlayerPrefs.HasKey(PinXKey))
+            if (PlayerPrefs.HasKey(PinXKey) && PlayerPrefs.GetFloat(PinXKey) >= 0f && PlayerPrefs.GetFloat(PinYKey) >= 0f && PlayerPrefs.GetFloat(PinXKey) < 3000f && PlayerPrefs.GetFloat(PinYKey) < 2000f)
             {
                 panel.style.right = StyleKeyword.Auto;
                 panel.style.left = PlayerPrefs.GetFloat(PinXKey);
@@ -168,15 +183,18 @@ namespace Homesteader.UI
             panel.RegisterCallback<PointerDownEvent>(e =>
             {
                 if (e.button != 0) return;
+                if (e.target is Button || (e.target is VisualElement tv && tv.GetFirstAncestorOfType<Button>() != null)) return;   // a button is clicked, not dragged by
                 dragging = true;
                 grab = (Vector2)e.position - new Vector2(panel.resolvedStyle.left, panel.resolvedStyle.top);
                 if (float.IsNaN(grab.x)) grab = Vector2.zero;
                 panel.CapturePointer(e.pointerId);
                 e.StopPropagation();
             });
+            panel.RegisterCallback<PointerCaptureOutEvent>(e => { dragging = false; });
             panel.RegisterCallback<PointerMoveEvent>(e =>
             {
                 if (!dragging) return;
+                if ((e.pressedButtons & 1) == 0) { dragging = false; panel.ReleasePointer(e.pointerId); return; }   // the button was let go outside the window: stop, never stay stuck
                 VisualElement root = panel.parent;
                 float maxX = root != null ? root.resolvedStyle.width - panel.resolvedStyle.width : 1900f;
                 float maxY = root != null ? root.resolvedStyle.height - panel.resolvedStyle.height : 1000f;
@@ -226,16 +244,17 @@ namespace Homesteader.UI
 
         private void Fill(ConstructionSite site, bool pinned)
         {
+            List<ConstructionSite.LineStatus> evaluated = site.Lines;
+            if (_shown != null && ReferenceEquals(_cur.LastLines, evaluated) && _cur.LastSite == site) return;   // nothing re-counted since: same card
+            _cur.LastLines = evaluated;
+            _cur.LastSite = site;
             var key = new StringBuilder();
             key.Append(site.GetHashCode()).Append('|').Append(site.Stage).Append(pinned ? 'P' : 'H');
             if (site.Building) key.Append("|b");
+            key.Append("|s").Append(Mathf.RoundToInt(site.EstimatedBuildSeconds));
             List<ConstructionSite.LineStatus> lines = site.Lines;
             List<ConstructionSite.ToolStatus> tools = site.Tools;
-            foreach (ConstructionSite.LineStatus l in lines)
-            {
-                key.Append('|').Append(l.Have).Append(l.Chosen);
-                if (l.IsChoice) foreach (ConstructionSite.LineStatus o in l.Options) key.Append('/').Append(o.Have);
-            }
+            foreach (ConstructionSite.LineStatus l in lines) KeyNode(key, l);
             foreach (ConstructionSite.ToolStatus t in tools) { key.Append('|').Append(t.Have ? 1 : 0); foreach (string pt in t.Present) key.Append(pt.GetHashCode()); }
             string k = key.ToString();
             if (k == _shown) return;
@@ -255,43 +274,17 @@ namespace Homesteader.UI
                 return;
             }
             ConstructionStageData stage = site.CurrentStage;
+            _site = site;
             _panel.Add(Text($"{StageName(stage)}  ({site.Stage + 1} of {site.StageCount})", "construction-hover-sub"));
-
-            if (lines.Count > 0) _panel.Add(Text("Materials", "construction-hover-section"));
-            foreach (ConstructionSite.LineStatus l in lines)
+            // the reset button, up top: forget the choices of this stage so the questions are asked again
+            if (pinned && !site.Building && site.HasChoices())
             {
-                if (!l.IsChoice)
-                {
-                    _panel.Add(Row(l.Line.item_id, ConstructionSite.LineName(l.Line.item_id), Count(l.Line, l.Have), l.Done, l.Line.quantity));
-                    continue;
-                }
-                // an "or" line: either alternative will do, each listed with its own count
-                _panel.Add(Row(null, "Either of these:", l.Done ? "Ready" : "Missing", l.Done));
-                for (int oi = 0; oi < l.Options.Count; oi++)
-                {
-                    ConstructionSite.LineStatus o = l.Options[oi];
-                    if (oi > 0) { var orLabel = Text("or", "construction-hover-or"); orLabel.AddToClassList("construction-hover-row--indent"); _panel.Add(orLabel); }
-                    VisualElement optRow = Row(o.Line.item_id, ConstructionSite.LineName(o.Line.item_id), Count(o.Line, o.Have), o.Done, o.Line.quantity);
-                    optRow.AddToClassList("construction-hover-row--indent");
-                    _panel.Add(optRow);
-                }
+                var reset = new Button(() => { site.ResetChoices(); _shown = null; }) { text = "Reset choices" };
+                reset.AddToClassList("construction-hover-reset");
+                _panel.Add(reset);
             }
 
-            if (tools.Count > 0) _panel.Add(Text("Tools", "construction-hover-section"));
-            int groupNo = 0;
-            foreach (ConstructionSite.ToolStatus t in tools)
-            {
-                groupNo++;
-                // the group: "any one of these", met or not, then every tool of it on its own line (ticked when it is there)
-                _panel.Add(Row(null, tools.Count > 1 ? $"Group {groupNo}: any one of" : "Any one of", t.Have ? "Ready" : "Missing", t.Have));
-                foreach (string tool in t.Group.tools)
-                {
-                    VisualElement toolRow = Row(tool, ConstructionSite.LineName(tool), t.Present.Contains(tool) ? "Have" : "", t.Present.Contains(tool));
-                    toolRow.AddToClassList("construction-hover-row--indent");
-                    _panel.Add(toolRow);
-                }
-            }
-
+            // the build progress bar sits at the top, under the title
             if (site.Building)
             {
                 _panel.Add(Text("Building", "construction-hover-go"));
@@ -307,14 +300,59 @@ namespace Homesteader.UI
                 _cur.BarValue.AddToClassList("construction-hover-bar-value");
                 bar.Add(_cur.BarValue);
                 _panel.Add(bar);
+            }
+
+            // the list: a pinned card scrolls when it is long (the title, the bar and the hints stay put)
+            _pinnedNow = pinned;
+            VisualElement body;
+            if (pinned)
+            {
+                var scroll = new ScrollView(ScrollViewMode.Vertical) { pickingMode = PickingMode.Position };
+                scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+                scroll.RegisterCallback<PointerDownEvent>(e => e.StopPropagation());   // the card is dragged by its title, not by the list
+                VisualElement rootEl = _panel.parent;
+                float rootH = rootEl != null && !float.IsNaN(rootEl.resolvedStyle.height) && rootEl.resolvedStyle.height > 200f ? rootEl.resolvedStyle.height : 900f;
+                scroll.style.maxHeight = rootH * 0.6f;
+                scroll.style.flexShrink = 1;
+                scroll.contentContainer.style.flexShrink = 0;
+                body = scroll;
+                _scroll = scroll;
+            }
+            else { body = new VisualElement { pickingMode = PickingMode.Ignore }; _scroll = null; }
+            body.AddToClassList("construction-hover-scroll");
+            _body = body;
+            _panel.Add(body);
+
+            if (lines.Count > 0) _body.Add(Text("Materials", "construction-hover-section"));
+            foreach (ConstructionSite.LineStatus l in lines) AddNode(l, 0);
+
+            if (tools.Count > 0) _body.Add(Text("Tools", "construction-hover-section"));
+            int groupNo = 0;
+            foreach (ConstructionSite.ToolStatus t in tools)
+            {
+                groupNo++;
+                // the group: "any one of these", met or not, then every tool of it on its own line (ticked when it is there)
+                _body.Add(Row(null, tools.Count > 1 ? $"Group {groupNo}: any one of" : "Any one of", t.Have ? "Ready" : "Missing", t.Have));
+                foreach (string tool in t.Group.tools)
+                {
+                    VisualElement toolRow = Row(tool, ConstructionSite.LineName(tool), t.Present.Contains(tool) ? "Have" : t.Unpowered.Contains(tool) ? "No power" : "", t.Present.Contains(tool));
+                    toolRow.AddToClassList("construction-hover-row--indent");
+                    _body.Add(toolRow);
+                }
+            }
+
+            if (site.Building)
+            {
                 _panel.Add(Text("Move to stop", "construction-hover-hint"));
+                if (pinned) KeepOnScreen();
                 return;
             }
             bool ready = site.Ready;
+            if (tools.Count > 0) _panel.Add(Text("Build time with these tools: " + BuildTimeText(site.EstimatedBuildSeconds), "construction-hover-hint"));
             _panel.Add(Text(ready ? "Right click to build the " + StageName(stage).ToLowerInvariant()
                                   : $"Place the materials within {UnitFormat.Distance(ConstructionSite.YardM)} of the foundation",
                             ready ? "construction-hover-go" : "construction-hover-hint"));
-            if (pinned) { _panel.Add(Text("P to unpin this list", "construction-hover-hint")); return; }
+            if (pinned) { _panel.Add(Text("P to unpin this list", "construction-hover-hint")); KeepOnScreen(); return; }
             if (_pinned == null) _panel.Add(Text("P to pin this list to the screen", "construction-hover-hint"));
             if (site.Stage == 0)
             {
@@ -323,11 +361,161 @@ namespace Homesteader.UI
             }
         }
 
+        private static string BuildTimeText(float seconds)
+        {
+            int s = Mathf.RoundToInt(seconds);
+            return s >= 60 ? (s / 60) + " min" + (s % 60 > 0 ? " " + (s % 60) + " s" : "") : s + " s";
+        }
+
+        private static void KeyNode(StringBuilder key, ConstructionSite.LineStatus l)
+        {
+            key.Append('|').Append(l.Have).Append(l.Chosen).Append(l.PickedIndex).Append(l.Unresolved ? 'u' : 'r').Append(l.Active ? 'a' : 'i');
+            if (l.Children != null) foreach (ConstructionSite.LineStatus c in l.Children) KeyNode(key, c);
+        }
+
+        private static string SpecText(string spec) => ConstructionSite.LineName(spec);
+
+        /// <summary>One node of the materials tree: a line as a row, a section as a header (its mode, its condition) with its children indented under it.</summary>
+        private void AddNode(ConstructionSite.LineStatus n, int depth)
+        {
+            if (n.Children == null)
+            {
+                VisualElement row = Row(n.Line.item_id, ConstructionSite.LineName(n.Line.item_id), Count(n.Line, n.Have, n.Needed), n.Done, n.Needed);
+                Indent(row, depth);
+                _body.Add(row);
+                return;
+            }
+            ConstructionLine sec = n.Line;
+            if (n.Any && n.Active)
+            {
+                if (n.Unresolved) { AddQuestion(n, depth); return; }
+                // a chosen option: only that option is on the list
+                if (n.Children.Count > 0) AddNode(n.Children[0], depth);
+                return;
+            }
+            string title = string.IsNullOrEmpty(sec.section) ? null : sec.section;
+            string cond = null;
+            if (!string.IsNullOrEmpty(sec.uses)) cond = "If using " + SpecText(sec.uses);
+            if (!string.IsNullOrEmpty(sec.not_uses)) cond = (cond == null ? "" : cond + ", and ") + "If not using " + SpecText(sec.not_uses);
+            string head = cond != null ? (title != null ? title + ": " + cond : cond + ":") : (n.Any ? (title != null ? title + ": either of these" : "Either of these:") : title);
+            if (head != null)
+            {
+                VisualElement hr = Row(null, head, !n.Active ? "Not needed" : (n.Done ? "Ready" : "Missing"), n.Done);
+                Indent(hr, depth);
+                if (!n.Active) hr.style.opacity = 0.5f;
+                _body.Add(hr);
+            }
+            int childDepth = head != null ? depth + 1 : depth;
+            for (int i = 0; i < n.Children.Count; i++)
+            {
+                if (n.Any && i > 0)
+                {
+                    Label orLabel = Text("or", "construction-hover-or");
+                    Indent(orLabel, childDepth);
+                    _body.Add(orLabel);
+                }
+                int before = _body.childCount;
+                AddNode(n.Children[i], childDepth);
+                if (!n.Active) for (int c = before; c < _body.childCount; c++) _body[c].style.opacity = 0.5f;
+            }
+        }
+
+        /// <summary>A question: an "any" section the player has not chosen an option of yet. The pinned card shows one button per option; the hover card says to pin.</summary>
+        private void AddQuestion(ConstructionSite.LineStatus n, int depth)
+        {
+            ConstructionLine sec = n.Line;
+            string title = string.IsNullOrEmpty(sec.section) ? "Choose one" : sec.section;
+            Label q = Text(title + "?", "construction-hover-section");
+            Indent(q, depth);
+            _body.Add(q);
+            for (int i = 0; i < sec.items.Count; i++)
+            {
+                int option = i;
+                string label = ConstructionSite.OptionLabel(sec.items[i]);
+                if (_pinnedNow && _site != null)
+                {
+                    string path = n.Path;
+                    ConstructionSite site = _site;
+                    var b = new Button(() => { site.Choose(path, option); _shown = null; }) { text = label };
+                    b.AddToClassList("construction-hover-choice");
+                    Indent(b, depth);
+                    _body.Add(b);
+                }
+                else
+                {
+                    Label l = Text("  " + label, "construction-hover-name");
+                    Indent(l, depth);
+                    _body.Add(l);
+                }
+            }
+            if (!_pinnedNow)
+            {
+                Label hint = Text("Press P to pin this list, then choose", "construction-hover-hint");
+                Indent(hint, depth);
+                _body.Add(hint);
+            }
+        }
+
+        private bool _pinnedNow;   // the card being filled is the pinned one (its buttons can be clicked)
+
+        /// <summary>Strikes the text of a row through and dims it (an alternative that is no longer needed).</summary>
+        private static void Strike(VisualElement e)
+        {
+            e.style.opacity = 0.5f;
+            foreach (Label l in e.Query<Label>().ToList())
+                if (!string.IsNullOrEmpty(l.text) && !l.text.StartsWith("<s>")) l.text = "<s>" + l.text + "</s>";
+        }
+
+        /// <summary>After the layout settles, moves the pinned card back inside the window when it was left (or has grown) past an edge.</summary>
+        private void KeepOnScreen()
+        {
+            VisualElement panel = _panel;   // captured: the field can be cleared before this runs
+            ScrollView scroll = _scroll;
+            if (panel == null) return;
+            // 1. once the layout has settled, a list taller than 60% of the window gets exactly that height and scrolls (max-height alone did not hold)
+            panel.schedule.Execute(() =>
+            {
+                if (panel == null || panel.panel == null || scroll == null || scroll.panel == null) return;
+                VisualElement root = panel.parent;
+                float rootH = root != null && root.worldBound.height > 200f ? root.worldBound.height : 900f;
+                float limit = rootH * 0.6f;
+                float content = scroll.contentContainer.layout.height;
+                if (float.IsNaN(content)) return;
+                scroll.style.height = content > limit ? new StyleLength(limit) : new StyleLength(StyleKeyword.Auto);
+            }).StartingIn(30);
+            // 2. then the card is moved back inside the window when it was left (or has grown) past an edge
+            panel.schedule.Execute(() =>
+            {
+                if (panel == null || panel.panel == null) return;
+                VisualElement root = panel.parent;
+                if (root == null) return;
+                Rect wb = panel.worldBound, rb = root.worldBound;
+                if (float.IsNaN(wb.x) || wb.width <= 0f) return;
+                float dx = 0f, dy = 0f;
+                if (wb.yMin < rb.yMin) dy = rb.yMin - wb.yMin; else if (wb.yMax > rb.yMax) dy = Mathf.Max(rb.yMin - wb.yMin, rb.yMax - wb.yMax);
+                if (wb.xMin < rb.xMin) dx = rb.xMin - wb.xMin; else if (wb.xMax > rb.xMax) dx = Mathf.Max(rb.xMin - wb.xMin, rb.xMax - wb.xMax);
+                if (dx == 0f && dy == 0f) return;
+                float l = panel.resolvedStyle.left, t = panel.resolvedStyle.top;
+                if (float.IsNaN(l) || float.IsNaN(t)) return;
+                panel.style.right = StyleKeyword.Auto;
+                panel.style.left = l + dx;
+                panel.style.top = t + dy;
+            }).StartingIn(90);
+        }
+
+        private static void Indent(VisualElement e, int depth)
+        {
+            if (depth > 0) e.style.marginLeft = depth * 12;
+        }
+
         /// <summary>"3 / 8", or "12 / 20 studs" for a tag with a unit; never more than the quantity (what is over is spare).</summary>
-        private static string Count(ConstructionLine line, int have)
+        private static string Count(ConstructionLine line, float have, float need)
         {
             string unit = GrowthRegistry.UnitName(line.item_id);
-            return $"{Mathf.Min(have, line.quantity)} / {line.quantity}" + (string.IsNullOrEmpty(unit) ? "" : " " + unit);
+            float shown = Mathf.Min(have, need);
+            if (unit == "m3") return UnitFormat.BulkVolume(shown) + " / " + UnitFormat.BulkVolume(need);   // bulk piles: counted in cubic metres, shown in the player's units
+            if (unit == "m") return UnitFormat.Distance(shown) + " / " + UnitFormat.Distance(need);         // cable: counted in metres, shown in the player's units
+            return $"{ConstructionSite.Num(shown)} / {ConstructionSite.Num(need)}" + (string.IsNullOrEmpty(unit) ? "" : " " + unit);
         }
 
         private static string StageName(ConstructionStageData s)
@@ -364,11 +552,11 @@ namespace Homesteader.UI
             return box;
         }
 
-        private VisualElement Row(string itemId, string name, string value, bool done, int quantity = 0)
+        private VisualElement Row(string itemId, string name, string value, bool done, float quantity = 0f)
         {
             var row = new VisualElement { pickingMode = PickingMode.Ignore };
             row.AddToClassList("construction-hover-row");
-            List<string> members = !string.IsNullOrEmpty(itemId) && itemId[0] == '#' ? GrowthRegistry.ToolItems(itemId) : null;
+            List<string> members = GrowthRegistry.IsGroupSpec(itemId) ? GrowthRegistry.ToolItems(itemId) : null;
             if (members != null && members.Count > 1)
             {
                 // a tag: the icon and name cycle through its members
@@ -380,7 +568,7 @@ namespace Homesteader.UI
                 row.Add(NameBox(rName));
                 _rotations.Add(new Rotation { Icon = rIcon, Name = rName, Items = members, Spec = itemId, Quantity = quantity });
             }
-            else if (!string.IsNullOrEmpty(itemId) && itemId[0] != '#')
+            else if (!string.IsNullOrEmpty(itemId) && !GrowthRegistry.IsGroupSpec(itemId))
             {
                 Texture2D tex = PhoneController.GetItemIcon(null, itemId);
                 if (tex != null)
@@ -416,13 +604,14 @@ namespace Homesteader.UI
                 if (index == r.Shown) continue;
                 r.Shown = index;
                 string id = r.Items[index];
-                r.Name.text = HudBindings.GetItemName(id);
+                r.Name.text = HudBindings.GetDisplayName(id);
                 if (r.Quantity > 0)
                 {
                     // how many of this member alone would cover the quantity (a tag with equivalencies: 200 studs = 10 large bundles)
                     int each = Mathf.CeilToInt(r.Quantity / Mathf.Max(0.0001f, GrowthRegistry.UnitValue(r.Spec, id)) - 0.0001f);
                     r.Name.text = each + " x " + r.Name.text;
                 }
+                if (r.Struck) r.Name.text = "<s>" + r.Name.text + "</s>";
                 Texture2D tex = PhoneController.GetItemIcon(null, id);
                 r.Icon.image = tex;
                 r.Icon.style.display = tex != null ? DisplayStyle.Flex : DisplayStyle.None;

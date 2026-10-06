@@ -78,6 +78,8 @@ namespace Homesteader.World
         private static readonly List<Vector2> FelledPositions = new List<Vector2>();
         private static readonly Dictionary<Mesh, List<Vector3>> VertexCache = new Dictionary<Mesh, List<Vector3>>();
         private static Transform _root;
+        private static readonly List<Transform> Stumps = new List<Transform>();            // every stump standing (a felled forest tree's, a planted tree's): what a chainsaw can take out
+        private static readonly List<Vector2> RemovedStumps = new List<Vector2>();         // x, z of the forest stumps a chainsaw has taken out (saved)
         private static float _lastHit;
         private static Material _cutWoodMat;
         private static readonly Dictionary<string, Mesh> StumpMeshes = new Dictionary<string, Mesh>();
@@ -91,6 +93,8 @@ namespace Homesteader.World
             Grid.Clear();
             FruitTrees.Clear();
             FelledPositions.Clear();
+            RemovedStumps.Clear();
+            Stumps.Clear();
             PickedTrees.Clear();
             VertexCache.Clear();
             StumpMeshes.Clear();
@@ -690,7 +694,7 @@ namespace Homesteader.World
         {
             if (!CanPick(t)) return false;
             string need = FruitRules(t.Species).FruitTool;
-            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.ToolMatches(need, heldId))
+            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.HeldToolMatches(need, heldId))
             {
                 Notify("Need a tool", $"You need {DescribeTool(need).ToLowerInvariant()} in your active slot to pick this.");
                 return false;
@@ -732,7 +736,7 @@ namespace Homesteader.World
             // The gesture: the left hand reaches up, the fruit comes off the tree, the hand bends in to the right hand (the basket) and the item
             // lands in the toolbar. Without a rig that can do it (or no ped), it all happens at once.
             Color fruitColor = Species.TryGetValue(t.Species, out SpeciesInfo fsp) && fsp.FruitMat != null ? fsp.FruitMat.GetColor("_BaseColor") : Color.red;
-            var ped = player != null ? player : UnityEngine.Object.FindAnyObjectByType<PedController>()?.transform;
+            var ped = player != null ? player : PedController.Current?.transform;
             if (ped != null && FruitPickAnimator.TryBegin(ped, FruitWorldPosition(t, bit), fruitColor, TakeOffTree, IntoBasket)) return true;
             TakeOffTree();
             IntoBasket();
@@ -841,7 +845,7 @@ namespace Homesteader.World
         {
             if (t == null || string.IsNullOrEmpty(heldId)) return false;
             string spec = ToolSpec(t.Species);
-            return KitRules(t.Species) != null && spec != null && GrowthRegistry.ToolMatches(spec, heldId);
+            return KitRules(t.Species) != null && spec != null && GrowthRegistry.HeldToolMatches(spec, heldId);
         }
 
         /// <summary>True if the item in the active slot can fell trees of ANY species (per the kit's tools).</summary>
@@ -851,7 +855,7 @@ namespace Homesteader.World
             foreach (string name in Species.Keys)
             {
                 string spec = ToolSpec(name);
-                if (spec != null && GrowthRegistry.ToolMatches(spec, heldId)) return true;
+                if (spec != null && GrowthRegistry.HeldToolMatches(spec, heldId)) return true;
             }
             return false;
         }
@@ -890,7 +894,7 @@ namespace Homesteader.World
         {
             if (!CanPick(tree)) return false;
             GrowthRules r = FruitRules(tree.Species);
-            return r == null || string.IsNullOrEmpty(r.FruitTool) || GrowthRegistry.ToolMatches(r.FruitTool, heldId);
+            return r == null || string.IsNullOrEmpty(r.FruitTool) || GrowthRegistry.HeldToolMatches(r.FruitTool, heldId);
         }
 
         /// <summary>Right-clicked a tree without the right tool in the active slot: tell the player what it needs.</summary>
@@ -901,7 +905,7 @@ namespace Homesteader.World
 
             // The tool in hand fits the tree's FRUIT (the basket) but there is nothing to pick right now: say so, do not ask for an axe.
             GrowthRules pickRules = FruitRules(tree.Species);
-            if (pickRules != null && !string.IsNullOrEmpty(pickRules.FruitTool) && GrowthRegistry.ToolMatches(pickRules.FruitTool, heldId))
+            if (pickRules != null && !string.IsNullOrEmpty(pickRules.FruitTool) && GrowthRegistry.HeldToolMatches(pickRules.FruitTool, heldId))
             {
                 float wait = tree.PickedUntil - VegetationSeasons.GrowthDay;
                 float young = RipeAge(tree.Species) - AgeDays(tree);
@@ -1025,7 +1029,7 @@ namespace Homesteader.World
             if (tree == null || tree.Felled) return false;
             if (!IsFellable(tree.Species)) return false;   // the kit gives this species no yield: it is not harvested
             string spec = ToolSpec(tree.Species);
-            if (!string.IsNullOrEmpty(spec) && !GrowthRegistry.ToolMatches(spec, heldId))
+            if (!string.IsNullOrEmpty(spec) && !GrowthRegistry.HeldToolMatches(spec, heldId))
             {
                 Debug.LogWarning($"[Chop] '{heldId}' is not a tool for {tree.Species} (needs {spec}); check the kit's yield.tool and tags.json.");
                 Notify("Need a tool", $"You need {DescribeTool(spec).ToLowerInvariant()} in your active slot to chop this tree.");
@@ -1225,6 +1229,7 @@ namespace Homesteader.World
             // the cut is as wide as the trunk that was felled (measured off its model); unknown: the species' own trunk
             float w = trunkRadius > 0.01f ? trunkRadius / Mathf.Max(0.01f, sp.TrunkRadius) : 1f;
             go.transform.localScale = new Vector3(w, 1f, w);
+            Stumps.Add(go.transform);
             go.AddComponent<MeshFilter>().sharedMesh = StumpMesh(sp);
             var mr = go.AddComponent<MeshRenderer>();
             mr.sharedMaterials = new[] { sp.TrunkMat, CutWoodMat() };
@@ -1388,6 +1393,7 @@ namespace Homesteader.World
             float s = Mathf.Max(0.05f, tree.Scale.x * ScaleNow(tree));   // the cut is exactly as wide as the trunk was (see TrunkSize)
             go.transform.SetPositionAndRotation(tree.Position, Quaternion.Euler(0f, tree.Yaw, 0f));
             go.transform.localScale = new Vector3(s, 1f, s);
+            Stumps.Add(go.transform);
             go.AddComponent<MeshFilter>().sharedMesh = StumpMesh(sp);
             var mr = go.AddComponent<MeshRenderer>();
             mr.sharedMaterials = new[] { sp.TrunkMat, CutWoodMat() };
@@ -1560,6 +1566,86 @@ namespace Homesteader.World
             _chips.transform.position = at;
             _chips.transform.rotation = Quaternion.LookRotation(towardPlayer.sqrMagnitude > 0.01f ? towardPlayer : Vector3.up, Vector3.up) * Quaternion.Euler(-35f, 0f, 0f);
             _chips.Emit(12);
+        }
+
+        // ------------------------------------------------------------------ stumps: a chainsaw takes one out and leaves a pile of wood chips
+
+        public const string ChainsawSpec = "#tool_chainsaw";
+        public const string ChipScoop = "mat_scoop_mulch";   // wood chips are the mulch pile (mat_pile_mulch_*: "a pile of wood mulch chips")
+
+        public static bool ChainsawHeld(string heldId) { return !string.IsNullOrEmpty(heldId) && GrowthRegistry.HeldToolMatches(ChainsawSpec, heldId); }
+
+        /// <summary>The stump the ray passes nearest to (stumps have no colliders: they are picked by ray, like the trees).</summary>
+        public static bool TryPickStump(Ray ray, out Transform stump)
+        {
+            stump = null;
+            float bestAlong = float.MaxValue;
+            for (int i = Stumps.Count - 1; i >= 0; i--)
+            {
+                Transform t = Stumps[i];
+                if (t == null) { Stumps.RemoveAt(i); continue; }
+                Vector3 centre = t.position + Vector3.up * 0.2f;
+                float along = Vector3.Dot(centre - ray.origin, ray.direction);
+                if (along < 0f) continue;
+                float off = Vector3.Distance(ray.origin + ray.direction * along, centre);
+                float reach = Mathf.Max(0.4f, StumpRadius(t) + 0.15f);
+                if (off <= reach && along < bestAlong) { bestAlong = along; stump = t; }
+            }
+            return stump != null;
+        }
+
+        private static float StumpRadius(Transform stump)
+        {
+            Renderer r = stump.GetComponentInChildren<Renderer>();
+            return r != null ? Mathf.Max(r.bounds.extents.x, r.bounds.extents.z) : 0.3f;
+        }
+
+        /// <summary>
+        /// A chainsaw on a stump: the stump is gone and a pile of wood chips lies where it stood (a bigger stump, a bigger pile). A forest stump is remembered as taken out (saved);
+        /// a planted tree's stump takes the planted tree with it. False when the stump is out of reach.
+        /// </summary>
+        public static bool ChainsawStump(Transform stump, Transform player)
+        {
+            if (stump == null) return false;
+            if (player != null && new Vector2(player.position.x - stump.position.x, player.position.z - stump.position.z).magnitude > 3.5f)
+            {
+                Notify("Too far", "Move closer to the stump.");
+                return false;
+            }
+            Vector3 at = stump.position;
+            float radius = StumpRadius(stump);
+            SpawnChips(at + Vector3.up * 0.3f, player != null ? player.position - at : Vector3.up);
+            int scoops = Mathf.Clamp(Mathf.RoundToInt(radius * 45f), 5, 28);
+            KeyValuePair<string, int> stage = PileService.StageFor(ChipScoop, scoops);
+            PlantedGrowth plant = stump.GetComponentInParent<PlantedGrowth>();
+            if (plant != null) Object.Destroy(plant.gameObject);
+            else RemovedStumps.Add(new Vector2(at.x, at.z));
+            Stumps.Remove(stump);
+            Object.Destroy(stump.gameObject);
+            if (!string.IsNullOrEmpty(stage.Key)) WheelbarrowPush.SpawnPileAt(stage.Key, ChipScoop, scoops, at, Random.Range(0f, 360f));
+            return true;
+        }
+
+        /// <summary>Positions (x, z) of the forest stumps a chainsaw has taken out, for GameSave.</summary>
+        public static List<Vector2> SavedRemovedStumps() { return new List<Vector2>(RemovedStumps); }
+
+        /// <summary>Takes the saved stumps out again after the felled trees were re-felled (no chips: the pile, if it is still there, was saved as an item).</summary>
+        public static void ApplyRemovedStumps(List<Vector2> removed)
+        {
+            if (removed == null) return;
+            foreach (Vector2 p in removed)
+            {
+                for (int i = Stumps.Count - 1; i >= 0; i--)
+                {
+                    Transform t = Stumps[i];
+                    if (t == null) continue;
+                    if ((new Vector2(t.position.x, t.position.z) - p).sqrMagnitude > 0.36f) continue;
+                    Stumps.RemoveAt(i);
+                    Object.Destroy(t.gameObject);
+                    RemovedStumps.Add(p);
+                    break;
+                }
+            }
         }
 
         // ------------------------------------------------------------------ save and load

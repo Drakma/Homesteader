@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "water_ibc_tote_1000l",
-  "name": "1000L IBC Tote",
+  "name": "IBC Tote",
   "category": "water",
   "description": "A standard 1000 liter IBC tote for bulk liquid storage.",
   "icon": "water_ibc_tote_1000l.png",
@@ -16,7 +16,8 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "wire_role": "water_tank"
   },
   "models": [
     {
@@ -88,7 +89,7 @@
     "max_roof_proximity_m": 0
   },
   "liquid_container": {
-    "capacity_l": 10,
+    "capacity_l": 1000,
     "accepts": [
       "#liquid"
     ]

@@ -1,7 +1,5 @@
-# Fuel Propane Small
+# Small Propane Tank
 
-**Item ID:** `fuel_propane_small`  
-**Category:** `electricity`  
-**Icon:** ![Fuel Propane Small](fuel_propane_small.png)
+A small portable propane gas cylinder.
 
-Standardized Homesteader asset manifest for `fuel_propane_small`.
+Procedural model (tools/make_simple_props.py), 424 triangles, 0.11 x 0.11 x 0.28 m. A small camping cylinder.

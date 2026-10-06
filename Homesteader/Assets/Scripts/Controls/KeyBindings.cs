@@ -11,7 +11,7 @@ namespace Homesteader.Controls
         MoveUp, MoveDown, MoveLeft, MoveRight, Run,
         CameraRotateLeft, CameraRotateRight,
         PauseTime, SpeedUp, SpeedDown,
-        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem, ToggleCutaway,
+        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem, ToggleCutaway, TidyArea, FirstPerson,
     }
 
     /// <summary>
@@ -42,6 +42,7 @@ namespace Homesteader.Controls
             new ActionInfo { Action = BindAction.Run, Label = "Run (hold)", Group = "Movement", DefaultKey = Key.LeftShift },
             new ActionInfo { Action = BindAction.CameraRotateLeft, Label = "Rotate camera left", Group = "Camera", DefaultKey = Key.Q },
             new ActionInfo { Action = BindAction.CameraRotateRight, Label = "Rotate camera right", Group = "Camera", DefaultKey = Key.E },
+            new ActionInfo { Action = BindAction.FirstPerson, Label = "First person view", Group = "Camera", DefaultKey = Key.Z },
             new ActionInfo { Action = BindAction.PauseTime, Label = "Pause / resume time", Group = "Time and menus", DefaultKey = Key.Space },
             new ActionInfo { Action = BindAction.SpeedUp, Label = "Faster time", Group = "Time and menus", DefaultKey = Key.RightBracket },
             new ActionInfo { Action = BindAction.SpeedDown, Label = "Slower time", Group = "Time and menus", DefaultKey = Key.LeftBracket },
@@ -52,6 +53,7 @@ namespace Homesteader.Controls
             new ActionInfo { Action = BindAction.PlaceRotate, Label = "Rotate placement", Group = "World", DefaultKey = Key.R },
             new ActionInfo { Action = BindAction.ToggleContainer, Label = "Open / close container", Group = "World", DefaultKey = Key.C },
             new ActionInfo { Action = BindAction.DropItem, Label = "Drop the held item", Group = "World", DefaultKey = Key.F },
+            new ActionInfo { Action = BindAction.TidyArea, Label = "Tidy up an area", Group = "World", DefaultKey = Key.T },
         };
 
         /// <summary>True while the Controls page is waiting for a key press to bind. Game actions report

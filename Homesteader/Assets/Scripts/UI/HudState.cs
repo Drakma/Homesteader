@@ -47,7 +47,9 @@ namespace Homesteader.UI
     {
         public string IconId;     // matches an asset_id from the catalog; "" = empty
         public int Count;        // 0 = empty slot
+        public float WireUsed;   // a coil or spool of wire: the metres used from the one on top (see Wiring.cs)
         public List<ContainerStack> Contents;   // what a container item in this slot holds (null for everything else, see Containers.cs)
+        public string LiquidId;   // a liquid container: the liquid in it when it is not its default (raw well water in a jug, see Liquids.cs)
 
         public static ToolbarSlotData Empty()
         {

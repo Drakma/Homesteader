@@ -3,7 +3,7 @@
   "id": "drain_french_sock",
   "name": "French Drain Pipe",
   "category": "building",
-  "description": "Geotextile-wrapped perforated drain pipe.",
+  "description": "A 3 m length of black perforated PVC drain pipe for French drains.",
   "icon": "drain_french_sock.png",
   "properties": {
     "weight_kg": 2.5,
@@ -21,40 +21,19 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true
   },
   "models": [
     {
-      "file": "drain_french_sock.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "drain_french_sock.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 107.0,
-        "y": 104.0,
-        "z": 42.0
-      },
+      "file": "drain_french_sock.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 1.07,
-        "y": 1.04,
-        "z": 0.42
+        "x": 3.0,
+        "y": 0.121,
+        "z": 0.128
       },
-      "vertices": 1632,
-      "faces": 544,
-      "bounding_box": {
-        "min": [
-          -52.0,
-          -52.0,
-          0.0
-        ],
-        "max": [
-          55.0,
-          52.0,
-          42.0
-        ]
-      }
+      "triangles": 216
     }
   ],
   "utilities": {
@@ -94,39 +73,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "drain_french_sock.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 107.0,
-      "y": 104.0,
-      "z": 42.0
-    },
-    "dimensions_m": {
-      "x": 1.07,
-      "y": 1.04,
-      "z": 0.42
-    },
-    "vertices": 1632,
-    "faces": 544,
-    "bounding_box": {
-      "min": [
-        -52.0,
-        -52.0,
-        0.0
-      ],
-      "max": [
-        55.0,
-        52.0,
-        42.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.07,
-      "depth": 1.04,
-      "height": 0.42
+      "width": 3.0,
+      "depth": 0.13,
+      "height": 0.12
     }
   }
 }

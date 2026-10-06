@@ -471,12 +471,12 @@ namespace Homesteader.UI
         {
             if (gameCam == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 gameCam = iso != null ? iso.GetComponent<Camera>() : Camera.main;
             }
             if (player == null)
             {
-                var ped = FindAnyObjectByType<PedController>();
+                var ped = PedController.Current;
                 if (ped != null) player = ped.transform;
             }
             if (generator == null)

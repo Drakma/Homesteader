@@ -1,0 +1,23 @@
+{
+  "id": "1791132809_20lb_cement_bag_building_reference_image_meshy_image_to_3d",
+  "title": "20lb Cement Bag (building): reference image + Meshy image-to-3D",
+  "plan": [
+    "Batch batch_1791132796, 1 item: 20lb Cement Bag (building) - 'a 20lb cement bag in a yellow bag with black accents'. New item id: 20lb_cement_bag (named like its reference, 80lb_cement_bag).",
+    "Style reference: building/80lb_cement_bag (same lying-flat sack shape and level of detail, smaller, yellow bag with black accents instead of tan kraft paper).",
+    "Meshy balance now: 163 credits.",
+    "Reference image via gemini_generate (no Meshy credits).",
+    "Meshy image-to-3D, meshy-t2 smart-topology + texture: 15 credits. Balance after: 148.",
+    "Scale to real size (about 0.36 m long, 9 kg bag) and ground the pivot in Blender, check under 5,000 triangles, render the icon from the model and compare it with the 80lb bag, write manifest + README, update the catalog."
+  ],
+  "cost": {
+    "total_credits": 15,
+    "balance_credits": 163,
+    "balance_after_credits": 148,
+    "per_item": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15
+    }
+  },
+  "status": "approved",
+  "created_at": "2026-10-04T16:53:29Z",
+  "resolved_at": "2026-10-04T16:53:36Z"
+}

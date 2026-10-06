@@ -3,12 +3,12 @@
   "id": "sheet_osb_stack_large",
   "name": "Large OSB Stack",
   "category": "building",
-  "description": "A large stack of OSB sheathing sheets.",
+  "description": "A strapped stack of 25 OSB sheathing sheets.",
   "icon": "sheet_osb_stack_large.png",
   "properties": {
-    "weight_kg": 220.0,
+    "weight_kg": 525.0,
     "max_stack_size": 2,
-    "base_value": 68,
+    "base_value": 315,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -20,9 +20,23 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "pack_quantity": 25,
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "sheet_osb_stack_large.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.204,
+        "y": 0.283,
+        "z": 2.412
+      },
+      "triangles": 96
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +76,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.2,
-      "depth": 2.4,
-      "height": 0.6
+      "width": 1.204,
+      "depth": 2.412,
+      "height": 0.283
     }
   }
 }

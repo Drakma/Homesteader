@@ -16,7 +16,8 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "display_weight": true
   },
   "models": [
     {

@@ -39,6 +39,17 @@ public class IsometricLockedCamera : MonoBehaviour
     private Camera cam;
     private Transform _listenerAnchor;
 
+    [Header("First Person (Z)")]
+    public float eyeHeight = 1.62f;
+    public float lookSensitivity = 0.12f;
+    public float firstPersonFov = 70f;
+    /// <summary>True while the view is first person: a perspective camera at the player's eyes; right click + drag turns it, A / D sidestep.</summary>
+    public static bool FirstPerson { get; private set; }
+    private float _fpYaw, _fpPitch;
+    private float _isoOrthoSize = 7f;
+    private readonly System.Collections.Generic.List<(Renderer r, UnityEngine.Rendering.ShadowCastingMode mode)> _hiddenBody = new System.Collections.Generic.List<(Renderer, UnityEngine.Rendering.ShadowCastingMode)>();
+    private bool _lookDrag;
+
     // What a save keeps of the view: where the camera is turning to (not the half-turned yaw of the moment), whether it was panned off the
     // player and where its focus was.
     public float TargetYaw => targetYaw;
@@ -53,8 +64,15 @@ public class IsometricLockedCamera : MonoBehaviour
         if (cam != null && orthoSize > 0f) cam.orthographicSize = orthoSize;
         _isPanned = panned;
         if (panned) _focalPoint = focal;
-        else if (target != null) _focalPoint = target.position;
+        else if (target != null) _focalPoint = FocusOf(target);
         if (target != null) _lastTargetPos = target.position;
+    }
+
+    private static IsometricLockedCamera s_current;
+    /// <summary>The game camera rig, found once.</summary>
+    public static IsometricLockedCamera Current
+    {
+        get { if (s_current == null) s_current = UnityEngine.Object.FindAnyObjectByType<IsometricLockedCamera>(); return s_current; }
     }
 
     void Awake()
@@ -119,7 +137,7 @@ public class IsometricLockedCamera : MonoBehaviour
         ResolveTarget();
         if (target != null)
         {
-            _focalPoint = target.position;
+            _focalPoint = FocusOf(target);
             _lastTargetPos = target.position;
         }
     }
@@ -151,7 +169,7 @@ public class IsometricLockedCamera : MonoBehaviour
             ResolveTarget();
             if (target != null)
             {
-                _focalPoint = target.position;
+                _focalPoint = FocusOf(target);
                 _lastTargetPos = target.position;
             }
         }
@@ -160,6 +178,9 @@ public class IsometricLockedCamera : MonoBehaviour
         // Q: counter-clockwise (-90)
         // E: clockwise (+90)
         var kb = Keyboard.current;
+        if (!Homesteader.UI.HudBindings.KeyboardCaptured && Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.FirstPerson) && target != null)
+            SetFirstPerson(!FirstPerson);
+        if (FirstPerson) { UpdateFirstPerson(); return; }   // no orbit, zoom or pan: the mouse looks round
         if (Homesteader.UI.HudBindings.KeyboardCaptured)
         {
             // A HUD window or text field owns the keyboard
@@ -246,16 +267,16 @@ public class IsometricLockedCamera : MonoBehaviour
             if (playerMoving)
             {
                 // Smoothly re-center viewport on player when moving
-                _focalPoint = Vector3.Lerp(_focalPoint, target.position, recenterSpeed * Time.unscaledDeltaTime);
-                if (Vector3.Distance(_focalPoint, target.position) < 0.05f)
+                _focalPoint = Vector3.Lerp(_focalPoint, FocusOf(target), recenterSpeed * Time.unscaledDeltaTime);
+                if (Vector3.Distance(_focalPoint, FocusOf(target)) < 0.05f)
                 {
-                    _focalPoint = target.position;
+                    _focalPoint = FocusOf(target);
                     _isPanned = false;
                 }
             }
             else if (!_isPanned)
             {
-                _focalPoint = target.position;
+                _focalPoint = FocusOf(target);
             }
         }
     }
@@ -283,8 +304,87 @@ public class IsometricLockedCamera : MonoBehaviour
         _focalPoint.z = Mathf.Clamp(_focalPoint.z, minZ, maxZ);
     }
 
+    [Tooltip("The view centres this high above the player's feet: on the head, not the feet.")]
+    public float focusHeight = 1.6f;
+
+    /// <summary>The point the view centres on: the player's head (the feet plus focusHeight).</summary>
+    private Vector3 FocusOf(Transform t) { return t.position + Vector3.up * focusHeight; }
+
+    // ------------------------------------------------------------------ first person
+
+    private float _isoYaw = -45f;   // the isometric yaw that was showing when first person was entered
+    /// <summary>Into or out of the first person view. In it the player's body is not drawn (it keeps its shadow) and the cutaway is off.</summary>
+    private void SetFirstPerson(bool on)
+    {
+        if (cam == null || on == FirstPerson) return;
+        FirstPerson = on;
+        if (on)
+        {
+            _isoOrthoSize = cam.orthographicSize;
+            _isoYaw = targetYaw;   // the isometric view being left: it comes back as it was
+            _fpYaw = yawDegrees;
+            _fpPitch = 8f;
+            cam.orthographic = false;
+            cam.fieldOfView = firstPersonFov;
+            cam.nearClipPlane = 0.05f;
+            _hiddenBody.Clear();
+            foreach (Renderer r in target.GetComponentsInChildren<Renderer>(true))
+            {
+                _hiddenBody.Add((r, r.shadowCastingMode));
+                r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            }
+            FogCompensation = 1f;
+        }
+        else
+        {
+            foreach (var (r, mode) in _hiddenBody) if (r != null) r.shadowCastingMode = mode;
+            _hiddenBody.Clear();
+            cam.orthographic = true;
+            cam.orthographicSize = _isoOrthoSize;
+            cam.nearClipPlane = 0.3f;
+            targetYaw = yawDegrees = Mathf.Round((_isoYaw - 45f) / 90f) * 90f + 45f;   // back to the isometric view it was in before (squared to one of the four), not to wherever the player last looked
+            _isPanned = false;
+            _focalPoint = FocusOf(target);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+    /// <summary>First person look: right click + drag turns the view (the cursor stays free, so clicks act where it is, as in the isometric view).
+    /// A drag that starts over the HUD or the phone does not turn it.</summary>
+    private void UpdateFirstPerson()
+    {
+        var mouse = Mouse.current;
+        if (mouse == null) return;
+        var hud = Homesteader.UI.HudBindings.Instance;
+        if (mouse.rightButton.wasPressedThisFrame)
+            _lookDrag = !(hud != null && (hud.IsPointerOverUI(mouse.position.ReadValue()) || hud.IsPhoneOpen)) && !Homesteader.UI.HudBindings.KeyboardCaptured;
+        if (!mouse.rightButton.isPressed) { _lookDrag = false; return; }
+        if (!_lookDrag) return;
+        Vector2 d = mouse.delta.ReadValue();
+        _fpYaw += d.x * lookSensitivity;
+        _fpPitch = Mathf.Clamp(_fpPitch - d.y * lookSensitivity, -80f, 85f);
+        yawDegrees = targetYaw = _fpYaw;
+    }
+
+    private void FirstPersonLateUpdate()
+    {
+        Vector3 eye = target.position + Vector3.up * eyeHeight;
+        transform.SetPositionAndRotation(eye, Quaternion.Euler(_fpPitch, _fpYaw, 0f));
+        if (_listenerAnchor != null) _listenerAnchor.SetPositionAndRotation(eye, transform.rotation);
+        FogCompensation = 1f;
+        var urp = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline as UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset;
+        if (urp != null && Mathf.Abs(urp.shadowDistance - 70f) > 2f) urp.shadowDistance = 70f;
+    }
+
+    void OnDisable()
+    {
+        if (FirstPerson) SetFirstPerson(false);
+    }
+
     void LateUpdate()
     {
+        if (FirstPerson && target != null) { FirstPersonLateUpdate(); return; }
         if (target == null && _focalPoint == Vector3.zero) return;
 
         yawDegrees = Mathf.LerpAngle(yawDegrees, targetYaw, yawRotateSpeed * Time.unscaledDeltaTime);

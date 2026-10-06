@@ -1,7 +1,5 @@
 # Round Silage Bale
 
-**Item ID:** `mat_bale_silage_round`  
-**Category:** `ranching`  
-**Icon:** ![Round Silage Bale](mat_bale_silage_round.png)
+A round silage bale wrapped in plastic.
 
-Standardized Homesteader asset manifest for `mat_bale_silage_round`.
+Procedural model (tools/make_simple_props.py), 1224 triangles, 1.21 x 1.22 x 1.21 m. A round bale sealed in white plastic wrap.

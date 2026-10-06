@@ -574,3 +574,39 @@
 [2026-10-04T01:57:45.282Z] OK WinterHoliday/Long_Night_Hearth: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\WinterHoliday\Long_Night_Hearth.mp3 (2
 [2026-10-04T01:57:45.283Z] PASS 1 done - second pass picks up anything still short
 [2026-10-04T01:57:45.290Z] ALL DONE generated=7 failed=0 counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=10
+[2026-10-05T14:35:01.235Z] GEN Classical/Morning_Sonatina (0/10 in folder, 91s)
+[2026-10-05T14:35:37.008Z] server stderr: [gemini-music] Gemini failed to generate (attempt 1) — retrying in a fresh chat
+[2026-10-05T14:37:42.945Z] server stderr: [gemini-music] audio UI present 112s after send; trying download
+[2026-10-05T14:37:45.688Z] OK Classical/Morning_Sonatina: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Morning_Sonatina.mp3 (2780 K
+[2026-10-05T14:37:45.689Z] GEN Classical/Orchard_Quartet (1/10 in folder, 117s)
+[2026-10-05T14:39:20.192Z] server stderr: [gemini-music] audio UI present 80s after send; trying download
+[2026-10-05T14:39:22.187Z] OK Classical/Orchard_Quartet: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Orchard_Quartet.mp3 (3548 KB
+[2026-10-05T14:39:22.188Z] GEN Classical/Harpsichord_Gigue (2/10 in folder, 103s)
+[2026-10-05T14:41:53.276Z] server stderr: [gemini-music] audio UI present 137s after send; trying download
+[2026-10-05T14:41:54.912Z] OK Classical/Harpsichord_Gigue: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Harpsichord_Gigue.mp3 (3129 
+[2026-10-05T14:41:54.913Z] GEN Classical/Meadow_Nocturne (3/10 in folder, 120s)
+[2026-10-05T14:45:01.753Z] server stderr: [gemini-music] audio UI present 173s after send; trying download
+[2026-10-05T14:45:03.559Z] OK Classical/Meadow_Nocturne: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Meadow_Nocturne.mp3 (3469 KB
+[2026-10-05T14:45:03.560Z] GEN Classical/Flute_And_Harp_Pastorale (4/10 in folder, 96s)
+[2026-10-05T14:55:07.380Z] FAIL Classical/Flute_And_Harp_Pastorale: No track was downloaded within 600s (waiting for audio to appear). A screenshot is at C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Flute_And_Harp_Pastorale_failed.png. Run gemini_music_inspect to see
+[2026-10-05T14:55:07.382Z] GEN Classical/Harvest_Overture (4/10 in folder, 92s)
+[2026-10-05T14:57:13.722Z] server stderr: [gemini-music] audio UI present 112s after send; trying download
+[2026-10-05T14:57:16.183Z] OK Classical/Harvest_Overture: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Harvest_Overture.mp3 (2674 K
+[2026-10-05T14:57:16.185Z] GEN Classical/Cello_Reverie (5/10 in folder, 100s)
+[2026-10-05T14:58:54.446Z] server stderr: [gemini-music] audio UI present 84s after send; trying download
+[2026-10-05T14:58:56.174Z] OK Classical/Cello_Reverie: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Cello_Reverie.mp3 (2779 KB, 
+[2026-10-05T14:58:56.175Z] GEN Classical/Garden_Minuet (6/10 in folder, 92s)
+[2026-10-05T15:02:54.818Z] server stderr: [gemini-music] audio UI present 225s after send; trying download
+[2026-10-05T15:02:56.463Z] OK Classical/Garden_Minuet: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Garden_Minuet.mp3 (2504 KB, 
+[2026-10-05T15:02:56.468Z] GEN Classical/Storm_Over_The_Ridge (7/10 in folder, 120s)
+[2026-10-05T15:05:02.579Z] server stderr: [gemini-music] audio UI present 112s after send; trying download
+[2026-10-05T15:05:04.585Z] OK Classical/Storm_Over_The_Ridge: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Storm_Over_The_Ridge.mp3 (36
+[2026-10-05T15:05:04.586Z] GEN Classical/Evening_Adagio (8/10 in folder, 111s)
+[2026-10-05T15:06:10.659Z] server stderr: [gemini-music] audio UI present 52s after send; trying download
+[2026-10-05T15:06:12.587Z] OK Classical/Evening_Adagio: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Evening_Adagio.mp3 (3455 KB,
+[2026-10-05T15:06:12.588Z] GEN Classical/Woodwind_Serenade (9/10 in folder, 112s)
+[2026-10-05T15:06:50.791Z] server stderr: [gemini-music] audio UI present 24s after send; trying download
+[2026-10-05T15:06:53.084Z] OK Classical/Woodwind_Serenade: Saved C:\Users\casey\Desktop\Homesteader\Homesteader\Assets\Resources\Audio\Music\Classical\Woodwind_Serenade.mp3 (3548 
+[2026-10-05T15:06:53.084Z] PASS 1 done - second pass picks up anything still short
+[2026-10-05T15:06:53.104Z] ALL DONE generated=10 failed=1 counts: LoFiBeats=10 LoFiMeadow=10 LoFiHarvest=10 LoFiNeon=10 ModernPop=10 ModernCountry=10 SmoothJazz=10 ClassicRock=10 Grunge=10 Punk=10 80sGlamRock=10 Synthwave=10 WinterHoliday=10 Classical=10
+[2026-10-05T15:06:53.104Z] Unresolved: Classical/Flute_And_Harp_Pastorale

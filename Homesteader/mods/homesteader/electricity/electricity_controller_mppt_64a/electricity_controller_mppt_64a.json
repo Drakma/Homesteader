@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_controller_mppt_64a",
+  "name": "MPPT Charge Controller, Medium",
+  "category": "electricity",
+  "description": "A 64 amp MPPT solar charge controller (12/24/48 volt battery systems, up to 150 volts of solar, about 3.0 kW at 48 volts) with a finned heat sink, an LCD readout and a terminal row. It mounts on a building's wall: aim at a wall of a finished building and left click.",
+  "icon": "electricity_controller_mppt_64a.png",
+  "properties": {
+    "weight_kg": 4.5,
+    "max_stack_size": 5,
+    "base_value": 420,
+    "is_consumable": false,
+    "footprint": "0.25m W x 0.10m D x 0.36m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "display_weight": true,
+    "placeable": false,
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "wire_role": "mppt"
+  },
+  "models": [
+    {
+      "file": "electricity_controller_mppt_64a.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.25,
+        "y": 0.36,
+        "z": 0.1
+      },
+      "triangles": 1314
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "Charges the battery bank from solar: 64 A, up to 3.0 kW (MPPT)",
+      "details": "Charges the battery bank from solar: 64 A, up to 3.0 kW (MPPT)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.25,
+      "depth": 0.1,
+      "height": 0.36
+    },
+    "fuel_type": "none",
+    "fuel_consumption_l_per_min": 0,
+    "max_power_w": 3000,
+    "tank_capacity_l": 0
+  }
+}

@@ -158,6 +158,8 @@ namespace Homesteader.World
             TreeByTransform.Clear();
             ForestTrees.Begin(root);
             ForestSolids.Clear();
+            WorldRocks.Clear();
+            FarmlandSoil.Clear();   // a new world has no tilled ground (a load tills its squares again)
             BerryBushes.Clear();
             BushByTransform.Clear();
 
@@ -255,6 +257,7 @@ namespace Homesteader.World
             int shore = ScatterShore(gen, terrain, root, rng);
             int bed = ScatterBed(gen, terrain, root, rng);
             int flowers = ScatterFlowers(gen, terrain, root, rng);
+            int fieldStones = ScatterFieldStones(gen, terrain, root, rng);
             int tufts = ScatterTufts(gen, terrain, root, rng);
             int shrubs = ScatterShrubs(gen, terrain, root, rng);
             int objects = root.childCount;
@@ -264,7 +267,7 @@ namespace Homesteader.World
             root.gameObject.AddComponent<VegetationSeasons>().Init(new List<VegetationSeasons.Entry>(Tracked));
             root.gameObject.AddComponent<VegetationFocusFade>();
             BerryBushes.Started(root);   // small plants fade with distance from the view centre
-            Debug.Log($"[Vegetation] Placed {placed} trees, {rocks} rocks, {shore} shoreline cattails/rocks, {bed} bed rocks/debris, {flowers} flower clumps, {tufts} grass tufts and {shrubs} shrubs ({objects} objects merged into {chunks} chunk meshes).");
+            Debug.Log($"[Vegetation] Placed {placed} trees, {rocks} rocks, {fieldStones} field stones, {shore} shoreline cattails/rocks, {bed} bed rocks/debris, {flowers} flower clumps, {tufts} grass tufts and {shrubs} shrubs ({objects} objects merged into {chunks} chunk meshes).");
             return placed;
         }
 
@@ -320,6 +323,7 @@ namespace Homesteader.World
                 int baseIdx = cb.V.Count;
                 if (TreeByTransform.TryGetValue(c, out ForestTree tree)) { tree.ChunkKey = key; tree.VertStart = baseIdx; tree.VertCount = data.v.Length; }
                 if (BushByTransform.TryGetValue(c, out BerryBush bush)) { bush.ChunkKey = key; bush.VertStart = baseIdx; bush.VertCount = data.v.Length; }
+                if (WorldRocks.ByTransform.TryGetValue(c, out WorldRock rock)) { rock.ChunkKey = key; rock.VertStart = baseIdx; rock.VertCount = data.v.Length; }
                 for (int i = 0; i < data.v.Length; i++)
                 {
                     cb.V.Add(M.MultiplyPoint3x4(data.v[i]));
@@ -370,6 +374,8 @@ namespace Homesteader.World
                 if (meshByKey.TryGetValue(t.ChunkKey, out Mesh m)) t.Mesh = m;
             foreach (BerryBush bb in BushByTransform.Values)
                 if (meshByKey.TryGetValue(bb.ChunkKey, out Mesh bm)) bb.Mesh = bm;
+            foreach (WorldRock wr in WorldRocks.ByTransform.Values)
+                if (meshByKey.TryGetValue(wr.ChunkKey, out Mesh rm)) wr.Mesh = rm;
             return chunks.Count;
         }
 
@@ -424,7 +430,7 @@ namespace Homesteader.World
                     go.transform.rotation = Quaternion.Euler((float)(rng.NextDouble() - 0.5) * 20f, (float)(rng.NextDouble() * 360.0), (float)(rng.NextDouble() - 0.5) * 20f);
                     go.transform.localScale = new Vector3(scale, scale * (0.6f + (float)rng.NextDouble() * 0.5f), scale);
 
-                    { Mesh rockMesh = set[rng.Next(set.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); }
+                    { Mesh rockMesh = set[rng.Next(set.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); WorldRocks.Register(go.transform, rockMesh); }
                     var mr = go.AddComponent<MeshRenderer>();
                     Material m = mats[rng.Next(mats.Length)];
                     mr.sharedMaterials = new[] { m, m };
@@ -496,11 +502,61 @@ namespace Homesteader.World
                         float s = 0.8f + (float)rng.NextDouble() * 0.6f;
                         go.transform.position = new Vector3(wx, wy - 0.05f * s, wz);
                         go.transform.localScale = new Vector3(s, s * (0.6f + (float)rng.NextDouble() * 0.5f), s);
-                        { Mesh rockMesh = rocks[rng.Next(rocks.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); }
+                        { Mesh rockMesh = rocks[rng.Next(rocks.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); WorldRocks.Register(go.transform, rockMesh); }
                         Material m = rockMats[rng.Next(rockMats.Length)];
                         mr.sharedMaterials = new[] { m, m };
                         mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                     }
+                    placed++;
+                }
+            }
+            return placed;
+        }
+
+        // ------------------------------------------------------------------ a few stones lying in the grass fields
+
+        private const float FieldStoneSpacing = 9f;       // candidate grid, metres
+        private const double FieldStoneChance = 0.09;     // per candidate: roughly one stone to every 900 square metres of grass
+
+        private static readonly HashSet<string> FieldStoneBiomes = new HashSet<string> { "biome_grass_plains", "biome_meadow" };
+
+        private static int ScatterFieldStones(HomesteaderTerrainGenerator gen, Terrain terrain, Transform root, System.Random rng)
+        {
+            Shader lit = Shader.Find("Universal Render Pipeline/Lit");
+            Material[] mats = { MakeMat(lit, Hex("#8a8884")), MakeMat(lit, Hex("#7a7873")), MakeMat(lit, Hex("#9a968c")) };
+            Mesh[] small = BuildRockMeshes("FieldStone", 6, 0.14f, 0.3f, 700);
+            Mesh[] larger = BuildRockMeshes("FieldRock", 4, 0.35f, 0.55f, 800);
+            Vector3 origin = gen.transform.position;
+            int placed = 0;
+            for (float z = 0f; z < gen.terrainSizeZ; z += FieldStoneSpacing)
+            {
+                for (float x = 0f; x < gen.terrainSizeX; x += FieldStoneSpacing)
+                {
+                    float rx = x + (float)(rng.NextDouble() - 0.5) * FieldStoneSpacing;
+                    float rz = z + (float)(rng.NextDouble() - 0.5) * FieldStoneSpacing;
+                    if (rx < 1f || rz < 1f || rx > gen.terrainSizeX - 1f || rz > gen.terrainSizeZ - 1f) continue;
+                    if (rng.NextDouble() > FieldStoneChance) continue;
+
+                    BiomeData biome = gen.EvaluateBiomeAt(rx, rz);
+                    if (biome == null || !FieldStoneBiomes.Contains(biome.id)) continue;
+                    if (gen.IsNearRoad(rx, rz, 1.0f)) continue;
+                    if (gen.IsWaterAt(rx, rz) || gen.IsWaterAt(rx + 1.5f, rz) || gen.IsWaterAt(rx - 1.5f, rz) || gen.IsWaterAt(rx, rz + 1.5f) || gen.IsWaterAt(rx, rz - 1.5f)) continue;
+
+                    Mesh[] set = rng.NextDouble() < 0.15 ? larger : small;   // mostly small stones, now and then a bigger rock
+                    float scale = 0.8f + (float)rng.NextDouble() * 0.5f;
+                    float wx = origin.x + rx, wz = origin.z + rz;
+                    float wy = terrain.SampleHeight(new Vector3(wx, 0f, wz)) + origin.y;
+
+                    var go = new GameObject("FieldStone");
+                    go.transform.SetParent(root, false);
+                    go.transform.position = new Vector3(wx, wy - 0.04f * scale, wz);
+                    go.transform.rotation = Quaternion.Euler((float)(rng.NextDouble() - 0.5) * 20f, (float)(rng.NextDouble() * 360.0), (float)(rng.NextDouble() - 0.5) * 20f);
+                    go.transform.localScale = new Vector3(scale, scale * (0.6f + (float)rng.NextDouble() * 0.5f), scale);
+                    { Mesh rockMesh = set[rng.Next(set.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); WorldRocks.Register(go.transform, rockMesh); }
+                    var mr = go.AddComponent<MeshRenderer>();
+                    Material m = mats[rng.Next(mats.Length)];
+                    mr.sharedMaterials = new[] { m, m };
+                    mr.shadowCastingMode = set == small ? UnityEngine.Rendering.ShadowCastingMode.Off : UnityEngine.Rendering.ShadowCastingMode.On;
                     placed++;
                 }
             }
@@ -1012,7 +1068,7 @@ namespace Homesteader.World
                         go.transform.position = new Vector3(wx, wy - 0.06f * s, wz);
                         go.transform.rotation = Quaternion.Euler((float)(rng.NextDouble() - 0.5) * 20f, (float)(rng.NextDouble() * 360.0), (float)(rng.NextDouble() - 0.5) * 20f);
                         go.transform.localScale = new Vector3(s, s * (0.5f + (float)rng.NextDouble() * 0.5f), s);
-                        { Mesh rockMesh = rocks[rng.Next(rocks.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); }
+                        { Mesh rockMesh = rocks[rng.Next(rocks.Length)]; go.AddComponent<MeshFilter>().sharedMesh = rockMesh; ForestSolids.AddRock(rockMesh, go.transform); WorldRocks.Register(go.transform, rockMesh); }
                         Material m = rockMats[rng.Next(rockMats.Length)];
                         mr.sharedMaterials = new[] { m, m };
                     }

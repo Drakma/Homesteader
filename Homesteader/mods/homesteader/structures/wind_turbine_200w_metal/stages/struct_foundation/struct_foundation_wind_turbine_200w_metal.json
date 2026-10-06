@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_foundation_wind_turbine_200w_metal",
+  "name": "200W Metal Wind Turbine - Foundation",
+  "category": "structures",
+  "description": "The foundation construction phase of the 200w metal wind turbine.",
+  "icon": "struct_foundation_wind_turbine_200w_metal.png",
+  "properties": {
+    "weight_kg": 100.0,
+    "max_stack_size": 1,
+    "base_value": 0,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_foundation_wind_turbine_200w_metal.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2,
+        "y": 0.3,
+        "z": 2
+      },
+      "triangles": 252
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 2,
+      "depth": 2,
+      "height": 0.3
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [],
+    "required_tools": [
+      [
+        "tool_shovel",
+        "tool_shovel_round_point",
+        "tool_shovel_trenching",
+        "tool_pickaxe"
+      ],
+      [
+        "tool_wrench_adjustable",
+        "tool_wrench_pipe"
+      ]
+    ],
+    "build_clips": [
+      "Dig",
+      "Hoe"
+    ],
+    "build_motion": ""
+  }
+}

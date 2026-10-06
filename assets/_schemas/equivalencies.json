@@ -1,0 +1,1943 @@
+{
+  "_readme": "An equivalency is a unit system a recipe can ask for as '~name x N' (a recipe line is paid by ANY mix of members worth N units). Each member is an item (item) or a tag (tag: every item of the tag counts, so the player chooses a colour or a material) and says how many units it is worth (value). The smallest member is 1. `unit` is the word shown after a count (studs, bags ...). Tags themselves are plain groups of interchangeable items (material_tags.json).",
+  "equivalencies": {
+    "framing_lumber": {
+      "unit": "studs",
+      "label": "Framing Lumber",
+      "members": [
+        {
+          "item": "lumber_stud_2x4",
+          "value": 1
+        },
+        {
+          "item": "lumber_bundle_2x4_small",
+          "value": 20
+        },
+        {
+          "item": "lumber_bundle_2x4_large",
+          "value": 40
+        }
+      ]
+    },
+    "rafters": {
+      "unit": "boards",
+      "label": "Rafters",
+      "members": [
+        {
+          "item": "building_lumber_rafter_2x8",
+          "value": 1
+        },
+        {
+          "item": "building_bundle_rafter_2x8_small",
+          "value": 10
+        },
+        {
+          "item": "building_bundle_rafter_2x8_large",
+          "value": 25
+        }
+      ]
+    },
+    "joists": {
+      "unit": "boards",
+      "label": "Joists",
+      "members": [
+        {
+          "item": "building_lumber_joist_2x10",
+          "value": 1
+        },
+        {
+          "item": "lumber_bundle_2x10_small",
+          "value": 6
+        },
+        {
+          "item": "lumber_bundle_2x10_large",
+          "value": 15
+        }
+      ]
+    },
+    "masonry_units": {
+      "unit": "blocks",
+      "label": "Masonry Units",
+      "members": [
+        {
+          "item": "building_concrete_block",
+          "value": 1
+        },
+        {
+          "item": "building_concrete_block_pallet_small",
+          "value": 36
+        },
+        {
+          "item": "building_concrete_block_pallet_large",
+          "value": 90
+        }
+      ]
+    },
+    "mortar": {
+      "unit": "bags",
+      "label": "Mortar",
+      "members": [
+        {
+          "item": "building_mortar_mix_bag",
+          "value": 1
+        },
+        {
+          "item": "building_mortar_mix_bag_pallet_10",
+          "value": 10
+        },
+        {
+          "item": "building_mortar_mix_bag_pallet_20",
+          "value": 20
+        }
+      ]
+    },
+    "foam_board": {
+      "unit": "sheets",
+      "label": "Foam Board",
+      "members": [
+        {
+          "item": "building_insulation_foam_board",
+          "value": 1
+        },
+        {
+          "item": "building_insulation_foam_board_stack_small",
+          "value": 10
+        },
+        {
+          "item": "building_insulation_foam_board_stack_large",
+          "value": 24
+        }
+      ]
+    },
+    "gutters": {
+      "unit": "sections",
+      "label": "Gutters",
+      "members": [
+        {
+          "item": "building_gutter_section",
+          "value": 1
+        },
+        {
+          "item": "building_gutter_bundle",
+          "value": 10
+        }
+      ]
+    },
+    "soffit": {
+      "unit": "panels",
+      "label": "Soffit",
+      "members": [
+        {
+          "item": "building_soffit_panel",
+          "value": 1
+        },
+        {
+          "item": "building_soffit_bundle",
+          "value": 10
+        }
+      ]
+    },
+    "fascia": {
+      "unit": "boards",
+      "label": "Fascia",
+      "members": [
+        {
+          "item": "building_fascia_board",
+          "value": 1
+        },
+        {
+          "item": "building_fascia_bundle",
+          "value": 12
+        }
+      ]
+    },
+    "roofing_nails": {
+      "unit": "boxes",
+      "label": "Roofing Nails",
+      "members": [
+        {
+          "item": "building_roofing_nails_box",
+          "value": 1
+        },
+        {
+          "item": "building_roofing_nails_case",
+          "value": 10
+        }
+      ]
+    },
+    "anchor_bolts": {
+      "unit": "bolts",
+      "label": "Anchor Bolts",
+      "members": [
+        {
+          "item": "anchor_bolt",
+          "value": 1
+        },
+        {
+          "item": "anchor_bolts_case_10",
+          "value": 10
+        },
+        {
+          "item": "anchor_bolts_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "joist_hangers": {
+      "unit": "hangers",
+      "label": "Joist Hangers",
+      "members": [
+        {
+          "item": "joist_hanger",
+          "value": 1
+        },
+        {
+          "item": "joist_hangers_case_10",
+          "value": 10
+        },
+        {
+          "item": "joist_hangers_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "hurricane_ties": {
+      "unit": "ties",
+      "label": "Hurricane Ties",
+      "members": [
+        {
+          "item": "hardware_hurricane_ties",
+          "value": 1
+        },
+        {
+          "item": "hurricane_ties_case_10",
+          "value": 5
+        },
+        {
+          "item": "hurricane_ties_case_20",
+          "value": 10
+        }
+      ]
+    },
+    "truss_small": {
+      "unit": "trusses",
+      "label": "Truss Small",
+      "members": [
+        {
+          "item": "building_truss_small",
+          "value": 1
+        },
+        {
+          "item": "building_truss_small_pack",
+          "value": 6
+        }
+      ]
+    },
+    "truss_medium": {
+      "unit": "trusses",
+      "label": "Truss Medium",
+      "members": [
+        {
+          "item": "building_truss_medium",
+          "value": 1
+        },
+        {
+          "item": "building_truss_medium_pack",
+          "value": 5
+        }
+      ]
+    },
+    "truss_large": {
+      "unit": "trusses",
+      "label": "Truss Large",
+      "members": [
+        {
+          "item": "building_truss_large",
+          "value": 1
+        },
+        {
+          "item": "building_truss_large_pack",
+          "value": 4
+        }
+      ]
+    },
+    "sand": {
+      "unit": "m3",
+      "label": "Sand",
+      "members": [
+        {
+          "item": "mat_scoop_sand",
+          "value": 0.005
+        },
+        {
+          "item": "mat_pile_sand_small",
+          "value": 0.05
+        },
+        {
+          "item": "mat_pile_sand_medium",
+          "value": 0.2
+        },
+        {
+          "item": "mat_pile_sand_large",
+          "value": 0.75
+        },
+        {
+          "item": "20lb_sand_bag",
+          "value": 0.0056
+        },
+        {
+          "item": "20lb_sand_bag_pallet_10",
+          "value": 0.056
+        },
+        {
+          "item": "20lb_sand_bag_pallet_20",
+          "value": 0.112
+        },
+        {
+          "item": "mat_pile_sand_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "gravel": {
+      "unit": "m3",
+      "label": "Gravel",
+      "members": [
+        {
+          "item": "mat_scoop_gravel",
+          "value": 0.005
+        },
+        {
+          "item": "mat_pile_gravel_small",
+          "value": 0.05
+        },
+        {
+          "item": "mat_pile_gravel_medium",
+          "value": 0.2
+        },
+        {
+          "item": "mat_pile_gravel_large",
+          "value": 0.75
+        },
+        {
+          "item": "20lb_aggregate_rock_bag",
+          "value": 0.0056
+        },
+        {
+          "item": "20lb_aggregate_rock_bag_pallet_10",
+          "value": 0.056
+        },
+        {
+          "item": "20lb_aggregate_rock_bag_pallet_20",
+          "value": 0.112
+        },
+        {
+          "item": "mat_pile_gravel_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "dirt": {
+      "unit": "m3",
+      "label": "Dirt",
+      "members": [
+        {
+          "item": "mat_scoop_dirt",
+          "value": 0.005
+        },
+        {
+          "item": "mat_pile_dirt_small",
+          "value": 0.05
+        },
+        {
+          "item": "mat_pile_dirt_medium",
+          "value": 0.2
+        },
+        {
+          "item": "mat_pile_dirt_large",
+          "value": 0.75
+        },
+        {
+          "item": "mat_pile_dirt_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "mulch": {
+      "unit": "m3",
+      "label": "Mulch",
+      "members": [
+        {
+          "item": "mat_scoop_mulch",
+          "value": 0.005
+        },
+        {
+          "item": "mat_pile_mulch_small",
+          "value": 0.05
+        },
+        {
+          "item": "mat_pile_mulch_medium",
+          "value": 0.2
+        },
+        {
+          "item": "mat_pile_mulch_large",
+          "value": 0.75
+        },
+        {
+          "item": "mat_pile_mulch_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "bedding_stone": {
+      "unit": "m3",
+      "label": "Bedding Stone",
+      "members": [
+        {
+          "item": "mat_scoop_bedding_stone",
+          "value": 0.005
+        },
+        {
+          "item": "mat_pile_bedding_stone_small",
+          "value": 0.05
+        },
+        {
+          "item": "mat_pile_bedding_stone_medium",
+          "value": 0.2
+        },
+        {
+          "item": "mat_pile_bedding_stone_large",
+          "value": 0.75
+        },
+        {
+          "item": "mat_pile_bedding_stone_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "manure": {
+      "unit": "m3",
+      "label": "Manure",
+      "members": [
+        {
+          "item": "mat_scoop_manure",
+          "value": 0.005
+        },
+        {
+          "item": "waste_pile_manure_small",
+          "value": 0.05
+        },
+        {
+          "item": "waste_pile_manure_medium",
+          "value": 0.2
+        },
+        {
+          "item": "waste_pile_manure_large",
+          "value": 0.75
+        },
+        {
+          "item": "waste_pile_manure_tiny",
+          "value": 0.01
+        }
+      ]
+    },
+    "framing_nails": {
+      "unit": "nails",
+      "label": "Framing Nails",
+      "members": [
+        {
+          "item": "framing_nail",
+          "value": 1
+        },
+        {
+          "item": "framing_nails_case_10",
+          "value": 10
+        },
+        {
+          "item": "framing_nails_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "finishing_nails": {
+      "unit": "nails",
+      "label": "Finishing Nails",
+      "members": [
+        {
+          "item": "finishing_nail",
+          "value": 1
+        },
+        {
+          "item": "finishing_nails_case_10",
+          "value": 10
+        },
+        {
+          "item": "finishing_nails_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "deck_screws": {
+      "unit": "screws",
+      "label": "Deck Screws",
+      "members": [
+        {
+          "item": "deck_screw",
+          "value": 1
+        },
+        {
+          "item": "deck_screws_case_10",
+          "value": 10
+        },
+        {
+          "item": "deck_screws_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "concrete_mix": {
+      "unit": "bags",
+      "label": "Concrete Mix",
+      "members": [
+        {
+          "item": "building_concrete_mix_bag",
+          "value": 1
+        },
+        {
+          "item": "building_concrete_mix_bag_pallet_10",
+          "value": 10
+        },
+        {
+          "item": "building_concrete_mix_bag_pallet_20",
+          "value": 20
+        },
+        {
+          "item": "building_concrete_mix_pallet",
+          "value": 40
+        }
+      ]
+    },
+    "romex_14_2": {
+      "unit": "m",
+      "label": "Romex 14-2",
+      "members": [
+        {
+          "item": "building_romex_14_2_spool_small",
+          "value": 15
+        },
+        {
+          "item": "building_romex_14_2_spool",
+          "value": 75
+        }
+      ]
+    },
+    "romex_12_2": {
+      "unit": "m",
+      "label": "Romex 12-2",
+      "members": [
+        {
+          "item": "item_spool_romex_12_2",
+          "value": 15
+        },
+        {
+          "item": "spool_wire_romex_12_2",
+          "value": 75
+        }
+      ]
+    },
+    "romex_10_3": {
+      "unit": "m",
+      "label": "Romex 10-3",
+      "members": [
+        {
+          "item": "building_romex_10_3_spool_small",
+          "value": 15
+        },
+        {
+          "item": "building_romex_10_3_spool",
+          "value": 75
+        }
+      ]
+    },
+    "drywall": {
+      "unit": "sheets",
+      "label": "Drywall",
+      "members": [
+        {
+          "item": "sheet_drywall",
+          "value": 1
+        },
+        {
+          "item": "sheet_drywall_stack_small",
+          "value": 10
+        },
+        {
+          "item": "sheet_drywall_stack_large",
+          "value": 25
+        }
+      ]
+    },
+    "osb": {
+      "unit": "sheets",
+      "label": "OSB Sheathing",
+      "members": [
+        {
+          "item": "sheet_osb",
+          "value": 1
+        },
+        {
+          "item": "sheet_osb_stack_small",
+          "value": 10
+        },
+        {
+          "item": "sheet_osb_stack_large",
+          "value": 25
+        }
+      ]
+    },
+    "lumber_2x6": {
+      "unit": "boards",
+      "label": "2x6 Lumber",
+      "members": [
+        {
+          "item": "lumber_board_2x6",
+          "value": 1
+        },
+        {
+          "item": "lumber_bundle_2x6_small",
+          "value": 10
+        },
+        {
+          "item": "lumber_bundle_2x6_large",
+          "value": 25
+        }
+      ]
+    },
+    "rebar": {
+      "unit": "bars",
+      "label": "Rebar",
+      "members": [
+        {
+          "item": "building_rebar_steel_bar",
+          "value": 1
+        },
+        {
+          "item": "building_rebar_steel_bundle",
+          "value": 10
+        },
+        {
+          "item": "item_hardware_rebarbundle",
+          "value": 25
+        }
+      ]
+    },
+    "lag_bolts": {
+      "unit": "bolts",
+      "label": "Lag Bolts",
+      "members": [
+        {
+          "item": "lag_bolt",
+          "value": 1
+        },
+        {
+          "item": "lag_bolts_case_10",
+          "value": 10
+        },
+        {
+          "item": "lag_bolts_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "water": {
+      "unit": "L",
+      "label": "Water",
+      "members": [
+        {
+          "item": "water_jug_1l",
+          "value": 1
+        },
+        {
+          "item": "water_jug_5l",
+          "value": 5
+        },
+        {
+          "item": "water_bucket_water",
+          "value": 10
+        },
+        {
+          "item": "water_jug_1l_pallet_5",
+          "value": 5
+        },
+        {
+          "item": "water_jug_1l_pallet_10",
+          "value": 10
+        },
+        {
+          "item": "water_jug_5l_pallet_5",
+          "value": 25
+        },
+        {
+          "item": "water_jug_5l_pallet_10",
+          "value": 50
+        }
+      ]
+    },
+    "cement": {
+      "unit": "bags",
+      "label": "Cement",
+      "members": [
+        {
+          "item": "20lb_cement_bag",
+          "value": 1
+        },
+        {
+          "item": "20lb_cement_bag_pallet_10",
+          "value": 10
+        },
+        {
+          "item": "20lb_cement_bag_pallet_20",
+          "value": 20
+        }
+      ]
+    },
+    "bricks": {
+      "unit": "units",
+      "label": "Bricks",
+      "members": [
+        {
+          "tag": "brick",
+          "value": 1
+        },
+        {
+          "item": "masonry_brick_brown_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_charcoal_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_dark_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_grey_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_old_mill_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_oxblood_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_pressed_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_rust_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_salmon_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_tan_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_white_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_brown_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_charcoal_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_dark_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_grey_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_old_mill_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_oxblood_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_pressed_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_rust_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_salmon_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_tan_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_white_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_red_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "roofing": {
+      "unit": "units",
+      "label": "Roofing",
+      "members": [
+        {
+          "tag": "roofing",
+          "value": 1
+        },
+        {
+          "item": "roofing_cedar_shakes_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_clay_tile_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_seam_black_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_seam_green_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_seam_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_shingles_brown_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_shingles_green_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_shingles_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_shingles_weathered_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_slate_tile_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_steel_corrugated_black_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_steel_corrugated_green_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_steel_corrugated_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_steel_corrugated_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_thatch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "roofing_cedar_shakes_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_clay_tile_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_seam_black_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_seam_green_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_seam_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_shingles_brown_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_shingles_green_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_shingles_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_shingles_weathered_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_slate_tile_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_steel_corrugated_black_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_steel_corrugated_green_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_steel_corrugated_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_steel_corrugated_stack_20",
+          "value": 20
+        },
+        {
+          "item": "roofing_thatch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "siding": {
+      "unit": "units",
+      "label": "Siding",
+      "members": [
+        {
+          "tag": "siding",
+          "value": 1
+        },
+        {
+          "item": "building_siding_barn_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_brick_veneer_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_cedar_shake_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_charcoal_batten_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_cream_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_sage_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_slate_blue_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_stucco_tan_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_weathered_grey_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_white_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_siding_corrugated_black_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_siding_corrugated_green_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_siding_corrugated_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_siding_corrugated_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_siding_barn_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_brick_veneer_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_cedar_shake_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_charcoal_batten_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_cream_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_sage_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_slate_blue_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_stucco_tan_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_weathered_grey_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_siding_white_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_steel_siding_corrugated_black_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_steel_siding_corrugated_green_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_steel_siding_corrugated_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_steel_siding_corrugated_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "flooring": {
+      "unit": "units",
+      "label": "Flooring",
+      "members": [
+        {
+          "tag": "flooring",
+          "value": 1
+        },
+        {
+          "item": "building_floor_carpet_beige_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_carpet_brown_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_carpet_burgundy_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_carpet_grey_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_carpet_navy_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_tile_slate_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_tile_speckled_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_tile_terracotta_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_tile_white_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_vinyl_plank_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_floor_carpet_beige_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_carpet_brown_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_carpet_burgundy_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_carpet_grey_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_carpet_navy_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_tile_slate_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_tile_speckled_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_tile_terracotta_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_tile_white_stack_20",
+          "value": 20
+        },
+        {
+          "item": "building_floor_vinyl_plank_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "beam_glulam": {
+      "unit": "pcs",
+      "label": "Glulam Beam",
+      "members": [
+        {
+          "item": "building_beam_glulam",
+          "value": 1
+        },
+        {
+          "item": "building_beam_glulam_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_beam_glulam_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "downspout": {
+      "unit": "pcs",
+      "label": "Downspout",
+      "members": [
+        {
+          "item": "building_downspout",
+          "value": 1
+        },
+        {
+          "item": "building_downspout_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_downspout_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "glass": {
+      "unit": "pcs",
+      "label": "Glass Pane",
+      "members": [
+        {
+          "item": "building_glass",
+          "value": 1
+        },
+        {
+          "item": "building_glass_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_glass_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "insulation_fiberglass_batt": {
+      "unit": "pcs",
+      "label": "Fiberglass Insulation Batt",
+      "members": [
+        {
+          "item": "building_insulation_fiberglass_batt",
+          "value": 1
+        },
+        {
+          "item": "building_insulation_fiberglass_batt_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_insulation_fiberglass_batt_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "insulation_spray_foam": {
+      "unit": "pcs",
+      "label": "Spray Foam Can",
+      "members": [
+        {
+          "item": "building_insulation_spray_foam",
+          "value": 1
+        },
+        {
+          "item": "building_insulation_spray_foam_case_8",
+          "value": 8
+        },
+        {
+          "item": "building_insulation_spray_foam_case_16",
+          "value": 16
+        }
+      ]
+    },
+    "joint_compound_bucket": {
+      "unit": "pcs",
+      "label": "Joint Compound (Bucket)",
+      "members": [
+        {
+          "item": "building_joint_compound_bucket",
+          "value": 1
+        },
+        {
+          "item": "building_joint_compound_bucket_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_joint_compound_bucket_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "metal": {
+      "unit": "pcs",
+      "label": "Metal Sheet",
+      "members": [
+        {
+          "item": "building_metal",
+          "value": 1
+        },
+        {
+          "item": "building_metal_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_metal_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pvc_cement_can": {
+      "unit": "pcs",
+      "label": "PVC Cement",
+      "members": [
+        {
+          "item": "building_pvc_cement_can",
+          "value": 1
+        },
+        {
+          "item": "building_pvc_cement_can_case_6",
+          "value": 6
+        },
+        {
+          "item": "building_pvc_cement_can_case_12",
+          "value": 12
+        }
+      ]
+    },
+    "pvc_primer_can": {
+      "unit": "pcs",
+      "label": "PVC Primer",
+      "members": [
+        {
+          "item": "building_pvc_primer_can",
+          "value": 1
+        },
+        {
+          "item": "building_pvc_primer_can_case_6",
+          "value": 6
+        },
+        {
+          "item": "building_pvc_primer_can_case_12",
+          "value": 12
+        }
+      ]
+    },
+    "steel_frame_beam": {
+      "unit": "pcs",
+      "label": "Steel Rigid Frame Beam",
+      "members": [
+        {
+          "item": "building_steel_frame_beam",
+          "value": 1
+        },
+        {
+          "item": "building_steel_frame_beam_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_frame_beam_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "steel_stud_framing": {
+      "unit": "pcs",
+      "label": "Steel Stud (Metal Framing)",
+      "members": [
+        {
+          "item": "building_steel_stud_framing",
+          "value": 1
+        },
+        {
+          "item": "building_steel_stud_framing_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_steel_stud_framing_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "thinset_bucket": {
+      "unit": "pcs",
+      "label": "Tile Adhesive (Bucket)",
+      "members": [
+        {
+          "item": "building_thinset_bucket",
+          "value": 1
+        },
+        {
+          "item": "building_thinset_bucket_stack_10",
+          "value": 10
+        },
+        {
+          "item": "building_thinset_bucket_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "drain_french_sock": {
+      "unit": "pcs",
+      "label": "French Drain Pipe",
+      "members": [
+        {
+          "item": "drain_french_sock",
+          "value": 1
+        },
+        {
+          "item": "drain_french_sock_stack_10",
+          "value": 10
+        },
+        {
+          "item": "drain_french_sock_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "lumber_joist_2x8": {
+      "unit": "pcs",
+      "label": "2x8 Joist Beam",
+      "members": [
+        {
+          "item": "lumber_joist_2x8",
+          "value": 1
+        },
+        {
+          "item": "lumber_joist_2x8_stack_10",
+          "value": 10
+        },
+        {
+          "item": "lumber_joist_2x8_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "lumber_post_4x4": {
+      "unit": "pcs",
+      "label": "4x4 Treated Post",
+      "members": [
+        {
+          "item": "lumber_post_4x4",
+          "value": 1
+        },
+        {
+          "item": "lumber_post_4x4_stack_10",
+          "value": 10
+        },
+        {
+          "item": "lumber_post_4x4_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "masonry_brick_red": {
+      "unit": "pcs",
+      "label": "Red Clay Brick",
+      "members": [
+        {
+          "item": "masonry_brick_red",
+          "value": 1
+        },
+        {
+          "item": "masonry_brick_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_red_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "masonry_fieldstone": {
+      "unit": "pcs",
+      "label": "Field Stone",
+      "members": [
+        {
+          "item": "masonry_fieldstone",
+          "value": 1
+        },
+        {
+          "item": "masonry_fieldstone_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_fieldstone_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pipe_leach_perforated_4inch": {
+      "unit": "pcs",
+      "label": "4\" Perforated Leach Pipe",
+      "members": [
+        {
+          "item": "pipe_leach_perforated_4inch",
+          "value": 1
+        },
+        {
+          "item": "pipe_leach_perforated_4inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_leach_perforated_4inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pipe_pvc_half_inch": {
+      "unit": "pcs",
+      "label": "1/2\" PVC Pipe",
+      "members": [
+        {
+          "item": "pipe_pvc_half_inch",
+          "value": 1
+        },
+        {
+          "item": "pipe_pvc_half_inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_pvc_half_inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pipe_pvc_one_inch": {
+      "unit": "pcs",
+      "label": "1\" PVC Pipe",
+      "members": [
+        {
+          "item": "pipe_pvc_one_inch",
+          "value": 1
+        },
+        {
+          "item": "pipe_pvc_one_inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_pvc_one_inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pipe_pvc_two_inch": {
+      "unit": "pcs",
+      "label": "2\" PVC Pipe",
+      "members": [
+        {
+          "item": "pipe_pvc_two_inch",
+          "value": 1
+        },
+        {
+          "item": "pipe_pvc_two_inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_pvc_two_inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "pipe_sewer_solid_4inch": {
+      "unit": "pcs",
+      "label": "4\" Sewer Pipe",
+      "members": [
+        {
+          "item": "pipe_sewer_solid_4inch",
+          "value": 1
+        },
+        {
+          "item": "pipe_sewer_solid_4inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_sewer_solid_4inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "post_wood_round_6inch": {
+      "unit": "pcs",
+      "label": "6\" Round Wood Post",
+      "members": [
+        {
+          "item": "post_wood_round_6inch",
+          "value": 1
+        },
+        {
+          "item": "post_wood_round_6inch_stack_10",
+          "value": 10
+        },
+        {
+          "item": "post_wood_round_6inch_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "sheet_plywood_cdx": {
+      "unit": "pcs",
+      "label": "CDX Plywood Sheet",
+      "members": [
+        {
+          "item": "sheet_plywood_cdx",
+          "value": 1
+        },
+        {
+          "item": "sheet_plywood_cdx_stack_10",
+          "value": 10
+        },
+        {
+          "item": "sheet_plywood_cdx_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "wood_log": {
+      "unit": "pcs",
+      "label": "Wood Log",
+      "members": [
+        {
+          "item": "wood_log",
+          "value": 1
+        },
+        {
+          "item": "wood_log_stack_10",
+          "value": 10
+        },
+        {
+          "item": "wood_log_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "insulation_blown": {
+      "unit": "bags",
+      "label": "Blown Insulation",
+      "members": [
+        {
+          "item": "building_insulation_blown_bag",
+          "value": 1
+        },
+        {
+          "item": "building_insulation_blown_bag_pallet_10",
+          "value": 10
+        },
+        {
+          "item": "building_insulation_blown_bag_pallet_20",
+          "value": 20
+        }
+      ]
+    },
+    "chimney_masonry": {
+      "unit": "units",
+      "label": "Chimney Masonry",
+      "members": [
+        {
+          "tag": "chimney_masonry",
+          "value": 1
+        },
+        {
+          "item": "masonry_brick_brown_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_charcoal_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_dark_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_grey_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_old_mill_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_oxblood_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_pressed_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_rust_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_salmon_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_tan_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_white_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_brown_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_charcoal_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_dark_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_grey_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_old_mill_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_oxblood_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_pressed_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_rust_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_salmon_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_tan_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_white_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_brick_red_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_brick_red_stack_20",
+          "value": 20
+        },
+        {
+          "item": "masonry_fieldstone_stack_10",
+          "value": 10
+        },
+        {
+          "item": "masonry_fieldstone_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "drywall_tape": {
+      "unit": "rolls",
+      "label": "Drywall tape",
+      "members": [
+        {
+          "item": "building_drywall_tape_roll",
+          "value": 1
+        },
+        {
+          "item": "building_drywall_tape_roll_case_6",
+          "value": 6
+        },
+        {
+          "item": "building_drywall_tape_roll_case_12",
+          "value": 12
+        }
+      ]
+    },
+    "pvc_elbow": {
+      "unit": "pcs",
+      "label": "PVC 90-Degree Elbow",
+      "members": [
+        {
+          "item": "pipe_pvc_elbow",
+          "value": 1
+        },
+        {
+          "item": "pipe_pvc_elbow_case_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_pvc_elbow_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "pvc_tee": {
+      "unit": "pcs",
+      "label": "PVC Tee Fitting",
+      "members": [
+        {
+          "item": "pipe_pvc_tee",
+          "value": 1
+        },
+        {
+          "item": "pipe_pvc_tee_case_10",
+          "value": 10
+        },
+        {
+          "item": "pipe_pvc_tee_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "pvc_ball_valve": {
+      "unit": "pcs",
+      "label": "PVC Ball Valve",
+      "members": [
+        {
+          "item": "building_valve_ball_pvc",
+          "value": 1
+        },
+        {
+          "item": "building_valve_ball_pvc_case_10",
+          "value": 10
+        },
+        {
+          "item": "building_valve_ball_pvc_case_20",
+          "value": 20
+        }
+      ]
+    },
+    "weatherstripping": {
+      "unit": "rolls",
+      "label": "Weather Stripping",
+      "members": [
+        {
+          "item": "building_weatherstripping_roll",
+          "value": 1
+        },
+        {
+          "item": "building_weatherstripping_roll_case_6",
+          "value": 6
+        },
+        {
+          "item": "building_weatherstripping_roll_case_12",
+          "value": 12
+        }
+      ]
+    },
+    "solar_panel_100w": {
+      "unit": "units",
+      "label": "100W Solar Panels",
+      "members": [
+        {
+          "item": "electricity_solar_panel_100w_rigid",
+          "value": 1
+        },
+        {
+          "item": "electricity_solar_panel_100w_rigid_stack_4",
+          "value": 4
+        },
+        {
+          "item": "electricity_solar_panel_100w_rigid_stack_8",
+          "value": 8
+        }
+      ]
+    },
+    "solar_panel_200w": {
+      "unit": "units",
+      "label": "200W Solar Panels",
+      "members": [
+        {
+          "item": "electricity_solar_panel_200w",
+          "value": 1
+        },
+        {
+          "item": "electricity_solar_panel_200w_stack_4",
+          "value": 4
+        },
+        {
+          "item": "electricity_solar_panel_200w_stack_8",
+          "value": 8
+        }
+      ]
+    },
+    "solar_panel_400w": {
+      "unit": "units",
+      "label": "400W Solar Panels",
+      "members": [
+        {
+          "item": "electricity_solar_panel_400w_commercial",
+          "value": 1
+        },
+        {
+          "item": "electricity_solar_panel_400w_commercial_stack_4",
+          "value": 4
+        },
+        {
+          "item": "electricity_solar_panel_400w_commercial_stack_8",
+          "value": 8
+        }
+      ]
+    },
+    "propane_pipe": {
+      "unit": "pcs",
+      "label": "Propane Pipe",
+      "members": [
+        {
+          "item": "fuel_pipe_propane",
+          "value": 1
+        },
+        {
+          "item": "fuel_pipe_propane_stack_10",
+          "value": 10
+        },
+        {
+          "item": "fuel_pipe_propane_stack_20",
+          "value": 20
+        }
+      ]
+    },
+    "well_pump": {
+      "unit": "pcs",
+      "label": "Submersible Well Pump",
+      "members": [
+        {
+          "item": "water_pump_submersible_half_hp",
+          "value": 1
+        },
+        {
+          "item": "water_pump_submersible_three_quarter_hp",
+          "value": 1
+        },
+        {
+          "item": "water_pump_submersible_1hp",
+          "value": 1
+        }
+      ]
+    },
+    "pipe_abs_waste_three_inch": {
+      "unit": "pcs",
+      "label": "3\" Black Waste Pipe",
+      "members": [
+        {
+          "item": "pipe_abs_waste_three_inch",
+          "value": 1
+        }
+      ]
+    },
+    "fuel_line": {
+      "unit": "pcs",
+      "label": "Fuel Line",
+      "members": [
+        {
+          "item": "fuel_pipe_line",
+          "value": 1
+        },
+        {
+          "item": "fuel_pipe_line_stack_10",
+          "value": 10
+        },
+        {
+          "item": "fuel_pipe_line_stack_20",
+          "value": 20
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "animal_salt_lick_mineral_23kg",
-  "name": "23kg Mineral Salt Lick",
+  "name": "Mineral Salt Lick",
   "category": "ranching",
   "description": "Mineral salt block on a holder tray.",
   "icon": "animal_salt_lick_mineral_23kg.png",

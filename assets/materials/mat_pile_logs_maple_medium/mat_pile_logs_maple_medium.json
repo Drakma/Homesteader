@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_pile_logs_maple_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.375,
+        "y": 0.83,
+        "z": 0.839
+      },
+      "triangles": 1656
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.5,
-      "depth": 0.8,
-      "height": 0.7
+      "width": 1.38,
+      "depth": 0.84,
+      "height": 0.83
     }
   }
 }

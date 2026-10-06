@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "tool_bucket_empty.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.33,
+        "y": 0.44,
+        "z": 0.309
+      },
+      "triangles": 662
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 0.35
+      "width": 0.33,
+      "depth": 0.31,
+      "height": 0.44
     },
     "fuel_type": "none",
     "fuel_consumption_l_per_min": 0,

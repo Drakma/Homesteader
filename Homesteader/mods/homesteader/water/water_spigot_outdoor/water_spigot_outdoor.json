@@ -1,0 +1,91 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "water_spigot_outdoor",
+  "name": "Outdoor Spigot",
+  "category": "water",
+  "description": "A brass hose bib on a wall plate. Mount it on the outside of a building that has water; a right click with a bucket, jug or watering can in hand fills it. It gives whatever water the building is supplied with, raw or filtered.",
+  "icon": "water_spigot_outdoor.png",
+  "properties": {
+    "weight_kg": 0.4,
+    "max_stack_size": 5,
+    "base_value": 18,
+    "is_consumable": false,
+    "footprint": "0.12m W x 0.11m D x 0.12m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wire_role": "water_spigot",
+    "attach_surface": "wall",
+    "attach_side": "exterior",
+    "stores": [
+      "depot"
+    ],
+    "is_buyable": true
+  },
+  "models": [
+    {
+      "file": "water_spigot_outdoor.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.12,
+        "y": 0.12,
+        "z": 0.107
+      },
+      "triangles": 160
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "Extracts groundwater from deep aquifer (+500 L/day sustainable yield)",
+      "details": "Extracts groundwater from deep aquifer (+500 L/day sustainable yield)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.12,
+      "depth": 0.11,
+      "height": 0.12
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 0,
+    "is_connected": false,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
+  }
+}

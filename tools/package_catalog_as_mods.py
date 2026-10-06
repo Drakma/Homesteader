@@ -222,6 +222,10 @@ def build_mods():
     tags_src = os.path.join(SRC_ASSETS_DIR, "_schemas", "material_tags.json")
     if os.path.exists(tags_src):
         shutil.copyfile(tags_src, os.path.join(mod_dir, "tags.json"))
+    # Ship the equivalencies (unit systems a recipe asks for as "~name x N": members are items or tags, each worth some units).
+    equiv_src = os.path.join(SRC_ASSETS_DIR, "_schemas", "equivalencies.json")
+    if os.path.exists(equiv_src):
+        shutil.copyfile(equiv_src, os.path.join(mod_dir, "equivalencies.json"))
 
     print("\n" + "=" * 60)
     print(f"MOD PACKAGING COMPLETE: 1 mod ('{NAMESPACE}'), {len(mod_contents)} content entries, {total_items} asset folders.")

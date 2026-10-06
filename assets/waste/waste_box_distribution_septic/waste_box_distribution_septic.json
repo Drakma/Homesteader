@@ -3,7 +3,7 @@
   "id": "waste_box_distribution_septic",
   "name": "Septic Distribution Box",
   "category": "waste",
-  "description": "D-box for splitting flow to leach lines.",
+  "description": "A concrete distribution box, buried with its lid at the ground: it splits the liquid from a septic tank evenly between the leach fields piped to it. Pipe the tank to it, then it to each leach field, with black waste pipe.",
   "icon": "waste_box_distribution_septic.png",
   "properties": {
     "weight_kg": 4.0,
@@ -16,16 +16,24 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true
+    "placeable": true,
+    "display_weight": true,
+    "wire_role": "septic_dbox",
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ]
   },
   "models": [
     {
-      "file": "box_distribution_septic.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "box_distribution_septic.obj",
-      "format": "obj"
+      "file": "waste_box_distribution_septic.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.56,
+        "y": 0.08,
+        "z": 0.46
+      },
+      "triangles": 36
     }
   ],
   "utilities": {
@@ -67,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.5,
-      "depth": 0.4,
-      "height": 0.3
+      "width": 0.56,
+      "depth": 0.46,
+      "height": 0.08
     },
     "power_draw_w": 0
   }

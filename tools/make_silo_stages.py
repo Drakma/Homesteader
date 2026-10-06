@@ -8,7 +8,7 @@ models[]. tools/build_silo_groups.py makes the manifests first and renders the i
 
   foundation  a round concrete slab with a plinth and the base of the discharge pad
   framing     the slab, steel posts round the circle, hoops at intervals, a top ring
-  walls       the slab and the corrugated steel tower (hollow, open at the top)
+  walls       the slab and the steel tower: a smooth wall in one colour with a vertical rib where the panels meet (hollow, open at the top)
   complete    the tower closed by a conical roof with a vent cap, a roof hatch, a ladder up the front, a discharge chute with its slide gate
 
 Conventions as in docs/STRUCTURE_STAGES_GUIDE.md: 1 unit = 1 m, pivot at the centre of the footprint, ground at z = 0, front (the ladder and the chute) on
@@ -130,20 +130,53 @@ def framing(b, fb, R, H, M):
         b.log((a[0], a[1], z0), (c[0], c[1], z0 + (z1 - z0) / levels), 0.03, M['dark'], sides=4)
 
 
-def corrugation(b, R, z0, z1, M, step=0.5):
-    z = z0 + step
-    while z < z1 - 0.05:
-        band(b, R + 0.03, z, R + 0.03, z + 0.07, M['steel'], n=16)
-        z += step
+RIDGES = 48        # sides of the round tower wall
+PANEL_W = 0.95     # width of one siding panel round the tower; a seam rib stands where two panels meet
+AMP = 0.04         # how far a seam rib stands out from the wall
+RIB_W = 0.06
+
+
+def ridged_wall(b, R, z0, z1, m, hollow):
+    """The tower wall as sheet metal panels: one smooth round wall in one colour, with a narrow vertical rib where two panels meet."""
+    n = RIDGES
+    i_m = b.mat_index(m)
+    vb = [b.bm.verts.new(p) for p in ring(R, z0, n)]
+    vt = [b.bm.verts.new(p) for p in ring(R, z1, n)]
+    for i in range(n):
+        j = (i + 1) % n
+        f = b.bm.faces.new((vb[i], vb[j], vt[j], vt[i]))
+        f.material_index = i_m
+        f.smooth = True                 # shared vertices, smooth shaded: no facet reads lighter or darker than its neighbour
+    ob, ot = ring(R, z0, n), ring(R, z1, n)
+    if hollow:
+        ri = R - 0.06
+        ib, it = ring(ri, z0, n), ring(ri, z1, n)
+        inner = [(ib[(i + 1) % n], ib[i], it[i], it[(i + 1) % n]) for i in range(n)]
+        rim = [(ot[i], ot[(i + 1) % n], it[(i + 1) % n], it[i])[::-1] for i in range(n)]
+        base_rim = [(ob[i], ob[(i + 1) % n], ib[(i + 1) % n], ib[i]) for i in range(n)]
+        new_faces(b, inner + rim + base_rim, m)
+    # the seam ribs: the front (-Y, the ladder and the chute) falls in the middle of a panel
+    seams = max(6, 2 * round(math.pi * R / PANEL_W))
+    for k in range(seams):
+        a = -math.pi / 2 + math.pi / seams + 2 * math.pi * k / seams
+        ux, uy = math.cos(a), math.sin(a)           # outward
+        tx, ty = -uy * RIB_W / 2, ux * RIB_W / 2    # along the wall
+        r0, r1 = R - 0.01, R + AMP
+        p = lambda r, side, z: (r * ux + side * tx, r * uy + side * ty, z)
+        new_faces(b, [
+            (p(r1, -1, z0), p(r1, 1, z0), p(r1, 1, z1), p(r1, -1, z1)),       # the face of the rib
+            (p(r0, -1, z0), p(r1, -1, z0), p(r1, -1, z1), p(r0, -1, z1)),     # its two sides
+            (p(r1, 1, z0), p(r0, 1, z0), p(r0, 1, z1), p(r1, 1, z1)),
+            (p(r0, -1, z1), p(r1, -1, z1), p(r1, 1, z1), p(r0, 1, z1)),       # the top end (the walls stage has no roof over it)
+        ], m)
 
 
 def walls(b, fb, R, H, M, roofed=False):
     foundation(b, fb, R, H, M)
     z0, z1 = SLAB_H + 0.1, SLAB_H + H
-    tube(b, R, R - 0.05, z0, z1, M['steel']) if not roofed else band(b, R, z0, R, z1, M['steel'], closed_bottom=True)
-    band(b, R + 0.025, z0, R + 0.025, z0 + 0.35, M['dark'])      # the anchor ring at the base
-    corrugation(b, R, z0 + 0.35, z1, M)
-    band(b, R + 0.04, z1 - 0.12, R + 0.04, z1, M['dark'])           # the top ring (eave stiffener)
+    ridged_wall(b, R, z0, z1, M['steel'], hollow=not roofed)
+    band(b, R + AMP + 0.015, z0, R + AMP + 0.015, z0 + 0.35, M['dark'], n=RIDGES)       # the anchor ring at the base
+    band(b, R + AMP + 0.02, z1 - 0.12, R + AMP + 0.02, z1, M['dark'], n=RIDGES)           # the top ring (eave stiffener)
 
 
 def complete(b, fb, R, H, M):

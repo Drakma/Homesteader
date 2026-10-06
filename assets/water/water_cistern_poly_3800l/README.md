@@ -1,7 +1,5 @@
-# Cistern Poly 1000Gal
+# Water Cistern
 
-**Item ID:** `water_cistern_poly_1000gal`  
-**Category:** `water`  
-**Icon:** ![Cistern Poly 1000Gal](water_cistern_poly_1000gal.png)
+A black poly water cistern for bulk storage: stand it in the yard and pipe a well, a filter or a rain line into it.
 
-Standardized Homesteader asset manifest for `water_cistern_poly_1000gal`.
+Procedural model (tools/make_cisterns.py), 2510 triangles, 1.75 x 1.89 x 2.04 m, 3800 L. `wire_role: water_tank`. See docs/WELLS.md.

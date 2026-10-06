@@ -36,6 +36,12 @@
       "min": 0,
       "max": 100,
       "note": "percent offset against the wellness penalty for cold/winter exposure (see _base.schema.json's wellness_modifier note on the weather mechanic) while worn/equipped. Winter coat and any future cold-weather gear only. 0 for everything else - this is protection while worn, not a one-time restore, which is why it's separate from properties.wellness_modifier."
+    },
+    "water_per_use_l": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "note": "liters one use takes (a sink 4, a toilet flush 6, a shower 60, a washer load 50-120, a dishwasher load 12-20). A right click on the placed fixture in a building that has water and a waste outlet piped to a septic system uses it: the water comes from the building's supply and goes down the drain to the septic tank (docs/SEPTIC.md). 0 for everything that uses no water."
     }
   }
 }

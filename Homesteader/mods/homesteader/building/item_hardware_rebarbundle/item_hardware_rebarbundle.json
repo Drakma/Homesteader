@@ -1,14 +1,14 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "item_hardware_rebarbundle",
-  "name": "Item Hardware Rebarbundle",
+  "name": "Large Rebar Bundle",
   "category": "building",
-  "description": "Standard building asset used in the Homesteader simulation.",
+  "description": "25 3 m bars of 12 mm ribbed steel rebar, tied with wire.",
   "icon": "item_hardware_rebarbundle.png",
   "properties": {
-    "weight_kg": 1.0,
-    "max_stack_size": 99,
-    "base_value": 10,
+    "weight_kg": 70.9,
+    "max_stack_size": 4,
+    "base_value": 135,
     "is_consumable": false,
     "footprint": null,
     "happiness_modifier": 0,
@@ -20,40 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "placeable": true,
+    "pack_quantity": 25,
+    "display_weight": true
   },
   "models": [
     {
-      "file": "SM_Item_Hardware_RebarBundle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Hardware_RebarBundle.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 13.6,
-        "y": 280.0,
-        "z": 13.6
-      },
+      "file": "item_hardware_rebarbundle.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.14,
-        "y": 2.8,
-        "z": 0.14
+        "x": 3.0,
+        "y": 0.064,
+        "z": 0.103
       },
-      "vertices": 152,
-      "faces": 264,
-      "bounding_box": {
-        "min": [
-          -6.8,
-          -140.0,
-          0.0
-        ],
-        "max": [
-          6.8,
-          140.0,
-          13.6
-        ]
-      }
+      "triangles": 536
     }
   ],
   "utilities": {
@@ -93,39 +74,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "SM_Item_Hardware_RebarBundle.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 13.6,
-      "y": 280.0,
-      "z": 13.6
-    },
-    "dimensions_m": {
-      "x": 0.14,
-      "y": 2.8,
-      "z": 0.14
-    },
-    "vertices": 152,
-    "faces": 264,
-    "bounding_box": {
-      "min": [
-        -6.8,
-        -140.0,
-        0.0
-      ],
-      "max": [
-        6.8,
-        140.0,
-        13.6
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.14,
-      "depth": 2.8,
-      "height": 0.14
+      "width": 3.0,
+      "depth": 0.103,
+      "height": 0.064
     }
   }
 }

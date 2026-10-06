@@ -1,0 +1,83 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_door_interior_shaker",
+  "name": "Interior Door (Shaker)",
+  "category": "building",
+  "description": "A white shaker interior door with two flat recessed panels, 0.9 m by 2.1 m.",
+  "icon": "building_door_interior_shaker.png",
+  "properties": {
+    "weight_kg": 20.0,
+    "max_stack_size": 6,
+    "base_value": 110,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "placeable": true,
+    "display_weight": true
+  },
+  "models": [
+    {
+      "file": "building_door_interior_shaker.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.912,
+        "y": 2.1,
+        "z": 0.14
+      },
+      "triangles": 216
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.912,
+      "depth": 0.14,
+      "height": 2.1
+    }
+  }
+}

@@ -24,12 +24,172 @@
         "icon": "struct_foundation_farmhouse.png",
         "construction_recipe": [
           {
-            "item_id": "80lb_cement_bag",
+            "item_id": "~gravel",
+            "quantity": 0.5
+          },
+          {
+            "item_id": "~rebar",
+            "quantity": 12
+          },
+          {
+            "item_id": "~anchor_bolts",
             "quantity": 24
           },
           {
-            "item_id": "#rebar",
-            "quantity": 6
+            "item_id": "~drain_french_sock",
+            "quantity": 4
+          },
+          {
+            "section": "Foundation",
+            "mode": "any",
+            "items": [
+              {
+                "section": "Poured slab",
+                "mode": "all",
+                "items": [
+                  {
+                    "section": "Concrete",
+                    "mode": "any",
+                    "items": [
+                      {
+                        "section": "Bagged concrete mix",
+                        "mode": "all",
+                        "items": [
+                          {
+                            "item_id": "~concrete_mix",
+                            "quantity": 100
+                          },
+                          {
+                            "item_id": "~water",
+                            "quantity": 90
+                          }
+                        ]
+                      },
+                      {
+                        "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                        "mode": "all",
+                        "items": [
+                          {
+                            "item_id": "~cement",
+                            "quantity": 18
+                          },
+                          {
+                            "item_id": "~sand",
+                            "quantity": 0.22
+                          },
+                          {
+                            "item_id": "~gravel",
+                            "quantity": 0.32
+                          },
+                          {
+                            "item_id": "~water",
+                            "quantity": 80
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section": "Block foundation",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~masonry_units",
+                    "quantity": 120
+                  },
+                  {
+                    "item_id": "~mortar",
+                    "quantity": 8
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 28
+                  }
+                ]
+              },
+              {
+                "section": "Brick or fieldstone foundation",
+                "mode": "all",
+                "items": [
+                  {
+                    "section": "Masonry",
+                    "mode": "any",
+                    "items": [
+                      {
+                        "item_id": "~bricks",
+                        "quantity": 400
+                      },
+                      {
+                        "item_id": "~masonry_fieldstone",
+                        "quantity": 40
+                      }
+                    ]
+                  },
+                  {
+                    "item_id": "~mortar",
+                    "quantity": 8
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 28
+                  }
+                ]
+              },
+              {
+                "section": "On stilts",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~post_wood_round_6inch",
+                    "quantity": 12
+                  },
+                  {
+                    "section": "Concrete",
+                    "mode": "any",
+                    "items": [
+                      {
+                        "section": "Bagged concrete mix",
+                        "mode": "all",
+                        "items": [
+                          {
+                            "item_id": "~concrete_mix",
+                            "quantity": 12
+                          },
+                          {
+                            "item_id": "~water",
+                            "quantity": 11
+                          }
+                        ]
+                      },
+                      {
+                        "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                        "mode": "all",
+                        "items": [
+                          {
+                            "item_id": "~cement",
+                            "quantity": 2
+                          },
+                          {
+                            "item_id": "~sand",
+                            "quantity": 0.03
+                          },
+                          {
+                            "item_id": "~gravel",
+                            "quantity": 0.04
+                          },
+                          {
+                            "item_id": "~water",
+                            "quantity": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ],
         "required_tools": [
@@ -41,6 +201,16 @@
           ],
           [
             "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
+          ],
+          [
+            "tool_angle_grinder_corded",
+            "tool_angle_grinder_cordless"
           ]
         ]
       },
@@ -54,27 +224,109 @@
         "icon": "struct_framing_farmhouse.png",
         "construction_recipe": [
           {
-            "item_id": "#framing_lumber",
+            "section": "Frame",
+            "mode": "any",
+            "items": [
+              {
+                "section": "Wood frame",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~framing_lumber",
+                    "quantity": 200
+                  },
+                  {
+                    "item_id": "~lumber_2x6",
+                    "quantity": 60
+                  },
+                  {
+                    "item_id": "~joists",
+                    "quantity": 40
+                  },
+                  {
+                    "item_id": "~lumber_joist_2x8",
+                    "quantity": 24
+                  },
+                  {
+                    "item_id": "~lumber_post_4x4",
+                    "quantity": 12
+                  },
+                  {
+                    "item_id": "~beam_glulam",
+                    "quantity": 4
+                  }
+                ]
+              },
+              {
+                "section": "Steel frame",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~steel_stud_framing",
+                    "quantity": 120
+                  },
+                  {
+                    "item_id": "~steel_frame_beam",
+                    "quantity": 8
+                  },
+                  {
+                    "item_id": "~joists",
+                    "quantity": 40
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "section": "Roof structure",
+            "mode": "any",
+            "items": [
+              {
+                "item_id": "~truss_large",
+                "quantity": 6
+              },
+              {
+                "item_id": "~truss_medium",
+                "quantity": 8
+              },
+              {
+                "item_id": "~truss_small",
+                "quantity": 10
+              },
+              {
+                "item_id": "~rafters",
+                "quantity": 48
+              }
+            ]
+          },
+          {
+            "item_id": "~framing_nails",
+            "quantity": 400
+          },
+          {
+            "item_id": "~joist_hangers",
+            "quantity": 40
+          },
+          {
+            "item_id": "~hurricane_ties",
             "quantity": 60
           },
           {
-            "item_id": "lumber_joist_2x8",
-            "quantity": 24
+            "item_id": "~lag_bolts",
+            "quantity": 16
           },
           {
-            "item_id": "lumber_post_4x4",
-            "quantity": 8
-          },
-          {
-            "item_id": "item_hardware_framingnails_box",
-            "quantity": 6
+            "item_id": "~deck_screws",
+            "quantity": 100
           }
         ],
         "required_tools": [
           [
             "tool_circular_saw_corded",
             "tool_circular_saw_cordless",
-            "tool_saw_hand"
+            "tool_saw_hand",
+            "tool_miter_saw",
+            "tool_table_saw"
           ],
           [
             "tool_hammer_claw",
@@ -82,6 +334,10 @@
             "tool_drill_cordless_basic",
             "tool_drill_cordless_pro",
             "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
           ]
         ]
       },
@@ -95,23 +351,113 @@
         "icon": "struct_walls_farmhouse.png",
         "construction_recipe": [
           {
-            "item_id": "#sheathing",
+            "section": "Sheathing",
+            "mode": "any",
+            "items": [
+              {
+                "item_id": "~osb",
+                "quantity": 40
+              },
+              {
+                "item_id": "~sheet_plywood_cdx",
+                "quantity": 40
+              }
+            ]
+          },
+          {
+            "item_id": "building_house_wrap_roll",
+            "quantity": 4
+          },
+          {
+            "item_id": "~romex_14_2",
+            "quantity": 150
+          },
+          {
+            "item_id": "~romex_12_2",
+            "quantity": 150
+          },
+          {
+            "item_id": "~romex_10_3",
+            "quantity": 30
+          },
+          {
+            "item_id": "~pipe_pvc_half_inch",
+            "quantity": 30
+          },
+          {
+            "item_id": "~pipe_pvc_one_inch",
+            "quantity": 16
+          },
+          {
+            "item_id": "~pipe_pvc_two_inch",
             "quantity": 10
           },
           {
-            "item_id": "#romex_wire",
-            "quantity": 12
+            "item_id": "~pipe_sewer_solid_4inch",
+            "quantity": 8
           },
           {
-            "item_id": "#plumbing_pipe",
-            "quantity": 12
+            "item_id": "pipe_pvc_elbow",
+            "quantity": 30
+          },
+          {
+            "item_id": "pipe_pvc_tee",
+            "quantity": 20
+          },
+          {
+            "item_id": "building_valve_ball_pvc",
+            "quantity": 6
+          },
+          {
+            "item_id": "valve_ball_brass",
+            "quantity": 2
+          },
+          {
+            "item_id": "valve_gate_brass",
+            "quantity": 1
+          },
+          {
+            "item_id": "gland_cable_entry_wall",
+            "quantity": 4
+          },
+          {
+            "item_id": "~pvc_primer_can",
+            "quantity": 4
+          },
+          {
+            "item_id": "~pvc_cement_can",
+            "quantity": 4
+          },
+          {
+            "section": "Insulation",
+            "mode": "any",
+            "items": [
+              {
+                "item_id": "~insulation_fiberglass_batt",
+                "quantity": 60
+              },
+              {
+                "item_id": "~foam_board",
+                "quantity": 20
+              },
+              {
+                "item_id": "~insulation_blown",
+                "quantity": 20
+              }
+            ]
+          },
+          {
+            "item_id": "~insulation_spray_foam",
+            "quantity": 6
           }
         ],
         "required_tools": [
           [
             "tool_circular_saw_corded",
             "tool_circular_saw_cordless",
-            "tool_saw_hand"
+            "tool_saw_hand",
+            "tool_miter_saw",
+            "tool_table_saw"
           ],
           [
             "tool_hammer_claw",
@@ -119,6 +465,10 @@
             "tool_drill_cordless_basic",
             "tool_drill_cordless_pro",
             "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
           ]
         ]
       },
@@ -132,23 +482,91 @@
         "icon": "struct_complete_farmhouse.png",
         "construction_recipe": [
           {
-            "item_id": "#roofing",
-            "quantity": 13
+            "item_id": "~roofing",
+            "quantity": 60
           },
           {
-            "item_id": "building_glass",
-            "quantity": 9
+            "item_id": "building_roofing_felt_roll",
+            "quantity": 8
           },
           {
-            "item_id": "#chimney_masonry",
-            "quantity": 9
+            "item_id": "building_flashing_roll",
+            "quantity": 4
+          },
+          {
+            "item_id": "~metal",
+            "quantity": 4
+          },
+          {
+            "item_id": "~roofing_nails",
+            "quantity": 12
+          },
+          {
+            "item_id": "~siding",
+            "quantity": 80
+          },
+          {
+            "item_id": "~fascia",
+            "quantity": 24
+          },
+          {
+            "item_id": "~soffit",
+            "quantity": 24
+          },
+          {
+            "item_id": "~gutters",
+            "quantity": 12
+          },
+          {
+            "item_id": "~downspout",
+            "quantity": 6
+          },
+          {
+            "item_id": "#window",
+            "quantity": 10
+          },
+          {
+            "item_id": "building_weatherstripping_roll",
+            "quantity": 4
+          },
+          {
+            "item_id": "building_door_frame_exterior",
+            "quantity": 2
+          },
+          {
+            "item_id": "#door_exterior",
+            "quantity": 2
+          },
+          {
+            "item_id": "building_door_hardware_set",
+            "quantity": 2
+          },
+          {
+            "section": "Chimney masonry",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~chimney_masonry",
+                "quantity": 9
+              },
+              {
+                "item_id": "~mortar",
+                "quantity": 3
+              },
+              {
+                "item_id": "~water",
+                "quantity": 11
+              }
+            ]
           }
         ],
         "required_tools": [
           [
             "tool_circular_saw_corded",
             "tool_circular_saw_cordless",
-            "tool_saw_hand"
+            "tool_saw_hand",
+            "tool_miter_saw",
+            "tool_table_saw"
           ],
           [
             "tool_hammer_claw",
@@ -159,6 +577,12 @@
           ],
           [
             "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
           ]
         ]
       },
@@ -172,23 +596,78 @@
         "icon": "struct_finishings_farmhouse.png",
         "construction_recipe": [
           {
-            "item_id": "sheet_drywall_stack_small",
-            "quantity": 9
+            "item_id": "~drywall",
+            "quantity": 90
+          },
+          {
+            "item_id": "~joint_compound_bucket",
+            "quantity": 8
+          },
+          {
+            "item_id": "building_drywall_tape_roll",
+            "quantity": 10
           },
           {
             "item_id": "#paint",
-            "quantity": 5
+            "quantity": 8
           },
           {
-            "item_id": "#flooring",
+            "item_id": "~flooring",
             "quantity": 108
+          },
+          {
+            "section": "Tile setting",
+            "mode": "all",
+            "if": {
+              "uses": "#floor_tile"
+            },
+            "items": [
+              {
+                "item_id": "~thinset_bucket",
+                "quantity": 6
+              },
+              {
+                "item_id": "building_grout_bag",
+                "quantity": 4
+              },
+              {
+                "item_id": "~water",
+                "quantity": 8
+              }
+            ]
+          },
+          {
+            "item_id": "building_trim_baseboard",
+            "quantity": 80
+          },
+          {
+            "item_id": "building_trim_casing",
+            "quantity": 40
+          },
+          {
+            "item_id": "~finishing_nails",
+            "quantity": 300
+          },
+          {
+            "item_id": "building_door_frame_interior",
+            "quantity": 6
+          },
+          {
+            "item_id": "#door_interior",
+            "quantity": 6
+          },
+          {
+            "item_id": "building_door_hardware_set",
+            "quantity": 6
           }
         ],
         "required_tools": [
           [
             "tool_circular_saw_corded",
             "tool_circular_saw_cordless",
-            "tool_saw_hand"
+            "tool_saw_hand",
+            "tool_miter_saw",
+            "tool_table_saw"
           ],
           [
             "tool_hammer_claw",
@@ -196,6 +675,15 @@
             "tool_drill_cordless_basic",
             "tool_drill_cordless_pro",
             "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
           ]
         ]
       }

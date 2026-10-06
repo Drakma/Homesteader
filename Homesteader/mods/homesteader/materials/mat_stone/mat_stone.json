@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_stone.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.256,
+        "y": 0.181,
+        "z": 0.23
+      },
+      "triangles": 80
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.25,
-      "depth": 0.25,
-      "height": 0.2
+      "width": 0.26,
+      "depth": 0.23,
+      "height": 0.18
     }
   }
 }

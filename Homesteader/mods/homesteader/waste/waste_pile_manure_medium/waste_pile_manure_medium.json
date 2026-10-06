@@ -17,7 +17,17 @@
     "stamina_restore": 0,
     "wellness_modifier": -5
   },
-  "models": [],
+  "models": [
+    {
+      "file": "waste_pile_manure_medium.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 0.5,
+        "z": 1.0
+      }
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",

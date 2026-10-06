@@ -69,23 +69,91 @@
     "roof_area_m2": 28.1,
     "construction_recipe": [
       {
-        "item_id": "#roofing",
-        "quantity": 13
+        "item_id": "~roofing",
+        "quantity": 60
       },
       {
-        "item_id": "building_glass",
-        "quantity": 9
+        "item_id": "building_roofing_felt_roll",
+        "quantity": 8
       },
       {
-        "item_id": "#chimney_masonry",
-        "quantity": 9
+        "item_id": "building_flashing_roll",
+        "quantity": 4
+      },
+      {
+        "item_id": "~metal",
+        "quantity": 4
+      },
+      {
+        "item_id": "~roofing_nails",
+        "quantity": 12
+      },
+      {
+        "item_id": "~siding",
+        "quantity": 80
+      },
+      {
+        "item_id": "~fascia",
+        "quantity": 24
+      },
+      {
+        "item_id": "~soffit",
+        "quantity": 24
+      },
+      {
+        "item_id": "~gutters",
+        "quantity": 12
+      },
+      {
+        "item_id": "~downspout",
+        "quantity": 6
+      },
+      {
+        "item_id": "#window",
+        "quantity": 10
+      },
+      {
+        "item_id": "building_weatherstripping_roll",
+        "quantity": 4
+      },
+      {
+        "item_id": "building_door_frame_exterior",
+        "quantity": 2
+      },
+      {
+        "item_id": "#door_exterior",
+        "quantity": 2
+      },
+      {
+        "item_id": "building_door_hardware_set",
+        "quantity": 2
+      },
+      {
+        "section": "Chimney masonry",
+        "mode": "all",
+        "items": [
+          {
+            "item_id": "~chimney_masonry",
+            "quantity": 9
+          },
+          {
+            "item_id": "~mortar",
+            "quantity": 3
+          },
+          {
+            "item_id": "~water",
+            "quantity": 11
+          }
+        ]
       }
     ],
     "required_tools": [
       [
         "tool_circular_saw_corded",
         "tool_circular_saw_cordless",
-        "tool_saw_hand"
+        "tool_saw_hand",
+        "tool_miter_saw",
+        "tool_table_saw"
       ],
       [
         "tool_hammer_claw",
@@ -96,6 +164,12 @@
       ],
       [
         "tool_trowel_hand"
+      ],
+      [
+        "tool_wheelbarrow",
+        "tool_plastic_wheelbarrow",
+        "tool_steel_wheelbarrow",
+        "tool_cement_mixer"
       ]
     ]
   }

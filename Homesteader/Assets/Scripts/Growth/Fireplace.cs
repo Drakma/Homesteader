@@ -298,7 +298,7 @@ namespace Homesteader.Growth
             _light.color = new Color(1f, 0.6f, 0.26f);
             _light.range = 7f;
             _light.intensity = 2.4f;
-            _light.shadows = LightShadows.None;   // a point light with shadows draws the whole room six times: too dear for a flickering fire
+            LightOcclusion.Register(_light);   // the walls stop the firelight (switchable in Graphics: a point light with shadows draws the room six times)
             _light.enabled = false;
         }
 

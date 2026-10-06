@@ -22,7 +22,18 @@
     ],
     "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "electricity_power_pole_metal.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.0,
+        "y": 9.15,
+        "z": 0.42
+      },
+      "triangles": 522
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +73,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.2,
-      "depth": 0.2,
-      "height": 9.0
+      "width": 2.0,
+      "depth": 0.42,
+      "height": 9.15
     },
     "fuel_type": "none",
     "fuel_consumption_l_per_min": 0,

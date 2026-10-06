@@ -20,9 +20,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true,
+    "stacking_limit": 3
   },
-  "models": [],
+  "models": [
+    {
+      "file": "lumber_bundle_2x4_small.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.431,
+        "y": 0.187,
+        "z": 0.505
+      },
+      "triangles": 672
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +75,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.4,
-      "depth": 2.4,
-      "height": 0.2
+      "width": 2.43,
+      "depth": 0.51,
+      "height": 0.19
     }
   }
 }

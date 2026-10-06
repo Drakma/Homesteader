@@ -24,7 +24,8 @@
     "look_target": "interior",
     "look_color": "#27395e",
     "look_smoothness": 0.25,
-    "look_metallic": 0.0
+    "look_metallic": 0.0,
+    "display_weight": true
   },
   "models": [
     {

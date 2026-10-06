@@ -27,7 +27,8 @@
         "category": "Trailer Repair",
         "price": 48
       }
-    }
+    },
+    "build_speed": 0.6
   },
   "models": [
     {

@@ -89,12 +89,50 @@ namespace Homesteader.Growth
         /// </summary>
         public static Func<string, Vector3, float, bool> PowerCheck;
 
+        /// <summary>Set by the game's power system: (item id, position, watts) -> how much of its voltage the light gets, 0 (none: it goes out at once) to 1 (full). Below 1 it dims and flickers.</summary>
+        public static Func<string, Vector3, float, float> PowerRatio;
+
+        /// <summary>Set by the game's power system: the building a light is mounted in (null when it is not on one).</summary>
+        public static Func<Vector3, ConstructionSite> SiteOf;
+
+        private ConstructionSite _site;
+        private bool _siteKnown;
+
+        /// <summary>Calls back for every mains-powered light that wants to be on: where it is, the building it is in (or null) and the watts it would draw. For the generators.</summary>
+        public static void ForEachDemand(System.Action<Vector3, ConstructionSite, float> f)
+        {
+            if (SiteOf == null) return;
+            foreach (LightEmitter e in instances)
+            {
+                if (e == null) continue;
+                if (!e._siteKnown) { e._site = SiteOf(e.transform.position); e._siteKnown = true; }
+                foreach (Runtime r in e.lights) if (r.Def.RequiresPower && r.Want > 0.001f) f(e.transform.position, e._site, r.Def.PowerW * r.Want);
+            }
+        }
+
+        /// <summary>What the lights of this building would draw right now (their watts times how on they want to be), for the power balance. Lights without a power need draw nothing.</summary>
+        public static float WantedWatts(ConstructionSite site)
+        {
+            if (site == null || SiteOf == null) return 0f;
+            float sum = 0f;
+            foreach (LightEmitter e in instances)
+            {
+                if (e == null) continue;
+                if (!e._siteKnown) { e._site = SiteOf(e.transform.position); e._siteKnown = true; }
+                if (e._site != site) continue;
+                foreach (Runtime r in e.lights) if (r.Def.RequiresPower) sum += r.Def.PowerW * r.Want;
+            }
+            return sum;
+        }
+
         private sealed class Runtime
         {
             public LightDef Def;
             public Light Light;
             public float Level;       // 0..1 current fade
             public float Target;      // 0..1 wanted right now (refreshed a few times a second)
+            public float Want;        // the same before the power is taken into account (what it would draw)
+            public float Grid = 1f;   // how much of its voltage it gets (0 none, 1 full)
             public bool WasLit;
             public float LitSince;    // Time.time when it last switched on
             public float Seed;
@@ -146,7 +184,7 @@ namespace Homesteader.Growth
                 l.color = d.Color;
                 l.range = Mathf.Max(0.1f, d.Range);
                 if (l.type == LightType.Spot) l.spotAngle = Mathf.Clamp(d.SpotAngle, 1f, 179f);
-                l.shadows = d.Shadows ? LightShadows.Soft : LightShadows.None;
+                LightOcclusion.Register(l);   // walls stop the light (the Graphics setting Light Occlusion switches it)
                 l.intensity = 0f;
                 l.enabled = false;
                 e.lights.Add(new Runtime { Def = d, Light = l, Seed = UnityEngine.Random.value * 100f });
@@ -162,11 +200,18 @@ namespace Homesteader.Growth
             HudTimeState t = default;
             if (tick && TimeSystem.Instance != null) t = TimeSystem.Instance.Snapshot();
 
+            bool occupied = !tick || Occupied();
             foreach (Runtime r in lights)
             {
                 if (r.Light == null) continue;
-                if (tick) r.Target = TargetLevel(r.Def, t);
-                r.Level = Mathf.MoveTowards(r.Level, r.Target, Time.deltaTime * 1.5f);   // eases power cuts and switch-ons
+                if (tick)
+                {
+                    r.Want = occupied ? TargetLevel(r.Def, t) : 0f;
+                    r.Grid = r.Def.RequiresPower ? GridRatio() : 1f;
+                    r.Target = r.Grid > 0f ? r.Want : 0f;
+                }
+                if (r.Grid <= 0f) r.Level = 0f;   // the power is gone: the light goes out at once
+                else r.Level = Mathf.MoveTowards(r.Level, r.Target, Time.deltaTime * 1.5f);   // eases switch-ons
                 // It strikes at MinLevel and then brightens over the fade; going off it fades out from wherever it is.
                 bool lit = r.Target > 0.001f || r.Level > 0.001f;
                 if (lit && !r.WasLit) r.LitSince = Time.time;
@@ -188,15 +233,53 @@ namespace Homesteader.Growth
                     float sputter = Mathf.SmoothStep(0f, 1f, (n - 0.3f) * 3f);        // mostly dim, with quick bright stutters
                     flick *= Mathf.Lerp(1f, sputter, amount);
                 }
-                r.Light.intensity = r.Def.Intensity * shown * flick;
+                // a brownout (less voltage than it needs): dim, and cutting in and out
+                float brown = 1f;
+                if (r.Def.RequiresPower && r.Grid > 0f && r.Grid < 0.98f)
+                {
+                    float sag = 1f - r.Grid;
+                    float n = Mathf.PerlinNoise(r.Seed + 3.1f, Time.time * 5f);
+                    float drop = Mathf.SmoothStep(0f, 1f, (sag * 0.9f - n + 0.1f) * 5f);   // the worse the sag, the more of the time it is out
+                    brown = Mathf.Lerp(0.15f, 1f, r.Grid) * (1f - 0.95f * drop);
+                }
+                r.Light.intensity = r.Def.Intensity * shown * flick * brown;
                 r.Light.enabled = r.Light.intensity > 0.01f;
             }
+        }
+
+        private AttachedObject _mount;
+        private bool _mountKnown;
+        private int _mountTries;
+
+        /// <summary>
+        /// A light mounted INSIDE a building is on only while the player is in its ROOM (<see cref="RoomMap"/>: the rooms are worked out from the building's
+        /// walls): it goes out when they leave the room and comes back on when they return (and draws no power meanwhile). Outside lights (an exterior
+        /// sconce, a pole light) and lights that are not mounted on a building are not affected. A building whose rooms cannot be told is one room.
+        /// </summary>
+        private bool Occupied()
+        {
+            if (!_mountKnown) { _mount = GetComponentInParent<AttachedObject>(); _mountKnown = _mount != null || ++_mountTries >= 8; }   // (the mount may be added just after the lights)
+            if (_mount == null || _mount.Site == null || _mount.Exterior) return true;
+            PedController ped = PedController.Current;
+            if (ped == null) return true;
+            Vector3 player = ped.transform.position;
+            if (!_mount.Site.IsInside(player)) return false;
+            if (RoomMap.Count(_mount.Site) < 2) return true;   // one room, or the model is still loading
+            Vector3 lamp = lights.Count > 0 && lights[0].Light != null ? lights[0].Light.transform.position : transform.position;
+            int mine = RoomMap.RoomAt(_mount.Site, lamp), theirs = RoomMap.PlayerRoom(_mount.Site, player);
+            return mine < 0 || mine == theirs;   // (a lamp whose room cannot be told follows the building)
+        }
+
+        private float GridRatio()
+        {
+            if (PowerRatio != null) return Mathf.Clamp01(PowerRatio(itemId, transform.position, 0f));
+            if (PowerCheck != null) return PowerCheck(itemId, transform.position, 0f) ? 1f : 0f;
+            return 1f;
         }
 
         /// <summary>1 when the light should be fully on for this moment, 0 fully off, ramping across FadeMinutes.</summary>
         private float TargetLevel(LightDef d, HudTimeState t)
         {
-            if (d.RequiresPower && PowerCheck != null && !PowerCheck(itemId, transform.position, d.PowerW)) return 0f;
             if (d.On == "always") return 1f;
 
             float from, to;

@@ -1,0 +1,14 @@
+{
+  "file": "Evening_Adagio.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 111 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 111 seconds, not cut off mid-song and with NO fade-out. Slow adagio for string orchestra, about 54 BPM: long sustained lines, rich warm harmonies, a gradual swell and a calm resolution, serene sunset mood. Entirely original composition that is not based on any existing piece.",
+  "requested_prompt": "Slow adagio for string orchestra, about 54 BPM: long sustained lines, rich warm harmonies, a gradual swell and a calm resolution, serene sunset mood. Entirely original composition that is not based on any existing piece.",
+  "requested_duration_seconds": 111,
+  "generated_at": "2026-10-05T15:06:12.585Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Evening_Adagio.mp4",
+  "bytes": 3538197,
+  "sha256": "dd96cdadb9bb90f50b344ce4e6c2a90a5de4e5c44f3bcfd5ea6d1dfaf79896e9",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

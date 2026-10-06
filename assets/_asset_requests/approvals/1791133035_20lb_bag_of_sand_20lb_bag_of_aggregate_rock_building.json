@@ -1,0 +1,22 @@
+{
+  "id": "1791133035_20lb_bag_of_sand_20lb_bag_of_aggregate_rock_building",
+  "title": "20lb Bag of Sand + 20lb Bag of Aggregate Rock (building)",
+  "plan": [
+    "Batch batch_1791132985, 2 items, both styled after building/80lb_cement_bag: 20lb Bag of Sand ('a 20lb bag of sand in a sand colored bag with red accents', id 20lb_sand_bag) and 20lb Bag of Aggregate Rock ('a 20lb bag of aggregate rock in a stone colored back with black accents', id 20lb_aggregate_rock_bag).",
+    "Meshy balance now: 148 credits.",
+    "One Gemini contact sheet with both bags (no Meshy credits), cropped to one image each. This time the prompt asks for the boxy rectangular sack shape of the 80lb bag (the 20lb cement bag came out as a flat pillow).",
+    "Meshy image-to-3D, meshy-t2 smart-topology + texture: 15 credits each, 30 total. Balance after: 118.",
+    "Each: scale to about 0.36 m long and ground in Blender, check under 5,000 triangles, icon rendered from the model and compared with the 80lb bag, manifest + README, catalog update."
+  ],
+  "cost": {
+    "total_credits": 30,
+    "balance_credits": 148,
+    "balance_after_credits": 118,
+    "per_item": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15
+    }
+  },
+  "status": "approved",
+  "created_at": "2026-10-04T16:57:15Z",
+  "resolved_at": "2026-10-04T16:57:24Z"
+}

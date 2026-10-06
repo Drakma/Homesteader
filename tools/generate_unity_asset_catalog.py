@@ -1,6 +1,8 @@
 import os
 import sys
 import json
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import recipe_format
 
 ROOT = r"C:\Users\casey\Desktop\Homesteader"
 ASSETS_DIR = os.path.join(ROOT, "assets")
@@ -70,11 +72,102 @@ def main():
                         ms = props.get("max_stack_size")
                         if ms and isinstance(ms, int) and ms > 0:
                             item_data["max_stack"] = ms
+                        pq = props.get("pack_quantity")
+                        if isinstance(pq, (int, float)) and pq > 1:
+                            item_data["pack_quantity"] = int(pq)
+                        for ik in ("net_ports", "rack_units", "rack_capacity_u"):   # network gear (docs/INTERNET.md)
+                            iv = props.get(ik)
+                            if isinstance(iv, (int, float)) and not isinstance(iv, bool) and iv > 0:
+                                item_data[ik] = int(iv)
+                        if props.get("poe") is True:
+                            item_data["poe"] = True
+                        if props.get("poe_powered") is True:
+                            item_data["poe_powered"] = True
+                        if m.get("category") == "internet" and isinstance(m.get("category_fields"), dict):
+                            rm = m["category_fields"].get("range_m")
+                            if isinstance(rm, (int, float)) and not isinstance(rm, bool) and rm > 0:
+                                item_data["range_m"] = float(rm)
+                        for wk in ("wire_role", "wire_kind"):
+                            if isinstance(props.get(wk), str) and props.get(wk):
+                                item_data[wk] = props[wk]
+                        for nk in ("capacity_wh", "voltage_v", "panel_offset_m", "panel_tilt_deg", "panel_width_m", "panel_depth_m", "power_radius_tiles"):
+                            nv = props.get(nk)
+                            if isinstance(nv, (int, float)) and not isinstance(nv, bool) and nv > 0:
+                                item_data[nk] = float(nv)
+                        if isinstance(props.get("flow_lph"), (int, float)) and props.get("flow_lph") > 0:
+                            item_data["flow_lph"] = float(props["flow_lph"])          # a well pump: liters an hour it lifts
+                        if isinstance(props.get("heater_w"), (int, float)) and props.get("heater_w") > 0:
+                            item_data["heater_w"] = float(props["heater_w"])         # a water heater: its element's watts
+                        if isinstance(props.get("filter_stage"), str) and props.get("filter_stage"):
+                            item_data["filter_stage"] = props["filter_stage"]        # a water filter: sediment | carbon | uv
+                        if props.get("pressurized") is True:
+                            item_data["pressurized"] = True                              # a pressure tank: the taps draw from it with no pump running
+                        for sk in ("sewage_capacity_l", "leach_lpd", "leach_storage_l"):   # a septic tank / leach field structure (docs/SEPTIC.md)
+                            sv = props.get(sk)
+                            if isinstance(sv, (int, float)) and not isinstance(sv, bool) and sv > 0:
+                                item_data[sk] = float(sv)
+                        if props.get("is_well") is True:
+                            item_data["is_well"] = True                                  # a drilled well (docs/WELLS.md)
+                        if isinstance(props.get("attach_item"), str) and props.get("attach_item"):
+                            item_data["attach_item"] = props["attach_item"]              # what fits on it (a well's sub panel)
+                        if props.get("pushable") is True:
+                            item_data["container_pushable"] = True   # pushed like a wheelbarrow (a portable generator)
+                        wl = props.get("wire_length_m")
+                        if isinstance(wl, (int, float)) and not isinstance(wl, bool) and wl > 0:
+                            item_data["wire_length_m"] = float(wl)
+                        cfp = m.get("category_fields")
+                        mpw = cfp.get("max_power_w") if isinstance(cfp, dict) else None
+                        if isinstance(mpw, (int, float)) and not isinstance(mpw, bool) and mpw > 0:
+                            item_data["max_power_w"] = float(mpw)
+                        if isinstance(cfp, dict):   # the internet (ResView): what a source brings in, what a device uses
+                            bw, use = cfp.get("bandwidth_mbps"), cfp.get("bandwidth_usage_mbps")
+                            if isinstance(bw, (int, float)) and not isinstance(bw, bool) and bw > 0:
+                                item_data["bandwidth_mbps"] = float(bw)
+                                if cfp.get("is_connected") is True and m.get("category") == "internet":
+                                    item_data["net_source"] = True
+                            if isinstance(use, (int, float)) and not isinstance(use, bool) and use > 0:
+                                item_data["bandwidth_usage_mbps"] = float(use)
+                        wcap = cfp.get("capacity_l") if isinstance(cfp, dict) else None
+                        if isinstance(wcap, (int, float)) and not isinstance(wcap, bool) and wcap > 0:
+                            item_data["water_capacity_l"] = float(wcap)   # a water tank: what a well's pipe can fill it with
+                        wpu = cfp.get("water_per_use_l") if isinstance(cfp, dict) else None
+                        if isinstance(wpu, (int, float)) and not isinstance(wpu, bool) and wpu > 0:
+                            item_data["water_per_use_l"] = float(wpu)   # a fixture: liters one use takes from the building's water and sends down its drain
+                        flpm = cfp.get("fuel_consumption_l_per_min") if isinstance(cfp, dict) else None
+                        if isinstance(flpm, (int, float)) and not isinstance(flpm, bool) and flpm > 0 and props.get("wire_role") == "standby_generator":
+                            item_data["fuel_lpm"] = float(flpm)   # a standby generator: liters of propane a minute at full load
+                        pdw = cfp.get("power_draw_w") if isinstance(cfp, dict) else None
+                        if isinstance(pdw, (int, float)) and not isinstance(pdw, bool) and pdw > 0:
+                            item_data["power_draw_w"] = float(pdw)   # a corded electric tool: it needs a generator at the build site
+                        if props.get("sawmill") is True:
+                            item_data["sawmill"] = True   # a stationary sawmill (Sawmill.cs)
+                        if props.get("roof_mount") is True:
+                            item_data["roof_mount"] = True
+                        if props.get("shelf") is True:
+                            item_data["shelf"] = True   # a wall shelf: things are stood on it (Shelf.cs)
+                        mca = cfp.get("max_current_a") if isinstance(cfp, dict) else None
+                        if isinstance(mca, (int, float)) and not isinstance(mca, bool) and mca > 0:
+                            item_data["max_current_a"] = float(mca)
+                        bs = props.get("build_speed")
+                        if isinstance(bs, (int, float)) and not isinstance(bs, bool) and bs > 0:
+                            item_data["build_speed"] = float(bs)
+                        if props.get("display_weight") is True:
+                            item_data["display_weight"] = True
                         wk = props.get("weight_kg")
                         if isinstance(wk, (int, float)) and not isinstance(wk, bool):
                             item_data["weight_kg"] = float(wk)
+                        bv = props.get("base_value")
+                        if isinstance(bv, (int, float)) and not isinstance(bv, bool) and bv > 0:
+                            item_data["base_value"] = float(bv)   # what it is worth: the market pays a share of it (MarketPickup.cs)
                         if props.get("support_surface") is True:
                             item_data["support_surface"] = True
+                            if props.get("deck_heights"):
+                                item_data["deck_heights"] = str(props["deck_heights"])   # a shelving unit: one top face per shelf (PalletDeck.cs)
+                        # placed stacking for a plain item (bags): the game reads it as container_stacking_limit (ContainerRules.StackingLimit);
+                        # a container's own container.stacking_limit, read further down, replaces it
+                        psl = props.get("stacking_limit")
+                        if isinstance(psl, (int, float)) and not isinstance(psl, bool) and psl > 1:
+                            item_data["container_stacking_limit"] = int(psl)
                         # fences and gates (see FenceBuilder.cs)
                         if props.get("fence_style") in ("wood", "wire"):
                             item_data["fence_style"] = props["fence_style"]
@@ -145,7 +238,18 @@ def main():
                             item_data["container_accepts"] = [str(x) for x in acc] if isinstance(acc, list) else []
                             item_data["container_show_fill"] = bool(cb.get("show_fill", True))
                             item_data["container_single_type"] = bool(cb.get("single_type", False))
+                            item_data["container_pushable"] = bool(cb.get("pushable", False))
+                            if any(k.startswith("fill_") for k in cb):
+                                # where the contents show, as fractions of the model's bounds: xmin, xmax, ymin, ymax, zmin, zmax
+                                item_data["container_fill_region"] = [float(cb.get("fill_%s_%s" % (a, e), 0 if e == "min" else 1)) for a in "xyz" for e in ("min", "max")]
                             item_data["container_disposable"] = bool(cb.get("disposable", False))
+                            mi = cb.get("max_items")
+                            if isinstance(mi, (int, float)) and not isinstance(mi, bool) and mi >= 1:
+                                item_data["container_max_items"] = int(mi)
+                            sp = cb.get("slot_pitch_m")
+                            if isinstance(sp, (int, float)) and not isinstance(sp, bool) and sp > 0:
+                                item_data["container_slot_pitch_m"] = float(sp)
+                                item_data["container_slot_start_m"] = float(cb.get("slot_start_m", 0) or 0)
                     # a structure built in stages (foundation -> framing -> walls -> complete): each stage's manifest holds its
                     # construction_recipe (materials consumed), required_tools (groups, any one of each, not consumed) and size
                     g = m.get("growth")
@@ -166,18 +270,9 @@ def main():
                                 continue
                             scf = sd.get("category_fields", {}) if isinstance(sd.get("category_fields"), dict) else {}
                             dims = scf.get("dimensions_m", {}) if isinstance(scf.get("dimensions_m"), dict) else {}
-                            recipe = []
                             # The group's own stage entry is authoritative; the stage manifest is the fallback.
                             src_recipe = st.get("construction_recipe", scf.get("construction_recipe", [])) or []
-                            for line in src_recipe:
-                                if isinstance(line, dict) and isinstance(line.get("any_of"), list):
-                                    # an "or" line: the stage takes any ONE alternative in full
-                                    opts = [{"item_id": str(o["item_id"]), "quantity": int(o.get("quantity", 1) or 1)}
-                                            for o in line["any_of"] if isinstance(o, dict) and o.get("item_id")]
-                                    if opts:
-                                        recipe.append({"item_id": "", "quantity": 0, "any_of": opts})
-                                elif isinstance(line, dict) and line.get("item_id"):
-                                    recipe.append({"item_id": str(line["item_id"]), "quantity": int(line.get("quantity", 1) or 1)})
+                            recipe = recipe_format.for_game(recipe_format.normalize(src_recipe)[0] or [])
                             groups = []
                             for grp in (st.get("required_tools", scf.get("required_tools", [])) or []):
                                 if isinstance(grp, list):
@@ -190,6 +285,8 @@ def main():
                                 "height": float(dims.get("height", 0) or 0),
                                 "recipe": recipe,
                                 "tool_groups": groups,
+                                "build_clips": [str(x) for x in (st.get("build_clips", scf.get("build_clips", [])) or [])],
+                                "build_motion": str(st.get("build_motion", scf.get("build_motion", "")) or ""),
                             })
                         if stages_out:
                             item_data["construction_stages"] = stages_out
@@ -201,7 +298,13 @@ def main():
                             item_data["liquid_capacity_l"] = float(lcap)
                             lacc = lb.get("accepts")
                             item_data["liquid_accepts"] = [str(x) for x in lacc] if isinstance(lacc, list) else []
-                    # a liquid itself (category liquids): colour, opacity and weight per litre (properties.weight_kg)
+                            # a container that is sold full: what is in it when bought (see liquid_container.schema.json)
+                            lfill = lb.get("filled_with")
+                            if isinstance(lfill, str) and lfill:
+                                lfl = lb.get("filled_l")
+                                item_data["liquid_filled_with"] = lfill
+                                item_data["liquid_filled_l"] = float(lfl) if isinstance(lfl, (int, float)) and not isinstance(lfl, bool) and lfl > 0 else float(lcap)
+                    # a liquid itself (category liquids): colour, opacity and weight per liter (properties.weight_kg)
                     if cat == "liquids":
                         cf = m.get("category_fields", {})
                         if isinstance(cf, dict):

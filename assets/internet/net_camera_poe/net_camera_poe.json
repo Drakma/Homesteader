@@ -1,0 +1,92 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "net_camera_poe",
+  "name": "PoE Camera",
+  "category": "internet",
+  "description": "A weatherproof network camera. Mount it on a wall and run a Cat6 cable to a PoE switch: the cable powers it and carries its picture.",
+  "icon": "net_camera_poe.png",
+  "properties": {
+    "weight_kg": 0.5,
+    "max_stack_size": 10,
+    "base_value": 85,
+    "is_consumable": false,
+    "footprint": "0.09m W x 0.26m D x 0.11m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "either",
+    "wire_role": "net_camera",
+    "net_ports": 1,
+    "poe_powered": true
+  },
+  "models": [
+    {
+      "file": "net_camera_poe.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.09,
+        "y": 0.106,
+        "z": 0.261
+      },
+      "triangles": 212
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "power_draw_w": 8,
+    "bandwidth_mbps": 0,
+    "range_m": 0,
+    "is_connected": false,
+    "dimensions_m": {
+      "width": 0.09,
+      "depth": 0.26,
+      "height": 0.11
+    },
+    "bandwidth_usage_mbps": 4
+  }
+}

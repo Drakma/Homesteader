@@ -1,7 +1,5 @@
 # Square Straw Bale
 
-**Item ID:** `mat_bale_straw_square`  
-**Category:** `ranching`  
-**Icon:** ![Square Straw Bale](mat_bale_straw_square.png)
+A rectangular twine-bound straw bale.
 
-Standardized Homesteader asset manifest for `mat_bale_straw_square`.
+Procedural model (tools/make_simple_props.py), 1488 triangles, 0.91 x 0.46 x 0.36 m. A twine-tied square bale: flake seams, loose stalks, two strings.

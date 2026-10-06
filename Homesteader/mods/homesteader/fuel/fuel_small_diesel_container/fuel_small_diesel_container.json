@@ -3,7 +3,7 @@
   "id": "fuel_small_diesel_container",
   "name": "Small Diesel Fuel Container",
   "category": "fuel",
-  "description": "A small yellow jerry-can style diesel fuel container.",
+  "description": "A small green plastic fuel can for diesel.",
   "icon": "fuel_small_diesel_container.png",
   "properties": {
     "weight_kg": 8.0,
@@ -24,8 +24,14 @@
   },
   "models": [
     {
-      "file": "SM_Fuel_Small_Diesel_Container.fbx",
-      "format": "fbx"
+      "file": "fuel_small_diesel_container.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.314,
+        "y": 0.326,
+        "z": 0.123
+      },
+      "triangles": 240
     }
   ],
   "utilities": {
@@ -67,9 +73,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.3,
-      "depth": 0.3,
-      "height": 0.4
+      "width": 0.31,
+      "depth": 0.12,
+      "height": 0.33
     },
     "fuel_type": "diesel",
     "capacity_l": 19,

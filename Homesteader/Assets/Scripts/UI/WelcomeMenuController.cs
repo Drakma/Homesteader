@@ -536,7 +536,7 @@ namespace Homesteader.UI
             PlayerPrefs.Save();
 
             // Notify the camera to pick up the new setting
-            var cam = FindAnyObjectByType<IsometricLockedCamera>();
+            var cam = IsometricLockedCamera.Current;
             if (cam != null) cam.ApplyZoomSettings();
 
             // Hide the dialog
@@ -596,7 +596,7 @@ namespace Homesteader.UI
                 Homesteader.Land.LandOwnershipSystem.StarterZ);
             Vector3 spawnPos = FindAccessibleSpawnPoint(starterCenter);
 
-            var ped = FindAnyObjectByType<PedController>();
+            var ped = PedController.Current;
             if (ped != null)
             {
                 var cc = ped.GetComponent<CharacterController>();
@@ -610,6 +610,7 @@ namespace Homesteader.UI
             CreateLandBoundaries();
             TimeSystem.Instance.ResetToNewGameDefaults();
             HudState.Active.ResetToNewGameDefaults();
+            Homesteader.Growth.NetPlan.Reset();   // a new game starts with no internet plan (a loaded one gets its own back in ApplySave)
             GameSaveManager.ClearPlayerMadeWorld();   // the old world's placed objects, drops, sites, plants and deliveries do not carry over
 
             UpdateLoadingProgress(1f, "Ready");

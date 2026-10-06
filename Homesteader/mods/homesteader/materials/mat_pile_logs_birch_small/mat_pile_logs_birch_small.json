@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_pile_logs_birch_small.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.885,
+        "y": 0.611,
+        "z": 0.633
+      },
+      "triangles": 972
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,9 +74,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 1.0,
-      "depth": 0.6,
-      "height": 0.5
+      "width": 0.89,
+      "depth": 0.63,
+      "height": 0.61
     }
   }
 }

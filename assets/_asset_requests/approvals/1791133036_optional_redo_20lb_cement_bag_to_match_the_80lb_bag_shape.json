@@ -1,0 +1,19 @@
+{
+  "id": "1791133036_optional_redo_20lb_cement_bag_to_match_the_80lb_bag_shape",
+  "title": "OPTIONAL redo: 20lb Cement Bag to match the 80lb bag shape",
+  "plan": [
+    "The 20lb Cement Bag is finished and in the kit (15 credits spent), but it came out as a flat square pillow in mustard yellow, not the boxy sack of the 80lb reference. Compare the two icons in the kit.",
+    "Approve to regenerate it with a boxier reference image and a brighter yellow: 15 more credits. Deny to keep the current one.",
+    "Independent of the sand / aggregate approval. If both are approved the balance ends at 103."
+  ],
+  "cost": {
+    "total_credits": 15,
+    "balance_credits": 148,
+    "per_item": {
+      "image_to_3d_meshy_t2_smart_topology_textured": 15
+    }
+  },
+  "status": "approved",
+  "created_at": "2026-10-04T16:57:16Z",
+  "resolved_at": "2026-10-04T16:57:22Z"
+}

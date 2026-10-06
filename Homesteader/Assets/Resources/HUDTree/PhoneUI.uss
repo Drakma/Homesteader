@@ -407,6 +407,49 @@
     background-color: var(--c-secondary);
 }
 
+
+/* Grid OS: a system's group of cards (tap it for the detail), the detail page, the flow chips and the component rows */
+.grid-group { margin-bottom: 6px; flex-shrink: 0; }
+.grid-group-hint { color: var(--c-muted); font-size: 12px; -unity-text-align: middle-right; margin-top: -4px; margin-bottom: 8px; }
+.grid-back { color: var(--c-secondary); font-size: 14px; -unity-font: var(--font-bold); margin-bottom: 10px; padding: 4px 0; flex-shrink: 0; }
+.grid-live { color: rgb(120, 214, 140); }
+.grid-flow { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+.grid-chip { background-color: var(--c-ink); border-radius: 10px; padding: 6px 10px; margin: 3px 2px; min-width: 64px; align-items: center; }
+.grid-chip-name { color: var(--c-muted); font-size: 11px; }
+.grid-chip-value { color: rgb(246, 157, 75); font-size: 15px; -unity-font: var(--font-bold); }
+.grid-chip-battery .grid-chip-value { color: var(--c-secondary); }
+.grid-chip-ac .grid-chip-value { color: rgb(120, 214, 140); }
+.grid-arrow { color: var(--c-muted); font-size: 14px; margin: 0 1px; }
+.grid-stat-row { flex-direction: row; justify-content: space-between; margin-top: 4px; }
+.grid-stat-key { color: var(--c-muted); font-size: 13px; }
+.grid-stat-val { color: rgb(246, 157, 75); font-size: 13px; -unity-font: var(--font-bold); }
+.grid-comp-title { color: rgb(147, 161, 179); font-size: 12px; -unity-font: var(--font-bold); margin-top: 8px; margin-bottom: 4px; }
+.grid-comp-row { flex-direction: row; align-items: center; margin-top: 4px; }
+.grid-comp-icon { width: 28px; height: 28px; margin-right: 8px; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; }
+.grid-comp-text { flex-grow: 1; flex-shrink: 1; }
+.grid-comp-name { color: var(--c-text); font-size: 13px; white-space: normal; }
+.grid-comp-stat { color: var(--c-muted); font-size: 12px; }
+.grid-mini-track { height: 6px; background-color: var(--c-ink); border-radius: 3px; margin-top: 3px; overflow: hidden; }
+.grid-mini-fill { height: 100%; background-color: var(--c-secondary); }
+
+
+/* Grid OS summary tile: one small tile per system */
+.grid-tile { background-color: var(--c-panel); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; flex-shrink: 0; }
+.grid-tile-head { flex-direction: row; justify-content: space-between; align-items: center; }
+.grid-tile-name { color: var(--c-text); font-size: 14px; -unity-font: var(--font-bold); flex-shrink: 1; white-space: normal; }
+.grid-tile-live { color: rgb(120, 214, 140); font-size: 11px; -unity-font: var(--font-bold); }
+.grid-tile-off { color: var(--c-muted); font-size: 11px; }
+.grid-tile-gen { flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
+.grid-tile-chip { background-color: var(--c-ink); border-radius: 8px; padding: 3px 8px; margin-right: 6px; margin-bottom: 4px; flex-direction: row; align-items: center; }
+.grid-tile-chip-kind { color: var(--c-muted); font-size: 11px; margin-right: 5px; }
+.grid-tile-chip-val { color: rgb(246, 157, 75); font-size: 12px; -unity-font: var(--font-bold); }
+.grid-tile-wind .grid-tile-chip-val { color: rgb(120, 190, 240); }
+.grid-tile-row { flex-direction: row; justify-content: space-between; margin-top: 4px; }
+.grid-tile-key { color: var(--c-muted); font-size: 12px; }
+.grid-tile-val { color: var(--c-text); font-size: 12px; -unity-font: var(--font-bold); }
+.grid-tile-warn { color: rgb(240, 170, 80); font-size: 11px; white-space: normal; margin-top: 4px; }
+.grid-tile-hint { color: var(--c-muted); font-size: 11px; -unity-text-align: middle-right; margin-top: 4px; }
+
 /* =========================================================================
    STORE APPS (DEPOT, GROCER, FEED STORE)
    ========================================================================= */
@@ -2216,4 +2259,32 @@
     color: rgb(232, 236, 241);
     font-size: 12px;
     white-space: normal;
+}
+
+/* the status bar's live signal: four bars, lit up to the strength of the link in use */
+.phone-signal {
+    flex-direction: row;
+    align-items: flex-end;
+    height: 12px;
+    margin-left: 6px;
+}
+
+.phone-signal-bar {
+    width: 3px;
+    margin-left: 1px;
+    border-radius: 1px;
+    background-color: rgba(147, 161, 179, 0.35);
+}
+
+.phone-signal-bar--1 { height: 3px; }
+.phone-signal-bar--2 { height: 6px; }
+.phone-signal-bar--3 { height: 9px; }
+.phone-signal-bar--4 { height: 12px; }
+
+.phone-signal-bar--on {
+    background-color: var(--c-text);
+}
+
+.phone-signal-bar--bad {
+    background-color: rgb(226, 92, 80);
 }

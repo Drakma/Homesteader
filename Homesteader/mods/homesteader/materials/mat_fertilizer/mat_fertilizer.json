@@ -20,9 +20,21 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "display_weight": true
   },
-  "models": [],
+  "models": [
+    {
+      "file": "mat_fertilizer.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.504,
+        "y": 0.134,
+        "z": 0.292
+      },
+      "triangles": 4240
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -63,8 +75,8 @@
   "category_fields": {
     "dimensions_m": {
       "width": 0.5,
-      "depth": 0.35,
-      "height": 0.15
+      "depth": 0.29,
+      "height": 0.13
     },
     "fertilizer_growth_bonus_pct": 15
   }

@@ -1,0 +1,14 @@
+{
+  "file": "Orchard_Quartet.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 117 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 117 seconds, not cut off mid-song and with NO fade-out. Classical string quartet movement, graceful and warm, moderate tempo: two violins, viola and cello passing a gentle melody between them, clear phrases, pastoral and contented. Entirely original composition that is not based on any existing piece.",
+  "requested_prompt": "Classical string quartet movement, graceful and warm, moderate tempo: two violins, viola and cello passing a gentle melody between them, clear phrases, pastoral and contented. Entirely original composition that is not based on any existing piece.",
+  "requested_duration_seconds": 117,
+  "generated_at": "2026-10-05T14:39:22.183Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Orchard_Quartet.mp4",
+  "bytes": 3632676,
+  "sha256": "8f1c6a7d094912d2e159d8061e06307f762d3059e17a0347e73c05a0dd4fbd22",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

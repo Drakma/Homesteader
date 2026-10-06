@@ -129,6 +129,23 @@ namespace Homesteader.Growth
         public static WorldItem UnderCursor(Camera cam, Vector2 screenPos)
         {
             if (cam == null) return null;
+            // asked several times a frame (cursor, hover, pickup): worked out once per frame and pointer spot
+            if (s_underFrame == Time.frameCount && s_underCam == cam && s_underPos == screenPos && (s_underResult == null || s_underResult)) return s_underResult;
+            WorldItem found = UnderCursorUncached(cam, screenPos);
+            s_underFrame = Time.frameCount;
+            s_underCam = cam;
+            s_underPos = screenPos;
+            s_underResult = found;
+            return found;
+        }
+
+        private static int s_underFrame = -1;
+        private static Camera s_underCam;
+        private static Vector2 s_underPos;
+        private static WorldItem s_underResult;
+
+        private static WorldItem UnderCursorUncached(Camera cam, Vector2 screenPos)
+        {
             Ray ray = cam.ScreenPointToRay(screenPos);
             WorldItem best = null;
             float bestDist = 0.7f;
@@ -159,14 +176,35 @@ namespace Homesteader.Growth
         {
             bounds = default;
             if (model == null) return false;
-            bool any = false;
-            foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
+            // kept until the item moves, turns or is rescaled (it is asked for by every item on every hover test)
+            Transform t = transform;
+            if (_boundsKnown && _boundsPos == t.position && _boundsRot == t.rotation && _boundsScale == t.lossyScale)
             {
+                bounds = _bounds;
+                return _boundsAny;
+            }
+            if (_renderers == null) _renderers = model.GetComponentsInChildren<Renderer>(true);
+            bool any = false;
+            foreach (Renderer r in _renderers)
+            {
+                if (r == null) continue;
                 if (!any) { bounds = r.bounds; any = true; }
                 else bounds.Encapsulate(r.bounds);
             }
+            _bounds = bounds;
+            _boundsAny = any;
+            _boundsKnown = true;
+            _boundsPos = t.position;
+            _boundsRot = t.rotation;
+            _boundsScale = t.lossyScale;
             return any;
         }
+
+        private Renderer[] _renderers;
+        private Bounds _bounds;
+        private bool _boundsKnown, _boundsAny;
+        private Vector3 _boundsPos, _boundsScale;
+        private Quaternion _boundsRot;
 
         /// <summary>Puts one of it into the toolbar and removes it from the ground. False (with a toast) when it cannot.</summary>
         public bool PickUp(Transform player)
@@ -188,7 +226,6 @@ namespace Homesteader.Growth
                 return false;
             }
             Homesteader.UI.HudBindings.Instance?.RefreshToolbar();
-            Homesteader.UI.ToastNotificationSystem.ShowCounted("pickup:" + ItemId, "Picked up", "Picked up {0}x " + Homesteader.UI.HudBindings.GetItemName(ItemId).Replace("{", "{{").Replace("}", "}}") + ".", 1);
             Destroy(gameObject);
             return true;
         }

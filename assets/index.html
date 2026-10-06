@@ -2823,8 +2823,7 @@
       color: var(--text-main);
       text-align: center;
       line-height: 1.2;
-      max-height: 2.4em;
-      overflow: hidden;
+      overflow-wrap: anywhere;      /* the FULL name, with its quantity / weight / capacity: never cut off */
     }
 
     .item-picker-id {
@@ -4647,6 +4646,7 @@
                     <option value="">Nothing</option>
                     <option value="wall">Wall</option>
                     <option value="ceiling">Ceiling</option>
+                    <option value="roof">Roof</option>
                   </select>
                 </div>
                 <div class="kv-box" title="A wall mount: the side of the wall it goes on.">
@@ -4656,6 +4656,128 @@
                     <option value="interior">Inside</option>
                     <option value="exterior">Outside</option>
                   </select>
+                </div>
+                <div class="kv-box" title="A device the solar chain wires together: solar_panel, wall_entry, dc_breaker, mppt, battery, inverter, ac_panel or busbar. Empty = not wired. docs/WIRING.md.">
+                  <div class="kv-key">Wiring Role</div>
+                  <select class="kv-input" id="m-wire-role" data-path="properties.wire_role">
+                    <option value="">None</option><option value="net_dish">Network: satellite dish</option><option value="net_yagi">Network: yagi link</option><option value="net_router">Network: router</option><option value="net_switch">Network: switch</option><option value="net_ap">Network: access point</option><option value="net_camera">Network: camera</option><option value="net_rack">Network: rack</option><option value="net_antenna">Cellular antenna</option><option value="net_jack">Network: wall jack (through the wall)</option><option value="net_device">Network: device (a TV)</option><option value="solar_panel">Solar panel</option><option value="wall_entry">Wall entry</option><option value="dc_breaker">DC breaker box</option>
+                    <option value="mppt">MPPT charge controller</option><option value="battery">Battery</option><option value="inverter">Inverter</option><option value="ac_panel">AC panel</option><option value="busbar">Bus bar</option><option value="wind_turbine">Wind turbine</option><option value="propane_tank">Propane tank</option><option value="propane_connector">Propane house connector</option><option value="propane_filler">Propane fill post</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A coil or spool of wire: dc_indoor, dc_outdoor (weather-rated) or ac. propane: propane pipe.">
+                  <div class="kv-key">Wire Kind</div>
+                  <select class="kv-input" id="m-wire-kind" data-path="properties.wire_kind">
+                    <option value="">None</option><option value="net">Network cable (Cat6)</option><option value="dc_indoor">DC, indoor</option><option value="dc_outdoor">DC, weather-rated</option><option value="ac">AC</option><option value="propane">Propane pipe</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A solar mount: how far above the mount's origin the fitted panel sits.">
+                  <div class="kv-key">Panel Height (m)</div><input class="kv-input" type="number" step="0.01" min="0" id="m-panel-offset" data-path="properties.panel_offset_m">
+                </div>
+                <div class="kv-box" title="A pressure tank or water heater: the taps draw from it with no pump running.">
+                  <div class="kv-key">Pressurized</div>
+                  <select class="kv-input" id="m-pressurized" data-path="properties.pressurized"><option value="false">No</option><option value="true">Yes</option></select>
+                </div>
+                <div class="kv-box" title="A water heater: its element's watts (it heats to 55 C with its building's power).">
+                  <div class="kv-key">Heater (W)</div><input class="kv-input" type="number" step="100" min="0" id="m-heater-w" data-path="properties.heater_w">
+                </div>
+                <div class="kv-box" title="A water filter on a well's line: sediment, carbon and uv together make the water clean.">
+                  <div class="kv-key">Filter Stage</div>
+                  <select class="kv-input" id="m-filter-stage" data-path="properties.filter_stage"><option value="">None</option><option value="sediment">Sediment</option><option value="carbon">Carbon</option><option value="uv">UV</option></select>
+                </div>
+                <div class="kv-box" title="A submersible well pump: liters an hour it lifts.">
+                  <div class="kv-key">Flow (L/h)</div><input class="kv-input" type="number" step="50" min="0" id="m-flow-lph" data-path="properties.flow_lph">
+                </div>
+                <div class="kv-box" title="A drilled well structure (depth-scaled recipe lines, a sub panel, pumps into tanks).">
+                  <div class="kv-key">Drilled Well</div>
+                  <select class="kv-input" id="m-is-well" data-path="properties.is_well"><option value="false">No</option><option value="true">Yes</option></select>
+                </div>
+                <div class="kv-box" title="Pushed like a wheelbarrow (a portable generator).">
+                  <div class="kv-key">Pushable</div>
+                  <select class="kv-input" id="m-pushable" data-path="properties.pushable"><option value="false">No</option><option value="true">Yes</option></select>
+                </div>
+                <div class="kv-box" title="A portable generator: how many tiles around it have its power (not connected to structures).">
+                  <div class="kv-key">Power Radius (tiles)</div><input class="kv-input" type="number" step="1" min="0" id="m-power-radius" data-path="properties.power_radius_tiles">
+                </div>
+                <div class="kv-box" title="A solar mount: the width of its panel seen from above.">
+                  <div class="kv-key">Panel Width (m)</div><input class="kv-input" type="number" step="0.01" min="0" id="m-panel-width" data-path="properties.panel_width_m">
+                </div>
+                <div class="kv-box" title="A solar mount: the depth of its panel seen from above.">
+                  <div class="kv-key">Panel Depth (m)</div><input class="kv-input" type="number" step="0.01" min="0" id="m-panel-depth" data-path="properties.panel_depth_m">
+                </div>
+                <div class="kv-box" title="A solar mount: the fitted panel's tilt in degrees.">
+                  <div class="kv-key">Panel Tilt (deg)</div><input class="kv-input" type="number" step="1" min="0" id="m-panel-tilt" data-path="properties.panel_tilt_deg">
+                </div>
+                <div class="kv-box" title="A battery's energy capacity in watt-hours.">
+                  <div class="kv-key">Capacity (Wh)</div><input class="kv-input" type="number" step="10" min="0" id="m-capacity-wh" data-path="properties.capacity_wh">
+                </div>
+                <div class="kv-box" title="A battery's nominal voltage.">
+                  <div class="kv-key">Voltage (V)</div><input class="kv-input" type="number" step="0.1" min="0" id="m-voltage-v" data-path="properties.voltage_v">
+                </div>
+                <div class="kv-box" title="How many metres of wire the coil or spool holds.">
+                  <div class="kv-key">Wire Length (m)</div><input class="kv-input" type="number" step="0.5" min="0" id="m-wire-length" data-path="properties.wire_length_m">
+                </div>
+                <div class="kv-box" title="A wall item that goes THROUGH the wall (a wire entry): its model has the nodes Plate and Pipe; the game shows a second plate on the other side of the wall and joins them with the pipe, so it is seen and clicked from both sides.">
+                  <div class="kv-key">Through The Wall</div>
+                  <select class="kv-input" id="m-attach-through" data-path="properties.attach_through">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="Network gear: how many Cat6 cables it takes (a router: its LAN ports).">
+                  <div class="kv-key">Network Ports</div><input class="kv-input" type="number" step="1" min="0" id="m-net-ports" data-path="properties.net_ports">
+                </div>
+                <div class="kv-box" title="A switch or injector whose ports each give 15 W of DC power over the cable (PoE).">
+                  <div class="kv-key">PoE Ports</div>
+                  <select class="kv-input" id="m-poe" data-path="properties.poe">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A network device that takes its power from the cable (a camera, an access point, a yagi): it goes only on a PoE port.">
+                  <div class="kv-key">Runs From PoE</div>
+                  <select class="kv-input" id="m-poe-powered" data-path="properties.poe_powered">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A rackmount router or switch: the units it takes in a wall rack.">
+                  <div class="kv-key">Rack Units</div><input class="kv-input" type="number" step="1" min="0" id="m-rack-units" data-path="properties.rack_units">
+                </div>
+                <div class="kv-box" title="A rack: the units it holds.">
+                  <div class="kv-key">Rack Capacity (U)</div><input class="kv-input" type="number" step="1" min="0" id="m-rack-capacity" data-path="properties.rack_capacity_u">
+                </div>
+                <div class="kv-box" title="A stationary sawmill: logs are laid on its track and cut into lumber (docs/SAWMILL.md).">
+                  <div class="kv-key">Sawmill</div>
+                  <select class="kv-input" id="m-sawmill" data-path="properties.sawmill">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A placeable item that may ALSO be put up on a roof (a dish, a yagi, an access point): it stands upright there and R turns it.">
+                  <div class="kv-key">Also Mounts On A Roof</div>
+                  <select class="kv-input" id="m-roof-mount" data-path="properties.roof_mount">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A wall item that is a SHELF: items are stood on its top face (left click with the item in hand, right click the item to take it back).">
+                  <div class="kv-key">Shelf</div>
+                  <select class="kv-input" id="m-shelf" data-path="properties.shelf">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A shelving unit (Carries Things = yes): the height of each shelf's top face above the ground in metres, lowest first. Empty = a pallet with one deck.">
+                  <div class="kv-key">Shelf Heights</div><input class="kv-input" type="text" id="m-deck-heights" data-path="properties.deck_heights" placeholder="0.15, 0.62, 1.09, 1.56">
+                </div>
+                <div class="kv-box" title="A KIT: placing it (left click, R turns it) starts this structure's work site and uses the kit up. Structure id.">
+                  <div class="kv-key">Kit Builds Structure</div><input class="kv-input" type="text" id="m-builds-structure" data-path="properties.builds_structure" placeholder="wind_turbine_200w_metal">
+                </div>
+                <div class="kv-box" title="A mount (a solar rack) takes this item (a solar panel): right click the mount with it in hand to fit it. Item id.">
+                  <div class="kv-key">Mount Takes Item</div><input class="kv-input" type="text" id="m-attach-item" data-path="properties.attach_item" placeholder="electricity_solar_panel_200w">
+                </div>
+                <div class="kv-box" title="What the mount becomes once its item is fitted (the rack with its panel). Item id.">
+                  <div class="kv-key">Mount Becomes</div><input class="kv-input" type="text" id="m-attach-result" data-path="properties.attach_result" placeholder="electricity_solar_array_200w_roof">
                 </div>
                 <div class="kv-box" title="Mounted on the outside of a building it brings electricity to that building (the outdoor breaker box).">
                   <div class="kv-key">Brings Power</div>
@@ -5170,7 +5292,7 @@
           <h4 class="confirm-title" style="margin: 0; text-align: left; font-size: 16px;">Tag Registry</h4>
           <div style="font-size: 11px; color: var(--text-muted);">A tag (<code>#name</code>) stands in for a list of
             interchangeable items in a recipe - e.g. <code>#flooring</code> = plywood OR OSB OR stone flooring, player's
-            choice.</div>
+            choice. For packages and piles (1 bundle = 20 studs) use an <b>equivalency</b> (<code>~name</code>), which can also take tags as members.</div>
         </div>
       </div>
 
@@ -5179,6 +5301,8 @@
       <div id="tagreg-error" style="display: none; font-size: 12px; color: #f87171; margin-bottom: 12px;"></div>
       <button class="btn-primary" id="tagreg-new-btn"
         style="background: var(--accent-sky); color: #04101d; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer;">+ New Tag</button>
+      <button class="btn-cancel" id="tagreg-equiv-btn" title="Equivalencies: units, packages and piles, with items or tags as members"
+        style="margin-left: 8px; padding: 8px 14px; border-radius: 6px; cursor: pointer;">Equivalencies...</button>
 
       <div class="confirm-actions" style="justify-content: flex-end; gap: 10px; margin-top: 18px;">
         <button class="btn-cancel" id="tagreg-close-btn">Close (Esc)</button>
@@ -5196,17 +5320,12 @@
           <button type="button" class="btn-cancel" id="tagedit-delete" style="padding: 4px 11px; font-size: 12px; color: #f87171;" title="Delete this tag">Delete</button>
         </div>
       </div>
-      <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 14px;">The smallest item counts as <b>1</b>. For every bigger
-        item, say how many of the smallest it holds (a small bundle holds 10 studs, a large bundle 20). A recipe asking for
-        <code>#tag x 20</code> is then paid by any mix worth 20 of the smallest.</div>
+      <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 14px;">A tag is a group of interchangeable items: a recipe asking for <code>#tag</code>
+        accepts any ONE of them. To count by units (1 bundle = 20 studs) make an <b>equivalency</b> instead (Tag Registry, Equivalencies).</div>
       <div style="display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-end;">
         <div style="width: 200px;">
           <div class="kv-key">Tag name</div>
           <input type="text" id="tagedit-name" class="kv-input" placeholder="framing_lumber" style="font-family: 'JetBrains Mono', monospace;">
-        </div>
-        <div style="width: 160px;">
-          <div class="kv-key" title="The word shown after a count on the hover card, for example studs">Unit word (optional)</div>
-          <input type="text" id="tagedit-unit" class="kv-input" placeholder="studs">
         </div>
       </div>
       <div class="kv-key">Members</div>
@@ -6427,7 +6546,7 @@
     });
 
     let ALL_ITEMS = [];
-    const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." }, "liquids": { "name": "Liquids", "icon": "\ud83d\udca7", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per litre, a fluid colour and an opacity." } };
+    const CATEGORIES_META = { "structures": { "name": "Structures", "icon": "\ud83c\udfdb\ufe0f", "desc": "Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers." }, "building": { "name": "Building", "icon": "\ud83e\uddf1", "desc": "Modular building materials, framing, doors, windows, and hardware supplies." }, "farming": { "name": "Farming", "icon": "\ud83c\udf3e", "desc": "Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery." }, "ranching": { "name": "Ranching", "icon": "\ud83d\udc04", "desc": "Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing." }, "logging": { "name": "Logging", "icon": "\ud83c\udf32", "desc": "Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots." }, "fishing": { "name": "Fishing", "icon": "\ud83d\udc1f", "desc": "Whole fish species, precision meat fillets, fishing rods, lures, and tackle." }, "tools": { "name": "Tools", "icon": "\u26cf\ufe0f", "desc": "Hand tools, power gear, crafting implements, and surveying/measuring equipment." }, "electricity": { "name": "Electricity", "icon": "\u26a1", "desc": "Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring." }, "water": { "name": "Water", "icon": "\ud83d\udca7", "desc": "Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks." }, "waste": { "name": "Waste & Sanitation", "icon": "\u267b\ufe0f", "desc": "Septic infrastructure, compost systems, composting toilets, and organic waste management." }, "internet": { "name": "Internet", "icon": "\ud83d\udce1", "desc": "Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling." }, "hud": { "name": "HUD", "icon": "\ud83c\udf9b\ufe0f", "desc": "Player vitals, coins, energy/stamina bars, clock dials, and interface elements." }, "ground": { "name": "Ground", "icon": "\ud83c\udf31", "desc": "Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props." }, "food": { "name": "Food & Rations", "icon": "\ud83c\udf72", "desc": "Edible harvested produce, pantry staples, butchered meats, fresh eggs, dairy, and culinary ingredients." }, "fuel": { "name": "Fuel & Containers", "icon": "\u26fd", "desc": "Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment." }, "materials": { "name": "Materials", "icon": "\ud83e\udeb5", "desc": "Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources." }, "ingredients": { "name": "Ingredients", "icon": "\ud83e\udd69", "desc": "Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients." }, "liquids": { "name": "Liquids", "icon": "\ud83d\udca7", "desc": "Fluids that fill liquid containers by volume: milk, water, fuels, oils, syrups, each with a weight per liter, a fluid colour and an opacity." } };
 
     let activeItem = null;
     const SELECTED_ITEMS = new Map(); // key category_slash_id to item object
@@ -7437,8 +7556,9 @@
             continue;
           }
 
-          const normA = a.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-          const normB = b.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+          // compared by the name the game SHOWS (a pack's quantity, a weight or capacity are part of it): "Bag of Sand Pallet (10)" and "(20)" are different things
+          const normA = shownName(a).toLowerCase().replace(/[^a-z0-9]/g, "");
+          const normB = shownName(b).toLowerCase().replace(/[^a-z0-9]/g, "");
           const stemA = getCleanStem(a.id);
           const stemB = getCleanStem(b.id);
 
@@ -7447,7 +7567,7 @@
 
           if (normA && normA === normB) {
             isDup = true;
-            clusterName = a.name;
+            clusterName = shownName(a);
           } else if ((a.id === stemB && !PREFIXES.some(p => a.id.startsWith(p))) ||
             (b.id === stemA && !PREFIXES.some(p => b.id.startsWith(p)))) {
             isDup = true;
@@ -7584,6 +7704,7 @@
       }
       try {
         await loadTagRegistry();
+        await loadEquivalencies();
       } catch (e) {
         console.error("Error in loadTagRegistry:", e);
       }
@@ -9304,6 +9425,8 @@
         searchInput.placeholder = `Search ${SCHEMAS.length} schemas by name... (Press '/' to focus)`;
       } else if (sidebarMode === "tags") {
         searchInput.placeholder = `Search ${Object.keys(TAG_REGISTRY).length} tags by name... (Press '/' to focus)`;
+      } else if (sidebarMode === "equivalencies") {
+        searchInput.placeholder = `Search ${Object.keys(EQUIVALENCIES).length} equivalencies by name... (Press '/' to focus)`;
       } else {
         searchInput.placeholder = `Search ${ALL_ITEMS.length} assets by name, item ID, or tag... (Press '/' to focus)`;
       }
@@ -9375,12 +9498,22 @@
     let sidebarMode = "categories";
     let activeTag = null;
     let TAG_REGISTRY = {};
-    let TAG_VALUES = {};   // tag -> { unit, values: { member id: units } }: what each member is worth (default 1)
 
-    // "lumber_bundle_2x4_large=20, lumber_stud_2x4" (the dialog's member text): a member's value follows an "=".
+    // Equivalencies (unit systems, see equivalencies.json): name -> { unit, label, members: [{ item | tag, value }] }
+    let EQUIVALENCIES = {};
+
     function formatTagMembers(tag, members) {
-      const vals = (TAG_VALUES[tag] && TAG_VALUES[tag].values) || {};
-      return (members || []).map(m => (vals[m] && vals[m] !== 1) ? `${m}=${vals[m]}` : m).join(", ");
+      return (members || []).join(", ");
+    }
+
+    async function loadEquivalencies() {
+      try {
+        const res = await fetch("/api/equivalencies", { cache: "no-store" });
+        const data = await res.json();
+        if (res.ok && data && data.equivalencies) EQUIVALENCIES = data.equivalencies;
+      } catch (err) {
+        console.warn("Failed to load equivalencies:", err);
+      }
     }
 
     // Schema state (mirrors the biome tab: list in the sidebar, edit in the view)
@@ -9404,7 +9537,6 @@
         const data = await res.json();
         if (res.ok && data && data.tags) {
           TAG_REGISTRY = data.tags;
-          TAG_VALUES = data.tag_values || {};
         }
       } catch (err) {
         console.warn("Failed to load tag registry:", err);
@@ -9445,6 +9577,11 @@
         if (!skipGallery && !activeTag) {
           const names = Object.keys(TAG_REGISTRY).sort();
           if (names.length > 0) activeTag = names[0];
+        }
+      } else if (mode === "equivalencies") {
+        if (!skipGallery && !activeEquivalency && !(eqEdit && eqEdit.isNew)) {
+          const names = Object.keys(EQUIVALENCIES).sort();
+          if (names.length > 0) { activeEquivalency = names[0]; eqEdit = makeEqEdit(names[0]); eqDirty = false; }
         }
       } else if (mode === "biomes") {
         // Biomes open in the collection view only once the user clicks one.
@@ -9524,7 +9661,7 @@
 
     async function openTagRegistryDialogWithName(tagName) {
       await openTagRegistryDialog();
-      if (tagName && TAG_REGISTRY[tagName]) openTagEditor(tagName, TAG_REGISTRY, TAG_VALUES);
+      if (tagName && TAG_REGISTRY[tagName]) openTagEditor(tagName, TAG_REGISTRY);
     }
 
     async function openCreateTagPrompt() {
@@ -9663,6 +9800,9 @@
         <button class="sidebar-tab-btn ${sidebarMode === 'tags' ? 'active' : ''}" id="tab-btn-tags">
           Tags <span class="tab-count">${tagCount}</span>
         </button>
+        <button class="sidebar-tab-btn ${sidebarMode === 'equivalencies' ? 'active' : ''}" id="tab-btn-equivalencies" title="Equivalencies: units, packages and piles">
+          Equiv. <span class="tab-count">${Object.keys(EQUIVALENCIES).length}</span>
+        </button>
         <button class="sidebar-tab-btn ${sidebarMode === 'biomes' ? 'active' : ''}" id="tab-btn-biomes">
           Biomes <span class="tab-count">${biomeCount}</span>
         </button>
@@ -9673,11 +9813,28 @@
       const catTabBtn = tabRow.querySelector("#tab-btn-categories");
       const tagTabBtn = tabRow.querySelector("#tab-btn-tags");
       const biomeTabBtn = tabRow.querySelector("#tab-btn-biomes");
+      const equivTabBtn = tabRow.querySelector("#tab-btn-equivalencies");
 
       const schemaTabBtn = tabRow.querySelector("#tab-btn-schemas");
 
       catTabBtn.onclick = () => switchSidebarTab("categories");
       tagTabBtn.onclick = () => switchSidebarTab("tags");
+      equivTabBtn.onclick = () => switchSidebarTab("equivalencies");
+
+      // Hover over the Equivalencies tab while dragging an asset card -> open the tab, so the card can be dropped on an equivalency.
+      equivTabBtn.ondragover = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        equivTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "equivalencies") switchSidebarTab("equivalencies", true);
+      };
+      equivTabBtn.ondragenter = (e) => {
+        e.preventDefault();
+        equivTabBtn.classList.add("drag-target-hover");
+        if (sidebarMode !== "equivalencies") switchSidebarTab("equivalencies", true);
+      };
+      equivTabBtn.ondragleave = () => equivTabBtn.classList.remove("drag-target-hover");
+      equivTabBtn.ondrop = (e) => { e.preventDefault(); equivTabBtn.classList.remove("drag-target-hover"); };
       biomeTabBtn.onclick = () => switchSidebarTab("biomes");
       schemaTabBtn.onclick = () => switchSidebarTab("schemas");
 
@@ -9733,6 +9890,8 @@
 
       if (sidebarMode === "tags") {
         renderTagRegistrySidebar(sidebar);
+      } else if (sidebarMode === "equivalencies") {
+        renderEquivalenciesSidebar(sidebar);
       } else if (sidebarMode === "biomes") {
         renderBiomesSidebar(sidebar);
       } else if (sidebarMode === "schemas") {
@@ -10260,14 +10419,14 @@
           row.innerHTML = `
             <div style="flex: 1; min-width: 0;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #38bdf8; font-weight: 700;">#${name}</div>
-              <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 3px; word-break: break-word;">${formatTagMembers(name, tags[name])}${(data.tag_values && data.tag_values[name] && data.tag_values[name].unit) ? `  <span style="color: #fbbf24;">(units: ${data.tag_values[name].unit})</span>` : ""}</div>
+              <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 3px; word-break: break-word;">${formatTagMembers(name, tags[name])}</div>
             </div>
             <div style="flex-shrink: 0; align-self: center; font-size: 11px; color: var(--text-muted);">Open &#9656;</div>`;
           row.style.cursor = "pointer";
           row.title = `Open #${name}: edit its members and values, rename or delete it`;
           row.onmouseenter = () => { row.style.borderColor = "rgba(56,189,248,0.5)"; };
           row.onmouseleave = () => { row.style.borderColor = ""; };
-          row.onclick = () => openTagEditor(name, tags, data.tag_values || {});
+          row.onclick = () => openTagEditor(name, tags);
           listEl.appendChild(row);
         });
       } catch (err) {
@@ -10275,24 +10434,20 @@
       }
     }
 
-    // ---- The tag editor: one tag at a time. The smallest item is 1; each bigger one says how many of the smallest it holds.
-    let tagEdit = null;   // { isNew, name, unit, members: [{ id, value }] }
+    // ---- The tag editor: one tag at a time: a plain group of interchangeable items.
+    let tagEdit = null;   // { isNew, name, members: [{ id }] }
 
-    function openTagEditor(name, tags, tagValues) {
-      const tv = (tagValues && tagValues[name]) || {};
-      const vals = tv.values || {};
+    function openTagEditor(name, tags) {
       tagEdit = {
         isNew: !name,
         name: name || "",
-        unit: tv.unit || "",
-        members: ((name && tags && tags[name]) || []).map(id => ({ id, value: vals[id] || 1 })),
+        members: ((name && tags && tags[name]) || []).map(id => ({ id })),
       };
       document.getElementById("tagedit-title").textContent = name ? `Edit tag #${name}` : "New tag";
       const nameEl = document.getElementById("tagedit-name");
       nameEl.value = tagEdit.name;
       nameEl.disabled = !tagEdit.isNew;   // an existing tag is renamed with the Rename button in this header
       document.getElementById("tagedit-header-actions").style.display = tagEdit.isNew ? "none" : "flex";
-      document.getElementById("tagedit-unit").value = tagEdit.unit;
       document.getElementById("tagedit-error").style.display = "none";
       renderTagEditor();
       document.getElementById("tag-edit-dialog").showModal();
@@ -10304,7 +10459,6 @@
       if (tagEdit.members.length === 0) {
         list.innerHTML = `<div style="font-size: 12px; color: var(--text-muted);">No members yet. Click "+ Add member".</div>`;
       }
-      const smallest = tagEdit.members.length ? Math.min(...tagEdit.members.map(m => m.value)) : 1;
       tagEdit.members.forEach((m, idx) => {
         const item = lookupPickerItem("accept", m.id);
         const row = document.createElement("div");
@@ -10315,43 +10469,16 @@
             <div style="font-size: 12.5px; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item ? item.name : m.id + " (not found)"}</div>
             <div style="font-size: 10.5px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">${m.id}</div>
           </div>
-          <div style="display: flex; align-items: center; gap: 6px; flex: none;">
-            <span style="font-size: 11px; color: var(--text-muted);">holds</span>
-            <input type="number" min="1" step="1" value="${m.value}" class="kv-input" style="width: 78px;" title="How many of the smallest item this one holds (1 = the smallest)">
-            <span style="font-size: 11px; color: ${m.value === smallest ? "#4ade80" : "var(--text-muted)"}; width: 64px;">${m.value === smallest ? "smallest" : "of the smallest"}</span>
-          </div>
           <button type="button" class="btn-cancel" title="Remove from the tag" style="padding: 3px 9px; font-size: 12px; color: #f87171; flex: none;">x</button>`;
-        const num = row.querySelector("input");
-        num.oninput = () => {
-          const v = Number(num.value);
-          m.value = Number.isFinite(v) && v >= 1 ? Math.floor(v) : 1;
-          renderTagEditorPreview();
-        };
-        num.onchange = () => renderTagEditor();   // refresh the "smallest" marks once the number is settled
         row.querySelector("button").onclick = () => { tagEdit.members.splice(idx, 1); renderTagEditor(); };
         list.appendChild(row);
       });
-      renderTagEditorPreview();
-    }
-
-    // "1 Large 2x4 Bundle = 20 studs": what the numbers mean, in words.
-    function renderTagEditorPreview() {
-      const el = document.getElementById("tagedit-preview");
-      if (!el) return;
-      const unit = document.getElementById("tagedit-unit").value.trim();
-      const smallest = tagEdit.members.length ? Math.min(...tagEdit.members.map(m => m.value)) : 1;
-      const base = tagEdit.members.find(m => m.value === smallest);
-      const nameOf = (id) => { const it = lookupPickerItem("accept", id); return it ? it.name : id; };
-      const lines = tagEdit.members.filter(m => m !== base && m.value !== smallest)
-        .map(m => `1 ${nameOf(m.id)} = ${m.value / smallest} ${base ? nameOf(base.id) : "of the smallest"}${unit ? ` (${unit})` : ""}`);
-      el.innerHTML = lines.length ? lines.join("<br>") : (tagEdit.members.length > 1 ? "Every member counts as 1." : "");
     }
 
     async function saveTagEditor() {
       const errEl = document.getElementById("tagedit-error");
       errEl.style.display = "none";
       const name = document.getElementById("tagedit-name").value.trim().toLowerCase().replace(/^#/, "");
-      const unit = document.getElementById("tagedit-unit").value.trim();
       if (!name || !/^[a-z][a-z0-9_]*$/.test(name)) {
         errEl.textContent = "The tag name must start with a letter and use only lowercase letters, numbers and underscores.";
         errEl.style.display = "block";
@@ -10362,15 +10489,11 @@
         errEl.style.display = "block";
         return;
       }
-      // the smallest is always 1: scale nothing, but make sure at least one member is the smallest at 1
-      const smallest = Math.min(...tagEdit.members.map(m => m.value));
-      const values = {};
-      tagEdit.members.forEach(m => { const v = m.value / smallest; if (v !== 1) values[m.id] = v; });
       try {
         const res = await fetch("/api/save-material-tag", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tag_name: name, members: tagEdit.members.map(m => m.id), values, unit })
+          body: JSON.stringify({ tag_name: name, members: tagEdit.members.map(m => m.id) })
         });
         const data = await res.json();
         if (res.ok && data.success) {
@@ -10387,6 +10510,306 @@
         errEl.textContent = `Server error: ${err.message}`;
         errEl.style.display = "block";
       }
+    }
+
+    // ---- Equivalencies: unit systems with items OR tags as members. A tab of its own: the list in the left rail, the editor in the catalog area.
+    let activeEquivalency = null;   // the selected one (name) or null
+    let eqEdit = null;              // { isNew, name, unit, label, members: [{ kind: "item" | "tag", id, value }] }
+    let eqDirty = false;
+
+    function equivMemberName(m) {
+      if (m.kind === "tag") return "#" + m.id;
+      const it = lookupPickerItem("accept", m.id);
+      return it ? it.name : m.id;
+    }
+
+    function makeEqEdit(name) {
+      const e = (name && EQUIVALENCIES[name]) || {};
+      return {
+        isNew: !name,
+        name: name || "",
+        unit: e.unit || "",
+        label: e.label || "",
+        members: (e.members || []).map(m => ({ kind: m.tag ? "tag" : "item", id: m.tag || m.item, value: m.value || 1 })),
+      };
+    }
+
+    function selectEquivalency(name) {
+      if (eqDirty && !confirm("You have unsaved equivalency changes. Leave anyway?")) return;
+      activeEquivalency = name;
+      eqEdit = makeEqEdit(name);
+      eqDirty = false;
+      buildCategorySidebar();
+      renderGallery();
+    }
+
+    function newEquivalency() {
+      if (eqDirty && !confirm("You have unsaved equivalency changes. Leave anyway?")) return;
+      activeEquivalency = null;
+      eqEdit = makeEqEdit(null);
+      eqDirty = false;
+      buildCategorySidebar();
+      renderGallery();
+      const nameEl = document.getElementById("equivedit-name");
+      if (nameEl) nameEl.focus();
+    }
+
+    // The left rail: one row per equivalency; an asset card dragged onto a row becomes a member worth 1.
+    function renderEquivalenciesSidebar(sidebar) {
+      const container = document.createElement("div");
+      container.style.cssText = "display: flex; flex-direction: column; gap: 3px;";
+      const q = searchQuery.trim().toLowerCase();
+      const names = Object.keys(EQUIVALENCIES).sort().filter(n => !q || n.toLowerCase().includes(q) || String(EQUIVALENCIES[n].label || "").toLowerCase().includes(q));
+      names.forEach(name => {
+        const e = EQUIVALENCIES[name];
+        const members = e.members || [];
+        const row = document.createElement("div");
+        row.className = "cat-btn-row";
+        const btn = document.createElement("button");
+        btn.className = `cat-btn tag-folder-btn ${activeEquivalency === name ? "active" : ""}`;
+        btn.dataset.equivalency = name;
+        btn.title = `~${name}${e.label ? " - " + e.label : ""} (${members.length} members, counted in ${e.unit || "units"}) - drag assets here to add them`;
+        btn.innerHTML = `
+          <span class="cat-label" style="font-family: 'JetBrains Mono', monospace; font-size: 12.5px;">
+            <span>=</span> ~${name}
+          </span>
+          <span style="display: flex; align-items: center; gap: 6px;"><span class="cat-count">${members.length}</span></span>`;
+        btn.onclick = () => selectEquivalency(name);
+        btn.ondragover = (ev) => { ev.preventDefault(); ev.dataTransfer.dropEffect = "copy"; btn.classList.add("drag-target-hover"); };
+        btn.ondragenter = (ev) => { ev.preventDefault(); btn.classList.add("drag-target-hover"); };
+        btn.ondragleave = () => btn.classList.remove("drag-target-hover");
+        btn.ondrop = async (ev) => { ev.preventDefault(); btn.classList.remove("drag-target-hover"); await handleEquivalencyDrop(ev, name); };
+        row.appendChild(btn);
+        container.appendChild(row);
+      });
+      if (names.length === 0) {
+        const empty = document.createElement("div");
+        empty.style.cssText = "font-size: 12px; color: var(--text-muted); padding: 12px 6px;";
+        empty.innerText = Object.keys(EQUIVALENCIES).length === 0 ? "No equivalencies yet. Use Add Equivalency above." : "No equivalencies match your search.";
+        container.appendChild(empty);
+      }
+      sidebar.appendChild(container);
+    }
+
+    // Dropping asset cards on an equivalency adds them as members worth 1 (and saves, like the tags do).
+    async function handleEquivalencyDrop(e, name) {
+      showCategoryDropHints(false);
+      try {
+        const raw = e.dataTransfer.getData("application/json");
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        let ids = [];
+        if (data.type === "single" && data.id) ids = [data.id];
+        else if (data.type === "batch" && Array.isArray(data.items)) ids = data.items.map(it => it.id || it.item_id).filter(Boolean);
+        if (ids.length === 0) return;
+        const eq = EQUIVALENCIES[name];
+        if (!eq) return;
+        const members = (eq.members || []).map(m => Object.assign({}, m));
+        let added = 0;
+        ids.forEach(id => { if (!members.some(m => m.item === id)) { members.push({ item: id, value: 1 }); added++; } });
+        if (added === 0) { showToast(`Asset(s) already in ~${name}`, "info"); return; }
+        const res = await fetch("/api/save-equivalency", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, unit: eq.unit || "", label: eq.label || "", members }) });
+        const resp = await res.json();
+        if (res.ok && resp.success) {
+          showToast(`Added ${added} asset(s) to ~${name} (worth 1 each: set their values in the editor)`, "success");
+          await loadEquivalencies();
+          if (activeEquivalency === name) { eqEdit = makeEqEdit(name); eqDirty = false; }
+          buildCategorySidebar();
+          if (sidebarMode === "equivalencies") renderGallery();
+        } else {
+          showToast(`Error: ${resp?.error || "Failed to update the equivalency"}`, "error");
+        }
+      } catch (err) {
+        showToast(`Failed to drop onto the equivalency: ${err.message}`, "error");
+      }
+    }
+
+    // The editor, in the catalog area.
+    function renderEquivalencyView(grid) {
+      document.body.classList.add("biome-editor-mode");
+      renderTabBanner();
+      grid.innerHTML = "";
+      document.getElementById("showing-count").innerText = eqEdit ? "1" : "0";
+      if (!eqEdit) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px 20px; color: var(--text-muted); font-size: 13px;">Select an equivalency in the left rail to edit it, or use Add Equivalency.</div>`;
+        return;
+      }
+      const host = document.createElement("div");
+      host.style.cssText = "grid-column: 1/-1; max-width: 820px; padding: 4px 4px 40px;";
+      host.innerHTML = `
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">A recipe asks for it as <code>~name x N</code>; any mix of its members worth N units pays. A member is an item
+          or a <b>tag</b> (every item of the tag counts, so the player chooses a colour or a material). Say what each member is worth in the unit (the smallest is usually 1).</div>
+        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-end; flex-wrap: wrap;">
+          <div style="width: 220px;"><div class="kv-key">Name</div><input type="text" id="equivedit-name" class="kv-input" placeholder="framing_lumber" style="font-family: 'JetBrains Mono', monospace;"></div>
+          <div style="width: 220px;"><div class="kv-key" title="Shown on recipes and the hover card">Label</div><input type="text" id="equivedit-label" class="kv-input" placeholder="Framing Lumber"></div>
+          <div style="width: 150px;"><div class="kv-key" title="The word shown after a count, for example studs">Unit word</div><input type="text" id="equivedit-unit" class="kv-input" placeholder="studs"></div>
+          <span style="flex: 1;"></span>
+          <div style="display: flex; gap: 6px;" id="equivedit-header-actions">
+            <button type="button" class="btn-cancel" id="equivedit-rename" style="padding: 5px 12px; font-size: 12px;" title="Rename it (every recipe that asks for it is updated)">Rename</button>
+            <button type="button" class="btn-cancel" id="equivedit-delete" style="padding: 5px 12px; font-size: 12px; color: #f87171;" title="Delete it (not while a recipe uses it)">Delete</button>
+          </div>
+        </div>
+        <div class="kv-key">Members</div>
+        <div id="equivedit-members" style="display: flex; flex-direction: column; gap: 6px; margin: 6px 0 8px;"></div>
+        <button type="button" class="btn-cancel" id="equivedit-add" style="padding: 5px 12px; font-size: 12px;">+ Add item or tag</button>
+        <span style="font-size: 11.5px; color: var(--text-muted); margin-left: 10px;">or drag assets onto the equivalency in the left rail</span>
+        <div id="equivedit-preview" style="font-size: 12px; color: #fbbf24; margin: 14px 0 4px; min-height: 16px;"></div>
+        <div id="equivedit-error" style="display: none; font-size: 12px; color: #f87171; margin: 6px 0;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 12px;">
+          <button type="button" id="equivedit-save" class="editor-tool-btn editor-tool-save">Save Equivalency</button>
+          <button type="button" id="equivedit-revert" class="editor-tool-btn">Revert</button>
+          <span id="equivedit-dirty" style="align-self: center; font-size: 12px; color: #fbbf24;"></span>
+        </div>`;
+      grid.appendChild(host);
+      const nameEl = document.getElementById("equivedit-name");
+      nameEl.value = eqEdit.name;
+      nameEl.disabled = !eqEdit.isNew;
+      document.getElementById("equivedit-label").value = eqEdit.label;
+      document.getElementById("equivedit-unit").value = eqEdit.unit;
+      document.getElementById("equivedit-header-actions").style.display = eqEdit.isNew ? "none" : "flex";
+      const touch = () => { eqDirty = true; const d = document.getElementById("equivedit-dirty"); if (d) d.textContent = "Unsaved changes"; };
+      document.getElementById("equivedit-label").oninput = (ev) => { eqEdit.label = ev.target.value; touch(); };
+      document.getElementById("equivedit-unit").oninput = (ev) => { eqEdit.unit = ev.target.value.trim(); touch(); renderEquivalencyMembers(); };
+      document.getElementById("equivedit-add").onclick = () => openItemPicker({
+        title: "Add an item or a tag",
+        hint: "An item, or a tag (every item of the tag counts, so the player can choose a colour or material). It counts 1 until you say what it is worth.",
+        items: tagPickerItems(false).concat(ALL_ITEMS),
+        current: "",
+        onPick: (id) => {
+          if (!id) return;
+          const kind = id.startsWith("#") ? "tag" : "item";
+          const bare = id.replace(/^#/, "");
+          if (eqEdit.members.some(m => m.kind === kind && m.id === bare)) return;
+          eqEdit.members.push({ kind, id: bare, value: 1 });
+          touch();
+          renderEquivalencyMembers();
+        },
+      });
+      document.getElementById("equivedit-save").onclick = () => saveEquivalencyEditor();
+      document.getElementById("equivedit-revert").onclick = () => { eqEdit = makeEqEdit(activeEquivalency); eqDirty = false; renderGallery(); };
+      document.getElementById("equivedit-rename").onclick = async () => {
+        const renamed = await renameEquivalency(eqEdit.name);
+        if (renamed) { activeEquivalency = renamed; eqEdit = makeEqEdit(renamed); eqDirty = false; buildCategorySidebar(); renderGallery(); }
+      };
+      document.getElementById("equivedit-delete").onclick = async () => {
+        if (!confirm(`Delete the equivalency ~${eqEdit.name}?`)) return;
+        if (await deleteEquivalency(eqEdit.name)) { activeEquivalency = null; eqEdit = null; eqDirty = false; buildCategorySidebar(); renderGallery(); }
+      };
+      renderEquivalencyMembers();
+    }
+
+    function renderEquivalencyMembers() {
+      const list = document.getElementById("equivedit-members");
+      if (!list || !eqEdit) return;
+      list.innerHTML = "";
+      if (eqEdit.members.length === 0) list.innerHTML = `<div style="font-size: 12px; color: var(--text-muted);">No members yet. Click "+ Add item or tag".</div>`;
+      eqEdit.members.forEach((m, idx) => {
+        const item = m.kind === "tag" ? lookupPickerItem("accept", "#" + m.id) : lookupPickerItem("accept", m.id);
+        const count = m.kind === "tag" ? (TAG_REGISTRY[m.id] || []).length : 0;
+        const row = document.createElement("div");
+        row.style.cssText = "display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; background: #0c121c; border: 1px solid rgba(255,255,255,0.08);";
+        const icon = item && item.icon ? `<img src="${item.icon}" alt="" style="width: 30px; height: 30px; object-fit: contain; flex: none;">` : `<div style="width: 30px; flex: none;"></div>`;
+        row.innerHTML = `${icon}
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 12.5px; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${m.kind === "tag" ? "#" + m.id + " (tag)" : (item ? item.name : m.id + " (not found)")}</div>
+            <div style="font-size: 10.5px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">${m.kind === "tag" ? "any of " + count + " item" + (count === 1 ? "" : "s") + ", each worth the same" : m.id}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; flex: none;">
+            <span style="font-size: 11px; color: var(--text-muted);">worth</span>
+            <input type="number" min="0.01" step="any" value="${m.value}" class="kv-input" style="width: 84px;" title="How many units one of this is worth (the smallest is usually 1)">
+            <span style="font-size: 11px; color: var(--text-muted); width: 56px;">${eqEdit.unit || "units"}</span>
+          </div>
+          <button type="button" class="btn-cancel" title="Remove" style="padding: 3px 9px; font-size: 12px; color: #f87171; flex: none;">x</button>`;
+        const num = row.querySelector("input");
+        num.oninput = () => {
+          const v = Number(num.value);
+          m.value = Number.isFinite(v) && v > 0 ? v : 1;
+          eqDirty = true;
+          const d = document.getElementById("equivedit-dirty"); if (d) d.textContent = "Unsaved changes";
+          renderEquivalencyPreview();
+        };
+        row.querySelector("button").onclick = () => {
+          eqEdit.members.splice(idx, 1);
+          eqDirty = true;
+          const d = document.getElementById("equivedit-dirty"); if (d) d.textContent = "Unsaved changes";
+          renderEquivalencyMembers();
+        };
+        list.appendChild(row);
+      });
+      renderEquivalencyPreview();
+    }
+
+    // "1 Large 2x4 Bundle = 40 studs": what the numbers mean, in words.
+    function renderEquivalencyPreview() {
+      const el = document.getElementById("equivedit-preview");
+      if (!el || !eqEdit) return;
+      const unit = eqEdit.unit || "units";
+      el.innerHTML = eqEdit.members.map(m => `1 ${equivMemberName(m)}${m.kind === "tag" ? " (any)" : ""} = ${m.value} ${unit}`).join("<br>");
+    }
+
+    async function saveEquivalencyEditor() {
+      const errEl = document.getElementById("equivedit-error");
+      errEl.style.display = "none";
+      const name = (eqEdit.isNew ? document.getElementById("equivedit-name").value : eqEdit.name).trim().toLowerCase().replace(/^~/, "");
+      if (!name || !/^[a-z][a-z0-9_]*$/.test(name)) {
+        errEl.textContent = "The name must start with a letter and use only lowercase letters, numbers and underscores.";
+        errEl.style.display = "block";
+        return;
+      }
+      if (eqEdit.isNew && EQUIVALENCIES[name]) {
+        errEl.textContent = `~${name} already exists.`;
+        errEl.style.display = "block";
+        return;
+      }
+      if (eqEdit.members.length === 0) {
+        errEl.textContent = "An equivalency needs at least one member.";
+        errEl.style.display = "block";
+        return;
+      }
+      const body = {
+        name, unit: eqEdit.unit, label: eqEdit.label,
+        members: eqEdit.members.map(m => m.kind === "tag" ? { tag: m.id, value: m.value } : { item: m.id, value: m.value }),
+      };
+      try {
+        const res = await fetch("/api/save-equivalency", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(data.message, "success");
+          await loadEquivalencies();
+          activeEquivalency = name;
+          eqEdit = makeEqEdit(name);
+          eqDirty = false;
+          buildCategorySidebar();
+          renderGallery();
+        } else {
+          errEl.textContent = data?.error || "Failed to save";
+          errEl.style.display = "block";
+        }
+      } catch (err) {
+        errEl.textContent = `Server error: ${err.message}`;
+        errEl.style.display = "block";
+      }
+    }
+
+    async function renameEquivalency(oldName) {
+      const entered = window.prompt(`Rename ~${oldName} to (lowercase letters, numbers, underscores):`, oldName);
+      if (entered === null) return null;
+      const newName = entered.trim().replace(/^~/, "").toLowerCase();
+      if (!newName || newName === oldName) return null;
+      const res = await fetch("/api/rename-equivalency", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ old_name: oldName, new_name: newName }) });
+      const data = await res.json();
+      if (res.ok && data.success) { showToast(data.message, "success"); await loadEquivalencies(); return newName; }
+      showToast(`Error: ${data?.error || "Failed to rename"}`, "error");
+      return null;
+    }
+
+    async function deleteEquivalency(name) {
+      const res = await fetch("/api/delete-equivalency", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name }) });
+      const data = await res.json();
+      if (res.ok && data.success) { showToast(data.message, "success"); await loadEquivalencies(); return true; }
+      showToast(`Error: ${data?.error || "Failed to delete"}`, "error");
+      return false;
     }
 
     // Renames a tag everywhere it is used: the server moves the registry entry and rewrites every manifest that names "#old"
@@ -12887,6 +13310,219 @@
       wireConstructionEditors(scheme, stages, sp);
     }
 
+
+    // ---------------------------------------------------------------------------------------------------------------
+    // The recipe editor (shared by the structure Stages table and the stage item's card). A recipe is a TREE (tools/recipe_format.py):
+    //   line     { item_id (asset | #tag | ~equivalency), quantity }
+    //   section  { section: title, mode: "all" | "any", if: { uses | not_uses: spec }, items: [ nodes ] }
+    // "all" needs every child, "any" needs ANY ONE child in full (a child may be an "all" section: bricks AND mortar, OR blocks AND mortar).
+    // An "if" section only applies when an earlier line was (not) paid with an item matching the spec.
+    function recipeClean(nodes) {
+      const out = [];
+      (Array.isArray(nodes) ? nodes : []).forEach(n => {
+        if (!n || typeof n !== "object") return;
+        if (Array.isArray(n.any_of)) n = { section: "", mode: "any", items: n.any_of };
+        if (Array.isArray(n.items)) {
+          const kids = recipeClean(n.items);
+          if (!kids.length) return;
+          const sec = { section: String(n.section || "").trim(), mode: n.mode === "any" ? "any" : "all" };
+          const c = {};
+          if (n.if && n.if.uses) c.uses = n.if.uses;
+          if (n.if && n.if.not_uses) c.not_uses = n.if.not_uses;
+          if (Object.keys(c).length) sec.if = c;
+          sec.items = kids;
+          out.push(sec);
+        } else if (n.item_id) {
+          const q = Number(n.quantity);
+          out.push({ item_id: n.item_id, quantity: q > 0 ? q : 1 });
+        }
+      });
+      return out;
+    }
+
+    function recipeCount(nodes) {
+      let n = 0;
+      (nodes || []).forEach(x => { n += Array.isArray(x.items) ? recipeCount(x.items) : (x.item_id ? 1 : 0); });
+      return n;
+    }
+
+    // `nodes` is edited in place; onChange() is called after every edit. Returns the element to insert.
+    function buildRecipeEditor(nodes, onChange, label) {
+      const root = document.createElement("div");
+      const esc = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+      const changed = () => { if (onChange) onChange(); };
+      const mkBtn = (text, onClick, extra) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "btn-cancel";
+        b.style.cssText = "padding: 3px 9px; font-size: 12px;" + (extra || "");
+        b.textContent = text;
+        b.onclick = onClick;
+        return b;
+      };
+      const pick = (title, onPick, current) => openItemPicker({
+        title,
+        hint: "A single asset, a #tag (any member item is accepted) or a ~equivalency (a set of interchangeable items).",
+        items: recipePickerItems(),
+        current: current || "",
+        onPick: (id) => { if (id) onPick(id); },
+      });
+      const chip = (id, onPickAgain) => {
+        const item = lookupPickerItem("accept", id);
+        const c = document.createElement("div");
+        c.className = "gg-item-chip";
+        c.style.cssText = "margin-bottom: 0; cursor: pointer; flex: 1;";
+        c.title = "Click to change";
+        c.innerHTML = `
+          <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
+          <div class="gg-item-text"><div class="gg-item-name">${esc(item ? shownName(item) : id + (/^[#~]/.test(String(id)) ? "" : " (not found)"))}</div><div class="gg-item-id">${esc(id)}</div></div>`;
+        c.onclick = onPickAgain;
+        return c;
+      };
+      const move = (list, i, d) => {
+        const j = i + d;
+        if (j < 0 || j >= list.length) return;
+        [list[i], list[j]] = [list[j], list[i]];
+        render();
+        changed();
+      };
+      const nodeButtons = (list, i) => {
+        const wrap = document.createElement("div");
+        wrap.style.cssText = "display: flex; gap: 3px; flex: none;";
+        wrap.appendChild(mkBtn("\u25B2", () => move(list, i, -1), "padding: 3px 6px;"));
+        wrap.appendChild(mkBtn("\u25BC", () => move(list, i, 1), "padding: 3px 6px;"));
+        wrap.appendChild(mkBtn("x", () => { list.splice(i, 1); render(); changed(); }, "color: #f87171;"));
+        return wrap;
+      };
+      const addRow = (list, inAny) => {
+        const r = document.createElement("div");
+        r.style.cssText = "display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;";
+        r.appendChild(mkBtn("+ Material", () => pick("Add a material", (id) => { list.push({ item_id: id, quantity: 1 }); render(); changed(); })));
+        r.appendChild(mkBtn(inAny ? "+ Group (all of)" : "+ Section", () => { list.push({ section: "", mode: "all", items: [] }); render(); changed(); }));
+        return r;
+      };
+
+      const renderList = (list, depth, inAny) => {
+        const wrap = document.createElement("div");
+        wrap.style.cssText = "display: flex; flex-direction: column; gap: 5px;";
+        list.forEach((node, i) => {
+          if (inAny && i > 0) {
+            const or = document.createElement("div");
+            or.textContent = "or";
+            or.style.cssText = "text-align: center; font-size: 11px; color: var(--text-muted); font-style: italic;";
+            wrap.appendChild(or);
+          }
+          if (Array.isArray(node.items)) { wrap.appendChild(renderSection(list, i, node, depth)); return; }
+          const r = document.createElement("div");
+          r.style.cssText = "display: flex; align-items: center; gap: 8px;";
+          r.appendChild(chip(node.item_id, () => pick("Change the material", (id) => { node.item_id = id; render(); changed(); }, node.item_id)));
+          const q = document.createElement("input");
+          q.type = "number";
+          q.min = "0";
+          q.step = "any";
+          q.className = "gg-input";
+          q.style.cssText = "width: 70px; flex: none;";
+          q.value = node.quantity != null ? node.quantity : 1;
+          q.title = "Quantity";
+          q.oninput = () => { node.quantity = q.value === "" ? 1 : Number(q.value); changed(); };
+          r.appendChild(q);
+          // a well: the line also needs this much per metre of the well's depth (quantity + per_depth_m x depth)
+          const pd = document.createElement("input");
+          pd.type = "number";
+          pd.min = "0";
+          pd.step = "any";
+          pd.className = "gg-input";
+          pd.style.cssText = "width: 70px; flex: none;";
+          pd.placeholder = "+/m deep";
+          pd.value = node.per_depth_m ? node.per_depth_m : "";
+          pd.title = "Per metre of well depth (a drilled well only): the line needs quantity + this x the depth to water";
+          pd.oninput = () => { const v = Number(pd.value); if (pd.value === "" || !(v > 0)) delete node.per_depth_m; else node.per_depth_m = v; changed(); };
+          r.appendChild(pd);
+          r.appendChild(nodeButtons(list, i));
+          wrap.appendChild(r);
+        });
+        return wrap;
+      };
+
+      const renderSection = (list, i, node, depth) => {
+        const any = node.mode === "any";
+        const box = document.createElement("div");
+        const col = any ? "251,191,36" : "96,165,250";
+        box.style.cssText = `padding: 6px 8px; border: 1px dashed rgba(${col},0.5); border-radius: 8px;`;
+        const head = document.createElement("div");
+        head.style.cssText = "display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 6px;";
+        const title = document.createElement("input");
+        title.type = "text";
+        title.className = "gg-input";
+        title.placeholder = "Section title (optional)";
+        title.style.cssText = "flex: 1 1 140px; min-width: 120px;";
+        title.value = node.section || "";
+        title.oninput = () => { node.section = title.value; changed(); };
+        head.appendChild(title);
+        const mode = document.createElement("select");
+        mode.className = "gg-input";
+        mode.style.cssText = "flex: none;";
+        mode.title = "All of: every item below is needed. Any one of: ONE item below, in full (a Group inside it is a set that is needed together).";
+        mode.innerHTML = '<option value="all">All of these</option><option value="any">Any ONE of these</option>';
+        mode.value = any ? "any" : "all";
+        mode.onchange = () => { node.mode = mode.value; render(); changed(); };
+        head.appendChild(mode);
+        // the condition: this section only applies when an earlier line was (not) paid with a matching item
+        const kind = document.createElement("select");
+        kind.className = "gg-input";
+        kind.style.cssText = "flex: none;";
+        kind.title = "Make the section conditional on what paid for an EARLIER line: 'If using bricks' also requires mortar, for example.";
+        kind.innerHTML = '<option value="">Always applies</option><option value="uses">If using...</option><option value="not_uses">If NOT using...</option>';
+        const cond = node.if || {};
+        const ck = cond.uses ? "uses" : (cond.not_uses ? "not_uses" : "");
+        kind.value = ck;
+        kind.onchange = () => {
+          if (!kind.value) { delete node.if; render(); changed(); return; }
+          pick(kind.value === "uses" ? "Apply this section if an earlier line is paid with..." : "Apply this section if NO earlier line is paid with...",
+            (id) => { node.if = { [kind.value]: id }; render(); changed(); });
+          if (!node.if) kind.value = "";   // cancelled picker: stays unconditional
+        };
+        head.appendChild(kind);
+        if (ck) {
+          const spec = chip(cond[ck], () => pick("Change the condition", (id) => { node.if = { [ck]: id }; render(); changed(); }, cond[ck]));
+          spec.style.flex = "1 1 200px";
+          head.appendChild(spec);
+        }
+        head.appendChild(nodeButtons(list, i));
+        box.appendChild(head);
+        if (node.items.length === 0) {
+          const none = document.createElement("div");
+          none.className = "gg-item-id";
+          none.textContent = "(empty: add materials below; an empty section is dropped on save)";
+          box.appendChild(none);
+        }
+        box.appendChild(renderList(node.items, depth + 1, any));
+        box.appendChild(addRow(node.items, any));
+        return box;
+      };
+
+      const render = () => {
+        root.innerHTML = "";
+        if (label) {
+          const k = document.createElement("div");
+          k.className = "kv-key";
+          k.textContent = label;
+          k.title = "Materials used up when this stage is built. A line takes an asset, a #tag or a ~equivalency; a section groups lines (all of them, or any one) and may depend on what paid for an earlier line.";
+          root.appendChild(k);
+        }
+        if (nodes.length === 0) {
+          const none = document.createElement("div");
+          none.className = "gg-item-id";
+          none.textContent = "(nothing needed)";
+          root.appendChild(none);
+        }
+        root.appendChild(renderList(nodes, 0, false));
+        root.appendChild(addRow(nodes, false));
+      };
+      render();
+      return root;
+    }
+
     // Structures: every stage of the scheme also holds what it takes to BUILD it. Under each row of the Stages table a block lists
     // the materials (picked with the asset picker, with a quantity) and the tool groups ("any one of these"; tools are not used
     // up). The state lives on the row (row._construction) and saveGroup() sends it as construction_recipe / required_tools.
@@ -12897,10 +13533,10 @@
         const n = parseInt(row.dataset.stage, 10);
         const st = stages.find(x => Number(x.stage) === n) || {};
         const state = {
-          recipe: (Array.isArray(st.construction_recipe) ? st.construction_recipe : []).map(l => Array.isArray(l.any_of)
-            ? { any_of: l.any_of.map(o => ({ item_id: o.item_id, quantity: o.quantity })) }
-            : { item_id: l.item_id, quantity: l.quantity }),
+          recipe: recipeClean(JSON.parse(JSON.stringify(Array.isArray(st.construction_recipe) ? st.construction_recipe : []))),
           tools: (Array.isArray(st.required_tools) ? st.required_tools : []).map(g => Array.isArray(g) ? g.slice() : [g]),
+          clips: Array.isArray(st.build_clips) ? st.build_clips.slice() : [],
+          motion: st.build_motion || "",
         };
         row._construction = state;
         const box = document.createElement("div");
@@ -12915,7 +13551,7 @@
           c.style.cssText = "margin-bottom: 4px; cursor: default;";
           c.innerHTML = `
             <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
-            <div class="gg-item-text"><div class="gg-item-name">${esc(item ? item.name : id + (String(id).startsWith("#") ? "" : " (not found)"))}</div><div class="gg-item-id">${esc(id)}</div></div>
+            <div class="gg-item-text"><div class="gg-item-name">${esc(item ? shownName(item) : id + (/^[#~]/.test(String(id)) ? "" : " (not found)"))}</div><div class="gg-item-id">${esc(id)}</div></div>
             <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
           c.querySelector("button").onclick = onRemove;
           return c;
@@ -12932,77 +13568,10 @@
 
         const render = () => {
           box.innerHTML = "";
-          // ---- materials
+          // ---- materials (the shared recipe tree editor)
           const mats = document.createElement("div");
           mats.style.cssText = "flex: 1 1 320px; min-width: 280px;";
-          mats.innerHTML = `<div class="kv-key" title="Materials used up when this stage is built (a tag accepts any of its members).">Stage ${n}: Materials</div>`;
-          if (state.recipe.length === 0) {
-            const none = document.createElement("div");
-            none.className = "gg-item-id";
-            none.textContent = "(nothing needed)";
-            mats.appendChild(none);
-          }
-          const qtyRow = (line, onRemove) => {
-            const r = document.createElement("div");
-            r.style.cssText = "display: flex; align-items: center; gap: 8px;";
-            const c = chip(line.item_id, onRemove);
-            c.style.flex = "1";
-            const q = document.createElement("input");
-            q.type = "number";
-            q.min = "1";
-            q.step = "1";
-            q.className = "gg-input";
-            q.style.cssText = "width: 70px; flex: none;";
-            q.value = line.quantity != null ? line.quantity : 1;
-            q.title = "Quantity";
-            q.oninput = () => { line.quantity = q.value === "" ? 1 : Number(q.value); };
-            r.appendChild(c);
-            r.appendChild(q);
-            return r;
-          };
-          const pickMaterial = (title, onPick) => openItemPicker({
-            title,
-            hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids.",
-            items: tagPickerItems(false).concat(ALL_ITEMS),
-            current: "",
-            onPick: (id) => { if (id) onPick(id); },
-          });
-          state.recipe.forEach((line, idx) => {
-            if (!Array.isArray(line.any_of)) { mats.appendChild(qtyRow(line, () => { state.recipe.splice(idx, 1); render(); })); return; }
-            // an OR group: the stage takes ANY ONE alternative, in full
-            const g = document.createElement("div");
-            g.style.cssText = "margin: 6px 0; padding: 6px 8px; border: 1px dashed rgba(251,191,36,0.45); border-radius: 8px;";
-            const head = document.createElement("div");
-            head.style.cssText = "display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #fbbf24; margin-bottom: 4px;";
-            head.innerHTML = "<span>Either of these (any ONE, in full)</span>";
-            const del = document.createElement("button");
-            del.type = "button";
-            del.className = "btn-cancel";
-            del.style.cssText = "padding: 2px 8px; font-size: 11px; color: #f87171;";
-            del.textContent = "Remove group";
-            del.onclick = () => { state.recipe.splice(idx, 1); render(); };
-            head.appendChild(del);
-            g.appendChild(head);
-            line.any_of.forEach((opt, oi) => {
-              if (oi > 0) {
-                const or = document.createElement("div");
-                or.textContent = "or";
-                or.style.cssText = "text-align: center; font-size: 11px; color: var(--text-muted); font-style: italic; margin: 2px 0;";
-                g.appendChild(or);
-              }
-              g.appendChild(qtyRow(opt, () => { line.any_of.splice(oi, 1); if (line.any_of.length === 0) state.recipe.splice(idx, 1); render(); }));
-            });
-            g.appendChild(addBtn("+ Add alternative", () => pickMaterial(`Stage ${n}: add an alternative`, (id) => { line.any_of.push({ item_id: id, quantity: 1 }); render(); })));
-            mats.appendChild(g);
-          });
-          mats.appendChild(addBtn("+ Add material", () => pickMaterial(`Stage ${n}: add a material`, (id) => { state.recipe.push({ item_id: id, quantity: 1 }); render(); })));
-          const orBtn = addBtn("+ Add \"or\" group", () => pickMaterial(`Stage ${n}: first alternative of the \"or\" group`, (id) => {
-            state.recipe.push({ any_of: [{ item_id: id, quantity: 1 }] });
-            render();
-          }));
-          orBtn.style.marginLeft = "6px";
-          orBtn.title = "Either-or: the stage takes ANY ONE of the alternatives in full, for example 2 x Large 2x4 Bundle OR 4 x Small 2x4 Bundle";
-          mats.appendChild(orBtn);
+          mats.appendChild(buildRecipeEditor(state.recipe, null, `Stage ${n}: Materials`));
           box.appendChild(mats);
 
           // ---- tools
@@ -13041,6 +13610,20 @@
           });
           tools.appendChild(addBtn("+ Add tool group", () => { state.tools.push([]); render(); }));
           box.appendChild(tools);
+
+          // ---- how the stage is worked: the ped's clips and the model's motion
+          const anim = document.createElement("div");
+          anim.style.cssText = "flex: 1 1 220px; min-width: 200px;";
+          anim.innerHTML = `<div class="kv-key" title="The ped's work clips while this stage is built, one after the other (Dig, Hoe, Push_RT, Fixing_Kneeling_RT, Chop_Tree_RT, Drag ...). Empty = the default.">Stage ${n}: Work clips (comma separated)</div>
+            <input class="kv-input" type="text" value="${esc((state.clips || []).join(", "))}" placeholder="Dig, Hoe">
+            <div class="kv-key" style="margin-top:8px" title="How the stage's model moves while it is built: tilt_up raises the node Mast, lift hoists the node Yaw, spin_up fits and spins the node Rotor.">Stage ${n}: Model motion</div>
+            <select class="kv-input"><option value="">None</option><option value="tilt_up">Raise the mast (Mast)</option><option value="lift">Hoist the head (Yaw)</option><option value="spin_up">Fit and spin the rotor (Rotor)</option></select>`;
+          const clipInput = anim.querySelector("input");
+          clipInput.oninput = () => { state.clips = clipInput.value.split(",").map(x => x.trim()).filter(x => x); };
+          const motionSel = anim.querySelector("select");
+          motionSel.value = state.motion || "";
+          motionSel.onchange = () => { state.motion = motionSel.value; };
+          box.appendChild(anim);
         };
         render();
       });
@@ -13116,16 +13699,10 @@
         }
         if (row._construction) {
           // structures: what the stage takes to build (materials with quantities, tool groups)
-          const cleanLine = (l) => ({ item_id: l.item_id, quantity: Math.max(1, Number(l.quantity) || 1) });
-          entry.construction_recipe = row._construction.recipe
-            .map(l => {
-              if (!Array.isArray(l.any_of)) return l.item_id ? cleanLine(l) : null;
-              const opts = l.any_of.filter(o => o.item_id).map(cleanLine);
-              if (opts.length === 0) return null;
-              return opts.length === 1 ? opts[0] : { any_of: opts };   // one alternative is just a plain line
-            })
-            .filter(Boolean);
+          entry.construction_recipe = recipeClean(row._construction.recipe);
           entry.required_tools = row._construction.tools.filter(g => g.length);
+          entry.build_clips = (row._construction.clips || []).filter(c => c);
+          entry.build_motion = row._construction.motion || "";
         }
         stageEdits.push(entry);
       });
@@ -13227,6 +13804,13 @@
 
     function renderGallery() {
       const grid = document.getElementById("item-grid");
+
+      // The Equivalencies tab: the editor of the selected equivalency fills the catalog area.
+      if (sidebarMode === "equivalencies") {
+        document.body.classList.remove("growth-group-mode");
+        renderEquivalencyView(grid);
+        return;
+      }
 
       // Biome editor takes over the collection view entirely when a biome is selected.
       if (sidebarMode === "biomes" && activeBiomeId) {
@@ -13342,7 +13926,7 @@
             </div>
           `;
           const openTag = activeTag;
-          document.getElementById("banner-edit-tag-btn").onclick = () => openTagEditor(openTag, TAG_REGISTRY, TAG_VALUES);
+          document.getElementById("banner-edit-tag-btn").onclick = () => openTagEditor(openTag, TAG_REGISTRY);
           document.getElementById("banner-rename-tag-btn").onclick = async () => {
             const nn = await renameTagRegistryEntry(openTag);
             if (nn) selectTag(nn);
@@ -14648,7 +15232,20 @@
       const bannerDesc = document.getElementById("banner-desc");
       if (!bannerTitle) return;
 
-      if (sidebarMode === "biomes") {
+      if (sidebarMode === "equivalencies") {
+        const editing = !!(eqEdit && (activeEquivalency || eqEdit.isNew));
+        bannerTitle.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <span style="display: inline-flex; align-items: center; gap: 8px;">
+              <span>${editing ? (eqEdit.isNew ? "New equivalency" : "~" + activeEquivalency) : "Equivalencies"}</span>
+              ${editing && !eqEdit.isNew ? `<code style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-muted);">${eqEdit.members.length} members</code>` : `<span class="cat-count">${Object.keys(EQUIVALENCIES).length}</span>`}
+            </span>
+            <button type="button" id="banner-add-equiv-btn" class="banner-action-btn banner-add-btn" title="Create a new equivalency">Add Equivalency</button>
+          </div>`;
+        if (bannerDesc) bannerDesc.innerText = "Units, packages and piles: a recipe asks for ~name x N and any mix of the members worth N pays. Members are items or tags. Drag asset cards onto an equivalency in the left rail to add them.";
+        const addBtn = document.getElementById("banner-add-equiv-btn");
+        if (addBtn) addBtn.onclick = () => newEquivalency();
+      } else if (sidebarMode === "biomes") {
         const b = activeBiomeDraft;
         const editing = !!(activeBiomeId && b);
         const swatch = editing
@@ -14814,6 +15411,32 @@
       return header;
     }
 
+
+    // The name the GAME shows: the stored plain name plus what it generates from the item's data (HudBindings.GetDisplayName): a pack shows its quantity
+    // "Cement Bag Pallet (10)", a liquid container its capacity "Water Jug (5 L)", a material or packaged good its weight "Cement Bag (9 kg)", a power source its rated power
+    // "Standby Generator (10 kW)". So a stored name never carries a quantity, a capacity or a wattage.
+    function shownName(it) {
+      if (!it) return "";
+      const base = it.name == null ? "" : String(it.name);
+      if (it.isTag || it.isEq) return base;
+      const p = it.properties || {};
+      let out = base;
+      if (Number(p.pack_quantity) > 1) out += " x" + p.pack_quantity;
+      // a power source or regulator shows its rated power "Standby Generator (10 kW)" (electricity category_fields.max_power_w)
+      const watts = Number(it.manifest && it.manifest.category_fields && it.manifest.category_fields.max_power_w);
+      if (watts > 0) out += " (" + (watts >= 1000 ? (Math.round(watts / 100) / 10) + " kW" : Math.round(watts) + " W") + ")";
+      // a breaker, fuse or disconnect shows its rated current "DC Circuit Breaker (32 A)" (electricity category_fields.max_current_a)
+      const amps = Number(it.manifest && it.manifest.category_fields && it.manifest.category_fields.max_current_a);
+      if (amps > 0) out += " (" + (Math.round(amps * 10) / 10) + " A)";
+      const lc = it.manifest && it.manifest.liquid_container;
+      if (lc && Number(lc.capacity_l) > 0) return out + " (" + lc.capacity_l + " L)";
+      if (p.display_weight === true && Number(p.weight_kg) > 0) {
+        const kg = Number(p.weight_kg);
+        out += " (" + (kg >= 10 ? String(Math.round(kg)) : String(Math.round(kg * 10) / 10)) + " kg)";
+      }
+      return out;
+    }
+
     function renderItemCardDOM(it, grid) {
       const card = document.createElement("div");
       card.className = "item-card";
@@ -14896,7 +15519,7 @@
             </div>
           </div>
         </div>
-        <div class="card-name" title="${it.name}">${it.name}</div>
+        <div class="card-name" title="${shownName(it)}">${shownName(it)}</div>
         <div class="card-id">${it.id}</div>
         ${it._isDuplicate ? `<div style="font-size: 10px; font-weight: 600; color: #f59e0b; margin-top: 3px; font-family: 'JetBrains Mono', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="Category: ${it.category} | Group: ${it._duplicateCluster || it.name}">📁 ${it.category.toUpperCase()} • ${it._duplicateCluster || it.name}</div>` : ''}
       `;
@@ -14940,7 +15563,7 @@
       searchInput.addEventListener("input", (e) => {
         searchQuery = e.target.value;
         updateSearchClearBtn();
-        if (sidebarMode === "tags" || sidebarMode === "biomes" || sidebarMode === "schemas") {
+        if (sidebarMode === "tags" || sidebarMode === "biomes" || sidebarMode === "schemas" || sidebarMode === "equivalencies") {
           buildCategorySidebar();
         }
         renderGallery();
@@ -14950,7 +15573,7 @@
         searchInput.value = "";
         searchQuery = "";
         updateSearchClearBtn();
-        if (sidebarMode === "tags" || sidebarMode === "biomes" || sidebarMode === "schemas") {
+        if (sidebarMode === "tags" || sidebarMode === "biomes" || sidebarMode === "schemas" || sidebarMode === "equivalencies") {
           buildCategorySidebar();
         }
         renderGallery();
@@ -15096,7 +15719,7 @@
 
       // Tag Registry dialog action buttons
       const tagRegNew = document.getElementById("tagreg-new-btn");
-      if (tagRegNew) tagRegNew.onclick = () => openTagEditor(null, TAG_REGISTRY, TAG_VALUES);
+      if (tagRegNew) tagRegNew.onclick = () => openTagEditor(null, TAG_REGISTRY);
       const tagEditSave = document.getElementById("tagedit-save");
       if (tagEditSave) tagEditSave.onclick = () => saveTagEditor();
       const tagEditCancel = document.getElementById("tagedit-cancel");
@@ -15127,8 +15750,8 @@
         if (!confirm(`Delete the tag #${tagEdit.name}? Recipes that name it will no longer find it.`)) return;
         if (await deleteTagRegistryEntry(tagEdit.name)) document.getElementById("tag-edit-dialog").close();
       };
-      const tagEditUnit = document.getElementById("tagedit-unit");
-      if (tagEditUnit) tagEditUnit.oninput = () => renderTagEditorPreview();
+      const tagRegEquiv = document.getElementById("tagreg-equiv-btn");
+      if (tagRegEquiv) tagRegEquiv.onclick = () => { document.getElementById("tag-registry-dialog").close(); switchSidebarTab("equivalencies"); };
       const tagRegClose = document.getElementById("tagreg-close-btn");
       if (tagRegClose) tagRegClose.onclick = () => document.getElementById("tag-registry-dialog").close();
 
@@ -15485,6 +16108,7 @@
           await loadCatalog();
           await loadKitConfig();
           await loadTagRegistry();
+          await loadEquivalencies();
           deriveLegacyGrowthGroups();
           computeDuplicates();
           buildCategorySidebar();
@@ -16079,7 +16703,7 @@
       const dlg = document.getElementById("item-picker-dialog");
       if (!dlg) return;
       itemPickerState.items = (opts.items || []).slice().sort((a, b) =>
-        (b.isTag ? 1 : 0) - (a.isTag ? 1 : 0) || String(a.name).localeCompare(String(b.name)));
+        ((b.isTag || b.isEq) ? 1 : 0) - ((a.isTag || a.isEq) ? 1 : 0) || String(a.name).localeCompare(String(b.name)));
       itemPickerState.current = opts.current || "";
       itemPickerState.highlighted = opts.current || "";
       itemPickerState.onPick = opts.onPick || null;
@@ -16126,10 +16750,10 @@
       }
       grid.innerHTML = shown.map(i => `
         <div class="item-picker-card ${i.id === itemPickerState.highlighted ? "selected" : ""} ${i.id === itemPickerState.current ? "current" : ""}"
-             data-id="${esc(i.id)}" title="${esc(i.name)} (${esc(i.id)})">
+             data-id="${esc(i.id)}" title="${esc(shownName(i))} (${esc(i.id)})">
           <img src="${esc(i.icon || "")}" alt="" onerror="this.style.visibility='hidden'">
-          <div class="item-picker-name">${esc(i.name)}</div>
-          <div class="item-picker-id">${i.isTag ? esc(i.members + " tool" + (i.members === 1 ? "" : "s") + " - any one works") : esc(i.id)}</div>
+          <div class="item-picker-name">${esc(shownName(i))}</div>
+          <div class="item-picker-id">${i.isTag ? esc(i.members + " tool" + (i.members === 1 ? "" : "s") + " - any one works") : (i.isEq ? esc(i.members + " member" + (i.members === 1 ? "" : "s") + ", counted in " + i.unit) : esc(i.id))}</div>
         </div>`).join("");
 
       grid.querySelectorAll(".item-picker-card").forEach(card => {
@@ -16167,6 +16791,26 @@
       "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' rx='12' fill='%2316202e'/>" +
       "<text x='32' y='42' font-size='34' text-anchor='middle'>\u{1F3F7}\uFE0F</text></svg>");
 
+    const EQ_ICON = "data:image/svg+xml;utf8," + encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' rx='12' fill='%2316202e'/>" +
+      "<text x='32' y='44' font-size='38' text-anchor='middle' fill='%23fbbf24'>=</text></svg>");
+
+    // An equivalency ("~name": any mix of its members worth the quantity) shown as a picker entry.
+    function equivalencyPickerItems() {
+      return Object.keys(EQUIVALENCIES).sort().map(name => ({
+        id: "~" + name,
+        name: "~" + name + (EQUIVALENCIES[name].label ? " - " + EQUIVALENCIES[name].label : ""),
+        category: "Equivalencies",
+        icon: EQ_ICON,
+        isEq: true,
+        members: (EQUIVALENCIES[name].members || []).length,
+        unit: EQUIVALENCIES[name].unit || "units",
+      }));
+    }
+
+    // What a recipe line can name: tags, equivalencies and assets.
+    function recipePickerItems() { return tagPickerItems(false).concat(equivalencyPickerItems(), ALL_ITEMS); }
+
     // toolsOnly: keep just the tags with at least one tool member (the only ones a harvest tool can use).
     function tagPickerItems(toolsOnly) {
       const isTool = (id) => id.startsWith("tool_") || ALL_ITEMS.some(i => i.id === id && i.category === "tools");
@@ -16194,6 +16838,12 @@
     // Finds the item (or tag) a stored id refers to, or null.
     function lookupPickerItem(kind, id) {
       if (!id) return null;
+      if (id.startsWith("~")) {
+        const eq = equivalencyPickerItems().find(t => t.id === id);
+        if (eq) return eq;
+        if (Object.keys(EQUIVALENCIES).length === 0) return { id, name: id, category: "Equivalencies", icon: EQ_ICON, isEq: true, members: 0, unit: "units" };   // not loaded yet
+        return null;
+      }
       if (id.startsWith("#")) {
         const known = tagPickerItems(false).find(t => t.id === id);
         if (known) return known;
@@ -16277,7 +16927,7 @@
           row.innerHTML = `
             <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
             <div class="gg-item-text" style="cursor: pointer;" title="Click to change the item">
-              <div class="gg-item-name">${esc(item ? item.name : d.item_id + " (not found)")}</div>
+              <div class="gg-item-name">${esc(item ? shownName(item) : d.item_id + " (not found)")}</div>
               <div class="gg-item-id">${esc(d.item_id)}</div>
             </div>
             <input type="number" min="1" step="1" class="gg-drop-min" value="${esc(d.amount_min ?? 1)}" title="Fewest" style="width: 56px;">
@@ -16317,7 +16967,7 @@
           row.innerHTML = `
             <img class="gg-item-thumb" src="${item && item.icon ? esc(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
             <div class="gg-item-text">
-              <div class="gg-item-name">${esc(item ? item.name : id + " (not found)")}</div>
+              <div class="gg-item-name">${esc(item ? shownName(item) : id + " (not found)")}</div>
               <div class="gg-item-id">${esc(id)}</div>
             </div>
             <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
@@ -16356,7 +17006,7 @@
         const cur = inp("resource").value;
         img.src = entry && entry.icon_path ? "/" + entry.icon_path : "";
         img.style.visibility = entry && entry.icon_path ? "" : "hidden";
-        box.querySelector(".gg-item-name").innerText = entry ? entry.name : (cur || "(none)");
+        box.querySelector(".gg-item-name").innerText = entry ? shownName(entry) : (cur || "(none)");
         box.querySelector(".gg-item-id").innerText = entry ? entry.resource + "  ·  " + entry.model : (inp("model").value || "");
       };
       load().then(list => show(list.find(x => x.resource === inp("resource").value) || null));
@@ -16815,7 +17465,7 @@
         chip.className = "gg-item-chip";
         chip.style.cssText = "margin-bottom: 4px; cursor: default;";
         chip.innerHTML = `<img class="gg-item-thumb" src="${item && item.icon ? escapeHtml(item.icon) : ""}" alt="" style="${item && item.icon ? "" : "visibility:hidden"}">
-          <div class="gg-item-text"><div class="gg-item-name">${escapeHtml(item ? item.name : id + (id.startsWith("#") ? "" : " (not found)"))}</div><div class="gg-item-id">${escapeHtml(id)}</div></div>
+          <div class="gg-item-text"><div class="gg-item-name">${escapeHtml(item ? shownName(item) : id + (/^[#~]/.test(id) ? "" : " (not found)"))}</div><div class="gg-item-id">${escapeHtml(id)}</div></div>
           <button type="button" class="btn-cancel" title="Remove" style="margin-left: auto; padding: 3px 9px; font-size: 12px; color: #f87171;">x</button>`;
         chip.querySelector("button").onclick = () => { const next = arr.slice(); next.splice(idx, 1); save(next); };
         listEl.appendChild(chip);
@@ -16823,7 +17473,7 @@
       wrap.querySelector(".refs-add").onclick = () => openItemPicker({
         title: "Add a tag or asset",
         hint: "A tag (any member item is accepted) or a single asset.",
-        items: def.refs === "assets" ? ALL_ITEMS : def.refs === "tools" ? itemsForPicker("tool") : tagPickerItems(false).concat(ALL_ITEMS),
+        items: def.refs === "assets" ? ALL_ITEMS : def.refs === "tools" ? itemsForPicker("tool") : recipePickerItems(),
         current: "",
         onPick: (id) => { if (!id || arr.includes(id)) return; save(arr.concat([id])); },
       });
@@ -17038,124 +17688,27 @@
     function renderConstructionRecipeCard(container, fieldKey, fieldTitle, recipeArray, schemaDef, it) {
       const card = document.createElement("div");
       card.className = "schema-compound-card";
-
-      const arr = Array.isArray(recipeArray) ? [...recipeArray] : [];
-      const note = schemaDef?.note || "Materials CONSUMED to build or progress this stage. Use #tag for interchangeable materials, or specific item_id.";
-
+      const tree = recipeClean(JSON.parse(JSON.stringify(Array.isArray(recipeArray) ? recipeArray : [])));
+      const note = schemaDef?.note || "Materials CONSUMED to build this stage: assets, #tags or ~equivalencies, grouped in sections (all of / any one of, optionally conditional on what paid for an earlier line).";
       card.innerHTML = `
         <div class="schema-compound-header">
           <div class="schema-compound-title">
-            <span>🔨 ${escapeHtml(fieldTitle)}</span>
-            <span class="schema-type-badge" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3);">
-              ${arr.length} item${arr.length === 1 ? "" : "s"}
-            </span>
+            <span>${escapeHtml(fieldTitle)}</span>
+            <span class="schema-type-badge" id="recipe-count-badge" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3);"></span>
           </div>
-          <button type="button" class="schema-btn-small" id="recipe-add-btn">
-            + Add Material
-          </button>
         </div>
         ${note ? `<div class="schema-note-hint">${escapeHtml(note)}</div>` : ""}
-        <div class="recipe-items-list" style="display: flex; flex-direction: column; gap: 5px;">
-          ${arr.length === 0 ? `
-            <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic; padding: 6px 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
-              No materials configured in recipe. Click "+ Add Material" to add required construction materials.
-            </div>
-          ` : ""}
-        </div>
-      `;
-
+        <div class="recipe-items-list"></div>`;
       container.appendChild(card);
-
-      const listEl = card.querySelector(".recipe-items-list");
-
-      arr.forEach((item, idx) => {
-        if (Array.isArray(item.any_of)) {
-          const note = document.createElement("div");
-          note.style.cssText = "font-size: 11.5px; color: #fbbf24; padding: 5px 8px; background: rgba(0,0,0,0.22); border-radius: 4px; border: 1px dashed rgba(251,191,36,0.4);";
-          note.textContent = "Either of: " + item.any_of.map(o => `${o.quantity} x ${o.item_id}`).join("  OR  ") + "  (edit it in the structure's Stages table)";
-          listEl.appendChild(note);
-          return;
-        }
-        const row = document.createElement("div");
-        row.style.cssText = "display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.22); padding: 5px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.04);";
-        row.innerHTML = `
-          <div style="flex: 2; min-width: 140px;">
-            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 2px;">Item ID or #Tag</div>
-            <input type="text" class="kv-input" list="schema-recipe-item-datalist" placeholder="e.g. #roofing or item_id" value="${escapeHtml(item.item_id || '')}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
-          </div>
-          <div style="width: 80px;">
-            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 2px;">Qty</div>
-            <input type="number" step="any" min="0" class="kv-input" placeholder="Qty" value="${item.quantity !== undefined ? item.quantity : 1}" style="background: rgba(0,0,0,0.3); padding: 3px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
-          </div>
-          <button type="button" class="schema-btn-danger" title="Remove material" style="margin-top: 14px;">✕</button>
-        `;
-
-        const idInp = row.querySelector("input[type='text']");
-        const qtyInp = row.querySelector("input[type='number']");
-        const delBtn = row.querySelector(".schema-btn-danger");
-
-        const updateItem = () => {
-          arr[idx] = {
-            item_id: idInp.value.trim(),
-            quantity: qtyInp.value === "" ? 0 : Number(qtyInp.value)
-          };
-          applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
-          if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
-        };
-
-        idInp.oninput = () => { updateItem(); refreshName(); };
-
-        // The material is CHOSEN with the asset picker (materials, ingredients, liquids, or a #tag of interchangeable ones); typing still works.
-        const nameEl = document.createElement("div");
-        nameEl.className = "gg-item-id";
-        nameEl.style.cssText = "margin-top: 2px; min-height: 13px;";
-        const pickBtn = document.createElement("button");
-        pickBtn.type = "button";
-        pickBtn.className = "schema-btn-small";
-        pickBtn.style.marginTop = "3px";
-        pickBtn.textContent = "Choose...";
-        function refreshName() {
-          const id = idInp.value.trim();
-          const found = id ? lookupPickerItem("accept", id) : null;
-          nameEl.textContent = found ? found.name : (id ? "(not found)" : "");
-        }
-        refreshName();
-        idInp.parentElement.appendChild(nameEl);
-        idInp.parentElement.appendChild(pickBtn);
-        pickBtn.onclick = () => openItemPicker({
-          title: "Choose a material",
-          hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids.",
-          items: tagPickerItems(false).concat(ALL_ITEMS),
-          current: idInp.value.trim(),
-          onPick: (id) => { if (!id) return; idInp.value = id; updateItem(); refreshName(); },
-        });
-        qtyInp.oninput = updateItem;
-
-        delBtn.onclick = () => {
-          arr.splice(idx, 1);
-          applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
-          if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
-          renderCategorySchemaSection(it);
-        };
-
-        listEl.appendChild(row);
-      });
-
-      card.querySelector("#recipe-add-btn").onclick = () => {
-        openItemPicker({
-          title: "Add a material",
-          hint: "A tag (any member item is accepted) or a single asset: materials, ingredients, liquids. The quantity is set afterwards.",
-          items: tagPickerItems(false).concat(ALL_ITEMS),
-          current: "",
-          onPick: (id) => {
-            if (!id) return;
-            arr.push({ item_id: id, quantity: 1 });
-            applyManifestFieldEdit(`category_fields.${fieldKey}`, arr, "raw");
-            if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = arr;
-            renderCategorySchemaSection(it);
-          },
-        });
-      };
+      const badge = card.querySelector("#recipe-count-badge");
+      const refreshBadge = () => { const c = recipeCount(tree); badge.textContent = `${c} item${c === 1 ? "" : "s"}`; };
+      refreshBadge();
+      card.querySelector(".recipe-items-list").appendChild(buildRecipeEditor(tree, () => {
+        const cleaned = recipeClean(tree);
+        applyManifestFieldEdit(`category_fields.${fieldKey}`, cleaned, "raw");
+        if (it.manifest?.category_fields) it.manifest.category_fields[fieldKey] = cleaned;
+        refreshBadge();
+      }));
     }
 
     /* Compound Card: Required Tools (Array of Tool Alternative Groups) */
@@ -17577,8 +18130,37 @@
       document.getElementById("m-lights").value = p.lights_fires ? "true" : "false";
       document.getElementById("m-attach-surface").value = p.attach_surface || "";
       document.getElementById("m-attach-side").value = p.attach_side || "";
+      document.getElementById("m-attach-item").value = p.attach_item || "";
+      document.getElementById("m-attach-through").value = p.attach_through ? "true" : "false";
+      document.getElementById("m-shelf").value = p.shelf ? "true" : "false";
+      document.getElementById("m-roof-mount").value = p.roof_mount ? "true" : "false";
+      document.getElementById("m-sawmill").value = p.sawmill ? "true" : "false";
+      document.getElementById("m-poe").value = p.poe ? "true" : "false";
+      document.getElementById("m-poe-powered").value = p.poe_powered ? "true" : "false";
+      document.getElementById("m-net-ports").value = p.net_ports != null ? p.net_ports : "";
+      document.getElementById("m-rack-units").value = p.rack_units != null ? p.rack_units : "";
+      document.getElementById("m-rack-capacity").value = p.rack_capacity_u != null ? p.rack_capacity_u : "";
+      document.getElementById("m-wire-role").value = p.wire_role || "";
+      document.getElementById("m-wire-kind").value = p.wire_kind || "";
+      document.getElementById("m-panel-offset").value = p.panel_offset_m !== undefined && p.panel_offset_m !== null ? p.panel_offset_m : "";
+      document.getElementById("m-pressurized").value = p.pressurized ? "true" : "false";
+      document.getElementById("m-heater-w").value = p.heater_w !== undefined && p.heater_w !== null ? p.heater_w : "";
+      document.getElementById("m-filter-stage").value = p.filter_stage || "";
+      document.getElementById("m-flow-lph").value = p.flow_lph !== undefined && p.flow_lph !== null ? p.flow_lph : "";
+      document.getElementById("m-is-well").value = p.is_well ? "true" : "false";
+      document.getElementById("m-pushable").value = p.pushable ? "true" : "false";
+      document.getElementById("m-power-radius").value = p.power_radius_tiles !== undefined && p.power_radius_tiles !== null ? p.power_radius_tiles : "";
+      document.getElementById("m-panel-width").value = p.panel_width_m !== undefined && p.panel_width_m !== null ? p.panel_width_m : "";
+      document.getElementById("m-panel-depth").value = p.panel_depth_m !== undefined && p.panel_depth_m !== null ? p.panel_depth_m : "";
+      document.getElementById("m-panel-tilt").value = p.panel_tilt_deg !== undefined && p.panel_tilt_deg !== null ? p.panel_tilt_deg : "";
+      document.getElementById("m-capacity-wh").value = p.capacity_wh !== undefined && p.capacity_wh !== null ? p.capacity_wh : "";
+      document.getElementById("m-voltage-v").value = p.voltage_v !== undefined && p.voltage_v !== null ? p.voltage_v : "";
+      document.getElementById("m-wire-length").value = p.wire_length_m !== undefined && p.wire_length_m !== null ? p.wire_length_m : "";
+      document.getElementById("m-builds-structure").value = p.builds_structure || "";
+      document.getElementById("m-attach-result").value = p.attach_result || "";
       document.getElementById("m-provides-power").value = p.provides_power ? "true" : "false";
       document.getElementById("m-look-target").value = p.look_target || "";
+      document.getElementById("m-deck-heights").value = p.deck_heights || "";
       document.getElementById("m-look-color").value = /^#[0-9a-fA-F]{6}$/.test(p.look_color || "") ? p.look_color : "#a8742f";
       document.getElementById("m-look-smooth").value = p.look_smoothness !== undefined && p.look_smoothness !== null ? p.look_smoothness : "";
       document.getElementById("m-look-metal").value = p.look_metallic !== undefined && p.look_metallic !== null ? p.look_metallic : "";
@@ -17617,8 +18199,37 @@
         ["m-lights", "properties.lights_fires", "bool"],
         ["m-attach-surface", "properties.attach_surface", "string_or_null"],
         ["m-attach-side", "properties.attach_side", "string_or_null"],
+        ["m-attach-item", "properties.attach_item", "string_or_null"],
+        ["m-attach-through", "properties.attach_through", "bool"],
+        ["m-shelf", "properties.shelf", "bool"],
+        ["m-roof-mount", "properties.roof_mount", "bool"],
+        ["m-sawmill", "properties.sawmill", "bool"],
+        ["m-poe", "properties.poe", "bool"],
+        ["m-poe-powered", "properties.poe_powered", "bool"],
+        ["m-net-ports", "properties.net_ports", "number_optional"],
+        ["m-rack-units", "properties.rack_units", "number_optional"],
+        ["m-rack-capacity", "properties.rack_capacity_u", "number_optional"],
+        ["m-wire-role", "properties.wire_role", "string_or_null"],
+        ["m-wire-kind", "properties.wire_kind", "string_or_null"],
+        ["m-panel-offset", "properties.panel_offset_m", "number_optional"],
+        ["m-pressurized", "properties.pressurized", "bool"],
+        ["m-heater-w", "properties.heater_w", "number_optional"],
+        ["m-filter-stage", "properties.filter_stage", "string_or_null"],
+        ["m-flow-lph", "properties.flow_lph", "number_optional"],
+        ["m-is-well", "properties.is_well", "bool"],
+        ["m-pushable", "properties.pushable", "bool"],
+        ["m-power-radius", "properties.power_radius_tiles", "number_optional"],
+        ["m-panel-width", "properties.panel_width_m", "number_optional"],
+        ["m-panel-depth", "properties.panel_depth_m", "number_optional"],
+        ["m-panel-tilt", "properties.panel_tilt_deg", "number_optional"],
+        ["m-capacity-wh", "properties.capacity_wh", "number_optional"],
+        ["m-voltage-v", "properties.voltage_v", "number_optional"],
+        ["m-wire-length", "properties.wire_length_m", "number_optional"],
+        ["m-builds-structure", "properties.builds_structure", "string_or_null"],
+        ["m-attach-result", "properties.attach_result", "string_or_null"],
         ["m-provides-power", "properties.provides_power", "bool"],
         ["m-look-target", "properties.look_target", "string_or_null"],
+        ["m-deck-heights", "properties.deck_heights", "string_or_null"],
         ["m-look-color", "properties.look_color", "string_or_null"],
         ["m-look-smooth", "properties.look_smoothness", "number_optional"],
         ["m-look-metal", "properties.look_metallic", "number_optional"],

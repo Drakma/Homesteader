@@ -20,7 +20,8 @@
     "stores": [
       "feed"
     ],
-    "sale_unit": "packet"
+    "sale_unit": "packet",
+    "display_weight": true
   },
   "models": [],
   "utilities": {

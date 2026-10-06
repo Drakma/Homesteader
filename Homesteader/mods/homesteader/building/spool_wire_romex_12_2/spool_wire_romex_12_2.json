@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "spool_wire_romex_12_2",
-  "name": "Romex 12/2 Wire Spool",
+  "name": "Romex 12-2 Spool",
   "category": "building",
-  "description": "Spool of 12/2 NM-B electrical wire.",
+  "description": "A 75 m spool of 12-2 NM cable for outlet circuits.",
   "icon": "spool_wire_romex_12_2.png",
   "properties": {
     "weight_kg": 15.0,
@@ -21,40 +21,22 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true,
+    "wire_kind": "ac",
+    "wire_length_m": 75,
+    "stacking_limit": 4
   },
   "models": [
     {
-      "file": "spool_wire_romex_12_2.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "spool_wire_romex_12_2.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 94.0,
-        "y": 84.0,
-        "z": 54.0
-      },
+      "file": "spool_wire_romex_12_2.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.94,
-        "y": 0.84,
-        "z": 0.54
+        "x": 0.443,
+        "y": 0.189,
+        "z": 0.467
       },
-      "vertices": 504,
-      "faces": 168,
-      "bounding_box": {
-        "min": [
-          -42.0,
-          -42.0,
-          0.0
-        ],
-        "max": [
-          52.0,
-          42.0,
-          54.0
-        ]
-      }
+      "triangles": 3592
     }
   ],
   "utilities": {
@@ -94,39 +76,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "spool_wire_romex_12_2.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 94.0,
-      "y": 84.0,
-      "z": 54.0
-    },
-    "dimensions_m": {
-      "x": 0.94,
-      "y": 0.84,
-      "z": 0.54
-    },
-    "vertices": 504,
-    "faces": 168,
-    "bounding_box": {
-      "min": [
-        -42.0,
-        -42.0,
-        0.0
-      ],
-      "max": [
-        52.0,
-        42.0,
-        54.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.94,
-      "depth": 0.84,
-      "height": 0.54
+      "width": 0.44,
+      "depth": 0.47,
+      "height": 0.19
     }
   }
 }

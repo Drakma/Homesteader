@@ -138,7 +138,7 @@ namespace Homesteader.World
 
                 if (_player == null)
                 {
-                    var ped = FindAnyObjectByType<PedController>();
+                    var ped = PedController.Current;
                     if (ped != null) _player = ped.transform;
                     if (_player == null) return;
                 }

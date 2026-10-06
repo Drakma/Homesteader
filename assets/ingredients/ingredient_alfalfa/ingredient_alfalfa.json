@@ -22,7 +22,18 @@
     ],
     "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "ingredient_alfalfa.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.216,
+        "y": 0.058,
+        "z": 0.125
+      },
+      "triangles": 4240
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -62,6 +73,11 @@
   },
   "category_fields": {
     "processing_method": "mill",
-    "next_item_id": ""
+    "next_item_id": "",
+    "dimensions_m": {
+      "width": 0.22,
+      "depth": 0.12,
+      "height": 0.06
+    }
   }
 }

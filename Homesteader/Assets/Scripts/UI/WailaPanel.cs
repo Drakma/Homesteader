@@ -143,27 +143,71 @@ namespace Homesteader.UI
             _root.Insert(0, _panel);
         }
 
+        private readonly List<(string, string)> _details = new List<(string, string)>();
+        private readonly System.Text.StringBuilder _key = new System.Text.StringBuilder();
+
         private void RefreshContent()
         {
             if (HudVisibility.Hidden) { if (_panel != null) _panel.style.display = DisplayStyle.None; return; }   // F11 hides the whole HUD, this panel too
             Transform hovered = HoverTarget.Find();
             string title;
             Texture2D icon;
-            var details = new List<(string, string)>();
+            var details = _details;   // reused: this runs every frame
+            details.Clear();
 
-            ConstructionSite site = hovered != null ? hovered.GetComponentInParent<ConstructionSite>() : null;
-            if (site != null)
+            ConstructionSite site = hovered != null && hovered.GetComponentInParent<AttachedObject>() == null ? hovered.GetComponentInParent<ConstructionSite>() : null;   // a mounted item on the building is its own target
+            if (Homesteader.Growth.Net.PreviewFrame >= Time.frameCount - 1)
+            {
+                // a yagi being placed: how it lines up with the other yagis, connected or not, so the two can be aimed at each other
+                title = Homesteader.UI.HudBindings.GetDisplayName(Homesteader.Growth.Net.PreviewItem);
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, Homesteader.Growth.Net.PreviewItem);
+                Homesteader.UI.AssetCatalogItem yagi = Homesteader.UI.HudBindings.GetCatalogItem(Homesteader.Growth.Net.PreviewItem);
+                Homesteader.Growth.Net.SignalRows(Homesteader.Growth.Net.PreviewPos, Homesteader.Growth.Net.PreviewForward, yagi != null ? yagi.range_m : 0f, null, details);
+                details.Add(("Turn it", "R (Shift + R the other way)"));
+            }
+            else if (PlacementController.WellPreview.HasValue)
+            {
+                // a well blueprint held over the ground: what is under this spot
+                Vector3 at = PlacementController.WellPreview.Value;
+                title = "Well here";
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, PlacementController.WellPreviewId);
+                float depth = WaterTable.DepthM(at);
+                details.Add(("Water at", UnitFormat.Distance(depth) + " down"));
+                details.Add(("Max flow", UnitFormat.Volume(WaterTable.YieldLph(at)) + " an hour"));
+                WellNeeds(PlacementController.WellPreviewId, depth, details);
+            }
+            else if (site != null)
             {
                 // The what-and-how-far is on the site's own hover card (ConstructionHover); this just names it.
                 title = site.Finished ? site.Name() : site.Name() + " Build Site";
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, site.StructureId);
                 if (!site.Finished) details.Add(("Stage", site.CurrentStage != null ? site.CurrentStage.name + $"  ({site.Stage + 1} of {site.StageCount})" : ""));
-                else details.Add(("Stage", "Finished"));
+                if (site.Finished) WireNetwork.Describe(site.GetComponent<WireNode>(), details);   // a wind turbine: its output and what it is wired to
+                if (site.Finished && !site.IsWell)
+                {
+                    // the utilities the building is connected to: just the name and "Connected" (one that is not connected is left out)
+                    if (AttachedObject.HasPower(site)) details.Add(("Electricity", "Connected"));
+                    WireNetwork.WaterFor(site, out float waterAll, out _);
+                    if (waterAll > 0.01f) details.Add(("Water", "Connected"));
+                    if (Septic.TankFor(site, out _, out _) != null) details.Add(("Sewer", "Connected"));
+                    if (WireNetwork.HasPropane(site)) details.Add(("Propane", "Connected"));
+                    if (Homesteader.Growth.Net.StructureLink(site) == 2) details.Add(("Internet", "Connected"));
+                }
                 if (site.IsStorage) details.Add(("Stored", site.StorageSummary()));
+                if (site.IsWell)
+                {
+                    details.Add(("Water at", UnitFormat.Distance(site.WellDepthM) + " down"));
+                    details.Add(("Max flow", UnitFormat.Volume(WaterTable.YieldLph(site.transform.position)) + " an hour"));
+                    details.Add(("Pump", string.IsNullOrEmpty(site.PumpId) ? "None yet" : Homesteader.UI.HudBindings.GetItemName(site.PumpId)));
+                    if (site.Finished && string.IsNullOrEmpty(site.FittedPanel)) details.Add(("Sub panel", "None: left click it with a well sub panel"));
+                }
             }
             else if (hovered != null)
             {
                 DescribeObject(hovered, out title, out icon, details);
+                PlacedObject tank = hovered.GetComponentInParent<PlacedObject>();   // a tank, a drum, a can: what is in it
+                if (tank != null && LiquidRules.IsLiquidContainer(tank.ItemId)) details.Add(("Holds", LiquidRules.Describe(tank.ItemId, tank.LiquidId, tank.WireUsed)));
+                WireNetwork.Describe(WireNode.Of(hovered), details);   // what a wired device is connected to
             }
             else if (TryDescribeForestTree(out title, out icon, details))
             {
@@ -186,8 +230,9 @@ namespace Homesteader.UI
             _panel.style.display = DisplayStyle.Flex;
 
             // Cheap dedupe so we're not tearing down/rebuilding the row list every frame.
-            string key = title + "|" + details.Count;
-            foreach (var (label, value) in details) key += "|" + label + "=" + value;
+            _key.Clear().Append(title).Append('|').Append(details.Count);
+            foreach (var (label, value) in details) _key.Append('|').Append(label).Append('=').Append(value);
+            string key = _key.ToString();
             if (key == _lastContentKey) return;
             _lastContentKey = key;
 
@@ -246,9 +291,9 @@ namespace Homesteader.UI
                 icon.style.width = 22f; icon.style.height = 22f; icon.style.marginRight = 6f;
                 left.Add(icon);
             }
-            left.Add(new Label(Homesteader.UI.HudBindings.GetItemName(itemId)) { style = { color = TextColor, fontSize = 14f } });
+            left.Add(new Label(Homesteader.UI.HudBindings.GetDisplayName(itemId)) { style = { color = TextColor, fontSize = 14f } });
             row.Add(left);
-            row.Add(new Label("x" + count) { style = { color = TextDim, fontSize = 14f } });
+            row.Add(new Label(count.StartsWith("=") ? count.Substring(1) : "x" + count) { style = { color = TextDim, fontSize = 14f } });   // ("=text": shown as it is, not as a count)
             _rows.Add(row);
         }
 
@@ -288,11 +333,26 @@ namespace Homesteader.UI
                 if (index == r.Shown) continue;
                 r.Shown = index;
                 string id = r.Items[index];
-                r.Name.text = Homesteader.UI.HudBindings.GetItemName(id);
+                r.Name.text = Homesteader.UI.HudBindings.GetDisplayName(id);
                 Texture2D tex = Homesteader.UI.PhoneController.GetItemIcon(null, id);
                 r.Icon.image = tex;
                 r.Icon.style.display = tex != null ? DisplayStyle.Flex : DisplayStyle.None;
             }
+        }
+
+        /// <summary>What a well's depth-scaled lines need at that depth (the pipe and the cable).</summary>
+        private static void WellNeeds(string wellId, float depth, List<(string, string)> details)
+        {
+            List<ConstructionStageData> stages = ConstructionSite.StagesOf(wellId);
+            if (stages == null) return;
+            foreach (ConstructionStageData st in stages)
+                foreach (ConstructionLine l in st.recipe)
+                {
+                    if (l == null || l.per_depth_m <= 0f) continue;
+                    float n = Mathf.Ceil(l.quantity + l.per_depth_m * depth);
+                    string unit = GrowthRegistry.UnitName(l.item_id);
+                    details.Add((ConstructionSite.LineName(l.item_id), unit == "m" ? UnitFormat.Distance(n) : ConstructionSite.Num(n) + (string.IsNullOrEmpty(unit) ? "" : " " + unit)));
+                }
         }
 
         private static void DescribeObject(Transform hovered, out string title, out Texture2D icon, List<(string, string)> details)
@@ -301,7 +361,7 @@ namespace Homesteader.UI
             if (growth != null)
             {
                 string itemId = growth.Group != null ? growth.Group.Id : null;
-                title = !string.IsNullOrEmpty(itemId) ? Homesteader.UI.HudBindings.GetItemName(itemId) : NiceNameFromGameObject(hovered.name);
+                title = !string.IsNullOrEmpty(itemId) ? Homesteader.UI.HudBindings.GetDisplayName(itemId) : NiceNameFromGameObject(hovered.name);
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, itemId);
 
                 details.Add(("Age", $"{growth.AgeDays:F1} days"));
@@ -316,19 +376,53 @@ namespace Homesteader.UI
                 return;
             }
 
+            var mounted = hovered.GetComponentInParent<AttachedObject>();
+            if (mounted != null)
+            {
+                title = Homesteader.UI.HudBindings.GetDisplayName(mounted.ItemId);
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, mounted.ItemId);
+                var shelf = mounted.GetComponent<Homesteader.Growth.Shelf>();
+                if (shelf != null)
+                {
+                    details.Add(("On it", shelf.Describe()));
+                    details.Add(("Free", UnitFormat.Length(shelf.FreeLength())));
+                    details.Add(("Put on", "Left click with the item in hand"));
+                    if (shelf.Items.Count > 0) details.Add(("Take off", "Right click the item"));
+                }
+                return;
+            }
+
             var placed = hovered.GetComponentInParent<PlacedObject>() ?? hovered.GetComponentInChildren<PlacedObject>();
             if (placed != null)
             {
                 int stackCount = placed.StackCount;
-                title = Homesteader.UI.HudBindings.GetItemName(placed.ItemId) + (stackCount > 1 ? "  x" + stackCount : "");
+                title = Homesteader.UI.HudBindings.GetDisplayName(placed.ItemId) + (stackCount > 1 ? "  x" + stackCount : "");
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, placed.ItemId);
                 if (stackCount > 1) details.Add(("Stacked", stackCount + " high"));
+                PortableGenerator gen = placed.GetComponent<PortableGenerator>();
+                if (gen != null)
+                {
+                    details.Add(("Output", SolarSun.Power(Mathf.Min(gen.DemandW, gen.RatedW)) + " of " + SolarSun.Power(gen.RatedW)));
+                    details.Add(("Range", Mathf.RoundToInt(gen.RadiusTiles) + " tiles, and any build site it reaches"));
+                    if (gen.DemandW > gen.RatedW) details.Add(("Overloaded", "More is wanted than it makes"));
+                }
+                Homesteader.UI.AssetCatalogItem spool = Homesteader.UI.HudBindings.GetCatalogItem(placed.ItemId);
+                if (spool != null && spool.wire_length_m > 0f) details.Add(("Wire left", UnitFormat.Distance(Mathf.Max(0f, spool.wire_length_m - placed.WireUsed)) + " of " + UnitFormat.Distance(spool.wire_length_m)));
                 if (Homesteader.UI.ContainerRules.IsContainer(placed.ItemId))
                 {
                     details.Add(("Holds", UnitFormat.WeightPair(Homesteader.UI.ContainerRules.Used(placed.Contents), Homesteader.UI.ContainerRules.Capacity(placed.ItemId))));
                     if (placed.Contents != null && placed.Contents.Count > 0)
                         foreach (ContainerStack c in placed.Contents) details.Add(("@item|" + c.ItemId, c.Count.ToString()));   // an icon row
                     else details.Add(("Contents", "Empty"));
+                }
+                var sawmill = placed.GetComponent<Homesteader.Growth.Sawmill>();
+                if (sawmill != null)
+                {
+                    if (sawmill.FuelL < Homesteader.Growth.Sawmill.FuelPerCutL - 0.001f) details.Add(("Fuel", "Out of gasoline: right click it with a can of gasoline"));
+                    if (sawmill.Busy) details.Add(("Status", "Cutting"));
+                    else if (!string.IsNullOrEmpty(sawmill.LogId)) { details.Add(("@item|" + sawmill.LogId, "=On the track")); details.Add(("Right click", "Choose the lumber to cut")); details.Add(("Shift + right click", "Take the log off")); }
+                    else { details.Add(("Track", "Empty")); details.Add(("Left click", "With an uncut log in hand: lay it on the track")); details.Add(("Shift + right click", "Pick up")); }
+                    return;
                 }
                 details.Add(("Right click", "Pick up"));
                 return;
@@ -337,7 +431,7 @@ namespace Homesteader.UI
             var item = hovered.GetComponentInChildren<WorldItem>() ?? hovered.GetComponentInParent<WorldItem>();
             if (item != null)
             {
-                title = Homesteader.UI.HudBindings.GetItemName(item.ItemId);
+                title = Homesteader.UI.HudBindings.GetDisplayName(item.ItemId);
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, item.ItemId);
                 details.Add(("Type", "Dropped item"));
                 details.Add(("Right click", "Pick up"));
@@ -358,7 +452,7 @@ namespace Homesteader.UI
             foreach (string prefix in new[] { "Planted_", "Item_", "GLB_" })
                 if (s.StartsWith(prefix)) s = s.Substring(prefix.Length);
             string catalogName = Homesteader.UI.HudBindings.GetItemName(s);
-            if (!string.IsNullOrEmpty(catalogName) && catalogName != s) return catalogName;
+            if (!string.IsNullOrEmpty(catalogName) && catalogName != s) return Homesteader.UI.HudBindings.GetDisplayName(s);
             s = s.Replace('_', ' ');
             return s.Length > 0 ? char.ToUpperInvariant(s[0]) + s.Substring(1) : rawName;
         }
@@ -421,7 +515,7 @@ namespace Homesteader.UI
             var cam = Camera.main;
             if (cam == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 if (iso != null) cam = iso.GetComponent<Camera>();
             }
             if (cam == null) return false;
@@ -442,7 +536,7 @@ namespace Homesteader.UI
             var cam = Camera.main;
             if (cam == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 if (iso != null) cam = iso.GetComponent<Camera>();
             }
             if (cam == null) return false;
@@ -459,7 +553,7 @@ namespace Homesteader.UI
             var cam = Camera.main;
             if (cam == null)
             {
-                var iso = FindAnyObjectByType<IsometricLockedCamera>();
+                var iso = IsometricLockedCamera.Current;
                 if (iso != null) cam = iso.GetComponent<Camera>();
             }
             if (cam == null) return false;

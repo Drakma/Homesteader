@@ -77,6 +77,10 @@ CURSORS = [
     # Drawn in code (see draw_steering_wheel): there is no glyph for it on the sheet.
     ('drawn:steering_wheel', 'steering_wheel', 'action'),
     ('drawn:shears', 'shears',         'tool'),   # sheep shears: shown over a sheep that can be sheared
+    ('drawn:shovel', 'shovel',         'tool'),   # a shovel: shown over sandy ground it can dig
+    ('drawn:wire_cutters', 'wire_cutters', 'tool'),   # diagonal cutters: shown over a device the wire cutters can wire
+    ('drawn:fuel_nozzle', 'fuel_nozzle', 'tool'),     # a fuel pump nozzle: held from a pump, shown over what it can fill
+    ('drawn:shovel_pour', 'shovel_pour', 'tool'), # the same shovel with its contents falling: shown over a wheelbarrow it can empty into
 ]
 
 # Glyph sources, in order: the scanned sheet glyphs in tools/_ptr/glyphs when
@@ -230,6 +234,99 @@ def draw_shears():
 
 DRAWN['shears'] = draw_shears
 
+def draw_shovel(pour=False):
+    # A spade: a pointed, rounded blade at the upper left (the tip is the hotspot), a short neck, the shaft and a round D-grip at the lower right, all on the
+    # tool axis the whole set shares. Authored in (u, v): u runs along the axis (top-left -> bottom-right), v across it.
+    import math
+    k = 4
+    S = SIZE * k
+    c = S / 2
+    r2 = math.sqrt(2)
+
+    def P(u, v):
+        return (c + (u - v) / r2 * k, c + (u + v) / r2 * k)
+
+    solid = Image.new('L', (S, S), 0)
+    d = ImageDraw.Draw(solid)
+    d.polygon([P(-58, 0), P(-49, -10), P(-36, -17), P(-18, -18), P(-12, -13), P(-12, 13), P(-18, 18), P(-36, 17), P(-49, 10)], fill=255)   # the blade
+    d.line([P(-14, 0), P(-2, 0)], fill=255, width=11 * k)                                                                                    # the neck
+    d.line([P(-2, 0), P(38, 0)], fill=255, width=9 * k)                                                                                      # the shaft
+    gx, gy = P(50, 0)
+    d.ellipse([gx - 13 * k, gy - 13 * k, gx + 13 * k, gy + 13 * k], fill=255)                                                                # the grip
+    if pour:
+        # the contents falling off the blade: loose bits dropping straight down below it (screen coordinates)
+        for (x, y, r) in ((32, 66, 5), (44, 73, 5.5), (36, 83, 5), (48, 91, 5.5), (40, 100, 4.5)):
+            d.ellipse([(x - r) * k, (y - r) * k, (x + r) * k, (y + r) * k], fill=255)
+
+    def accents(dd):
+        dd.line([P(-50, 0), P(-14, 0)], fill=255, width=int(1.5 * k))   # the rib down the blade
+        dd.line([P(-12, -13), P(-12, 13)], fill=255, width=2 * k)       # where the blade meets the neck
+
+    return _hollow(solid, k, line=3, accents=accents)
+
+
+def draw_wire_cutters():
+    # Diagonal cutting pliers: two short jaws pointing to the upper left, the pivot, and two long handles with fat grips to the lower right. Authored in (u, v):
+    # u runs along the shared tool axis (top-left -> bottom-right), v across it.
+    import math
+    k = 4
+    S = SIZE * k
+    c = S / 2
+    r2 = math.sqrt(2)
+
+    def P(u, v):
+        return (c + (u - v) / r2 * k, c + (u + v) / r2 * k)
+
+    solid = Image.new('L', (S, S), 0)
+    d = ImageDraw.Draw(solid)
+    for sgn in (-1, 1):
+        d.polygon([P(-56, sgn * 1.5), P(-34, sgn * 12), P(-4, sgn * 17), P(-4, sgn * 3)], fill=255)     # jaw
+        d.line([P(-6, sgn * 6), P(52, sgn * 24)], fill=255, width=11 * k)                              # handle
+        d.line([P(22, sgn * 16), P(56, sgn * 25)], fill=255, width=19 * k)                             # grip
+    d.ellipse([c - 9 * k, c - 9 * k, c + 9 * k, c + 9 * k], fill=255)                                 # pivot
+
+    def accents(dd):
+        for sgn in (-1, 1):
+            dd.line([P(-52, sgn * 2.5), P(-8, sgn * 4)], fill=255, width=int(1.5 * k))                # the cutting edge
+        dd.ellipse([c - 3 * k, c - 3 * k, c + 3 * k, c + 3 * k], fill=255)                              # the pivot screw
+
+    return _hollow(solid, k, line=3, accents=accents)
+
+
+DRAWN['wire_cutters'] = draw_wire_cutters
+
+
+def draw_fuel_nozzle():
+    # A fuel pump nozzle on the tool axis: the spout at the upper left (where it pours), the nozzle head, the trigger in its guard under it, the grip
+    # and the hose leaving to the lower right. Authored in (u, v) like the cutters: u along the axis, v across it.
+    import math
+    k = 4
+    S = SIZE * k
+    c = S / 2
+    r2 = math.sqrt(2)
+
+    def P(u, v):
+        return (c + (u - v) / r2 * k, c + (u + v) / r2 * k)
+
+    solid = Image.new('L', (S, S), 0)
+    d = ImageDraw.Draw(solid)
+    d.line([P(-57, -6), P(-30, -6)], fill=255, width=8 * k)                                              # the spout
+    d.polygon([P(-32, -14), P(4, -16), P(10, 2), P(-32, 2)], fill=255)                                 # the nozzle head
+    d.line([P(2, -8), P(40, -2)], fill=255, width=14 * k)                                              # the grip
+    d.line([P(36, -2), P(58, 2)], fill=255, width=11 * k)                                              # the hose
+    d.line([P(-26, 2), P(-26, 18), P(16, 22), P(20, 6)], fill=255, width=5 * k, joint='curve')         # the trigger guard
+
+    def accents(dd):
+        dd.line([P(-20, 4), P(6, 12)], fill=255, width=int(3 * k))                                       # the trigger
+        dd.line([P(-30, -6), P(4, -8)], fill=255, width=int(1.5 * k))                                    # a seam along the head
+
+    return _hollow(solid, k, line=3, accents=accents)
+
+
+DRAWN['fuel_nozzle'] = draw_fuel_nozzle
+DRAWN['shovel'] = draw_shovel
+DRAWN['shovel_pour'] = lambda: draw_shovel(pour=True)
+
 # Hotspot is where the click actually lands, so it is measured from the
 # rendered alpha rather than guessed. 'tip' = the ink pixel nearest the top-left
 # corner, correct for anything that points (arrows, fingers, tool cutting
@@ -249,7 +346,7 @@ HOTSPOTS = {
     'wait_settings': 'centre', 'wait_settings_2': 'centre',
     'resize_vertical': 'centre', 'resize_horizontal': 'centre',
     'resize_nwse': 'centre', 'resize_nesw': 'centre', 'resize_all': 'centre',
-    'help': 'tip', 'steering_wheel': 'centre', 'shears': (23, 23),
+    'help': 'tip', 'steering_wheel': 'centre', 'shears': (23, 23), 'shovel': (23, 23), 'shovel_pour': (23, 23), 'wire_cutters': (23, 23), 'fuel_nozzle': (23, 23),
 }
 
 HOTSPOT_NOTE = {
@@ -279,6 +376,10 @@ HOTSPOT_NOTE = {
     'gear': 'Centroid: the gear rotates about itself.',
     'steering_wheel': 'Centroid: the wheel turns about its hub.',
     'shears': 'Where the two blade tips meet.',
+    'shovel': 'Tip of the shovel blade.',
+    'shovel_pour': 'Tip of the shovel blade.',
+    'wire_cutters': 'Where the two cutting jaws meet.',
+    'fuel_nozzle': 'The end of the spout, where the fuel pours.',
     'sickle': 'Point of the blade.',
     'wait_settings': 'Centroid: status cursor, no click point.',
     'wait_settings_2': 'Centroid: status cursor, no click point.',

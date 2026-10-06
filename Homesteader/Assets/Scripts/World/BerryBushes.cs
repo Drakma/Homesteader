@@ -120,7 +120,7 @@ namespace Homesteader.World
             if (!CanPick(b)) return false;
             var rules = Rules(b);
             string need = rules.fruiting_tools != null && rules.fruiting_tools.Count > 0 ? string.Join(",", rules.fruiting_tools) : null;
-            return string.IsNullOrEmpty(need) || GrowthRegistry.ToolMatches(need, heldId);
+            return string.IsNullOrEmpty(need) || GrowthRegistry.HeldToolMatches(need, heldId);
         }
 
         public static bool CanPick(BerryBush b) => b != null && b.FruitTotal > 0 && HasRules(b) && InSeason() && Left(b) > 0;
@@ -214,7 +214,6 @@ namespace Homesteader.World
             PlantedList.Add(new PlantedBushData { kind = kind, position = p, yawDeg = yaw, size = size });
             HudState.Active.ConsumeFromSelectedSlot(1);
             HudBindings.Instance?.RefreshToolbar();
-            ToastNotificationSystem.ShowInfo("Planted", HudBindings.GetItemName(heldId) + " planted.");
             return true;
         }
 
@@ -242,7 +241,7 @@ namespace Homesteader.World
         // ------------------------------------------------------------------ digging up
 
         /// <summary>A shovel (any item tagged tool_shovel) digs a bush up.</summary>
-        public static bool CanDigWith(string heldId) { return GrowthRegistry.ToolMatches("#tool_shovel", heldId); }
+        public static bool CanDigWith(string heldId) { return GrowthRegistry.HeldToolMatches("#tool_shovel", heldId); }
 
         /// <summary>
         /// Digs the bush up with the shovel held: the bush goes into the toolbar as its item (when there is room) and disappears from the world for good
@@ -271,7 +270,6 @@ namespace Homesteader.World
                 if (pi >= 0) PlantedList.RemoveAt(pi);
             }
             else Dug.Add(new Vector2(b.Position.x, b.Position.z));
-            ToastNotificationSystem.ShowInfo("Dug up", HudBindings.GetItemName(item) + " dug up.");
             return true;
         }
 
@@ -320,7 +318,7 @@ namespace Homesteader.World
             if (Left(b) <= 0) { Notify("Picked clean", "Every berry is picked: they grow back in " + Mathf.CeilToInt(Mathf.Max(b.PickedUntil - VegetationSeasons.GrowthDay, 0f)) + " days."); return false; }
             var rules = Rules(b);
             string need = rules.fruiting_tools != null && rules.fruiting_tools.Count > 0 ? string.Join(",", rules.fruiting_tools) : null;
-            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.ToolMatches(need, heldId))
+            if (!string.IsNullOrEmpty(need) && !GrowthRegistry.HeldToolMatches(need, heldId))
             {
                 Notify("Need a tool", $"You need {ToolNames(rules.fruiting_tools)} in your active slot to pick these.");
                 return false;

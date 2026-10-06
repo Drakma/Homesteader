@@ -34,7 +34,7 @@
           "quantity": "number"
         }
       },
-      "note": "materials CONSUMED to build/progress to this specific stage (not cumulative from earlier stages - foundation's recipe is separate from framing's, etc.). Draws from the building category's raw materials (lumber, masonry, sheathing, roofing, hardware) and, for log-built cabins, materials.mat_log_* instead of standard framing lumber for the walls stage. Empty array for structures that are placed/purchased rather than built from materials (tents, campers). A line can also be an OR group, {\"any_of\": [{\"item_id\", \"quantity\"}, ...]}: the stage takes ANY ONE alternative in full (for example 2 x Large 2x4 Bundle OR 4 x Small 2x4 Bundle)."
+      "note": "materials CONSUMED to build/progress to this specific stage (not cumulative from earlier stages - foundation's recipe is separate from framing's, etc.). Draws from the building category's raw materials (lumber, masonry, sheathing, roofing, hardware) and, for log-built cabins, materials.mat_log_* instead of standard framing lumber for the walls stage. Empty array for structures that are placed/purchased rather than built from materials (tents, campers). The recipe is a tree: a line {item_id (an item, #tag or ~equivalency), quantity} or a section {section, mode: all|any, if: {uses|not_uses: spec}, items: [nodes]}; see tools/recipe_format.py and docs/CONSTRUCTION.md."
     },
     "required_tools": {
       "type": "array",
@@ -44,6 +44,18 @@
         "items": "string"
       },
       "note": "array of tool-requirement GROUPS for this construction stage. Each group is itself an array of alternative tools.* item_ids - the player needs ANY ONE item from each group, not all of them (e.g. a fastening group of [tool_hammer_claw, tool_drill_corded, tool_impact_driver_cordless] means hand tools OR power tools both work). Multiple groups in the outer array means multiple distinct tool roles are needed (e.g. a cutting group AND a separate fastening group), each satisfied independently. Empty array for stages/structures needing no tools (tents, campers)."
+    },
+    "build_clips": {
+      "type": "array",
+      "required": false,
+      "items": "string",
+      "note": "The ped's work clips while this stage is built, one after the other (Dig, Hoe, Push_RT, Fixing_Kneeling_RT, Chop_Tree_RT, Drag, Farm_Harvest_RT ...). Empty = the default (Dig for the foundation, Fixing_Kneeling_RT after). Edited in the asset kit's stage editor."
+    },
+    "build_motion": {
+      "type": "string",
+      "required": false,
+      "enum": ["", "tilt_up", "lift", "spin_up"],
+      "note": "How the stage's model moves while it is built: tilt_up raises the node 'Mast' (about its foot), lift hoists the node 'Yaw' up the mast, spin_up fits the node 'Rotor' (it grows and spins up). The model shows in the site while the ped works. Empty = nothing moves. See docs/WIND_TURBINES.md."
     },
     "roof_area_m2": {
       "type": "number",

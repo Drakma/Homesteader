@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'assets', 'liquids')
 
-# id suffix, name, colour, opacity %, kg per litre, flammable, thirst restore (drinkable), value per litre, description
+# id suffix, name, colour, opacity %, kg per liter, flammable, thirst restore (drinkable), value per liter, description
 LIQUIDS = [
     ('water', 'Water', '#7fb8e6', 35, 1.00, False, 12, 0.1, 'Clean fresh water.'),
     ('milk', 'Cow Milk', '#fdfdf6', 100, 1.03, False, 8, 1.2, 'Fresh whole cow milk. Fully opaque white.'),
@@ -108,7 +108,7 @@ def manifest(suffix, name, colour, opacity, kg_l, flammable, thirst, value, desc
         'growth': {'is_growable': False, 'growth_type': None, 'species': None, 'max_age': None, 'time_unit': None,
                    'total_stages': 0, 'current_stage': None, 'stages': []},
         'plugin_metadata': {'version': '1.0.0', 'author': 'Homesteader Core', 'compatible_api': 'v1'},
-        # dimensions_m is required of every item: a liquid is measured as ONE litre, a 10 cm cube
+        # dimensions_m is required of every item: a liquid is measured as ONE liter, a 10 cm cube
         'category_fields': {'dimensions_m': {'width': 0.1, 'depth': 0.1, 'height': 0.1}, 'color': colour, 'opacity_pct': opacity, 'flammable': flammable},
     }
 
@@ -123,8 +123,8 @@ def readme(item_id, m):
 ## Overview
 - **Category**: `liquids`
 - **Item Identifier**: `{item_id}`
-- **Weight**: {p['weight_kg']} kg per litre
-- **Base Economic Value**: ${p['base_value']} per litre
+- **Weight**: {p['weight_kg']} kg per liter
+- **Base Economic Value**: ${p['base_value']} per liter
 - **Fluid colour**: `{cf['color']}`
 - **Opacity**: {cf['opacity_pct']}%
 - **Flammable**: {cf['flammable']}
@@ -133,7 +133,7 @@ def readme(item_id, m):
 {m['description']}
 
 A liquid is not carried or placed on its own: it fills a liquid container (a bucket, can, drum or tank, see the
-`liquid_container` schema) by volume, and its weight is the weight per litre times the litres held.
+`liquid_container` schema) by volume, and its weight is the weight per liter times the liters held.
 
 ## Asset Files & Links
 - **Plugin Manifest (JSON)**: [{item_id}.json]({item_id}.json)

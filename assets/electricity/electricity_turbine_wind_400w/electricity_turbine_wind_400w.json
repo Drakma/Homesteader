@@ -1,0 +1,133 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "electricity_turbine_wind_400w",
+  "name": "Wind Turbine",
+  "category": "electricity",
+  "description": "Small residential wind turbine.",
+  "icon": "electricity_turbine_wind_400w.png",
+  "properties": {
+    "weight_kg": 25.0,
+    "max_stack_size": 1,
+    "base_value": 400,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 5,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit"
+  },
+  "models": [
+    {
+      "file": "electricity_turbine_wind_400w.mtl",
+      "format": "mtl"
+    },
+    {
+      "file": "electricity_turbine_wind_400w.obj",
+      "format": "obj",
+      "dimensions_cm": {
+        "x": 45.0,
+        "y": 82.0,
+        "z": 90.0
+      },
+      "dimensions_m": {
+        "x": 0.45,
+        "y": 0.82,
+        "z": 0.9
+      },
+      "vertices": 516,
+      "faces": 172,
+      "bounding_box": {
+        "min": [
+          -15.5,
+          -60.0,
+          0.0
+        ],
+        "max": [
+          29.5,
+          22.0,
+          90.0
+        ]
+      }
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "turbine_wind_400w.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 45.0,
+      "y": 82.0,
+      "z": 90.0
+    },
+    "dimensions_m": {
+      "x": 0.45,
+      "y": 0.82,
+      "z": 0.9
+    },
+    "vertices": 516,
+    "faces": 172,
+    "bounding_box": {
+      "min": [
+        -15.5,
+        -60.0,
+        0.0
+      ],
+      "max": [
+        29.5,
+        22.0,
+        90.0
+      ]
+    }
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.45,
+      "depth": 0.82,
+      "height": 0.9
+    },
+    "max_power_w": 400
+  }
+}

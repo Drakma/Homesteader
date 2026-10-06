@@ -21,40 +21,20 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "display_weight": true,
+    "stacking_limit": 20
   },
   "models": [
     {
-      "file": "lumber_joist_2x8.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "lumber_joist_2x8.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 14.0,
-        "y": 93.0,
-        "z": 42.0
-      },
+      "file": "lumber_joist_2x8.glb",
+      "format": "glb",
       "dimensions_m": {
-        "x": 0.14,
-        "y": 0.93,
-        "z": 0.42
+        "x": 3.602,
+        "y": 0.039,
+        "z": 0.185
       },
-      "vertices": 72,
-      "faces": 24,
-      "bounding_box": {
-        "min": [
-          -7.0,
-          -46.0,
-          0.0
-        ],
-        "max": [
-          7.0,
-          47.0,
-          42.0
-        ]
-      }
+      "triangles": 36
     }
   ],
   "utilities": {
@@ -94,39 +74,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "dimensions": {
-    "file": "lumber_joist_2x8.obj",
-    "format": "obj",
-    "dimensions_cm": {
-      "x": 14.0,
-      "y": 93.0,
-      "z": 42.0
-    },
-    "dimensions_m": {
-      "x": 0.14,
-      "y": 0.93,
-      "z": 0.42
-    },
-    "vertices": 72,
-    "faces": 24,
-    "bounding_box": {
-      "min": [
-        -7.0,
-        -46.0,
-        0.0
-      ],
-      "max": [
-        7.0,
-        47.0,
-        42.0
-      ]
-    }
-  },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.14,
-      "depth": 0.93,
-      "height": 0.42
+      "width": 3.6,
+      "depth": 0.18,
+      "height": 0.04
     }
   }
 }

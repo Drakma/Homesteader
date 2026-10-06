@@ -58,7 +58,7 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 1,
+    "room_count": 0,
     "dimensions_m": {
       "width": 3.0,
       "depth": 4.0,

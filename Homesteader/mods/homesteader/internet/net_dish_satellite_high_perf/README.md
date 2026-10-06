@@ -1,7 +1,5 @@
-# Dish Satellite High Perf
+# High-Performance Satellite Dish
 
-**Item ID:** `net_dish_satellite_high_perf`  
-**Category:** `internet`  
-**Icon:** ![Dish Satellite High Perf](net_dish_satellite_high_perf.png)
+Parabolic satellite dish with feed horn.
 
-Standardized Homesteader asset manifest for `net_dish_satellite_high_perf`.
+Procedural model (tools/make_internet.py): a larger flat satellite antenna on a pipe mount. Its detail is painted (tools/net_pictures.py). 194 triangles, 0.57 x 0.44 x 0.81 m.

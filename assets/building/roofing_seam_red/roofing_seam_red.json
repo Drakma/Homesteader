@@ -24,7 +24,8 @@
     "look_target": "roof",
     "look_color": "#8f2d27",
     "look_smoothness": 0.6,
-    "look_metallic": 0.85
+    "look_metallic": 0.85,
+    "display_weight": true
   },
   "models": [
     {

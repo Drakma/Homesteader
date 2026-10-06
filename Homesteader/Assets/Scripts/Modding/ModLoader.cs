@@ -67,6 +67,7 @@ namespace Homesteader.Modding
                 var result = new ModLoadResult { Mod = mod };
 
                 LoadTags(mod);
+                LoadEquivalencies(mod);
 
                 foreach (ModContentEntry entry in mod.Manifest.Contents)
                 {
@@ -206,6 +207,43 @@ namespace Homesteader.Modding
             catch (Exception ex)
             {
                 mod.Warnings.Add($"tags.json could not be read: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Reads the mod's optional root-level equivalencies.json: {"equivalencies": {"name": {"unit": "studs", "label": "Framing Lumber",
+        /// "members": [{"item": "lumber_stud_2x4", "value": 1}, {"tag": "brick", "value": 1}]}}}. A member is an item or a tag (every item of the tag counts);
+        /// a recipe line "~name x N" is paid by any mix of members worth N units.
+        /// </summary>
+        private static void LoadEquivalencies(ModInfo mod)
+        {
+            string path = Path.Combine(mod.RootPath, "equivalencies.json");
+            if (!File.Exists(path)) return;
+            try
+            {
+                if (!ModJson.TryParse(File.ReadAllText(path), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"equivalencies.json is not valid JSON - {error}");
+                    return;
+                }
+                ModJsonValue eqObj = root.Get("equivalencies");
+                if (!eqObj.IsObject) return;
+                foreach (KeyValuePair<string, ModJsonValue> kv in eqObj.ObjectValue)
+                {
+                    var members = new List<GrowthRegistry.EquivalencyMember>();
+                    foreach (ModJsonValue m in kv.Value.Get("members").Items)
+                    {
+                        string item = m.Get("item").AsString("");
+                        string tag = m.Get("tag").AsString("").TrimStart('#');
+                        if (item.Length == 0 && tag.Length == 0) continue;
+                        members.Add(new GrowthRegistry.EquivalencyMember { Item = item.Length > 0 ? item : null, Tag = item.Length > 0 ? null : tag, Value = m.Get("value").AsFloat(1f) });
+                    }
+                    GrowthRegistry.RegisterEquivalency(kv.Key, kv.Value.Get("unit").AsString(""), kv.Value.Get("label").AsString(""), members);
+                }
+            }
+            catch (Exception ex)
+            {
+                mod.Warnings.Add($"equivalencies.json could not be read: {ex.Message}");
             }
         }
 
@@ -428,7 +466,12 @@ namespace Homesteader.Modding
                         root.Get("properties").Get("placeable").AsBool(root.Get("placeable").AsBool(false)),
                         root.Get("properties").Get("attach_surface").AsString(""),
                         root.Get("properties").Get("attach_side").AsString("either"),
-                        root.Get("properties").Get("provides_power").AsBool(false));
+                        root.Get("properties").Get("provides_power").AsBool(false),
+                        !root.Get("properties").Get("placeable").AsBool(true),   // only an explicit placeable = false forbids putting it down
+                        root.Get("properties").Get("attach_item").AsString(""),
+                        root.Get("properties").Get("attach_result").AsString(""),
+                        root.Get("properties").Get("builds_structure").AsString(""),
+                        root.Get("properties").Get("attach_through").AsBool(false));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

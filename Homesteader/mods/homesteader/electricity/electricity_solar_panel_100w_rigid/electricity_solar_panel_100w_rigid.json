@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "electricity_solar_panel_100w_rigid",
-  "name": "100W Rigid Solar Panel",
+  "name": "Rigid Solar Panel",
   "category": "electricity",
-  "description": "Small tilt-mount rigid solar panel.",
+  "description": "A small rigid 100 watt solar panel: 30 monocrystalline cells under glass in an aluminium frame. It does not stand alone: fit it on a roof mount or a ground mount (right click the mount with the panel in hand).",
   "icon": "electricity_solar_panel_100w_rigid.png",
   "properties": {
     "weight_kg": 8.0,
@@ -16,7 +16,7 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true,
+    "placeable": false,
     "is_buyable": true,
     "stores": [
       "voltvision"
@@ -25,12 +25,14 @@
   },
   "models": [
     {
-      "file": "solar_panel_100w_rigid.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "solar_panel_100w_rigid.obj",
-      "format": "obj"
+      "file": "electricity_solar_panel_100w_rigid.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.54,
+        "y": 0.04,
+        "z": 0.67
+      },
+      "triangles": 282
     }
   ],
   "utilities": {
@@ -39,8 +41,8 @@
       "details": "None (unplumbed / dry)"
     },
     "electricity": {
-      "metric": "Generates +0.4 kW to +1.2 kW peak DC electricity (sunlight dependent)",
-      "details": "Generates +0.4 kW to +1.2 kW peak DC electricity (sunlight dependent)"
+      "metric": "Generates up to 0.1 kW peak DC electricity (sunlight dependent)",
+      "details": "Generates up to 0.1 kW peak DC electricity (sunlight dependent)"
     },
     "sewage": {
       "metric": "None (no waste discharge)",
@@ -74,7 +76,7 @@
     "dimensions_m": {
       "width": 0.54,
       "depth": 0.67,
-      "height": 0.03
+      "height": 0.04
     },
     "fuel_type": "none",
     "fuel_consumption_l_per_min": 0,

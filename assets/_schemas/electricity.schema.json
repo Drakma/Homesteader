@@ -3,14 +3,14 @@
   "fields": {
     "fuel_type": {
       "type": "string",
-      "required": true,
-      "note": "diesel, gasoline, none (solar/battery/grid-tied/passive hardware)"
+      "required": false,
+      "note": "Generators only: diesel, gasoline, propane. Leave out (or none) for everything that burns no fuel: solar, wind turbines, batteries, wiring."
     },
     "fuel_consumption_l_per_min": {
       "type": "number",
-      "required": true,
+      "required": false,
       "min": 0,
-      "note": "liters per IN-GAME minute of running (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed)"
+      "note": "liters per IN-GAME minute of running (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed) Generators only: leave out for anything that burns no fuel (a wind turbine, a solar panel)."
     },
     "max_power_w": {
       "type": "number",
@@ -18,11 +18,17 @@
       "min": 0,
       "note": "max power throughput/output in watts, for sources and regulators only (generators, inverters, charge controllers, solar panels, breaker panels/switches). 0 for storage (batteries - see Wh naming instead), passive hardware (wire, poles, conduit), and anything that doesn't source or pass through power."
     },
+    "max_current_a": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "note": "rated current in amps, for protection and switching parts that are bought by their amp rating (circuit breakers, fuses, disconnects). The name generators show it: 'DC Circuit Breaker (32 A)'. Leave it out (or 0) for everything else; a stored name never carries the rating."
+    },
     "tank_capacity_l": {
       "type": "number",
-      "required": true,
+      "required": false,
       "min": 0,
-      "note": "liters the item's own onboard fuel tank holds (generators only - a portable/standby generator carries its own small tank, same concept as vehicles.tank_capacity_l). 0 for everything else."
+      "note": "liters the item's own onboard fuel tank holds (generators only - a portable/standby generator carries its own small tank, same concept as vehicles.tank_capacity_l). 0 for everything else. Generators only: leave out for anything that burns no fuel (a wind turbine, a solar panel)."
     }
   }
 }
