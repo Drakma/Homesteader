@@ -2343,6 +2343,7 @@ namespace Homesteader.Growth
                 Vector3 a = r[i], b = r[i + 1];
                 float len = Vector3.Distance(a, b);
                 if (len < 0.15f) continue;                       // the stub out of a device is not clipped
+                if (Mathf.Abs(b.y - a.y) > len * 0.7f) continue;   // a riser (a run straight up or down, such as where a pipe or conduit goes into the ground) gets no plates: the clip turns into a square collar there
                 int n = Mathf.Max(1, Mathf.FloorToInt(len / (l.Conduit ? 0.8f : 0.5f)));
                 for (int k = 0; k <= n; k++)
                 {
