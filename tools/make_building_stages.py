@@ -36,6 +36,9 @@ DOOR_W, DOOR_H = hs.DOOR_W, hs.DOOR_H
 IN = T_SIDING + T_SHEATH + T_STUD + 0.02          # a wall's thickness including its interior layer
 PT = 0.12                                          # partition thickness
 IDOOR_W, IDOOR_H = 0.9, 2.05
+STABLE_BACK = 14.0 / 2 - IN                        # the stable's back wall, inside face (y)
+STABLE_STALL_D = 3.3                               # the depth of one stall along the stable
+STABLE_STALL_CENTRES = [STABLE_BACK - STABLE_STALL_D * (k + 0.5) for k in (2, 1, 0)]   # front stall, middle stall, back stall
 
 
 def win(u, w=0.95, h=1.25, sill=0.9):
@@ -66,16 +69,19 @@ CONFIGS = {
                     dict(axis='y', pos=-0.9, lo=None, hi=-2.2, h=1.7, doors=[]),
                     dict(axis='y', pos=3.0, lo=None, hi=-2.2, h=1.7, doors=[])]),
     'stable': dict(
+        # the stalls are packed against the BACK wall (their last cross wall IS the back wall: no dead strip behind them that nobody can reach), three stalls of
+        # STALL_D each per side, with the open aisle and the big front doors ahead of them
         name='Stable', w=8.0, d=14.0, wall_h=3.0, h_total=5.6, found_h=0.26, ov=0.4, stages=4, style='siding', rib_course=0.3,
         palette=dict(siding=(0.55, 0.38, 0.24), trim=(0.94, 0.92, 0.86), shingle=(0.22, 0.28, 0.24), shingle_dark=(0.15, 0.2, 0.17), door=(0.35, 0.22, 0.14)),
         door_x=-2.6, slide_doors=True, big=[dict(u=(-1.3, 1.3), h=2.9, kind='barn')],
         openings=dict(front=[], back=[win(0, 0.9, 0.9, 1.6)],
-                      left=[win(y, 0.9, 0.9, 1.6) for y in (-1.85, 1.45, 4.75)], right=[win(y, 0.9, 0.9, 1.6) for y in (-1.85, 1.45, 4.75)]),
-        partitions=([dict(axis='x', pos=s * 1.5, lo=-3.5, hi=6.4, h=1.4, doors=[(c - 0.6, c + 0.6) for c in (-1.85, 1.45, 4.75)], door_h=1.25, door_w=1.2)
+                      left=[win(y, 0.9, 0.9, 1.6) for y in STABLE_STALL_CENTRES], right=[win(y, 0.9, 0.9, 1.6) for y in STABLE_STALL_CENTRES]),
+        partitions=([dict(axis='x', pos=s * 1.5, lo=STABLE_BACK - 3 * STABLE_STALL_D, hi=None, h=1.4,
+                          doors=[(c - 0.6, c + 0.6) for c in STABLE_STALL_CENTRES], door_h=1.25, door_w=1.2)
                      for s in (-1, 1)] +
-                    [dict(axis='y', pos=y, lo=lo, hi=hi, h=1.9, doors=[]) for y in (-3.5, -0.2, 3.1, 6.4) for lo, hi in ((None, -1.5), (1.5, None))])),
+                    [dict(axis='y', pos=STABLE_BACK - k * STABLE_STALL_D, lo=lo, hi=hi, h=1.9, doors=[]) for k in (1, 2, 3) for lo, hi in ((None, -1.5), (1.5, None))])),
     'farmhouse': dict(
-        name='Farmhouse', rib_course=0.5, w=10.0, d=12.0, wall_h=2.6, h_total=6.6, found_h=0.3, ov=0.4, porch=2.0, stages=5, style='siding', chimney=('left', -1.8),
+        name='Farmhouse', ceiling=True, rib_course=0.5, w=10.0, d=12.0, wall_h=2.6, h_total=6.6, found_h=0.3, ov=0.4, porch=2.0, stages=5, style='siding', chimney=('left', -1.8),
         palette=dict(siding=(0.93, 0.92, 0.88), trim=(0.97, 0.97, 0.95), shutter=(0.16, 0.3, 0.26), shingle=(0.3, 0.27, 0.28), shingle_dark=(0.2, 0.18, 0.19),
                      door=(0.2, 0.34, 0.3), door_panel=(0.16, 0.28, 0.25)),
         door_x=0.0, shutters=True,
@@ -86,7 +92,7 @@ CONFIGS = {
                     dict(axis='x', pos=1.9, lo=0.0, hi=None, h=None, doors=[]),
                     dict(axis='x', pos=1.0, lo=None, hi=0.0, h=None, doors=[], open_doors=[(-3.0, -1.0)])]),
     'large_log_cabin': dict(
-        name='Large Log Cabin', log_course=0.26, w=9.0, d=11.0, wall_h=2.9, h_total=6.2, found_h=0.3, ov=0.45, porch=1.6, stages=5, style='log', chimney=('left', -1.95),
+        name='Large Log Cabin', ceiling=True, log_course=0.26, w=9.0, d=11.0, wall_h=2.9, h_total=6.2, found_h=0.3, ov=0.45, porch=1.6, stages=5, style='log', chimney=('left', -1.95),
         palette=dict(log=(0.42, 0.27, 0.14), trim=(0.55, 0.38, 0.22), shingle=(0.3, 0.2, 0.16), shingle_dark=(0.2, 0.13, 0.1), door=(0.3, 0.19, 0.1), door_panel=(0.25, 0.15, 0.08)),
         door_x=0.0,
         openings=dict(front=[win(-2.8), win(2.8)], back=[win(-2.5), win(2.5)],
@@ -494,6 +500,22 @@ def log_courses(b, c, wall, z_top, m):
         fill(u0, u1, oz1, above)
 
 
+def log_window_casing(b, c, M, wall, u0, u1, zl, zh):
+    """The inside of a log wall's window: a lining through the wall (it closes the gaps between the round log ends and shows no outdoors between the logs) and a
+    flat casing round the opening on the inner face, like a house's trim."""
+    z0 = c.z0
+    za, zb = z0 + zl, z0 + zh
+    th = c.log_course * 0.98                      # the log wall's thickness: the depth of its inner face from the outer plane
+    k, cw = 0.025, 0.1
+    m = M['trim']
+    hs.trim_box(b, c, wall, u0 - k, u0, za - k, zb + k, 0.0, th, m)        # the lining: both jambs, the sill board and the head board
+    hs.trim_box(b, c, wall, u1, u1 + k, za - k, zb + k, 0.0, th, m)
+    hs.trim_box(b, c, wall, u0, u1, za - k, za, 0.0, th, m)
+    hs.trim_box(b, c, wall, u0, u1, zb, zb + k, 0.0, th, m)
+    for a0, a1, ba, bb in ((u0 - cw, u0, za - cw, zb + cw), (u1, u1 + cw, za - cw, zb + cw), (u0, u1, za - cw, za), (u0, u1, zb, zb + cw)):
+        hs.trim_box(b, c, wall, a0, a1, ba, bb, th - 0.012, th + 0.03, m)   # the casing on the inside face
+
+
 def clad_wall(parts, c, M, wall, z_top):
     """The exterior cladding of one wall: clapboard, log courses or ribbed metal, split round the openings."""
     z0 = c.z0
@@ -543,7 +565,8 @@ def gable_courses(builder, c, y, thick, m, course, seams=None):
     """A gable end clad like the wall below it: a stack of boards (alternate ones proud), each as wide as the gable is at its height.
     With `seams` (metal) it is the plain gable with vertical seams instead."""
     w = c.w
-    zb0, zs, za = c.top + 0.18, c.zw - 0.07, c.zr - 0.05
+    zb0 = c.top + 0.18
+    zs, za = hs.gable_profile(c)                                                  # the sloped edge lies on the roof's underside
     sgn = -1.0 if y < 0 else 1.0
 
     def half(z):
@@ -895,8 +918,15 @@ def complete(b, c, M, finishings=False):
         for u0, u1, zl, zh in c.openings[wall]:
             if zl > 0.05 and not (wall == 'front' and abs(zl) < 0.01):
                 hs.window_dressing(parts[wall], c, M, M['glass'], wall, u0, u1, zl, zh, shutters=(wall == 'front' and c.cfg.get('shutters', False)))
+                if c.style == 'log':
+                    log_window_casing(parts[wall], c, M, wall, u0, u1, zl, zh)
     for k, g in enumerate(c.cfg.get('big', [])):
         big_door(parts['front'], glass_builder, c, M, g, k + 1)
+    if c.cfg.get('ceiling'):
+        # a ceiling over every room, at the top of the walls. It belongs to the Roof part, so the cutaway hides it with the roof and the inside shows from above.
+        x0, x1 = c.inner('x')
+        y0, y1 = c.inner('y')
+        parts['roof'].box(x0, x1, y0, y1, top, top + 0.03, M['lumber'] if c.style == 'log' else M['interior'])
     rc = roof_ctx(c)
     if rc is c:
         roof_and_gables(parts, glass_builder, c, M)

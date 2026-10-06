@@ -26,7 +26,7 @@
         "y": 5.6,
         "z": 14.0
       },
-      "triangles": 3572
+      "triangles": 3548
     }
   ],
   "utilities": {
@@ -58,7 +58,7 @@
   },
   "category_fields": {
     "interior_area_m2": 0,
-    "room_count": 10,
+    "room_count": 8,
     "dimensions_m": {
       "width": 8.0,
       "depth": 14.0,

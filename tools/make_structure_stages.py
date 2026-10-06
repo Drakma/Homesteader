@@ -435,6 +435,13 @@ def complete(b, w, d, h_total, found_h, mats, finishings=False):
         parts['right'].box(xw0, xw1 + 0.03, ya, yb, za, zb, timber)
     parts['right'].box(xw0 + 0.05, xw0 + 0.11, (wlo + whi) / 2 - 0.02, (wlo + whi) / 2 + 0.02, zl, zh, timber)   # a mullion
     parts['right'].box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
+    # the inside of the window: a lining through the wall (no outdoors showing between the round log ends) and a flat casing round the opening on the inner face
+    xi = w / 2 - LOG_D - 0.02                      # the inner face, painted layer included
+    kk, cw = 0.025, 0.1
+    for (ya, yb, za, zb) in ((wlo - kk, wlo, zl - kk, zh + kk), (whi, whi + kk, zl - kk, zh + kk), (wlo, whi, zl - kk, zl), (wlo, whi, zh, zh + kk)):
+        parts['right'].box(xi, w / 2 - 0.02, ya, yb, za, zb, timber)
+    for (ya, yb, za, zb) in ((wlo - cw, wlo, zl - cw, zh + cw), (whi, whi + cw, zl - cw, zh + cw), (wlo, whi, zl - cw, zl), (wlo, whi, zh, zh + cw)):
+        parts['right'].box(xi - 0.03, xi + 0.012, ya, yb, za, zb, timber)
     for part in parts.values():
         EXTRA_OBJECTS.append(part.finish())   # Wall_Front / Wall_Back / Wall_Left / Wall_Right / Roof: the game can hide them (cutaway view)
     # a stone chimney against the -X wall with a fireplace inside (its own object: "Chimney")

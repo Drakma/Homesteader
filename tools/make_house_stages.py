@@ -208,11 +208,21 @@ def wall_top(c, wall):
     return c.zw + 0.05 if wall in eave else c.top + 0.18
 
 
+def gable_profile(c):
+    """Heights of the gable's sloped top edge at the side walls (x = +-w/2) and at the ridge. The edge lies ON the roof deck's underside (the deck is a slab from
+    the eave up to the ridge, see roof_deck) and 2 cm up into it, so the gable closes right against the roof. It used to stop 11 to 13 cm short, a gap you
+    could see through from below and from inside."""
+    def under(x):
+        return c.zr + 0.06 - (c.zr - c.eave_z) * abs(x) / (c.w / 2 + c.ov)
+    return under(c.w / 2) + 0.02, under(0.0) + 0.02
+
+
 def gable_poly(builder, c, y, thick, m):
     """The gable end wall: from the plates up to the roof underside, no gap between them."""
     w = c.w
     i = builder.mat_index(m)
-    pts = [(-w / 2, c.top + 0.18), (w / 2, c.top + 0.18), (w / 2, c.zw - 0.07), (0.0, c.zr - 0.05), (-w / 2, c.zw - 0.07)]
+    zs, za = gable_profile(c)
+    pts = [(-w / 2, c.top + 0.18), (w / 2, c.top + 0.18), (w / 2, zs), (0.0, za), (-w / 2, zs)]
     front = [builder.bm.verts.new((x, y - thick / 2, z)) for x, z in pts]
     back = [builder.bm.verts.new((x, y + thick / 2, z)) for x, z in pts]
     faces = [builder.bm.faces.new(front[::-1]), builder.bm.faces.new(back)]
@@ -362,6 +372,9 @@ def complete(b, c, M, glass, finishings=False):
     # a small round-ish vent in the front gable
     parts['front'].box(-0.22, 0.22, -d / 2 + 0.05, -d / 2 + 0.08, top + 0.85, top + 1.25, M['trim'])
     glass_builder.box(-0.18, 0.18, -d / 2 + 0.04, -d / 2 + 0.065, top + 0.89, top + 1.21, M['glass'])
+    # a ceiling over every room, at the top of the walls. It belongs to the Roof part, so the cutaway hides it with the roof and the inside shows from above.
+    ci = T_SIDING + T_SHEATH + T_STUD + 0.02
+    parts['roof'].box(-w / 2 + ci, w / 2 - ci, c.yh0 + ci, d / 2 - ci, top, top + 0.03, M['interior'])
     # the roof: deck, shingles in courses, ridge cap, fascia
     roof_deck(parts['roof'], c, M['osb'], 0.035)
     for side in (-1, 1):
