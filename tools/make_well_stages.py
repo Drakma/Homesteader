@@ -84,8 +84,9 @@ def complete(b, fb, M):
     walls(b, fb, M, roofed=True)
     for sx in (-1.0, 1.0):
         b.roof_slab(sx, 2.02, 2.5, -0.72, 0.72, 0.04, M['roof'])                            # the two roof slopes
-    for y in (-0.7, 0.7):
-        b.prism_gable(-1.0, 1.0, y, 0.04, 2.02, 2.5, M['wood'])                            # the gable ends
+    for y in (-0.69, 0.69):
+        # the gable sits 2 cm below the slabs' top and 1 cm inside their ends, so none of its faces lies in the same plane as a roof face (they z-fought there)
+        b.prism_gable(-1.0, 1.0, y, 0.04, 2.0, 2.48, M['wood'])                            # the gable ends
     b.log((0.0, -0.72, 2.5), (0.0, 0.72, 2.5), 0.04, M['log'], sides=6)                      # the ridge
     # the windlass: a log across the posts under the beam, a crank handle at one end, the rope down to the bucket
     b.log((-0.92, 0.0, 1.72), (0.92, 0.0, 1.72), 0.07, M['wood'], sides=10)
