@@ -2,16 +2,14 @@
   "category": "electricity",
   "title": "Electricity",
   "target": "category_fields",
+  "uses": [
+    "fuel"
+  ],
   "fields": {
     "fuel_type": {
-      "type": "string",
-      "required": false,
       "note": "Generators only: diesel, gasoline, propane. Leave out (or none) for everything that burns no fuel: solar, wind turbines, batteries, wiring."
     },
     "fuel_consumption_l_per_min": {
-      "type": "number",
-      "required": false,
-      "min": 0,
       "note": "liters per IN-GAME minute of running (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed) Generators only: leave out for anything that burns no fuel (a wind turbine, a solar panel)."
     },
     "max_power_w": {
@@ -27,9 +25,6 @@
       "note": "rated current in amps, for protection and switching parts that are bought by their amp rating (circuit breakers, fuses, disconnects). The name generators show it: 'DC Circuit Breaker (32 A)'. Leave it out (or 0) for everything else; a stored name never carries the rating."
     },
     "tank_capacity_l": {
-      "type": "number",
-      "required": false,
-      "min": 0,
       "note": "liters the item's own onboard fuel tank holds (generators only - a portable/standby generator carries its own small tank, same concept as vehicles.tank_capacity_l). 0 for everything else. Generators only: leave out for anything that burns no fuel (a wind turbine, a solar panel)."
     }
   }

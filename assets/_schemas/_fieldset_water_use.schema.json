@@ -1,0 +1,15 @@
+{
+  "category": "_fieldset_water_use",
+  "title": "Water consumption",
+  "fieldset": true,
+  "target": "category_fields",
+  "note": "Liters per in-game minute an item draws while it runs.",
+  "fields": {
+    "water_usage_lpm": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "note": "Liters per IN-GAME minute drawn while actively running (the consumer counterpart to a pump's max_flow_rate_lpm). 0 for anything that does not consume water."
+    }
+  }
+}

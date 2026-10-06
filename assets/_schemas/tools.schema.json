@@ -2,28 +2,25 @@
   "category": "tools",
   "title": "Tools",
   "target": "category_fields",
+  "uses": [
+    "fuel",
+    "power"
+  ],
   "fields": {
     "fuel_type": {
-      "type": "string",
       "required": true,
       "note": "gasoline, none (corded electric, cordless/battery, or manual hand tools)"
     },
     "fuel_consumption_l_per_min": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "liters per IN-GAME minute of use (40 real minutes = 1 full in-game day = 1440 in-game minutes at 1x speed); 0 for non-gas tools"
     },
     "power_draw_w": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "watts drawn while running, for corded electric tools only. 0 for gas, cordless/battery (not drawing wall power during use), and manual hand tools."
     },
     "tank_capacity_l": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "liters the tool's own onboard fuel tank holds (gas tools only). 0 for everything else."
     }
   }

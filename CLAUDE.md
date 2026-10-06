@@ -171,6 +171,7 @@ named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named mater
 ## 3b. Editor / Schema Sync Rule
 
 - Whenever a field changes in the asset kit rich editor (`assets/index.html`), update the matching base schema / category schema (`assets/_schemas/`), server validation (`tools/server.py`), manifest templates (`tools/process_queued_batch.py`, `docs/ASSET_CREATION_GUIDE.md`, `assets/_schemas/README.md`) and backfill existing manifests in the same change. The reverse also applies: schema or template changes must be reflected in the rich editor.
+- **Schema layout**: the base schema is `_base.schema.json` (core) plus topical `_base_*.schema.json` files (all applied to `properties`); a field several categories share lives once in a `_fieldset_*.schema.json` that categories pull in with `uses` (resolved by `tools/schema_resolve.py`). Add a field to the file whose topic fits; see `assets/_schemas/README.md`.
 
 ---
 

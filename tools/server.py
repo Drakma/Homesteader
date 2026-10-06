@@ -21,6 +21,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import regen_icons
 import animal_ai
 import light_emitter
+import schema_resolve
 import asset_references
 import push_to_game
 import trash_store
@@ -3732,9 +3733,11 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                             "name": name,
                             "category": sdata.get("category", name),
                             "target": sdata.get("target", "category_fields"),
-                            "field_count": len(sdata.get("fields", {})),
+                            "field_count": len(schema_resolve.resolve_schema(sdata, schemas_dir).get("fields", {})),
                             "note": sdata.get("note", ""),
                             "component": bool(sdata.get("component", False)),
+                            "fieldset": bool(sdata.get("fieldset", False)),
+                            "uses": sdata.get("uses", []),
                             "title": sdata.get("title", name),
                         })
                     except Exception:
@@ -3761,7 +3764,11 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 return
             with open(fpath, "r", encoding="utf-8") as f:
                 schema_data = json.load(f)
-            self.send_json_response({"success": True, "name": safe_name, "schema": schema_data}, 200)
+            payload = {"success": True, "name": safe_name, "schema": schema_data}
+            if schema_data.get("uses"):
+                # the schema as written keeps its "uses" (the schema editor edits that); readers of the fields (the item popup) want them merged
+                payload["resolved_fields"] = schema_resolve.resolve_schema(schema_data, os.path.join(BASE_DIR, "_schemas")).get("fields", {})
+            self.send_json_response(payload, 200)
         except Exception as e:
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
@@ -3821,14 +3828,14 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                     if base_name.startswith("_base") and base_name.endswith(".schema.json"):
                         try:
                             with open(os.path.join(schemas_dir, base_name), "r", encoding="utf-8") as bf:
-                                schemas.append(json.load(bf))
+                                schemas.append(schema_resolve.resolve_schema(json.load(bf), schemas_dir))
                         except Exception:
                             pass
                 cat_file = os.path.join(schemas_dir, f"{category}.schema.json")
                 if os.path.exists(cat_file):
                     try:
                         with open(cat_file, "r", encoding="utf-8") as cf:
-                            schemas.append(json.load(cf))
+                            schemas.append(schema_resolve.resolve_schema(json.load(cf), schemas_dir))
                     except Exception:
                         pass
                 # The growth_group schema is CROSS-CUTTING: it applies to any
@@ -3854,7 +3861,7 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                     with open(os.path.join(schemas_dir, cfname), "r", encoding="utf-8") as cf:
                         cdata = json.load(cf)
                     if cdata.get("component") and cdata.get("target"):
-                        component_schemas.append(cdata)
+                        component_schemas.append(schema_resolve.resolve_schema(cdata, schemas_dir))
             except Exception:
                 component_schemas = []
 

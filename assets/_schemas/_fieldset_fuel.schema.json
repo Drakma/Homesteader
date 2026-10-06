@@ -1,0 +1,26 @@
+{
+  "category": "_fieldset_fuel",
+  "title": "Fuel and engines",
+  "fieldset": true,
+  "target": "category_fields",
+  "note": "The fuel a thing burns and its engine and tank: used by appliances, electricity (generators), fuel items, tools and vehicles. A schema picks the fields it needs (uses: \"fuel:fuel_type\").",
+  "fields": {
+    "fuel_type": {
+      "type": "string",
+      "required": false,
+      "note": "The fuel it burns (or none). The values differ by category: see each category's own note."
+    },
+    "fuel_consumption_l_per_min": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "note": "Liters of fuel burned per IN-GAME minute of running (40 real minutes = 1 in-game day = 1440 in-game minutes at 1x speed). 0 for anything that burns none."
+    },
+    "tank_capacity_l": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "note": "Liters of the item's own onboard fuel tank. 0 for everything else."
+    }
+  }
+}

@@ -14571,6 +14571,8 @@
         target: schema.target || "category_fields",
         note: schema.note || "",
         fields: schema.fields || {},
+        // every other top-level key (title, component, on_add, uses, fieldset ...) is kept as it is when the rich pane rebuilds the JSON
+        extra: Object.fromEntries(Object.entries(schema).filter(([k]) => !["name", "category", "target", "note", "fields"].includes(k))),
       };
 
       const scroll = document.createElement("div");
@@ -14889,6 +14891,7 @@
     function rebuildSchemaFromRich() {
       const out = { name: schemaRichState.name };
       if (schemaRichState.category) out.category = schemaRichState.category;
+      Object.assign(out, schemaRichState.extra || {});
       if (schemaRichState.note) out.note = schemaRichState.note;
       if (schemaRichState.target) out.target = schemaRichState.target;
       out.fields = schemaRichState.fields;
@@ -17197,7 +17200,9 @@
         const res = await fetch(`/api/schema?name=${encodeURIComponent(lower)}`);
         if (res.ok) {
           const data = await res.json();
-          const schemaObj = data?.schema || data;
+          let schemaObj = data?.schema || data;
+          // a schema that "uses" shared field sets: the popup wants the merged fields (the schema editor edits the raw one)
+          if (schemaObj && data?.resolved_fields) schemaObj = { ...schemaObj, fields: data.resolved_fields };
           if (schemaObj && (schemaObj.fields || schemaObj.category)) {
             SCHEMA_DEFINITION_CACHE[lower] = schemaObj;
             return schemaObj;

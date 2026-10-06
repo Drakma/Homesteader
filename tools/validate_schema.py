@@ -15,6 +15,9 @@ import json
 import os
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from schema_resolve import resolve_schema
+
 # tools/ sits at the repo root, so one level up is the project root.
 ASSETS_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
 SCHEMAS_DIR = os.path.join(ASSETS_ROOT, "_schemas")
@@ -70,7 +73,8 @@ def load_schemas(category):
     if os.path.exists(cat_path):
         with open(cat_path, "r", encoding="utf-8") as f:
             schemas.append(json.load(f))
-    return schemas
+    # a schema that "uses" shared field sets (_fieldset_*.schema.json) gets their fields merged in
+    return [resolve_schema(s, SCHEMAS_DIR) for s in schemas]
 
 
 def main(category):

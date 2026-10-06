@@ -1,0 +1,16 @@
+{
+  "category": "_fieldset_fertilizer",
+  "title": "Fertilizer bonus",
+  "fieldset": true,
+  "target": "category_fields",
+  "note": "How much a fertilizer speeds up growth.",
+  "fields": {
+    "fertilizer_growth_bonus_pct": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 90,
+      "note": "Percent reduction to a crop's days-to-mature while this fertilizer is applied to the plot. A property of the FERTILIZER, not the crop."
+    }
+  }
+}

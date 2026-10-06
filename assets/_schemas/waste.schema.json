@@ -2,18 +2,16 @@
   "category": "waste",
   "title": "Waste",
   "target": "category_fields",
+  "uses": [
+    "power",
+    "fertilizer"
+  ],
   "fields": {
     "power_draw_w": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "watts drawn while running, for electric pumps/aerators only. 0 for passive tanks/manual items."
     },
     "fertilizer_growth_bonus_pct": {
-      "type": "number",
-      "required": false,
-      "min": 0,
-      "max": 90,
       "note": "percent reduction to a crop's days-to-mature while this fertilizer is applied to the plot. A property of the FERTILIZER, not the crop, so every crop reads the same value from the fertilizer used. Set on mat_fertilizer and waste_pile_manure_* (0 or omit on non-fertilizer waste). Replaces the old per-crop fertilized_growth_bonus_pct."
     }
   }

@@ -2,6 +2,11 @@
   "category": "water",
   "title": "Water",
   "target": "category_fields",
+  "uses": [
+    "power",
+    "water_use",
+    "connection"
+  ],
   "fields": {
     "irrigated_growth_bonus_pct": {
       "type": "number",
@@ -11,9 +16,7 @@
       "note": "percent reduction to a crop's days-to-mature while it is actively irrigated by this item (needs is_connected water). A property of the IRRIGATION ITEM, not the crop, so every crop reads the same value from the item watering it. Set on water_sprinkler, water_irrigation_sprinkler_riser and water_hose_soaker_flat; omit/0 elsewhere. Replaces the old per-crop irrigated_growth_bonus_pct."
     },
     "power_draw_w": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "watts drawn while running, for electric pumps only. 0 for passive plumbing/storage items AND for manual/human-powered pumps - the pending Hand Pump Well Head is a real pump with real max_flow_rate_lpm but draws no electricity (arm-powered), so it's the one pump-type item that stays 0 here."
     },
     "capacity_l": {
@@ -29,13 +32,10 @@
       "note": "PRODUCER side - liters per in-game minute a pump can draw from its source (well/cistern) and push into the system. 0 for everything that isn't a pump. This includes the pending manual Hand Pump Well Head - it's not electric (power_draw_w stays 0) but it's a real pump with a real (lower, human-powered) throughput here; only the pending Manual Well (bucket-and-rope) has no flow rate at all, since it's a one-bucket-at-a-time manual draw rather than a continuous pump. RAIN BARRELS ARE ALSO PRODUCERS BUT DELIBERATELY GET 0 HERE, NOT A STATIC VALUE: a rain barrel's actual input rate is dynamic, not a fixed mechanical rating like a pump - it must be computed at runtime as roof_area_m2 (from whichever structure it's placed next to, see structures.schema.json) x current rain intensity x a runoff-efficiency constant. Do not backfill a fake constant flow rate for rain barrels here; the field structurally can't represent that and stays 0."
     },
     "water_usage_lpm": {
-      "type": "number",
       "required": true,
-      "min": 0,
       "note": "CONSUMER side - liters per in-game minute drawn while actively running (sprinklers, hoses, watering wand). 0 for producers, storage, and passive/inline components. Fill-and-carry containers (bucket, jug, watering can) use capacity_l instead, not a flow rate. IRRIGATION ITEMS ARE TERMINAL: water_sprinkler, water_irrigation_sprinkler_riser, and water_hose_soaker_flat need water pumped TO them (is_connected still applies) but don't feed water onward to any other item - their output is a crop GROWTH-RATE MODIFIER for nearby farming category items, not more plumbing. Implemented as irrigated_growth_bonus_pct on these irrigation items themselves (the fertilizer equivalent is fertilizer_growth_bonus_pct on the fertilizer items)."
     },
     "is_connected": {
-      "type": "boolean",
       "required": true,
       "note": "Same cascading model as internet.is_connected - default baseline, not a fixed fact. Pumps are producers and default true (they draw from a well/ground source, the origin). Fixed storage that's piped into the system (cistern, IBC tote, pressure tank) defaults false until wired to a producer. The rain barrel defaults true as its BASELINE type-level state, but a placed instance's actual connectivity also depends on max_roof_proximity_m being satisfied - see that field. Consumer fixtures (sprinklers, hoses, wand) default false until connected. Portable/hand-filled containers (bucket, jug, watering can) and passive inline components (pipe, fittings, filters, hose reels) stay false - they're not part of the piped network's connectivity graph."
     },

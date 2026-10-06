@@ -88,12 +88,42 @@ Field notes worth keeping (the field's own `note` in its schema file has the res
 - `is_buyable` / `is_sellable` (booleans, optional): added to the schema 2026-10-05 (they were on nearly every manifest but undeclared).
 - Player vitals: numbers between -100 and +100.
 
+### Shared field sets (`_fieldset_*.schema.json`)
+
+A field that several categories declare lives ONCE in a field set; a category schema pulls it in with a `uses` list:
+
+```json
+{
+  "category": "tools",
+  "uses": ["fuel", "power"],
+  "fields": {
+    "fuel_type": { "required": true, "note": "gasoline, none (corded electric, cordless, or manual)" },
+    "power_draw_w": { "required": true, "note": "watts drawn while running, corded electric tools only" }
+  }
+}
+```
+
+- `"name"` brings in every field of `_fieldset_<name>.schema.json`; `"name:a,b"` brings in only those fields (`"fuel:fuel_type"` for an appliance, which has no engine).
+- The schema's own entry for the same field is merged ON TOP of the set's (its attributes win), so a category states only what differs: usually `required` and a category-specific `note`. A field the set defines that the schema does not mention is added after the schema's own fields.
+- The merge happens in ONE place, `tools/schema_resolve.py` (`resolve_schema`). The server's validation, `validate_schema.py` and the item popup (via `/api/schema`'s `resolved_fields`) all use it, so nothing else sees `uses`. The schema editor shows and edits the raw file (with `uses` and the partial field entries); it keeps every top-level key it does not edit (`title`, `component`, `on_add`, `uses`, `fieldset`).
+- A field set has `"fieldset": true`, a `title` and a `note`; it is never applied to an item on its own, only through `uses`. Declare a set's fields `required: false`: each category decides whether it is required.
+- Manifests did not change: a used field is still `category_fields.<field>`.
+
+| Set | Fields | Used by |
+|---|---|---|
+| `fuel` | `fuel_type`, `fuel_consumption_l_per_min`, `tank_capacity_l` | electricity, tools, vehicles (all three); appliances and fuel (`fuel_type` only) |
+| `power` | `power_draw_w` | appliances, internet, tools, waste, water |
+| `connection` | `is_connected` | internet, water |
+| `water_use` | `water_usage_lpm` | appliances, water |
+| `fertilizer` | `fertilizer_growth_bonus_pct` | materials, waste |
+
+To add a field to several categories, put it in the set (or make a new `_fieldset_<name>.schema.json`) and add the name to each schema's `uses`.
+
 ### Known overlaps (candidates for a later clean-up, not changed yet)
 
-These are real duplications, left alone because moving data changes manifests and the game's catalog export:
-- `fuel_type`, `fuel_consumption_l_per_min`, `tank_capacity_l`, `power_draw_w` and `is_connected` are re-declared in several category schemas (appliances, electricity, tools, vehicles, waste, water, internet) with slightly different required/optional rules. A shared "field set" mechanism that categories can include would remove them.
-- `fertilizer_growth_bonus_pct` is in both `materials` and `waste`.
 - `pushable` and `stacking_limit` exist in `_base_placement` AND in the `container` component. The export writes both to the same catalog field (`container_stacking_limit`), so the game cannot tell them apart; pick one home.
+- appliances calls its engine consumption `fuel_consumption_per_min` where the others use `fuel_consumption_l_per_min` (a rename touches manifests, so it was left).
+- `capacity_l` means a different thing in `fuel` (stored fuel) and `water` (stored water); they differ on purpose and stay separate.
 - `validate_schema.py` skips growth groups (as the server does) but does not check component schemas (container, liquid_container, fruiting); only the server's validation does.
 - Existing data that fails today's schemas (run `py -3 tools/validate_schema.py <category>`): food and materials items missing `dimensions_m`, structures that are blueprints without `dimensions_m` or the five vitals, and a few water / waste items missing power or capacity fields.
 

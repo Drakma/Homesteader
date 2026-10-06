@@ -1,0 +1,14 @@
+{
+  "category": "_fieldset_connection",
+  "title": "Network or plumbing connectivity",
+  "fieldset": true,
+  "target": "category_fields",
+  "note": "Whether an item starts connected to the system it belongs to (the default state; a placed instance cascades from what it is wired to).",
+  "fields": {
+    "is_connected": {
+      "type": "boolean",
+      "required": false,
+      "note": "DEFAULT connectivity of this item type, not a fixed fact: a placed instance cascades from whatever it is directly wired to. Producers default true, everything else false until wired."
+    }
+  }
+}

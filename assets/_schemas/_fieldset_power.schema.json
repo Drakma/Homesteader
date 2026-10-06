@@ -1,0 +1,15 @@
+{
+  "category": "_fieldset_power",
+  "title": "Electric power draw",
+  "fieldset": true,
+  "target": "category_fields",
+  "note": "Watts an item draws from the electrical grid while it runs.",
+  "fields": {
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "note": "Watts drawn while running. 0 for anything that does not pull from the electric grid."
+    }
+  }
+}
