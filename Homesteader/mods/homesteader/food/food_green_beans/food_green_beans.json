@@ -61,6 +61,11 @@
     "compatible_api": "v1"
   },
   "category_fields": {
-    "hunger_restore": 10
+    "hunger_restore": 10,
+    "dimensions_m": {
+      "width": 0.12,
+      "depth": 0.04,
+      "height": 0.02
+    }
   }
 }
