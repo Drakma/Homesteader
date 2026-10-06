@@ -405,14 +405,12 @@ def partition_doors(b, c, M, p, idx0):
             hh = dh - 0.03
 
             def build(leaf, dw=dw, hh=hh, axis=p['axis']):
-                def bx(u0, u1, t0, t1, za, zb, m):
+                def bx(u0, u1, t0, t1, za, zb, m, uv=False):
                     if axis == 'y':
-                        leaf.box(u0, u1, t0, t1, za, zb, m)
+                        leaf.box(u0, u1, t0, t1, za, zb, m, uv=uv)
                     else:
-                        leaf.box(t0, t1, u0, u1, za, zb, m)
-                bx(-dw / 2, dw / 2, -0.02, 0.02, 0.0, hh, M['door'])
-                for (x0, x1, za, zb) in ((-dw / 2 + 0.08, -0.03, 0.1, hh - 0.1), (0.03, dw / 2 - 0.08, 0.1, hh - 0.1)):
-                    bx(x0, x1, -0.03, 0.03, za, zb, M['door_panel'] if 'door_panel' in M else M['door'])
+                        leaf.box(t0, t1, u0, u1, za, zb, m, uv=uv)
+                bx(-dw / 2, dw / 2, -0.02, 0.02, 0.0, hh, M['door_paneled'], uv=True)      # the panels are a picture on the slab
                 bx(dw / 2 - 0.2, dw / 2 - 0.14, -0.05, 0.05, hh * 0.45, hh * 0.45 + 0.05, M['brass'])
                 bx(-dw / 2 + 0.14, -dw / 2 + 0.2, -0.05, 0.05, hh * 0.45, hh * 0.45 + 0.05, M['brass'])
             if p['axis'] == 'y':
@@ -426,10 +424,10 @@ def partition_doors(b, c, M, p, idx0):
             continue
         leaf = Builder('DoorLeaf_%d' % n)
         if p['axis'] == 'y':
-            leaf.box(0.0, dw, -0.02, 0.02, 0.0, dh - 0.012, M['door'])
+            leaf.box(0.0, dw, -0.02, 0.02, 0.0, dh - 0.012, M['door_paneled'], uv=True)
             leaf.box(dw - 0.14, dw - 0.08, -0.05, 0.05, dh * 0.45, dh * 0.45 + 0.05, M['brass'])
         else:
-            leaf.box(-0.02, 0.02, 0.0, dw, 0.0, dh - 0.012, M['door'])
+            leaf.box(-0.02, 0.02, 0.0, dw, 0.0, dh - 0.012, M['door_paneled'], uv=True)
             leaf.box(-0.05, 0.05, dw - 0.14, dw - 0.08, dh * 0.45, dh * 0.45 + 0.05, M['brass'])
         leaf_obj = leaf.finish()
         hinge = bpy.data.objects.new('DoorHinge_%d' % n, None)
@@ -691,11 +689,10 @@ def personal_door(b, c, M, parts):
     dw, dh = DOOR_W - 0.06, DOOR_H - 0.03
     z0 = c.z0
     leaf = Builder('DoorLeaf')
-    leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door'])
     if c.style != 'metal':
-        for (x0, x1, za, zb) in ((0.12, dw / 2 - 0.05, 0.15, 1.0), (dw / 2 + 0.05, dw - 0.12, 0.15, 1.0),
-                                 (0.12, dw / 2 - 0.05, 1.12, 1.95), (dw / 2 + 0.05, dw - 0.12, 1.12, 1.95)):
-            leaf.box(x0, x1, -0.055, -0.035, za, zb, M['door_panel'])
+        leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door_paneled'], uv=True)      # the panels are a picture on the slab, not boxes
+    else:
+        leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door'])
     leaf.box(dw - 0.16, dw - 0.1, -0.09, 0.09, 1.0, 1.06, M['brass'])
     leaf_obj = leaf.finish()
     hinge = bpy.data.objects.new('DoorHinge', None)
@@ -950,6 +947,8 @@ def complete(b, c, M, finishings=False):
         pb = PB if PB is not None else b
         porch_posts(pb, c, M, top)
         pb.box(-w / 2, w / 2, -d / 2 + 0.06, -d / 2 + 0.24, top, top + 0.2, M['trim'])
+        if c.cfg.get('ceiling'):
+            pb.box(-w / 2, w / 2, -d / 2 + 0.24, c.yh0 + 0.01, top, top + 0.03, M['trim'])      # the ceiling carries on over the porch (it hides with the roof, like the rest of the porch)
         railing(pb, c, M)
         for k in range(3):
             zz = (z0 - 0.04) * (1 - (k + 1) * 0.28)
@@ -1252,6 +1251,7 @@ def palette(cfg):
         'shingle_dark': colour('ShingleDark', g('shingle_dark', (0.16, 0.17, 0.2)), 0.9),
         'interior': colour('Interior', (0.93, 0.91, 0.86), 0.9),
         'door': colour('Door', g('door', (0.45, 0.13, 0.11)), 0.7), 'door_panel': colour('DoorPanel', g('door_panel', (0.38, 0.1, 0.09)), 0.7),
+        'door_paneled': colour('DoorPaneled', g('door', (0.45, 0.13, 0.11)), 0.7),   # a door slab the game lays a grayscale panel picture on (StructureLook.cs)
         'brass': colour('Brass', (0.75, 0.6, 0.25), 0.4), 'brick': colour('Masonry', (0.55, 0.26, 0.2), 0.95),
         'alu': colour('Aluminium', (0.78, 0.8, 0.82), 0.4), 'pot': colour('Pot', (0.7, 0.36, 0.24), 0.9), 'plant': colour('Plant', (0.25, 0.5, 0.2), 0.9),
         'logend': colour('Firewood', (0.55, 0.38, 0.22), 0.9),

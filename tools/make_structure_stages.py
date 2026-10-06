@@ -63,16 +63,32 @@ class Builder:
             self.mats.append(m)
         return self.mats.index(m)
 
-    def box(self, x0, x1, y0, y1, z0, z1, m):
+    def box(self, x0, x1, y0, y1, z0, z1, m, uv=False):
+        """A box. With uv=True its faces get UVs that run 0..1 across the box (u along its wide horizontal side, v up), for a door leaf or a shutter: the game lays
+        a grayscale panel or louvre picture on them (StructureLook.cs), tinted by the paint, so the panels are a picture and not geometry."""
         i = self.mat_index(m)
         r = bmesh.ops.create_cube(self.bm, size=1.0)
         for v in r['verts']:
             v.co.x = x0 + (v.co.x + 0.5) * (x1 - x0)
             v.co.y = y0 + (v.co.y + 0.5) * (y1 - y0)
             v.co.z = z0 + (v.co.z + 0.5) * (z1 - z0)
-        for f in self.bm.faces:
-            if all(v in r['verts'] for v in f.verts):
-                f.material_index = i
+        faces = [f for f in self.bm.faces if all(v in r['verts'] for v in f.verts)]
+        for f in faces:
+            f.material_index = i
+        if uv:
+            layer = self.bm.loops.layers.uv.verify()
+            sx, sy, sz = (max(1e-6, x1 - x0), max(1e-6, y1 - y0), max(1e-6, z1 - z0))
+            for f in faces:
+                n = f.normal
+                ax = max(range(3), key=lambda k: abs(n[k]))
+                for loop in f.loops:
+                    co = loop.vert.co
+                    if ax == 2:                                  # top and bottom edges
+                        u, v = (co.x - x0) / sx, (co.y - y0) / sy
+                    else:
+                        u = (co.y - y0) / sy if ax == 0 else (co.x - x0) / sx      # across the face (a face turned to +-x runs along y, one turned to +-y along x)
+                        v = (co.z - z0) / sz
+                    loop[layer].uv = (min(1.0, max(0.0, u)), min(1.0, max(0.0, v)))
 
     def log(self, a, b, radius, m, sides=8):
         """A round log between two points (cylinder, capped)."""
@@ -148,7 +164,7 @@ class Builder:
         # lays a brick or stone picture on them (StructureLook.cs); courses run level. Everything else keeps no UVs.
         textured = [i for i, m in enumerate(self.mats) if m.name.split('.')[0] in ('Masonry', 'FoundationFace', 'Floor')]   # (Blender numbers repeated names: FoundationFace.010)
         if textured:
-            uvl = me.uv_layers.new(name='UVMap')
+            uvl = me.uv_layers.get('UVMap') or me.uv_layers.new(name='UVMap')   # (a door or shutter box may have put UVs in already)
             for poly in me.polygons:
                 if poly.material_index not in textured:
                     continue

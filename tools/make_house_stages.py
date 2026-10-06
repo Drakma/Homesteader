@@ -183,23 +183,23 @@ def window_dressing(b, c, M, glass, wall, u0, u1, zl, zh, shutters=False):
     trim_box(b, c, wall, u0, u1, za, zb, 0.02, 0.05, glass, to=glass_builder)
     if shutters:
         for s0, s1 in ((u0 - t - 0.42, u0 - t - 0.04), (u1 + t + 0.04, u1 + t + 0.42)):
-            trim_box(b, c, wall, s0, s1, za - t, zb + t, -0.04, 0.0, M['shutter'])
+            trim_box(b, c, wall, s0, s1, za - t, zb + t, -0.04, 0.0, M['shutter'], uv=True)    # the louvres are a picture on the slab (StructureLook.cs)
 
 
 glass_builder = None
 
 
-def trim_box(b, c, wall, u0, u1, za, zb, d0, d1, m, to=None):
+def trim_box(b, c, wall, u0, u1, za, zb, d0, d1, m, to=None, uv=False):
     """A box on the outer face of a wall: u0..u1 along it, z (absolute) za..zb, d0..d1 outward (negative) / inward (positive) of the outer plane."""
     target = to if to is not None else b
     if wall == 'front':
-        target.box(u0, u1, c.yh0 + d0, c.yh0 + d1, za, zb, m)
+        target.box(u0, u1, c.yh0 + d0, c.yh0 + d1, za, zb, m, uv=uv)
     elif wall == 'back':
-        target.box(u0, u1, c.d / 2 - d1, c.d / 2 - d0, za, zb, m)
+        target.box(u0, u1, c.d / 2 - d1, c.d / 2 - d0, za, zb, m, uv=uv)
     elif wall == 'left':
-        target.box(-c.w / 2 + d0, -c.w / 2 + d1, u0, u1, za, zb, m)
+        target.box(-c.w / 2 + d0, -c.w / 2 + d1, u0, u1, za, zb, m, uv=uv)
     else:
-        target.box(c.w / 2 - d1, c.w / 2 - d0, u0, u1, za, zb, m)
+        target.box(c.w / 2 - d1, c.w / 2 - d0, u0, u1, za, zb, m, uv=uv)
 
 
 def wall_top(c, wall):
@@ -393,6 +393,7 @@ def complete(b, c, M, glass, finishings=False):
     pb = PB if PB is not None else b
     porch_posts(pb, c, M, top)
     pb.box(-w / 2, w / 2, -d / 2 + 0.06, -d / 2 + 0.24, top, top + 0.2, M['trim'])
+    pb.box(-w / 2, w / 2, -d / 2 + 0.24, c.yh0 + 0.01, top, top + 0.03, M['trim'])                  # the ceiling carries on over the porch
     railing(pb, c, M)
     for k in range(3):                                                                                       # tread boards on the concrete steps
         b.box(-0.82, 0.82, -d / 2 - 0.3 * (k + 1), -d / 2 - 0.3 * k, (z0 - 0.04) * (1 - (k + 1) * 0.28), (z0 - 0.04) * (1 - (k + 1) * 0.28) + 0.03, M['deck'])
@@ -441,10 +442,7 @@ def door(b, c, M):
     dw, dh = DOOR_W - 0.06, DOOR_H - 0.03
     z0 = c.z0
     leaf = Builder('DoorLeaf')
-    leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door'])
-    for (x0, x1, z_a, z_b) in ((0.12, dw / 2 - 0.05, 0.15, 1.0), (dw / 2 + 0.05, dw - 0.12, 0.15, 1.0),
-                               (0.12, dw / 2 - 0.05, 1.12, 1.95), (dw / 2 + 0.05, dw - 0.12, 1.12, 1.95)):
-        leaf.box(x0, x1, -0.055, -0.035, z_a, z_b, M['door_panel'])                                       # raised panels
+    leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door_paneled'], uv=True)                                    # the panels are a picture on the slab (StructureLook.cs)
     leaf.box(dw - 0.16, dw - 0.1, -0.09, 0.09, 1.0, 1.06, M['brass'])                                      # handle through the leaf
     leaf_obj = leaf.finish()
     hinge = bpy.data.objects.new('DoorHinge', None)
@@ -482,6 +480,7 @@ def main():
         'trim': colour('Trim', (0.93, 0.93, 0.9), 0.7), 'shutter': colour('Shutter', (0.2, 0.3, 0.38), 0.8),
         'shingle': colour('Shingle', (0.24, 0.26, 0.3), 0.9), 'shingle_dark': colour('ShingleDark', (0.16, 0.17, 0.2), 0.9),
         'interior': colour('Interior', (0.93, 0.91, 0.86), 0.9),
+        'door_paneled': colour('DoorPaneled', (0.45, 0.13, 0.11), 0.7),
         'door': colour('Door', (0.45, 0.13, 0.11), 0.7), 'door_panel': colour('DoorPanel', (0.38, 0.1, 0.09), 0.7),
         'brass': colour('Brass', (0.75, 0.6, 0.25), 0.4), 'brick': colour('Masonry', (0.55, 0.26, 0.2), 0.95),
         'glass': base.glass_material(),

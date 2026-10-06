@@ -63,6 +63,16 @@ namespace Homesteader.Growth
                 {
                     if (mats[i] == null) continue;
                     string name = Plain(mats[i].name);
+                    if (IsPaneledDoor(name) || name.StartsWith("Shutter"))
+                    {
+                        // a door slab or a shutter of a generated model: its grayscale panel / louvre picture. The picture only shades, so the material's colour (or the
+                        // paint put on later, see Paint) still tints it.
+                        var pm = new Material(mats[i]) { name = name };
+                        SetPicture(pm, name.StartsWith("Shutter") ? ShutterTexture() : DoorPanelTexture());
+                        mats[i] = pm;
+                        changed = true;
+                        continue;
+                    }
                     if (name.StartsWith("FoundationFace") && foundation != null && foundation.look_style == "brick")
                     {
                         // a brick or stone foundation: the same brick or fieldstone picture as the chimney, tinted with the item's colour
@@ -144,7 +154,9 @@ namespace Homesteader.Growth
                     string name = Plain(mats[i].name);
                     if (!matches(name)) continue;
                     var m = new Material(mats[i]) { name = name };
-                    Set(m, name.Contains("Dark") ? c * 0.65f : name.Contains("Panel") ? c * 0.85f : c, look.look_smoothness, look.look_metallic);
+                    Set(m, name.Contains("Dark") ? c * 0.65f : name.Contains("Panel") && !IsPaneledDoor(name) ? c * 0.85f : c, look.look_smoothness, look.look_metallic);
+                    if (IsPaneledDoor(name)) SetPicture(m, DoorPanelTexture());           // paint keeps the panels: the picture shades, the paint tints
+                    else if (name.StartsWith("Shutter")) SetPicture(m, ShutterTexture());
                     mats[i] = m;
                     changed = true;
                 }
@@ -157,7 +169,10 @@ namespace Homesteader.Growth
         /// <summary>Fieldstone and anything else with "stone" in its id is laid as rough stone; every other masonry item is brick.</summary>
         private static bool IsStone(AssetCatalogItem item) { return item != null && item.id != null && item.id.Contains("stone"); }
 
-        private static Texture2D s_brick, s_stone;
+        private static Texture2D s_brick, s_stone, s_doorPanels, s_shutter;
+
+        /// <summary>A door slab of a generated model ("DoorPaneled"): flat geometry with UVs 0..1 across the leaf, the panels are a picture (DoorPanelTexture).</summary>
+        private static bool IsPaneledDoor(string plainName) { return plainName.StartsWith("DoorPaneled"); }
 
         private static void SetPicture(Material m, Texture2D tex)
         {
@@ -173,6 +188,76 @@ namespace Homesteader.Growth
                 h = (h ^ (h >> 13)) * 1274126177u;
                 return ((h ^ (h >> 16)) & 0xFFFF) / 65535f;
             }
+        }
+
+        /// <summary>
+        /// A grayscale panelled door across the whole leaf (u across, v up): a flat stile-and-rail colour, a dark groove round each of four panels, and each
+        /// panel a little lighter on its top and left edges and darker on its bottom and right ones, so they read as raised. Multiplied by the leaf's colour,
+        /// so a painted door keeps its panels.
+        /// </summary>
+        private static Texture2D DoorPanelTexture()
+        {
+            if (s_doorPanels != null) return s_doorPanels;
+            const int N = 256;
+            float[] cols = { 0.105f, 0.455f, 0.545f, 0.895f };
+            float[] rows = { 0.066f, 0.44f, 0.49f, 0.86f };
+            const float groove = 0.016f, bevel = 0.035f;
+            var px = new Color[N * N];
+            for (int y = 0; y < N; y++)
+            {
+                float v = (y + 0.5f) / N;
+                for (int x = 0; x < N; x++)
+                {
+                    float u = (x + 0.5f) / N;
+                    float g = 0.86f;                                               // stiles and rails
+                    for (int ci = 0; ci < 4; ci += 2)
+                        for (int ri = 0; ri < 4; ri += 2)
+                        {
+                            float du0 = u - cols[ci], du1 = cols[ci + 1] - u, dv0 = v - rows[ri], dv1 = rows[ri + 1] - v;
+                            float inside = Mathf.Min(Mathf.Min(du0, du1), Mathf.Min(dv0, dv1));
+                            if (inside > 0f)
+                            {
+                                float lit = Mathf.Clamp01(Mathf.Min(du0, dv1) / bevel), shade = Mathf.Clamp01(Mathf.Min(du1, dv0) / bevel);   // top and left light, bottom and right dark
+                                float edge = Mathf.Lerp(0.62f, 1f, Mathf.Min(lit, 1f)) * Mathf.Lerp(0.78f, 1f, shade);
+                                g = Mathf.Lerp(0.97f * edge, 0.97f, Mathf.Clamp01(inside / bevel));
+                            }
+                            else if (inside > -groove) g = Mathf.Min(g, 0.42f);       // the groove round the panel
+                        }
+                    px[y * N + x] = new Color(g, g, g, 1f);
+                }
+            }
+            s_doorPanels = MakeTexture("DoorPanels", px, N);
+            return s_doorPanels;
+        }
+
+        /// <summary>
+        /// Grayscale louvred shutter across the whole slab (u across, v up): a frame round the edge and 22 slats inside, each slat light on its upper face and shadowed under
+        /// the one above, with a dark gap between. Multiplied by the shutter's colour, so a painted shutter keeps its louvres.
+        /// </summary>
+        private static Texture2D ShutterTexture()
+        {
+            if (s_shutter != null) return s_shutter;
+            const int N = 256, slats = 22;
+            var px = new Color[N * N];
+            for (int y = 0; y < N; y++)
+            {
+                float v = (y + 0.5f) / N;
+                for (int x = 0; x < N; x++)
+                {
+                    float u = (x + 0.5f) / N;
+                    float g = 0.88f;                                              // the frame
+                    if (u > 0.12f && u < 0.88f && v > 0.05f && v < 0.95f)
+                    {
+                        float s = Mathf.Repeat(v * slats, 1f);
+                        g = s < 0.14f ? 0.45f : Mathf.Lerp(0.98f, 0.7f, (s - 0.14f) / 0.86f);   // the gap under a slat, then its face dimming downwards
+                    }
+                    else if ((u > 0.105f && u < 0.12f && v > 0.035f && v < 0.965f) || (u > 0.88f && u < 0.895f && v > 0.035f && v < 0.965f)
+                             || (v > 0.035f && v < 0.05f && u > 0.105f && u < 0.895f) || (v > 0.95f && v < 0.965f && u > 0.105f && u < 0.895f)) g = 0.55f;   // a thin groove between the frame and the louvres
+                    px[y * N + x] = new Color(g, g, g, 1f);
+                }
+            }
+            s_shutter = MakeTexture("ShutterLouvres", px, N);
+            return s_shutter;
         }
 
         /// <summary>One metre of brickwork (the chimney's UVs are metres): sixteen level courses of 25 cm bricks, every other course shifted half a brick, light mortar between.</summary>
