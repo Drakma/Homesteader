@@ -15,6 +15,7 @@ namespace Homesteader.UI
     {
         /// <summary>The hovered object's root transform, or null (over the HUD, over bare ground, or nothing there).</summary>
         private static int s_hitFrame = -1, s_findFrame = -1;
+        private static float s_findTime;
         private static Vector2 s_hitPos, s_findPos;
         private static Camera s_hitCam;
         private static RaycastHit[] s_hits = new RaycastHit[0];
@@ -45,10 +46,12 @@ namespace Homesteader.UI
 
         public static Transform Find()
         {
-            if (s_findFrame == Time.frameCount && TryGetPointerPos(out Vector2 again) && again == s_findPos) return s_found;   // asked already this frame
+            // Asked already this frame, or within the last tenth of a second with the pointer still: the answer stands (one ray for the cursor, WAILA, the card and placement).
+            if ((s_findFrame == Time.frameCount || Time.unscaledTime - s_findTime < 0.1f) && TryGetPointerPos(out Vector2 again) && again == s_findPos) return s_found;
             Transform t = FindUncached();
             s_found = t;
             s_findFrame = Time.frameCount;
+            s_findTime = Time.unscaledTime;
             TryGetPointerPos(out s_findPos);
             return t;
         }

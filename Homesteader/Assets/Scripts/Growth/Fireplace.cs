@@ -149,7 +149,7 @@ namespace Homesteader.Growth
             if (_logs == null && n > 0) _logs = MakeLogs(n);
             _shownLogs = n;
             bool lit = _site.FireLit && n > 0;
-            if (lit != _wasLit) { _wasLit = lit; Debug.Log($"[Fireplace] {_site.StructureId}: fire {(lit ? "lit" : "out")}, {n} logs, flames={(_flames != null)}, smoke={(_smoke != null)}, light={(_light != null)}."); }
+            if (lit != _wasLit) { _wasLit = lit; Dbg.Log($"[Fireplace] {_site.StructureId}: fire {(lit ? "lit" : "out")}, {n} logs, flames={(_flames != null)}, smoke={(_smoke != null)}, light={(_light != null)}."); }
             SetEmitting(_flames, lit);
             SetEmitting(_smoke, lit);
             if (_light != null) _light.enabled = lit;

@@ -139,7 +139,7 @@ namespace Homesteader.Growth
             int min = Mathf.CeilToInt(0.5f / (Cell * Cell));   // half a square metre
             for (int i = 0; i < _room.Length; i++) if (_room[i] >= 0 && sizes[_room[i]] < min) _room[i] = -1;
             _for = root;
-            Debug.Log("[Rooms] " + site.name + ": " + sizes.FindAll(s => s >= min).Count + " room(s), " + _nx + " x " + _nz + " cells");
+            Dbg.Log("[Rooms] " + site.name + ": " + sizes.FindAll(s => s >= min).Count + " room(s), " + _nx + " x " + _nz + " cells");
         }
 
         private void Take(int cell, int id, Stack<int> stack)

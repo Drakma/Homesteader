@@ -308,7 +308,7 @@ namespace Homesteader.Radio
             if (_engineTried) return;
             _engineTried = true;
             _engine = KokoroTtsEngine.TryCreate();
-            if (_engine == null) Debug.Log("[Radio] no voice: " + KokoroTtsEngine.LastStatus);
+            if (_engine == null) Dbg.Log("[Radio] no voice: " + KokoroTtsEngine.LastStatus);
             if (_worker == null)
             {
                 _worker = new Thread(WorkerLoop) { IsBackground = true, Name = "RadioTts", Priority = System.Threading.ThreadPriority.BelowNormal };

@@ -83,7 +83,7 @@ namespace Homesteader.Growth
                 HideGhost();
                 // a dish, yagi or access point: its roof preview comes up as soon as the cursor is on a roof (no first click: the ground preview has just stepped aside)
                 bool hoverRoof = roofOption && cam != null && !hud.IsPointerOverUI(pointer) && OverRoof(cam, pointer);
-                if (hoverRoof && s_roofLog != held) { s_roofLog = held; Debug.Log("[Roof] " + held + " over a roof: the roof preview takes it (R turns it " + RoofTurnDeg + " degrees)"); }
+                if (hoverRoof && s_roofLog != held) { s_roofLog = held; Dbg.Log("[Roof] " + held + " over a roof: the roof preview takes it (R turns it " + RoofTurnDeg + " degrees)"); }
                 if (cam != null && !hud.IsPointerOverUI(pointer) && (roofOption ? hoverRoof : LeftClicked()))
                 {
                     _placing = true;
@@ -96,7 +96,7 @@ namespace Homesteader.Growth
             if (cam == null || hud.IsPointerOverUI(pointer)) { HideGhost(); return; }
             if (!EnsureGhost(held, info)) return;
 
-            if (rotate && upright) Debug.Log("[Roof] R with " + held + " over a roof: turn " + _turn + " -> next");
+            if (rotate && upright) Dbg.Log("[Roof] R with " + held + " over a roof: turn " + _turn + " -> next");
             if ((info.AttachSurface == "ceiling" || info.AttachSurface == "roof" || upright) && rotate)
                 _turn += upright && UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.shiftKey.isPressed ? -1 : 1;
 

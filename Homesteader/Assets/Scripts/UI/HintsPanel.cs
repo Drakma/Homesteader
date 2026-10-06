@@ -49,8 +49,12 @@ namespace Homesteader.UI
             if (_panel != null) _panel.style.display = _visible && !HudVisibility.Hidden ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
+        private float _nextEnsure;
+
         private void EnsureBuilt()
         {
+            if (_panel != null && _panel.panel != null && Time.unscaledTime < _nextEnsure) return;   // built and attached: look again about once a second
+            _nextEnsure = Time.unscaledTime + 1f;
             UIDocument doc = FindAnyObjectByType<UIDocument>();
             VisualElement root = doc != null ? doc.rootVisualElement : null;
             if (root == null) return;

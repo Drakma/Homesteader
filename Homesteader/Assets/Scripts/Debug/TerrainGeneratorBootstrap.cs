@@ -37,7 +37,7 @@ namespace Homesteader.DebugTools
 
         private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log($"[TerrainGeneratorBootstrap] OnSceneLoaded: scene={scene.name}");
+            Dbg.Log($"[TerrainGeneratorBootstrap] OnSceneLoaded: scene={scene.name}");
 
             // Destroy ALL old ground/terrain objects that are not the real generated
             // terrain. The scene may contain a legacy flat "Ground" plane, or leftover
@@ -51,7 +51,7 @@ namespace Homesteader.DebugTools
                 // Keep the first, destroy the rest
                 for (int i = 1; i < existingGens.Length; i++)
                 {
-                    Debug.Log($"[TerrainGeneratorBootstrap] Destroying duplicate generator on '{existingGens[i].gameObject.name}'.");
+                    Dbg.Log($"[TerrainGeneratorBootstrap] Destroying duplicate generator on '{existingGens[i].gameObject.name}'.");
                     Object.Destroy(existingGens[i].gameObject);
                 }
 
@@ -61,7 +61,7 @@ namespace Homesteader.DebugTools
                 var oldGround = GameObject.Find("Ground");
                 if (oldGround != null)
                 {
-                    Debug.Log("[TerrainGeneratorBootstrap] Destroying legacy Ground plane.");
+                    Dbg.Log("[TerrainGeneratorBootstrap] Destroying legacy Ground plane.");
                     Object.Destroy(oldGround);
                 }
 
@@ -78,7 +78,7 @@ namespace Homesteader.DebugTools
                         if (genShader != null)
                         {
                             survivingTerrain.materialTemplate = new Material(genShader);
-                            Debug.Log("[TerrainGeneratorBootstrap] Assigned missing material to surviving terrain.");
+                            Dbg.Log("[TerrainGeneratorBootstrap] Assigned missing material to surviving terrain.");
                         }
                     }
                     if (survivingTerrain.GetComponent<TerrainCollider>() == null)
@@ -91,7 +91,7 @@ namespace Homesteader.DebugTools
                         survivingTerrain.transform.position = new Vector3(0f, -14f, 0f);
                 }
 
-                Debug.Log("[TerrainGeneratorBootstrap] Generator already exists, skipping creation.");
+                Dbg.Log("[TerrainGeneratorBootstrap] Generator already exists, skipping creation.");
                 return;
             }
 
@@ -135,7 +135,7 @@ namespace Homesteader.DebugTools
             {
                 generator.worldSeed = seed;
                 generator.InvalidateSeedCache();
-                Debug.Log($"[TerrainGeneratorBootstrap] Using the saved world seed {seed}.");
+                Dbg.Log($"[TerrainGeneratorBootstrap] Using the saved world seed {seed}.");
                 SeedOverride = 0;
             }
             // continuing a world: its generated ground comes from the snapshot saved beside the save (the generator checks that it fits)
@@ -159,7 +159,7 @@ namespace Homesteader.DebugTools
             terrainCollider.terrainData = terrain.terrainData;
             terrainCollider.enabled = true;
 
-            Debug.Log($"[TerrainGeneratorBootstrap] Terrain generated successfully. Collider enabled: {terrainCollider.enabled}, terrainData assigned: {terrainCollider.terrainData != null}");
+            Dbg.Log($"[TerrainGeneratorBootstrap] Terrain generated successfully. Collider enabled: {terrainCollider.enabled}, terrainData assigned: {terrainCollider.terrainData != null}");
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Homesteader.DebugTools
                 existing = go.AddComponent<Homesteader.Land.LandBoundaryController>();
             }
             existing.RebuildBoundaries();
-            Debug.Log("[TerrainGeneratorBootstrap] Land boundaries rebuilt on scene load.");
+            Dbg.Log("[TerrainGeneratorBootstrap] Land boundaries rebuilt on scene load.");
         }
     }
 }

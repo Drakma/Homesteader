@@ -217,7 +217,7 @@ namespace Homesteader.Save
                 string oldSave = Path.Combine(old, "autosave.json"), oldWorld = Path.Combine(old, "world.snapshot");
                 if (File.Exists(oldSave)) File.Copy(oldSave, Path.Combine(dir, "Homestead.json"), false);
                 if (File.Exists(oldWorld)) File.Copy(oldWorld, Path.Combine(dir, "Homestead.world"), false);
-                if (File.Exists(oldSave)) Debug.Log("[Save] the earlier save was copied into the Saves folder as 'Homestead'.");
+                if (File.Exists(oldSave)) Dbg.Log("[Save] the earlier save was copied into the Saves folder as 'Homestead'.");
             }
             catch (Exception e) { Debug.LogWarning("[Save] could not copy the earlier save: " + e.Message); }
         }

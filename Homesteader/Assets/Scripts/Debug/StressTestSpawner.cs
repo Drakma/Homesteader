@@ -81,7 +81,7 @@ namespace Homesteader.DebugTools
                 instance.SetActive(true);
             }
 
-            Debug.Log($"[StressTest] Spawned {Count} fruiting orange trees ({Columns} x {Mathf.CeilToInt((float)Count / Columns)} grid, {Spacing}m spacing) at {Origin}. Each tree is 3000 tris -> ~{Count * 3000:N0} tris total.");
+            Dbg.Log($"[StressTest] Spawned {Count} fruiting orange trees ({Columns} x {Mathf.CeilToInt((float)Count / Columns)} grid, {Spacing}m spacing) at {Origin}. Each tree is 3000 tris -> ~{Count * 3000:N0} tris total.");
         }
     }
 }

@@ -423,7 +423,7 @@ namespace Homesteader.UI
 
         private void StartNewGame(string wantedName)
         {
-            Debug.Log("[WelcomeMenu] New game: " + wantedName);
+            Dbg.Log("[WelcomeMenu] New game: " + wantedName);
             SetStatus("Starting new game...");
 
             // The new game has its own name and its own saves; the saves of other games stay where they are.
@@ -437,7 +437,7 @@ namespace Homesteader.UI
             // deterministic (same value every time New Game is clicked).
             var seedRng = new System.Random(System.DateTime.Now.GetHashCode());
             int newSeed = seedRng.Next(1, 999999);
-            Debug.Log($"[WelcomeMenu] New world seed: {newSeed}");
+            Dbg.Log($"[WelcomeMenu] New world seed: {newSeed}");
             Homesteader.DebugTools.TerrainGeneratorBootstrap.SeedOverride = 0;
 
             // Keep the welcome card visible and show the progress bar.
@@ -482,7 +482,7 @@ namespace Homesteader.UI
             {
                 GameSaveManager.SaveNow(false);
                 SetStatus("Saved as \"" + SaveSlots.CurrentName + "\".");
-                Debug.Log("[WelcomeMenu] Game saved via Welcome Menu.");
+                Dbg.Log("[WelcomeMenu] Game saved via Welcome Menu.");
             }
             catch (System.Exception e)
             {
@@ -577,7 +577,7 @@ namespace Homesteader.UI
             // Apply the new seed and invalidate cached seed-dependent values.
             generator.worldSeed = newSeed;
             generator.InvalidateSeedCache();
-            Debug.Log($"[WelcomeMenu] Terrain seed set to {newSeed}.");
+            Dbg.Log($"[WelcomeMenu] Terrain seed set to {newSeed}.");
 
             // Close the welcome menu (LoadingModal is now a sibling, so Hide() won't hide it).
             _isLoading = true;
@@ -604,7 +604,7 @@ namespace Homesteader.UI
                 ped.transform.position = spawnPos;
                 ped.transform.rotation = Quaternion.Euler(0f, ped.modelRotationOffset, 0f);
                 if (cc != null) cc.enabled = true;
-                Debug.Log($"[WelcomeMenu] Player placed at: ({spawnPos.x}, {spawnPos.y:F2}, {spawnPos.z})");
+                Dbg.Log($"[WelcomeMenu] Player placed at: ({spawnPos.x}, {spawnPos.y:F2}, {spawnPos.z})");
             }
 
             CreateLandBoundaries();
@@ -622,7 +622,7 @@ namespace Homesteader.UI
             yield return StartCoroutine(FadeInGame());
             ResumeGame();
             GameSaveManager.SaveNow(false);   // the new game exists as a save from the start
-            Debug.Log("[WelcomeMenu] New game ready.");
+            Dbg.Log("[WelcomeMenu] New game ready.");
         }
 
         // ------------------------------------------------------------------ land spawn
@@ -709,7 +709,7 @@ namespace Homesteader.UI
                 existing = go.AddComponent<Homesteader.Land.LandBoundaryController>();
             }
             existing.RebuildBoundaries();
-            Debug.Log("[WelcomeMenu] Land boundaries rebuilt.");
+            Dbg.Log("[WelcomeMenu] Land boundaries rebuilt.");
         }
 
         // ------------------------------------------------------------------ scene reload
@@ -725,7 +725,7 @@ namespace Homesteader.UI
                 if (gen != null)
                 {
                     gen.worldSeed = newSeed;
-                    Debug.Log($"[WelcomeMenu] Applied new world seed {newSeed} to terrain generator.");
+                    Dbg.Log($"[WelcomeMenu] Applied new world seed {newSeed} to terrain generator.");
                 }
             }
 
@@ -737,7 +737,7 @@ namespace Homesteader.UI
             if (oldSaveMgr != null)
             {
                 Destroy(oldSaveMgr.gameObject);
-                Debug.Log("[WelcomeMenu] Destroyed old GameSaveManager for scene reload.");
+                Dbg.Log("[WelcomeMenu] Destroyed old GameSaveManager for scene reload.");
             }
 
             // Also destroy the old WelcomeMenuController's visual tree so it
@@ -818,12 +818,12 @@ namespace Homesteader.UI
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log($"[WelcomeMenu] OnSceneLoaded: scene={scene.name}, isNewGamePending={_isNewGamePending}, skipShowOnLoad={_skipShowOnLoad}");
+            Dbg.Log($"[WelcomeMenu] OnSceneLoaded: scene={scene.name}, isNewGamePending={_isNewGamePending}, skipShowOnLoad={_skipShowOnLoad}");
 
             if (_isNewGamePending)
             {
                 int newSeed = PlayerPrefs.GetInt("Homesteader.NewWorldSeed", 0);
-                Debug.Log($"[WelcomeMenu] New game seed from PlayerPrefs: {newSeed}");
+                Dbg.Log($"[WelcomeMenu] New game seed from PlayerPrefs: {newSeed}");
                 if (newSeed > 0)
                 {
                     StartCoroutine(ApplyNewSeedAfterTerrainReady(newSeed));
@@ -856,12 +856,12 @@ namespace Homesteader.UI
             }
 
             var generator = FindAnyObjectByType<HomesteaderTerrainGenerator>();
-            Debug.Log($"[WelcomeMenu] ApplyNewSeed: generator found = {generator != null}");
+            Dbg.Log($"[WelcomeMenu] ApplyNewSeed: generator found = {generator != null}");
             if (generator != null)
             {
                 generator.worldSeed = newSeed;
                 generator.InvalidateSeedCache();
-                Debug.Log($"[WelcomeMenu] Terrain seed set to {newSeed}, waiting for menu UI rebuild...");
+                Dbg.Log($"[WelcomeMenu] Terrain seed set to {newSeed}, waiting for menu UI rebuild...");
 
                 // Clear the pending seed so the bootstrap generates normally
                 // on future scene loads (Continue/Load).
@@ -877,7 +877,7 @@ namespace Homesteader.UI
                     if (_loadingSection != null && _menuRoot != null) break;
                     yield return null;
                 }
-                Debug.Log($"[WelcomeMenu] Menu UI ready: _loadingSection={_loadingSection != null}, _menuRoot={_menuRoot != null}");
+                Dbg.Log($"[WelcomeMenu] Menu UI ready: _loadingSection={_loadingSection != null}, _menuRoot={_menuRoot != null}");
 
                 // Show the loading modal, then run async generation.
                 _isLoading = true;
@@ -886,7 +886,7 @@ namespace Homesteader.UI
                 ShowLoading();
                 UpdateLoadingProgress(0f, "Generating terrain...");
 
-                Debug.Log("[WelcomeMenu] Starting async terrain generation...");
+                Dbg.Log("[WelcomeMenu] Starting async terrain generation...");
                 yield return StartCoroutine(RunAsyncGeneration(generator, 0.85f));
 
                 UpdateLoadingProgress(1f, "Ready");
@@ -935,12 +935,12 @@ namespace Homesteader.UI
         private IEnumerator RunAsyncGeneration(HomesteaderTerrainGenerator generator, float maxProgress = 1f)
         {
             // Start the async generation coroutine on the generator's MonoBehaviour
-            Debug.Log($"[WelcomeMenu] RunAsyncGeneration: generator.IsGenerating={generator.IsGenerating}, generator.GenerationProgress={generator.GenerationProgress}");
+            Dbg.Log($"[WelcomeMenu] RunAsyncGeneration: generator.IsGenerating={generator.IsGenerating}, generator.GenerationProgress={generator.GenerationProgress}");
             var routine = StartCoroutine(generator.GenerateTerrainAsync());
 
             // Give the coroutine one frame to set IsGenerating = true
             yield return null;
-            Debug.Log($"[WelcomeMenu] After first yield: generator.IsGenerating={generator.IsGenerating}");
+            Dbg.Log($"[WelcomeMenu] After first yield: generator.IsGenerating={generator.IsGenerating}");
 
             // Poll progress each frame until generation completes.
             // Scale terrain progress (0-1) into the bar range (0-maxProgress).
@@ -950,7 +950,7 @@ namespace Homesteader.UI
                 yield return null;
             }
 
-            Debug.Log($"[WelcomeMenu] Generation complete: progress={generator.GenerationProgress}");
+            Dbg.Log($"[WelcomeMenu] Generation complete: progress={generator.GenerationProgress}");
 
             // Final update
             UpdateLoadingProgress(maxProgress, "Done!");

@@ -114,7 +114,7 @@ namespace Homesteader.UI
             }
             else
             {
-                Debug.Log($"[Toast - {type}] {title}: {message}");
+                Dbg.Log($"[Toast - {type}] {title}: {message}");
             }
         }
 
@@ -144,7 +144,7 @@ namespace Homesteader.UI
         /// </summary>
         public static void ShowCounted(string key, string title, string messageFormat, int amount, ToastType type = ToastType.Info)
         {
-            if (s_instance == null) { Debug.Log($"[Toast - {type}] {title}: " + string.Format(messageFormat, amount)); return; }
+            if (s_instance == null) { Dbg.Log($"[Toast - {type}] {title}: " + string.Format(messageFormat, amount)); return; }
             s_instance.CreateOrUpdateCounted(key, title, messageFormat, amount, type);
         }
 

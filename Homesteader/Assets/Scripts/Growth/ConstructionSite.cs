@@ -2124,7 +2124,7 @@ namespace Homesteader.Growth
                 _interior.Add(door);
                 if (_openDoors.Contains(t.name)) SnapInterior(door, true);   // left open: it loads open
             }
-            if (_interior.Count > 0) Debug.Log("[Doors] " + Name() + ": " + _interior.Count + " openable door(s) found (swing, slide, roll-up).");
+            if (_interior.Count > 0) Dbg.Log("[Doors] " + Name() + ": " + _interior.Count + " openable door(s) found (swing, slide, roll-up).");
         }
 
         private void AnimateInteriorDoors()

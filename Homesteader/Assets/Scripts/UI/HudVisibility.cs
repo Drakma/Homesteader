@@ -26,13 +26,23 @@ namespace Homesteader.UI
             go.AddComponent<HudVisibility>();
         }
 
+        private UIDocument _doc;
+        private bool _applied;       // the children have been hidden (and not yet brought back)
+        private float _nextApply;
+
         private void Update()
         {
             Keyboard kb = Keyboard.current;
             if (kb != null && kb.f11Key.wasPressedThisFrame && !HudBindings.KeyboardCaptured && !WelcomeMenuController.IsLoading)
                 s_hidden = !s_hidden;
-            UIDocument doc = FindAnyObjectByType<UIDocument>();
+            // Shown and nothing was hidden: nothing to do. Hidden: re-apply ten times a second (a toast or window may be added at any time).
+            if (!s_hidden && !_applied) return;
+            if (s_hidden && _applied && Time.unscaledTime < _nextApply) return;
+            _nextApply = Time.unscaledTime + 0.1f;
+            if (_doc == null) _doc = FindAnyObjectByType<UIDocument>();   // cached: a scene scan every frame was a top Update cost
+            UIDocument doc = _doc;
             if (doc == null || doc.rootVisualElement == null) return;
+            _applied = s_hidden;   // once shown again this pass restores everything, then the early return above takes over
             // every frame while hidden (a toast or window may be added to the document at any time), once more when it comes back
             foreach (VisualElement child in doc.rootVisualElement.Children())
             {

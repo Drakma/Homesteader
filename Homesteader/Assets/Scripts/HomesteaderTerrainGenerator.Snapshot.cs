@@ -36,7 +36,7 @@ namespace Homesteader.Generation
                 return;
             }
             _using = s;
-            Debug.Log($"[TerrainGen] restoring the saved world (seed {worldSeed}) from its snapshot instead of regenerating the ground.");
+            Dbg.Log($"[TerrainGen] restoring the saved world (seed {worldSeed}) from its snapshot instead of regenerating the ground.");
         }
 
         /// <summary>After the water features are generated: swap in the saved ones.</summary>

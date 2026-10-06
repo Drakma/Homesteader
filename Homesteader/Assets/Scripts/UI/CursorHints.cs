@@ -18,10 +18,14 @@ namespace Homesteader.UI
     {
         public const string ClickableClass = "clickable";
 
+        private float _nextPick;
+
         private void LateUpdate()
         {
             CursorManager cm = CursorManager.Instance;
             if (cm == null || !cm.enabled) return;
+            if (Time.unscaledTime < _nextPick) return;   // the shape is chosen 20 times a second: the raycasts behind it are not cheap
+            _nextPick = Time.unscaledTime + 0.05f;
             cm.SetCursor(Pick());
         }
 

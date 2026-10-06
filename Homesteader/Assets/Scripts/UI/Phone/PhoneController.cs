@@ -1870,7 +1870,7 @@ namespace Homesteader.UI
                         ToastNotificationSystem.ShowError("Payment Declined", $"Insufficient funds for ${totalPrice:F2} order.");
                         return;
                     }
-                    Debug.Log($"<color=green>[Phone Delivery]</color> Order placed successfully! Paid ${totalPrice:F2} for {totalCount} items.");
+                    Dbg.Log($"<color=green>[Phone Delivery]</color> Order placed successfully! Paid ${totalPrice:F2} for {totalCount} items.");
                     // Blueprints are not goods: they go straight to the toolbar, once. The rest comes with the delivery van the next morning.
                     var goods = new Dictionary<string, int>();
                     foreach (var pair in _cart)
@@ -1920,7 +1920,7 @@ namespace Homesteader.UI
                 {
                     HudState.Active.TakeLoan(amount);
                     UpdateBankDisplay();
-                    Debug.Log($"<color=cyan>[Bank]</color> Borrowed ${amount:N0}. Total debt now: ${HudState.Active.LoanDebt:N2}");
+                    Dbg.Log($"<color=cyan>[Bank]</color> Borrowed ${amount:N0}. Total debt now: ${HudState.Active.LoanDebt:N2}");
                     ToastNotificationSystem.ShowInfo("Loan Deposited", $"${amount:N0} advance transferred to your homestead checking balance.");
                 },
                 null
@@ -1951,7 +1951,7 @@ namespace Homesteader.UI
                     if (HudState.Active.RepayLoan(payAmount))
                     {
                         UpdateBankDisplay();
-                        Debug.Log($"<color=green>[Bank]</color> Repaid ${payAmount:N2}. Remaining debt: ${HudState.Active.LoanDebt:N2}");
+                        Dbg.Log($"<color=green>[Bank]</color> Repaid ${payAmount:N2}. Remaining debt: ${HudState.Active.LoanDebt:N2}");
                         ToastNotificationSystem.ShowSuccess("Loan Payment Received", $"Paid ${payAmount:N2} towards loan principal. Outstanding debt: ${HudState.Active.LoanDebt:N2}");
                     }
                 },
@@ -2035,7 +2035,7 @@ namespace Homesteader.UI
                                 _showModalCallback?.Invoke("Insufficient Funds", "You do not have enough funds to purchase this listing.", null, null);
                                 return;
                             }
-                            Debug.Log($"<color=green>[Exchange]</color> Purchased {listing.Name} for ${listing.Price:F2}!");
+                            Dbg.Log($"<color=green>[Exchange]</color> Purchased {listing.Name} for ${listing.Price:F2}!");
                         },
                         null
                     );
@@ -3349,7 +3349,7 @@ namespace Homesteader.UI
                 return;
             }
 
-            string newPath = ModDiscovery.SetFolderDisabled(mod.FolderPath, !enable, msg => Debug.Log(msg));
+            string newPath = ModDiscovery.SetFolderDisabled(mod.FolderPath, !enable, msg => Dbg.Log(msg));
             mod.FolderPath = newPath;
             mod.IsDisabled = !enable;
 
@@ -3382,7 +3382,7 @@ namespace Homesteader.UI
             string catFolderPath = catMods.Find(m => !string.IsNullOrEmpty(m.CategoryFolderPath))?.CategoryFolderPath;
             if (!string.IsNullOrEmpty(catFolderPath) && Directory.Exists(catFolderPath))
             {
-                ModDiscovery.SetFolderDisabled(catFolderPath, targetDisable, msg => Debug.Log(msg));
+                ModDiscovery.SetFolderDisabled(catFolderPath, targetDisable, msg => Dbg.Log(msg));
             }
             else
             {
@@ -3391,7 +3391,7 @@ namespace Homesteader.UI
                 {
                     if (!string.IsNullOrEmpty(m.FolderPath) && Directory.Exists(m.FolderPath))
                     {
-                        ModDiscovery.SetFolderDisabled(m.FolderPath, targetDisable, msg => Debug.Log(msg));
+                        ModDiscovery.SetFolderDisabled(m.FolderPath, targetDisable, msg => Dbg.Log(msg));
                     }
                 }
             }

@@ -267,7 +267,7 @@ namespace Homesteader.World
             root.gameObject.AddComponent<VegetationSeasons>().Init(new List<VegetationSeasons.Entry>(Tracked));
             root.gameObject.AddComponent<VegetationFocusFade>();
             BerryBushes.Started(root);   // small plants fade with distance from the view centre
-            Debug.Log($"[Vegetation] Placed {placed} trees, {rocks} rocks, {fieldStones} field stones, {shore} shoreline cattails/rocks, {bed} bed rocks/debris, {flowers} flower clumps, {tufts} grass tufts and {shrubs} shrubs ({objects} objects merged into {chunks} chunk meshes).");
+            Dbg.Log($"[Vegetation] Placed {placed} trees, {rocks} rocks, {fieldStones} field stones, {shore} shoreline cattails/rocks, {bed} bed rocks/debris, {flowers} flower clumps, {tufts} grass tufts and {shrubs} shrubs ({objects} objects merged into {chunks} chunk meshes).");
             return placed;
         }
 

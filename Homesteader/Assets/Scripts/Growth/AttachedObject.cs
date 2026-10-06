@@ -79,7 +79,7 @@ namespace Homesteader.Growth
         {
             if (s_noPowerLogged.TryGetValue(site, out string last) && last == why) return;
             s_noPowerLogged[site] = why;
-            Debug.Log("[Power] " + site.Name() + " has no power: " + why);   // (once per change: why a building with a breaker box still reads as unpowered)
+            Dbg.Log("[Power] " + site.Name() + " has no power: " + why);   // (once per change: why a building with a breaker box still reads as unpowered)
         }
 
         /// <summary>True while a power-providing item is mounted on the outside of this building.</summary>
@@ -245,7 +245,7 @@ namespace Homesteader.Growth
                 thickness = span;
                 bool both = false;
                 foreach (Transform c in obj.GetComponentsInChildren<Transform>(true)) if (c.name == "PlateFar") both = true;
-                Debug.Log("[WallEntry] " + itemId + " goes through a wall " + span.ToString("0.00") + " m thick; second plate " + (both ? "made" : "NOT made (no Plate / Pipe nodes in the model)"));
+                Dbg.Log("[WallEntry] " + itemId + " goes through a wall " + span.ToString("0.00") + " m thick; second plate " + (both ? "made" : "NOT made (no Plate / Pipe nodes in the model)"));
             }
             // Walk-through: a small thing on a wall must not catch the character; its colliders are triggers (a ray that asks for triggers still finds it, to pick it up).
             // One trigger box over the whole model replaces its mesh colliders: a detailed model (a bus bar with its studs, a heat sink) is too complex to cook as a convex mesh, so it got

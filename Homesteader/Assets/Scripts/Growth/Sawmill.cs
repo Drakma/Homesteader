@@ -97,7 +97,7 @@ namespace Homesteader.Growth
             }
             if (_carriage == null) yield break;
             _home = _carriage.localPosition;
-            Debug.Log("[Sawmill] parts: carriage '" + _carriage.name + "' at local " + _home.ToString("0.00") + " (parent '" + (_carriage.parent != null ? _carriage.parent.name : "none") + "'), blade '" + (_blade != null ? _blade.name : "none") + "'");
+            Dbg.Log("[Sawmill] parts: carriage '" + _carriage.name + "' at local " + _home.ToString("0.00") + " (parent '" + (_carriage.parent != null ? _carriage.parent.name : "none") + "'), blade '" + (_blade != null ? _blade.name : "none") + "'");
             if (!string.IsNullOrEmpty(LogId)) StartCoroutine(ShowLog(LogId));
         }
 
@@ -359,7 +359,7 @@ namespace Homesteader.Growth
                     ped.AutoWalkTo(target);
                     yield return null;
                 }
-                if (Time.realtimeSinceStartup >= until) Debug.Log("[Sawmill] the player did not reach " + target.ToString("0.0") + ": it is at " + ped.transform.position.ToString("0.0") + " (blocked?)");
+                if (Time.realtimeSinceStartup >= until) Dbg.Log("[Sawmill] the player did not reach " + target.ToString("0.0") + ": it is at " + ped.transform.position.ToString("0.0") + " (blocked?)");
             }
             ped.AutoStop();
         }
@@ -384,14 +384,14 @@ namespace Homesteader.Growth
         {
             _busy = true;
             PedController ped = PedController.Current;
-            Debug.Log("[Sawmill] cutting " + LogId + " into " + count + " x " + type.Id + "; the player is at " + (ped != null ? ped.transform.position.ToString("0.0") : "none") + ", the carriage at " + _carriage.position.ToString("0.0"));
+            Dbg.Log("[Sawmill] cutting " + LogId + " into " + count + " x " + type.Id + "; the player is at " + (ped != null ? ped.transform.position.ToString("0.0") : "none") + ", the carriage at " + _carriage.position.ToString("0.0"));
             if (ItemRegistry.TryGet(type.Id, out ItemRegistry.ItemInfo outInfo) && outInfo.Prefab != null)
             {
                 GlbTemplate og = outInfo.Prefab.GetComponent<GlbTemplate>();
                 if (og != null) og.EnsureLoading();   // the lumber's own model loads while the saw is at work
             }
             if (ped != null) yield return WalkToCarriage(ped);
-            if (ped != null) Debug.Log("[Sawmill] the player stands at " + ped.transform.position.ToString("0.0") + " (the push spot is " + PushSpot(LocalX(_carriage.position)).ToString("0.0") + ")");
+            if (ped != null) Dbg.Log("[Sawmill] the player stands at " + ped.transform.position.ToString("0.0") + " (the push spot is " + PushSpot(LocalX(_carriage.position)).ToString("0.0") + ")");
             if (ped != null) ped.AutoStop();   // the player stands at the start of the track, on the back side, while the carriage runs
             Vector3 end = new Vector3(-_home.x, _home.y, _home.z);
             _spinning = true;
@@ -627,7 +627,7 @@ namespace Homesteader.Growth
             if (loose > 0) wanted.Add(type.Id);
             foreach (string id in wanted) if (ItemRegistry.TryGet(id, out ItemRegistry.ItemInfo want) && want.Prefab != null) yield return Ready(want);
             List<Vector2> occ = Occupied();
-            Debug.Log("[Sawmill] putting out " + count + " x " + type.Id + " as " + bundles.Count + " bundle(s) and " + loose + " loose");
+            Dbg.Log("[Sawmill] putting out " + count + " x " + type.Id + " as " + bundles.Count + " bundle(s) and " + loose + " loose");
             foreach (string bundle in bundles)
             {
                 if (!ItemRegistry.TryGet(bundle, out ItemRegistry.ItemInfo info) || info.Prefab == null) { loose += BundleSize(type, bundle); continue; }   // (no model: they come out loose)

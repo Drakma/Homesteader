@@ -88,7 +88,7 @@ namespace Homesteader.Growth
                     sb.Append(t.parent != null ? t.parent.name + "/" : "").Append(t.name).Append(h.collider.isTrigger ? " (trigger)" : "").Append(" layer ").Append(t.gameObject.layer).Append(" at ").Append(h.distance.ToString("0.0")).Append("; ");
                     if (++n >= 8) break;
                 }
-                Debug.Log(sb.ToString());
+                Dbg.Log(sb.ToString());
             }
             return false;
         }
@@ -118,20 +118,20 @@ namespace Homesteader.Growth
             if (string.IsNullOrEmpty(slot.IconId) || slot.Count <= 0) return false;
             if (!UnderCursor(cam, pointer, out Shelf shelf, out _, out Vector3 point)) return false;
             string id = slot.IconId, name = HudBindings.GetItemName(shelf.Mount.ItemId);
-            Debug.Log("[Shelf] left click on " + shelf.Mount.ItemId + " with " + id);
+            Dbg.Log("[Shelf] left click on " + shelf.Mount.ItemId + " with " + id);
             if (IsShelf(id)) return false;   // a shelf in hand is being mounted, not shelved
             var ped = PedController.Current;
             if (ped != null && Flat(ped.transform.position, shelf.transform.position) > Reach) { ToastNotificationSystem.ShowInfo("Too far", "Move closer to reach that."); return true; }
             if (slot.Contents != null && slot.Contents.Count > 0) { ToastNotificationSystem.ShowInfo(name, "Empty it first: a container goes on a shelf empty."); return true; }
             if (!ItemRegistry.TryGet(id, out ItemRegistry.ItemInfo info) || info.Prefab == null) { ToastNotificationSystem.ShowInfo(name, HudBindings.GetItemName(id) + " cannot stand on a shelf."); return true; }
             GlbTemplate glb = info.Prefab.GetComponent<GlbTemplate>();
-            if (glb != null && !glb.Ready) { glb.EnsureLoading(); Debug.Log("[Shelf] the model of " + id + " is still loading"); return true; }   // its model is still coming: the next click does it
+            if (glb != null && !glb.Ready) { glb.EnsureLoading(); Dbg.Log("[Shelf] the model of " + id + " is still loading"); return true; }   // its model is still coming: the next click does it
             var held = new Held { ItemId = id, WireUsed = slot.WireUsed, LiquidId = slot.LiquidId };
             if (!shelf.MakeView(held, info, out Vector3 size)) { ToastNotificationSystem.ShowInfo(name, HudBindings.GetItemName(id) + " cannot stand on a shelf."); return true; }
             string why = size.y > MaxHeight ? "It is too tall for a shelf." : size.z > (shelf._z1 - shelf._z0) + Overhang ? "It is too deep for this shelf." : null;
             float x = shelf.transform.InverseTransformPoint(point).x;
             if (why == null && !shelf.FreeSpot(held.HalfWidth, ref x)) why = size.x > shelf._x1 - shelf._x0 ? "It is too wide for this shelf." : "There is no room left on the shelf.";
-            if (why != null) { Destroy(held.View); Debug.Log("[Shelf] " + id + " not put on: " + why + " size " + size.ToString("0.00") + ", board " + (shelf._x1 - shelf._x0).ToString("0.00") + " x " + (shelf._z1 - shelf._z0).ToString("0.00")); ToastNotificationSystem.ShowInfo(name, why); return true; }
+            if (why != null) { Destroy(held.View); Dbg.Log("[Shelf] " + id + " not put on: " + why + " size " + size.ToString("0.00") + ", board " + (shelf._x1 - shelf._x0).ToString("0.00") + " x " + (shelf._z1 - shelf._z0).ToString("0.00")); ToastNotificationSystem.ShowInfo(name, why); return true; }
             held.X = x;
             shelf.Seat(held);
             shelf.Items.Add(held);

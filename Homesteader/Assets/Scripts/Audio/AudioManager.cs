@@ -310,6 +310,8 @@ namespace Homesteader.Audio
             return src;
         }
 
+        private float _nextSliderResolve;
+
         private void Update()
         {
             // The Settings sliders belong to a UI document that is rebuilt when a game is loaded (the scene reloads; this
@@ -318,7 +320,8 @@ namespace Homesteader.Audio
                                  || musicSlider == null || musicSlider.panel == null
                                  || sfxSlider == null || sfxSlider.panel == null))
                 slidersWired = false;
-            if (!slidersWired) ResolveSliders();
+            // the scene scan in ResolveSliders is expensive: retry about once a second, not every frame
+            if (!slidersWired && Time.unscaledTime >= _nextSliderResolve) { _nextSliderResolve = Time.unscaledTime + 1f; ResolveSliders(); }
 
             // Weather-driven ambience: read the same weather enum WeatherEffectsManager drives its particles
             // from, rather than adding new coupling to that class - independent, simple mapping.

@@ -113,8 +113,8 @@ namespace Homesteader.Modding
         private void ResolverLog(string message)
         {
             _resolverMessages++;
-            if (_resolverMessages <= 10) Debug.Log(message);
-            else if (_resolverMessages == 11) Debug.Log("[Mods] ... more assets without a model are not logged one by one.");
+            if (_resolverMessages <= 10) Dbg.Log(message);
+            else if (_resolverMessages == 11) Dbg.Log("[Mods] ... more assets without a model are not logged one by one.");
         }
 
         private void OnDestroy()
@@ -135,7 +135,7 @@ namespace Homesteader.Modding
             void Log(string message)
             {
                 log.AppendLine(message);
-                if (verboseLogging) Debug.Log(message);
+                if (verboseLogging) Dbg.Log(message);
             }
 
             Homesteader.Growth.GrowthRegistry.Clear();
@@ -325,7 +325,7 @@ namespace Homesteader.Modding
                     string reportPath = Path.Combine(reportRoot, "modload_report.txt");
                     File.WriteAllText(reportPath, BuildReport(log));
                     if (verboseLogging)
-                        Debug.Log($"[Mods] Wrote load report to {reportPath}");
+                        Dbg.Log($"[Mods] Wrote load report to {reportPath}");
                 }
                 catch (Exception ex)
                 {

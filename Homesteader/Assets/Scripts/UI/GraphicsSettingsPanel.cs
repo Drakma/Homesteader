@@ -57,6 +57,8 @@ namespace Homesteader.UI
             Instance = this;
         }
 
+        private float _nextResolve;
+
         private void Update()
         {
             // WelcomeMenuController rebuilds its UI tree (fresh Slider instances) after a scene reload
@@ -67,7 +69,8 @@ namespace Homesteader.UI
             if (_wired && _saturationSlider != null && _saturationSlider.panel == null)
                 _wired = false;
 
-            if (!_wired) ResolveReferences();
+            // the scene scans in ResolveReferences are expensive: retry about once a second, not every frame
+            if (!_wired && Time.unscaledTime >= _nextResolve) { _nextResolve = Time.unscaledTime + 1f; ResolveReferences(); }
         }
 
         private void ResolveReferences()

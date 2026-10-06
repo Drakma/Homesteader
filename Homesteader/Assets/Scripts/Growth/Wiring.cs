@@ -294,6 +294,13 @@ namespace Homesteader.Growth
         }
     }
 
+    /// <summary>Owns the merged clip mesh of one wire run, so it is freed when the wire is.</summary>
+    public sealed class WireClipMesh : MonoBehaviour
+    {
+        public Mesh Mesh;
+        private void OnDestroy() { if (Mesh != null) Destroy(Mesh); }
+    }
+
     /// <summary>One wire between two devices (a DC or an AC run), drawn as a sagging line.</summary>
     public sealed class WireLink
     {
@@ -308,6 +315,9 @@ namespace Homesteader.Growth
         public bool RouteFinal;         // true when the route is final (or there is none: the wire hangs in a plain sag)
         public float NextRouteTry;
         public int RouteTries;
+        public Vector3 DrawnA, DrawnB;  // the end points the plain sag or pipe was last drawn between (not redrawn until one moves)
+        public bool Drawn;
+        public float NextHideCheck;     // a wire hidden in the walls is re-checked about once a second, not every frame
         public bool Connects(WireNode n) { return A == n || B == n; }
         public WireNode Other(WireNode n) { return A == n ? B : A; }
     }
@@ -479,7 +489,7 @@ namespace Homesteader.Growth
             {
                 string what = kind == "net" ? "Cat6 cable" : kind == "fuel" ? "fuel line" : kind == "sewer" ? "black waste pipe" : kind == "water" ? "PVC pipe" : kind == "propane" ? "propane pipe" : kind == "ac" ? "AC wire" : "DC wire";
                 reason = "You need " + UnitFormat.Distance(need) + " of " + what + " within " + UnitFormat.Distance(WireReach) + " of you (a coil or spool in the toolbar or on the ground).";
-                Debug.Log("[Wire] refused: " + WireNode.RoleName(a.Role) + " + " + WireNode.RoleName(b.Role) + " kind " + kind + " outdoor " + outdoor + " need " + need.ToString("0.0") + " m; player " + (player != null ? "found" : "NULL") + "; " + WireScan(player));
+                Dbg.Log("[Wire] refused: " + WireNode.RoleName(a.Role) + " + " + WireNode.RoleName(b.Role) + " kind " + kind + " outdoor " + outdoor + " need " + need.ToString("0.0") + " m; player " + (player != null ? "found" : "NULL") + "; " + WireScan(player));
                 string other = NearbyOtherWire(kind, outdoor, need, player);
                 if (other != null) reason = "That run needs " + what + ", and the wire near you is " + other + ".";
                 return false;
@@ -1070,7 +1080,7 @@ namespace Homesteader.Growth
             string sig = sb.ToString();
             if (sig == s_systemsSignature) return;
             s_systemsSignature = sig;
-            Debug.Log("[Grid] " + all.Count + " system(s): " + sig);
+            Dbg.Log("[Grid] " + all.Count + " system(s): " + sig);
         }
 
         /// <summary>What an inverter delivers right now: the solar reaching it (when its chain is complete), held to the controller and the inverter ratings.</summary>
@@ -2239,7 +2249,8 @@ namespace Homesteader.Growth
             {
                 WireLink l = Links[i];
                 if (l.A == null || l.B == null) { Remove(l); continue; }   // one end was taken down
-                if (WireRouter.NetInWalls(l) || (l.Kind == "net" && l.A.Role != WireRole.NetJack && l.B.Role != WireRole.NetJack)) { if (l.Line != null) l.Line.enabled = false; l.RouteFinal = true; continue; }   // Cat6 inside a building is in the walls: not drawn
+                if (l.Line != null && !l.Line.enabled && l.RouteFinal && Time.unscaledTime < l.NextHideCheck) continue;   // hidden in the walls
+                if (WireRouter.NetInWalls(l) || (l.Kind == "net" && l.A.Role != WireRole.NetJack && l.B.Role != WireRole.NetJack)) { if (l.Line != null) l.Line.enabled = false; l.RouteFinal = true; l.NextHideCheck = Time.unscaledTime + 1f; continue; }   // Cat6 inside a building is in the walls: not drawn
                 if (l.Line == null)
                 {
                     var go = new GameObject("Wire_" + l.Kind);
@@ -2266,8 +2277,11 @@ namespace Homesteader.Growth
                 }
                 if (l.Route == null)
                 {
-                    if (l.Kind == "water" || l.Kind == "sewer") { l.Line.positionCount = 2; l.Line.SetPosition(0, l.A.PortToward(l.B.BasePort)); l.Line.SetPosition(1, l.B.PortToward(l.A.BasePort)); }   // a pipe does not sag
-                    else Sag(l.Line, l.A.PortToward(l.B.BasePort), l.B.PortToward(l.A.BasePort));   // a plain hanging wire (until, or unless, it is tacked)
+                    Vector3 pa = l.A.PortToward(l.B.BasePort), pb = l.B.PortToward(l.A.BasePort);
+                    if (l.Drawn && pa == l.DrawnA && pb == l.DrawnB) continue;   // neither end moved: the line is already right
+                    l.Drawn = true; l.DrawnA = pa; l.DrawnB = pb;
+                    if (l.Kind == "water" || l.Kind == "sewer") { l.Line.positionCount = 2; l.Line.SetPosition(0, pa); l.Line.SetPosition(1, pb); }   // a pipe does not sag
+                    else Sag(l.Line, pa, pb);   // a plain hanging wire (until, or unless, it is tacked)
                 }
             }
         }
@@ -2322,6 +2336,8 @@ namespace Homesteader.Growth
                 Object.Destroy(cube);
                 s_clipMat = MakeMat(new Color(0.75f, 0.75f, 0.72f));
             }
+            // Every clip of this run is one mesh with one renderer (the clips used to be a GameObject and a renderer each: hundreds of draws for a few wires).
+            var clips = new List<CombineInstance>();
             for (int i = 0; i < r.Count - 1; i++)
             {
                 Vector3 a = r[i], b = r[i + 1];
@@ -2332,17 +2348,22 @@ namespace Homesteader.Growth
                 {
                     if (i == 0 && k == 0) continue;
                     Vector3 p = Vector3.Lerp(a, b, k / (float)n);
-                    var clip = new GameObject("WireClip");
-                    clip.transform.SetParent(l.Line.transform, false);
-                    clip.transform.position = p;
-                    clip.transform.rotation = Quaternion.LookRotation((b - a).normalized);
-                    clip.transform.localScale = l.Conduit ? (l.Heavy || l.A.Role == WireRole.WindTurbine || l.B.Role == WireRole.WindTurbine ? new Vector3(0.1f, 0.1f, 0.016f) : new Vector3(0.05f, 0.05f, 0.014f)) : new Vector3(0.026f, 0.026f, 0.012f);
-                    clip.AddComponent<MeshFilter>().sharedMesh = s_clipMesh;
-                    var mr = clip.AddComponent<MeshRenderer>();
-                    mr.sharedMaterial = l.Kind == "water" || l.Kind == "sewer" || l.Kind == "propane" || l.Kind == "fuel" || l.Kind == "ac" ? (l.Conduit ? s_strapMat : s_clipMat) : l.Conduit ? s_pvcMat : s_clipMat;   // a pipe is held by grey metal straps
-                    mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    Vector3 scale = l.Conduit ? (l.Heavy || l.A.Role == WireRole.WindTurbine || l.B.Role == WireRole.WindTurbine ? new Vector3(0.1f, 0.1f, 0.016f) : new Vector3(0.05f, 0.05f, 0.014f)) : new Vector3(0.026f, 0.026f, 0.012f);
+                    clips.Add(new CombineInstance { mesh = s_clipMesh, transform = Matrix4x4.TRS(p, Quaternion.LookRotation((b - a).normalized), scale) });
                 }
             }
+            if (clips.Count == 0) return;
+            var clipObj = new GameObject("WireClips");
+            clipObj.transform.SetParent(l.Line.transform, false);
+            clipObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);   // the clip positions are world positions
+            var merged = new Mesh { name = "WireClips" };
+            if (clips.Count * s_clipMesh.vertexCount > 65000) merged.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            merged.CombineMeshes(clips.ToArray(), true, true);
+            clipObj.AddComponent<MeshFilter>().sharedMesh = merged;
+            clipObj.AddComponent<WireClipMesh>().Mesh = merged;
+            var mr = clipObj.AddComponent<MeshRenderer>();
+            mr.sharedMaterial = l.Kind == "water" || l.Kind == "sewer" || l.Kind == "propane" || l.Kind == "fuel" || l.Kind == "ac" ? (l.Conduit ? s_strapMat : s_clipMat) : l.Conduit ? s_pvcMat : s_clipMat;   // a pipe is held by grey metal straps
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         }
 
         public static void Sag(LineRenderer line, Vector3 a, Vector3 b)
@@ -2506,7 +2527,7 @@ namespace Homesteader.Growth
         {
             if (!JoinToolHeld()) { s_first = null; return false; }
             WireNode n = NodeUnderCursor(cam, pointer, s_first);
-            Debug.Log("[Wire] right click with the cutters: " + (n != null ? n.ItemId + " (" + n.Role + ")" : "no device") + "; picked first: " + (s_first != null ? s_first.ItemId : "none"));
+            Dbg.Log("[Wire] right click with the cutters: " + (n != null ? n.ItemId + " (" + n.Role + ")" : "no device") + "; picked first: " + (s_first != null ? s_first.ItemId : "none"));
             if (n == null && s_first != null && NodeUnderCursor(cam, pointer) == s_first)
             {
                 s_first = null;                      // a click on the picked device itself lets go of it
@@ -2540,7 +2561,7 @@ namespace Homesteader.Growth
                 return true;
             }
             bool done = WireNetwork.Connect(first, n, player, out string reason);
-            Debug.Log("[Wire] " + first.ItemId + " + " + n.ItemId + ": " + (done ? "done" : "not done: " + reason));
+            Dbg.Log("[Wire] " + first.ItemId + " + " + n.ItemId + ": " + (done ? "done" : "not done: " + reason));
             if (!done && reason != null)
                 ToastNotificationSystem.ShowInfo(gas ? "Can't pipe that" : "Can't wire that", reason);
             return true;

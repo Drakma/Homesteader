@@ -15,7 +15,7 @@ namespace Homesteader
             if (svc == null) return;
             float t = Time.realtimeSinceStartup;
             svc.WarmUp();
-            Debug.Log($"[ShaderWarmup] warmed {svc.variantCount} variants in {Time.realtimeSinceStartup - t:F1}s.");
+            Dbg.Log($"[ShaderWarmup] warmed {svc.variantCount} variants in {Time.realtimeSinceStartup - t:F1}s.");
         }
     }
 }

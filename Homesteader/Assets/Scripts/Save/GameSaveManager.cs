@@ -94,11 +94,11 @@ namespace Homesteader.Save
                 yield return null;
                 PlacedObject.SettleOnGround();
                 Step(1f, "Ready");
-                Debug.Log($"[Save] restored '{SaveSlots.CurrentName}' saved {save.savedAtUtc} ({save.plants.Count} plants, {save.placed.Count} placed) from {System.IO.Path.GetFileName(loadPath)}.");
+                Dbg.Log($"[Save] restored '{SaveSlots.CurrentName}' saved {save.savedAtUtc} ({save.plants.Count} plants, {save.placed.Count} placed) from {System.IO.Path.GetFileName(loadPath)}.");
             }
             else
             {
-                Debug.Log("[Save] no save found: new game. Autosave is on.");
+                Dbg.Log("[Save] no save found: new game. Autosave is on.");
             }
 
             // the music starts only now: the game is loaded and the saved state is known (a radio station tuned in means no music)
@@ -221,7 +221,7 @@ namespace Homesteader.Save
                 if (gen == null || gen.LastGenerated == null || (!gen.SnapshotDirty && Homesteader.Generation.WorldSnapshot.Exists)) return;
                 gen.LastGenerated.Write();
                 gen.MarkSnapshotSaved();
-                Debug.Log("[Save] the generated world was saved (world.snapshot).");
+                Dbg.Log("[Save] the generated world was saved (world.snapshot).");
             }
             catch (System.Exception e) { Debug.LogWarning("[Save] could not save the world snapshot: " + e.Message); }
         }

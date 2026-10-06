@@ -1082,8 +1082,8 @@ namespace Homesteader.UI
             ShowModal(
                 title: "Confirm Action",
                 message: "Are you sure you want to discard unsaved homestead progress?",
-                onConfirm: () => Debug.Log("<color=green>[HUD Modal]</color> Discard confirmed!"),
-                onCancel: () => Debug.Log("<color=yellow>[HUD Modal]</color> Discard cancelled.")
+                onConfirm: () => Dbg.Log("<color=green>[HUD Modal]</color> Discard confirmed!"),
+                onCancel: () => Dbg.Log("<color=yellow>[HUD Modal]</color> Discard cancelled.")
             );
         }
 

@@ -1089,7 +1089,7 @@ namespace Homesteader
                 if (World.ForestTrees.TryStrikeLightning(strikeOrigin, _lightningTreeStrikeRadius, _lightningTreeStrikeChance, out Vector3 struckTree))
                 {
                     SpawnLightningBolt(struckTree);
-                    Debug.Log($"[Weather] Lightning struck a tree at ({struckTree.x:F0}, {struckTree.z:F0}); it is now dead.");
+                    Dbg.Log($"[Weather] Lightning struck a tree at ({struckTree.x:F0}, {struckTree.z:F0}); it is now dead.");
                 }
 
                 // ── First pulse ──────────────────────────────────────────────

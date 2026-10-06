@@ -666,7 +666,7 @@ namespace Homesteader.Generation
                 foreach (int cells in per) if (cells >= MinFeatureCells) inside++;
             }
 
-            Debug.Log($"[StarterZone] water {fraction * 100f:F1}% of the zone (cap {rule.MaxWaterFraction * 100f:F0}%), {inside} feature(s) inside.");
+            Dbg.Log($"[StarterZone] water {fraction * 100f:F1}% of the zone (cap {rule.MaxWaterFraction * 100f:F0}%), {inside} feature(s) inside.");
         }
 
         /// <summary>A random point on one map edge (0 = south, 1 = east, 2 = north, 3 = west), kept off the corners.</summary>
@@ -1342,7 +1342,7 @@ namespace Homesteader.Generation
             mesh.RecalculateNormals();
             mf.mesh = mesh;
 
-            Debug.Log($"[TerrainGen] CreateWaterSurface: fineRes={fineRes}, waterCells={waterCellCount}, verts={mesh.vertexCount}, tris={mesh.triangles.Length/3}, maskTex={(waterMaskTex != null ? waterMaskTex.width+"x"+waterMaskTex.height : "NULL")}");
+            Dbg.Log($"[TerrainGen] CreateWaterSurface: fineRes={fineRes}, waterCells={waterCellCount}, verts={mesh.vertexCount}, tris={mesh.triangles.Length/3}, maskTex={(waterMaskTex != null ? waterMaskTex.width+"x"+waterMaskTex.height : "NULL")}");
 
             Shader waterShader = Shader.Find("Homesteader/WaterSurface");
             if (waterShader != null)
@@ -1817,6 +1817,7 @@ namespace Homesteader.Generation
             // smooth - IDs don't blend - so the fix is blending the two colors, not the branch condition).
             if (waterMaskTex != null) targetTerrain.materialTemplate.SetTexture("_WaterMask", waterMaskTex);
             ApplyRoadMaskToMaterial(targetTerrain.materialTemplate);
+            Homesteader.World.TerrainGroundBake.Bake(targetTerrain.materialTemplate);   // the ground colour, rendered once (see TerrainGroundBake)
         }
 
         // 3. Create water surface mesh
@@ -1893,7 +1894,7 @@ namespace Homesteader.Generation
         public IEnumerator GenerateTerrainAsync()
         {
             Random.InitState(worldSeed);
-            Debug.Log($"[TerrainGen] GenerateTerrainAsync started with seed {worldSeed}");
+            Dbg.Log($"[TerrainGen] GenerateTerrainAsync started with seed {worldSeed}");
 
             IsGenerating = true;
             Generated = false;
@@ -2069,6 +2070,7 @@ namespace Homesteader.Generation
                     targetTerrain.materialTemplate.SetVector("_TerrainBounds", new Vector4(terrainSizeX, terrainSizeZ, terrainHeight, 0f));
                     if (waterMaskTex != null) targetTerrain.materialTemplate.SetTexture("_WaterMask", waterMaskTex);
                     ApplyRoadMaskToMaterial(targetTerrain.materialTemplate);
+                    Homesteader.World.TerrainGroundBake.Bake(targetTerrain.materialTemplate);   // the ground colour, rendered once (see TerrainGroundBake)
                 }
             }
             GenerationProgress = 0.85f;

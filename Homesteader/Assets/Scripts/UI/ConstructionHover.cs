@@ -63,7 +63,12 @@ namespace Homesteader.UI
 
         private void Update()
         {
-            ConstructionSite site = WelcomeMenuController.IsLoading ? null : SiteUnderPointer();
+            if (Time.unscaledTime >= _nextSiteLook)
+            {
+                _nextSiteLook = Time.unscaledTime + 0.05f;   // 20 times a second: the raycast behind it is not cheap
+                _siteLook = WelcomeMenuController.IsLoading ? null : SiteUnderPointer();
+            }
+            ConstructionSite site = _siteLook != null && _siteLook.isActiveAndEnabled ? _siteLook : null;
 
             // P over a site pins its list (P again, anywhere, unpins it)
             Keyboard kb = Keyboard.current;
@@ -103,6 +108,9 @@ namespace Homesteader.UI
             _panel.style.display = DisplayStyle.Flex;
             Place();
         }
+
+        private ConstructionSite _siteLook;
+        private float _nextSiteLook;
 
         private static ConstructionSite SiteUnderPointer()
         {

@@ -142,14 +142,14 @@ public class PedController : MonoBehaviour
         // the capsule top, measured from the player's feet (the transform), must clear a 2.0 m doorway: its centre may sit above the feet
         float bottom = (controller.center.y - controller.height * 0.5f) * sy;
         float top = (controller.center.y + controller.height * 0.5f) * sy;
-        Debug.Log("[PedController] capsule before: radius " + (controller.radius * sxz).ToString("F2") + " m, bottom " + bottom.ToString("F2") + " m, top " + top.ToString("F2") + " m above the feet, scale " + sc);
+        Dbg.Log("[PedController] capsule before: radius " + (controller.radius * sxz).ToString("F2") + " m, bottom " + bottom.ToString("F2") + " m, top " + top.ToString("F2") + " m above the feet, scale " + sc);
         const float maxTop = 1.85f;
         if (top > maxTop)
         {
             float h = Mathf.Max(controller.radius * 2f + 0.05f, (maxTop - bottom) / sy);
             controller.height = h;
             controller.center = new Vector3(controller.center.x, bottom / sy + h * 0.5f, controller.center.z);
-            Debug.Log("[PedController] capsule limited to " + (controller.height * sy).ToString("F2") + " m, top " + ((controller.center.y + controller.height * 0.5f) * sy).ToString("F2") + " m");
+            Dbg.Log("[PedController] capsule limited to " + (controller.height * sy).ToString("F2") + " m, top " + ((controller.center.y + controller.height * 0.5f) * sy).ToString("F2") + " m");
         }
 
         // Initialize land ownership so the movement check works even before
@@ -172,7 +172,7 @@ public class PedController : MonoBehaviour
         for (int i = 0; i < 6 && t.parent != null; i++) { t = t.parent; path = t.name + "/" + path; }
         var site = hit.collider.GetComponentInParent<Homesteader.Growth.ConstructionSite>();
         string local = site != null ? site.transform.InverseTransformPoint(hit.point).ToString("F2") : "n/a";
-        Debug.Log("[PedController] blocked from the side by " + path + " (" + hit.collider.GetType().Name + (hit.collider is MeshCollider mc0 ? ", convex " + mc0.convex : "") + "), point " + hit.point.ToString("F2") + ", in the building " + local + ", normal " + hit.normal.ToString("F2") + ", player " + transform.position.ToString("F2") + ", capsule world y " + hit.controller.bounds.min.y.ToString("F2") + " to " + hit.controller.bounds.max.y.ToString("F2") + ", moving " + hit.moveDirection.ToString("F2") + ", hit collider y " + hit.collider.bounds.min.y.ToString("F2") + " to " + hit.collider.bounds.max.y.ToString("F2"));
+        Dbg.Log("[PedController] blocked from the side by " + path + " (" + hit.collider.GetType().Name + (hit.collider is MeshCollider mc0 ? ", convex " + mc0.convex : "") + "), point " + hit.point.ToString("F2") + ", in the building " + local + ", normal " + hit.normal.ToString("F2") + ", player " + transform.position.ToString("F2") + ", capsule world y " + hit.controller.bounds.min.y.ToString("F2") + " to " + hit.controller.bounds.max.y.ToString("F2") + ", moving " + hit.moveDirection.ToString("F2") + ", hit collider y " + hit.collider.bounds.min.y.ToString("F2") + " to " + hit.collider.bounds.max.y.ToString("F2"));
     }
 
     void Start()
@@ -196,7 +196,7 @@ public class PedController : MonoBehaviour
             pos.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(pos);
             transform.position = pos;
             cc.enabled = true;
-            Debug.Log($"[PedController] Snapped to ground surface at Y={pos.y:F2}");
+            Dbg.Log($"[PedController] Snapped to ground surface at Y={pos.y:F2}");
         }
     }
 
@@ -361,7 +361,7 @@ public class PedController : MonoBehaviour
             {
                 string ctrlName = animator.runtimeAnimatorController != null ? animator.runtimeAnimatorController.name : "null";
                 string avatarName = animator.avatar != null ? animator.avatar.name : "null";
-                Debug.Log($"[PedController] Resolved Animator on {animator.gameObject.name}: ctrl={ctrlName}, avatar={avatarName}");
+                Dbg.Log($"[PedController] Resolved Animator on {animator.gameObject.name}: ctrl={ctrlName}, avatar={avatarName}");
             }
         }
 

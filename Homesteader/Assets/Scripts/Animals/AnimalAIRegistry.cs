@@ -141,7 +141,7 @@ namespace Homesteader.Animals
             AnimalAIDefinition def = AnimalAIParser.Parse(root, modId, warn);
             if (def == null) return;
             if (byId.TryGetValue(def.Id, out AnimalAIDefinition old))
-                Debug.Log($"[AnimalAI] '{def.Id}' from mod '{modId}' replaces the one from '{old.SourceMod}'.");
+                Dbg.Log($"[AnimalAI] '{def.Id}' from mod '{modId}' replaces the one from '{old.SourceMod}'.");
             Register(def);
         }
     }

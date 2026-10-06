@@ -381,7 +381,7 @@ namespace Homesteader.World
             if (pallets)
             {
                 PlaceOnPallets(units, palletInfo, centre, loose);
-                Debug.Log($"[Delivery] unloaded at ({centre.x:F1}, {centre.z:F1}) onto pallets: {units.Count} object(s), {loose.Count} loose item(s).");
+                Dbg.Log($"[Delivery] unloaded at ({centre.x:F1}, {centre.z:F1}) onto pallets: {units.Count} object(s), {loose.Count} loose item(s).");
                 ToastNotificationSystem.ShowSuccess("Delivery arrived", "Your order is waiting at the delivery zone.");
                 yield break;
             }
@@ -432,7 +432,7 @@ namespace Homesteader.World
             }
             foreach (string id in loose) WorldItem.TryDrop(id, cell < cells.Count ? cells[cell++] : centre);
 
-            Debug.Log($"[Delivery] unloaded at ({centre.x:F1}, {centre.z:F1}): {units.Count} placed object(s) in {Mathf.Min(cell, cells.Count)} stack(s), {loose.Count} loose item(s), box asset {(boxes ? "ok" : "MISSING")}.");
+            Dbg.Log($"[Delivery] unloaded at ({centre.x:F1}, {centre.z:F1}): {units.Count} placed object(s) in {Mathf.Min(cell, cells.Count)} stack(s), {loose.Count} loose item(s), box asset {(boxes ? "ok" : "MISSING")}.");
             ToastNotificationSystem.ShowSuccess("Delivery arrived", "Your order is waiting at the delivery zone.");
         }
 

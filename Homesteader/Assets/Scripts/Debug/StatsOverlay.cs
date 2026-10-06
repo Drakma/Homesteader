@@ -67,6 +67,9 @@ namespace Homesteader.DebugTools
                 _accumFrames = 0;
             }
 
+            // The window was rebuilt under us (a game was loaded): attach to the new one, keeping the visible state.
+            if (_wired && _statsWindow != null && _statsWindow.panel == null) ApplyVisibility();
+
             // Update labels every frame while visible.
             if (_visible && _wired)
                 UpdateLabels();
@@ -74,6 +77,8 @@ namespace Homesteader.DebugTools
 
         private void ApplyVisibility()
         {
+            // Loading another game rebuilds the HUD document: the window found before belongs to the old one (no panel), so find it again.
+            if (_statsWindow != null && _statsWindow.panel == null) { _statsWindow = null; _wired = false; }
             if (_statsWindow == null) ResolveReferences();
             if (_statsWindow == null) return;
 

@@ -77,11 +77,17 @@ namespace Homesteader.UI
             UpdateToastPush();
         }
 
+        private Transform _lastHovered;
+        private float _nextDescribe;
+        private float _nextStaleCheck;
+        private float _lastToastTop = -1f;
+
         private void EnsureBuilt()
         {
             // If we have a panel but it's detached or in a stale root (e.g. after scene reload), rebuild
-            if (_panel != null)
+            if (_panel != null && Time.unscaledTime >= _nextStaleCheck)   // a scene scan: about once a second, not every frame
             {
+                _nextStaleCheck = Time.unscaledTime + 1f;
                 var doc = FindAnyObjectByType<UIDocument>();
                 var currentRoot = doc != null ? doc.rootVisualElement : null;
                 if (_panel.parent == null || (currentRoot != null && _panel.parent != currentRoot))
@@ -150,6 +156,11 @@ namespace Homesteader.UI
         {
             if (HudVisibility.Hidden) { if (_panel != null) _panel.style.display = DisplayStyle.None; return; }   // F11 hides the whole HUD, this panel too
             Transform hovered = HoverTarget.Find();
+            // The card is rebuilt once a second while the same object stays under the cursor (a new target shows at once); between rebuilds it stays as it is.
+            // Describing a well, a wired device or a building walks wires, water and power every time, which is far too much for every frame.
+            if (hovered != null && hovered == _lastHovered && _panel != null && _panel.style.display == DisplayStyle.Flex && Time.unscaledTime < _nextDescribe) return;
+            _lastHovered = hovered;
+            _nextDescribe = Time.unscaledTime + (hovered != null ? 1f : 0.15f);
             string title;
             Texture2D icon;
             var details = _details;   // reused: this runs every frame
@@ -638,11 +649,12 @@ namespace Homesteader.UI
             {
                 float panelHeight = _panel.resolvedStyle.height;
                 if (panelHeight <= 0f) panelHeight = 70f; // not laid out yet this frame; reasonable default
-                _toastContainer.style.top = 70f + panelHeight + 8f;
+                float top = 70f + panelHeight + 8f;
+                if (!Mathf.Approximately(top, _lastToastTop)) { _lastToastTop = top; _toastContainer.style.top = top; }   // only when it changes: a style write dirties the layout
             }
             else
             {
-                _toastContainer.style.top = StyleKeyword.Null; // back to the USS default (64px)
+                if (_lastToastTop >= 0f) { _lastToastTop = -1f; _toastContainer.style.top = StyleKeyword.Null; } // back to the USS default (64px)
             }
         }
     }
