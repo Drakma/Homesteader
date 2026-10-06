@@ -57,5 +57,11 @@
     "author": "Homesteader Core",
     "compatible_api": "v1"
   },
-  "category_fields": {}
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.08,
+      "depth": 0.08,
+      "height": 0.08
+    }
+  }
 }

@@ -59,6 +59,11 @@
   },
   "category_fields": {
     "power_draw_w": 0,
-    "fertilizer_growth_bonus_pct": 15
+    "fertilizer_growth_bonus_pct": 15,
+    "dimensions_m": {
+      "width": 0.08,
+      "depth": 0.08,
+      "height": 0.08
+    }
   }
 }
