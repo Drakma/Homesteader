@@ -200,7 +200,7 @@ namespace Homesteader.Growth
             if (s_doorPanels != null) return s_doorPanels;
             const int N = 256;
             float[] cols = { 0.105f, 0.455f, 0.545f, 0.895f };
-            float[] rows = { 0.066f, 0.44f, 0.49f, 0.86f };
+            float[] rows = { 0.066f, 0.465f, 0.535f, 0.934f };           // two equal panels, the same rail above as below
             const float groove = 0.016f, bevel = 0.035f;
             var px = new Color[N * N];
             for (int y = 0; y < N; y++)
