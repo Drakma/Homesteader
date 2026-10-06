@@ -2169,8 +2169,18 @@
 }
 
 .steadify-music--hidden,
-.steadify-radio-pane--hidden {
+.steadify-radio-pane--hidden,
+.steadify-local-pane--hidden {
     display: none;
+}
+
+.steadify-local-pane {
+    flex-shrink: 0;
+}
+
+.steadify-local-time {
+    -unity-text-align: middle-center;
+    margin-bottom: 6px;
 }
 
 .steadify-radio-pane {

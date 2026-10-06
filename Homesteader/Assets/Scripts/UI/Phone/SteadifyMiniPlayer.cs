@@ -17,11 +17,22 @@ namespace Homesteader.UI
 
         // Enter Play Mode keeps statics between plays: forget the last play's window and phone root, or Restore and Toggle talk to a dead panel.
         [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void ResetStatics() { _open = null; _host = null; _wanted = false; }
+        private static void ResetStatics() { _open = null; _host = null; _wanted = false; LocalMode = false; LocalModeChanged = null; }
 
         // Whether the player should be showing. It follows the player's own open / close, NOT the window itself: when the game quits or a
         // load rebuilds the HUD the window is already gone, and reading it then saved "closed" and lost the mini player every time.
         private static bool _wanted;
+
+        // Local tab: the mini player drives the desktop media player (LocalMedia) instead of the game's music. Follows the phone's tab.
+        public static bool LocalMode { get; private set; }
+        private static event System.Action LocalModeChanged;
+
+        public static void SetLocalMode(bool local)
+        {
+            if (LocalMode == local) return;
+            LocalMode = local;
+            LocalModeChanged?.Invoke();
+        }
 
         public static bool IsOpen
         {
@@ -162,11 +173,11 @@ namespace Homesteader.UI
             _elapsed.AddToClassList("steadify-mini-time");
             _elapsed.tooltip = "Time left in this song";
             row.Add(_elapsed);
-            _shuffle = MakeButton("\uE000", "Shuffle: random order within this playlist", () => { var a = AudioManager.Instance; if (a != null) a.MusicSetShuffle(!a.ShuffleEnabled); });
-            _prev = MakeButton("\u23EE", "Previous track", () => AudioManager.Instance?.MusicPrevious());
-            _play = MakeButton("\u25B6", "Play / pause", () => AudioManager.Instance?.MusicTogglePlayPause());
-            _next = MakeButton("\u23ED", "Next track", () => AudioManager.Instance?.MusicNext());
-            _repeat = MakeButton("\uE001", "Repeat: off, all, or one track", () => AudioManager.Instance?.MusicCycleRepeatMode());
+            _shuffle = MakeButton("\uE000", "Shuffle: random order within this playlist", () => { if (LocalMode) return; var a = AudioManager.Instance; if (a != null) a.MusicSetShuffle(!a.ShuffleEnabled); });
+            _prev = MakeButton("\u23EE", "Previous track", () => { if (LocalMode) LocalMedia.Previous(); else AudioManager.Instance?.MusicPrevious(); });
+            _play = MakeButton("\u25B6", "Play / pause", () => { if (LocalMode) LocalMedia.PlayPause(); else AudioManager.Instance?.MusicTogglePlayPause(); });
+            _next = MakeButton("\u23ED", "Next track", () => { if (LocalMode) LocalMedia.Next(); else AudioManager.Instance?.MusicNext(); });
+            _repeat = MakeButton("\uE001", "Repeat: off, all, or one track", () => { if (!LocalMode) AudioManager.Instance?.MusicCycleRepeatMode(); });
             row.Add(_shuffle); row.Add(_prev); row.Add(_play); row.Add(_next); row.Add(_repeat);
             mid.Add(row);
 
@@ -189,6 +200,7 @@ namespace Homesteader.UI
             PopupStyles.Ensure(_window);
             var audio = AudioManager.Instance;
             if (audio != null) { audio.MusicStateChanged += Refresh; audio.PlaylistChanged += Refresh; }
+            LocalModeChanged += Refresh;
             _tick = _window.schedule.Execute(RefreshTransport).Every(200);
             Refresh();
         }
@@ -205,6 +217,7 @@ namespace Homesteader.UI
         {
             var audio = AudioManager.Instance;
             if (audio != null) { audio.MusicStateChanged -= Refresh; audio.PlaylistChanged -= Refresh; }
+            LocalModeChanged -= Refresh;
             WindowPositions.Remember(_window, WindowId);
             _tick?.Pause();
             _window.RemoveFromHierarchy();
@@ -214,9 +227,13 @@ namespace Homesteader.UI
         /// <summary>Everything that changes with the track, the playlist, shuffle or repeat.</summary>
         private void Refresh()
         {
+            if (_window.panel == null) return;
+            if (LocalMode) { RefreshLocal(); return; }
             var audio = AudioManager.Instance;
-            if (audio == null || _window.panel == null) return;
+            if (audio == null) return;
             _suppress = true;
+            _playlist.style.display = DisplayStyle.Flex;
+            _shuffle.SetEnabled(true); _repeat.SetEnabled(true); _volume.SetEnabled(true);
 
             _title.text = audio.CurrentTrackName;
             string playlist = AudioManager.PrettyPlaylistName(audio.CurrentPlaylistName);
@@ -240,11 +257,31 @@ namespace Homesteader.UI
         /// <summary>The cheap part, five times a second: the time left and the play button.</summary>
         private void RefreshTransport()
         {
+            if (LocalMode) { RefreshLocal(); return; }
             var audio = AudioManager.Instance;
             if (audio == null) return;
             SetText(_elapsed, "-" + FormatTime(Mathf.Max(0f, audio.TrackLengthSeconds - audio.TrackTimeSeconds)));
             SetText(_play, audio.IsMusicPlaying ? "⏸" : "▶");
             _play.EnableInClassList("steadify-mini-btn--on", audio.IsMusicPlaying);
+        }
+
+        /// <summary>Local tab: show what the PC is playing; shuffle, repeat, volume and the playlist do not apply.</summary>
+        private void RefreshLocal()
+        {
+            LocalMedia.Snapshot s = LocalMedia.Read();
+            bool known = s.State == LocalMedia.State.Playing || s.State == LocalMedia.State.Paused;
+            SetText(_title, known ? s.Title : s.State == LocalMedia.State.None ? "Nothing is playing" : "Not available");
+            SetText(_meta, known && !string.IsNullOrEmpty(s.Artist) ? s.Artist : "Local");
+            SetText(_elapsed, known && s.Length > 1f ? "-" + FormatTime(Mathf.Max(0f, s.Length - s.Position)) : "");
+            SetText(_play, s.State == LocalMedia.State.Playing ? "⏸" : "▶");
+            _play.EnableInClassList("steadify-mini-btn--on", s.State == LocalMedia.State.Playing);
+            _playlist.style.display = DisplayStyle.None;
+            _shuffle.SetEnabled(false); _repeat.SetEnabled(false); _volume.SetEnabled(false);
+            _shuffle.EnableInClassList("steadify-mini-btn--on", false);
+            _repeat.EnableInClassList("steadify-mini-btn--on", false);
+            Texture2D cover = known ? LocalMedia.Art(s) : null;
+            _art.style.backgroundImage = cover != null ? new StyleBackground(cover) : new StyleBackground(StyleKeyword.None);
+            _artGlyph.style.display = cover != null ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
         private static void SetText(TextElement el, string text) { if (el.text != text) el.text = text; }

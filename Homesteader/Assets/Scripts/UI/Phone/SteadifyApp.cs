@@ -1,4 +1,4 @@
-// SteadifyApp.cs - "Steadify" phone app: a Spotify-style music player controlling AudioManager's
+// SteadifyApp.cs - "Steadify" phone app: a music player controlling AudioManager's
 // music playlist (real CC0/CC-BY tracks loaded from Resources/Audio/Music).
 // Wired into PhoneController (tile, view, back button) the same way GigsApp is.
 
@@ -32,6 +32,9 @@ namespace Homesteader.UI
         private readonly SteadifyRadioPanel _radio;
         private readonly Button _modeMusicBtn;
         private readonly Button _modeRadioBtn;
+        private readonly SteadifyLocalPanel _local;
+        private readonly Button _modeLocalBtn;
+        private bool _localMode;
         private readonly List<VisualElement> _musicBlocks = new List<VisualElement>();
         private bool _radioMode;
 
@@ -70,9 +73,12 @@ namespace Homesteader.UI
             _musicBlocks.AddRange(view.Query<VisualElement>(className: "steadify-music").ToList());
             _modeMusicBtn = root.Q<Button>("SteadifyModeMusicBtn");
             _modeRadioBtn = root.Q<Button>("SteadifyModeRadioBtn");
+            _modeLocalBtn = root.Q<Button>("SteadifyModeLocalBtn");
             _radio = new SteadifyRadioPanel(root);
+            _local = new SteadifyLocalPanel(root);
             _modeMusicBtn?.Clickable()?.RegisterCallback<ClickEvent>(evt => SetRadioMode(false));
             _modeRadioBtn?.Clickable()?.RegisterCallback<ClickEvent>(evt => SetRadioMode(true));
+            _modeLocalBtn?.Clickable()?.RegisterCallback<ClickEvent>(evt => SetLocalMode());
             // open on whichever is playing; the radio when it is on air, else the music
             SetRadioMode(Homesteader.Radio.RadioPlayer.Instance != null && Homesteader.Radio.RadioPlayer.Instance.IsOn);
 
@@ -148,10 +154,27 @@ namespace Homesteader.UI
         private void SetRadioMode(bool radio)
         {
             _radioMode = radio;
-            foreach (VisualElement b in _musicBlocks) b.EnableInClassList("steadify-music--hidden", radio);
-            _radio?.SetVisible(radio);
-            _modeMusicBtn?.EnableInClassList("steadify-mode-btn--active", !radio);
-            _modeRadioBtn?.EnableInClassList("steadify-mode-btn--active", radio);
+            _localMode = false;
+            ApplyMode();
+        }
+
+        private void SetLocalMode()
+        {
+            _radioMode = false;
+            _localMode = true;
+            ApplyMode();
+        }
+
+        private void ApplyMode()
+        {
+            bool music = !_radioMode && !_localMode;
+            foreach (VisualElement b in _musicBlocks) b.EnableInClassList("steadify-music--hidden", !music);
+            _radio?.SetVisible(_radioMode);
+            _local?.SetVisible(_localMode);
+            _modeMusicBtn?.EnableInClassList("steadify-mode-btn--active", music);
+            _modeRadioBtn?.EnableInClassList("steadify-mode-btn--active", _radioMode);
+            _modeLocalBtn?.EnableInClassList("steadify-mode-btn--active", _localMode);
+            SteadifyMiniPlayer.SetLocalMode(_localMode);   // the pop-out player follows the tab
         }
 
         private void OnPlaylistChanged()
@@ -183,6 +206,7 @@ namespace Homesteader.UI
         public void RefreshTransport()
         {
             if (_radioMode) { _radio?.Tick(); return; }
+            if (_localMode) { _local?.Tick(); return; }
             var audio = AudioManager.Instance;
             if (audio == null) return;
 

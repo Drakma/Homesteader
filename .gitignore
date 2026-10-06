@@ -61,3 +61,9 @@ Homesteader/Assets/Mods/
 
 tools/gemini_music_mcp/raw/
 tools/gemini_music_mcp/recovered/
+
+# Local media helper (built per machine: tools/build_local_media_helper.ps1)
+Homesteader/Assets/StreamingAssets/LocalMedia/
+Homesteader/Assets/StreamingAssets/LocalMedia.meta
+tools/LocalMediaHelper/bin/
+tools/LocalMediaHelper/obj/

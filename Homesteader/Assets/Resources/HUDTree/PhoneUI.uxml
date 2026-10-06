@@ -439,6 +439,31 @@
                         <ui:VisualElement class="steadify-mode-row">
                             <ui:Button name="SteadifyModeMusicBtn" text="Music" class="steadify-mode-btn steadify-mode-btn--active" />
                             <ui:Button name="SteadifyModeRadioBtn" text="Radio" class="steadify-mode-btn" />
+                            <ui:Button name="SteadifyModeLocalBtn" text="Local" class="steadify-mode-btn" />
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="SteadifyLocalPane" class="steadify-local-pane steadify-local-pane--hidden">
+                            <ui:VisualElement class="steadify-playlist-selector-row">
+                                <ui:Label text="Source:" class="steadify-playlist-selector-label" />
+                                <ui:DropdownField name="SteadifyLocalSource" class="steadify-playlist-selector" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement class="steadify-now-playing-card">
+                                <ui:VisualElement name="SteadifyLocalArt" class="steadify-album-art">
+                                    <ui:Label text="&#x266B;" class="steadify-album-art-glyph" />
+                                </ui:VisualElement>
+                                <ui:Label name="SteadifyLocalTitle" text="Local" class="steadify-track-title" />
+                                <ui:Label name="SteadifyLocalStatus" text="" class="steadify-track-meta" />
+                                <ui:VisualElement class="steadify-radio-progress">
+                                    <ui:VisualElement name="SteadifyLocalProgressFill" class="steadify-radio-progress-fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="SteadifyLocalTime" text="" class="steadify-time-label steadify-local-time" />
+                                <ui:VisualElement class="steadify-transport-row">
+                                    <ui:Button name="SteadifyLocalPrevBtn" text="&#x23EE;" class="steadify-transport-btn" />
+                                    <ui:Button name="SteadifyLocalPlayPauseBtn" text="&#x25B6;" class="steadify-transport-btn steadify-transport-btn--primary" />
+                                    <ui:Button name="SteadifyLocalNextBtn" text="&#x23ED;" class="steadify-transport-btn" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
                         </ui:VisualElement>
 
                         <ui:VisualElement name="SteadifyRadioPane" class="steadify-radio-pane steadify-radio-pane--hidden">
