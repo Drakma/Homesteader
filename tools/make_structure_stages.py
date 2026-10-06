@@ -78,16 +78,17 @@ class Builder:
         if uv:
             layer = self.bm.loops.layers.uv.verify()
             sx, sy, sz = (max(1e-6, x1 - x0), max(1e-6, y1 - y0), max(1e-6, z1 - z0))
+            thin = 0 if sx < sy else 1                           # the slab's thickness axis: its two big faces (inside and outside) face along it
             for f in faces:
                 n = f.normal
                 ax = max(range(3), key=lambda k: abs(n[k]))
                 for loop in f.loops:
                     co = loop.vert.co
-                    if ax == 2:                                  # top and bottom edges
-                        u, v = (co.x - x0) / sx, (co.y - y0) / sy
-                    else:
-                        u = (co.y - y0) / sy if ax == 0 else (co.x - x0) / sx      # across the face (a face turned to +-x runs along y, one turned to +-y along x)
-                        v = (co.z - z0) / sz
+                    if ax != thin:                               # an edge (the sides, the top, the bottom): a plain part of the picture, so the pattern is only on the big faces
+                        loop[layer].uv = (0.03, 0.5)
+                        continue
+                    u = (co.y - y0) / sy if ax == 0 else (co.x - x0) / sx            # across the face (a face turned to +-x runs along y, one turned to +-y along x)
+                    v = (co.z - z0) / sz
                     loop[layer].uv = (min(1.0, max(0.0, u)), min(1.0, max(0.0, v)))
 
     def log(self, a, b, radius, m, sides=8):
