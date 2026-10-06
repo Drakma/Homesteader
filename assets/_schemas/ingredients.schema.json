@@ -1,6 +1,8 @@
 {
   "category": "ingredients",
   "note": "Processing is a CHAIN, not always a single step - some ingredients cook directly into food (beef -> grill -> grilled beef), others need an intermediate processing item first (wheat -> mill -> flour -> bake -> bread). next_item_id just points to whatever comes next in the chain, one link at a time; follow it repeatedly (it may point to another ingredients item, or to the final food item) rather than assuming every ingredient is one step from food.",
+  "title": "Ingredients",
+  "target": "category_fields",
   "fields": {
     "processing_method": {
       "type": "string",

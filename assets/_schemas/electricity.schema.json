@@ -1,5 +1,7 @@
 {
   "category": "electricity",
+  "title": "Electricity",
+  "target": "category_fields",
   "fields": {
     "fuel_type": {
       "type": "string",

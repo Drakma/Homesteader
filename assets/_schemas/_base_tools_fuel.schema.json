@@ -1,0 +1,37 @@
+{
+  "category": "_base_tools_fuel",
+  "title": "Tools and fuel",
+  "target": "properties",
+  "note": "Tool speed and what a tool or fuel item does when used.",
+  "fields": {
+    "build_speed": {
+      "type": "number",
+      "required": false,
+      "min": 0.1,
+      "label": "Build Speed",
+      "note": "Tools only: how fast building goes with this tool (1 = the baseline stage time of 30 s, 0.5 = twice as long, 2 = twice as fast). A stage takes as long as its slowest tool group allows, and each group uses the fastest of its tools that is at the site. Primitive tools (hammer, hand saw, shovel) are below 1; power tools are 1 or more. Empty = 1."
+    },
+    "burn_minutes": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 0,
+      "label": "Burns For (game minutes)",
+      "note": "Fuel for a fireplace: placed in a fireplace (right click the chimney of a finished building with it) it burns for this many game minutes. 0 = not a fireplace fuel."
+    },
+    "lights_fires": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Lights Fires",
+      "note": "A lighter or match: right click a fireplace that has fuel in it with this item in hand to light the fire. It is not used up."
+    },
+    "sawmill": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Sawmill",
+      "note": "A placeable stationary sawmill (docs/SAWMILL.md): an uncut log is laid on its track (left click with it in hand), a right click asks what lumber to cut, the carriage makes three passes and the lumber is stacked beside it. The model has the parts SawCarriage, SawBlade and Frame."
+    }
+  }
+}

@@ -1,6 +1,8 @@
 {
   "category": "internet",
   "note": "The runtime overload check for this category is: sum of active consumers' bandwidth_usage_mbps vs. the connected producer's bandwidth_mbps throughput, same pattern as structures.electrical_service_capacity_w vs summed power_draw_w. appliances.bandwidth_usage_mbps now covers the TVs (streaming, budget 6 Mbps / premium 25 Mbps). REMAINING GAP (not forgotten - paused 2026-09-15 pending Creative Claw credits): no computer/laptop or other general internet-consuming device exists in the catalog yet - only TVs are wired up as bandwidth consumers so far. Add bandwidth_usage_mbps to those item types once they're created.",
+  "title": "Internet",
+  "target": "category_fields",
   "fields": {
     "power_draw_w": {
       "type": "number",

@@ -46,7 +46,7 @@ fence while the player stands inside it with no gate in the hotbar asks first: "
 
 ## Data
 
-- Item properties (asset kit item popup, `_base.schema.json`): `fence_style` (wood, wire), `fence_panel_m`, `fence_height_m`, `fence_post_item`;
+- Item properties (asset kit item popup, `_base_fences_paths.schema.json`): `fence_style` (wood, wire), `fence_panel_m`, `fence_height_m`, `fence_post_item`;
   `gate_width_m`, `gate_style` (wood, metal).
 - Save: `GameSave.fences` (style, items, posts, closed, gates with segment / distance / width / open).
 - The geometry is procedural (one mesh per fence; wood = posts and 3 rails, wire = thin posts and 5 strands).

@@ -1,5 +1,7 @@
 {
   "category": "ranching",
+  "title": "Ranching",
+  "target": "category_fields",
   "fields": {
     "species": {
       "type": "string",

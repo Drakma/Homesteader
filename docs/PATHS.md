@@ -4,7 +4,7 @@ Hold a path or road BLUEPRINT and left click to lay control points. The route is
 material. Enter lays it; Backspace or a right click takes the last point back; Esc cancels. The whole route must be on land you own and out of water.
 
 ## Path or road: the item decides
-Set on the material item (asset kit, building category; schema fields in `_base.schema.json`):
+Set on the material item (asset kit, building category; schema fields in `_base_fences_paths.schema.json`):
 
 | property | meaning |
 |---|---|

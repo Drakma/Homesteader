@@ -1,5 +1,7 @@
 {
   "category": "vehicles",
+  "title": "Vehicles",
+  "target": "category_fields",
   "fields": {
     "vehicle_type": {
       "type": "string",

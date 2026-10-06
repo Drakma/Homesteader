@@ -1,0 +1,70 @@
+{
+  "category": "_base_water",
+  "title": "Water and sewage",
+  "target": "properties",
+  "note": "Pumps, filters, heaters, wells and septic systems. See docs/WATER.md.",
+  "fields": {
+    "flow_lph": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Flow (L/h)",
+      "note": "A submersible well pump: liters an hour it lifts. A well gives this, or what the aquifer under it gives, whichever is less (docs/WELLS.md). On a WATER PIPE (wire_kind water): liters an hour the pipe carries; a water line gives no more than its narrowest pipe lets through (half inch 900, one inch 2400, two inch 9000)."
+    },
+    "pressurized": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Pressurized",
+      "note": "A water tank that holds its water under pressure (a pressure tank, a water heater): a building's taps draw from it with no pump running. A plain cistern needs a water pump between it and what it feeds."
+    },
+    "heater_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Heater (W)",
+      "note": "A water heater: its element's watts. A water tank (wire_role water_tank) with a heater warms what it holds to 55 C while the building it stands in has power, drawing these watts while it heats."
+    },
+    "filter_stage": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "enum": [
+        "",
+        "sediment",
+        "carbon",
+        "uv"
+      ],
+      "label": "Filter Stage",
+      "note": "A water filter on a well's water line (wire_role water_filter): water reaching a tank through a sediment, a carbon and a uv stage is clean (drinkable); otherwise it is raw."
+    },
+    "is_well": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Drilled Well",
+      "note": "A structure that is a drilled well: its recipe lines may scale with the depth to water (per_depth_m), it takes a sub panel (attach_item) and pumps into the tanks it is piped to."
+    },
+    "sewage_capacity_l": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Septic Capacity (L)",
+      "note": "A septic tank structure (wire_role septic_tank): the liters it holds. Sludge builds up in it as the buildings piped to it drain (half as fast through a macerator pump); the liquid flows on to its distribution box and leach fields. Pumped out by the honey pot truck (docs/SEPTIC.md)."
+    },
+    "leach_lpd": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Leach Rate (L/day)",
+      "note": "A leach field structure (wire_role leach_field): the liters a game day that soak away into the ground from it (docs/SEPTIC.md)."
+    },
+    "leach_storage_l": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Leach Storage (L)",
+      "note": "A leach field: the liters its gravel trenches hold while they soak away. When the fields are full the septic system backs up and the fixtures will not drain."
+    }
+  }
+}

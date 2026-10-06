@@ -1,5 +1,7 @@
 {
   "category": "waste",
+  "title": "Waste",
+  "target": "category_fields",
   "fields": {
     "power_draw_w": {
       "type": "number",

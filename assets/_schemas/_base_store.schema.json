@@ -1,0 +1,32 @@
+{
+  "category": "_base_store",
+  "title": "Shop listing",
+  "target": "properties",
+  "note": "Where the item is sold. The manifest is the only source: the phone shops are generated from it (tools/generate_unity_asset_catalog.py).",
+  "fields": {
+    "stores": {
+      "type": "array",
+      "required": false,
+      "label": "Sold At",
+      "note": "The phone shops that sell this item (depot, lumber, grocer, feed, water, vehicles, equipment, livestock, furniture, voltvision, trailershack). The manifest is the ONLY place this lives: the phone builds each shop from the catalog. Setting it makes the item buyable at base_value (is_buyable true)."
+    },
+    "sale_unit": {
+      "type": "string",
+      "required": false,
+      "label": "Sale Unit",
+      "note": "How a shop counts it: ea, kit, box, bale, packet, tank ... (default ea)."
+    },
+    "store_category": {
+      "type": "string",
+      "required": false,
+      "label": "Shop Label",
+      "note": "The chip label a shop shows for it when it differs from its asset category default (for example Trailer Parts)."
+    },
+    "store_overrides": {
+      "type": "object",
+      "required": false,
+      "label": "Per-Shop Overrides",
+      "note": "One shop that sells it differently: {\"trailershack\": {\"category\": \"Trailer Repair\", \"unit\": \"ea\", \"price\": 35}}. Edited in the manifest JSON."
+    }
+  }
+}

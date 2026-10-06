@@ -1,0 +1,112 @@
+{
+  "category": "_base_fences_paths",
+  "title": "Fences, gates and paths",
+  "target": "properties",
+  "note": "Fence panels and gates, and path and road surfaces. See docs/FENCES.md and docs/PATHS.md.",
+  "fields": {
+    "fence_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "wood",
+        "wire"
+      ],
+      "default": "",
+      "label": "Fence Style",
+      "note": "A fence material the player builds with: wood (post and rail) or wire. With it in hand each click places a post; the panels fill in between the posts when the fence is built."
+    },
+    "fence_panel_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 2.4,
+      "label": "Fence Panel Length (m)",
+      "note": "How far one panel of this fencing reaches between two posts; a run of L metres uses ceil(L / this) panels."
+    },
+    "fence_height_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Fence Height (m)",
+      "note": "How tall the finished fence stands."
+    },
+    "fence_post_item": {
+      "type": "string",
+      "required": false,
+      "default": "post_wood_round_6inch",
+      "label": "Fence Post Item",
+      "note": "The item id of the post this fencing is built on (one per post, taken from the hotbar when the fence is built)."
+    },
+    "gate_width_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Gate Width (m)",
+      "note": "A gate: with it in hand, a click on a built fence takes the fence out for this width and stands the gate in the gap. Empty = not a gate."
+    },
+    "gate_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "wood",
+        "metal"
+      ],
+      "default": "",
+      "label": "Gate Style",
+      "note": "How the gate looks: wood or metal."
+    },
+    "path_kind": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "path",
+        "road"
+      ],
+      "default": "",
+      "label": "Path / Road Kind",
+      "note": "A surface the player lays as a smooth curved route (PathBuilder): path (narrow, for walking) or road (wide, for vehicles). Empty = not a path material."
+    },
+    "path_width_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.5,
+      "default": 1.2,
+      "label": "Path Width (m)",
+      "note": "How wide the laid surface is (paths about 1.2 m, roads about 4 m)."
+    },
+    "path_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "dirt",
+        "gravel",
+        "stone",
+        "asphalt"
+      ],
+      "default": "",
+      "label": "Path Surface",
+      "note": "How the surface looks. Asphalt also gets a centre lane marking."
+    },
+    "path_m_per_item": {
+      "type": "number",
+      "required": false,
+      "min": 0.25,
+      "default": 2.0,
+      "label": "Metres Per Item",
+      "note": "How many metres of route one item lays; a route of L metres uses ceil(L / this) items."
+    },
+    "path_material_item": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Path Material Item",
+      "note": "On a path or road blueprint: the item id of the material it lays (one per path_m_per_item metres), taken from the hotbar or the work site."
+    }
+  }
+}

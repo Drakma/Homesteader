@@ -1,0 +1,43 @@
+{
+  "category": "_base_network",
+  "title": "Network and racks",
+  "target": "properties",
+  "note": "Networking gear: ports, power over Ethernet and rack mounting.",
+  "fields": {
+    "net_ports": {
+      "type": "integer",
+      "required": false,
+      "min": 0,
+      "label": "Network Ports",
+      "note": "Network gear (a wire_role that starts net_): how many Cat6 cables it takes. A router: its LAN ports (the dish or yagi that feeds it goes in its WAN port, which is not counted). docs/INTERNET.md."
+    },
+    "poe": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "PoE Ports",
+      "note": "A switch or injector whose ports each give 15 W of DC power over the cable: a camera, an access point or a yagi on one of them needs no other supply."
+    },
+    "poe_powered": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Runs From PoE",
+      "note": "A network device that takes its power from the cable (a camera, an access point, a yagi): it is cabled only to a PoE port, and everything else only to a standard port."
+    },
+    "rack_units": {
+      "type": "integer",
+      "required": false,
+      "min": 0,
+      "label": "Rack Units",
+      "note": "A rackmount router or switch: the units it takes in a wall rack (1). 0 = it does not go in a rack."
+    },
+    "rack_capacity_u": {
+      "type": "integer",
+      "required": false,
+      "min": 0,
+      "label": "Rack Capacity (U)",
+      "note": "A rack (wire_role net_rack): the units it holds. The gear in it is cabled as one device: its ports add up."
+    }
+  }
+}

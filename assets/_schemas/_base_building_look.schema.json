@@ -1,0 +1,55 @@
+{
+  "category": "_base_building_look",
+  "title": "Building look",
+  "target": "properties",
+  "note": "A construction material that sets how a building looks (roof or wall colour and sheen). See docs/CONSTRUCTION.md \"Look follows the materials\".",
+  "fields": {
+    "look_target": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Building Look: Parts",
+      "note": "Used as a construction material, this item decides how parts of the building LOOK. One or more of: roof, walls (logs, siding), interior (paint), floor (carpet, tile, flooring), chimney (brick, stone), foundation (see Foundation Style), separated by commas (bricks: \"chimney,foundation\"). Leave empty for items that do not."
+    },
+    "look_color": {
+      "type": "string",
+      "required": false,
+      "editor": "color",
+      "default": "#a8742f",
+      "label": "Building Look: Colour",
+      "note": "The colour of that part of the building as #RRGGBB (birch logs white-cream, pine warm brown, shingles slate grey)."
+    },
+    "look_smoothness": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0.2,
+      "label": "Building Look: Smoothness",
+      "note": "0 = matt (wood, shingles), 1 = glossy."
+    },
+    "look_metallic": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0,
+      "label": "Building Look: Metallic",
+      "note": "0 = not metal, 1 = bare metal (a tin roof, steel siding)."
+    },
+    "look_style": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "",
+        "poured",
+        "block",
+        "brick",
+        "stilts"
+      ],
+      "default": "",
+      "label": "Building Look: Foundation Style",
+      "note": "For an item whose parts include foundation: the foundation style it builds: poured (the slab), block (concrete block stem wall), brick (brick or stone stem wall, coloured by Look Colour) or stilts (piles under a deck)."
+    }
+  }
+}

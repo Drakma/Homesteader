@@ -5743,16 +5743,16 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 # Write only non-default values. Dropping them when default keeps
                 # manifests that never opted in free of noise fields, and means
                 # re-running the view over a clean catalog is a no-op.
-                # base_value is required by _base.schema.json, so it is
+                # base_value is required by the core base schema (_base.schema.json), so it is
                 # always written (never removed) - only the two optional
                 # flags are dropped when false, keeping untouched
                 # manifests free of noise fields.
                 props["base_value"] = r["cost"]
-                # is_consumable is mandatory in _base.schema.json, so it is always
+                # is_consumable is mandatory in the core base schema (_base.schema.json), so it is always
                 # written as an explicit boolean (never dropped when false).
                 if r["is_consumable"] is not None:
                     props["is_consumable"] = r["is_consumable"]
-                # is_buyable / is_sellable are mandatory in _base.schema.json: always explicit booleans.
+                # is_buyable / is_sellable are declared in the core base schema (_base.schema.json): always explicit booleans.
                 props["is_buyable"] = bool(r["is_buyable"])
                 props["is_sellable"] = bool(r["is_sellable"])
                 if props:

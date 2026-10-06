@@ -1,5 +1,7 @@
 {
   "category": "water",
+  "title": "Water",
+  "target": "category_fields",
   "fields": {
     "irrigated_growth_bonus_pct": {
       "type": "number",

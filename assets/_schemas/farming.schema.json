@@ -1,6 +1,8 @@
 {
   "category": "farming",
   "note": "days_to_mature, season, yield_amount and yields_item_id are NOT required on growth-group stage manifests (crop_sprout/growing/mature): for a crop group that data is owned by the group manifest's growth.rules (see growth_group.schema.json) and must not be repeated per stage. They stay valid (and are still used) on standalone items such as seed_*.",
+  "title": "Farming",
+  "target": "category_fields",
   "fields": {
     "crop_species": {
       "type": "string",

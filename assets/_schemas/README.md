@@ -55,27 +55,47 @@ instead of clobbering each other.
 This mirrors the Unity side (`AssetManifestSummary.ns` / `.QualifiedId`), where a
 colliding qualified id is rejected - first one wins - rather than overwritten.
 
-## Categories defined so far
+## The base schemas (`_base*.schema.json`)
 
-- `_base` - Base schema applied to EVERY item's `properties` block:
-  - `base_value` (number >= 0, dollars)
-  - `weight_kg` (number >= 0, kilograms)
-  - `max_stack_size` (integer >= 1)
-  - `build_speed` (number >= 0.1, optional, tools): 1 = the baseline 30 s per stage, 0.5 = twice as long (a hammer, a hand saw), 2 = twice as fast. Each tool group counts its fastest tool at the site; a stage takes as long as its slowest group.
-  - `pack_quantity` (number >= 1, optional): a stack / pallet / case / bundle of N items. The SHOWN name is generated, `Name xN` then the weight when shown (`Name x10 (200 kg)`); the stored name stays plain (`Cement Bag Pallet`).
-  - `display_weight` (boolean, optional): materials and packaged goods show `Name (9 kg)` (or lb), generated from `weight_kg` through `UnitFormat`. Never put a weight, measurement or count in the stored name (`tools/migrate_item_names.py` moved the existing ones out). Shown names come from `HudBindings.GetDisplayName`: store lists, the active slot, WAILA and the construction lists.
-  - `is_consumable` (boolean)
-  - `is_spawnable` (boolean, optional - defaults to `false` when omitted so older
-    manifests stay valid). When `true`, the item is scattered into the world by
-    terrain generation and must also declare a `spawning` block naming at least
-    one target biome via `spawning.biomes[]`. When `false`/absent the item is
-    data-only: craftable and placeable, but never auto-placed by the generator.
-  - Player vitals: `happiness_modifier`, `thirst_restore`, `energy_restore`, `stamina_restore`, `wellness_modifier` (numbers between -100 and +100).
-- `_base_dimensions` - `dimensions_m` (`width`, `depth`, `height` in meters) under `category_fields`.
-- `appliances` - `dimensions_m` (width/depth/height in meters). Added
-  2026-09-15 as the first field, since real-world footprint size was the
-  original reason this whole schema system got proposed (a house has a
-  finite amount of floor space).
+Every item's `properties` block is checked against ALL the `_base*.schema.json` files together (the server's validator and
+`tools/validate_schema.py` load every file with that prefix). The base used to be one file of 74 fields; it is now split by topic so a
+field is easy to find, and so each topic has one place to describe itself. The manifest layout did NOT change: every field is still
+`properties.<field>`, and a field's definition is identical to what it was. Add a new base field to the file whose topic fits it; make a new
+`_base_<topic>.schema.json` (`"target": "properties"`, a `title` and a `note`) only for a genuinely new topic. The schema editor lists them
+all under **Universal**.
+
+| File | Fields | What it covers |
+|---|---|---|
+| `_base` | `base_value`, `weight_kg`, `max_stack_size`, `pack_quantity`, `display_weight`, `is_consumable`, `is_spawnable`, `is_buyable`, `is_sellable` | The core of every item: economy, weight, stacking and how its name is shown |
+| `_base_vitals` | `happiness_modifier`, `thirst_restore`, `energy_restore`, `stamina_restore`, `wellness_modifier` | What eating, drinking or using it does to the player |
+| `_base_store` | `stores`, `sale_unit`, `store_category`, `store_overrides` | The shop listing (the phone shops are generated from it) |
+| `_base_placement` | `placeable`, `stacking_limit`, `support_surface`, `deck_heights`, `shelf`, `pushable`, `is_blueprint`, `builds_structure` | How it stands in the world, stacks, carries things; kit and blueprint flags |
+| `_base_mounting` | `attach_surface`, `attach_side`, `attach_through`, `attach_item`, `attach_result`, `roof_mount`, `provides_power`, `panel_*` | Items that mount on a building; solar panel geometry |
+| `_base_wiring` | `wire_role`, `wire_kind`, `wire_length_m`, `power_radius_tiles`, `capacity_wh`, `voltage_v` | The electrical system |
+| `_base_water` | `flow_lph`, `pressurized`, `heater_w`, `filter_stage`, `is_well`, `sewage_capacity_l`, `leach_lpd`, `leach_storage_l` | Pumps, filters, heaters, wells, septic |
+| `_base_network` | `net_ports`, `poe`, `poe_powered`, `rack_units`, `rack_capacity_u` | Networking gear and racks |
+| `_base_building_look` | `look_target`, `look_color`, `look_smoothness`, `look_metallic`, `look_style` | How a construction material changes a building's look |
+| `_base_fences_paths` | `fence_*`, `gate_*`, `path_*` | Fences, gates, paths and roads |
+| `_base_tools_fuel` | `build_speed`, `burn_minutes`, `lights_fires`, `sawmill` | Tool speed, fuel burn and fire lighting |
+| `_base_dimensions` | `dimensions_m` (`width`, `depth`, `height` in metres) | Under `category_fields`, not `properties` |
+
+Field notes worth keeping (the field's own `note` in its schema file has the rest):
+- `base_value` (number >= 0, dollars), `weight_kg` (kilograms), `max_stack_size` (integer >= 1): required on every item.
+- `build_speed` (number >= 0.1, optional, tools): 1 = the baseline 30 s per stage, 0.5 = twice as long (a hammer, a hand saw), 2 = twice as fast. Each tool group counts its fastest tool at the site; a stage takes as long as its slowest group.
+- `pack_quantity` (number >= 1, optional): a stack / pallet / case / bundle of N items. The SHOWN name is generated, `Name xN` then the weight when shown (`Name x10 (200 kg)`); the stored name stays plain (`Cement Bag Pallet`).
+- `display_weight` (boolean, optional): materials and packaged goods show `Name (9 kg)` (or lb), generated from `weight_kg` through `UnitFormat`. Never put a weight, measurement or count in the stored name (`tools/migrate_item_names.py` moved the existing ones out). Shown names come from `HudBindings.GetDisplayName`: store lists, the active slot, WAILA and the construction lists.
+- `is_spawnable` (boolean, optional, default `false`): when `true` the item is scattered into the world by terrain generation and must also declare a `spawning` block naming at least one target biome via `spawning.biomes[]`.
+- `is_buyable` / `is_sellable` (booleans, optional): added to the schema 2026-10-05 (they were on nearly every manifest but undeclared).
+- Player vitals: numbers between -100 and +100.
+
+### Known overlaps (candidates for a later clean-up, not changed yet)
+
+These are real duplications, left alone because moving data changes manifests and the game's catalog export:
+- `fuel_type`, `fuel_consumption_l_per_min`, `tank_capacity_l`, `power_draw_w` and `is_connected` are re-declared in several category schemas (appliances, electricity, tools, vehicles, waste, water, internet) with slightly different required/optional rules. A shared "field set" mechanism that categories can include would remove them.
+- `fertilizer_growth_bonus_pct` is in both `materials` and `waste`.
+- `pushable` and `stacking_limit` exist in `_base_placement` AND in the `container` component. The export writes both to the same catalog field (`container_stacking_limit`), so the game cannot tell them apart; pick one home.
+- `validate_schema.py` skips growth groups (as the server does) but does not check component schemas (container, liquid_container, fruiting); only the server's validation does.
+- Existing data that fails today's schemas (run `py -3 tools/validate_schema.py <category>`): food and materials items missing `dimensions_m`, structures that are blueprints without `dimensions_m` or the five vitals, and a few water / waste items missing power or capacity fields.
 
 ## animal_ai.schema.json
 

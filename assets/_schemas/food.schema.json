@@ -1,5 +1,7 @@
 {
   "category": "food",
+  "title": "Food",
+  "target": "category_fields",
   "fields": {
     "hunger_restore": {
       "type": "number",

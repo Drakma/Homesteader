@@ -90,6 +90,9 @@ def main(category):
     for path in manifest_paths:
         with open(path, "r", encoding="utf-8") as f:
             manifest = json.load(f)
+        # A growth group (is_growable) is checked against growth_group.schema.json by the server, never against the item schemas: its stages are the items.
+        if isinstance(manifest, dict) and manifest.get("is_growable"):
+            continue
         errors = []
         for schema in schemas:
             errors.extend(validate_item(manifest, schema))

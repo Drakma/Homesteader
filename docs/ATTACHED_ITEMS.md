@@ -4,7 +4,7 @@ Breaker boxes, lights (and later switches) are not put on the ground: they mount
 
 ## Manifest
 
-Base properties (`assets/_schemas/_base.schema.json`, edited in the asset kit popup next to "Lights Fires"):
+Base properties (`assets/_schemas/_base_mounting.schema.json`, edited in the asset kit popup next to "Lights Fires"):
 
 | Property | Values | Meaning |
 |---|---|---|

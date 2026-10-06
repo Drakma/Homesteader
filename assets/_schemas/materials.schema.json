@@ -1,5 +1,7 @@
 {
   "category": "materials",
+  "title": "Materials",
+  "target": "category_fields",
   "fields": {
     "fertilizer_growth_bonus_pct": {
       "type": "number",

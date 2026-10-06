@@ -1,0 +1,101 @@
+{
+  "category": "_base_wiring",
+  "title": "Wiring and power",
+  "target": "properties",
+  "note": "How a device joins the electrical system: its wiring role, the wire it is made of and its power figures. See docs/WIRING.md.",
+  "fields": {
+    "wire_role": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "enum": [
+        "",
+        "net_dish",
+        "net_yagi",
+        "net_router",
+        "net_switch",
+        "net_ap",
+        "net_camera",
+        "net_rack",
+        "net_antenna",
+        "net_jack",
+        "net_device",
+        "solar_panel",
+        "wall_entry",
+        "dc_breaker",
+        "mppt",
+        "battery",
+        "inverter",
+        "ac_panel",
+        "busbar",
+        "wind_turbine",
+        "propane_tank",
+        "propane_connector",
+        "propane_filler",
+        "water_tank",
+        "water_filter",
+        "water_inlet",
+        "water_spigot",
+        "water_pump",
+        "sewer_outlet",
+        "sewer_pump",
+        "septic_tank",
+        "septic_dbox",
+        "leach_field",
+        "standby_generator",
+        "disconnect",
+        "generator_lockout",
+        "fuel_tank",
+        "fuel_pump"
+      ],
+      "label": "Wiring Role",
+      "note": "A device the off-grid solar chain wires together (docs/WIRING.md): solar panel (the panel on its mount) > wall entry > DC breaker box > MPPT charge controller > battery > inverter, and an inverter feeds an AC panel (the outdoor breaker box); a bus bar joins any DC devices. With wire cutters in hand a right click on a device and then on another wires them (either order). propane_tank, propane_connector and propane_filler (a fill post for portable tanks) are the ends of a PROPANE line, joined the same way but with the pipe wrench and propane pipe. Empty = not wired. Water (docs/WELLS.md): water_tank, water_filter, water_inlet, water_spigot, water_pump, joined with the pipe wrench and PVC pipe. Sewage (docs/SEPTIC.md): sewer_outlet (a building's waste outlet), sewer_pump (a macerator), septic_tank, septic_dbox (a distribution box) and leach_field, joined with the pipe wrench and black waste pipe (wire_kind sewer). standby_generator: a propane standby generator, piped to a propane tank (pipe wrench) and wired with AC wire to a building's generator_lockout box (mounted outside): the box runs the building on its breaker box or on the generator, never both, switching over by itself when the power runs short. disconnect: a safety disconnect wired into a run (AC or DC); a right click throws it, and off it cuts the run there. fuel_tank (a bulk gasoline / diesel tank) and fuel_pump (an electric dispenser, also wired to a breaker box with AC wire) are joined with the pipe wrench and a fuel line (wire_kind fuel)."
+    },
+    "wire_kind": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "enum": [
+        "",
+        "net",
+        "dc_indoor",
+        "dc_outdoor",
+        "ac",
+        "propane",
+        "water",
+        "sewer",
+        "fuel"
+      ],
+      "label": "Wire Kind",
+      "note": "A coil or spool of wire: dc_indoor (red and black, for the runs inside), dc_outdoor (weather-rated: the run to a solar panel needs it) or ac (inverter to AC panel); propane is propane PIPE (a tank to a house connector). Pairs with Wire Length. water is PVC water pipe (docs/WELLS.md); sewer is black waste pipe (a building's waste outlet to its septic system, docs/SEPTIC.md). fuel is a fuel line (a bulk fuel tank to a fuel pump)."
+    },
+    "wire_length_m": {
+      "type": "number",
+      "required": false,
+      "min": 0.1,
+      "label": "Wire Length (m)",
+      "note": "How many metres of wire the coil or spool holds. Each connection uses the distance between its two devices plus 0.5 m of slack; the game counts the metres used and removes the spool when it is empty."
+    },
+    "power_radius_tiles": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power Radius (tiles)",
+      "note": "A portable generator: it powers everything that needs electricity (not battery powered) within this many tiles of it. It is not connected to structures: a building runs on its own system. Its rated power is max_power_w."
+    },
+    "capacity_wh": {
+      "type": "number",
+      "required": false,
+      "min": 1,
+      "label": "Capacity (Wh)",
+      "note": "A battery's energy capacity in watt-hours. Shown by the look-at panel."
+    },
+    "voltage_v": {
+      "type": "number",
+      "required": false,
+      "min": 1,
+      "label": "Voltage (V)",
+      "note": "A battery's nominal voltage. Shown by the look-at panel."
+    }
+  }
+}

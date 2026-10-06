@@ -1,6 +1,8 @@
 {
   "category": "fuel",
   "note": "PROPANE has no in-game production path at all - unlike wood (harvested from trees via logging), propane only ever enters play by the player acquiring it externally (buying/hauling it in, mechanism TBD elsewhere), then storing it in a tank/container and drawing it down. Do not add a propane producer/refiner/well item or mechanic - propane is purely a consumable resource that depletes.",
+  "title": "Fuel",
+  "target": "category_fields",
   "fields": {
     "fuel_type": {
       "type": "string",

@@ -1,5 +1,7 @@
 {
   "category": "tools",
+  "title": "Tools",
+  "target": "category_fields",
   "fields": {
     "fuel_type": {
       "type": "string",

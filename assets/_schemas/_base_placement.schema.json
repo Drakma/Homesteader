@@ -1,0 +1,65 @@
+{
+  "category": "_base_placement",
+  "title": "Placement",
+  "target": "properties",
+  "note": "How the item stands in the world once put down: whether it can be placed, how things stack on or in it, and the kit and blueprint flags.",
+  "fields": {
+    "placeable": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "label": "Placeable",
+      "note": "Whether the player can put this item on the ground. Every item with a model can be placed; set false to forbid it (lights and panels that mount on a building are never placed on the ground). Delivery still sets down as itself only the items that declare true; the rest arrive in boxes. The first left click brings out a shadow preview, R rotates it, Enter or a second click places it. Seeds that plant a growth group are never placed."
+    },
+    "stacking_limit": {
+      "type": "number",
+      "integer": true,
+      "required": false,
+      "min": 1,
+      "default": 1,
+      "label": "Stack Limit (placed)",
+      "note": "How many identical PLACED ones can be stacked on each other in one grid square in the world (bags of cement: 4). 1 or empty = they do not stack. Needs placeable = true. A container sets this in its container block instead (container.stacking_limit), which wins when both are set. It is not the toolbar stack size (max_stack_size)."
+    },
+    "support_surface": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Carries Things (pallet)",
+      "note": "A placed one carries items on top (a pallet): things placed over its deck rest on it, packed side by side and stacked up to their stacking limit. A pallet that still carries things cannot be picked up. Needs placeable = true."
+    },
+    "deck_heights": {
+      "type": "string",
+      "required": false,
+      "label": "Shelf Heights (shelving unit)",
+      "note": "A support_surface item with several shelves (a shelving unit): the height of each shelf's top face above the ground, in metres, lowest first, comma separated (\"0.15, 0.62, 1.09, 1.56\"). Point at the open front of a shelf to put things on that one. Empty = one deck at the model's height (a pallet)."
+    },
+    "shelf": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Shelf",
+      "note": "A wall item (attach_surface wall) that is a SHELF: items are stood on its top face in a row (left click with the item in hand, right click the item to take it back). The top face is the top of the model bounds; see docs/ATTACHED_ITEMS.md."
+    },
+    "pushable": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Pushable",
+      "note": "The player grabs it by the handles and pushes it along like a wheelbarrow (right click to grab, right click to put down) instead of picking it up. A portable generator is pushed."
+    },
+    "is_blueprint": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Blueprint",
+      "note": "Bought once, starts a build when held (structure site, path or road route) and is never used up. Shown on the blueprint blue (#35637C). Structures that build in stages are blueprints automatically."
+    },
+    "builds_structure": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Kit Builds Structure",
+      "note": "A KIT: with it in hand a left click brings out the structure's preview (R turns it a quarter turn) and a second click starts its work site (the dirt area, the yard ring, the front arrow); the kit is used up. Structure id (a growth group of the structures category). The structure's own blueprint is then not for sale: the kit is how it is bought."
+    }
+  }
+}

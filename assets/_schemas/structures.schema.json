@@ -1,6 +1,8 @@
 {
   "category": "structures",
   "note": "Deliberately NO power_draw_w or fuel_consumption field here. A structure itself doesn't consume electricity - its total draw is the sum of power_draw_w of every electric item the player places inside it, computed dynamically at runtime. What a structure DOES have is electrical_service_capacity_w: power flows IN to the structure (from a generator/solar/grid connection) and the structure's own wiring/panel then supplies everything plugged in inside it. This capacity is a real gameplay constraint, not just flavor text - an undersized or bad breaker/panel relative to the summed power_draw_w of everything running inside should be able to cause real problems (overload trips, or worse). RUNTIME REQUIREMENT for whoever implements this in game logic: total draw vs. electrical_service_capacity_w is NOT a one-time check at placement time - it must be recomputed continuously/live, because the set of appliances actually running inside a structure changes constantly as the player turns things on and off, so an overload condition can appear or clear at any moment, not just when an item is placed. Do not add a static consumption field here, but electrical_service_capacity_w stays.",
+  "title": "Structures",
+  "target": "category_fields",
   "fields": {
     "interior_area_m2": {
       "type": "number",
@@ -54,7 +56,12 @@
     "build_motion": {
       "type": "string",
       "required": false,
-      "enum": ["", "tilt_up", "lift", "spin_up"],
+      "enum": [
+        "",
+        "tilt_up",
+        "lift",
+        "spin_up"
+      ],
       "note": "How the stage's model moves while it is built: tilt_up raises the node 'Mast' (about its foot), lift hoists the node 'Yaw' up the mast, spin_up fits the node 'Rotor' (it grows and spins up). The model shows in the site while the ped works. Empty = nothing moves. See docs/WIND_TURBINES.md."
     },
     "roof_area_m2": {
