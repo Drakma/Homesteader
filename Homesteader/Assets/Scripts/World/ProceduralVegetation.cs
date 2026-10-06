@@ -69,6 +69,13 @@ namespace Homesteader.World
             var willow = new Species { Name = "willow", Shape = Shape.Weeping, Trunk = Hex("#6b5e4a"), Crown = Hex("#7fae48"), HeightMin = 8f, HeightMax = 11.5f, Density = 0.5f, Scatter = 0.55f, Autumn = new[] { "#d9c23c", "#c9b030", "#e0cc50" } };
             s_willow = willow;
             s_fruitTrees = new[] { apple, lemon, orange };
+            // every tree is built 20% taller than its table height, the willow 40% (their crowns, trunks and fruit scale with the height)
+            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow })
+            {
+                float k = s == willow ? WillowHeightScale : TreeHeightScale;
+                s.HeightMin *= k;
+                s.HeightMax *= k;
+            }
 
             foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow }) BuildAssets(s);
             foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow })
@@ -112,6 +119,7 @@ namespace Homesteader.World
         }
 
         private static Species s_willow;
+        private const float TreeHeightScale = 1.2f, WillowHeightScale = 1.4f;
         private static Species[] s_fruitTrees;
 
         // Fruit trees are an extremely rare find: this chance (per tree placed) turns an ordinary tree in a TREE biome into one.
