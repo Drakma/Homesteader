@@ -576,7 +576,8 @@ def gable_courses(builder, c, y, thick, m, course, seams=None):
         while z < za - 0.05:
             z1 = min(z + course, za)
             zm = (z + z1) * 0.5
-            hw = half(zm) - 0.03
+            rr0 = (z1 - z) * 0.5 * 0.98
+            hw = half(zm + rr0) - 0.02          # as long as the gable is wide at the log's TOP edge: the round log's ends stay under the sloping roof (they poked through it)
             if hw > 0.1:
                 rr = (z1 - z) * 0.5 * 0.98
                 yc = (y - thick / 2 + rr) if y < 0 else (y + thick / 2 - rr)      # the log's outer side flush with the gable's outer plane, like the wall logs
