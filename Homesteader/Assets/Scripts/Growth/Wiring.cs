@@ -2469,13 +2469,17 @@ namespace Homesteader.Growth
             if (cam == null || WireNode.All.Count == 0) return null;
             RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(pointer), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
             System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            float solid = -1f;   // where the first solid thing (a wall) is along the ray
             foreach (RaycastHit h in hits)
             {
                 if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                // a device mounted ON a wall sits in the wall's surface: a jack on a log wall is a little behind the nearest bump of a round log, so a device within a hand's width
+                // behind the first solid thing still counts (the ray used to stop at that log and the jack could not be picked); anything farther back is behind the wall
+                if (solid >= 0f && h.distance - solid > 0.35f) break;
                 WireNode n = WireNode.Of(h.collider);
                 if (n != null) { if (n == skip) continue; return n; }          // a device (the one already picked is looked past: the one behind or beside it is meant)
                 if (h.collider.isTrigger) continue;                              // the click box of something that is not wired (a light): look past it
-                break;                                                           // a solid thing (a wall) is in the way
+                if (solid < 0f) solid = h.distance;                              // a solid thing (a wall) is in the way: only what is on its surface can still be picked
             }
             return NodeNear(cam, pointer, skip);
         }
