@@ -810,8 +810,14 @@ namespace Homesteader.Growth
                 rack = h.collider.GetComponentInParent<NetRack>();
                 if (rack != null)
                 {
-                    for (int i = 0; i < rack._views.Count; i++)
-                        if (rack._views[i] != null && h.collider.transform.IsChildOf(rack._views[i].transform)) { index = i; break; }
+                    // the rack's own collider is the nearest hit (a device sits a little behind its front edge), so look through ALL the hits on this rack for a device:
+                    // stopping at the first hit meant a device in the rack could never be clicked, and could not be taken out
+                    foreach (RaycastHit h2 in hits)
+                    {
+                        if (h2.collider == null || h2.collider.GetComponentInParent<NetRack>() != rack) continue;
+                        for (int i = 0; i < rack._views.Count; i++)
+                            if (rack._views[i] != null && h2.collider.transform.IsChildOf(rack._views[i].transform)) { index = i; return true; }
+                    }
                     return true;
                 }
                 if (h.collider.isTrigger) continue;
