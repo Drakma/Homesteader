@@ -15,12 +15,12 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1079**
+Total Indexed Items: **1083**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 32 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 423 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 427 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -84,7 +84,7 @@ Total Indexed Items: **1079**
 | `wind_turbine_200w_metal` | 200W Metal Wind Turbine | — | — | [wind_turbine_200w_metal.json](structures/wind_turbine_200w_metal/wind_turbine_200w_metal.json) |
 | `wind_turbine_500w_metal` | 500W Metal Wind Turbine | — | — | [wind_turbine_500w_metal.json](structures/wind_turbine_500w_metal/wind_turbine_500w_metal.json) |
 
-### 📂 [Building](building/) (423 items)
+### 📂 [Building](building/) (427 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -230,6 +230,7 @@ Total Indexed Items: **1079**
 | `building_paint_sky_blue` | Interior Paint: Sky Blue | ✅ Yes | — | [building_paint_sky_blue.json](building/building_paint_sky_blue/building_paint_sky_blue.json) |
 | `building_paint_terracotta` | Interior Paint: Terracotta | ✅ Yes | — | [building_paint_terracotta.json](building/building_paint_terracotta/building_paint_terracotta.json) |
 | `building_pallet_wood` | Mat Pallet Wood | ✅ Yes | — | [building_pallet_wood.json](building/building_pallet_wood/building_pallet_wood.json) |
+| `building_pickup_flag` | Pickup Flag | ✅ Yes | — | [building_pickup_flag.json](building/building_pickup_flag/building_pickup_flag.json) |
 | `building_pvc_cement_can` | PVC Cement | ✅ Yes | — | [building_pvc_cement_can.json](building/building_pvc_cement_can/building_pvc_cement_can.json) |
 | `building_pvc_cement_can_case_12` | PVC Cement Case | ✅ Yes | — | [building_pvc_cement_can_case_12.json](building/building_pvc_cement_can_case_12/building_pvc_cement_can_case_12.json) |
 | `building_pvc_cement_can_case_6` | PVC Cement Case | ✅ Yes | — | [building_pvc_cement_can_case_6.json](building/building_pvc_cement_can_case_6/building_pvc_cement_can_case_6.json) |
@@ -248,6 +249,9 @@ Total Indexed Items: **1079**
 | `building_shelf_wall_steel` | Steel Wall Shelf | ✅ Yes | — | [building_shelf_wall_steel.json](building/building_shelf_wall_steel/building_shelf_wall_steel.json) |
 | `building_shelf_wall_wood` | Wall Shelf | ✅ Yes | — | [building_shelf_wall_wood.json](building/building_shelf_wall_wood/building_shelf_wall_wood.json) |
 | `building_shelf_wall_wood_long` | Long Wall Shelf | ✅ Yes | — | [building_shelf_wall_wood_long.json](building/building_shelf_wall_wood_long/building_shelf_wall_wood_long.json) |
+| `building_shelving_melamine_black` | Black Melamine Shelving Unit | ✅ Yes | — | [building_shelving_melamine_black.json](building/building_shelving_melamine_black/building_shelving_melamine_black.json) |
+| `building_shelving_melamine_white` | White Melamine Shelving Unit | ✅ Yes | — | [building_shelving_melamine_white.json](building/building_shelving_melamine_white/building_shelving_melamine_white.json) |
+| `building_shelving_steel` | Steel Shelving Unit | ✅ Yes | — | [building_shelving_steel.json](building/building_shelving_steel/building_shelving_steel.json) |
 | `building_siding_barn_red` | Barn Red Board Siding | ✅ Yes | — | [building_siding_barn_red.json](building/building_siding_barn_red/building_siding_barn_red.json) |
 | `building_siding_barn_red_stack_10` | Barn Red Board Siding Stack | ✅ Yes | — | [building_siding_barn_red_stack_10.json](building/building_siding_barn_red_stack_10/building_siding_barn_red_stack_10.json) |
 | `building_siding_barn_red_stack_20` | Barn Red Board Siding Stack | ✅ Yes | — | [building_siding_barn_red_stack_20.json](building/building_siding_barn_red_stack_20/building_siding_barn_red_stack_20.json) |

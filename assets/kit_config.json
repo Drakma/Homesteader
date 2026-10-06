@@ -17,6 +17,12 @@
       "icon": "🛋️",
       "desc": "Household appliances and furniture placed inside buildings - kitchen appliances, laundry, outdoor cooking, and living/bedroom furniture, each with real-world dimensions for interior space planning.",
       "prefix": "appliance"
+    },
+    "kitchen": {
+      "name": "Kitchen",
+      "icon": "",
+      "desc": "Kitchen appliances in stainless, white and black, cabinets, counters, islands, tables, chairs, cookware and accessories: procedural low-poly models with real detail, separate from the general appliances and furniture.",
+      "prefix": "kitchen"
     }
   },
   "subfolders": {

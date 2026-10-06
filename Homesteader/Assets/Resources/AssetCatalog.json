@@ -14598,6 +14598,2703 @@
       ]
     },
     {
+      "id": "kitchen_base_cab_black",
+      "name": "Black Base Cabinet",
+      "category": "kitchen",
+      "description": "A single-door base cabinet with a countertop. Black, granite top.",
+      "icon": "kitchen_base_cab_black.png",
+      "max_stack": 1,
+      "weight_kg": 28.0,
+      "base_value": 160.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 160.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_drawers_black",
+      "name": "Black Drawer Base Cabinet",
+      "category": "kitchen",
+      "description": "A base cabinet of three deep drawers with a countertop. Black, granite top.",
+      "icon": "kitchen_base_cab_drawers_black.png",
+      "max_stack": 1,
+      "weight_kg": 34.0,
+      "base_value": 260.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 260.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_drawers_oak",
+      "name": "Oak Drawer Base Cabinet",
+      "category": "kitchen",
+      "description": "A base cabinet of three deep drawers with a countertop. Oak, butcher-block top.",
+      "icon": "kitchen_base_cab_drawers_oak.png",
+      "max_stack": 1,
+      "weight_kg": 34.0,
+      "base_value": 260.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 260.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_drawers_white",
+      "name": "White Drawer Base Cabinet",
+      "category": "kitchen",
+      "description": "A base cabinet of three deep drawers with a countertop. White shaker doors, marble top.",
+      "icon": "kitchen_base_cab_drawers_white.png",
+      "max_stack": 1,
+      "weight_kg": 34.0,
+      "base_value": 260.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 260.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_oak",
+      "name": "Oak Base Cabinet",
+      "category": "kitchen",
+      "description": "A single-door base cabinet with a countertop. Oak, butcher-block top.",
+      "icon": "kitchen_base_cab_oak.png",
+      "max_stack": 1,
+      "weight_kg": 28.0,
+      "base_value": 160.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 160.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_white",
+      "name": "White Base Cabinet",
+      "category": "kitchen",
+      "description": "A single-door base cabinet with a countertop. White shaker doors, marble top.",
+      "icon": "kitchen_base_cab_white.png",
+      "max_stack": 1,
+      "weight_kg": 28.0,
+      "base_value": 160.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 160.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_wide_black",
+      "name": "Black Double-Door Base Cabinet",
+      "category": "kitchen",
+      "description": "A wide base cabinet with two doors and a countertop. Black, granite top.",
+      "icon": "kitchen_base_cab_wide_black.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 230.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 230.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_wide_oak",
+      "name": "Oak Double-Door Base Cabinet",
+      "category": "kitchen",
+      "description": "A wide base cabinet with two doors and a countertop. Oak, butcher-block top.",
+      "icon": "kitchen_base_cab_wide_oak.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 230.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 230.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_base_cab_wide_white",
+      "name": "White Double-Door Base Cabinet",
+      "category": "kitchen",
+      "description": "A wide base cabinet with two doors and a countertop. White shaker doors, marble top.",
+      "icon": "kitchen_base_cab_wide_white.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 230.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 230.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bench_black",
+      "name": "Black Kitchen Bench",
+      "category": "kitchen",
+      "description": "A plain bench for the kitchen table. Black finish.",
+      "icon": "kitchen_bench_black.png",
+      "max_stack": 1,
+      "weight_kg": 11.0,
+      "base_value": 110.0,
+      "support_surface": true,
+      "deck_heights": "0.46",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bench_oak",
+      "name": "Oak Kitchen Bench",
+      "category": "kitchen",
+      "description": "A plain bench for the kitchen table. Oak finish.",
+      "icon": "kitchen_bench_oak.png",
+      "max_stack": 1,
+      "weight_kg": 11.0,
+      "base_value": 121.0,
+      "support_surface": true,
+      "deck_heights": "0.46",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 121.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bench_white",
+      "name": "White Kitchen Bench",
+      "category": "kitchen",
+      "description": "A plain bench for the kitchen table. White finish.",
+      "icon": "kitchen_bench_white.png",
+      "max_stack": 1,
+      "weight_kg": 11.0,
+      "base_value": 110.0,
+      "support_surface": true,
+      "deck_heights": "0.46",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_blender_black",
+      "name": "Black Countertop Blender",
+      "category": "kitchen",
+      "description": "A countertop blender with a glass jug and a lid. Black finish.",
+      "icon": "kitchen_blender_black.png",
+      "max_stack": 1,
+      "power_draw_w": 700.0,
+      "weight_kg": 3.8,
+      "base_value": 101.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 101.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_blender_stainless",
+      "name": "Stainless Steel Countertop Blender",
+      "category": "kitchen",
+      "description": "A countertop blender with a glass jug and a lid. Stainless Steel finish.",
+      "icon": "kitchen_blender_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 700.0,
+      "weight_kg": 3.8,
+      "base_value": 116.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 116.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_blender_white",
+      "name": "White Countertop Blender",
+      "category": "kitchen",
+      "description": "A countertop blender with a glass jug and a lid. White finish.",
+      "icon": "kitchen_blender_white.png",
+      "max_stack": 1,
+      "power_draw_w": 700.0,
+      "weight_kg": 3.8,
+      "base_value": 95.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bread_box_black",
+      "name": "Black Bread Box",
+      "category": "kitchen",
+      "description": "A bread box with a roll-top lid. Black finish.",
+      "icon": "kitchen_bread_box_black.png",
+      "max_stack": 1,
+      "weight_kg": 1.8,
+      "base_value": 33.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 33.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bread_box_stainless",
+      "name": "Stainless Steel Bread Box",
+      "category": "kitchen",
+      "description": "A bread box with a roll-top lid. Stainless Steel finish.",
+      "icon": "kitchen_bread_box_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 1.8,
+      "base_value": 36.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 36.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_bread_box_white",
+      "name": "White Bread Box",
+      "category": "kitchen",
+      "description": "A bread box with a roll-top lid. White finish.",
+      "icon": "kitchen_bread_box_white.png",
+      "max_stack": 1,
+      "weight_kg": 1.8,
+      "base_value": 32.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 32.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_canisters_black",
+      "name": "Black Canister Set",
+      "category": "kitchen",
+      "description": "Three lidded canisters in graduated sizes. Black finish.",
+      "icon": "kitchen_canisters_black.png",
+      "max_stack": 1,
+      "weight_kg": 2.4,
+      "base_value": 37.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 37.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_canisters_stainless",
+      "name": "Stainless Steel Canister Set",
+      "category": "kitchen",
+      "description": "Three lidded canisters in graduated sizes. Stainless Steel finish.",
+      "icon": "kitchen_canisters_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 2.4,
+      "base_value": 41.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 41.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_canisters_white",
+      "name": "White Canister Set",
+      "category": "kitchen",
+      "description": "Three lidded canisters in graduated sizes. White finish.",
+      "icon": "kitchen_canisters_white.png",
+      "max_stack": 1,
+      "weight_kg": 2.4,
+      "base_value": 36.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 36.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cart_black",
+      "name": "Black Kitchen Cart",
+      "category": "kitchen",
+      "description": "A kitchen cart with a counter top, a drawer, a lower shelf and a towel bar. Black, granite top.",
+      "icon": "kitchen_cart_black.png",
+      "max_stack": 1,
+      "weight_kg": 24.0,
+      "base_value": 190.0,
+      "support_surface": true,
+      "deck_heights": "0.88",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 190.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cart_oak",
+      "name": "Oak Kitchen Cart",
+      "category": "kitchen",
+      "description": "A kitchen cart with a counter top, a drawer, a lower shelf and a towel bar. Oak, butcher-block top.",
+      "icon": "kitchen_cart_oak.png",
+      "max_stack": 1,
+      "weight_kg": 24.0,
+      "base_value": 190.0,
+      "support_surface": true,
+      "deck_heights": "0.88",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 190.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cart_white",
+      "name": "White Kitchen Cart",
+      "category": "kitchen",
+      "description": "A kitchen cart with a counter top, a drawer, a lower shelf and a towel bar. White shaker doors, marble top.",
+      "icon": "kitchen_cart_white.png",
+      "max_stack": 1,
+      "weight_kg": 24.0,
+      "base_value": 190.0,
+      "support_surface": true,
+      "deck_heights": "0.88",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 190.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_chair_black",
+      "name": "Black Dining Chair",
+      "category": "kitchen",
+      "description": "A dining chair with a slatted back. Black finish.",
+      "icon": "kitchen_chair_black.png",
+      "max_stack": 1,
+      "weight_kg": 6.5,
+      "base_value": 70.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 70.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_chair_oak",
+      "name": "Oak Dining Chair",
+      "category": "kitchen",
+      "description": "A dining chair with a slatted back. Oak finish.",
+      "icon": "kitchen_chair_oak.png",
+      "max_stack": 1,
+      "weight_kg": 6.5,
+      "base_value": 77.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 77.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_chair_white",
+      "name": "White Dining Chair",
+      "category": "kitchen",
+      "description": "A dining chair with a slatted back. White finish.",
+      "icon": "kitchen_chair_white.png",
+      "max_stack": 1,
+      "weight_kg": 6.5,
+      "base_value": 70.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 70.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_coffee_maker_black",
+      "name": "Black Drip Coffee Maker",
+      "category": "kitchen",
+      "description": "A drip coffee maker with a glass carafe and a warming plate. Black finish.",
+      "icon": "kitchen_coffee_maker_black.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 2.6,
+      "base_value": 61.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 61.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_coffee_maker_stainless",
+      "name": "Stainless Steel Drip Coffee Maker",
+      "category": "kitchen",
+      "description": "A drip coffee maker with a glass carafe and a warming plate. Stainless Steel finish.",
+      "icon": "kitchen_coffee_maker_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 2.6,
+      "base_value": 71.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 71.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_coffee_maker_white",
+      "name": "White Drip Coffee Maker",
+      "category": "kitchen",
+      "description": "A drip coffee maker with a glass carafe and a warming plate. White finish.",
+      "icon": "kitchen_coffee_maker_white.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 2.6,
+      "base_value": 58.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 58.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cooktop_black",
+      "name": "Black Built-In Cooktop",
+      "category": "kitchen",
+      "description": "A four-burner cooktop with cast-iron grates, to set into a countertop. Black finish.",
+      "icon": "kitchen_cooktop_black.png",
+      "max_stack": 1,
+      "weight_kg": 16.0,
+      "base_value": 445.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 445.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cooktop_stainless",
+      "name": "Stainless Steel Built-In Cooktop",
+      "category": "kitchen",
+      "description": "A four-burner cooktop with cast-iron grates, to set into a countertop. Stainless Steel finish.",
+      "icon": "kitchen_cooktop_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 16.0,
+      "base_value": 512.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 512.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cooktop_white",
+      "name": "White Built-In Cooktop",
+      "category": "kitchen",
+      "description": "A four-burner cooktop with cast-iron grates, to set into a countertop. White finish.",
+      "icon": "kitchen_cooktop_white.png",
+      "max_stack": 1,
+      "weight_kg": 16.0,
+      "base_value": 420.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 420.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_corner_base_black",
+      "name": "Black Corner Base Cabinet",
+      "category": "kitchen",
+      "description": "An L-shaped corner base cabinet with a countertop, for turning a counter run round a corner. Black, granite top.",
+      "icon": "kitchen_corner_base_black.png",
+      "max_stack": 1,
+      "weight_kg": 46.0,
+      "base_value": 290.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 290.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_corner_base_oak",
+      "name": "Oak Corner Base Cabinet",
+      "category": "kitchen",
+      "description": "An L-shaped corner base cabinet with a countertop, for turning a counter run round a corner. Oak, butcher-block top.",
+      "icon": "kitchen_corner_base_oak.png",
+      "max_stack": 1,
+      "weight_kg": 46.0,
+      "base_value": 290.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 290.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_corner_base_white",
+      "name": "White Corner Base Cabinet",
+      "category": "kitchen",
+      "description": "An L-shaped corner base cabinet with a countertop, for turning a counter run round a corner. White shaker doors, marble top.",
+      "icon": "kitchen_corner_base_white.png",
+      "max_stack": 1,
+      "weight_kg": 46.0,
+      "base_value": 290.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 290.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cutting_board_black",
+      "name": "Walnut Cutting Board",
+      "category": "kitchen",
+      "description": "A thick wooden cutting board. Walnut finish.",
+      "icon": "kitchen_cutting_board_black.png",
+      "max_stack": 1,
+      "weight_kg": 1.6,
+      "base_value": 24.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 24.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cutting_board_oak",
+      "name": "Oak Cutting Board",
+      "category": "kitchen",
+      "description": "A thick wooden cutting board. Oak finish.",
+      "icon": "kitchen_cutting_board_oak.png",
+      "max_stack": 1,
+      "weight_kg": 1.6,
+      "base_value": 24.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 24.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_cutting_board_white",
+      "name": "Maple Cutting Board",
+      "category": "kitchen",
+      "description": "A thick wooden cutting board. Maple finish.",
+      "icon": "kitchen_cutting_board_white.png",
+      "max_stack": 1,
+      "weight_kg": 1.6,
+      "base_value": 24.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 24.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_dish_rack",
+      "name": "Dish Drying Rack",
+      "category": "kitchen",
+      "description": "A wire dish drying rack with a drip tray.",
+      "icon": "kitchen_dish_rack.png",
+      "max_stack": 1,
+      "weight_kg": 1.3,
+      "base_value": 22.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 22.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_dishwasher_black",
+      "name": "Black Dishwasher",
+      "category": "kitchen",
+      "description": "A built-in dishwasher with a front control strip and a bar handle. Black finish.",
+      "icon": "kitchen_dishwasher_black.png",
+      "max_stack": 1,
+      "power_draw_w": 1800.0,
+      "weight_kg": 42.0,
+      "base_value": 551.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 551.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_dishwasher_stainless",
+      "name": "Stainless Steel Dishwasher",
+      "category": "kitchen",
+      "description": "A built-in dishwasher with a front control strip and a bar handle. Stainless Steel finish.",
+      "icon": "kitchen_dishwasher_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 1800.0,
+      "weight_kg": 42.0,
+      "base_value": 634.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 634.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_dishwasher_white",
+      "name": "White Dishwasher",
+      "category": "kitchen",
+      "description": "A built-in dishwasher with a front control strip and a bar handle. White finish.",
+      "icon": "kitchen_dishwasher_white.png",
+      "max_stack": 1,
+      "power_draw_w": 1800.0,
+      "weight_kg": 42.0,
+      "base_value": 520.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 520.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_chest_black",
+      "name": "Black Chest Freezer",
+      "category": "kitchen",
+      "description": "A deep chest freezer with a hinged lid and a handle. Black finish.",
+      "icon": "kitchen_freezer_chest_black.png",
+      "max_stack": 1,
+      "power_draw_w": 110.0,
+      "weight_kg": 48.0,
+      "base_value": 488.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 488.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_chest_stainless",
+      "name": "Stainless Steel Chest Freezer",
+      "category": "kitchen",
+      "description": "A deep chest freezer with a hinged lid and a handle. Stainless Steel finish.",
+      "icon": "kitchen_freezer_chest_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 110.0,
+      "weight_kg": 48.0,
+      "base_value": 561.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 561.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_chest_white",
+      "name": "White Chest Freezer",
+      "category": "kitchen",
+      "description": "A deep chest freezer with a hinged lid and a handle. White finish.",
+      "icon": "kitchen_freezer_chest_white.png",
+      "max_stack": 1,
+      "power_draw_w": 110.0,
+      "weight_kg": 48.0,
+      "base_value": 460.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 460.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_upright_black",
+      "name": "Black Upright Freezer",
+      "category": "kitchen",
+      "description": "A tall single-door upright freezer with a temperature light. Black finish.",
+      "icon": "kitchen_freezer_upright_black.png",
+      "max_stack": 1,
+      "power_draw_w": 130.0,
+      "weight_kg": 55.0,
+      "base_value": 572.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 572.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_upright_stainless",
+      "name": "Stainless Steel Upright Freezer",
+      "category": "kitchen",
+      "description": "A tall single-door upright freezer with a temperature light. Stainless Steel finish.",
+      "icon": "kitchen_freezer_upright_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 130.0,
+      "weight_kg": 55.0,
+      "base_value": 659.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 659.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_freezer_upright_white",
+      "name": "White Upright Freezer",
+      "category": "kitchen",
+      "description": "A tall single-door upright freezer with a temperature light. White finish.",
+      "icon": "kitchen_freezer_upright_white.png",
+      "max_stack": 1,
+      "power_draw_w": 130.0,
+      "weight_kg": 55.0,
+      "base_value": 540.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 540.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_french_black",
+      "name": "Black French-Door Refrigerator",
+      "category": "kitchen",
+      "description": "A refrigerator with two French doors over a pull-out freezer drawer. Black finish.",
+      "icon": "kitchen_fridge_french_black.png",
+      "max_stack": 1,
+      "power_draw_w": 200.0,
+      "weight_kg": 118.0,
+      "base_value": 1569.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1569.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_french_stainless",
+      "name": "Stainless Steel French-Door Refrigerator",
+      "category": "kitchen",
+      "description": "A refrigerator with two French doors over a pull-out freezer drawer. Stainless Steel finish.",
+      "icon": "kitchen_fridge_french_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 200.0,
+      "weight_kg": 118.0,
+      "base_value": 1806.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1806.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_french_white",
+      "name": "White French-Door Refrigerator",
+      "category": "kitchen",
+      "description": "A refrigerator with two French doors over a pull-out freezer drawer. White finish.",
+      "icon": "kitchen_fridge_french_white.png",
+      "max_stack": 1,
+      "power_draw_w": 200.0,
+      "weight_kg": 118.0,
+      "base_value": 1480.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1480.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_side_black",
+      "name": "Black Side-by-Side Refrigerator",
+      "category": "kitchen",
+      "description": "A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. Black finish.",
+      "icon": "kitchen_fridge_side_black.png",
+      "max_stack": 1,
+      "power_draw_w": 190.0,
+      "weight_kg": 105.0,
+      "base_value": 1219.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1219.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_side_stainless",
+      "name": "Stainless Steel Side-by-Side Refrigerator",
+      "category": "kitchen",
+      "description": "A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. Stainless Steel finish.",
+      "icon": "kitchen_fridge_side_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 190.0,
+      "weight_kg": 105.0,
+      "base_value": 1403.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1403.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_side_white",
+      "name": "White Side-by-Side Refrigerator",
+      "category": "kitchen",
+      "description": "A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. White finish.",
+      "icon": "kitchen_fridge_side_white.png",
+      "max_stack": 1,
+      "power_draw_w": 190.0,
+      "weight_kg": 105.0,
+      "base_value": 1150.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1150.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_top_black",
+      "name": "Black Top-Freezer Refrigerator",
+      "category": "kitchen",
+      "description": "A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. Black finish.",
+      "icon": "kitchen_fridge_top_black.png",
+      "max_stack": 1,
+      "power_draw_w": 150.0,
+      "weight_kg": 62.0,
+      "base_value": 657.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 657.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_top_stainless",
+      "name": "Stainless Steel Top-Freezer Refrigerator",
+      "category": "kitchen",
+      "description": "A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. Stainless Steel finish.",
+      "icon": "kitchen_fridge_top_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 150.0,
+      "weight_kg": 62.0,
+      "base_value": 756.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 756.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fridge_top_white",
+      "name": "White Top-Freezer Refrigerator",
+      "category": "kitchen",
+      "description": "A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. White finish.",
+      "icon": "kitchen_fridge_top_white.png",
+      "max_stack": 1,
+      "power_draw_w": 150.0,
+      "weight_kg": 62.0,
+      "base_value": 620.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 620.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fruit_bowl_black",
+      "name": "Black Fruit Bowl",
+      "category": "kitchen",
+      "description": "A wooden bowl with an apple, a lemon and a banana. Black finish.",
+      "icon": "kitchen_fruit_bowl_black.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 26.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 26.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fruit_bowl_oak",
+      "name": "Oak Fruit Bowl",
+      "category": "kitchen",
+      "description": "A wooden bowl with an apple, a lemon and a banana. Oak finish.",
+      "icon": "kitchen_fruit_bowl_oak.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 26.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 26.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_fruit_bowl_white",
+      "name": "White Fruit Bowl",
+      "category": "kitchen",
+      "description": "A wooden bowl with an apple, a lemon and a banana. White finish.",
+      "icon": "kitchen_fruit_bowl_white.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 26.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 26.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_island_black",
+      "name": "Black Kitchen Island",
+      "category": "kitchen",
+      "description": "A kitchen island with drawers and doors on the work side and an overhang for stools on the other. Black, granite top.",
+      "icon": "kitchen_island_black.png",
+      "max_stack": 1,
+      "weight_kg": 118.0,
+      "base_value": 860.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 860.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_island_oak",
+      "name": "Oak Kitchen Island",
+      "category": "kitchen",
+      "description": "A kitchen island with drawers and doors on the work side and an overhang for stools on the other. Oak, butcher-block top.",
+      "icon": "kitchen_island_oak.png",
+      "max_stack": 1,
+      "weight_kg": 118.0,
+      "base_value": 860.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 860.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_island_white",
+      "name": "White Kitchen Island",
+      "category": "kitchen",
+      "description": "A kitchen island with drawers and doors on the work side and an overhang for stools on the other. White shaker doors, marble top.",
+      "icon": "kitchen_island_white.png",
+      "max_stack": 1,
+      "weight_kg": 118.0,
+      "base_value": 860.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 860.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_kettle_black",
+      "name": "Black Electric Kettle",
+      "category": "kitchen",
+      "description": "An electric kettle on its power base, with a spout and a handle. Black finish.",
+      "icon": "kitchen_kettle_black.png",
+      "max_stack": 1,
+      "power_draw_w": 1500.0,
+      "weight_kg": 1.2,
+      "base_value": 45.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 45.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_kettle_stainless",
+      "name": "Stainless Steel Electric Kettle",
+      "category": "kitchen",
+      "description": "An electric kettle on its power base, with a spout and a handle. Stainless Steel finish.",
+      "icon": "kitchen_kettle_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 1500.0,
+      "weight_kg": 1.2,
+      "base_value": 51.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 51.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_kettle_white",
+      "name": "White Electric Kettle",
+      "category": "kitchen",
+      "description": "An electric kettle on its power base, with a spout and a handle. White finish.",
+      "icon": "kitchen_kettle_white.png",
+      "max_stack": 1,
+      "power_draw_w": 1500.0,
+      "weight_kg": 1.2,
+      "base_value": 42.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 42.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_knife_block_black",
+      "name": "Black Knife Block",
+      "category": "kitchen",
+      "description": "A wooden knife block with five knives. Black finish.",
+      "icon": "kitchen_knife_block_black.png",
+      "max_stack": 1,
+      "weight_kg": 1.5,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_knife_block_oak",
+      "name": "Oak Knife Block",
+      "category": "kitchen",
+      "description": "A wooden knife block with five knives. Oak finish.",
+      "icon": "kitchen_knife_block_oak.png",
+      "max_stack": 1,
+      "weight_kg": 1.5,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_knife_block_white",
+      "name": "White Knife Block",
+      "category": "kitchen",
+      "description": "A wooden knife block with five knives. White finish.",
+      "icon": "kitchen_knife_block_white.png",
+      "max_stack": 1,
+      "weight_kg": 1.5,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_black",
+      "name": "Black Countertop Microwave",
+      "category": "kitchen",
+      "description": "A countertop microwave oven with a window door and a keypad. Black finish.",
+      "icon": "kitchen_microwave_black.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 14.0,
+      "base_value": 127.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 127.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_otr_black",
+      "name": "Black Over-The-Range Microwave",
+      "category": "kitchen",
+      "description": "A microwave oven that mounts on the wall above the range. Black finish.",
+      "icon": "kitchen_microwave_otr_black.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 22.0,
+      "base_value": 360.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 360.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_otr_stainless",
+      "name": "Stainless Steel Over-The-Range Microwave",
+      "category": "kitchen",
+      "description": "A microwave oven that mounts on the wall above the range. Stainless Steel finish.",
+      "icon": "kitchen_microwave_otr_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 22.0,
+      "base_value": 415.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 415.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_otr_white",
+      "name": "White Over-The-Range Microwave",
+      "category": "kitchen",
+      "description": "A microwave oven that mounts on the wall above the range. White finish.",
+      "icon": "kitchen_microwave_otr_white.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 22.0,
+      "base_value": 340.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_stainless",
+      "name": "Stainless Steel Countertop Microwave",
+      "category": "kitchen",
+      "description": "A countertop microwave oven with a window door and a keypad. Stainless Steel finish.",
+      "icon": "kitchen_microwave_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 14.0,
+      "base_value": 146.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 146.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_microwave_white",
+      "name": "White Countertop Microwave",
+      "category": "kitchen",
+      "description": "A countertop microwave oven with a window door and a keypad. White finish.",
+      "icon": "kitchen_microwave_white.png",
+      "max_stack": 1,
+      "power_draw_w": 1100.0,
+      "weight_kg": 14.0,
+      "base_value": 120.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 120.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_open_shelf_black",
+      "name": "Black Open Kitchen Shelf",
+      "category": "kitchen",
+      "description": "A wall shelf board on two brackets. Mount it on a wall and stand things on it. Black, granite top.",
+      "icon": "kitchen_open_shelf_black.png",
+      "max_stack": 1,
+      "shelf": true,
+      "weight_kg": 6.0,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_open_shelf_oak",
+      "name": "Oak Open Kitchen Shelf",
+      "category": "kitchen",
+      "description": "A wall shelf board on two brackets. Mount it on a wall and stand things on it. Oak, butcher-block top.",
+      "icon": "kitchen_open_shelf_oak.png",
+      "max_stack": 1,
+      "shelf": true,
+      "weight_kg": 6.0,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_open_shelf_white",
+      "name": "White Open Kitchen Shelf",
+      "category": "kitchen",
+      "description": "A wall shelf board on two brackets. Mount it on a wall and stand things on it. White shaker doors, marble top.",
+      "icon": "kitchen_open_shelf_white.png",
+      "max_stack": 1,
+      "shelf": true,
+      "weight_kg": 6.0,
+      "base_value": 48.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 48.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_oven_tower_black",
+      "name": "Black Double Wall Oven Tower",
+      "category": "kitchen",
+      "description": "A tall oven cabinet with two ovens, a control panel and a warming drawer. Black finish.",
+      "icon": "kitchen_oven_tower_black.png",
+      "max_stack": 1,
+      "power_draw_w": 5200.0,
+      "weight_kg": 95.0,
+      "base_value": 1855.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1855.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_oven_tower_stainless",
+      "name": "Stainless Steel Double Wall Oven Tower",
+      "category": "kitchen",
+      "description": "A tall oven cabinet with two ovens, a control panel and a warming drawer. Stainless Steel finish.",
+      "icon": "kitchen_oven_tower_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 5200.0,
+      "weight_kg": 95.0,
+      "base_value": 2135.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 2135.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_oven_tower_white",
+      "name": "White Double Wall Oven Tower",
+      "category": "kitchen",
+      "description": "A tall oven cabinet with two ovens, a control panel and a warming drawer. White finish.",
+      "icon": "kitchen_oven_tower_white.png",
+      "max_stack": 1,
+      "power_draw_w": 5200.0,
+      "weight_kg": 95.0,
+      "base_value": 1750.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 1750.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_pantry_black",
+      "name": "Black Pantry Cabinet",
+      "category": "kitchen",
+      "description": "A tall two-door pantry cabinet. Black, granite top.",
+      "icon": "kitchen_pantry_black.png",
+      "max_stack": 1,
+      "weight_kg": 52.0,
+      "base_value": 340.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_pantry_oak",
+      "name": "Oak Pantry Cabinet",
+      "category": "kitchen",
+      "description": "A tall two-door pantry cabinet. Oak, butcher-block top.",
+      "icon": "kitchen_pantry_oak.png",
+      "max_stack": 1,
+      "weight_kg": 52.0,
+      "base_value": 340.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_pantry_white",
+      "name": "White Pantry Cabinet",
+      "category": "kitchen",
+      "description": "A tall two-door pantry cabinet. White shaker doors, marble top.",
+      "icon": "kitchen_pantry_white.png",
+      "max_stack": 1,
+      "weight_kg": 52.0,
+      "base_value": 340.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_paper_towels_black",
+      "name": "Black Paper Towel Holder",
+      "category": "kitchen",
+      "description": "A weighted holder with a roll of paper towels. Black finish.",
+      "icon": "kitchen_paper_towels_black.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 15.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 15.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_paper_towels_stainless",
+      "name": "Stainless Steel Paper Towel Holder",
+      "category": "kitchen",
+      "description": "A weighted holder with a roll of paper towels. Stainless Steel finish.",
+      "icon": "kitchen_paper_towels_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 16.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 16.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_paper_towels_white",
+      "name": "White Paper Towel Holder",
+      "category": "kitchen",
+      "description": "A weighted holder with a roll of paper towels. White finish.",
+      "icon": "kitchen_paper_towels_white.png",
+      "max_stack": 1,
+      "weight_kg": 0.9,
+      "base_value": 14.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 14.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_pot_rack",
+      "name": "Hanging Pot Rack",
+      "category": "kitchen",
+      "description": "A wall rack with a bar, hooks and three hanging pans. Mount it on a wall.",
+      "icon": "kitchen_pot_rack.png",
+      "max_stack": 1,
+      "weight_kg": 4.0,
+      "base_value": 85.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_pot_stock",
+      "name": "Stock Pot",
+      "category": "kitchen",
+      "description": "A stainless stock pot with a lid.",
+      "icon": "kitchen_pot_stock.png",
+      "max_stack": 1,
+      "weight_kg": 2.6,
+      "base_value": 55.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 55.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_black",
+      "name": "Black Gas Range",
+      "category": "kitchen",
+      "description": "A freestanding four-burner gas range with cast-iron grates, a glass-window oven and a backguard. Black finish.",
+      "icon": "kitchen_range_black.png",
+      "max_stack": 1,
+      "weight_kg": 72.0,
+      "base_value": 827.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 827.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_hood_black",
+      "name": "Black Range Hood",
+      "category": "kitchen",
+      "description": "A chimney range hood that mounts on the wall above the cooker. Black finish.",
+      "icon": "kitchen_range_hood_black.png",
+      "max_stack": 1,
+      "power_draw_w": 180.0,
+      "weight_kg": 18.0,
+      "base_value": 307.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 307.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_hood_stainless",
+      "name": "Stainless Steel Range Hood",
+      "category": "kitchen",
+      "description": "A chimney range hood that mounts on the wall above the cooker. Stainless Steel finish.",
+      "icon": "kitchen_range_hood_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 180.0,
+      "weight_kg": 18.0,
+      "base_value": 354.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 354.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_hood_white",
+      "name": "White Range Hood",
+      "category": "kitchen",
+      "description": "A chimney range hood that mounts on the wall above the cooker. White finish.",
+      "icon": "kitchen_range_hood_white.png",
+      "max_stack": 1,
+      "power_draw_w": 180.0,
+      "weight_kg": 18.0,
+      "base_value": 290.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 290.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_stainless",
+      "name": "Stainless Steel Gas Range",
+      "category": "kitchen",
+      "description": "A freestanding four-burner gas range with cast-iron grates, a glass-window oven and a backguard. Stainless Steel finish.",
+      "icon": "kitchen_range_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 72.0,
+      "base_value": 952.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 952.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_range_white",
+      "name": "White Gas Range",
+      "category": "kitchen",
+      "description": "A freestanding four-burner gas range with cast-iron grates, a glass-window oven and a backguard. White finish.",
+      "icon": "kitchen_range_white.png",
+      "max_stack": 1,
+      "weight_kg": 72.0,
+      "base_value": 780.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 780.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_saucepan",
+      "name": "Saucepan",
+      "category": "kitchen",
+      "description": "A stainless saucepan with a long handle.",
+      "icon": "kitchen_saucepan.png",
+      "max_stack": 1,
+      "weight_kg": 1.0,
+      "base_value": 28.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 28.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_sink_black",
+      "name": "Black Kitchen Sink Cabinet",
+      "category": "kitchen",
+      "description": "A double-bowl sink in a cabinet with a countertop, a tall arched faucet and a soap dispenser. Black finish.",
+      "icon": "kitchen_sink_black.png",
+      "max_stack": 1,
+      "weight_kg": 45.0,
+      "base_value": 403.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 403.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_sink_stainless",
+      "name": "Stainless Steel Kitchen Sink Cabinet",
+      "category": "kitchen",
+      "description": "A double-bowl sink in a cabinet with a countertop, a tall arched faucet and a soap dispenser. Stainless Steel finish.",
+      "icon": "kitchen_sink_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 45.0,
+      "base_value": 464.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 464.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_sink_white",
+      "name": "White Kitchen Sink Cabinet",
+      "category": "kitchen",
+      "description": "A double-bowl sink in a cabinet with a countertop, a tall arched faucet and a soap dispenser. White finish.",
+      "icon": "kitchen_sink_white.png",
+      "max_stack": 1,
+      "weight_kg": 45.0,
+      "base_value": 380.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 380.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_skillet",
+      "name": "Cast-Iron Skillet",
+      "category": "kitchen",
+      "description": "A heavy cast-iron skillet.",
+      "icon": "kitchen_skillet.png",
+      "max_stack": 1,
+      "weight_kg": 3.4,
+      "base_value": 34.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_spice_rack_black",
+      "name": "Black Spice Rack",
+      "category": "kitchen",
+      "description": "A wall spice rack with two shelves and a row of jars. Mount it on a wall. Black finish.",
+      "icon": "kitchen_spice_rack_black.png",
+      "max_stack": 1,
+      "weight_kg": 2.2,
+      "base_value": 32.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 32.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_spice_rack_oak",
+      "name": "Oak Spice Rack",
+      "category": "kitchen",
+      "description": "A wall spice rack with two shelves and a row of jars. Mount it on a wall. Oak finish.",
+      "icon": "kitchen_spice_rack_oak.png",
+      "max_stack": 1,
+      "weight_kg": 2.2,
+      "base_value": 32.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 32.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_spice_rack_white",
+      "name": "White Spice Rack",
+      "category": "kitchen",
+      "description": "A wall spice rack with two shelves and a row of jars. Mount it on a wall. White finish.",
+      "icon": "kitchen_spice_rack_white.png",
+      "max_stack": 1,
+      "weight_kg": 2.2,
+      "base_value": 32.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 32.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stand_mixer_black",
+      "name": "Black Stand Mixer",
+      "category": "kitchen",
+      "description": "A tilt-head stand mixer with a stainless mixing bowl. Black finish.",
+      "icon": "kitchen_stand_mixer_black.png",
+      "max_stack": 1,
+      "power_draw_w": 325.0,
+      "weight_kg": 11.0,
+      "base_value": 254.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 254.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stand_mixer_stainless",
+      "name": "Stainless Steel Stand Mixer",
+      "category": "kitchen",
+      "description": "A tilt-head stand mixer with a stainless mixing bowl. Stainless Steel finish.",
+      "icon": "kitchen_stand_mixer_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 325.0,
+      "weight_kg": 11.0,
+      "base_value": 293.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 293.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stand_mixer_white",
+      "name": "White Stand Mixer",
+      "category": "kitchen",
+      "description": "A tilt-head stand mixer with a stainless mixing bowl. White finish.",
+      "icon": "kitchen_stand_mixer_white.png",
+      "max_stack": 1,
+      "power_draw_w": 325.0,
+      "weight_kg": 11.0,
+      "base_value": 240.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 240.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stool_black",
+      "name": "Black Counter Stool",
+      "category": "kitchen",
+      "description": "A counter-height stool with a round seat and a foot ring. Black finish.",
+      "icon": "kitchen_stool_black.png",
+      "max_stack": 1,
+      "weight_kg": 5.0,
+      "base_value": 60.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 60.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stool_oak",
+      "name": "Oak Counter Stool",
+      "category": "kitchen",
+      "description": "A counter-height stool with a round seat and a foot ring. Oak finish.",
+      "icon": "kitchen_stool_oak.png",
+      "max_stack": 1,
+      "weight_kg": 5.0,
+      "base_value": 66.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 66.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_stool_white",
+      "name": "White Counter Stool",
+      "category": "kitchen",
+      "description": "A counter-height stool with a round seat and a foot ring. White finish.",
+      "icon": "kitchen_stool_white.png",
+      "max_stack": 1,
+      "weight_kg": 5.0,
+      "base_value": 60.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 60.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_bistro_black",
+      "name": "Black Bistro Table",
+      "category": "kitchen",
+      "description": "A small round bistro table for two. Black finish.",
+      "icon": "kitchen_table_bistro_black.png",
+      "max_stack": 1,
+      "weight_kg": 9.0,
+      "base_value": 95.0,
+      "support_surface": true,
+      "deck_heights": "0.74",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_bistro_oak",
+      "name": "Oak Bistro Table",
+      "category": "kitchen",
+      "description": "A small round bistro table for two. Oak finish.",
+      "icon": "kitchen_table_bistro_oak.png",
+      "max_stack": 1,
+      "weight_kg": 9.0,
+      "base_value": 105.0,
+      "support_surface": true,
+      "deck_heights": "0.74",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 105.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_bistro_white",
+      "name": "White Bistro Table",
+      "category": "kitchen",
+      "description": "A small round bistro table for two. White finish.",
+      "icon": "kitchen_table_bistro_white.png",
+      "max_stack": 1,
+      "weight_kg": 9.0,
+      "base_value": 95.0,
+      "support_surface": true,
+      "deck_heights": "0.74",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_black",
+      "name": "Black Dining Table",
+      "category": "kitchen",
+      "description": "A rectangular dining table that seats six. Black finish.",
+      "icon": "kitchen_table_black.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 340.0,
+      "support_surface": true,
+      "deck_heights": "0.76",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_oak",
+      "name": "Oak Dining Table",
+      "category": "kitchen",
+      "description": "A rectangular dining table that seats six. Oak finish.",
+      "icon": "kitchen_table_oak.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 374.0,
+      "support_surface": true,
+      "deck_heights": "0.76",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 374.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_round_black",
+      "name": "Black Round Pedestal Table",
+      "category": "kitchen",
+      "description": "A round pedestal table that seats four. Black finish.",
+      "icon": "kitchen_table_round_black.png",
+      "max_stack": 1,
+      "weight_kg": 26.0,
+      "base_value": 280.0,
+      "support_surface": true,
+      "deck_heights": "0.75",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 280.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_round_oak",
+      "name": "Oak Round Pedestal Table",
+      "category": "kitchen",
+      "description": "A round pedestal table that seats four. Oak finish.",
+      "icon": "kitchen_table_round_oak.png",
+      "max_stack": 1,
+      "weight_kg": 26.0,
+      "base_value": 308.0,
+      "support_surface": true,
+      "deck_heights": "0.75",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 308.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_round_white",
+      "name": "White Round Pedestal Table",
+      "category": "kitchen",
+      "description": "A round pedestal table that seats four. White finish.",
+      "icon": "kitchen_table_round_white.png",
+      "max_stack": 1,
+      "weight_kg": 26.0,
+      "base_value": 280.0,
+      "support_surface": true,
+      "deck_heights": "0.75",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 280.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table_white",
+      "name": "White Dining Table",
+      "category": "kitchen",
+      "description": "A rectangular dining table that seats six. White finish.",
+      "icon": "kitchen_table_white.png",
+      "max_stack": 1,
+      "weight_kg": 38.0,
+      "base_value": 340.0,
+      "support_surface": true,
+      "deck_heights": "0.76",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_black",
+      "name": "Black Toaster",
+      "category": "kitchen",
+      "description": "A two-slice toaster with a lever and a browning dial. Black finish.",
+      "icon": "kitchen_toaster_black.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 1.9,
+      "base_value": 37.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 37.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_oven_black",
+      "name": "Black Toaster Oven",
+      "category": "kitchen",
+      "description": "A countertop toaster oven with a glass door and three dials. Black finish.",
+      "icon": "kitchen_toaster_oven_black.png",
+      "max_stack": 1,
+      "power_draw_w": 1200.0,
+      "weight_kg": 5.5,
+      "base_value": 90.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 90.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_oven_stainless",
+      "name": "Stainless Steel Toaster Oven",
+      "category": "kitchen",
+      "description": "A countertop toaster oven with a glass door and three dials. Stainless Steel finish.",
+      "icon": "kitchen_toaster_oven_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 1200.0,
+      "weight_kg": 5.5,
+      "base_value": 104.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 104.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_oven_white",
+      "name": "White Toaster Oven",
+      "category": "kitchen",
+      "description": "A countertop toaster oven with a glass door and three dials. White finish.",
+      "icon": "kitchen_toaster_oven_white.png",
+      "max_stack": 1,
+      "power_draw_w": 1200.0,
+      "weight_kg": 5.5,
+      "base_value": 85.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 85.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_stainless",
+      "name": "Stainless Steel Toaster",
+      "category": "kitchen",
+      "description": "A two-slice toaster with a lever and a browning dial. Stainless Steel finish.",
+      "icon": "kitchen_toaster_stainless.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 1.9,
+      "base_value": 43.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 43.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_toaster_white",
+      "name": "White Toaster",
+      "category": "kitchen",
+      "description": "A two-slice toaster with a lever and a browning dial. White finish.",
+      "icon": "kitchen_toaster_white.png",
+      "max_stack": 1,
+      "power_draw_w": 900.0,
+      "weight_kg": 1.9,
+      "base_value": 35.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 35.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_trash_can_black",
+      "name": "Black Step Trash Can",
+      "category": "kitchen",
+      "description": "A step-on kitchen trash can with a pedal and a lid. Black finish.",
+      "icon": "kitchen_trash_can_black.png",
+      "max_stack": 1,
+      "weight_kg": 3.2,
+      "base_value": 60.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 60.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_trash_can_stainless",
+      "name": "Stainless Steel Step Trash Can",
+      "category": "kitchen",
+      "description": "A step-on kitchen trash can with a pedal and a lid. Stainless Steel finish.",
+      "icon": "kitchen_trash_can_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 3.2,
+      "base_value": 66.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 66.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_trash_can_white",
+      "name": "White Step Trash Can",
+      "category": "kitchen",
+      "description": "A step-on kitchen trash can with a pedal and a lid. White finish.",
+      "icon": "kitchen_trash_can_white.png",
+      "max_stack": 1,
+      "weight_kg": 3.2,
+      "base_value": 58.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 58.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_utensil_crock_black",
+      "name": "Black Utensil Crock",
+      "category": "kitchen",
+      "description": "A crock holding a bunch of kitchen utensils. Black finish.",
+      "icon": "kitchen_utensil_crock_black.png",
+      "max_stack": 1,
+      "weight_kg": 1.1,
+      "base_value": 19.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 19.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_utensil_crock_stainless",
+      "name": "Stainless Steel Utensil Crock",
+      "category": "kitchen",
+      "description": "A crock holding a bunch of kitchen utensils. Stainless Steel finish.",
+      "icon": "kitchen_utensil_crock_stainless.png",
+      "max_stack": 1,
+      "weight_kg": 1.1,
+      "base_value": 20.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 20.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_utensil_crock_white",
+      "name": "White Utensil Crock",
+      "category": "kitchen",
+      "description": "A crock holding a bunch of kitchen utensils. White finish.",
+      "icon": "kitchen_utensil_crock_white.png",
+      "max_stack": 1,
+      "weight_kg": 1.1,
+      "base_value": 18.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 18.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_black",
+      "name": "Black Wall Cabinet",
+      "category": "kitchen",
+      "description": "A single-door wall cabinet. Mount it on a wall. Black, granite top.",
+      "icon": "kitchen_wall_cab_black.png",
+      "max_stack": 1,
+      "weight_kg": 14.0,
+      "base_value": 95.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_glass_black",
+      "name": "Black Glass-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wall cabinet with a glass door for showing dishes. Mount it on a wall. Black, granite top.",
+      "icon": "kitchen_wall_cab_glass_black.png",
+      "max_stack": 1,
+      "weight_kg": 15.0,
+      "base_value": 170.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 170.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_glass_oak",
+      "name": "Oak Glass-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wall cabinet with a glass door for showing dishes. Mount it on a wall. Oak, butcher-block top.",
+      "icon": "kitchen_wall_cab_glass_oak.png",
+      "max_stack": 1,
+      "weight_kg": 15.0,
+      "base_value": 170.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 170.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_glass_white",
+      "name": "White Glass-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wall cabinet with a glass door for showing dishes. Mount it on a wall. White shaker doors, marble top.",
+      "icon": "kitchen_wall_cab_glass_white.png",
+      "max_stack": 1,
+      "weight_kg": 15.0,
+      "base_value": 170.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 170.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_oak",
+      "name": "Oak Wall Cabinet",
+      "category": "kitchen",
+      "description": "A single-door wall cabinet. Mount it on a wall. Oak, butcher-block top.",
+      "icon": "kitchen_wall_cab_oak.png",
+      "max_stack": 1,
+      "weight_kg": 14.0,
+      "base_value": 95.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_white",
+      "name": "White Wall Cabinet",
+      "category": "kitchen",
+      "description": "A single-door wall cabinet. Mount it on a wall. White shaker doors, marble top.",
+      "icon": "kitchen_wall_cab_white.png",
+      "max_stack": 1,
+      "weight_kg": 14.0,
+      "base_value": 95.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 95.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_wide_black",
+      "name": "Black Double-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wide wall cabinet with two doors. Mount it on a wall. Black, granite top.",
+      "icon": "kitchen_wall_cab_wide_black.png",
+      "max_stack": 1,
+      "weight_kg": 20.0,
+      "base_value": 140.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_wide_oak",
+      "name": "Oak Double-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wide wall cabinet with two doors. Mount it on a wall. Oak, butcher-block top.",
+      "icon": "kitchen_wall_cab_wide_oak.png",
+      "max_stack": 1,
+      "weight_kg": 20.0,
+      "base_value": 140.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_wall_cab_wide_white",
+      "name": "White Double-Door Wall Cabinet",
+      "category": "kitchen",
+      "description": "A wide wall cabinet with two doors. Mount it on a wall. White shaker doors, marble top.",
+      "icon": "kitchen_wall_cab_wide_white.png",
+      "max_stack": 1,
+      "weight_kg": 20.0,
+      "base_value": 140.0,
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 140.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_work_counter_black",
+      "name": "Black Work Counter",
+      "category": "kitchen",
+      "description": "A freestanding countertop slab on slim legs, a work table for the kitchen. Black, granite top.",
+      "icon": "kitchen_work_counter_black.png",
+      "max_stack": 1,
+      "weight_kg": 36.0,
+      "base_value": 210.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 210.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_work_counter_oak",
+      "name": "Oak Work Counter",
+      "category": "kitchen",
+      "description": "A freestanding countertop slab on slim legs, a work table for the kitchen. Oak, butcher-block top.",
+      "icon": "kitchen_work_counter_oak.png",
+      "max_stack": 1,
+      "weight_kg": 36.0,
+      "base_value": 210.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 210.0
+        }
+      ]
+    },
+    {
+      "id": "kitchen_work_counter_white",
+      "name": "White Work Counter",
+      "category": "kitchen",
+      "description": "A freestanding countertop slab on slim legs, a work table for the kitchen. White shaker doors, marble top.",
+      "icon": "kitchen_work_counter_white.png",
+      "max_stack": 1,
+      "weight_kg": 36.0,
+      "base_value": 210.0,
+      "support_surface": true,
+      "deck_heights": "0.92",
+      "store_listings": [
+        {
+          "store": "furniture",
+          "category": "Kitchen",
+          "unit": "ea",
+          "price": 210.0
+        }
+      ]
+    },
+    {
       "id": "liquid_antifreeze",
       "name": "Antifreeze",
       "category": "liquids",

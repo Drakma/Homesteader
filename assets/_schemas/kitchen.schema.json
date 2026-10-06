@@ -1,0 +1,34 @@
+{
+  "category": "kitchen",
+  "title": "Kitchen",
+  "target": "category_fields",
+  "note": "Kitchen pack (tools/make_kitchen_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "kitchen_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Kind",
+      "enum": [
+        "appliance",
+        "cabinet",
+        "table",
+        "seating",
+        "accessory"
+      ],
+      "note": "What it is: appliance, cabinet (counters, islands, shelves), table, seating or accessory (cookware, small things)."
+    },
+    "finish": {
+      "type": "string",
+      "required": true,
+      "label": "Finish",
+      "note": "The finish of this variant: stainless_steel, white, black, oak, maple, walnut or standard."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    }
+  }
+}

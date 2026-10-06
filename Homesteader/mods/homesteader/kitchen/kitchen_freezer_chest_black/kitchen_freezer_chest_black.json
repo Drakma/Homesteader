@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "kitchen_freezer_chest_black",
+  "name": "Black Chest Freezer",
+  "category": "kitchen",
+  "description": "A deep chest freezer with a hinged lid and a handle. Black finish.",
+  "icon": "kitchen_freezer_chest_black.png",
+  "properties": {
+    "weight_kg": 48.0,
+    "max_stack_size": 1,
+    "base_value": 488,
+    "is_consumable": false,
+    "footprint": "1.01m W x 0.70m D x 0.86m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea"
+  },
+  "models": [
+    {
+      "file": "kitchen_freezer_chest_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.008,
+        "y": 0.86,
+        "z": 0.705
+      },
+      "triangles": 540
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "110 W",
+      "details": "Draws about 110 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.008,
+      "depth": 0.705,
+      "height": 0.86
+    },
+    "kitchen_kind": "appliance",
+    "finish": "black",
+    "power_draw_w": 110
+  }
+}

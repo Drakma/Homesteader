@@ -1,0 +1,85 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "kitchen_stand_mixer_white",
+  "name": "White Stand Mixer",
+  "category": "kitchen",
+  "description": "A tilt-head stand mixer with a stainless mixing bowl. White finish.",
+  "icon": "kitchen_stand_mixer_white.png",
+  "properties": {
+    "weight_kg": 11.0,
+    "max_stack_size": 1,
+    "base_value": 240,
+    "is_consumable": false,
+    "footprint": "0.25m W x 0.29m D x 0.34m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea"
+  },
+  "models": [
+    {
+      "file": "kitchen_stand_mixer_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.252,
+        "y": 0.34,
+        "z": 0.286
+      },
+      "triangles": 836
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "325 W",
+      "details": "Draws about 325 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.252,
+      "depth": 0.286,
+      "height": 0.34
+    },
+    "kitchen_kind": "appliance",
+    "finish": "white",
+    "power_draw_w": 325
+  }
+}
