@@ -392,8 +392,9 @@ def partition_doors(b, c, M, p, idx0):
     slide = bool(c.cfg.get('slide_doors'))
     for g0, g1 in p.get('doors', []):
         n += 1
-        dw = (g1 - g0) - 0.04
+        dw = (g1 - g0) - 0.02                                                              # 1 cm of clearance each side (it was 2)
         if slide:
+            dw = (g1 - g0) + 0.10                                                          # a sliding leaf overlaps the wall 5 cm each side: it covers the opening
             side = -1.0 if p['pos'] > 0.0 else 1.0                                        # towards the middle of the building
             plane = p['pos'] + side * (PT / 2 + 0.035 + 0.05 * (n % 2))
             plus, minus = partition_run(p, gaps, g0, g1, 1), partition_run(p, gaps, g0, g1, -1)
@@ -425,14 +426,14 @@ def partition_doors(b, c, M, p, idx0):
             continue
         leaf = Builder('DoorLeaf_%d' % n)
         if p['axis'] == 'y':
-            leaf.box(0.0, dw, -0.02, 0.02, 0.0, dh - 0.03, M['door'])
+            leaf.box(0.0, dw, -0.02, 0.02, 0.0, dh - 0.012, M['door'])
             leaf.box(dw - 0.14, dw - 0.08, -0.05, 0.05, dh * 0.45, dh * 0.45 + 0.05, M['brass'])
         else:
-            leaf.box(-0.02, 0.02, 0.0, dw, 0.0, dh - 0.03, M['door'])
+            leaf.box(-0.02, 0.02, 0.0, dw, 0.0, dh - 0.012, M['door'])
             leaf.box(-0.05, 0.05, dw - 0.14, dw - 0.08, dh * 0.45, dh * 0.45 + 0.05, M['brass'])
         leaf_obj = leaf.finish()
         hinge = bpy.data.objects.new('DoorHinge_%d' % n, None)
-        hinge.location = (g0 + 0.02, p['pos'], z0) if p['axis'] == 'y' else (p['pos'], g0 + 0.02, z0)
+        hinge.location = (g0 + 0.01, p['pos'], z0) if p['axis'] == 'y' else (p['pos'], g0 + 0.01, z0)
         bpy.context.collection.objects.link(hinge)
         leaf_obj.parent = hinge
         base.EXTRA_OBJECTS.extend([hinge, leaf_obj])
@@ -687,7 +688,7 @@ def big_door(part, glass_b, c, M, g, k, wall='front'):
 def personal_door(b, c, M, parts):
     """The front door, 1.2 m by 2.3 m, on its hinge, at x = door_x."""
     dx = c.dx
-    dw, dh = DOOR_W - 0.06, DOOR_H - 0.04
+    dw, dh = DOOR_W - 0.06, DOOR_H - 0.03
     z0 = c.z0
     leaf = Builder('DoorLeaf')
     leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door'])
@@ -708,6 +709,11 @@ def personal_door(b, c, M, parts):
     hs.trim_box(pf, c, 'front', dx + DOOR_W / 2, dx + DOOR_W / 2 + t, z0, z0 + DOOR_H + t, -0.05, 0.03, M['trim'])
     hs.trim_box(pf, c, 'front', dx - DOOR_W / 2 - t, dx + DOOR_W / 2 + t, z0 + DOOR_H, z0 + DOOR_H + t, -0.05, 0.03, M['trim'])
     hs.trim_box(pf, c, 'front', dx - DOOR_W / 2, dx + DOOR_W / 2, z0, z0 + 0.03, -0.02, 0.19, M['concrete'])
+    # the door frame's lining through the wall (the opening's sides and head were bare wall layers with daylight round the leaf)
+    k, th = 0.02, IN
+    hs.trim_box(pf, c, 'front', dx - DOOR_W / 2, dx - DOOR_W / 2 + k, z0, z0 + DOOR_H, 0.0, th, M['trim'])
+    hs.trim_box(pf, c, 'front', dx + DOOR_W / 2 - k, dx + DOOR_W / 2, z0, z0 + DOOR_H, 0.0, th, M['trim'])
+    hs.trim_box(pf, c, 'front', dx - DOOR_W / 2, dx + DOOR_W / 2, z0 + DOOR_H - k, z0 + DOOR_H, 0.0, th, M['trim'])
 
 
 def railing(b, c, M):

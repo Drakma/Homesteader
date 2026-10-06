@@ -41,7 +41,8 @@ def material(name, rgb, rough=0.9):
 
 
 def glass_material():
-    m = material('Glass', (0.6, 0.78, 0.9), 0.1)
+    # roughness 0.85, not a mirror: a smooth pane reflects the (daytime) sky probe, so every window glowed pale blue at night
+    m = material('Glass', (0.6, 0.78, 0.9), 0.85)
     m.node_tree.nodes['Principled BSDF'].inputs['Alpha'].default_value = 0.3
     for attr, val in (('blend_method', 'BLEND'), ('surface_render_method', 'BLENDED')):
         try:

@@ -438,7 +438,7 @@ def railing(b, c, M):
 
 
 def door(b, c, M):
-    dw, dh = DOOR_W - 0.06, DOOR_H - 0.04
+    dw, dh = DOOR_W - 0.06, DOOR_H - 0.03
     z0 = c.z0
     leaf = Builder('DoorLeaf')
     leaf.box(0.0, dw, -0.04, 0.04, 0.0, dh, M['door'])
@@ -458,6 +458,11 @@ def door(b, c, M):
     trim_box(b, c, 'front', DOOR_W / 2, DOOR_W / 2 + t, z0, z0 + DOOR_H + t, -0.05, 0.03, M['trim'])
     trim_box(b, c, 'front', -DOOR_W / 2 - t, DOOR_W / 2 + t, z0 + DOOR_H, z0 + DOOR_H + t, -0.05, 0.03, M['trim'])
     trim_box(b, c, 'front', -DOOR_W / 2, DOOR_W / 2, z0, z0 + 0.03, -0.02, 0.19, M['concrete'])
+    # the door frame's lining through the wall (the opening's sides and head were bare wall layers with daylight round the leaf)
+    k, th = 0.02, T_SIDING + T_SHEATH + T_STUD + 0.02
+    trim_box(b, c, 'front', -DOOR_W / 2, -DOOR_W / 2 + k, z0, z0 + DOOR_H, 0.0, th, M['trim'])
+    trim_box(b, c, 'front', DOOR_W / 2 - k, DOOR_W / 2, z0, z0 + DOOR_H, 0.0, th, M['trim'])
+    trim_box(b, c, 'front', -DOOR_W / 2, DOOR_W / 2, z0 + DOOR_H - k, z0 + DOOR_H, 0.0, th, M['trim'])
 
 
 # ------------------------------------------------------------------ main
