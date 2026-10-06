@@ -6,7 +6,7 @@ tools/build_well_group.py makes the manifests first and renders the icons afterw
     blender --background --python tools/make_well_stages.py -- water_well_manual
 
   foundation  a gravel apron and a round concrete footing ring
-  framing     the footing and the stone lining of the shaft (courses of fieldstone), dark water at the bottom
+  framing     the footing and the cinder-block lining of the shaft (courses of blocks), dark water at the bottom
   walls       the lining carried up to a waist-high curb, two timber posts and the cross beam between them
   complete    the posts and beam under a small shingled gable roof, a windlass with its crank, the rope and a bucket
 
@@ -27,7 +27,8 @@ import make_silo_stages as silo         # band, tube, disc, cone (round shapes)
 STRUCTURES = base.STRUCTURES
 WELLS = ['water_well_manual']
 SIDES = 24
-COURSE_H = 0.13
+COURSE_H = 0.2           # one course of cinder blocks (a block is 20 cm tall and 40 cm long)
+BLOCKS = 10              # blocks round the shaft: 10 x 40 cm is the ring's circumference at its middle radius
 FOOT_H = 0.18
 R_OUT, R_IN = 0.74, 0.46
 
@@ -36,7 +37,9 @@ def mats():
     return {
         'concrete': base.material('Concrete', (0.6, 0.6, 0.58), 0.95),
         'gravel': base.material('Gravel', (0.55, 0.53, 0.5), 1.0),
-        'stone': base.material('Masonry', (0.62, 0.6, 0.56), 0.95),
+        # NOT named "Masonry": the game lays a red brick picture on every material with that name (StructureLook.cs). These are real cinder-block courses.
+        'stone': base.material('Block', (0.64, 0.64, 0.62), 0.95),
+        'mortar': base.material('BlockMortar', (0.78, 0.78, 0.76), 1.0),
         'water': base.material('Water', (0.08, 0.16, 0.22), 0.1),
         'log': base.material('Log', (0.5, 0.36, 0.22), 0.9),
         'wood': base.material('Plank', (0.62, 0.48, 0.3), 0.9),
@@ -51,12 +54,34 @@ def foundation(b, fb, M):
     silo.tube(fb, 0.82, 0.42, 0.0, FOOT_H, M['concrete'], n=SIDES)                                # the footing ring
 
 
+def block_ring(b, r_out, r_in, z0, z1, n, phase, m, gap=0.012):
+    """One course of cinder blocks: n wedge blocks round the shaft with a mortar gap between neighbours (the mortar tube behind them shows in the gaps)."""
+    i = b.mat_index(m)
+    step = 2.0 * math.pi / n
+    ga = gap / r_out
+    for k in range(n):
+        a0, a1 = phase + k * step + ga / 2, phase + (k + 1) * step - ga / 2
+        v = {}
+        for zi, z in ((0, z0), (1, z1)):
+            for ri, r in ((0, r_in), (1, r_out)):
+                for ai, a in ((0, a0), (1, a1)):
+                    v[(zi, ri, ai)] = b.bm.verts.new((r * math.cos(a), r * math.sin(a), z))
+        for quad in (((0, 1, 0), (0, 1, 1), (1, 1, 1), (1, 1, 0)),       # outer face
+                     ((0, 0, 0), (1, 0, 0), (1, 0, 1), (0, 0, 1)),       # inner face
+                     ((1, 0, 0), (1, 1, 0), (1, 1, 1), (1, 0, 1)),       # top
+                     ((0, 0, 0), (0, 0, 1), (0, 1, 1), (0, 1, 0)),       # bottom
+                     ((0, 0, 0), (0, 1, 0), (1, 1, 0), (1, 0, 0)),       # one end
+                     ((0, 0, 1), (1, 0, 1), (1, 1, 1), (0, 1, 1))):      # the other end
+            f = b.bm.faces.new([v[q] for q in quad])
+            f.material_index = i
+
+
 def lining(b, M, courses):
-    """The stone lining: stacked courses, each a hollow ring, the joints staggered by a turn and the radius varying a little."""
+    """The lining: courses of cinder blocks, every other course shifted half a block so the joints stagger, on a mortar tube that shows in the joints."""
     for k in range(courses):
         z0 = FOOT_H + k * COURSE_H
-        r = R_OUT + (0.012 if k % 2 else 0.0)
-        silo.tube(b, r, R_IN, z0, z0 + COURSE_H * 0.97, M['stone'], n=SIDES)
+        silo.tube(b, R_OUT - 0.02, R_IN + 0.02, z0, z0 + COURSE_H, M['mortar'], n=SIDES)
+        block_ring(b, R_OUT, R_IN, z0 + 0.006, z0 + COURSE_H - 0.006, BLOCKS, (math.pi / BLOCKS) * (k % 2), M['stone'])
     silo.disc(b, R_IN - 0.01, FOOT_H + 0.05, M['water'], n=SIDES)                                  # the dark water far down the shaft
     # a cap stone ring on the top course
     ztop = FOOT_H + courses * COURSE_H
@@ -65,13 +90,13 @@ def lining(b, M, courses):
 
 def framing(b, fb, M):
     foundation(b, fb, M)
-    lining(b, M, 4)
+    lining(b, M, 2)
 
 
 def walls(b, fb, M, roofed=False):
     foundation(b, fb, M)
-    lining(b, M, 6)
-    ztop = FOOT_H + 6 * COURSE_H + 0.05
+    lining(b, M, 4)
+    ztop = FOOT_H + 4 * COURSE_H + 0.05
     for sx in (-0.88, 0.88):
         b.log((sx, 0.0, FOOT_H), (sx, 0.0, 2.05), 0.07, M['log'], sides=8)              # the two posts
         b.box(sx - 0.14, sx + 0.14, -0.14, 0.14, FOOT_H, FOOT_H + 0.08, M['log'])         # their feet
