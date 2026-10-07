@@ -1,0 +1,107 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lighting_ceiling_fan_classic_white",
+  "name": "Classic White Ceiling Fan With Light",
+  "category": "lighting",
+  "description": "A five-blade ceiling fan with a light kit. Classic styling.",
+  "icon": "lighting_ceiling_fan_classic_white.png",
+  "properties": {
+    "weight_kg": 7.5,
+    "max_stack_size": 1,
+    "base_value": 223,
+    "is_consumable": false,
+    "footprint": "1.12m W x 1.18m D x 0.42m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "ceiling",
+    "attach_side": "interior"
+  },
+  "models": [
+    {
+      "file": "lighting_ceiling_fan_classic_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.124,
+        "y": 0.42,
+        "z": 1.181
+      },
+      "triangles": 640
+    }
+  ],
+  "lights": [
+    {
+      "id": "lamp",
+      "color": "#FFE6B8",
+      "intensity": 3.0,
+      "range_m": 8.0,
+      "offset_m": [
+        0,
+        -0.05,
+        0
+      ],
+      "on": "always",
+      "power_w": 15,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "75 W",
+      "details": "Draws about 75 W while it is on."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.124,
+      "depth": 1.181,
+      "height": 0.42
+    },
+    "lighting_kind": "ceiling_fan",
+    "style": "classic",
+    "finish": "white",
+    "mount": "ceiling",
+    "power_draw_w": 75
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "category": "lighting",
+  "title": "Lighting",
+  "target": "category_fields",
+  "note": "Lighting pack (tools/make_lighting_assets.py). The lights themselves are the usual `lights` list; the size comes from the universal _base_dimensions schema.",
+  "fields": {
+    "lighting_kind": {"type": "string", "required": true, "label": "Piece", "note": "Which fixture: ceiling_flush, ceiling_pendant, chandelier, ceiling_fan, track_light, wall_sconce, vanity_bar, picture_light, swing_arm, wall_lantern, barn_light, flood_light, post_lamp, pole_light, bollard or path_light."},
+    "style": {"type": "string", "required": true, "label": "Style", "enum": ["classic", "modern"], "note": "Classic or modern styling."},
+    "finish": {"type": "string", "required": true, "label": "Finish", "note": "The metal: brass, bronze, black, white (classic) or chrome, black, nickel, white (modern)."},
+    "mount": {"type": "string", "required": true, "label": "Mount", "enum": ["ceiling", "wall_in", "wall_out", "ground"], "note": "Hangs from the ceiling, mounts on an inside or an outside wall, or stands on the ground."},
+    "power_draw_w": {"type": "number", "required": false, "min": 0, "label": "Power draw (W)", "note": "Watts drawn while on."}
+  }
+}

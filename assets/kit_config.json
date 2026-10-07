@@ -29,6 +29,12 @@
       "icon": "",
       "desc": "Sofas, chairs, tables, shelves, lamps, rugs and decor for the living and family room, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general appliances and furniture.",
       "prefix": "living"
+    },
+    "lighting": {
+      "name": "Lighting",
+      "icon": "",
+      "desc": "Ceiling lights, chandeliers and fans, inside and outside wall lights, and garden post, pole and path lights, each in a classic and a modern style and four metal finishes.",
+      "prefix": "lighting"
     }
   },
   "subfolders": {
