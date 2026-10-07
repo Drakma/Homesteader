@@ -17671,7 +17671,7 @@
       "description": "Seeds for planting alfalfa. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_alfalfa.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17690,7 +17690,7 @@
       "description": "Seeds for planting barley. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_barley.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17709,7 +17709,7 @@
       "description": "Seeds for planting beet. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_beet.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17728,7 +17728,7 @@
       "description": "Seeds for planting broccoli. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_broccoli.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17747,7 +17747,7 @@
       "description": "Seeds for planting cabbage. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_cabbage.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "display_weight": true,
       "weight_kg": 0.005,
       "base_value": 2.5,
@@ -17767,7 +17767,7 @@
       "description": "Seeds for planting cantaloupe. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_cantaloupe.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17786,7 +17786,7 @@
       "description": "Seeds for planting carrots. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_carrot.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17805,7 +17805,7 @@
       "description": "Seeds for planting corn. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_corn.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.0,
       "store_listings": [
@@ -17824,7 +17824,7 @@
       "description": "Seeds for planting cotton. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_cotton.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 3.0,
       "store_listings": [
@@ -17843,7 +17843,7 @@
       "description": "Seeds for planting cucumber. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_cucumber.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17862,7 +17862,7 @@
       "description": "Seeds for planting flax. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_flax.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17881,7 +17881,7 @@
       "description": "Seeds for planting garlic. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_garlic.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17900,7 +17900,7 @@
       "description": "Seeds for planting green bean. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_green_beans.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17919,7 +17919,7 @@
       "description": "Seeds for planting herbs. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_herb.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 6.0,
       "store_listings": [
@@ -17938,7 +17938,7 @@
       "description": "Seeds for planting hops. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_hops.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17957,7 +17957,7 @@
       "description": "Seeds for planting lettuce. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_lettuce.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17976,7 +17976,7 @@
       "description": "Seeds for planting oat. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_oats.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -17995,7 +17995,7 @@
       "description": "Seeds for planting onion. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_onion.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18014,7 +18014,7 @@
       "description": "Seeds for planting peanut. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_peanuts.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18033,7 +18033,7 @@
       "description": "Seeds for planting peas. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_peas.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18052,7 +18052,7 @@
       "description": "Seeds for planting pepper. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_peppers.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18071,7 +18071,7 @@
       "description": "Potato seed pieces for planting. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_potato.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 3.0,
       "store_listings": [
@@ -18090,7 +18090,7 @@
       "description": "Seeds for planting pumpkins. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_pumpkin.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 4.0,
       "store_listings": [
@@ -18109,7 +18109,7 @@
       "description": "Seeds for planting radish. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_radish.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18128,7 +18128,7 @@
       "description": "Seeds for planting rhubarb. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_rhubarb.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18147,7 +18147,7 @@
       "description": "Seeds for planting soybean. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_soybeans.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18166,7 +18166,7 @@
       "description": "Seeds for planting spinach. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_spinach.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18185,7 +18185,7 @@
       "description": "Standard ranching asset used in the Homesteader simulation. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_strawberry.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 10.0,
       "store_listings": [
@@ -18204,7 +18204,7 @@
       "description": "Seeds for planting sunflowers. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_sunflower.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.0,
       "store_listings": [
@@ -18223,7 +18223,7 @@
       "description": "Seeds for planting tobacco. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_tobacco.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18242,7 +18242,7 @@
       "description": "Seeds for planting tomatoes. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_tomato.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 3.0,
       "store_listings": [
@@ -18261,7 +18261,7 @@
       "description": "Seeds for planting watermelon. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_watermelon.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [
@@ -18280,7 +18280,7 @@
       "description": "Seeds for planting wheat. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_wheat.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 1.5,
       "store_listings": [
@@ -18299,7 +18299,7 @@
       "description": "Seeds for planting zucchini. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
       "icon": "seed_zucchini.png",
       "max_stack": 100,
-      "units_per_sale": 20,
+      "uses_per_item": 20,
       "weight_kg": 0.005,
       "base_value": 2.5,
       "store_listings": [

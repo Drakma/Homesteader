@@ -461,6 +461,27 @@ namespace Homesteader.UI
             return true;
         }
 
+        /// <summary>The uses left in a slot of items that each hold <paramref name="per"/> uses (seed packets): all the packets, less what is gone from the one on top (WireUsed).</summary>
+        public static int UsesLeft(ToolbarSlotData slot, int per)
+        {
+            return Mathf.Max(0, slot.Count * per - Mathf.RoundToInt(slot.WireUsed));
+        }
+
+        /// <summary>Uses up some of the selected slot's items, a packet at a time: the one on top is emptied before the next is opened. False when there are not enough left.</summary>
+        public bool ConsumeUsesFromSelectedSlot(int uses, int per)
+        {
+            EnsureToolbarSlots();
+            if (SelectedSlot < 0 || SelectedSlot >= Toolbar.Count) return false;
+            var slot = Toolbar[SelectedSlot];
+            if (string.IsNullOrEmpty(slot.IconId) || UsesLeft(slot, per) < uses) return false;
+            slot.WireUsed += uses;
+            while (slot.Count > 0 && slot.WireUsed >= per - 0.001f) { slot.Count--; slot.WireUsed = Mathf.Max(0f, slot.WireUsed - per); }
+            if (slot.Count <= 0) slot = ToolbarSlotData.Empty();
+            Toolbar[SelectedSlot] = slot;
+            HeldAssetId = slot.IconId ?? string.Empty;
+            return true;
+        }
+
         /// <summary>Empties the selected slot (the Delete key). Returns the item id and count that were removed, or null if it was empty.</summary>
         public ToolbarSlotData? ClearSelectedSlot()
         {

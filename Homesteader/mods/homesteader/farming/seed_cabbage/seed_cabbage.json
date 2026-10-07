@@ -22,7 +22,7 @@
     ],
     "sale_unit": "packet",
     "display_weight": true,
-    "units_per_sale": 20
+    "uses_per_item": 20
   },
   "models": [],
   "utilities": {

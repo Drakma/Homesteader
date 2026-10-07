@@ -818,6 +818,13 @@ namespace Homesteader.UI
             return s_assetCatalog?.items?.Find(i => i.id == itemId);
         }
 
+        /// <summary>How many uses one of the item holds (a seed packet: 20); 1 for everything else.</summary>
+        public static int UsesPerItem(string itemId)
+        {
+            AssetCatalogItem item = GetCatalogItem(itemId);
+            return item != null && item.uses_per_item > 1 ? item.uses_per_item : 1;
+        }
+
         /// <summary>Catalog max stack size for an item id (64 when unknown).</summary>
         public static int GetMaxStack(string itemId)
         {
@@ -1314,7 +1321,7 @@ namespace Homesteader.UI
                 tile.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     bool isShift = evt.shiftKey || (evt.modifiers & EventModifiers.Shift) != 0 || IsShiftHeld();
-                    int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : Mathf.Max(1, currentItem.units_per_sale);   // a click takes one sale unit (a seed packet is 20 seeds)
+                    int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : 1;
                     if (evt.altKey || (evt.modifiers & EventModifiers.Alt) != 0)
                     {
                         // Alt+Click: one straight onto the ground in front of the player (Alt+Shift+Click: ten)
@@ -2002,9 +2009,12 @@ namespace Homesteader.UI
                     var label = _toolbarSlotLabels[i];
                     if (label != null)
                     {
-                        label.text = data.Count > 1
-                            ? "x" + data.Count.ToString()
-                            : "";
+                        int per = data.Count > 0 ? UsesPerItem(data.IconId) : 1;
+                        label.text = per > 1
+                            ? (data.Count > 1 ? "x" + data.Count + "  " : "") + HudState.UsesLeft(data, per)   // a seed packet: the seeds left, and how many packets
+                            : data.Count > 1
+                                ? "x" + data.Count.ToString()
+                                : "";
                     }
 
                     if (data.Count > 0 && !string.IsNullOrEmpty(data.IconId))
@@ -2118,7 +2128,7 @@ namespace Homesteader.UI
         public string description;
         public string icon;
         public int max_stack;
-        public int units_per_sale;                                  // one purchase delivers this many (a seed packet: 20 seeds); 0 = one
+        public int uses_per_item;                                   // how many uses ONE item holds (a seed packet: 20 seeds); 0 = one. The slot's WireUsed counts the uses taken from the one on top
         public float weight_kg;
         public float build_speed;                  // tools: 1 = the baseline build time, below 1 slower (a hammer), above 1 faster (0 = not set = 1)
         public int pack_quantity;                  // a stack / pallet / case / bundle of N: shown as "Name (N)"

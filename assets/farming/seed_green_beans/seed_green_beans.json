@@ -21,7 +21,7 @@
       "feed"
     ],
     "sale_unit": "packet",
-    "units_per_sale": 20
+    "uses_per_item": 20
   },
   "models": [],
   "utilities": {

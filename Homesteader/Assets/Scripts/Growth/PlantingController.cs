@@ -380,14 +380,16 @@ namespace Homesteader.Growth
                 ToastNotificationSystem.ShowWarning("Can't plant here", reason);
                 return;
             }
-            int seeds = state.Toolbar[state.SelectedSlot].Count;
+            // The item is a packet that holds several seeds (uses_per_item): the seeds come out of the packet on top, a new packet is opened when it runs out.
+            int per = HudBindings.UsesPerItem(heldId);
+            int seeds = HudState.UsesLeft(state.Toolbar[state.SelectedSlot], per);
             if (seeds < spots.Count)
             {
                 if (seeds <= 0) return;
                 ToastNotificationSystem.ShowWarning("Not enough seeds", $"This square takes {spots.Count} seeds; you have {seeds}.");
                 return;
             }
-            if (!state.ConsumeFromSelectedSlot(spots.Count)) return;
+            if (!state.ConsumeUsesFromSelectedSlot(spots.Count, per)) return;
             hud.RefreshToolbar();
             foreach (Vector3 q in spots) PlantedGrowth.Plant(group, q, PlantedRoot());
         }

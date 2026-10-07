@@ -72,9 +72,9 @@ def main():
                         ms = props.get("max_stack_size")
                         if ms and isinstance(ms, int) and ms > 0:
                             item_data["max_stack"] = ms
-                        us = props.get("units_per_sale")   # one purchase delivers this many of the item (a seed packet = 20 seeds)
+                        us = props.get("uses_per_item")   # how many uses one item holds (a seed packet = 20 seeds)
                         if isinstance(us, (int, float)) and us > 1:
-                            item_data["units_per_sale"] = int(us)
+                            item_data["uses_per_item"] = int(us)
                         pq = props.get("pack_quantity")
                         if isinstance(pq, (int, float)) and pq > 1:
                             item_data["pack_quantity"] = int(pq)
