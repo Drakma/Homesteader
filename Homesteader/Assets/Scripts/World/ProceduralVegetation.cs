@@ -941,8 +941,9 @@ namespace Homesteader.World
             {
                 float ang = (float)(rng.NextDouble() * Mathf.PI * 2.0);
                 Vector3 dir = new Vector3(Mathf.Cos(ang), 0f, Mathf.Sin(ang));
-                float h = 0.7f + (float)rng.NextDouble() * 0.7f;
-                float outward = h * (0.15f + (float)rng.NextDouble() * 0.45f);
+                float full = 0.7f + (float)rng.NextDouble() * 0.7f;
+                float outward = full * (0.15f + (float)rng.NextDouble() * 0.45f);   // the spread is as it was
+                float h = full * 0.5f;                                                // half the height
                 Vector3 b = dir * ((float)rng.NextDouble() * 0.12f);
                 Vector3 mid = b + dir * outward * 0.35f + Vector3.up * h * 0.6f;
                 Vector3 tip = b + dir * outward + Vector3.up * h;
