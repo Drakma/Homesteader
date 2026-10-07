@@ -23,6 +23,7 @@ VALID_EXTENSIONS = {
 
 CATEGORY_METADATA = {
     "appliances": ("Appliances Pack", "Homestead household and workshop appliances, refrigeration, laundry, and heating equipment."),
+    "laundry": ("Laundry and Mudroom Pack", "Mudroom benches, lockers, laundry counters, utility sinks, drying racks and shelving in classic and modern styles."),
     "bedroom": ("Bedroom Pack", "Beds, nightstands, dressers, wardrobes, dressing tables, cribs and desks in classic and modern styles, each in four colours."),
     "bathroom": ("Bathroom Pack", "Toilets, sinks, tubs, showers, vanities, cabinets, mirrors and accessories in classic and modern styles."),
     "lighting": ("Lighting Pack", "Ceiling, wall and outdoor post lights in classic and modern styles, each in four metal finishes."),

@@ -1,0 +1,51 @@
+{
+  "category": "laundry",
+  "title": "Laundry & Mudroom",
+  "target": "category_fields",
+  "note": "Laundry and mudroom pack (tools/make_laundry_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the bedding and upholstery or of the wood: burgundy, forest, navy, camel, charcoal, stone, teal, mustard, mahogany, walnut, cherry, oak, birch, white or black."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    },
+    "laundry_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: boot_bench, coat_rack_wall, locker_unit, shoe_rack, laundry_wall_cabinet, folding_counter, laundry_sink, drying_rack, shelf_unit, ironing_board, laundry_basket or sorter_hamper."
+    },
+    "water_per_use_l": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Water per use (L)",
+      "note": "Litres one use takes (the utility sink)."
+    },
+    "water_usage_lpm": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Water flow (L/min)",
+      "note": "Litres per minute while running; 0 for a dry piece."
+    }
+  }
+}

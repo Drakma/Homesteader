@@ -11,7 +11,7 @@ OUTPUT_PATH = os.path.join(ROOT, "Homesteader", "Assets", "Resources", "AssetCat
 # The chip label a phone shop shows for an item of each asset category (an item can override it with properties.store_category)
 STORE_CATEGORY_LABELS = {
     "appliances": "Appliances", "building": "Building", "electricity": "Electronics", "farming": "Farming", "food": "Food",
-    "fuel": "Fuel", "ingredients": "Ingredients", "internet": "Telecom", "kitchen": "Kitchen", "living": "Living Room", "lighting": "Lighting", "bathroom": "Bathroom", "bedroom": "Bedroom", "logging": "Logging", "materials": "Materials",
+    "fuel": "Fuel", "ingredients": "Ingredients", "internet": "Telecom", "kitchen": "Kitchen", "living": "Living Room", "lighting": "Lighting", "bathroom": "Bathroom", "bedroom": "Bedroom", "laundry": "Laundry", "logging": "Logging", "materials": "Materials",
     "ranching": "Ranching", "structures": "Structures", "tools": "Tools", "vehicles": "Vehicles",
 }
 

@@ -47,6 +47,12 @@
       "icon": "",
       "desc": "Beds, bunk beds, nightstands, dressers, wardrobes, dressing tables, cribs, desks and mirrors, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general furniture.",
       "prefix": "bedroom"
+    },
+    "laundry": {
+      "name": "Laundry & Mudroom",
+      "icon": "",
+      "desc": "Mudroom benches, lockers, coat racks and shoe racks, laundry counters, utility sinks, drying racks, shelving, ironing boards and baskets, each in a classic and a modern style and four colours: procedural low-poly models.",
+      "prefix": "laundry"
     }
   },
   "subfolders": {

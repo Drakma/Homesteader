@@ -1,0 +1,91 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "laundry_shelf_unit_modern_white",
+  "name": "Modern White Storage Shelves",
+  "category": "laundry",
+  "description": "An open shelf unit with baskets. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "laundry_shelf_unit_modern_white.png",
+  "properties": {
+    "weight_kg": 28.0,
+    "max_stack_size": 1,
+    "base_value": 160,
+    "is_consumable": false,
+    "footprint": "0.90m W x 0.35m D x 1.80m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.225,0.645,1.065,1.485"
+  },
+  "models": [
+    {
+      "file": "laundry_shelf_unit_modern_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.9,
+        "y": 1.8,
+        "z": 0.35
+      },
+      "triangles": 1236
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.9,
+      "depth": 0.35,
+      "height": 1.8
+    },
+    "laundry_kind": "shelf_unit",
+    "style": "modern",
+    "color": "white",
+    "power_draw_w": 0,
+    "water_per_use_l": 0,
+    "water_usage_lpm": 0
+  }
+}
