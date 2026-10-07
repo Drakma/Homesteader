@@ -35,7 +35,7 @@ A DC bus bar joins any DC devices (panel, wall entry, DC breaker box, MPPT, batt
 - It is worked out once (the building's model may still be loading after a load: it tries a few times) and is then just a fixed line and a few clips: no per-frame cost. The wire used is still the straight distance between the connection points plus the slack.
 - **Conduit**: every run outside the walls is in conduit, thicker than a bare wire and held by straps: **galvanized steel for AC**, **beige PVC for DC**.
 - **Panel to wall entry**: a solar panel on a roof or on the ground runs to the wall entry's outside plate across to the nearest point of the building's outline at the panel's own height (along the eave, or over the ground), straight down or up the wall to the entry's height, then tacked along the walls like any other run (under windows, over doors). All of it in PVC conduit.
-- **Roof panel to something far away**: a buried run from a panel on a ROOF does not drop through the building: it runs across to the nearest outer wall at the panel's height, down the outside of the wall (clear of windows and doors) to the ground in PVC conduit, and only then goes underground (`WireRouter.RouteBuriedFromRoof`).
+- **Anything on a roof, buried**: any buried run (DC, AC, Cat6, water, sewer, propane, fuel) with an end up on a ROOF (a panel, a dish, a yagi) first runs across to the nearest outer wall at that height, down the outside of the wall (clear of windows and doors) to the ground, and only then goes underground (`WireRouter.RoofDescent`, `RouteBuried(a, b, ...)`). Either end, or both.
 - Anything else (one end inside and one outside) hangs as a plain sagging wire.
 
 ## What it does

@@ -55,7 +55,7 @@ namespace Homesteader.Growth
                     // anything outside goes UNDERGROUND, coming up out of the ground at each end (at a building's water inlet: up the wall into its riser)
                     outside = true;
                     buried = true;
-                    return RouteBuried(wpa, wpb);
+                    return RouteBuried(a, b, wpa, wpb);
                 }
             }
             if (a != null && b != null && (WireNetwork.KindFor(a.Role, b.Role) == "propane" || WireNetwork.KindFor(a.Role, b.Role) == "fuel"))   // (a fuel line the same)
@@ -66,7 +66,7 @@ namespace Homesteader.Growth
                 {
                     outside = true;
                     buried = true;
-                    return RouteBuried(a.PortToward(b.BasePort), b.PortToward(a.BasePort));
+                    return RouteBuried(a, b, a.PortToward(b.BasePort), b.PortToward(a.BasePort));
                 }
             }
             if (a != null && b != null && a.Role != WireRole.WindTurbine && b.Role != WireRole.WindTurbine && a.Role != WireRole.StandbyGenerator && b.Role != WireRole.StandbyGenerator && (WireNetwork.KindFor(a.Role, b.Role) == "ac" || WireNetwork.KindFor(a.Role, b.Role) == "net"))   // (a long Cat6 run between buildings is buried the same way)
@@ -77,7 +77,7 @@ namespace Homesteader.Growth
                 {
                     outside = true;
                     buried = true;
-                    return RouteBuried(pa0, pb0);
+                    return RouteBuried(a, b, pa0, pb0);
                 }
             }
             if (a != null && b != null && (a.Role == WireRole.SolarPanel || b.Role == WireRole.SolarPanel))
@@ -88,16 +88,7 @@ namespace Homesteader.Growth
                 {
                     outside = true;
                     buried = true;
-                    // a panel up on a ROOF does not drop through the building: its conduit runs across to the wall, down the outside of it to the ground, and only then goes underground
-                    WireNode roofPanel = a.Role == WireRole.SolarPanel ? a : b;
-                    AttachedObject onRoof = roofPanel.GetComponent<AttachedObject>();
-                    if (onRoof != null && onRoof.Site != null && onRoof.Site.VisualRoot != null)
-                    {
-                        bool panelIsA = roofPanel == a;
-                        List<Vector3> run = RouteBuriedFromRoof(onRoof.Site, panelIsA ? ps0 : ps1, panelIsA ? ps1 : ps0);
-                        if (run != null) { if (!panelIsA) run.Reverse(); return run; }
-                    }
-                    return RouteBuried(ps0, ps1);
+                    return RouteBuried(a, b, ps0, ps1);
                 }
             }
             if (a != null && b != null && (a.Role == WireRole.WindTurbine || b.Role == WireRole.WindTurbine || a.Role == WireRole.StandbyGenerator || b.Role == WireRole.StandbyGenerator)) buried = true;
@@ -110,7 +101,7 @@ namespace Homesteader.Growth
                 if ((a.Role == WireRole.StandbyGenerator && b.Role == WireRole.Lockout) || (b.Role == WireRole.StandbyGenerator && a.Role == WireRole.Lockout))
                 {
                     outside = true;
-                    return RouteBuried(a.PortToward(b.BasePort), b.PortToward(a.BasePort));
+                    return RouteBuried(a, b, a.PortToward(b.BasePort), b.PortToward(a.BasePort));
                 }
                 if (a.Role == WireRole.SolarPanel && b.Role != WireRole.SolarPanel) return RouteFromPanel(a, b, out outside);
                 if (b.Role == WireRole.SolarPanel && a.Role != WireRole.SolarPanel) return RouteFromPanel(b, a, out outside);
@@ -324,15 +315,19 @@ namespace Homesteader.Growth
         }
 
         /// <summary>A buried run between two devices: down into the ground below the first one, under the terrain (following it, 0.4 m down) to the second, and up out of the ground to it.</summary>
-        /// <summary>A buried run that starts on a roof: across to the building's outer wall at the panel's height, straight down the outside of the wall (clear of windows and doors) to the ground, then underground to pb.</summary>
-        private static List<Vector3> RouteBuriedFromRoof(ConstructionSite site, Vector3 pa, Vector3 pb)
+        /// <summary>A device standing on a ROOF (a panel, a dish) does not drop its buried run through the building: from p it runs across to the nearest outer wall at p's height,
+        /// straight down the outside of the wall (clear of windows and doors) to the ground. Returns those world points (p first, the foot of the wall last), or null when the node is not on a roof.</summary>
+        private static List<Vector3> RoofDescent(WireNode n, Vector3 p)
         {
+            AttachedObject at = n != null ? n.GetComponent<AttachedObject>() : null;
+            if (at == null || at.Site == null || at.Surface != "roof" || at.Site.VisualRoot == null) return null;
+            ConstructionSite site = at.Site;
             Clear = OutsideClear;
             Rect wall = site.WallRect();
             Rect run = Rect.MinMaxRect(wall.xMin - Off, wall.yMin - Off, wall.xMax + Off, wall.yMax + Off);
             if (run.width < 0.3f || run.height < 0.3f) return null;
             Quaternion inv = Quaternion.Inverse(site.transform.rotation);
-            Vector3 lp = inv * (pa - site.transform.position);
+            Vector3 lp = inv * (p - site.transform.position);
             Project(run, lp.x, lp.z, out float sp, out Vector2 qp);
             Vector3 wallBase = site.transform.position + site.transform.rotation * new Vector3(qp.x, 0f, qp.y);
             float ground = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(new Vector3(wallBase.x, 0f, wallBase.z));
@@ -340,12 +335,22 @@ namespace Homesteader.Growth
             List<Opening> openings = Openings(site, inv);
             qp = AvoidOpenings(qp, EdgeOf(run, qp.x, qp.y), lp.y, lowY, openings, run);
             Project(run, qp.x, qp.y, out sp, out qp);
-            var local = new List<Vector3> { lp, new Vector3(qp.x, lp.y, qp.y), new Vector3(qp.x, lowY, qp.y) };
             var world = new List<Vector3>();
-            foreach (Vector3 q in local) world.Add(site.transform.position + site.transform.rotation * q);
-            List<Vector3> rest = RouteBuried(world[world.Count - 1], pb);
-            for (int i = 1; i < rest.Count; i++) world.Add(rest[i]);
+            foreach (Vector3 q in new[] { lp, new Vector3(qp.x, lp.y, qp.y), new Vector3(qp.x, lowY, qp.y) }) world.Add(site.transform.position + site.transform.rotation * q);
             return world;
+        }
+
+        /// <summary>Any buried run (wire, water, sewer, propane, fuel, Cat6): an end that is up on a roof first comes down the outside of its building (RoofDescent), then the cable goes underground.</summary>
+        private static List<Vector3> RouteBuried(WireNode a, WireNode b, Vector3 pa, Vector3 pb)
+        {
+            List<Vector3> down = RoofDescent(a, pa), up = RoofDescent(b, pb);
+            if (down == null && up == null) return RouteBuried(pa, pb);
+            List<Vector3> mid = RouteBuried(down != null ? down[down.Count - 1] : pa, up != null ? up[up.Count - 1] : pb);
+            var pts = new List<Vector3>();
+            if (down != null) pts.AddRange(down.GetRange(0, down.Count - 1));
+            pts.AddRange(mid);
+            if (up != null) for (int i = up.Count - 2; i >= 0; i--) pts.Add(up[i]);
+            return pts;
         }
 
         private static List<Vector3> RouteBuried(Vector3 pa, Vector3 pb)
