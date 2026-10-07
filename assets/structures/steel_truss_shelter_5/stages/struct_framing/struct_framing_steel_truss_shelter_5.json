@@ -1,0 +1,108 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_framing_steel_truss_shelter_5",
+  "name": "Steel Truss Shelter (5 Vehicles) - Framing",
+  "category": "structures",
+  "description": "The framing phase of the steel truss shelter (5 vehicles).",
+  "icon": "struct_framing_steel_truss_shelter_5.png",
+  "properties": {
+    "weight_kg": 20640.0,
+    "max_stack_size": 1,
+    "base_value": 2250,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_framing_steel_truss_shelter_5.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 20.0,
+        "y": 5.15,
+        "z": 8.6
+      },
+      "triangles": 2412
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 0,
+    "room_count": 0,
+    "dimensions_m": {
+      "width": 20.0,
+      "depth": 8.6,
+      "height": 5.15
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "~steel_frame_beam",
+        "quantity": 42
+      },
+      {
+        "item_id": "~truss_large",
+        "quantity": 6
+      },
+      {
+        "item_id": "~lag_bolts",
+        "quantity": 48
+      },
+      {
+        "item_id": "~anchor_bolts",
+        "quantity": 48
+      },
+      {
+        "item_id": "~deck_screws",
+        "quantity": 240
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_wrench_adjustable",
+        "tool_wrench_pipe"
+      ],
+      [
+        "tool_drill_corded",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_angle_grinder_corded",
+        "tool_angle_grinder_cordless"
+      ]
+    ]
+  }
+}

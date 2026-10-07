@@ -214,3 +214,7 @@ Last audit: 13,299 fighting face pairs became 16; the walls reach the roof every
 Wing B is built 4.5 m longer than it is, into the main wing, so its roof runs up to the main ridge (a valley); everything of it that is not roof or glass is cut off at A's back wall inner face.
 Wall parts of wing B are named `Wall_Left@B`, `Wall_Right@B` ... (the `@B` tag): the game finds one wall rectangle per wing (`ConstructionSite.WallRects`, `WingRectNear`, `InsideAnyWing`) so the notch of the L is outside the building.
 A new multi-wing building follows the same rule: name every wall part of a wing `Wall_<Side>@<wing>`. Wire runs tacked to the walls are not routed on a multi-wing building yet (they hang).
+
+## Open-air steel truss shelters
+
+`tools/make_truss_shelters.py` builds `steel_truss_shelter_2`, `_3` and `_5` (2, 3 and 5 vehicle bays, 3.8 m each, 7.6 m clear span, 3.7 m eave, 5 m ridge, a 0.5 m overhang all round): a concrete slab with parking lines, steel columns with base plates and knee braces, a Warren-style roof truss on every column line, eave and ridge beams, purlins, and standing-seam steel roofing (the `Roof` part). Four stages: foundation, framing, purlins, roofing. Open on every side, so there are no `Wall_*` parts: the game uses the footprint as the area under the roof. Recipes use the recipe tree (steel beams, trusses, concrete with water and a mixer, roofing).

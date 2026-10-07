@@ -1,0 +1,246 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "steel_truss_shelter_3",
+  "name": "Steel Truss Shelter (3 Vehicles)",
+  "category": "structures",
+  "description": "An open-air steel truss shelter: a roof on steel columns over a concrete slab, room for three vehicles.",
+  "icon": "steel_truss_shelter_3.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "percent",
+    "species": "steel_truss_shelter_3",
+    "max_age": 100,
+    "time_unit": "percent",
+    "total_stages": 4,
+    "icon_stage": 4,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "foundation",
+        "age_min": 0,
+        "age_max": 33,
+        "resource": "stages/struct_foundation/",
+        "model": "",
+        "icon": "struct_foundation_steel_truss_shelter_3.png",
+        "construction_recipe": [
+          {
+            "item_id": "~gravel",
+            "quantity": 0.44
+          },
+          {
+            "item_id": "~rebar",
+            "quantity": 11
+          },
+          {
+            "item_id": "~anchor_bolts",
+            "quantity": 32
+          },
+          {
+            "section": "Concrete slab",
+            "mode": "any",
+            "items": [
+              {
+                "section": "Bagged concrete mix",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~concrete_mix",
+                    "quantity": 89
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 80
+                  }
+                ]
+              },
+              {
+                "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~cement",
+                    "quantity": 16
+                  },
+                  {
+                    "item_id": "~sand",
+                    "quantity": 0.2
+                  },
+                  {
+                    "item_id": "~gravel",
+                    "quantity": 0.28
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 71
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_shovel",
+            "tool_pickaxe"
+          ],
+          [
+            "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
+          ]
+        ]
+      },
+      {
+        "stage": 2,
+        "name": "framing",
+        "age_min": 33,
+        "age_max": 66,
+        "resource": "stages/struct_framing/",
+        "model": "",
+        "icon": "struct_framing_steel_truss_shelter_3.png",
+        "construction_recipe": [
+          {
+            "item_id": "~steel_frame_beam",
+            "quantity": 30
+          },
+          {
+            "item_id": "~truss_large",
+            "quantity": 4
+          },
+          {
+            "item_id": "~lag_bolts",
+            "quantity": 32
+          },
+          {
+            "item_id": "~anchor_bolts",
+            "quantity": 32
+          },
+          {
+            "item_id": "~deck_screws",
+            "quantity": 160
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_wrench_adjustable",
+            "tool_wrench_pipe"
+          ],
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_angle_grinder_corded",
+            "tool_angle_grinder_cordless"
+          ]
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "purlins",
+        "age_min": 66,
+        "age_max": 99,
+        "resource": "stages/struct_walls/",
+        "model": "",
+        "icon": "struct_walls_steel_truss_shelter_3.png",
+        "construction_recipe": [
+          {
+            "item_id": "~steel_frame_beam",
+            "quantity": 10
+          },
+          {
+            "item_id": "~deck_screws",
+            "quantity": 360
+          },
+          {
+            "item_id": "~metal",
+            "quantity": 3
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_angle_grinder_corded",
+            "tool_angle_grinder_cordless"
+          ]
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "roofing",
+        "age_min": 99,
+        "age_max": 100,
+        "resource": "stages/struct_complete/",
+        "model": "",
+        "icon": "struct_complete_steel_truss_shelter_3.png",
+        "construction_recipe": [
+          {
+            "item_id": "~roofing",
+            "quantity": 53
+          },
+          {
+            "item_id": "building_roofing_nails_box",
+            "quantity": 4
+          },
+          {
+            "item_id": "building_flashing_roll",
+            "quantity": 5
+          },
+          {
+            "item_id": "~metal",
+            "quantity": 5
+          },
+          {
+            "item_id": "~fascia",
+            "quantity": 21
+          },
+          {
+            "item_id": "~gutters",
+            "quantity": 24
+          },
+          {
+            "item_id": "~downspout",
+            "quantity": 5
+          }
+        ],
+        "required_tools": [
+          [
+            "tool_drill_corded",
+            "tool_drill_cordless_pro",
+            "tool_impact_driver_cordless"
+          ],
+          [
+            "tool_hammer_claw",
+            "tool_hammer"
+          ]
+        ]
+      }
+    ]
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 5800,
+    "is_consumable": false,
+    "footprint": null,
+    "is_buyable": true,
+    "is_blueprint": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint"
+  }
+}

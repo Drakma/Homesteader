@@ -15,11 +15,11 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1084**
+Total Indexed Items: **1087**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 33 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Structures**](structures/) | 36 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 427 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
@@ -47,7 +47,7 @@ Total Indexed Items: **1084**
 
 ---
 
-### 📂 [Structures](structures/) (33 items)
+### 📂 [Structures](structures/) (36 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -66,6 +66,9 @@ Total Indexed Items: **1084**
 | `small_cabin` | Small Cabin | — | — | [small_cabin.json](structures/small_cabin/small_cabin.json) |
 | `stable` | Stable | — | — | [stable.json](structures/stable/stable.json) |
 | `starter_house` | Starter House | — | — | [starter_house.json](structures/starter_house/starter_house.json) |
+| `steel_truss_shelter_2` | Steel Truss Shelter (2 Vehicles) | — | — | [steel_truss_shelter_2.json](structures/steel_truss_shelter_2/steel_truss_shelter_2.json) |
+| `steel_truss_shelter_3` | Steel Truss Shelter (3 Vehicles) | — | — | [steel_truss_shelter_3.json](structures/steel_truss_shelter_3/steel_truss_shelter_3.json) |
+| `steel_truss_shelter_5` | Steel Truss Shelter (5 Vehicles) | — | — | [steel_truss_shelter_5.json](structures/steel_truss_shelter_5/steel_truss_shelter_5.json) |
 | `struct_camper_rv` | Travel Trailer RV | ✅ Yes | — | [struct_camper_rv.json](structures/struct_camper_rv/struct_camper_rv.json) |
 | `struct_camper_teardrop` | Teardrop Camper | ✅ Yes | — | [struct_camper_teardrop.json](structures/struct_camper_teardrop/struct_camper_teardrop.json) |
 | `struct_light_pole_barn` | Yard Barn Light Pole | ✅ Yes | — | [struct_light_pole_barn.json](structures/struct_light_pole_barn/struct_light_pole_barn.json) |
