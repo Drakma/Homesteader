@@ -18,8 +18,8 @@ namespace Homesteader.Growth
         public readonly List<Vector3> Points = new List<Vector3>();
         public float Area;                         // square metres (flat)
 
-        private const float Lift = 0.05f;          // above the ground, like a path
-        private const float MaxEdge = 1.5f;        // metres: the triangles are cut until none has a longer edge, so the lot follows the ground
+        private const float Lift = 0.07f;          // above the ground (a little more than a path: the lot is cut finer and follows the highest ground round each corner)
+        private const float MaxEdge = 0.8f;        // metres: the triangles are cut until none has a longer edge, so the lot follows the ground
         private static int s_order;                // a lot laid later lies a hair above one laid earlier
         private int _order;
         private static readonly Dictionary<string, Material> s_mats = new Dictionary<string, Material>();
@@ -168,7 +168,7 @@ namespace Homesteader.Growth
                 for (int k = 0; k < 3; k++)
                 {
                     Vector3 c = corners[i + k];
-                    verts.Add(new Vector3(c.x, TerrainHeightDetector.GetGroundY(c.x, c.z) + lift, c.z));
+                    verts.Add(new Vector3(c.x, HighestGround(c.x, c.z) + lift, c.z));
                     uvs.Add(new Vector2(c.x, c.z));
                     normals.Add(Vector3.up);
                 }
@@ -184,6 +184,18 @@ namespace Homesteader.Growth
             m.SetTriangles(tris, 0);
             m.RecalculateBounds();
             return m;
+        }
+
+        /// <summary>The highest ground at a corner or within 0.4 m of it, so a bump between two corners of the mesh does not come up through the surface.</summary>
+        private static float HighestGround(float x, float z)
+        {
+            const float r = 0.4f;
+            float h = TerrainHeightDetector.GetGroundY(x, z);
+            h = Mathf.Max(h, TerrainHeightDetector.GetGroundY(x + r, z));
+            h = Mathf.Max(h, TerrainHeightDetector.GetGroundY(x - r, z));
+            h = Mathf.Max(h, TerrainHeightDetector.GetGroundY(x, z + r));
+            h = Mathf.Max(h, TerrainHeightDetector.GetGroundY(x, z - r));
+            return h;
         }
 
         private void Rebuild()

@@ -180,6 +180,9 @@ def main():
                             item_data["lot_style"] = props["lot_style"]
                             item_data["lot_material_item"] = str(props.get("lot_material_item", ""))
                             item_data["lot_m2_per_item"] = float(props.get("lot_m2_per_item", 3.0))
+                            if props.get("lot_binder_item"):   # a lot that is a mix (asphalt: gravel and bitumen)
+                                item_data["lot_binder_item"] = str(props["lot_binder_item"])
+                                item_data["lot_binder_m2_per_item"] = float(props.get("lot_binder_m2_per_item", props.get("lot_m2_per_item", 3.0)))
                         if props.get("path_material_item"):
                             item_data["path_material_item"] = str(props["path_material_item"])
                         if props.get("path_kind") in ("path", "road"):

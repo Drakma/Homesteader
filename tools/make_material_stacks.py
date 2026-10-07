@@ -40,6 +40,7 @@ import make_bag_pallets as bp  # noqa: E402    (photograph, atlas, material, box
 ROOT = bp.ROOT
 BUILD = bp.BUILD
 COUNTS = (10, 20)
+COUNTS_OF = {'building_bitumen_bucket': (9, 18)}   # a pallet of buckets is 3 x 3 on one layer or two
 PALLET_KG = 20.0
 PALLET_H = 0.15
 TRAY_T = 0.006
@@ -60,7 +61,7 @@ sheet_plywood_cdx building_metal building_glass
 building_insulation_fiberglass_batt
 building_steel_stud_framing building_steel_frame_beam
 pipe_pvc_half_inch pipe_pvc_one_inch pipe_pvc_two_inch pipe_sewer_solid_4inch pipe_leach_perforated_4inch drain_french_sock building_downspout
-building_joint_compound_bucket building_thinset_bucket
+building_joint_compound_bucket building_thinset_bucket building_bitumen_bucket
 """.split()
 
 
@@ -520,7 +521,7 @@ def main():
         if item in SINGLES:
             build_single(item)
         src_manifest = json.load(open(path, encoding='utf-8'))
-        for n in COUNTS:
+        for n in COUNTS_OF.get(item, COUNTS):
             build_stack(item, n, src_manifest)
 
 

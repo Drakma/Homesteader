@@ -18,8 +18,8 @@ LOTS = {
                      desc='lays a packed dirt yard, drive or pen over an area of any size'),
     'lot_gravel': dict(name='Gravel Lot Blueprint', style='gravel', material='mat_pile_gravel_medium', m2=8.0, price=220, fill=(160, 155, 145), dark=(112, 108, 100),
                        desc='lays a gravel yard, drive or parking area over an area of any size'),
-    'lot_asphalt': dict(name='Asphalt Lot Blueprint', style='asphalt', material='mat_pile_gravel_medium', m2=6.0, price=650, fill=(52, 52, 58), dark=(32, 32, 38),
-                        desc='paves a parking lot or yard with asphalt over an area of any size'),
+    'lot_asphalt': dict(name='Asphalt Lot Blueprint', style='asphalt', material='mat_pile_gravel_medium', m2=6.0, binder='~bitumen', binder_m2=4.0, price=650, fill=(52, 52, 58), dark=(32, 32, 38),
+                        desc='paves a parking lot or yard with asphalt (gravel aggregate mixed with bitumen) over an area of any size'),
     'lot_concrete': dict(name='Concrete Lot Blueprint', style='concrete', material='building_concrete_mix_bag', m2=1.5, price=480, fill=(176, 176, 170), dark=(128, 128, 122),
                          desc='pours a concrete pad, apron or floor slab over an area of any size'),
 }
@@ -36,6 +36,7 @@ def manifest(iid, c):
             'happiness_modifier': 0, 'thirst_restore': 0, 'energy_restore': 0, 'stamina_restore': 0, 'wellness_modifier': 0,
             'is_buyable': True, 'stores': ['depot'], 'sale_unit': 'blueprint', 'is_blueprint': True,
             'lot_style': c['style'], 'lot_material_item': c['material'], 'lot_m2_per_item': c['m2'],
+            **({'lot_binder_item': c['binder'], 'lot_binder_m2_per_item': c['binder_m2']} if c.get('binder') else {}),
         },
         'category_fields': {'dimensions_m': {'width': 0.6, 'depth': 0.4, 'height': 0.2}},
     }

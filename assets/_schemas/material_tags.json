@@ -370,6 +370,9 @@
     ],
     "tool_wire_cutters": [
       "tool_wire_cutters"
+    ],
+    "bitumen": [
+      "building_bitumen_bucket"
     ]
   }
 }

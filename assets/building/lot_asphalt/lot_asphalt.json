@@ -3,7 +3,7 @@
   "id": "lot_asphalt",
   "name": "Asphalt Lot Blueprint",
   "category": "building",
-  "description": "A blueprint, bought once and yours for good. Hold it, click the corners of a lot (two opposite corners make a rectangle, more corners any other shape) and press Enter: it paves a parking lot or yard with asphalt over an area of any size.",
+  "description": "A blueprint, bought once and yours for good. Hold it, click the corners of a lot (two opposite corners make a rectangle, more corners any other shape) and press Enter: it paves a parking lot or yard with asphalt (gravel aggregate mixed with bitumen) over an area of any size.",
   "icon": "lot_asphalt.png",
   "properties": {
     "weight_kg": 0,
@@ -24,7 +24,9 @@
     "is_blueprint": true,
     "lot_style": "asphalt",
     "lot_material_item": "mat_pile_gravel_medium",
-    "lot_m2_per_item": 6.0
+    "lot_m2_per_item": 6.0,
+    "lot_binder_item": "~bitumen",
+    "lot_binder_m2_per_item": 4.0
   },
   "category_fields": {
     "dimensions_m": {

@@ -15,12 +15,12 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1091**
+Total Indexed Items: **1094**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 36 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 431 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 434 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -88,7 +88,7 @@ Total Indexed Items: **1091**
 | `wind_turbine_200w_metal` | 200W Metal Wind Turbine | — | — | [wind_turbine_200w_metal.json](structures/wind_turbine_200w_metal/wind_turbine_200w_metal.json) |
 | `wind_turbine_500w_metal` | 500W Metal Wind Turbine | — | — | [wind_turbine_500w_metal.json](structures/wind_turbine_500w_metal/wind_turbine_500w_metal.json) |
 
-### 📂 [Building](building/) (431 items)
+### 📂 [Building](building/) (434 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -116,6 +116,9 @@ Total Indexed Items: **1091**
 | `building_beam_glulam` | Glulam Beam | ✅ Yes | — | [building_beam_glulam.json](building/building_beam_glulam/building_beam_glulam.json) |
 | `building_beam_glulam_stack_10` | Glulam Beam Stack | ✅ Yes | — | [building_beam_glulam_stack_10.json](building/building_beam_glulam_stack_10/building_beam_glulam_stack_10.json) |
 | `building_beam_glulam_stack_20` | Glulam Beam Stack | ✅ Yes | — | [building_beam_glulam_stack_20.json](building/building_beam_glulam_stack_20/building_beam_glulam_stack_20.json) |
+| `building_bitumen_bucket` | Bitumen (Bucket) | ✅ Yes | — | [building_bitumen_bucket.json](building/building_bitumen_bucket/building_bitumen_bucket.json) |
+| `building_bitumen_bucket_stack_18` | Bitumen (Bucket) Stack | ✅ Yes | — | [building_bitumen_bucket_stack_18.json](building/building_bitumen_bucket_stack_18/building_bitumen_bucket_stack_18.json) |
+| `building_bitumen_bucket_stack_9` | Bitumen (Bucket) Stack | ✅ Yes | — | [building_bitumen_bucket_stack_9.json](building/building_bitumen_bucket_stack_9/building_bitumen_bucket_stack_9.json) |
 | `building_bundle_rafter_2x8_large` | Large 2x8 Rafter Bundle | ✅ Yes | — | [building_bundle_rafter_2x8_large.json](building/building_bundle_rafter_2x8_large/building_bundle_rafter_2x8_large.json) |
 | `building_bundle_rafter_2x8_small` | Small 2x8 Rafter Bundle | ✅ Yes | — | [building_bundle_rafter_2x8_small.json](building/building_bundle_rafter_2x8_small/building_bundle_rafter_2x8_small.json) |
 | `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |

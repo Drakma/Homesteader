@@ -2136,7 +2136,9 @@ namespace Homesteader.UI
         public string path_style;
         public string lot_style;                                    // dirt, gravel, asphalt or concrete: a lot blueprint (LotBuilder.cs)
         public string lot_material_item;                            // the material a lot blueprint lays
-        public float lot_m2_per_item;                               // square metres one item of it covers
+        public float lot_m2_per_item;
+        public string lot_binder_item;                              // a lot that is a MIX (asphalt: aggregate + bitumen): the second material, an item id or a ~equivalency
+        public float lot_binder_m2_per_item;                        // square metres one unit of the binder covers                               // square metres one item of it covers
         public float gate_width_m;                                  // > 0: a gate
         public string gate_style;
         public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)

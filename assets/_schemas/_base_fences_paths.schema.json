@@ -124,6 +124,21 @@
       "label": "Square Metres Per Item",
       "note": "On a lot blueprint: the area one item of its material covers; a lot of A square metres uses ceil(A / this) items."
     },
+    "lot_binder_item": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Lot Binder",
+      "note": "On a lot blueprint that is a MIX (asphalt: gravel aggregate and bitumen): the second material, an item id or a ~equivalency (~bitumen is a bucket, or a pallet of 9 or 18)."
+    },
+    "lot_binder_m2_per_item": {
+      "type": "number",
+      "required": false,
+      "default": 3.0,
+      "min": 0.5,
+      "label": "Square Metres Per Binder",
+      "note": "The area one unit of the binder covers."
+    },
     "path_material_item": {
       "type": "string",
       "required": false,
