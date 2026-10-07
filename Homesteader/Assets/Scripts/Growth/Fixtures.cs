@@ -22,6 +22,7 @@ namespace Homesteader.Growth
             if (kb != null && kb.shiftKey.isPressed) return false;   // Shift: pick it up
             PlacedObject o = PlacementController.PlacedUnderCursor();
             if (o == null) return false;
+            if (ItemRegistry.NeedsWrench(o.ItemId) && AttachedObject.WrenchInHand()) return false;   // a bolted-down fixture with a wrench in hand: take it up, not use it
             AssetCatalogItem it = HudBindings.GetCatalogItem(o.ItemId);
             if (it == null || it.water_per_use_l <= 0f) return false;
             ConstructionSite site = null;
