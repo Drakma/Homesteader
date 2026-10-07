@@ -1102,11 +1102,11 @@ namespace Homesteader.Growth
             foreach (List<PlacedObject> col in PlacedObject.ColumnsAt(PlantingValidator.SnapToGrid(hit)))
                 if (ExpandRect(PlacedObject.ColumnRect(col), 0.03f).Contains(hit2)) return false;   // over a stack: stack on it (the usual rules)
             // inside the walls: the walls' rectangle less their thickness, less half the item
-            Rect r = site.WallRect();
-            float wall = AttachedObject.DefaultWall + 0.02f;
-            float half = Mathf.Max(size.x, size.y) * 0.5f;
             Quaternion rot = site.transform.rotation;
             Vector3 l = Quaternion.Inverse(rot) * (hit - site.transform.position);
+            Rect r = site.WingRectNear(l.x, l.z);   // the wing the cursor is in (an L-shaped house has two)
+            float wall = AttachedObject.DefaultWall + 0.02f;
+            float half = Mathf.Max(size.x, size.y) * 0.5f;
             l.x = Mathf.Clamp(l.x, r.xMin + wall + half, Mathf.Max(r.xMin + wall + half, r.xMax - wall - half));
             l.z = Mathf.Clamp(l.z, r.yMin + wall + half, Mathf.Max(r.yMin + wall + half, r.yMax - wall - half));
             Vector3 at = site.transform.position + rot * new Vector3(l.x, 0f, l.z);

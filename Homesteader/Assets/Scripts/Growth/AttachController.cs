@@ -158,7 +158,7 @@ namespace Homesteader.Growth
                 Vector3 hp = h.point;
                 Quaternion siteRot = site.transform.rotation;
                 Vector3 lp = Quaternion.Inverse(siteRot) * (hp - site.transform.position);
-                Rect wr = site.WallRect();                                        // the walls' rectangle (a porch is outside it, though inside the footprint)
+                Rect wr = site.WingRectNear(lp.x, lp.z);                          // the walls' rectangle (of the wing the cursor is in) (a porch is outside it, though inside the footprint)
                 float dLeft = Mathf.Abs(lp.x - wr.xMin), dRight = Mathf.Abs(wr.xMax - lp.x), dBack = Mathf.Abs(lp.z - wr.yMin), dFront = Mathf.Abs(wr.yMax - lp.z);
                 float edgeDist = Mathf.Min(Mathf.Min(dLeft, dRight), Mathf.Min(dBack, dFront));
                 Vector3 nLocal = edgeDist == dLeft ? Vector3.left : edgeDist == dRight ? Vector3.right : edgeDist == dBack ? Vector3.back : Vector3.forward;

@@ -103,7 +103,7 @@ namespace Homesteader.Growth
                 {
                     Vector3 l = new Vector3(_rect.xMin + (ix + 0.5f) * Cell, 0f, _rect.yMin + (iz + 0.5f) * Cell);
                     Vector3 w = site.transform.position + rot * l;
-                    bool wall = WallAt(new Vector3(w.x, ceiling - 0.12f, w.z), half, rot, root) || WallAt(new Vector3(w.x, ceiling - 0.3f, w.z), half, rot, root);
+                    bool wall = !site.InsideAnyWing(l.x, l.z) || WallAt(new Vector3(w.x, ceiling - 0.12f, w.z), half, rot, root) || WallAt(new Vector3(w.x, ceiling - 0.3f, w.z), half, rot, root);
                     _room[iz * _nx + ix] = wall ? -1 : -2;   // -2: open, no room yet
                     if (!wall) open++;
                 }

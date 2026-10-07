@@ -111,7 +111,7 @@ namespace Homesteader.Growth
             if (aa == null || ab == null || aa.Site == null || aa.Site != ab.Site) return null;
             if (aa.Surface != "wall" || ab.Surface != "wall") return null;
             ConstructionSite site = aa.Site;
-            if (site.VisualRoot == null) return null;
+            if (site.VisualRoot == null || site.MultiWing) return null;   // (an L-shaped house: runs along its walls are not routed yet, they hang)
 
             Vector3 pa = a.PortToward(b.BasePort), pb = b.PortToward(a.BasePort);
             Vector3 na = Facing(a, pa), nb = Facing(b, pb);
@@ -163,7 +163,7 @@ namespace Homesteader.Growth
         /// </summary>
         private static List<Vector3> RouteInside(ConstructionSite site, WireNode a, WireNode b, Vector3 pa, Vector3 pb)
         {
-            if (site == null || site.VisualRoot == null) return null;
+            if (site == null || site.VisualRoot == null || site.MultiWing) return null;
             if (Vector3.Distance(new Vector3(pa.x, 0f, pa.z), new Vector3(pb.x, 0f, pb.z)) < 0.9f) return null;   // side by side: straight across
             Rect wall = site.WallRect();
             Quaternion inv = Quaternion.Inverse(site.transform.rotation);
@@ -213,7 +213,7 @@ namespace Homesteader.Growth
             AttachedObject ad = dev.GetComponent<AttachedObject>();
             if (ad == null || ad.Site == null || ad.Surface != "wall") return null;
             ConstructionSite site = ad.Site;
-            if (site.VisualRoot == null) return null;
+            if (site.VisualRoot == null || site.MultiWing) return null;
 
             Vector3 pd = dev.PortToward(panel.BasePort);
             Vector3 nd = Facing(dev, pd);
@@ -320,7 +320,7 @@ namespace Homesteader.Growth
         private static List<Vector3> RoofDescent(WireNode n, Vector3 p)
         {
             AttachedObject at = n != null ? n.GetComponent<AttachedObject>() : null;
-            if (at == null || at.Site == null || at.Surface != "roof" || at.Site.VisualRoot == null) return null;
+            if (at == null || at.Site == null || at.Surface != "roof" || at.Site.VisualRoot == null || at.Site.MultiWing) return null;
             ConstructionSite site = at.Site;
             Clear = OutsideClear;
             Rect wall = site.WallRect();
