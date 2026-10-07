@@ -1,0 +1,87 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bathroom_bathtub_freestanding_classic_bone",
+  "name": "Classic Bone Freestanding Bathtub",
+  "category": "bathroom",
+  "description": "A freestanding bathtub with a faucet on its rim. Classic styling.",
+  "icon": "bathroom_bathtub_freestanding_classic_bone.png",
+  "properties": {
+    "weight_kg": 95.0,
+    "max_stack_size": 1,
+    "base_value": 1098,
+    "is_consumable": false,
+    "footprint": "1.70m W x 0.80m D x 0.82m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea"
+  },
+  "models": [
+    {
+      "file": "bathroom_bathtub_freestanding_classic_bone.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.7,
+        "y": 0.819,
+        "z": 0.8
+      },
+      "triangles": 1040
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.7,
+      "depth": 0.8,
+      "height": 0.819
+    },
+    "bathroom_kind": "bathtub_freestanding",
+    "style": "classic",
+    "color": "bone",
+    "water_per_use_l": 160,
+    "water_usage_lpm": 12
+  }
+}

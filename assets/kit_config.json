@@ -35,6 +35,12 @@
       "icon": "",
       "desc": "Ceiling lights, chandeliers and fans, inside and outside wall lights, and garden post, pole and path lights, each in a classic and a modern style and four metal finishes.",
       "prefix": "lighting"
+    },
+    "bathroom": {
+      "name": "Bathroom",
+      "icon": "",
+      "desc": "Toilets, sinks, tubs, showers, vanities, cabinets, mirrors and accessories, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general appliances.",
+      "prefix": "bathroom"
     }
   },
   "subfolders": {

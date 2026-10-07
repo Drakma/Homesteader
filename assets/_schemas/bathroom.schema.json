@@ -1,0 +1,13 @@
+{
+  "category": "bathroom",
+  "title": "Bathroom",
+  "target": "category_fields",
+  "note": "Bathroom pack (tools/make_bathroom_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "bathroom_kind": {"type": "string", "required": true, "label": "Piece", "note": "Which piece: toilet, pedestal_sink, bathtub_alcove, bathtub_freestanding, shower_stall, vanity_single, vanity_double, medicine_cabinet, vanity_mirror, linen_cabinet, towel_shelf, hamper, towel_stack, bath_mat, towel_bar, tp_holder, hook_rail or soap_set."},
+    "style": {"type": "string", "required": true, "label": "Style", "enum": ["classic", "modern"], "note": "Classic or modern styling."},
+    "color": {"type": "string", "required": true, "label": "Colour", "note": "The glaze of a fixture, the wood of a cabinet, the fabric of a towel or mat, or the metal finish of an accessory."},
+    "water_per_use_l": {"type": "number", "required": false, "min": 0, "label": "Water per use (L)", "note": "Litres one use takes (a flush, a basin, a bath, a shower)."},
+    "water_usage_lpm": {"type": "number", "required": false, "min": 0, "label": "Water flow (L/min)", "note": "Litres per minute while running; 0 for a dry piece."}
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bathroom_medicine_cabinet_modern_birch",
+  "name": "Modern Birch Medicine Cabinet",
+  "category": "bathroom",
+  "description": "A wall cabinet with a mirror door. Mount it on a wall. Modern styling.",
+  "icon": "bathroom_medicine_cabinet_modern_birch.png",
+  "properties": {
+    "weight_kg": 6.0,
+    "max_stack_size": 1,
+    "base_value": 95,
+    "is_consumable": false,
+    "footprint": "0.50m W x 0.16m D x 0.70m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior"
+  },
+  "models": [
+    {
+      "file": "bathroom_medicine_cabinet_modern_birch.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.5,
+        "y": 0.7,
+        "z": 0.156
+      },
+      "triangles": 68
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.5,
+      "depth": 0.156,
+      "height": 0.7
+    },
+    "bathroom_kind": "medicine_cabinet",
+    "style": "modern",
+    "color": "birch",
+    "water_per_use_l": 0,
+    "water_usage_lpm": 0
+  }
+}
