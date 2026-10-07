@@ -483,7 +483,7 @@ def pull(K, cab, x, yf, z, vertical=True, length=0.12):
         handle_bar_h(K, x - length / 2, x + length / 2, yf, z, cab['pull'], out=0.028, r=0.006)
 
 
-def cabinet_carcass(K, w, d, h, cab, doors=2, drawers=0, handles=True, toe=0.10, glass=False, shelves=0, top=True, double_stack=False):
+def cabinet_carcass(K, w, d, h, cab, doors=2, drawers=0, handles=True, toe=0.10, glass=False, shelves=0, top=True, double_stack=False, pull_low=False):
     """A base-style cabinet from the floor: toe kick, carcass, doors (and/or drawers), handles. The front face is y = -d/2."""
     x0, x1 = -w / 2, w / 2
     yf = -d / 2
@@ -506,13 +506,14 @@ def cabinet_carcass(K, w, d, h, cab, doors=2, drawers=0, handles=True, toe=0.10,
         if doors == 1:
             door_panel(K, x0 + 0.004, x1 - 0.004, zb, zt, yf, cab, glass=glass)
             if handles:
-                pull(K, cab, x1 - 0.045, yf, zb + (zt - zb) * (0.72 if h > 0.9 else 0.82), vertical=True, length=0.14 if h < 1.2 else 0.20)
+                hz = zb + 0.11 if pull_low else zb + (zt - zb) * (0.72 if h > 0.9 else 0.82)          # a wall cabinet's handle is at the bottom of the door, where you reach up to it
+                pull(K, cab, x1 - 0.045, yf, hz, vertical=True, length=0.14 if h < 1.2 else 0.20)
         else:
             mid = 0.0
             door_panel(K, x0 + 0.004, mid - gap / 2, zb, zt, yf, cab, glass=glass)
             door_panel(K, mid + gap / 2, x1 - 0.004, zb, zt, yf, cab, glass=glass)
             if handles:
-                hz = zb + (zt - zb) * (0.78 if h > 0.6 else 0.5)
+                hz = zb + 0.11 if pull_low else zb + (zt - zb) * (0.78 if h > 0.6 else 0.5)
                 pull(K, cab, -0.04, yf, hz, vertical=True, length=0.14)
                 pull(K, cab, 0.04, yf, hz, vertical=True, length=0.14)
 
@@ -572,7 +573,7 @@ def wall_cab(w, name):
         cab = CAB[C]
         K = Mesh(name)
         d, h = 0.34, 0.72
-        cabinet_carcass(K, w, d, h, cab, doors=1 if w < 0.7 else 2, toe=0.0, handles=True)
+        cabinet_carcass(K, w, d, h, cab, doors=1 if w < 0.7 else 2, toe=0.0, handles=True, pull_low=True)
         K.shift(0, d / 2, 0)
         return K
     build.__doc__ = 'A %.2f m wall cabinet, %.2f x 0.34 x 0.72 m (a wall item).' % (w, w)
@@ -588,7 +589,7 @@ def wall_cab_glass(C):
     cab = CAB[C]
     K = Mesh('kitchen_wall_cab_glass')
     d, h = 0.34, 0.72
-    cabinet_carcass(K, 0.60, d, h, cab, doors=1, toe=0.0, glass=True)
+    cabinet_carcass(K, 0.60, d, h, cab, doors=1, toe=0.0, glass=True, pull_low=True)
     K.shift(0, d / 2, 0)
     return K
 
