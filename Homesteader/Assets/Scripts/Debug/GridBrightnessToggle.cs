@@ -212,11 +212,22 @@ namespace Homesteader.DebugTools
             // otherwise the outline is buried under hills or floats above valleys almost
             // everywhere except right at y=0.
             Terrain terrain = Terrain.activeTerrain;
-            if (terrain != null && Physics.Raycast(ray, out RaycastHit rayHit, 2000f))
+            bool found = false;
+            hit = default;
+            if (terrain != null)
             {
-                hit = rayHit.point;
+                // The invisible land-border walls are skipped: the outline follows what is behind them.
+                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f);
+                float best = float.MaxValue;
+                foreach (RaycastHit h in hits)
+                {
+                    if (h.distance >= best || h.collider.GetComponentInParent<Homesteader.Land.LandBoundaryController>() != null) continue;
+                    best = h.distance;
+                    hit = h.point;
+                    found = true;
+                }
             }
-            else
+            if (!found)
             {
                 var groundPlane = new Plane(Vector3.up, Vector3.zero);
                 if (!groundPlane.Raycast(ray, out float enter)) return;
