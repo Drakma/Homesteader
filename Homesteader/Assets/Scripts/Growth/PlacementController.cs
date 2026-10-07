@@ -483,6 +483,8 @@ namespace Homesteader.Growth
                 if (target.Contents != null && target.Contents.Count > 0) { ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Use a shovel to move it."); return; }
             }
             if (ContainerRules.IsContainer(target.ItemId) && !activeSlotEmpty) { TransferWithContainer(target); return; }
+            // A bundle, stack or case: a right click takes ONE piece out of it, Shift + right click the whole pack (what is left stays on it and goes with it)
+            if (PackRules.TryTakeOne(target)) return;
             PickUp(target);
         }
 

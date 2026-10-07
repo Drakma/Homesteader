@@ -505,6 +505,32 @@ namespace Homesteader.Growth
             return result;
         }
 
+        private static Dictionary<string, KeyValuePair<string, int>> _packContent;
+        private static int _packContentFor = -1;
+
+        /// <summary>
+        /// What a pack holds: the reverse of <see cref="PacksOf"/>. For a bundle, stack or case (an item that is a pack of something) the single item and how many of it are in the pack.
+        /// </summary>
+        public static bool PackContent(string packId, out string singleId, out int count)
+        {
+            singleId = null; count = 0;
+            if (string.IsNullOrEmpty(packId)) return false;
+            if (_packContent == null || _packContentFor != equivalencies.Count)
+            {
+                _packContentFor = equivalencies.Count;
+                _packContent = new Dictionary<string, KeyValuePair<string, int>>(StringComparer.OrdinalIgnoreCase);
+                var singles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (Equivalency eq in equivalencies.Values)
+                    foreach (EquivalencyMember m in eq.Members) if (!string.IsNullOrEmpty(m.Item)) singles.Add(m.Item);
+                foreach (string single in singles)
+                    foreach (KeyValuePair<string, int> pack in PacksOf(single))
+                        if (!_packContent.ContainsKey(pack.Key)) _packContent[pack.Key] = new KeyValuePair<string, int>(single, pack.Value);
+            }
+            if (!_packContent.TryGetValue(packId, out KeyValuePair<string, int> hit)) return false;
+            singleId = hit.Key; count = hit.Value;
+            return true;
+        }
+
         /// <summary>The piles of the material a scoop belongs to, smallest first: (item id, scoops).</summary>
         public static List<KeyValuePair<string, int>> PilesOfScoop(string scoopId)
         {

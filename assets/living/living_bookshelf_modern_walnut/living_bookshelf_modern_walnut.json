@@ -22,9 +22,9 @@
       "furniture"
     ],
     "sale_unit": "ea",
+    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.12,0.52,0.92,1.32,1.70",
-    "wrench_remove": true
+    "deck_heights": "0.12,0.52,0.92,1.32,1.70"
   },
   "models": [
     {

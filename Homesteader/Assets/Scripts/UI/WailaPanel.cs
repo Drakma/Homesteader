@@ -410,6 +410,11 @@ namespace Homesteader.UI
                 title = Homesteader.UI.HudBindings.GetDisplayName(placed.ItemId) + (stackCount > 1 ? "  x" + stackCount : "");
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, placed.ItemId);
                 if (stackCount > 1) details.Add(("Stacked", stackCount + " high"));
+                if (Homesteader.Growth.GrowthRegistry.PackContent(placed.ItemId, out string packSingle, out int packCount))
+                {
+                    details.Add(("Left", Homesteader.Growth.PackRules.Left(placed) + " of " + packCount + " " + Homesteader.UI.HudBindings.GetItemName(packSingle)));
+                    details.Add(("Take", "Right click: one. Shift + right click: all"));
+                }
                 PortableGenerator gen = placed.GetComponent<PortableGenerator>();
                 if (gen != null)
                 {

@@ -96,7 +96,7 @@ namespace Homesteader.World
                 {
                     if (lots[k].Placed != null) lots[k].Placed.Remove();
                     else if (lots[k].Loose != null) Object.Destroy(lots[k].Loose.gameObject);
-                    paid += PriceOf(id);
+                    paid += PriceOf(id) * (lots[k].Placed != null ? PackRules.LeftFraction(lots[k].Placed) : 1f);   // a part-used pack is worth what is left in it
                     loaded++;
                 }
                 short_ += order.counts[i] - take;

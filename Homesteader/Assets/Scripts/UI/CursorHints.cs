@@ -268,7 +268,7 @@ namespace Homesteader.UI
             if (PlacedObjectPickable()) return true;
 
             Ray ray = cam.ScreenPointToRay(screenPos);
-            if (AttachedObject.WrenchRemoval() && AttachedObject.IsUnderRay(ray)) return true;   // the hand shows over a mounted item only while a wrench could take it down
+            if ((AttachedObject.WrenchRemoval() || AttachedObject.WrenchInHand()) && AttachedObject.IsUnderRay(ray)) return true;   // the hand shows over a mounted item only while a wrench could take it down
             if (Homesteader.World.ForestTrees.TryPick(ray, out Homesteader.World.ForestTree tree) && Homesteader.World.ForestTrees.CanPick(tree)) return true;
             if (Homesteader.World.BerryBushes.TryPick(ray, out Homesteader.World.BerryBush bush) && Homesteader.World.BerryBushes.CanPick(bush)) return true;
 

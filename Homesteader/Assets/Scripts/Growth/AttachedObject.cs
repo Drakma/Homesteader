@@ -380,9 +380,9 @@ namespace Homesteader.Growth
                 AttachedObject a = h.collider.GetComponentInParent<AttachedObject>();
                 if (a == null && h.collider.isTrigger) continue;   // a click box or zone that is not a mounted item: look past it
                 if (a == null) return false;   // something else is in front
-                if (!WrenchRemoval())
+                if (!WrenchRemoval() && !(ItemRegistry.NeedsWrench(a.ItemId) && WrenchInHand()))   // (a bolted-down fitting of the room packs: a plain right click with a wrench)
                 {
-                    ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), "Take it down with a wrench: Shift + right click.");
+                    ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), ItemRegistry.NeedsWrench(a.ItemId) ? "Take it down with a wrench: right click." : "Take it down with a wrench: Shift + right click.");
                     return true;
                 }
                 if (new Vector2(a.transform.position.x - playerPos.x, a.transform.position.z - playerPos.z).magnitude > 4f)

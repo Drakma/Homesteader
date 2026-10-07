@@ -16,13 +16,15 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": true,
+    "placeable": false,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "attach_surface": "wall",
+    "attach_side": "interior"
   },
   "models": [
     {
