@@ -110,7 +110,7 @@ Each entry names a **type** and a **path** (relative to the mod root).
 
 `structure`, `building`, `biome`, `food`, `ingredient`, `farming`, `ranching`, `logging`,
 `fishing`, `tool`, `electricity`, `water`, `waste`, `internet`, `vehicle`,
-`appliance`, `material`, `fuel`, `ped`, `texture`, `recipe`, `script`.
+`appliance`, `kitchen`, `living`, `lighting`, `bathroom`, `material`, `fuel`, `ped`, `texture`, `recipe`, `script`.
 
 An **unknown type is not fatal** — it's logged as a warning and the entry is
 skipped, so a mod built for a newer game version still loads everything else.

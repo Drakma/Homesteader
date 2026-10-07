@@ -32,6 +32,10 @@ namespace Homesteader.Modding
         public const string Internet = "internet";       // connectivity hardware
         public const string Vehicle = "vehicle";         // trucks, tractors, trailers
         public const string Appliance = "appliance";     // powered household goods
+        public const string Kitchen = "kitchen";         // kitchen appliances, cabinets, tables, accessories
+        public const string Living = "living";           // living / family room furniture, decor and TVs
+        public const string Lighting = "lighting";       // ceiling, wall and outdoor post lights
+        public const string Bathroom = "bathroom";       // toilets, sinks, tubs, showers, vanities, accessories
         public const string Material = "material";       // raw building materials
         public const string Fuel = "fuel";               // combustible / energy stores
         public const string Ped = "ped";                 // NPC villagers / characters
@@ -46,7 +50,7 @@ namespace Homesteader.Modding
         public static readonly string[] All =
         {
             Structure, Building, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
-            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Material,
+            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Kitchen, Living, Lighting, Bathroom, Material,
             Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi, Radio
         };
 
