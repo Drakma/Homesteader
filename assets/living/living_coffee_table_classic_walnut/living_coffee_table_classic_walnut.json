@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_coffee_table_classic_walnut",
+  "name": "Classic Walnut Coffee Table",
+  "category": "living",
+  "description": "A low coffee table with a lower shelf. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_coffee_table_classic_walnut.png",
+  "properties": {
+    "weight_kg": 16.0,
+    "max_stack_size": 1,
+    "base_value": 269,
+    "is_consumable": false,
+    "footprint": "1.20m W x 0.60m D x 0.45m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.45"
+  },
+  "models": [
+    {
+      "file": "living_coffee_table_classic_walnut.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.2,
+        "y": 0.45,
+        "z": 0.6
+      },
+      "triangles": 944
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.2,
+      "depth": 0.6,
+      "height": 0.45
+    },
+    "living_kind": "coffee_table",
+    "style": "classic",
+    "color": "walnut",
+    "power_draw_w": 0
+  }
+}

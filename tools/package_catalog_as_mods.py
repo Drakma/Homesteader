@@ -23,6 +23,7 @@ VALID_EXTENSIONS = {
 
 CATEGORY_METADATA = {
     "appliances": ("Appliances Pack", "Homestead household and workshop appliances, refrigeration, laundry, and heating equipment."),
+    "living": ("Living Room Pack", "Sofas, chairs, tables, shelves, lamps, rugs and decor in classic and modern styles, each in four colours."),
     "kitchen": ("Kitchen Pack", "Kitchen appliances in stainless, white and black, cabinets, counters, tables, chairs, cookware and accessories."),
     "building": ("Building & Construction", "Walls, roofs, trusses, windows, doors, and architectural framing components."),
     "electricity": ("Electrical & Solar Grid", "Photovoltaic solar panels, battery banks, inverters, power meters, and wiring."),

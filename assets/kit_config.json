@@ -23,6 +23,12 @@
       "icon": "",
       "desc": "Kitchen appliances in stainless, white and black, cabinets, counters, islands, tables, chairs, cookware and accessories: procedural low-poly models with real detail, separate from the general appliances and furniture.",
       "prefix": "kitchen"
+    },
+    "living": {
+      "name": "Living Room",
+      "icon": "",
+      "desc": "Sofas, chairs, tables, shelves, lamps, rugs and decor for the living and family room, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general appliances and furniture.",
+      "prefix": "living"
     }
   },
   "subfolders": {

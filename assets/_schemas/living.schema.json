@@ -1,0 +1,34 @@
+{
+  "category": "living",
+  "title": "Living Room",
+  "target": "category_fields",
+  "note": "Living / family room pack (tools/make_living_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "living_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece this is: sofa, loveseat, armchair, recliner, sectional, ottoman, pouf, accent_chair, floor_lamp, table_lamp, area_rug, plant_pot, coffee_table, end_table, console_table, tv_stand, sideboard, bookshelf, display_cabinet, toy_chest, rocker, piano, tv, wall_mirror, wall_art or wall_clock."
+    },
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": ["classic", "modern"],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the fabric, leather, rug or wood: burgundy, forest, navy, camel, charcoal, stone, teal, mustard, mahogany, walnut, cherry, oak, birch, white or black. Not the building paint colours."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    }
+  }
+}

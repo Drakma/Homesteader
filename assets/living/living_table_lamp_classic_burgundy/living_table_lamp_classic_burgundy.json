@@ -1,0 +1,104 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_table_lamp_classic_burgundy",
+  "name": "Classic Burgundy Table Lamp",
+  "category": "living",
+  "description": "A table lamp with a fabric shade. It lights the room when it has power. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_table_lamp_classic_burgundy.png",
+  "properties": {
+    "weight_kg": 2.2,
+    "max_stack_size": 1,
+    "base_value": 50,
+    "is_consumable": false,
+    "footprint": "0.34m W x 0.34m D x 0.54m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea"
+  },
+  "models": [
+    {
+      "file": "living_table_lamp_classic_burgundy.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.34,
+        "y": 0.54,
+        "z": 0.34
+      },
+      "triangles": 260
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "12 W",
+      "details": "Draws about 12 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.34,
+      "depth": 0.34,
+      "height": 0.54
+    },
+    "living_kind": "table_lamp",
+    "style": "classic",
+    "color": "burgundy",
+    "power_draw_w": 12
+  },
+  "lights": [
+    {
+      "id": "bulb",
+      "color": "#FFD9A0",
+      "intensity": 2.5,
+      "range_m": 6,
+      "on": "always",
+      "power_w": 12,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true,
+      "offset_m": [
+        0,
+        0.45,
+        0
+      ]
+    }
+  ]
+}
