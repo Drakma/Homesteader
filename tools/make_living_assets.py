@@ -1,6 +1,6 @@
 """
 Builds the LIVING / FAMILY ROOM pack (assets/living/<id>/) in headless Blender: free, local, low-poly furniture with procedural fabric, leather and wood textures.
-26 pieces x 2 styles (classic, modern) x 4 colours = 208 items. A category of its own, apart from the kit's furniture and the kitchen pack.
+28 pieces x 2 styles (classic, modern) x 4 colours = 224 items. A category of its own, apart from the kit's furniture and the kitchen pack.
 
     blender --background --python tools/make_living_assets.py                  (every item)
     blender --background --python tools/make_living_assets.py -- sofa bookshelf   (only these models)
@@ -48,6 +48,8 @@ PIECES = [
     ('rocker', 'rocker', 'Rocking Chair', 'A rocking chair for the family room.', 'wood', 9, 170, {}),
     ('piano', 'piano', 'Piano', 'A piano with a keyboard and a music stand.', 'wood', 90, 1400, {}),
     ('tv', 'tv', 'Television', 'A television set for the family room.', 'wood', 14, 380, {'watts': 90}),
+    ('wall_tv', 'wall_tv', 'Wall-Mount TV', 'A 55 inch flat-screen TV on a wall bracket. Mount it on a wall.', 'wood', 16, 520, {'wall': True, 'watts': 90}),
+    ('wall_tv_large', 'wall_tv_large', 'Large Wall-Mount TV', 'A 75 inch flat-screen TV on a wall bracket. Mount it on a wall.', 'wood', 30, 980, {'wall': True, 'watts': 150}),
     ('wall_mirror', 'wall_mirror', 'Wall Mirror', 'A framed wall mirror. Mount it on a wall.', 'wood', 6, 120, {'wall': True}),
     ('wall_art', 'wall_art', 'Framed Picture', 'A framed picture. Mount it on a wall.', 'wood', 3, 70, {'wall': True}),
     ('wall_clock', 'wall_clock', 'Wall Clock', 'A round wall clock. Mount it on a wall.', 'wood', 2, 55, {'wall': True}),

@@ -1,7 +1,7 @@
 # Living room pack
 
 A category of its own (`assets/living/<id>/`, ids `living_<piece>_<style>_<color>`, shop chip "Living Room", sold at the furniture store "Sofa So Good"), apart from the kit's general furniture and the kitchen pack.
-26 pieces x 2 styles (classic, modern) x 4 colours = 208 items.
+28 pieces x 2 styles (classic, modern) x 4 colours = 224 items.
 
 - Upholstered pieces (sofa, loveseat, armchair, recliner, sectional, ottoman, pouf, accent chair), lamps (shade), rugs and the plant pot vary in FABRIC colour. Classic: burgundy, forest, navy, camel (leather). Modern: charcoal, stone, teal, mustard.
 - Wooden pieces (tables, TV stand, sideboard, bookshelf, display cabinet, toy chest, rocker, piano, TV, mirror, picture, clock) vary in WOOD colour. Classic: mahogany, walnut, cherry, oak. Modern: birch, walnut, white, black.

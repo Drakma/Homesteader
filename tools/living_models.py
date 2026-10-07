@@ -682,3 +682,32 @@ def wall_clock(P):
     K.box(0.0, 0.14, -d / 2 + 0.003, -d / 2 + 0.008, z - 0.004, z + 0.004, P.dark)
     _wall_back(K, d)
     return K
+
+
+def _wall_tv(name, P, w, h):
+    M = Mesh(name)
+    d, back = 0.04, 0.03
+    yf, yb = -(back + d), -back                      # the panel's front and back planes; the bracket fills the rest to the wall
+    bez = 0.045 if P.classic else 0.008
+    # the bracket on the wall: a plate and two arms
+    M.box(-0.20, 0.20, -back, 0.0, h * 0.5 - 0.12, h * 0.5 + 0.12, P.dark)
+    # the set: a body, a bezel and the dark glass
+    M.box(-w / 2, w / 2, yf, yb, 0.0, h, P.black, r=0.006, seg=1)
+    if P.classic:
+        M.box(-w / 2, w / 2, yf - 0.012, yb, 0.0, h, P.main, r=0.008, seg=2)                         # a wood frame round the set
+        M.box(-w / 2 + bez, w / 2 - bez, yf - 0.016, yf - 0.011, bez, h - bez, P.dark)
+        M.box(-w / 2 + bez + 0.01, w / 2 - bez - 0.01, yf - 0.018, yf - 0.016, bez + 0.01, h - bez - 0.01, P.screen)
+    else:
+        M.box(-w / 2 + bez, w / 2 - bez, yf - 0.002, yf, bez, h - bez, P.screen)
+        M.box(w / 2 - 0.08, w / 2 - 0.06, yf - 0.003, yf - 0.002, 0.004, 0.006, P.main)       # the power light
+    return M
+
+
+def wall_tv(P):
+    """A flat-screen TV on a wall bracket (55 inch), 1.23 x 0.07 x 0.69 m. Classic has a wood frame, modern a thin bezel. A wall item."""
+    return _wall_tv('living_wall_tv', P, 1.23, 0.69)
+
+
+def wall_tv_large(P):
+    """A large flat-screen TV on a wall bracket (75 inch), 1.66 x 0.07 x 0.94 m. A wall item."""
+    return _wall_tv('living_wall_tv_large', P, 1.66, 0.94)
