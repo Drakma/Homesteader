@@ -101,6 +101,29 @@
       "label": "Metres Per Item",
       "note": "How many metres of route one item lays; a route of L metres uses ceil(L / this) items."
     },
+    "lot_style": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Lot Surface",
+      "enum": ["", "dirt", "gravel", "asphalt", "concrete"],
+      "note": "On a LOT blueprint: the surface it lays over an area of any size and shape (the player clicks the corners; two corners make a rectangle). docs/LOTS.md."
+    },
+    "lot_material_item": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "label": "Lot Material",
+      "note": "On a lot blueprint: the item id of the material it lays (one per lot_m2_per_item square metres), taken from the hotbar or the work site."
+    },
+    "lot_m2_per_item": {
+      "type": "number",
+      "required": false,
+      "default": 3.0,
+      "min": 0.5,
+      "label": "Square Metres Per Item",
+      "note": "On a lot blueprint: the area one item of its material covers; a lot of A square metres uses ceil(A / this) items."
+    },
     "path_material_item": {
       "type": "string",
       "required": false,

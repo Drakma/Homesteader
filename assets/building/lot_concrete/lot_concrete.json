@@ -1,0 +1,36 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lot_concrete",
+  "name": "Concrete Lot Blueprint",
+  "category": "building",
+  "description": "A blueprint, bought once and yours for good. Hold it, click the corners of a lot (two opposite corners make a rectangle, more corners any other shape) and press Enter: it pours a concrete pad, apron or floor slab over an area of any size.",
+  "icon": "lot_concrete.png",
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 480,
+    "is_consumable": false,
+    "footprint": "(X=1,Y=1)",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "is_blueprint": true,
+    "lot_style": "concrete",
+    "lot_material_item": "building_concrete_mix_bag",
+    "lot_m2_per_item": 1.5
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 0.4,
+      "height": 0.2
+    }
+  }
+}

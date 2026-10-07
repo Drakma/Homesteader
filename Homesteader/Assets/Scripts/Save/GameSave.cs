@@ -49,6 +49,7 @@ namespace Homesteader.Save
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
         public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
+        public List<SavedLot> lots = new List<SavedLot>();          // lots the player laid (LotRun)
         public List<SavedPath> paths = new List<SavedPath>();      // paths and roads the player laid (PathRun)
         public List<SavedFence> fences = new List<SavedFence>();   // fences the player built (FenceRun)
         public List<SavedWire> wires = new List<SavedWire>();   // the wiring between devices (see Wiring.cs)
@@ -102,6 +103,7 @@ namespace Homesteader.Save
         [Serializable] public struct SavedAttached { public string itemId; public int siteIndex; public Vector3 localPosition; public Quaternion localRotation; public float thickness; public string panelId; public float chargeWh; public bool switchOff; public bool lightOff; public List<string> shelfIds; public List<float> shelfX; public List<float> shelfUsed; public List<string> shelfLiquids; }   // shelf*: what stands on a wall shelf (Shelf.cs), parallel lists; in the building's own space; siteIndex = its place in the saved sites
         [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; public List<string> wallPaints; public List<string> openDoors; public List<string> contentIds; public List<int> contentCounts; public List<string> choices; public string pumpId; public string fittedPanel; public float sewageL; public float sludgeL; }   // sewageL / sludgeL: a septic tank's liquid and solids, a leach field's liquid (docs/SEPTIC.md)
         [Serializable] public struct SavedGate { public int segment; public float s; public float width; public string itemId; public string style; public bool open; }
+        [Serializable] public struct SavedLot { public string style, itemId; public List<Vector3> points; }
         [Serializable] public struct SavedPath { public string kind, style, itemId; public float width, metresPerItem, built; public List<Vector3> points; }
         [Serializable] public struct SavedFence
         {

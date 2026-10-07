@@ -15,12 +15,12 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1087**
+Total Indexed Items: **1091**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 36 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 427 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 431 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -88,7 +88,7 @@ Total Indexed Items: **1087**
 | `wind_turbine_200w_metal` | 200W Metal Wind Turbine | — | — | [wind_turbine_200w_metal.json](structures/wind_turbine_200w_metal/wind_turbine_200w_metal.json) |
 | `wind_turbine_500w_metal` | 500W Metal Wind Turbine | — | — | [wind_turbine_500w_metal.json](structures/wind_turbine_500w_metal/wind_turbine_500w_metal.json) |
 
-### 📂 [Building](building/) (427 items)
+### 📂 [Building](building/) (431 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -371,6 +371,10 @@ Total Indexed Items: **1087**
 | `lag_bolt` | Lag Bolt | ✅ Yes | — | [lag_bolt.json](building/lag_bolt/lag_bolt.json) |
 | `lag_bolts_case_10` | Lag Bolts Case | ✅ Yes | — | [lag_bolts_case_10.json](building/lag_bolts_case_10/lag_bolts_case_10.json) |
 | `lag_bolts_case_20` | Lag Bolts Case | ✅ Yes | — | [lag_bolts_case_20.json](building/lag_bolts_case_20/lag_bolts_case_20.json) |
+| `lot_asphalt` | Asphalt Lot Blueprint | — | — | [lot_asphalt.json](building/lot_asphalt/lot_asphalt.json) |
+| `lot_concrete` | Concrete Lot Blueprint | — | — | [lot_concrete.json](building/lot_concrete/lot_concrete.json) |
+| `lot_dirt` | Dirt Lot Blueprint | — | — | [lot_dirt.json](building/lot_dirt/lot_dirt.json) |
+| `lot_gravel` | Gravel Lot Blueprint | — | — | [lot_gravel.json](building/lot_gravel/lot_gravel.json) |
 | `lumber_board_2x6` | 2x6 Lumber Board | ✅ Yes | — | [lumber_board_2x6.json](building/lumber_board_2x6/lumber_board_2x6.json) |
 | `lumber_bundle_2x10_large` | Large 2x10 Bundle | ✅ Yes | — | [lumber_bundle_2x10_large.json](building/lumber_bundle_2x10_large/lumber_bundle_2x10_large.json) |
 | `lumber_bundle_2x10_small` | Small 2x10 Bundle | ✅ Yes | — | [lumber_bundle_2x10_small.json](building/lumber_bundle_2x10_small/lumber_bundle_2x10_small.json) |

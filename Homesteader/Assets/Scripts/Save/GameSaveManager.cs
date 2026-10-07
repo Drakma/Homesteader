@@ -148,6 +148,7 @@ namespace Homesteader.Save
             ConstructionSite.Clear();
             FenceRun.Clear();
             PathRun.Clear();
+            LotRun.Clear();
             foreach (PlantedGrowth p in new List<PlantedGrowth>(PlantedGrowth.All))
             {
                 if (p == null) continue;
@@ -317,6 +318,8 @@ namespace Homesteader.Save
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
                 if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count), choices = cs.ChoiceList(), pumpId = cs.PumpId, fittedPanel = cs.FittedPanel, sewageL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SewageL : 0f, sludgeL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SludgeL : 0f });
+            foreach (LotRun lr in LotRun.All)
+                if (lr != null) s.lots.Add(new GameSave.SavedLot { style = lr.Style, itemId = lr.ItemId, points = new List<Vector3>(lr.Points) });
             foreach (PathRun pr in PathRun.All)
             {
                 if (pr == null) continue;
@@ -519,6 +522,10 @@ namespace Homesteader.Save
             Step(0.72f, "Laying paths and fences...");
             foreach (GameSave.SavedPath sp in s.paths)
                 if (sp.points != null && sp.points.Count >= 2) PathRun.Create(sp.kind, sp.style, sp.itemId, sp.width, sp.metresPerItem, sp.points, sp.built).ClearGround();
+
+            // lots
+            foreach (GameSave.SavedLot sl in s.lots)
+                if (sl.points != null && sl.points.Count >= 3) LotRun.Create(sl.style, sl.itemId, sl.points);
 
             // fences
             foreach (GameSave.SavedFence sf in s.fences)

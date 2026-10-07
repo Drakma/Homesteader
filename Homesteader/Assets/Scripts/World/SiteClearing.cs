@@ -25,6 +25,34 @@ namespace Homesteader.World
                 return Mathf.Abs(l.x) <= hx && Mathf.Abs(l.z) <= hz;
             };
             float reach = Mathf.Sqrt(hx * hx + hz * hz);
+            ClearInside(centre, reach, inside);
+        }
+
+        /// <summary>Clears everything standing inside a lot's polygon (corner points on the ground), plus a margin.</summary>
+        public static void ClearPolygon(IList<Vector3> poly)
+        {
+            float x0 = float.MaxValue, x1 = float.MinValue, z0 = float.MaxValue, z1 = float.MinValue;
+            foreach (Vector3 p in poly) { x0 = Mathf.Min(x0, p.x); x1 = Mathf.Max(x1, p.x); z0 = Mathf.Min(z0, p.z); z1 = Mathf.Max(z1, p.z); }
+            var centre = new Vector3((x0 + x1) * 0.5f, 0f, (z0 + z1) * 0.5f);
+            float reach = Mathf.Sqrt((x1 - x0) * (x1 - x0) + (z1 - z0) * (z1 - z0)) * 0.5f + Margin;
+            ClearInside(centre, reach, (x, z) => LotInside(poly, x, z));
+        }
+
+        private static bool LotInside(IList<Vector3> poly, float x, float z)
+        {
+            if (LotRun.Inside(poly, x, z)) return true;
+            for (int i = 0; i < poly.Count; i++)   // or within the margin of an edge
+            {
+                Vector3 a = poly[i], b = poly[(i + 1) % poly.Count];
+                Vector2 ab = new Vector2(b.x - a.x, b.z - a.z), ap = new Vector2(x - a.x, z - a.z);
+                float t = ab.sqrMagnitude < 1e-6f ? 0f : Mathf.Clamp01(Vector2.Dot(ap, ab) / ab.sqrMagnitude);
+                if ((ap - ab * t).sqrMagnitude <= Margin * Margin) return true;
+            }
+            return false;
+        }
+
+        private static void ClearInside(Vector3 centre, float reach, System.Func<float, float, bool> inside)
+        {
 
             // everything baked into the vegetation chunks (trees, rocks, debris, bushes, plants)
             var origins = new List<Vector2>();

@@ -176,6 +176,10 @@ def main():
                             item_data["fence_post_item"] = str(props.get("fence_post_item", "post_wood_round_6inch"))
                         if props.get("is_blueprint") is True:
                             item_data["is_blueprint"] = True
+                        if props.get("lot_style") in ("dirt", "gravel", "asphalt", "concrete"):   # a lot blueprint (LotBuilder.cs)
+                            item_data["lot_style"] = props["lot_style"]
+                            item_data["lot_material_item"] = str(props.get("lot_material_item", ""))
+                            item_data["lot_m2_per_item"] = float(props.get("lot_m2_per_item", 3.0))
                         if props.get("path_material_item"):
                             item_data["path_material_item"] = str(props["path_material_item"])
                         if props.get("path_kind") in ("path", "road"):

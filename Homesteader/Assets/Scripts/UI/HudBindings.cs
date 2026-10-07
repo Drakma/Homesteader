@@ -653,6 +653,7 @@ namespace Homesteader.UI
                         else if (ContainerPanel.CloseOpen()) { }
                         else if (Homesteader.Growth.FenceBuilder.CancelPlan()) { }
                         else if (Homesteader.Growth.PathBuilder.CancelPlan()) { }
+                        else if (Homesteader.Growth.LotBuilder.CancelPlan()) { }
                         else if (Homesteader.Growth.AreaTidy.Cancel()) { }
                         else if (phoneOpen) _phone.Close();
                         else EscapeHandledFrame = -1;   // nothing to close: Esc is the welcome menu's
@@ -2133,6 +2134,9 @@ namespace Homesteader.UI
         public string path_kind;                                    // path or road: a surface laid as a curved route (PathBuilder.cs)
         public float path_width_m, path_m_per_item;
         public string path_style;
+        public string lot_style;                                    // dirt, gravel, asphalt or concrete: a lot blueprint (LotBuilder.cs)
+        public string lot_material_item;                            // the material a lot blueprint lays
+        public float lot_m2_per_item;                               // square metres one item of it covers
         public float gate_width_m;                                  // > 0: a gate
         public string gate_style;
         public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)
