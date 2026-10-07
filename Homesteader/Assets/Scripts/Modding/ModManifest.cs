@@ -35,6 +35,8 @@ namespace Homesteader.Modding
         public const string Kitchen = "kitchen";         // kitchen appliances, cabinets, tables, accessories
         public const string Living = "living";           // living / family room furniture, decor and TVs
         public const string Lighting = "lighting";       // ceiling, wall and outdoor post lights
+        public const string Office = "office";            // home office furniture
+        public const string Dining = "dining";            // dining room furniture
         public const string Garage = "garage";           // garage and workshop furniture and tools
         public const string Laundry = "laundry";         // laundry and mudroom furniture
         public const string Bedroom = "bedroom";         // beds, nightstands, dressers, wardrobes, dressing tables, cribs, desks
@@ -53,7 +55,7 @@ namespace Homesteader.Modding
         public static readonly string[] All =
         {
             Structure, Building, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
-            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Kitchen, Living, Lighting, Bathroom, Bedroom, Laundry, Garage, Material,
+            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Kitchen, Living, Lighting, Bathroom, Bedroom, Laundry, Garage, Dining, Office, Material,
             Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi, Radio
         };
 

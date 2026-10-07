@@ -23,6 +23,8 @@ VALID_EXTENSIONS = {
 
 CATEGORY_METADATA = {
     "appliances": ("Appliances Pack", "Homestead household and workshop appliances, refrigeration, laundry, and heating equipment."),
+    "office": ("Home Office Pack", "Desks, credenzas, filing cabinets, boards and office chairs in classic and modern styles."),
+    "dining": ("Dining Room Pack", "Dining tables, upholstered chairs, china cabinets, bar carts and wine racks in classic and modern styles."),
     "garage": ("Garage and Workshop Pack", "Workbenches, steel tool chests and cabinets, shelving, an air compressor and a bench grinder in classic and modern styles."),
     "laundry": ("Laundry and Mudroom Pack", "Mudroom benches, lockers, laundry counters, utility sinks, drying racks and shelving in classic and modern styles."),
     "bedroom": ("Bedroom Pack", "Beds, nightstands, dressers, wardrobes, dressing tables, cribs and desks in classic and modern styles, each in four colours."),

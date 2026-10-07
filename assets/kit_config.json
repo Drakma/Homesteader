@@ -59,6 +59,18 @@
       "icon": "",
       "desc": "Workbenches, pegboards, steel tool chests and cabinets, shelving, parts cabinets, an air compressor and a bench grinder, each in a classic and a modern style and four colours: procedural low-poly models.",
       "prefix": "garage"
+    },
+    "dining": {
+      "name": "Dining Room",
+      "icon": "",
+      "desc": "Dining tables, upholstered chairs and benches, china cabinets, bar carts and wine racks, each in a classic and a modern style and four colours: procedural low-poly models.",
+      "prefix": "dining"
+    },
+    "office": {
+      "name": "Home Office",
+      "icon": "",
+      "desc": "Desks, credenzas, filing cabinets, whiteboards, cork boards and chairs, each in a classic and a modern style and four colours: procedural low-poly models.",
+      "prefix": "office"
     }
   },
   "subfolders": {

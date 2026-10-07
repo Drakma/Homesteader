@@ -1,0 +1,37 @@
+{
+  "category": "office",
+  "title": "Home Office",
+  "target": "category_fields",
+  "note": "Home Office pack (tools/make_office_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the bedding and upholstery or of the wood: burgundy, forest, navy, camel, charcoal, stone, teal, mustard, mahogany, walnut, cherry, oak, birch, white or black."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    },
+    "office_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: office_desk, executive_desk, credenza, filing_cabinet, lateral_file, whiteboard_wall, corkboard_wall, office_chair or guest_chair."
+    }
+  }
+}

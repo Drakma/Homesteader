@@ -1,0 +1,37 @@
+{
+  "category": "dining",
+  "title": "Dining Room",
+  "target": "category_fields",
+  "note": "Dining Room pack (tools/make_dining_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the bedding and upholstery or of the wood: burgundy, forest, navy, camel, charcoal, stone, teal, mustard, mahogany, walnut, cherry, oak, birch, white or black."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    },
+    "dining_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: dining_table, round_table, china_cabinet, bar_cart, wine_rack, dining_chair, host_chair or dining_bench."
+    }
+  }
+}
