@@ -132,8 +132,8 @@ def framing_stage(b, n, M):
         truss(b, x, M)
     for sy in (-1, 1):
         y = sy * SPAN / 2
-        b.box(x0 - 0.1, x1 + 0.1, y - 0.07, y + 0.07, Z_EAVE, Z_EAVE + 0.2, M['frame'])                          # the eave beams
-    b.box(x0 - 0.1, x1 + 0.1, -0.06, 0.06, Z_RIDGE - 0.1, Z_RIDGE + 0.04, M['frame'])                          # the ridge beam
+        b.box(x0 - 0.1, x1 + 0.1, y - 0.07, y + 0.07, Z_EAVE - 0.18, Z_EAVE + 0.03, M['frame'])                  # the eave beams (their tops stay under the purlins and the roof)
+    b.box(x0 - 0.1, x1 + 0.1, -0.06, 0.06, Z_RIDGE - 0.1, Z_RIDGE + 0.0, M['frame'])                          # the ridge beam
     for k in range(n):                                                                                           # X-bracing in the end bays' roof planes
         if k in (0, n - 1):
             xa, xb = x0 + k * BAY, x0 + (k + 1) * BAY
@@ -164,9 +164,10 @@ def roof_stage(roof, n, M):
             slope_panel(roof, xs - 0.015, xs + 0.015, sy * ye, ze + 0.13 - rise * OVER + 0.04, sy * 0.0, top0 + 0.04, 0.025, M['shingle_dark'])
         roof.box(x0, x1, sy * ye - 0.03, sy * ye + 0.03, ze - rise * OVER + 0.02, ze - rise * OVER + 0.2, M['trim'])      # the eave trim
     roof.box(x0, x1, -0.14, 0.14, top0 + 0.02, top0 + 0.12, M['shingle_dark'])                                        # the ridge cap
-    for sx in (-1, 1):                                                                                                  # the gable-end rakes
+    for sx in (-1, 1):                                                                                                  # the rake boards along the gable ends, following the roof slope
         xe = x1 if sx > 0 else x0
-        roof.box(xe - 0.03, xe + 0.03, -ye, ye, top0 - 0.2, top0 - 0.18, M['trim'])
+        for sy in (-1, 1):
+            slope_panel(roof, xe - 0.035, xe + 0.035, sy * ye, ze + 0.13 - rise * OVER - 0.02, sy * 0.0, top0 - 0.02, 0.075, M['trim'])
 
 
 # ------------------------------------------------------------------ manifests
