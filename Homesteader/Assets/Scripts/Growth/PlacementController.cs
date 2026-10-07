@@ -1906,7 +1906,7 @@ namespace Homesteader.Growth
             if (o == null)
             {
                 o = go.AddComponent<Originals>();
-                Shader sh = Shader.Find("Universal Render Pipeline/Unlit");
+                Shader sh = Shader.Find("Universal Render Pipeline/Lit");   // shaded, in ONE colour: the model's own texture is not used (a red sofa under a blue tint read as an invalid red)
                 foreach (Renderer r in go.GetComponentsInChildren<Renderer>(true))
                 {
                     if (r is ParticleSystemRenderer) continue;
@@ -1916,9 +1916,8 @@ namespace Homesteader.Growth
                     for (int i = 0; i < src.Length; i++)
                     {
                         var m = new Material(sh) { name = "Ghost" };
-                        Texture tex = src[i] != null && src[i].HasProperty("_BaseMap") ? src[i].GetTexture("_BaseMap")
-                                    : src[i] != null ? src[i].mainTexture : null;
-                        if (tex != null) m.SetTexture("_BaseMap", tex);
+                        m.SetFloat("_Metallic", 0f);
+                        m.SetFloat("_Smoothness", 0.15f);
                         m.SetFloat("_Surface", 1f);
                         m.SetFloat("_Blend", 0f);
                         m.SetFloat("_ZWrite", 0f);
