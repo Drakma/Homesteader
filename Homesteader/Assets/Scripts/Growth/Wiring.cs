@@ -1911,6 +1911,9 @@ namespace Homesteader.Growth
                 WireNode n = a.GetComponent<WireNode>();
                 if ((a.ProvidesPower) || (n != null && n.Role == WireRole.Lockout)) wired.Add(a.Site);
             }
+            // While a save is loading, and for a few seconds after, the grid is only half put back (a rack before its batteries, a panel before its wires):
+            // the states are noted but no toast is shown for what is just the load settling.
+            bool quiet = !Homesteader.Save.GameSaveManager.Restored || Time.realtimeSinceStartup - Homesteader.Save.GameSaveManager.RestoredAt < 6f;
             var gone = new List<ConstructionSite>();
             foreach (ConstructionSite k in s_powerState.Keys) if (k == null || !wired.Contains(k)) gone.Add(k);
             foreach (ConstructionSite k in gone) s_powerState.Remove(k);
@@ -1926,7 +1929,7 @@ namespace Homesteader.Growth
                 else if (ratio < 0.85f || level < 0.15f) now = PowerState.Low;
                 else now = seen && was == PowerState.Low && (ratio < 0.95f || level < 0.2f) ? PowerState.Low : PowerState.Normal;   // out of low only once well clear of it
                 s_powerState[site] = now;
-                if (!seen || now == was) continue;
+                if (!seen || now == was || quiet) continue;
                 string name = site.Name();
                 switch (now)
                 {

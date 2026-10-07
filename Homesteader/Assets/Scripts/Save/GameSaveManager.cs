@@ -24,6 +24,8 @@ namespace Homesteader.Save
         public float autosaveSeconds = 30f;
 
         public static bool Restored { get; private set; }
+        /// <summary>Real time (Time.realtimeSinceStartup) the load finished; the power alerts stay quiet for a few seconds after it while the grid settles.</summary>
+        public static float RestoredAt { get; private set; }
         /// <summary>How far the load of a save has got (0 to 1) and what it is doing: the welcome menu's progress bar shows them.</summary>
         public static float LoadProgress { get; private set; }
         public static string LoadPhase { get; private set; } = "";
@@ -106,6 +108,7 @@ namespace Homesteader.Save
                 Homesteader.Audio.AudioManager.Instance.StartMusicAfterLoad(save == null || (save.musicPlaying && string.IsNullOrEmpty(save.radioStation)));
 
             Restored = true;
+            RestoredAt = Time.realtimeSinceStartup;
             s_lastAuto = Time.realtimeSinceStartup;
             StartCoroutine(ThumbnailLoop());
         }
