@@ -104,13 +104,10 @@ namespace Homesteader.World
                     for (int px = px0; px <= px1; px++) map.SetPixel(px, py, colour);
             }
             map.Apply();
-            // The ground colour is rendered once into a texture (TerrainGroundBake): draw it again where the farmland went in, with a margin.
+            // The ground colour is rendered once into a texture (TerrainGroundBake): draw it again exactly where the farmland went in.
             var terrain = gen.GetComponent<Terrain>();
             if (terrain != null && terrain.materialTemplate != null && minX <= maxX)
-            {
-                const float pad = 4f;
-                TerrainGroundBake.Rebake(terrain.materialTemplate, (minX - pad) / gen.terrainSizeX, (minZ - pad) / gen.terrainSizeZ, (maxX + pad) / gen.terrainSizeX, (maxZ + pad) / gen.terrainSizeZ);
-            }
+                TerrainGroundBake.Rebake(terrain.materialTemplate, minX / gen.terrainSizeX, minZ / gen.terrainSizeZ, maxX / gen.terrainSizeX, maxZ / gen.terrainSizeZ);
         }
     }
 }
