@@ -1,0 +1,37 @@
+{
+  "category": "garage",
+  "title": "Garage & Workshop",
+  "target": "category_fields",
+  "note": "Garage and workshop pack (tools/make_garage_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the painted steel (red, forest, navy, black, grey, orange, white) or of the wood (mahogany, walnut, cherry, oak, birch, white, black)."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs (the compressor, the grinder)."
+    },
+    "garage_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: workbench, pegboard_wall, sawhorse, shop_stool, lumber_rack_wall, tool_chest_rolling, tool_chest_top, cabinet_tall, cabinet_base, wall_cabinet, steel_shelving, parts_cabinet, air_compressor or bench_grinder."
+    }
+  }
+}

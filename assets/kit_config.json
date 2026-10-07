@@ -53,6 +53,12 @@
       "icon": "",
       "desc": "Mudroom benches, lockers, coat racks and shoe racks, laundry counters, utility sinks, drying racks, shelving, ironing boards and baskets, each in a classic and a modern style and four colours: procedural low-poly models.",
       "prefix": "laundry"
+    },
+    "garage": {
+      "name": "Garage & Workshop",
+      "icon": "",
+      "desc": "Workbenches, pegboards, steel tool chests and cabinets, shelving, parts cabinets, an air compressor and a bench grinder, each in a classic and a modern style and four colours: procedural low-poly models.",
+      "prefix": "garage"
     }
   },
   "subfolders": {
