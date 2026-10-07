@@ -81,9 +81,9 @@ namespace Homesteader.Growth
             return true;
         }
 
-        private static void Finish(Vector3 at)
+        private static void Finish(Vector3 at, Vector3? from = null)
         {
-            FarmlandSoil.Till(at);
+            FarmlandSoil.Till(at, from);
         }
 
         private sealed class TillJob : MonoBehaviour
@@ -101,7 +101,7 @@ namespace Homesteader.Growth
                     yield return null;
                 }
                 if (animated) ped.EndWork("Hoe");
-                if (!cancelled) Finish(at);
+                if (!cancelled) Finish(at, ped.transform.position);
                 Destroy(this);
             }
         }

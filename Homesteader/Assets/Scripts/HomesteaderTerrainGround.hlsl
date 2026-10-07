@@ -716,8 +716,13 @@
                 }
                 if (mode > 3.5 && mode < 4.5)
                 {
-                    float furrow = sin(pos.x * 3.14159 / 1.0);     // 1-meter tilled rows
-                    return lerp(half3(0.24, 0.11, 0.03), half3(0.12, 0.05, 0.01), step(0.0, furrow) * 0.65);
+                    // Two rows to every metre square (a plant sits on each: the square is sown 2 x 2), a ridge with a furrow between. The rows run
+                    // along X, or along Z when the tilled square says so (mode 4.25, see BiomeModeAt): they keep their direction from square to square.
+                    float across = mode > 4.1 ? pos.x : pos.y;
+                    float f = frac(across * 2.0);                  // 0.5 m per row, the furrows on the whole-metre and half-metre lines
+                    float ridge = smoothstep(0.0, 0.3, f) * smoothstep(1.0, 0.7, f);
+                    float grain = FBM(pos * 6.0, 2);
+                    return lerp(half3(0.10, 0.045, 0.01), half3(0.26, 0.125, 0.04), ridge) * lerp(0.9, 1.1, grain);
                 }
                 return GetBiomeTexture(mode, pos);
             }
@@ -732,12 +737,21 @@
             // maple, birch, oak, pine, poplar and mixed forests: the modes whose floor carries the scattered debris (added ONCE per pixel, after the blend)
             float IsForestMode(float mode) { return ((mode > 6.5 && mode < 10.5) || (mode > 13.5 && mode < 15.5)) ? 1.0 : 0.0; }
 
+            // The mode id at a point of the biome map, point sampled. Tilled farmland whose rows run along Z (red channel painted to 1 by
+            // FarmlandSoil.cs) reads as 4.25 instead of 4, so its texture turns without being a different biome.
+            float BiomeModeAt(float2 uv)
+            {
+                half4 s = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, uv, 0);
+                float m = floor(s.a * 18.0);
+                if (m > 3.5 && m < 4.5 && s.r > 0.75) m += 0.25;
+                return m;
+            }
+
             half3 BlendedBiomeGround(float2 localXZ, float2 worldXZ)
             {
                 if (_TerrainBlendQuality < 0.5)
                 {
-                    float a0 = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, localXZ / _TerrainBounds.xy, 0).a;
-                    float m0 = floor(a0 * 18.0);
+                    float m0 = BiomeModeAt(localXZ / _TerrainBounds.xy);
                     half3 c0 = BiomeLandColor(m0, worldXZ);
                     if (IsForestMode(m0) > 0.5) c0 = ForestDebris(worldXZ, c0);
                     return c0;
@@ -756,8 +770,7 @@
                 [unroll] for (int k = 0; k < 4; k++)
                 {
                     float2 p = (i0 + float2(k % 2, k / 2) + 0.5) * cell;
-                    float a = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, p / _TerrainBounds.xy, 0).a;
-                    ms[k] = floor(a * 18.0);
+                    ms[k] = BiomeModeAt(p / _TerrainBounds.xy);
                 }
                 // Each distinct mode's total weight (taps on the same mode share one texture evaluation); only the TWO strongest are drawn, so a
                 // pixel never pays for more than two biome textures (a third or fourth only appears at a triple junction and is a few percent).
