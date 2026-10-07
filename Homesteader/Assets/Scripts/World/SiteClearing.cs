@@ -51,10 +51,28 @@ namespace Homesteader.World
             return false;
         }
 
+        /// <summary>Tilling: removes the ground cover (grass tufts, flowers, scattered debris) inside one rectangle exactly, with no margin; trees, bushes and rocks stay.</summary>
+        public static void ClearGround(float x0, float z0, float x1, float z1)
+        {
+            ClearChunks(new Vector3((x0 + x1) * 0.5f, 0f, (z0 + z1) * 0.5f), Mathf.Sqrt((x1 - x0) * (x1 - x0) + (z1 - z0) * (z1 - z0)) * 0.5f,
+                (x, z) => x >= x0 && x <= x1 && z >= z0 && z <= z1);
+            ForestSolids.MarkDirty();
+        }
+
         private static void ClearInside(Vector3 centre, float reach, System.Func<float, float, bool> inside)
         {
+            ClearChunks(centre, reach, inside);
+            ForestTrees.ClearIn(inside);
+            BerryBushes.ClearIn(inside);
+            ForestSolids.ClearRocksIn(inside);
 
-            // everything baked into the vegetation chunks (trees, rocks, debris, bushes, plants)
+            // Plantables are treated like placed objects: never cleared (what the player planted stays; builders refuse to start over it).
+            ForestSolids.MarkDirty();
+        }
+
+        private static void ClearChunks(Vector3 centre, float reach, System.Func<float, float, bool> inside)
+        {
+            // everything baked into the vegetation chunks (debris, tufts, flowers, plants)
             var origins = new List<Vector2>();
             var heights = new List<Vector2>();
             foreach (MeshFilter mf in Object.FindObjectsByType<MeshFilter>())
@@ -78,13 +96,6 @@ namespace Homesteader.World
                 }
                 if (changed) mesh.SetVertices(verts);
             }
-
-            ForestTrees.ClearIn(inside);
-            BerryBushes.ClearIn(inside);
-            ForestSolids.ClearRocksIn(inside);
-
-            // Plantables are treated like placed objects: never cleared (what the player planted stays; builders refuse to start over it).
-            ForestSolids.MarkDirty();
         }
     }
 }

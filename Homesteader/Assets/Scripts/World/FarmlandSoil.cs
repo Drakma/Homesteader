@@ -57,6 +57,7 @@ namespace Homesteader.World
             }
             Cells[cell] = alongZ;
             Paint(new[] { cell });
+            SiteClearing.ClearGround(cell.x * Size, cell.y * Size, (cell.x + 1) * Size, (cell.y + 1) * Size);   // the grass and flowers on it go
             return true;
         }
 
@@ -77,6 +78,7 @@ namespace Homesteader.World
             var z = alongZ != null ? new HashSet<Vector2Int>(alongZ) : new HashSet<Vector2Int>();
             foreach (Vector2Int c in saved) Cells[c] = z.Contains(c);
             Paint(saved);
+            foreach (Vector2Int c in saved) SiteClearing.ClearGround(c.x * Size, c.y * Size, (c.x + 1) * Size, (c.y + 1) * Size);   // the world's cover grows back on every load
         }
 
         /// <summary>Paints the squares into the baked biome map: the farmland mode in every pixel they cover, and the row direction in the red channel (1 = along Z).</summary>
