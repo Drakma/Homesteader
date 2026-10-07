@@ -1,0 +1,37 @@
+{
+  "category": "bedroom",
+  "title": "Bedroom",
+  "target": "category_fields",
+  "note": "Bedroom pack (tools/make_bedroom_assets.py). The size (dimensions_m) comes from the universal _base_dimensions schema.",
+  "fields": {
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (turned legs, rolled arms, mouldings, brass) or modern (clean lines, slim tapered legs, black metal)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Colour",
+      "note": "The colour of the bedding and upholstery or of the wood: burgundy, forest, navy, camel, charcoal, stone, teal, mustard, mahogany, walnut, cherry, oak, birch, white or black."
+    },
+    "power_draw_w": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "label": "Power draw (W)",
+      "note": "Watts drawn while it runs; 0 for anything that uses no electricity."
+    },
+    "bedroom_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: bed_queen, bed_king, bed_twin, bed_bunk, end_bench, vanity_stool, desk_chair, nightstand, dresser, chest_of_drawers, vanity_table, wardrobe, blanket_chest, crib, cheval_mirror or desk."
+    }
+  }
+}

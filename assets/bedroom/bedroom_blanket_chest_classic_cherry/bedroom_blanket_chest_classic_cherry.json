@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bedroom_blanket_chest_classic_cherry",
+  "name": "Classic Cherry Blanket Chest",
+  "category": "bedroom",
+  "description": "A chest with a lid for blankets and linen. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "bedroom_blanket_chest_classic_cherry.png",
+  "properties": {
+    "weight_kg": 22.0,
+    "max_stack_size": 1,
+    "base_value": 213,
+    "is_consumable": false,
+    "footprint": "1.02m W x 0.48m D x 0.50m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.50"
+  },
+  "models": [
+    {
+      "file": "bedroom_blanket_chest_classic_cherry.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.024,
+        "y": 0.5,
+        "z": 0.478
+      },
+      "triangles": 428
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.024,
+      "depth": 0.478,
+      "height": 0.5
+    },
+    "bedroom_kind": "blanket_chest",
+    "style": "classic",
+    "color": "cherry",
+    "power_draw_w": 0
+  }
+}

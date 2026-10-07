@@ -41,6 +41,12 @@
       "icon": "",
       "desc": "Toilets, sinks, tubs, showers, vanities, cabinets, mirrors and accessories, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general appliances.",
       "prefix": "bathroom"
+    },
+    "bedroom": {
+      "name": "Bedroom",
+      "icon": "",
+      "desc": "Beds, bunk beds, nightstands, dressers, wardrobes, dressing tables, cribs, desks and mirrors, each in a classic and a modern style and four colours: procedural low-poly models, separate from the general furniture.",
+      "prefix": "bedroom"
     }
   },
   "subfolders": {

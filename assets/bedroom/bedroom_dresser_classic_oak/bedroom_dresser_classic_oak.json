@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bedroom_dresser_classic_oak",
+  "name": "Classic Oak Dresser",
+  "category": "bedroom",
+  "description": "A six-drawer dresser. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "bedroom_dresser_classic_oak.png",
+  "properties": {
+    "weight_kg": 58.0,
+    "max_stack_size": 1,
+    "base_value": 582,
+    "is_consumable": false,
+    "footprint": "1.44m W x 0.57m D x 0.86m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.88"
+  },
+  "models": [
+    {
+      "file": "bedroom_dresser_classic_oak.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.44,
+        "y": 0.86,
+        "z": 0.566
+      },
+      "triangles": 1304
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.44,
+      "depth": 0.566,
+      "height": 0.86
+    },
+    "bedroom_kind": "dresser",
+    "style": "classic",
+    "color": "oak",
+    "power_draw_w": 0
+  }
+}

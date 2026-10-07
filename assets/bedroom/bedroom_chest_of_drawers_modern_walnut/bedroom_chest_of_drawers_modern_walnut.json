@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bedroom_chest_of_drawers_modern_walnut",
+  "name": "Modern Walnut Chest Of Drawers",
+  "category": "bedroom",
+  "description": "A tall chest of five drawers. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "bedroom_chest_of_drawers_modern_walnut.png",
+  "properties": {
+    "weight_kg": 44.0,
+    "max_stack_size": 1,
+    "base_value": 410,
+    "is_consumable": false,
+    "footprint": "0.80m W x 0.51m D x 1.22m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "1.25"
+  },
+  "models": [
+    {
+      "file": "bedroom_chest_of_drawers_modern_walnut.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.8,
+        "y": 1.22,
+        "z": 0.512
+      },
+      "triangles": 436
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.8,
+      "depth": 0.512,
+      "height": 1.22
+    },
+    "bedroom_kind": "chest_of_drawers",
+    "style": "modern",
+    "color": "walnut",
+    "power_draw_w": 0
+  }
+}
