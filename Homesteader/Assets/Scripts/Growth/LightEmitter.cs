@@ -167,6 +167,41 @@ namespace Homesteader.Growth
         private string itemId;
         private float nextTick;
 
+        /// <summary>Switched off by the player (a right click): it stays dark whatever the time, the room or the power. Saved with the placed or mounted item.</summary>
+        public bool SwitchedOff;
+
+        private const float SwitchReach = 4f;
+
+        /// <summary>A plain right click on a light (a lamp, a ceiling or wall light, a post light) switches it off or on. Not with a wrench (that takes it down) or the wire tools.</summary>
+        public static bool TryRightClick(Camera cam, Vector2 pointer, Transform player)
+        {
+            if (cam == null || instances.Count == 0 || WireTool.JoinToolHeld() || AttachedObject.WrenchInHand()) return false;
+            LightEmitter e = UnderCursor(cam, pointer);
+            if (e == null) return false;
+            if (player != null && Vector3.Distance(player.position, e.transform.position) > SwitchReach)
+            {
+                ToastNotificationSystem.ShowInfo("Too far", "Move closer to the light switch it.");
+                return true;
+            }
+            e.SwitchedOff = !e.SwitchedOff;
+            return true;
+        }
+
+        /// <summary>The light fixture under the cursor (nothing else in front of it), or null.</summary>
+        public static LightEmitter UnderCursor(Camera cam, Vector2 pointer)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(pointer), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+            Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<PedController>() != null) continue;
+                LightEmitter e = h.collider.GetComponentInParent<LightEmitter>();
+                if (e != null) return e;
+                if (!h.collider.isTrigger) return null;   // something solid is in front
+            }
+            return null;
+        }
+
         /// <summary>Adds the emitter and its lights to a placed / spawned model.</summary>
         public static void Attach(GameObject model, string itemId, IList<LightDef> defs)
         {
@@ -206,7 +241,7 @@ namespace Homesteader.Growth
                 if (r.Light == null) continue;
                 if (tick)
                 {
-                    r.Want = occupied ? TargetLevel(r.Def, t) : 0f;
+                    r.Want = occupied && !SwitchedOff ? TargetLevel(r.Def, t) : 0f;
                     r.Grid = r.Def.RequiresPower ? GridRatio() : 1f;
                     r.Target = r.Grid > 0f ? r.Want : 0f;
                 }

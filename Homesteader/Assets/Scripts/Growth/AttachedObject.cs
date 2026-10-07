@@ -452,7 +452,7 @@ namespace Homesteader.Growth
                 }
                 NetRack rackIn = a.GetComponent<NetRack>();
                 if (rackIn != null && rackIn.Items.Count > 0) shelfIds = new List<string>(rackIn.Items);   // a rack: what is in it, bottom unit first
-                list.Add(new GameSave.SavedAttached { shelfIds = shelfIds, shelfX = shelfX, shelfUsed = shelfUsed, shelfLiquids = shelfLiquids, itemId = a.ItemId, siteIndex = idx, localPosition = a.Site.transform.InverseTransformPoint(t.position), localRotation = Quaternion.Inverse(a.Site.transform.rotation) * t.rotation, thickness = a.Thickness, panelId = MountedPanel.PanelOn(a.gameObject), chargeWh = a.GetComponent<WireNode>() != null ? a.GetComponent<WireNode>().ChargeWh : 0f, switchOff = a.GetComponent<WireNode>() != null && a.GetComponent<WireNode>().SwitchOff });
+                list.Add(new GameSave.SavedAttached { lightOff = a.GetComponentInChildren<LightEmitter>(true) != null && a.GetComponentInChildren<LightEmitter>(true).SwitchedOff, shelfIds = shelfIds, shelfX = shelfX, shelfUsed = shelfUsed, shelfLiquids = shelfLiquids, itemId = a.ItemId, siteIndex = idx, localPosition = a.Site.transform.InverseTransformPoint(t.position), localRotation = Quaternion.Inverse(a.Site.transform.rotation) * t.rotation, thickness = a.Thickness, panelId = MountedPanel.PanelOn(a.gameObject), chargeWh = a.GetComponent<WireNode>() != null ? a.GetComponent<WireNode>().ChargeWh : 0f, switchOff = a.GetComponent<WireNode>() != null && a.GetComponent<WireNode>().SwitchOff });
             }
             return list;
         }

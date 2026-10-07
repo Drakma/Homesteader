@@ -251,6 +251,7 @@ namespace Homesteader.Growth
             {
                 Camera mountCam = GameCamera();
                 var mountPed = PedController.Current;
+                if (mountCam != null && LightEmitter.TryRightClick(mountCam, pointer, mountPed != null ? mountPed.transform : null)) return;   // a light: switches it off or on (a wrench takes it down)
                 if (mountCam != null && Sawmill.TryRightClick(mountCam, pointer)) return;   // a sawmill: asks what to cut (Shift: the log off again)
                 if (mountCam != null && NetRack.TryTake(mountCam, pointer)) return;   // a router or switch in a wall rack: back into the toolbar
                 if (mountCam != null && Shelf.TryTake(mountCam, pointer)) return;   // a thing on a wall shelf: back into the toolbar

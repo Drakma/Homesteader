@@ -98,6 +98,7 @@ namespace Homesteader.UI
                 H("Pick a toolbar slot", "1 - 0"),
                 H("Swap two toolbar slots", "Drag one onto the other"),
                 H("Take down something mounted on a wall, ceiling or roof, or a solar panel or mount: wrench in hand", "Shift", "Right Click"),
+                H("Switch a light (lamp, ceiling, wall or post light) off or on", "Right Click"),
                 H("Take up a bolted-down fitting (kitchen, bathroom, living room and lighting pieces): wrench in hand", "Right Click"),
                 H("Take ONE piece from a placed bundle, stack or case", "Right Click"),
                 H("Take the whole bundle, stack or case (what is left stays in it)", "Shift + Right Click"),

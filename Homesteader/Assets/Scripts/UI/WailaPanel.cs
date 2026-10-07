@@ -397,8 +397,6 @@ namespace Homesteader.UI
                 {
                     details.Add(("On it", shelf.Describe()));
                     details.Add(("Free", UnitFormat.Length(shelf.FreeLength())));
-                    details.Add(("Put on", "Left click with the item in hand"));
-                    if (shelf.Items.Count > 0) details.Add(("Take off", "Right click the item"));
                 }
                 return;
             }
@@ -413,7 +411,6 @@ namespace Homesteader.UI
                 if (Homesteader.Growth.GrowthRegistry.PackContent(placed.ItemId, out string packSingle, out int packCount))
                 {
                     details.Add(("Left", Homesteader.Growth.PackRules.Left(placed) + " of " + packCount + " " + Homesteader.UI.HudBindings.GetItemName(packSingle)));
-                    details.Add(("Take", "Right click: one. Shift + right click: all"));
                 }
                 PortableGenerator gen = placed.GetComponent<PortableGenerator>();
                 if (gen != null)
@@ -434,7 +431,7 @@ namespace Homesteader.UI
                 var sawmill = placed.GetComponent<Homesteader.Growth.Sawmill>();
                 if (sawmill != null)
                 {
-                    if (sawmill.FuelL < Homesteader.Growth.Sawmill.FuelPerCutL - 0.001f) details.Add(("Fuel", "Out of gasoline: right click it with a can of gasoline"));
+                    if (sawmill.FuelL < Homesteader.Growth.Sawmill.FuelPerCutL - 0.001f) details.Add(("Fuel", "Out of gasoline"));
                     if (sawmill.Busy) details.Add(("Status", "Cutting"));
                     else if (!string.IsNullOrEmpty(sawmill.LogId)) { details.Add(("@item|" + sawmill.LogId, "=On the track")); details.Add(("Right click", "Choose the lumber to cut")); details.Add(("Shift + right click", "Take the log off")); }
                     else { details.Add(("Track", "Empty")); details.Add(("Left click", "With an uncut log in hand: lay it on the track")); details.Add(("Shift + right click", "Pick up")); }
