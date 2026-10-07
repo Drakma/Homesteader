@@ -225,6 +225,9 @@ namespace Homesteader.Growth
             return _bounds;
         }
 
+        /// <summary>The device's bounds in the world (its renderers).</summary>
+        public Bounds WorldBounds() { return ModelBounds(); }
+
         /// <summary>The middle of the device (a point to measure towards).</summary>
         public Vector3 BasePort { get { return ModelBounds().center; } }
 
@@ -305,6 +308,7 @@ namespace Homesteader.Growth
     public sealed class WireLink
     {
         public WireNode A, B;
+        public bool Auto;               // joined by itself (solar panels standing side by side): no wire, not drawn, not saved, not cut
         public bool Heavy;              // a buried run: the larger conduit rises out of the ground at each end
         public string Kind;        // "dc" or "ac"
         public float Length;       // metres of wire it used
@@ -440,6 +444,7 @@ namespace Homesteader.Growth
             reason = null;
             if (a == null || b == null || a == b) return false;
             WireLink existing = LinkBetween(a, b);
+            if (existing != null && existing.Auto) { reason = "Solar panels standing side by side are joined already. Wire any one panel of the group to a wall entry, or to a panel of another group."; return false; }
             if (existing != null) { Remove(existing); return true; }   // wired already: the cutters cut it
 
             string kind = KindFor(a.Role, b.Role);
@@ -1035,6 +1040,40 @@ namespace Homesteader.Growth
         private static float s_chargeTime;
 
         /// <summary>Fills the batteries from the sun in game time (twice a second). Nothing draws them down yet: no building load exists.</summary>
+        private const float PanelJoinGap = 0.45f;   // metres between two panels' edges: closer than this they are one group
+        private static float s_nextGroupScan;
+
+        /// <summary>The distance between the edges of two boxes (0 when they touch or overlap).</summary>
+        private static float BoxGap(Bounds a, Bounds b)
+        {
+            float dx = Mathf.Max(0f, Mathf.Abs(a.center.x - b.center.x) - (a.extents.x + b.extents.x));
+            float dy = Mathf.Max(0f, Mathf.Abs(a.center.y - b.center.y) - (a.extents.y + b.extents.y));
+            float dz = Mathf.Max(0f, Mathf.Abs(a.center.z - b.center.z) - (a.extents.z + b.extents.z));
+            return Mathf.Sqrt(dx * dx + dy * dy + dz * dz);
+        }
+
+        /// <summary>Solar panels standing side by side (their edges within <see cref="PanelJoinGap"/>) are joined by themselves into a group: an unseen DC link of no length, so one wire
+        /// from any panel of the group carries the whole group (<see cref="SolarSun.InputWatts"/> walks through them), and one wire from one group to another joins the two. Scanned about once a second.</summary>
+        public static void TickSolarGroups()
+        {
+            if (Time.unscaledTime < s_nextGroupScan) return;
+            s_nextGroupScan = Time.unscaledTime + 1f;
+            var panels = new List<WireNode>();
+            foreach (WireNode n in WireNode.All) if (n != null && n.Role == WireRole.SolarPanel && n.isActiveAndEnabled) panels.Add(n);
+            for (int i = Links.Count - 1; i >= 0; i--)   // joints whose panels moved apart (or went) are dropped
+            {
+                WireLink l = Links[i];
+                if (!l.Auto) continue;
+                if (l.A == null || l.B == null || BoxGap(l.A.WorldBounds(), l.B.WorldBounds()) > PanelJoinGap + 0.1f) Links.RemoveAt(i);
+            }
+            for (int i = 0; i < panels.Count; i++)
+                for (int j = i + 1; j < panels.Count; j++)
+                {
+                    if (BoxGap(panels[i].WorldBounds(), panels[j].WorldBounds()) > PanelJoinGap || LinkBetween(panels[i], panels[j]) != null) continue;
+                    Links.Add(new WireLink { A = panels[i], B = panels[j], Kind = "dc", Length = 0f, Auto = true, RouteFinal = true });
+                }
+        }
+
         public static void TickCharge()
         {
             if (TimeSystem.Instance == null) return;
@@ -2249,6 +2288,7 @@ namespace Homesteader.Growth
             {
                 WireLink l = Links[i];
                 if (l.A == null || l.B == null) { Remove(l); continue; }   // one end was taken down
+                if (l.Auto) continue;   // a joint between panels side by side: nothing to draw
                 if (l.Line != null && !l.Line.enabled && l.RouteFinal && Time.unscaledTime < l.NextHideCheck) continue;   // hidden in the walls
                 if (WireRouter.NetInWalls(l) || (l.Kind == "net" && l.A.Role != WireRole.NetJack && l.B.Role != WireRole.NetJack)) { if (l.Line != null) l.Line.enabled = false; l.RouteFinal = true; l.NextHideCheck = Time.unscaledTime + 1f; continue; }   // Cat6 inside a building is in the walls: not drawn
                 if (l.Line == null)
@@ -2391,6 +2431,7 @@ namespace Homesteader.Growth
             foreach (WireLink l in Links)
             {
                 if (l.A == null || l.B == null) continue;
+                if (l.Auto) continue;   // solar panels side by side join again by themselves
                 if (!Ref(l.A, placed, attached, out int ka, out int ia) || !Ref(l.B, placed, attached, out int kb, out int ib)) continue;
                 list.Add(new GameSave.SavedWire { aKind = ka, aIndex = ia, bKind = kb, bIndex = ib, kind = l.Kind, length = l.Length, wireItem = l.WireItem });
             }
@@ -2550,7 +2591,7 @@ namespace Homesteader.Growth
             {
                 s_first = null;
                 for (int i = WireNetwork.Links.Count - 1; i >= 0; i--)
-                    if (WireNetwork.Links[i].Connects(n)) WireNetwork.Remove(WireNetwork.Links[i]);
+                    if (WireNetwork.Links[i].Connects(n) && !WireNetwork.Links[i].Auto) WireNetwork.Remove(WireNetwork.Links[i]);
                 return true;
             }
             if (s_first == null || s_first == n) { s_first = s_first == n ? null : n; return true; }
@@ -2575,6 +2616,7 @@ namespace Homesteader.Growth
         private void Update()
         {
             WireNetwork.Redraw();
+            WireNetwork.TickSolarGroups();
             WireNetwork.TickCharge();
             if (s_first != null && (!JoinToolHeld() || !s_first.isActiveAndEnabled)) s_first = null;
             if (s_first == null)
