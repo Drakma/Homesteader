@@ -525,7 +525,11 @@ namespace Homesteader.Save
 
             // lots
             foreach (GameSave.SavedLot sl in s.lots)
-                if (sl.points != null && sl.points.Count >= 3) LotRun.Create(sl.style, sl.itemId, sl.points);
+                if (sl.points != null && sl.points.Count >= 3)
+                {
+                    LotRun.Create(sl.style, sl.itemId, sl.points);
+                    Homesteader.World.SiteClearing.ClearPolygon(sl.points);   // the world's grass, flowers and clutter grow back on a loaded game: clear them under the lot again
+                }
 
             // fences
             foreach (GameSave.SavedFence sf in s.fences)
