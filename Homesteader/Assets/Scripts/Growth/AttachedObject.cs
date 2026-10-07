@@ -363,6 +363,13 @@ namespace Homesteader.Growth
             return wrench && UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.shiftKey.isPressed;
         }
 
+        /// <summary>A wrench (adjustable or pipe) is in the active slot, Shift or not: what takes up a placed item that is bolted down (properties.wrench_remove).</summary>
+        public static bool WrenchInHand()
+        {
+            string held = ConstructionSite.HeldItem();
+            return held == "tool_wrench_adjustable" || held == "tool_wrench_pipe";
+        }
+
         public static bool TryPickUpAtRay(Ray ray, Vector3 playerPos)
         {
             RaycastHit[] hits = Physics.RaycastAll(ray, 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);

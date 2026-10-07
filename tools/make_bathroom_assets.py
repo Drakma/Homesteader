@@ -66,12 +66,11 @@ def manifest(v, tris, dims):
         'weight_kg': float(v['kg']), 'max_stack_size': 1, 'base_value': int(v['price']), 'is_consumable': False,
         'footprint': '%.2fm W x %.2fm D x %.2fm H' % (w, d, h),
         'happiness_modifier': 0, 'thirst_restore': 0, 'energy_restore': 0, 'stamina_restore': 0, 'wellness_modifier': 0,
-        'placeable': v['mount'] == 'floor', 'is_buyable': True, 'stores': ['furniture'], 'sale_unit': 'ea',
+        'placeable': True, 'wrench_remove': True, 'is_buyable': True, 'stores': ['furniture'], 'sale_unit': 'ea',
     }
-    if v['mount'] == 'wall':
-        props['attach_surface'], props['attach_side'] = 'wall', 'interior'
     if ex.get('shelf'):
-        props['shelf'] = True
+        props['support_surface'] = True
+        props['deck_heights'] = '%.3f' % h
     if ex.get('support'):
         props['support_surface'] = True
         props['deck_heights'] = ex['support']

@@ -62,12 +62,8 @@ def manifest(v, tris, dims):
         'weight_kg': float(v['kg']), 'max_stack_size': 1, 'base_value': int(v['price']), 'is_consumable': False,
         'footprint': '%.2fm W x %.2fm D x %.2fm H' % (w, d, h),
         'happiness_modifier': 0, 'thirst_restore': 0, 'energy_restore': 0, 'stamina_restore': 0, 'wellness_modifier': 0,
-        'placeable': mount == 'ground', 'is_buyable': True, 'stores': ['voltvision'], 'sale_unit': 'ea',
+        'placeable': True, 'wrench_remove': True, 'is_buyable': True, 'stores': ['voltvision'], 'sale_unit': 'ea',
     }
-    if mount == 'ceiling':
-        props['attach_surface'], props['attach_side'] = 'ceiling', 'interior'
-    elif mount in ('wall_in', 'wall_out'):
-        props['attach_surface'], props['attach_side'] = 'wall', 'interior' if mount == 'wall_in' else 'exterior'
     night = mount in ('wall_out', 'ground')
     per = max(1, round(v['watts'] / len(v['lights']))) if v['model'] != 'ceiling_fan' else 15
     lights = [{'id': 'lamp%d' % (i + 1) if len(v['lights']) > 1 else 'lamp', 'color': '#FFD9A0' if night else '#FFE6B8', 'intensity': v['inten'], 'range_m': float(v['rng']),

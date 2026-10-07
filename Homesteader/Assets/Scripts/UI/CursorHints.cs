@@ -244,6 +244,7 @@ namespace Homesteader.UI
             PlacedObject target = PlacementController.PlacedUnderCursor();
             if (target == null) return false;
             if (Homesteader.World.FuelDelivery.IsFixedTank(target.ItemId)) return false;
+            if (Homesteader.Growth.ItemRegistry.NeedsWrench(target.ItemId) && !AttachedObject.WrenchInHand()) return false;   // bolted down: only a wrench takes it up
             if (Homesteader.Growth.WaterTap.IsBoltedSolar(target.ItemId) && !AttachedObject.WrenchRemoval()) return false;   // bolted down: only a wrench takes it up
             if (Homesteader.Growth.WaterTap.IsFixed(target.ItemId)) return false;   // a spigot post or a macerator is plumbed in   // a big fuel tank is not picked up: the fuel truck takes it
             if (WheelbarrowPush.IsPile(target.ItemId) && target.Contents != null && target.Contents.Count > 0)

@@ -25,6 +25,7 @@ namespace Homesteader.Growth
             public string BuildsStructure = "";   // properties.builds_structure: a KIT. Placing it (left click, R turns it) starts this structure's work site and uses the kit up
             public string AttachItem = "";     // properties.attach_item: a mount takes this item (a solar panel), right click with it in hand
             public string AttachResult = "";   // properties.attach_result: what the mount becomes once the item is fitted (the mount with its panel)
+            public bool WrenchRemove;              // properties.wrench_remove: once placed it is bolted down: only a right click with a wrench in hand takes it up
             public bool ProvidesPower;             // properties.provides_power: mounted on the outside of a building it brings electricity to it
         }
 
@@ -36,20 +37,23 @@ namespace Homesteader.Growth
         /// <summary>First registration of an id wins (core content is loaded first).</summary>
         public static void Register(string id, string name, string category, GameObject prefab, List<LightDef> lights = null, bool placeable = true,
                                     string attachSurface = "", string attachSide = "either", bool providesPower = false, bool playerBlocked = false,
-                                    string attachItem = "", string attachResult = "", string buildsStructure = "", bool attachThrough = false)
+                                    string attachItem = "", string attachResult = "", string buildsStructure = "", bool attachThrough = false, bool wrenchRemove = false)
         {
             if (string.IsNullOrEmpty(id) || prefab == null || items.ContainsKey(id)) return;
             items[id] = new ItemInfo
             {
                 Id = id, Name = name, Category = category, Prefab = prefab, Lights = lights ?? new List<LightDef>(),
                 AttachSurface = attachSurface ?? "", AttachSide = string.IsNullOrEmpty(attachSide) ? "either" : attachSide, ProvidesPower = providesPower,
-                AttachThrough = attachThrough,
+                AttachThrough = attachThrough, WrenchRemove = wrenchRemove,
                 BuildsStructure = buildsStructure ?? "",
                 AttachItem = attachItem ?? "", AttachResult = attachResult ?? "",
                 PlayerPlaceable = !playerBlocked && string.IsNullOrEmpty(attachSurface),
                 Placeable = placeable && string.IsNullOrEmpty(attachSurface),   // a thing that mounts on a wall or ceiling is not put on the ground
             };
         }
+
+        /// <summary>A placed item whose manifest says wrench_remove: a right click picks it up only with a wrench (adjustable or pipe) in the active slot.</summary>
+        public static bool NeedsWrench(string id) { return TryGet(id, out ItemInfo i) && i.WrenchRemove; }
 
         public static bool TryGet(string id, out ItemInfo info)
         {

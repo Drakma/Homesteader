@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.74"
+    "deck_heights": "0.74",
+    "wrench_remove": true
   },
   "models": [
     {

@@ -471,7 +471,8 @@ namespace Homesteader.Modding
                         root.Get("properties").Get("attach_item").AsString(""),
                         root.Get("properties").Get("attach_result").AsString(""),
                         root.Get("properties").Get("builds_structure").AsString(""),
-                        root.Get("properties").Get("attach_through").AsBool(false));
+                        root.Get("properties").Get("attach_through").AsBool(false),
+                        root.Get("properties").Get("wrench_remove").AsBool(false));
 
                 // Growth groups (which own what plants them and what they drop) are
                 // registered independently of terrain generation: they drive gameplay,

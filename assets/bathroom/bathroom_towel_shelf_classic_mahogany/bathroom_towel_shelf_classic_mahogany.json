@@ -16,15 +16,15 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": false,
+    "placeable": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "attach_surface": "wall",
-    "attach_side": "interior",
-    "shelf": true
+    "support_surface": true,
+    "deck_heights": "0.380",
+    "wrench_remove": true
   },
   "models": [
     {

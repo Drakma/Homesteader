@@ -452,6 +452,12 @@ namespace Homesteader.Growth
             {
                 if (TryFitOnMount(target, mountInfo)) return;
             }
+            // A bolted-down piece (properties.wrench_remove: kitchen, living room, lighting and bathroom fittings): a right click with a wrench takes it up.
+            if (ItemRegistry.NeedsWrench(target.ItemId) && !AttachedObject.WrenchInHand())
+            {
+                ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Take it up with a wrench: right click.");
+                return;
+            }
             // A solar panel or mount is bolted down: a wrench with Shift + right click takes it up.
             if (WaterTap.IsBoltedSolar(target.ItemId) && !AttachedObject.WrenchRemoval())
             {

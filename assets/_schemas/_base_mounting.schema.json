@@ -50,6 +50,13 @@
       "label": "Mount Becomes",
       "note": "What the mount becomes once its attach_item is fitted (the rack with its panel, a separate item with its own model). It is not for sale; a roof one has attach_surface roof like the mount."
     },
+    "wrench_remove": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Bolted Down (Wrench)",
+      "note": "A placed item that is bolted down: a right click picks it up only with a wrench (adjustable or pipe) in the active slot; without one it says to use a wrench. The kitchen, living room, lighting and bathroom packs set it."
+    },
     "roof_mount": {
       "type": "boolean",
       "required": false,

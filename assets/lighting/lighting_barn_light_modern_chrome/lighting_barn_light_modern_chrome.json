@@ -16,14 +16,13 @@
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
-    "placeable": false,
+    "placeable": true,
     "is_buyable": true,
     "stores": [
       "voltvision"
     ],
     "sale_unit": "ea",
-    "attach_surface": "wall",
-    "attach_side": "exterior"
+    "wrench_remove": true
   },
   "models": [
     {
