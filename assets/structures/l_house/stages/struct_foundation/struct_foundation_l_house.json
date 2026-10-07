@@ -1,0 +1,262 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_foundation_l_house",
+  "name": "L-Shaped House - Foundation",
+  "category": "structures",
+  "description": "The foundation construction phase of the house.",
+  "icon": "struct_foundation_l_house.png",
+  "properties": {
+    "weight_kg": 20160.0,
+    "max_stack_size": 1,
+    "base_value": 33600,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_foundation_l_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 16.0,
+        "y": 0.3,
+        "z": 19.0
+      },
+      "triangles": 484
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 179.2,
+    "room_count": 8,
+    "dimensions_m": {
+      "width": 16.0,
+      "depth": 19.0,
+      "height": 0.3
+    },
+    "electrical_service_capacity_w": 0,
+    "water_supply_capacity_lpm": 0,
+    "roof_area_m2": 0,
+    "construction_recipe": [
+      {
+        "item_id": "~gravel",
+        "quantity": 1
+      },
+      {
+        "item_id": "~rebar",
+        "quantity": 22
+      },
+      {
+        "item_id": "~anchor_bolts",
+        "quantity": 45
+      },
+      {
+        "item_id": "~drain_french_sock",
+        "quantity": 7
+      },
+      {
+        "section": "Foundation",
+        "mode": "any",
+        "items": [
+          {
+            "section": "Poured slab",
+            "mode": "all",
+            "items": [
+              {
+                "section": "Concrete",
+                "mode": "any",
+                "items": [
+                  {
+                    "section": "Bagged concrete mix",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~concrete_mix",
+                        "quantity": 187
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 168
+                      }
+                    ]
+                  },
+                  {
+                    "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~cement",
+                        "quantity": 34
+                      },
+                      {
+                        "item_id": "~sand",
+                        "quantity": 1
+                      },
+                      {
+                        "item_id": "~gravel",
+                        "quantity": 1
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 149
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "section": "Block foundation",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~masonry_units",
+                "quantity": 224
+              },
+              {
+                "item_id": "~mortar",
+                "quantity": 15
+              },
+              {
+                "item_id": "~water",
+                "quantity": 52
+              }
+            ]
+          },
+          {
+            "section": "Brick or fieldstone foundation",
+            "mode": "all",
+            "items": [
+              {
+                "section": "Masonry",
+                "mode": "any",
+                "items": [
+                  {
+                    "item_id": "~bricks",
+                    "quantity": 747
+                  },
+                  {
+                    "item_id": "~masonry_fieldstone",
+                    "quantity": 75
+                  }
+                ]
+              },
+              {
+                "item_id": "~mortar",
+                "quantity": 15
+              },
+              {
+                "item_id": "~water",
+                "quantity": 52
+              }
+            ]
+          },
+          {
+            "section": "On stilts",
+            "mode": "all",
+            "items": [
+              {
+                "item_id": "~post_wood_round_6inch",
+                "quantity": 22
+              },
+              {
+                "section": "Concrete",
+                "mode": "any",
+                "items": [
+                  {
+                    "section": "Bagged concrete mix",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~concrete_mix",
+                        "quantity": 22
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 21
+                      }
+                    ]
+                  },
+                  {
+                    "section": "Mix your own: 1 cement, 2 sand, 3 aggregate",
+                    "mode": "all",
+                    "items": [
+                      {
+                        "item_id": "~cement",
+                        "quantity": 4
+                      },
+                      {
+                        "item_id": "~sand",
+                        "quantity": 1
+                      },
+                      {
+                        "item_id": "~gravel",
+                        "quantity": 1
+                      },
+                      {
+                        "item_id": "~water",
+                        "quantity": 19
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_shovel",
+        "tool_shovel_round_point",
+        "tool_shovel_trenching",
+        "tool_pickaxe"
+      ],
+      [
+        "tool_trowel_hand"
+      ],
+      [
+        "tool_wheelbarrow",
+        "tool_plastic_wheelbarrow",
+        "tool_steel_wheelbarrow",
+        "tool_cement_mixer"
+      ],
+      [
+        "tool_angle_grinder_corded",
+        "tool_angle_grinder_cordless"
+      ]
+    ]
+  }
+}

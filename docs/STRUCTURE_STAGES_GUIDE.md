@@ -207,3 +207,10 @@ a floor on the slab) are counted. `tools/fix_structure_overlaps.py` cures the fi
 own normal, and the GLB is written back (run it twice: some layers sit on layers that sit on layers). The generators write models that fight, so run it AFTER generating a structure, then
 `python tools/package_catalog_as_mods.py`. Paint laid on a wall (`ConstructionSite` paint patches) is drawn from its own side only (Cull Back) and 8 mm off the wall, so it cannot show through.
 Last audit: 13,299 fighting face pairs became 16; the walls reach the roof everywhere (the only escapes from the inside are a sliver round each door and the open front of the wood shed).
+
+## Multi-wing buildings (the L-shaped house)
+
+`tools/make_l_house.py` builds `l_house` from two rectangular wings made with the usual builders (`make_building_stages.py`): wing A (16 x 9 m, ridge left to right, porch, front door) and wing B (8 x 10 m, ridge front to back) joined by a 5 m doorway in A's back wall.
+Wing B is built 4.5 m longer than it is, into the main wing, so its roof runs up to the main ridge (a valley); everything of it that is not roof or glass is cut off at A's back wall inner face.
+Wall parts of wing B are named `Wall_Left@B`, `Wall_Right@B` ... (the `@B` tag): the game finds one wall rectangle per wing (`ConstructionSite.WallRects`, `WingRectNear`, `InsideAnyWing`) so the notch of the L is outside the building.
+A new multi-wing building follows the same rule: name every wall part of a wing `Wall_<Side>@<wing>`. Wire runs tacked to the walls are not routed on a multi-wing building yet (they hang).

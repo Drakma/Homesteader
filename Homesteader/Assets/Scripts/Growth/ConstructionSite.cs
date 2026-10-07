@@ -1682,7 +1682,10 @@ namespace Homesteader.Growth
             _patches.Clear();
         }
 
-        private static bool IsWallRoot(string n) { return n == "Wall_Front" || n == "Wall_Back" || n == "Wall_Left" || n == "Wall_Right"; }
+        /// <summary>A wall part's name without its wing tag ("Wall_Left@B" is the left wall of wing B: "Wall_Left").</summary>
+        private static string WallBase(string n) { int at = n.IndexOf('@'); return at < 0 ? n : n.Substring(0, at); }
+
+        private static bool IsWallRoot(string n) { n = WallBase(n); return n == "Wall_Front" || n == "Wall_Back" || n == "Wall_Left" || n == "Wall_Right"; }
 
         private static Transform WallRootOf(Transform t, Transform stop)
         {
@@ -1728,13 +1731,13 @@ namespace Homesteader.Growth
                 {
                     string wallName = kv.Key.Substring(8);
                     foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
-                        if (t.name == wallName && IsWallRoot(t.name)) { StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), ShutterMaterial, paint); break; }
+                        if (WallBase(t.name) == wallName && IsWallRoot(t.name)) StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), ShutterMaterial, paint);
                     continue;
                 }
                 string[] parts = kv.Key.Split('|');
                 if (parts.Length != 2 || parts[1] != "out") continue;
                 foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
-                    if (t.name == parts[0] && IsWallRoot(t.name)) { StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), OutsideMaterial, paint); break; }
+                    if (WallBase(t.name) == parts[0] && IsWallRoot(t.name)) StructureLook.Paint(t.GetComponentsInChildren<Renderer>(true), OutsideMaterial, paint);
             }
             foreach (PaintPatch p in _patches) BuildPatch(p, root);
         }

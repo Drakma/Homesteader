@@ -15,11 +15,11 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1083**
+Total Indexed Items: **1084**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
-| [**Structures**](structures/) | 32 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
+| [**Structures**](structures/) | 33 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
 | [**Building**](building/) | 427 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
@@ -47,7 +47,7 @@ Total Indexed Items: **1083**
 
 ---
 
-### 📂 [Structures](structures/) (32 items)
+### 📂 [Structures](structures/) (33 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -60,6 +60,7 @@ Total Indexed Items: **1083**
 | `grain_silo_small` | Grain Silo (Small) | — | — | [grain_silo_small.json](structures/grain_silo_small/grain_silo_small.json) |
 | `greenhouse` | Greenhouse | — | — | [greenhouse.json](structures/greenhouse/greenhouse.json) |
 | `house_garage` | House wtih Garage | — | — | [house_garage.json](structures/house_garage/house_garage.json) |
+| `l_house` | L-Shaped House | — | — | [l_house.json](structures/l_house/l_house.json) |
 | `large_log_cabin` | Large Log Cabin | — | — | [large_log_cabin.json](structures/large_log_cabin/large_log_cabin.json) |
 | `large_metal_garage` | Large Metal Garage | — | — | [large_metal_garage.json](structures/large_metal_garage/large_metal_garage.json) |
 | `small_cabin` | Small Cabin | — | — | [small_cabin.json](structures/small_cabin/small_cabin.json) |
