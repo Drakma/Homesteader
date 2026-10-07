@@ -245,6 +245,7 @@ namespace Homesteader.Growth
                     r.Grid = r.Def.RequiresPower ? GridRatio() : 1f;
                     r.Target = r.Grid > 0f ? r.Want : 0f;
                 }
+                if (SwitchedOff) { r.Want = 0f; r.Target = 0f; r.Level = 0f; }   // switched off by hand: out at once, no fade
                 if (r.Grid <= 0f) r.Level = 0f;   // the power is gone: the light goes out at once
                 else r.Level = Mathf.MoveTowards(r.Level, r.Target, Time.deltaTime * 1.5f);   // eases switch-ons
                 // It strikes at MinLevel and then brightens over the fade; going off it fades out from wherever it is.
