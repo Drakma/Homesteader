@@ -46,7 +46,7 @@ namespace Homesteader.World
             int y1 = Mathf.Clamp(Mathf.CeilToInt(v1 * Resolution), y0 + 1, Resolution);
 
             float oldBlend = Shader.GetGlobalFloat(BlendId);
-            Shader.SetGlobalFloat(BlendId, 1f);
+            Shader.SetGlobalFloat(BlendId, 0f);   // hard edges: the soft blend (a few metres wide) would wash a single tilled square out into the grass around it
             terrainMaterial.SetVector(SizeId, new Vector4(Resolution, Resolution, 0f, 0f));
             Shader.SetGlobalVector(SizeId, new Vector4(Resolution, Resolution, 0f, 0f));
             var cmd = new CommandBuffer { name = "TerrainGroundRebake" };
