@@ -1314,7 +1314,7 @@ namespace Homesteader.UI
                 tile.Clickable().RegisterCallback<ClickEvent>(evt =>
                 {
                     bool isShift = evt.shiftKey || (evt.modifiers & EventModifiers.Shift) != 0 || IsShiftHeld();
-                    int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : 1;
+                    int countToAdd = isShift ? Mathf.Max(1, currentItem.max_stack) : Mathf.Max(1, currentItem.units_per_sale);   // a click takes one sale unit (a seed packet is 20 seeds)
                     if (evt.altKey || (evt.modifiers & EventModifiers.Alt) != 0)
                     {
                         // Alt+Click: one straight onto the ground in front of the player (Alt+Shift+Click: ten)
