@@ -16,6 +16,14 @@
       "label": "Sale Unit",
       "note": "How a shop counts it: ea, kit, box, bale, packet, tank ... (default ea)."
     },
+    "units_per_sale": {
+      "type": "integer",
+      "required": false,
+      "min": 1,
+      "default": 1,
+      "label": "Units Per Sale",
+      "note": "How many of the item one purchase delivers (a seed packet is 20 seeds: the stack in the toolbar counts seeds). The price is for the whole sale unit."
+    },
     "store_category": {
       "type": "string",
       "required": false,

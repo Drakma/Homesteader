@@ -1875,7 +1875,7 @@ namespace Homesteader.UI
                     var goods = new Dictionary<string, int>();
                     foreach (var pair in _cart)
                     {
-                        if (!Blueprints.IsBlueprint(pair.Key)) { goods[pair.Key] = pair.Value; continue; }
+                        if (!Blueprints.IsBlueprint(pair.Key)) { goods[pair.Key] = pair.Value * Mathf.Max(1, HudBindings.GetCatalogItem(pair.Key)?.units_per_sale ?? 1); continue; }
                         if (HudState.Active.AddItemToToolbar(pair.Key, 1, 1, false) > 0) ToastNotificationSystem.ShowSuccess("Blueprint", HudBindings.GetItemName(pair.Key) + " is yours. Hold it to start a build.");
                         else goods[pair.Key] = 1;   // the toolbar is full: it comes with the van
                     }

@@ -35,7 +35,23 @@ namespace Homesteader.Growth
             return p;
         }
 
-        public static bool Validate(GrowthGroup group, RaycastHit hit, Transform player, out string reason)
+        /// <summary>The four planting spots of a grid square (one per quarter) for a point inside it.</summary>
+        public static Vector3[] QuarterCentres(Vector3 p)
+        {
+            Vector3 c = SnapToGrid(p);
+            float o = GridSizeM * 0.25f;
+            return new[] { c + new Vector3(-o, 0f, -o), c + new Vector3(o, 0f, -o), c + new Vector3(-o, 0f, o), c + new Vector3(o, 0f, o) };
+        }
+
+        /// <summary>The centre of the quarter of its grid square that the point is in.</summary>
+        public static Vector3 QuarterCentreOf(Vector3 p)
+        {
+            Vector3 c = SnapToGrid(p);
+            float o = GridSizeM * 0.25f;
+            return c + new Vector3(p.x < c.x ? -o : o, 0f, p.z < c.z ? -o : o);
+        }
+
+        public static bool Validate(GrowthGroup group, RaycastHit hit, Transform player, out string reason, float spacingOverride = -1f)
         {
             reason = null;
 
@@ -128,7 +144,7 @@ namespace Homesteader.Growth
             }
 
             // Spacing
-            float spacing = group.GrowthType == "tree" ? GameRules.Planting.TreeSpacingM : GameRules.Planting.CropSpacingM;
+            float spacing = spacingOverride >= 0f ? spacingOverride : group.GrowthType == "tree" ? GameRules.Planting.TreeSpacingM : GameRules.Planting.CropSpacingM;
             foreach (PlantedGrowth other in PlantedGrowth.All)
             {
                 if (other != null && Vector3.Distance(other.transform.position, hit.point) < spacing)

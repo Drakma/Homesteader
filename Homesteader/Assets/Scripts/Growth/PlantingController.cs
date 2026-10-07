@@ -313,13 +313,16 @@ namespace Homesteader.Growth
 
             // Lock to the ground grid: everything below (zone, biome, spacing, reach) is
             // checked at, and the plant is placed on, the centre of the clicked cell.
+            Vector3 clicked = hit.point;
             hit.point = PlantingValidator.SnapToGrid(hit.point);
             var ped = PedController.Current;
 
-            // Something already growing in that square: this click tries to harvest it.
-            PlantedGrowth existing = PlantedAt(hit.point);
+            // Something already growing there: this click tries to harvest it. A crop stands in one quarter of its square (the quarter
+            // clicked); a tree stands at the square's centre.
+            PlantedGrowth existing = PlantedNear(PlantingValidator.QuarterCentreOf(clicked)) ?? PlantedNear(hit.point);
             if (existing != null)
             {
+                hit.point = existing.transform.position;
                 // Ripe fruit is picked by hand, unless the harvest tool (the axe that fells it) is in hand: then the click harvests the tree.
                 string tool = existing.Group.Rules.YieldTool;
                 bool holdingTool = !string.IsNullOrEmpty(tool) && GrowthRegistry.HeldToolMatches(tool, heldId);
@@ -348,28 +351,55 @@ namespace Homesteader.Growth
 
             if (!canPlant) return;   // nothing to plant with this item
 
-            if (!PlantingValidator.Validate(group, hit, ped != null ? ped.transform : null, out string reason))
+            Transform planter = ped != null ? ped.transform : null;
+
+            // A tree (sapling) goes in the middle of its square, one at a time.
+            if (group.GrowthType == "tree")
+            {
+                if (!PlantingValidator.Validate(group, hit, planter, out string treeReason))
+                {
+                    ToastNotificationSystem.ShowWarning("Can't plant here", treeReason);
+                    return;
+                }
+                if (!state.ConsumeFromSelectedSlot(1)) return;
+                hud.RefreshToolbar();
+                PlantedGrowth.Plant(group, hit.point, PlantedRoot());
+                return;
+            }
+
+            // A crop: the whole square is sown, one plant in each quarter, one seed each (4 seeds from the packet's 20).
+            var spots = new System.Collections.Generic.List<Vector3>();
+            foreach (Vector3 q in PlantingValidator.QuarterCentres(clicked))
+                if (PlantedNear(q) == null) spots.Add(q);
+            if (spots.Count == 0) return;
+            string reason = null;
+            RaycastHit probe = hit;
+            probe.point = spots[0];
+            if (!PlantingValidator.Validate(group, probe, planter, out reason, PlantingValidator.GridSizeM * 0.4f))
             {
                 ToastNotificationSystem.ShowWarning("Can't plant here", reason);
                 return;
             }
-
-            if (!state.ConsumeFromSelectedSlot(1)) return;
+            int seeds = state.Toolbar[state.SelectedSlot].Count;
+            if (seeds < spots.Count)
+            {
+                if (seeds <= 0) return;
+                ToastNotificationSystem.ShowWarning("Not enough seeds", $"This square takes {spots.Count} seeds; you have {seeds}.");
+                return;
+            }
+            if (!state.ConsumeFromSelectedSlot(spots.Count)) return;
             hud.RefreshToolbar();
-
-            PlantedGrowth.Plant(group, hit.point, PlantedRoot());
+            foreach (Vector3 q in spots) PlantedGrowth.Plant(group, q, PlantedRoot());
         }
 
-        /// <summary>The plant standing in the grid square containing the point, if any.</summary>
-        private static PlantedGrowth PlantedAt(Vector3 point)
+        /// <summary>The plant standing within 0.3 m of the point (a crop's quarter spot or a tree's square centre), if any.</summary>
+        private static PlantedGrowth PlantedNear(Vector3 point)
         {
             foreach (PlantedGrowth p in PlantedGrowth.All)
             {
                 if (p == null) continue;
                 Vector3 c = p.transform.position;
-                if (Mathf.Floor(c.x / PlantingValidator.GridSizeM) == Mathf.Floor(point.x / PlantingValidator.GridSizeM)
-                    && Mathf.Floor(c.z / PlantingValidator.GridSizeM) == Mathf.Floor(point.z / PlantingValidator.GridSizeM))
-                    return p;
+                if (new Vector2(c.x - point.x, c.z - point.z).sqrMagnitude < 0.09f) return p;
             }
             return null;
         }

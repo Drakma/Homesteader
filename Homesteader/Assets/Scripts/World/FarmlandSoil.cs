@@ -69,8 +69,11 @@ namespace Homesteader.World
             Vector3 origin = gen.transform.position;
             int res = map.width;
             float size = Size;
+            float minX = float.MaxValue, minZ = float.MaxValue, maxX = float.MinValue, maxZ = float.MinValue;
             foreach (Vector2Int c in cells)
             {
+                minX = Mathf.Min(minX, c.x * size - origin.x); maxX = Mathf.Max(maxX, (c.x + 1) * size - origin.x);
+                minZ = Mathf.Min(minZ, c.y * size - origin.z); maxZ = Mathf.Max(maxZ, (c.y + 1) * size - origin.z);
                 float x0 = c.x * size - origin.x, z0 = c.y * size - origin.z;
                 int px0 = Mathf.Clamp(Mathf.FloorToInt(x0 / gen.terrainSizeX * res), 0, res - 1);
                 int px1 = Mathf.Clamp(Mathf.CeilToInt((x0 + size) / gen.terrainSizeX * res) - 1, 0, res - 1);
@@ -80,6 +83,13 @@ namespace Homesteader.World
                     for (int px = px0; px <= px1; px++) map.SetPixel(px, py, colour);
             }
             map.Apply();
+            // The ground colour is rendered once into a texture (TerrainGroundBake): draw it again where the farmland went in, with a margin for the soft biome blend.
+            var terrain = gen.GetComponent<Terrain>();
+            if (terrain != null && terrain.materialTemplate != null && minX <= maxX)
+            {
+                const float pad = 4f;
+                TerrainGroundBake.Rebake(terrain.materialTemplate, (minX - pad) / gen.terrainSizeX, (minZ - pad) / gen.terrainSizeZ, (maxX + pad) / gen.terrainSizeX, (maxZ + pad) / gen.terrainSizeZ);
+            }
         }
     }
 }

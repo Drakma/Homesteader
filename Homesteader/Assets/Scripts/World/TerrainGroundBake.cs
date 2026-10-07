@@ -34,6 +34,31 @@ namespace Homesteader.World
         /// <summary>True when a baked ground texture is in use.</summary>
         public static bool Ready => s_rt != null && s_rt.IsCreated();
 
+        /// <summary>Renders the ground again inside a rectangle only (0..1 of the map on each side), after the biome map changed there (tilled farmland).</summary>
+        public static void Rebake(Material terrainMaterial, float u0, float v0, float u1, float v1)
+        {
+            if (!Ready || terrainMaterial == null) return;
+            int pass = terrainMaterial.FindPass("GroundBake");
+            if (pass < 0) return;
+            int x0 = Mathf.Clamp(Mathf.FloorToInt(u0 * Resolution), 0, Resolution - 1);
+            int x1 = Mathf.Clamp(Mathf.CeilToInt(u1 * Resolution), x0 + 1, Resolution);
+            int y0 = Mathf.Clamp(Mathf.FloorToInt(v0 * Resolution), 0, Resolution - 1);
+            int y1 = Mathf.Clamp(Mathf.CeilToInt(v1 * Resolution), y0 + 1, Resolution);
+
+            float oldBlend = Shader.GetGlobalFloat(BlendId);
+            Shader.SetGlobalFloat(BlendId, 1f);
+            terrainMaterial.SetVector(SizeId, new Vector4(Resolution, Resolution, 0f, 0f));
+            Shader.SetGlobalVector(SizeId, new Vector4(Resolution, Resolution, 0f, 0f));
+            var cmd = new CommandBuffer { name = "TerrainGroundRebake" };
+            cmd.SetRenderTarget(s_rt);
+            cmd.SetViewport(new Rect(x0, y0, x1 - x0, y1 - y0));
+            cmd.DrawProcedural(Matrix4x4.identity, terrainMaterial, pass, MeshTopology.Triangles, 3);
+            Graphics.ExecuteCommandBuffer(cmd);
+            cmd.Release();
+            s_rt.GenerateMips();
+            Shader.SetGlobalFloat(BlendId, oldBlend);
+        }
+
         /// <summary>Renders the ground of the terrain that <paramref name="terrainMaterial"/> draws (its biome map, water mask and bounds must already be set).</summary>
         public static void Bake(Material terrainMaterial)
         {

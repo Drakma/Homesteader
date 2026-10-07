@@ -2118,6 +2118,7 @@ namespace Homesteader.UI
         public string description;
         public string icon;
         public int max_stack;
+        public int units_per_sale;                                  // one purchase delivers this many (a seed packet: 20 seeds); 0 = one
         public float weight_kg;
         public float build_speed;                  // tools: 1 = the baseline build time, below 1 slower (a hammer), above 1 faster (0 = not set = 1)
         public int pack_quantity;                  // a stack / pallet / case / bundle of N: shown as "Name (N)"

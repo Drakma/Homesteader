@@ -3,11 +3,11 @@
   "id": "seed_potato",
   "name": "Potato Seeds",
   "category": "farming",
-  "description": "Potato seed pieces for planting.",
+  "description": "Potato seed pieces for planting. A packet holds 20 seeds. Planting a tile uses 4: one in each quarter.",
   "icon": "seed_potato.png",
   "properties": {
-    "weight_kg": 0.2,
-    "max_stack_size": 99,
+    "weight_kg": 0.005,
+    "max_stack_size": 100,
     "base_value": 3,
     "is_consumable": false,
     "footprint": null,
@@ -20,7 +20,8 @@
     "stores": [
       "feed"
     ],
-    "sale_unit": "packet"
+    "sale_unit": "packet",
+    "units_per_sale": 20
   },
   "models": [
     {
