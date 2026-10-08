@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_fridge_french_stainless",
-  "name": "Stainless Steel French-Door Refrigerator",
+  "name": "Steel French Fridge",
   "category": "kitchen",
   "description": "A refrigerator with two French doors over a pull-out freezer drawer. Stainless Steel finish.",
   "icon": "kitchen_fridge_french_stainless.png",
@@ -17,11 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "run_snap": true,
+    "store_category": "Kitchen/Fridge French Stainless"
   },
   "models": [
     {
@@ -81,5 +84,15 @@
     "kitchen_kind": "appliance",
     "finish": "stainless_steel",
     "power_draw_w": 200
+  },
+  "container": {
+    "capacity_kg": 140,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

@@ -1,4 +1,4 @@
-# Modern Stone Laundry Hamper
+# Modern Stone Hamper
 
 A laundry hamper with a fabric bag and a lid. Modern styling.
 

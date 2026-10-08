@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "office_desk_classic_walnut",
-  "name": "Classic Walnut Writing Desk",
+  "name": "Classic Walnut Desk",
   "category": "office",
   "description": "A writing desk with a drawer pedestal. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "office_desk_classic_walnut.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.76"
+    "deck_heights": "0.76",
+    "store_category": "Office/Desk"
   },
   "models": [
     {
@@ -85,5 +86,10 @@
     "style": "classic",
     "color": "walnut",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 25,
+    "accepts": [],
+    "show_fill": false
   }
 }

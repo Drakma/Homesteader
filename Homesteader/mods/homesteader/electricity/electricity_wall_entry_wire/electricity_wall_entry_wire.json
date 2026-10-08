@@ -25,7 +25,8 @@
     "attach_surface": "wall",
     "attach_side": "either",
     "attach_through": true,
-    "wire_role": "wall_entry"
+    "wire_role": "wall_entry",
+    "store_category": "Breakers & Wiring"
   },
   "models": [
     {

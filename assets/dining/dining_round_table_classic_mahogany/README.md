@@ -1,4 +1,4 @@
-# Classic Mahogany Round Dining Table
+# Classic Mahogany Round Table
 
 A round pedestal dining table that seats four. Classic styling: turned legs, rolled arms, mouldings and brass.
 

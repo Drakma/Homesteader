@@ -1,4 +1,4 @@
-# Classic Antique Brass Chandelier
+# Classic Brass Chandelier
 
 A chandelier for a dining room or a hall. Classic styling. Hangs from the ceiling of a finished building.
 

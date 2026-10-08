@@ -1,4 +1,4 @@
-# Black Corrugated Steel Roofing
+# Black Steel Roofing
 
 Black corrugated steel roofing sheet, 1.6 m by 0.88 m.
 

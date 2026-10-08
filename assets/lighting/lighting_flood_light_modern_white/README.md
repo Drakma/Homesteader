@@ -1,4 +1,4 @@
-# Modern White Security Flood Light
+# Modern White Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

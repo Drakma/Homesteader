@@ -1,4 +1,4 @@
-# Modern Matte Black Chandelier
+# Modern Black Chandelier
 
 A chandelier for a dining room or a hall. Modern styling. Hangs from the ceiling of a finished building.
 

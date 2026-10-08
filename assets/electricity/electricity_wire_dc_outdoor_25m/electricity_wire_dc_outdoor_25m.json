@@ -25,7 +25,8 @@
     "placeable": true,
     "wire_kind": "dc_outdoor",
     "wire_length_m": 25,
-    "stacking_limit": 4
+    "stacking_limit": 4,
+    "store_category": "Breakers & Wiring"
   },
   "models": [
     {

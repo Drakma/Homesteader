@@ -1,4 +1,4 @@
-# Black Corrugated Steel Wall Siding Stack
+# Black Steel Siding Stack
 
 A stack of 20 corrugated steel wall siding panels lying flat, ribbed black painted finish, for metal garages and pole barns.
 

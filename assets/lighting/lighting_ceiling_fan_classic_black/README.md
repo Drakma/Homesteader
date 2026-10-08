@@ -1,4 +1,4 @@
-# Classic Black Iron Ceiling Fan With Light
+# Classic Iron Ceiling Fan
 
 A five-blade ceiling fan with a light kit. Classic styling. Hangs from the ceiling of a finished building.
 

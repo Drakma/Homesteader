@@ -1,4 +1,4 @@
-# White Side-by-Side Refrigerator
+# White Side Fridge
 
 A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. White finish.
 

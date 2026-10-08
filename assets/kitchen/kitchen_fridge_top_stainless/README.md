@@ -1,4 +1,4 @@
-# Stainless Steel Top-Freezer Refrigerator
+# Steel Top Fridge
 
 A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. Stainless Steel finish.
 

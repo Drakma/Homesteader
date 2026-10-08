@@ -23,7 +23,8 @@
     "sale_unit": "bundle",
     "placeable": true,
     "pack_quantity": 10,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Siding & Cladding"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Modern Walnut Laundry Wall Cabinet
+# Modern Walnut Upper Cabinet
 
 A two-door wall cabinet for detergent and supplies. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Classic Oak Round Dining Table
+# Classic Oak Round Table
 
 A round pedestal dining table that seats four. Classic styling: turned legs, rolled arms, mouldings and brass.
 

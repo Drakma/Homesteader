@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.85"
+    "deck_heights": "0.85",
+    "store_category": "Bathroom/Pedestal Sink"
   },
   "models": [
     {

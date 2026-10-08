@@ -3,7 +3,7 @@
   "id": "living_bookshelf_modern_walnut",
   "name": "Modern Walnut Bookshelf",
   "category": "living",
-  "description": "A tall open bookshelf with five shelves, full of books. Modern styling: clean lines, slim tapered legs and black metal.",
+  "description": "A tall open bookshelf with five empty shelves. Stand things on its shelves. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "living_bookshelf_modern_walnut.png",
   "properties": {
     "weight_kg": 30.0,
@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.12,0.52,0.92,1.32,1.70"
+    "deck_heights": "0.065,0.525,0.925,1.325,1.705",
+    "store_category": "Living Room/Bookshelf"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 1.9,
         "z": 0.32
       },
-      "triangles": 924
+      "triangles": 204
     }
   ],
   "utilities": {

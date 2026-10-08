@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_light_sconce_exterior",
-  "name": "Exterior Wall Lantern",
+  "name": "Wall Lantern",
   "category": "building",
   "description": "A weatherproof lantern for the outside of a building. It lights from dusk to dawn while the building has power (a breaker box on the outside).",
   "icon": "building_light_sconce_exterior.png",
@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "exterior"
+    "attach_side": "exterior",
+    "store_category": "Lighting/Sconce Exterior"
   },
   "models": [
     {

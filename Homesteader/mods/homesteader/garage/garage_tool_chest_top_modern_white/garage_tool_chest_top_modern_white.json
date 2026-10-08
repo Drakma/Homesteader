@@ -1,0 +1,97 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "garage_tool_chest_top_modern_white",
+  "name": "Modern White Top Chest",
+  "category": "garage",
+  "description": "A top tool chest with a lid and three drawers. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "garage_tool_chest_top_modern_white.png",
+  "properties": {
+    "weight_kg": 14.0,
+    "max_stack_size": 1,
+    "base_value": 150,
+    "is_consumable": false,
+    "footprint": "0.63m W x 0.35m D x 0.37m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.34",
+    "store_category": "Garage/Tool Chest Top"
+  },
+  "models": [
+    {
+      "file": "garage_tool_chest_top_modern_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.63,
+        "y": 0.37,
+        "z": 0.353
+      },
+      "triangles": 344
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.63,
+      "depth": 0.353,
+      "height": 0.37
+    },
+    "garage_kind": "tool_chest_top",
+    "style": "modern",
+    "color": "white",
+    "power_draw_w": 0,
+    "water_per_use_l": 0,
+    "water_usage_lpm": 0
+  },
+  "container": {
+    "capacity_kg": 25,
+    "accepts": [],
+    "show_fill": false
+  }
+}

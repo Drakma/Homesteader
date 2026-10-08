@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_pole_light_classic_white",
-  "name": "Classic White Yard Pole Light",
+  "name": "Classic White Pole Light",
   "category": "lighting",
   "description": "A tall pole light that floods the yard, on from dusk to dawn. Classic styling.",
   "icon": "lighting_pole_light_classic_white.png",
@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Lighting/Pole Light"
   },
   "models": [
     {

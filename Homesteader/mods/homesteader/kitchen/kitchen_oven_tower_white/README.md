@@ -1,4 +1,4 @@
-# White Double Wall Oven Tower
+# White Oven Tower
 
 A tall oven cabinet with two ovens, a control panel and a warming drawer. White finish.
 

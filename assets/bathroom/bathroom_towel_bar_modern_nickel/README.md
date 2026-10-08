@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Towel Bar
+# Modern Nickel Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Modern styling.
 

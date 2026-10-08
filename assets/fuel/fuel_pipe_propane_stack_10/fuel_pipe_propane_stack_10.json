@@ -25,7 +25,8 @@
     "display_weight": true,
     "wire_kind": "propane",
     "wire_length_m": 30.0,
-    "pack_quantity": 10
+    "pack_quantity": 10,
+    "store_category": "Fuel"
   },
   "models": [
     {

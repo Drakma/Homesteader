@@ -1,4 +1,4 @@
-# Modern White Framed Picture
+# Modern White Picture
 
 A framed picture. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

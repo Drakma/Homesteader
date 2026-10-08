@@ -1,4 +1,4 @@
-# Modern Matte Black Towel Bar
+# Modern Black Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Modern styling.
 

@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "exterior"
+    "attach_side": "exterior",
+    "store_category": "Lighting/Barn Light"
   },
   "models": [
     {

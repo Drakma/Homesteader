@@ -21,7 +21,8 @@
       "furniture"
     ],
     "sale_unit": "ea",
-    "placeable": true
+    "placeable": true,
+    "store_category": "Appliances/Washer"
   },
   "models": [
     {

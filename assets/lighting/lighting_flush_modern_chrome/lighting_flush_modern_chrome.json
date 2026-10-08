@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_flush_modern_chrome",
-  "name": "Modern Chrome Flush-Mount Ceiling Light",
+  "name": "Modern Chrome Flush Light",
   "category": "lighting",
   "description": "A flush-mount ceiling light with a frosted glass shade. Modern styling.",
   "icon": "lighting_flush_modern_chrome.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "ceiling",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Flush"
   },
   "models": [
     {

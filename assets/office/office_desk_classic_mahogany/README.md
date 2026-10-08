@@ -1,4 +1,4 @@
-# Classic Mahogany Writing Desk
+# Classic Mahogany Desk
 
 A writing desk with a drawer pedestal. Classic styling: turned legs, rolled arms, mouldings and brass.
 

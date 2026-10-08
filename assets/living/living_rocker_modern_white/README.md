@@ -1,4 +1,4 @@
-# Modern White Rocking Chair
+# Modern White Rocker
 
 A rocking chair for the family room. Modern styling: clean lines, slim tapered legs and black metal.
 

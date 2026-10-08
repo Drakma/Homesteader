@@ -1,4 +1,4 @@
-# Classic Mahogany Mudroom Bench
+# Classic Mahogany Mud Bench
 
 A mudroom bench with a shoe shelf under the seat. Classic styling: turned legs, rolled arms, mouldings and brass.
 

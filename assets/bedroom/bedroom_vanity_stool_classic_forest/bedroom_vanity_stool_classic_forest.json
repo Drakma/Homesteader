@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_vanity_stool_classic_forest",
-  "name": "Classic Forest Green Vanity Stool",
+  "name": "Classic Green Vanity Stool",
   "category": "bedroom",
   "description": "A padded stool for a dressing table. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_vanity_stool_classic_forest.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Vanity Stool"
   },
   "models": [
     {

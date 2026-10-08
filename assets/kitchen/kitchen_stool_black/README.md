@@ -1,4 +1,4 @@
-# Black Counter Stool
+# Black Stool
 
 A counter-height stool with a round seat and a foot ring. Black finish.
 

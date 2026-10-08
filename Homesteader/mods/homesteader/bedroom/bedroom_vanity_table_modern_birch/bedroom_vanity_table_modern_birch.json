@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bedroom_vanity_table_modern_birch",
+  "name": "Modern Birch Vanity",
+  "category": "bedroom",
+  "description": "A dressing table with two drawers and a mirror. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "bedroom_vanity_table_modern_birch.png",
+  "properties": {
+    "weight_kg": 28.0,
+    "max_stack_size": 1,
+    "base_value": 380,
+    "is_consumable": false,
+    "footprint": "1.00m W x 0.48m D x 1.52m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.76",
+    "store_category": "Bedroom/Vanity Table"
+  },
+  "models": [
+    {
+      "file": "bedroom_vanity_table_modern_birch.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 1.52,
+        "z": 0.482
+      },
+      "triangles": 344
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 0.482,
+      "height": 1.52
+    },
+    "bedroom_kind": "vanity_table",
+    "style": "modern",
+    "color": "birch",
+    "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 20,
+    "accepts": [],
+    "show_fill": false
+  }
+}

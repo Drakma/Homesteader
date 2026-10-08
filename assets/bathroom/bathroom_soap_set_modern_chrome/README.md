@@ -1,4 +1,4 @@
-# Modern Chrome Soap and Toothbrush Set
+# Modern Chrome Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Modern styling.
 

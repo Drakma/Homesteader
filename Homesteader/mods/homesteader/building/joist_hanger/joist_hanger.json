@@ -22,7 +22,8 @@
     ],
     "sale_unit": "kit",
     "placeable": true,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Fasteners & Hardware"
   },
   "models": [
     {

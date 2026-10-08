@@ -1,4 +1,4 @@
-# Classic Cherry Chest Of Drawers
+# Classic Cherry Chest
 
 A tall chest of five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

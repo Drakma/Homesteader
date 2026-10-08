@@ -3,7 +3,7 @@
   "name": "Homesteader",
   "version": "1.0.0",
   "author": "Homesteader Team",
-  "date": "2026-10-06",
+  "date": "2026-10-08",
   "description": "The Homesteader core catalog: every category of asset, plus the game rules.",
   "namespace": "homesteader",
   "compatibility": {
@@ -16,9 +16,29 @@
       "group": "appliances"
     },
     {
+      "type": "bathroom",
+      "path": "bathroom",
+      "group": "bathroom"
+    },
+    {
+      "type": "bedroom",
+      "path": "bedroom",
+      "group": "bedroom"
+    },
+    {
       "type": "building",
       "path": "building",
       "group": "building"
+    },
+    {
+      "type": "decor",
+      "path": "decor",
+      "group": "decor"
+    },
+    {
+      "type": "dining",
+      "path": "dining",
+      "group": "dining"
     },
     {
       "type": "electricity",
@@ -46,6 +66,11 @@
       "group": "fuel"
     },
     {
+      "type": "garage",
+      "path": "garage",
+      "group": "garage"
+    },
+    {
       "type": "ingredient",
       "path": "ingredients",
       "group": "ingredients"
@@ -61,9 +86,24 @@
       "group": "kitchen"
     },
     {
+      "type": "laundry",
+      "path": "laundry",
+      "group": "laundry"
+    },
+    {
+      "type": "lighting",
+      "path": "lighting",
+      "group": "lighting"
+    },
+    {
       "type": "liquid",
       "path": "liquids",
       "group": "liquids"
+    },
+    {
+      "type": "living",
+      "path": "living",
+      "group": "living"
     },
     {
       "type": "logging",
@@ -74,6 +114,11 @@
       "type": "material",
       "path": "materials",
       "group": "materials"
+    },
+    {
+      "type": "office",
+      "path": "office",
+      "group": "office"
     },
     {
       "type": "ranching",
@@ -116,6 +161,10 @@
     {
       "type": "radio",
       "path": "radio/*.json"
+    },
+    {
+      "type": "meal",
+      "path": "meals/*.json"
     }
   ]
 }

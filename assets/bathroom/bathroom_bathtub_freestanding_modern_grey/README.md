@@ -1,4 +1,4 @@
-# Modern Stone Grey Freestanding Bathtub
+# Modern Stone Grey Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Modern styling.
 

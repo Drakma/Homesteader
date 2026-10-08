@@ -1,4 +1,4 @@
-# Stainless Steel Upright Freezer
+# Steel Upright Freezer
 
 A tall single-door upright freezer with a temperature light. Stainless Steel finish.
 

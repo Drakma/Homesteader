@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.45"
+    "deck_heights": "0.185,0.45",
+    "store_category": "Living Room/Coffee Table"
   },
   "models": [
     {

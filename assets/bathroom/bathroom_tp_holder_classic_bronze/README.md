@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Toilet Paper Holder
+# Classic Bronze TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Classic styling.
 

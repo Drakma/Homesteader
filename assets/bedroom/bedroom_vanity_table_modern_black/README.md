@@ -1,4 +1,4 @@
-# Modern Black Dressing Table
+# Modern Black Vanity
 
 A dressing table with two drawers and a mirror. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_bench_grinder_modern_black",
-  "name": "Modern Matte Black Bench Grinder",
+  "name": "Modern Black Bench Grinder",
   "category": "garage",
   "description": "A bench grinder with two wheels. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "garage_bench_grinder_modern_black.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Garage/Bench Grinder"
   },
   "models": [
     {

@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "build_speed": 0.5
+    "build_speed": 0.5,
+    "store_category": "Hand Tools/General"
   },
   "models": [
     {

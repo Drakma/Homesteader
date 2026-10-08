@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "pack_quantity": 5,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Bottled Water"
   },
   "models": [
     {

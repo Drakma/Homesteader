@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Yard Pole Light
+# Classic Bronze Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Classic styling. Stands on the ground.
 

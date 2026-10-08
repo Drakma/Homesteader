@@ -1,4 +1,4 @@
-# Green Corrugated Steel Roofing Stack
+# Green Steel Roofing Stack
 
 20 of Green Corrugated Steel Roofing, piled in a block and held by two steel straps.
 

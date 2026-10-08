@@ -1938,6 +1938,24 @@
           "value": 20
         }
       ]
+    },
+    "bitumen": {
+      "unit": "buckets",
+      "label": "Bitumen",
+      "members": [
+        {
+          "item": "building_bitumen_bucket",
+          "value": 1
+        },
+        {
+          "item": "building_bitumen_bucket_stack_9",
+          "value": 9
+        },
+        {
+          "item": "building_bitumen_bucket_stack_18",
+          "value": 18
+        }
+      ]
     }
   }
 }

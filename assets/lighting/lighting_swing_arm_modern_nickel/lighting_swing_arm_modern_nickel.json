@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_swing_arm_modern_nickel",
-  "name": "Modern Brushed Nickel Swing-Arm Wall Lamp",
+  "name": "Modern Nickel Swing Lamp",
   "category": "lighting",
   "description": "A reading lamp on a swing arm. Mount it inside. Modern styling.",
   "icon": "lighting_swing_arm_modern_nickel.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Swing Arm"
   },
   "models": [
     {

@@ -1,0 +1,141 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lighting_track_modern_nickel",
+  "name": "Modern Nickel Track Light",
+  "category": "lighting",
+  "description": "A track with three adjustable spot heads. Modern styling.",
+  "icon": "lighting_track_modern_nickel.png",
+  "properties": {
+    "weight_kg": 2.4,
+    "max_stack_size": 1,
+    "base_value": 132,
+    "is_consumable": false,
+    "footprint": "1.00m W x 0.14m D x 0.24m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "attach_surface": "ceiling",
+    "attach_side": "interior",
+    "store_category": "Lighting/Track"
+  },
+  "models": [
+    {
+      "file": "lighting_track_modern_nickel.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 0.244,
+        "z": 0.14
+      },
+      "triangles": 492
+    }
+  ],
+  "lights": [
+    {
+      "id": "lamp1",
+      "color": "#FFE6B8",
+      "intensity": 2.2,
+      "range_m": 7.0,
+      "offset_m": [
+        -0.34,
+        -0.08,
+        -0.04
+      ],
+      "on": "always",
+      "power_w": 8,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    },
+    {
+      "id": "lamp2",
+      "color": "#FFE6B8",
+      "intensity": 2.2,
+      "range_m": 7.0,
+      "offset_m": [
+        0,
+        -0.08,
+        -0.04
+      ],
+      "on": "always",
+      "power_w": 8,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    },
+    {
+      "id": "lamp3",
+      "color": "#FFE6B8",
+      "intensity": 2.2,
+      "range_m": 7.0,
+      "offset_m": [
+        0.34,
+        -0.08,
+        -0.04
+      ],
+      "on": "always",
+      "power_w": 8,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "24 W",
+      "details": "Draws about 24 W while it is on."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 0.14,
+      "height": 0.244
+    },
+    "lighting_kind": "track_light",
+    "style": "modern",
+    "finish": "nickel",
+    "mount": "ceiling",
+    "power_draw_w": 24
+  }
+}

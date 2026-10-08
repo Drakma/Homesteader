@@ -1,4 +1,4 @@
-# Classic Mahogany Rocking Chair
+# Classic Mahogany Rocker
 
 A rocking chair for the family room. Classic styling: turned legs, rolled arms, mouldings and brass.
 

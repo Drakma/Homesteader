@@ -1,4 +1,4 @@
-# Modern Safety Orange Rolling Tool Chest
+# Modern Orange Tool Chest
 
 A rolling tool chest with five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Classic Black Iron Robe Hook Rail
+# Classic Iron Hook Rail
 
 A wall rail with four hooks. Mount it on a wall. Classic styling.
 

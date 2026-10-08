@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_light_sconce_interior",
-  "name": "Wall Sconce",
+  "name": "Sconce",
   "category": "building",
   "description": "A small wall light for a room. Mount it on an inside wall; it lights while the building has power (a breaker box on the outside).",
   "icon": "building_light_sconce_interior.png",
@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Sconce Interior"
   },
   "models": [
     {

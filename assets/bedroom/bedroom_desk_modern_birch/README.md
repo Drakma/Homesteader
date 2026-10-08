@@ -1,4 +1,4 @@
-# Modern Birch Writing Desk
+# Modern Birch Desk
 
 A writing desk with two drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

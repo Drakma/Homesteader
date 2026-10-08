@@ -26,7 +26,8 @@
     "wire_role": "net_yagi",
     "net_ports": 1,
     "poe_powered": true,
-    "roof_mount": true
+    "roof_mount": true,
+    "store_category": "Telecom"
   },
   "models": [
     {

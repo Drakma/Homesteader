@@ -24,7 +24,8 @@
     "is_blueprint": true,
     "lot_style": "concrete",
     "lot_material_item": "building_concrete_mix_bag",
-    "lot_m2_per_item": 1.5
+    "lot_m2_per_item": 1.5,
+    "store_category": "Fencing & Outdoor"
   },
   "category_fields": {
     "dimensions_m": {

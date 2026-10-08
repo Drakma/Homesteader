@@ -22,7 +22,8 @@
     ],
     "sale_unit": "ea",
     "placeable": true,
-    "wire_role": "standby_generator"
+    "wire_role": "standby_generator",
+    "store_category": "Generators"
   },
   "models": [
     {

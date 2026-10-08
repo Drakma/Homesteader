@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_coffee_maker_black",
-  "name": "Black Drip Coffee Maker",
+  "name": "Black Coffee Maker",
   "category": "kitchen",
   "description": "A drip coffee maker with a glass carafe and a warming plate. Black finish.",
   "icon": "kitchen_coffee_maker_black.png",
@@ -17,11 +17,13 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Kitchen/Coffee Maker Black"
   },
   "models": [
     {

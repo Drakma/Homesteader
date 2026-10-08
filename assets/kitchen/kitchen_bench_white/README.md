@@ -1,4 +1,4 @@
-# White Kitchen Bench
+# White Bench
 
 A plain bench for the kitchen table. White finish.
 

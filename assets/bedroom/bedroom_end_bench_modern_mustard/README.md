@@ -1,4 +1,4 @@
-# Modern Mustard Bed-End Bench
+# Modern Mustard End Bench
 
 A cushioned bench for the foot of a bed. Modern styling: clean lines, slim tapered legs and black metal.
 

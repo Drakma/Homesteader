@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_steel_corrugated_green",
-  "name": "Green Corrugated Steel Roofing",
+  "name": "Green Steel Roofing",
   "category": "building",
   "description": "Green corrugated steel roofing sheet, 1.6 m by 0.88 m.",
   "icon": "roofing_steel_corrugated_green.png",
@@ -26,7 +26,8 @@
     "look_color": "#2f6a49",
     "look_smoothness": 0.65,
     "look_metallic": 0.85,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

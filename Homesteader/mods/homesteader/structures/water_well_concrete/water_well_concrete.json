@@ -185,6 +185,7 @@
     ],
     "sale_unit": "blueprint",
     "attach_item": "electricity_panel_well_sub",
-    "is_well": true
+    "is_well": true,
+    "store_category": "Structures & Kits"
   }
 }

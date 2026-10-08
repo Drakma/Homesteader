@@ -29,7 +29,8 @@
         "price": 220
       }
     },
-    "build_speed": 1.2
+    "build_speed": 1.2,
+    "store_category": "Power Tools"
   },
   "models": [],
   "utilities": {

@@ -26,7 +26,8 @@
     "attach_side": "either",
     "wire_role": "net_camera",
     "net_ports": 1,
-    "poe_powered": true
+    "poe_powered": true,
+    "store_category": "Telecom"
   },
   "models": [
     {

@@ -20,7 +20,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "can"
+    "sale_unit": "can",
+    "store_category": "Hand Tools/Logging & Saws"
   },
   "models": [
     {

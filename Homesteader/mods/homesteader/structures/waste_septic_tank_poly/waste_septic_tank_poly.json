@@ -126,6 +126,7 @@
     ],
     "sale_unit": "blueprint",
     "wire_role": "septic_tank",
-    "sewage_capacity_l": 1900
+    "sewage_capacity_l": 1900,
+    "store_category": "Structures & Kits"
   }
 }

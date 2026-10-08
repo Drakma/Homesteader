@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "pushable": true,
-    "power_radius_tiles": 6
+    "power_radius_tiles": 6,
+    "store_category": "Generators"
   },
   "models": [
     {

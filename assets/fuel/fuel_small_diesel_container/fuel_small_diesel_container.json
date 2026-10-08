@@ -20,7 +20,8 @@
     "stores": [
       "water"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Fuel"
   },
   "models": [
     {

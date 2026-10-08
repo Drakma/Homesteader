@@ -1,4 +1,4 @@
-# Classic Black Iron Towel Bar
+# Classic Iron Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Classic styling.
 

@@ -20,7 +20,9 @@
     "stores": [
       "grocer"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Pantry Staples",
+    "uses_per_item": 40
   },
   "models": [
     {
@@ -125,4 +127,4 @@
     "processing_method": "none",
     "next_item_id": ""
   }
-}
+}

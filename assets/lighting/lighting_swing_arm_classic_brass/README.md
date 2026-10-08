@@ -1,4 +1,4 @@
-# Classic Antique Brass Swing-Arm Wall Lamp
+# Classic Brass Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Classic styling. Mounts on an inside wall.
 

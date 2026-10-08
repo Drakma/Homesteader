@@ -23,7 +23,8 @@
     "sale_unit": "pile",
     "placeable": true,
     "pack_quantity": 10,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Concrete & Masonry"
   },
   "models": [
     {

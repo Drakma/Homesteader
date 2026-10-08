@@ -1,4 +1,4 @@
-# Stainless Steel Stand Mixer
+# Steel Stand Mixer
 
 A tilt-head stand mixer with a stainless mixing bowl. Stainless Steel finish.
 

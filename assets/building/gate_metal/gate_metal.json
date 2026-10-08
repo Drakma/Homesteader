@@ -23,7 +23,8 @@
     "sale_unit": "kit",
     "gate_width_m": 1.2,
     "gate_style": "metal",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Fencing & Outdoor"
   },
   "models": [],
   "utilities": {

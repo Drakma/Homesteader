@@ -1,4 +1,4 @@
-# Classic Sage Green Pedestal Sink
+# Classic Sage Pedestal Sink
 
 A basin on a pedestal with a faucet. Classic styling.
 

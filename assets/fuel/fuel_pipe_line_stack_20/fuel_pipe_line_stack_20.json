@@ -25,7 +25,8 @@
     "display_weight": true,
     "wire_kind": "fuel",
     "wire_length_m": 60.0,
-    "pack_quantity": 20
+    "pack_quantity": 20,
+    "store_category": "Fuel"
   },
   "models": [
     {

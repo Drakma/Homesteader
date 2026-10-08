@@ -147,7 +147,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "blueprint"
+    "sale_unit": "blueprint",
+    "store_category": "Structures & Kits"
   },
   "container": {
     "capacity_kg": 36000,

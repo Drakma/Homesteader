@@ -1,4 +1,4 @@
-# Classic Forest Green Potted Plant
+# Classic Green Plant
 
 A leafy houseplant in a glazed pot. Classic styling: turned legs, rolled arms, mouldings and brass.
 

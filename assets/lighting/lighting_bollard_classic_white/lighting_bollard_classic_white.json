@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_bollard_classic_white",
-  "name": "Classic White Garden Bollard Light",
+  "name": "Classic White Bollard",
   "category": "lighting",
   "description": "A waist-high bollard light for a path or a drive, on from dusk to dawn. Classic styling.",
   "icon": "lighting_bollard_classic_white.png",
@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Lighting/Bollard"
   },
   "models": [
     {

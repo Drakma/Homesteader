@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "attach_surface": "wall",
     "attach_side": "either",
-    "wire_role": "disconnect"
+    "wire_role": "disconnect",
+    "store_category": "Breakers & Wiring"
   },
   "models": [
     {

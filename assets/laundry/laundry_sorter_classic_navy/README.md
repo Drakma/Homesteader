@@ -1,4 +1,4 @@
-# Classic Navy Laundry Sorter
+# Classic Navy Sorter
 
 A three-bag laundry sorter on a frame. Classic styling: turned legs, rolled arms, mouldings and brass.
 

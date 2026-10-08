@@ -1,4 +1,4 @@
-# Green Corrugated Steel Roofing
+# Green Steel Roofing
 
 Green corrugated steel roofing sheet, 1.6 m by 0.88 m.
 

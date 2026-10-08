@@ -1,0 +1,163 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "struct_finishings_l_house",
+  "name": "L-Shaped House - Finishings",
+  "category": "structures",
+  "description": "The finishings construction phase of the house.",
+  "icon": "struct_finishings_l_house.png",
+  "properties": {
+    "weight_kg": 20160.0,
+    "max_stack_size": 1,
+    "base_value": 33600,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 20,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0
+  },
+  "models": [
+    {
+      "file": "struct_finishings_l_house.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 16.0,
+        "y": 6.4,
+        "z": 19.0
+      },
+      "triangles": 7398
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "interior_area_m2": 179.2,
+    "room_count": 8,
+    "dimensions_m": {
+      "width": 16.0,
+      "depth": 19.0,
+      "height": 6.4
+    },
+    "electrical_service_capacity_w": 12000,
+    "water_supply_capacity_lpm": 25,
+    "roof_area_m2": 28.1,
+    "construction_recipe": [
+      {
+        "item_id": "~drywall",
+        "quantity": 168
+      },
+      {
+        "item_id": "~joint_compound_bucket",
+        "quantity": 15
+      },
+      {
+        "item_id": "building_drywall_tape_roll",
+        "quantity": 19
+      },
+      {
+        "item_id": "#paint",
+        "quantity": 15
+      },
+      {
+        "item_id": "~flooring",
+        "quantity": 202
+      },
+      {
+        "section": "Tile setting",
+        "mode": "all",
+        "if": {
+          "uses": "#floor_tile"
+        },
+        "items": [
+          {
+            "item_id": "~thinset_bucket",
+            "quantity": 11
+          },
+          {
+            "item_id": "building_grout_bag",
+            "quantity": 7
+          },
+          {
+            "item_id": "~water",
+            "quantity": 15
+          }
+        ]
+      },
+      {
+        "item_id": "building_trim_baseboard",
+        "quantity": 149
+      },
+      {
+        "item_id": "building_trim_casing",
+        "quantity": 75
+      },
+      {
+        "item_id": "~finishing_nails",
+        "quantity": 560
+      },
+      {
+        "item_id": "building_door_frame_interior",
+        "quantity": 11
+      },
+      {
+        "item_id": "#door_interior",
+        "quantity": 11
+      },
+      {
+        "item_id": "building_door_hardware_set",
+        "quantity": 11
+      }
+    ],
+    "required_tools": [
+      [
+        "tool_circular_saw_corded",
+        "tool_circular_saw_cordless",
+        "tool_saw_hand",
+        "tool_miter_saw",
+        "tool_table_saw"
+      ],
+      [
+        "tool_hammer_claw",
+        "tool_drill_corded",
+        "tool_drill_cordless_basic",
+        "tool_drill_cordless_pro",
+        "tool_impact_driver_cordless"
+      ],
+      [
+        "tool_trowel_hand"
+      ],
+      [
+        "tool_wheelbarrow",
+        "tool_plastic_wheelbarrow",
+        "tool_steel_wheelbarrow",
+        "tool_cement_mixer"
+      ]
+    ]
+  }
+}

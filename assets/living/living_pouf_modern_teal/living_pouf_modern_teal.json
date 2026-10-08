@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "living_pouf_modern_teal",
-  "name": "Modern Teal Floor Pouf",
+  "name": "Modern Teal Pouf",
   "category": "living",
   "description": "A round floor pouf. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "living_pouf_modern_teal.png",
@@ -22,7 +22,8 @@
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Living Room/Pouf"
   },
   "models": [
     {

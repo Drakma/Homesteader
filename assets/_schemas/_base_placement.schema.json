@@ -40,6 +40,13 @@
       "label": "Shelf",
       "note": "A wall item (attach_surface wall) that is a SHELF: items are stood on its top face in a row (left click with the item in hand, right click the item to take it back). The top face is the top of the model bounds; see docs/ATTACHED_ITEMS.md."
     },
+    "run_snap": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "label": "Kitchen Run (snaps)",
+      "note": "A floor cabinet or appliance of a kitchen run: held near another run piece it snaps edge to edge to it (fronts and backs flush), held near a wall it backs onto the wall, and a gap of 1 cm to 50 cm left between the end of a run and a wall is closed with a filler strip in the piece's own finish (Growth/KitchenRun.cs). Needs placeable = true."
+    },
     "pushable": {
       "type": "boolean",
       "required": false,

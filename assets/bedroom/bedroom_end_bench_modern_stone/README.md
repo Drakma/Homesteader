@@ -1,4 +1,4 @@
-# Modern Stone Bed-End Bench
+# Modern Stone End Bench
 
 A cushioned bench for the foot of a bed. Modern styling: clean lines, slim tapered legs and black metal.
 

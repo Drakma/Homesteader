@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_track_modern_black",
-  "name": "Modern Matte Black Track Light",
+  "name": "Modern Black Track Light",
   "category": "lighting",
   "description": "A track with three adjustable spot heads. Modern styling.",
   "icon": "lighting_track_modern_black.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "ceiling",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Track"
   },
   "models": [
     {

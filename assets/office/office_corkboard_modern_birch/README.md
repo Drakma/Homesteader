@@ -1,4 +1,4 @@
-# Modern Birch Cork Board
+# Modern Birch Corkboard
 
 A framed cork board with pinned notes. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

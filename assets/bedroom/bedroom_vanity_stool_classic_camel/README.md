@@ -1,4 +1,4 @@
-# Classic Camel Leather Vanity Stool
+# Classic Camel Vanity Stool
 
 A padded stool for a dressing table. Classic styling: turned legs, rolled arms, mouldings and brass.
 

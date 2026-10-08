@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.85"
+    "deck_heights": "0.85",
+    "store_category": "Living Room/Sideboard"
   },
   "models": [
     {
@@ -85,5 +86,10 @@
     "style": "classic",
     "color": "cherry",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 60,
+    "accepts": [],
+    "show_fill": false
   }
 }

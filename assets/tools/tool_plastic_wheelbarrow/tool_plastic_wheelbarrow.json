@@ -22,7 +22,8 @@
     ],
     "sale_unit": "ea",
     "placeable": true,
-    "build_speed": 0.8
+    "build_speed": 0.8,
+    "store_category": "Hand Tools/Garden & Farm"
   },
   "models": [
     {

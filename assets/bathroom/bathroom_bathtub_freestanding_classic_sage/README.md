@@ -1,4 +1,4 @@
-# Classic Sage Green Freestanding Bathtub
+# Classic Sage Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Classic styling.
 

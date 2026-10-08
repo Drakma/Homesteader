@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_microwave_otr_black",
-  "name": "Black Over-The-Range Microwave",
+  "name": "Black OTR Microwave",
   "category": "kitchen",
   "description": "A microwave oven that mounts on the wall above the range. Black finish.",
   "icon": "kitchen_microwave_otr_black.png",
@@ -17,13 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": false,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Kitchen/Microwave Otr Black"
   },
   "models": [
     {

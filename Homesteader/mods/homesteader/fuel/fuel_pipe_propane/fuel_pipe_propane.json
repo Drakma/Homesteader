@@ -24,7 +24,8 @@
     "sale_unit": "kit",
     "display_weight": true,
     "wire_kind": "propane",
-    "wire_length_m": 3.0
+    "wire_length_m": 3.0,
+    "store_category": "Fuel"
   },
   "models": [
     {

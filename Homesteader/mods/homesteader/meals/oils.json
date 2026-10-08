@@ -1,0 +1,378 @@
+{
+  "meals": [
+    {
+      "id": "meal_press_sunflower_750ml",
+      "name": "Press Sunflower Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_sunflower_750ml",
+        "liquid": "liquid_sunflower_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_sunflower",
+          "quantity": 4
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_sunflower_2l",
+      "name": "Press Sunflower Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_sunflower_2l",
+        "liquid": "liquid_sunflower_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_sunflower",
+          "quantity": 10
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_soybean_750ml",
+      "name": "Press Soybean Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_soybean_750ml",
+        "liquid": "liquid_soybean_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 6
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_soybean_2l",
+      "name": "Press Soybean Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_soybean_2l",
+        "liquid": "liquid_soybean_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 16
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_corn_750ml",
+      "name": "Press Corn Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_corn_750ml",
+        "liquid": "liquid_corn_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 7
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_corn_2l",
+      "name": "Press Corn Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_corn_2l",
+        "liquid": "liquid_corn_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 18
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_cottonseed_750ml",
+      "name": "Press Cottonseed Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_cottonseed_750ml",
+        "liquid": "liquid_cottonseed_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cotton",
+          "quantity": 6
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_cottonseed_2l",
+      "name": "Press Cottonseed Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_cottonseed_2l",
+        "liquid": "liquid_cottonseed_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cotton",
+          "quantity": 16
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_peanut_750ml",
+      "name": "Press Peanut Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_peanut_750ml",
+        "liquid": "liquid_peanut_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peanuts",
+          "quantity": 4
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_peanut_2l",
+      "name": "Press Peanut Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_peanut_2l",
+        "liquid": "liquid_peanut_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peanuts",
+          "quantity": 10
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_flax_750ml",
+      "name": "Press Flaxseed Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_flax_750ml",
+        "liquid": "liquid_flax_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_flax",
+          "quantity": 5
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_flax_2l",
+      "name": "Press Flaxseed Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_flax_2l",
+        "liquid": "liquid_flax_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_flax",
+          "quantity": 13
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_canola_750ml",
+      "name": "Press Canola Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_canola_750ml",
+        "liquid": "liquid_canola_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_canola",
+          "quantity": 5
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_press_canola_2l",
+      "name": "Press Canola Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_canola_2l",
+        "liquid": "liquid_canola_oil"
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_canola",
+          "quantity": 13
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oil_press"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_blend_vegetable_oil_750ml",
+      "name": "Blend Vegetable Oil",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_vegetable_750ml",
+        "liquid": "liquid_vegetable_oil"
+      },
+      "ingredients": [],
+      "liquids": [
+        {
+          "liquid": "liquid_soybean_oil",
+          "share": 0.4
+        },
+        {
+          "liquid": "liquid_canola_oil",
+          "share": 0.3
+        },
+        {
+          "liquid": "liquid_corn_oil",
+          "share": 0.15
+        },
+        {
+          "liquid": "liquid_sunflower_oil",
+          "share": 0.1
+        },
+        {
+          "liquid": "liquid_cottonseed_oil",
+          "share": 0.05
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_blend_vegetable_oil_2l",
+      "name": "Blend Vegetable Oil, Large Bottle",
+      "group": "Oil Pressing",
+      "result": {
+        "container": "kitchen_oil_bottle_vegetable_2l",
+        "liquid": "liquid_vegetable_oil"
+      },
+      "ingredients": [],
+      "liquids": [
+        {
+          "liquid": "liquid_soybean_oil",
+          "share": 0.4
+        },
+        {
+          "liquid": "liquid_canola_oil",
+          "share": 0.3
+        },
+        {
+          "liquid": "liquid_corn_oil",
+          "share": 0.15
+        },
+        {
+          "liquid": "liquid_sunflower_oil",
+          "share": 0.1
+        },
+        {
+          "liquid": "liquid_cottonseed_oil",
+          "share": 0.05
+        }
+      ],
+      "appliances": []
+    }
+  ]
+}

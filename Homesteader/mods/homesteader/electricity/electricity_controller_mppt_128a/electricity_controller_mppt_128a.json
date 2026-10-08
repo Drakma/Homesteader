@@ -25,7 +25,8 @@
     "placeable": false,
     "attach_surface": "wall",
     "attach_side": "interior",
-    "wire_role": "mppt"
+    "wire_role": "mppt",
+    "store_category": "Controllers & Inverters"
   },
   "models": [
     {

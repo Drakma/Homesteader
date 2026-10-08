@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meals Editor</title>
+<style>
+  :root { --bg:#1b2330; --panel:#252f3f; --line:#3a475c; --text:#e6ebf2; --dim:#9aa7ba; --ok:#4fbf7a; --bad:#e86a5f; --accent:#4f8fe8; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 system-ui, sans-serif; display:flex; flex-direction:column; height:100vh; }
+  header { padding:10px 16px; border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:center; }
+  header h1 { font-size:16px; margin:0; }
+  header a { color:var(--accent); text-decoration:none; }
+  main { flex:1; display:flex; min-height:0; }
+  .col { border-right:1px solid var(--line); overflow:auto; }
+  #files { width:200px; } #meals { width:300px; } #edit { flex:1; border:0; display:flex; flex-direction:column; padding:12px; gap:8px; }
+  .row { padding:8px 12px; cursor:pointer; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:8px; }
+  .row:hover { background:var(--panel); } .row.sel { background:var(--panel); border-left:3px solid var(--accent); }
+  .badge { font-size:12px; color:var(--dim); } .bad { color:var(--bad); }
+  textarea { flex:1; width:100%; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:6px; padding:10px; font:13px/1.4 ui-monospace, Consolas, monospace; resize:none; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:6px; height:34px; padding:0 14px; cursor:pointer; text-align:center; line-height:34px; }
+  button.secondary { background:var(--panel); border:1px solid var(--line); }
+  #status { min-height:20px; color:var(--dim); white-space:pre-wrap; max-height:140px; overflow:auto; }
+  #status.ok { color:var(--ok); } #status.err { color:var(--bad); }
+  .bar { display:flex; gap:8px; align-items:center; }
+  .note { color:var(--dim); font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Meals Editor</h1>
+  <span class="note">assets/_meals/*.json (mod content type "meal"). Files written by tools/make_meals.py are regenerated when it runs: edit the generator for those.</span>
+  <span style="flex:1"></span><a href="index.html">Asset kit</a>
+</header>
+<main>
+  <div id="files" class="col"></div>
+  <div id="meals" class="col"></div>
+  <div id="edit">
+    <div class="bar"><strong id="title">Pick a meal</strong><span style="flex:1"></span>
+      <button class="secondary" id="add">New meal</button><button class="secondary" id="del">Delete meal</button>
+      <button class="secondary" id="validate">Validate</button><button id="save">Save file</button></div>
+    <textarea id="json" spellcheck="false" placeholder="The meal as JSON"></textarea>
+    <div id="status"></div>
+  </div>
+</main>
+<script>
+let files = [], cur = null, data = null, idx = -1;
+const $ = id => document.getElementById(id);
+function say(msg, kind) { const s = $('status'); s.textContent = msg; s.className = kind || ''; }
+
+async function loadFiles() {
+  const j = await (await fetch('/api/meals', { cache: 'no-store' })).json();
+  files = j.files || [];
+  $('files').innerHTML = '';
+  files.forEach(f => {
+    const d = document.createElement('div');
+    d.className = 'row' + (f.file === cur ? ' sel' : '');
+    d.innerHTML = '<span></span><span class="badge' + (f.problems ? ' bad' : '') + '"></span>';
+    d.firstChild.textContent = f.file.replace('.json', '');
+    d.lastChild.textContent = f.meals + (f.problems ? ' / ' + f.problems + ' bad' : '');
+    d.onclick = () => openFile(f.file);
+    $('files').appendChild(d);
+  });
+}
+
+async function openFile(name) {
+  const j = await (await fetch('/api/meals?file=' + encodeURIComponent(name), { cache: 'no-store' })).json();
+  if (!j.success) { say(j.error || 'Could not load', 'err'); return; }
+  cur = name; data = j.data; idx = -1; $('json').value = ''; $('title').textContent = 'Pick a meal';
+  say(j.problems.length ? j.problems.join('\n') : 'No problems.', j.problems.length ? 'err' : 'ok');
+  renderMeals(); loadFiles();
+}
+
+function renderMeals() {
+  $('meals').innerHTML = '';
+  (data.meals || []).forEach((m, i) => {
+    const d = document.createElement('div');
+    d.className = 'row' + (i === idx ? ' sel' : '');
+    d.innerHTML = '<span></span><span class="badge"></span>';
+    d.firstChild.textContent = m.name || m.id;
+    d.lastChild.textContent = m.group || '';
+    d.onclick = () => { pull(); idx = i; $('json').value = JSON.stringify(m, null, 2); $('title').textContent = m.id; renderMeals(); };
+    $('meals').appendChild(d);
+  });
+}
+
+// the text box -> the open meal (false when it is not valid JSON)
+function pull() {
+  if (idx < 0 || !data) return true;
+  try { data.meals[idx] = JSON.parse($('json').value); return true; }
+  catch (e) { say('This meal is not valid JSON: ' + e.message, 'err'); return false; }
+}
+
+async function validate() {
+  if (!cur || !pull()) return false;
+  const j = await (await fetch('/api/validate-meals', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file: cur, data }) })).json();
+  const p = j.problems || [];
+  say(p.length ? p.join('\n') : 'No problems.', p.length ? 'err' : 'ok');
+  return p.length === 0;
+}
+
+$('validate').onclick = validate;
+$('save').onclick = async () => {
+  if (!cur || !pull()) return;
+  const j = await (await fetch('/api/save-meals', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file: cur, data }) })).json();
+  if (j.success) { say('Saved ' + cur + '. Run tools/package_catalog_as_mods.py to put it in the game.', 'ok'); loadFiles(); }
+  else say((j.problems || [j.error]).join('\n'), 'err');
+};
+$('add').onclick = () => {
+  if (!cur) return;
+  pull();
+  data.meals.push({ id: 'meal_new', name: 'New Meal', group: 'Cooking', result: { item_id: '', quantity: 1 }, ingredients: [{ item_id: '', quantity: 1 }], appliances: [{ tools: ['#appliance_stovetop'] }] });
+  idx = data.meals.length - 1; $('json').value = JSON.stringify(data.meals[idx], null, 2); $('title').textContent = 'meal_new'; renderMeals();
+};
+$('del').onclick = () => {
+  if (idx < 0 || !confirm('Delete this meal from the file (it is only saved when you press Save file)?')) return;
+  data.meals.splice(idx, 1); idx = -1; $('json').value = ''; $('title').textContent = 'Pick a meal'; renderMeals();
+};
+loadFiles();
+</script>
+</body>
+</html>

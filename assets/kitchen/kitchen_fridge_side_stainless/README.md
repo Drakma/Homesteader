@@ -1,4 +1,4 @@
-# Stainless Steel Side-by-Side Refrigerator
+# Steel Side Fridge
 
 A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. Stainless Steel finish.
 

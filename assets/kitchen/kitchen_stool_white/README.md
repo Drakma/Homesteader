@@ -1,4 +1,4 @@
-# White Counter Stool
+# White Stool
 
 A counter-height stool with a round seat and a foot ring. White finish.
 

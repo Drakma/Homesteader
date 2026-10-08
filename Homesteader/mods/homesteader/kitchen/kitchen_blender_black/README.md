@@ -1,4 +1,4 @@
-# Black Countertop Blender
+# Black Blender
 
 A countertop blender with a glass jug and a lid. Black finish.
 

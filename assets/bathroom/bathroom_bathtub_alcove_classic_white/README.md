@@ -1,4 +1,4 @@
-# Classic White Alcove Bathtub
+# Classic White Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Classic styling.
 

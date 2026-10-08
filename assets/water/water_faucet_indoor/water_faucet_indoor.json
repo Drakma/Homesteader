@@ -23,7 +23,8 @@
     "stores": [
       "depot"
     ],
-    "is_buyable": true
+    "is_buyable": true,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

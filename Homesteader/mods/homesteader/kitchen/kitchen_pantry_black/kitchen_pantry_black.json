@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_pantry_black",
-  "name": "Black Pantry Cabinet",
+  "name": "Black Pantry",
   "category": "kitchen",
   "description": "A tall two-door pantry cabinet. Black, granite top.",
   "icon": "kitchen_pantry_black.png",
@@ -17,11 +17,13 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "run_snap": true
   },
   "models": [
     {
@@ -81,5 +83,15 @@
     "kitchen_kind": "cabinet",
     "finish": "black",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 140,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

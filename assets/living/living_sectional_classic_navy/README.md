@@ -1,4 +1,4 @@
-# Classic Navy Sectional Sofa
+# Classic Navy Sectional
 
 An L-shaped sectional: a three-seat sofa with a chaise. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -21,7 +21,8 @@
       "grocer"
     ],
     "sale_unit": "ea",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Vegetables"
   },
   "models": [],
   "utilities": {

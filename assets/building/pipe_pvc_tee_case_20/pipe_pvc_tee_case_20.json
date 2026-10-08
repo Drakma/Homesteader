@@ -24,18 +24,19 @@
     "sale_unit": "kit",
     "display_weight": true,
     "pack_quantity": 20,
-    "stacking_limit": 6
+    "stacking_limit": 6,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {
       "file": "pipe_pvc_tee_case_20.glb",
       "format": "glb",
       "dimensions_m": {
-        "x": 0.42,
-        "y": 0.229,
-        "z": 0.877
+        "x": 0.274,
+        "y": 0.135,
+        "z": 0.472
       },
-      "triangles": 2696
+      "triangles": 140
     }
   ],
   "utilities": {
@@ -105,9 +106,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.42,
-      "depth": 0.88,
-      "height": 0.23
+      "width": 0.27,
+      "depth": 0.47,
+      "height": 0.14
     }
   }
 }

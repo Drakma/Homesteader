@@ -1,4 +1,4 @@
-# Classic Cherry Mudroom Bench
+# Classic Cherry Mud Bench
 
 A mudroom bench with a shoe shelf under the seat. Classic styling: turned legs, rolled arms, mouldings and brass.
 

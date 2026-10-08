@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.70"
+    "deck_heights": "0.70",
+    "store_category": "Office/Lateral File"
   },
   "models": [
     {
@@ -85,5 +86,10 @@
     "style": "modern",
     "color": "white",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 55,
+    "accepts": [],
+    "show_fill": false
   }
 }

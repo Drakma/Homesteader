@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_bed_bunk_classic_camel",
-  "name": "Classic Camel Leather Bunk Bed",
+  "name": "Classic Camel Bunk Bed",
   "category": "bedroom",
   "description": "A bunk bed: two twin beds, a ladder and a guard rail. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_bed_bunk_classic_camel.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Bed Bunk"
   },
   "models": [
     {

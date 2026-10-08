@@ -21,7 +21,8 @@
     "stores": [
       "livestock"
     ],
-    "sale_unit": "kit"
+    "sale_unit": "kit",
+    "store_category": "Structures & Kits"
   },
   "models": [
     {

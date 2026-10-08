@@ -1,4 +1,4 @@
-# Classic Navy Floor Pouf
+# Classic Navy Pouf
 
 A round floor pouf. Classic styling: turned legs, rolled arms, mouldings and brass.
 

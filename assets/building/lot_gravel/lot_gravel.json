@@ -24,7 +24,8 @@
     "is_blueprint": true,
     "lot_style": "gravel",
     "lot_material_item": "mat_pile_gravel_medium",
-    "lot_m2_per_item": 8.0
+    "lot_m2_per_item": 8.0,
+    "store_category": "Fencing & Outdoor"
   },
   "category_fields": {
     "dimensions_m": {

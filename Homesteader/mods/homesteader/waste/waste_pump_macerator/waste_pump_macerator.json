@@ -21,7 +21,8 @@
     "is_buyable": true,
     "stores": [
       "depot"
-    ]
+    ],
+    "store_category": "Waste"
   },
   "models": [
     {

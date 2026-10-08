@@ -1,4 +1,4 @@
-# Modern Matte Black Security Flood Light
+# Modern Black Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

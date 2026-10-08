@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "office_executive_desk_classic_mahogany",
+  "name": "Classic Mahogany Executive Desk",
+  "category": "office",
+  "description": "A large desk with two drawer pedestals and a modesty panel. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "office_executive_desk_classic_mahogany.png",
+  "properties": {
+    "weight_kg": 64.0,
+    "max_stack_size": 1,
+    "base_value": 874,
+    "is_consumable": false,
+    "footprint": "1.80m W x 0.92m D x 0.78m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.78",
+    "store_category": "Office/Executive Desk"
+  },
+  "models": [
+    {
+      "file": "office_executive_desk_classic_mahogany.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.8,
+        "y": 0.784,
+        "z": 0.916
+      },
+      "triangles": 1168
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.8,
+      "depth": 0.916,
+      "height": 0.784
+    },
+    "office_kind": "executive_desk",
+    "style": "classic",
+    "color": "mahogany",
+    "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 40,
+    "accepts": [],
+    "show_fill": false
+  }
+}

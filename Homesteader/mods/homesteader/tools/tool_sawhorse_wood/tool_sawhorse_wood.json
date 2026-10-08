@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "placeable": true
+    "placeable": true,
+    "store_category": "Hand Tools/Logging & Saws"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Classic Cherry Bathroom Mirror
+# Classic Cherry Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Classic styling.
 

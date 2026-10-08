@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Track Light
+# Modern Nickel Track Light
 
 A track with three adjustable spot heads. Modern styling. Hangs from the ceiling of a finished building.
 

@@ -26,7 +26,8 @@
     "lot_material_item": "mat_pile_gravel_medium",
     "lot_m2_per_item": 6.0,
     "lot_binder_item": "~bitumen",
-    "lot_binder_m2_per_item": 4.0
+    "lot_binder_m2_per_item": 4.0,
+    "store_category": "Fencing & Outdoor"
   },
   "category_fields": {
     "dimensions_m": {

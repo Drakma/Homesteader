@@ -1,4 +1,4 @@
-# Modern White Rolling Tool Chest
+# Modern White Tool Chest
 
 A rolling tool chest with five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

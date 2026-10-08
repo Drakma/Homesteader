@@ -1,4 +1,4 @@
-# Forest Green Shingles Stack
+# Green Shingles Stack
 
 10 of Forest Green Shingles, stacked on a wooden pallet.
 

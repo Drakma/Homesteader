@@ -22,7 +22,8 @@
       "depot"
     ],
     "sale_unit": "kit",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Fencing & Outdoor"
   },
   "models": [
     {

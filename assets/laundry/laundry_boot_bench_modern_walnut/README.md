@@ -1,4 +1,4 @@
-# Modern Walnut Mudroom Bench
+# Modern Walnut Mud Bench
 
 A mudroom bench with a shoe shelf under the seat. Modern styling: clean lines, slim tapered legs and black metal.
 

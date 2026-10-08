@@ -24,7 +24,8 @@
     "is_blueprint": true,
     "lot_style": "dirt",
     "lot_material_item": "mat_pile_dirt_small",
-    "lot_m2_per_item": 3.5
+    "lot_m2_per_item": 3.5,
+    "store_category": "Fencing & Outdoor"
   },
   "category_fields": {
     "dimensions_m": {

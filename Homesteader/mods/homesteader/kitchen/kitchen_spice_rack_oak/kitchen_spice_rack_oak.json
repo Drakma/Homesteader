@@ -3,7 +3,7 @@
   "id": "kitchen_spice_rack_oak",
   "name": "Oak Spice Rack",
   "category": "kitchen",
-  "description": "A wall spice rack with two shelves and a row of jars. Mount it on a wall. Oak finish.",
+  "description": "A wall spice rack with two empty shelves. Mount it on a wall; stand things on its top. Oak finish.",
   "icon": "kitchen_spice_rack_oak.png",
   "properties": {
     "weight_kg": 2.2,
@@ -17,13 +17,16 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": false,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "shelf": true,
+    "store_category": "Kitchen/Spice Rack Oak"
   },
   "models": [
     {
@@ -34,7 +37,7 @@
         "y": 0.4,
         "z": 0.12
       },
-      "triangles": 952
+      "triangles": 72
     }
   ],
   "utilities": {

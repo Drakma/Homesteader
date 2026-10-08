@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "capacity_wh": 4914,
-    "voltage_v": 46.8
+    "voltage_v": 46.8,
+    "store_category": "Batteries"
   },
   "models": [
     {

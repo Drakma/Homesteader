@@ -1,4 +1,4 @@
-# Oak Open Kitchen Shelf
+# Oak Open Shelf
 
 A wall shelf board on two brackets. Mount it on a wall and stand things on it. Oak, butcher-block top.
 

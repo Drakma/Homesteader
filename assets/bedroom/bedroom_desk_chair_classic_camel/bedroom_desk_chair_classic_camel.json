@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_desk_chair_classic_camel",
-  "name": "Classic Camel Leather Desk Chair",
+  "name": "Classic Camel Desk Chair",
   "category": "bedroom",
   "description": "An upholstered chair for a desk. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_desk_chair_classic_camel.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Desk Chair"
   },
   "models": [
     {

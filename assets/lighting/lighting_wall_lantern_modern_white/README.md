@@ -1,4 +1,4 @@
-# Modern White Exterior Wall Lantern
+# Modern White Wall Lantern
 
 An exterior wall lantern, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

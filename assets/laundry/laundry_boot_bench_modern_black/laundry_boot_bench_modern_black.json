@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "laundry_boot_bench_modern_black",
-  "name": "Modern Black Mudroom Bench",
+  "name": "Modern Black Mud Bench",
   "category": "laundry",
   "description": "A mudroom bench with a shoe shelf under the seat. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "laundry_boot_bench_modern_black.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.50"
+    "deck_heights": "0.16,0.46",
+    "store_category": "Laundry/Boot Bench"
   },
   "models": [
     {

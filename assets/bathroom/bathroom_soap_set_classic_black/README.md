@@ -1,4 +1,4 @@
-# Classic Black Iron Soap and Toothbrush Set
+# Classic Iron Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Classic styling.
 

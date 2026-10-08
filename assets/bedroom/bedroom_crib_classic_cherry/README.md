@@ -1,4 +1,4 @@
-# Classic Cherry Baby Crib
+# Classic Cherry Crib
 
 A baby crib with a mattress. Classic styling: turned legs, rolled arms, mouldings and brass.
 

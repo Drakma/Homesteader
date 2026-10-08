@@ -1,4 +1,4 @@
-# Modern White Soap and Toothbrush Set
+# Modern White Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Modern styling.
 

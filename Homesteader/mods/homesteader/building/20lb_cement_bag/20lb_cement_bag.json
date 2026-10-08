@@ -28,7 +28,8 @@
     "look_metallic": 0.0,
     "look_style": "poured",
     "display_weight": true,
-    "stacking_limit": 4
+    "stacking_limit": 4,
+    "store_category": "Concrete & Masonry"
   },
   "models": [
     {

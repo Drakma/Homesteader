@@ -1,4 +1,4 @@
-# Classic Forest Green Tall Steel Cabinet
+# Classic Green Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Classic styling: turned legs, rolled arms, mouldings and brass.
 

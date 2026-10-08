@@ -1,0 +1,5 @@
+# Modern White Wall Mirror
+
+A framed wall mirror. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
+
+Procedural model (tools/make_living_assets.py, tools/living_models.py), 324 triangles, 0.90 x 0.04 x 0.90 m (W x D x H). A wall item: mount it on a wall.

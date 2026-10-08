@@ -1,4 +1,4 @@
-# Modern White Flush-Mount Ceiling Light
+# Modern White Flush Light
 
 A flush-mount ceiling light with a frosted glass shade. Modern styling. Hangs from the ceiling of a finished building.
 

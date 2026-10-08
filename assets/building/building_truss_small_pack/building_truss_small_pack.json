@@ -22,7 +22,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 6,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Lumber & Framing"
   },
   "models": [
     {

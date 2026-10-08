@@ -1,4 +1,4 @@
-# Exterior Wall Lantern
+# Wall Lantern
 
 **Item ID:** `building_light_sconce_exterior`  
 **Category:** `electricity`  

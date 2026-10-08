@@ -1,4 +1,4 @@
-# Modern Chrome Yard Pole Light
+# Modern Chrome Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Modern styling. Stands on the ground.
 

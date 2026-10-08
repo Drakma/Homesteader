@@ -1,4 +1,4 @@
-# Modern Matte Black Tall Steel Cabinet
+# Modern Black Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Modern styling: clean lines, slim tapered legs and black metal.
 

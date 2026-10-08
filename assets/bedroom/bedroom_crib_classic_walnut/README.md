@@ -1,4 +1,4 @@
-# Classic Walnut Baby Crib
+# Classic Walnut Crib
 
 A baby crib with a mattress. Classic styling: turned legs, rolled arms, mouldings and brass.
 

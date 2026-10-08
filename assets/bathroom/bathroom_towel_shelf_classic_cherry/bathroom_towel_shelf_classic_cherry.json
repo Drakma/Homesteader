@@ -25,7 +25,8 @@
     "wrench_remove": true,
     "attach_surface": "wall",
     "attach_side": "interior",
-    "shelf": true
+    "shelf": true,
+    "store_category": "Bathroom/Towel Shelf"
   },
   "models": [
     {

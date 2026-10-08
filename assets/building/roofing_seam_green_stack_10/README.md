@@ -1,4 +1,4 @@
-# Standing Seam Green Metal Roofing Stack
+# Green Seam Roofing Stack
 
 10 of Standing Seam Green Metal Roofing, stacked on a wooden pallet.
 

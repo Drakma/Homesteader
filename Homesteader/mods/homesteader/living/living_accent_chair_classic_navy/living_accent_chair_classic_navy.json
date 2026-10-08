@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_accent_chair_classic_navy",
+  "name": "Classic Navy Accent Chair",
+  "category": "living",
+  "description": "A statement accent chair for a corner of the room. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_accent_chair_classic_navy.png",
+  "properties": {
+    "weight_kg": 14.0,
+    "max_stack_size": 1,
+    "base_value": 325,
+    "is_consumable": false,
+    "footprint": "0.76m W x 0.74m D x 0.98m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Living Room/Accent Chair"
+  },
+  "models": [
+    {
+      "file": "living_accent_chair_classic_navy.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.76,
+        "y": 0.98,
+        "z": 0.74
+      },
+      "triangles": 2168
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.76,
+      "depth": 0.74,
+      "height": 0.98
+    },
+    "living_kind": "accent_chair",
+    "style": "classic",
+    "color": "navy",
+    "power_draw_w": 0
+  }
+}

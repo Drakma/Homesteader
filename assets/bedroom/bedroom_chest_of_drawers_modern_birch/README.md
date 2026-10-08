@@ -1,4 +1,4 @@
-# Modern Birch Chest Of Drawers
+# Modern Birch Chest
 
 A tall chest of five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

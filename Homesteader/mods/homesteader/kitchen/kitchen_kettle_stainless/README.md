@@ -1,4 +1,4 @@
-# Stainless Steel Electric Kettle
+# Steel Kettle
 
 An electric kettle on its power base, with a spout and a handle. Stainless Steel finish.
 

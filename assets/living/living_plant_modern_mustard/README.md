@@ -1,4 +1,4 @@
-# Modern Mustard Potted Plant
+# Modern Mustard Plant
 
 A leafy houseplant in a glazed pot. Modern styling: clean lines, slim tapered legs and black metal.
 

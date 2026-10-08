@@ -1,4 +1,4 @@
-# Classic Camel Leather Armchair
+# Classic Camel Armchair
 
 An upholstered armchair with a loose seat cushion. Classic styling: turned legs, rolled arms, mouldings and brass.
 

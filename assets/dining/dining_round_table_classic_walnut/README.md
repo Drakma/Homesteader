@@ -1,4 +1,4 @@
-# Classic Walnut Round Dining Table
+# Classic Walnut Round Table
 
 A round pedestal dining table that seats four. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,4 +1,4 @@
-# Classic Forest Green Guest Chair
+# Classic Green Guest Chair
 
 An upholstered chair for visitors. Classic styling: turned legs, rolled arms, mouldings and brass.
 

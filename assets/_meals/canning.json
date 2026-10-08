@@ -1,0 +1,1704 @@
+{
+  "meals": [
+    {
+      "id": "meal_juice_apple_1l",
+      "name": "Apple Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_apple"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apple",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_apple_2l",
+      "name": "Apple Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_apple"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apple",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_orange_1l",
+      "name": "Orange Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_orange"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_orange",
+          "quantity": 5
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_orange_2l",
+      "name": "Orange Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_orange"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_orange",
+          "quantity": 10
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_lemon_1l",
+      "name": "Lemon Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_lemon"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_lemon",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_lemon_2l",
+      "name": "Lemon Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_lemon"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_lemon",
+          "quantity": 12
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_pear_1l",
+      "name": "Pear Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_pear"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pear",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_pear_2l",
+      "name": "Pear Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_pear"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pear",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_peach_1l",
+      "name": "Peach Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_peach"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peach",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_peach_2l",
+      "name": "Peach Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_peach"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peach",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_cherry_1l",
+      "name": "Cherry Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_cherry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cherry",
+          "quantity": 10
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_cherry_2l",
+      "name": "Cherry Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_cherry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cherry",
+          "quantity": 20
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_plum_1l",
+      "name": "Plum Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_plum"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_plum",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_plum_2l",
+      "name": "Plum Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_plum"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_plum",
+          "quantity": 12
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_apricot_1l",
+      "name": "Apricot Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_apricot"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apricot",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_apricot_2l",
+      "name": "Apricot Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_apricot"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apricot",
+          "quantity": 16
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_grape_1l",
+      "name": "Grape Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_grape"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_grapes",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_grape_2l",
+      "name": "Grape Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_grape"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_grapes",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_watermelon_1l",
+      "name": "Watermelon Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_watermelon"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_watermelon",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_watermelon_2l",
+      "name": "Watermelon Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_watermelon"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_watermelon",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_strawberry_1l",
+      "name": "Strawberry Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_strawberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_strawberry",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_strawberry_2l",
+      "name": "Strawberry Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_strawberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_strawberry",
+          "quantity": 16
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_tomato_1l",
+      "name": "Tomato Juice",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_juice_tomato"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_tomato",
+          "quantity": 5
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_juice_tomato_2l",
+      "name": "Tomato Juice, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_juice_tomato"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_tomato",
+          "quantity": 10
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cider_apple_1l",
+      "name": "Press Apple Cider",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_1l",
+        "liquid": "liquid_apple_cider"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apple",
+          "quantity": 6
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cider_apple_2l",
+      "name": "Press Apple Cider, Large Bottle",
+      "group": "Juicing",
+      "result": {
+        "container": "kitchen_juice_bottle_2l",
+        "liquid": "liquid_apple_cider"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apple",
+          "quantity": 12
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_skim_cream",
+      "name": "Skim Cream",
+      "group": "Dairy",
+      "result": {
+        "container": "kitchen_cream_bottle_500ml",
+        "liquid": "liquid_cream"
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_milk",
+          "quantity": 20
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_boil_maple_syrup",
+      "name": "Boil Maple Syrup",
+      "group": "Preserving",
+      "result": {
+        "container": "kitchen_syrup_bottle_500ml",
+        "liquid": "liquid_maple_syrup"
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_maple_sap",
+          "quantity": 80
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_blueberry_small",
+      "name": "Blueberry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_blueberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_blueberry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_blueberry_large",
+      "name": "Blueberry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_blueberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_blueberry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_elderberry_small",
+      "name": "Elderberry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_elderberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_elderberry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_elderberry_large",
+      "name": "Elderberry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_elderberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_elderberry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_haskap_small",
+      "name": "Haskap Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_haskap"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_haskap",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_haskap_large",
+      "name": "Haskap Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_haskap"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_haskap",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_huckleberry_small",
+      "name": "Huckleberry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_huckleberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_huckleberry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_huckleberry_large",
+      "name": "Huckleberry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_huckleberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_huckleberry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_raspberry_small",
+      "name": "Raspberry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_raspberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_raspberry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_raspberry_large",
+      "name": "Raspberry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_raspberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_raspberry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_strawberry_small",
+      "name": "Strawberry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_strawberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_strawberry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_strawberry_large",
+      "name": "Strawberry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_strawberry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_strawberry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_pear_small",
+      "name": "Pear Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_pear"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pear",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_pear_large",
+      "name": "Pear Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_pear"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pear",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_peach_small",
+      "name": "Peach Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_peach"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peach",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_peach_large",
+      "name": "Peach Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_peach"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peach",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_cherry_small",
+      "name": "Cherry Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_cherry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cherry",
+          "quantity": 6
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_cherry_large",
+      "name": "Cherry Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_cherry"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cherry",
+          "quantity": 15
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_plum_small",
+      "name": "Plum Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_plum"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_plum",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_plum_large",
+      "name": "Plum Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_plum"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_plum",
+          "quantity": 10
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_apricot_small",
+      "name": "Apricot Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_apricot"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apricot",
+          "quantity": 5
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_apricot_large",
+      "name": "Apricot Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_apricot"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apricot",
+          "quantity": 12
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_fig_small",
+      "name": "Fig Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_fig"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_fig",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_fig_large",
+      "name": "Fig Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_fig"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_fig",
+          "quantity": 10
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_grape_small",
+      "name": "Grape Jam",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_350ml",
+        "liquid": "liquid_jam_grape"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_grapes",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_jam_grape_large",
+      "name": "Grape Jam, Large Jar",
+      "group": "Jams",
+      "result": {
+        "container": "kitchen_jar_jam_900ml",
+        "liquid": "liquid_jam_grape"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_grapes",
+          "quantity": 8
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_peanut_butter_small",
+      "name": "Peanut Butter",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_peanut_butter_450g",
+        "liquid": "liquid_peanut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peanuts",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_peanut_butter_large",
+      "name": "Peanut Butter, Large Jar",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_peanut_butter_900g",
+        "liquid": "liquid_peanut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peanuts",
+          "quantity": 9
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_walnut_butter_small",
+      "name": "Walnut Butter",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_walnut_butter_450g",
+        "liquid": "liquid_walnut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_walnut",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_walnut_butter_large",
+      "name": "Walnut Butter, Large Jar",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_walnut_butter_900g",
+        "liquid": "liquid_walnut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_walnut",
+          "quantity": 9
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_pecan_butter_small",
+      "name": "Pecan Butter",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_pecan_butter_450g",
+        "liquid": "liquid_pecan_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pecan",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_pecan_butter_large",
+      "name": "Pecan Butter, Large Jar",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_pecan_butter_900g",
+        "liquid": "liquid_pecan_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pecan",
+          "quantity": 9
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_hazelnut_butter_small",
+      "name": "Hazelnut Butter",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_hazelnut_butter_450g",
+        "liquid": "liquid_hazelnut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_hazelnut",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_hazelnut_butter_large",
+      "name": "Hazelnut Butter, Large Jar",
+      "group": "Nut Butters",
+      "result": {
+        "container": "kitchen_jar_hazelnut_butter_900g",
+        "liquid": "liquid_hazelnut_butter"
+      },
+      "ingredients": [
+        {
+          "item_id": "food_hazelnut",
+          "quantity": 9
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    }
+  ]
+}

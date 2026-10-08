@@ -1,4 +1,4 @@
-# Modern Birch Bathroom Mirror
+# Modern Birch Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Modern styling.
 

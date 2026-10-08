@@ -1,4 +1,4 @@
-# Stainless Steel Chest Freezer
+# Steel Chest Freezer
 
 A deep chest freezer with a hinged lid and a handle. Stainless Steel finish.
 

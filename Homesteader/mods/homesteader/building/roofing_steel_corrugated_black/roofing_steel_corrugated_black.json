@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_steel_corrugated_black",
-  "name": "Black Corrugated Steel Roofing",
+  "name": "Black Steel Roofing",
   "category": "building",
   "description": "Black corrugated steel roofing sheet, 1.6 m by 0.88 m.",
   "icon": "roofing_steel_corrugated_black.png",
@@ -26,7 +26,8 @@
     "look_color": "#25272b",
     "look_smoothness": 0.65,
     "look_metallic": 0.85,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

@@ -20,7 +20,8 @@
     "stores": [
       "water"
     ],
-    "sale_unit": "tank"
+    "sale_unit": "tank",
+    "store_category": "Fuel"
   },
   "models": [
     {

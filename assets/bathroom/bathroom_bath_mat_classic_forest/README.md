@@ -1,4 +1,4 @@
-# Classic Forest Green Bath Mat
+# Classic Green Bath Mat
 
 A soft bath mat. Classic styling.
 

@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "attach_surface": "wall",
     "attach_side": "interior",
-    "wire_role": "inverter"
+    "wire_role": "inverter",
+    "store_category": "Controllers & Inverters"
   },
   "models": [
     {

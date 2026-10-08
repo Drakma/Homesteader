@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "living_wall_art_modern_black",
-  "name": "Modern Black Framed Picture",
+  "name": "Modern Black Picture",
   "category": "living",
   "description": "A framed picture. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "living_wall_art_modern_black.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Living Room/Wall Art"
   },
   "models": [
     {

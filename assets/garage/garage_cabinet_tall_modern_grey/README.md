@@ -1,4 +1,4 @@
-# Modern Steel Grey Tall Steel Cabinet
+# Modern Steel Grey Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Modern styling: clean lines, slim tapered legs and black metal.
 

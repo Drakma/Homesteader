@@ -1,4 +1,4 @@
-# Classic Camel Leather Area Rug
+# Classic Camel Area Rug
 
 A large woven area rug with a border and a medallion. Classic styling: turned legs, rolled arms, mouldings and brass.
 

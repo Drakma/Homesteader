@@ -17,13 +17,16 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "run_snap": true,
+    "store_category": "Kitchen/Work Counter Black"
   },
   "models": [
     {

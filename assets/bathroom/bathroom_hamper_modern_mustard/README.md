@@ -1,4 +1,4 @@
-# Modern Mustard Laundry Hamper
+# Modern Mustard Hamper
 
 A laundry hamper with a fabric bag and a lid. Modern styling.
 

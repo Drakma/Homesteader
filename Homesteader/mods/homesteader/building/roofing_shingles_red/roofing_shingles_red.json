@@ -25,7 +25,8 @@
     "look_color": "#8a3b30",
     "look_smoothness": 0.15,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

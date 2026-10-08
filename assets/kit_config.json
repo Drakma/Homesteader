@@ -36,6 +36,12 @@
       "desc": "Ceiling lights, chandeliers and fans, inside and outside wall lights, and garden post, pole and path lights, each in a classic and a modern style and four metal finishes.",
       "prefix": "lighting"
     },
+    "decor": {
+      "name": "Decor",
+      "icon": "",
+      "desc": "Curtains and drapes for the windows and house plants (floor plants, a succulent for a shelf, a hanging fern), each in a classic and a modern style and four colours: procedural low-poly models.",
+      "prefix": "decor"
+    },
     "bathroom": {
       "name": "Bathroom",
       "icon": "",
@@ -538,6 +544,11 @@
       "name": "Large Leach Field",
       "icon": "",
       "category": "structures"
+    },
+    "canola": {
+      "name": "Canola Plant",
+      "icon": "",
+      "category": "farming"
     }
   },
   "growth_groups": {
@@ -4002,6 +4013,51 @@
           "item_id": "struct_backfill_waste_leach_field_large",
           "age_min": 66,
           "age_max": 100
+        }
+      ]
+    },
+    "canola": {
+      "name": "Canola Plant",
+      "icon": "",
+      "category": "farming",
+      "growth_type": "crop",
+      "max_age": 95,
+      "time_unit": "days",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "sprout",
+          "item_id": "crop_sprout_canola",
+          "age_min": 0,
+          "age_max": 10
+        },
+        {
+          "stage": 2,
+          "name": "small",
+          "item_id": "crop_small_canola",
+          "age_min": 10,
+          "age_max": 31
+        },
+        {
+          "stage": 3,
+          "name": "medium",
+          "item_id": "crop_medium_canola",
+          "age_min": 31,
+          "age_max": 57
+        },
+        {
+          "stage": 4,
+          "name": "mature",
+          "item_id": "crop_mature_canola",
+          "age_min": 57,
+          "age_max": 79
+        },
+        {
+          "stage": 5,
+          "name": "ripe",
+          "item_id": "crop_ripe_canola",
+          "age_min": 79,
+          "age_max": 95
         }
       ]
     }

@@ -12,10 +12,11 @@
         "",
         "wall",
         "ceiling",
-        "roof"
+        "roof",
+        "chimney"
       ],
       "label": "Mounts On",
-      "note": "An item that mounts on a FINISHED building instead of standing on the ground: wall (a breaker box, a wall sconce, a switch), ceiling (a ceiling light) or roof (a solar rack: aimed at the roof from the GROUND, there are no ladders; it lies on the roof surface with its long side up the slope). With the item in hand a left click brings out a preview over the walls / ceiling, a second click or Enter mounts it, a right click takes it down. Leave empty for everything else. Such an item is not placeable (placeable false). See docs/ATTACHED_ITEMS.md. Model: the back of a wall item is the plane y = 0 sticking out towards -y; a ceiling item hangs from its top."
+      "note": "chimney = a chimney kit: aimed at an OUTSIDE wall of a finished building from outside or from inside, it builds a brick or stone chimney (stack outside, mantel and firebox inside, a metre past the roof; Growth/Chimney.cs, docs/CHIMNEYS.md). Otherwise: an item that mounts on a FINISHED building instead of standing on the ground: wall (a breaker box, a wall sconce, a switch), ceiling (a ceiling light) or roof (a solar rack: aimed at the roof from the GROUND, there are no ladders; it lies on the roof surface with its long side up the slope). With the item in hand a left click brings out a preview over the walls / ceiling, a second click or Enter mounts it, a right click takes it down. Leave empty for everything else. Such an item is not placeable (placeable false). See docs/ATTACHED_ITEMS.md. Model: the back of a wall item is the plane y = 0 sticking out towards -y; a ceiling item hangs from its top."
     },
     "attach_side": {
       "type": "string",
@@ -62,7 +63,7 @@
       "required": false,
       "default": false,
       "label": "Also Mounts On A Roof",
-      "note": "A placeable item that may ALSO be put up on a finished building's roof (a dish, a yagi, an access point): aimed at the roof from the ground it stands upright there, and R turns it 12.5 degrees a press (also once it is up, with the cursor on it). A wrench (Shift + right click) takes it down."
+      "note": "A placeable item that may ALSO be put up on a finished building's roof (a dish, a yagi, an access point): aimed at the roof from the ground it stands upright there, and R turns it 22.5 degrees a press (also once it is up, with the cursor on it). A wrench (Shift + right click) takes it down."
     },
     "provides_power": {
       "type": "boolean",

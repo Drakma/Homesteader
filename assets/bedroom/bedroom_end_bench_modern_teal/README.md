@@ -1,4 +1,4 @@
-# Modern Teal Bed-End Bench
+# Modern Teal End Bench
 
 A cushioned bench for the foot of a bed. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "office_office_chair_classic_camel",
-  "name": "Classic Camel Leather Office Chair",
+  "name": "Classic Camel Office Chair",
   "category": "office",
   "description": "A swivel office chair on a five-star base. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "office_office_chair_classic_camel.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Office/Office Chair"
   },
   "models": [
     {

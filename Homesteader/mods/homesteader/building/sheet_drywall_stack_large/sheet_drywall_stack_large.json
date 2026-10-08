@@ -23,7 +23,8 @@
     "sale_unit": "kit",
     "placeable": true,
     "pack_quantity": 25,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Insulation & Drywall"
   },
   "models": [
     {

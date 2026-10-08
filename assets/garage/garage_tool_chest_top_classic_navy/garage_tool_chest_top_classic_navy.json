@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_tool_chest_top_classic_navy",
-  "name": "Classic Navy Top Tool Chest",
+  "name": "Classic Navy Top Chest",
   "category": "garage",
   "description": "A top tool chest with a lid and three drawers. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "garage_tool_chest_top_classic_navy.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.34"
+    "deck_heights": "0.34",
+    "store_category": "Garage/Tool Chest Top"
   },
   "models": [
     {
@@ -87,5 +88,10 @@
     "power_draw_w": 0,
     "water_per_use_l": 0,
     "water_usage_lpm": 0
+  },
+  "container": {
+    "capacity_kg": 25,
+    "accepts": [],
+    "show_fill": false
   }
 }

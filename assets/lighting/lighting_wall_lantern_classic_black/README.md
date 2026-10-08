@@ -1,4 +1,4 @@
-# Classic Black Iron Exterior Wall Lantern
+# Classic Iron Wall Lantern
 
 An exterior wall lantern, on from dusk to dawn. Mount it outside. Classic styling. Mounts on an outside wall.
 

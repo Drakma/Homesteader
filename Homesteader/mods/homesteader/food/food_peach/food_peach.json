@@ -1,0 +1,100 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "food_peach",
+  "name": "Fresh Peach",
+  "category": "food",
+  "description": "A ripe peach, soft and blushed.",
+  "icon": "food_peach.png",
+  "properties": {
+    "weight_kg": 0.15,
+    "max_stack_size": 20,
+    "base_value": 6,
+    "is_consumable": true,
+    "footprint": null,
+    "happiness_modifier": 6,
+    "thirst_restore": 6,
+    "energy_restore": 0,
+    "stamina_restore": 8,
+    "wellness_modifier": 2,
+    "is_buyable": true,
+    "stores": [
+      "grocer"
+    ],
+    "sale_unit": "ea",
+    "store_category": "Fruit"
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "dimensions": {
+    "file": "SM_Item_Food_Apple.obj",
+    "format": "obj",
+    "dimensions_cm": {
+      "x": 8.4,
+      "y": 8.0,
+      "z": 10.9
+    },
+    "dimensions_m": {
+      "x": 0.08,
+      "y": 0.08,
+      "z": 0.11
+    },
+    "vertices": 260,
+    "faces": 132,
+    "bounding_box": {
+      "min": [
+        -4.2,
+        -3.99,
+        0.0
+      ],
+      "max": [
+        4.2,
+        3.99,
+        10.9
+      ]
+    }
+  },
+  "category_fields": {
+    "hunger_restore": 8,
+    "dimensions_m": {
+      "width": 0.08,
+      "depth": 0.08,
+      "height": 0.08
+    }
+  }
+}

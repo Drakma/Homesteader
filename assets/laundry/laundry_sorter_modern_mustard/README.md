@@ -1,4 +1,4 @@
-# Modern Mustard Laundry Sorter
+# Modern Mustard Sorter
 
 A three-bag laundry sorter on a frame. Modern styling: clean lines, slim tapered legs and black metal.
 

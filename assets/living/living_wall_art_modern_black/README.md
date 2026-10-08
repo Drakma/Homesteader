@@ -1,4 +1,4 @@
-# Modern Black Framed Picture
+# Modern Black Picture
 
 A framed picture. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

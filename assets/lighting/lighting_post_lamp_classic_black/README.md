@@ -1,4 +1,4 @@
-# Classic Black Iron Garden Post Lamp
+# Classic Iron Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Classic styling. Stands on the ground.
 

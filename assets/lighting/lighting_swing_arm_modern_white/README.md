@@ -1,4 +1,4 @@
-# Modern White Swing-Arm Wall Lamp
+# Modern White Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Modern styling. Mounts on an inside wall.
 

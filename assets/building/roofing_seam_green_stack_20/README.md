@@ -1,4 +1,4 @@
-# Standing Seam Green Metal Roofing Stack
+# Green Seam Roofing Stack
 
 20 of Standing Seam Green Metal Roofing, stacked together.
 

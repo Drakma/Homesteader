@@ -1,4 +1,4 @@
-# Steel Shelving Unit
+# Shelving
 
 A 2 m bolted steel workshop shelving unit with four deep shelves, braced across the back. Place it, then stand things on its shelves: point at the open front of a shelf and put an item down there; like things stack on each other.
 

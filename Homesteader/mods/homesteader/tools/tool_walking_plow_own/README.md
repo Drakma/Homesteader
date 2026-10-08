@@ -1,4 +1,4 @@
-# Walking Plow (Meshy text-to-3D, own icon) (`tool_walking_plow_own`)
+# Walking Plow (`tool_walking_plow_own`)
 
 ![Icon](tool_walking_plow_own.png)
 

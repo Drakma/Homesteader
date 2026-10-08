@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.42"
+    "deck_heights": "0.42",
+    "store_category": "Living Room/Ottoman"
   },
   "models": [
     {

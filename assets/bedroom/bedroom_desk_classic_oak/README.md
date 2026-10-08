@@ -1,4 +1,4 @@
-# Classic Oak Writing Desk
+# Classic Oak Desk
 
 A writing desk with two drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

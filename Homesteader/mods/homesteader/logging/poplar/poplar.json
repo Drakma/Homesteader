@@ -53,14 +53,14 @@
     ],
     "rules": {
       "yield": {
-        "item_id": "mat_log_poplar_uncut_medium",
+        "item_id": "mat_log_poplar_uncut_long",
         "amount_min": 3,
         "amount_max": 4,
-        "harvest_stage": 4,
         "tools": [
           "#tool_axe",
           "#tool_chainsaw"
-        ]
+        ],
+        "harvest_stage": 4
       },
       "planting": {
         "item_id": "plantable_poplar_sapling"

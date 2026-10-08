@@ -1,4 +1,4 @@
-# Classic Forest Green Laundry Sorter
+# Classic Green Sorter
 
 A three-bag laundry sorter on a frame. Classic styling: turned legs, rolled arms, mouldings and brass.
 

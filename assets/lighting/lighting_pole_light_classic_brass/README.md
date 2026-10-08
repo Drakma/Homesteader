@@ -1,4 +1,4 @@
-# Classic Antique Brass Yard Pole Light
+# Classic Brass Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Classic styling. Stands on the ground.
 

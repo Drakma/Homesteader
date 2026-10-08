@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Garden Post Lamp
+# Classic Bronze Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Classic styling. Stands on the ground.
 

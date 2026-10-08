@@ -1,4 +1,4 @@
-# Standing Seam Red Metal Roofing Stack
+# Red Seam Roofing Stack
 
 20 of Standing Seam Red Metal Roofing, stacked together.
 

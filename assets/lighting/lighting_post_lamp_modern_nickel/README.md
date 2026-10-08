@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Garden Post Lamp
+# Modern Nickel Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Modern styling. Stands on the ground.
 

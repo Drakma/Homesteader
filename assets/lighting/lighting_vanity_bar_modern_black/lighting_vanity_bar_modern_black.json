@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_vanity_bar_modern_black",
-  "name": "Modern Matte Black Vanity Light Bar",
+  "name": "Modern Black Vanity Bar",
   "category": "lighting",
   "description": "A three-light vanity bar to go over a mirror. Mount it inside. Modern styling.",
   "icon": "lighting_vanity_bar_modern_black.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Vanity Bar"
   },
   "models": [
     {

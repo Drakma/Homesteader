@@ -1,4 +1,4 @@
-# Stainless Steel Step Trash Can
+# Steel Trash Can
 
 A step-on kitchen trash can with a pedal and a lid. Stainless Steel finish.
 

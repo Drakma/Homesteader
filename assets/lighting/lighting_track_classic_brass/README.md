@@ -1,4 +1,4 @@
-# Classic Antique Brass Track Light
+# Classic Brass Track Light
 
 A track with three adjustable spot heads. Classic styling. Hangs from the ceiling of a finished building.
 

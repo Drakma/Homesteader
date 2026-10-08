@@ -1,4 +1,4 @@
-# Black Countertop Microwave
+# Black Microwave
 
 A countertop microwave oven with a window door and a keypad. Black finish.
 

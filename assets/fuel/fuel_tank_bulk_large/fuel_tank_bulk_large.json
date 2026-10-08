@@ -21,7 +21,8 @@
       "water"
     ],
     "sale_unit": "tank",
-    "wire_role": "fuel_tank"
+    "wire_role": "fuel_tank",
+    "store_category": "Fuel"
   },
   "models": [
     {

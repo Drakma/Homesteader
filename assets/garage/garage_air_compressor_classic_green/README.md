@@ -1,4 +1,4 @@
-# Classic Forest Green Air Compressor
+# Classic Green Air Compressor
 
 A tank air compressor on wheels. Classic styling: turned legs, rolled arms, mouldings and brass.
 

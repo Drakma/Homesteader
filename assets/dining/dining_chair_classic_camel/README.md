@@ -1,4 +1,4 @@
-# Classic Camel Leather Dining Chair
+# Classic Camel Dining Chair
 
 An upholstered dining chair. Classic styling: turned legs, rolled arms, mouldings and brass.
 

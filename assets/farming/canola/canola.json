@@ -1,0 +1,107 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "canola",
+  "name": "Canola Plant",
+  "category": "farming",
+  "description": "A canola lifecycle growing through 5 stages (sprout -> small -> medium -> mature -> ripe) over 95 days, with withered and dead versions. The models are procedural (built in the game), the originals are kept in assets/_originals/crops_old.",
+  "icon": "canola.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "crop",
+    "species": "canola",
+    "max_age": 95,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sprout",
+        "age_min": 0,
+        "age_max": 10,
+        "resource": "stages/crop_sprout/",
+        "model": "crop_sprout_canola.glb",
+        "icon": "crop_sprout_canola.png"
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 10,
+        "age_max": 31,
+        "resource": "stages/crop_small/",
+        "model": "crop_small_canola.glb",
+        "icon": "crop_small_canola.png"
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 31,
+        "age_max": 57,
+        "resource": "stages/crop_medium/",
+        "model": "crop_medium_canola.glb",
+        "icon": "crop_medium_canola.png"
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 57,
+        "age_max": 79,
+        "resource": "stages/crop_mature/",
+        "model": "crop_mature_canola.glb",
+        "icon": "crop_mature_canola.png"
+      },
+      {
+        "stage": 5,
+        "name": "ripe",
+        "age_min": 79,
+        "age_max": 95,
+        "resource": "stages/crop_ripe/",
+        "model": "crop_ripe_canola.glb",
+        "icon": "crop_ripe_canola.png"
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "ingredient_canola",
+        "amount_min": 2,
+        "amount_max": 2,
+        "harvest_stage": 5
+      },
+      "planting": {
+        "seasons": [
+          "spring"
+        ],
+        "biomes": [
+          "biome_farmland"
+        ],
+        "item_id": "seed_canola",
+        "min_temp_c": 8,
+        "max_temp_c": 40
+      },
+      "needs": {
+        "water_interval_days": 4
+      },
+      "failure": {
+        "out_of_season": "wither",
+        "frost_kills": true,
+        "drought_days_before_wither": 7,
+        "wither_behavior": "die",
+        "withered": {
+          "resource": "stages/crop_withered/",
+          "model": "crop_withered_canola.glb",
+          "icon": "crop_withered_canola.png"
+        },
+        "dead": {
+          "resource": "stages/crop_dead/",
+          "model": "crop_dead_canola.glb",
+          "icon": "crop_dead_canola.png"
+        }
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

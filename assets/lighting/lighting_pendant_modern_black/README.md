@@ -1,4 +1,4 @@
-# Modern Matte Black Pendant Light
+# Modern Black Pendant
 
 A pendant light hanging on a cord from the ceiling. Modern styling. Hangs from the ceiling of a finished building.
 

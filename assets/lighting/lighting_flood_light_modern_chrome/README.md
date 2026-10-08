@@ -1,4 +1,4 @@
-# Modern Chrome Security Flood Light
+# Modern Chrome Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

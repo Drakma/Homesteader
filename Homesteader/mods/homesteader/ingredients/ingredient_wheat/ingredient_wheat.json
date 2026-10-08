@@ -20,7 +20,8 @@
     "stores": [
       "grocer"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Farm Crops"
   },
   "models": [
     {
@@ -76,6 +77,6 @@
       "height": 0.15
     },
     "processing_method": "mill",
-    "next_item_id": ""
+    "next_item_id": "ingredient_flour"
   }
 }

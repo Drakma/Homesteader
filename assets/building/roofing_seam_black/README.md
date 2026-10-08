@@ -1,4 +1,4 @@
-# Standing Seam Black Metal Roofing
+# Black Seam Roofing
 
 Category: building. Look target: roof, colour #25272b.
 

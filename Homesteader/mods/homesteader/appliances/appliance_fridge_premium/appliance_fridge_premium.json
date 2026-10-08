@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "appliance_fridge_premium",
-  "name": "Premium Refrigerator",
+  "name": "Premium Fridge",
   "category": "appliances",
   "description": "A large stainless-steel french-door refrigerator with digital controls.",
   "icon": "appliance_fridge_premium.png",
@@ -20,7 +20,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Appliances/Fridge"
   },
   "models": [],
   "utilities": {

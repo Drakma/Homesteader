@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Robe Hook Rail
+# Modern Nickel Hook Rail
 
 A wall rail with four hooks. Mount it on a wall. Modern styling.
 

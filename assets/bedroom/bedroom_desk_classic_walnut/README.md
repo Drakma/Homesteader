@@ -1,4 +1,4 @@
-# Classic Walnut Writing Desk
+# Classic Walnut Desk
 
 A writing desk with two drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

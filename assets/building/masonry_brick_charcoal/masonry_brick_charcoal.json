@@ -26,7 +26,8 @@
     "look_smoothness": 0.1,
     "look_metallic": 0.0,
     "look_style": "brick",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Concrete & Masonry"
   },
   "models": [
     {

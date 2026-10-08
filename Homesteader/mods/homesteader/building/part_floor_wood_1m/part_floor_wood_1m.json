@@ -26,7 +26,8 @@
     "look_color": "#9a7048",
     "look_smoothness": 0.3,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Flooring"
   },
   "models": [
     {

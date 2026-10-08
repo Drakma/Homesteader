@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Towel Bar
+# Classic Bronze Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Classic styling.
 

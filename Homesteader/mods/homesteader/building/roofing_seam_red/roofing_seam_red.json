@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_seam_red",
-  "name": "Standing Seam Red Metal Roofing",
+  "name": "Red Seam Roofing",
   "category": "building",
   "description": "Standing Seam Red Metal Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
   "icon": "roofing_seam_red.png",
@@ -25,7 +25,8 @@
     "look_color": "#8f2d27",
     "look_smoothness": 0.6,
     "look_metallic": 0.85,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

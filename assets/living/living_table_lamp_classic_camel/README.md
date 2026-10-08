@@ -1,4 +1,4 @@
-# Classic Camel Leather Table Lamp
+# Classic Camel Table Lamp
 
 A table lamp with a fabric shade. It lights the room when it has power. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "attach_surface": "wall",
     "attach_side": "exterior",
-    "wire_role": "generator_lockout"
+    "wire_role": "generator_lockout",
+    "store_category": "Generators"
   },
   "models": [
     {

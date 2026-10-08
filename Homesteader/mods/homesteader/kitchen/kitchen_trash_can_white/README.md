@@ -1,4 +1,4 @@
-# White Step Trash Can
+# White Trash Can
 
 A step-on kitchen trash can with a pedal and a lid. White finish.
 

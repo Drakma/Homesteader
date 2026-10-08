@@ -1,0 +1,87 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "kitchen_oil_press_black",
+  "name": "Black Oil Press",
+  "category": "kitchen",
+  "description": "A countertop screw press that squeezes oil out of seeds, nuts and beans into a bottle under its spout. Black finish.",
+  "icon": "kitchen_oil_press_black.png",
+  "properties": {
+    "weight_kg": 7.5,
+    "max_stack_size": 1,
+    "base_value": 276,
+    "is_consumable": false,
+    "footprint": "0.20m W x 0.46m D x 0.32m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "store_category": "Kitchen/Oil Press Black"
+  },
+  "models": [
+    {
+      "file": "kitchen_oil_press_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.2,
+        "y": 0.32,
+        "z": 0.46
+      },
+      "triangles": 688
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "400 W",
+      "details": "Draws about 400 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.2,
+      "depth": 0.46,
+      "height": 0.32
+    },
+    "kitchen_kind": "appliance",
+    "finish": "black",
+    "power_draw_w": 400
+  }
+}

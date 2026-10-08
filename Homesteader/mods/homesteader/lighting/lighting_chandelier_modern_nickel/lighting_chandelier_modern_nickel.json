@@ -1,0 +1,109 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lighting_chandelier_modern_nickel",
+  "name": "Modern Nickel Chandelier",
+  "category": "lighting",
+  "description": "A chandelier for a dining room or a hall. Modern styling.",
+  "icon": "lighting_chandelier_modern_nickel.png",
+  "properties": {
+    "weight_kg": 6.5,
+    "max_stack_size": 1,
+    "base_value": 352,
+    "is_consumable": false,
+    "footprint": "0.80m W x 0.76m D x 0.56m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "attach_surface": "ceiling",
+    "attach_side": "interior",
+    "store_category": "Lighting/Chandelier"
+  },
+  "models": [
+    {
+      "file": "lighting_chandelier_modern_nickel.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.8,
+        "y": 0.56,
+        "z": 0.761
+      },
+      "triangles": 940
+    }
+  ],
+  "lights": [
+    {
+      "id": "lamp",
+      "color": "#FFE6B8",
+      "intensity": 4.4,
+      "range_m": 10.0,
+      "offset_m": [
+        0,
+        0.1,
+        0
+      ],
+      "on": "always",
+      "power_w": 60,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "60 W",
+      "details": "Draws about 60 W while it is on."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.8,
+      "depth": 0.761,
+      "height": 0.56
+    },
+    "lighting_kind": "chandelier",
+    "style": "modern",
+    "finish": "nickel",
+    "mount": "ceiling",
+    "power_draw_w": 60
+  }
+}

@@ -1,4 +1,4 @@
-# Black Corrugated Steel Roofing Stack
+# Black Steel Roofing Stack
 
 20 of Black Corrugated Steel Roofing, piled in a block and held by two steel straps.
 

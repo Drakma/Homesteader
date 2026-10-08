@@ -1,4 +1,4 @@
-# Classic Walnut Bathroom Mirror
+# Classic Walnut Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Classic styling.
 

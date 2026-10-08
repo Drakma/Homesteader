@@ -1,4 +1,4 @@
-# Classic Mahogany Dressing Table
+# Classic Mahogany Vanity
 
 A dressing table with two drawers and a mirror. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "laundry_utility_sink_modern_walnut",
+  "name": "Modern Walnut Utility Sink",
+  "category": "laundry",
+  "description": "A deep steel utility sink on a cabinet, with a tall faucet. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "laundry_utility_sink_modern_walnut.png",
+  "properties": {
+    "weight_kg": 38.0,
+    "max_stack_size": 1,
+    "base_value": 330,
+    "is_consumable": false,
+    "footprint": "0.70m W x 0.58m D x 1.13m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "store_category": "Laundry/Utility Sink"
+  },
+  "models": [
+    {
+      "file": "laundry_utility_sink_modern_walnut.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.7,
+        "y": 1.129,
+        "z": 0.582
+      },
+      "triangles": 624
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.7,
+      "depth": 0.582,
+      "height": 1.129
+    },
+    "laundry_kind": "laundry_sink",
+    "style": "modern",
+    "color": "walnut",
+    "power_draw_w": 0,
+    "water_per_use_l": 8,
+    "water_usage_lpm": 8
+  }
+}

@@ -1,4 +1,4 @@
-# Modern Matte Black Track Light
+# Modern Black Track Light
 
 A track with three adjustable spot heads. Modern styling. Hangs from the ceiling of a finished building.
 

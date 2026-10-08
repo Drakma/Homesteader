@@ -1,4 +1,4 @@
-# Classic Antique Brass Flush-Mount Ceiling Light
+# Classic Brass Flush Light
 
 A flush-mount ceiling light with a frosted glass shade. Classic styling. Hangs from the ceiling of a finished building.
 

@@ -1,4 +1,4 @@
-# Classic Forest Green Floor Lamp
+# Classic Green Floor Lamp
 
 A tall floor lamp with a fabric shade. It lights the room when it has power. Classic styling: turned legs, rolled arms, mouldings and brass.
 

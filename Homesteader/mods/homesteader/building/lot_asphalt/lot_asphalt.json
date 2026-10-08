@@ -1,0 +1,39 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lot_asphalt",
+  "name": "Asphalt Lot Blueprint",
+  "category": "building",
+  "description": "A blueprint, bought once and yours for good. Hold it, click the corners of a lot (two opposite corners make a rectangle, more corners any other shape) and press Enter: it paves a parking lot or yard with asphalt (gravel aggregate mixed with bitumen) over an area of any size.",
+  "icon": "lot_asphalt.png",
+  "properties": {
+    "weight_kg": 0,
+    "max_stack_size": 1,
+    "base_value": 650,
+    "is_consumable": false,
+    "footprint": "(X=1,Y=1)",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "blueprint",
+    "is_blueprint": true,
+    "lot_style": "asphalt",
+    "lot_material_item": "mat_pile_gravel_medium",
+    "lot_m2_per_item": 6.0,
+    "lot_binder_item": "~bitumen",
+    "lot_binder_m2_per_item": 4.0,
+    "store_category": "Fencing & Outdoor"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.6,
+      "depth": 0.4,
+      "height": 0.2
+    }
+  }
+}

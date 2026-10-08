@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "cord",
-    "build_speed": 0.9
+    "build_speed": 0.9,
+    "store_category": "Power Tools"
   },
   "models": [],
   "utilities": {

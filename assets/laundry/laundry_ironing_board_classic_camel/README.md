@@ -1,4 +1,4 @@
-# Classic Camel Leather Ironing Board
+# Classic Camel Ironing Board
 
 An ironing board with a padded cover. Classic styling: turned legs, rolled arms, mouldings and brass.
 

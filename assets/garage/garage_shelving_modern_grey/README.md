@@ -1,5 +1,5 @@
-# Modern Steel Grey Steel Shelving Unit
+# Modern Steel Grey Shelving
 
-A steel shelving unit with boxes and bins. Modern styling: clean lines, slim tapered legs and black metal.
+An empty steel shelving unit with five shelves. Stand things on it. Modern styling: clean lines, slim tapered legs and black metal.
 
-Procedural model (tools/make_garage_assets.py, tools/garage_models.py), 736 triangles, 1.20 x 0.50 x 1.90 m (W x D x H).
+Procedural model (tools/make_garage_assets.py, tools/garage_models.py), 296 triangles, 1.20 x 0.50 x 1.90 m (W x D x H).

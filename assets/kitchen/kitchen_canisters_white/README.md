@@ -1,4 +1,4 @@
-# White Canister Set
+# White Canisters
 
 Three lidded canisters in graduated sizes. White finish.
 

@@ -1,4 +1,4 @@
-# Stainless Steel Toaster Oven
+# Steel Toaster Oven
 
 A countertop toaster oven with a glass door and three dials. Stainless Steel finish.
 

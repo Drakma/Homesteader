@@ -21,7 +21,8 @@
       "water"
     ],
     "sale_unit": "ea",
-    "placeable": true
+    "placeable": true,
+    "store_category": "Fuel"
   },
   "models": [
     {

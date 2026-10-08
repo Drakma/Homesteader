@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "capacity_wh": 4800,
-    "voltage_v": 48
+    "voltage_v": 48,
+    "store_category": "Batteries"
   },
   "models": [
     {

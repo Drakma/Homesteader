@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_island_oak",
-  "name": "Oak Kitchen Island",
+  "name": "Oak Island",
   "category": "kitchen",
   "description": "A kitchen island with drawers and doors on the work side and an overhang for stools on the other. Oak, butcher-block top.",
   "icon": "kitchen_island_oak.png",
@@ -17,13 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "store_category": "Kitchen/Island Oak"
   },
   "models": [
     {
@@ -34,7 +36,7 @@
         "y": 0.92,
         "z": 0.934
       },
-      "triangles": 880
+      "triangles": 848
     }
   ],
   "utilities": {
@@ -83,5 +85,15 @@
     "kitchen_kind": "cabinet",
     "finish": "oak",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 110,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

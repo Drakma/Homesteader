@@ -1,4 +1,4 @@
-# Classic Burgundy Floor Pouf
+# Classic Burgundy Pouf
 
 A round floor pouf. Classic styling: turned legs, rolled arms, mouldings and brass.
 

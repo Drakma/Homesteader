@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wire_kind": "net",
     "wire_length_m": 15,
-    "stacking_limit": 10
+    "stacking_limit": 10,
+    "store_category": "Telecom"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Pendant Light
+# Classic Bronze Pendant
 
 A pendant light hanging on a cord from the ceiling. Classic styling. Hangs from the ceiling of a finished building.
 

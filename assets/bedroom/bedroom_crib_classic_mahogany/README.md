@@ -1,4 +1,4 @@
-# Classic Mahogany Baby Crib
+# Classic Mahogany Crib
 
 A baby crib with a mattress. Classic styling: turned legs, rolled arms, mouldings and brass.
 

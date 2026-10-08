@@ -1,4 +1,4 @@
-# Classic Camel Leather Loveseat
+# Classic Camel Loveseat
 
 A two-seat loveseat with loose cushions and throw pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

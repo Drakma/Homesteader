@@ -1,4 +1,4 @@
-# Modern White Bathroom Mirror
+# Modern White Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Modern styling.
 

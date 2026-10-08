@@ -3,14 +3,14 @@
   "id": "dining_bar_cart_classic_mahogany",
   "name": "Classic Mahogany Bar Cart",
   "category": "dining",
-  "description": "A rolling bar cart with bottles and glasses. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "description": "A rolling bar cart with two shelves and a top. Stand things on it. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "dining_bar_cart_classic_mahogany.png",
   "properties": {
     "weight_kg": 12.0,
     "max_stack_size": 1,
     "base_value": 213,
     "is_consumable": false,
-    "footprint": "0.87m W x 0.46m D x 0.95m H",
+    "footprint": "0.87m W x 0.46m D x 0.85m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.85"
+    "deck_heights": "0.21,0.57,0.85",
+    "store_category": "Dining/Bar Cart"
   },
   "models": [
     {
@@ -32,10 +33,10 @@
       "format": "glb",
       "dimensions_m": {
         "x": 0.87,
-        "y": 0.948,
+        "y": 0.848,
         "z": 0.46
       },
-      "triangles": 1016
+      "triangles": 416
     }
   ],
   "utilities": {
@@ -79,7 +80,7 @@
     "dimensions_m": {
       "width": 0.87,
       "depth": 0.46,
-      "height": 0.948
+      "height": 0.848
     },
     "dining_kind": "bar_cart",
     "style": "classic",

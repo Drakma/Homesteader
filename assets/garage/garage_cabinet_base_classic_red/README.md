@@ -1,4 +1,4 @@
-# Classic Red Steel Base Cabinet
+# Classic Red Lower Cabinet
 
 A base cabinet with drawers, doors and a wood top. Classic styling: turned legs, rolled arms, mouldings and brass.
 

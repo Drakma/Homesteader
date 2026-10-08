@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_cabinet_base_classic_red",
-  "name": "Classic Red Steel Base Cabinet",
+  "name": "Classic Red Lower Cabinet",
   "category": "garage",
   "description": "A base cabinet with drawers, doors and a wood top. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "garage_cabinet_base_classic_red.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "store_category": "Garage/Cabinet Base"
   },
   "models": [
     {
@@ -87,5 +88,10 @@
     "power_draw_w": 0,
     "water_per_use_l": 0,
     "water_usage_lpm": 0
+  },
+  "container": {
+    "capacity_kg": 60,
+    "accepts": [],
+    "show_fill": false
   }
 }

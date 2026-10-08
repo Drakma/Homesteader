@@ -21,7 +21,8 @@
     "stores": [
       "livestock"
     ],
-    "sale_unit": "can"
+    "sale_unit": "can",
+    "store_category": "Structures & Kits"
   },
   "models": [
     {

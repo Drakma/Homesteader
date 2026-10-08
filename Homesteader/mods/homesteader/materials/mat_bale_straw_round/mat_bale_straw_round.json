@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "bale",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Hay, Straw & Bedding"
   },
   "models": [
     {

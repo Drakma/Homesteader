@@ -22,7 +22,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Lumber & Framing"
   },
   "models": [
     {

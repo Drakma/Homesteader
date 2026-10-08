@@ -1,4 +1,4 @@
-# Stainless Steel Utensil Crock
+# Steel Utensil Crock
 
 A crock holding a bunch of kitchen utensils. Stainless Steel finish.
 

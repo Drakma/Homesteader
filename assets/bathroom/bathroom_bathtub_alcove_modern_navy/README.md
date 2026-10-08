@@ -1,4 +1,4 @@
-# Modern Navy Alcove Bathtub
+# Modern Navy Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Modern styling.
 

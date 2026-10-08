@@ -1,4 +1,4 @@
-# Modern Teal Laundry Basket
+# Modern Teal Basket
 
 A laundry basket with clothes in it. Modern styling: clean lines, slim tapered legs and black metal.
 

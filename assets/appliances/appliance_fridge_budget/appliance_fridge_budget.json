@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "appliance_fridge_budget",
-  "name": "Budget Refrigerator",
+  "name": "Budget Fridge",
   "category": "appliances",
   "description": "A basic top-freezer refrigerator.",
   "icon": "appliance_fridge_budget.png",
@@ -20,7 +20,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Appliances/Fridge"
   },
   "models": [],
   "utilities": {

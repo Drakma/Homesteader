@@ -1,4 +1,4 @@
-# Black Step Trash Can
+# Black Trash Can
 
 A step-on kitchen trash can with a pedal and a lid. Black finish.
 

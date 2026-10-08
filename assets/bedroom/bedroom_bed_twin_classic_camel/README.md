@@ -1,4 +1,4 @@
-# Classic Camel Leather Twin Bed
+# Classic Camel Twin Bed
 
 A twin bed with a headboard, a duvet and a pillow. Classic styling: turned legs, rolled arms, mouldings and brass.
 

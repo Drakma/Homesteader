@@ -1,4 +1,4 @@
-# Modern Teal Sectional Sofa
+# Modern Teal Sectional
 
 An L-shaped sectional: a three-seat sofa with a chaise. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Modern Birch Framed Picture
+# Modern Birch Picture
 
 A framed picture. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Classic Black Iron Chandelier
+# Classic Iron Chandelier
 
 A chandelier for a dining room or a hall. Classic styling. Hangs from the ceiling of a finished building.
 

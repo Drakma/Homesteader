@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bathroom_hook_rail_modern_black",
-  "name": "Modern Matte Black Robe Hook Rail",
+  "name": "Modern Black Hook Rail",
   "category": "bathroom",
   "description": "A wall rail with four hooks. Mount it on a wall. Modern styling.",
   "icon": "bathroom_hook_rail_modern_black.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Bathroom/Hook Rail"
   },
   "models": [
     {

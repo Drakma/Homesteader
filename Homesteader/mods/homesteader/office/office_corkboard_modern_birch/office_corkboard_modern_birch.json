@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "office_corkboard_modern_birch",
+  "name": "Modern Birch Corkboard",
+  "category": "office",
+  "description": "A framed cork board with pinned notes. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "office_corkboard_modern_birch.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 1,
+    "base_value": 60,
+    "is_consumable": false,
+    "footprint": "1.00m W x 0.06m D x 0.70m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "store_category": "Office/Corkboard"
+  },
+  "models": [
+    {
+      "file": "office_corkboard_modern_birch.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.0,
+        "y": 0.7,
+        "z": 0.06
+      },
+      "triangles": 184
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.0,
+      "depth": 0.06,
+      "height": 0.7
+    },
+    "office_kind": "corkboard_wall",
+    "style": "modern",
+    "color": "birch",
+    "power_draw_w": 0
+  }
+}

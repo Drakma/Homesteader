@@ -1,4 +1,4 @@
-# Standing Seam Red Metal Roofing
+# Red Seam Roofing
 
 Category: building. Look target: roof, colour #8f2d27.
 

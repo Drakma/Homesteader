@@ -1,4 +1,4 @@
-# Classic Walnut Dressing Table
+# Classic Walnut Vanity
 
 A dressing table with two drawers and a mirror. Classic styling: turned legs, rolled arms, mouldings and brass.
 

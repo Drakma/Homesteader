@@ -1,4 +1,4 @@
-# Modern White Toilet Paper Holder
+# Modern White TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Modern styling.
 

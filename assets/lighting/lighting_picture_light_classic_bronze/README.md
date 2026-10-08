@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Picture Light
+# Classic Bronze Picture Light
 
 A slim light to hang over a picture or a mirror. Mount it inside. Classic styling. Mounts on an inside wall.
 

@@ -1,4 +1,4 @@
-# Classic Navy Potted Plant
+# Classic Navy Plant
 
 A leafy houseplant in a glazed pot. Classic styling: turned legs, rolled arms, mouldings and brass.
 

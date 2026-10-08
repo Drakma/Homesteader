@@ -1,4 +1,4 @@
-# Red Corrugated Steel Wall Siding Stack
+# Red Steel Siding Stack
 
 A stack of 20 corrugated steel wall siding panels lying flat, ribbed red painted finish, for metal garages and pole barns.
 

@@ -20,7 +20,8 @@
     "stores": [
       "grocer"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Flour & Grains"
   },
   "models": [
     {
@@ -73,7 +74,7 @@
   },
   "category_fields": {
     "processing_method": "mill",
-    "next_item_id": "",
+    "next_item_id": "ingredient_oat_flour",
     "dimensions_m": {
       "width": 0.22,
       "depth": 0.12,

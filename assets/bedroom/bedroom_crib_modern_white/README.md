@@ -1,4 +1,4 @@
-# Modern White Baby Crib
+# Modern White Crib
 
 A baby crib with a mattress. Modern styling: clean lines, slim tapered legs and black metal.
 

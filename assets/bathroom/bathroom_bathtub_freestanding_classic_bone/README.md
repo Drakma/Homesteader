@@ -1,4 +1,4 @@
-# Classic Bone Freestanding Bathtub
+# Classic Bone Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Classic styling.
 

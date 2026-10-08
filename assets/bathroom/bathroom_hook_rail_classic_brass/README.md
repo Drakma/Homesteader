@@ -1,4 +1,4 @@
-# Classic Antique Brass Robe Hook Rail
+# Classic Brass Hook Rail
 
 A wall rail with four hooks. Mount it on a wall. Classic styling.
 

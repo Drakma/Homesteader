@@ -1,4 +1,4 @@
-# White Top-Freezer Refrigerator
+# White Top Fridge
 
 A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. White finish.
 

@@ -1,4 +1,4 @@
-# Classic Forest Green Loveseat
+# Classic Green Loveseat
 
 A two-seat loveseat with loose cushions and throw pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,4 +1,4 @@
-# Classic Forest Green Ironing Board
+# Classic Green Ironing Board
 
 An ironing board with a padded cover. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,4 +1,4 @@
-# Modern Chrome Toilet Paper Holder
+# Modern Chrome TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Modern styling.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_steel_corrugated_black_stack_20",
-  "name": "Black Corrugated Steel Roofing Stack",
+  "name": "Black Steel Roofing Stack",
   "category": "building",
   "description": "20 of Black Corrugated Steel Roofing, piled in a block and held by two steel straps.",
   "icon": "roofing_steel_corrugated_black_stack_20.png",
@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 20,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

@@ -25,7 +25,8 @@
     "fence_panel_m": 3.0,
     "fence_height_m": 1.2,
     "fence_post_item": "post_wood_round_6inch",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Fencing & Outdoor"
   },
   "models": [],
   "utilities": {

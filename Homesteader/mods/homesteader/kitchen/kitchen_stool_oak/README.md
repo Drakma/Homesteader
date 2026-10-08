@@ -1,4 +1,4 @@
-# Oak Counter Stool
+# Oak Stool
 
 A counter-height stool with a round seat and a foot ring. Oak finish.
 

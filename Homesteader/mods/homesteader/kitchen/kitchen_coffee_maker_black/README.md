@@ -1,4 +1,4 @@
-# Black Drip Coffee Maker
+# Black Coffee Maker
 
 A drip coffee maker with a glass carafe and a warming plate. Black finish.
 

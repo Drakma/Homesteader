@@ -1,4 +1,4 @@
-# White Countertop Blender
+# White Blender
 
 A countertop blender with a glass jug and a lid. White finish.
 

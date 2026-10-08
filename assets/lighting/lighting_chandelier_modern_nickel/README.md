@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Chandelier
+# Modern Nickel Chandelier
 
 A chandelier for a dining room or a hall. Modern styling. Hangs from the ceiling of a finished building.
 

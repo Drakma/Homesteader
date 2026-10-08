@@ -1,4 +1,4 @@
-# Modern Birch Round Dining Table
+# Modern Birch Round Table
 
 A round pedestal dining table that seats four. Modern styling: clean lines, slim tapered legs and black metal.
 

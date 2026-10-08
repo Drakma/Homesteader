@@ -1,4 +1,4 @@
-# Classic Forest Green King Bed
+# Classic Green King Bed
 
 A king bed with a wide headboard, a duvet and three pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

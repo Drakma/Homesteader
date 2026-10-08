@@ -20,7 +20,8 @@
     "stores": [
       "vehicles"
     ],
-    "sale_unit": "unit"
+    "sale_unit": "unit",
+    "store_category": "Vehicles"
   },
   "models": [
     {

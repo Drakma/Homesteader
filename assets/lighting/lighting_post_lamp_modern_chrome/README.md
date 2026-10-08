@@ -1,4 +1,4 @@
-# Modern Chrome Garden Post Lamp
+# Modern Chrome Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Modern styling. Stands on the ground.
 

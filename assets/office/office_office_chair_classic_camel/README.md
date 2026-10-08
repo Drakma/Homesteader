@@ -1,4 +1,4 @@
-# Classic Camel Leather Office Chair
+# Classic Camel Office Chair
 
 A swivel office chair on a five-star base. Classic styling: turned legs, rolled arms, mouldings and brass.
 

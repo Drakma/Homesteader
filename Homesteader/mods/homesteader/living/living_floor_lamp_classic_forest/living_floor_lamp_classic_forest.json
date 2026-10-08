@@ -1,0 +1,106 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_floor_lamp_classic_forest",
+  "name": "Classic Green Floor Lamp",
+  "category": "living",
+  "description": "A tall floor lamp with a fabric shade. It lights the room when it has power. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_floor_lamp_classic_forest.png",
+  "properties": {
+    "weight_kg": 4.5,
+    "max_stack_size": 1,
+    "base_value": 106,
+    "is_consumable": false,
+    "footprint": "0.40m W x 0.40m D x 1.60m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Living Room/Floor Lamp"
+  },
+  "models": [
+    {
+      "file": "living_floor_lamp_classic_forest.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.4,
+        "y": 1.6,
+        "z": 0.4
+      },
+      "triangles": 416
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "12 W",
+      "details": "Draws about 12 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.4,
+      "depth": 0.4,
+      "height": 1.6
+    },
+    "living_kind": "floor_lamp",
+    "style": "classic",
+    "color": "forest",
+    "power_draw_w": 12
+  },
+  "lights": [
+    {
+      "id": "bulb",
+      "color": "#FFD9A0",
+      "intensity": 2.5,
+      "range_m": 6,
+      "on": "always",
+      "power_w": 12,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true,
+      "offset_m": [
+        0,
+        1.45,
+        0
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_shelving_classic_navy",
-  "name": "Classic Navy Steel Shelving Unit",
+  "name": "Classic Navy Shelving",
   "category": "garage",
-  "description": "A steel shelving unit with boxes and bins. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "description": "An empty steel shelving unit with five shelves. Stand things on it. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "garage_shelving_classic_navy.png",
   "properties": {
     "weight_kg": 30.0,
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.15,0.63,1.11,1.59"
+    "deck_heights": "0.15,0.63,1.11,1.59,1.90",
+    "store_category": "Garage/Shelving"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 1.9,
         "z": 0.5
       },
-      "triangles": 736
+      "triangles": 296
     }
   ],
   "utilities": {

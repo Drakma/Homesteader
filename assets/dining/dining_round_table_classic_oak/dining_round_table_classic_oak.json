@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "dining_round_table_classic_oak",
-  "name": "Classic Oak Round Dining Table",
+  "name": "Classic Oak Round Table",
   "category": "dining",
   "description": "A round pedestal dining table that seats four. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "dining_round_table_classic_oak.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.76"
+    "deck_heights": "0.76",
+    "store_category": "Dining/Round Table"
   },
   "models": [
     {

@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Wardrobe"
   },
   "models": [
     {
@@ -83,5 +84,10 @@
     "style": "classic",
     "color": "mahogany",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 90,
+    "accepts": [],
+    "show_fill": false
   }
 }

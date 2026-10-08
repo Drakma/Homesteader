@@ -26,7 +26,8 @@
     "attach_side": "interior",
     "wire_role": "battery",
     "capacity_wh": 10000,
-    "voltage_v": 51.2
+    "voltage_v": 51.2,
+    "store_category": "Batteries"
   },
   "models": [
     {

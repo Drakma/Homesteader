@@ -1,4 +1,4 @@
-# Modern Black Television
+# Modern Black TV
 
 A television set for the family room. Modern styling: clean lines, slim tapered legs and black metal.
 

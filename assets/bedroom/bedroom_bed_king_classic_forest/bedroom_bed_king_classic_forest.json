@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_bed_king_classic_forest",
-  "name": "Classic Forest Green King Bed",
+  "name": "Classic Green King Bed",
   "category": "bedroom",
   "description": "A king bed with a wide headboard, a duvet and three pillows. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_bed_king_classic_forest.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Bed King"
   },
   "models": [
     {

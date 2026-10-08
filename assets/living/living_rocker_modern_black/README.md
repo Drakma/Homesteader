@@ -1,4 +1,4 @@
-# Modern Black Rocking Chair
+# Modern Black Rocker
 
 A rocking chair for the family room. Modern styling: clean lines, slim tapered legs and black metal.
 

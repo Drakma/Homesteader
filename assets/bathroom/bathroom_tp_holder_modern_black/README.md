@@ -1,4 +1,4 @@
-# Modern Matte Black Toilet Paper Holder
+# Modern Black TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Modern styling.
 

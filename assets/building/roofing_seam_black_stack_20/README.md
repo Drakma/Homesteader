@@ -1,4 +1,4 @@
-# Standing Seam Black Metal Roofing Stack
+# Black Seam Roofing Stack
 
 20 of Standing Seam Black Metal Roofing, stacked together.
 

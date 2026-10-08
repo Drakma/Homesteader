@@ -1,4 +1,4 @@
-# Modern Black Wall-Mount TV
+# Modern Black Wall TV
 
 A 55 inch flat-screen TV on a wall bracket. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

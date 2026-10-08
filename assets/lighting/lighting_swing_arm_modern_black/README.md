@@ -1,4 +1,4 @@
-# Modern Matte Black Swing-Arm Wall Lamp
+# Modern Black Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Modern styling. Mounts on an inside wall.
 

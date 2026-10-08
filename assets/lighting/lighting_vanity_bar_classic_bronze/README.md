@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Vanity Light Bar
+# Classic Bronze Vanity Bar
 
 A three-light vanity bar to go over a mirror. Mount it inside. Classic styling. Mounts on an inside wall.
 

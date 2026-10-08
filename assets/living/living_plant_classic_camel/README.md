@@ -1,4 +1,4 @@
-# Classic Camel Leather Potted Plant
+# Classic Camel Plant
 
 A leafy houseplant in a glazed pot. Classic styling: turned legs, rolled arms, mouldings and brass.
 

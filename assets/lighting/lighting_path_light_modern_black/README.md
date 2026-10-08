@@ -1,4 +1,4 @@
-# Modern Matte Black Path Light
+# Modern Black Path Light
 
 A small stake light for edging a path, on from dusk to dawn. Modern styling. Stands on the ground.
 

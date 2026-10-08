@@ -1,4 +1,4 @@
-# Classic White Swing-Arm Wall Lamp
+# Classic White Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Classic styling. Mounts on an inside wall.
 

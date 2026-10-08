@@ -24,18 +24,19 @@
     "display_weight": true,
     "pack_quantity": 16,
     "placeable": true,
-    "stacking_limit": 6
+    "stacking_limit": 6,
+    "store_category": "Insulation & Drywall"
   },
   "models": [
     {
       "file": "building_insulation_spray_foam_case_16.glb",
       "format": "glb",
       "dimensions_m": {
-        "x": 0.5,
-        "y": 0.367,
-        "z": 0.605
+        "x": 0.326,
+        "y": 0.303,
+        "z": 0.326
       },
-      "triangles": 4164
+      "triangles": 140
     }
   ],
   "utilities": {
@@ -77,9 +78,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.5,
-      "depth": 0.6,
-      "height": 0.37
+      "width": 0.33,
+      "depth": 0.33,
+      "height": 0.3
     }
   }
 }

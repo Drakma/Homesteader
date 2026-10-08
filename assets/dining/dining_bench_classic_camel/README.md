@@ -1,4 +1,4 @@
-# Classic Camel Leather Dining Bench
+# Classic Camel Dining Bench
 
 An upholstered bench for the side of the table. Classic styling: turned legs, rolled arms, mouldings and brass.
 

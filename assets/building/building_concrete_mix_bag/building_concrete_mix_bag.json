@@ -24,7 +24,8 @@
     "look_color": "#a26516",
     "display_weight": true,
     "placeable": true,
-    "stacking_limit": 4
+    "stacking_limit": 4,
+    "store_category": "Concrete & Masonry"
   },
   "models": [
     {

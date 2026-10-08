@@ -1,4 +1,4 @@
-# Modern Charcoal Laundry Hamper
+# Modern Charcoal Hamper
 
 A laundry hamper with a fabric bag and a lid. Modern styling.
 

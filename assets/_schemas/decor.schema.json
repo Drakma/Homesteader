@@ -1,0 +1,41 @@
+{
+  "category": "decor",
+  "title": "Decor",
+  "target": "category_fields",
+  "note": "Decor pack (tools/make_decor_assets.py): curtains and drapes that mount on an inside wall, and house plants for the floor (one hangs from the ceiling). The size comes from the universal _base_dimensions schema.",
+  "fields": {
+    "decor_kind": {
+      "type": "string",
+      "required": true,
+      "label": "Piece",
+      "note": "Which piece: curtains, drapes, fig, palm, snake, monstera, succulent or hanging_fern."
+    },
+    "style": {
+      "type": "string",
+      "required": true,
+      "label": "Style",
+      "enum": [
+        "classic",
+        "modern"
+      ],
+      "note": "Classic (brass rod, rings, valance; tapered pot) or modern (black rail, ceiling track; drum planter)."
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "label": "Fabric colour",
+      "note": "The fabric (curtains, drapes): burgundy, forest, navy, camel (classic) or charcoal, stone, teal, mustard (modern); or the pot (plants): terracotta, ivory, cobalt, charcoal (classic) or white, black, concrete, sage (modern)."
+    },
+    "mount": {
+      "type": "string",
+      "required": true,
+      "label": "Mount",
+      "enum": [
+        "wall_in",
+        "floor",
+        "ceiling"
+      ],
+      "note": "Mounts on an inside wall (the click sets the bottom hem), stands on the floor (placed), or hangs from a ceiling."
+    }
+  }
+}

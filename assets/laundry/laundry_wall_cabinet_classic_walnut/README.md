@@ -1,4 +1,4 @@
-# Classic Walnut Laundry Wall Cabinet
+# Classic Walnut Upper Cabinet
 
 A two-door wall cabinet for detergent and supplies. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

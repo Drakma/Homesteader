@@ -1,4 +1,4 @@
-# Red Corrugated Steel Wall Siding
+# Red Steel Siding
 
 Corrugated steel wall siding panel, sized for vertical wall cladding with ribbed red painted finish for metal garages and pole barns.
 

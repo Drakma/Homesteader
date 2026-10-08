@@ -1,4 +1,4 @@
-# Black Electric Kettle
+# Black Kettle
 
 An electric kettle on its power base, with a spout and a handle. Black finish.
 

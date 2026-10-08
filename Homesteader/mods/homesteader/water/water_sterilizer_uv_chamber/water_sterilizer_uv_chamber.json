@@ -25,7 +25,8 @@
     "wire_role": "water_filter",
     "filter_stage": "uv",
     "attach_surface": "wall",
-    "attach_side": "either"
+    "attach_side": "either",
+    "store_category": "Water Treatment"
   },
   "models": [
     {

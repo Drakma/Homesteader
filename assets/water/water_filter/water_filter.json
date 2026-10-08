@@ -25,7 +25,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

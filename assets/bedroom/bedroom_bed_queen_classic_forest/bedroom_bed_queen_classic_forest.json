@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_bed_queen_classic_forest",
-  "name": "Classic Forest Green Queen Bed",
+  "name": "Classic Green Queen Bed",
   "category": "bedroom",
   "description": "A queen bed with a headboard, a duvet and pillows. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_bed_queen_classic_forest.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Bed Queen"
   },
   "models": [
     {

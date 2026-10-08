@@ -1,4 +1,4 @@
-# Classic Oak Pegboard Wall Panel
+# Classic Oak Pegboard
 
 A pegboard with a hammer, a saw and wrenches on hooks. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

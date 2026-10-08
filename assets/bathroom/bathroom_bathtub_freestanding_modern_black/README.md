@@ -1,4 +1,4 @@
-# Modern Matte Black Freestanding Bathtub
+# Modern Black Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Modern styling.
 

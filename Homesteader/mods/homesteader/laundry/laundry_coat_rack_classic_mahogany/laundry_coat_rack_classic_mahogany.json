@@ -1,0 +1,92 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "laundry_coat_rack_classic_mahogany",
+  "name": "Classic Mahogany Coat Rack",
+  "category": "laundry",
+  "description": "A wall board with five coat hooks and a hat shelf. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "laundry_coat_rack_classic_mahogany.png",
+  "properties": {
+    "weight_kg": 4.0,
+    "max_stack_size": 1,
+    "base_value": 67,
+    "is_consumable": false,
+    "footprint": "1.04m W x 0.20m D x 0.25m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "store_category": "Laundry/Coat Rack"
+  },
+  "models": [
+    {
+      "file": "laundry_coat_rack_classic_mahogany.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.04,
+        "y": 0.25,
+        "z": 0.2
+      },
+      "triangles": 632
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.04,
+      "depth": 0.2,
+      "height": 0.25
+    },
+    "laundry_kind": "coat_rack_wall",
+    "style": "classic",
+    "color": "mahogany",
+    "power_draw_w": 0,
+    "water_per_use_l": 0,
+    "water_usage_lpm": 0
+  }
+}

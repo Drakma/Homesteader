@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_range_stainless",
-  "name": "Stainless Steel Gas Range",
+  "name": "Steel Gas Range",
   "category": "kitchen",
   "description": "A freestanding four-burner gas range with cast-iron grates, a glass-window oven and a backguard. Stainless Steel finish.",
   "icon": "kitchen_range_stainless.png",
@@ -17,12 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "run_snap": true,
+    "store_category": "Kitchen/Range Stainless"
   },
   "models": [
     {

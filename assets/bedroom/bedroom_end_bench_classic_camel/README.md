@@ -1,4 +1,4 @@
-# Classic Camel Leather Bed-End Bench
+# Classic Camel End Bench
 
 A cushioned bench for the foot of a bed. Classic styling: turned legs, rolled arms, mouldings and brass.
 

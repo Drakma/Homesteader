@@ -1,4 +1,4 @@
-# Classic Black Iron Yard Pole Light
+# Classic Iron Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Classic styling. Stands on the ground.
 

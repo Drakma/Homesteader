@@ -1,4 +1,4 @@
-# Modern Black Chest Of Drawers
+# Modern Black Chest
 
 A tall chest of five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

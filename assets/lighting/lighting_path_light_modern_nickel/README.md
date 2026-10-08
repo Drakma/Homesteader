@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Path Light
+# Modern Nickel Path Light
 
 A small stake light for edging a path, on from dusk to dawn. Modern styling. Stands on the ground.
 

@@ -20,7 +20,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Appliances/Grill Propane"
   },
   "models": [],
   "utilities": {

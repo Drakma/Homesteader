@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "build_speed": 0.6
+    "build_speed": 0.6,
+    "store_category": "Hand Tools/Garden & Farm"
   },
   "models": [
     {

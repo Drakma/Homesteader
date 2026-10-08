@@ -1,4 +1,4 @@
-# Classic Forest Green Bed-End Bench
+# Classic Green End Bench
 
 A cushioned bench for the foot of a bed. Classic styling: turned legs, rolled arms, mouldings and brass.
 

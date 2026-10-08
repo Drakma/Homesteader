@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "capacity_wh": 5120,
-    "voltage_v": 51.2
+    "voltage_v": 51.2,
+    "store_category": "Batteries"
   },
   "models": [
     {

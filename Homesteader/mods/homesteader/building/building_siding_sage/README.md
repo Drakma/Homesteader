@@ -1,4 +1,4 @@
-# Sage Green Clapboard Siding
+# Sage Clapboard Siding
 
 Category: building. Look target: walls, colour #8fa387.
 

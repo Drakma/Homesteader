@@ -1,4 +1,4 @@
-# Classic Antique Brass Toilet Paper Holder
+# Classic Brass TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Classic styling.
 

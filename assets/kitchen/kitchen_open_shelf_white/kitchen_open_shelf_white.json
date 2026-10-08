@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_open_shelf_white",
-  "name": "White Open Kitchen Shelf",
+  "name": "White Open Shelf",
   "category": "kitchen",
   "description": "A wall shelf board on two brackets. Mount it on a wall and stand things on it. White shaker doors, marble top.",
   "icon": "kitchen_open_shelf_white.png",
@@ -17,15 +17,16 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": false,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "attach_surface": "wall",
     "attach_side": "interior",
-    "shelf": true
+    "shelf": true,
+    "store_category": "Kitchen/Open Shelf White"
   },
   "models": [
     {

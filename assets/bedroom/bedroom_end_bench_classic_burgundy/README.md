@@ -1,4 +1,4 @@
-# Classic Burgundy Bed-End Bench
+# Classic Burgundy End Bench
 
 A cushioned bench for the foot of a bed. Classic styling: turned legs, rolled arms, mouldings and brass.
 

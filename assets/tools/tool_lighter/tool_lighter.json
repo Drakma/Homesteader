@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "lights_fires": true
+    "lights_fires": true,
+    "store_category": "Hand Tools/General"
   },
   "models": [
     {

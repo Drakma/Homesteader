@@ -1,4 +1,4 @@
-# Classic Black Iron Swing-Arm Wall Lamp
+# Classic Iron Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Classic styling. Mounts on an inside wall.
 

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "kitchen_grain_mill_black",
+  "name": "Black Grain Mill",
+  "category": "kitchen",
+  "description": "A countertop electric grain mill with a steel hopper, a coarseness knob and a steel bowl under the spout that catches the flour. Black finish.",
+  "icon": "kitchen_grain_mill_black.png",
+  "properties": {
+    "weight_kg": 6.5,
+    "max_stack_size": 1,
+    "base_value": 201,
+    "is_consumable": false,
+    "footprint": "0.24m W x 0.35m D x 0.44m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "store_category": "Kitchen/Grain Mill Black"
+  },
+  "models": [
+    {
+      "file": "kitchen_grain_mill_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.24,
+        "y": 0.437,
+        "z": 0.349
+      },
+      "triangles": 1108
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "600 W",
+      "details": "Draws about 600 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.24,
+      "depth": 0.349,
+      "height": 0.437
+    },
+    "kitchen_kind": "appliance",
+    "finish": "black",
+    "power_draw_w": 600
+  }
+}

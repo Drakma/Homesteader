@@ -1,4 +1,4 @@
-# Stainless Steel Over-The-Range Microwave
+# Steel OTR Microwave
 
 A microwave oven that mounts on the wall above the range. Stainless Steel finish.
 

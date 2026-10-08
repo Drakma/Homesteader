@@ -1,4 +1,4 @@
-# Black Over-The-Range Microwave
+# Black OTR Microwave
 
 A microwave oven that mounts on the wall above the range. Black finish.
 

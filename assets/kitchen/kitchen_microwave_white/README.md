@@ -1,4 +1,4 @@
-# White Countertop Microwave
+# White Microwave
 
 A countertop microwave oven with a window door and a keypad. White finish.
 

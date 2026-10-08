@@ -1,4 +1,4 @@
-# Classic Polished Chrome Towel Bar
+# Classic Chrome Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Classic styling.
 

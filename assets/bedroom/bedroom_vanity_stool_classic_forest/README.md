@@ -1,4 +1,4 @@
-# Classic Forest Green Vanity Stool
+# Classic Green Vanity Stool
 
 A padded stool for a dressing table. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,4 +1,4 @@
-# Classic Camel Leather Sofa
+# Classic Camel Sofa
 
 A three-seat sofa with loose seat and back cushions and two throw pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

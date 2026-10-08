@@ -1,4 +1,4 @@
-# Modern Teal Floor Pouf
+# Modern Teal Pouf
 
 A round floor pouf. Modern styling: clean lines, slim tapered legs and black metal.
 

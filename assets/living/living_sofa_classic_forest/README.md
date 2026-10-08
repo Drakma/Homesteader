@@ -1,4 +1,4 @@
-# Classic Forest Green Sofa
+# Classic Green Sofa
 
 A three-seat sofa with loose seat and back cushions and two throw pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

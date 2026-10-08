@@ -1,4 +1,4 @@
-# Classic Cherry Round Dining Table
+# Classic Cherry Round Table
 
 A round pedestal dining table that seats four. Classic styling: turned legs, rolled arms, mouldings and brass.
 

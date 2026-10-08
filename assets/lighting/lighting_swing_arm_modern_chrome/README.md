@@ -1,4 +1,4 @@
-# Modern Chrome Swing-Arm Wall Lamp
+# Modern Chrome Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Modern styling. Mounts on an inside wall.
 

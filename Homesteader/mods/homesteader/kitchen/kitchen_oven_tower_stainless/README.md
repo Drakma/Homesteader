@@ -1,4 +1,4 @@
-# Stainless Steel Double Wall Oven Tower
+# Steel Oven Tower
 
 A tall oven cabinet with two ovens, a control panel and a warming drawer. Stainless Steel finish.
 

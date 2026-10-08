@@ -1,4 +1,4 @@
-# Classic Cherry Mudroom Lockers
+# Classic Cherry Lockers
 
 Three open lockers with a hat shelf, hooks and a bench ledge. Classic styling: turned legs, rolled arms, mouldings and brass.
 

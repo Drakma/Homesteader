@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_pot_rack",
-  "name": "Hanging Pot Rack",
+  "name": "Pot Rack",
   "category": "kitchen",
   "description": "A wall rack with a bar, hooks and three hanging pans. Mount it on a wall.",
   "icon": "kitchen_pot_rack.png",
@@ -17,13 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": false,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Kitchen/Pot Rack"
   },
   "models": [
     {

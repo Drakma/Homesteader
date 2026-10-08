@@ -22,7 +22,8 @@
       "grocer"
     ],
     "sale_unit": "ea",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Bottled Water"
   },
   "models": [
     {

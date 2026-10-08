@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "attach_surface": "wall",
     "attach_side": "interior",
-    "wire_role": "busbar"
+    "wire_role": "busbar",
+    "store_category": "Breakers & Wiring"
   },
   "models": [
     {

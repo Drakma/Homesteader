@@ -25,7 +25,8 @@
     "look_color": "#d6a935",
     "look_smoothness": 0.25,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Insulation & Drywall"
   },
   "models": [
     {

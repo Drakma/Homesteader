@@ -1,4 +1,4 @@
-# Modern Black Mudroom Bench
+# Modern Black Mud Bench
 
 A mudroom bench with a shoe shelf under the seat. Modern styling: clean lines, slim tapered legs and black metal.
 

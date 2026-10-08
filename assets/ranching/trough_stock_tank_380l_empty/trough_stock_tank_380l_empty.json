@@ -20,7 +20,8 @@
     "stores": [
       "feed"
     ],
-    "sale_unit": "tank"
+    "sale_unit": "tank",
+    "store_category": "Ranching"
   },
   "models": [
     {

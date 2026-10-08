@@ -1,4 +1,4 @@
-# White Over-The-Range Microwave
+# White OTR Microwave
 
 A microwave oven that mounts on the wall above the range. White finish.
 

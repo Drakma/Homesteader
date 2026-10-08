@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Farm Materials"
   },
   "models": [],
   "utilities": {

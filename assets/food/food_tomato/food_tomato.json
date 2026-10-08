@@ -20,7 +20,8 @@
     "stores": [
       "grocer"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Vegetables"
   },
   "models": [
     {

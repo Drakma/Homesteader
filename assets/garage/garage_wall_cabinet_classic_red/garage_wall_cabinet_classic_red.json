@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_wall_cabinet_classic_red",
-  "name": "Classic Red Steel Wall Cabinet",
+  "name": "Classic Red Upper Cabinet",
   "category": "garage",
   "description": "A two-door steel wall cabinet. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "garage_wall_cabinet_classic_red.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Garage/Wall Cabinet"
   },
   "models": [
     {

@@ -25,7 +25,8 @@
     "look_color": "#5b7189",
     "look_smoothness": 0.2,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Siding & Cladding"
   },
   "models": [
     {

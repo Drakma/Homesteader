@@ -1,4 +1,4 @@
-# Classic Antique Brass Towel Bar
+# Classic Brass Towel Bar
 
 A wall towel bar with a hand towel. Mount it on a wall. Classic styling.
 

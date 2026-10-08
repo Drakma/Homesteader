@@ -22,7 +22,8 @@
       "depot"
     ],
     "sale_unit": "box",
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Boxes & Packaging"
   },
   "models": [
     {

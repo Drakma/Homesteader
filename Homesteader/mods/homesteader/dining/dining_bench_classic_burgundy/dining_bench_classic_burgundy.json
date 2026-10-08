@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "dining_bench_classic_burgundy",
+  "name": "Classic Burgundy Dining Bench",
+  "category": "dining",
+  "description": "An upholstered bench for the side of the table. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "dining_bench_classic_burgundy.png",
+  "properties": {
+    "weight_kg": 12.0,
+    "max_stack_size": 1,
+    "base_value": 269,
+    "is_consumable": false,
+    "footprint": "1.40m W x 0.40m D x 0.49m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.48",
+    "store_category": "Dining/Bench"
+  },
+  "models": [
+    {
+      "file": "dining_bench_classic_burgundy.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.4,
+        "y": 0.492,
+        "z": 0.4
+      },
+      "triangles": 1080
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.4,
+      "depth": 0.4,
+      "height": 0.492
+    },
+    "dining_kind": "dining_bench",
+    "style": "classic",
+    "color": "burgundy",
+    "power_draw_w": 0
+  }
+}

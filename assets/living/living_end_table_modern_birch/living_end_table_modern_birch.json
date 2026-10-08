@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.60"
+    "deck_heights": "0.60",
+    "store_category": "Living Room/End Table"
   },
   "models": [
     {

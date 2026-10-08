@@ -1,4 +1,4 @@
-# Classic Forest Green Towel Stack
+# Classic Green Towel Stack
 
 A stack of folded towels with a rolled washcloth. Classic styling.
 

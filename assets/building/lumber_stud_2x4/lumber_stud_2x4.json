@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "display_weight": true,
-    "stacking_limit": 20
+    "stacking_limit": 20,
+    "store_category": "Lumber & Framing"
   },
   "models": [
     {

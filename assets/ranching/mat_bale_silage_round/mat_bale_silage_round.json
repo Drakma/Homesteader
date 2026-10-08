@@ -20,7 +20,8 @@
     "stores": [
       "feed"
     ],
-    "sale_unit": "bale"
+    "sale_unit": "bale",
+    "store_category": "Ranching"
   },
   "models": [
     {

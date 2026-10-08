@@ -1,4 +1,4 @@
-# Classic Walnut Large Wall-Mount TV
+# Classic Walnut Large Wall TV
 
 A 75 inch flat-screen TV on a wall bracket. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

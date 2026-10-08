@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "laundry_shelf_unit_modern_white",
-  "name": "Modern White Storage Shelves",
+  "name": "Modern White Shelves",
   "category": "laundry",
-  "description": "An open shelf unit with baskets. Modern styling: clean lines, slim tapered legs and black metal.",
+  "description": "An open shelf unit with five empty shelves. Stand things on it. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "laundry_shelf_unit_modern_white.png",
   "properties": {
     "weight_kg": 28.0,
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.225,0.645,1.065,1.485"
+    "deck_heights": "0.225,0.645,1.065,1.485,1.80",
+    "store_category": "Laundry/Shelf Unit"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 1.8,
         "z": 0.35
       },
-      "triangles": 1236
+      "triangles": 108
     }
   ],
   "utilities": {

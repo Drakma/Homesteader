@@ -1,4 +1,4 @@
-# Classic White Freestanding Bathtub
+# Classic White Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Classic styling.
 

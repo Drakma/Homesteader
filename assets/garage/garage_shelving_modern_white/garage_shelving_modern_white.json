@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_shelving_modern_white",
-  "name": "Modern White Steel Shelving Unit",
+  "name": "Modern White Shelving",
   "category": "garage",
-  "description": "A steel shelving unit with boxes and bins. Modern styling: clean lines, slim tapered legs and black metal.",
+  "description": "An empty steel shelving unit with five shelves. Stand things on it. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "garage_shelving_modern_white.png",
   "properties": {
     "weight_kg": 30.0,
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.15,0.63,1.11,1.59"
+    "deck_heights": "0.15,0.63,1.11,1.59,1.90",
+    "store_category": "Garage/Shelving"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 1.9,
         "z": 0.5
       },
-      "triangles": 736
+      "triangles": 296
     }
   ],
   "utilities": {

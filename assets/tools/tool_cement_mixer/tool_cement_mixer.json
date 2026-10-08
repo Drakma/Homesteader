@@ -21,7 +21,8 @@
       "depot"
     ],
     "sale_unit": "ea",
-    "build_speed": 1.5
+    "build_speed": 1.5,
+    "store_category": "Power Tools"
   },
   "models": [
     {

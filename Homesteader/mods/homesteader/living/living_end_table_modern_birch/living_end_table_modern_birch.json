@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_end_table_modern_birch",
+  "name": "Modern Birch End Table",
+  "category": "living",
+  "description": "A side table for beside the sofa. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "living_end_table_modern_birch.png",
+  "properties": {
+    "weight_kg": 9.0,
+    "max_stack_size": 1,
+    "base_value": 120,
+    "is_consumable": false,
+    "footprint": "0.54m W x 0.54m D x 0.60m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "support_surface": true,
+    "deck_heights": "0.60",
+    "store_category": "Living Room/End Table"
+  },
+  "models": [
+    {
+      "file": "living_end_table_modern_birch.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.54,
+        "y": 0.6,
+        "z": 0.54
+      },
+      "triangles": 324
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.54,
+      "depth": 0.54,
+      "height": 0.6
+    },
+    "living_kind": "end_table",
+    "style": "modern",
+    "color": "birch",
+    "power_draw_w": 0
+  }
+}

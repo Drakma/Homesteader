@@ -1,4 +1,4 @@
-# Stainless Steel Dishwasher
+# Steel Dishwasher
 
 A built-in dishwasher with a front control strip and a bar handle. Stainless Steel finish.
 

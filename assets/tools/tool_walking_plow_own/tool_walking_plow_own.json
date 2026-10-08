@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "tool_walking_plow_own",
-  "name": "Walking Plow (Meshy text-to-3D, own icon)",
+  "name": "Walking Plow",
   "category": "tools",
   "description": "A horse-drawn walking plow with wooden handles and a steel moldboard, used to turn soil before planting.",
   "icon": "tool_walking_plow_own.png",

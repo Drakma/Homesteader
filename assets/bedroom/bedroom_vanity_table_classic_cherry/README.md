@@ -1,4 +1,4 @@
-# Classic Cherry Dressing Table
+# Classic Cherry Vanity
 
 A dressing table with two drawers and a mirror. Classic styling: turned legs, rolled arms, mouldings and brass.
 

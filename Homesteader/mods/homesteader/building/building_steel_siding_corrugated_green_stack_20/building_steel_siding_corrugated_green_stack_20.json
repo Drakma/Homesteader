@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_steel_siding_corrugated_green_stack_20",
-  "name": "Green Corrugated Steel Wall Siding Stack",
+  "name": "Green Steel Siding Stack",
   "category": "building",
   "description": "A stack of 20 corrugated steel wall siding panels lying flat, ribbed green painted finish, for metal garages and pole barns.",
   "icon": "building_steel_siding_corrugated_green_stack_20.png",
@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 20,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Siding & Cladding"
   },
   "models": [
     {

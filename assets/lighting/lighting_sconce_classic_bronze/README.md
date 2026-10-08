@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Wall Sconce
+# Classic Bronze Sconce
 
 A wall sconce for a hall or a bedroom. Mount it inside. Classic styling. Mounts on an inside wall.
 

@@ -1,4 +1,4 @@
-# Classic Walnut Pegboard Wall Panel
+# Classic Walnut Pegboard
 
 A pegboard with a hammer, a saw and wrenches on hooks. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

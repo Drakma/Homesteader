@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_pole_light_modern_nickel",
-  "name": "Modern Brushed Nickel Yard Pole Light",
+  "name": "Modern Nickel Pole Light",
   "category": "lighting",
   "description": "A tall pole light that floods the yard, on from dusk to dawn. Modern styling.",
   "icon": "lighting_pole_light_modern_nickel.png",
@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Lighting/Pole Light"
   },
   "models": [
     {

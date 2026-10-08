@@ -25,7 +25,8 @@
     "wire_kind": "ac",
     "wire_length_m": 15,
     "stacking_limit": 10,
-    "placeable": true
+    "placeable": true,
+    "store_category": "Electrical Wire"
   },
   "models": [
     {

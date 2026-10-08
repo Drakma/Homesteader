@@ -1,4 +1,4 @@
-# Classic Camel Leather Bath Mat
+# Classic Camel Bath Mat
 
 A soft bath mat. Classic styling.
 

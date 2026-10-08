@@ -1,4 +1,4 @@
-# Classic Black Tall Steel Cabinet
+# Classic Black Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Classic styling: turned legs, rolled arms, mouldings and brass.
 

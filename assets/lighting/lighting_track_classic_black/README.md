@@ -1,4 +1,4 @@
-# Classic Black Iron Track Light
+# Classic Iron Track Light
 
 A track with three adjustable spot heads. Classic styling. Hangs from the ceiling of a finished building.
 

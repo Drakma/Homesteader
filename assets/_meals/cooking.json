@@ -1,0 +1,393 @@
+{
+  "meals": [
+    {
+      "id": "meal_bacon_cooked",
+      "name": "Crispy Bacon",
+      "group": "Cooking",
+      "result": {
+        "item_id": "food_bacon_cooked",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_bacon",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop",
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_beef_grilled",
+      "name": "Grilled Beef Cut",
+      "group": "Grilling",
+      "result": {
+        "item_id": "ingredient_beef_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_beef",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_chicken_grilled",
+      "name": "Grilled Chicken Drumstick",
+      "group": "Grilling",
+      "result": {
+        "item_id": "ingredient_chicken_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_chicken",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bass_grilled",
+      "name": "Bass Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_bass_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_bass",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_catfish_grilled",
+      "name": "Catfish Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_catfish_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_catfish",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_crappie_grilled",
+      "name": "Crappie Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_crappie_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_crappie",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_salmon_grilled",
+      "name": "Salmon Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_salmon_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_salmon",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_trout_grilled",
+      "name": "Trout Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_trout_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_trout",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_walleye_grilled",
+      "name": "Walleye Grilled Fillet",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_walleye_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_walleye",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_goat_meat_baked",
+      "name": "Roast Goat Leg",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_goat_meat_baked",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_goat_meat",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_ground_beef_grilled",
+      "name": "Grilled Burger Patty",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_ground_beef_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_ham_baked",
+      "name": "Baked Ham",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_ham_baked",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ham",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_lamb_chop_grilled",
+      "name": "Grilled Lamb Chop",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_lamb_chop_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_lamb_chop",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_pork_grilled",
+      "name": "Grilled Pork Chop",
+      "group": "Grilling",
+      "result": {
+        "item_id": "ingredient_pork_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_pork_chop_grilled",
+      "name": "Grilled Bone-In Pork Chop",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_pork_chop_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork_chop",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_sausage_grilled",
+      "name": "Grilled Sausage",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_sausage_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_sausage",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_steak_grilled",
+      "name": "Grilled Ribeye Steak",
+      "group": "Grilling",
+      "result": {
+        "item_id": "food_steak_grilled",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_steak",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grill",
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    }
+  ]
+}

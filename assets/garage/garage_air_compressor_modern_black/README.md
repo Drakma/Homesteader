@@ -1,4 +1,4 @@
-# Modern Matte Black Air Compressor
+# Modern Black Air Compressor
 
 A tank air compressor on wheels. Modern styling: clean lines, slim tapered legs and black metal.
 

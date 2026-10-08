@@ -1,4 +1,4 @@
-# Modern Charcoal Laundry Sorter
+# Modern Charcoal Sorter
 
 A three-bag laundry sorter on a frame. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Classic Antique Brass Ceiling Fan With Light
+# Classic Brass Ceiling Fan
 
 A five-blade ceiling fan with a light kit. Classic styling. Hangs from the ceiling of a finished building.
 

@@ -1,4 +1,4 @@
-# Black Kitchen Bench
+# Black Bench
 
 A plain bench for the kitchen table. Black finish.
 

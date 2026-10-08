@@ -69,14 +69,14 @@
         "reach_cells": {
           "type": "number",
           "min": 0,
-          "default": 1,
+          "default": 3,
           "note": "How many squares around the player's own square a structure or prop can be placed."
         },
         "rotate_step_deg": {
           "type": "number",
           "min": 0.5,
           "max": 180,
-          "default": 12.5,
+          "default": 22.5,
           "note": "Degrees one press of R turns the item being placed (Shift+R turns the other way)."
         }
       }

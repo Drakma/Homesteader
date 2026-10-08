@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_wall_cab_wide_white",
-  "name": "White Double-Door Wall Cabinet",
+  "name": "White Wide Upper Cabinet",
   "category": "kitchen",
   "description": "A wide wall cabinet with two doors. Mount it on a wall. White shaker doors, marble top.",
   "icon": "kitchen_wall_cab_wide_white.png",
@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": false,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Kitchen/Wall Cab Wide White"
   },
   "models": [
     {
@@ -84,5 +85,15 @@
     "kitchen_kind": "cabinet",
     "finish": "white",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 30,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

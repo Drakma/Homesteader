@@ -1,4 +1,4 @@
-# Modern Safety Orange Top Tool Chest
+# Modern Orange Top Chest
 
 A top tool chest with a lid and three drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

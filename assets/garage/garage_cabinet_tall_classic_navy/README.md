@@ -1,4 +1,4 @@
-# Classic Navy Tall Steel Cabinet
+# Classic Navy Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Classic styling: turned legs, rolled arms, mouldings and brass.
 

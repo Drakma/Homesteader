@@ -1,4 +1,4 @@
-# Green Corrugated Steel Wall Siding Stack
+# Green Steel Siding Stack
 
 A stack of 10 corrugated steel wall siding panels lying flat, ribbed green painted finish, for metal garages and pole barns.
 

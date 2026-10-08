@@ -22,7 +22,8 @@
       "depot"
     ],
     "support_surface": true,
-    "deck_heights": "0.15, 0.62, 1.09, 1.56"
+    "deck_heights": "0.15, 0.62, 1.09, 1.56",
+    "store_category": "Shelving"
   },
   "models": [
     {

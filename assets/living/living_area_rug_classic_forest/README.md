@@ -1,4 +1,4 @@
-# Classic Forest Green Area Rug
+# Classic Green Area Rug
 
 A large woven area rug with a border and a medallion. Classic styling: turned legs, rolled arms, mouldings and brass.
 

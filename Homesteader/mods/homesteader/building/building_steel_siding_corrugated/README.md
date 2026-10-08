@@ -1,4 +1,4 @@
-# Corrugated Steel Wall Siding (`building_steel_siding_corrugated`)
+# Steel Siding (`building_steel_siding_corrugated`)
 
 ![Corrugated Steel Wall Siding Icon](building_steel_siding_corrugated.png)
 

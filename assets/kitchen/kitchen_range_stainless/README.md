@@ -1,4 +1,4 @@
-# Stainless Steel Gas Range
+# Steel Gas Range
 
 A freestanding four-burner gas range with cast-iron grates, a glass-window oven and a backguard. Stainless Steel finish.
 

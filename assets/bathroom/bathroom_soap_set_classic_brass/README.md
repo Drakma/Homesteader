@@ -1,4 +1,4 @@
-# Classic Antique Brass Soap and Toothbrush Set
+# Classic Brass Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Classic styling.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_freezer_upright_stainless",
-  "name": "Stainless Steel Upright Freezer",
+  "name": "Steel Upright Freezer",
   "category": "kitchen",
   "description": "A tall single-door upright freezer with a temperature light. Stainless Steel finish.",
   "icon": "kitchen_freezer_upright_stainless.png",
@@ -17,11 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "run_snap": true,
+    "store_category": "Kitchen/Freezer Upright Stainless"
   },
   "models": [
     {
@@ -81,5 +84,15 @@
     "kitchen_kind": "appliance",
     "finish": "stainless_steel",
     "power_draw_w": 130
+  },
+  "container": {
+    "capacity_kg": 90,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

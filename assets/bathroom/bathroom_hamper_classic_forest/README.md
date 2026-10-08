@@ -1,4 +1,4 @@
-# Classic Forest Green Laundry Hamper
+# Classic Green Hamper
 
 A laundry hamper with a fabric bag and a lid. Classic styling.
 

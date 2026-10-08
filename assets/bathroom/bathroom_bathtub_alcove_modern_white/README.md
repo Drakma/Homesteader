@@ -1,4 +1,4 @@
-# Modern White Alcove Bathtub
+# Modern White Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Modern styling.
 

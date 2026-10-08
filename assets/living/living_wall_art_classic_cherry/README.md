@@ -1,4 +1,4 @@
-# Classic Cherry Framed Picture
+# Classic Cherry Picture
 
 A framed picture. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

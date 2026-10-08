@@ -1,4 +1,4 @@
-# Classic Black Iron Pendant Light
+# Classic Iron Pendant
 
 A pendant light hanging on a cord from the ceiling. Classic styling. Hangs from the ceiling of a finished building.
 

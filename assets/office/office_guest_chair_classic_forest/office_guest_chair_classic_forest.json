@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "office_guest_chair_classic_forest",
-  "name": "Classic Forest Green Guest Chair",
+  "name": "Classic Green Guest Chair",
   "category": "office",
   "description": "An upholstered chair for visitors. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "office_guest_chair_classic_forest.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Office/Guest Chair"
   },
   "models": [
     {

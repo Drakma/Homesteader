@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_tv_modern_black",
+  "name": "Modern Black TV",
+  "category": "living",
+  "description": "A television set for the family room. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "living_tv_modern_black.png",
+  "properties": {
+    "weight_kg": 14.0,
+    "max_stack_size": 1,
+    "base_value": 380,
+    "is_consumable": false,
+    "footprint": "1.25m W x 0.22m D x 0.80m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Living Room/Tv"
+  },
+  "models": [
+    {
+      "file": "living_tv_modern_black.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.25,
+        "y": 0.8,
+        "z": 0.22
+      },
+      "triangles": 200
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "90 W",
+      "details": "Draws about 90 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.25,
+      "depth": 0.22,
+      "height": 0.8
+    },
+    "living_kind": "tv",
+    "style": "modern",
+    "color": "black",
+    "power_draw_w": 90
+  }
+}

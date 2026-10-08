@@ -1,4 +1,4 @@
-# Classic Camel Leather Ottoman
+# Classic Camel Ottoman
 
 A cushioned ottoman on short legs. Classic styling: turned legs, rolled arms, mouldings and brass.
 

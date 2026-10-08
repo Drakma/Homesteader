@@ -540,24 +540,6 @@
           {
             "item_id": "building_door_hardware_set",
             "quantity": 4
-          },
-          {
-            "section": "Chimney masonry",
-            "mode": "all",
-            "items": [
-              {
-                "item_id": "~chimney_masonry",
-                "quantity": 17
-              },
-              {
-                "item_id": "~mortar",
-                "quantity": 6
-              },
-              {
-                "item_id": "~water",
-                "quantity": 21
-              }
-            ]
           }
         ],
         "required_tools": [
@@ -705,6 +687,7 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "blueprint"
+    "sale_unit": "blueprint",
+    "store_category": "Structures & Kits"
   }
 }

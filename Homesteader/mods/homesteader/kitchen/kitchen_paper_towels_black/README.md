@@ -1,4 +1,4 @@
-# Black Paper Towel Holder
+# Black Towel Holder
 
 A weighted holder with a roll of paper towels. Black finish.
 

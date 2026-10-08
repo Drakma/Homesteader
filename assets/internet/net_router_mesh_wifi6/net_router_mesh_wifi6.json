@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "wire_role": "net_router",
-    "net_ports": 2
+    "net_ports": 2,
+    "store_category": "Telecom"
   },
   "models": [
     {

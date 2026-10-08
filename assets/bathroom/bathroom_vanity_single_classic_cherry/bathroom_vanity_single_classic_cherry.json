@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.835"
+    "deck_heights": "0.835",
+    "store_category": "Bathroom/Vanity Single"
   },
   "models": [
     {
@@ -86,5 +87,10 @@
     "color": "cherry",
     "water_per_use_l": 4,
     "water_usage_lpm": 6
+  },
+  "container": {
+    "capacity_kg": 30,
+    "accepts": [],
+    "show_fill": false
   }
 }

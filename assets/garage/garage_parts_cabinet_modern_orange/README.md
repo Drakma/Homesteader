@@ -1,4 +1,4 @@
-# Modern Safety Orange Parts Cabinet
+# Modern Orange Parts Cabinet
 
 A small-parts cabinet with 24 labelled drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

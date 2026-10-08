@@ -1,4 +1,4 @@
-# Classic White Garden Post Lamp
+# Classic White Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Classic styling. Stands on the ground.
 

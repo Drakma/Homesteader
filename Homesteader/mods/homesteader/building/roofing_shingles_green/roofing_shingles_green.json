@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_shingles_green",
-  "name": "Forest Green Shingles",
+  "name": "Green Shingles",
   "category": "building",
   "description": "Forest Green Shingles: a building finish. Used as a construction material it sets how that part of the building looks.",
   "icon": "roofing_shingles_green.png",
@@ -25,7 +25,8 @@
     "look_color": "#3f5b44",
     "look_smoothness": 0.15,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

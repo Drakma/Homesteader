@@ -26,7 +26,8 @@
     "attach_side": "exterior",
     "wire_role": "net_dish",
     "net_ports": 1,
-    "roof_mount": true
+    "roof_mount": true,
+    "store_category": "Telecom"
   },
   "models": [
     {

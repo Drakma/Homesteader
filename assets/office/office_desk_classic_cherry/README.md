@@ -1,4 +1,4 @@
-# Classic Cherry Writing Desk
+# Classic Cherry Desk
 
 A writing desk with a drawer pedestal. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -1,4 +1,4 @@
-# Classic Black Steel Wall Cabinet
+# Classic Black Upper Cabinet
 
 A two-door steel wall cabinet. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

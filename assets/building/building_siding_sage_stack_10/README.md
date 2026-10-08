@@ -1,4 +1,4 @@
-# Sage Green Clapboard Siding Stack
+# Sage Clapboard Siding Stack
 
 10 of Sage Green Clapboard Siding, stacked on a wooden pallet.
 

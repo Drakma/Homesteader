@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bathroom_pedestal_sink_modern_black",
-  "name": "Modern Matte Black Pedestal Sink",
+  "name": "Modern Black Pedestal Sink",
   "category": "bathroom",
   "description": "A basin on a pedestal with a faucet. Modern styling.",
   "icon": "bathroom_pedestal_sink_modern_black.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.85"
+    "deck_heights": "0.85",
+    "store_category": "Bathroom/Pedestal Sink"
   },
   "models": [
     {

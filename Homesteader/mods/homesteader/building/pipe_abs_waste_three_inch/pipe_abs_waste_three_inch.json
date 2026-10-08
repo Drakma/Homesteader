@@ -24,7 +24,8 @@
     "sale_unit": "kit",
     "display_weight": true,
     "wire_kind": "sewer",
-    "wire_length_m": 3
+    "wire_length_m": 3,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

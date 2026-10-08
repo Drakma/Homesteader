@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Path Light
+# Classic Bronze Path Light
 
 A small stake light for edging a path, on from dusk to dawn. Classic styling. Stands on the ground.
 

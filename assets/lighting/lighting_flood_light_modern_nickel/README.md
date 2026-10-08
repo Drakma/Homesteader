@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Security Flood Light
+# Modern Nickel Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

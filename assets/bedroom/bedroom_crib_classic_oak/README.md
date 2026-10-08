@@ -1,4 +1,4 @@
-# Classic Oak Baby Crib
+# Classic Oak Crib
 
 A baby crib with a mattress. Classic styling: turned legs, rolled arms, mouldings and brass.
 

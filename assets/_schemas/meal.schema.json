@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://homesteader.dev/schemas/meal.schema.json",
+  "title": "Meals file",
+  "description": "Meals the kitchen's Meals List can make. Loaded as mod content type 'meal' (assets/_meals/*.json). Reference: docs/COOKING.md. Checker: tools/meal_format.py. Code: Assets/Scripts/Kitchen/.",
+  "type": "object",
+  "required": [
+    "meals"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "meals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "ingredients"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Shown in the list; the result item's name when empty."
+          },
+          "group": {
+            "type": "string",
+            "description": "The heading it is listed under (Baking, Grilling, Cooking ...)."
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "item_id": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "container": {
+                "type": "string",
+                "description": "An empty liquid container item (a jar, a bottle) the meal fills."
+              },
+              "liquid": {
+                "type": "string",
+                "description": "The liquid it is filled with."
+              },
+              "liters": {
+                "type": "number",
+                "minimum": 0,
+                "description": "How much; 0 or missing = the container's capacity."
+              }
+            },
+            "description": "Either an item {item_id, quantity}, or a container filled with a liquid {container, liquid, liters?}: it needs an empty liquid container in the kitchen, which comes back full with what it holds kept."
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The recipe tree (tools/recipe_format.py): lines {item_id (item | #tag | ~equivalency), quantity} and sections {section, mode all|any, if {uses|not_uses}, items}. Consumed from the kitchen's containers and shelves."
+          },
+          "appliances": {
+            "type": "array",
+            "description": "Groups of tools; the kitchen needs ANY ONE of each group. Not consumed.",
+            "items": {
+              "type": "object",
+              "required": [
+                "tools"
+              ],
+              "properties": {
+                "tools": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "description": "An item id or a #tag."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

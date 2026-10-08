@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Exterior Wall Lantern
+# Classic Bronze Wall Lantern
 
 An exterior wall lantern, on from dusk to dawn. Mount it outside. Classic styling. Mounts on an outside wall.
 

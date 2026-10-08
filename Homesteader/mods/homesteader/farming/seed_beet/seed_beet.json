@@ -21,7 +21,8 @@
       "feed"
     ],
     "sale_unit": "packet",
-    "uses_per_item": 20
+    "uses_per_item": 20,
+    "store_category": "Farming"
   },
   "models": [],
   "utilities": {

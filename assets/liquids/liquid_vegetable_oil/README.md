@@ -12,7 +12,7 @@
 - **Flammable**: True
 
 ## Description
-Pressed seed oil for the kitchen.
+A blend of pressed seed oils for the kitchen: soybean and canola oils with corn, sunflower and cottonseed oils.
 
 A liquid is not carried or placed on its own: it fills a liquid container (a bucket, can, drum or tank, see the
 `liquid_container` schema) by volume, and its weight is the weight per liter times the liters held.

@@ -22,7 +22,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 90,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Concrete & Masonry"
   },
   "models": [
     {

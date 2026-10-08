@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wire_role": "battery",
     "capacity_wh": 1200,
-    "voltage_v": 12.8
+    "voltage_v": 12.8,
+    "store_category": "Batteries"
   },
   "models": [
     {

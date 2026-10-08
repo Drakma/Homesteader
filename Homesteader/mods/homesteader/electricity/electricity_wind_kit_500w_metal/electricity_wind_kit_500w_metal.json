@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "kit",
-    "builds_structure": "wind_turbine_500w_metal"
+    "builds_structure": "wind_turbine_500w_metal",
+    "store_category": "Wind & Power Poles"
   },
   "models": [
     {

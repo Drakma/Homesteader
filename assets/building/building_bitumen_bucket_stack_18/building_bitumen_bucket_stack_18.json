@@ -23,7 +23,8 @@
     "sale_unit": "kit",
     "placeable": true,
     "display_weight": true,
-    "pack_quantity": 18
+    "pack_quantity": 18,
+    "store_category": "Roofing"
   },
   "models": [
     {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_corner_base_oak",
-  "name": "Oak Corner Base Cabinet",
+  "name": "Oak Corner Lower Cabinet",
   "category": "kitchen",
   "description": "An L-shaped corner base cabinet with a countertop, for turning a counter run round a corner. Oak, butcher-block top.",
   "icon": "kitchen_corner_base_oak.png",
@@ -10,21 +10,22 @@
     "max_stack_size": 1,
     "base_value": 290,
     "is_consumable": false,
-    "footprint": "0.90m W x 0.94m D x 0.92m H",
+    "footprint": "0.90m W x 0.90m D x 0.92m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "run_snap": true
   },
   "models": [
     {
@@ -33,9 +34,9 @@
       "dimensions_m": {
         "x": 0.9,
         "y": 0.92,
-        "z": 0.935
+        "z": 0.9
       },
-      "triangles": 212
+      "triangles": 356
     }
   ],
   "utilities": {
@@ -78,11 +79,21 @@
   "category_fields": {
     "dimensions_m": {
       "width": 0.9,
-      "depth": 0.935,
+      "depth": 0.9,
       "height": 0.92
     },
     "kitchen_kind": "cabinet",
     "finish": "oak",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 60,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

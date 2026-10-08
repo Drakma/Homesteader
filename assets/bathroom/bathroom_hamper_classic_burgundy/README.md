@@ -1,4 +1,4 @@
-# Classic Burgundy Laundry Hamper
+# Classic Burgundy Hamper
 
 A laundry hamper with a fabric bag and a lid. Classic styling.
 

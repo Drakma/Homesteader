@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Barn Light
+# Modern Nickel Barn Light
 
 A gooseneck barn light with a wide shade, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

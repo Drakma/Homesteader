@@ -1,4 +1,4 @@
-# Modern Mustard Laundry Basket
+# Modern Mustard Basket
 
 A laundry basket with clothes in it. Modern styling: clean lines, slim tapered legs and black metal.
 

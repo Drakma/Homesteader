@@ -1,4 +1,4 @@
-# Modern Chrome Pendant Light
+# Modern Chrome Pendant
 
 A pendant light hanging on a cord from the ceiling. Modern styling. Hangs from the ceiling of a finished building.
 

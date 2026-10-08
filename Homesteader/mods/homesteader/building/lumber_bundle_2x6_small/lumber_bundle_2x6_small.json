@@ -24,7 +24,8 @@
     "placeable": true,
     "pack_quantity": 10,
     "display_weight": true,
-    "stacking_limit": 3
+    "stacking_limit": 3,
+    "store_category": "Lumber & Framing"
   },
   "models": [
     {

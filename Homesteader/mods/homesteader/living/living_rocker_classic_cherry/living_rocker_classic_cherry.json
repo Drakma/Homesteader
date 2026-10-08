@@ -1,0 +1,88 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_rocker_classic_cherry",
+  "name": "Classic Cherry Rocker",
+  "category": "living",
+  "description": "A rocking chair for the family room. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_rocker_classic_cherry.png",
+  "properties": {
+    "weight_kg": 9.0,
+    "max_stack_size": 1,
+    "base_value": 190,
+    "is_consumable": false,
+    "footprint": "0.65m W x 0.73m D x 1.03m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Living Room/Rocker"
+  },
+  "models": [
+    {
+      "file": "living_rocker_classic_cherry.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.65,
+        "y": 1.028,
+        "z": 0.733
+      },
+      "triangles": 976
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.65,
+      "depth": 0.733,
+      "height": 1.028
+    },
+    "living_kind": "rocker",
+    "style": "classic",
+    "color": "cherry",
+    "power_draw_w": 0
+  }
+}

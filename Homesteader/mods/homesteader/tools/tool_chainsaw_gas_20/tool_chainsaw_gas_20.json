@@ -20,7 +20,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Hand Tools/Logging & Saws"
   },
   "models": [
     {

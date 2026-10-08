@@ -1,4 +1,4 @@
-# Stainless Steel Countertop Microwave
+# Steel Microwave
 
 A countertop microwave oven with a window door and a keypad. Stainless Steel finish.
 

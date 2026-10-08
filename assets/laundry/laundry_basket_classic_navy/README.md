@@ -1,4 +1,4 @@
-# Classic Navy Laundry Basket
+# Classic Navy Basket
 
 A laundry basket with clothes in it. Classic styling: turned legs, rolled arms, mouldings and brass.
 

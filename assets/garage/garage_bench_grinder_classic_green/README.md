@@ -1,4 +1,4 @@
-# Classic Forest Green Bench Grinder
+# Classic Green Bench Grinder
 
 A bench grinder with two wheels. Classic styling: turned legs, rolled arms, mouldings and brass.
 

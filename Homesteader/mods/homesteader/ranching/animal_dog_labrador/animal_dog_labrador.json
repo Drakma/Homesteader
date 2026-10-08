@@ -20,7 +20,8 @@
     "stores": [
       "feed"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Ranching"
   },
   "models": [
     {

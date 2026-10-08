@@ -1,4 +1,4 @@
-# Modern Matte Black Garden Post Lamp
+# Modern Black Post Lamp
 
 A tall garden lamp post, on from dusk to dawn. Modern styling. Stands on the ground.
 

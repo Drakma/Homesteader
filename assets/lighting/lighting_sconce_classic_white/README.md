@@ -1,4 +1,4 @@
-# Classic White Wall Sconce
+# Classic White Sconce
 
 A wall sconce for a hall or a bedroom. Mount it inside. Classic styling. Mounts on an inside wall.
 

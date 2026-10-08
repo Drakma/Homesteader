@@ -1,4 +1,4 @@
-# Modern White Pegboard Wall Panel
+# Modern White Pegboard
 
 A pegboard with a hammer, a saw and wrenches on hooks. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

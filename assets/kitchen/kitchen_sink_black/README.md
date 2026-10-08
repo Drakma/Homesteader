@@ -1,5 +1,5 @@
-# Black Kitchen Sink Cabinet
+# Black Lower Sink Cabinet
 
 A double-bowl sink in a cabinet with a countertop, a tall arched faucet and a soap dispenser. Black finish.
 
-Procedural model (tools/make_kitchen_assets.py, tools/kitchen_models.py), 796 triangles, 0.90 x 0.63 x 1.23 m (W x D x H).
+Procedural model (tools/make_kitchen_assets.py, tools/kitchen_models.py), 764 triangles, 0.90 x 0.63 x 1.23 m (W x D x H).

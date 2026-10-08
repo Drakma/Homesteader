@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_picture_light_modern_nickel",
-  "name": "Modern Brushed Nickel Picture Light",
+  "name": "Modern Nickel Picture Light",
   "category": "lighting",
   "description": "A slim light to hang over a picture or a mirror. Mount it inside. Modern styling.",
   "icon": "lighting_picture_light_modern_nickel.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Picture Light"
   },
   "models": [
     {

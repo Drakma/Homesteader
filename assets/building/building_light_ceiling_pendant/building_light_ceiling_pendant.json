@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "attach_surface": "ceiling",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Ceiling Pendant"
   },
   "models": [
     {

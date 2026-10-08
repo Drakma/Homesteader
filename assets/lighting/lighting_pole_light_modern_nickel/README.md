@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Yard Pole Light
+# Modern Nickel Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Modern styling. Stands on the ground.
 

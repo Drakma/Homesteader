@@ -1,4 +1,4 @@
-# Modern Navy Freestanding Bathtub
+# Modern Navy Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Modern styling.
 

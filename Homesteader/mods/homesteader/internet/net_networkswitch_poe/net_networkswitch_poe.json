@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wire_role": "net_switch",
     "net_ports": 5,
-    "poe": true
+    "poe": true,
+    "store_category": "Telecom"
   },
   "models": [
     {

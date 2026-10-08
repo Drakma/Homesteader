@@ -1,4 +1,4 @@
-# Hanging Pot Rack
+# Pot Rack
 
 A wall rack with a bar, hooks and three hanging pans. Mount it on a wall.
 

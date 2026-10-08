@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_end_bench_classic_camel",
-  "name": "Classic Camel Leather Bed-End Bench",
+  "name": "Classic Camel End Bench",
   "category": "bedroom",
   "description": "A cushioned bench for the foot of a bed. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_end_bench_classic_camel.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.48"
+    "deck_heights": "0.48",
+    "store_category": "Bedroom/End Bench"
   },
   "models": [
     {

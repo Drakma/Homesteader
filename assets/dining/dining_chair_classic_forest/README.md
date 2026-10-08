@@ -1,4 +1,4 @@
-# Classic Forest Green Dining Chair
+# Classic Green Dining Chair
 
 An upholstered dining chair. Classic styling: turned legs, rolled arms, mouldings and brass.
 

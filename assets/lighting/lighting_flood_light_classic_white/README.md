@@ -1,4 +1,4 @@
-# Classic White Security Flood Light
+# Classic White Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Classic styling. Mounts on an outside wall.
 

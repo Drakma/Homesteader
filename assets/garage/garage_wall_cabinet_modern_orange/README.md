@@ -1,4 +1,4 @@
-# Modern Safety Orange Steel Wall Cabinet
+# Modern Orange Upper Cabinet
 
 A two-door steel wall cabinet. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

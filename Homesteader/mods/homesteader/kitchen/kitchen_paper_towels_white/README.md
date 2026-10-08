@@ -1,4 +1,4 @@
-# White Paper Towel Holder
+# White Towel Holder
 
 A weighted holder with a roll of paper towels. White finish.
 

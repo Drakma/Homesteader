@@ -1,4 +1,4 @@
-# Classic Antique Brass Path Light
+# Classic Brass Path Light
 
 A small stake light for edging a path, on from dusk to dawn. Classic styling. Stands on the ground.
 

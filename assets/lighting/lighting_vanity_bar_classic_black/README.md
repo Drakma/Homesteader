@@ -1,4 +1,4 @@
-# Classic Black Iron Vanity Light Bar
+# Classic Iron Vanity Bar
 
 A three-light vanity bar to go over a mirror. Mount it inside. Classic styling. Mounts on an inside wall.
 

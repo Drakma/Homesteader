@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "kit",
-    "builds_structure": "wind_turbine_100w_wood"
+    "builds_structure": "wind_turbine_100w_wood",
+    "store_category": "Wind & Power Poles"
   },
   "models": [
     {

@@ -23,7 +23,8 @@
     "sale_unit": "ea",
     "burn_minutes": 225,
     "display_weight": true,
-    "placeable": true
+    "placeable": true,
+    "store_category": "Fuel"
   },
   "models": [
     {

@@ -15,28 +15,28 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1094**
+Total Indexed Items: **1269**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 36 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 434 items | Modular building materials, framing, doors, windows, and hardware supplies. |
-| [**Farming**](farming/) | 68 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
+| [**Building**](building/) | 436 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Farming**](farming/) | 70 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
-| [**Logging**](logging/) | 25 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
+| [**Logging**](logging/) | 43 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
 | [**Fishing**](fishing/) | 19 items | Whole fish species, precision meat fillets, fishing rods, lures, and tackle. |
-| [**Tools**](tools/) | 68 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
+| [**Tools**](tools/) | 69 items | Hand tools, power gear, crafting implements, and surveying/measuring equipment. |
 | [**Electricity**](electricity/) | 65 items | Solar photovoltaic panels, wind turbines, fuel generators, battery banks, and high-voltage wiring. |
 | [**Water**](water/) | 45 items | Aquifer wells, pressure tanks, poly cisterns, rain catchment barrels, and filtration racks. |
 | [**Waste**](waste/) | 19 items | Septic infrastructure, compost systems, composting toilets, and organic waste management. |
 | [**Internet**](internet/) | 24 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
 | [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
-| [**Food**](food/) | 53 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
+| [**Food**](food/) | 124 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 33 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
 | [**Materials**](materials/) | 82 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
-| [**Ingredients**](ingredients/) | 22 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
-| [**Liquids**](liquids/) | 24 items | Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per liter, a fluid colour and an opacity. |
+| [**Ingredients**](ingredients/) | 67 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
+| [**Liquids**](liquids/) | 60 items | Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per liter, a fluid colour and an opacity. |
 
 ### Shared System & World Asset Directories
 
@@ -88,7 +88,7 @@ Total Indexed Items: **1094**
 | `wind_turbine_200w_metal` | 200W Metal Wind Turbine | — | — | [wind_turbine_200w_metal.json](structures/wind_turbine_200w_metal/wind_turbine_200w_metal.json) |
 | `wind_turbine_500w_metal` | 500W Metal Wind Turbine | — | — | [wind_turbine_500w_metal.json](structures/wind_turbine_500w_metal/wind_turbine_500w_metal.json) |
 
-### 📂 [Building](building/) (434 items)
+### 📂 [Building](building/) (436 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -121,6 +121,8 @@ Total Indexed Items: **1094**
 | `building_bitumen_bucket_stack_9` | Bitumen (Bucket) Stack | ✅ Yes | — | [building_bitumen_bucket_stack_9.json](building/building_bitumen_bucket_stack_9/building_bitumen_bucket_stack_9.json) |
 | `building_bundle_rafter_2x8_large` | Large 2x8 Rafter Bundle | ✅ Yes | — | [building_bundle_rafter_2x8_large.json](building/building_bundle_rafter_2x8_large/building_bundle_rafter_2x8_large.json) |
 | `building_bundle_rafter_2x8_small` | Small 2x8 Rafter Bundle | ✅ Yes | — | [building_bundle_rafter_2x8_small.json](building/building_bundle_rafter_2x8_small/building_bundle_rafter_2x8_small.json) |
+| `building_chimney_kit_brick` | Brick Chimney Kit | ✅ Yes | — | [building_chimney_kit_brick.json](building/building_chimney_kit_brick/building_chimney_kit_brick.json) |
+| `building_chimney_kit_stone` | Fieldstone Chimney Kit | ✅ Yes | — | [building_chimney_kit_stone.json](building/building_chimney_kit_stone/building_chimney_kit_stone.json) |
 | `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |
 | `building_concrete_block` | Concrete Block | ✅ Yes | — | [building_concrete_block.json](building/building_concrete_block/building_concrete_block.json) |
 | `building_concrete_block_pallet_large` | Concrete Block Pallet | ✅ Yes | — | [building_concrete_block_pallet_large.json](building/building_concrete_block_pallet_large/building_concrete_block_pallet_large.json) |
@@ -215,8 +217,8 @@ Total Indexed Items: **1094**
 | `building_light_grow_2bulb` | Small Grow Light | ✅ Yes | — | [building_light_grow_2bulb.json](building/building_light_grow_2bulb/building_light_grow_2bulb.json) |
 | `building_light_grow_4bulb` | Grow Light | ✅ Yes | — | [building_light_grow_4bulb.json](building/building_light_grow_4bulb/building_light_grow_4bulb.json) |
 | `building_light_grow_8bulb` | Large Grow Light | ✅ Yes | — | [building_light_grow_8bulb.json](building/building_light_grow_8bulb/building_light_grow_8bulb.json) |
-| `building_light_sconce_exterior` | Exterior Wall Lantern | ✅ Yes | — | [building_light_sconce_exterior.json](building/building_light_sconce_exterior/building_light_sconce_exterior.json) |
-| `building_light_sconce_interior` | Wall Sconce | ✅ Yes | — | [building_light_sconce_interior.json](building/building_light_sconce_interior/building_light_sconce_interior.json) |
+| `building_light_sconce_exterior` | Wall Lantern | ✅ Yes | — | [building_light_sconce_exterior.json](building/building_light_sconce_exterior/building_light_sconce_exterior.json) |
+| `building_light_sconce_interior` | Sconce | ✅ Yes | — | [building_light_sconce_interior.json](building/building_light_sconce_interior/building_light_sconce_interior.json) |
 | `building_lumber_joist_2x10` | Joist 2x10 | ✅ Yes | — | [building_lumber_joist_2x10.json](building/building_lumber_joist_2x10/building_lumber_joist_2x10.json) |
 | `building_lumber_rafter_2x8` | Rafter 2x8 | ✅ Yes | — | [building_lumber_rafter_2x8.json](building/building_lumber_rafter_2x8/building_lumber_rafter_2x8.json) |
 | `building_metal` | Metal Sheet | ✅ Yes | — | [building_metal.json](building/building_metal/building_metal.json) |
@@ -233,7 +235,7 @@ Total Indexed Items: **1094**
 | `building_paint_lavender` | Interior Paint: Lavender | ✅ Yes | — | [building_paint_lavender.json](building/building_paint_lavender/building_paint_lavender.json) |
 | `building_paint_mustard` | Interior Paint: Mustard Yellow | ✅ Yes | — | [building_paint_mustard.json](building/building_paint_mustard/building_paint_mustard.json) |
 | `building_paint_navy` | Interior Paint: Deep Navy | ✅ Yes | — | [building_paint_navy.json](building/building_paint_navy/building_paint_navy.json) |
-| `building_paint_sage` | Interior Paint: Sage Green | ✅ Yes | — | [building_paint_sage.json](building/building_paint_sage/building_paint_sage.json) |
+| `building_paint_sage` | Interior Paint: Sage | ✅ Yes | — | [building_paint_sage.json](building/building_paint_sage/building_paint_sage.json) |
 | `building_paint_sky_blue` | Interior Paint: Sky Blue | ✅ Yes | — | [building_paint_sky_blue.json](building/building_paint_sky_blue/building_paint_sky_blue.json) |
 | `building_paint_terracotta` | Interior Paint: Terracotta | ✅ Yes | — | [building_paint_terracotta.json](building/building_paint_terracotta/building_paint_terracotta.json) |
 | `building_pallet_wood` | Mat Pallet Wood | ✅ Yes | — | [building_pallet_wood.json](building/building_pallet_wood/building_pallet_wood.json) |
@@ -258,7 +260,7 @@ Total Indexed Items: **1094**
 | `building_shelf_wall_wood_long` | Long Wall Shelf | ✅ Yes | — | [building_shelf_wall_wood_long.json](building/building_shelf_wall_wood_long/building_shelf_wall_wood_long.json) |
 | `building_shelving_melamine_black` | Black Melamine Shelving Unit | ✅ Yes | — | [building_shelving_melamine_black.json](building/building_shelving_melamine_black/building_shelving_melamine_black.json) |
 | `building_shelving_melamine_white` | White Melamine Shelving Unit | ✅ Yes | — | [building_shelving_melamine_white.json](building/building_shelving_melamine_white/building_shelving_melamine_white.json) |
-| `building_shelving_steel` | Steel Shelving Unit | ✅ Yes | — | [building_shelving_steel.json](building/building_shelving_steel/building_shelving_steel.json) |
+| `building_shelving_steel` | Shelving | ✅ Yes | — | [building_shelving_steel.json](building/building_shelving_steel/building_shelving_steel.json) |
 | `building_siding_barn_red` | Barn Red Board Siding | ✅ Yes | — | [building_siding_barn_red.json](building/building_siding_barn_red/building_siding_barn_red.json) |
 | `building_siding_barn_red_stack_10` | Barn Red Board Siding Stack | ✅ Yes | — | [building_siding_barn_red_stack_10.json](building/building_siding_barn_red_stack_10/building_siding_barn_red_stack_10.json) |
 | `building_siding_barn_red_stack_20` | Barn Red Board Siding Stack | ✅ Yes | — | [building_siding_barn_red_stack_20.json](building/building_siding_barn_red_stack_20/building_siding_barn_red_stack_20.json) |
@@ -274,9 +276,9 @@ Total Indexed Items: **1094**
 | `building_siding_cream` | Cream Clapboard Siding | ✅ Yes | — | [building_siding_cream.json](building/building_siding_cream/building_siding_cream.json) |
 | `building_siding_cream_stack_10` | Cream Clapboard Siding Stack | ✅ Yes | — | [building_siding_cream_stack_10.json](building/building_siding_cream_stack_10/building_siding_cream_stack_10.json) |
 | `building_siding_cream_stack_20` | Cream Clapboard Siding Stack | ✅ Yes | — | [building_siding_cream_stack_20.json](building/building_siding_cream_stack_20/building_siding_cream_stack_20.json) |
-| `building_siding_sage` | Sage Green Clapboard Siding | ✅ Yes | — | [building_siding_sage.json](building/building_siding_sage/building_siding_sage.json) |
-| `building_siding_sage_stack_10` | Sage Green Clapboard Siding Stack | ✅ Yes | — | [building_siding_sage_stack_10.json](building/building_siding_sage_stack_10/building_siding_sage_stack_10.json) |
-| `building_siding_sage_stack_20` | Sage Green Clapboard Siding Stack | ✅ Yes | — | [building_siding_sage_stack_20.json](building/building_siding_sage_stack_20/building_siding_sage_stack_20.json) |
+| `building_siding_sage` | Sage Clapboard Siding | ✅ Yes | — | [building_siding_sage.json](building/building_siding_sage/building_siding_sage.json) |
+| `building_siding_sage_stack_10` | Sage Clapboard Siding Stack | ✅ Yes | — | [building_siding_sage_stack_10.json](building/building_siding_sage_stack_10/building_siding_sage_stack_10.json) |
+| `building_siding_sage_stack_20` | Sage Clapboard Siding Stack | ✅ Yes | — | [building_siding_sage_stack_20.json](building/building_siding_sage_stack_20/building_siding_sage_stack_20.json) |
 | `building_siding_slate_blue` | Slate Blue Clapboard Siding | ✅ Yes | — | [building_siding_slate_blue.json](building/building_siding_slate_blue/building_siding_slate_blue.json) |
 | `building_siding_slate_blue_stack_10` | Slate Blue Clapboard Siding Stack | ✅ Yes | — | [building_siding_slate_blue_stack_10.json](building/building_siding_slate_blue_stack_10/building_siding_slate_blue_stack_10.json) |
 | `building_siding_slate_blue_stack_20` | Slate Blue Clapboard Siding Stack | ✅ Yes | — | [building_siding_slate_blue_stack_20.json](building/building_siding_slate_blue_stack_20/building_siding_slate_blue_stack_20.json) |
@@ -294,18 +296,18 @@ Total Indexed Items: **1094**
 | `building_steel_frame_beam` | Steel Rigid Frame Beam | ✅ Yes | — | [building_steel_frame_beam.json](building/building_steel_frame_beam/building_steel_frame_beam.json) |
 | `building_steel_frame_beam_stack_10` | Steel Rigid Frame Beam Stack | ✅ Yes | — | [building_steel_frame_beam_stack_10.json](building/building_steel_frame_beam_stack_10/building_steel_frame_beam_stack_10.json) |
 | `building_steel_frame_beam_stack_20` | Steel Rigid Frame Beam Stack | ✅ Yes | — | [building_steel_frame_beam_stack_20.json](building/building_steel_frame_beam_stack_20/building_steel_frame_beam_stack_20.json) |
-| `building_steel_siding_corrugated` | Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated.json](building/building_steel_siding_corrugated/building_steel_siding_corrugated.json) |
-| `building_steel_siding_corrugated_black` | Black Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated_black.json](building/building_steel_siding_corrugated_black/building_steel_siding_corrugated_black.json) |
-| `building_steel_siding_corrugated_black_stack_10` | Black Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_black_stack_10.json](building/building_steel_siding_corrugated_black_stack_10/building_steel_siding_corrugated_black_stack_10.json) |
-| `building_steel_siding_corrugated_black_stack_20` | Black Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_black_stack_20.json](building/building_steel_siding_corrugated_black_stack_20/building_steel_siding_corrugated_black_stack_20.json) |
-| `building_steel_siding_corrugated_green` | Green Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated_green.json](building/building_steel_siding_corrugated_green/building_steel_siding_corrugated_green.json) |
-| `building_steel_siding_corrugated_green_stack_10` | Green Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_green_stack_10.json](building/building_steel_siding_corrugated_green_stack_10/building_steel_siding_corrugated_green_stack_10.json) |
-| `building_steel_siding_corrugated_green_stack_20` | Green Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_green_stack_20.json](building/building_steel_siding_corrugated_green_stack_20/building_steel_siding_corrugated_green_stack_20.json) |
-| `building_steel_siding_corrugated_red` | Red Corrugated Steel Wall Siding | ✅ Yes | — | [building_steel_siding_corrugated_red.json](building/building_steel_siding_corrugated_red/building_steel_siding_corrugated_red.json) |
-| `building_steel_siding_corrugated_red_stack_10` | Red Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_red_stack_10.json](building/building_steel_siding_corrugated_red_stack_10/building_steel_siding_corrugated_red_stack_10.json) |
-| `building_steel_siding_corrugated_red_stack_20` | Red Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_red_stack_20.json](building/building_steel_siding_corrugated_red_stack_20/building_steel_siding_corrugated_red_stack_20.json) |
-| `building_steel_siding_corrugated_stack_10` | Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_stack_10.json](building/building_steel_siding_corrugated_stack_10/building_steel_siding_corrugated_stack_10.json) |
-| `building_steel_siding_corrugated_stack_20` | Corrugated Steel Wall Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_stack_20.json](building/building_steel_siding_corrugated_stack_20/building_steel_siding_corrugated_stack_20.json) |
+| `building_steel_siding_corrugated` | Steel Siding | ✅ Yes | — | [building_steel_siding_corrugated.json](building/building_steel_siding_corrugated/building_steel_siding_corrugated.json) |
+| `building_steel_siding_corrugated_black` | Black Steel Siding | ✅ Yes | — | [building_steel_siding_corrugated_black.json](building/building_steel_siding_corrugated_black/building_steel_siding_corrugated_black.json) |
+| `building_steel_siding_corrugated_black_stack_10` | Black Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_black_stack_10.json](building/building_steel_siding_corrugated_black_stack_10/building_steel_siding_corrugated_black_stack_10.json) |
+| `building_steel_siding_corrugated_black_stack_20` | Black Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_black_stack_20.json](building/building_steel_siding_corrugated_black_stack_20/building_steel_siding_corrugated_black_stack_20.json) |
+| `building_steel_siding_corrugated_green` | Green Steel Siding | ✅ Yes | — | [building_steel_siding_corrugated_green.json](building/building_steel_siding_corrugated_green/building_steel_siding_corrugated_green.json) |
+| `building_steel_siding_corrugated_green_stack_10` | Green Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_green_stack_10.json](building/building_steel_siding_corrugated_green_stack_10/building_steel_siding_corrugated_green_stack_10.json) |
+| `building_steel_siding_corrugated_green_stack_20` | Green Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_green_stack_20.json](building/building_steel_siding_corrugated_green_stack_20/building_steel_siding_corrugated_green_stack_20.json) |
+| `building_steel_siding_corrugated_red` | Red Steel Siding | ✅ Yes | — | [building_steel_siding_corrugated_red.json](building/building_steel_siding_corrugated_red/building_steel_siding_corrugated_red.json) |
+| `building_steel_siding_corrugated_red_stack_10` | Red Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_red_stack_10.json](building/building_steel_siding_corrugated_red_stack_10/building_steel_siding_corrugated_red_stack_10.json) |
+| `building_steel_siding_corrugated_red_stack_20` | Red Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_red_stack_20.json](building/building_steel_siding_corrugated_red_stack_20/building_steel_siding_corrugated_red_stack_20.json) |
+| `building_steel_siding_corrugated_stack_10` | Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_stack_10.json](building/building_steel_siding_corrugated_stack_10/building_steel_siding_corrugated_stack_10.json) |
+| `building_steel_siding_corrugated_stack_20` | Steel Siding Stack | ✅ Yes | — | [building_steel_siding_corrugated_stack_20.json](building/building_steel_siding_corrugated_stack_20/building_steel_siding_corrugated_stack_20.json) |
 | `building_steel_stud_framing` | Steel Stud (Metal Framing) | ✅ Yes | — | [building_steel_stud_framing.json](building/building_steel_stud_framing/building_steel_stud_framing.json) |
 | `building_steel_stud_framing_stack_10` | Steel Stud (Metal Framing) Stack | ✅ Yes | — | [building_steel_stud_framing_stack_10.json](building/building_steel_stud_framing_stack_10/building_steel_stud_framing_stack_10.json) |
 | `building_steel_stud_framing_stack_20` | Steel Stud (Metal Framing) Stack | ✅ Yes | — | [building_steel_stud_framing_stack_20.json](building/building_steel_stud_framing_stack_20/building_steel_stud_framing_stack_20.json) |
@@ -469,22 +471,22 @@ Total Indexed Items: **1094**
 | `roofing_clay_tile` | Terracotta Clay Tile | ✅ Yes | — | [roofing_clay_tile.json](building/roofing_clay_tile/roofing_clay_tile.json) |
 | `roofing_clay_tile_stack_10` | Terracotta Clay Tile Stack | ✅ Yes | — | [roofing_clay_tile_stack_10.json](building/roofing_clay_tile_stack_10/roofing_clay_tile_stack_10.json) |
 | `roofing_clay_tile_stack_20` | Terracotta Clay Tile Stack | ✅ Yes | — | [roofing_clay_tile_stack_20.json](building/roofing_clay_tile_stack_20/roofing_clay_tile_stack_20.json) |
-| `roofing_seam_black` | Standing Seam Black Metal Roofing | ✅ Yes | — | [roofing_seam_black.json](building/roofing_seam_black/roofing_seam_black.json) |
-| `roofing_seam_black_stack_10` | Standing Seam Black Metal Roofing Stack | ✅ Yes | — | [roofing_seam_black_stack_10.json](building/roofing_seam_black_stack_10/roofing_seam_black_stack_10.json) |
-| `roofing_seam_black_stack_20` | Standing Seam Black Metal Roofing Stack | ✅ Yes | — | [roofing_seam_black_stack_20.json](building/roofing_seam_black_stack_20/roofing_seam_black_stack_20.json) |
-| `roofing_seam_green` | Standing Seam Green Metal Roofing | ✅ Yes | — | [roofing_seam_green.json](building/roofing_seam_green/roofing_seam_green.json) |
-| `roofing_seam_green_stack_10` | Standing Seam Green Metal Roofing Stack | ✅ Yes | — | [roofing_seam_green_stack_10.json](building/roofing_seam_green_stack_10/roofing_seam_green_stack_10.json) |
-| `roofing_seam_green_stack_20` | Standing Seam Green Metal Roofing Stack | ✅ Yes | — | [roofing_seam_green_stack_20.json](building/roofing_seam_green_stack_20/roofing_seam_green_stack_20.json) |
-| `roofing_seam_red` | Standing Seam Red Metal Roofing | ✅ Yes | — | [roofing_seam_red.json](building/roofing_seam_red/roofing_seam_red.json) |
-| `roofing_seam_red_stack_10` | Standing Seam Red Metal Roofing Stack | ✅ Yes | — | [roofing_seam_red_stack_10.json](building/roofing_seam_red_stack_10/roofing_seam_red_stack_10.json) |
-| `roofing_seam_red_stack_20` | Standing Seam Red Metal Roofing Stack | ✅ Yes | — | [roofing_seam_red_stack_20.json](building/roofing_seam_red_stack_20/roofing_seam_red_stack_20.json) |
+| `roofing_seam_black` | Black Seam Roofing | ✅ Yes | — | [roofing_seam_black.json](building/roofing_seam_black/roofing_seam_black.json) |
+| `roofing_seam_black_stack_10` | Black Seam Roofing Stack | ✅ Yes | — | [roofing_seam_black_stack_10.json](building/roofing_seam_black_stack_10/roofing_seam_black_stack_10.json) |
+| `roofing_seam_black_stack_20` | Black Seam Roofing Stack | ✅ Yes | — | [roofing_seam_black_stack_20.json](building/roofing_seam_black_stack_20/roofing_seam_black_stack_20.json) |
+| `roofing_seam_green` | Green Seam Roofing | ✅ Yes | — | [roofing_seam_green.json](building/roofing_seam_green/roofing_seam_green.json) |
+| `roofing_seam_green_stack_10` | Green Seam Roofing Stack | ✅ Yes | — | [roofing_seam_green_stack_10.json](building/roofing_seam_green_stack_10/roofing_seam_green_stack_10.json) |
+| `roofing_seam_green_stack_20` | Green Seam Roofing Stack | ✅ Yes | — | [roofing_seam_green_stack_20.json](building/roofing_seam_green_stack_20/roofing_seam_green_stack_20.json) |
+| `roofing_seam_red` | Red Seam Roofing | ✅ Yes | — | [roofing_seam_red.json](building/roofing_seam_red/roofing_seam_red.json) |
+| `roofing_seam_red_stack_10` | Red Seam Roofing Stack | ✅ Yes | — | [roofing_seam_red_stack_10.json](building/roofing_seam_red_stack_10/roofing_seam_red_stack_10.json) |
+| `roofing_seam_red_stack_20` | Red Seam Roofing Stack | ✅ Yes | — | [roofing_seam_red_stack_20.json](building/roofing_seam_red_stack_20/roofing_seam_red_stack_20.json) |
 | `roofing_shingles_brown` | Brown Asphalt Shingles | ✅ Yes | — | [roofing_shingles_brown.json](building/roofing_shingles_brown/roofing_shingles_brown.json) |
 | `roofing_shingles_brown_stack_10` | Brown Asphalt Shingles Stack | ✅ Yes | — | [roofing_shingles_brown_stack_10.json](building/roofing_shingles_brown_stack_10/roofing_shingles_brown_stack_10.json) |
 | `roofing_shingles_brown_stack_20` | Brown Asphalt Shingles Stack | ✅ Yes | — | [roofing_shingles_brown_stack_20.json](building/roofing_shingles_brown_stack_20/roofing_shingles_brown_stack_20.json) |
 | `roofing_shingles_bundle` | Asphalt Shingles Bundle | ✅ Yes | — | [roofing_shingles_bundle.json](building/roofing_shingles_bundle/roofing_shingles_bundle.json) |
-| `roofing_shingles_green` | Forest Green Shingles | ✅ Yes | — | [roofing_shingles_green.json](building/roofing_shingles_green/roofing_shingles_green.json) |
-| `roofing_shingles_green_stack_10` | Forest Green Shingles Stack | ✅ Yes | — | [roofing_shingles_green_stack_10.json](building/roofing_shingles_green_stack_10/roofing_shingles_green_stack_10.json) |
-| `roofing_shingles_green_stack_20` | Forest Green Shingles Stack | ✅ Yes | — | [roofing_shingles_green_stack_20.json](building/roofing_shingles_green_stack_20/roofing_shingles_green_stack_20.json) |
+| `roofing_shingles_green` | Green Shingles | ✅ Yes | — | [roofing_shingles_green.json](building/roofing_shingles_green/roofing_shingles_green.json) |
+| `roofing_shingles_green_stack_10` | Green Shingles Stack | ✅ Yes | — | [roofing_shingles_green_stack_10.json](building/roofing_shingles_green_stack_10/roofing_shingles_green_stack_10.json) |
+| `roofing_shingles_green_stack_20` | Green Shingles Stack | ✅ Yes | — | [roofing_shingles_green_stack_20.json](building/roofing_shingles_green_stack_20/roofing_shingles_green_stack_20.json) |
 | `roofing_shingles_red` | Red Asphalt Shingles | ✅ Yes | — | [roofing_shingles_red.json](building/roofing_shingles_red/roofing_shingles_red.json) |
 | `roofing_shingles_red_stack_10` | Red Asphalt Shingles Stack | ✅ Yes | — | [roofing_shingles_red_stack_10.json](building/roofing_shingles_red_stack_10/roofing_shingles_red_stack_10.json) |
 | `roofing_shingles_red_stack_20` | Red Asphalt Shingles Stack | ✅ Yes | — | [roofing_shingles_red_stack_20.json](building/roofing_shingles_red_stack_20/roofing_shingles_red_stack_20.json) |
@@ -494,18 +496,18 @@ Total Indexed Items: **1094**
 | `roofing_slate_tile` | Natural Slate Tile | ✅ Yes | — | [roofing_slate_tile.json](building/roofing_slate_tile/roofing_slate_tile.json) |
 | `roofing_slate_tile_stack_10` | Natural Slate Tile Stack | ✅ Yes | — | [roofing_slate_tile_stack_10.json](building/roofing_slate_tile_stack_10/roofing_slate_tile_stack_10.json) |
 | `roofing_slate_tile_stack_20` | Natural Slate Tile Stack | ✅ Yes | — | [roofing_slate_tile_stack_20.json](building/roofing_slate_tile_stack_20/roofing_slate_tile_stack_20.json) |
-| `roofing_steel_corrugated` | Corrugated Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated.json](building/roofing_steel_corrugated/roofing_steel_corrugated.json) |
-| `roofing_steel_corrugated_black` | Black Corrugated Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_black.json](building/roofing_steel_corrugated_black/roofing_steel_corrugated_black.json) |
-| `roofing_steel_corrugated_black_stack_10` | Black Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_black_stack_10.json](building/roofing_steel_corrugated_black_stack_10/roofing_steel_corrugated_black_stack_10.json) |
-| `roofing_steel_corrugated_black_stack_20` | Black Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_black_stack_20.json](building/roofing_steel_corrugated_black_stack_20/roofing_steel_corrugated_black_stack_20.json) |
-| `roofing_steel_corrugated_green` | Green Corrugated Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_green.json](building/roofing_steel_corrugated_green/roofing_steel_corrugated_green.json) |
-| `roofing_steel_corrugated_green_stack_10` | Green Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_green_stack_10.json](building/roofing_steel_corrugated_green_stack_10/roofing_steel_corrugated_green_stack_10.json) |
-| `roofing_steel_corrugated_green_stack_20` | Green Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_green_stack_20.json](building/roofing_steel_corrugated_green_stack_20/roofing_steel_corrugated_green_stack_20.json) |
-| `roofing_steel_corrugated_red` | Red Corrugated Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_red.json](building/roofing_steel_corrugated_red/roofing_steel_corrugated_red.json) |
-| `roofing_steel_corrugated_red_stack_10` | Red Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_red_stack_10.json](building/roofing_steel_corrugated_red_stack_10/roofing_steel_corrugated_red_stack_10.json) |
-| `roofing_steel_corrugated_red_stack_20` | Red Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_red_stack_20.json](building/roofing_steel_corrugated_red_stack_20/roofing_steel_corrugated_red_stack_20.json) |
-| `roofing_steel_corrugated_stack_10` | Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_stack_10.json](building/roofing_steel_corrugated_stack_10/roofing_steel_corrugated_stack_10.json) |
-| `roofing_steel_corrugated_stack_20` | Corrugated Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_stack_20.json](building/roofing_steel_corrugated_stack_20/roofing_steel_corrugated_stack_20.json) |
+| `roofing_steel_corrugated` | Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated.json](building/roofing_steel_corrugated/roofing_steel_corrugated.json) |
+| `roofing_steel_corrugated_black` | Black Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_black.json](building/roofing_steel_corrugated_black/roofing_steel_corrugated_black.json) |
+| `roofing_steel_corrugated_black_stack_10` | Black Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_black_stack_10.json](building/roofing_steel_corrugated_black_stack_10/roofing_steel_corrugated_black_stack_10.json) |
+| `roofing_steel_corrugated_black_stack_20` | Black Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_black_stack_20.json](building/roofing_steel_corrugated_black_stack_20/roofing_steel_corrugated_black_stack_20.json) |
+| `roofing_steel_corrugated_green` | Green Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_green.json](building/roofing_steel_corrugated_green/roofing_steel_corrugated_green.json) |
+| `roofing_steel_corrugated_green_stack_10` | Green Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_green_stack_10.json](building/roofing_steel_corrugated_green_stack_10/roofing_steel_corrugated_green_stack_10.json) |
+| `roofing_steel_corrugated_green_stack_20` | Green Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_green_stack_20.json](building/roofing_steel_corrugated_green_stack_20/roofing_steel_corrugated_green_stack_20.json) |
+| `roofing_steel_corrugated_red` | Red Steel Roofing | ✅ Yes | — | [roofing_steel_corrugated_red.json](building/roofing_steel_corrugated_red/roofing_steel_corrugated_red.json) |
+| `roofing_steel_corrugated_red_stack_10` | Red Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_red_stack_10.json](building/roofing_steel_corrugated_red_stack_10/roofing_steel_corrugated_red_stack_10.json) |
+| `roofing_steel_corrugated_red_stack_20` | Red Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_red_stack_20.json](building/roofing_steel_corrugated_red_stack_20/roofing_steel_corrugated_red_stack_20.json) |
+| `roofing_steel_corrugated_stack_10` | Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_stack_10.json](building/roofing_steel_corrugated_stack_10/roofing_steel_corrugated_stack_10.json) |
+| `roofing_steel_corrugated_stack_20` | Steel Roofing Stack | ✅ Yes | — | [roofing_steel_corrugated_stack_20.json](building/roofing_steel_corrugated_stack_20/roofing_steel_corrugated_stack_20.json) |
 | `roofing_thatch` | Reed Thatch Bundle | ✅ Yes | — | [roofing_thatch.json](building/roofing_thatch/roofing_thatch.json) |
 | `roofing_thatch_stack_10` | Reed Thatch Bundle Stack | ✅ Yes | — | [roofing_thatch_stack_10.json](building/roofing_thatch_stack_10/roofing_thatch_stack_10.json) |
 | `roofing_thatch_stack_20` | Reed Thatch Bundle Stack | ✅ Yes | — | [roofing_thatch_stack_20.json](building/roofing_thatch_stack_20/roofing_thatch_stack_20.json) |
@@ -527,7 +529,7 @@ Total Indexed Items: **1094**
 | `wood_log_stack_10` | Wood Log (Stack of 10) | ✅ Yes | — | [wood_log_stack_10.json](building/wood_log_stack_10/wood_log_stack_10.json) |
 | `wood_log_stack_20` | Wood Log (Stack of 20) | ✅ Yes | — | [wood_log_stack_20.json](building/wood_log_stack_20/wood_log_stack_20.json) |
 
-### 📂 [Farming](farming/) (68 items)
+### 📂 [Farming](farming/) (70 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -536,6 +538,7 @@ Total Indexed Items: **1094**
 | `beet` | Beet Plant | — | — | [beet.json](farming/beet/beet.json) |
 | `broccoli` | Broccoli Plant | — | — | [broccoli.json](farming/broccoli/broccoli.json) |
 | `cabbage` | Cabbage Plant | — | — | [cabbage.json](farming/cabbage/cabbage.json) |
+| `canola` | Canola Plant | — | — | [canola.json](farming/canola/canola.json) |
 | `cantaloupe` | Cantaloupe Plant | — | — | [cantaloupe.json](farming/cantaloupe/cantaloupe.json) |
 | `carrot` | Carrot Plant | — | — | [carrot.json](farming/carrot/carrot.json) |
 | `corn` | Corn Plant | — | — | [corn.json](farming/corn/corn.json) |
@@ -561,6 +564,7 @@ Total Indexed Items: **1094**
 | `seed_beet` | Beet Seeds | — | — | [seed_beet.json](farming/seed_beet/seed_beet.json) |
 | `seed_broccoli` | Broccoli Seeds | — | — | [seed_broccoli.json](farming/seed_broccoli/seed_broccoli.json) |
 | `seed_cabbage` | Cabbage Seeds | — | — | [seed_cabbage.json](farming/seed_cabbage/seed_cabbage.json) |
+| `seed_canola` | Canola Seeds | — | — | [seed_canola.json](farming/seed_canola/seed_canola.json) |
 | `seed_cantaloupe` | Cantaloupe Seeds | — | — | [seed_cantaloupe.json](farming/seed_cantaloupe/seed_cantaloupe.json) |
 | `seed_carrot` | Carrot Seeds | ✅ Yes | — | [seed_carrot.json](farming/seed_carrot/seed_carrot.json) |
 | `seed_corn` | Corn Seeds | ✅ Yes | — | [seed_corn.json](farming/seed_corn/seed_corn.json) |
@@ -633,21 +637,29 @@ Total Indexed Items: **1094**
 | `white_goat` | White Goat | — | — | [white_goat.json](ranching/white_goat/white_goat.json) |
 | `white_sheep` | White Sheep | — | — | [white_sheep.json](ranching/white_sheep/white_sheep.json) |
 
-### 📂 [Logging](logging/) (25 items)
+### 📂 [Logging](logging/) (43 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `apple` | Apple Tree | — | — | [apple.json](logging/apple/apple.json) |
+| `apricot` | Apricot | — | — | [apricot.json](logging/apricot/apricot.json) |
 | `birch` | Birch Tree | — | — | [birch.json](logging/birch/birch.json) |
 | `bush_blueberry` | Blueberry Bush | — | — | [bush_blueberry.json](logging/bush_blueberry/bush_blueberry.json) |
 | `bush_elderberry` | Elderberry Bush | — | — | [bush_elderberry.json](logging/bush_elderberry/bush_elderberry.json) |
 | `bush_haskap` | Haskap Bush | — | — | [bush_haskap.json](logging/bush_haskap/bush_haskap.json) |
 | `bush_huckleberry` | Huckleberry Bush | — | — | [bush_huckleberry.json](logging/bush_huckleberry/bush_huckleberry.json) |
 | `bush_raspberry` | Raspberry Bush | — | — | [bush_raspberry.json](logging/bush_raspberry/bush_raspberry.json) |
+| `cherry` | Cherry | — | — | [cherry.json](logging/cherry/cherry.json) |
+| `fig` | Fig | — | — | [fig.json](logging/fig/fig.json) |
+| `grape` | Grape | — | — | [grape.json](logging/grape/grape.json) |
+| `hazelnut` | Hazelnut | — | — | [hazelnut.json](logging/hazelnut/hazelnut.json) |
 | `lemon` | Lemon | — | — | [lemon.json](logging/lemon/lemon.json) |
 | `maple` | Maple Tree | — | — | [maple.json](logging/maple/maple.json) |
 | `oak` | Oak Tree | — | — | [oak.json](logging/oak/oak.json) |
 | `orange` | Orange | — | — | [orange.json](logging/orange/orange.json) |
+| `peach` | Peach | — | — | [peach.json](logging/peach/peach.json) |
+| `pear` | Pear | — | — | [pear.json](logging/pear/pear.json) |
+| `pecan` | Pecan | — | — | [pecan.json](logging/pecan/pecan.json) |
 | `pine` | Pine Tree | — | — | [pine.json](logging/pine/pine.json) |
 | `plantable_birch_sapling` | Plantable Birch Sapling | ✅ Yes | — | [plantable_birch_sapling.json](logging/plantable_birch_sapling/plantable_birch_sapling.json) |
 | `plantable_maple_sapling` | Plantable Maple Sapling | ✅ Yes | — | [plantable_maple_sapling.json](logging/plantable_maple_sapling/plantable_maple_sapling.json) |
@@ -655,12 +667,22 @@ Total Indexed Items: **1094**
 | `plantable_pine_sapling` | Plantable Pine Sapling | ✅ Yes | — | [plantable_pine_sapling.json](logging/plantable_pine_sapling/plantable_pine_sapling.json) |
 | `plantable_poplar_sapling` | Plantable Poplar Sapling | ✅ Yes | — | [plantable_poplar_sapling.json](logging/plantable_poplar_sapling/plantable_poplar_sapling.json) |
 | `plantable_sapling_apple` | Plantable Sapling Apple | ✅ Yes | — | [plantable_sapling_apple.json](logging/plantable_sapling_apple/plantable_sapling_apple.json) |
+| `plantable_sapling_apricot` | Plantable Sapling Apricot | — | — | [plantable_sapling_apricot.json](logging/plantable_sapling_apricot/plantable_sapling_apricot.json) |
+| `plantable_sapling_cherry` | Plantable Sapling Cherry | — | — | [plantable_sapling_cherry.json](logging/plantable_sapling_cherry/plantable_sapling_cherry.json) |
+| `plantable_sapling_fig` | Plantable Sapling Fig | — | — | [plantable_sapling_fig.json](logging/plantable_sapling_fig/plantable_sapling_fig.json) |
+| `plantable_sapling_grape` | Plantable Grapevine | — | — | [plantable_sapling_grape.json](logging/plantable_sapling_grape/plantable_sapling_grape.json) |
+| `plantable_sapling_hazelnut` | Plantable Sapling Hazelnut | — | — | [plantable_sapling_hazelnut.json](logging/plantable_sapling_hazelnut/plantable_sapling_hazelnut.json) |
 | `plantable_sapling_lemon` | Plantable Sapling Lemon | ✅ Yes | — | [plantable_sapling_lemon.json](logging/plantable_sapling_lemon/plantable_sapling_lemon.json) |
 | `plantable_sapling_orange` | Plantable Sapling Orange | ✅ Yes | — | [plantable_sapling_orange.json](logging/plantable_sapling_orange/plantable_sapling_orange.json) |
+| `plantable_sapling_peach` | Plantable Sapling Peach | — | — | [plantable_sapling_peach.json](logging/plantable_sapling_peach/plantable_sapling_peach.json) |
+| `plantable_sapling_pear` | Plantable Sapling Pear | — | — | [plantable_sapling_pear.json](logging/plantable_sapling_pear/plantable_sapling_pear.json) |
+| `plantable_sapling_pecan` | Plantable Sapling Pecan | — | — | [plantable_sapling_pecan.json](logging/plantable_sapling_pecan/plantable_sapling_pecan.json) |
+| `plantable_sapling_plum` | Plantable Sapling Plum | — | — | [plantable_sapling_plum.json](logging/plantable_sapling_plum/plantable_sapling_plum.json) |
+| `plantable_sapling_walnut` | Plantable Sapling Walnut | — | — | [plantable_sapling_walnut.json](logging/plantable_sapling_walnut/plantable_sapling_walnut.json) |
 | `plantable_willow_sapling` | Plantable Willow Sapling | ✅ Yes | — | [plantable_willow_sapling.json](logging/plantable_willow_sapling/plantable_willow_sapling.json) |
+| `plum` | Plum | — | — | [plum.json](logging/plum/plum.json) |
 | `poplar` | Poplar Tree | — | — | [poplar.json](logging/poplar/poplar.json) |
-| `tree_dead_snag` | Tree Dead Snag | ✅ Yes | — | [tree_dead_snag.json](logging/tree_dead_snag/tree_dead_snag.json) |
-| `tree_sapling` | Tree Sapling | ✅ Yes | — | [tree_sapling.json](logging/tree_sapling/tree_sapling.json) |
+| `walnut` | Walnut | — | — | [walnut.json](logging/walnut/walnut.json) |
 | `willow` | Willow Tree | — | — | [willow.json](logging/willow/willow.json) |
 
 ### 📂 [Fishing](fishing/) (19 items)
@@ -687,7 +709,7 @@ Total Indexed Items: **1094**
 | `fishing_rod_spincast_combo` | Spincast Rod & Reel Combo | ✅ Yes | — | [fishing_rod_spincast_combo.json](fishing/fishing_rod_spincast_combo/fishing_rod_spincast_combo.json) |
 | `fishing_sinkers_lead` | Split Shot Lead Sinkers | ✅ Yes | — | [fishing_sinkers_lead.json](fishing/fishing_sinkers_lead/fishing_sinkers_lead.json) |
 
-### 📂 [Tools](tools/) (68 items)
+### 📂 [Tools](tools/) (69 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -717,6 +739,7 @@ Total Indexed Items: **1094**
 | `tool_hammer` | Hammer | ✅ Yes | — | [tool_hammer.json](tools/tool_hammer/tool_hammer.json) |
 | `tool_hammer_claw` | Claw Hammer | ✅ Yes | — | [tool_hammer_claw.json](tools/tool_hammer_claw/tool_hammer_claw.json) |
 | `tool_hammer_club` | Club Hammer | ✅ Yes | — | [tool_hammer_club.json](tools/tool_hammer_club/tool_hammer_club.json) |
+| `tool_harvest_sack_large` | Large Harvest Sack | ✅ Yes | — | [tool_harvest_sack_large.json](tools/tool_harvest_sack_large/tool_harvest_sack_large.json) |
 | `tool_hatchet_camp` | Camp Hatchet | ✅ Yes | — | [tool_hatchet_camp.json](tools/tool_hatchet_camp/tool_hatchet_camp.json) |
 | `tool_helmet_logging_safety` | Logging Safety Helmet | ✅ Yes | — | [tool_helmet_logging_safety.json](tools/tool_helmet_logging_safety/tool_helmet_logging_safety.json) |
 | `tool_hoe` | Hoe | ✅ Yes | — | [tool_hoe.json](tools/tool_hoe/tool_hoe.json) |
@@ -752,7 +775,7 @@ Total Indexed Items: **1094**
 | `tool_toolbox_medium` | Medium Toolbox | ✅ Yes | — | [tool_toolbox_medium.json](tools/tool_toolbox_medium/tool_toolbox_medium.json) |
 | `tool_toolbox_small` | Small Toolbox | ✅ Yes | — | [tool_toolbox_small.json](tools/tool_toolbox_small/tool_toolbox_small.json) |
 | `tool_trowel_hand` | Hand Trowel | ✅ Yes | — | [tool_trowel_hand.json](tools/tool_trowel_hand/tool_trowel_hand.json) |
-| `tool_walking_plow_own` | Walking Plow (Meshy text-to-3D, own icon) | ✅ Yes | — | [tool_walking_plow_own.json](tools/tool_walking_plow_own/tool_walking_plow_own.json) |
+| `tool_walking_plow_own` | Walking Plow | ✅ Yes | — | [tool_walking_plow_own.json](tools/tool_walking_plow_own/tool_walking_plow_own.json) |
 | `tool_wedge_felling_abs_pack` | Felling Wedges Pack | ✅ Yes | — | [tool_wedge_felling_abs_pack.json](tools/tool_wedge_felling_abs_pack/tool_wedge_felling_abs_pack.json) |
 | `tool_wedge_splitting_diamond` | Diamond Splitting Wedge | ✅ Yes | — | [tool_wedge_splitting_diamond.json](tools/tool_wedge_splitting_diamond/tool_wedge_splitting_diamond.json) |
 | `tool_wheelbarrow` | Wheelbarrow | ✅ Yes | — | [tool_wheelbarrow.json](tools/tool_wheelbarrow/tool_wheelbarrow.json) |
@@ -992,57 +1015,128 @@ Total Indexed Items: **1094**
 | `textures` | Textures | — | — | [textures.json](ground/textures/textures.json) |
 | `tile_grass_tuft_meadow` | Grass Tuft Meadow | ✅ Yes | — | [tile_grass_tuft_meadow.json](ground/tile_grass_tuft_meadow/tile_grass_tuft_meadow.json) |
 
-### 📂 [Food](food/) (53 items)
+### 📂 [Food](food/) (124 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `food_apple` | Fresh Red Apple | ✅ Yes | — | [food_apple.json](food/food_apple/food_apple.json) |
+| `food_apple_muffin` | Apple Muffin | — | — | [food_apple_muffin.json](food/food_apple_muffin/food_apple_muffin.json) |
+| `food_apple_pie` | Apple Pie | — | — | [food_apple_pie.json](food/food_apple_pie/food_apple_pie.json) |
+| `food_apricot` | Fresh Apricot | — | — | [food_apricot.json](food/food_apricot/food_apricot.json) |
+| `food_apricot_muffin` | Apricot Muffin | — | — | [food_apricot_muffin.json](food/food_apricot_muffin/food_apricot_muffin.json) |
+| `food_bacon_and_eggs` | Bacon and Eggs | — | — | [food_bacon_and_eggs.json](food/food_bacon_and_eggs/food_bacon_and_eggs.json) |
+| `food_bacon_cooked` | Crispy Bacon | — | — | [food_bacon_cooked.json](food/food_bacon_cooked/food_bacon_cooked.json) |
+| `food_baked_potato` | Baked Potato | — | — | [food_baked_potato.json](food/food_baked_potato/food_baked_potato.json) |
 | `food_bass_deepfried` | Bass Fillet Deep Fried | — | — | [food_bass_deepfried.json](food/food_bass_deepfried/food_bass_deepfried.json) |
 | `food_bass_grilled` | Bass Grilled Fillet | — | — | [food_bass_grilled.json](food/food_bass_grilled/food_bass_grilled.json) |
+| `food_beef_barley_soup` | Beef Barley Soup | — | — | [food_beef_barley_soup.json](food/food_beef_barley_soup/food_beef_barley_soup.json) |
+| `food_beef_stew` | Beef Stew | — | — | [food_beef_stew.json](food/food_beef_stew/food_beef_stew.json) |
 | `food_beet` | Fresh Beet | — | — | [food_beet.json](food/food_beet/food_beet.json) |
 | `food_blueberry` | Blueberry | — | — | [food_blueberry.json](food/food_blueberry/food_blueberry.json) |
+| `food_blueberry_muffin` | Blueberry Muffin | — | — | [food_blueberry_muffin.json](food/food_blueberry_muffin/food_blueberry_muffin.json) |
+| `food_blueberry_pie` | Blueberry Pie | — | — | [food_blueberry_pie.json](food/food_blueberry_pie/food_blueberry_pie.json) |
 | `food_bread` | Bread | — | — | [food_bread.json](food/food_bread/food_bread.json) |
 | `food_broccoli` | Broccoli Crown | — | — | [food_broccoli.json](food/food_broccoli/food_broccoli.json) |
+| `food_burger` | Hamburger | — | — | [food_burger.json](food/food_burger/food_burger.json) |
+| `food_burger_bun` | Burger Bun | — | — | [food_burger_bun.json](food/food_burger_bun/food_burger_bun.json) |
+| `food_buttered_noodles` | Buttered Noodles | — | — | [food_buttered_noodles.json](food/food_buttered_noodles/food_buttered_noodles.json) |
 | `food_cabbage` | Head of Cabbage | — | — | [food_cabbage.json](food/food_cabbage/food_cabbage.json) |
+| `food_cake` | Yellow Cake | — | — | [food_cake.json](food/food_cake/food_cake.json) |
 | `food_cantaloupe` | Cantaloupe | — | — | [food_cantaloupe.json](food/food_cantaloupe/food_cantaloupe.json) |
 | `food_carrot` | Fresh Garden Carrot | ✅ Yes | — | [food_carrot.json](food/food_carrot/food_carrot.json) |
 | `food_catfish_deepfried` | Catfish Fillet Deep Fried | — | — | [food_catfish_deepfried.json](food/food_catfish_deepfried/food_catfish_deepfried.json) |
 | `food_catfish_grilled` | Catfish Grilled Fillet | — | — | [food_catfish_grilled.json](food/food_catfish_grilled/food_catfish_grilled.json) |
 | `food_cheese` | Aged Farmhouse Cheese | — | — | [food_cheese.json](food/food_cheese/food_cheese.json) |
+| `food_cherry` | Fresh Cherries | — | — | [food_cherry.json](food/food_cherry/food_cherry.json) |
+| `food_cherry_muffin` | Cherry Muffin | — | — | [food_cherry_muffin.json](food/food_cherry_muffin/food_cherry_muffin.json) |
+| `food_cherry_pie` | Cherry Pie | — | — | [food_cherry_pie.json](food/food_cherry_pie/food_cherry_pie.json) |
+| `food_chicken_noodle_soup` | Chicken Noodle Soup | — | — | [food_chicken_noodle_soup.json](food/food_chicken_noodle_soup/food_chicken_noodle_soup.json) |
+| `food_chicken_stew` | Chicken Stew | — | — | [food_chicken_stew.json](food/food_chicken_stew/food_chicken_stew.json) |
+| `food_coleslaw` | Coleslaw | — | — | [food_coleslaw.json](food/food_coleslaw/food_coleslaw.json) |
+| `food_corn_muffin` | Corn Muffin | — | — | [food_corn_muffin.json](food/food_corn_muffin/food_corn_muffin.json) |
+| `food_cornbread` | Cornbread | — | — | [food_cornbread.json](food/food_cornbread/food_cornbread.json) |
 | `food_crappie_deepfried` | Crappie Fillet Deep Fried | — | — | [food_crappie_deepfried.json](food/food_crappie_deepfried/food_crappie_deepfried.json) |
 | `food_crappie_grilled` | Crappie Grilled Fillet | — | — | [food_crappie_grilled.json](food/food_crappie_grilled/food_crappie_grilled.json) |
 | `food_cucumber` | Fresh Cucumber | — | — | [food_cucumber.json](food/food_cucumber/food_cucumber.json) |
 | `food_elderberry` | Elderberry | — | — | [food_elderberry.json](food/food_elderberry/food_elderberry.json) |
+| `food_elderberry_muffin` | Elderberry Muffin | — | — | [food_elderberry_muffin.json](food/food_elderberry_muffin/food_elderberry_muffin.json) |
+| `food_fig` | Fresh Fig | — | — | [food_fig.json](food/food_fig/food_fig.json) |
+| `food_fig_muffin` | Fig Muffin | — | — | [food_fig_muffin.json](food/food_fig_muffin/food_fig_muffin.json) |
+| `food_french_toast` | French Toast | — | — | [food_french_toast.json](food/food_french_toast/food_french_toast.json) |
+| `food_garden_salad` | Garden Salad | — | — | [food_garden_salad.json](food/food_garden_salad/food_garden_salad.json) |
 | `food_garlic` | Garlic Bulb | — | — | [food_garlic.json](food/food_garlic/food_garlic.json) |
+| `food_goat_meat_baked` | Roast Goat Leg | — | — | [food_goat_meat_baked.json](food/food_goat_meat_baked/food_goat_meat_baked.json) |
+| `food_grapes` | Grapes | — | — | [food_grapes.json](food/food_grapes/food_grapes.json) |
 | `food_green_beans` | Green Beans | — | — | [food_green_beans.json](food/food_green_beans/food_green_beans.json) |
+| `food_grits` | Grits | — | — | [food_grits.json](food/food_grits/food_grits.json) |
+| `food_ground_beef_grilled` | Grilled Burger Patty | — | — | [food_ground_beef_grilled.json](food/food_ground_beef_grilled/food_ground_beef_grilled.json) |
+| `food_ham_baked` | Baked Ham | — | — | [food_ham_baked.json](food/food_ham_baked/food_ham_baked.json) |
 | `food_haskap` | Haskap | — | — | [food_haskap.json](food/food_haskap/food_haskap.json) |
+| `food_haskap_muffin` | Haskap Muffin | — | — | [food_haskap_muffin.json](food/food_haskap_muffin/food_haskap_muffin.json) |
+| `food_hazelnut` | Hazelnuts | — | — | [food_hazelnut.json](food/food_hazelnut/food_hazelnut.json) |
+| `food_hot_dog` | Hot Dog | — | — | [food_hot_dog.json](food/food_hot_dog/food_hot_dog.json) |
+| `food_hot_dog_bun` | Hot Dog Bun | — | — | [food_hot_dog_bun.json](food/food_hot_dog_bun/food_hot_dog_bun.json) |
 | `food_huckleberry` | Huckleberry | — | — | [food_huckleberry.json](food/food_huckleberry/food_huckleberry.json) |
-| `food_jam_blueberry` | Blueberry Jam | — | — | [food_jam_blueberry.json](food/food_jam_blueberry/food_jam_blueberry.json) |
-| `food_jam_elderberry` | Elderberry Jam | — | — | [food_jam_elderberry.json](food/food_jam_elderberry/food_jam_elderberry.json) |
-| `food_jam_haskap` | Haskap Jam | — | — | [food_jam_haskap.json](food/food_jam_haskap/food_jam_haskap.json) |
-| `food_jam_huckleberry` | Huckleberry Jam | — | — | [food_jam_huckleberry.json](food/food_jam_huckleberry/food_jam_huckleberry.json) |
-| `food_jam_raspberry` | Raspberry Jam | — | — | [food_jam_raspberry.json](food/food_jam_raspberry/food_jam_raspberry.json) |
+| `food_huckleberry_muffin` | Huckleberry Muffin | — | — | [food_huckleberry_muffin.json](food/food_huckleberry_muffin/food_huckleberry_muffin.json) |
+| `food_lamb_chop_grilled` | Grilled Lamb Chop | — | — | [food_lamb_chop_grilled.json](food/food_lamb_chop_grilled/food_lamb_chop_grilled.json) |
 | `food_lemon` | Fresh Lemon | ✅ Yes | — | [food_lemon.json](food/food_lemon/food_lemon.json) |
+| `food_lemon_muffin` | Lemon Muffin | — | — | [food_lemon_muffin.json](food/food_lemon_muffin/food_lemon_muffin.json) |
 | `food_lettuce` | Head of Lettuce | — | — | [food_lettuce.json](food/food_lettuce/food_lettuce.json) |
+| `food_mac_and_cheese` | Macaroni and Cheese | — | — | [food_mac_and_cheese.json](food/food_mac_and_cheese/food_mac_and_cheese.json) |
+| `food_mashed_potatoes` | Mashed Potatoes | — | — | [food_mashed_potatoes.json](food/food_mashed_potatoes/food_mashed_potatoes.json) |
+| `food_meatloaf` | Meatloaf | — | — | [food_meatloaf.json](food/food_meatloaf/food_meatloaf.json) |
+| `food_muffin` | Muffin | — | — | [food_muffin.json](food/food_muffin/food_muffin.json) |
+| `food_oatmeal` | Oatmeal | — | — | [food_oatmeal.json](food/food_oatmeal/food_oatmeal.json) |
 | `food_onion` | Fresh Onion | — | — | [food_onion.json](food/food_onion/food_onion.json) |
 | `food_orange` | Fresh Navel Orange | ✅ Yes | — | [food_orange.json](food/food_orange/food_orange.json) |
+| `food_orange_muffin` | Orange Muffin | — | — | [food_orange_muffin.json](food/food_orange_muffin/food_orange_muffin.json) |
+| `food_pancakes` | Pancakes | — | — | [food_pancakes.json](food/food_pancakes/food_pancakes.json) |
+| `food_peach` | Fresh Peach | — | — | [food_peach.json](food/food_peach/food_peach.json) |
+| `food_peach_muffin` | Peach Muffin | — | — | [food_peach_muffin.json](food/food_peach_muffin/food_peach_muffin.json) |
 | `food_peanuts` | Raw Peanuts | — | — | [food_peanuts.json](food/food_peanuts/food_peanuts.json) |
+| `food_pear` | Fresh Pear | — | — | [food_pear.json](food/food_pear/food_pear.json) |
+| `food_pear_muffin` | Pear Muffin | — | — | [food_pear_muffin.json](food/food_pear_muffin/food_pear_muffin.json) |
 | `food_peas` | Fresh Peas | — | — | [food_peas.json](food/food_peas/food_peas.json) |
+| `food_pecan` | Pecans | — | — | [food_pecan.json](food/food_pecan/food_pecan.json) |
 | `food_pepper` | Bell Pepper | — | — | [food_pepper.json](food/food_pepper/food_pepper.json) |
+| `food_plum` | Fresh Plum | — | — | [food_plum.json](food/food_plum/food_plum.json) |
+| `food_plum_muffin` | Plum Muffin | — | — | [food_plum_muffin.json](food/food_plum_muffin/food_plum_muffin.json) |
+| `food_pork_chop_grilled` | Grilled Bone-In Pork Chop | — | — | [food_pork_chop_grilled.json](food/food_pork_chop_grilled/food_pork_chop_grilled.json) |
+| `food_pot_roast` | Pot Roast | — | — | [food_pot_roast.json](food/food_pot_roast/food_pot_roast.json) |
 | `food_potato` | Russet Potato | ✅ Yes | — | [food_potato.json](food/food_potato/food_potato.json) |
+| `food_potato_soup` | Potato Soup | — | — | [food_potato_soup.json](food/food_potato_soup/food_potato_soup.json) |
 | `food_pumpkin` | Autumn Pumpkin | ✅ Yes | — | [food_pumpkin.json](food/food_pumpkin/food_pumpkin.json) |
+| `food_pumpkin_pie` | Pumpkin Pie | — | — | [food_pumpkin_pie.json](food/food_pumpkin_pie/food_pumpkin_pie.json) |
+| `food_pumpkin_soup` | Pumpkin Soup | — | — | [food_pumpkin_soup.json](food/food_pumpkin_soup/food_pumpkin_soup.json) |
 | `food_radish` | Fresh Radish | — | — | [food_radish.json](food/food_radish/food_radish.json) |
 | `food_raspberry` | Raspberry | — | — | [food_raspberry.json](food/food_raspberry/food_raspberry.json) |
+| `food_raspberry_muffin` | Raspberry Muffin | — | — | [food_raspberry_muffin.json](food/food_raspberry_muffin/food_raspberry_muffin.json) |
 | `food_rhubarb` | Rhubarb Stalks | — | — | [food_rhubarb.json](food/food_rhubarb/food_rhubarb.json) |
+| `food_rhubarb_muffin` | Rhubarb Muffin | — | — | [food_rhubarb_muffin.json](food/food_rhubarb_muffin/food_rhubarb_muffin.json) |
+| `food_roast_chicken` | Roast Chicken | — | — | [food_roast_chicken.json](food/food_roast_chicken/food_roast_chicken.json) |
+| `food_roasted_vegetables` | Roasted Vegetables | — | — | [food_roasted_vegetables.json](food/food_roasted_vegetables/food_roasted_vegetables.json) |
 | `food_salmon_grilled` | Salmon Grilled Fillet | — | — | [food_salmon_grilled.json](food/food_salmon_grilled/food_salmon_grilled.json) |
+| `food_sausage_grilled` | Grilled Sausage | — | — | [food_sausage_grilled.json](food/food_sausage_grilled/food_sausage_grilled.json) |
+| `food_sausage_pasta` | Sausage Pasta | — | — | [food_sausage_pasta.json](food/food_sausage_pasta/food_sausage_pasta.json) |
+| `food_scrambled_eggs` | Scrambled Eggs | — | — | [food_scrambled_eggs.json](food/food_scrambled_eggs/food_scrambled_eggs.json) |
+| `food_shepherds_pie` | Shepherd's Pie | — | — | [food_shepherds_pie.json](food/food_shepherds_pie/food_shepherds_pie.json) |
+| `food_spaghetti` | Spaghetti with Sauce | — | — | [food_spaghetti.json](food/food_spaghetti/food_spaghetti.json) |
+| `food_spaghetti_meatballs` | Spaghetti and Meatballs | — | — | [food_spaghetti_meatballs.json](food/food_spaghetti_meatballs/food_spaghetti_meatballs.json) |
 | `food_spinach` | Fresh Spinach | — | — | [food_spinach.json](food/food_spinach/food_spinach.json) |
+| `food_spinach_salad` | Spinach Salad | — | — | [food_spinach_salad.json](food/food_spinach_salad/food_spinach_salad.json) |
+| `food_steak_grilled` | Grilled Ribeye Steak | — | — | [food_steak_grilled.json](food/food_steak_grilled/food_steak_grilled.json) |
 | `food_strawberry` | Fresh Strawberry | ✅ Yes | — | [food_strawberry.json](food/food_strawberry/food_strawberry.json) |
+| `food_strawberry_muffin` | Strawberry Muffin | — | — | [food_strawberry_muffin.json](food/food_strawberry_muffin/food_strawberry_muffin.json) |
+| `food_sugar_cookies` | Sugar Cookies | — | — | [food_sugar_cookies.json](food/food_sugar_cookies/food_sugar_cookies.json) |
 | `food_tomato` | Vine Ripe Tomato | ✅ Yes | — | [food_tomato.json](food/food_tomato/food_tomato.json) |
+| `food_tomato_soup` | Tomato Soup | — | — | [food_tomato_soup.json](food/food_tomato_soup/food_tomato_soup.json) |
 | `food_trout_deepfried` | Trout Fillet Deep Fried | — | — | [food_trout_deepfried.json](food/food_trout_deepfried/food_trout_deepfried.json) |
 | `food_trout_grilled` | Trout Grilled Fillet | — | — | [food_trout_grilled.json](food/food_trout_grilled/food_trout_grilled.json) |
 | `food_truffle` | Black Foraged Truffle | ✅ Yes | — | [food_truffle.json](food/food_truffle/food_truffle.json) |
+| `food_vegetable_soup` | Vegetable Soup | — | — | [food_vegetable_soup.json](food/food_vegetable_soup/food_vegetable_soup.json) |
 | `food_walleye_deepfried` | Walleye Fillet Deep Fried | — | — | [food_walleye_deepfried.json](food/food_walleye_deepfried/food_walleye_deepfried.json) |
 | `food_walleye_grilled` | Walleye Grilled Fillet | — | — | [food_walleye_grilled.json](food/food_walleye_grilled/food_walleye_grilled.json) |
+| `food_walnut` | Walnuts | — | — | [food_walnut.json](food/food_walnut/food_walnut.json) |
 | `food_watermelon` | Watermelon | — | — | [food_watermelon.json](food/food_watermelon/food_watermelon.json) |
 | `food_zucchini` | Zucchini | — | — | [food_zucchini.json](food/food_zucchini/food_zucchini.json) |
 | `ingredient_beef_grilled` | Grilled Beef Cut | — | — | [ingredient_beef_grilled.json](food/ingredient_beef_grilled/ingredient_beef_grilled.json) |
@@ -1175,16 +1269,29 @@ Total Indexed Items: **1094**
 | `mat_wood_logs_stack` | Wood Logs Stack | ✅ Yes | — | [mat_wood_logs_stack.json](materials/mat_wood_logs_stack/mat_wood_logs_stack.json) |
 | `mat_wool_fleece` | Wool Fleece | ✅ Yes | — | [mat_wool_fleece.json](materials/mat_wool_fleece/mat_wool_fleece.json) |
 
-### 📂 [Ingredients](ingredients/) (22 items)
+### 📂 [Ingredients](ingredients/) (67 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `ingredient_alfalfa` | Alfalfa Hay | ✅ Yes | — | [ingredient_alfalfa.json](ingredients/ingredient_alfalfa/ingredient_alfalfa.json) |
+| `ingredient_bacon` | Bacon | — | — | [ingredient_bacon.json](ingredients/ingredient_bacon/ingredient_bacon.json) |
+| `ingredient_baking_powder` | Baking Powder | ✅ Yes | — | [ingredient_baking_powder.json](ingredients/ingredient_baking_powder/ingredient_baking_powder.json) |
+| `ingredient_baking_powder_5kg` | Bulk Baking Powder | ✅ Yes | — | [ingredient_baking_powder_5kg.json](ingredients/ingredient_baking_powder_5kg/ingredient_baking_powder_5kg.json) |
 | `ingredient_barley` | Barley Grain | ✅ Yes | — | [ingredient_barley.json](ingredients/ingredient_barley/ingredient_barley.json) |
+| `ingredient_barley_flour` | Barley Flour | ✅ Yes | — | [ingredient_barley_flour.json](ingredients/ingredient_barley_flour/ingredient_barley_flour.json) |
+| `ingredient_barley_flour_5kg` | Bulk Barley Flour | ✅ Yes | — | [ingredient_barley_flour_5kg.json](ingredients/ingredient_barley_flour_5kg/ingredient_barley_flour_5kg.json) |
 | `ingredient_beef` | Raw Beef Cut | ✅ Yes | — | [ingredient_beef.json](ingredients/ingredient_beef/ingredient_beef.json) |
+| `ingredient_butter` | Butter | ✅ Yes | — | [ingredient_butter.json](ingredients/ingredient_butter/ingredient_butter.json) |
+| `ingredient_canola` | Canola Seed | ✅ Yes | — | [ingredient_canola.json](ingredients/ingredient_canola/ingredient_canola.json) |
 | `ingredient_chicken` | Raw Chicken Breast | ✅ Yes | — | [ingredient_chicken.json](ingredients/ingredient_chicken/ingredient_chicken.json) |
 | `ingredient_corn` | Sweet Yellow Corn | ✅ Yes | — | [ingredient_corn.json](ingredients/ingredient_corn/ingredient_corn.json) |
+| `ingredient_corn_flour` | Corn Flour | ✅ Yes | — | [ingredient_corn_flour.json](ingredients/ingredient_corn_flour/ingredient_corn_flour.json) |
+| `ingredient_corn_flour_5kg` | Bulk Corn Flour | ✅ Yes | — | [ingredient_corn_flour_5kg.json](ingredients/ingredient_corn_flour_5kg/ingredient_corn_flour_5kg.json) |
+| `ingredient_cornmeal` | Cornmeal | ✅ Yes | — | [ingredient_cornmeal.json](ingredients/ingredient_cornmeal/ingredient_cornmeal.json) |
+| `ingredient_cornmeal_5kg` | Bulk Cornmeal | ✅ Yes | — | [ingredient_cornmeal_5kg.json](ingredients/ingredient_cornmeal_5kg/ingredient_cornmeal_5kg.json) |
 | `ingredient_cotton` | Cotton | ✅ Yes | — | [ingredient_cotton.json](ingredients/ingredient_cotton/ingredient_cotton.json) |
+| `ingredient_cracked_wheat` | Cracked Wheat | ✅ Yes | — | [ingredient_cracked_wheat.json](ingredients/ingredient_cracked_wheat/ingredient_cracked_wheat.json) |
+| `ingredient_cracked_wheat_5kg` | Bulk Cracked Wheat | ✅ Yes | — | [ingredient_cracked_wheat_5kg.json](ingredients/ingredient_cracked_wheat_5kg/ingredient_cracked_wheat_5kg.json) |
 | `ingredient_egg` | Fresh Farm Egg | ✅ Yes | — | [ingredient_egg.json](ingredients/ingredient_egg/ingredient_egg.json) |
 | `ingredient_fillet_bass` | Bass Fillet | ✅ Yes | — | [ingredient_fillet_bass.json](ingredients/ingredient_fillet_bass/ingredient_fillet_bass.json) |
 | `ingredient_fillet_catfish` | Catfish Fillet | ✅ Yes | — | [ingredient_fillet_catfish.json](ingredients/ingredient_fillet_catfish/ingredient_fillet_catfish.json) |
@@ -1193,30 +1300,92 @@ Total Indexed Items: **1094**
 | `ingredient_fillet_trout` | Trout Fillet | ✅ Yes | — | [ingredient_fillet_trout.json](ingredients/ingredient_fillet_trout/ingredient_fillet_trout.json) |
 | `ingredient_fillet_walleye` | Walleye Fillet | ✅ Yes | — | [ingredient_fillet_walleye.json](ingredients/ingredient_fillet_walleye/ingredient_fillet_walleye.json) |
 | `ingredient_flax` | Flax Stems | ✅ Yes | — | [ingredient_flax.json](ingredients/ingredient_flax/ingredient_flax.json) |
+| `ingredient_flax_meal` | Flax Meal | ✅ Yes | — | [ingredient_flax_meal.json](ingredients/ingredient_flax_meal/ingredient_flax_meal.json) |
+| `ingredient_flax_meal_5kg` | Bulk Flax Meal | ✅ Yes | — | [ingredient_flax_meal_5kg.json](ingredients/ingredient_flax_meal_5kg/ingredient_flax_meal_5kg.json) |
+| `ingredient_flour` | All-Purpose Flour | ✅ Yes | — | [ingredient_flour.json](ingredients/ingredient_flour/ingredient_flour.json) |
+| `ingredient_flour_5kg` | Bulk All-Purpose Flour | ✅ Yes | — | [ingredient_flour_5kg.json](ingredients/ingredient_flour_5kg/ingredient_flour_5kg.json) |
+| `ingredient_gelatin` | Unflavored Gelatin | ✅ Yes | — | [ingredient_gelatin.json](ingredients/ingredient_gelatin/ingredient_gelatin.json) |
+| `ingredient_gelatin_5kg` | Bulk Unflavored Gelatin | ✅ Yes | — | [ingredient_gelatin_5kg.json](ingredients/ingredient_gelatin_5kg/ingredient_gelatin_5kg.json) |
+| `ingredient_goat_meat` | Goat Leg | — | — | [ingredient_goat_meat.json](ingredients/ingredient_goat_meat/ingredient_goat_meat.json) |
+| `ingredient_grits` | Grits | ✅ Yes | — | [ingredient_grits.json](ingredients/ingredient_grits/ingredient_grits.json) |
+| `ingredient_grits_5kg` | Bulk Grits | ✅ Yes | — | [ingredient_grits_5kg.json](ingredients/ingredient_grits_5kg/ingredient_grits_5kg.json) |
+| `ingredient_ground_beef` | Ground Beef | — | — | [ingredient_ground_beef.json](ingredients/ingredient_ground_beef/ingredient_ground_beef.json) |
+| `ingredient_ham` | Whole Ham | — | — | [ingredient_ham.json](ingredients/ingredient_ham/ingredient_ham.json) |
 | `ingredient_herbs` | Fresh Culinary Herbs | ✅ Yes | — | [ingredient_herbs.json](ingredients/ingredient_herbs/ingredient_herbs.json) |
 | `ingredient_hops` | Hops Cones | ✅ Yes | — | [ingredient_hops.json](ingredients/ingredient_hops/ingredient_hops.json) |
+| `ingredient_lamb_chop` | Lamb Rib Chop | — | — | [ingredient_lamb_chop.json](ingredients/ingredient_lamb_chop/ingredient_lamb_chop.json) |
+| `ingredient_oat_flour` | Oat Flour | ✅ Yes | — | [ingredient_oat_flour.json](ingredients/ingredient_oat_flour/ingredient_oat_flour.json) |
+| `ingredient_oat_flour_5kg` | Bulk Oat Flour | ✅ Yes | — | [ingredient_oat_flour_5kg.json](ingredients/ingredient_oat_flour_5kg/ingredient_oat_flour_5kg.json) |
 | `ingredient_oats` | Oat Grain | ✅ Yes | — | [ingredient_oats.json](ingredients/ingredient_oats/ingredient_oats.json) |
+| `ingredient_pasta` | Dry Pasta | ✅ Yes | — | [ingredient_pasta.json](ingredients/ingredient_pasta/ingredient_pasta.json) |
+| `ingredient_pasta_5kg` | Bulk Dry Pasta | ✅ Yes | — | [ingredient_pasta_5kg.json](ingredients/ingredient_pasta_5kg/ingredient_pasta_5kg.json) |
+| `ingredient_pasta_sauce` | Pasta Sauce | ✅ Yes | — | [ingredient_pasta_sauce.json](ingredients/ingredient_pasta_sauce/ingredient_pasta_sauce.json) |
+| `ingredient_pearl_barley` | Pearl Barley | ✅ Yes | — | [ingredient_pearl_barley.json](ingredients/ingredient_pearl_barley/ingredient_pearl_barley.json) |
+| `ingredient_pearl_barley_5kg` | Bulk Pearl Barley | ✅ Yes | — | [ingredient_pearl_barley_5kg.json](ingredients/ingredient_pearl_barley_5kg/ingredient_pearl_barley_5kg.json) |
 | `ingredient_pork` | Raw Pork Chop | ✅ Yes | — | [ingredient_pork.json](ingredients/ingredient_pork/ingredient_pork.json) |
+| `ingredient_pork_chop` | Bone-In Pork Chop | — | — | [ingredient_pork_chop.json](ingredients/ingredient_pork_chop/ingredient_pork_chop.json) |
+| `ingredient_rolled_oats` | Rolled Oats | ✅ Yes | — | [ingredient_rolled_oats.json](ingredients/ingredient_rolled_oats/ingredient_rolled_oats.json) |
+| `ingredient_rolled_oats_5kg` | Bulk Rolled Oats | ✅ Yes | — | [ingredient_rolled_oats_5kg.json](ingredients/ingredient_rolled_oats_5kg/ingredient_rolled_oats_5kg.json) |
+| `ingredient_salt` | Table Salt | ✅ Yes | — | [ingredient_salt.json](ingredients/ingredient_salt/ingredient_salt.json) |
+| `ingredient_salt_5kg` | Bulk Table Salt | ✅ Yes | — | [ingredient_salt_5kg.json](ingredients/ingredient_salt_5kg/ingredient_salt_5kg.json) |
+| `ingredient_sausage` | Pork Sausage | — | — | [ingredient_sausage.json](ingredients/ingredient_sausage/ingredient_sausage.json) |
+| `ingredient_soy_flour` | Soy Flour | ✅ Yes | — | [ingredient_soy_flour.json](ingredients/ingredient_soy_flour/ingredient_soy_flour.json) |
+| `ingredient_soy_flour_5kg` | Bulk Soy Flour | ✅ Yes | — | [ingredient_soy_flour_5kg.json](ingredients/ingredient_soy_flour_5kg/ingredient_soy_flour_5kg.json) |
 | `ingredient_soybeans` | Soybeans | ✅ Yes | — | [ingredient_soybeans.json](ingredients/ingredient_soybeans/ingredient_soybeans.json) |
+| `ingredient_steak` | Ribeye Steak | — | — | [ingredient_steak.json](ingredients/ingredient_steak/ingredient_steak.json) |
+| `ingredient_sugar` | Granulated Sugar | ✅ Yes | — | [ingredient_sugar.json](ingredients/ingredient_sugar/ingredient_sugar.json) |
+| `ingredient_sugar_5kg` | Bulk Granulated Sugar | ✅ Yes | — | [ingredient_sugar_5kg.json](ingredients/ingredient_sugar_5kg/ingredient_sugar_5kg.json) |
 | `ingredient_sunflower` | Sunflower Heads | ✅ Yes | — | [ingredient_sunflower.json](ingredients/ingredient_sunflower/ingredient_sunflower.json) |
 | `ingredient_tobacco` | Tobacco Leaf | ✅ Yes | — | [ingredient_tobacco.json](ingredients/ingredient_tobacco/ingredient_tobacco.json) |
 | `ingredient_wheat` | Milled Wheat Grain | ✅ Yes | — | [ingredient_wheat.json](ingredients/ingredient_wheat/ingredient_wheat.json) |
+| `ingredient_yeast` | Active Dry Yeast | ✅ Yes | — | [ingredient_yeast.json](ingredients/ingredient_yeast/ingredient_yeast.json) |
+| `ingredient_yeast_5kg` | Bulk Active Dry Yeast | ✅ Yes | — | [ingredient_yeast_5kg.json](ingredients/ingredient_yeast_5kg/ingredient_yeast_5kg.json) |
 
-### 📂 [Liquids](liquids/) (24 items)
+### 📂 [Liquids](liquids/) (60 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `liquid_antifreeze` | Antifreeze | — | — | [liquid_antifreeze.json](liquids/liquid_antifreeze/liquid_antifreeze.json) |
 | `liquid_apple_cider` | Apple Cider | — | — | [liquid_apple_cider.json](liquids/liquid_apple_cider/liquid_apple_cider.json) |
 | `liquid_bar_chain_oil` | Bar and Chain Oil | — | — | [liquid_bar_chain_oil.json](liquids/liquid_bar_chain_oil/liquid_bar_chain_oil.json) |
+| `liquid_canola_oil` | Canola Oil | — | — | [liquid_canola_oil.json](liquids/liquid_canola_oil/liquid_canola_oil.json) |
+| `liquid_corn_oil` | Corn Oil | — | — | [liquid_corn_oil.json](liquids/liquid_corn_oil/liquid_corn_oil.json) |
+| `liquid_cottonseed_oil` | Cottonseed Oil | — | — | [liquid_cottonseed_oil.json](liquids/liquid_cottonseed_oil/liquid_cottonseed_oil.json) |
 | `liquid_cream` | Cream | — | — | [liquid_cream.json](liquids/liquid_cream/liquid_cream.json) |
 | `liquid_diesel` | Diesel Fuel | — | — | [liquid_diesel.json](liquids/liquid_diesel/liquid_diesel.json) |
+| `liquid_flax_oil` | Flaxseed Oil | — | — | [liquid_flax_oil.json](liquids/liquid_flax_oil/liquid_flax_oil.json) |
 | `liquid_gasoline` | Gasoline | — | — | [liquid_gasoline.json](liquids/liquid_gasoline/liquid_gasoline.json) |
 | `liquid_gear_oil` | Gear Oil | — | — | [liquid_gear_oil.json](liquids/liquid_gear_oil/liquid_gear_oil.json) |
 | `liquid_goat_milk` | Goat Milk | — | — | [liquid_goat_milk.json](liquids/liquid_goat_milk/liquid_goat_milk.json) |
 | `liquid_greywater` | Greywater | — | — | [liquid_greywater.json](liquids/liquid_greywater/liquid_greywater.json) |
+| `liquid_hazelnut_butter` | Hazelnut Butter | — | — | [liquid_hazelnut_butter.json](liquids/liquid_hazelnut_butter/liquid_hazelnut_butter.json) |
 | `liquid_honey` | Honey | — | — | [liquid_honey.json](liquids/liquid_honey/liquid_honey.json) |
 | `liquid_hydraulic_fluid` | Hydraulic Fluid | — | — | [liquid_hydraulic_fluid.json](liquids/liquid_hydraulic_fluid/liquid_hydraulic_fluid.json) |
+| `liquid_jam_apricot` | Apricot Jam | — | — | [liquid_jam_apricot.json](liquids/liquid_jam_apricot/liquid_jam_apricot.json) |
+| `liquid_jam_blueberry` | Blueberry Jam | — | — | [liquid_jam_blueberry.json](liquids/liquid_jam_blueberry/liquid_jam_blueberry.json) |
+| `liquid_jam_cherry` | Cherry Jam | — | — | [liquid_jam_cherry.json](liquids/liquid_jam_cherry/liquid_jam_cherry.json) |
+| `liquid_jam_elderberry` | Elderberry Jam | — | — | [liquid_jam_elderberry.json](liquids/liquid_jam_elderberry/liquid_jam_elderberry.json) |
+| `liquid_jam_fig` | Fig Jam | — | — | [liquid_jam_fig.json](liquids/liquid_jam_fig/liquid_jam_fig.json) |
+| `liquid_jam_grape` | Grape Jam | — | — | [liquid_jam_grape.json](liquids/liquid_jam_grape/liquid_jam_grape.json) |
+| `liquid_jam_haskap` | Haskap Jam | — | — | [liquid_jam_haskap.json](liquids/liquid_jam_haskap/liquid_jam_haskap.json) |
+| `liquid_jam_huckleberry` | Huckleberry Jam | — | — | [liquid_jam_huckleberry.json](liquids/liquid_jam_huckleberry/liquid_jam_huckleberry.json) |
+| `liquid_jam_peach` | Peach Jam | — | — | [liquid_jam_peach.json](liquids/liquid_jam_peach/liquid_jam_peach.json) |
+| `liquid_jam_pear` | Pear Jam | — | — | [liquid_jam_pear.json](liquids/liquid_jam_pear/liquid_jam_pear.json) |
+| `liquid_jam_plum` | Plum Jam | — | — | [liquid_jam_plum.json](liquids/liquid_jam_plum/liquid_jam_plum.json) |
+| `liquid_jam_raspberry` | Raspberry Jam | — | — | [liquid_jam_raspberry.json](liquids/liquid_jam_raspberry/liquid_jam_raspberry.json) |
+| `liquid_jam_strawberry` | Strawberry Jam | — | — | [liquid_jam_strawberry.json](liquids/liquid_jam_strawberry/liquid_jam_strawberry.json) |
+| `liquid_juice_apple` | Apple Juice | — | — | [liquid_juice_apple.json](liquids/liquid_juice_apple/liquid_juice_apple.json) |
+| `liquid_juice_apricot` | Apricot Juice | — | — | [liquid_juice_apricot.json](liquids/liquid_juice_apricot/liquid_juice_apricot.json) |
+| `liquid_juice_cherry` | Cherry Juice | — | — | [liquid_juice_cherry.json](liquids/liquid_juice_cherry/liquid_juice_cherry.json) |
+| `liquid_juice_grape` | Grape Juice | — | — | [liquid_juice_grape.json](liquids/liquid_juice_grape/liquid_juice_grape.json) |
+| `liquid_juice_lemon` | Lemon Juice | — | — | [liquid_juice_lemon.json](liquids/liquid_juice_lemon/liquid_juice_lemon.json) |
+| `liquid_juice_orange` | Orange Juice | — | — | [liquid_juice_orange.json](liquids/liquid_juice_orange/liquid_juice_orange.json) |
+| `liquid_juice_peach` | Peach Juice | — | — | [liquid_juice_peach.json](liquids/liquid_juice_peach/liquid_juice_peach.json) |
+| `liquid_juice_pear` | Pear Juice | — | — | [liquid_juice_pear.json](liquids/liquid_juice_pear/liquid_juice_pear.json) |
+| `liquid_juice_plum` | Plum Juice | — | — | [liquid_juice_plum.json](liquids/liquid_juice_plum/liquid_juice_plum.json) |
+| `liquid_juice_strawberry` | Strawberry Juice | — | — | [liquid_juice_strawberry.json](liquids/liquid_juice_strawberry/liquid_juice_strawberry.json) |
+| `liquid_juice_tomato` | Tomato Juice | — | — | [liquid_juice_tomato.json](liquids/liquid_juice_tomato/liquid_juice_tomato.json) |
+| `liquid_juice_watermelon` | Watermelon Juice | — | — | [liquid_juice_watermelon.json](liquids/liquid_juice_watermelon/liquid_juice_watermelon.json) |
 | `liquid_kerosene` | Kerosene | — | — | [liquid_kerosene.json](liquids/liquid_kerosene/liquid_kerosene.json) |
 | `liquid_manure_slurry` | Manure Slurry | — | — | [liquid_manure_slurry.json](liquids/liquid_manure_slurry/liquid_manure_slurry.json) |
 | `liquid_maple_sap` | Maple Sap | — | — | [liquid_maple_sap.json](liquids/liquid_maple_sap/liquid_maple_sap.json) |
@@ -1224,9 +1393,15 @@ Total Indexed Items: **1094**
 | `liquid_milk` | Cow Milk | — | — | [liquid_milk.json](liquids/liquid_milk/liquid_milk.json) |
 | `liquid_motor_oil` | Motor Oil | — | — | [liquid_motor_oil.json](liquids/liquid_motor_oil/liquid_motor_oil.json) |
 | `liquid_olive_oil` | Olive Oil | — | — | [liquid_olive_oil.json](liquids/liquid_olive_oil/liquid_olive_oil.json) |
+| `liquid_peanut_butter` | Peanut Butter | — | — | [liquid_peanut_butter.json](liquids/liquid_peanut_butter/liquid_peanut_butter.json) |
+| `liquid_peanut_oil` | Peanut Oil | — | — | [liquid_peanut_oil.json](liquids/liquid_peanut_oil/liquid_peanut_oil.json) |
+| `liquid_pecan_butter` | Pecan Butter | — | — | [liquid_pecan_butter.json](liquids/liquid_pecan_butter/liquid_pecan_butter.json) |
 | `liquid_propane` | Liquid Propane | — | — | [liquid_propane.json](liquids/liquid_propane/liquid_propane.json) |
 | `liquid_sewage` | Sewage | — | — | [liquid_sewage.json](liquids/liquid_sewage/liquid_sewage.json) |
+| `liquid_soybean_oil` | Soybean Oil | — | — | [liquid_soybean_oil.json](liquids/liquid_soybean_oil/liquid_soybean_oil.json) |
+| `liquid_sunflower_oil` | Sunflower Oil | — | — | [liquid_sunflower_oil.json](liquids/liquid_sunflower_oil/liquid_sunflower_oil.json) |
 | `liquid_two_stroke_mix` | Two-Stroke Fuel Mix | — | — | [liquid_two_stroke_mix.json](liquids/liquid_two_stroke_mix/liquid_two_stroke_mix.json) |
 | `liquid_vegetable_oil` | Vegetable Oil | — | — | [liquid_vegetable_oil.json](liquids/liquid_vegetable_oil/liquid_vegetable_oil.json) |
+| `liquid_walnut_butter` | Walnut Butter | — | — | [liquid_walnut_butter.json](liquids/liquid_walnut_butter/liquid_walnut_butter.json) |
 | `liquid_water` | Water | — | — | [liquid_water.json](liquids/liquid_water/liquid_water.json) |
 | `liquid_water_raw` | Raw Water | — | — | [liquid_water_raw.json](liquids/liquid_water_raw/liquid_water_raw.json) |

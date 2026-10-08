@@ -1,4 +1,4 @@
-# Classic Camel Leather Towel Stack
+# Classic Camel Towel Stack
 
 A stack of folded towels with a rolled washcloth. Classic styling.
 

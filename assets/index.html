@@ -4509,6 +4509,10 @@
             title="Queue a request to regenerate the 3D model from the current icon via Meshy">
             🧊 Model
           </button>
+          <button class="modal-regen-btn" id="m-cpu3d-btn"
+            title="Socrates (cpu3d), FREE: build a low-poly rigged, animated model (GLB) from this icon on the cpu3d server (about 2-4 minutes, no credits, no approval). Best for animals, birds, fish and people.">
+            🆓 Socrates
+          </button>
           <button class="modal-regen-btn" id="m-request-rig-btn"
             title="Queue a rigging request for this model (rigged in Blender - walk + run animations included)">
             🦴 Rig
@@ -4647,6 +4651,7 @@
                     <option value="wall">Wall</option>
                     <option value="ceiling">Ceiling</option>
                     <option value="roof">Roof</option>
+                    <option value="chimney">Chimney (kit)</option>
                   </select>
                 </div>
                 <div class="kv-box" title="A wall mount: the side of the wall it goes on.">
@@ -4763,6 +4768,13 @@
                 <div class="kv-box" title="A wall item that is a SHELF: items are stood on its top face (left click with the item in hand, right click the item to take it back).">
                   <div class="kv-key">Shelf</div>
                   <select class="kv-input" id="m-shelf" data-path="properties.shelf">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+                <div class="kv-box" title="A floor cabinet or appliance of a kitchen run: it snaps edge to edge to the others, backs onto a wall, and a gap of 1 to 50 cm against a wall gets a filler strip.">
+                  <div class="kv-key">Kitchen Run (snaps)</div>
+                  <select class="kv-input" id="m-run-snap" data-path="properties.run_snap">
                     <option value="false">No</option>
                     <option value="true">Yes</option>
                   </select>
@@ -5699,6 +5711,7 @@
         <select id="reqasset-pipeline-select"
           style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
           <option value="free">Free (FLUX + Hunyuan3D-2 via HF Space) — $0</option>
+          <option value="socrates">Socrates (cpu3d: image to rigged 3D, local CPU) — free, no approval</option>
           <option value="paid">Paid (Creative Claw + Meshy) — uses credits, asks to confirm cost first</option>
         </select>
       </div>
@@ -5854,6 +5867,7 @@
         <select id="reqgg-pipeline-select"
           style="width: 100%; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; background: #0c121c; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; outline: none;">
           <option value="free">Free (FLUX + Hunyuan3D-2 via HF Space) — $0</option>
+          <option value="socrates">Socrates (cpu3d: image to rigged 3D, local CPU) — free, no approval</option>
           <option value="paid">Paid (Creative Claw + Meshy) — uses credits, asks to confirm cost first</option>
         </select>
       </div>
@@ -12019,6 +12033,52 @@
       }
     }
 
+    // --- cpu3d: FREE image -> low-poly rigged GLB on the cpu3d server (tools/cpu3d_client.py).
+    // Source image is the item's icon; the result is written to <item_id>.glb in the item folder.
+    async function executeCpu3dGenerate(it, btn) {
+      const kindAns = prompt(`Socrates: free model + rig for "${it.name}" from its icon.
+What is it? human, quadruped, bird, fish, or auto`, "auto");
+      if (kindAns === null) return;
+      const kind = (kindAns || "auto").trim().toLowerCase();
+      const post = async (overwrite) => {
+        const res = await fetch("/api/cpu3d-generate", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ category: it.category, item_id: it.id, kind, overwrite })
+        });
+        return { res, data: await res.json() };
+      };
+      try {
+        let { res, data } = await post(false);
+        if (!data.success && /already exists/.test(data.error || "")) {
+          if (!confirm(`${data.error}
+Replace the existing model?`)) return;
+          ({ res, data } = await post(true));
+        }
+        if (!data.success) { showToast(`Error: ${data.error || "cpu3d failed to start"}`, "error"); return; }
+        const jobId = data.job.id;
+        const label = btn.textContent;
+        btn.disabled = true;
+        for (;;) {
+          await new Promise(r => setTimeout(r, 4000));
+          const st = await (await fetch(`/api/cpu3d-status?job=${encodeURIComponent(jobId)}`, { cache: "no-store" })).json();
+          const job = st.job || {};
+          btn.textContent = `CPU: ${job.stage || job.status || "..."}`;
+          if (job.status === "done") {
+            const r = job.report || {};
+            showToast(`Model ready for '${it.name}' (${r.triangles ?? "?"} tris, ${r.bones ?? "?"} bones). Check poly budget and gait.`, "success");
+            break;
+          }
+          if (job.status === "failed") { showToast(`cpu3d failed: ${job.error}`, "error"); break; }
+        }
+        btn.disabled = false;
+        btn.textContent = label;
+      } catch (err) {
+        console.error("cpu3d error:", err);
+        btn.disabled = false;
+        showToast(`Server error: ${err.message}`, "error");
+      }
+    }
+
     async function executeRequestRegenerateModel(it) {
       if (!confirm(`Queue a 3D model generation request for "${it.name}"? The system will generate the 3D model from its icon automatically ($0 cost).`)) return;
       try {
@@ -18078,6 +18138,10 @@
       if (regenModelBtn) {
         regenModelBtn.onclick = () => executeRequestRegenerateModel(it);
       }
+      const cpu3dBtn = document.getElementById("m-cpu3d-btn");
+      if (cpu3dBtn) {
+        cpu3dBtn.onclick = () => executeCpu3dGenerate(it, cpu3dBtn);
+      }
       const requestRigBtn = document.getElementById("m-request-rig-btn");
       if (requestRigBtn) {
         requestRigBtn.onclick = () => executeRequestRigging(it);
@@ -18138,6 +18202,7 @@
       document.getElementById("m-attach-item").value = p.attach_item || "";
       document.getElementById("m-attach-through").value = p.attach_through ? "true" : "false";
       document.getElementById("m-shelf").value = p.shelf ? "true" : "false";
+      document.getElementById("m-run-snap").value = p.run_snap ? "true" : "false";
       document.getElementById("m-roof-mount").value = p.roof_mount ? "true" : "false";
       document.getElementById("m-sawmill").value = p.sawmill ? "true" : "false";
       document.getElementById("m-poe").value = p.poe ? "true" : "false";
@@ -18207,6 +18272,7 @@
         ["m-attach-item", "properties.attach_item", "string_or_null"],
         ["m-attach-through", "properties.attach_through", "bool"],
         ["m-shelf", "properties.shelf", "bool"],
+        ["m-run-snap", "properties.run_snap", "bool"],
         ["m-roof-mount", "properties.roof_mount", "bool"],
         ["m-sawmill", "properties.sawmill", "bool"],
         ["m-poe", "properties.poe", "bool"],
@@ -18337,7 +18403,7 @@
       // regeneration requests that target an asset folder + manifest, which a
       // nested stage resource has no id for; Rename/Delete are already
       // guarded, and hiding them beats letting a click explain why.
-      ["m-request-icon-btn", "m-regen-model-btn", "m-request-rig-btn",
+      ["m-request-icon-btn", "m-regen-model-btn", "m-cpu3d-btn", "m-request-rig-btn",
        "m-jump-json-btn", "m-rename-btn", "m-delete-btn"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = isStage ? "none" : "";

@@ -22,7 +22,8 @@
     ],
     "sale_unit": "unit",
     "placeable": true,
-    "sawmill": true
+    "sawmill": true,
+    "store_category": "Vehicles"
   },
   "models": [
     {

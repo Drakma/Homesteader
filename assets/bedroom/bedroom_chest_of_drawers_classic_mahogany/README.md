@@ -1,4 +1,4 @@
-# Classic Mahogany Chest Of Drawers
+# Classic Mahogany Chest
 
 A tall chest of five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

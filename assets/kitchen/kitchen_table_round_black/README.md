@@ -1,4 +1,4 @@
-# Black Round Pedestal Table
+# Black Round Table
 
 A round pedestal table that seats four. Black finish.
 

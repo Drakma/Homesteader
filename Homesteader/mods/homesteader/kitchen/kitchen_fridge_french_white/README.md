@@ -1,4 +1,4 @@
-# White French-Door Refrigerator
+# White French Fridge
 
 A refrigerator with two French doors over a pull-out freezer drawer. White finish.
 

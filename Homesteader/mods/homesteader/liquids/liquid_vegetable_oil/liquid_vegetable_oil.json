@@ -3,7 +3,7 @@
   "id": "liquid_vegetable_oil",
   "name": "Vegetable Oil",
   "category": "liquids",
-  "description": "Pressed seed oil for the kitchen.",
+  "description": "A blend of pressed seed oils for the kitchen: soybean and canola oils with corn, sunflower and cottonseed oils.",
   "icon": "liquid_vegetable_oil.png",
   "properties": {
     "weight_kg": 0.92,

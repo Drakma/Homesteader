@@ -1,4 +1,4 @@
-# Classic Red Tall Steel Cabinet
+# Classic Red Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Classic styling: turned legs, rolled arms, mouldings and brass.
 

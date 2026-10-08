@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.74"
+    "deck_heights": "0.74",
+    "store_category": "Kitchen/Table Bistro Oak"
   },
   "models": [
     {

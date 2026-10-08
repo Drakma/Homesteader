@@ -1,4 +1,4 @@
-# Classic Walnut Rocking Chair
+# Classic Walnut Rocker
 
 A rocking chair for the family room. Classic styling: turned legs, rolled arms, mouldings and brass.
 

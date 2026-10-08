@@ -1,4 +1,4 @@
-# Classic Black Freestanding Bathtub
+# Classic Black Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Classic styling.
 

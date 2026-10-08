@@ -1,0 +1,488 @@
+{
+  "meals": [
+    {
+      "id": "meal_mill_flour",
+      "name": "Mill Flour",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_flour",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_wheat",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_flour_5kg",
+      "name": "Mill Flour, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_flour_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_wheat",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_corn_flour",
+      "name": "Mill Corn Flour",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_corn_flour",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_corn_flour_5kg",
+      "name": "Mill Corn Flour, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_corn_flour_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_oat_flour",
+      "name": "Mill Oat Flour",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_oat_flour",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_oats",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_oat_flour_5kg",
+      "name": "Mill Oat Flour, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_oat_flour_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_oats",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_barley_flour",
+      "name": "Mill Barley Flour",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_barley_flour",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_barley",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_barley_flour_5kg",
+      "name": "Mill Barley Flour, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_barley_flour_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_barley",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_soy_flour",
+      "name": "Mill Soy Flour",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_soy_flour",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_soy_flour_5kg",
+      "name": "Mill Soy Flour, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_soy_flour_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_flax_meal",
+      "name": "Mill Flax Meal",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_flax_meal",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_flax",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_flax_meal_5kg",
+      "name": "Mill Flax Meal, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_flax_meal_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_flax",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_rolled_oats",
+      "name": "Mill Rolled Oats",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_rolled_oats",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_oats",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_rolled_oats_5kg",
+      "name": "Mill Rolled Oats, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_rolled_oats_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_oats",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_cornmeal",
+      "name": "Mill Cornmeal",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_cornmeal",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_cornmeal_5kg",
+      "name": "Mill Cornmeal, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_cornmeal_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_grits",
+      "name": "Mill Grits",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_grits",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_grits_5kg",
+      "name": "Mill Grits, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_grits_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_pearl_barley",
+      "name": "Mill Pearl Barley",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_pearl_barley",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_barley",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_pearl_barley_5kg",
+      "name": "Mill Pearl Barley, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_pearl_barley_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_barley",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_cracked_wheat",
+      "name": "Mill Cracked Wheat",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_cracked_wheat",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_wheat",
+          "quantity": 3
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_mill_cracked_wheat_5kg",
+      "name": "Mill Cracked Wheat, Bulk Sack",
+      "group": "Milling",
+      "result": {
+        "item_id": "ingredient_cracked_wheat_5kg",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_wheat",
+          "quantity": 15
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_grain_mill"
+          ]
+        }
+      ]
+    }
+  ]
+}

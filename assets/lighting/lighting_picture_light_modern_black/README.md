@@ -1,4 +1,4 @@
-# Modern Matte Black Picture Light
+# Modern Black Picture Light
 
 A slim light to hang over a picture or a mirror. Mount it inside. Modern styling. Mounts on an inside wall.
 

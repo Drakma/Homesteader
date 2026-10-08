@@ -1,4 +1,4 @@
-# Classic Mahogany Cork Board
+# Classic Mahogany Corkboard
 
 A framed cork board with pinned notes. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

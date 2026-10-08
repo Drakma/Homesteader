@@ -1,4 +1,4 @@
-# Classic Walnut Framed Picture
+# Classic Walnut Picture
 
 A framed picture. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

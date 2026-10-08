@@ -1,4 +1,4 @@
-# Classic Camel Leather Recliner
+# Classic Camel Recliner
 
 A deep recliner with its footrest out. Classic styling: turned legs, rolled arms, mouldings and brass.
 

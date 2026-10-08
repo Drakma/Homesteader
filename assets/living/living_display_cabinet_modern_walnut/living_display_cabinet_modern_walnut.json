@@ -3,7 +3,7 @@
   "id": "living_display_cabinet_modern_walnut",
   "name": "Modern Walnut Display Cabinet",
   "category": "living",
-  "description": "A glass-door display cabinet over a closed cabinet. Modern styling: clean lines, slim tapered legs and black metal.",
+  "description": "A glass-door display cabinet with empty glass shelves over a closed cabinet that holds things. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "living_display_cabinet_modern_walnut.png",
   "properties": {
     "weight_kg": 46.0,
@@ -17,12 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "support_surface": true,
+    "deck_heights": "0.812,1.132,1.452",
+    "store_category": "Living Room/Display Cabinet"
   },
   "models": [
     {
@@ -33,7 +36,7 @@
         "y": 1.85,
         "z": 0.46
       },
-      "triangles": 1004
+      "triangles": 464
     }
   ],
   "utilities": {
@@ -83,5 +86,10 @@
     "style": "modern",
     "color": "walnut",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 30,
+    "accepts": [],
+    "show_fill": false
   }
 }

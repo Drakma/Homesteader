@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_oven_tower_stainless",
-  "name": "Stainless Steel Double Wall Oven Tower",
+  "name": "Steel Oven Tower",
   "category": "kitchen",
   "description": "A tall oven cabinet with two ovens, a control panel and a warming drawer. Stainless Steel finish.",
   "icon": "kitchen_oven_tower_stainless.png",
@@ -17,12 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "run_snap": true,
+    "store_category": "Kitchen/Oven Tower Stainless"
   },
   "models": [
     {

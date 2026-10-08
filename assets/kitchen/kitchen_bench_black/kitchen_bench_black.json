@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_bench_black",
-  "name": "Black Kitchen Bench",
+  "name": "Black Bench",
   "category": "kitchen",
   "description": "A plain bench for the kitchen table. Black finish.",
   "icon": "kitchen_bench_black.png",
@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.46"
+    "deck_heights": "0.46",
+    "store_category": "Kitchen/Bench Black"
   },
   "models": [
     {

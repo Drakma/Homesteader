@@ -28,7 +28,8 @@
         "price": 32
       }
     },
-    "build_speed": 0.4
+    "build_speed": 0.4,
+    "store_category": "Hand Tools/General"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Modern Matte Black Pedestal Sink
+# Modern Black Pedestal Sink
 
 A basin on a pedestal with a faucet. Modern styling.
 

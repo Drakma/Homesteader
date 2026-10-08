@@ -21,7 +21,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "each"
+    "sale_unit": "each",
+    "store_category": "Fencing & Outdoor"
   },
   "models": [
     {

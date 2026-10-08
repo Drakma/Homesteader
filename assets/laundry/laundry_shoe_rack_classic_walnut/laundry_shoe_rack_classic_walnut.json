@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.50"
+    "deck_heights": "0.10,0.28,0.46",
+    "store_category": "Laundry/Shoe Rack"
   },
   "models": [
     {

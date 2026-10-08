@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_end_bench_modern_charcoal",
-  "name": "Modern Charcoal Bed-End Bench",
+  "name": "Modern Charcoal End Bench",
   "category": "bedroom",
   "description": "A cushioned bench for the foot of a bed. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "bedroom_end_bench_modern_charcoal.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.48"
+    "deck_heights": "0.48",
+    "store_category": "Bedroom/End Bench"
   },
   "models": [
     {

@@ -26,7 +26,8 @@
     "path_style": "asphalt",
     "path_m_per_item": 2.0,
     "is_blueprint": true,
-    "path_material_item": "mat_pile_gravel_medium"
+    "path_material_item": "mat_pile_gravel_medium",
+    "store_category": "Fencing & Outdoor"
   },
   "models": [],
   "utilities": {

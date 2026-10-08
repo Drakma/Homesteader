@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_siding_sage",
-  "name": "Sage Green Clapboard Siding",
+  "name": "Sage Clapboard Siding",
   "category": "building",
   "description": "Sage Green Clapboard Siding: a building finish. Used as a construction material it sets how that part of the building looks.",
   "icon": "building_siding_sage.png",
@@ -25,7 +25,8 @@
     "look_color": "#8fa387",
     "look_smoothness": 0.2,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Siding & Cladding"
   },
   "models": [
     {

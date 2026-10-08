@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_air_compressor_modern_black",
-  "name": "Modern Matte Black Air Compressor",
+  "name": "Modern Black Air Compressor",
   "category": "garage",
   "description": "A tank air compressor on wheels. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "garage_air_compressor_modern_black.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Garage/Air Compressor"
   },
   "models": [
     {

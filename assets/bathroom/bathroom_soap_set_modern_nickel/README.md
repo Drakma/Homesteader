@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Soap and Toothbrush Set
+# Modern Nickel Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Modern styling.
 

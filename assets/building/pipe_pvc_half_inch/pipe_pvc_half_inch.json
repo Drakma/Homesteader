@@ -25,7 +25,8 @@
     "display_weight": true,
     "wire_kind": "water",
     "wire_length_m": 3,
-    "flow_lph": 900
+    "flow_lph": 900,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

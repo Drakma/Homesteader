@@ -1,4 +1,4 @@
-# Oak Kitchen Bench
+# Oak Bench
 
 A plain bench for the kitchen table. Oak finish.
 

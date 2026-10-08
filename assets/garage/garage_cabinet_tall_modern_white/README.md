@@ -1,4 +1,4 @@
-# Modern White Tall Steel Cabinet
+# Modern White Tall Cabinet
 
 A tall two-door steel cabinet with vent slots. Modern styling: clean lines, slim tapered legs and black metal.
 

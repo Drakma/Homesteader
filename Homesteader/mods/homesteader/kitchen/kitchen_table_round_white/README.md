@@ -1,4 +1,4 @@
-# White Round Pedestal Table
+# White Round Table
 
 A round pedestal table that seats four. White finish.
 

@@ -1,4 +1,4 @@
-# Modern Chrome Garden Bollard Light
+# Modern Chrome Bollard
 
 A waist-high bollard light for a path or a drive, on from dusk to dawn. Modern styling. Stands on the ground.
 

@@ -17,12 +17,13 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "store_category": "Kitchen/Freezer Chest Black"
   },
   "models": [
     {
@@ -82,5 +83,15 @@
     "kitchen_kind": "appliance",
     "finish": "black",
     "power_draw_w": 110
+  },
+  "container": {
+    "capacity_kg": 150,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

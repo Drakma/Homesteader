@@ -22,7 +22,8 @@
     ],
     "sale_unit": "ea",
     "placeable": true,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Hand Tools/General"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Classic Mahogany Bathroom Mirror
+# Classic Mahogany Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Classic styling.
 

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "kitchen_wall_cab_thin_white",
+  "name": "White Slim Upper Cabinet",
+  "category": "kitchen",
+  "description": "A 15 cm slim wall cabinet with one narrow door, for tight spaces. Mount it on a wall. White shaker doors, marble top.",
+  "icon": "kitchen_wall_cab_thin_white.png",
+  "properties": {
+    "weight_kg": 6.0,
+    "max_stack_size": 1,
+    "base_value": 60,
+    "is_consumable": false,
+    "footprint": "0.15m W x 0.37m D x 0.72m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "store_category": "Kitchen/Wall Cab Thin White"
+  },
+  "models": [
+    {
+      "file": "kitchen_wall_cab_thin_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.15,
+        "y": 0.72,
+        "z": 0.374
+      },
+      "triangles": 336
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.15,
+      "depth": 0.374,
+      "height": 0.72
+    },
+    "kitchen_kind": "cabinet",
+    "finish": "white",
+    "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 5,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
+  }
+}

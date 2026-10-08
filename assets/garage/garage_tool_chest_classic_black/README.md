@@ -1,4 +1,4 @@
-# Classic Black Rolling Tool Chest
+# Classic Black Tool Chest
 
 A rolling tool chest with five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

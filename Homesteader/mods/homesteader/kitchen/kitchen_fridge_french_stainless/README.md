@@ -1,4 +1,4 @@
-# Stainless Steel French-Door Refrigerator
+# Steel French Fridge
 
 A refrigerator with two French doors over a pull-out freezer drawer. Stainless Steel finish.
 

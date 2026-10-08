@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_fridge_top_stainless",
-  "name": "Stainless Steel Top-Freezer Refrigerator",
+  "name": "Steel Top Fridge",
   "category": "kitchen",
   "description": "A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate. Stainless Steel finish.",
   "icon": "kitchen_fridge_top_stainless.png",
@@ -17,12 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "run_snap": true,
+    "store_category": "Kitchen/Fridge Top Stainless"
   },
   "models": [
     {
@@ -82,5 +84,15 @@
     "kitchen_kind": "appliance",
     "finish": "stainless_steel",
     "power_draw_w": 150
+  },
+  "container": {
+    "capacity_kg": 90,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

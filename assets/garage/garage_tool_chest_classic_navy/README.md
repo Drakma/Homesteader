@@ -1,4 +1,4 @@
-# Classic Navy Rolling Tool Chest
+# Classic Navy Tool Chest
 
 A rolling tool chest with five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

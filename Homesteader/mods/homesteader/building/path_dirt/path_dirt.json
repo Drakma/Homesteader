@@ -26,7 +26,8 @@
     "path_style": "dirt",
     "path_m_per_item": 3.0,
     "is_blueprint": true,
-    "path_material_item": "mat_pile_dirt_small"
+    "path_material_item": "mat_pile_dirt_small",
+    "store_category": "Fencing & Outdoor"
   },
   "models": [],
   "utilities": {

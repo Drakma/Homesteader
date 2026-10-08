@@ -1,4 +1,4 @@
-# Classic Forest Green Lumber Rack
+# Classic Green Lumber Rack
 
 Three steel arms holding a stack of boards. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.
 

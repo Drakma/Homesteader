@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_crib_modern_black",
-  "name": "Modern Black Baby Crib",
+  "name": "Modern Black Crib",
   "category": "bedroom",
   "description": "A baby crib with a mattress. Modern styling: clean lines, slim tapered legs and black metal.",
   "icon": "bedroom_crib_modern_black.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Crib"
   },
   "models": [
     {

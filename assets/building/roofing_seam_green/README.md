@@ -1,4 +1,4 @@
-# Standing Seam Green Metal Roofing
+# Green Seam Roofing
 
 Category: building. Look target: roof, colour #2f6a49.
 

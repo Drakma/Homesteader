@@ -1,4 +1,4 @@
-# Classic Forest Green Parts Cabinet
+# Classic Green Parts Cabinet
 
 A small-parts cabinet with 24 labelled drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

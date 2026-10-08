@@ -1,0 +1,83 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "building_window_picture_panes2",
+  "name": "Picture Window, Two Panes",
+  "category": "building",
+  "description": "A large fixed window, 1.5 m by 1.2 m. Its muntins: two panes.",
+  "icon": "building_window_picture_panes2.png",
+  "properties": {
+    "weight_kg": 24.0,
+    "max_stack_size": 4,
+    "base_value": 210,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": true,
+    "stores": [
+      "depot"
+    ],
+    "sale_unit": "kit",
+    "display_weight": true,
+    "store_category": "Doors & Windows"
+  },
+  "models": [
+    {
+      "file": "building_window_picture_panes2.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.56,
+        "y": 1.23,
+        "z": 0.11
+      },
+      "triangles": 84
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.56,
+      "depth": 0.11,
+      "height": 1.23
+    }
+  }
+}

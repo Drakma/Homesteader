@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "store_category": "Laundry/Folding Counter"
   },
   "models": [
     {
@@ -87,5 +88,10 @@
     "power_draw_w": 0,
     "water_per_use_l": 0,
     "water_usage_lpm": 0
+  },
+  "container": {
+    "capacity_kg": 30,
+    "accepts": [],
+    "show_fill": false
   }
 }

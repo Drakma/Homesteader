@@ -1,0 +1,4798 @@
+{
+  "meals": [
+    {
+      "id": "meal_bake_bread",
+      "name": "Bake Bread",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_bread",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_yeast",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_burger_buns",
+      "name": "Bake Burger Buns",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_burger_bun",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_yeast",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_hot_dog_buns",
+      "name": "Bake Hot Dog Buns",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_hot_dog_bun",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_yeast",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_cornbread",
+      "name": "Bake Cornbread",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_cornbread",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cornmeal",
+          "quantity": 2
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_corn_muffins",
+      "name": "Bake Corn Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_corn_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cornmeal",
+          "quantity": 2
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_muffins",
+      "name": "Bake Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_pasta_sauce",
+      "name": "Simmer Pasta Sauce",
+      "group": "Cooking",
+      "result": {
+        "item_id": "ingredient_pasta_sauce",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "food_tomato",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_alfredo_sauce",
+      "name": "Simmer Alfredo Sauce",
+      "group": "Cooking",
+      "result": {
+        "item_id": "ingredient_alfredo_sauce",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_spaghetti",
+      "name": "Cook Spaghetti Marinara",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_spaghetti",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pasta_sauce",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_spaghetti_meatballs",
+      "name": "Cook Spaghetti and Meatballs",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_spaghetti_meatballs",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pasta_sauce",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_sausage_pasta",
+      "name": "Cook Sausage Pasta",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_sausage_pasta",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pasta_sauce",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_sausage",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_buttered_noodles",
+      "name": "Cook Buttered Noodles",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_buttered_noodles",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_mac_and_cheese",
+      "name": "Cook Macaroni and Cheese",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_mac_and_cheese",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_tomato_soup",
+      "name": "Cook Tomato Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_tomato_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_tomato",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_vegetable_soup",
+      "name": "Cook Vegetable Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_vegetable_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_green_beans",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_chicken_noodle_soup",
+      "name": "Cook Chicken Noodle Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_chicken_noodle_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_chicken",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_potato_soup",
+      "name": "Cook Potato Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_potato_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bacon",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_beef_barley_soup",
+      "name": "Cook Beef Barley Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_beef_barley_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_beef",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pearl_barley",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cook_pumpkin_soup",
+      "name": "Cook Pumpkin Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_pumpkin_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_pumpkin",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_toast_bread",
+      "name": "Toast Bread",
+      "group": "Baking",
+      "result": {
+        "item_id": "ingredient_bread_toasted",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_bread_crumbs",
+      "name": "Smash Bread Crumbs",
+      "group": "Assembly",
+      "result": {
+        "item_id": "ingredient_bread_crumbs",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_bread_toasted",
+          "quantity": 4
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_deepfry_bass",
+      "name": "Deep Fry Bass",
+      "group": "Frying",
+      "result": {
+        "item_id": "food_bass_deepfried",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_bass",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_deepfry_catfish",
+      "name": "Deep Fry Catfish",
+      "group": "Frying",
+      "result": {
+        "item_id": "food_catfish_deepfried",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_catfish",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_deepfry_crappie",
+      "name": "Deep Fry Crappie",
+      "group": "Frying",
+      "result": {
+        "item_id": "food_crappie_deepfried",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_crappie",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_deepfry_trout",
+      "name": "Deep Fry Trout",
+      "group": "Frying",
+      "result": {
+        "item_id": "food_trout_deepfried",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_trout",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_deepfry_walleye",
+      "name": "Deep Fry Walleye",
+      "group": "Frying",
+      "result": {
+        "item_id": "food_walleye_deepfried",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_walleye",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cheese",
+      "name": "Make Cheese",
+      "group": "Dairy",
+      "result": {
+        "item_id": "food_cheese",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_milk",
+          "quantity": 20
+        },
+        {
+          "item_id": "food_lemon",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_churn_butter",
+      "name": "Churn Butter",
+      "group": "Dairy",
+      "result": {
+        "item_id": "ingredient_butter",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_cream",
+          "quantity": 20
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_grind_beef",
+      "name": "Grind Beef",
+      "group": "Butchering",
+      "result": {
+        "item_id": "ingredient_ground_beef",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_beef",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_sausage",
+      "name": "Make Sausage",
+      "group": "Butchering",
+      "result": {
+        "item_id": "ingredient_sausage",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_blender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cure_bacon",
+      "name": "Cure Bacon",
+      "group": "Butchering",
+      "result": {
+        "item_id": "ingredient_bacon",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_cure_ham",
+      "name": "Cure Ham",
+      "group": "Butchering",
+      "result": {
+        "item_id": "ingredient_ham",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_boil_maple_sugar",
+      "name": "Boil Maple Sugar",
+      "group": "Preserving",
+      "result": {
+        "item_id": "ingredient_sugar",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_maple_syrup",
+          "quantity": 20
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_start_yeast",
+      "name": "Start Yeast",
+      "group": "Baking",
+      "result": {
+        "item_id": "ingredient_yeast",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "liquid_water",
+          "quantity": 6
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_pasta",
+      "name": "Make Pasta",
+      "group": "Assembly",
+      "result": {
+        "item_id": "ingredient_pasta",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_assemble_burger",
+      "name": "Make a Hamburger",
+      "group": "Assembly",
+      "result": {
+        "item_id": "food_burger",
+        "quantity": 1
+      },
+      "ingredients": [
+        {
+          "item_id": "food_burger_bun",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_ground_beef_grilled",
+          "quantity": 1
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_assemble_hot_dog",
+      "name": "Make Hot Dogs",
+      "group": "Assembly",
+      "result": {
+        "item_id": "food_hot_dog",
+        "quantity": 3
+      },
+      "ingredients": [
+        {
+          "item_id": "food_hot_dog_bun",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_sausage_grilled",
+          "quantity": 1
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_bake_blueberry_muffins",
+      "name": "Bake Blueberry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_blueberry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_blueberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_strawberry_muffins",
+      "name": "Bake Strawberry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_strawberry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_strawberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_raspberry_muffins",
+      "name": "Bake Raspberry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_raspberry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_raspberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_cherry_muffins",
+      "name": "Bake Cherry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_cherry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_cherry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_apple_muffins",
+      "name": "Bake Apple Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_apple_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_apple",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_peach_muffins",
+      "name": "Bake Peach Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_peach_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_peach",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_pear_muffins",
+      "name": "Bake Pear Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_pear_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_pear",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_apricot_muffins",
+      "name": "Bake Apricot Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_apricot_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_apricot",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_plum_muffins",
+      "name": "Bake Plum Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_plum_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_plum",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_fig_muffins",
+      "name": "Bake Fig Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_fig_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_fig",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_huckleberry_muffins",
+      "name": "Bake Huckleberry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_huckleberry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_huckleberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_elderberry_muffins",
+      "name": "Bake Elderberry Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_elderberry_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_elderberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_haskap_muffins",
+      "name": "Bake Haskap Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_haskap_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_haskap",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_lemon_muffins",
+      "name": "Bake Lemon Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_lemon_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_lemon",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_orange_muffins",
+      "name": "Bake Orange Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_orange_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_orange",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_bake_rhubarb_muffins",
+      "name": "Bake Rhubarb Muffins",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_rhubarb_muffin",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_rhubarb",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_oatmeal",
+      "name": "Cook Oatmeal",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_oatmeal",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_rolled_oats",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_grits",
+      "name": "Cook Grits",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_grits",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_grits",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_pancakes",
+      "name": "Cook Pancakes",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_pancakes",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_scrambled_eggs",
+      "name": "Cook Scrambled Eggs",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_scrambled_eggs",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_bacon_and_eggs",
+      "name": "Cook Bacon and Eggs",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_bacon_and_eggs",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_bacon",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_french_toast",
+      "name": "Cook French Toast",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_french_toast",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_beef_stew",
+      "name": "Cook Beef Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_beef_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_beef",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_chicken_stew",
+      "name": "Cook Chicken Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_chicken_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_chicken",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_peas",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_lamb_stew",
+      "name": "Cook Lamb Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_lamb_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_lamb_chop",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_goat_stew",
+      "name": "Cook Goat Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_goat_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_goat_meat",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_pork_stew",
+      "name": "Cook Pork Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_pork_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_green_beans",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_sausage_stew",
+      "name": "Cook Sausage Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_sausage_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_sausage",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_pepper",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_fish_stew",
+      "name": "Cook Fish Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_fish_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_catfish",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_vegetable_stew",
+      "name": "Cook Vegetable Stew",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_vegetable_stew",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_peas",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_meatloaf",
+      "name": "Bake Meatloaf",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_meatloaf",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_bread",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_shepherds_pie",
+      "name": "Bake Shepherd's Pie",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_shepherds_pie",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_peas",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_roast_chicken",
+      "name": "Bake Roast Chicken",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_roast_chicken",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_chicken",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_pot_roast",
+      "name": "Bake Pot Roast",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_pot_roast",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_beef",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_mashed_potatoes",
+      "name": "Cook Mashed Potatoes",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_mashed_potatoes",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_baked_potato",
+      "name": "Bake Baked Potato",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_baked_potato",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_roasted_vegetables",
+      "name": "Bake Roasted Vegetables",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_roasted_vegetables",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_zucchini",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_pepper",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_garden_salad",
+      "name": "Make Garden Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_garden_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_lettuce",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_cucumber",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_radish",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_coleslaw",
+      "name": "Make Coleslaw",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_coleslaw",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cabbage",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_spinach_salad",
+      "name": "Make Spinach Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_spinach_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_spinach",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bacon",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_spaghetti_meat_sauce",
+      "name": "Cook Spaghetti with Meat Sauce",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_spaghetti_meat_sauce",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pasta_sauce",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_spaghetti_alfredo",
+      "name": "Cook Spaghetti Alfredo",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_spaghetti_alfredo",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_alfredo_sauce",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cacio_e_pepe",
+      "name": "Cook Cacio e Pepe",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_cacio_e_pepe",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_breadsticks",
+      "name": "Bake Breadsticks",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_breadsticks",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_yeast",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_garlic_bread",
+      "name": "Bake Garlic Bread",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_garlic_bread",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_garlic",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_apple_pie",
+      "name": "Bake Apple Pie",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_apple_pie",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_apple",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cherry_pie",
+      "name": "Bake Cherry Pie",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_cherry_pie",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_cherry",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_blueberry_pie",
+      "name": "Bake Blueberry Pie",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_blueberry_pie",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_blueberry",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_pumpkin_pie",
+      "name": "Bake Pumpkin Pie",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_pumpkin_pie",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_pumpkin",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cake",
+      "name": "Bake Yellow Cake",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_cake",
+        "quantity": 6
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 3
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_sugar_cookies",
+      "name": "Bake Sugar Cookies",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_sugar_cookies",
+        "quantity": 8
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_omelet",
+      "name": "Cook Omelet",
+      "group": "Eggs",
+      "result": {
+        "item_id": "food_omelet",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_quiche",
+      "name": "Bake Quiche",
+      "group": "Eggs",
+      "result": {
+        "item_id": "food_quiche",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_bacon_cooked",
+          "quantity": 2
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_deviled_eggs",
+      "name": "Cook Deviled Eggs",
+      "group": "Eggs",
+      "result": {
+        "item_id": "food_deviled_eggs",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_egg_salad",
+      "name": "Cook Egg Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_egg_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_blt",
+      "name": "Make BLT Sandwich",
+      "group": "Sandwiches",
+      "result": {
+        "item_id": "food_blt",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_bacon_cooked",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_lettuce",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 1
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_grilled_cheese",
+      "name": "Cook Grilled Cheese",
+      "group": "Sandwiches",
+      "result": {
+        "item_id": "food_grilled_cheese",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 4
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_ham_sandwich",
+      "name": "Make Ham Sandwich",
+      "group": "Sandwiches",
+      "result": {
+        "item_id": "food_ham_sandwich",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_bread",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_ham",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_lettuce",
+          "quantity": 1
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_fish_sandwich",
+      "name": "Make Fish Sandwich",
+      "group": "Sandwiches",
+      "result": {
+        "item_id": "food_fish_sandwich",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_burger_bun",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_catfish_deepfried",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_lettuce",
+          "quantity": 1
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_fried_chicken",
+      "name": "Cook Fried Chicken",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_fried_chicken",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_chicken",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 2
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_pork_chops_apples",
+      "name": "Cook Pork Chops with Apples",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_pork_chops_apples",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pork_chop",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_apple",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_lamb_roast",
+      "name": "Bake Roast Lamb",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_lamb_roast",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_lamb_chop",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_goat_roast",
+      "name": "Bake Roast Goat",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_goat_roast",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_goat_meat",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_ham_and_beans",
+      "name": "Cook Ham and Beans",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_ham_and_beans",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ham",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_baked_salmon",
+      "name": "Bake Baked Salmon",
+      "group": "Mains",
+      "result": {
+        "item_id": "food_baked_salmon",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_fillet_salmon",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_lemon",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_biscuits",
+      "name": "Bake Biscuits",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_biscuits",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "liquid_milk",
+          "quantity": 4
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_waffles",
+      "name": "Cook Waffles",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_waffles",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        },
+        {
+          "item_id": "liquid_milk",
+          "quantity": 4
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_hash_browns",
+      "name": "Cook Hash Browns",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_hash_browns",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_apple_porridge",
+      "name": "Cook Apple Oat Porridge",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_apple_porridge",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_rolled_oats",
+          "quantity": 2
+        },
+        {
+          "item_id": "liquid_milk",
+          "quantity": 6
+        },
+        {
+          "item_id": "food_apple",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_sausage_and_eggs",
+      "name": "Cook Sausage and Eggs",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_sausage_and_eggs",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_sausage",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_biscuits_gravy",
+      "name": "Cook Biscuits and Gravy",
+      "group": "Breakfast",
+      "result": {
+        "item_id": "food_biscuits_gravy",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_biscuits",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_sausage",
+          "quantity": 1
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "liquid_milk",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_french_fries",
+      "name": "Cook French Fries",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_french_fries",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "#cooking_oil",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_corn_on_the_cob",
+      "name": "Cook Corn on the Cob",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_corn_on_the_cob",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_corn",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_green_bean_casserole",
+      "name": "Bake Green Bean Casserole",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_green_bean_casserole",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_green_beans",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_roasted_beets",
+      "name": "Bake Roasted Beets",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_roasted_beets",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_beet",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_herbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_broccoli_and_cheese",
+      "name": "Cook Broccoli and Cheese",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_broccoli_and_cheese",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_broccoli",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cracked_wheat_pilaf",
+      "name": "Cook Cracked Wheat Pilaf",
+      "group": "Sides",
+      "result": {
+        "item_id": "food_cracked_wheat_pilaf",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cracked_wheat",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_broccoli_cheese_soup",
+      "name": "Cook Broccoli Cheese Soup",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_broccoli_cheese_soup",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_broccoli",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "liquid_milk",
+          "quantity": 6
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_borscht",
+      "name": "Cook Borscht",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_borscht",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_beet",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_potato",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_carrot",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_cabbage",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_beef_chili",
+      "name": "Cook Beef Chili",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_beef_chili",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_ground_beef",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_tomato",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_pepper",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_veggie_chili",
+      "name": "Cook Vegetarian Chili",
+      "group": "Soups",
+      "result": {
+        "item_id": "food_veggie_chili",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_tomato",
+          "quantity": 3
+        },
+        {
+          "item_id": "food_pepper",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_soybeans",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_potato_salad",
+      "name": "Cook Potato Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_potato_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_potato",
+          "quantity": 3
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_cucumber_salad",
+      "name": "Make Cucumber Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_cucumber_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cucumber",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_onion",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_caesar_salad",
+      "name": "Make Caesar Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_caesar_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_lettuce",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_cheese",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_bread_crumbs",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_pepper_ground",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_fruit_salad",
+      "name": "Make Fruit Salad",
+      "group": "Salads",
+      "result": {
+        "item_id": "food_fruit_salad",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "food_cantaloupe",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_apple",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_orange",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_strawberry",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_grapes",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": []
+    },
+    {
+      "id": "meal_make_peach_cobbler",
+      "name": "Bake Peach Cobbler",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_peach_cobbler",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_peach",
+          "quantity": 3
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_apple_cobbler",
+      "name": "Bake Apple Cobbler",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_apple_cobbler",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "food_apple",
+          "quantity": 3
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_baking_powder",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_custard",
+      "name": "Cook Custard",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_custard",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_milk",
+          "quantity": 12
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_strawberry_gelatin",
+      "name": "Chill Strawberry Gelatin",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_strawberry_gelatin",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_gelatin",
+          "quantity": 1
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 1
+        },
+        {
+          "item_id": "food_strawberry",
+          "quantity": 2
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_fridge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_ice_cream",
+      "name": "Freeze Ice Cream",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_ice_cream",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_cream",
+          "quantity": 12
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 4
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_freezer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_brownies",
+      "name": "Bake Brownies",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_brownies",
+        "quantity": 8
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_cocoa",
+          "quantity": 3
+        },
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_egg",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_chocolate_pudding",
+      "name": "Cook Chocolate Pudding",
+      "group": "Desserts",
+      "result": {
+        "item_id": "food_chocolate_pudding",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "liquid_milk",
+          "quantity": 12
+        },
+        {
+          "item_id": "ingredient_cocoa",
+          "quantity": 2
+        },
+        {
+          "item_id": "#sugar",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_corn_flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "kitchen_bowl",
+          "quantity": 2
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_flax_bread",
+      "name": "Bake Flax Bread",
+      "group": "Baking",
+      "result": {
+        "item_id": "food_flax_bread",
+        "quantity": 4
+      },
+      "ingredients": [
+        {
+          "item_id": "#flour",
+          "quantity": 2
+        },
+        {
+          "item_id": "ingredient_flax_meal",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_yeast",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_oven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meal_make_truffle_pasta",
+      "name": "Cook Truffle Pasta",
+      "group": "Pasta",
+      "result": {
+        "item_id": "food_truffle_pasta",
+        "quantity": 2
+      },
+      "ingredients": [
+        {
+          "item_id": "ingredient_pasta",
+          "quantity": 2
+        },
+        {
+          "item_id": "food_truffle",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_butter",
+          "quantity": 1
+        },
+        {
+          "item_id": "ingredient_salt",
+          "quantity": 1
+        }
+      ],
+      "appliances": [
+        {
+          "tools": [
+            "#appliance_stovetop"
+          ]
+        }
+      ]
+    }
+  ]
+}

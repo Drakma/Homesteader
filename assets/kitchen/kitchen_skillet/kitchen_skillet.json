@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_skillet",
-  "name": "Cast-Iron Skillet",
+  "name": "Skillet",
   "category": "kitchen",
   "description": "A heavy cast-iron skillet.",
   "icon": "kitchen_skillet.png",
@@ -17,12 +17,13 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "store_category": "Kitchen/Skillet"
   },
   "models": [
     {

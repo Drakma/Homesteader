@@ -23,7 +23,8 @@
     ],
     "sale_unit": "ea",
     "rack_units": 2,
-    "capacity_wh": 3000
+    "capacity_wh": 3000,
+    "store_category": "Telecom"
   },
   "models": [
     {

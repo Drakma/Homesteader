@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Pendant Light
+# Modern Nickel Pendant
 
 A pendant light hanging on a cord from the ceiling. Modern styling. Hangs from the ceiling of a finished building.
 

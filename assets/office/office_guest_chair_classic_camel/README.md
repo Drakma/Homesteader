@@ -1,4 +1,4 @@
-# Classic Camel Leather Guest Chair
+# Classic Camel Guest Chair
 
 An upholstered chair for visitors. Classic styling: turned legs, rolled arms, mouldings and brass.
 

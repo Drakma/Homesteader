@@ -1,0 +1,89 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bathroom_bathtub_freestanding_modern_white",
+  "name": "Modern White Freestanding Tub",
+  "category": "bathroom",
+  "description": "A freestanding bathtub with a faucet on its rim. Modern styling.",
+  "icon": "bathroom_bathtub_freestanding_modern_white.png",
+  "properties": {
+    "weight_kg": 95.0,
+    "max_stack_size": 1,
+    "base_value": 980,
+    "is_consumable": false,
+    "footprint": "1.60m W x 0.78m D x 0.78m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Bathroom/Bathtub Freestanding"
+  },
+  "models": [
+    {
+      "file": "bathroom_bathtub_freestanding_modern_white.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.6,
+        "y": 0.779,
+        "z": 0.78
+      },
+      "triangles": 632
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.6,
+      "depth": 0.78,
+      "height": 0.779
+    },
+    "bathroom_kind": "bathtub_freestanding",
+    "style": "modern",
+    "color": "white",
+    "water_per_use_l": 160,
+    "water_usage_lpm": 12
+  }
+}

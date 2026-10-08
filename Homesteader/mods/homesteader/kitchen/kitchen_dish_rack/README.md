@@ -1,4 +1,4 @@
-# Dish Drying Rack
+# Dish Rack
 
 A wire dish drying rack with a drip tray.
 

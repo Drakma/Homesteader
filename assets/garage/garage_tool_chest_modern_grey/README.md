@@ -1,4 +1,4 @@
-# Modern Steel Grey Rolling Tool Chest
+# Modern Steel Grey Tool Chest
 
 A rolling tool chest with five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

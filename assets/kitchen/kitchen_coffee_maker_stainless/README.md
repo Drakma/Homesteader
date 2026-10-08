@@ -1,4 +1,4 @@
-# Stainless Steel Drip Coffee Maker
+# Steel Coffee Maker
 
 A drip coffee maker with a glass carafe and a warming plate. Stainless Steel finish.
 

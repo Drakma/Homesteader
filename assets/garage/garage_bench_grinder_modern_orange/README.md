@@ -1,4 +1,4 @@
-# Modern Safety Orange Bench Grinder
+# Modern Orange Bench Grinder
 
 A bench grinder with two wheels. Modern styling: clean lines, slim tapered legs and black metal.
 

@@ -1,4 +1,4 @@
-# Modern Matte Black Soap and Toothbrush Set
+# Modern Black Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Modern styling.
 

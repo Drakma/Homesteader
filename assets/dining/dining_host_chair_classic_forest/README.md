@@ -1,4 +1,4 @@
-# Classic Forest Green Host Chair
+# Classic Green Host Chair
 
 A carver chair with arms, for the head of the table. Classic styling: turned legs, rolled arms, mouldings and brass.
 

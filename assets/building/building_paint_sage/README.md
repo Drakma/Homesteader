@@ -1,4 +1,4 @@
-# Interior Paint: Sage Green
+# Interior Paint: Sage
 
 Category: building. Look target: interior, colour #a9b99a.
 

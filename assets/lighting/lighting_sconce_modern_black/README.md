@@ -1,4 +1,4 @@
-# Modern Matte Black Wall Sconce
+# Modern Black Sconce
 
 A wall sconce for a hall or a bedroom. Mount it inside. Modern styling. Mounts on an inside wall.
 

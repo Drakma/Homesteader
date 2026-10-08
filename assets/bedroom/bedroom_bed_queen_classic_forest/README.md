@@ -1,4 +1,4 @@
-# Classic Forest Green Queen Bed
+# Classic Green Queen Bed
 
 A queen bed with a headboard, a duvet and pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

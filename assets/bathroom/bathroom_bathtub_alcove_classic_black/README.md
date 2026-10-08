@@ -1,4 +1,4 @@
-# Classic Black Alcove Bathtub
+# Classic Black Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Classic styling.
 

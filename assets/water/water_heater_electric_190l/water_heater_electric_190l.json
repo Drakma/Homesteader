@@ -23,7 +23,8 @@
       "depot"
     ],
     "heater_w": 4500,
-    "pressurized": true
+    "pressurized": true,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

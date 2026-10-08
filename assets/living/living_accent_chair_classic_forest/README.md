@@ -1,4 +1,4 @@
-# Classic Forest Green Accent Chair
+# Classic Green Accent Chair
 
 A statement accent chair for a corner of the room. Classic styling: turned legs, rolled arms, mouldings and brass.
 

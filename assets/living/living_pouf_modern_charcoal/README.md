@@ -1,4 +1,4 @@
-# Modern Charcoal Floor Pouf
+# Modern Charcoal Pouf
 
 A round floor pouf. Modern styling: clean lines, slim tapered legs and black metal.
 

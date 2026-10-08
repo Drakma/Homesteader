@@ -63,10 +63,6 @@
           {
             "item_id": "#window",
             "quantity": 9
-          },
-          {
-            "item_id": "~chimney_masonry",
-            "quantity": 9
           }
         ],
         "required_tools": [
@@ -142,6 +138,7 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "blueprint"
+    "sale_unit": "blueprint",
+    "store_category": "Structures & Kits"
   }
 }

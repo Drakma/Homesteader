@@ -17,11 +17,14 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "run_snap": true,
+    "store_category": "Kitchen/Freezer Upright White"
   },
   "models": [
     {
@@ -81,5 +84,15 @@
     "kitchen_kind": "appliance",
     "finish": "white",
     "power_draw_w": 130
+  },
+  "container": {
+    "capacity_kg": 90,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

@@ -1,4 +1,4 @@
-# White Drip Coffee Maker
+# White Coffee Maker
 
 A drip coffee maker with a glass carafe and a warming plate. White finish.
 

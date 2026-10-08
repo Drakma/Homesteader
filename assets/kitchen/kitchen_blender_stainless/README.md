@@ -1,4 +1,4 @@
-# Stainless Steel Countertop Blender
+# Steel Blender
 
 A countertop blender with a glass jug and a lid. Stainless Steel finish.
 

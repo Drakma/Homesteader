@@ -22,7 +22,8 @@
     ],
     "sale_unit": "ea",
     "placeable": true,
-    "wire_role": "fuel_pump"
+    "wire_role": "fuel_pump",
+    "store_category": "Fuel"
   },
   "models": [
     {

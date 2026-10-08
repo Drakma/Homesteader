@@ -1,4 +1,4 @@
-# Stainless Steel Canister Set
+# Steel Canisters
 
 Three lidded canisters in graduated sizes. Stainless Steel finish.
 

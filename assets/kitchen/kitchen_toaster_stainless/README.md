@@ -1,4 +1,4 @@
-# Stainless Steel Toaster
+# Steel Toaster
 
 A two-slice toaster with a lever and a browning dial. Stainless Steel finish.
 

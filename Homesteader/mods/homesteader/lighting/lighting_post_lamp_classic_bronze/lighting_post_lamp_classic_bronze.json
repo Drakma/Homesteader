@@ -1,0 +1,107 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "lighting_post_lamp_classic_bronze",
+  "name": "Classic Bronze Post Lamp",
+  "category": "lighting",
+  "description": "A tall garden lamp post, on from dusk to dawn. Classic styling.",
+  "icon": "lighting_post_lamp_classic_bronze.png",
+  "properties": {
+    "weight_kg": 14.0,
+    "max_stack_size": 1,
+    "base_value": 296,
+    "is_consumable": false,
+    "footprint": "0.38m W x 0.38m D x 2.45m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "is_buyable": true,
+    "stores": [
+      "voltvision"
+    ],
+    "sale_unit": "ea",
+    "wrench_remove": true,
+    "store_category": "Lighting/Post Lamp"
+  },
+  "models": [
+    {
+      "file": "lighting_post_lamp_classic_bronze.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.38,
+        "y": 2.45,
+        "z": 0.38
+      },
+      "triangles": 520
+    }
+  ],
+  "lights": [
+    {
+      "id": "lamp",
+      "color": "#FFD9A0",
+      "intensity": 4.0,
+      "range_m": 12.0,
+      "offset_m": [
+        0,
+        1.87,
+        0
+      ],
+      "on": "night",
+      "power_w": 15,
+      "type": "point",
+      "shadows": false,
+      "requires_power": true
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "15 W",
+      "details": "Draws about 15 W while it is on."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.38,
+      "depth": 0.38,
+      "height": 2.45
+    },
+    "lighting_kind": "post_lamp",
+    "style": "classic",
+    "finish": "bronze",
+    "mount": "ground",
+    "power_draw_w": 15
+  }
+}

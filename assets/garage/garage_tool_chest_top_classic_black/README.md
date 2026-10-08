@@ -1,4 +1,4 @@
-# Classic Black Top Tool Chest
+# Classic Black Top Chest
 
 A top tool chest with a lid and three drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

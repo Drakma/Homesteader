@@ -1,4 +1,4 @@
-# Classic Forest Green Office Chair
+# Classic Green Office Chair
 
 A swivel office chair on a five-star base. Classic styling: turned legs, rolled arms, mouldings and brass.
 

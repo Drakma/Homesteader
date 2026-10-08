@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Toilet Paper Holder
+# Modern Nickel TP Holder
 
 A wall holder with a roll of toilet paper. Mount it on a wall. Modern styling.
 

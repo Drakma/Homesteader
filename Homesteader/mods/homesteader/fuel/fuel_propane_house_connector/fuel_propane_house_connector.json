@@ -24,7 +24,8 @@
     "placeable": false,
     "attach_surface": "wall",
     "attach_side": "exterior",
-    "wire_role": "propane_connector"
+    "wire_role": "propane_connector",
+    "store_category": "Fuel"
   },
   "models": [
     {

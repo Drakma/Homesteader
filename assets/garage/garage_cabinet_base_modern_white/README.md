@@ -1,4 +1,4 @@
-# Modern White Steel Base Cabinet
+# Modern White Lower Cabinet
 
 A base cabinet with drawers, doors and a wood top. Modern styling: clean lines, slim tapered legs and black metal.
 

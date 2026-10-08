@@ -3,7 +3,7 @@
   "id": "living_bookshelf_classic_oak",
   "name": "Classic Oak Bookshelf",
   "category": "living",
-  "description": "A tall open bookshelf with five shelves, full of books. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "description": "A tall open bookshelf with five empty shelves. Stand things on its shelves. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "living_bookshelf_classic_oak.png",
   "properties": {
     "weight_kg": 30.0,
@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.12,0.52,0.92,1.32,1.70"
+    "deck_heights": "0.125,0.525,0.925,1.325,1.705",
+    "store_category": "Living Room/Bookshelf"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 1.93,
         "z": 0.35
       },
-      "triangles": 936
+      "triangles": 216
     }
   ],
   "utilities": {

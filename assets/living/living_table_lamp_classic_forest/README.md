@@ -1,4 +1,4 @@
-# Classic Forest Green Table Lamp
+# Classic Green Table Lamp
 
 A table lamp with a fabric shade. It lights the room when it has power. Classic styling: turned legs, rolled arms, mouldings and brass.
 

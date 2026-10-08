@@ -1,4 +1,4 @@
-# Classic Camel Leather Queen Bed
+# Classic Camel Queen Bed
 
 A queen bed with a headboard, a duvet and pillows. Classic styling: turned legs, rolled arms, mouldings and brass.
 

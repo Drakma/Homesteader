@@ -2,4 +2,4 @@
 
 A chimney range hood that mounts on the wall above the cooker. Stainless Steel finish.
 
-Procedural model (tools/make_kitchen_assets.py, tools/kitchen_models.py), 240 triangles, 0.76 x 0.50 x 0.90 m (W x D x H). A wall item: mount it on a wall.
+Procedural model (tools/make_kitchen_assets.py, tools/kitchen_models.py), 212 triangles, 0.76 x 0.50 x 0.50 m (W x D x H). A wall item: mount it on a wall.

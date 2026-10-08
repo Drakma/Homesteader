@@ -1,0 +1,95 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "laundry_basket_classic_navy",
+  "name": "Classic Navy Basket",
+  "category": "laundry",
+  "description": "A laundry basket with clothes in it. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "laundry_basket_classic_navy.png",
+  "properties": {
+    "weight_kg": 2.0,
+    "max_stack_size": 1,
+    "base_value": 31,
+    "is_consumable": false,
+    "footprint": "0.59m W x 0.42m D x 0.42m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "store_category": "Laundry/Basket"
+  },
+  "models": [
+    {
+      "file": "laundry_basket_classic_navy.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.59,
+        "y": 0.42,
+        "z": 0.422
+      },
+      "triangles": 776
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.59,
+      "depth": 0.422,
+      "height": 0.42
+    },
+    "laundry_kind": "laundry_basket",
+    "style": "classic",
+    "color": "navy",
+    "power_draw_w": 0,
+    "water_per_use_l": 0,
+    "water_usage_lpm": 0
+  },
+  "container": {
+    "capacity_kg": 12,
+    "accepts": [],
+    "show_fill": false
+  }
+}

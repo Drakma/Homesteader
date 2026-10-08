@@ -1,4 +1,4 @@
-# Classic Sage Green Toilet
+# Classic Sage Toilet
 
 A toilet with a tank, a seat and a lid. Classic styling.
 

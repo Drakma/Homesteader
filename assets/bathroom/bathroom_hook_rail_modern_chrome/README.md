@@ -1,4 +1,4 @@
-# Modern Chrome Robe Hook Rail
+# Modern Chrome Hook Rail
 
 A wall rail with four hooks. Mount it on a wall. Modern styling.
 

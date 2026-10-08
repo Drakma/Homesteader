@@ -25,7 +25,8 @@
     "display_weight": true,
     "wire_kind": "net",
     "wire_length_m": 150,
-    "stacking_limit": 4
+    "stacking_limit": 4,
+    "store_category": "Telecom"
   },
   "models": [
     {

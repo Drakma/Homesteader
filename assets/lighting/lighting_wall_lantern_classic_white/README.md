@@ -1,4 +1,4 @@
-# Classic White Exterior Wall Lantern
+# Classic White Wall Lantern
 
 An exterior wall lantern, on from dusk to dawn. Mount it outside. Classic styling. Mounts on an outside wall.
 

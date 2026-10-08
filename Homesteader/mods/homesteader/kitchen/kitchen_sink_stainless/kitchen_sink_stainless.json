@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_sink_stainless",
-  "name": "Stainless Steel Kitchen Sink Cabinet",
+  "name": "Steel Lower Sink Cabinet",
   "category": "kitchen",
   "description": "A double-bowl sink in a cabinet with a countertop, a tall arched faucet and a soap dispenser. Stainless Steel finish.",
   "icon": "kitchen_sink_stainless.png",
@@ -17,13 +17,16 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.92",
+    "run_snap": true,
+    "store_category": "Kitchen/Sink Stainless"
   },
   "models": [
     {
@@ -34,7 +37,7 @@
         "y": 1.233,
         "z": 0.634
       },
-      "triangles": 1084
+      "triangles": 1052
     }
   ],
   "utilities": {

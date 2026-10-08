@@ -1,4 +1,4 @@
-# Modern Mustard Floor Pouf
+# Modern Mustard Pouf
 
 A round floor pouf. Modern styling: clean lines, slim tapered legs and black metal.
 

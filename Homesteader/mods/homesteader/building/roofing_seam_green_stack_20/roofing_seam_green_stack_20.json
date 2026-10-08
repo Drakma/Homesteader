@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_seam_green_stack_20",
-  "name": "Standing Seam Green Metal Roofing Stack",
+  "name": "Green Seam Roofing Stack",
   "category": "building",
   "description": "20 of Standing Seam Green Metal Roofing, stacked together.",
   "icon": "roofing_seam_green_stack_20.png",
@@ -23,7 +23,8 @@
     "sale_unit": "bundle",
     "placeable": true,
     "pack_quantity": 20,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

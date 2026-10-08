@@ -1,4 +1,4 @@
-# Modern Matte Black Ceiling Fan With Light
+# Modern Black Ceiling Fan
 
 A five-blade ceiling fan with a light kit. Modern styling. Hangs from the ceiling of a finished building.
 

@@ -1,4 +1,4 @@
-# Modern White Round Dining Table
+# Modern White Round Table
 
 A round pedestal dining table that seats four. Modern styling: clean lines, slim tapered legs and black metal.
 

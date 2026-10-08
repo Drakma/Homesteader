@@ -1,4 +1,4 @@
-# Standing Seam Black Metal Roofing Stack
+# Black Seam Roofing Stack
 
 10 of Standing Seam Black Metal Roofing, stacked on a wooden pallet.
 

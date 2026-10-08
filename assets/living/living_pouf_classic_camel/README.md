@@ -1,4 +1,4 @@
-# Classic Camel Leather Floor Pouf
+# Classic Camel Pouf
 
 A round floor pouf. Classic styling: turned legs, rolled arms, mouldings and brass.
 

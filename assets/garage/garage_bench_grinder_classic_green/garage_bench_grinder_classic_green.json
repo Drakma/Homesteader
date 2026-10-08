@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "garage_bench_grinder_classic_green",
-  "name": "Classic Forest Green Bench Grinder",
+  "name": "Classic Green Bench Grinder",
   "category": "garage",
   "description": "A bench grinder with two wheels. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "garage_bench_grinder_classic_green.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Garage/Bench Grinder"
   },
   "models": [
     {

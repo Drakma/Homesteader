@@ -26,7 +26,7 @@
         "y": 6.6,
         "z": 12.0
       },
-      "triangles": 4720
+      "triangles": 4168
     }
   ],
   "utilities": {
@@ -127,24 +127,6 @@
       {
         "item_id": "building_door_hardware_set",
         "quantity": 2
-      },
-      {
-        "section": "Chimney masonry",
-        "mode": "all",
-        "items": [
-          {
-            "item_id": "~chimney_masonry",
-            "quantity": 9
-          },
-          {
-            "item_id": "~mortar",
-            "quantity": 3
-          },
-          {
-            "item_id": "~water",
-            "quantity": 11
-          }
-        ]
       }
     ],
     "required_tools": [

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_barn_light_classic_bronze",
-  "name": "Classic Oiled Bronze Barn Light",
+  "name": "Classic Bronze Barn Light",
   "category": "lighting",
   "description": "A gooseneck barn light with a wide shade, on from dusk to dawn. Mount it outside. Classic styling.",
   "icon": "lighting_barn_light_classic_bronze.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "wall",
-    "attach_side": "exterior"
+    "attach_side": "exterior",
+    "store_category": "Lighting/Barn Light"
   },
   "models": [
     {

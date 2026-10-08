@@ -1,4 +1,4 @@
-# Corrugated Steel Wall Siding Stack (`building_steel_siding_corrugated_stack_20`)
+# Steel Siding Stack (`building_steel_siding_corrugated_stack_20`)
 
 ![Corrugated Steel Wall Siding Stack Icon](building_steel_siding_corrugated_stack_20.png)
 

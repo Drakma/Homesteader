@@ -1,0 +1,18 @@
+{
+  "id": "1791407923_pantry_batch_1_flour_sugar_salt_yeast_butter",
+  "title": "Pantry batch 1: flour, sugar, salt, yeast, butter",
+  "plan": [
+    "Gemini contact sheet reference (1 sheet, 5 items), crop per item",
+    "Meshy image-to-3D meshy-t2 smart-topology textured, 15 credits x 5",
+    "Scale/ground GLB in Blender, render icons, write manifests",
+    "Later (not in this approval): baking powder + 8 meat cuts = 9 items, 135 credits, needs top-up"
+  ],
+  "cost": {
+    "meshy_credits": 75,
+    "balance_before": 88,
+    "balance_after": 13
+  },
+  "status": "denied",
+  "created_at": "2026-10-07T21:18:43Z",
+  "resolved_at": "2026-10-07T21:19:49Z"
+}

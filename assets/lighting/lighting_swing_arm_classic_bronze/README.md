@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Swing-Arm Wall Lamp
+# Classic Bronze Swing Lamp
 
 A reading lamp on a swing arm. Mount it inside. Classic styling. Mounts on an inside wall.
 

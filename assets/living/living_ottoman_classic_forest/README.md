@@ -1,4 +1,4 @@
-# Classic Forest Green Ottoman
+# Classic Green Ottoman
 
 A cushioned ottoman on short legs. Classic styling: turned legs, rolled arms, mouldings and brass.
 

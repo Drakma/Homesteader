@@ -1,4 +1,4 @@
-# Classic Cherry Television
+# Classic Cherry TV
 
 A television set for the family room. Classic styling: turned legs, rolled arms, mouldings and brass.
 

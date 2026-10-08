@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_canisters_white",
-  "name": "White Canister Set",
+  "name": "White Canisters",
   "category": "kitchen",
   "description": "Three lidded canisters in graduated sizes. White finish.",
   "icon": "kitchen_canisters_white.png",
@@ -17,11 +17,13 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Kitchen/Canisters White"
   },
   "models": [
     {

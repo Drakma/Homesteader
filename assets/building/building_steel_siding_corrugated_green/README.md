@@ -1,4 +1,4 @@
-# Green Corrugated Steel Wall Siding
+# Green Steel Siding
 
 Corrugated steel wall siding panel, sized for vertical wall cladding with ribbed green painted finish for metal garages and pole barns.
 

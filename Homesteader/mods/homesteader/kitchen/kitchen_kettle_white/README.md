@@ -1,4 +1,4 @@
-# White Electric Kettle
+# White Kettle
 
 An electric kettle on its power base, with a spout and a handle. White finish.
 

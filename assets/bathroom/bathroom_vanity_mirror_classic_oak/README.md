@@ -1,4 +1,4 @@
-# Classic Oak Bathroom Mirror
+# Classic Oak Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Classic styling.
 

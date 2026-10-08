@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Wall Sconce
+# Modern Nickel Sconce
 
 A wall sconce for a hall or a bedroom. Mount it inside. Modern styling. Mounts on an inside wall.
 

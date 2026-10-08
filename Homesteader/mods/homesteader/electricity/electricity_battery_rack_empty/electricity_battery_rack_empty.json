@@ -22,7 +22,8 @@
       "voltvision"
     ],
     "sale_unit": "ea",
-    "wire_role": "battery"
+    "wire_role": "battery",
+    "store_category": "Batteries"
   },
   "models": [
     {

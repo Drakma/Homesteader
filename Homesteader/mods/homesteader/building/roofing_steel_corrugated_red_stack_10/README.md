@@ -1,4 +1,4 @@
-# Red Corrugated Steel Roofing Stack
+# Red Steel Roofing Stack
 
 10 of Red Corrugated Steel Roofing, piled in a block and held by two steel straps.
 

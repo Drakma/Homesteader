@@ -1,4 +1,4 @@
-# Classic White Garden Bollard Light
+# Classic White Bollard
 
 A waist-high bollard light for a path or a drive, on from dusk to dawn. Classic styling. Stands on the ground.
 

@@ -1,4 +1,4 @@
-# White Open Kitchen Shelf
+# White Open Shelf
 
 A wall shelf board on two brackets. Mount it on a wall and stand things on it. White shaker doors, marble top.
 

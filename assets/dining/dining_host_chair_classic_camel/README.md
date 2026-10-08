@@ -1,4 +1,4 @@
-# Classic Camel Leather Host Chair
+# Classic Camel Host Chair
 
 A carver chair with arms, for the head of the table. Classic styling: turned legs, rolled arms, mouldings and brass.
 

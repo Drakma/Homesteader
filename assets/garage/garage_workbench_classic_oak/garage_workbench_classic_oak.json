@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.92"
+    "deck_heights": "0.20,0.92",
+    "store_category": "Garage/Workbench"
   },
   "models": [
     {

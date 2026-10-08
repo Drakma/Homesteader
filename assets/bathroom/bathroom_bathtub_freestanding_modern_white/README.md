@@ -1,4 +1,4 @@
-# Modern White Freestanding Bathtub
+# Modern White Freestanding Tub
 
 A freestanding bathtub with a faucet on its rim. Modern styling.
 

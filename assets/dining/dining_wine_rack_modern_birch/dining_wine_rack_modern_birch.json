@@ -22,7 +22,10 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.02,0.32,0.61,0.90,1.20",
+    "store_category": "Dining/Wine Rack"
   },
   "models": [
     {
@@ -33,7 +36,7 @@
         "y": 1.2,
         "z": 0.3
       },
-      "triangles": 1224
+      "triangles": 120
     }
   ],
   "utilities": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "living_sofa_classic_camel",
-  "name": "Classic Camel Leather Sofa",
+  "name": "Classic Camel Sofa",
   "category": "living",
   "description": "A three-seat sofa with loose seat and back cushions and two throw pillows. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "living_sofa_classic_camel.png",
@@ -22,7 +22,8 @@
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Living Room/Sofa"
   },
   "models": [
     {

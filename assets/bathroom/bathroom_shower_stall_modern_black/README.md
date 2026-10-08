@@ -1,4 +1,4 @@
-# Modern Matte Black Shower Stall
+# Modern Black Shower Stall
 
 A corner shower with a tiled back, a glass door, a rain head and a valve. Modern styling.
 

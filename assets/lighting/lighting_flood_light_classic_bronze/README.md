@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Security Flood Light
+# Classic Bronze Flood Light
 
 A bright flood light, on from dusk to dawn. Mount it outside. Classic styling. Mounts on an outside wall.
 

@@ -1,4 +1,4 @@
-# Modern Stone Laundry Sorter
+# Modern Stone Sorter
 
 A three-bag laundry sorter on a frame. Modern styling: clean lines, slim tapered legs and black metal.
 

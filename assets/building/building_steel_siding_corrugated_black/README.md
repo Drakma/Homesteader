@@ -1,4 +1,4 @@
-# Black Corrugated Steel Wall Siding
+# Black Steel Siding
 
 Corrugated steel wall siding panel, sized for vertical wall cladding with ribbed black painted finish for metal garages and pole barns.
 

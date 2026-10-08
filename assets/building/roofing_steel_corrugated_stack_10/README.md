@@ -1,4 +1,4 @@
-# Corrugated Steel Roofing Stack
+# Steel Roofing Stack
 
 10 of Corrugated Steel Roofing, piled in a block and held by two steel straps.
 

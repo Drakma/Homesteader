@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "bedroom_end_bench_modern_stone",
+  "name": "Modern Stone End Bench",
+  "category": "bedroom",
+  "description": "A cushioned bench for the foot of a bed. Modern styling: clean lines, slim tapered legs and black metal.",
+  "icon": "bedroom_end_bench_modern_stone.png",
+  "properties": {
+    "weight_kg": 14.0,
+    "max_stack_size": 1,
+    "base_value": 210,
+    "is_consumable": false,
+    "footprint": "1.30m W x 0.45m D x 0.48m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": true,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.48",
+    "store_category": "Bedroom/End Bench"
+  },
+  "models": [
+    {
+      "file": "bedroom_end_bench_modern_stone.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.3,
+        "y": 0.48,
+        "z": 0.45
+      },
+      "triangles": 312
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.3,
+      "depth": 0.45,
+      "height": 0.48
+    },
+    "bedroom_kind": "end_bench",
+    "style": "modern",
+    "color": "stone",
+    "power_draw_w": 0
+  }
+}

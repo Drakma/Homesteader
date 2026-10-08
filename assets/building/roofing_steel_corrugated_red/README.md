@@ -1,4 +1,4 @@
-# Red Corrugated Steel Roofing
+# Red Steel Roofing
 
 Red corrugated steel roofing sheet, 1.6 m by 0.88 m.
 

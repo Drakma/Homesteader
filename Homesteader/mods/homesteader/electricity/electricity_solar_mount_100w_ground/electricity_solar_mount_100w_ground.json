@@ -27,7 +27,8 @@
     "panel_offset_m": 0.4675,
     "panel_tilt_deg": 30,
     "panel_width_m": 0.54,
-    "panel_depth_m": 0.58
+    "panel_depth_m": 0.58,
+    "store_category": "Solar Mounts"
   },
   "models": [
     {

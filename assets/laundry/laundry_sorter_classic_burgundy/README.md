@@ -1,4 +1,4 @@
-# Classic Burgundy Laundry Sorter
+# Classic Burgundy Sorter
 
 A three-bag laundry sorter on a frame. Classic styling: turned legs, rolled arms, mouldings and brass.
 

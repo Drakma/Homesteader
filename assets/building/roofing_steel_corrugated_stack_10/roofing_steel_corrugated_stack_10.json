@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_steel_corrugated_stack_10",
-  "name": "Corrugated Steel Roofing Stack",
+  "name": "Steel Roofing Stack",
   "category": "building",
   "description": "10 of Corrugated Steel Roofing, piled in a block and held by two steel straps.",
   "icon": "roofing_steel_corrugated_stack_10.png",
@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 10,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

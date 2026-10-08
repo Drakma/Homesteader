@@ -22,7 +22,8 @@
     ],
     "sale_unit": "tank",
     "placeable": true,
-    "wire_role": "propane_filler"
+    "wire_role": "propane_filler",
+    "store_category": "Fuel"
   },
   "models": [
     {

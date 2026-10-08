@@ -1,4 +1,4 @@
-# Modern Matte Black Exterior Wall Lantern
+# Modern Black Wall Lantern
 
 An exterior wall lantern, on from dusk to dawn. Mount it outside. Modern styling. Mounts on an outside wall.
 

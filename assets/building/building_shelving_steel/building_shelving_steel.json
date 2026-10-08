@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_shelving_steel",
-  "name": "Steel Shelving Unit",
+  "name": "Shelving",
   "category": "building",
   "description": "A 2 m bolted steel workshop shelving unit with four deep shelves, braced across the back. Place it, then stand things on its shelves: point at the open front of a shelf and put an item down there; like things stack on each other.",
   "icon": "building_shelving_steel.png",
@@ -22,7 +22,8 @@
       "depot"
     ],
     "support_surface": true,
-    "deck_heights": "0.15, 0.62, 1.09, 1.56"
+    "deck_heights": "0.15, 0.62, 1.09, 1.56",
+    "store_category": "Shelving"
   },
   "models": [
     {

@@ -1,4 +1,4 @@
-# Modern White Mudroom Lockers
+# Modern White Lockers
 
 Three open lockers with a hat shelf, hooks and a bench ledge. Modern styling: clean lines, slim tapered legs and black metal.
 

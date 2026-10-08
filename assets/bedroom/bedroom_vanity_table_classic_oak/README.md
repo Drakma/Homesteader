@@ -1,4 +1,4 @@
-# Classic Oak Dressing Table
+# Classic Oak Vanity
 
 A dressing table with two drawers and a mirror. Classic styling: turned legs, rolled arms, mouldings and brass.
 

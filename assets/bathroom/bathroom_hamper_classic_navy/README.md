@@ -1,4 +1,4 @@
-# Classic Navy Laundry Hamper
+# Classic Navy Hamper
 
 A laundry hamper with a fabric bag and a lid. Classic styling.
 

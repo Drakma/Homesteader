@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_table_round_black",
-  "name": "Black Round Pedestal Table",
+  "name": "Black Round Table",
   "category": "kitchen",
   "description": "A round pedestal table that seats four. Black finish.",
   "icon": "kitchen_table_round_black.png",
@@ -17,13 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.75"
+    "deck_heights": "0.75",
+    "store_category": "Kitchen/Table Round Black"
   },
   "models": [
     {

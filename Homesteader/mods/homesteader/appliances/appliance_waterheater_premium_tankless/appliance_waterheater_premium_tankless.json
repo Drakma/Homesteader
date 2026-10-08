@@ -20,7 +20,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "tank"
+    "sale_unit": "tank",
+    "store_category": "Appliances/Waterheater"
   },
   "models": [],
   "utilities": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "living_wall_tv_classic_oak",
-  "name": "Classic Oak Wall-Mount TV",
+  "name": "Classic Oak Wall TV",
   "category": "living",
   "description": "A 55 inch flat-screen TV on a wall bracket. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "living_wall_tv_classic_oak.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "attach_surface": "wall",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Living Room/Wall Tv"
   },
   "models": [
     {

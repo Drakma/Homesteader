@@ -25,7 +25,8 @@
     "attach_surface": "wall",
     "attach_side": "either",
     "wire_role": "net_rack",
-    "rack_capacity_u": 8
+    "rack_capacity_u": 8,
+    "store_category": "Telecom"
   },
   "models": [
     {

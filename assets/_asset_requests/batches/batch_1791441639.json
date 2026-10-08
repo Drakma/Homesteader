@@ -1,0 +1,20 @@
+{
+  "batch_id": "batch_1791441639",
+  "finalized_at": "2026-10-08T06:40:39Z",
+  "items": [
+    {
+      "id": "1791441633_regenerate_model_animal_bull_holstein",
+      "name": "Regenerate Model: animal_bull_holstein",
+      "category": "ranching",
+      "description": "Regenerate Model request for existing asset ranching/animal_bull_holstein - no new generation prompt needed, act directly on the existing model.",
+      "notes": "",
+      "status": "queued",
+      "requested_at": "2026-10-08T06:40:33Z",
+      "action": "regenerate_model",
+      "target_category": "ranching",
+      "target_item_id": "animal_bull_holstein",
+      "batch_id": "batch_1791441639",
+      "finalized_at": "2026-10-08T06:40:39Z"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Modern Walnut Television
+# Modern Walnut TV
 
 A television set for the family room. Modern styling: clean lines, slim tapered legs and black metal.
 

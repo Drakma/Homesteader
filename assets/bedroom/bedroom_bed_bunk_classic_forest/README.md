@@ -1,4 +1,4 @@
-# Classic Forest Green Bunk Bed
+# Classic Green Bunk Bed
 
 A bunk bed: two twin beds, a ladder and a guard rail. Classic styling: turned legs, rolled arms, mouldings and brass.
 

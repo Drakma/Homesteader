@@ -1,4 +1,4 @@
-# Oak Round Pedestal Table
+# Oak Round Table
 
 A round pedestal table that seats four. Oak finish.
 

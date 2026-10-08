@@ -1,4 +1,4 @@
-# Classic Forest Green Rolling Tool Chest
+# Classic Green Tool Chest
 
 A rolling tool chest with five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

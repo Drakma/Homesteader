@@ -1,4 +1,4 @@
-# Black French-Door Refrigerator
+# Black French Fridge
 
 A refrigerator with two French doors over a pull-out freezer drawer. Black finish.
 

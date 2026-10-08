@@ -1,4 +1,4 @@
-# Modern Matte Black Alcove Bathtub
+# Modern Black Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Modern styling.
 

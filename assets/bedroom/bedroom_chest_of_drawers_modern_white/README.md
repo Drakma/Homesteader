@@ -1,4 +1,4 @@
-# Modern White Chest Of Drawers
+# Modern White Chest
 
 A tall chest of five drawers. Modern styling: clean lines, slim tapered legs and black metal.
 

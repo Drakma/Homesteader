@@ -1,4 +1,4 @@
-# Stainless Steel Bread Box
+# Steel Bread Box
 
 A bread box with a roll-top lid. Stainless Steel finish.
 

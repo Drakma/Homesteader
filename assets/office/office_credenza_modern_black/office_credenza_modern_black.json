@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.76"
+    "deck_heights": "0.76",
+    "store_category": "Office/Credenza"
   },
   "models": [
     {
@@ -85,5 +86,10 @@
     "style": "modern",
     "color": "black",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 60,
+    "accepts": [],
+    "show_fill": false
   }
 }

@@ -1,4 +1,4 @@
-# Modern Black Baby Crib
+# Modern Black Crib
 
 A baby crib with a mattress. Modern styling: clean lines, slim tapered legs and black metal.
 

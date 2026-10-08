@@ -1,4 +1,4 @@
-# Classic Forest Green Top Tool Chest
+# Classic Green Top Chest
 
 A top tool chest with a lid and three drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

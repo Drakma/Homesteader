@@ -1,4 +1,4 @@
-# Black Double Wall Oven Tower
+# Black Oven Tower
 
 A tall oven cabinet with two ovens, a control panel and a warming drawer. Black finish.
 

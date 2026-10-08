@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "kitchen_cart_black",
-  "name": "Black Kitchen Cart",
+  "name": "Black Cart",
   "category": "kitchen",
   "description": "A kitchen cart with a counter top, a drawer, a lower shelf and a towel bar. Black, granite top.",
   "icon": "kitchen_cart_black.png",
@@ -17,14 +17,15 @@
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "placeable": true,
+    "wrench_remove": true,
     "is_buyable": true,
     "stores": [
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true,
     "support_surface": true,
-    "deck_heights": "0.88"
+    "deck_heights": "0.23,0.88",
+    "store_category": "Kitchen/Cart Black"
   },
   "models": [
     {
@@ -35,7 +36,7 @@
         "y": 0.88,
         "z": 0.474
       },
-      "triangles": 640
+      "triangles": 608
     }
   ],
   "utilities": {
@@ -84,5 +85,15 @@
     "kitchen_kind": "cabinet",
     "finish": "black",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 30,
+    "accepts": [
+      "food",
+      "ingredients",
+      "#canning_container",
+      "#tableware"
+    ],
+    "show_fill": false
   }
 }

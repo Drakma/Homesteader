@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "roofing_seam_green",
-  "name": "Standing Seam Green Metal Roofing",
+  "name": "Green Seam Roofing",
   "category": "building",
   "description": "Standing Seam Green Metal Roofing: a building finish. Used as a construction material it sets how that part of the building looks.",
   "icon": "roofing_seam_green.png",
@@ -25,7 +25,8 @@
     "look_color": "#2f6a49",
     "look_smoothness": 0.6,
     "look_metallic": 0.85,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Roofing"
   },
   "models": [
     {

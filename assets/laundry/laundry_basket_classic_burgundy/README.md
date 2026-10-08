@@ -1,4 +1,4 @@
-# Classic Burgundy Laundry Basket
+# Classic Burgundy Basket
 
 A laundry basket with clothes in it. Classic styling: turned legs, rolled arms, mouldings and brass.
 

@@ -21,7 +21,8 @@
     "stores": [
       "voltvision"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Wind & Power Poles"
   },
   "models": [
     {

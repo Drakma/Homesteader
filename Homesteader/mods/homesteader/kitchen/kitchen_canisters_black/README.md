@@ -1,4 +1,4 @@
-# Black Canister Set
+# Black Canisters
 
 Three lidded canisters in graduated sizes. Black finish.
 

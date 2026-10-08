@@ -1,4 +1,4 @@
-# Modern Brushed Nickel Vanity Light Bar
+# Modern Nickel Vanity Bar
 
 A three-light vanity bar to go over a mirror. Mount it inside. Modern styling. Mounts on an inside wall.
 

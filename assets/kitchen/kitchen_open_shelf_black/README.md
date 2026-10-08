@@ -1,4 +1,4 @@
-# Black Open Kitchen Shelf
+# Black Open Shelf
 
 A wall shelf board on two brackets. Mount it on a wall and stand things on it. Black, granite top.
 

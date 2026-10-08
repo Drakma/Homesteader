@@ -1,4 +1,4 @@
-# Classic Camel Leather Laundry Hamper
+# Classic Camel Hamper
 
 A laundry hamper with a fabric bag and a lid. Classic styling.
 

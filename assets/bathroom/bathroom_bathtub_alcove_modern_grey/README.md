@@ -1,4 +1,4 @@
-# Modern Stone Grey Alcove Bathtub
+# Modern Stone Grey Alcove Tub
 
 A rectangular bathtub with a deck faucet, for an alcove. Modern styling.
 

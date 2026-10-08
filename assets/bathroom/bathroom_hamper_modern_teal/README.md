@@ -1,4 +1,4 @@
-# Modern Teal Laundry Hamper
+# Modern Teal Hamper
 
 A laundry hamper with a fabric bag and a lid. Modern styling.
 

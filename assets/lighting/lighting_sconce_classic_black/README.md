@@ -1,4 +1,4 @@
-# Classic Black Iron Wall Sconce
+# Classic Iron Sconce
 
 A wall sconce for a hall or a bedroom. Mount it inside. Classic styling. Mounts on an inside wall.
 

@@ -25,7 +25,8 @@
     "attach_surface": "wall",
     "attach_side": "exterior",
     "provides_power": true,
-    "wire_role": "ac_panel"
+    "wire_role": "ac_panel",
+    "store_category": "Breakers & Wiring"
   },
   "models": [
     {

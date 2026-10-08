@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "building_paint_sage",
-  "name": "Interior Paint: Sage Green",
+  "name": "Interior Paint: Sage",
   "category": "building",
   "description": "Interior Paint: Sage Green: a building finish. Used as a construction material it sets how that part of the building looks.",
   "icon": "building_paint_sage.png",
@@ -25,7 +25,8 @@
     "look_color": "#a9b99a",
     "look_smoothness": 0.25,
     "look_metallic": 0.0,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Insulation & Drywall"
   },
   "models": [
     {

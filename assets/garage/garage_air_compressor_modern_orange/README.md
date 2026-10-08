@@ -1,4 +1,4 @@
-# Modern Safety Orange Air Compressor
+# Modern Orange Air Compressor
 
 A tank air compressor on wheels. Modern styling: clean lines, slim tapered legs and black metal.
 

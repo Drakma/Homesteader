@@ -1,4 +1,4 @@
-# Modern Matte Black Toilet
+# Modern Black Toilet
 
 A toilet with a tank, a seat and a lid. Modern styling.
 

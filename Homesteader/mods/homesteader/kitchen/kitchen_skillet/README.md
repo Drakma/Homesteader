@@ -1,4 +1,4 @@
-# Cast-Iron Skillet
+# Skillet
 
 A heavy cast-iron skillet.
 

@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.76"
+    "deck_heights": "0.76",
+    "store_category": "Dining/Table"
   },
   "models": [
     {

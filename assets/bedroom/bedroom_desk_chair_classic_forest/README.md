@@ -1,4 +1,4 @@
-# Classic Forest Green Desk Chair
+# Classic Green Desk Chair
 
 An upholstered chair for a desk. Classic styling: turned legs, rolled arms, mouldings and brass.
 

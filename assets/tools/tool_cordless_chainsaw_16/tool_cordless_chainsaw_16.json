@@ -20,7 +20,8 @@
     "stores": [
       "depot"
     ],
-    "sale_unit": "cord"
+    "sale_unit": "cord",
+    "store_category": "Power Tools"
   },
   "models": [
     {

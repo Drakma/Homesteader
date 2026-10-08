@@ -1,4 +1,4 @@
-# Modern Chrome Ceiling Fan With Light
+# Modern Chrome Ceiling Fan
 
 A five-blade ceiling fan with a light kit. Modern styling. Hangs from the ceiling of a finished building.
 

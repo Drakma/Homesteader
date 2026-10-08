@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "dining_host_chair_classic_camel",
-  "name": "Classic Camel Leather Host Chair",
+  "name": "Classic Camel Host Chair",
   "category": "dining",
   "description": "A carver chair with arms, for the head of the table. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "dining_host_chair_classic_camel.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Dining/Host Chair"
   },
   "models": [
     {

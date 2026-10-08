@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Chandelier
+# Classic Bronze Chandelier
 
 A chandelier for a dining room or a hall. Classic styling. Hangs from the ceiling of a finished building.
 

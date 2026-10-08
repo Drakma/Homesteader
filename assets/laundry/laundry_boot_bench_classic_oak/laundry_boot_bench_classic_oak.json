@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "laundry_boot_bench_classic_oak",
-  "name": "Classic Oak Mudroom Bench",
+  "name": "Classic Oak Mud Bench",
   "category": "laundry",
   "description": "A mudroom bench with a shoe shelf under the seat. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "laundry_boot_bench_classic_oak.png",
@@ -24,7 +24,8 @@
     ],
     "sale_unit": "ea",
     "support_surface": true,
-    "deck_heights": "0.50"
+    "deck_heights": "0.17,0.50",
+    "store_category": "Laundry/Boot Bench"
   },
   "models": [
     {

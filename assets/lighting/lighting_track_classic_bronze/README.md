@@ -1,4 +1,4 @@
-# Classic Oiled Bronze Track Light
+# Classic Bronze Track Light
 
 A track with three adjustable spot heads. Classic styling. Hangs from the ceiling of a finished building.
 

@@ -1,4 +1,4 @@
-# Classic Forest Green Twin Bed
+# Classic Green Twin Bed
 
 A twin bed with a headboard, a duvet and a pillow. Classic styling: turned legs, rolled arms, mouldings and brass.
 

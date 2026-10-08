@@ -1,4 +1,4 @@
-# Modern Walnut Bathroom Mirror
+# Modern Walnut Bath Mirror
 
 A framed mirror for over the basin. Mount it on a wall. Modern styling.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "appliance_tv_budget",
-  "name": "Budget Television",
+  "name": "Budget TV",
   "category": "appliances",
   "description": "A basic 32 inch flat-screen television.",
   "icon": "appliance_tv_budget.png",
@@ -22,7 +22,8 @@
     ],
     "sale_unit": "ea",
     "wire_role": "net_device",
-    "net_ports": 1
+    "net_ports": 1,
+    "store_category": "Appliances/Tv"
   },
   "models": [],
   "utilities": {

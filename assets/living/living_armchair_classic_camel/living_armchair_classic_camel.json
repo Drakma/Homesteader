@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "living_armchair_classic_camel",
-  "name": "Classic Camel Leather Armchair",
+  "name": "Classic Camel Armchair",
   "category": "living",
   "description": "An upholstered armchair with a loose seat cushion. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "living_armchair_classic_camel.png",
@@ -22,7 +22,8 @@
       "furniture"
     ],
     "sale_unit": "ea",
-    "wrench_remove": true
+    "wrench_remove": true,
+    "store_category": "Living Room/Armchair"
   },
   "models": [
     {

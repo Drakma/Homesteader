@@ -1,4 +1,4 @@
-# Modern Walnut Rocking Chair
+# Modern Walnut Rocker
 
 A rocking chair for the family room. Modern styling: clean lines, slim tapered legs and black metal.
 

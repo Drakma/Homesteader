@@ -1,0 +1,91 @@
+{
+  "$schema": "https://homesteader.game/schemas/growth_group_v1.json",
+  "id": "hazelnut",
+  "name": "Hazelnut",
+  "category": "logging",
+  "description": "A tree lifecycle growing through 5 stages (sapling -> small -> medium -> mature -> fruiting) over 120 days. No fruit is visible until the final fruiting stage. This group is the authoritative owner of the hazelnut scheme.",
+  "icon": "hazelnut.png",
+  "is_growable": true,
+  "growth": {
+    "growth_type": "tree",
+    "species": "hazelnut",
+    "max_age": 120,
+    "time_unit": "days",
+    "total_stages": 5,
+    "icon_stage": 5,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "sapling",
+        "age_min": 0.0,
+        "age_max": 17.8
+      },
+      {
+        "stage": 2,
+        "name": "small",
+        "age_min": 17.8,
+        "age_max": 47.4
+      },
+      {
+        "stage": 3,
+        "name": "medium",
+        "age_min": 47.4,
+        "age_max": 88.9
+      },
+      {
+        "stage": 4,
+        "name": "mature",
+        "age_min": 88.9,
+        "age_max": 118.5
+      },
+      {
+        "stage": 5,
+        "name": "fruiting",
+        "age_min": 118.5,
+        "age_max": 120
+      }
+    ],
+    "rules": {
+      "yield": {
+        "item_id": "mat_log_oak_uncut_long",
+        "amount_min": 1,
+        "amount_max": 1,
+        "tools": [
+          "#tool_axe",
+          "#tool_chainsaw"
+        ],
+        "harvest_stage": 4,
+        "extras": [
+          {
+            "item_id": "food_hazelnut",
+            "amount_min": 5,
+            "amount_max": 10
+          }
+        ]
+      },
+      "fruit": {
+        "is_fruiting": true,
+        "drops": [
+          {
+            "item_id": "food_hazelnut",
+            "amount_min": 1,
+            "amount_max": 1
+          }
+        ],
+        "tools": [
+          "#tool_basket"
+        ],
+        "fruit_stage": 5,
+        "regrow_days": 30
+      },
+      "planting": {
+        "item_id": "plantable_sapling_hazelnut"
+      }
+    }
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  }
+}

@@ -1,4 +1,4 @@
-# Modern White Writing Desk
+# Modern White Desk
 
 A writing desk with a drawer pedestal. Modern styling: clean lines, slim tapered legs and black metal.
 

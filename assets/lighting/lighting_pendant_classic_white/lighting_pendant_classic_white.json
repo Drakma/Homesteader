@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "lighting_pendant_classic_white",
-  "name": "Classic White Pendant Light",
+  "name": "Classic White Pendant",
   "category": "lighting",
   "description": "A pendant light hanging on a cord from the ceiling. Classic styling.",
   "icon": "lighting_pendant_classic_white.png",
@@ -24,7 +24,8 @@
     "sale_unit": "ea",
     "wrench_remove": true,
     "attach_surface": "ceiling",
-    "attach_side": "interior"
+    "attach_side": "interior",
+    "store_category": "Lighting/Pendant"
   },
   "models": [
     {

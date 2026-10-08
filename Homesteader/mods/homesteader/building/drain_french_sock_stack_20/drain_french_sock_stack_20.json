@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 20,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

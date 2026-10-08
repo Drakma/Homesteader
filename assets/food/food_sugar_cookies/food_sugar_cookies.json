@@ -1,0 +1,68 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "food_sugar_cookies",
+  "name": "Sugar Cookies",
+  "category": "food",
+  "description": "A batch of round sugar cookies.",
+  "icon": "food_sugar_cookies.png",
+  "properties": {
+    "weight_kg": 0.08,
+    "max_stack_size": 10,
+    "base_value": 2,
+    "is_consumable": false,
+    "footprint": null,
+    "happiness_modifier": 9,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 8,
+    "wellness_modifier": 1,
+    "is_buyable": false,
+    "sale_unit": "ea"
+  },
+  "models": [],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "hunger_restore": 6,
+    "dimensions_m": {
+      "width": 0.26,
+      "depth": 0.26,
+      "height": 0.06
+    }
+  }
+}

@@ -10,7 +10,7 @@
     "max_stack_size": 1,
     "base_value": 986,
     "is_consumable": false,
-    "footprint": "1.16m W x 0.52m D x 2.05m H",
+    "footprint": "1.16m W x 0.52m D x 2.00m H",
     "happiness_modifier": 0,
     "thirst_restore": 0,
     "energy_restore": 0,
@@ -22,7 +22,10 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "support_surface": true,
+    "deck_heights": "0.93,1.232,1.532,1.832",
+    "store_category": "Dining/China Cabinet"
   },
   "models": [
     {
@@ -30,10 +33,10 @@
       "format": "glb",
       "dimensions_m": {
         "x": 1.16,
-        "y": 2.05,
+        "y": 2.0,
         "z": 0.516
       },
-      "triangles": 1268
+      "triangles": 1052
     }
   ],
   "utilities": {
@@ -77,11 +80,16 @@
     "dimensions_m": {
       "width": 1.16,
       "depth": 0.516,
-      "height": 2.05
+      "height": 2.0
     },
     "dining_kind": "china_cabinet",
     "style": "classic",
     "color": "oak",
     "power_draw_w": 0
+  },
+  "container": {
+    "capacity_kg": 35,
+    "accepts": [],
+    "show_fill": false
   }
 }

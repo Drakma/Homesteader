@@ -1,4 +1,4 @@
-# Modern White Yard Pole Light
+# Modern White Pole Light
 
 A tall pole light that floods the yard, on from dusk to dawn. Modern styling. Stands on the ground.
 

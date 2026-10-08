@@ -1,4 +1,4 @@
-# Modern Safety Orange Lumber Rack
+# Modern Orange Lumber Rack
 
 Three steel arms holding a stack of boards. Mount it on a wall. Modern styling: clean lines, slim tapered legs and black metal.
 

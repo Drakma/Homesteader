@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "bedroom_crib_classic_oak",
-  "name": "Classic Oak Baby Crib",
+  "name": "Classic Oak Crib",
   "category": "bedroom",
   "description": "A baby crib with a mattress. Classic styling: turned legs, rolled arms, mouldings and brass.",
   "icon": "bedroom_crib_classic_oak.png",
@@ -22,7 +22,8 @@
     "stores": [
       "furniture"
     ],
-    "sale_unit": "ea"
+    "sale_unit": "ea",
+    "store_category": "Bedroom/Crib"
   },
   "models": [
     {

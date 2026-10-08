@@ -23,7 +23,8 @@
     ],
     "sale_unit": "kit",
     "pack_quantity": 4,
-    "display_weight": true
+    "display_weight": true,
+    "store_category": "Solar Panels"
   },
   "models": [
     {

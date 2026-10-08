@@ -1,4 +1,4 @@
-# Black Side-by-Side Refrigerator
+# Black Side Fridge
 
 A tall side-by-side refrigerator-freezer with a water and ice dispenser in the freezer door. Black finish.
 

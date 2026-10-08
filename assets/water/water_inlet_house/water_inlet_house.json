@@ -24,7 +24,8 @@
       "depot"
     ],
     "is_buyable": true,
-    "attach_through": true
+    "attach_through": true,
+    "store_category": "Plumbing & Pipe"
   },
   "models": [
     {

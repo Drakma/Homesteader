@@ -1,4 +1,4 @@
-# Classic Oak Chest Of Drawers
+# Classic Oak Chest
 
 A tall chest of five drawers. Classic styling: turned legs, rolled arms, mouldings and brass.
 

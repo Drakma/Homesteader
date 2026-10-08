@@ -1,4 +1,4 @@
-# Classic Polished Chrome Soap and Toothbrush Set
+# Classic Chrome Soap Set
 
 A soap pump, a dish and a toothbrush cup on a small tray. Classic styling.
 

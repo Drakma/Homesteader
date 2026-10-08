@@ -1,4 +1,4 @@
-# Wall Sconce
+# Sconce
 
 **Item ID:** `building_light_sconce_interior`  
 **Category:** `electricity`  

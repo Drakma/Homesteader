@@ -1,0 +1,90 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "living_wall_tv_classic_cherry",
+  "name": "Classic Cherry Wall TV",
+  "category": "living",
+  "description": "A 55 inch flat-screen TV on a wall bracket. Mount it on a wall. Classic styling: turned legs, rolled arms, mouldings and brass.",
+  "icon": "living_wall_tv_classic_cherry.png",
+  "properties": {
+    "weight_kg": 16.0,
+    "max_stack_size": 1,
+    "base_value": 582,
+    "is_consumable": false,
+    "footprint": "1.23m W x 0.09m D x 0.69m H",
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "placeable": false,
+    "wrench_remove": true,
+    "is_buyable": true,
+    "stores": [
+      "furniture"
+    ],
+    "sale_unit": "ea",
+    "attach_surface": "wall",
+    "attach_side": "interior",
+    "store_category": "Living Room/Wall Tv"
+  },
+  "models": [
+    {
+      "file": "living_wall_tv_classic_cherry.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 1.23,
+        "y": 0.69,
+        "z": 0.088
+      },
+      "triangles": 188
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "90 W",
+      "details": "Draws about 90 W while it runs."
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 1.23,
+      "depth": 0.088,
+      "height": 0.69
+    },
+    "living_kind": "wall_tv",
+    "style": "classic",
+    "color": "cherry",
+    "power_draw_w": 90
+  }
+}
