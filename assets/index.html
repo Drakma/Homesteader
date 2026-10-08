@@ -4609,6 +4609,14 @@
                   <div class="kv-key">Sale Unit</div><input class="kv-input" type="text" id="m-sale-unit"
                     data-path="properties.sale_unit" placeholder="ea, kit, box, bale ...">
                 </div>
+                <div class="kv-box" title="How many uses ONE item holds (a seed packet holds 20 seeds, a carton of salt 150). Recipes and planting count uses; empty = 1.">
+                  <div class="kv-key">Uses Per Item</div><input class="kv-input" type="number" step="1" min="1" id="m-uses-per-item"
+                    data-path="properties.uses_per_item" placeholder="1">
+                </div>
+                <div class="kv-box" title="The item id left behind when this is eaten or used up (a soup leaves kitchen_bowl). A food that leaves kitchen_bowl is served in a bowl in the Meal Builder.">
+                  <div class="kv-key">Leaves Item</div><input class="kv-input" type="text" id="m-leaves-item"
+                    data-path="properties.leaves_item" placeholder="kitchen_bowl, kitchen_plate ...">
+                </div>
                 <div class="kv-box">
                   <div class="kv-key">Weight (kg)</div><input class="kv-input" type="number" step="any" id="m-weight"
                     data-path="properties.weight_kg">
@@ -16424,6 +16432,8 @@ Replace the existing model?`)) return;
         value = rawValue === "true" || rawValue === true;
       } else if (kind === "string_or_null") {
         value = (typeof rawValue === "string" && rawValue.trim() === "") ? null : rawValue;
+      } else if (kind === "string_optional") {
+        value = (typeof rawValue === "string" && rawValue.trim() === "") ? undefined : String(rawValue).trim();   // empty removes the key
       } else if (kind === "footprint_smart") {
         const raw = typeof rawValue === "string" ? rawValue.trim() : "";
         if (!raw) {
@@ -18162,6 +18172,8 @@ Replace the existing model?`)) return;
       const p = it.properties || {};
       document.getElementById("m-value").value = p.base_value !== undefined && p.base_value !== null ? p.base_value : "";
       document.getElementById("m-sale-unit").value = p.sale_unit || "";
+      document.getElementById("m-uses-per-item").value = p.uses_per_item !== undefined && p.uses_per_item !== null ? p.uses_per_item : "";
+      document.getElementById("m-leaves-item").value = p.leaves_item || "";
       renderStoresField(p);
       document.getElementById("m-weight").value = p.weight_kg !== undefined && p.weight_kg !== null ? p.weight_kg : "";
       document.getElementById("m-stack").value = p.max_stack_size !== undefined && p.max_stack_size !== null ? p.max_stack_size : "";
@@ -18243,6 +18255,8 @@ Replace the existing model?`)) return;
         ["m-desc", "description", "string"],
         ["m-value", "properties.base_value", "number"],
         ["m-sale-unit", "properties.sale_unit", "string_or_null"],
+        ["m-uses-per-item", "properties.uses_per_item", "number_optional"],
+        ["m-leaves-item", "properties.leaves_item", "string_optional"],
         ["m-weight", "properties.weight_kg", "number"],
         ["m-stack", "properties.max_stack_size", "int"],
         ["m-consumable", "properties.is_consumable", "bool"],

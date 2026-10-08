@@ -100,6 +100,13 @@
       "width": 0.46,
       "depth": 0.34,
       "height": 0.76
-    }
+    },
+    "power_draw_w": 0,
+    "capacity_l": 0,
+    "max_flow_rate_lpm": 0,
+    "water_usage_lpm": 0,
+    "is_connected": false,
+    "max_filter_throughput_lpm": 0,
+    "max_roof_proximity_m": 0
   }
 }

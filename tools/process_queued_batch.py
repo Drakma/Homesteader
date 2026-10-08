@@ -207,6 +207,7 @@ def write_manifest_and_readme(cfg, target_dir, icon_path, fbx_path):
             "is_buyable": False,
             "stores": [],   # phone shops that sell it; set in the asset popup (Sold At)
             "sale_unit": "ea",
+            "uses_per_item": 1,
             "is_sellable": False,
             "is_spawnable": is_spawnable,
             "footprint": cfg.get("footprint", None)

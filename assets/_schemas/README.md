@@ -68,7 +68,7 @@ all under **Universal**.
 |---|---|---|
 | `_base` | `base_value`, `weight_kg`, `max_stack_size`, `pack_quantity`, `display_weight`, `is_consumable`, `is_spawnable`, `is_buyable`, `is_sellable` | The core of every item: economy, weight, stacking and how its name is shown |
 | `_base_vitals` | `happiness_modifier`, `thirst_restore`, `energy_restore`, `stamina_restore`, `wellness_modifier` | What eating, drinking or using it does to the player |
-| `_base_store` | `stores`, `sale_unit`, `store_category`, `store_overrides` | The shop listing (the phone shops are generated from it) |
+| `_base_store` | `stores`, `sale_unit`, `uses_per_item`, `leaves_item`, `store_category`, `store_overrides` | The shop listing (the phone shops are generated from it) |
 | `_base_placement` | `placeable`, `stacking_limit`, `support_surface`, `deck_heights`, `shelf`, `run_snap`, `pushable`, `is_blueprint`, `builds_structure` | How it stands in the world, stacks, carries things; kit and blueprint flags |
 | `_base_mounting` | `attach_surface`, `attach_side`, `attach_through`, `attach_item`, `attach_result`, `roof_mount`, `provides_power`, `panel_*` | Items that mount on a building; solar panel geometry |
 | `_base_wiring` | `wire_role`, `wire_kind`, `wire_length_m`, `power_radius_tiles`, `capacity_wh`, `voltage_v` | The electrical system |

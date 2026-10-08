@@ -24,6 +24,12 @@
       "label": "Uses Per Item",
       "note": "How many uses ONE item holds (a seed packet holds 20 seeds). The toolbar counts items; planting takes seeds from the packet on top, and a new packet is opened when it is empty."
     },
+    "leaves_item": {
+      "type": "string",
+      "required": false,
+      "label": "Leaves Item",
+      "note": "The item id left behind when this one is eaten or used up: a soup leaves its kitchen_bowl, a plated meal its kitchen_plate. It goes into the slot when empty, else the toolbar, else the ground (Kitchen/Consumption.cs). A food whose leaves_item is kitchen_bowl is served in a bowl in the Meal Builder."
+    },
     "store_category": {
       "type": "string",
       "required": false,
