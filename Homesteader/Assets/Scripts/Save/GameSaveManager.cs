@@ -359,6 +359,8 @@ namespace Homesteader.Save
             s.brokenRocks = Homesteader.World.WorldRocks.SavedBroken();
             s.tilledCells = Homesteader.World.FarmlandSoil.Saved();
             s.tilledAlongZ = Homesteader.World.FarmlandSoil.SavedAlongZ();
+            s.mowedCells = Homesteader.World.LawnSoil.Saved();
+            s.mowedAlongZ = Homesteader.World.LawnSoil.SavedAlongZ();
             s.plantedBushes = Homesteader.World.BerryBushes.SavedPlanted();
             s.forestGrowthDay = Homesteader.World.VegetationSeasons.GrowthDay;
             s.miniPlayerOpen = Homesteader.UI.SteadifyMiniPlayer.IsOpen;
@@ -466,6 +468,7 @@ namespace Homesteader.Save
             Homesteader.World.BerryBushes.ApplyDug(s.dugBushes);
             Homesteader.World.WorldRocks.ApplyBroken(s.brokenRocks);
             Homesteader.World.FarmlandSoil.ApplySaved(s.tilledCells, s.tilledAlongZ);
+            Homesteader.World.LawnSoil.ApplySaved(s.mowedCells, s.mowedAlongZ);
             Homesteader.UI.WindowPositions.Restore(s.windows);
             Homesteader.UI.SteadifyMiniPlayer.Restore(s.miniPlayerOpen);
             Homesteader.Radio.RadioPlayer.Restore(new Homesteader.Radio.RadioPlayer.Saved { station = s.radioStation, line = s.radioLine, paused = s.radioPaused });

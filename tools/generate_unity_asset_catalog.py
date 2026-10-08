@@ -125,6 +125,9 @@ def main():
                             item_data["is_well"] = True                                  # a drilled well (docs/WELLS.md)
                         if isinstance(props.get("attach_item"), str) and props.get("attach_item"):
                             item_data["attach_item"] = props["attach_item"]              # what fits on it (a well's sub panel)
+                        mw = props.get("mower_width_m")
+                        if isinstance(mw, (int, float)) and not isinstance(mw, bool) and mw > 0:
+                            item_data["mower_width_m"] = float(mw)                       # a push mower (docs/MOWING.md)
                         if props.get("pushable") is True:
                             item_data["container_pushable"] = True   # pushed like a wheelbarrow (a portable generator)
                         wl = props.get("wire_length_m")

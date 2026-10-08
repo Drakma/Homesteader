@@ -143,6 +143,7 @@ namespace Homesteader.UI
                 H("Loaded shovel: empty onto a pile or on open ground (starts a pile)", "Right Click"),
                 H("Straw bale (in hand): spread bedding over the floor of the room; a shovel takes it up", "Right Click"),
                 H("Wheelbarrow: take the handles (empty slot) and push it; again to put it down", "Right Click"),
+                H("Push mower: take the handles and push it over grass to cut striped lawn", "Right Click"),
                 H("Wheelbarrow: empty it onto the ground as piles", "Shift", "Right Click"),
                 H("Shovel (in hand): scoop a pile, or move shovelfuls to and from a wheelbarrow", "Right Click"),
                 H("Rotate what you are placing", K(BindAction.PlaceRotate)),

@@ -54,6 +54,13 @@
       "label": "Pushable",
       "note": "The player grabs it by the handles and pushes it along like a wheelbarrow (right click to grab, right click to put down) instead of picking it up. A portable generator is pushed."
     },
+    "mower_width_m": {
+      "type": "number",
+      "required": false,
+      "default": 0,
+      "label": "Mower Deck Width (m)",
+      "note": "A push mower (needs pushable = true): while it is pushed it turns the grass under a deck this wide into fresh-cut lawn with stripes (World/LawnSoil.cs, docs/MOWING.md). 0 = not a mower."
+    },
     "is_blueprint": {
       "type": "boolean",
       "required": false,

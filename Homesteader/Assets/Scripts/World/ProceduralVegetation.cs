@@ -182,6 +182,7 @@ namespace Homesteader.World
             ForestTrees.Begin(root);
             ForestSolids.Clear();
             WorldRocks.Clear();
+            LawnSoil.Clear();
             FarmlandSoil.Clear();   // a new world has no tilled ground (a load tills its squares again)
             BerryBushes.Clear();
             BushByTransform.Clear();

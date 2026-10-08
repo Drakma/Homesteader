@@ -2268,6 +2268,7 @@ namespace Homesteader.UI
         public int container_max_items;          // > 0: at most this many items in all (a battery rack has this many slots), whatever their weight
         public float container_slot_pitch_m;     // > 0: the contents are drawn as the real item models, one above the other this far apart (a battery rack)
         public float container_slot_start_m;     // where the first slot stands: height above the bottom of the container's model
+        public float mower_width_m;              // > 0: a push mower, this wide a deck (it mows the lawn under it while pushed)
         public bool container_pushable;          // a push item (a wheelbarrow): grabbed and pushed, not picked up
         public bool container_show_fill = true;   // draw what is inside as blocks (open crates and baskets; closed boxes turn it off)
         public List<string> container_accepts;     // categories, #tags or item ids it accepts; empty = anything

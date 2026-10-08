@@ -711,8 +711,14 @@
                     return WetlandTexture(pos, half3(0, 0, 0));
                 if (mode > 4.5 && mode < 5.5)
                 {
-                    float stripe = step(0.5, frac(pos.y / 1.2));   // 1.2m mower pass
-                    return lerp(half3(0.10, 0.60, 0.22), half3(0.18, 0.82, 0.36), stripe);
+                    // A mown lawn: bands one mower deck wide (0.6 m), light then dark, the grass bent one way and then the other. The stripes run along X, or along Z when the mown
+                    // square says so (mode 5.25, see BiomeModeAt): they keep their direction from square to square, like the furrows of farmland. Fine blade noise breaks up the flat green.
+                    float across = mode > 5.1 ? pos.x : pos.y;
+                    float f = frac(across / 0.6);
+                    float stripe = smoothstep(0.0, 0.06, f) * (1.0 - smoothstep(0.5, 0.56, f));
+                    float blades = FBM(pos * 14.0, 2);
+                    half3 cut = lerp(half3(0.115, 0.40, 0.13), half3(0.20, 0.56, 0.19), stripe);
+                    return cut * lerp(0.93, 1.07, blades);
                 }
                 if (mode > 3.5 && mode < 4.5)
                 {
@@ -738,12 +744,13 @@
             float IsForestMode(float mode) { return ((mode > 6.5 && mode < 10.5) || (mode > 13.5 && mode < 15.5)) ? 1.0 : 0.0; }
 
             // The mode id at a point of the biome map, point sampled. Tilled farmland whose rows run along Z (red channel painted to 1 by
-            // FarmlandSoil.cs) reads as 4.25 instead of 4, so its texture turns without being a different biome.
+            // FarmlandSoil.cs) reads as 4.25 instead of 4, so its texture turns without being a different biome. Mown lawn the same: 5.25 for stripes along Z.
             float BiomeModeAt(float2 uv)
             {
                 half4 s = SAMPLE_TEXTURE2D_LOD(_BiomeMap, sampler_point_clamp, uv, 0);
                 float m = floor(s.a * 18.0);
                 if (m > 3.5 && m < 4.5 && s.r > 0.75) m += 0.25;
+                if (m > 4.5 && m < 5.5 && s.r > 0.75) m += 0.25;   // a mown lawn whose stripes run along Z (LawnSoil.cs)
                 return m;
             }
 

@@ -40,6 +40,7 @@ namespace Homesteader.Growth
                 if (zone != null && zone.Contains(worldPoint))
                     return zone.biomeId;
             if (Homesteader.World.FarmlandSoil.Contains(worldPoint)) return Homesteader.World.FarmlandSoil.BiomeId;   // ground the player tilled with a hoe
+            if (Homesteader.World.LawnSoil.Contains(worldPoint)) return Homesteader.World.LawnSoil.BiomeId;   // lawn the player mowed
             return null;
         }
 

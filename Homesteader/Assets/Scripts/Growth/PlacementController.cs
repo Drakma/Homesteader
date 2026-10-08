@@ -832,6 +832,7 @@ namespace Homesteader.Growth
             Homesteader.World.PickupFlag.AttachIfFlag(placed);   // a pickup flag: it marks the market pickup zone
             Sawmill.AttachIfSawmill(placed);               // a sawmill: logs on its track are cut into lumber
             WheelbarrowPush.AttachPileVisual(placed);       // a heap shrinks as it is shovelled
+            PushMower.AttachIfMower(placed);                // a push mower: pushed, it turns the grass under its deck into striped lawn
             LightEmitter.Attach(obj, itemId, info.Lights);   // its lights come on with the game clock
             if (fade)
             {

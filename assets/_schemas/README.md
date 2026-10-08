@@ -69,7 +69,7 @@ all under **Universal**.
 | `_base` | `base_value`, `weight_kg`, `max_stack_size`, `pack_quantity`, `display_weight`, `is_consumable`, `is_spawnable`, `is_buyable`, `is_sellable` | The core of every item: economy, weight, stacking and how its name is shown |
 | `_base_vitals` | `happiness_modifier`, `thirst_restore`, `energy_restore`, `stamina_restore`, `wellness_modifier` | What eating, drinking or using it does to the player |
 | `_base_store` | `stores`, `sale_unit`, `uses_per_item`, `leaves_item`, `store_category`, `store_overrides` | The shop listing (the phone shops are generated from it) |
-| `_base_placement` | `placeable`, `stacking_limit`, `support_surface`, `deck_heights`, `shelf`, `run_snap`, `pushable`, `is_blueprint`, `builds_structure` | How it stands in the world, stacks, carries things; kit and blueprint flags |
+| `_base_placement` | `placeable`, `stacking_limit`, `support_surface`, `deck_heights`, `shelf`, `run_snap`, `pushable`, `mower_width_m`, `is_blueprint`, `builds_structure` | How it stands in the world, stacks, carries things; kit and blueprint flags |
 | `_base_mounting` | `attach_surface`, `attach_side`, `attach_through`, `attach_item`, `attach_result`, `roof_mount`, `provides_power`, `panel_*` | Items that mount on a building; solar panel geometry |
 | `_base_wiring` | `wire_role`, `wire_kind`, `wire_length_m`, `power_radius_tiles`, `capacity_wh`, `voltage_v` | The electrical system |
 | `_base_water` | `flow_lph`, `pressurized`, `heater_w`, `filter_stage`, `is_well`, `sewage_capacity_l`, `leach_lpd`, `leach_storage_l` | Pumps, filters, heaters, wells, septic |
@@ -180,6 +180,7 @@ validated only on assets that have it. `on_add` lists manifest values set when t
   - `disposable` (boolean, optional, default false): a PLACED container is removed from the world when its last item is taken out (cardboard delivery boxes); crates and baskets leave it off.
   - `show_fill` (boolean, optional, default true): a PLACED container draws what is inside as blocks that rise as it fills (one slab per kind of item: average colour on the sides, icon on top; `Assets/Scripts/Growth/ContainerFill.cs`). Set false for closed boxes.
   - `fill_x_min` / `fill_x_max` / `fill_y_min` / `fill_y_max` / `fill_z_min` / `fill_z_max` (numbers 0-1, optional): where the visible contents sit, as fractions of the model's overall bounds (x = length, y = height, z = width). Omit for a plain open box; set them when the opening is only part of the model (a wheelbarrow tub). Catalog: `container_fill_region`.
+  - `mower_width_m` (number, optional, default 0): a push mower deck width in meters (needs `pushable`); pushed, it mows lawn under the deck. Catalog: `mower_width_m`. docs/MOWING.md.
   - `pushable` (boolean, optional, default false): a push item (a wheelbarrow): a placed one is grabbed and pushed with right click rather than picked up; Shift + right click dumps its contents as piles. Catalog: `container_pushable`.
   - `single_type` (boolean, optional, default false): takes only one kind of item at a time; once it holds something only more of that item goes in (crates).
   - `accepts` (array, optional): tags (`#tag`) and/or exact asset ids chosen with the asset picker; empty = anything.

@@ -4708,6 +4708,9 @@
                   <div class="kv-key">Pushable</div>
                   <select class="kv-input" id="m-pushable" data-path="properties.pushable"><option value="false">No</option><option value="true">Yes</option></select>
                 </div>
+                <div class="kv-box" title="A push mower (needs Pushable): while pushed it turns the grass under a deck this wide into striped lawn. 0 or empty = not a mower.">
+                  <div class="kv-key">Mower Deck Width (m)</div><input class="kv-input" type="number" step="0.01" min="0" id="m-mower-width" data-path="properties.mower_width_m">
+                </div>
                 <div class="kv-box" title="A portable generator: how many tiles around it have its power (not connected to structures).">
                   <div class="kv-key">Power Radius (tiles)</div><input class="kv-input" type="number" step="1" min="0" id="m-power-radius" data-path="properties.power_radius_tiles">
                 </div>
@@ -18231,6 +18234,7 @@ Replace the existing model?`)) return;
       document.getElementById("m-flow-lph").value = p.flow_lph !== undefined && p.flow_lph !== null ? p.flow_lph : "";
       document.getElementById("m-is-well").value = p.is_well ? "true" : "false";
       document.getElementById("m-pushable").value = p.pushable ? "true" : "false";
+      document.getElementById("m-mower-width").value = p.mower_width_m !== undefined && p.mower_width_m !== null ? p.mower_width_m : "";
       document.getElementById("m-power-radius").value = p.power_radius_tiles !== undefined && p.power_radius_tiles !== null ? p.power_radius_tiles : "";
       document.getElementById("m-panel-width").value = p.panel_width_m !== undefined && p.panel_width_m !== null ? p.panel_width_m : "";
       document.getElementById("m-panel-depth").value = p.panel_depth_m !== undefined && p.panel_depth_m !== null ? p.panel_depth_m : "";
@@ -18303,6 +18307,7 @@ Replace the existing model?`)) return;
         ["m-flow-lph", "properties.flow_lph", "number_optional"],
         ["m-is-well", "properties.is_well", "bool"],
         ["m-pushable", "properties.pushable", "bool"],
+        ["m-mower-width", "properties.mower_width_m", "number_optional"],
         ["m-power-radius", "properties.power_radius_tiles", "number_optional"],
         ["m-panel-width", "properties.panel_width_m", "number_optional"],
         ["m-panel-depth", "properties.panel_depth_m", "number_optional"],

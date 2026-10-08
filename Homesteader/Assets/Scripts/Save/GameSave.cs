@@ -66,6 +66,8 @@ namespace Homesteader.Save
         public List<Vector2> fellTrees = new List<Vector2>();   // x, z of every procedural forest tree the player has chopped down
         public List<Homesteader.World.PlantedBushData> plantedBushes = new List<Homesteader.World.PlantedBushData>();   // berry bushes planted by the player
         public List<Vector2Int> tilledAlongZ = new List<Vector2Int>();   // the tilled squares whose rows run along Z (the others run along X)
+        public List<Vector2Int> mowedAlongZ = new List<Vector2Int>();   // the mown squares whose stripes run along Z (the others run along X)
+        public List<Vector2Int> mowedCells = new List<Vector2Int>();   // grid squares of lawn mown with a push mower
         public List<Vector2Int> tilledCells = new List<Vector2Int>();   // grid squares of ground tilled into farmland with a hoe
         public List<Vector2> brokenRocks = new List<Vector2>();   // x, z of scattered rocks broken with a pickaxe
         public List<Vector2> dugBushes = new List<Vector2>();   // berry bushes dug up with a shovel (x, z)

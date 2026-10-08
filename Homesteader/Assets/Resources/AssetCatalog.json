@@ -54764,6 +54764,33 @@
       ]
     },
     {
+      "id": "tool_push_mower",
+      "name": "Push Mower",
+      "category": "tools",
+      "description": "A walk-behind push mower with a 53 cm cutting deck. Push it over open ground (right click the handles with an empty hand, right click again to let go) and the grass under the deck is cut into a fresh lawn with light and dark stripes that run the way you walked. It does not cut farmland, roads or water.",
+      "icon": "tool_push_mower.png",
+      "max_stack": 1,
+      "mower_width_m": 0.53,
+      "container_pushable": false,
+      "weight_kg": 32.0,
+      "base_value": 340.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Power Tools/Garden & Farm",
+          "unit": "ea",
+          "price": 340.0
+        }
+      ],
+      "container_capacity_kg": 8.0,
+      "container_accepts": [
+        "#bulk"
+      ],
+      "container_show_fill": false,
+      "container_single_type": true,
+      "container_disposable": false
+    },
+    {
       "id": "tool_saw_hand",
       "name": "Hand Saw",
       "category": "tools",
