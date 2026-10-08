@@ -70,8 +70,6 @@
     "construction_recipe": [],
     "required_tools": [
       [
-        "tool_rake_garden",
-        "tool_rake_leaf",
         "tool_hoe",
         "tool_shovel",
         "tool_shovel_round_point",

@@ -46689,9 +46689,34 @@
           "height": 0.26,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 16.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 64.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.749,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 1.171,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 278.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -46711,6 +46736,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -46740,8 +46773,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 4.0,
+              "item_id": "framing_nail",
+              "quantity": 40.0,
               "per_depth_m": 0.0
             }
           ],
@@ -46888,9 +46921,34 @@
           "height": 0.2,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 8.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 32.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.374,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 0.586,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 139.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -46910,6 +46968,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -46934,8 +47000,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 2.0,
+              "item_id": "framing_nail",
+              "quantity": 20.0,
               "per_depth_m": 0.0
             }
           ],
@@ -47968,9 +48034,34 @@
           "height": 0.4,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 24.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 96.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 1.123,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 1.757,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 416.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -47990,6 +48081,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -48134,9 +48233,34 @@
           "height": 0.4,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 13.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 52.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.608,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 0.952,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 226.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -48156,6 +48280,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -48300,9 +48432,34 @@
           "height": 0.4,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 6.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 24.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.281,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 0.439,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 104.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -48322,6 +48479,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -48458,9 +48623,34 @@
           "height": 0.18,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 8.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 32.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.374,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 0.586,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 139.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -48480,6 +48670,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -48504,8 +48702,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 2.0,
+              "item_id": "framing_nail",
+              "quantity": 20.0,
               "per_depth_m": 0.0
             }
           ],
@@ -49672,9 +49870,34 @@
           "height": 0.3,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 24.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 96.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 1.123,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 1.757,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 416.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -49694,6 +49917,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -49723,8 +49954,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 6.0,
+              "item_id": "framing_nail",
+              "quantity": 60.0,
               "per_depth_m": 0.0
             }
           ],
@@ -49983,12 +50214,37 @@
               "not_uses": "",
               "items": [
                 {
-                  "item_id": "80lb_cement_bag",
-                  "quantity": 4.0,
-                  "per_depth_m": 0.0
+                  "item_id": "",
+                  "quantity": 0,
+                  "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+                  "mode": "all",
+                  "uses": "",
+                  "not_uses": "",
+                  "items": [
+                    {
+                      "item_id": "~cement",
+                      "quantity": 16.0,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~sand",
+                      "quantity": 0.187,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~gravel",
+                      "quantity": 0.293,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~water",
+                      "quantity": 70.0,
+                      "per_depth_m": 0.0
+                    }
+                  ]
                 },
                 {
-                  "item_id": "masonry_cinder_block",
+                  "item_id": "building_concrete_block",
                   "quantity": 60.0,
                   "per_depth_m": 0.0
                 },
@@ -50018,6 +50274,14 @@
               "tools": [
                 "tool_trowel_hand"
               ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
+              ]
             }
           ],
           "build_clips": [],
@@ -50041,8 +50305,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 2.0,
+              "item_id": "framing_nail",
+              "quantity": 20.0,
               "per_depth_m": 0.0
             }
           ],
@@ -50228,9 +50492,34 @@
           "height": 0.26,
           "recipe": [
             {
-              "item_id": "80lb_cement_bag",
-              "quantity": 16.0,
-              "per_depth_m": 0.0
+              "item_id": "",
+              "quantity": 0,
+              "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+              "mode": "all",
+              "uses": "",
+              "not_uses": "",
+              "items": [
+                {
+                  "item_id": "~cement",
+                  "quantity": 64.0,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~sand",
+                  "quantity": 0.749,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~gravel",
+                  "quantity": 1.171,
+                  "per_depth_m": 0.0
+                },
+                {
+                  "item_id": "~water",
+                  "quantity": 278.0,
+                  "per_depth_m": 0.0
+                }
+              ]
             },
             {
               "item_id": "#rebar",
@@ -50250,6 +50539,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -50279,8 +50576,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 4.0,
+              "item_id": "framing_nail",
+              "quantity": 40.0,
               "per_depth_m": 0.0
             }
           ],
@@ -50435,12 +50732,37 @@
               "not_uses": "",
               "items": [
                 {
-                  "item_id": "80lb_cement_bag",
-                  "quantity": 10.0,
-                  "per_depth_m": 0.0
+                  "item_id": "",
+                  "quantity": 0,
+                  "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+                  "mode": "all",
+                  "uses": "",
+                  "not_uses": "",
+                  "items": [
+                    {
+                      "item_id": "~cement",
+                      "quantity": 40.0,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~sand",
+                      "quantity": 0.468,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~gravel",
+                      "quantity": 0.732,
+                      "per_depth_m": 0.0
+                    },
+                    {
+                      "item_id": "~water",
+                      "quantity": 174.0,
+                      "per_depth_m": 0.0
+                    }
+                  ]
                 },
                 {
-                  "item_id": "masonry_cinder_block",
+                  "item_id": "building_concrete_block",
                   "quantity": 150.0,
                   "per_depth_m": 0.0
                 },
@@ -50469,6 +50791,14 @@
             {
               "tools": [
                 "tool_trowel_hand"
+              ]
+            },
+            {
+              "tools": [
+                "tool_wheelbarrow",
+                "tool_plastic_wheelbarrow",
+                "tool_steel_wheelbarrow",
+                "tool_cement_mixer"
               ]
             }
           ],
@@ -50503,8 +50833,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_framingnails_box",
-              "quantity": 4.0,
+              "item_id": "framing_nail",
+              "quantity": 40.0,
               "per_depth_m": 0.0
             }
           ],
@@ -50557,8 +50887,8 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "item_hardware_deckscrews_box",
-              "quantity": 2.0,
+              "item_id": "deck_screw",
+              "quantity": 20.0,
               "per_depth_m": 0.0
             }
           ],
@@ -51920,8 +52250,6 @@
           "tool_groups": [
             {
               "tools": [
-                "tool_rake_garden",
-                "tool_rake_leaf",
                 "tool_hoe",
                 "tool_shovel",
                 "tool_shovel_round_point",
@@ -52045,8 +52373,6 @@
           "tool_groups": [
             {
               "tools": [
-                "tool_rake_garden",
-                "tool_rake_leaf",
                 "tool_hoe",
                 "tool_shovel",
                 "tool_shovel_round_point",

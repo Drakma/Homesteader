@@ -130,8 +130,8 @@
         "quantity": 1
       },
       {
-        "item_id": "item_hardware_framingnails_box",
-        "quantity": 1
+        "item_id": "framing_nail",
+        "quantity": 10
       }
     ],
     "required_tools": [

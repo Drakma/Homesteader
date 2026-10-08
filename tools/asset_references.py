@@ -152,6 +152,7 @@ def dangling_references(assets_dir=ASSETS):
     except Exception:
         eqdata = {}
     bad = []
+    categories = {c for c in os.listdir(assets_dir) if not c.startswith('_') and os.path.isdir(os.path.join(assets_dir, c))}
 
     def ok(v):
         return (not v) or v in ids or v in stage_ids or (v.startswith('#') and v[1:] in tags) or (v.startswith('~') and v[1:] in eqdata)
@@ -175,7 +176,7 @@ def dangling_references(assets_dir=ASSETS):
         elif isinstance(o, list):
             for x in o:
                 if isinstance(x, str):
-                    if inlist and not ok(x):
+                    if inlist and not ok(x) and not (key == 'accepts' and x in categories):   # a category name is a valid accepts entry
                         bad.append((f, key, x))
                 else:
                     walk(x, key, f, inlist)

@@ -85,8 +85,8 @@
         "quantity": 2
       },
       {
-        "item_id": "item_hardware_framingnails_box",
-        "quantity": 4
+        "item_id": "framing_nail",
+        "quantity": 40
       }
     ],
     "required_tools": [

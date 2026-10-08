@@ -28,11 +28,29 @@
             "mode": "any",
             "items": [
               {
-                "item_id": "80lb_cement_bag",
-                "quantity": 10
+                "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+                "mode": "all",
+                "items": [
+                  {
+                    "item_id": "~cement",
+                    "quantity": 40
+                  },
+                  {
+                    "item_id": "~sand",
+                    "quantity": 0.468
+                  },
+                  {
+                    "item_id": "~gravel",
+                    "quantity": 0.732
+                  },
+                  {
+                    "item_id": "~water",
+                    "quantity": 174
+                  }
+                ]
               },
               {
-                "item_id": "masonry_cinder_block",
+                "item_id": "building_concrete_block",
                 "quantity": 150
               },
               {
@@ -55,6 +73,12 @@
           ],
           [
             "tool_trowel_hand"
+          ],
+          [
+            "tool_wheelbarrow",
+            "tool_plastic_wheelbarrow",
+            "tool_steel_wheelbarrow",
+            "tool_cement_mixer"
           ]
         ]
       },
@@ -84,8 +108,8 @@
             "quantity": 2
           },
           {
-            "item_id": "item_hardware_framingnails_box",
-            "quantity": 4
+            "item_id": "framing_nail",
+            "quantity": 40
           }
         ],
         "required_tools": [
@@ -129,8 +153,8 @@
             "quantity": 6
           },
           {
-            "item_id": "item_hardware_deckscrews_box",
-            "quantity": 2
+            "item_id": "deck_screw",
+            "quantity": 20
           }
         ],
         "required_tools": [

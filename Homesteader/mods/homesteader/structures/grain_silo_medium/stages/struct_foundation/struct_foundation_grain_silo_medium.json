@@ -69,8 +69,26 @@
     "roof_area_m2": 0,
     "construction_recipe": [
       {
-        "item_id": "80lb_cement_bag",
-        "quantity": 13
+        "section": "Concrete: 1 cement, 2 sand, 3 aggregate",
+        "mode": "all",
+        "items": [
+          {
+            "item_id": "~cement",
+            "quantity": 52
+          },
+          {
+            "item_id": "~sand",
+            "quantity": 0.608
+          },
+          {
+            "item_id": "~gravel",
+            "quantity": 0.952
+          },
+          {
+            "item_id": "~water",
+            "quantity": 226
+          }
+        ]
       },
       {
         "item_id": "#rebar",
@@ -86,6 +104,12 @@
       ],
       [
         "tool_trowel_hand"
+      ],
+      [
+        "tool_wheelbarrow",
+        "tool_plastic_wheelbarrow",
+        "tool_steel_wheelbarrow",
+        "tool_cement_mixer"
       ]
     ]
   }

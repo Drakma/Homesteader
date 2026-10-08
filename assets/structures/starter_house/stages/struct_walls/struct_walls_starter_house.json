@@ -85,8 +85,8 @@
         "quantity": 6
       },
       {
-        "item_id": "item_hardware_deckscrews_box",
-        "quantity": 2
+        "item_id": "deck_screw",
+        "quantity": 20
       }
     ],
     "required_tools": [
