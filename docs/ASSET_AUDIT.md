@@ -1,6 +1,6 @@
 # Asset Audit
 
-Generated 2026-10-08 by `python tools/asset_audit.py` from 2632 manifests. Run it again to refresh; do not edit by hand.
+Generated 2026-10-08 by `python tools/asset_audit.py` from 2641 manifests. Run it again to refresh; do not edit by hand.
 
 A file-level check: it does not judge how a model or an icon looks.
 
@@ -123,7 +123,7 @@ None.
 None.
 
 
-## Icon too thin to read (34)
+## Icon too thin to read (39)
 
 Long thin items that cover under 5% of the icon.
 
@@ -151,6 +151,11 @@ Long thin items that cover under 5% of the icon.
 - [ ] onion (4% of the icon)
 - [ ] fuel_pipe_line (2% of the icon)
 - [ ] fuel_pipe_propane (2% of the icon)
+- [ ] fuel_pipe_propane_half_inch (1% of the icon)
+- [ ] fuel_pipe_propane_half_inch_stack_10 (3% of the icon)
+- [ ] fuel_pipe_propane_one_and_a_quarter_inch (2% of the icon)
+- [ ] fuel_pipe_propane_three_quarter_inch (1% of the icon)
+- [ ] fuel_pipe_propane_three_quarter_inch_stack_10 (4% of the icon)
 - [ ] lighting_pole_light_classic_black (4% of the icon)
 - [ ] lighting_pole_light_classic_brass (4% of the icon)
 - [ ] lighting_pole_light_classic_bronze (4% of the icon)

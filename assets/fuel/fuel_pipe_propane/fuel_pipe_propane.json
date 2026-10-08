@@ -1,9 +1,9 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "fuel_pipe_propane",
-  "name": "Propane Pipe",
+  "name": "1\" Propane Pipe",
   "category": "fuel",
-  "description": "A 3 m length of charcoal grey coated steel pipe for a propane line. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
+  "description": "A 3 m length of charcoal grey one-inch coated steel pipe for a propane line: carries a 28 kW standby generator at full load. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
   "icon": "fuel_pipe_propane.png",
   "properties": {
     "weight_kg": 4.5,
@@ -25,7 +25,8 @@
     "display_weight": true,
     "wire_kind": "propane",
     "wire_length_m": 3.0,
-    "store_category": "Fuel"
+    "store_category": "Fuel",
+    "flow_lph": 30.0
   },
   "models": [
     {

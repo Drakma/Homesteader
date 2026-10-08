@@ -1,7 +1,7 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
   "id": "fuel_pipe_propane_stack_20",
-  "name": "Propane Pipe Stack",
+  "name": "1\" Propane Pipe Stack",
   "category": "fuel",
   "description": "20 lengths of propane pipe strapped in a bundle: 60 m of pipe for a propane line.",
   "icon": "fuel_pipe_propane_stack_20.png",
@@ -26,7 +26,8 @@
     "wire_kind": "propane",
     "wire_length_m": 60.0,
     "pack_quantity": 20,
-    "store_category": "Fuel"
+    "store_category": "Fuel",
+    "flow_lph": 30.0
   },
   "models": [
     {

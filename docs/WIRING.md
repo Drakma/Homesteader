@@ -65,6 +65,10 @@ Solar panels can be wired to each other (DC wire): a run of panels wired in a ch
 
 **Panel groups**: solar panels standing side by side (their edges within 0.45 m) are joined by themselves into a group, with no wire: an unseen DC link of no length (`WireLink.Auto`, `WireNetwork.TickSolarGroups`, scanned about once a second; not drawn, not saved, not cut: Shift + right click with the cutters leaves them). ONE wire from any panel of a group to a wall entry (or a DC breaker box, bus bar ...) carries the whole group's output, and one wire from a panel of one group to a panel of another joins the two groups. Moving a panel away drops it from the group.
 
+## Propane pipe sizes
+
+A propane pipe has a flow rating by its diameter; a standby generator the line cannot feed is starved: see `docs/PROPANE_FLOW.md`.
+
 ## Overload
 
 Every piece of electric equipment has a rated current and trips when it carries more for too long: see `docs/OVERLOAD.md`.

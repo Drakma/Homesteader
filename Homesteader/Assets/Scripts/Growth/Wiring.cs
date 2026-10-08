@@ -2010,7 +2010,7 @@ namespace Homesteader.Growth
                 if (site == null) continue;
                 List<WireNode> gens = LockoutGens(box);
                 float rated = 0f;
-                foreach (WireNode g in gens) if (GenFuelL(g) > 0.01f) { AssetCatalogItem gi = HudBindings.GetCatalogItem(g.ItemId); if (gi != null) rated += gi.max_power_w; }
+                foreach (WireNode g in gens) if (GenFuelL(g) > 0.01f) { AssetCatalogItem gi = HudBindings.GetCatalogItem(g.ItemId); if (gi != null) rated += GenCapableW(g, gi); }   // what the propane line can feed it, not its nameplate
                 bool on = s_onGen.Contains(site);
                 // could the breaker box carry the building? (counted back in, without changing anything)
                 float ratio = 0f, soc = 1f;
@@ -2054,7 +2054,9 @@ namespace Homesteader.Growth
                 {
                     AssetCatalogItem gi = HudBindings.GetCatalogItem(g.ItemId);
                     if (gi == null || gi.max_power_w <= 0f || GenFuelL(g) <= 0.01f) continue;
-                    float share = rated > 0f ? gi.max_power_w / rated : 0f;
+                    float capW = GenCapableW(g, gi);   // starved by a small propane pipe: it gives only what the line feeds
+                    if (capW <= 0f) { g.GenRunning = false; g.GenW = 0f; continue; }
+                    float share = rated > 0f ? capW / rated : 0f;
                     g.GenRunning = true;
                     g.GenStarting = false;
                     g.GenW = give * share;
@@ -2158,6 +2160,7 @@ namespace Homesteader.Growth
                 rows.Add(("Status", n.GenStarting ? "Starting up" : n.GenRunning ? "Running: " + SolarSun.Power(n.GenW) : fuel <= 0.01f ? (GenTanks(n).Count == 0 ? "No propane tank piped to it" : "Out of propane") : !box ? "Not wired to a lockout box" : "Standby (starts when the power runs short)"));
                 if (gi != null && gi.max_power_w > 0f) rows.Add(("Rated", SolarSun.Power(gi.max_power_w)));
                 rows.Add(("Propane", UnitFormat.Volume(fuel)));
+                PropaneRows(n, rows);   // the fuel line against what full load burns (docs/PROPANE_FLOW.md)
                 if (gi != null && gi.fuel_lpm > 0f) rows.Add(("Burns", UnitFormat.Volume(gi.fuel_lpm * 60f) + " an hour at full load"));
                 return;
             }

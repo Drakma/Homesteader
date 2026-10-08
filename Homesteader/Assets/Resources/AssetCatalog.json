@@ -23720,12 +23720,13 @@
     },
     {
       "id": "fuel_pipe_propane",
-      "name": "Propane Pipe",
+      "name": "1\" Propane Pipe",
       "category": "fuel",
-      "description": "A 3 m length of charcoal grey coated steel pipe for a propane line. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
+      "description": "A 3 m length of charcoal grey one-inch coated steel pipe for a propane line: carries a 28 kW standby generator at full load. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
       "icon": "fuel_pipe_propane.png",
       "max_stack": 10,
       "wire_kind": "propane",
+      "flow_lph": 30.0,
       "wire_length_m": 3.0,
       "display_weight": true,
       "weight_kg": 4.5,
@@ -23740,14 +23741,151 @@
       ]
     },
     {
+      "id": "fuel_pipe_propane_half_inch",
+      "name": "1/2\" Propane Pipe",
+      "category": "fuel",
+      "description": "A 3 m length of charcoal grey half-inch coated steel pipe for a small propane line: enough for a 10 kW standby generator at full load. A 3 m length of charcoal grey one-inch coated steel pipe for a propane line: carries a 28 kW standby generator at full load. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
+      "icon": "fuel_pipe_propane_half_inch.png",
+      "max_stack": 10,
+      "wire_kind": "propane",
+      "flow_lph": 7.5,
+      "wire_length_m": 3.0,
+      "display_weight": true,
+      "weight_kg": 2.1,
+      "base_value": 10.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 10.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_half_inch_stack_10",
+      "name": "1/2\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "10 of 1/2\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_half_inch_stack_10.png",
+      "max_stack": 1,
+      "pack_quantity": 10,
+      "wire_kind": "propane",
+      "flow_lph": 7.5,
+      "wire_length_m": 30.0,
+      "display_weight": true,
+      "weight_kg": 21.0,
+      "base_value": 90.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 90.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_half_inch_stack_20",
+      "name": "1/2\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "20 of 1/2\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_half_inch_stack_20.png",
+      "max_stack": 1,
+      "pack_quantity": 20,
+      "wire_kind": "propane",
+      "flow_lph": 7.5,
+      "wire_length_m": 60.0,
+      "display_weight": true,
+      "weight_kg": 42.0,
+      "base_value": 180.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 180.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_one_and_a_quarter_inch",
+      "name": "1-1/4\" Propane Pipe",
+      "category": "fuel",
+      "description": "A 3 m length of charcoal grey one-and-a-quarter-inch coated steel pipe for a big propane line: carries two large standby generators at full load. A 3 m length of charcoal grey one-inch coated steel pipe for a propane line: carries a 28 kW standby generator at full load. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
+      "icon": "fuel_pipe_propane_one_and_a_quarter_inch.png",
+      "max_stack": 10,
+      "wire_kind": "propane",
+      "flow_lph": 55.0,
+      "wire_length_m": 3.0,
+      "display_weight": true,
+      "weight_kg": 6.8,
+      "base_value": 24.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 24.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_one_and_a_quarter_inch_stack_10",
+      "name": "1-1/4\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "10 of 1-1/4\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_one_and_a_quarter_inch_stack_10.png",
+      "max_stack": 1,
+      "pack_quantity": 10,
+      "wire_kind": "propane",
+      "flow_lph": 55.0,
+      "wire_length_m": 30.0,
+      "display_weight": true,
+      "weight_kg": 68.0,
+      "base_value": 216.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 216.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_one_and_a_quarter_inch_stack_20",
+      "name": "1-1/4\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "20 of 1-1/4\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_one_and_a_quarter_inch_stack_20.png",
+      "max_stack": 1,
+      "pack_quantity": 20,
+      "wire_kind": "propane",
+      "flow_lph": 55.0,
+      "wire_length_m": 60.0,
+      "display_weight": true,
+      "weight_kg": 136.0,
+      "base_value": 432.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 432.0
+        }
+      ]
+    },
+    {
       "id": "fuel_pipe_propane_stack_10",
-      "name": "Propane Pipe Stack",
+      "name": "1\" Propane Pipe Stack",
       "category": "fuel",
       "description": "10 lengths of propane pipe strapped in a bundle: 30 m of pipe for a propane line.",
       "icon": "fuel_pipe_propane_stack_10.png",
       "max_stack": 1,
       "pack_quantity": 10,
       "wire_kind": "propane",
+      "flow_lph": 30.0,
       "wire_length_m": 30.0,
       "display_weight": true,
       "weight_kg": 45.0,
@@ -23763,13 +23901,14 @@
     },
     {
       "id": "fuel_pipe_propane_stack_20",
-      "name": "Propane Pipe Stack",
+      "name": "1\" Propane Pipe Stack",
       "category": "fuel",
       "description": "20 lengths of propane pipe strapped in a bundle: 60 m of pipe for a propane line.",
       "icon": "fuel_pipe_propane_stack_20.png",
       "max_stack": 1,
       "pack_quantity": 20,
       "wire_kind": "propane",
+      "flow_lph": 30.0,
       "wire_length_m": 60.0,
       "display_weight": true,
       "weight_kg": 90.0,
@@ -23780,6 +23919,74 @@
           "category": "Fuel",
           "unit": "kit",
           "price": 288.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_three_quarter_inch",
+      "name": "3/4\" Propane Pipe",
+      "category": "fuel",
+      "description": "A 3 m length of charcoal grey three-quarter-inch coated steel pipe for a propane line: enough for a 14 kW standby generator at full load. A 3 m length of charcoal grey one-inch coated steel pipe for a propane line: carries a 28 kW standby generator at full load. With a pipe wrench in hand, right click a propane tank and then a house connector to lay it: it runs along the walls of a building and underground everywhere else.",
+      "icon": "fuel_pipe_propane_three_quarter_inch.png",
+      "max_stack": 10,
+      "wire_kind": "propane",
+      "flow_lph": 15.0,
+      "wire_length_m": 3.0,
+      "display_weight": true,
+      "weight_kg": 3.1,
+      "base_value": 13.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 13.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_three_quarter_inch_stack_10",
+      "name": "3/4\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "10 of 3/4\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_three_quarter_inch_stack_10.png",
+      "max_stack": 1,
+      "pack_quantity": 10,
+      "wire_kind": "propane",
+      "flow_lph": 15.0,
+      "wire_length_m": 30.0,
+      "display_weight": true,
+      "weight_kg": 31.0,
+      "base_value": 117.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 117.0
+        }
+      ]
+    },
+    {
+      "id": "fuel_pipe_propane_three_quarter_inch_stack_20",
+      "name": "3/4\" Propane Pipe Stack",
+      "category": "fuel",
+      "description": "20 of 3/4\" Propane Pipe, stacked together.",
+      "icon": "fuel_pipe_propane_three_quarter_inch_stack_20.png",
+      "max_stack": 1,
+      "pack_quantity": 20,
+      "wire_kind": "propane",
+      "flow_lph": 15.0,
+      "wire_length_m": 60.0,
+      "display_weight": true,
+      "weight_kg": 62.0,
+      "base_value": 234.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Fuel",
+          "unit": "kit",
+          "price": 234.0
         }
       ]
     },

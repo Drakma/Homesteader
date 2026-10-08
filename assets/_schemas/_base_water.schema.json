@@ -9,7 +9,7 @@
       "required": false,
       "min": 0,
       "label": "Flow (L/h)",
-      "note": "Liters an hour this part of a water line can pass (docs/WATER_FLOW.md). A well pump: what it lifts; a well gives this, or what the aquifer gives, whichever is less (docs/WELLS.md). A pipe (wire_kind water): what it carries (half inch 900, one inch 2400, two inch 9000). A filter, spigot, faucet, house inlet, tank fitting, water pump or hand pump: what it lets through. A water line gives no more than the narrowest part on its way, and WAILA names that part. Nothing trips: a part that is too small only slows the water."
+      "note": "Liters an hour this part of a water line can pass (docs/WATER_FLOW.md). A well pump: what it lifts; a well gives this, or what the aquifer gives, whichever is less (docs/WELLS.md). A pipe (wire_kind water): what it carries (half inch 900, one inch 2400, two inch 9000). A filter, spigot, faucet, house inlet, tank fitting, water pump or hand pump: what it lets through. A water line gives no more than the narrowest part on its way, and WAILA names that part. Nothing trips: a part that is too small only slows the water. A PROPANE pipe (wire_kind propane): liters an hour of LIQUID propane it carries (1/2 inch 7.5, 3/4 inch 15, 1 inch 30, 1-1/4 inch 55); a standby generator whose line carries less than its full-load burn is starved (docs/PROPANE_FLOW.md)."
     },
     "filter_recovery_pct": {
       "type": "number",
