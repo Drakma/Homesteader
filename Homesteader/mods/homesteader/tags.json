@@ -16,8 +16,8 @@
       "building_floor_vinyl_plank"
     ],
     "sheathing": [
-      "sheet_osb_stack_small",
-      "sheet_osb_stack_large",
+      "sheet_osb_stack_10",
+      "sheet_osb_stack_25",
       "sheet_plywood_cdx"
     ],
     "roofing": [

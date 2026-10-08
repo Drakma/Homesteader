@@ -15,12 +15,12 @@ Each item subfolder contains:
 
 ## Category Taxonomy Summary
 
-Total Indexed Items: **1269**
+Total Indexed Items: **1341**
 
 | Category | Items Count | Description |
 | :--- | :---: | :--- |
 | [**Structures**](structures/) | 36 items | Placed world buildings, farmhouses, cabins, barns, silos, sheds, greenhouses, coops, shelters, and towers. |
-| [**Building**](building/) | 436 items | Modular building materials, framing, doors, windows, and hardware supplies. |
+| [**Building**](building/) | 449 items | Modular building materials, framing, doors, windows, and hardware supplies. |
 | [**Farming**](farming/) | 70 items | Crops, seeds, produce, fertilizers, irrigation, and agricultural machinery. |
 | [**Ranching**](ranching/) | 28 items | Livestock species, animal feed/hay, butchered meats, hides/pelts, and animal husbandry housing. |
 | [**Logging**](logging/) | 43 items | Modular forest trees (large/medium/small), saplings, timber logs, firewood, woodchips, and sap spigots. |
@@ -32,10 +32,10 @@ Total Indexed Items: **1269**
 | [**Internet**](internet/) | 24 items | Starlink satellite dishes, Wi-Fi 6 mesh distribution routers, and weather-rated cabling. |
 | [**Hud**](hud/) | 31 items | Player vitals, coins, energy/stamina bars, clock dials, and interface elements. |
 | [**Ground**](ground/) | 18 items | Modular terrain grid tiles (1m x 1m), road pavements, and scatter clutter props. |
-| [**Food**](food/) | 124 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
+| [**Food**](food/) | 178 items | Edible harvested produce, pantry staples, fresh eggs, dairy, and whole foods. |
 | [**Fuel**](fuel/) | 33 items | Liquid hydrocarbons, compressed gas tanks, bulk fuel storage, firewood cords, and transfer equipment. |
 | [**Materials**](materials/) | 82 items | Raw construction materials, timber log piles, aggregate bulk piles, textiles, hides, and foundational crafting resources. |
-| [**Ingredients**](ingredients/) | 67 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
+| [**Ingredients**](ingredients/) | 72 items | Raw cooking and crafting inputs: butchered meats, fish fillets, eggs, dairy, harvested grains, and crop-derived ingredients. |
 | [**Liquids**](liquids/) | 60 items | Fluids that fill liquid containers by volume: milk, water, fuels, oils and syrups, each with a weight per liter, a fluid colour and an opacity. |
 
 ### Shared System & World Asset Directories
@@ -88,7 +88,7 @@ Total Indexed Items: **1269**
 | `wind_turbine_200w_metal` | 200W Metal Wind Turbine | — | — | [wind_turbine_200w_metal.json](structures/wind_turbine_200w_metal/wind_turbine_200w_metal.json) |
 | `wind_turbine_500w_metal` | 500W Metal Wind Turbine | — | — | [wind_turbine_500w_metal.json](structures/wind_turbine_500w_metal/wind_turbine_500w_metal.json) |
 
-### 📂 [Building](building/) (436 items)
+### 📂 [Building](building/) (449 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
@@ -125,8 +125,8 @@ Total Indexed Items: **1269**
 | `building_chimney_kit_stone` | Fieldstone Chimney Kit | ✅ Yes | — | [building_chimney_kit_stone.json](building/building_chimney_kit_stone/building_chimney_kit_stone.json) |
 | `building_chinking` | Chinking | ✅ Yes | — | [building_chinking.json](building/building_chinking/building_chinking.json) |
 | `building_concrete_block` | Concrete Block | ✅ Yes | — | [building_concrete_block.json](building/building_concrete_block/building_concrete_block.json) |
-| `building_concrete_block_pallet_large` | Concrete Block Pallet | ✅ Yes | — | [building_concrete_block_pallet_large.json](building/building_concrete_block_pallet_large/building_concrete_block_pallet_large.json) |
-| `building_concrete_block_pallet_small` | Concrete Block Half Pallet | ✅ Yes | — | [building_concrete_block_pallet_small.json](building/building_concrete_block_pallet_small/building_concrete_block_pallet_small.json) |
+| `building_concrete_block_pallet_36` | Concrete Block Pallet | ✅ Yes | — | [building_concrete_block_pallet_36.json](building/building_concrete_block_pallet_36/building_concrete_block_pallet_36.json) |
+| `building_concrete_block_pallet_90` | Concrete Block Pallet | ✅ Yes | — | [building_concrete_block_pallet_90.json](building/building_concrete_block_pallet_90/building_concrete_block_pallet_90.json) |
 | `building_concrete_mix_bag` | Concrete Mix Bag | ✅ Yes | — | [building_concrete_mix_bag.json](building/building_concrete_mix_bag/building_concrete_mix_bag.json) |
 | `building_concrete_mix_bag_pallet_10` | Concrete Mix Bag Pallet | ✅ Yes | — | [building_concrete_mix_bag_pallet_10.json](building/building_concrete_mix_bag_pallet_10/building_concrete_mix_bag_pallet_10.json) |
 | `building_concrete_mix_bag_pallet_20` | Concrete Mix Bag Pallet | ✅ Yes | — | [building_concrete_mix_bag_pallet_20.json](building/building_concrete_mix_bag_pallet_20/building_concrete_mix_bag_pallet_20.json) |
@@ -201,8 +201,8 @@ Total Indexed Items: **1269**
 | `building_insulation_fiberglass_batt_stack_10` | Fiberglass Insulation Batt Stack | ✅ Yes | — | [building_insulation_fiberglass_batt_stack_10.json](building/building_insulation_fiberglass_batt_stack_10/building_insulation_fiberglass_batt_stack_10.json) |
 | `building_insulation_fiberglass_batt_stack_20` | Fiberglass Insulation Batt Stack | ✅ Yes | — | [building_insulation_fiberglass_batt_stack_20.json](building/building_insulation_fiberglass_batt_stack_20/building_insulation_fiberglass_batt_stack_20.json) |
 | `building_insulation_foam_board` | Rigid Foam Board | ✅ Yes | — | [building_insulation_foam_board.json](building/building_insulation_foam_board/building_insulation_foam_board.json) |
-| `building_insulation_foam_board_stack_large` | Large Foam Board Stack | ✅ Yes | — | [building_insulation_foam_board_stack_large.json](building/building_insulation_foam_board_stack_large/building_insulation_foam_board_stack_large.json) |
-| `building_insulation_foam_board_stack_small` | Small Foam Board Stack | ✅ Yes | — | [building_insulation_foam_board_stack_small.json](building/building_insulation_foam_board_stack_small/building_insulation_foam_board_stack_small.json) |
+| `building_insulation_foam_board_stack_10` | Foam Board Stack | ✅ Yes | — | [building_insulation_foam_board_stack_10.json](building/building_insulation_foam_board_stack_10/building_insulation_foam_board_stack_10.json) |
+| `building_insulation_foam_board_stack_24` | Foam Board Stack | ✅ Yes | — | [building_insulation_foam_board_stack_24.json](building/building_insulation_foam_board_stack_24/building_insulation_foam_board_stack_24.json) |
 | `building_insulation_spray_foam` | Spray Foam Can | ✅ Yes | — | [building_insulation_spray_foam.json](building/building_insulation_spray_foam/building_insulation_spray_foam.json) |
 | `building_insulation_spray_foam_case_16` | Spray Foam Can Case | ✅ Yes | — | [building_insulation_spray_foam_case_16.json](building/building_insulation_spray_foam_case_16/building_insulation_spray_foam_case_16.json) |
 | `building_insulation_spray_foam_case_8` | Spray Foam Can Case | ✅ Yes | — | [building_insulation_spray_foam_case_8.json](building/building_insulation_spray_foam_case_8/building_insulation_spray_foam_case_8.json) |
@@ -328,9 +328,22 @@ Total Indexed Items: **1269**
 | `building_weatherstripping_roll` | Weather Stripping | ✅ Yes | — | [building_weatherstripping_roll.json](building/building_weatherstripping_roll/building_weatherstripping_roll.json) |
 | `building_weatherstripping_roll_case_12` | Weather Stripping Case | ✅ Yes | — | [building_weatherstripping_roll_case_12.json](building/building_weatherstripping_roll_case_12/building_weatherstripping_roll_case_12.json) |
 | `building_weatherstripping_roll_case_6` | Weather Stripping Case | ✅ Yes | — | [building_weatherstripping_roll_case_6.json](building/building_weatherstripping_roll_case_6/building_weatherstripping_roll_case_6.json) |
-| `building_window_double_hung` | Double-Hung Window | ✅ Yes | — | [building_window_double_hung.json](building/building_window_double_hung/building_window_double_hung.json) |
-| `building_window_picture` | Picture Window | ✅ Yes | — | [building_window_picture.json](building/building_window_picture/building_window_picture.json) |
-| `building_window_slider` | Sliding Window | ✅ Yes | — | [building_window_slider.json](building/building_window_slider/building_window_slider.json) |
+| `building_window_double_hung` | Double-Hung Window, Four Panes | ✅ Yes | — | [building_window_double_hung.json](building/building_window_double_hung/building_window_double_hung.json) |
+| `building_window_double_hung_panes2` | Double-Hung Window, Two Panes | ✅ Yes | — | [building_window_double_hung_panes2.json](building/building_window_double_hung_panes2/building_window_double_hung_panes2.json) |
+| `building_window_double_hung_panes6` | Double-Hung Window, Six Panes | ✅ Yes | — | [building_window_double_hung_panes6.json](building/building_window_double_hung_panes6/building_window_double_hung_panes6.json) |
+| `building_window_double_hung_panes8` | Double-Hung Window, Eight Panes | ✅ Yes | — | [building_window_double_hung_panes8.json](building/building_window_double_hung_panes8/building_window_double_hung_panes8.json) |
+| `building_window_double_hung_plain` | Double-Hung Window, Plain | ✅ Yes | — | [building_window_double_hung_plain.json](building/building_window_double_hung_plain/building_window_double_hung_plain.json) |
+| `building_window_picture` | Picture Window, Four Panes | ✅ Yes | — | [building_window_picture.json](building/building_window_picture/building_window_picture.json) |
+| `building_window_picture_panes2` | Picture Window, Two Panes | ✅ Yes | — | [building_window_picture_panes2.json](building/building_window_picture_panes2/building_window_picture_panes2.json) |
+| `building_window_picture_panes6` | Picture Window, Six Panes | ✅ Yes | — | [building_window_picture_panes6.json](building/building_window_picture_panes6/building_window_picture_panes6.json) |
+| `building_window_picture_panes8` | Picture Window, Eight Panes | ✅ Yes | — | [building_window_picture_panes8.json](building/building_window_picture_panes8/building_window_picture_panes8.json) |
+| `building_window_picture_plain` | Picture Window, Plain | ✅ Yes | — | [building_window_picture_plain.json](building/building_window_picture_plain/building_window_picture_plain.json) |
+| `building_window_shutters` | Window Shutters | ✅ Yes | — | [building_window_shutters.json](building/building_window_shutters/building_window_shutters.json) |
+| `building_window_slider` | Sliding Window, Four Panes | ✅ Yes | — | [building_window_slider.json](building/building_window_slider/building_window_slider.json) |
+| `building_window_slider_panes2` | Sliding Window, Two Panes | ✅ Yes | — | [building_window_slider_panes2.json](building/building_window_slider_panes2/building_window_slider_panes2.json) |
+| `building_window_slider_panes6` | Sliding Window, Six Panes | ✅ Yes | — | [building_window_slider_panes6.json](building/building_window_slider_panes6/building_window_slider_panes6.json) |
+| `building_window_slider_panes8` | Sliding Window, Eight Panes | ✅ Yes | — | [building_window_slider_panes8.json](building/building_window_slider_panes8/building_window_slider_panes8.json) |
+| `building_window_slider_plain` | Sliding Window, Plain | ✅ Yes | — | [building_window_slider_plain.json](building/building_window_slider_plain/building_window_slider_plain.json) |
 | `camp_campfire_ring` | Camp Campfire Ring | ✅ Yes | — | [camp_campfire_ring.json](building/camp_campfire_ring/camp_campfire_ring.json) |
 | `camp_picnictable_wood` | Camp Picnictable Wood | ✅ Yes | — | [camp_picnictable_wood.json](building/camp_picnictable_wood/camp_picnictable_wood.json) |
 | `crate_plastic_large` | Large Plastic Crate | ✅ Yes | — | [crate_plastic_large.json](building/crate_plastic_large/crate_plastic_large.json) |
@@ -512,11 +525,11 @@ Total Indexed Items: **1269**
 | `roofing_thatch_stack_10` | Reed Thatch Bundle Stack | ✅ Yes | — | [roofing_thatch_stack_10.json](building/roofing_thatch_stack_10/roofing_thatch_stack_10.json) |
 | `roofing_thatch_stack_20` | Reed Thatch Bundle Stack | ✅ Yes | — | [roofing_thatch_stack_20.json](building/roofing_thatch_stack_20/roofing_thatch_stack_20.json) |
 | `sheet_drywall` | Drywall Sheet | ✅ Yes | — | [sheet_drywall.json](building/sheet_drywall/sheet_drywall.json) |
-| `sheet_drywall_stack_large` | Large Drywall Stack | ✅ Yes | — | [sheet_drywall_stack_large.json](building/sheet_drywall_stack_large/sheet_drywall_stack_large.json) |
-| `sheet_drywall_stack_small` | Small Drywall Stack | ✅ Yes | — | [sheet_drywall_stack_small.json](building/sheet_drywall_stack_small/sheet_drywall_stack_small.json) |
+| `sheet_drywall_stack_10` | Drywall Stack | ✅ Yes | — | [sheet_drywall_stack_10.json](building/sheet_drywall_stack_10/sheet_drywall_stack_10.json) |
+| `sheet_drywall_stack_25` | Drywall Stack | ✅ Yes | — | [sheet_drywall_stack_25.json](building/sheet_drywall_stack_25/sheet_drywall_stack_25.json) |
 | `sheet_osb` | OSB Sheet | ✅ Yes | — | [sheet_osb.json](building/sheet_osb/sheet_osb.json) |
-| `sheet_osb_stack_large` | Large OSB Stack | ✅ Yes | — | [sheet_osb_stack_large.json](building/sheet_osb_stack_large/sheet_osb_stack_large.json) |
-| `sheet_osb_stack_small` | Small OSB Stack | ✅ Yes | — | [sheet_osb_stack_small.json](building/sheet_osb_stack_small/sheet_osb_stack_small.json) |
+| `sheet_osb_stack_10` | OSB Stack | ✅ Yes | — | [sheet_osb_stack_10.json](building/sheet_osb_stack_10/sheet_osb_stack_10.json) |
+| `sheet_osb_stack_25` | OSB Stack | ✅ Yes | — | [sheet_osb_stack_25.json](building/sheet_osb_stack_25/sheet_osb_stack_25.json) |
 | `sheet_plywood_cdx` | CDX Plywood Sheet | ✅ Yes | — | [sheet_plywood_cdx.json](building/sheet_plywood_cdx/sheet_plywood_cdx.json) |
 | `sheet_plywood_cdx_stack_10` | CDX Plywood Sheet Stack | ✅ Yes | — | [sheet_plywood_cdx_stack_10.json](building/sheet_plywood_cdx_stack_10/sheet_plywood_cdx_stack_10.json) |
 | `sheet_plywood_cdx_stack_20` | CDX Plywood Sheet Stack | ✅ Yes | — | [sheet_plywood_cdx_stack_20.json](building/sheet_plywood_cdx_stack_20/sheet_plywood_cdx_stack_20.json) |
@@ -1015,32 +1028,46 @@ Total Indexed Items: **1269**
 | `textures` | Textures | — | — | [textures.json](ground/textures/textures.json) |
 | `tile_grass_tuft_meadow` | Grass Tuft Meadow | ✅ Yes | — | [tile_grass_tuft_meadow.json](ground/tile_grass_tuft_meadow/tile_grass_tuft_meadow.json) |
 
-### 📂 [Food](food/) (124 items)
+### 📂 [Food](food/) (178 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `food_apple` | Fresh Red Apple | ✅ Yes | — | [food_apple.json](food/food_apple/food_apple.json) |
+| `food_apple_cobbler` | Apple Cobbler | — | — | [food_apple_cobbler.json](food/food_apple_cobbler/food_apple_cobbler.json) |
 | `food_apple_muffin` | Apple Muffin | — | — | [food_apple_muffin.json](food/food_apple_muffin/food_apple_muffin.json) |
 | `food_apple_pie` | Apple Pie | — | — | [food_apple_pie.json](food/food_apple_pie/food_apple_pie.json) |
+| `food_apple_porridge` | Apple Oat Porridge | — | — | [food_apple_porridge.json](food/food_apple_porridge/food_apple_porridge.json) |
 | `food_apricot` | Fresh Apricot | — | — | [food_apricot.json](food/food_apricot/food_apricot.json) |
 | `food_apricot_muffin` | Apricot Muffin | — | — | [food_apricot_muffin.json](food/food_apricot_muffin/food_apricot_muffin.json) |
 | `food_bacon_and_eggs` | Bacon and Eggs | — | — | [food_bacon_and_eggs.json](food/food_bacon_and_eggs/food_bacon_and_eggs.json) |
 | `food_bacon_cooked` | Crispy Bacon | — | — | [food_bacon_cooked.json](food/food_bacon_cooked/food_bacon_cooked.json) |
 | `food_baked_potato` | Baked Potato | — | — | [food_baked_potato.json](food/food_baked_potato/food_baked_potato.json) |
+| `food_baked_salmon` | Baked Salmon | — | — | [food_baked_salmon.json](food/food_baked_salmon/food_baked_salmon.json) |
 | `food_bass_deepfried` | Bass Fillet Deep Fried | — | — | [food_bass_deepfried.json](food/food_bass_deepfried/food_bass_deepfried.json) |
 | `food_bass_grilled` | Bass Grilled Fillet | — | — | [food_bass_grilled.json](food/food_bass_grilled/food_bass_grilled.json) |
 | `food_beef_barley_soup` | Beef Barley Soup | — | — | [food_beef_barley_soup.json](food/food_beef_barley_soup/food_beef_barley_soup.json) |
+| `food_beef_chili` | Beef Chili | — | — | [food_beef_chili.json](food/food_beef_chili/food_beef_chili.json) |
 | `food_beef_stew` | Beef Stew | — | — | [food_beef_stew.json](food/food_beef_stew/food_beef_stew.json) |
 | `food_beet` | Fresh Beet | — | — | [food_beet.json](food/food_beet/food_beet.json) |
+| `food_biscuits` | Biscuits | — | — | [food_biscuits.json](food/food_biscuits/food_biscuits.json) |
+| `food_biscuits_gravy` | Biscuits and Gravy | — | — | [food_biscuits_gravy.json](food/food_biscuits_gravy/food_biscuits_gravy.json) |
+| `food_blt` | BLT Sandwich | — | — | [food_blt.json](food/food_blt/food_blt.json) |
 | `food_blueberry` | Blueberry | — | — | [food_blueberry.json](food/food_blueberry/food_blueberry.json) |
 | `food_blueberry_muffin` | Blueberry Muffin | — | — | [food_blueberry_muffin.json](food/food_blueberry_muffin/food_blueberry_muffin.json) |
 | `food_blueberry_pie` | Blueberry Pie | — | — | [food_blueberry_pie.json](food/food_blueberry_pie/food_blueberry_pie.json) |
+| `food_borscht` | Borscht | — | — | [food_borscht.json](food/food_borscht/food_borscht.json) |
 | `food_bread` | Bread | — | — | [food_bread.json](food/food_bread/food_bread.json) |
+| `food_breadsticks` | Breadsticks | — | — | [food_breadsticks.json](food/food_breadsticks/food_breadsticks.json) |
 | `food_broccoli` | Broccoli Crown | — | — | [food_broccoli.json](food/food_broccoli/food_broccoli.json) |
+| `food_broccoli_and_cheese` | Broccoli and Cheese | — | — | [food_broccoli_and_cheese.json](food/food_broccoli_and_cheese/food_broccoli_and_cheese.json) |
+| `food_broccoli_cheese_soup` | Broccoli Cheese Soup | — | — | [food_broccoli_cheese_soup.json](food/food_broccoli_cheese_soup/food_broccoli_cheese_soup.json) |
+| `food_brownies` | Brownies | — | — | [food_brownies.json](food/food_brownies/food_brownies.json) |
 | `food_burger` | Hamburger | — | — | [food_burger.json](food/food_burger/food_burger.json) |
 | `food_burger_bun` | Burger Bun | — | — | [food_burger_bun.json](food/food_burger_bun/food_burger_bun.json) |
 | `food_buttered_noodles` | Buttered Noodles | — | — | [food_buttered_noodles.json](food/food_buttered_noodles/food_buttered_noodles.json) |
 | `food_cabbage` | Head of Cabbage | — | — | [food_cabbage.json](food/food_cabbage/food_cabbage.json) |
+| `food_cacio_e_pepe` | Cacio e Pepe | — | — | [food_cacio_e_pepe.json](food/food_cacio_e_pepe/food_cacio_e_pepe.json) |
+| `food_caesar_salad` | Caesar Salad | — | — | [food_caesar_salad.json](food/food_caesar_salad/food_caesar_salad.json) |
 | `food_cake` | Yellow Cake | — | — | [food_cake.json](food/food_cake/food_cake.json) |
 | `food_cantaloupe` | Cantaloupe | — | — | [food_cantaloupe.json](food/food_cantaloupe/food_cantaloupe.json) |
 | `food_carrot` | Fresh Garden Carrot | ✅ Yes | — | [food_carrot.json](food/food_carrot/food_carrot.json) |
@@ -1052,25 +1079,46 @@ Total Indexed Items: **1269**
 | `food_cherry_pie` | Cherry Pie | — | — | [food_cherry_pie.json](food/food_cherry_pie/food_cherry_pie.json) |
 | `food_chicken_noodle_soup` | Chicken Noodle Soup | — | — | [food_chicken_noodle_soup.json](food/food_chicken_noodle_soup/food_chicken_noodle_soup.json) |
 | `food_chicken_stew` | Chicken Stew | — | — | [food_chicken_stew.json](food/food_chicken_stew/food_chicken_stew.json) |
+| `food_chocolate_pudding` | Chocolate Pudding | — | — | [food_chocolate_pudding.json](food/food_chocolate_pudding/food_chocolate_pudding.json) |
 | `food_coleslaw` | Coleslaw | — | — | [food_coleslaw.json](food/food_coleslaw/food_coleslaw.json) |
 | `food_corn_muffin` | Corn Muffin | — | — | [food_corn_muffin.json](food/food_corn_muffin/food_corn_muffin.json) |
+| `food_corn_on_the_cob` | Corn on the Cob | — | — | [food_corn_on_the_cob.json](food/food_corn_on_the_cob/food_corn_on_the_cob.json) |
 | `food_cornbread` | Cornbread | — | — | [food_cornbread.json](food/food_cornbread/food_cornbread.json) |
+| `food_cracked_wheat_pilaf` | Cracked Wheat Pilaf | — | — | [food_cracked_wheat_pilaf.json](food/food_cracked_wheat_pilaf/food_cracked_wheat_pilaf.json) |
 | `food_crappie_deepfried` | Crappie Fillet Deep Fried | — | — | [food_crappie_deepfried.json](food/food_crappie_deepfried/food_crappie_deepfried.json) |
 | `food_crappie_grilled` | Crappie Grilled Fillet | — | — | [food_crappie_grilled.json](food/food_crappie_grilled/food_crappie_grilled.json) |
 | `food_cucumber` | Fresh Cucumber | — | — | [food_cucumber.json](food/food_cucumber/food_cucumber.json) |
+| `food_cucumber_salad` | Cucumber Salad | — | — | [food_cucumber_salad.json](food/food_cucumber_salad/food_cucumber_salad.json) |
+| `food_custard` | Custard | — | — | [food_custard.json](food/food_custard/food_custard.json) |
+| `food_deviled_eggs` | Deviled Eggs | — | — | [food_deviled_eggs.json](food/food_deviled_eggs/food_deviled_eggs.json) |
+| `food_egg_salad` | Egg Salad | — | — | [food_egg_salad.json](food/food_egg_salad/food_egg_salad.json) |
 | `food_elderberry` | Elderberry | — | — | [food_elderberry.json](food/food_elderberry/food_elderberry.json) |
 | `food_elderberry_muffin` | Elderberry Muffin | — | — | [food_elderberry_muffin.json](food/food_elderberry_muffin/food_elderberry_muffin.json) |
 | `food_fig` | Fresh Fig | — | — | [food_fig.json](food/food_fig/food_fig.json) |
 | `food_fig_muffin` | Fig Muffin | — | — | [food_fig_muffin.json](food/food_fig_muffin/food_fig_muffin.json) |
+| `food_fish_sandwich` | Fish Sandwich | — | — | [food_fish_sandwich.json](food/food_fish_sandwich/food_fish_sandwich.json) |
+| `food_fish_stew` | Fish Stew | — | — | [food_fish_stew.json](food/food_fish_stew/food_fish_stew.json) |
+| `food_flax_bread` | Flax Bread | — | — | [food_flax_bread.json](food/food_flax_bread/food_flax_bread.json) |
+| `food_french_fries` | French Fries | — | — | [food_french_fries.json](food/food_french_fries/food_french_fries.json) |
 | `food_french_toast` | French Toast | — | — | [food_french_toast.json](food/food_french_toast/food_french_toast.json) |
+| `food_fried_chicken` | Fried Chicken | — | — | [food_fried_chicken.json](food/food_fried_chicken/food_fried_chicken.json) |
+| `food_fruit_salad` | Fruit Salad | — | — | [food_fruit_salad.json](food/food_fruit_salad/food_fruit_salad.json) |
 | `food_garden_salad` | Garden Salad | — | — | [food_garden_salad.json](food/food_garden_salad/food_garden_salad.json) |
 | `food_garlic` | Garlic Bulb | — | — | [food_garlic.json](food/food_garlic/food_garlic.json) |
+| `food_garlic_bread` | Garlic Bread | — | — | [food_garlic_bread.json](food/food_garlic_bread/food_garlic_bread.json) |
 | `food_goat_meat_baked` | Roast Goat Leg | — | — | [food_goat_meat_baked.json](food/food_goat_meat_baked/food_goat_meat_baked.json) |
+| `food_goat_roast` | Roast Goat | — | — | [food_goat_roast.json](food/food_goat_roast/food_goat_roast.json) |
+| `food_goat_stew` | Goat Stew | — | — | [food_goat_stew.json](food/food_goat_stew/food_goat_stew.json) |
 | `food_grapes` | Grapes | — | — | [food_grapes.json](food/food_grapes/food_grapes.json) |
+| `food_green_bean_casserole` | Green Bean Casserole | — | — | [food_green_bean_casserole.json](food/food_green_bean_casserole/food_green_bean_casserole.json) |
 | `food_green_beans` | Green Beans | — | — | [food_green_beans.json](food/food_green_beans/food_green_beans.json) |
+| `food_grilled_cheese` | Grilled Cheese | — | — | [food_grilled_cheese.json](food/food_grilled_cheese/food_grilled_cheese.json) |
 | `food_grits` | Grits | — | — | [food_grits.json](food/food_grits/food_grits.json) |
 | `food_ground_beef_grilled` | Grilled Burger Patty | — | — | [food_ground_beef_grilled.json](food/food_ground_beef_grilled/food_ground_beef_grilled.json) |
+| `food_ham_and_beans` | Ham and Beans | — | — | [food_ham_and_beans.json](food/food_ham_and_beans/food_ham_and_beans.json) |
 | `food_ham_baked` | Baked Ham | — | — | [food_ham_baked.json](food/food_ham_baked/food_ham_baked.json) |
+| `food_ham_sandwich` | Ham Sandwich | — | — | [food_ham_sandwich.json](food/food_ham_sandwich/food_ham_sandwich.json) |
+| `food_hash_browns` | Hash Browns | — | — | [food_hash_browns.json](food/food_hash_browns/food_hash_browns.json) |
 | `food_haskap` | Haskap | — | — | [food_haskap.json](food/food_haskap/food_haskap.json) |
 | `food_haskap_muffin` | Haskap Muffin | — | — | [food_haskap_muffin.json](food/food_haskap_muffin/food_haskap_muffin.json) |
 | `food_hazelnut` | Hazelnuts | — | — | [food_hazelnut.json](food/food_hazelnut/food_hazelnut.json) |
@@ -1078,7 +1126,10 @@ Total Indexed Items: **1269**
 | `food_hot_dog_bun` | Hot Dog Bun | — | — | [food_hot_dog_bun.json](food/food_hot_dog_bun/food_hot_dog_bun.json) |
 | `food_huckleberry` | Huckleberry | — | — | [food_huckleberry.json](food/food_huckleberry/food_huckleberry.json) |
 | `food_huckleberry_muffin` | Huckleberry Muffin | — | — | [food_huckleberry_muffin.json](food/food_huckleberry_muffin/food_huckleberry_muffin.json) |
+| `food_ice_cream` | Ice Cream | — | — | [food_ice_cream.json](food/food_ice_cream/food_ice_cream.json) |
 | `food_lamb_chop_grilled` | Grilled Lamb Chop | — | — | [food_lamb_chop_grilled.json](food/food_lamb_chop_grilled/food_lamb_chop_grilled.json) |
+| `food_lamb_roast` | Roast Lamb | — | — | [food_lamb_roast.json](food/food_lamb_roast/food_lamb_roast.json) |
+| `food_lamb_stew` | Lamb Stew | — | — | [food_lamb_stew.json](food/food_lamb_stew/food_lamb_stew.json) |
 | `food_lemon` | Fresh Lemon | ✅ Yes | — | [food_lemon.json](food/food_lemon/food_lemon.json) |
 | `food_lemon_muffin` | Lemon Muffin | — | — | [food_lemon_muffin.json](food/food_lemon_muffin/food_lemon_muffin.json) |
 | `food_lettuce` | Head of Lettuce | — | — | [food_lettuce.json](food/food_lettuce/food_lettuce.json) |
@@ -1087,11 +1138,13 @@ Total Indexed Items: **1269**
 | `food_meatloaf` | Meatloaf | — | — | [food_meatloaf.json](food/food_meatloaf/food_meatloaf.json) |
 | `food_muffin` | Muffin | — | — | [food_muffin.json](food/food_muffin/food_muffin.json) |
 | `food_oatmeal` | Oatmeal | — | — | [food_oatmeal.json](food/food_oatmeal/food_oatmeal.json) |
+| `food_omelet` | Omelet | — | — | [food_omelet.json](food/food_omelet/food_omelet.json) |
 | `food_onion` | Fresh Onion | — | — | [food_onion.json](food/food_onion/food_onion.json) |
 | `food_orange` | Fresh Navel Orange | ✅ Yes | — | [food_orange.json](food/food_orange/food_orange.json) |
 | `food_orange_muffin` | Orange Muffin | — | — | [food_orange_muffin.json](food/food_orange_muffin/food_orange_muffin.json) |
 | `food_pancakes` | Pancakes | — | — | [food_pancakes.json](food/food_pancakes/food_pancakes.json) |
 | `food_peach` | Fresh Peach | — | — | [food_peach.json](food/food_peach/food_peach.json) |
+| `food_peach_cobbler` | Peach Cobbler | — | — | [food_peach_cobbler.json](food/food_peach_cobbler/food_peach_cobbler.json) |
 | `food_peach_muffin` | Peach Muffin | — | — | [food_peach_muffin.json](food/food_peach_muffin/food_peach_muffin.json) |
 | `food_peanuts` | Raw Peanuts | — | — | [food_peanuts.json](food/food_peanuts/food_peanuts.json) |
 | `food_pear` | Fresh Pear | — | — | [food_pear.json](food/food_pear/food_pear.json) |
@@ -1102,30 +1155,40 @@ Total Indexed Items: **1269**
 | `food_plum` | Fresh Plum | — | — | [food_plum.json](food/food_plum/food_plum.json) |
 | `food_plum_muffin` | Plum Muffin | — | — | [food_plum_muffin.json](food/food_plum_muffin/food_plum_muffin.json) |
 | `food_pork_chop_grilled` | Grilled Bone-In Pork Chop | — | — | [food_pork_chop_grilled.json](food/food_pork_chop_grilled/food_pork_chop_grilled.json) |
+| `food_pork_chops_apples` | Pork Chops with Apples | — | — | [food_pork_chops_apples.json](food/food_pork_chops_apples/food_pork_chops_apples.json) |
+| `food_pork_stew` | Pork Stew | — | — | [food_pork_stew.json](food/food_pork_stew/food_pork_stew.json) |
 | `food_pot_roast` | Pot Roast | — | — | [food_pot_roast.json](food/food_pot_roast/food_pot_roast.json) |
 | `food_potato` | Russet Potato | ✅ Yes | — | [food_potato.json](food/food_potato/food_potato.json) |
+| `food_potato_salad` | Potato Salad | — | — | [food_potato_salad.json](food/food_potato_salad/food_potato_salad.json) |
 | `food_potato_soup` | Potato Soup | — | — | [food_potato_soup.json](food/food_potato_soup/food_potato_soup.json) |
 | `food_pumpkin` | Autumn Pumpkin | ✅ Yes | — | [food_pumpkin.json](food/food_pumpkin/food_pumpkin.json) |
 | `food_pumpkin_pie` | Pumpkin Pie | — | — | [food_pumpkin_pie.json](food/food_pumpkin_pie/food_pumpkin_pie.json) |
 | `food_pumpkin_soup` | Pumpkin Soup | — | — | [food_pumpkin_soup.json](food/food_pumpkin_soup/food_pumpkin_soup.json) |
+| `food_quiche` | Quiche | — | — | [food_quiche.json](food/food_quiche/food_quiche.json) |
 | `food_radish` | Fresh Radish | — | — | [food_radish.json](food/food_radish/food_radish.json) |
 | `food_raspberry` | Raspberry | — | — | [food_raspberry.json](food/food_raspberry/food_raspberry.json) |
 | `food_raspberry_muffin` | Raspberry Muffin | — | — | [food_raspberry_muffin.json](food/food_raspberry_muffin/food_raspberry_muffin.json) |
 | `food_rhubarb` | Rhubarb Stalks | — | — | [food_rhubarb.json](food/food_rhubarb/food_rhubarb.json) |
 | `food_rhubarb_muffin` | Rhubarb Muffin | — | — | [food_rhubarb_muffin.json](food/food_rhubarb_muffin/food_rhubarb_muffin.json) |
 | `food_roast_chicken` | Roast Chicken | — | — | [food_roast_chicken.json](food/food_roast_chicken/food_roast_chicken.json) |
+| `food_roasted_beets` | Roasted Beets | — | — | [food_roasted_beets.json](food/food_roasted_beets/food_roasted_beets.json) |
 | `food_roasted_vegetables` | Roasted Vegetables | — | — | [food_roasted_vegetables.json](food/food_roasted_vegetables/food_roasted_vegetables.json) |
 | `food_salmon_grilled` | Salmon Grilled Fillet | — | — | [food_salmon_grilled.json](food/food_salmon_grilled/food_salmon_grilled.json) |
+| `food_sausage_and_eggs` | Sausage and Eggs | — | — | [food_sausage_and_eggs.json](food/food_sausage_and_eggs/food_sausage_and_eggs.json) |
 | `food_sausage_grilled` | Grilled Sausage | — | — | [food_sausage_grilled.json](food/food_sausage_grilled/food_sausage_grilled.json) |
 | `food_sausage_pasta` | Sausage Pasta | — | — | [food_sausage_pasta.json](food/food_sausage_pasta/food_sausage_pasta.json) |
+| `food_sausage_stew` | Sausage Stew | — | — | [food_sausage_stew.json](food/food_sausage_stew/food_sausage_stew.json) |
 | `food_scrambled_eggs` | Scrambled Eggs | — | — | [food_scrambled_eggs.json](food/food_scrambled_eggs/food_scrambled_eggs.json) |
 | `food_shepherds_pie` | Shepherd's Pie | — | — | [food_shepherds_pie.json](food/food_shepherds_pie/food_shepherds_pie.json) |
-| `food_spaghetti` | Spaghetti with Sauce | — | — | [food_spaghetti.json](food/food_spaghetti/food_spaghetti.json) |
+| `food_spaghetti` | Spaghetti Marinara | — | — | [food_spaghetti.json](food/food_spaghetti/food_spaghetti.json) |
+| `food_spaghetti_alfredo` | Spaghetti Alfredo | — | — | [food_spaghetti_alfredo.json](food/food_spaghetti_alfredo/food_spaghetti_alfredo.json) |
+| `food_spaghetti_meat_sauce` | Spaghetti with Meat Sauce | — | — | [food_spaghetti_meat_sauce.json](food/food_spaghetti_meat_sauce/food_spaghetti_meat_sauce.json) |
 | `food_spaghetti_meatballs` | Spaghetti and Meatballs | — | — | [food_spaghetti_meatballs.json](food/food_spaghetti_meatballs/food_spaghetti_meatballs.json) |
 | `food_spinach` | Fresh Spinach | — | — | [food_spinach.json](food/food_spinach/food_spinach.json) |
 | `food_spinach_salad` | Spinach Salad | — | — | [food_spinach_salad.json](food/food_spinach_salad/food_spinach_salad.json) |
 | `food_steak_grilled` | Grilled Ribeye Steak | — | — | [food_steak_grilled.json](food/food_steak_grilled/food_steak_grilled.json) |
 | `food_strawberry` | Fresh Strawberry | ✅ Yes | — | [food_strawberry.json](food/food_strawberry/food_strawberry.json) |
+| `food_strawberry_gelatin` | Strawberry Gelatin | — | — | [food_strawberry_gelatin.json](food/food_strawberry_gelatin/food_strawberry_gelatin.json) |
 | `food_strawberry_muffin` | Strawberry Muffin | — | — | [food_strawberry_muffin.json](food/food_strawberry_muffin/food_strawberry_muffin.json) |
 | `food_sugar_cookies` | Sugar Cookies | — | — | [food_sugar_cookies.json](food/food_sugar_cookies/food_sugar_cookies.json) |
 | `food_tomato` | Vine Ripe Tomato | ✅ Yes | — | [food_tomato.json](food/food_tomato/food_tomato.json) |
@@ -1133,7 +1196,11 @@ Total Indexed Items: **1269**
 | `food_trout_deepfried` | Trout Fillet Deep Fried | — | — | [food_trout_deepfried.json](food/food_trout_deepfried/food_trout_deepfried.json) |
 | `food_trout_grilled` | Trout Grilled Fillet | — | — | [food_trout_grilled.json](food/food_trout_grilled/food_trout_grilled.json) |
 | `food_truffle` | Black Foraged Truffle | ✅ Yes | — | [food_truffle.json](food/food_truffle/food_truffle.json) |
+| `food_truffle_pasta` | Truffle Pasta | — | — | [food_truffle_pasta.json](food/food_truffle_pasta/food_truffle_pasta.json) |
 | `food_vegetable_soup` | Vegetable Soup | — | — | [food_vegetable_soup.json](food/food_vegetable_soup/food_vegetable_soup.json) |
+| `food_vegetable_stew` | Vegetable Stew | — | — | [food_vegetable_stew.json](food/food_vegetable_stew/food_vegetable_stew.json) |
+| `food_veggie_chili` | Vegetarian Chili | — | — | [food_veggie_chili.json](food/food_veggie_chili/food_veggie_chili.json) |
+| `food_waffles` | Waffles | — | — | [food_waffles.json](food/food_waffles/food_waffles.json) |
 | `food_walleye_deepfried` | Walleye Fillet Deep Fried | — | — | [food_walleye_deepfried.json](food/food_walleye_deepfried/food_walleye_deepfried.json) |
 | `food_walleye_grilled` | Walleye Grilled Fillet | — | — | [food_walleye_grilled.json](food/food_walleye_grilled/food_walleye_grilled.json) |
 | `food_walnut` | Walnuts | — | — | [food_walnut.json](food/food_walnut/food_walnut.json) |
@@ -1269,11 +1336,12 @@ Total Indexed Items: **1269**
 | `mat_wood_logs_stack` | Wood Logs Stack | ✅ Yes | — | [mat_wood_logs_stack.json](materials/mat_wood_logs_stack/mat_wood_logs_stack.json) |
 | `mat_wool_fleece` | Wool Fleece | ✅ Yes | — | [mat_wool_fleece.json](materials/mat_wool_fleece/mat_wool_fleece.json) |
 
-### 📂 [Ingredients](ingredients/) (67 items)
+### 📂 [Ingredients](ingredients/) (72 items)
 
 | Item ID | Display Name | 3D Model | Growth | Plugin Manifest |
 | :--- | :--- | :---: | :---: | :--- |
 | `ingredient_alfalfa` | Alfalfa Hay | ✅ Yes | — | [ingredient_alfalfa.json](ingredients/ingredient_alfalfa/ingredient_alfalfa.json) |
+| `ingredient_alfredo_sauce` | Alfredo Sauce | ✅ Yes | — | [ingredient_alfredo_sauce.json](ingredients/ingredient_alfredo_sauce/ingredient_alfredo_sauce.json) |
 | `ingredient_bacon` | Bacon | — | — | [ingredient_bacon.json](ingredients/ingredient_bacon/ingredient_bacon.json) |
 | `ingredient_baking_powder` | Baking Powder | ✅ Yes | — | [ingredient_baking_powder.json](ingredients/ingredient_baking_powder/ingredient_baking_powder.json) |
 | `ingredient_baking_powder_5kg` | Bulk Baking Powder | ✅ Yes | — | [ingredient_baking_powder_5kg.json](ingredients/ingredient_baking_powder_5kg/ingredient_baking_powder_5kg.json) |
@@ -1281,9 +1349,12 @@ Total Indexed Items: **1269**
 | `ingredient_barley_flour` | Barley Flour | ✅ Yes | — | [ingredient_barley_flour.json](ingredients/ingredient_barley_flour/ingredient_barley_flour.json) |
 | `ingredient_barley_flour_5kg` | Bulk Barley Flour | ✅ Yes | — | [ingredient_barley_flour_5kg.json](ingredients/ingredient_barley_flour_5kg/ingredient_barley_flour_5kg.json) |
 | `ingredient_beef` | Raw Beef Cut | ✅ Yes | — | [ingredient_beef.json](ingredients/ingredient_beef/ingredient_beef.json) |
+| `ingredient_bread_crumbs` | Bread Crumbs | ✅ Yes | — | [ingredient_bread_crumbs.json](ingredients/ingredient_bread_crumbs/ingredient_bread_crumbs.json) |
+| `ingredient_bread_toasted` | Toasted Bread | ✅ Yes | — | [ingredient_bread_toasted.json](ingredients/ingredient_bread_toasted/ingredient_bread_toasted.json) |
 | `ingredient_butter` | Butter | ✅ Yes | — | [ingredient_butter.json](ingredients/ingredient_butter/ingredient_butter.json) |
 | `ingredient_canola` | Canola Seed | ✅ Yes | — | [ingredient_canola.json](ingredients/ingredient_canola/ingredient_canola.json) |
 | `ingredient_chicken` | Raw Chicken Breast | ✅ Yes | — | [ingredient_chicken.json](ingredients/ingredient_chicken/ingredient_chicken.json) |
+| `ingredient_cocoa` | Cocoa Powder | ✅ Yes | — | [ingredient_cocoa.json](ingredients/ingredient_cocoa/ingredient_cocoa.json) |
 | `ingredient_corn` | Sweet Yellow Corn | ✅ Yes | — | [ingredient_corn.json](ingredients/ingredient_corn/ingredient_corn.json) |
 | `ingredient_corn_flour` | Corn Flour | ✅ Yes | — | [ingredient_corn_flour.json](ingredients/ingredient_corn_flour/ingredient_corn_flour.json) |
 | `ingredient_corn_flour_5kg` | Bulk Corn Flour | ✅ Yes | — | [ingredient_corn_flour_5kg.json](ingredients/ingredient_corn_flour_5kg/ingredient_corn_flour_5kg.json) |
@@ -1322,6 +1393,7 @@ Total Indexed Items: **1269**
 | `ingredient_pasta_sauce` | Pasta Sauce | ✅ Yes | — | [ingredient_pasta_sauce.json](ingredients/ingredient_pasta_sauce/ingredient_pasta_sauce.json) |
 | `ingredient_pearl_barley` | Pearl Barley | ✅ Yes | — | [ingredient_pearl_barley.json](ingredients/ingredient_pearl_barley/ingredient_pearl_barley.json) |
 | `ingredient_pearl_barley_5kg` | Bulk Pearl Barley | ✅ Yes | — | [ingredient_pearl_barley_5kg.json](ingredients/ingredient_pearl_barley_5kg/ingredient_pearl_barley_5kg.json) |
+| `ingredient_pepper_ground` | Ground Black Pepper | ✅ Yes | — | [ingredient_pepper_ground.json](ingredients/ingredient_pepper_ground/ingredient_pepper_ground.json) |
 | `ingredient_pork` | Raw Pork Chop | ✅ Yes | — | [ingredient_pork.json](ingredients/ingredient_pork/ingredient_pork.json) |
 | `ingredient_pork_chop` | Bone-In Pork Chop | — | — | [ingredient_pork_chop.json](ingredients/ingredient_pork_chop/ingredient_pork_chop.json) |
 | `ingredient_rolled_oats` | Rolled Oats | ✅ Yes | — | [ingredient_rolled_oats.json](ingredients/ingredient_rolled_oats/ingredient_rolled_oats.json) |

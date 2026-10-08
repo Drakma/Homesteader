@@ -91,13 +91,13 @@ CATALOG = {
     "lumber_bundle_2x4_small": ("Small 2x4 Bundle", "A small bundle of 2x4 framing lumber.", "Material", 5, 60.0, 20.0),
     "lumber_bundle_2x6_small": ("Small 2x6 Bundle", "A small bundle of 2x6 framing lumber.", "Material", 5, 80.0, 28.0),
     "lumber_bundle_2x10_small": ("Small 2x10 Bundle", "A small bundle of 2x10 framing lumber.", "Material", 5, 110.0, 40.0),
-    "sheet_osb_stack_small": ("Small OSB Stack", "A small stack of OSB sheathing sheets.", "Material", 5, 90.0, 30.0),
-    "sheet_drywall_stack_small": ("Small Drywall Stack", "A small stack of drywall sheets.", "Material", 5, 100.0, 25.0),
+    "sheet_osb_stack_10": ("OSB Stack", "A small stack of OSB sheathing sheets.", "Material", 5, 90.0, 30.0),
+    "sheet_drywall_stack_10": ("Drywall Stack", "A small stack of drywall sheets.", "Material", 5, 100.0, 25.0),
     "lumber_bundle_2x4_large": ("Large 2x4 Bundle", "A large bundle of 2x4 framing lumber.", "Material", 2, 150.0, 45.0),
     "lumber_bundle_2x6_large": ("Large 2x6 Bundle", "A large bundle of 2x6 framing lumber.", "Material", 2, 200.0, 62.0),
     "lumber_bundle_2x10_large": ("Large 2x10 Bundle", "A large bundle of 2x10 framing lumber.", "Material", 2, 270.0, 90.0),
-    "sheet_osb_stack_large": ("Large OSB Stack", "A large stack of OSB sheathing sheets.", "Material", 2, 220.0, 68.0),
-    "sheet_drywall_stack_large": ("Large Drywall Stack", "A large stack of drywall sheets.", "Material", 2, 240.0, 55.0),
+    "sheet_osb_stack_25": ("OSB Stack", "A large stack of OSB sheathing sheets.", "Material", 2, 220.0, 68.0),
+    "sheet_drywall_stack_25": ("Drywall Stack", "A large stack of drywall sheets.", "Material", 2, 240.0, 55.0),
 
     # BALES
     "bale_hay_square": ("Square Hay Bale", "A rectangular twine-bound hay bale.", "Fuel", 10, 25.0, 6.0),

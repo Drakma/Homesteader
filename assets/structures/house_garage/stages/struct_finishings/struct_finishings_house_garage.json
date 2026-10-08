@@ -69,7 +69,7 @@
     "roof_area_m2": 28.1,
     "construction_recipe": [
       {
-        "item_id": "sheet_drywall_stack_small",
+        "item_id": "sheet_drywall_stack_10",
         "quantity": 9
       },
       {

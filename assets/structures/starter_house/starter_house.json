@@ -198,7 +198,7 @@
         "icon": "struct_finishings_starter_house.png",
         "construction_recipe": [
           {
-            "item_id": "sheet_drywall_stack_large",
+            "item_id": "sheet_drywall_stack_25",
             "quantity": 4
           },
           {

@@ -523,18 +523,12 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `ingredient_milk`
 - [ ] `ingredient_pork_grilled`
 
-## Old pack naming (8)
+## Old pack naming (0)
 
 Packs named `_large` / `_small` beside the newer counted packs (`_10` / `_20`).
 
-- [ ] `building_concrete_block_pallet_large`
-- [ ] `building_concrete_block_pallet_small`
-- [ ] `building_insulation_foam_board_stack_large`
-- [ ] `building_insulation_foam_board_stack_small`
-- [ ] `sheet_drywall_stack_large`
-- [ ] `sheet_drywall_stack_small`
-- [ ] `sheet_osb_stack_large`
-- [ ] `sheet_osb_stack_small`
+None.
+
 
 ## Bad manifest JSON (0)
 

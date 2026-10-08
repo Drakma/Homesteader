@@ -64,11 +64,11 @@
           "value": 1
         },
         {
-          "item": "building_concrete_block_pallet_small",
+          "item": "building_concrete_block_pallet_36",
           "value": 36
         },
         {
-          "item": "building_concrete_block_pallet_large",
+          "item": "building_concrete_block_pallet_90",
           "value": 90
         }
       ]
@@ -100,11 +100,11 @@
           "value": 1
         },
         {
-          "item": "building_insulation_foam_board_stack_small",
+          "item": "building_insulation_foam_board_stack_10",
           "value": 10
         },
         {
-          "item": "building_insulation_foam_board_stack_large",
+          "item": "building_insulation_foam_board_stack_24",
           "value": 24
         }
       ]
@@ -568,11 +568,11 @@
           "value": 1
         },
         {
-          "item": "sheet_drywall_stack_small",
+          "item": "sheet_drywall_stack_10",
           "value": 10
         },
         {
-          "item": "sheet_drywall_stack_large",
+          "item": "sheet_drywall_stack_25",
           "value": 25
         }
       ]
@@ -586,11 +586,11 @@
           "value": 1
         },
         {
-          "item": "sheet_osb_stack_small",
+          "item": "sheet_osb_stack_10",
           "value": 10
         },
         {
-          "item": "sheet_osb_stack_large",
+          "item": "sheet_osb_stack_25",
           "value": 25
         }
       ]

@@ -168,7 +168,7 @@
         "icon": "struct_finishings_large_log_cabin.png",
         "construction_recipe": [
           {
-            "item_id": "sheet_drywall_stack_small",
+            "item_id": "sheet_drywall_stack_10",
             "quantity": 8
           },
           {

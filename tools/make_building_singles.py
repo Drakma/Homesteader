@@ -9,7 +9,7 @@ The SINGLE items of the building materials that only had packs, and the meshes o
 
   singles   framing_nail, finishing_nail, deck_screw (one nail, one screw: not a box of them), lag_bolt, anchor_bolt, joist_hanger, sheet_drywall, sheet_osb,
             lumber_board_2x6, building_rebar_steel_bar
-  packs     sheet_drywall_stack_small / _large (10 / 25 sheets), sheet_osb_stack_small / _large (10 / 25), lumber_bundle_2x6_small / _large (10 / 25 boards),
+  packs     sheet_drywall_stack_10 / _large (10 / 25 sheets), sheet_osb_stack_10 / _large (10 / 25), lumber_bundle_2x6_small / _large (10 / 25 boards),
             building_rebar_steel_bundle (10 bars), item_hardware_rebarbundle (25 bars)
 
 A pack weighs its singles times 1.05 and costs them times 0.9 (as tools/make_building_packs.py does). An item that is already in the kit keeps everything
@@ -232,14 +232,14 @@ ITEMS = [
 
 # id, name, description, builder, the single it is made of, how many, stack size
 PACKS = [
-    ('sheet_drywall_stack_small', 'Small Drywall Stack (10)', 'A strapped stack of ten drywall sheets.',
-     lambda: packs.stack_sheets('sheet_drywall_stack_small', SHEET_W, SHEET_D, 10, DRYWALL_T, DRYWALL_RGB, DRYWALL_EDGE), 'sheet_drywall', 10, 5),
-    ('sheet_drywall_stack_large', 'Large Drywall Stack (25)', 'A strapped stack of 25 drywall sheets on a pallet.',
-     lambda: packs.stack_sheets('sheet_drywall_stack_large', SHEET_W, SHEET_D, 25, DRYWALL_T, DRYWALL_RGB, DRYWALL_EDGE), 'sheet_drywall', 25, 2),
-    ('sheet_osb_stack_small', 'Small OSB Stack (10)', 'A strapped stack of ten OSB sheathing sheets.',
-     lambda: packs.stack_sheets('sheet_osb_stack_small', SHEET_W, SHEET_D, 10, OSB_T, OSB_RGB, OSB_EDGE), 'sheet_osb', 10, 5),
-    ('sheet_osb_stack_large', 'Large OSB Stack (25)', 'A strapped stack of 25 OSB sheathing sheets.',
-     lambda: packs.stack_sheets('sheet_osb_stack_large', SHEET_W, SHEET_D, 25, OSB_T, OSB_RGB, OSB_EDGE), 'sheet_osb', 25, 2),
+    ('sheet_drywall_stack_10', 'Drywall Stack', 'A strapped stack of ten drywall sheets.',
+     lambda: packs.stack_sheets('sheet_drywall_stack_10', SHEET_W, SHEET_D, 10, DRYWALL_T, DRYWALL_RGB, DRYWALL_EDGE), 'sheet_drywall', 10, 5),
+    ('sheet_drywall_stack_25', 'Drywall Stack', 'A strapped stack of 25 drywall sheets on a pallet.',
+     lambda: packs.stack_sheets('sheet_drywall_stack_25', SHEET_W, SHEET_D, 25, DRYWALL_T, DRYWALL_RGB, DRYWALL_EDGE), 'sheet_drywall', 25, 2),
+    ('sheet_osb_stack_10', 'OSB Stack', 'A strapped stack of ten OSB sheathing sheets.',
+     lambda: packs.stack_sheets('sheet_osb_stack_10', SHEET_W, SHEET_D, 10, OSB_T, OSB_RGB, OSB_EDGE), 'sheet_osb', 10, 5),
+    ('sheet_osb_stack_25', 'OSB Stack', 'A strapped stack of 25 OSB sheathing sheets.',
+     lambda: packs.stack_sheets('sheet_osb_stack_25', SHEET_W, SHEET_D, 25, OSB_T, OSB_RGB, OSB_EDGE), 'sheet_osb', 25, 2),
     ('lumber_bundle_2x6_small', 'Small 2x6 Bundle (10)', 'A strapped bundle of ten 2x6 framing boards, 2.4 m long.',
      lambda: packs.lumber_bundle('lumber_bundle_2x6_small', 2, 5, BOARD_L, BOARD_W, BOARD_T, TIMBER), 'lumber_board_2x6', 10, 5),
     ('lumber_bundle_2x6_large', 'Large 2x6 Bundle (25)', 'A strapped bundle of 25 2x6 framing boards, 2.4 m long.',

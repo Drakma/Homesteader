@@ -6809,31 +6809,11 @@
       ]
     },
     {
-      "id": "building_concrete_block_pallet_large",
+      "id": "building_concrete_block_pallet_36",
       "name": "Concrete Block Pallet",
       "category": "building",
-      "description": "A full pallet of 90 concrete blocks, strapped.",
-      "icon": "building_concrete_block_pallet_large.png",
-      "max_stack": 1,
-      "pack_quantity": 90,
-      "display_weight": true,
-      "weight_kg": 1606.5,
-      "base_value": 243.0,
-      "store_listings": [
-        {
-          "store": "depot",
-          "category": "Concrete & Masonry",
-          "unit": "kit",
-          "price": 243.0
-        }
-      ]
-    },
-    {
-      "id": "building_concrete_block_pallet_small",
-      "name": "Concrete Block Half Pallet",
-      "category": "building",
       "description": "A half pallet of 36 concrete blocks, strapped.",
-      "icon": "building_concrete_block_pallet_small.png",
+      "icon": "building_concrete_block_pallet_36.png",
       "max_stack": 3,
       "pack_quantity": 36,
       "display_weight": true,
@@ -6845,6 +6825,26 @@
           "category": "Concrete & Masonry",
           "unit": "kit",
           "price": 97.0
+        }
+      ]
+    },
+    {
+      "id": "building_concrete_block_pallet_90",
+      "name": "Concrete Block Pallet",
+      "category": "building",
+      "description": "A full pallet of 90 concrete blocks, strapped.",
+      "icon": "building_concrete_block_pallet_90.png",
+      "max_stack": 1,
+      "pack_quantity": 90,
+      "display_weight": true,
+      "weight_kg": 1606.5,
+      "base_value": 243.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Concrete & Masonry",
+          "unit": "kit",
+          "price": 243.0
         }
       ]
     },
@@ -8345,31 +8345,11 @@
       ]
     },
     {
-      "id": "building_insulation_foam_board_stack_large",
-      "name": "Large Foam Board Stack",
-      "category": "building",
-      "description": "Twenty-four sheets of rigid foam board on a pallet, strapped.",
-      "icon": "building_insulation_foam_board_stack_large.png",
-      "max_stack": 1,
-      "pack_quantity": 24,
-      "display_weight": true,
-      "weight_kg": 100.8,
-      "base_value": 778.0,
-      "store_listings": [
-        {
-          "store": "depot",
-          "category": "Insulation & Drywall",
-          "unit": "kit",
-          "price": 778.0
-        }
-      ]
-    },
-    {
-      "id": "building_insulation_foam_board_stack_small",
-      "name": "Small Foam Board Stack",
+      "id": "building_insulation_foam_board_stack_10",
+      "name": "Foam Board Stack",
       "category": "building",
       "description": "Ten sheets of rigid foam board, strapped.",
-      "icon": "building_insulation_foam_board_stack_small.png",
+      "icon": "building_insulation_foam_board_stack_10.png",
       "max_stack": 3,
       "pack_quantity": 10,
       "display_weight": true,
@@ -8381,6 +8361,26 @@
           "category": "Insulation & Drywall",
           "unit": "kit",
           "price": 324.0
+        }
+      ]
+    },
+    {
+      "id": "building_insulation_foam_board_stack_24",
+      "name": "Foam Board Stack",
+      "category": "building",
+      "description": "Twenty-four sheets of rigid foam board on a pallet, strapped.",
+      "icon": "building_insulation_foam_board_stack_24.png",
+      "max_stack": 1,
+      "pack_quantity": 24,
+      "display_weight": true,
+      "weight_kg": 100.8,
+      "base_value": 778.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Insulation & Drywall",
+          "unit": "kit",
+          "price": 778.0
         }
       ]
     },
@@ -15048,31 +15048,11 @@
       ]
     },
     {
-      "id": "sheet_drywall_stack_large",
-      "name": "Large Drywall Stack",
-      "category": "building",
-      "description": "A strapped stack of 25 drywall sheets on a pallet.",
-      "icon": "sheet_drywall_stack_large.png",
-      "max_stack": 2,
-      "pack_quantity": 25,
-      "display_weight": true,
-      "weight_kg": 577.5,
-      "base_value": 270.0,
-      "store_listings": [
-        {
-          "store": "depot",
-          "category": "Insulation & Drywall",
-          "unit": "kit",
-          "price": 270.0
-        }
-      ]
-    },
-    {
-      "id": "sheet_drywall_stack_small",
-      "name": "Small Drywall Stack",
+      "id": "sheet_drywall_stack_10",
+      "name": "Drywall Stack",
       "category": "building",
       "description": "A strapped stack of ten drywall sheets.",
-      "icon": "sheet_drywall_stack_small.png",
+      "icon": "sheet_drywall_stack_10.png",
       "max_stack": 5,
       "pack_quantity": 10,
       "display_weight": true,
@@ -15084,6 +15064,26 @@
           "category": "Insulation & Drywall",
           "unit": "kit",
           "price": 108.0
+        }
+      ]
+    },
+    {
+      "id": "sheet_drywall_stack_25",
+      "name": "Drywall Stack",
+      "category": "building",
+      "description": "A strapped stack of 25 drywall sheets on a pallet.",
+      "icon": "sheet_drywall_stack_25.png",
+      "max_stack": 2,
+      "pack_quantity": 25,
+      "display_weight": true,
+      "weight_kg": 577.5,
+      "base_value": 270.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Insulation & Drywall",
+          "unit": "kit",
+          "price": 270.0
         }
       ]
     },
@@ -15107,31 +15107,11 @@
       ]
     },
     {
-      "id": "sheet_osb_stack_large",
-      "name": "Large OSB Stack",
-      "category": "building",
-      "description": "A strapped stack of 25 OSB sheathing sheets.",
-      "icon": "sheet_osb_stack_large.png",
-      "max_stack": 2,
-      "pack_quantity": 25,
-      "display_weight": true,
-      "weight_kg": 525.0,
-      "base_value": 315.0,
-      "store_listings": [
-        {
-          "store": "depot",
-          "category": "Building Supplies",
-          "unit": "kit",
-          "price": 315.0
-        }
-      ]
-    },
-    {
-      "id": "sheet_osb_stack_small",
-      "name": "Small OSB Stack",
+      "id": "sheet_osb_stack_10",
+      "name": "OSB Stack",
       "category": "building",
       "description": "A strapped stack of ten OSB sheathing sheets.",
-      "icon": "sheet_osb_stack_small.png",
+      "icon": "sheet_osb_stack_10.png",
       "max_stack": 5,
       "pack_quantity": 10,
       "display_weight": true,
@@ -15143,6 +15123,26 @@
           "category": "Building Supplies",
           "unit": "kit",
           "price": 126.0
+        }
+      ]
+    },
+    {
+      "id": "sheet_osb_stack_25",
+      "name": "OSB Stack",
+      "category": "building",
+      "description": "A strapped stack of 25 OSB sheathing sheets.",
+      "icon": "sheet_osb_stack_25.png",
+      "max_stack": 2,
+      "pack_quantity": 25,
+      "display_weight": true,
+      "weight_kg": 525.0,
+      "base_value": 315.0,
+      "store_listings": [
+        {
+          "store": "depot",
+          "category": "Building Supplies",
+          "unit": "kit",
+          "price": 315.0
         }
       ]
     },
@@ -46828,7 +46828,7 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "sheet_drywall_stack_large",
+              "item_id": "sheet_drywall_stack_25",
               "quantity": 2.0,
               "per_depth_m": 0.0
             },
@@ -47022,7 +47022,7 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "sheet_drywall_stack_small",
+              "item_id": "sheet_drywall_stack_10",
               "quantity": 2.0,
               "per_depth_m": 0.0
             },
@@ -48592,7 +48592,7 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "sheet_drywall_stack_small",
+              "item_id": "sheet_drywall_stack_10",
               "quantity": 2.0,
               "per_depth_m": 0.0
             },
@@ -48729,7 +48729,7 @@
           "height": 6.0,
           "recipe": [
             {
-              "item_id": "sheet_drywall_stack_small",
+              "item_id": "sheet_drywall_stack_10",
               "quantity": 9.0,
               "per_depth_m": 0.0
             },
@@ -49845,7 +49845,7 @@
           "height": 6.2,
           "recipe": [
             {
-              "item_id": "sheet_drywall_stack_small",
+              "item_id": "sheet_drywall_stack_10",
               "quantity": 8.0,
               "per_depth_m": 0.0
             },
@@ -50163,7 +50163,7 @@
           "height": 4.4,
           "recipe": [
             {
-              "item_id": "sheet_drywall_stack_small",
+              "item_id": "sheet_drywall_stack_10",
               "quantity": 2.0,
               "per_depth_m": 0.0
             },
@@ -50367,7 +50367,7 @@
               "per_depth_m": 0.0
             },
             {
-              "item_id": "sheet_drywall_stack_large",
+              "item_id": "sheet_drywall_stack_25",
               "quantity": 2.0,
               "per_depth_m": 0.0
             },
@@ -50640,7 +50640,7 @@
           "height": 4.6,
           "recipe": [
             {
-              "item_id": "sheet_drywall_stack_large",
+              "item_id": "sheet_drywall_stack_25",
               "quantity": 4.0,
               "per_depth_m": 0.0
             },
