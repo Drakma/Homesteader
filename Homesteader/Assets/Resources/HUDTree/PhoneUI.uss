@@ -2298,3 +2298,72 @@
 .phone-signal-bar--bad {
     background-color: rgb(226, 92, 80);
 }
+
+/* ---- Store category tiles: a grid three wide (PhoneController.ShowStoreLevel); each tile opens that category ---- */
+.store-tile-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.store-tile {
+    padding: 3px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.store-tile-card {
+    background-color: var(--c-panel);
+    border-width: 1px;
+    border-color: var(--c-raised);
+    border-radius: 6px;
+    margin: 0;
+    padding: 8px 2px 6px 2px;
+    height: 112px;
+    min-height: 112px;
+    max-height: 112px;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.store-tile-card:hover {
+    background-color: var(--c-raised);
+}
+
+.store-tile-card:active {
+    background-color: var(--c-well);
+}
+
+.store-tile-icon {
+    width: 56px;
+    height: 56px;
+    -unity-background-scale-mode: scale-to-fit;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.store-tile-name {
+    color: var(--c-text);
+    font-size: 11px;
+    -unity-text-align: upper-center;
+    white-space: normal;
+    margin-top: 4px;
+    padding: 0 1px;
+}
+
+.store-tile-count {
+    color: var(--c-accent);
+    font-size: 11px;
+    -unity-text-align: upper-center;
+    margin-top: 2px;
+}
+
+.store-tile-heading {
+    color: var(--c-text);
+    font-size: 13px;
+    -unity-font: var(--font-medium);
+    margin: 10px 2px 6px 2px;
+}

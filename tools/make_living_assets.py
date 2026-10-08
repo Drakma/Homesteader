@@ -42,8 +42,8 @@ PIECES = [
     ('console_table', 'console_table', 'Console Table', 'A narrow console table for a hall or behind the sofa.', 'wood', 14, 180, {'support': '0.80'}),
     ('tv_stand', 'tv_stand', 'TV Stand', 'A low media console for the television.', 'wood', 28, 260, {'support': '0.55'}),
     ('sideboard', 'sideboard', 'Sideboard', 'A long sideboard with doors and drawers.', 'wood', 44, 460, {'support': '0.85'}),
-    ('bookshelf', 'bookshelf', 'Bookshelf', 'A tall open bookshelf with five shelves, full of books.', 'wood', 30, 210, {'support': '0.12,0.52,0.92,1.32,1.70'}),
-    ('display_cabinet', 'display_cabinet', 'Display Cabinet', 'A glass-door display cabinet over a closed cabinet.', 'wood', 46, 520, {}),
+    ('bookshelf', 'bookshelf', 'Bookshelf', 'A tall open bookshelf with five empty shelves. Stand things on its shelves.', 'wood', 30, 210, {'support': '0.12,0.52,0.92,1.32,1.70'}),
+    ('display_cabinet', 'display_cabinet', 'Display Cabinet', 'A glass-door display cabinet with empty glass shelves over a closed cabinet that holds things.', 'wood', 46, 520, {}),
     ('toy_chest', 'toy_chest', 'Toy Chest', 'A chest with a lid for the toys.', 'wood', 12, 95, {'support': '0.50'}),
     ('rocker', 'rocker', 'Rocking Chair', 'A rocking chair for the family room.', 'wood', 9, 170, {}),
     ('piano', 'piano', 'Piano', 'A piano with a keyboard and a music stand.', 'wood', 90, 1400, {}),
@@ -72,6 +72,16 @@ def variants():
 
 
 def manifest(v, tris, dims):
+    """The item manifest, plus its storage (closed container and / or shelf decks) from tools/furniture_storage.py."""
+    import furniture_storage
+    man = _manifest(v, tris, dims)
+    furniture_storage.apply(man, 'living', v['model'], v.get('style'))
+    import short_names
+    short_names.apply(man)   # the short display names (tools/short_names.py)
+    return man
+
+
+def _manifest(v, tris, dims):
     w, d, h = dims
     ex = v['extras']
     props = {

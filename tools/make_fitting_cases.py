@@ -13,7 +13,7 @@ Builds the cases of PVC fittings and PVC cans as GLBs in headless Blender: free,
   building_insulation_spray_foam_case_8 / _16     tall cans of spray foam, in a tall case
   building_weatherstripping_roll_case_6 / _12     rolls of weatherstripping, lying flat
 
-Each is an open cardboard case with the top layer of its contents showing (a case of 20 fittings is the case of 10 twice as deep). A new case
+Each is a closed cardboard case, its flaps shut and taped (the contents are not seen) (a case of 20 fittings is the case of 10 twice as deep). A new case
 gets its manifest from the single item: name, weight (the contents plus the box), price (10 percent off), pack_quantity, placeable, and
 stacking_limit 6 (cases stack six high). A case that is already in the kit keeps its name, price and the rest. The equivalencies (a single = 1,
 a case = its count) are saved through the kit.
@@ -29,7 +29,8 @@ import bpy
 from mathutils import Matrix
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import make_simple_props as props  # noqa: E402    (Kit, mat, save)
+import make_simple_props as props  # noqa: E402
+import make_tape_cases as tape_cases  # noqa: E402          (the shared lid: flaps shut, packing tape on the seam)    (Kit, mat, save)
 import case_labels  # noqa: E402          (the printed label: the name and x<count>)
 
 BUILD = os.path.join(props.ROOT, 'assets', 'building')
@@ -122,16 +123,7 @@ def build(part, cell, height, cols, rows, layers, body_rgb, ink_rgb, cap_rgb=Non
     for s in (-1, 1):
         K.bx((W, t, H), (0, s * (D / 2 - t / 2), H / 2), card)
         K.bx((t, D - 2 * t, H), (s * (W / 2 - t / 2), 0, H / 2), card)
-        K.bx((W - 2 * t, 0.0006, H - t), (0, s * (D / 2 - t - 0.0003), H / 2 + t / 2), inside)
-        K.bx((0.0006, D - 2 * t, H - t), (s * (W / 2 - t - 0.0003), 0, H / 2 + t / 2), inside)
-        K.box((W, D * 0.48, t * 0.6), T((0, s * D / 2, H)) @ Matrix.Rotation(s * 0.45, 4, 'X') @ T((0, s * D * 0.24, 0)), card)      # the flaps, standing open and leaning out
-        K.box((W * 0.3, D - 2 * t, t * 0.6), T((s * W / 2, 0, H)) @ Matrix.Rotation(-s * 0.45, 4, 'Y') @ T((s * W * 0.15, 0, 0)), card)
-    z0 = t + (layers - 1) * height
-    if layers > 1:                                                                                      # a divider sheet over the layer underneath
-        K.bx((W - 2 * t - 0.002, D - 2 * t - 0.002, 0.002), (0, 0, z0 - 0.001), inside)
-    for i in range(cols):
-        for j in range(rows):
-            part(K, (i - (cols - 1) / 2) * cell[0], (j - (rows - 1) / 2) * cell[1], z0, body)
+    H = tape_cases.close_lid(K, W, D, H, t)                                                              # the flaps shut and taped: what is inside is not seen
     obj = K.done('case')
     obj['case_size'] = (W, D, H)
     return obj
@@ -182,8 +174,8 @@ def main():
             m['models'] = [{'file': item + '.glb', 'format': 'glb', 'dimensions_m': {'x': dims[0], 'y': dims[2], 'z': dims[1]}, 'triangles': tris}]
             m['category_fields'] = {'dimensions_m': {'width': round(dims[0], 2), 'depth': round(dims[1], 2), 'height': round(dims[2], 2)}}
             props.save(path, json.dumps(m, indent=2))
-            props.save(os.path.join(folder, 'README.md'), '# %s\n\n%s\n\nProcedural model (tools/make_fitting_cases.py), %d triangles, %.2f x %.2f x %.2f m: an open '
-                       'cardboard case of %d `%s`. Cases stack %d high.\n' % (m['name'], m['description'], tris, *dims, n, single, STACKING_LIMIT))
+            props.save(os.path.join(folder, 'README.md'), '# %s\n\n%s\n\nProcedural model (tools/make_fitting_cases.py), %d triangles, %.2f x %.2f x %.2f m: a closed, '
+                       'taped cardboard case of %d `%s`. Cases stack %d high.\n' % (m['name'], m['description'], tris, *dims, n, single, STACKING_LIMIT))
             print('case', item, '|', tris, 'tris |', dims)
 
 

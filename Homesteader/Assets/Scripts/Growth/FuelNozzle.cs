@@ -220,7 +220,7 @@ namespace Homesteader.Growth
                 string fuel = FuelOf(n);
                 rows.Add(("Power", Powered(n) ? "On" : "No power (AC wire to a live breaker box)"));
                 rows.Add(("Fuel", TanksOf(n).Count == 0 ? "No tank piped to it" : UnitFormat.Volume(FuelL(n)) + " of " + HudBindings.GetItemName(fuel)));
-                rows.Add(("Nozzle", s_pump == n ? (s_filling != null ? "Filling the " + HudBindings.GetItemName(s_filling.ItemId) : "In your hand") : "Hung up (right click to take it)"));
+                rows.Add(("Nozzle", s_pump == n ? (s_filling != null ? "Filling the " + HudBindings.GetItemName(s_filling.ItemId) : "In your hand") : "Hung up"));
                 if (RunningW(n) > 0f) rows.Add(("Drawing", SolarSun.Power(RunningW(n))));
                 return;
             }

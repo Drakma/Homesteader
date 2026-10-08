@@ -18,6 +18,8 @@ namespace Homesteader.Growth
         public string ItemId { get; private set; }
         public ConstructionSite Site { get; private set; }
         public string Surface { get; private set; }        // wall | ceiling
+        /// <summary>What a mounted cabinet holds (its manifest has a container block); null for anything else. Opened with C, saved with the building.</summary>
+        public List<ContainerStack> Contents;
         /// <summary>
         /// A wall item on the outside of the building. Worked out against the building's REAL walls: mounted from a save while the building's model was still loading, the walls
         /// were not known yet and the footprint (which includes a porch) stood in for them, so a panel on an outside wall counted as inside and the building had no power.
@@ -233,6 +235,7 @@ namespace Homesteader.Growth
             obj.name = "Attached_" + itemId;
             obj.SetActive(true);
             obj.transform.SetPositionAndRotation(worldPos, worldRot);
+            if (itemId.StartsWith("kitchen_wall_c")) FitUpper(obj);
             if (info.AttachThrough)
             {
                 // (a save from before the probe was fixed holds a plate pushed 0.6 m into the room: measured again)
@@ -272,8 +275,10 @@ namespace Homesteader.Growth
                     box.size = Vector3.Max(lb.size, new Vector3(0.03f, 0.03f, 0.03f));
                 }
             }
+            if (itemId.StartsWith("kitchen_range_hood")) HoodDuct(obj, site);
             var a = obj.AddComponent<AttachedObject>();
             a.ItemId = itemId;
+            if (ContainerRules.IsContainer(itemId)) a.Contents = new List<ContainerStack>();
             a.Site = site;
             a.Surface = string.IsNullOrEmpty(info.AttachSurface) ? "roof" : info.AttachSurface;   // (a ground item that was put up on a roof: properties.roof_mount)
             a.ProvidesPower = info.ProvidesPower;
@@ -286,6 +291,126 @@ namespace Homesteader.Growth
             NetRack.AttachIfRack(a);             // a wall rack: routers and switches slide into it
             if (Shelf.AttachIfShelf(a) == null && itemId.Contains("shelf")) Debug.LogWarning("[Shelf] " + itemId + " was mounted but the catalog does not mark it as a shelf (properties.shelf)");   // a wall shelf: things stand on it
             return a;
+        }
+
+        public const float UpperHeightM = 0.72f;   // every wall cabinet is this tall
+
+        /// <summary>A wall cabinet is exactly <see cref="UpperHeightM"/> tall, whatever the model measures (so a corner cabinet and a straight one match top and bottom).</summary>
+        private static void FitUpper(GameObject obj)
+        {
+            Bounds b = default; bool any = false;
+            foreach (Renderer r in obj.GetComponentsInChildren<Renderer>(true)) { if (!any) { b = r.bounds; any = true; } else b.Encapsulate(r.bounds); }
+            if (!any || b.size.y < 0.05f) return;
+            if (Mathf.Abs(b.size.y - UpperHeightM) > 0.004f)
+            {
+                Dbg.Log("[UpperCab] " + obj.name + " measures " + b.size.y.ToString("0.000") + " m tall: fitted to " + UpperHeightM.ToString("0.00"));
+                Vector3 s = obj.transform.localScale;
+                obj.transform.localScale = new Vector3(s.x, s.y * UpperHeightM / b.size.y, s.z);
+            }
+        }
+
+        /// <summary>Moves a mounted wall cabinet up or down so its lowest point is exactly at <paramref name="bottomY"/>.</summary>
+        public void SetBottom(float bottomY)
+        {
+            Bounds b = default; bool any = false;
+            foreach (Renderer r in GetComponentsInChildren<Renderer>(true)) { if (!any) { b = r.bounds; any = true; } else b.Encapsulate(r.bounds); }
+            if (any) transform.position += Vector3.up * (bottomY - b.min.y);
+        }
+
+        // ------------------------------------------------------------------ a range hood's duct
+
+        public const float VentAboveRoofM = 1f;
+
+        private static GameObject Part(PrimitiveType type, GameObject parent, Material mat, string name, Vector3 worldPos, Vector3 scale)
+        {
+            GameObject g = GameObject.CreatePrimitive(type);
+            g.name = name;
+            foreach (Collider c in g.GetComponents<Collider>()) Destroy(c);   // (the hood's own click box is the one that counts)
+            g.transform.SetParent(parent.transform, true);
+            g.transform.SetPositionAndRotation(worldPos, Quaternion.Euler(0f, parent.transform.eulerAngles.y, 0f));   // turned with the hood: its width and depth are the hood's, not the world's
+            g.transform.localScale = scale;
+            g.GetComponent<Renderer>().sharedMaterial = mat;
+            return g;
+        }
+
+        /// <summary>
+        /// The chimney of a range hood runs up to the ceiling (a duct the width of the chimney), and a vent pipe carries on through the roof above it and stands
+        /// <see cref="VentAboveRoofM"/> above the roof there, with a rain cap. The footprint is taken from the model's own chimney (its top vertices).
+        /// </summary>
+        private static void HoodDuct(GameObject obj, ConstructionSite site)
+        {
+            Renderer body = null;
+            foreach (Renderer r in obj.GetComponentsInChildren<Renderer>(true)) if (!r.name.StartsWith("HoodDuct") && !r.name.StartsWith("HoodVent")) { body = r; break; }
+            if (body == null) return;
+            Material mat = body.sharedMaterial;
+            Bounds lb = default;
+            bool any = false;
+            foreach (Renderer r in obj.GetComponentsInChildren<Renderer>(true))
+            {
+                if (r.name.StartsWith("HoodDuct") || r.name.StartsWith("HoodVent")) continue;   // (the duct of an earlier go)
+                Bounds wb = r.bounds;
+                for (int i = 0; i < 8; i++)
+                {
+                    Vector3 corner = wb.center + new Vector3((i & 1) == 0 ? -wb.extents.x : wb.extents.x, (i & 2) == 0 ? -wb.extents.y : wb.extents.y, (i & 4) == 0 ? -wb.extents.z : wb.extents.z);
+                    Vector3 local = obj.transform.InverseTransformPoint(corner);
+                    if (!any) { lb = new Bounds(local, Vector3.zero); any = true; } else lb.Encapsulate(local);
+                }
+            }
+            if (!any) return;
+            float top = lb.max.y;
+            // the chimney's footprint: the vertices in its top quarter metre
+            Bounds fp = default;
+            bool have = false;
+            foreach (MeshFilter mf in obj.GetComponentsInChildren<MeshFilter>(true))
+            {
+                Mesh m = mf.sharedMesh;
+                if (m == null || !m.isReadable) continue;
+                foreach (Vector3 v in m.vertices)
+                {
+                    Vector3 lv = obj.transform.InverseTransformPoint(mf.transform.TransformPoint(v));
+                    if (lv.y < top - 0.25f) continue;
+                    var p2 = new Vector3(lv.x, 0f, lv.z);
+                    if (!have) { fp = new Bounds(p2, Vector3.zero); have = true; } else fp.Encapsulate(p2);
+                }
+            }
+            if (!have) fp = new Bounds(new Vector3(lb.center.x, 0f, lb.center.z), new Vector3(0.30f, 0f, 0.16f));
+            Vector3 topW = obj.transform.TransformPoint(new Vector3(fp.center.x, top, fp.center.z));
+            float ceilingY = site.CeilingY();
+            Vector3 size = new Vector3(Mathf.Max(0.1f, fp.size.x * 0.98f), 1f, Mathf.Max(0.1f, fp.size.z * 0.98f));
+
+            // the roof straight above the chimney: the first roof surface up from the ceiling
+            float roofY = float.NaN;
+            RaycastHit[] hits = Physics.RaycastAll(new Vector3(topW.x, ceilingY - 0.05f, topW.z), Vector3.up, 8f, ~0, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            Transform stop = site.VisualRoot != null ? site.VisualRoot : site.transform;
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.GetComponentInParent<ConstructionSite>() != site) continue;
+                bool roof = false;
+                for (Transform t = h.collider.transform; t != null && t != stop && t != site.transform; t = t.parent) if (t.name.StartsWith("Roof")) { roof = true; break; }
+                if (roof) { roofY = h.point.y; break; }
+            }
+
+            // inside: the duct, the width of the chimney, up to the ceiling and on to the roof; outside: only a metal pipe and its cover, VentAboveRoofM above the roof
+            float ductTop = float.IsNaN(roofY) ? ceilingY : roofY;
+            float len = ductTop - topW.y;
+            if (len > 0.02f)
+            {
+                size.y = len + 0.01f;
+                Part(PrimitiveType.Cube, obj, mat, "HoodDuct", new Vector3(topW.x, topW.y + len * 0.5f - 0.005f, topW.z), size);
+            }
+            if (float.IsNaN(roofY)) return;
+            var metal = new Material(mat) { name = "HoodVentMetal" };
+            metal.color = new Color(0.62f, 0.64f, 0.67f, 1f);
+            if (metal.HasProperty("_BaseColor")) metal.SetColor("_BaseColor", metal.color);
+            if (metal.HasProperty("_BaseMap")) metal.SetTexture("_BaseMap", null);
+            if (metal.HasProperty("_MainTex")) metal.SetTexture("_MainTex", null);
+            if (metal.HasProperty("_Metallic")) metal.SetFloat("_Metallic", 0.8f);
+            if (metal.HasProperty("_Smoothness")) metal.SetFloat("_Smoothness", 0.6f);
+            float pipeD = Mathf.Clamp(Mathf.Min(size.x, size.z), 0.12f, 0.30f);
+            float pipeTop = roofY + VentAboveRoofM;
+            Part(PrimitiveType.Cylinder, obj, metal, "HoodVent", new Vector3(topW.x, roofY + (pipeTop - roofY) * 0.5f, topW.z), new Vector3(pipeD, (pipeTop - roofY) * 0.5f, pipeD));                // (a cylinder is 2 m tall at scale 1)
+            Part(PrimitiveType.Cylinder, obj, metal, "HoodVentCap", new Vector3(topW.x, pipeTop + 0.025f, topW.z), new Vector3(pipeD * 1.5f, 0.025f, pipeD * 1.5f));                                  // the cover
         }
 
         // ------------------------------------------------------------------ taking one down
@@ -355,7 +480,7 @@ namespace Homesteader.Growth
             return false;
         }
 
-        /// <summary>True while a wrench is in the active slot and Shift is held: what takes a mounted item (on a wall, a ceiling or a roof) down.</summary>
+        /// <summary>True while a wrench (adjustable or pipe) is in the active slot and Shift is held: what takes a PLACED or mounted item (on the ground, a wall, a ceiling or a roof) or a chimney up. Only a DROPPED item is picked up with a plain right click.</summary>
         public static bool WrenchRemoval()
         {
             string held = ConstructionSite.HeldItem();
@@ -380,9 +505,14 @@ namespace Homesteader.Growth
                 AttachedObject a = h.collider.GetComponentInParent<AttachedObject>();
                 if (a == null && h.collider.isTrigger) continue;   // a click box or zone that is not a mounted item: look past it
                 if (a == null) return false;   // something else is in front
-                if (!WrenchRemoval() && !(ItemRegistry.NeedsWrench(a.ItemId) && WrenchInHand()))   // (a bolted-down fitting of the room packs: a plain right click with a wrench)
+                if (!WrenchRemoval())   // (a bolted-down fitting of the room packs: a plain right click with a wrench)
                 {
-                    ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), ItemRegistry.NeedsWrench(a.ItemId) ? "Take it down with a wrench: right click." : "Take it down with a wrench: Shift + right click.");
+                    if (!WrenchInHand() && Homesteader.Kitchen.MealsPanel.IsKitchenObject(a.ItemId))   // a mounted kitchen piece (a wall cabinet, the hood, a shelf): the Meals List
+                    {
+                        Homesteader.Kitchen.MealsPanel.Open(a.transform.position, a.ItemId);
+                        return true;
+                    }
+                    ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), ItemRegistry.NeedsWrench(a.ItemId) ? "Take it down with a wrench: Shift + right click." : "Take it down with a wrench: Shift + right click.");
                     return true;
                 }
                 if (new Vector2(a.transform.position.x - playerPos.x, a.transform.position.z - playerPos.z).magnitude > 4f)
@@ -394,6 +524,11 @@ namespace Homesteader.Growth
                 if (rackOn != null && rackOn.Items.Count > 0)
                 {
                     ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), "Take what is in the rack out first.");
+                    return true;
+                }
+                if (a.Contents != null && ContainerRules.Used(a.Contents) > 0f)
+                {
+                    ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(a.ItemId), "Empty it first.");
                     return true;
                 }
                 Shelf shelf = a.GetComponent<Shelf>();
@@ -450,9 +585,15 @@ namespace Homesteader.Growth
                     shelfIds = new List<string>(); shelfLiquids = new List<string>(); shelfX = new List<float>(); shelfUsed = new List<float>();
                     foreach (Shelf.Held h in shelf.Items) { shelfIds.Add(h.ItemId); shelfX.Add(h.X); shelfUsed.Add(h.WireUsed); shelfLiquids.Add(h.LiquidId ?? ""); }
                 }
+                List<string> cIds = null, cLiquid = null; List<int> cCounts = null; List<float> cUsed = null, cStored = null;
+                if (a.Contents != null && a.Contents.Count > 0)
+                {
+                    cIds = new List<string>(); cCounts = new List<int>(); cUsed = new List<float>(); cLiquid = new List<string>(); cStored = new List<float>();
+                    foreach (ContainerStack c in a.Contents) { cIds.Add(c.ItemId); cCounts.Add(c.Count); cUsed.Add(c.Used); cLiquid.Add(c.Liquid ?? ""); cStored.Add(c.Stored); }
+                }
                 NetRack rackIn = a.GetComponent<NetRack>();
                 if (rackIn != null && rackIn.Items.Count > 0) shelfIds = new List<string>(rackIn.Items);   // a rack: what is in it, bottom unit first
-                list.Add(new GameSave.SavedAttached { lightOff = a.GetComponentInChildren<LightEmitter>(true) != null && a.GetComponentInChildren<LightEmitter>(true).SwitchedOff, shelfIds = shelfIds, shelfX = shelfX, shelfUsed = shelfUsed, shelfLiquids = shelfLiquids, itemId = a.ItemId, siteIndex = idx, localPosition = a.Site.transform.InverseTransformPoint(t.position), localRotation = Quaternion.Inverse(a.Site.transform.rotation) * t.rotation, thickness = a.Thickness, panelId = MountedPanel.PanelOn(a.gameObject), chargeWh = a.GetComponent<WireNode>() != null ? a.GetComponent<WireNode>().ChargeWh : 0f, switchOff = a.GetComponent<WireNode>() != null && a.GetComponent<WireNode>().SwitchOff });
+                list.Add(new GameSave.SavedAttached { contentIds = cIds, contentCounts = cCounts, contentUsed = cUsed, contentLiquid = cLiquid, contentStored = cStored, lightOff = a.GetComponentInChildren<LightEmitter>(true) != null && a.GetComponentInChildren<LightEmitter>(true).SwitchedOff, shelfIds = shelfIds, shelfX = shelfX, shelfUsed = shelfUsed, shelfLiquids = shelfLiquids, itemId = a.ItemId, siteIndex = idx, localPosition = a.Site.transform.InverseTransformPoint(t.position), localRotation = Quaternion.Inverse(a.Site.transform.rotation) * t.rotation, thickness = a.Thickness, panelId = MountedPanel.PanelOn(a.gameObject), chargeWh = a.GetComponent<WireNode>() != null ? a.GetComponent<WireNode>().ChargeWh : 0f, switchOff = a.GetComponent<WireNode>() != null && a.GetComponent<WireNode>().SwitchOff });
             }
             return list;
         }

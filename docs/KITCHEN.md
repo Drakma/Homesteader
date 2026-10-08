@@ -35,3 +35,15 @@ blender --background --python tools/kitchen_preview.py -- out.png fridge_top:sta
 
 The category schema is `assets/_schemas/kitchen.schema.json` (`kitchen_kind`, `finish`, `power_draw_w`; the size comes from `_base_dimensions`). The category is registered in `assets/kit_config.json`.
 The models do not do anything yet (nothing cooks or chills): they are furniture with a size, a weight and a price. `power_draw_w` is there for when they do.
+
+## Kitchen runs: snapping and filler strips
+
+Floor cabinets and appliances carry `properties.run_snap` (base-cabinets, corner, sink, dishwasher, range, oven tower, pantry, refrigerators, upright freezer, work counter; set in
+`tools/furniture_storage.py` `KITCHEN_RUN`, editable in the asset kit as "Kitchen Run (snaps)"). Code: `Assets/Scripts/Growth/KitchenRun.cs`.
+
+- Held near another run piece (cursor within 1 m of a spot beside it) the piece snaps edge to edge, 3 mm apart, same turn, backs flush. R turns it a quarter turn while it is snapped (Shift + R the other way): it stays snapped, now joined along its side (a corner, a cabinet facing along the wall). The CORNER cabinet picks its own turn when it is near a corner of the room; turning it with R hands the turn to you (it then snaps to a neighbour or a wall in the turn you chose), and a fourth R brings the automatic corner back. T mirrors the piece (the corner cabinet then has its long arm on the other side, and the automatic corner follows it).
+- Otherwise, held within 0.7 m of a building wall it turns to face away from the wall and backs onto it, sliding along with the cursor; a side wall within 12 cm pulls it flush into the corner.
+- COUNTERS carry things freely: an item held over a kitchen counter (a cooktop, a toaster, a mixer) goes where the cursor is on the counter top, locked to the counter's own turn (R does nothing there; T still mirrors it), and may span counters side by side (a 0.76 m cooktop on two cabinets). It is valid when counters carry all of it (corners, edge middles and middle) and nothing else stands there; no packing grid, no edge lock. Code: `KitchenRun.PlanOnCounter`.
+- A spot where a wall or another thing is in the footprint is refused ("The wall is in the way", "Something is in the way").
+- Filler strips: once a second a run piece looks along both ends; where the first thing in the way is a wall 1 cm to 50 cm off, a strip in the piece's own finish (its biggest material) closes the gap, with a COUNTERTOP strip of the piece's own countertop material on top of it (the counter's thickness, its
+  full depth including the front overhang; found by geometry as the thin top part of the model, so a refrigerator or a range without a counter gets a plain strip), the piece's full height and depth. Wider gaps (over 50 cm) are left for a cabinet. A strip is a child of the piece (not saved: it is rebuilt from the positions on load) and goes when a new piece takes the space.

@@ -276,14 +276,14 @@ version and date, writes an animal's AI to `ai/<id>.json`, and refreshes the in-
 
 Select a placeable item on the toolbar (any item with a model; `"properties": { "placeable": false }` forbids it; category does not
 matter) and **left click**: a translucent shadow of it follows the grid square under the cursor, blue when the
-square is valid, red when not. **R** turns it (12.5 degrees a press, Shift+R the other way); **Enter** or a **second left click** places it
+square is valid, red when not. **R** turns it (22.5 degrees a press, Shift+R the other way); **Enter** or a **second left click** places it
 (Esc, walking away or choosing another slot puts the shadow away): one item is consumed, the shadow
 fades to solid and it stays until something removes it (`PlacedObject.Remove()`). A square is invalid when it is farther
 than `placement.reach_cells` from the player, in water, too steep, or already holds a placed object or a plant. In
 `gamerules.json`:
 
 ```json
-"placement": { "reach_cells": 1, "rotate_step_deg": 12.5 }
+"placement": { "reach_cells": 3, "rotate_step_deg": 22.5 }
 ```
 
 Placed objects are not saved yet (no save system exists); they last for the session.
@@ -405,6 +405,16 @@ Full reference, the rule format, terms and actions: [ANIMAL_AI.md](ANIMAL_AI.md)
 `assets/_schemas/animal_ai.schema.json`. Example: `assets/_ai/dog_companion.json`.
 
 ---
+
+## 4f2. Meals as mod data
+
+The kitchen's Meals List is **data in a mod**: list a `meal` content entry and ship JSON files of meals (ingredients as a recipe tree, appliances by tag, a result item).
+
+```json
+{ "contents": [ { "type": "meal", "path": "meals/*.json" } ] }
+```
+
+Reference: [COOKING.md](COOKING.md). Schema: `assets/_schemas/meal.schema.json`. Checker: `python tools/meal_format.py`. A meal whose id already exists is replaced by the later mod.
 
 ## 4g. Radio stations as mod data
 

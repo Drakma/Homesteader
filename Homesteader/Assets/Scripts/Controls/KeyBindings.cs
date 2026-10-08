@@ -11,7 +11,7 @@ namespace Homesteader.Controls
         MoveUp, MoveDown, MoveLeft, MoveRight, Run,
         CameraRotateLeft, CameraRotateRight,
         PauseTime, SpeedUp, SpeedDown,
-        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem, ToggleCutaway, TidyArea, FirstPerson,
+        TogglePhone, PlayerLight, ToggleMap, PlaceRotate, ToggleContainer, DropItem, ToggleCutaway, TidyArea, FirstPerson, Consume, MirrorPlacement,
     }
 
     /// <summary>
@@ -53,7 +53,9 @@ namespace Homesteader.Controls
             new ActionInfo { Action = BindAction.PlaceRotate, Label = "Rotate placement", Group = "World", DefaultKey = Key.R },
             new ActionInfo { Action = BindAction.ToggleContainer, Label = "Open / close container", Group = "World", DefaultKey = Key.C },
             new ActionInfo { Action = BindAction.DropItem, Label = "Drop the held item", Group = "World", DefaultKey = Key.F },
-            new ActionInfo { Action = BindAction.TidyArea, Label = "Tidy up an area", Group = "World", DefaultKey = Key.T },
+            new ActionInfo { Action = BindAction.Consume, Label = "Eat / drink the held item", Group = "World", DefaultKey = Key.G },
+            new ActionInfo { Action = BindAction.MirrorPlacement, Label = "Mirror placement", Group = "World", DefaultKey = Key.T },
+            new ActionInfo { Action = BindAction.TidyArea, Label = "Tidy up an area", Group = "World", DefaultKey = Key.U },
         };
 
         /// <summary>True while the Controls page is waiting for a key press to bind. Game actions report

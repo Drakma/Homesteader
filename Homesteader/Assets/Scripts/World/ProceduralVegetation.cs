@@ -23,7 +23,7 @@ namespace Homesteader.World
         private const int VariantsPerSpecies = 4;
         private const int CrownTintsPerSpecies = 3;
 
-        private enum Shape { Round, Oval, Columnar, Broad, Conifer, Orchard, Weeping, Birch }
+        private enum Shape { Round, Oval, Columnar, Broad, Conifer, Orchard, Weeping, Birch, Trellis }
 
         private sealed class Species
         {
@@ -53,6 +53,9 @@ namespace Homesteader.World
         }
 
         // Species, by the biome ids that use them. "biome_mixed_forest" picks from several at random.
+        /// <summary>Builds every species' meshes and registers them with ForestTrees without generating any terrain (to render the asset-kit tree icons from the editor: ForestTrees.MakeIconProxy).</summary>
+        public static void BuildSpeciesForIcons() { Build(); }
+
         private static Dictionary<string, Species[]> Build()
         {
             var maple = new Species { Name = "maple", Shape = Shape.Round, Trunk = Hex("#6b5440"), Crown = Hex("#4f9a32"), HeightMin = 8f, HeightMax = 12f, Density = 0.45f, Autumn = new[] { "#c8401f", "#d8772a", "#d9a12f" } };
@@ -61,24 +64,36 @@ namespace Homesteader.World
             var poplar = new Species { Name = "poplar", Shape = Shape.Columnar, Trunk = Hex("#8a7a5c"), Crown = Hex("#5da23a"), HeightMin = 11f, HeightMax = 15f, Density = 0.42f, Autumn = new[] { "#dcb62f", "#e6c53c", "#cfa226" } };
             var pine = new Species { Name = "pine", Shape = Shape.Conifer, Trunk = Hex("#51392a"), Crown = Hex("#265a33"), HeightMin = 9f, HeightMax = 15f, Density = 0.50f, Evergreen = true };
 
-            // Fruit trees (kit groups apple / lemon / orange) and the weeping willow. The fruit trees are scattered thinly through
+            // Fruit trees (kit groups apple / lemon / orange, and the ones below) and the weeping willow. The fruit trees are scattered thinly through
             // the open biomes, the willow along the banks (see Generate).
             var apple = new Species { Name = "apple", Shape = Shape.Orchard, Trunk = Hex("#5b4636"), Crown = Hex("#5f9f35"), HeightMin = 4.6f, HeightMax = 6.4f, Density = 0.3f, Scatter = 0.05f, FruitColor = Hex("#c8281e"), FruitCount = 24, Autumn = new[] { "#c8a02f", "#d9a12f", "#b8782a" } };
             var lemon = new Species { Name = "lemon", Shape = Shape.Orchard, Trunk = Hex("#6a5440"), Crown = Hex("#4f9a38"), HeightMin = 4.2f, HeightMax = 5.8f, Density = 0.3f, Scatter = 0.04f, Evergreen = true, FruitColor = Hex("#eed84a"), FruitCount = 26 };
             var orange = new Species { Name = "orange", Shape = Shape.Orchard, Trunk = Hex("#5e4a38"), Crown = Hex("#3f8a2e"), HeightMin = 4.4f, HeightMax = 6.0f, Density = 0.3f, Scatter = 0.04f, Evergreen = true, FruitColor = Hex("#f08a1e"), FruitCount = 26 };
+            // More fruit and nut trees (kit groups pear / peach / cherry / plum / apricot / fig / walnut / pecan): the same orchard tree in other colours and sizes; the nut trees are big broadleaf trees.
+            var pear = new Species { Name = "pear", Shape = Shape.Orchard, Trunk = Hex("#6a5848"), Crown = Hex("#6fa33f"), HeightMin = 4.8f, HeightMax = 6.6f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#b9c93a"), FruitCount = 22, Autumn = new[] { "#d6b83a", "#c8a02f", "#d9a12f" } };
+            var peach = new Species { Name = "peach", Shape = Shape.Orchard, Trunk = Hex("#6a4f3e"), Crown = Hex("#6aa94a"), HeightMin = 4.0f, HeightMax = 5.4f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#f2a06a"), FruitCount = 24, Autumn = new[] { "#e0b23a", "#d9a12f", "#c98a2a" } };
+            var cherry = new Species { Name = "cherry", Shape = Shape.Orchard, Trunk = Hex("#5a3d33"), Crown = Hex("#4f9a45"), HeightMin = 5.0f, HeightMax = 7.0f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#b0102a"), FruitCount = 32, Autumn = new[] { "#c8401f", "#d8772a", "#d9a12f" } };
+            var plum = new Species { Name = "plum", Shape = Shape.Orchard, Trunk = Hex("#5b4a4a"), Crown = Hex("#5a8a3c"), HeightMin = 4.4f, HeightMax = 5.8f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#6b2a86"), FruitCount = 26, Autumn = new[] { "#b8742a", "#c8a02f", "#a8541f" } };
+            var apricot = new Species { Name = "apricot", Shape = Shape.Orchard, Trunk = Hex("#66503f"), Crown = Hex("#5fa040"), HeightMin = 4.2f, HeightMax = 5.6f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#f0922a"), FruitCount = 26, Autumn = new[] { "#e0b23a", "#d9a12f", "#c98a2a" } };
+            var fig = new Species { Name = "fig", Shape = Shape.Orchard, Trunk = Hex("#8a7a6a"), Crown = Hex("#3f8a38"), HeightMin = 3.4f, HeightMax = 4.8f, Density = 0.3f, Scatter = 0.03f, FruitColor = Hex("#5a3b52"), FruitCount = 20, Autumn = new[] { "#c8a02f", "#b8892a", "#d0a830" } };
+            var walnut = new Species { Name = "walnut", Shape = Shape.Broad, Trunk = Hex("#5a4a3a"), Crown = Hex("#3d7a2e"), HeightMin = 9.0f, HeightMax = 12.5f, Density = 0.3f, Scatter = 0.03f, FruitColor = Hex("#7c9a3c"), FruitCount = 18, Autumn = new[] { "#b8892a", "#a8741f", "#c8a02f" } };
+            var pecan = new Species { Name = "pecan", Shape = Shape.Broad, Trunk = Hex("#6b5a4a"), Crown = Hex("#4a8a34"), HeightMin = 9.0f, HeightMax = 13.0f, Density = 0.3f, Scatter = 0.03f, FruitColor = Hex("#8a5a32"), FruitCount = 18, Autumn = new[] { "#c8a02f", "#b8742a", "#d9a12f" } };
+            var hazelnut = new Species { Name = "hazelnut", Shape = Shape.Orchard, Trunk = Hex("#6a5a48"), Crown = Hex("#5a9a3a"), HeightMin = 3.6f, HeightMax = 5.0f, Density = 0.3f, Scatter = 0.04f, FruitColor = Hex("#b98a4e"), FruitCount = 28, Autumn = new[] { "#d6b83a", "#c8a02f", "#b8892a" } };
+            // The grapevine is not a tree but grows like one (fruit, picking, regrowing): a row of trellis posts and wires with the vine on it. It is never scattered, only planted (its sapling).
+            var grape = new Species { Name = "grape", Shape = Shape.Trellis, Trunk = Hex("#6b4f35"), Crown = Hex("#4f9a38"), HeightMin = 2.0f, HeightMax = 2.4f, Density = 0f, Scatter = 0f, FruitColor = Hex("#5b2a7a"), FruitCount = 14, Autumn = new[] { "#c8a02f", "#b8501f", "#d9a12f" } };
             var willow = new Species { Name = "willow", Shape = Shape.Weeping, Trunk = Hex("#6b5e4a"), Crown = Hex("#7fae48"), HeightMin = 8f, HeightMax = 11.5f, Density = 0.5f, Scatter = 0.55f, Autumn = new[] { "#d9c23c", "#c9b030", "#e0cc50" } };
             s_willow = willow;
-            s_fruitTrees = new[] { apple, lemon, orange };
+            s_fruitTrees = new[] { apple, lemon, orange, pear, peach, cherry, plum, apricot, fig, walnut, pecan, hazelnut };
             // every tree is built 20% taller than its table height, the willow 40% (their crowns, trunks and fruit scale with the height)
-            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow })
+            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, pear, peach, cherry, plum, apricot, fig, walnut, pecan, hazelnut, grape, willow })
             {
                 float k = s == willow ? WillowHeightScale : TreeHeightScale;
                 s.HeightMin *= k;
                 s.HeightMax *= k;
             }
 
-            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow }) BuildAssets(s);
-            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, willow })
+            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, pear, peach, cherry, plum, apricot, fig, walnut, pecan, hazelnut, grape, willow }) BuildAssets(s);
+            foreach (Species s in new[] { maple, birch, oak, poplar, pine, apple, lemon, orange, pear, peach, cherry, plum, apricot, fig, walnut, pecan, hazelnut, grape, willow })
             {
                 ForestTrees.RegisterSpecies(new ForestTrees.SpeciesInfo
                 {
@@ -91,7 +106,7 @@ namespace Homesteader.World
                     DeadMat = s.DeadMat,
                     CrownMats = s.CrownMats,
                     AgeStages = s.AgeStages,
-                    TrunkRadius = Mathf.Max(s.Shape == Shape.Orchard ? 0.14f : 0.22f, (s.HeightMin + s.HeightMax) * 0.5f * (s.Shape == Shape.Broad ? 0.045f : (s.Shape == Shape.Orchard ? 0.04f : 0.032f))),
+                    TrunkRadius = Mathf.Max(s.Shape == Shape.Trellis ? 0.1f : (s.Shape == Shape.Orchard ? 0.14f : 0.22f), (s.HeightMin + s.HeightMax) * 0.5f * (s.Shape == Shape.Broad ? 0.045f : (s.Shape == Shape.Orchard ? 0.04f : 0.032f))),
                     FruitMat = s.FruitMat,
                     FruitFirstVert = s.FruitFirstVert,
                     FruitVertCount = s.FruitVertCount,
@@ -1193,7 +1208,7 @@ namespace Homesteader.World
             s.TrunkMat.SetVector("_AgeStages", s.AgeStages);
             if (s.Shape == Shape.Birch) { s.TrunkMat.SetFloat("_Spots", 1f); s.TrunkMat.SetColor("_SpotColor", Hex("#1d1b19")); }   // white bark with black marks
             // Every distinct material is a draw call per chunk (and again in the shadow pass): the newer species use a single crown tint.
-            int tints = s.Shape == Shape.Orchard || s.Shape == Shape.Weeping ? 1 : CrownTintsPerSpecies;
+            int tints = s.Shape == Shape.Orchard || s.Shape == Shape.Weeping || s.Shape == Shape.Trellis ? 1 : CrownTintsPerSpecies;
             s.CrownMats = new Material[tints];
             float pivotY = (s.HeightMin + s.HeightMax) * 0.5f * 0.62f;   // roughly the crown centre
             for (int i = 0; i < tints; i++)
@@ -1272,6 +1287,16 @@ namespace Homesteader.World
                 case "apple": return "mat_log_oak";
                 case "lemon": return "mat_log_oak";
                 case "orange": return "mat_log_oak";
+                case "pear": return "mat_log_oak";
+                case "peach": return "mat_log_oak";
+                case "cherry": return "mat_log_oak";
+                case "plum": return "mat_log_oak";
+                case "apricot": return "mat_log_oak";
+                case "fig": return "mat_log_oak";
+                case "walnut": return "mat_log_oak";
+                case "pecan": return "mat_log_oak";
+                case "hazelnut": return "mat_log_oak";
+                case "grape": return "mat_log_oak";
                 case "willow": return "mat_log_willowood_uncut_long";
                 default: return "mat_log_poplar_uncut_medium";
             }
@@ -1412,6 +1437,7 @@ namespace Homesteader.World
             {
                 case Shape.Conifer: BuildDeadConifer(mb, height, rng); break;
                 case Shape.Weeping: BuildDeadWeeping(mb, height, rng); break;
+                case Shape.Trellis: BuildTrellis(mb, height, rng, 0, true); break;
                 case Shape.Orchard: BuildDeadBroadleaf(mb, s.Shape, height * 0.9f, 0.55f, 0.75f, rng); break;
                 case Shape.Oval:
                 case Shape.Birch:
@@ -1486,6 +1512,7 @@ namespace Homesteader.World
                 case Shape.Conifer: BuildConifer(mb, height, rng); break;
                 case Shape.Weeping: BuildWeeping(mb, height, rng); break;
                 case Shape.Birch: BuildBirch(mb, height, rng); break;
+                case Shape.Trellis: BuildTrellis(mb, height, rng, s.FruitCount, false); break;
                 default: BuildBroadleaf(mb, s.Shape, height, rng, s.FruitCount); break;
             }
             fruitFirst = mb.FruitFirst < 0 ? 0 : mb.FruitFirst;
@@ -1527,6 +1554,51 @@ namespace Homesteader.World
         }
 
         /// <summary>The weeping willow: a short crooked trunk, a low dome of leaves and a curtain of long drooping strands.</summary>
+        /// <summary>
+        /// A grapevine on its trellis: four posts with three wires along x (the middle of the row is the origin), the vine's trunk and arms on the lower wires, two rows of leaf blobs
+        /// and hanging clusters of grapes (six grapes each, the fruit submesh, so picking hides them like any fruit). <paramref name="bare"/>: no leaves or fruit (a dead vine).
+        /// </summary>
+        private static void BuildTrellis(MeshBuilder mb, float height, System.Random rng, int clusters, bool bare)
+        {
+            float len = height * 1.5f, half = len * 0.5f, postR = Mathf.Max(0.05f, height * 0.022f);
+            for (int i = 0; i < 4; i++)
+            {
+                float x = -half + len * i / 3f;
+                AddTube(mb, new Vector3(x, 0f, 0f), new Vector3(x, height, 0f), postR * 1.15f, postR * 0.9f, 5, false);
+            }
+            float[] wireY = { height * 0.45f, height * 0.70f, height * 0.95f };
+            foreach (float y in wireY) AddTube(mb, new Vector3(-half, y, 0f), new Vector3(half, y, 0f), 0.012f, 0.012f, 3, false);
+            float vr = Mathf.Max(0.04f, height * 0.02f);
+            AddTube(mb, new Vector3(0f, 0f, 0.06f), new Vector3(0f, wireY[0], 0.04f), vr * 1.3f, vr, 5, false);                    // the trunk
+            AddTube(mb, new Vector3(0f, wireY[0], 0.04f), new Vector3(0f, wireY[1], 0.03f), vr, vr * 0.8f, 4, false);
+            AddTube(mb, new Vector3(-half * 0.95f, wireY[0], 0.03f), new Vector3(half * 0.95f, wireY[0], 0.03f), vr * 0.7f, vr * 0.7f, 4, false);   // the arms along the wires
+            AddTube(mb, new Vector3(-half * 0.95f, wireY[1], 0.03f), new Vector3(half * 0.95f, wireY[1], 0.03f), vr * 0.6f, vr * 0.6f, 4, false);
+            if (bare) return;
+
+            const int blobs = 6;
+            for (int row = 1; row <= 2; row++)
+                for (int i = 0; i < blobs; i++)
+                {
+                    float x = -half + len * (i + 0.5f) / blobs + ((float)rng.NextDouble() - 0.5f) * 0.12f;
+                    AddBlob(mb, new Vector3(x, wireY[row] - height * 0.02f, 0f), new Vector3(len / blobs * 0.62f, height * 0.13f, 0.22f), rng, 0.15f);
+                }
+
+            // the grapes: clusters hang below the leaves on both faces of the row, in the fruit submesh (added last)
+            Vector3[] grapes = { new Vector3(0f, 0f, 0f), new Vector3(0.04f, -0.04f, 0f), new Vector3(-0.04f, -0.04f, 0f), new Vector3(0.02f, -0.085f, 0f), new Vector3(-0.02f, -0.085f, 0f), new Vector3(0f, -0.125f, 0f) };
+            for (int c = 0; c < clusters; c++)
+            {
+                float x = -half * 0.88f + (float)rng.NextDouble() * len * 0.88f;
+                float z = (c % 2 == 0 ? 1f : -1f) * (0.2f + (float)rng.NextDouble() * 0.05f);
+                var top = new Vector3(x, wireY[1] - height * 0.07f - (float)rng.NextDouble() * height * 0.05f, z);
+                foreach (Vector3 g in grapes)
+                {
+                    Vector3 pc = top + g * 1.5f;
+                    for (int f = 0; f < IcoFaces.Length; f += 3)
+                        mb.FruitTri(pc + IcoBase[IcoFaces[f]] * 0.052f, pc + IcoBase[IcoFaces[f + 1]] * 0.052f, pc + IcoBase[IcoFaces[f + 2]] * 0.052f, pc);
+                }
+            }
+        }
+
         private static void BuildWeeping(MeshBuilder mb, float height, System.Random rng)
         {
             float trunkH = height * 0.30f;

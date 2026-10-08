@@ -20,6 +20,7 @@ import urllib.parse
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import regen_icons
 import animal_ai
+import meal_format
 import light_emitter
 import schema_resolve
 import asset_references
@@ -2173,6 +2174,32 @@ def maybe_autocreate_growth_group(request_group_id):
         return None
 
 
+CPU3D_JOBS = {}
+
+
+def _run_cpu3d_job(job, image, item_dir, kind, faces, flip, flat):
+    """Background worker for /api/cpu3d-generate. Downloads into a temp folder, then copies the .glb
+    into the item folder as <item_id>.glb (the rest of the result stays in assets/_cpu3d_out/<item_id>)."""
+    import cpu3d_client
+    item_id = job["item_id"]
+    out = os.path.join(BASE_DIR, "_cpu3d_out", item_id)
+    try:
+        def stage(j):
+            job["stage"] = j.get("stage") or j.get("status")
+        res = cpu3d_client.generate(image, item_id, out, kind=kind, faces=faces, flip=flip, flat=flat, on_stage=stage)
+        src = os.path.join(out, item_id + ".glb")
+        if not os.path.isfile(src):
+            raise RuntimeError("cpu3d finished but returned no .glb")
+        shutil.copyfile(src, os.path.join(item_dir, item_id + ".glb"))
+        job["report"] = {k: res.get("report", {}).get(k) for k in ("triangles", "bones", "clips")}
+        job["files"] = [f["path"] for f in res.get("files", [])]
+        job["status"], job["stage"] = "done", "done"
+        print(f"[CPU3D] {item_id}: done {job['report']}")
+    except Exception as e:
+        job["status"], job["error"] = "failed", str(e)
+        print(f"[CPU3D] {item_id}: failed: {e}")
+
+
 class AssetKitHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
@@ -2219,6 +2246,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
         if self.path == "/api/meshy-balance":
             self.handle_meshy_balance()
             return
+        if self.path == "/api/cpu3d-status" or self.path.startswith("/api/cpu3d-status?"):
+            self.handle_cpu3d_status()
+            return
         if self.path == "/api/claude-usage":
             self.handle_claude_usage()
             return
@@ -2263,6 +2293,9 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             return
         if self.path == "/api/animal-ai" or self.path.startswith("/api/animal-ai?"):
             self.handle_get_animal_ai()
+            return
+        if self.path == "/api/meals" or self.path.startswith("/api/meals?"):
+            self.handle_get_meals()
             return
         if self.path.startswith("/api/schemas?") or self.path == "/api/schemas":
             self.handle_get_schemas()
@@ -2701,6 +2734,8 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_request_regenerate_model()
         elif self.path == "/api/request-regenerate-model-batch":
             self.handle_request_regenerate_model_batch()
+        elif self.path == "/api/cpu3d-generate":
+            self.handle_cpu3d_generate()
         elif self.path == "/api/request-icon":
             self.handle_request_icon()
         elif self.path == "/api/open-item-folder":
@@ -2731,6 +2766,10 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             self.handle_save_animal_ai()
         elif self.path == "/api/validate-animal-ai":
             self.handle_validate_animal_ai()
+        elif self.path == "/api/validate-meals":
+            self.handle_validate_meals()
+        elif self.path == "/api/save-meals":
+            self.handle_save_meals()
         elif self.path == "/api/push-to-game":
             self.handle_push_to_game()
         elif self.path == "/api/push-growth-group":
@@ -3648,6 +3687,46 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
                 self.send_json_response({"success": True, "definition": defn, "errors": errors, "warnings": warnings}, 200)
                 return
             self.send_json_response({"success": True, "profiles": animal_ai.list_profiles(BASE_DIR)}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_get_meals(self):
+        """Lists the meal files in assets/_meals (with meal and problem counts), or returns one with ?file=name.json (its data and problems). Meals: tools/meal_format.py, docs/COOKING.md."""
+        try:
+            params = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            name = (params.get("file", [""])[0]).strip()
+            if name:
+                data, problems = meal_format.get_file(name)
+                if data is None:
+                    self.send_json_response({"success": False, "error": f"No meal file '{name}'"}, 404)
+                    return
+                self.send_json_response({"success": True, "file": name, "data": data, "problems": problems}, 200)
+                return
+            self.send_json_response({"success": True, "files": meal_format.list_files()}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_validate_meals(self):
+        """Validates the data of a meal file without saving it. Body: {"file": "baking.json", "data": {"meals": [...]}}."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            name = body.get("file") or ""
+            self.send_json_response({"success": True, "problems": meal_format.validate_data(body.get("data"), meal_format._ids_elsewhere(name))}, 200)
+        except Exception as e:
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_save_meals(self):
+        """Validates and saves a meal file to assets/_meals/<file>. Body: {"file": "baking.json", "data": {"meals": [...]}}. Any problem rejects the save."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            ok, problems = meal_format.save_file(body.get("file") or "", body.get("data"))
+            if not ok:
+                self.send_json_response({"success": False, "problems": problems}, 400)
+                return
+            print(f"[SAVE MEALS] {body.get('file')}")
+            self.send_json_response({"success": True, "file": body.get("file"), "problems": []}, 200)
         except Exception as e:
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
@@ -4992,6 +5071,58 @@ class AssetKitHandler(SimpleHTTPRequestHandler):
             }, 200)
         except Exception as e:
             print(f"Error requesting batch model generation: {e}")
+            self.send_json_response({"success": False, "error": str(e)}, 500)
+
+    def handle_cpu3d_status(self):
+        """GET /api/cpu3d-status[?job=<id>]: the free cpu3d pipeline's job state, or whether it is configured."""
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        jid = (q.get("job") or [""])[0]
+        if jid:
+            job = CPU3D_JOBS.get(jid)
+            if not job:
+                self.send_json_response({"success": False, "error": "Unknown job"}, 404)
+                return
+            self.send_json_response({"success": True, "job": job}, 200)
+            return
+        import cpu3d_client
+        self.send_json_response({"success": True, "configured": cpu3d_client.is_configured(),
+                                 "jobs": list(CPU3D_JOBS.values())[-10:]}, 200)
+
+    def handle_cpu3d_generate(self):
+        """POST /api/cpu3d-generate {category, item_id, kind, faces, flip, flat, overwrite}: FREE image-to-rigged-3D
+        on the cpu3d server. The source image is the item's icon <item_id>.png. Runs in the background; poll
+        /api/cpu3d-status?job=<id>. Result lands in the item folder as <item_id>.glb."""
+        try:
+            content_len = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(content_len).decode("utf-8")) if content_len > 0 else {}
+            category = (data.get("category") or "").strip().lower()
+            item_id = (data.get("item_id") or "").strip().lower()
+            if not category or not item_id or category not in ALLOWED_CATEGORIES:
+                raise ValueError("Missing or invalid category / item_id")
+            item_dir = os.path.join(BASE_DIR, category, item_id)
+            image = os.path.join(item_dir, item_id + ".png")
+            if not os.path.isfile(image):
+                raise ValueError(f"No icon to use as the source image: {category}/{item_id}/{item_id}.png")
+            glb = os.path.join(item_dir, item_id + ".glb")
+            if os.path.exists(glb) and not data.get("overwrite"):
+                raise ValueError(f"{item_id}.glb already exists - confirm overwrite to replace it")
+            kind = (data.get("kind") or "auto").strip().lower()
+            if kind not in ("auto", "human", "quadruped", "bird", "fish"):
+                raise ValueError("kind must be auto, human, quadruped, bird or fish")
+            import cpu3d_client
+            if not cpu3d_client.is_configured():
+                raise ValueError("cpu3d is not configured (tools/cpu3d_connection.json)")
+            faces = max(100, min(20000, int(data.get("faces") or 1500)))
+            job = {"id": f"{int(time.time())}_{item_id}", "category": category, "item_id": item_id,
+                   "status": "running", "stage": "starting", "error": None, "files": []}
+            CPU3D_JOBS[job["id"]] = job
+            threading.Thread(target=_run_cpu3d_job, daemon=True, args=(
+                job, image, item_dir, kind, faces, bool(data.get("flip")), bool(data.get("flat")))).start()
+            self.send_json_response({"success": True, "job": job, "message": f"cpu3d model generation started for '{item_id}' (about 2-4 minutes, free)."}, 200)
+        except ValueError as e:
+            self.send_json_response({"success": False, "error": str(e)}, 400)
+        except Exception as e:
+            print(f"Error starting cpu3d job: {e}")
             self.send_json_response({"success": False, "error": str(e)}, 500)
 
     def handle_request_icon(self):

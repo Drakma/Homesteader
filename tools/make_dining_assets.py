@@ -28,7 +28,7 @@ PIECES = [
     ('dining_table', 'table', 'Dining Table', 'A dining table that seats six.', 'wood', 48, 560, {'support': '0.76'}),
     ('round_table', 'round_table', 'Round Dining Table', 'A round pedestal dining table that seats four.', 'wood', 34, 460, {'support': '0.76'}),
     ('china_cabinet', 'china_cabinet', 'China Cabinet', 'A china cabinet with glass doors and a shelf of plates.', 'wood', 70, 880, {}),
-    ('bar_cart', 'bar_cart', 'Bar Cart', 'A rolling bar cart with bottles and glasses.', 'wood', 12, 190, {'support': '0.85'}),
+    ('bar_cart', 'bar_cart', 'Bar Cart', 'A rolling bar cart with two shelves and a top. Stand things on it.', 'wood', 12, 190, {'support': '0.85'}),
     ('wine_rack', 'wine_rack', 'Wine Rack', 'A wine rack with twelve bottles.', 'wood', 14, 160, {}),
     ('dining_chair', 'chair', 'Dining Chair', 'An upholstered dining chair.', 'fabric', 7, 130, {}),
     ('host_chair', 'host_chair', 'Host Chair', 'A carver chair with arms, for the head of the table.', 'fabric', 9, 190, {}),
@@ -52,6 +52,16 @@ def variants():
 
 
 def manifest(v, tris, dims):
+    """The item manifest, plus its storage (closed container and / or shelf decks) from tools/furniture_storage.py."""
+    import furniture_storage
+    man = _manifest(v, tris, dims)
+    furniture_storage.apply(man, 'dining', v['model'], v.get('style'))
+    import short_names
+    short_names.apply(man)   # the short display names (tools/short_names.py)
+    return man
+
+
+def _manifest(v, tris, dims):
     w, d, h = dims
     ex = v['extras']
     props = {

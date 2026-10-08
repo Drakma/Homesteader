@@ -123,7 +123,6 @@ RECIPES = {
         L('#window', 10),
         L('building_weatherstripping_roll', 4),
     ] + doors(True) + [
-        S('Chimney masonry', 'all', [L('~chimney_masonry', 9), L('~mortar', 3), L('~water', 11)]),
     ], [SAWS, FIX, TROWEL, MIXER]),
 
     'finishings': ([

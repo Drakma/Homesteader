@@ -20,6 +20,10 @@ namespace Homesteader.UI
     {
         public string ItemId;
         public int Count;
+        public float Used;   // items that each hold several uses (uses_per_item: a bag of flour): the uses taken from the one on top
+        public string Liquid;   // a liquid container (a jar, a bottle) with something in it: the liquid it holds ("" = plain, or empty)
+        public float Stored;    // ... and the number stored with it (LiquidRules: the liters change from its default, the same number a toolbar slot keeps in WireUsed)
+        public bool HasState => !string.IsNullOrEmpty(Liquid) || Mathf.Abs(Stored) > 0.0001f;   // such a container is a stack of its own: what it holds is kept with it
     }
 
     public static class ContainerRules
@@ -90,14 +94,19 @@ namespace Homesteader.UI
         public static List<ContainerStack> Clone(List<ContainerStack> contents)
         {
             var copy = new List<ContainerStack>();
-            if (contents != null) foreach (ContainerStack c in contents) copy.Add(new ContainerStack { ItemId = c.ItemId, Count = c.Count });
+            if (contents != null) foreach (ContainerStack c in contents) copy.Add(new ContainerStack { ItemId = c.ItemId, Count = c.Count, Used = c.Used, Liquid = c.Liquid, Stored = c.Stored });
             return copy;
         }
 
         public static float Used(List<ContainerStack> contents)
         {
             float used = 0f;
-            if (contents != null) foreach (ContainerStack s in contents) used += WeightOf(s.ItemId) * s.Count;
+            if (contents != null)
+                foreach (ContainerStack s in contents)
+                {
+                    used += WeightOf(s.ItemId) * s.Count;
+                    if (s.HasState && !string.IsNullOrEmpty(s.Liquid)) used += LiquidRules.WeightOf(s.Liquid, LiquidRules.Held(s.ItemId, s.Stored)) * s.Count;   // what is in a jar weighs too
+                }
             return used;
         }
 
@@ -122,16 +131,57 @@ namespace Homesteader.UI
         {
             int n = Mathf.Min(count, RoomFor(containerId, contents, itemId));
             if (n <= 0) return 0;
-            ContainerStack found = contents.Find(s => s.ItemId == itemId);
+            ContainerStack found = contents.Find(s => s.ItemId == itemId && !s.HasState);   // (a filled jar is a stack of its own: plain ones never join it)
             if (found != null) found.Count += n;
             else contents.Add(new ContainerStack { ItemId = itemId, Count = n });
+            return n;
+        }
+
+        /// <summary>Puts ONE liquid container in with what it holds (the liquid and the stored number), as a stack of its own (or joining a stack that holds exactly the same). 1 when it went in.</summary>
+        public static int AddWithState(string containerId, List<ContainerStack> contents, string itemId, string liquid, float stored)
+        {
+            if (RoomFor(containerId, contents, itemId) <= 0) return 0;
+            float weight = string.IsNullOrEmpty(liquid) ? 0f : LiquidRules.WeightOf(liquid, LiquidRules.Held(itemId, stored));
+            if (Capacity(containerId) - Used(contents) < WeightOf(itemId) + weight - 1e-4f) return 0;
+            ContainerStack same = contents.Find(s => s.ItemId == itemId && s.Liquid == (liquid ?? "") && Mathf.Abs(s.Stored - stored) < 0.0001f);
+            if (same != null) same.Count++;
+            else contents.Add(new ContainerStack { ItemId = itemId, Count = 1, Liquid = liquid ?? "", Stored = stored });
+            return 1;
+        }
+
+        /// <summary>Moves the filled / part-used liquid containers of one stack into another container's contents, one at a time with what they hold; returns how many went.</summary>
+        public static int MoveStateful(ContainerStack st, string toBoxId, List<ContainerStack> to, List<ContainerStack> from)
+        {
+            int moved = 0;
+            while (st.Count > 0 && AddWithState(toBoxId, to, st.ItemId, st.Liquid, st.Stored) > 0) { st.Count--; moved++; }
+            if (st.Count <= 0) from.Remove(st);
+            return moved;
+        }
+
+        /// <summary>The uses left in a stack of items that each hold <paramref name="per"/> uses: all of them, less what is gone from the one on top.</summary>
+        public static int UsesLeft(ContainerStack s, int per)
+        {
+            return s == null ? 0 : Mathf.Max(0, s.Count * Mathf.Max(1, per) - Mathf.RoundToInt(s.Used));
+        }
+
+        /// <summary>Uses up some of an item in the contents, the one on top first and a new one opened when it runs out (a cup of flour from a bag); returns how many uses were taken.</summary>
+        public static int ConsumeUses(List<ContainerStack> contents, string itemId, int uses, int per)
+        {
+            ContainerStack s = contents?.Find(x => x.ItemId == itemId);
+            if (s == null || uses <= 0) return 0;
+            per = Mathf.Max(1, per);
+            int n = Mathf.Min(uses, UsesLeft(s, per));
+            if (n <= 0) return 0;
+            s.Used += n;
+            while (s.Count > 0 && s.Used >= per - 0.001f) { s.Count--; s.Used = Mathf.Max(0f, s.Used - per); }
+            if (s.Count <= 0) contents.Remove(s);
             return n;
         }
 
         /// <summary>Takes up to <paramref name="count"/> out of the contents; returns how many came out.</summary>
         public static int Remove(List<ContainerStack> contents, string itemId, int count)
         {
-            ContainerStack found = contents?.Find(s => s.ItemId == itemId);
+            ContainerStack found = contents?.Find(s => s.ItemId == itemId && !s.HasState) ?? contents?.Find(s => s.ItemId == itemId);   // plain ones first: a filled jar keeps what is in it
             if (found == null) return 0;
             int n = Mathf.Min(count, found.Count);
             found.Count -= n;
@@ -162,7 +212,8 @@ namespace Homesteader.UI
         public static void Toggle(VisualElement anyElementOnPanel)
         {
             if (_open != null) { _open.Close(); return; }
-            PlacedObject world = Homesteader.Growth.PlacementController.PlacedUnderCursor();
+            AttachedObject mounted = MountedUnderCursor();   // a cabinet on a wall (first: it is only a trigger box, so the solid ray below looks straight past it)
+            PlacedObject world = mounted == null ? Homesteader.Growth.PlacementController.PlacedUnderCursor() : null;
             if (world != null && ContainerRules.IsContainer(world.ItemId))
             {
                 var ped = PedController.Current;
@@ -174,9 +225,38 @@ namespace Homesteader.UI
                 Open(anyElementOnPanel, new WorldSource(world));
                 return;
             }
+            if (mounted != null)
+            {
+                var ped = PedController.Current;
+                if (ped != null && !PlantingValidator.InReach(ped.transform, mounted.transform.position, GameRules.Placement.ReachCells))
+                {
+                    ToastNotificationSystem.ShowInfo("Container", "That is too far away.");
+                    return;
+                }
+                Open(anyElementOnPanel, new MountedSource(mounted));
+                return;
+            }
             int slot = FindContainerSlot();
             if (slot < 0) { ToastNotificationSystem.ShowInfo("Container", "No container in the toolbar, and none under the cursor."); return; }
             Open(anyElementOnPanel, new ToolbarSource(slot));
+        }
+
+        /// <summary>The mounted container (a wall cabinet) under the cursor, or null.</summary>
+        private static AttachedObject MountedUnderCursor()
+        {
+            Camera cam = Camera.main;
+            if (cam == null || UnityEngine.InputSystem.Mouse.current == null) return null;
+            // triggers count: a mounted item has only a trigger box, which the shared (solid) hits skip
+            RaycastHit[] hits = Physics.RaycastAll(cam.ScreenPointToRay(UnityEngine.InputSystem.Mouse.current.position.ReadValue()), 1000f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+            System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider == null || h.collider.GetComponentInParent<PedController>() != null) continue;
+                AttachedObject a = h.collider.GetComponentInParent<AttachedObject>();
+                if (a == null) { if (h.collider.isTrigger) continue; return null; }
+                return a.Contents != null ? a : null;
+            }
+            return null;
         }
 
         private static void Open(VisualElement anyElementOnPanel, Source source)
@@ -235,6 +315,15 @@ namespace Homesteader.UI
             public override bool Valid => Placed != null;
             public override string ItemId => Placed.ItemId;
             public override List<ContainerStack> Contents => Placed.Contents;
+        }
+
+        private sealed class MountedSource : Source
+        {
+            private readonly AttachedObject _a;
+            public MountedSource(AttachedObject a) { _a = a; }
+            public override bool Valid => _a != null && _a.Contents != null;
+            public override string ItemId => _a.ItemId;
+            public override List<ContainerStack> Contents => _a.Contents;
         }
 
         // ------------------------------------------------------------------ the window
@@ -348,8 +437,9 @@ namespace Homesteader.UI
             // Rebuild the rows only when something changed.
             var sig = new System.Text.StringBuilder(id);
             foreach (ContainerStack s in contents) sig.Append('|').Append(s.ItemId).Append('x').Append(s.Count);
+            foreach (ContainerStack s in contents) sig.Append(s.Liquid).Append(s.Stored.ToString("0.###")).Append(s.Used.ToString("0.#"));
             sig.Append('#');
-            for (int i = 0; i < hud.Toolbar.Count; i++) sig.Append(hud.Toolbar[i].IconId).Append(hud.Toolbar[i].Count).Append(',');
+            for (int i = 0; i < hud.Toolbar.Count; i++) sig.Append(hud.Toolbar[i].IconId).Append(hud.Toolbar[i].Count).Append(hud.Toolbar[i].LiquidId).Append(hud.Toolbar[i].WireUsed.ToString("0.###")).Append(',');
             if (sig.ToString() == _signature) return;
             _signature = sig.ToString();
 
@@ -364,7 +454,10 @@ namespace Homesteader.UI
             foreach (ContainerStack s in contents)
             {
                 ContainerStack stack = s;
-                _contentsList.Add(Row(stack.ItemId, stack.Count, "Take", () => TakeOut(stack.ItemId)));
+                int per = HudBindings.UsesPerItem(stack.ItemId);
+                string left = per > 1 ? "  (" + ContainerRules.UsesLeft(stack, per) + " of " + stack.Count * per + " uses left)" : "";
+                if (stack.HasState) left = "  (" + LiquidRules.Describe(stack.ItemId, stack.Liquid, stack.Stored) + ")";
+                _contentsList.Add(Row(stack.ItemId, stack.Count, "Take", () => TakeOut(stack), left));
             }
 
             _toolbarList.Clear();
@@ -387,7 +480,7 @@ namespace Homesteader.UI
             return l;
         }
 
-        private static VisualElement Row(string itemId, int count, string action, Action onClick)
+        private static VisualElement Row(string itemId, int count, string action, Action onClick, string extra = "")
         {
             var row = new VisualElement();
             row.AddToClassList("container-panel-row");
@@ -396,7 +489,7 @@ namespace Homesteader.UI
             var tex = PhoneController.GetItemIcon(itemId + ".png", itemId);
             if (tex != null) icon.style.backgroundImage = new StyleBackground(tex);
             row.Add(icon);
-            var name = new Label(HudBindings.GetItemName(itemId) + (count > 1 ? "  x" + count : ""));
+            var name = new Label(HudBindings.GetItemName(itemId) + (count > 1 ? "  x" + count : "") + extra);
             name.AddToClassList("container-panel-row-name");
             name.tooltip = UnitFormat.Weight(ContainerRules.WeightOf(itemId), "0.##") + " each";
             row.Add(name);
@@ -412,11 +505,57 @@ namespace Homesteader.UI
             HudState hud = HudState.Active;
             if (!_source.Valid || fromSlot < 0 || fromSlot >= hud.Toolbar.Count) return;
             ToolbarSlotData from = hud.Toolbar[fromSlot];
+            if (LiquidRules.IsLiquidContainer(from.IconId) && (!string.IsNullOrEmpty(from.LiquidId) || Mathf.Abs(from.WireUsed) > 0.0001f))
+            {
+                // a filled or part-used jar goes in on its own, with what it holds
+                if (ContainerRules.AddWithState(_source.ItemId, _source.Contents, from.IconId, from.LiquidId, from.WireUsed) <= 0) { ToastNotificationSystem.ShowInfo("Container", HudBindings.GetItemName(_source.ItemId) + " is full."); return; }
+                from.Count--;
+                from.WireUsed = 0f;
+                from.LiquidId = "";
+                hud.Toolbar[fromSlot] = from.Count > 0 ? from : ToolbarSlotData.Empty();
+                hud.SelectSlot(hud.SelectedSlot);
+                HudBindings.Instance?.RefreshToolbar();
+                _signature = "";
+                Refresh();
+                return;
+            }
             int moved = ContainerRules.Add(_source.ItemId, _source.Contents, from.IconId, from.Count);
             if (moved <= 0) { ToastNotificationSystem.ShowInfo("Container", HudBindings.GetItemName(_source.ItemId) + " is full."); return; }
+            int per = HudBindings.UsesPerItem(from.IconId);
+            if (per > 1 && moved == from.Count && from.WireUsed > 0f)
+            {
+                // the opened bag on top of the stack goes in as it is: its used uses go with it
+                ContainerStack st = _source.Contents.Find(x => x.ItemId == from.IconId);
+                if (st != null)
+                {
+                    st.Used += from.WireUsed;
+                    while (st.Count > 0 && st.Used >= per - 0.001f) { st.Count--; st.Used = Mathf.Max(0f, st.Used - per); }
+                    if (st.Count <= 0) _source.Contents.Remove(st);
+                }
+            }
             from.Count -= moved;
             if (from.Count <= 0) from = ToolbarSlotData.Empty();
             hud.Toolbar[fromSlot] = from;
+            hud.SelectSlot(hud.SelectedSlot);
+            HudBindings.Instance?.RefreshToolbar();
+            _signature = "";
+            Refresh();
+        }
+
+        /// <summary>A filled or part-used liquid container comes out one at a time, into a slot of its own, with what it holds.</summary>
+        private void TakeOut(ContainerStack stack)
+        {
+            if (!_source.Valid || stack == null) return;
+            if (!stack.HasState) { TakeOut(stack.ItemId); return; }
+            HudState hud = HudState.Active;
+            hud.EnsureToolbarSlots();
+            int free = -1;
+            for (int i = 0; i < hud.Toolbar.Count; i++)
+                if (hud.Toolbar[i].Count <= 0 || string.IsNullOrEmpty(hud.Toolbar[i].IconId)) { free = i; break; }
+            if (free < 0) { ToastNotificationSystem.ShowInfo("Container", "The toolbar is full."); return; }
+            hud.Toolbar[free] = new ToolbarSlotData { IconId = stack.ItemId, Count = 1, WireUsed = stack.Stored, LiquidId = stack.Liquid ?? "" };
+            stack.Count--;
+            if (stack.Count <= 0) _source.Contents.Remove(stack);
             hud.SelectSlot(hud.SelectedSlot);
             HudBindings.Instance?.RefreshToolbar();
             _signature = "";
@@ -428,10 +567,19 @@ namespace Homesteader.UI
         {
             HudState hud = HudState.Active;
             if (!_source.Valid) return;
-            ContainerStack s = _source.Contents.Find(x => x.ItemId == itemId);
+            ContainerStack s = _source.Contents.Find(x => x.ItemId == itemId && !x.HasState);
             if (s == null) return;
+            float openedUsed = s.Used;
+            int whole = s.Count;
             int added = hud.AddItemToToolbar(itemId, s.Count, HudBindings.GetMaxStack(itemId), useContainers: false);
             if (added <= 0) { ToastNotificationSystem.ShowInfo("Container", "The toolbar is full."); return; }
+            if (openedUsed > 0f && added == whole && HudBindings.UsesPerItem(itemId) > 1)
+            {
+                // an opened bag comes out as the opened one on top (when it is the only stack of that item in the toolbar)
+                int only = -1, found = 0;
+                for (int i = 0; i < hud.Toolbar.Count; i++) if (hud.Toolbar[i].IconId == itemId && hud.Toolbar[i].Count > 0) { only = i; found++; }
+                if (found == 1 && hud.Toolbar[only].WireUsed <= 0f) { ToolbarSlotData t = hud.Toolbar[only]; t.WireUsed = openedUsed; hud.Toolbar[only] = t; }
+            }
             ContainerRules.Remove(_source.Contents, itemId, added);
             HudBindings.Instance?.RefreshToolbar();
             // an emptied cardboard box on the ground goes away

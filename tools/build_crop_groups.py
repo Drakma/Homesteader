@@ -78,6 +78,7 @@ CROPS.update({
     'hops':        _new('Hops', 'ingredient_hops', 'Hops Cones', (2, 2), ['summer'], 120, 4),
     'tobacco':     _new('Tobacco', 'ingredient_tobacco', 'Tobacco Leaf', (2, 2), ['summer'], 120, 4),
     'flax':        _new('Flax', 'ingredient_flax', 'Flax Stems', (2, 2), ['spring'], 100, 4, tool='#tool_sickle'),
+    'canola':      _new('Canola', 'ingredient_canola', 'Canola Seed', (2, 2), ['spring'], 95, 4, seed_name='Canola Seeds'),
 })
 for _k, _v in CROPS.items():
     if _v.get('new') and _k != _v['name'].replace(' Plant', '').lower().replace(' ', '_'):

@@ -29,6 +29,7 @@ CATEGORY_METADATA = {
     "laundry": ("Laundry and Mudroom Pack", "Mudroom benches, lockers, laundry counters, utility sinks, drying racks and shelving in classic and modern styles."),
     "bedroom": ("Bedroom Pack", "Beds, nightstands, dressers, wardrobes, dressing tables, cribs and desks in classic and modern styles, each in four colours."),
     "bathroom": ("Bathroom Pack", "Toilets, sinks, tubs, showers, vanities, cabinets, mirrors and accessories in classic and modern styles."),
+    "decor": ("Decor Pack", "Curtains, drapes and house plants in classic and modern styles, each in four colours."),
     "lighting": ("Lighting Pack", "Ceiling, wall and outdoor post lights in classic and modern styles, each in four metal finishes."),
     "living": ("Living Room Pack", "Sofas, chairs, tables, shelves, lamps, rugs and decor in classic and modern styles, each in four colours."),
     "kitchen": ("Kitchen Pack", "Kitchen appliances in stainless, white and black, cabinets, counters, tables, chairs, cookware and accessories."),
@@ -187,6 +188,13 @@ def build_mods():
         if not os.path.isdir(os.path.join(mod_dir, "radio") + ".disabled"):
             copy_tree_incremental(radio_src, os.path.join(mod_dir, "radio"))
         mod_contents.append({"type": "radio", "path": "radio/*.json"})
+
+    # Meals (assets/_meals/*.json, content type "meal"): what the kitchen's Meals List can make (docs/COOKING.md).
+    meals_src = os.path.join(SRC_ASSETS_DIR, "_meals")
+    if os.path.isdir(meals_src):
+        if not os.path.isdir(os.path.join(mod_dir, "meals") + ".disabled"):
+            copy_tree_incremental(meals_src, os.path.join(mod_dir, "meals"))
+        mod_contents.append({"type": "meal", "path": "meals/*.json"})
 
     # Animals carry their own AI in the manifest (category_fields.ai); write each to ai/<item_id>.json.
     import glob as _glob

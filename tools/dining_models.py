@@ -52,7 +52,7 @@ def round_table(P):
 
 
 def china_cabinet(P):
-    """A china cabinet: closed doors below, glass doors above with shelves of plates, 1.10 x 0.45 x 2.00 m."""
+    """A china cabinet: closed doors below, glass doors above with empty glass shelves, 1.10 x 0.45 x 2.00 m."""
     M = Mesh('dining_china_cabinet')
     w, d, h = 1.10, 0.45, 2.00
     yf = -d / 2
@@ -73,13 +73,8 @@ def china_cabinet(P):
         M.box(sx * (w / 2 - 0.015) - 0.015, sx * (w / 2 - 0.015) + 0.015, yf, d / 2, 0.93, h - 0.05, P.main)
     M.box(-w / 2, w / 2, d / 2 - 0.012, d / 2, 0.93, h - 0.05, P.main)
     M.box(-w / 2 - (0.03 if cl else 0.0), w / 2 + (0.03 if cl else 0.0), yf - (0.03 if cl else 0.0), d / 2 + 0.01, h - 0.05, h, P.main, r=0.006, seg=2)
-    plate = material('PlateWhite', (0.94, 0.94, 0.92), 0.4)
-    rim = material('PlateBlue', (0.18, 0.28, 0.5), 0.4)
     for z in (1.22, 1.52, 1.82):
         M.box(-w / 2 + 0.03, w / 2 - 0.03, yf + 0.02, d / 2 - 0.012, z, z + 0.012, P.glass)
-        for x in (-0.33, 0.0, 0.33):
-            M.box(x - 0.11, x + 0.11, d / 2 - 0.06, d / 2 - 0.045, z + 0.012, z + 0.23, plate)
-            M.box(x - 0.08, x + 0.08, d / 2 - 0.058, d / 2 - 0.044, z + 0.05, z + 0.19, rim)
     for sx in (-1, 1):
         a, b = (-w / 2 + 0.014, -0.002) if sx < 0 else (0.002, w / 2 - 0.014)
         _door(M, a, b, yf, z0 + 0.012, 0.88, P.main, cl)
@@ -90,7 +85,7 @@ def china_cabinet(P):
 
 
 def bar_cart(P):
-    """A rolling bar cart with two shelves, bottles and glasses, 0.80 x 0.45 x 0.88 m."""
+    """A rolling bar cart with two shelves and a top, all empty, 0.80 x 0.45 x 0.88 m."""
     M = Mesh('dining_bar_cart')
     w, d = 0.80, 0.45
     leg = P.metal
@@ -103,19 +98,11 @@ def bar_cart(P):
         M.box(-w / 2, w / 2, -d / 2, d / 2, z, z + 0.03, P.main, r=0.004, seg=1)
     M.box(-w / 2, w / 2, -d / 2, d / 2, 0.82, 0.85, P.main, r=0.004, seg=1)
     M.cyl((w / 2 - 0.03, -d / 2 + 0.02, 0.82), (w / 2 + 0.07, -d / 2 + 0.02, 0.82), 0.012, leg, seg=8)
-    glass = material('BottleGreen', (0.12, 0.30, 0.16), 0.15)
-    amber = material('BottleAmber', (0.45, 0.22, 0.06), 0.15)
-    for k, (x, m) in enumerate(((-0.28, glass), (-0.18, amber), (-0.08, glass))):
-        M.lathe([(0.0, 0.0), (0.035, 0.0), (0.035, 0.16), (0.014, 0.21), (0.014, 0.28), (0.0, 0.28)], m, at=(x, 0.0, 0.57), seg=10)
-    for x in (0.10, 0.20, 0.30):
-        M.lathe([(0.0, 0.0), (0.03, 0.0), (0.035, 0.1), (0.0, 0.1)], P.glass, at=(x, 0.05, 0.85), seg=10)
-    for x, m in ((-0.30, amber), (0.0, glass), (0.30, amber)):
-        M.lathe([(0.0, 0.0), (0.035, 0.0), (0.035, 0.16), (0.014, 0.21), (0.014, 0.28), (0.0, 0.28)], m, at=(x, 0.0, 0.21), seg=10)
     return M
 
 
 def wine_rack(P):
-    """A wine rack with a grid of cubbies and twelve bottles, 0.80 x 0.30 x 1.20 m."""
+    """A wine rack with a grid of empty cubbies, 0.80 x 0.30 x 1.20 m."""
     M = Mesh('dining_wine_rack')
     w, d, h = 0.80, 0.30, 1.20
     t = 0.02
@@ -130,15 +117,6 @@ def wine_rack(P):
         M.box(-w / 2, w / 2, -d / 2, d / 2, t + r * rh - t / 2, t + r * rh + t / 2, P.main)
     for c in range(1, cols):
         M.box(-w / 2 + t + c * cw - t / 2, -w / 2 + t + c * cw + t / 2, -d / 2, d / 2, t, h - t, P.main)
-    wine = material('WineGreen', (0.10, 0.26, 0.14), 0.12)
-    foil = material('WineFoil', (0.55, 0.12, 0.12), 0.4)
-    for k in range(12):
-        c, r = k % cols, k // cols
-        x = -w / 2 + t + cw * (c + 0.5)
-        z = t + rh * (r + 0.5) - 0.01
-        M.cyl((x, d / 2 - 0.01, z), (x, -0.02, z), 0.037, wine, seg=10)
-        M.cyl((x, -0.02, z), (x, -d / 2 + 0.03, z), 0.012, wine, seg=8)
-        M.cyl((x, -d / 2 + 0.03, z), (x, -d / 2 + 0.05, z), 0.014, foil, seg=8)
     return M
 
 

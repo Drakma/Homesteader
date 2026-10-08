@@ -234,7 +234,7 @@ def wall_cabinet(P):
 
 
 def steel_shelving(P):
-    """A steel shelving unit with boxes and bins, 1.20 x 0.50 x 1.90 m."""
+    """An empty steel shelving unit (things are placed on it in the game), 1.20 x 0.50 x 1.90 m."""
     M = Mesh('garage_steel_shelving')
     w, d, h = 1.20, 0.50, 1.90
     for sx in (-1, 1):
@@ -243,14 +243,6 @@ def steel_shelving(P):
     for z in (0.12, 0.60, 1.08, 1.56, h - 0.03):
         M.box(-w / 2, w / 2, -d / 2, d / 2, z, z + 0.03, P.steel)
         M.box(-w / 2, w / 2, -d / 2, -d / 2 + 0.012, z - 0.03, z, P.steel)
-    cardboard = material('Cardboard', (0.62, 0.47, 0.28), 0.95)
-    bin_ = material('BinBlue', (0.12, 0.30, 0.55), 0.6)
-    for z, items in ((0.15, ((-0.40, 0.34, 0.28, cardboard), (0.0, 0.30, 0.22, bin_), (0.38, 0.32, 0.34, cardboard))),
-                     (0.63, ((-0.38, 0.40, 0.30, bin_), (0.12, 0.34, 0.20, cardboard), (0.44, 0.22, 0.30, bin_))),
-                     (1.11, ((-0.30, 0.50, 0.26, cardboard), (0.30, 0.40, 0.34, cardboard))),
-                     (1.59, ((-0.20, 0.30, 0.20, bin_), (0.25, 0.36, 0.24, cardboard)))):
-        for x, bw, bh, m in items:
-            M.box(x - bw / 2, x + bw / 2, -d / 2 + 0.05, d / 2 - 0.05, z, z + bh, m, r=0.008, seg=1)
     return M
 
 

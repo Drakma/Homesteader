@@ -11,7 +11,7 @@ OUTPUT_PATH = os.path.join(ROOT, "Homesteader", "Assets", "Resources", "AssetCat
 # The chip label a phone shop shows for an item of each asset category (an item can override it with properties.store_category)
 STORE_CATEGORY_LABELS = {
     "appliances": "Appliances", "building": "Building", "electricity": "Electronics", "farming": "Farming", "food": "Food",
-    "fuel": "Fuel", "ingredients": "Ingredients", "internet": "Telecom", "kitchen": "Kitchen", "living": "Living Room", "lighting": "Lighting", "bathroom": "Bathroom", "bedroom": "Bedroom", "laundry": "Laundry", "garage": "Garage", "dining": "Dining", "office": "Office", "logging": "Logging", "materials": "Materials",
+    "fuel": "Fuel", "ingredients": "Ingredients", "internet": "Telecom", "kitchen": "Kitchen", "living": "Living Room", "lighting": "Lighting", "decor": "Decor", "bathroom": "Bathroom", "bedroom": "Bedroom", "laundry": "Laundry", "garage": "Garage", "dining": "Dining", "office": "Office", "logging": "Logging", "materials": "Materials",
     "ranching": "Ranching", "structures": "Structures", "tools": "Tools", "vehicles": "Vehicles",
 }
 
@@ -75,6 +75,16 @@ def main():
                         us = props.get("uses_per_item")   # how many uses one item holds (a seed packet = 20 seeds)
                         if isinstance(us, (int, float)) and us > 1:
                             item_data["uses_per_item"] = int(us)
+                        for vk, vn in (("thirst_restore", "thirst_restore"), ("stamina_restore", "stamina_restore"), ("wellness_modifier", "wellness_modifier")):   # what eating / drinking it gives (Kitchen/Consumption.cs)
+                            vv = props.get(vk)
+                            if isinstance(vv, (int, float)) and not isinstance(vv, bool) and vv != 0:
+                                item_data[vn] = float(vv)
+                        if isinstance(m.get("category_fields"), dict):
+                            hv = m["category_fields"].get("hunger_restore")
+                            if isinstance(hv, (int, float)) and not isinstance(hv, bool) and hv != 0:
+                                item_data["hunger_restore"] = float(hv)
+                        if isinstance(props.get("leaves_item"), str) and props.get("leaves_item"):
+                            item_data["leaves_item"] = props["leaves_item"]
                         pq = props.get("pack_quantity")
                         if isinstance(pq, (int, float)) and pq > 1:
                             item_data["pack_quantity"] = int(pq)
@@ -146,6 +156,8 @@ def main():
                             item_data["sawmill"] = True   # a stationary sawmill (Sawmill.cs)
                         if props.get("roof_mount") is True:
                             item_data["roof_mount"] = True
+                        if props.get("run_snap") is True:
+                            item_data["run_snap"] = True   # a kitchen run piece: snaps to its neighbours and the wall, filler strips (KitchenRun.cs)
                         if props.get("shelf") is True:
                             item_data["shelf"] = True   # a wall shelf: things are stood on it (Shelf.cs)
                         mca = cfp.get("max_current_a") if isinstance(cfp, dict) else None

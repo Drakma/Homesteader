@@ -2114,7 +2114,6 @@ namespace Homesteader.Growth
             if (n.Role == WireRole.Disconnect)
             {
                 rows.Add(("Switch", n.SwitchOff ? "Off: the power is cut here" : "On: the power flows through"));
-                rows.Add(("Throw it", "Right click"));
             }
             if (n.Role == WireRole.StandbyGenerator)
             {
@@ -2131,13 +2130,13 @@ namespace Homesteader.Growth
             if (n.Role == WireRole.PropaneConnector)
             {
                 bool on = PropaneSupplied(n, out bool piped);
-                rows.Add(("Propane", on ? "Piped to a tank: the building has propane" : piped ? "Piped to a tank, but the tank is empty (order propane in Tank You)" : "No tank piped to it"));
+                rows.Add(("Propane", on ? "Piped to a tank: the building has propane" : piped ? "Piped to a tank, but the tank is empty" : "No tank piped to it"));
                 return;
             }
             if (n.Role == WireRole.PropaneFiller)
             {
                 bool on = PropaneSupplied(n, out bool piped);
-                rows.Add(("Propane", on ? "Piped to a tank: right click it with a portable tank to fill it" : piped ? "Piped to a tank, but the tank is empty (order propane in Tank You)" : "No tank piped to it"));
+                rows.Add(("Propane", on ? "Piped to a tank" : piped ? "Piped to a tank, but the tank is empty" : "No tank piped to it"));
                 return;
             }
             if (n.Role == WireRole.PropaneTank)
@@ -2213,7 +2212,7 @@ namespace Homesteader.Growth
                     if (n.HeaterW > 0f) rows.Add(("Temperature", Mathf.RoundToInt(n.TempC) + " C" + (WantsHeat(n) ? ", heating" : "")));
                     break;
                 case WireRole.WaterPump:
-                    rows.Add(("Pump", n.PumpRunning ? UnitFormat.Volume(n.PumpedLph) + " an hour" : !Powered(n) ? "No power (it needs its building's power)" : "Idle (nothing to pull, or nowhere to put it)"));
+                    rows.Add(("Pump", n.PumpRunning ? UnitFormat.Volume(n.PumpedLph) + " an hour" : !Powered(n) ? "No power" : "Idle"));
                     rows.Add(("Rated", UnitFormat.Volume(n.PumpFlowLph) + " an hour, " + SolarSun.Power(n.PumpDrawW)));
                     if (n.PumpRunning) rows.Add(("Pulling", n.PumpClean ? "Clean water" : "Raw water"));
                     break;

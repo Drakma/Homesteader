@@ -41,7 +41,7 @@ STABLE_STALL_D = 3.3                               # the depth of one stall alon
 STABLE_STALL_CENTRES = [STABLE_BACK - STABLE_STALL_D * (k + 0.5) for k in (2, 1, 0)]   # front stall, middle stall, back stall
 
 
-def win(u, w=0.95, h=1.25, sill=0.9):
+def win(u, w=0.95, h=1.10, sill=1.05):   # sills at 1.05 m: above the counters (0.92 m); the head stays at 2.15 m
     return (u - w / 2, u + w / 2, sill, sill + h)
 
 
@@ -234,7 +234,8 @@ FB = None
 glass_builder = None
 
 
-def foundation(b, c, M):
+def foundation(b, c, M, bolts=True):
+    """The slab, the footing and the steps. bolts=False leaves out the anchor bolts and the rebar stubs: in a finished building the sill plate and the floor cover them."""
     b = FB if FB is not None else b
     w, d = c.w, c.d
     h = c.z0 - 0.04
@@ -249,6 +250,8 @@ def foundation(b, c, M):
     sx = c.dx if not c.cfg.get('porch') else 0.0
     for k in range(0 if c.open_front else (3 if c.cfg.get('porch') else 2)):
         b.box(sx - sw, sx + sw, -d / 2 - 0.3 * (k + 1), -d / 2, 0.0, h * (1 - (k + 1) * 0.28), conc)
+    if not bolts:
+        return h
     # anchor bolts along the front and back, and rebar stubs along the sides
     n = max(3, int(w / 2.4))
     for k in range(n):
@@ -500,17 +503,17 @@ def log_courses(b, c, wall, z_top, m):
 
 
 def log_window_casing(b, c, M, wall, u0, u1, zl, zh):
-    """The inside of a log wall's window: a lining through the wall (it closes the gaps between the round log ends and shows no outdoors between the logs) and a
-    flat casing round the opening on the inner face, like a house's trim."""
+    """The inside of a log wall's window: a lining through the wall INSIDE the opening (it closes the cut ends of the round logs and shows no outdoors between the logs) and a
+    flat casing round the opening on the inner face, like a house's trim. `b` is the window's frame object."""
     z0 = c.z0
     za, zb = z0 + zl, z0 + zh
     th = c.log_course * 0.98                      # the log wall's thickness: the depth of its inner face from the outer plane
     k, cw = 0.025, 0.1
     m = M['trim']
-    hs.trim_box(b, c, wall, u0 - k, u0, za - k, zb + k, 0.0, th, m)        # the lining: both jambs, the sill board and the head board
-    hs.trim_box(b, c, wall, u1, u1 + k, za - k, zb + k, 0.0, th, m)
-    hs.trim_box(b, c, wall, u0, u1, za - k, za, 0.0, th, m)
-    hs.trim_box(b, c, wall, u0, u1, zb, zb + k, 0.0, th, m)
+    hs.trim_box(b, c, wall, u0, u0 + k, za, zb, 0.0, th, m)        # the lining: both jambs, the sill board and the head board
+    hs.trim_box(b, c, wall, u1 - k, u1, za, zb, 0.0, th, m)
+    hs.trim_box(b, c, wall, u0 + k, u1 - k, za, za + k, 0.0, th, m)
+    hs.trim_box(b, c, wall, u0 + k, u1 - k, zb - k, zb, 0.0, th, m)
     for a0, a1, ba, bb in ((u0 - cw, u0, za - cw, zb + cw), (u1, u1 + cw, za - cw, zb + cw), (u0, u1, za - cw, za), (u0, u1, zb, zb + cw)):
         hs.trim_box(b, c, wall, a0, a1, ba, bb, th - 0.012, th + 0.03, m)   # the casing on the inside face
 
@@ -895,8 +898,10 @@ def roost_and_nest(b, c, M):
 def complete(b, c, M, finishings=False):
     w, d = c.w, c.d
     z0, top, ov = c.z0, c.top, c.ov
+    all_ops = c.openings
+    c.openings = hs.door_only(all_ops)           # SOLID walls under the windows: each window is an object of its own and the game cuts the hole (docs/WINDOWS.md)
     parts = {k: Builder(n) for k, n in (('front', 'Wall_Front'), ('back', 'Wall_Back'), ('left', 'Wall_Left'), ('right', 'Wall_Right'), ('roof', 'Roof'))}
-    h = foundation(b, c, M)
+    h = foundation(b, c, M, bolts=False)   # finished: no bolts standing out of the slab beside the walls
     b.box(-w / 2 + 0.02, w / 2 - 0.02, (c.yh0 if c.cfg.get('porch') else -d / 2 + 0.02), d / 2 - 0.02, h, z0, M['floor'])
     for wall in c.walls:
         clad_wall(parts, c, M, wall, hs.wall_top(c, wall))
@@ -917,13 +922,13 @@ def complete(b, c, M, finishings=False):
             # each corner board belongs to the front or back wall's part, so the cutaway hides it with that wall (a post left standing blocked the view in)
             cw = 'front' if abs(y - c.yh0) < 1e-6 else 'back'
             (parts[cw] if cw in parts else b).box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
-    # windows and the big doors
+    # windows (objects of their own over the solid walls) and the big doors
+    c.openings = all_ops
     for wall in c.walls:
-        for u0, u1, zl, zh in c.openings[wall]:
+        for u0, u1, zl, zh in all_ops[wall]:
             if zl > 0.05 and not (wall == 'front' and abs(zl) < 0.01):
-                hs.window_dressing(parts[wall], c, M, M['glass'], wall, u0, u1, zl, zh, shutters=(wall == 'front' and c.cfg.get('shutters', False)))
-                if c.style == 'log':
-                    log_window_casing(parts[wall], c, M, wall, u0, u1, zl, zh)
+                hs.movable_window(c, M, wall, u0, u1, zl, zh, shutters=(wall == 'front' and c.cfg.get('shutters', False)),
+                                  extra=log_window_casing if c.style == 'log' else None)
     for k, g in enumerate(c.cfg.get('big', [])):
         big_door(parts['front'], glass_builder, c, M, g, k + 1)
     if c.cfg.get('ceiling'):
@@ -961,7 +966,7 @@ def complete(b, c, M, finishings=False):
     for wp in c.cfg.get('woodpiles', []):
         woodpile(b, c, M, wp[0], wp[1])
     # the chimney: against an exterior wall, between two windows, never in a room (STRUCTURE_STAGES_GUIDE.md)
-    if c.cfg.get('chimney'):
+    if c.cfg.get('chimney') and base.BUILD_CHIMNEYS:
         wall, cy = c.cfg['chimney']
         cx0, cx1 = -w / 2 - 0.5, -w / 2 + 0.1
         ctop = c.zw + 1.0
@@ -1278,6 +1283,7 @@ def build(sid):
         for o in list(bpy.data.objects):
             bpy.data.objects.remove(o, do_unlink=True)
         del base.EXTRA_OBJECTS[:]
+        base.WINDOW_COUNT[0] = 0
         c = BCtx(cfg, cfg['h_total'], found_h)
         hs.glass_builder = None
         b = Builder(d['id'])

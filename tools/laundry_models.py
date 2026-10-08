@@ -206,7 +206,7 @@ def drying_rack(P):
 
 
 def shelf_unit(P):
-    """An open storage shelf with baskets, 0.90 x 0.35 x 1.80 m."""
+    """An open storage shelf, empty (things are placed on it in the game), 0.90 x 0.35 x 1.80 m."""
     M = Mesh('laundry_shelf_unit')
     w, d, h = 0.90, 0.35, 1.80
     yf = -d / 2
@@ -221,11 +221,6 @@ def shelf_unit(P):
     zs = [0.20, 0.62, 1.04, 1.46, h - t]
     for z in zs:
         M.box(-w / 2 + (0.04 if P.classic else 0.0), w / 2 - (0.04 if P.classic else 0.0), yf, d / 2, z, z + t, P.main)
-    bask = material('BasketWicker', (0.66, 0.50, 0.30), 0.85)
-    for z, x, bw in ((0.20 + t, -0.20, 0.34), (0.62 + t, 0.18, 0.40), (1.04 + t, -0.12, 0.30), (1.46 + t, 0.15, 0.36)):
-        soft(M, x - bw / 2, x + bw / 2, yf + 0.03, d / 2 - 0.03, z, z + 0.22, bask, r=0.025)
-    for z, x in ((0.62 + t, -0.22), (1.04 + t, 0.22)):
-        soft(M, x - 0.16, x + 0.16, yf + 0.04, d / 2 - 0.04, z, z + 0.14, P.cream, r=0.03)
     return M
 
 

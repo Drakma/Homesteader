@@ -1,13 +1,31 @@
 # Asset Audit
 
-Generated 2026-10-05 by `python tools/asset_audit.py` from 1154 manifests. Run it again to refresh; do not edit by hand.
+Generated 2026-10-08 by `python tools/asset_audit.py` from 2649 manifests. Run it again to refresh; do not edit by hand.
 
 A file-level check: it does not judge how a model or an icon looks.
 
-## Needs a model (128)
+## Needs a model (108)
 
 No model at all, only an icon.
 
+
+### logging (15)
+
+- [ ] `bush_blueberry`
+- [ ] `bush_elderberry`
+- [ ] `bush_haskap`
+- [ ] `bush_huckleberry`
+- [ ] `bush_raspberry`
+- [ ] `plantable_sapling_apricot`
+- [ ] `plantable_sapling_cherry`
+- [ ] `plantable_sapling_fig`
+- [ ] `plantable_sapling_grape`
+- [ ] `plantable_sapling_hazelnut`
+- [ ] `plantable_sapling_peach`
+- [ ] `plantable_sapling_pear`
+- [ ] `plantable_sapling_pecan`
+- [ ] `plantable_sapling_plum`
+- [ ] `plantable_sapling_walnut`
 
 ### tools (14)
 
@@ -26,13 +44,24 @@ No model at all, only an icon.
 - [ ] `tool_miter_saw`
 - [ ] `tool_table_saw`
 
-### logging (5)
+### ingredients (8)
 
-- [ ] `bush_blueberry`
-- [ ] `bush_elderberry`
-- [ ] `bush_haskap`
-- [ ] `bush_huckleberry`
-- [ ] `bush_raspberry`
+- [ ] `ingredient_bacon`
+- [ ] `ingredient_goat_meat`
+- [ ] `ingredient_ground_beef`
+- [ ] `ingredient_ham`
+- [ ] `ingredient_lamb_chop`
+- [ ] `ingredient_pork_chop`
+- [ ] `ingredient_sausage`
+- [ ] `ingredient_steak`
+
+### building (5)
+
+- [ ] `icon_wood_log`
+- [ ] `lot_asphalt`
+- [ ] `lot_concrete`
+- [ ] `lot_dirt`
+- [ ] `lot_gravel`
 
 ### fishing (2)
 
@@ -44,10 +73,6 @@ No model at all, only an icon.
 - [ ] `mat_feather`
 - [ ] `mat_leather`
 
-### building (1)
-
-- [ ] `icon_wood_log`
-
 ### waste (1)
 
 - [ ] `waste_service_septic_pumpout`
@@ -56,13 +81,14 @@ No model at all, only an icon.
 
 - [ ] `water_hand_pump_wellhead`
 
-### farming (24)
+### farming (25)
 
 - [ ] `seed_alfalfa`
 - [ ] `seed_barley`
 - [ ] `seed_beet`
 - [ ] `seed_broccoli`
 - [ ] `seed_cabbage`
+- [ ] `seed_canola`
 - [ ] `seed_cantaloupe`
 - [ ] `seed_cucumber`
 - [ ] `seed_flax`
@@ -82,52 +108,6 @@ No model at all, only an icon.
 - [ ] `seed_tobacco`
 - [ ] `seed_watermelon`
 - [ ] `seed_zucchini`
-
-### food (43)
-
-- [ ] `food_bass_deepfried`
-- [ ] `food_bass_grilled`
-- [ ] `food_beet`
-- [ ] `food_blueberry`
-- [ ] `food_bread`
-- [ ] `food_broccoli`
-- [ ] `food_cabbage`
-- [ ] `food_cantaloupe`
-- [ ] `food_catfish_deepfried`
-- [ ] `food_catfish_grilled`
-- [ ] `food_cheese`
-- [ ] `food_crappie_deepfried`
-- [ ] `food_crappie_grilled`
-- [ ] `food_cucumber`
-- [ ] `food_elderberry`
-- [ ] `food_garlic`
-- [ ] `food_green_beans`
-- [ ] `food_haskap`
-- [ ] `food_huckleberry`
-- [ ] `food_jam_blueberry`
-- [ ] `food_jam_elderberry`
-- [ ] `food_jam_haskap`
-- [ ] `food_jam_huckleberry`
-- [ ] `food_jam_raspberry`
-- [ ] `food_lettuce`
-- [ ] `food_onion`
-- [ ] `food_peanuts`
-- [ ] `food_peas`
-- [ ] `food_pepper`
-- [ ] `food_radish`
-- [ ] `food_raspberry`
-- [ ] `food_rhubarb`
-- [ ] `food_salmon_grilled`
-- [ ] `food_spinach`
-- [ ] `food_trout_deepfried`
-- [ ] `food_trout_grilled`
-- [ ] `food_walleye_deepfried`
-- [ ] `food_walleye_grilled`
-- [ ] `food_watermelon`
-- [ ] `food_zucchini`
-- [ ] `ingredient_beef_grilled`
-- [ ] `ingredient_chicken_grilled`
-- [ ] `ingredient_pork_grilled`
 
 ### appliances (35)
 
@@ -180,7 +160,7 @@ The manifest names a model file that is not in the folder (old imperial names): 
 - [ ] water_jug_20l (water_jug_5gal.mtl, water_jug_5gal.obj)
 - [ ] water_tape_drip_roll_300m (tape_drip_roll_1000ft.mtl, tape_drip_roll_1000ft.obj)
 
-## Old OBJ / FBX only (192)
+## Old OBJ / FBX only (190)
 
 No GLB. Convert with `tools/convert_models_to_glb.py` (rigged FBX stays FBX), or remake.
 
@@ -353,7 +333,7 @@ No GLB. Convert with `tools/convert_models_to_glb.py` (rigged FBX stays FBX), or
 - [ ] `clutter_twigs`
 - [ ] `tile_grass_tuft_meadow`
 
-### logging (9)
+### logging (7)
 
 - [ ] `plantable_birch_sapling`
 - [ ] `plantable_maple_sapling`
@@ -362,8 +342,6 @@ No GLB. Convert with `tools/convert_models_to_glb.py` (rigged FBX stays FBX), or
 - [ ] `plantable_poplar_sapling`
 - [ ] `plantable_sapling_apple`
 - [ ] `plantable_willow_sapling`
-- [ ] `tree_dead_snag`
-- [ ] `tree_sapling`
 
 ### waste (7)
 
@@ -439,7 +417,7 @@ None.
 None.
 
 
-## Icon too thin to read (26)
+## Icon too thin to read (34)
 
 Long thin items that cover under 5% of the icon.
 
@@ -467,14 +445,26 @@ Long thin items that cover under 5% of the icon.
 - [ ] onion (4% of the icon)
 - [ ] fuel_pipe_line (2% of the icon)
 - [ ] fuel_pipe_propane (2% of the icon)
+- [ ] lighting_pole_light_classic_black (4% of the icon)
+- [ ] lighting_pole_light_classic_brass (4% of the icon)
+- [ ] lighting_pole_light_classic_bronze (4% of the icon)
+- [ ] lighting_pole_light_classic_white (4% of the icon)
+- [ ] lighting_pole_light_modern_black (3% of the icon)
+- [ ] lighting_pole_light_modern_chrome (3% of the icon)
+- [ ] lighting_pole_light_modern_nickel (3% of the icon)
+- [ ] lighting_pole_light_modern_white (3% of the icon)
 - [ ] water_irrigation_sprinkler_riser (4% of the icon)
 - [ ] water_pipe (2% of the icon)
 
-## Same icon on two items (15)
+## Same icon on two items (32)
 
 Usually a duplicate item.
 
+- [ ] bathroom_hamper_classic_burgundy = bathroom_hamper_classic_camel = bathroom_hamper_classic_forest = bathroom_hamper_classic_navy
+- [ ] bathroom_soap_set_classic_chrome = bathroom_soap_set_modern_chrome
+- [ ] bathroom_towel_bar_classic_chrome = bathroom_towel_bar_modern_chrome
 - [ ] item_spool_barbedwire = spool_wire_barbed_4pt
+- [ ] dining_wine_rack_classic_walnut = dining_wine_rack_modern_walnut
 - [ ] electricity_wind_kit_100w_wood = wind_turbine_100w_wood
 - [ ] electricity_wind_kit_200w_metal = wind_turbine_200w_metal
 - [ ] electricity_wind_kit_500w_metal = wind_turbine_500w_metal
@@ -482,21 +472,36 @@ Usually a duplicate item.
 - [ ] fuel_bulk_gasoline = liquid_gasoline
 - [ ] fuel_bulk_propane = liquid_propane
 - [ ] fuel_service_tank_pickup = vehicle_delivery_fuel_truck
+- [ ] garage_bench_grinder_classic_black = garage_bench_grinder_modern_black
+- [ ] garage_lumber_rack_classic_black = garage_lumber_rack_modern_black
+- [ ] garage_pegboard_classic_walnut = garage_pegboard_modern_walnut
+- [ ] garage_sawhorse_modern_birch = garage_sawhorse_modern_black = garage_sawhorse_modern_walnut
+- [ ] kitchen_bowl = kitchen_bowl_meal
+- [ ] kitchen_cutting_board_oak = kitchen_cutting_board_white
+- [ ] kitchen_plate = kitchen_plated_meal
+- [ ] laundry_drying_rack_classic_walnut = laundry_drying_rack_modern_walnut
+- [ ] living_tv_modern_walnut = living_tv_modern_white
+- [ ] living_wall_clock_modern_birch = living_wall_clock_modern_walnut
+- [ ] living_wall_mirror_modern_birch = living_wall_mirror_modern_black = living_wall_mirror_modern_walnut = living_wall_mirror_modern_white
+- [ ] plantable_sapling_apple = plantable_sapling_apricot = plantable_sapling_cherry = plantable_sapling_fig = plantable_sapling_grape = plantable_sapling_hazelnut = plantable_sapling_peach = plantable_sapling_pear = plantable_sapling_pecan = plantable_sapling_plum = plantable_sapling_walnut
 - [ ] mat_pile_bedding_stone_small = mat_scoop_bedding_stone
 - [ ] mat_pile_dirt_small = mat_scoop_dirt
 - [ ] mat_pile_gravel_small = mat_scoop_gravel
 - [ ] mat_pile_mulch_small = mat_scoop_mulch
 - [ ] mat_pile_sand_small = mat_scoop_sand
 - [ ] mat_scoop_manure = waste_pile_manure_small
+- [ ] office_whiteboard_classic_walnut = office_whiteboard_modern_walnut
 - [ ] vehicle_septic_pump_truck = waste_service_septic_pumpout
 
-## No case, pallet or stack (187)
+## No case, pallet or stack (301)
 
 Buyable singles with no pack item (paint, piles, logs, tanks and placed parts left out).
 
 
-### building (59)
+### building (82)
 
+- [ ] `building_chimney_kit_brick`
+- [ ] `building_chimney_kit_stone`
 - [ ] `building_chinking`
 - [ ] `building_door_barn_sliding`
 - [ ] `building_door_exterior`
@@ -530,17 +535,34 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `building_lumber_joist_2x10`
 - [ ] `building_lumber_rafter_2x8`
 - [ ] `building_pallet_wood`
+- [ ] `building_pickup_flag`
 - [ ] `building_rebar_steel_bar`
 - [ ] `building_roofing_felt_roll`
 - [ ] `building_shelf_wall_steel`
 - [ ] `building_shelf_wall_wood`
 - [ ] `building_shelf_wall_wood_long`
+- [ ] `building_shelving_melamine_black`
+- [ ] `building_shelving_melamine_white`
+- [ ] `building_shelving_steel`
 - [ ] `building_soffit_panel`
 - [ ] `building_trim_baseboard`
 - [ ] `building_trim_casing`
 - [ ] `building_window_double_hung`
+- [ ] `building_window_double_hung_panes2`
+- [ ] `building_window_double_hung_panes6`
+- [ ] `building_window_double_hung_panes8`
+- [ ] `building_window_double_hung_plain`
 - [ ] `building_window_picture`
+- [ ] `building_window_picture_panes2`
+- [ ] `building_window_picture_panes6`
+- [ ] `building_window_picture_panes8`
+- [ ] `building_window_picture_plain`
+- [ ] `building_window_shutters`
 - [ ] `building_window_slider`
+- [ ] `building_window_slider_panes2`
+- [ ] `building_window_slider_panes6`
+- [ ] `building_window_slider_panes8`
+- [ ] `building_window_slider_plain`
 - [ ] `gland_cable_entry_wall`
 - [ ] `hardware_gate_hinges`
 - [ ] `hardware_hurricane_ties`
@@ -548,6 +570,10 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `item_spool_barbedwire`
 - [ ] `item_spool_cat6_150m`
 - [ ] `item_spool_romex_12_2`
+- [ ] `lot_asphalt`
+- [ ] `lot_concrete`
+- [ ] `lot_dirt`
+- [ ] `lot_gravel`
 - [ ] `lumber_board_2x6`
 - [ ] `lumber_stud_2x4`
 - [ ] `pipe_abs_waste_three_inch`
@@ -557,14 +583,30 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `valve_ball_brass`
 - [ ] `valve_gate_brass`
 
-### ingredients (22)
+### ingredients (71)
 
 - [ ] `ingredient_alfalfa`
+- [ ] `ingredient_alfredo_sauce`
+- [ ] `ingredient_bacon`
+- [ ] `ingredient_baking_powder`
+- [ ] `ingredient_baking_powder_5kg`
 - [ ] `ingredient_barley`
+- [ ] `ingredient_barley_flour`
+- [ ] `ingredient_barley_flour_5kg`
 - [ ] `ingredient_beef`
+- [ ] `ingredient_bread_crumbs`
+- [ ] `ingredient_butter`
+- [ ] `ingredient_canola`
 - [ ] `ingredient_chicken`
+- [ ] `ingredient_cocoa`
 - [ ] `ingredient_corn`
+- [ ] `ingredient_corn_flour`
+- [ ] `ingredient_corn_flour_5kg`
+- [ ] `ingredient_cornmeal`
+- [ ] `ingredient_cornmeal_5kg`
 - [ ] `ingredient_cotton`
+- [ ] `ingredient_cracked_wheat`
+- [ ] `ingredient_cracked_wheat_5kg`
 - [ ] `ingredient_egg`
 - [ ] `ingredient_fillet_bass`
 - [ ] `ingredient_fillet_catfish`
@@ -573,14 +615,47 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `ingredient_fillet_trout`
 - [ ] `ingredient_fillet_walleye`
 - [ ] `ingredient_flax`
+- [ ] `ingredient_flax_meal`
+- [ ] `ingredient_flax_meal_5kg`
+- [ ] `ingredient_flour`
+- [ ] `ingredient_flour_5kg`
+- [ ] `ingredient_gelatin`
+- [ ] `ingredient_gelatin_5kg`
+- [ ] `ingredient_goat_meat`
+- [ ] `ingredient_grits`
+- [ ] `ingredient_grits_5kg`
+- [ ] `ingredient_ground_beef`
+- [ ] `ingredient_ham`
 - [ ] `ingredient_herbs`
 - [ ] `ingredient_hops`
+- [ ] `ingredient_lamb_chop`
+- [ ] `ingredient_oat_flour`
+- [ ] `ingredient_oat_flour_5kg`
 - [ ] `ingredient_oats`
+- [ ] `ingredient_pasta`
+- [ ] `ingredient_pasta_5kg`
+- [ ] `ingredient_pasta_sauce`
+- [ ] `ingredient_pearl_barley`
+- [ ] `ingredient_pearl_barley_5kg`
+- [ ] `ingredient_pepper_ground`
 - [ ] `ingredient_pork`
+- [ ] `ingredient_pork_chop`
+- [ ] `ingredient_rolled_oats`
+- [ ] `ingredient_rolled_oats_5kg`
+- [ ] `ingredient_salt`
+- [ ] `ingredient_salt_5kg`
+- [ ] `ingredient_sausage`
+- [ ] `ingredient_soy_flour`
+- [ ] `ingredient_soy_flour_5kg`
 - [ ] `ingredient_soybeans`
+- [ ] `ingredient_steak`
+- [ ] `ingredient_sugar`
+- [ ] `ingredient_sugar_5kg`
 - [ ] `ingredient_sunflower`
 - [ ] `ingredient_tobacco`
 - [ ] `ingredient_wheat`
+- [ ] `ingredient_yeast`
+- [ ] `ingredient_yeast_5kg`
 
 ### fuel (16)
 
@@ -617,13 +692,14 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `mat_stone`
 - [ ] `mat_wool_fleece`
 
-### farming (34)
+### farming (35)
 
 - [ ] `seed_alfalfa`
 - [ ] `seed_barley`
 - [ ] `seed_beet`
 - [ ] `seed_broccoli`
 - [ ] `seed_cabbage`
+- [ ] `seed_canola`
 - [ ] `seed_cantaloupe`
 - [ ] `seed_carrot`
 - [ ] `seed_corn`
@@ -654,45 +730,86 @@ Buyable singles with no pack item (paint, piles, logs, tanks and placed parts le
 - [ ] `seed_wheat`
 - [ ] `seed_zucchini`
 
-### food (43)
+### food (84)
 
 - [ ] `food_apple`
+- [ ] `food_apple_muffin`
+- [ ] `food_apricot`
+- [ ] `food_apricot_muffin`
+- [ ] `food_bacon_cooked`
 - [ ] `food_bass_deepfried`
 - [ ] `food_bass_grilled`
 - [ ] `food_beet`
+- [ ] `food_blueberry_muffin`
 - [ ] `food_bread`
 - [ ] `food_broccoli`
+- [ ] `food_burger`
+- [ ] `food_burger_bun`
 - [ ] `food_cabbage`
 - [ ] `food_cantaloupe`
 - [ ] `food_carrot`
 - [ ] `food_catfish_deepfried`
 - [ ] `food_catfish_grilled`
 - [ ] `food_cheese`
+- [ ] `food_cherry`
+- [ ] `food_cherry_muffin`
+- [ ] `food_corn_muffin`
+- [ ] `food_cornbread`
 - [ ] `food_crappie_deepfried`
 - [ ] `food_crappie_grilled`
 - [ ] `food_cucumber`
+- [ ] `food_elderberry_muffin`
+- [ ] `food_fig`
+- [ ] `food_fig_muffin`
 - [ ] `food_garlic`
+- [ ] `food_goat_meat_baked`
+- [ ] `food_grapes`
 - [ ] `food_green_beans`
+- [ ] `food_ground_beef_grilled`
+- [ ] `food_ham_baked`
+- [ ] `food_haskap_muffin`
+- [ ] `food_hazelnut`
+- [ ] `food_hot_dog`
+- [ ] `food_hot_dog_bun`
+- [ ] `food_huckleberry_muffin`
+- [ ] `food_lamb_chop_grilled`
 - [ ] `food_lemon`
+- [ ] `food_lemon_muffin`
 - [ ] `food_lettuce`
+- [ ] `food_muffin`
 - [ ] `food_onion`
 - [ ] `food_orange`
+- [ ] `food_orange_muffin`
+- [ ] `food_peach`
+- [ ] `food_peach_muffin`
 - [ ] `food_peanuts`
+- [ ] `food_pear`
+- [ ] `food_pear_muffin`
 - [ ] `food_peas`
+- [ ] `food_pecan`
 - [ ] `food_pepper`
+- [ ] `food_plum`
+- [ ] `food_plum_muffin`
+- [ ] `food_pork_chop_grilled`
 - [ ] `food_potato`
 - [ ] `food_pumpkin`
 - [ ] `food_radish`
+- [ ] `food_raspberry_muffin`
 - [ ] `food_rhubarb`
+- [ ] `food_rhubarb_muffin`
 - [ ] `food_salmon_grilled`
+- [ ] `food_sausage_grilled`
 - [ ] `food_spinach`
+- [ ] `food_steak_grilled`
 - [ ] `food_strawberry`
+- [ ] `food_strawberry_muffin`
 - [ ] `food_tomato`
 - [ ] `food_trout_deepfried`
 - [ ] `food_trout_grilled`
 - [ ] `food_truffle`
 - [ ] `food_walleye_deepfried`
 - [ ] `food_walleye_grilled`
+- [ ] `food_walnut`
 - [ ] `food_watermelon`
 - [ ] `food_zucchini`
 - [ ] `ingredient_beef_grilled`
@@ -720,4 +837,4 @@ None.
 
 ## Not checked
 
-89 grown things (crops, trees, animals) have no model of their own by design, and structures, HUD, liquids, fences, paths, roads, scoops and ground clutter are built in code or staged.
+104 grown things (crops, trees, animals) have no model of their own by design, and structures, HUD, liquids, fences, paths, roads, scoops and ground clutter are built in code or staged.

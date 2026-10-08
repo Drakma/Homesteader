@@ -35,6 +35,7 @@ namespace Homesteader.Modding
         public const string Kitchen = "kitchen";         // kitchen appliances, cabinets, tables, accessories
         public const string Living = "living";           // living / family room furniture, decor and TVs
         public const string Lighting = "lighting";       // ceiling, wall and outdoor post lights
+        public const string Decor = "decor";             // curtains and drapes
         public const string Office = "office";            // home office furniture
         public const string Dining = "dining";            // dining room furniture
         public const string Garage = "garage";           // garage and workshop furniture and tools
@@ -50,13 +51,14 @@ namespace Homesteader.Modding
         public const string GameRules = "gamerules";     // planting/harvest rules + farmland zones as data
         public const string AnimalAi = "animal_ai";      // animal behaviour rules (needs, senses, behaviours) as data
         public const string Radio = "radio";             // Steadify radio stations (speakers, segments, sentence banks) as data
+        public const string Meal = "meal";               // kitchen meals (ingredients + appliances -> a food item) as data, for the Meals List
 
         /// <summary>Every content type this build understands.</summary>
         public static readonly string[] All =
         {
             Structure, Building, Biome, Food, Ingredient, Farming, Ranching, Logging, Fishing,
-            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Kitchen, Living, Lighting, Bathroom, Bedroom, Laundry, Garage, Dining, Office, Material,
-            Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi, Radio
+            Tool, Electricity, Water, Waste, Internet, Vehicle, Appliance, Kitchen, Living, Lighting, Decor, Bathroom, Bedroom, Laundry, Garage, Dining, Office, Material,
+            Fuel, Ped, Texture, Recipe, Script, GameRules, AnimalAi, Radio, Meal
         };
 
         private static readonly HashSet<string> Known = new HashSet<string>(All, StringComparer.OrdinalIgnoreCase);

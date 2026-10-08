@@ -5,7 +5,7 @@ Builds the cases of drywall tape as GLBs in headless Blender: free, local, low-p
     blender --background --python tools/make_tape_cases.py
     python tools/render_icon_from_model.py assets/building/<id>/<id>.glb assets/building/<id>/<id>.png
 
-  building_drywall_tape_roll_case_6     an open cardboard case, six rolls lying flat in one layer (3 by 2)
+  building_drywall_tape_roll_case_6     a closed, taped cardboard case, six rolls lying flat in one layer (3 by 2)
   building_drywall_tape_roll_case_12    the same case twice as deep, two layers
 
 A new case gets its manifest from the single roll (building_drywall_tape_roll): name, weight (rolls plus the box), price (10 percent off) and
@@ -32,6 +32,21 @@ T = Matrix.Translation
 mat = props.mat
 
 
+def close_lid(K, W, D, H, t):
+    """Shuts a case: the two top flaps lie flat and meet in the middle, and a strip of packing tape runs along the seam and down both ends. The top of the case is then at H + t."""
+    card = mat('Cardboard', (0.72, 0.56, 0.36), 0.9)
+    tape = mat('PackingTape', (0.5, 0.33, 0.16), 0.25)
+    seam = mat('FlapSeam', (0.3, 0.22, 0.12), 0.9)
+    for s in (-1, 1):
+        K.bx((W, D / 2 - 0.0006, t), (0, s * (D / 4 + 0.0003), H + t / 2), card)             # a flap, lying over the opening
+    K.bx((W - 2 * t, 0.0012, 0.0004), (0, 0, H + t + 0.0001), seam)                              # the line where they meet
+    tw = min(0.05, D * 0.3)
+    K.bx((W + 0.0016, tw, 0.0008), (0, 0, H + t + 0.0004), tape)                                  # the tape along the seam
+    for s in (-1, 1):                                                                            # and down both ends
+        K.bx((0.0008, tw, 0.07), (s * (W / 2 + 0.0004), 0, H + t - 0.035 + 0.0008), tape)
+    return H + t
+
+
 def build(layers):
     K = props.Kit()
     card = mat('Cardboard', (0.72, 0.56, 0.36), 0.9)
@@ -44,29 +59,11 @@ def build(layers):
     r, w, gap, t = 0.05, 0.052, 0.004, 0.004
     cols, rows = 3, 2
     W, D, H = cols * (2 * r + gap) + gap + 2 * t, rows * (2 * r + gap) + gap + 2 * t, layers * (w + 0.002) + t + 0.012
-    K.bx((W, D, t), (0, 0, t / 2), card)                                    # the bottom, the four walls
+    K.bx((W, D, t), (0, 0, t / 2), card)                                    # the bottom, the four walls (the rolls inside are not seen: the case is shut)
     for s in (-1, 1):
         K.bx((W, t, H), (0, s * (D / 2 - t / 2), H / 2), card)
         K.bx((t, D - 2 * t, H), (s * (W / 2 - t / 2), 0, H / 2), card)
-        K.bx((W - 2 * t, 0.0006, H - t), (0, s * (D / 2 - t - 0.0003), H / 2 + t / 2), inside)
-        K.bx((0.0006, D - 2 * t, H - t), (s * (W / 2 - t - 0.0003), 0, H / 2 + t / 2), inside)
-        # the flaps, standing open, leaning out
-        K.box((W, D * 0.48, t * 0.6), T((0, s * D / 2, H)) @ Matrix.Rotation(s * 0.45, 4, 'X') @ T((0, s * D * 0.24, 0)), card)
-        K.box((W * 0.3, D - 2 * t, t * 0.6), T((s * W / 2, 0, H)) @ Matrix.Rotation(-s * 0.45, 4, 'Y') @ T((s * W * 0.15, 0, 0)), card)
-    for k in range(layers):                                                 # the rolls
-        z0 = t + 0.001 + k * (w + 0.002)
-        for i in range(cols):
-            for j in range(rows):
-                x = (i - (cols - 1) / 2) * (2 * r + gap)
-                y = (j - (rows - 1) / 2) * (2 * r + gap)
-                if k < layers - 1:                                          # a roll under another one: only its side shows
-                    K.lathe([(r, z0), (r, z0 + w)], paper, 14, T((x, y, 0)))
-                    continue
-                K.lathe([(0.02, z0 + w), (0.023, z0 + w), (r, z0 + w)], edge, 14, T((x, y, 0)))
-                K.lathe([(r, z0 + w), (r, z0)], paper, 14, T((x, y, 0)))
-                K.lathe([(0.023, z0 + w + 0.001), (0.02, z0 + w + 0.001), (0.02, z0 + w * 0.3)], core, 14, T((x, y, 0)))
-                for rr in (0.03, 0.037, 0.044):                              # the wraps show on the roll's face
-                    K.lathe([(rr, z0 + w + 0.0004), (rr + 0.0012, z0 + w + 0.0004)], paper, 14, T((x, y, 0)))
+    H = close_lid(K, W, D, H, t)                                            # the flaps shut and taped
     obj = K.done('case')
     obj['case_size'] = (W, D, H)
     return obj
@@ -101,7 +98,7 @@ def main():
         m['models'] = [{'file': item + '.glb', 'format': 'glb', 'dimensions_m': {'x': dims[0], 'y': dims[2], 'z': dims[1]}, 'triangles': tris}]
         m['category_fields'] = dict(m.get('category_fields') or {}, dimensions_m={'width': round(dims[0], 2), 'depth': round(dims[1], 2), 'height': round(dims[2], 2)})
         props.save(path, json.dumps(m, indent=2))
-        props.save(os.path.join(folder, 'README.md'), '# %s\n\n%s\n\nProcedural model (tools/make_tape_cases.py), %d triangles, %.2f x %.2f x %.2f m: an open cardboard case, '
+        props.save(os.path.join(folder, 'README.md'), '# %s\n\n%s\n\nProcedural model (tools/make_tape_cases.py), %d triangles, %.2f x %.2f x %.2f m: a closed, taped cardboard case, '
                    '%d rolls of `%s` lying flat.\n' % (m['name'], m['description'], tris, *dims, n, ROLL))
         print('case', item, '|', tris, 'tris |', dims)
 

@@ -7,6 +7,8 @@
 > 3. **Retired Helper Library**: `tools/free_generator.py` is **dead code — do not use it**. `tools/meshy_client.py`'s `create_text_to_3d()` is no longer the default entry point; `create_image_to_3d()` (updated for `meshy-t2`/`smart-topology`) is.
 > 4. **Detailed Reference**: See [MESHY_PIPELINE_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/MESHY_PIPELINE_GUIDE.md) and [UNITY_INTEGRATION_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/UNITY_INTEGRATION_GUIDE.md). **Known open issue**: models built this way may render with fragmented/jagged-looking shading on curved organic surfaces (e.g. animal faces) specifically in Unity/glTFast at runtime, even though the source GLB, its normals, and Blender's own render are all clean — root cause not yet confirmed (leading theory: texture compression across meshy-t2's small UV islands). Check for this after generating and report findings rather than assuming it's fixed.
 
+> 5. **Socrates = cpu3d (FREE rigged-creature pipeline, no approval needed)**: `tools/cpu3d_client.py` talks to the cpu3d MCP server on a LAN PC (config in gitignored `tools/cpu3d_connection.json`). One clean full-body image of a human / quadruped / bird / fish becomes a low-poly (default 1,500 tris) rigged, animated GLB (named Idle/Walk/etc. clips, vertex colours, no texture). The asset kit editor has a **Socrates** button (and a `socrates` option in the Generation Pipeline selects of the request dialogs; requests carry `PIPELINE=socrates`) in the asset popup (`/api/cpu3d-generate`, `/api/cpu3d-status`); it uses the item's icon as the source and writes `<item_id>.glb`. CLI: `python tools/cpu3d_client.py generate pic.png --name <item_id> --kind quadruped`. Not for vehicles/structures. After generating, still run the gait and loop checks (`gait_fix.py`, `loop_fix.py`).
+
 ---
 
 ## 1. Engine Specifications: Unity 6
@@ -135,7 +137,7 @@ python tools/render_icon_from_model.py <model_path> assets/<category>/<item_id>/
 
 Every asset must live in `assets/<category>/<item_id>/`:
 
-- The canonical categories: `farming`, `ranching`, `logging`, `fishing`, `building`, `structures`, `tools`, `electricity`, `water`, `waste`, `internet`, `hud`, `ground`, `food`, `fuel`, `materials`, `ingredients`, `liquids`.
+- The canonical categories: `farming`, `ranching`, `logging`, `fishing`, `building`, `structures`, `tools`, `electricity`, `water`, `waste`, `internet`, `decor`, `hud`, `ground`, `food`, `fuel`, `materials`, `ingredients`, `liquids`.
 - Naming prefixes:
   - `struct_*`: cabins, barns, sheds, coops.
   - `machinery_*`: tractors, skidsteers.
@@ -153,6 +155,7 @@ Every asset must live in `assets/<category>/<item_id>/`:
   - `water_*`: cisterns, pumps, filters, sprinklers.
   - `waste_*`: septic tanks, compost bins, composting toilets, manure.
   - `net_*`: antennas, dishes, routers (never `internet_`).
+  - `decor_*`: curtains and drapes (`assets/decor/`, `tools/make_decor_assets.py`).
   - `tile_*` & `clutter_*`: ground tiles and clutter in `assets/ground/`.
 - Required files in each item directory:
   - `<item_id>.png` (128×128 RGBA, NEVER `icon.png`).
@@ -164,7 +167,7 @@ Every asset must live in `assets/<category>/<item_id>/`:
 
 ## 3a. Structure Model Rules
 
-Building models follow [STRUCTURE_STAGES_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/STRUCTURE_STAGES_GUIDE.md): **a chimney stands against an EXTERIOR wall, never inside a room**;
+Building models follow [STRUCTURE_STAGES_GUIDE.md](file:///C:/Users/casey/Desktop/Homesteader/docs/STRUCTURE_STAGES_GUIDE.md): **structure models carry NO chimney** (chimneys are built from kits on an outside wall, `docs/CHIMNEYS.md`);
 the door is 1.2 m by 2.3 m; walls reach the roof with no gap; layers meeting at a corner never share a coplanar outer face; parts are
 named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named materials (Log, Siding, Roof, Shingle, Interior, Floor, Masonry).
 
@@ -176,6 +179,7 @@ named objects (Foundation, Roof, Wall_*, WindowGlass, DoorHinge) and named mater
 ---
 
 - **Steadify radio**: stations are mod data (`assets/_radio/*.json`, content type `radio`, schema `assets/_schemas/radio_station.schema.json`); scripts come from the almanac writer or, when set in Settings > Audio, the Claude API; the voice is local Kokoro through sherpa-onnx, fetched per machine with `python tools/fetch_tts_runtime.py` (never checked in). Reference `docs/RADIO.md`. Code `Assets/Scripts/Radio/`.
+- **Meals List (kitchen cooking)**: right click any kitchen object (no wrench) lists only the meals the kitchen can make now. Meals are mod data (`assets/_meals/*.json`, content type `meal`, schema `assets/_schemas/meal.schema.json`, checker `tools/meal_format.py`, starter set from `tools/make_meals.py`); ingredients are a recipe tree consumed from the kitchen's containers/shelves, appliances are required by tag (`#appliance_oven` ...). Reference `docs/COOKING.md`. Code `Assets/Scripts/Kitchen/`.
 - **Animal AI**: behaviour rules are mod data (`assets/_ai/*.json`, content type `animal_ai`). Schema `assets/_schemas/animal_ai.schema.json`, validator `tools/animal_ai.py` (must stay in step with `Assets/Scripts/Animals/AnimalAIDefinition.cs`), reference `docs/ANIMAL_AI.md`. An animal's own AI is `category_fields.ai` in its manifest (ranching schema, edited in the asset popup's Animal AI card, packaged to `ai/<item_id>.json`); `assets/_ai` holds shared/species profiles.
 
 ---

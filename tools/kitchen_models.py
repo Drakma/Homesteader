@@ -9,7 +9,7 @@ Finishes: the appliance functions take one of the three appliance finishes (kitc
 """
 import math
 
-from kitchen_lib import Mesh, material
+from kitchen_lib import Mesh, material, controls_material
 
 # ------------------------------------------------------------------ shared parts
 
@@ -171,34 +171,38 @@ def range_oven(F):
     return K
 
 
-def cooktop(K, F, x0, x1, yf, yb, h, depth_free=0.1):
-    """A dark glass cooktop with four burners and cast-iron grates, lying on a body whose top is at z = h."""
-    K.box(x0 + 0.012, x1 - 0.012, yf + 0.012, yb - depth_free, h, h + 0.008, F.glass)
-    cy0, cy1 = (yf + 0.012 + yb - depth_free) / 2 - 0.125, (yf + 0.012 + yb - depth_free) / 2 + 0.125
+def cooktop(K, F, x0, x1, yf, yb, h, depth_free=0.1, dy=0.125, k=1.0):
+    """A dark glass cooktop with four burners and cast-iron grates, lying on a body whose top is at z = h. dy = half the distance between the two burner rows (0.125),
+    k scales every height above the glass (1 = as before; less = a low, flush cooktop)."""
+    s = dy / 0.125                                                     # the burners and the grate frame shrink with the rows
+    K.box(x0 + 0.012, x1 - 0.012, yf + 0.012, yb - depth_free, h, h + 0.008 * k, F.glass)
+    cy0, cy1 = (yf + 0.012 + yb - depth_free) / 2 - dy, (yf + 0.012 + yb - depth_free) / 2 + dy
     cxl, cxr = (x0 + x1) / 2 - 0.18, (x0 + x1) / 2 + 0.18
-    for bx, by, br in ((cxl, cy0, 0.085), (cxr, cy0, 0.065), (cxl, cy1, 0.065), (cxr, cy1, 0.085)):
-        K.cyl((bx, by, h + 0.008), (bx, by, h + 0.02), br, F.iron, seg=18)
-        K.cyl((bx, by, h + 0.02), (bx, by, h + 0.028), br * 0.55, F.chrome, seg=14)
-    gz = h + 0.034
+    for bx, by, br in ((cxl, cy0, 0.085 * s), (cxr, cy0, 0.065 * s), (cxl, cy1, 0.065 * s), (cxr, cy1, 0.085 * s)):
+        K.cyl((bx, by, h + 0.008 * k), (bx, by, h + 0.02 * k), br, F.iron, seg=18)
+        K.cyl((bx, by, h + 0.02 * k), (bx, by, h + 0.028 * k), br * 0.55, F.chrome, seg=14)
+    gz = h + 0.034 * k
     mid = (x0 + x1) / 2
+    pad, pad0 = 0.115 * s, 0.105 * s
     for gx0, gx1 in ((x0 + 0.03, mid - 0.012), (mid + 0.012, x1 - 0.03)):
-        K.box(gx0, gx1, cy0 - 0.115, cy0 - 0.105, h + 0.008, gz, F.iron)
-        K.box(gx0, gx1, cy1 + 0.105, cy1 + 0.115, h + 0.008, gz, F.iron)
-        K.box(gx0, gx0 + 0.01, cy0 - 0.115, cy1 + 0.115, h + 0.008, gz, F.iron)
-        K.box(gx1 - 0.01, gx1, cy0 - 0.115, cy1 + 0.115, h + 0.008, gz, F.iron)
+        K.box(gx0, gx1, cy0 - pad, cy0 - pad0, h + 0.008 * k, gz, F.iron)
+        K.box(gx0, gx1, cy1 + pad0, cy1 + pad, h + 0.008 * k, gz, F.iron)
+        K.box(gx0, gx0 + 0.01, cy0 - pad, cy1 + pad, h + 0.008 * k, gz, F.iron)
+        K.box(gx1 - 0.01, gx1, cy0 - pad, cy1 + pad, h + 0.008 * k, gz, F.iron)
         for fy in (cy0, cy1):
-            K.box(gx0, gx1, fy - 0.004, fy + 0.004, gz - 0.006, gz, F.iron)
+            K.box(gx0, gx1, fy - 0.004, fy + 0.004, gz - 0.006 * k, gz, F.iron)
 
 
 def cooktop_unit(F):
-    """A built-in 4-burner cooktop to set into a countertop, 0.76 x 0.52 x 0.07 m."""
+    """A built-in 4-burner cooktop set flush into a countertop (a thin flange, the glass 1 cm proud, low grates), with a touch-control strip lying flat in front of the burners: 0.76 x 0.52 x 0.02 m."""
     K = Mesh('kitchen_cooktop')
     x0, x1, yf, yb = -0.38, 0.38, -0.26, 0.26
-    K.rbox(x0, x1, yf, yb, 0.0, 0.04, F.body, 0.01, rv=0.006, seg=2)
-    K.rbox(x0, x1, yf, yb, 0.04, 0.052, F.black if F.name != 'white' else F.white, 0.006, rv=0.004, seg=2)
-    cooktop(K, F, x0, x1, yf, yb, 0.052, depth_free=0.012)
-    for k in range(4):
-        knob(K, x0 + 0.17 + k * 0.14, yf + 0.0, 0.026, F, r=0.014, out=0.026)
+    h = 0.006
+    K.rbox(x0, x1, yf, yb, 0.0, h, F.black if F.name != 'white' else F.white, 0.008, rv=0.002, seg=2)           # the flange, lying on the counter
+    cooktop(K, F, x0, x1, yf + 0.115, yb, h, depth_free=0.012, dy=0.10, k=0.4)                                   # the burners behind the strip
+    zc = h + 0.0032
+    K.box(x0 + 0.02, x1 - 0.02, yf + 0.012, yf + 0.108, h, zc, F.glass)                                           # the glass of the control strip
+    K.quad_top(x0 + 0.04, x1 - 0.04, yf + 0.022, yf + 0.098, zc + 0.0002, controls_material())                    # the touch controls (a texture)
     return K
 
 
@@ -262,7 +266,7 @@ def microwave_otr(F):
 
 
 def range_hood(F):
-    """A chimney range hood, 0.76 x 0.50 x 0.90 m (a wall item: mount it above the cooker)."""
+    """A chimney range hood, 0.76 x 0.50 x 0.50 m (a wall item: mount it above the cooker; the chimney is built up to the ceiling in the game)."""
     K = Mesh('kitchen_range_hood')
     w, d = 0.76, 0.50
     x0, x1 = -w / 2, w / 2
@@ -274,8 +278,7 @@ def range_hood(F):
     for k in range(3):
         K.box(x0 + 0.10 + k * 0.05, x0 + 0.12 + k * 0.05, yf - 0.002, yf + 0.0, 0.03, 0.07, F.black)
     # the chimney
-    K.rbox(-0.17, 0.17, 0.0, d / 2, 0.10, 0.90, F.body, 0.01, rv=0.006, seg=2)
-    K.rbox(-0.15, 0.15, 0.04, d / 2 - 0.05, 0.50, 0.90, F.body, 0.005, seg=1)
+    K.rbox(-0.17, 0.17, 0.0, d / 2, 0.10, 0.50, F.body, 0.01, rv=0.006, seg=2)     # a stub: the game builds the rest of the chimney up to the ceiling (AttachedObject.HoodDuct)
     K.shift(0, d / 2, 0)
     return K
 
@@ -307,7 +310,7 @@ def sink_unit(F):
     x0, x1 = -w / 2, w / 2
     yf = -d / 2
     ctr = cab['counter']
-    K.box(x0, x1, yf - 0.025, d / 2, zt, zt + 0.04, ctr, r=0.004, seg=1, uv=2.0)
+    K.box(x0, x1, yf - 0.025, d / 2, zt, zt + 0.04, ctr, uv=2.0)
     basin = F.steel if F.name == 'stainless' else (F.white if F.name == 'white' else F.black)
     for bx in (-0.19, 0.19):
         K.box(bx - 0.165, bx + 0.165, -0.20, 0.10, zt + 0.039, zt + 0.045, F.trim if F.name == 'stainless' else basin)     # the rim
@@ -406,6 +409,56 @@ def blender_jug(F):
     return K
 
 
+def grain_mill(F):
+    """A countertop electric grain mill: motor body, milling head with a spout over a steel flour bowl, a steel hopper with a lid, 0.22 x 0.33 x 0.42 m."""
+    K = Mesh('kitchen_grain_mill')
+    K.rbox(-0.11, 0.11, -0.04, 0.13, 0.0, 0.025, F.body, 0.015, seg=2)                                    # the base plate
+    K.rbox(-0.095, 0.095, -0.03, 0.12, 0.025, 0.20, F.body, 0.03, rv=0.015, seg=3)                        # the motor body
+    K.rbox(-0.085, 0.085, -0.075, 0.115, 0.20, 0.27, F.trim, 0.02, rv=0.01, seg=3)                        # the milling head
+    K.cyl((0.0, -0.075, 0.225), (0.0, -0.135, 0.185), 0.024, F.chrome, seg=14)                            # the flour spout
+    K.lathe([(0.0, 0.0), (0.06, 0.0), (0.09, 0.055), (0.095, 0.065), (0.085, 0.065), (0.055, 0.014), (0.0, 0.014)], F.steel, at=(0.0, -0.125, 0.025), seg=22, hard=(2, 3))   # the flour bowl
+    K.lathe([(0.0, 0.27), (0.055, 0.27), (0.088, 0.34), (0.098, 0.405), (0.092, 0.41), (0.0, 0.41)], F.steel, at=(0.0, 0.02, 0.0), seg=22, hard=(3,))   # the hopper
+    K.cyl((0.0, 0.02, 0.41), (0.0, 0.02, 0.425), 0.1, F.rubber, seg=22, r1=0.088)                         # its lid
+    K.cyl((0.0, 0.02, 0.425), (0.0, 0.02, 0.437), 0.018, F.rubber, seg=10)
+    K.cyl((0.095, 0.03, 0.14), (0.125, 0.03, 0.14), 0.02, F.rubber, seg=14)                               # the coarseness knob
+    K.cyl((0.125, 0.03, 0.14), (0.13, 0.03, 0.14), 0.014, F.chrome, seg=12)
+    K.box(-0.035, 0.035, -0.036, -0.03, 0.06, 0.095, F.black)                                             # the rocker switch
+    K.box(-0.02, 0.02, -0.0375, -0.036, 0.075, 0.08, F.lcd)
+    return K
+
+
+def juicer(F):
+    """A countertop centrifugal juicer: motor body, a steel juicing bowl with a glass lid and a tall feed chute, a pulp bin behind and a spout over a drip tray, 0.22 x 0.39 x 0.43 m."""
+    K = Mesh('kitchen_juicer')
+    K.rbox(-0.11, 0.11, -0.12, 0.14, 0.0, 0.03, F.body, 0.015, seg=2)                                       # the base plate
+    K.rbox(-0.10, 0.10, -0.10, 0.12, 0.03, 0.17, F.body, 0.03, rv=0.012, seg=3)                             # the motor body
+    K.lathe([(0.0, 0.17), (0.085, 0.17), (0.095, 0.20), (0.09, 0.26), (0.0, 0.26)], F.steel, at=(0.0, 0.01, 0.0), seg=24, hard=(1,))   # the juicing bowl
+    K.lathe([(0.0, 0.26), (0.092, 0.26), (0.088, 0.285), (0.0, 0.29)], F.glass, at=(0.0, 0.01, 0.0), seg=24)             # its lid
+    K.cyl((0.0, 0.01, 0.28), (0.0, 0.01, 0.42), 0.036, F.glass, seg=16)                                     # the feed chute
+    K.cyl((0.0, 0.01, 0.42), (0.0, 0.01, 0.43), 0.043, F.rubber, seg=16)
+    K.rbox(-0.07, 0.07, 0.12, 0.22, 0.06, 0.18, F.plastic, 0.015, seg=2)                                    # the pulp bin
+    K.cyl((0.0, -0.095, 0.205), (0.0, -0.15, 0.185), 0.016, F.chrome, seg=12)                               # the juice spout
+    K.box(-0.05, 0.05, -0.17, -0.11, 0.0, 0.012, F.rubber)                                                  # the drip tray
+    dial(K, -0.04, -0.10, 0.10, F, r=0.022)
+    K.box(0.02, 0.07, -0.103, -0.1, 0.085, 0.105, F.lcd)
+    return K
+
+
+def oil_press(F):
+    """A countertop screw oil press: a motor housing behind, a horizontal steel pressing barrel with a seed hopper on top, an oil spout at the front over a drip tray and a cake chute at the back, 0.20 x 0.46 x 0.32 m."""
+    K = Mesh('kitchen_oil_press')
+    K.rbox(-0.10, 0.10, -0.21, 0.20, 0.0, 0.03, F.body, 0.015, seg=2)                                       # the base plate
+    K.rbox(-0.09, 0.09, 0.06, 0.19, 0.03, 0.22, F.body, 0.03, rv=0.012, seg=3)                              # the motor housing
+    K.cyl((0.0, -0.14, 0.15), (0.0, 0.07, 0.15), 0.06, F.steel, seg=20)                                     # the pressing barrel
+    K.cyl((0.0, -0.14, 0.15), (0.0, -0.16, 0.15), 0.045, F.chrome, seg=16)                                  # its end cap
+    K.lathe([(0.0, 0.20), (0.03, 0.20), (0.07, 0.30), (0.075, 0.32), (0.0, 0.32)], F.steel, at=(0.0, -0.04, 0.0), seg=18, hard=(3,))   # the seed hopper
+    K.cyl((0.0, -0.16, 0.12), (0.0, -0.19, 0.09), 0.015, F.chrome, seg=10)                                  # the oil spout
+    K.box(-0.07, 0.07, -0.21, -0.12, 0.0, 0.012, F.rubber)                                                  # the drip tray
+    dial(K, 0.0, 0.06, 0.12, F, r=0.024)
+    K.rbox(-0.04, 0.04, 0.19, 0.25, 0.06, 0.10, F.plastic, 0.01, seg=2)                                     # the cake chute
+    return K
+
+
 def toaster_oven(F):
     """A countertop toaster oven, 0.44 x 0.34 x 0.26 m."""
     K = Mesh('kitchen_toaster_oven')
@@ -483,11 +536,20 @@ def pull(K, cab, x, yf, z, vertical=True, length=0.12):
         handle_bar_h(K, x - length / 2, x + length / 2, yf, z, cab['pull'], out=0.028, r=0.006)
 
 
+def pull_x(K, cab, x, y, z, dirx, length=0.14):
+    """The same bar handle as pull(), on a face that looks along x (dirx = +1 or -1): standing out from the face at x, centred at height z, at depth y."""
+    z0, z1 = z - length / 2, z + length / 2
+    xo = x + dirx * 0.028
+    K.cyl((x, y, z0 + 0.03), (xo, y, z0 + 0.03), 0.006 * 0.9, cab['pull'], seg=8)
+    K.cyl((x, y, z1 - 0.03), (xo, y, z1 - 0.03), 0.006 * 0.9, cab['pull'], seg=8)
+    K.cyl((xo, y, z0), (xo, y, z1), 0.006, cab['pull'], seg=10)
+
+
 def cabinet_carcass(K, w, d, h, cab, doors=2, drawers=0, handles=True, toe=0.10, glass=False, shelves=0, top=True, double_stack=False, pull_low=False):
     """A base-style cabinet from the floor: toe kick, carcass, doors (and/or drawers), handles. The front face is y = -d/2."""
     x0, x1 = -w / 2, w / 2
     yf = -d / 2
-    K.box(x0 + 0.01, x1 - 0.01, yf + 0.07, d / 2 - 0.01, 0.0, toe, cab['kick'])
+    K.box(x0, x1, yf + 0.07, d / 2, 0.0, toe, cab['kick'])                                                   # the kick runs the full width, like the counter: no gap to see between two cabinets
     K.box(x0, x1, yf + 0.02, d / 2, toe, h, cab['body'], r=0.003, seg=1)
     gap = 0.004
     zb = toe + 0.005
@@ -519,8 +581,9 @@ def cabinet_carcass(K, w, d, h, cab, doors=2, drawers=0, handles=True, toe=0.10,
 
 
 def countertop(K, w, d, z, cab, front_over=0.025, back=0.0, thickness=0.04):
+    # square edges (no bevel): two counters of a run meet flush and read as one slab (a bevel left a groove at every joint)
     x0, x1 = -w / 2, w / 2
-    K.box(x0, x1, -d / 2 - front_over, d / 2 + back, z, z + thickness, cab['counter'], r=0.004, seg=1, uv=2.0)
+    K.box(x0, x1, -d / 2 - front_over, d / 2 + back, z, z + thickness, cab['counter'], uv=2.0)
 
 
 def base_cab_60(C):
@@ -550,21 +613,42 @@ def base_cab_drawers(C):
     return K
 
 
+def base_cab_thin(C):
+    """A 0.15 m slim base cabinet (one narrow door) under a countertop, for the narrow gaps in a run, 0.15 x 0.62 x 0.92 m."""
+    cab = CAB[C]
+    K = Mesh('kitchen_base_cab_thin')
+    cabinet_carcass(K, 0.15, 0.60, 0.88, cab, doors=1)
+    countertop(K, 0.15, 0.60, 0.88, cab)
+    return K
+
+
 def corner_base(C):
-    """An L-shaped corner base cabinet under a countertop, 0.90 x 0.90 x 0.92 m. The doors face out of the corner."""
+    """
+    An L-shaped corner base cabinet under a countertop, 0.90 x 0.90 x 0.92 m. Two arms 0.60 m deep meet in the elbow, which goes into the corner of the room: the BACK strip (full width,
+    against the back wall) and the right arm (full depth, against the side wall). The notch is at the front left, the INNER CORNER, and the doors are on its two short (0.30 m) faces,
+    side by side round the inner corner. The two arm ends are plain panels that run into the neighbouring cabinets.
+    """
     cab = CAB[C]
     K = Mesh('kitchen_corner_base')
-    w = 0.90
+    w, arm = 0.90, 0.60
+    cut = w - arm                                                  # the notch: 0.30 m each way
     x0, x1, y0, y1 = -w / 2, w / 2, -w / 2, w / 2
-    toe = 0.10
-    K.prism([(x0, y0), (x1, y0), (x1, y0 + 0.60), (x0 + 0.60, y0 + 0.60), (x0 + 0.60, y1), (x0, y1)], toe, 0.88, cab['body'])
-    K.box(x0 + 0.01, x1 - 0.01, y0 + 0.07, y0 + 0.58, 0.0, toe, cab['kick'])
-    K.box(x0 + 0.01, x0 + 0.58, y0 + 0.58, y1 - 0.01, 0.0, toe, cab['kick'])
-    door_panel(K, x0 + 0.004, x0 + 0.58, 0.105, 0.875, y0 - 0.001, cab)                                          # the front door
-    pull(K, cab, x0 + 0.535, y0 - 0.001, 0.70, vertical=True, length=0.14)
-    K.box(x1 - 0.64, x1 - 0.60, y0 + 0.0, y0 + 0.002, 0.2, 0.2 + 0.001, cab['kick'])
-    # the countertop: the same L, a little proud at the two open sides
-    K.prism([(x0, y0 - 0.025), (x1, y0 - 0.025), (x1, y0 + 0.60), (x0 + 0.60, y0 + 0.60), (x0 + 0.60, y1), (x0 - 0.0, y1)], 0.88, 0.92, cab['counter'], uv=2.0)
+    toe, setback = 0.10, 0.07
+    t, kt = 0.02, 0.004
+    xi, yi = x0 + arm, y0 + cut                                    # the inner vertex
+    # the box goes ALL the way down on the sides and the back (the faces against the walls and the open ends); only the inner corner, under the doors, is stepped back for the kick plate
+    K.prism([(x0, y0), (x0 + arm, y0), (x0 + arm, y0 + cut), (x1, y0 + cut), (x1, y1), (x0, y1)], toe, 0.88, cab['body'])
+    K.prism([(x0, y0), (xi - setback, y0), (xi - setback, yi + setback), (x1, yi + setback), (x1, y1), (x0, y1)], 0.0, toe, cab['body'])
+    K.box(xi - setback, x1, yi + setback - kt, yi + setback, 0.0, toe, cab['kick'])                            # the kick plate under the door that looks to the front
+    K.box(xi - setback, xi - setback + kt, y0 + 0.01, yi + setback - kt, 0.0, toe, cab['kick'])                # ... and under the door that looks to the side
+    # the doors on the inner corner: one on each short face of the notch, meeting at the inner vertex (1 mm proud of the faces)
+    door_panel(K, xi + 0.004, x1 - 0.004, 0.105, 0.875, yi - 0.001, cab)                                       # on the face that looks to the front (y = yi)
+    pull(K, cab, x1 - 0.05, yi - 0.001, 0.70, vertical=True, length=0.14)                                      # on the OUTER edge of the door, away from the inner vertex
+    K.box(xi - t + 0.001, xi + 0.001, y0 + 0.004, yi - 0.004, 0.105, 0.875, cab['door'], r=0.002, seg=1)       # on the face that looks to the side (x = xi)
+    pull_x(K, cab, xi + 0.001, y0 + 0.05, 0.70, 1.0)                                                          # the same handle, on the outer edge of the side door
+    # the countertop: the same L, proud only at the two faces with doors (the inner corner); everything else is flush with the box
+    o = 0.025
+    K.prism([(x0, y0), (xi + o, y0), (xi + o, yi - o), (x1, yi - o), (x1, y1), (x0, y1)], 0.88, 0.92, cab['counter'], uv=2.0)   # proud only over the two door faces: the arm ends, the side and the back are STRAIGHT (flush with the box)
     return K
 
 
@@ -582,6 +666,7 @@ def wall_cab(w, name):
 
 wall_cab_60 = wall_cab(0.60, 'kitchen_wall_cab_60')
 wall_cab_90 = wall_cab(0.90, 'kitchen_wall_cab_90')
+wall_cab_thin = wall_cab(0.15, 'kitchen_wall_cab_thin')
 
 
 def wall_cab_glass(C):
@@ -592,6 +677,36 @@ def wall_cab_glass(C):
     cabinet_carcass(K, 0.60, d, h, cab, doors=1, toe=0.0, glass=True, pull_low=True)
     K.shift(0, d / 2, 0)
     return K
+
+
+def wall_corner(side):
+    """An L-shaped CORNER wall cabinet, 0.90 x 0.90 x 0.72 m (a wall item): one arm 0.34 m deep along the wall it is mounted on, the other along the wall at its `side` end (+1 on its
+    right as you face it, -1 on its left), so it fills the corner of a wall run where a corner base cabinet stands below. Its two doors are stepped on the front of the L."""
+    def build(C):
+        cab = CAB[C]
+        K = Mesh('kitchen_wall_corner_' + ('right' if side > 0 else 'left'))
+        w, d, a, h = 0.90, 0.90, 0.34, 0.72                      # the square it fills, its depth along the side wall, the arm depth, its height
+        e, o = side * w / 2, -side * w / 2                         # the corner-wall end and the far end, along x
+        xi = e - side * a                                          # where the side arm ends, towards the room
+        xb, ab = xi + side * 0.02, a - 0.02                        # the body's notch faces are set back 2 cm: the doors (2 cm thick) stand in front of them, like on every other cabinet
+        pts = [(e, -d), (xb, -d), (xb, -ab), (o, -ab), (o, 0.0), (e, 0.0)]    # the L in plan: the side arm (y -d..0) and the back arm (y -a..0), the notch open to the room
+        K.prism(pts, 0.0, h, cab['body'])
+        lo, hi = min(e, xi), max(e, xi)
+        # the doors are on the INNER CORNER, the two short (0.30 m) faces of the notch: the one that looks to the front (y = -a) and the one that looks to the side (x = xi)
+        lo2, hi2 = min(o, xi), max(o, xi)
+        door_panel(K, lo2 + 0.004, hi2 - 0.004, 0.005, h - 0.005, -a - 0.001, cab)
+        dr = -side                                                 # from the inner vertex into the notch
+        pull(K, cab, o + side * 0.05, -a - 0.001, 0.11, vertical=True, length=0.14)    # on the outer edge of the door, away from the inner vertex
+        sa, sb = sorted((xi + dr * 0.001, xi - dr * 0.019))        # the side door: 1 mm proud of the face, 2 cm thick into the cabinet
+        K.box(sa, sb, -d + 0.004, -a - 0.004, 0.005, h - 0.005, cab['door'], r=0.002, seg=1)
+        pull_x(K, cab, xi + dr * 0.001, -d + 0.05, 0.11, float(dr))                      # the same handle, on the outer edge of the side door
+        return K
+    build.__doc__ = 'An L-shaped corner wall cabinet for the %s end of a wall run, 0.90 x 0.90 x 0.72 m (a wall item).' % ('right' if side > 0 else 'left')
+    return build
+
+
+wall_corner_left = wall_corner(-1)
+wall_corner_right = wall_corner(1)
 
 
 def pantry(C):
@@ -628,7 +743,7 @@ def island(C):
     K.box(x0 + 0.02, x0 + 0.04, yf + d - 0.15, yf + d - 0.12, 0.10, 0.88, cab['body'])
     for lx in (x0 + 0.04, x1 - 0.06):
         K.box(lx, lx + 0.06, yf + d - 0.10, yf + d - 0.04, 0.0, 0.88, cab['body'], r=0.004, seg=1)
-    K.box(x0, x1, yf - 0.03, yf + d + 0.20, 0.88, 0.92, cab['counter'], r=0.004, seg=1, uv=2.0)
+    K.box(x0, x1, yf - 0.03, yf + d + 0.20, 0.88, 0.92, cab['counter'], uv=2.0)
     K.shift(0, -0.10, 0)
     return K
 
@@ -671,7 +786,7 @@ def kitchen_cart(C):
         for ly in (yf + 0.03, -yf - 0.03):
             K.box(lx - 0.02, lx + 0.02, ly - 0.02, ly + 0.02, 0.06, 0.84, cab['body'], r=0.003, seg=1)
             K.cyl((lx, ly, 0.0), (lx, ly, 0.06), 0.02, cab['pull'], seg=10)
-    K.box(x0, x1, yf, -yf, 0.84, 0.88, cab['counter'], r=0.004, seg=1, uv=2.0)
+    K.box(x0, x1, yf, -yf, 0.84, 0.88, cab['counter'], uv=2.0)
     K.box(x0 + 0.03, x1 - 0.03, yf + 0.03, -yf - 0.03, 0.20, 0.23, cab['body'], r=0.003, seg=1)             # the lower shelf
     K.box(x0 + 0.04, x1 - 0.04, yf + 0.02, -yf - 0.02, 0.62, 0.84, cab['body'])                               # the drawer box
     door_panel(K, x0 + 0.045, x1 - 0.045, 0.64, 0.82, yf + 0.01, cab)
@@ -892,7 +1007,7 @@ def bread_box(F):
 
 
 def spice_rack(C):
-    """A wall spice rack with two shelves and a row of jars, 0.50 x 0.12 x 0.40 m (a wall item)."""
+    """A wall spice rack with two empty shelves, 0.50 x 0.12 x 0.40 m (a wall item)."""
     cab = CAB[C]
     K = Mesh('kitchen_spice_rack')
     w, d = 0.50, 0.12
@@ -901,12 +1016,6 @@ def spice_rack(C):
     for z in (0.0, 0.19, 0.38):
         K.box(-w / 2, w / 2, -d / 2, d / 2, z, z + 0.02, cab['body'])
     K.box(-w / 2, w / 2, d / 2 - 0.01, d / 2, 0.0, 0.40, cab['body'])
-    lids = [material('SpiceLid%d' % i, c, 0.5) for i, c in enumerate(((0.85, 0.2, 0.1), (0.9, 0.7, 0.15), (0.3, 0.55, 0.2), (0.6, 0.35, 0.15), (0.85, 0.85, 0.82)))]
-    for shelf, z in enumerate((0.02, 0.21)):
-        for k in range(5):
-            jx = -0.2 + k * 0.1
-            K.cyl((jx, 0.0, z), (jx, 0.0, z + 0.11), 0.03, cab['glass'], seg=12)
-            K.cyl((jx, 0.0, z + 0.11), (jx, 0.0, z + 0.14), 0.031, lids[(k + shelf) % 5], seg=12)
     K.shift(0, d / 2, 0)
     return K
 
@@ -949,5 +1058,5 @@ def knife_block(C):
 
 # Models that take a CAB key ('white', 'oak', 'black') instead of an appliance finish
 CAB_KEYS = {}
-CAB_MODELS = {'base_cab_60', 'base_cab_90', 'base_cab_drawers', 'corner_base', 'wall_cab_60', 'wall_cab_90', 'wall_cab_glass', 'pantry', 'island', 'countertop_slab',
+CAB_MODELS = {'wall_corner_left', 'base_cab_thin', 'wall_cab_thin', 'base_cab_60', 'base_cab_90', 'base_cab_drawers', 'corner_base', 'wall_cab_60', 'wall_cab_90', 'wall_cab_glass', 'pantry', 'island', 'countertop_slab',
               'open_shelf', 'kitchen_cart', 'table_rect', 'table_round', 'table_bistro', 'chair_dining', 'stool_bar', 'bench', 'cutting_board', 'fruit_bowl', 'spice_rack', 'knife_block'}

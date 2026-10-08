@@ -28,6 +28,18 @@ APP_FIN = {'stainless': ('Stainless Steel', 1.22), 'white': ('White', 1.0), 'bla
 # the cabinet / furniture finishes
 CAB_FIN = {'white': 'White', 'oak': 'Oak', 'black': 'Black'}
 
+# Storage: what a placed kitchen piece can be stocked with (the manifest's `container` block, read by the contents window and the Meals List).
+# model -> capacity in kg. All take food and ingredients only; the contents are not drawn (the doors are shut). Wall cabinets are mounted and hold things too (opened with C). Sink cabinet and the cart's shelves come from tools/furniture_storage.py.
+STORAGE = {'fridge_top': 90, 'fridge_side': 130, 'fridge_french': 140, 'freezer_upright': 90, 'freezer_chest': 150,
+           'base_cab_thin': 8, 'base_cab_60': 35, 'base_cab_90': 55, 'base_cab_drawers': 45, 'corner_base': 60, 'pantry': 140, 'island': 110, 'kitchen_cart': 30,
+           'wall_cab_60': 20, 'wall_cab_thin': 5, 'wall_cab_90': 30, 'wall_corner_left': 25, 'wall_corner_right': 25, 'wall_cab_glass': 15}
+STORAGE_ACCEPTS = ['food', 'ingredients', '#canning_container', '#tableware']    # (the jars and bottles of the Meals List, empty or filled)
+
+
+def container_block(model):
+    return {'capacity_kg': STORAGE[model], 'accepts': list(STORAGE_ACCEPTS), 'show_fill': False}
+
+
 # model, stub, name, description, kind, weight kg, price, power W, extras (manifest properties)
 APPLIANCES = [
     ('fridge_top', 'fridge_top', 'Top-Freezer Refrigerator', 'A full-size refrigerator with the freezer compartment on top, two doors with bar handles and a kick plate.', 62, 620, 150, {}),
@@ -48,17 +60,23 @@ APPLIANCES = [
     ('coffee_maker', 'coffee_maker', 'Drip Coffee Maker', 'A drip coffee maker with a glass carafe and a warming plate.', 2.6, 58, 900, {}),
     ('stand_mixer', 'stand_mixer', 'Stand Mixer', 'A tilt-head stand mixer with a stainless mixing bowl.', 11, 240, 325, {}),
     ('blender_jug', 'blender', 'Countertop Blender', 'A countertop blender with a glass jug and a lid.', 3.8, 95, 700, {}),
+    ('grain_mill', 'grain_mill', 'Countertop Grain Mill', 'A countertop electric grain mill with a steel hopper, a coarseness knob and a steel bowl under the spout that catches the flour.', 6.5, 190, 600, {}),
+    ('juicer', 'juicer', 'Countertop Juicer', 'A countertop centrifugal juicer with a feed chute, a pulp bin and a spout. Turns fruit into juice.', 4.2, 130, 400, {}),
+    ('oil_press', 'oil_press', 'Countertop Oil Press', 'A countertop screw press that squeezes oil out of seeds, nuts and beans into a bottle under its spout.', 7.5, 260, 400, {}),
     ('toaster_oven', 'toaster_oven', 'Toaster Oven', 'A countertop toaster oven with a glass door and three dials.', 5.5, 85, 1200, {}),
 ]
 
 # model, stub, name, description, weight kg, price, extras
 CABINETRY = [
     ('base_cab_60', 'base_cab', 'Base Cabinet', 'A single-door base cabinet with a countertop.', 28, 160, {'support': '0.92'}),
+    ('base_cab_thin', 'base_cab_thin', 'Slim Base Cabinet', 'A 15 cm slim base cabinet with one narrow door and a countertop, for the tight gaps in a run.', 10, 90, {'support': '0.92'}),
     ('base_cab_90', 'base_cab_wide', 'Double-Door Base Cabinet', 'A wide base cabinet with two doors and a countertop.', 38, 230, {'support': '0.92'}),
     ('base_cab_drawers', 'base_cab_drawers', 'Drawer Base Cabinet', 'A base cabinet of three deep drawers with a countertop.', 34, 260, {'support': '0.92'}),
     ('corner_base', 'corner_base', 'Corner Base Cabinet', 'An L-shaped corner base cabinet with a countertop, for turning a counter run round a corner.', 46, 290, {'support': '0.92'}),
     ('wall_cab_60', 'wall_cab', 'Wall Cabinet', 'A single-door wall cabinet. Mount it on a wall.', 14, 95, {'wall': True}),
+    ('wall_cab_thin', 'wall_cab_thin', 'Slim Wall Cabinet', 'A 15 cm slim wall cabinet with one narrow door, for tight spaces. Mount it on a wall.', 6, 60, {'wall': True}),
     ('wall_cab_90', 'wall_cab_wide', 'Double-Door Wall Cabinet', 'A wide wall cabinet with two doors. Mount it on a wall.', 20, 140, {'wall': True}),
+    ('wall_corner_left', 'wall_corner', 'Corner Wall Cabinet', 'An L-shaped corner wall cabinet for turning a run of wall cabinets round a corner. Mount it on the wall that has the corner on its LEFT as you face it (every inside corner is the left end of one of its two walls).', 18, 190, {'wall': True}),
     ('wall_cab_glass', 'wall_cab_glass', 'Glass-Door Wall Cabinet', 'A wall cabinet with a glass door for showing dishes. Mount it on a wall.', 15, 170, {'wall': True}),
     ('pantry', 'pantry', 'Pantry Cabinet', 'A tall two-door pantry cabinet.', 52, 340, {}),
     ('island', 'island', 'Kitchen Island', 'A kitchen island with drawers and doors on the work side and an overhang for stools on the other.', 118, 860, {'support': '0.92'}),
@@ -97,7 +115,7 @@ ACC_CAB = [
     ('cutting_board', 'cutting_board', 'Cutting Board', 'A thick wooden cutting board.', 1.6, 24, {}),
     ('fruit_bowl', 'fruit_bowl', 'Fruit Bowl', 'A wooden bowl with an apple, a lemon and a banana.', 0.9, 26, {}),
     ('knife_block', 'knife_block', 'Knife Block', 'A wooden knife block with five knives.', 1.5, 48, {}),
-    ('spice_rack', 'spice_rack', 'Spice Rack', 'A wall spice rack with two shelves and a row of jars. Mount it on a wall.', 2.2, 32, {'wall': True}),
+    ('spice_rack', 'spice_rack', 'Spice Rack', 'A wall spice rack with two empty shelves. Mount it on a wall; stand things on its top.', 2.2, 32, {'wall': True}),
 ]
 BOARD_LABEL = {'oak': 'Oak', 'white': 'Maple', 'black': 'Walnut'}
 
@@ -136,6 +154,16 @@ def variants():
 
 
 def manifest(v, tris, dims):
+    """The item manifest, plus its storage (closed container and / or shelf decks) from tools/furniture_storage.py."""
+    import furniture_storage
+    man = _manifest(v, tris, dims)
+    furniture_storage.apply(man, 'kitchen', v['model'], v.get('style'))
+    import short_names
+    short_names.apply(man)   # the short display names (tools/short_names.py)
+    return man
+
+
+def _manifest(v, tris, dims):
     w, d, h = dims
     props = {
         'weight_kg': float(v['kg']), 'max_stack_size': 1, 'base_value': int(v['price']), 'is_consumable': False,
@@ -151,7 +179,7 @@ def manifest(v, tris, dims):
     if v['extras'].get('support'):
         props['support_surface'] = True
         props['deck_heights'] = v['extras']['support']
-    return {
+    out = {
         '$schema': 'https://homesteader.game/schemas/item_v1.json',
         'id': v['id'], 'name': v['name'], 'category': 'kitchen', 'description': v['desc'], 'icon': v['id'] + '.png',
         'properties': props,
@@ -168,6 +196,9 @@ def manifest(v, tris, dims):
         'category_fields': {'dimensions_m': {'width': round(w, 3), 'depth': round(d, 3), 'height': round(h, 3)}, 'kitchen_kind': v['kind'],
                            'finish': (v['label'] or 'Standard').lower().replace(' ', '_'), 'power_draw_w': int(v['watts'])},
     }
+    if v['model'] in STORAGE:
+        out['container'] = container_block(v['model'])
+    return out
 
 
 def readme(v, tris, dims):
@@ -227,8 +258,32 @@ def make_icons(workers=4):
     print('ICONS: %d of %d' % (sum(results), len(jobs)))
 
 
+def apply_storage():
+    """Writes (or removes) the `container` block of every kitchen manifest from STORAGE, without rebuilding any model."""
+    n = 0
+    for v in variants():
+        path = os.path.join(KITCHEN, v['id'], v['id'] + '.json')
+        if not os.path.exists(path):
+            continue
+        m = json.load(open(path, encoding='utf-8'))
+        want = container_block(v['model']) if v['model'] in STORAGE else None
+        if m.get('container') == want:
+            continue
+        if want is None:
+            m.pop('container', None)
+        else:
+            m['container'] = want
+        with open(path, 'w', encoding='utf-8', newline=chr(10)) as f:
+            json.dump(m, f, indent=2, ensure_ascii=False)
+            f.write(chr(10))
+        n += 1
+    print('STORAGE: %d manifests updated' % n)
+
+
 if __name__ == '__main__':
-    if '--icons' in sys.argv:
+    if '--storage' in sys.argv:
+        apply_storage()
+    elif '--icons' in sys.argv:
         make_icons()
     else:
         only = set(sys.argv[sys.argv.index('--') + 1:]) if '--' in sys.argv else set()

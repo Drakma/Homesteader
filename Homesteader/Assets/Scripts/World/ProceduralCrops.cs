@@ -19,7 +19,7 @@ namespace Homesteader.World
             "corn", "sunflower", "wheat", "pumpkin", "carrot", "potato", "tomato", "strawberry", "herb", "cotton",
             "onion", "garlic", "lettuce", "cabbage", "spinach", "broccoli", "beet", "radish", "rhubarb",
             "peas", "green_beans", "cucumber", "hops", "zucchini", "peppers", "soybeans", "peanuts", "tobacco", "flax", "alfalfa",
-            "oats", "barley", "watermelon", "cantaloupe",
+            "oats", "barley", "watermelon", "cantaloupe", "canola",
         };
 
         /// <summary>The looks of a crop: five growth stages, then the two failure versions.</summary>
@@ -535,6 +535,7 @@ namespace Homesteader.World
             public bool Upright;            // red-stemmed leaves standing up (beet)
             public bool Stalks;             // thick leaf stalks (rhubarb)
             public bool Flower = true;      // flowers at mature
+            public int FlowerScatter;       // a bush that flowers in a cloud (canola): this many flowers over its upper half while it is mature and not yet ripe
             public string[] Colours;        // stem, leaf, fruit, accent (mature)
             public string RipeLeaf;         // leaf colour when ripe (null = same)
             public string RipeStem;
@@ -565,6 +566,7 @@ namespace Homesteader.World
             { "flax", new Spec { Kind = Kind.Bush, H = 0.8f, Leaf = 0.05f, LW = 0.012f, N = 22, Shape = FruitShape.Blob, FruitR = 0.012f, FruitN = 0, Colours = new[] { "#8fae58", "#6fa03a", "#9a7a3a", "#5a8ad8" }, RipeLeaf = "#b8a448", RipeStem = "#b8a850" } },
             { "alfalfa", new Spec { Kind = Kind.Bush, H = 0.5f, Leaf = 0.055f, LW = 0.03f, N = 26, Shape = FruitShape.Blob, FruitR = 0.015f, FruitN = 0, Colours = new[] { "#6f9a40", "#4f9a38", "#4f9a38", "#8a5ab8" } } },
             { "oats", new Spec { Kind = Kind.Grain, H = 0.95f, N = 9, Shape = FruitShape.Pod, Colours = new[] { "#8fb048", "#7fa83e", "#a8b858", "#c8b868" }, RipeStem = "#d8c068", RipeLeaf = "#d0b860", RipeFruit = "#e0c870" } },
+            { "canola", new Spec { Kind = Kind.Bush, FlowerScatter = 30, H = 1.1f, Leaf = 0.1f, LW = 0.035f, N = 18, Shape = FruitShape.Pod, FruitLen = 0.06f, FruitR = 0.006f, FruitN = 22, Colours = new[] { "#7fa84a", "#5f9a58", "#9ab04a", "#f4d530" }, RipeLeaf = "#b8a448", RipeStem = "#b8a850", RipeFruit = "#c8b070" } },
             { "barley", new Spec { Kind = Kind.Grain, H = 0.85f, N = 14, Shape = FruitShape.Cone, Colours = new[] { "#8fb048", "#7fa83e", "#a8b858", "#c8b868" }, RipeStem = "#d8b860", RipeLeaf = "#d0b058", RipeFruit = "#e0c068" } },
             { "watermelon", new Spec { Kind = Kind.VineFruit, H = 1.0f, Leaf = 0.26f, LW = 0.13f, FruitR = 0.36f, FruitLen = 1.35f, Colours = new[] { "#5f8a3a", "#4f9a3a", "#3a8a3a", "#f3d030" } } },
             { "cantaloupe", new Spec { Kind = Kind.VineFruit, H = 0.9f, Leaf = 0.22f, LW = 0.12f, FruitR = 0.28f, FruitLen = 1f, Colours = new[] { "#6f8a3a", "#5a9a3a", "#d8b878", "#f3d030" } } },
@@ -759,6 +761,9 @@ namespace Homesteader.World
                 if (s.Flower && !c.Ripe) Blob(c.M, StemPoint(b, H, lean, 1f) + Vector3.up * 0.02f, 0.02f, 0.014f, 0.02f, 3, 5, 2);
                 if (c.Ripe && s.FruitN == 0) Blob(c.M, StemPoint(b, H, lean, 1f) + Vector3.up * 0.02f, 0.03f, 0.025f, 0.03f, 3, 5, 2);   // tobacco, flax, alfalfa: flowers on top
             }
+            if (s.FlowerScatter > 0 && c.Mature && !c.Ripe)   // canola: a cloud of yellow flowers over the top of the plant (gone when it sets pods)
+                for (int i = 0; i < s.FlowerScatter; i++)
+                    Blob(c.M, Dir(i * 2.4f) * R(c.Rng, 0.02f, 0.17f) + Vector3.up * H * R(c.Rng, 0.55f, 1f), 0.024f, 0.014f, 0.024f, 3, 5, 2);
             if (s.Leaf < 0.07f && c.Mature)   // flax and alfalfa: a scatter of flowers over the whole plant
                 for (int i = 0; i < 8; i++)
                     Blob(c.M, Dir(i * 2.4f) * R(c.Rng, 0.03f, 0.13f) + Vector3.up * H * R(c.Rng, 0.6f, 1f), 0.016f, 0.01f, 0.016f, 3, 4, 2);

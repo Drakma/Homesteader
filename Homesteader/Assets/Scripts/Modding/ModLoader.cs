@@ -91,6 +91,10 @@ namespace Homesteader.Modding
                                 LoadRadio(mod, entry, result, log);
                                 break;
 
+                            case ModContentType.Meal:
+                                LoadMeals(mod, entry, result, log);
+                                break;
+
                             case ModContentType.Script:
                                 result.Messages.Add(
                                     $"Content type 'script' is declared but not executable in this build; " +
@@ -151,6 +155,22 @@ namespace Homesteader.Modding
                 Homesteader.Animals.AnimalAIRegistry.LoadFromJson(root, mod.Id, msg => mod.Warnings.Add($"Animal AI: {msg}"));
                 result.Messages.Add("Loaded animal AI from " + Path.GetFileName(file));
                 log?.Invoke($"[Mods] {mod.Id}: loaded animal AI ({Path.GetFileName(file)}).");
+            }
+        }
+
+        /// <summary>Registers the meal JSON files a mod ships (what the kitchen's Meals List can make; docs/COOKING.md).</summary>
+        private static void LoadMeals(ModInfo mod, ModContentEntry entry, ModLoadResult result, Action<string> log)
+        {
+            foreach (string file in ModFileResolver.ResolveFiles(mod, entry.Path, ".json"))
+            {
+                if (!ModJson.TryParse(File.ReadAllText(file), out ModJsonValue root, out string error))
+                {
+                    mod.Warnings.Add($"Meal file '{file}' is not valid JSON - {error}");
+                    continue;
+                }
+                int n = Homesteader.Kitchen.MealRegistry.LoadFromJson(root, mod.Id, msg => mod.Warnings.Add($"Meals: {msg}"));
+                result.Messages.Add($"Loaded {n} meal(s) from {Path.GetFileName(file)}");
+                log?.Invoke($"[Mods] {mod.Id}: loaded {n} meal(s) ({Path.GetFileName(file)}).");
             }
         }
 

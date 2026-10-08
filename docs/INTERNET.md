@@ -69,7 +69,7 @@ reached over Wi-Fi. The order is
 - **Yagi links.** Two powered yagis within range of each other (1,500 m) carry the network across: each must point at the other (its boom is its forward; R turns it while
   placing). Within 20 degrees the link is full, within 45 half, wider there is none.
 - **On the roof.** The dishes, the yagi and the access point (`properties.roof_mount`) stand on the ground or go up on a roof: with one in hand, aim at the roof of a
-  finished building (within 6 m of it), R turns it 12.5 degrees a press (Shift + R the other way), left click again mounts it upright. Once it is up, R with the cursor
+  finished building (within 6 m of it), R turns it 22.5 degrees a press (Shift + R the other way), left click again mounts it upright. Once it is up, R with the cursor
   on it turns it where it stands, so a yagi is aimed without taking it down.
 - **Wi-Fi.** A powered router or access point reaches its `range_m` (router 30 m, mesh router 45 m, indoor access point 25 m, outdoor access point 60 m; the rackmount router and a rack give none: the access points cabled to them do). A TV with no cable is online while it is in
   range of one that has internet.

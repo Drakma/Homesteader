@@ -14,7 +14,7 @@ namespace Homesteader.Growth
     /// properties.placeable = true; the category does not matter), the first left click brings out a translucent "shadow"
     /// copy of its model that follows the grid square under the cursor. Squares within placement.reach_cells of the player
     /// (default 1) are valid (tinted blue), others are not (tinted red). R turns it by placement.rotate_step_deg
-    /// (default 12.5 degrees, Shift+R turns the other way). Enter or a second left click on a valid square consumes one
+    /// (default 22.5 degrees, Shift+R turns the other way). Enter or a second left click on a valid square consumes one
     /// item (Esc, walking or another slot puts the shadow away); the shadow fades to solid and stays until something removes it (<see cref="PlacedObject.Remove"/>).
     ///
     /// Bootstraps itself after the scene loads, so no scene edit is needed. Keys: docs/CONTROLS.md.
@@ -29,6 +29,9 @@ namespace Homesteader.Growth
         private bool ghostStructureModel;   // the structure shadow is the real foundation model (not the stand-in slab)
         private GameObject ghost;
         private int rotationSteps;
+        private bool _mirror;       // T: the shadow is mirrored left to right (a negative x scale), and so is the object placed from it (saved: SavedPlaced.mirrored)
+        private bool _runSnapped;   // the shadow of a kitchen piece is snapped to a neighbour or a wall: R then turns it a quarter turn on its snap (KitchenRun.cs)
+        private int _runTurns;
         private Transform placedRoot;
         private string lastReason;
         private bool placing;            // the shadow is out: the first click started it, Enter or a second click places it
@@ -54,6 +57,7 @@ namespace Homesteader.Growth
 
             HandlePickupClick(hud);   // right click on a placed object takes it back
             if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.DropItem)) DropHeldItem();
+            if (Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.Consume)) Homesteader.Kitchen.Consumption.TryConsumeHeld();
             // a left click with an uncut log in hand over a sawmill lays it on the track
             if (!placing && PlaceClicked() && !hud.IsPointerOverUI(PointerPosition()) && Sawmill.TryLoadHeld(GameCamera(), PointerPosition())) return;
             // a left click with an item in hand over a wall shelf stands one on it (before anything else takes the click)
@@ -82,6 +86,15 @@ namespace Homesteader.Growth
             Camera cam = GameCamera();
             if (!hud.IsPointerOverUI(pointer) && AttachController.TakesRoofClick(heldId, cam, pointer)) { placing = false; HideGhost(); return; }   // over a roof it is put up there: the roof preview owns the click and R
 
+            // A window item is never set on the ground: a left click puts it into the wall under the cursor (or swaps the window there), with nothing but a message when the cursor is not on a wall.
+            if (StructureWindows.IsWindowItem(heldId) || StructureWindows.IsShutterItem(heldId))
+            {
+                placing = false;
+                HideGhost();
+                if (cam != null && !hud.IsPointerOverUI(pointer) && PlaceClicked()) StructureWindows.TryInstallAtCursor(cam, pointer, PedController.Current != null ? PedController.Current.transform : null);
+                return;
+            }
+
             // Not placing yet: a placeable item in hand does nothing until it is clicked. That click brings out the shadow.
             if (!placing)
             {
@@ -100,7 +113,8 @@ namespace Homesteader.Growth
             }
 
             if (RotatePressed(out bool reverse))
-                rotationSteps += reverse ? -1 : 1;
+                if (KitchenRun.IsRun(heldId)) _runTurns = (_runTurns + (reverse ? 3 : 1)) & 3;   // a kitchen piece: R always turns it a quarter turn (on its snap, and free): kept where you left it
+                else rotationSteps += reverse ? -1 : 1;
 
             if (cam == null || hud.IsPointerOverUI(pointer)) { HideGhost(); return; }
 
@@ -109,7 +123,15 @@ namespace Homesteader.Growth
 
             ghost.SetActive(true);
             // A structure turns in quarter turns so its walls stay on the grid; everything else turns by the usual step.
-            ghost.transform.rotation = Quaternion.Euler(0f, rotationSteps * (structure ? 90f : GameRules.Placement.RotateStepDeg), 0f);
+            ghost.transform.rotation = Quaternion.Euler(0f, rotationSteps * (structure ? 90f : GameRules.Placement.RotateStepDeg) + (!structure && KitchenRun.IsRun(heldId) ? 90f * _runTurns : 0f), 0f);
+            if (!structure)
+            {
+                if (!HudBindings.KeyboardCaptured && Homesteader.Controls.KeyBindings.WasPressedThisFrame(Homesteader.Controls.BindAction.MirrorPlacement)) _mirror = !_mirror;
+                Vector3 ms = ghost.transform.localScale;
+                ms.x = Mathf.Abs(ms.x) * (_mirror ? -1f : 1f);
+                ghost.transform.localScale = ms;   // T: mirrored left to right
+            }
+            else _mirror = false;
             var ped = PedController.Current;
             // Over a pallet's deck the item rests ON the pallet, in the pallet's own turn, packed in its free space.
             PlacedObject pallet = null;
@@ -118,7 +140,9 @@ namespace Homesteader.Growth
             if (!structure && !PalletDeck.IsPallet(heldId))
             {
                 // a shelving unit is found by the ray (and the shelf it comes to), a pallet by the point on the ground
-                if (!PalletDeck.UnderRay(cam.ScreenPointToRay(pointer), out pallet, out deck, out deckHit)) pallet = PalletDeck.PalletUnder(hitPoint);
+                // a small kitchen item (a cooktop): the counter whose top the ray meets (the ground point behind it would only find the counter at its far edge)
+                if (KitchenRun.CountertopItem(heldId, GhostHeight()) && KitchenRun.CounterUnderRay(cam.ScreenPointToRay(pointer), out pallet)) deck = 0;
+                else if (!PalletDeck.UnderRay(cam.ScreenPointToRay(pointer), out pallet, out deck, out deckHit)) pallet = PalletDeck.PalletUnder(hitPoint);
             }
             Plan plan;
             if (pallet != null) plan = MakePalletPlan(pallet, heldId, deckHit, ped != null ? ped.transform : null, deck);
@@ -252,6 +276,7 @@ namespace Homesteader.Growth
                 Camera mountCam = GameCamera();
                 var mountPed = PedController.Current;
                 if (mountCam != null && LightEmitter.TryRightClick(mountCam, pointer, mountPed != null ? mountPed.transform : null)) return;   // a light: switches it off or on (a wrench takes it down)
+                if (mountCam != null && StructureWindows.TryRightClick(mountCam, pointer, mountPed != null ? mountPed.transform : null)) return;   // a wrench on a window: it is picked up and slides along its wall
                 if (mountCam != null && Sawmill.TryRightClick(mountCam, pointer)) return;   // a sawmill: asks what to cut (Shift: the log off again)
                 if (mountCam != null && NetRack.TryTake(mountCam, pointer)) return;   // a router or switch in a wall rack: back into the toolbar
                 if (mountCam != null && Shelf.TryTake(mountCam, pointer)) return;   // a thing on a wall shelf: back into the toolbar
@@ -262,6 +287,7 @@ namespace Homesteader.Growth
                 if (mountCam != null && Disconnect.TryRightClick(mountCam, pointer, mountPed != null ? mountPed.transform : null)) return;   // a safety disconnect: throws it on or off   // a sink, toilet, shower or washer in a building: uses it (Shift + right click picks it up)
                 if (mountCam != null && WireTool.TryRightClick(mountCam, pointer, mountPed != null ? mountPed.transform : null)) return;   // wire cutters in hand: wire two devices (or cut the wire)
                 if (mountCam != null && AttachedObject.TryFitAtRay(mountCam.ScreenPointToRay(pointer), mountPed != null ? mountPed.transform.position : Vector3.zero)) return;   // a panel in hand on a roof rack
+                if (mountCam != null && PlacedChimney.TryPickUpAtRay(mountCam.ScreenPointToRay(pointer), mountPed != null ? mountPed.transform.position : Vector3.zero)) return;   // a chimney: Shift + right click with a wrench takes it down
                 if (mountCam != null && AttachedObject.TryPickUpAtRay(mountCam.ScreenPointToRay(pointer), mountPed != null ? mountPed.transform.position : Vector3.zero)) return;
             }
 
@@ -377,7 +403,8 @@ namespace Homesteader.Growth
                     return;
                 }
                 // The chimney of a finished building: firewood goes into its fireplace, a lighter lights it.
-                if (site.Fireplace != null && site.Fireplace.CursorOnChimney() && site.Fireplace.Use(ConstructionSite.HeldItem(), builder != null ? builder.transform : null))
+                PlacedChimney chim = PlacedChimney.UnderCursor();
+                if (chim != null && chim.Fire != null && chim.Fire.Use(ConstructionSite.HeldItem(), builder != null ? builder.transform : null))
                     return;
                 // A finished storage structure (a grain silo): with something in the active slot items move in or out like a container; with an empty slot it says what is in it.
                 if (site.IsStorage)
@@ -453,10 +480,16 @@ namespace Homesteader.Growth
             {
                 if (TryFitOnMount(target, mountInfo)) return;
             }
-            // A bolted-down piece (properties.wrench_remove: kitchen, living room, lighting and bathroom fittings): a right click with a wrench takes it up.
-            if (ItemRegistry.NeedsWrench(target.ItemId) && !AttachedObject.WrenchInHand())
+            // Any object in a kitchen (a cabinet, a fridge, the stove ...): a right click without a wrench opens the Meals List for that kitchen (docs/COOKING.md).
+            if (Homesteader.Kitchen.MealsPanel.IsKitchenObject(target.ItemId) && !AttachedObject.WrenchInHand() && !(Keyboard.current != null && Keyboard.current.shiftKey.isPressed))   // (Shift + right click picks the board up)
             {
-                ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Take it up with a wrench: right click.");
+                Homesteader.Kitchen.MealsPanel.Open(target.transform.position, target.ItemId);
+                return;
+            }
+            // A bolted-down piece (properties.wrench_remove: kitchen, living room, lighting and bathroom fittings): a right click with a wrench takes it up.
+            if (ItemRegistry.NeedsWrench(target.ItemId) && !AttachedObject.WrenchRemoval())
+            {
+                ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Take it up with a wrench: Shift + right click.");
                 return;
             }
             // A solar panel or mount is bolted down: a wrench with Shift + right click takes it up.
@@ -483,8 +516,14 @@ namespace Homesteader.Growth
                 if (WheelbarrowPush.TryScoop(target)) return;    // an empty one takes from it
                 if (target.Contents != null && target.Contents.Count > 0) { ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Use a shovel to move it."); return; }
             }
-            if (ContainerRules.IsContainer(target.ItemId) && !activeSlotEmpty) { TransferWithContainer(target); return; }
+            if (ContainerRules.IsContainer(target.ItemId) && !activeSlotEmpty && !AttachedObject.WrenchInHand()) { TransferWithContainer(target); return; }   // (a wrench in hand picks the container up: it is the tool for taking things up)
             // A bundle, stack or case: a right click takes ONE piece out of it, Shift + right click the whole pack (what is left stays on it and goes with it)
+            // A PLACED thing is only taken up with a wrench and Shift (a right click with Shift held, a wrench in the active slot); only a DROPPED item is picked up by a plain right click.
+            if (!AttachedObject.WrenchRemoval())
+            {
+                ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Take it up with a wrench: Shift + right click.");
+                return;
+            }
             if (PackRules.TryTakeOne(target)) return;
             PickUp(target);
         }
@@ -523,6 +562,21 @@ namespace Homesteader.Growth
             {
                 if (box != null) TransferBetweenContainers(box, slot, index, hud, boxName);
                 else ToastNotificationSystem.ShowInfo(boxName, "Put the items straight in: pick them out of the basket first.");
+                return;
+            }
+
+            // IN: a filled or part-used liquid container (a jar of jam) goes in with what it holds.
+            if (slotHasItems && LiquidRules.IsLiquidContainer(slot.IconId) && (!string.IsNullOrEmpty(slot.LiquidId) || Mathf.Abs(slot.WireUsed) > 0.0001f) && ContainerRules.Accepts(boxId, slot.IconId, contents))
+            {
+                if (ContainerRules.AddWithState(boxId, contents, slot.IconId, slot.LiquidId, slot.WireUsed) > 0)
+                {
+                    slot.Count--;
+                    slot.WireUsed = 0f;
+                    slot.LiquidId = "";
+                    hud.Toolbar[index] = slot.Count > 0 ? slot : ToolbarSlotData.Empty();
+                    FinishTransfer(hud);
+                }
+                else ToastNotificationSystem.ShowInfo(boxName, "It is full.");
                 return;
             }
 
@@ -588,6 +642,7 @@ namespace Homesteader.Growth
             int movedIn = 0;
             foreach (ContainerStack st in new List<ContainerStack>(held.Contents))
             {
+                if (st.HasState) { movedIn += ContainerRules.MoveStateful(st, box.ItemId, box.Contents, held.Contents); continue; }
                 int n = ContainerRules.Add(box.ItemId, box.Contents, st.ItemId, st.Count);
                 if (n <= 0) continue;
                 ContainerRules.Remove(held.Contents, st.ItemId, n);
@@ -603,6 +658,7 @@ namespace Homesteader.Growth
             int movedOut = 0;
             foreach (ContainerStack st in new List<ContainerStack>(box.Contents))
             {
+                if (st.HasState) { movedOut += ContainerRules.MoveStateful(st, held.IconId, held.Contents, box.Contents); continue; }
                 int n = ContainerRules.Add(held.IconId, held.Contents, st.ItemId, st.Count);
                 if (n <= 0) continue;
                 ContainerRules.Remove(box.Contents, st.ItemId, n);
@@ -680,14 +736,14 @@ namespace Homesteader.Growth
                 if (free < 0) { ToastNotificationSystem.ShowWarning("Toolbar full", "No free toolbar slot for that."); return false; }
                 hud.Toolbar[free] = new ToolbarSlotData { IconId = id, Count = 1, Contents = ContainerRules.Clone(top.Contents) };
             }
-            else if (top.WireUsed > 0.01f)
+            else if (top.WireUsed > 0.01f || !string.IsNullOrEmpty(top.LiquidId))
             {
                 // a partly used coil or spool of wire goes into a slot of its own, so the metres already used go with it
                 int free = -1;
                 for (int i = 0; i < hud.Toolbar.Count; i++)
                     if (hud.Toolbar[i].Count <= 0 || string.IsNullOrEmpty(hud.Toolbar[i].IconId)) { free = i; break; }
                 if (free < 0) { ToastNotificationSystem.ShowWarning("Toolbar full", "No free toolbar slot for that."); return false; }
-                hud.Toolbar[free] = new ToolbarSlotData { IconId = id, Count = 1, WireUsed = top.WireUsed };
+                hud.Toolbar[free] = new ToolbarSlotData { IconId = id, Count = 1, WireUsed = top.WireUsed, LiquidId = top.LiquidId ?? "" };   // (a glass of juice: the liquid goes with it)
             }
             else
             {
@@ -712,6 +768,7 @@ namespace Homesteader.Growth
             List<ContainerStack> contents = state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count ? state.Toolbar[state.SelectedSlot].Contents : null;
             float wireUsed = state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count ? state.Toolbar[state.SelectedSlot].WireUsed : 0f;   // a used coil or spool keeps its metres
             int wireSlot = state.SelectedSlot;
+            string slotLiquid = state.SelectedSlot >= 0 && state.SelectedSlot < state.Toolbar.Count ? state.Toolbar[state.SelectedSlot].LiquidId : null;   // a filled glass keeps its liquid
             if (!state.ConsumeFromSelectedSlot(1)) return;
             ClearWireUsed(state, wireSlot);
             HudBindings.Instance.RefreshToolbar();
@@ -727,8 +784,9 @@ namespace Homesteader.Growth
                     o.transform.position = to;
                 }
 
-            PlacedObject placedNow = SpawnPlaced(itemId, info, plan.Position, rotation.eulerAngles.y, true, plan.Level, contents);
-            if (placedNow != null) placedNow.WireUsed = wireUsed;
+            PlacedObject placedNow = SpawnPlaced(itemId, info, plan.Position, rotation.eulerAngles.y, true, plan.Level, contents, _mirror);
+            _mirror = false;
+            if (placedNow != null) { placedNow.WireUsed = wireUsed; if (!string.IsNullOrEmpty(slotLiquid)) placedNow.LiquidId = slotLiquid; }
         }
 
         /// <summary>The used spool was the one that left the slot: what is still in it is whole spools.</summary>
@@ -747,7 +805,7 @@ namespace Homesteader.Growth
         /// Creates a placed object from a loaded model template. fade = true starts as the translucent shadow and
         /// fades to solid (a fresh placement); false is a solid object at once (restoring a save).
         /// </summary>
-        public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade, int level = 0, List<ContainerStack> contents = null)
+        public static PlacedObject SpawnPlaced(string itemId, ItemRegistry.ItemInfo info, Vector3 cell, float yawDeg, bool fade, int level = 0, List<ContainerStack> contents = null, bool mirrored = false)
         {
             if (s_placedRoot == null) s_placedRoot = new GameObject("PlacedObjects").transform;
             // Snap to the terrain surface (just above, not 3 m above) when it is below it; a container stacked on another, or a thing standing on a
@@ -757,7 +815,9 @@ namespace Homesteader.Growth
             GameObject obj = Instantiate(info.Prefab, s_placedRoot);
             obj.SetActive(true);                       // templates live inactive
             obj.transform.SetPositionAndRotation(cell, Quaternion.Euler(0f, yawDeg, 0f));
+            if (mirrored) { Vector3 sc = obj.transform.localScale; sc.x = -Mathf.Abs(sc.x); obj.transform.localScale = sc; }   // mirrored left to right
             var placed = obj.AddComponent<PlacedObject>();
+            placed.Mirrored = mirrored;
             placed.Init(itemId, cell, yawDeg, level);
             if (contents != null) placed.Contents = ContainerRules.Clone(contents);
             WireNode.Attach(placed.gameObject, itemId);     // a device the solar chain wires together
@@ -765,6 +825,8 @@ namespace Homesteader.Growth
             PortableGenerator.Attach(placed.gameObject, itemId);   // a portable generator powers what is round it
             WindTurbine.AttachIfTurbine(placed);            // a wind turbine turns into the wind and its blades spin
             ContainerFillView.AttachIfContainer(placed);   // what is inside shows as blocks that fill the container
+            DishView.AttachIfDish(placed);                 // a served plate, bowl or glass shows its food or drink
+            KitchenRunFiller.AttachIfRun(placed);          // a kitchen run piece: a filler strip closes a gap between its end and a wall
             StrawBedding.AttachIfBedding(placed);          // straw bedding finds its room and lays the straw over the floor
             TankSticker.AttachIfTank(placed);              // a fuel tank's sticker names what is in it
             Homesteader.World.PickupFlag.AttachIfFlag(placed);   // a pickup flag: it marks the market pickup zone
@@ -908,9 +970,11 @@ namespace Homesteader.Growth
         private Plan MakePalletPlan(PlacedObject pallet, string itemId, Vector3 hit, Transform player, int deck = 0)
         {
             var plan = new Plan { Position = hit };
-            ghost.transform.rotation = Quaternion.Euler(0f, pallet.transform.eulerAngles.y, 0f);   // aligned with the pallet
+            bool onCounter = KitchenRun.IsRun(pallet.ItemId) && !PalletDeck.IsShelving(pallet.ItemId);
+            // aligned with the pallet; on a kitchen counter the R turns of the appliance (a toaster, a mixer) are added to the counter's own
+            ghost.transform.rotation = Quaternion.Euler(0f, pallet.transform.eulerAngles.y + (onCounter ? rotationSteps * GameRules.Placement.RotateStepDeg : 0f), 0f);
             if (!PalletDeck.LocalRect(pallet.transform, ghost, out Rect mine)) { plan.Reason = "Loading..."; return plan; }
-            if (player != null && !PlantingValidator.InReach(player, pallet.transform.position, GameRules.Placement.ReachCells))
+            if (player != null && !PlantingValidator.InReach(player, new Vector3(hit.x, pallet.transform.position.y, hit.z), GameRules.Placement.ReachCells))   // reach is to the spot being placed, not to the middle of the pallet (a 1.6 m island is not out of reach at its ends)
             {
                 plan.Reason = $"You can only place things within {GameRules.Placement.ReachCells} squares of you.";
                 return plan;
@@ -920,6 +984,17 @@ namespace Homesteader.Growth
             Bounds gb = default;
             foreach (Renderer r in ghost.GetComponentsInChildren<Renderer>()) { if (!anyRenderer) { gb = r.bounds; anyRenderer = true; } else gb.Encapsulate(r.bounds); }
             if (anyRenderer) itemHeight = gb.size.y;
+            if (KitchenRun.IsRun(pallet.ItemId) && !PalletDeck.IsShelving(pallet.ItemId))
+            {
+                // a kitchen counter: free placement under the cursor, in the counter's own turn, across any counters side by side (a cooktop spans two cabinets)
+                Camera counterCam = GameCamera();
+                Ray counterRay = counterCam != null ? counterCam.ScreenPointToRay(PointerPosition()) : new Ray(hit + Vector3.up, Vector3.down);
+                plan.Valid = KitchenRun.PlanOnCounter(pallet, ghost, counterRay, hit, itemHeight, out Vector3 counterPos, out string counterReason);
+                plan.Position = counterPos;
+                plan.Reason = counterReason;
+                plan.Level = 0;
+                return plan;
+            }
             if (!PalletDeck.FindSpot(pallet, itemId, new Vector2(mine.width, mine.height), hit, null, out Vector3 pos, out int level, out string reason, deck, itemHeight))
             {
                 plan.Reason = reason;
@@ -1004,6 +1079,16 @@ namespace Homesteader.Growth
             if (!ValidateGround(center, player, out string reason)) { plan.Reason = reason; return plan; }
 
             if (TrySnapMount(heldId, hit, size, restY, onTop, player, plan)) return plan;   // a solar rack next to another one snaps to it
+            _runSnapped = KitchenRun.TrySnap(heldId, ghost, hit, _runTurns, out Vector3 runPos, out float runYaw, out string runReason);
+            if (_runSnapped)   // a kitchen cabinet or appliance: against its neighbour, else backed onto the wall
+            {
+                ghost.transform.rotation = Quaternion.Euler(0f, runYaw, 0f);
+                plan.Position = GroundAt(new Vector2(runPos.x, runPos.z), restY, onTop);
+                plan.Reason = runReason;
+                plan.Valid = runReason == null;
+                plan.Level = 0;
+                return plan;
+            }
             if (TryFreePlace(hit, size, plan)) return plan;   // inside a building: exactly where the cursor is, not on the outdoor grid
 
             Vector2 min = new Vector2(center.x - g * 0.5f, center.z - g * 0.5f);
@@ -1226,6 +1311,16 @@ namespace Homesteader.Growth
                 return result;
             }
             return null;
+        }
+
+        /// <summary>The height of the shadow in metres (0 until its model has loaded).</summary>
+        private float GhostHeight()
+        {
+            Renderer[] rs = ghost != null ? ghost.GetComponentsInChildren<Renderer>() : null;
+            if (rs == null || rs.Length == 0) return 0f;
+            Bounds b = rs[0].bounds;
+            for (int i = 1; i < rs.Length; i++) b.Encapsulate(rs[i].bounds);
+            return b.size.y;
         }
 
         /// <summary>World footprint (x, z) of the shadow at its current turn.</summary>
@@ -1587,7 +1682,7 @@ namespace Homesteader.Growth
         private static float SupportY(List<PlacedObject> col, PlacedObject bottom)
         {
             Vector3 p = bottom.transform.position;
-            RaycastHit[] hits = Physics.RaycastAll(p + Vector3.up * 0.25f, Vector3.down, 8f, ~0, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = Physics.RaycastAll(p + Vector3.up * 0.08f, Vector3.down, 8f, ~0, QueryTriggerInteraction.Ignore);   // (low: a thing on a shelf must not start above the shelf over it)
             System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
             foreach (RaycastHit h in hits)
             {
@@ -1707,9 +1802,26 @@ namespace Homesteader.Growth
                 if (col == null) { col = new List<PlacedObject>(); result.Add(col); }
                 col.Add(o);
             }
-            foreach (List<PlacedObject> c in result) c.Sort((a, b) => a.Level.CompareTo(b.Level));
-            return result;
+            // Things at the same x, z but at different heights are not one stack when there is air between them: one on each shelf of a shelving unit is a column per shelf.
+            var split = new List<List<PlacedObject>>();
+            foreach (List<PlacedObject> c in result)
+            {
+                c.Sort((a, b) => a.transform.position.y.CompareTo(b.transform.position.y));
+                List<PlacedObject> cur = null;
+                PlacedObject prev = null;
+                foreach (PlacedObject o in c)
+                {
+                    bool apart = prev != null && prev.Height > 0.001f && o.transform.position.y > prev.transform.position.y + prev.Height + ShelfGapM;
+                    if (cur == null || apart) { cur = new List<PlacedObject>(); split.Add(cur); }
+                    cur.Add(o);
+                    prev = o;
+                }
+            }
+            foreach (List<PlacedObject> c in split) c.Sort((a, b) => a.Level.CompareTo(b.Level));
+            return split;
         }
+
+        private const float ShelfGapM = 0.12f;   // more air than this between two things at one spot and the upper one rests on something else (a shelf): it is not on the lower one
 
         /// <summary>The ground footprint (x, z in world metres) of a column: the union of its objects' bounds.</summary>
         public static Rect ColumnRect(List<PlacedObject> column)
@@ -1847,6 +1959,7 @@ namespace Homesteader.Growth
         // Saved with the placed object (SavedPlaced.paintId). Picking the door up gives back the plain item.
 
         /// <summary>The paint can (item id) this placed door was painted with, or null.</summary>
+        public bool Mirrored { get; set; }              // placed mirrored left to right (T while placing)
         public string PaintId { get; private set; }
         public float WireUsed;                          // a placed coil or spool of wire: the metres used from it (see Wiring.cs); a liquid container: its liters (LiquidRules.Held)
         public string SawLog;                           // a sawmill: the uncut log lying on its track (Sawmill.cs)

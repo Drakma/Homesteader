@@ -31,7 +31,7 @@ PORCH_D = 1.6            # depth of the front porch inside the footprint
 WALL_H = 2.5             # wall height above the floor
 T_SIDING, T_SHEATH, T_STUD = 0.03, 0.02, 0.14
 DOOR_W, DOOR_H = 1.2, 2.3
-WIN_W, WIN_H, WIN_SILL = 0.95, 1.25, 0.9
+WIN_W, WIN_H, WIN_SILL = 0.95, 1.10, 1.05   # the sill is above a kitchen counter (0.92 m); the head stays at 2.15 m
 
 
 def colour(name, rgb, rough=0.85):
@@ -115,7 +115,7 @@ PB = None   # the separate "Porch" object (posts, beam, railing) while a stage i
 FB = None   # the separate "Foundation" object while a stage is built (the game can swap it for another foundation style)
 
 
-def foundation(b, c, M):
+def foundation(b, c, M, bolts=True):
     b = FB if FB is not None else b
     w, d = c.w, c.d
     h = c.z0 - 0.04                              # slab height
@@ -127,6 +127,8 @@ def foundation(b, c, M):
         b.box(x0, x1, y0, y1, h, h + 0.04, conc)                                                   # a low lip round the edge
     for k in range(3):                                                                           # three front steps
         b.box(-0.8, 0.8, -d / 2 - 0.3 * (k + 1), -d / 2, 0.0, h * (1 - (k + 1) * 0.28), conc)
+    if not bolts:
+        return h                                                                                   # finished: the sill plate and the floor cover them
     # anchor bolts along the walls and rebar stubs poking out of the slab
     for u in (-2.2, -0.7, 0.7, 2.2):
         b.box(u - 0.012, u + 0.012, c.yh0 + 0.08, c.yh0 + 0.10, h, h + 0.12, M['steel'])
@@ -169,7 +171,37 @@ def deck_boards(b, c, M, z, y0, y1):
         b.box(-w / 2, w / 2, ya + 0.004, ya + (y1 - y0) / n - 0.004, z, z + 0.035, M['deck'])
 
 
-def window_dressing(b, c, M, glass, wall, u0, u1, zl, zh, shutters=False):
+def door_only(openings):
+    """The openings of a wall without its windows (the finished stages have solid walls under their windows: docs/WINDOWS.md)."""
+    return {wall: [o for o in ops if not o[2] > 0.05] for wall, ops in openings.items()}
+
+
+def movable_window(c, M, wall, u0, u1, zl, zh, shutters=False, th=None, extra=None):
+    """One window as its own objects, WindowFrame_<k> and WindowGlass_<k>, and its WinSpec empty. `extra(frame, c, M, wall, u0, u1, zl, zh)` adds the lining and casing of a
+    log wall; otherwise a lining runs through the wall INSIDE the opening (it hides the cut edges of the wall layers)."""
+    za, zb = c.z0 + zl, c.z0 + zh
+    k = base.next_window(wall, u0, u1, za, zb)
+    fb, gb = Builder('WindowFrame_%d' % k), Builder('WindowGlass_%d' % k)
+    window_dressing(fb, c, M, M['glass'], wall, u0, u1, zl, zh, shutters=shutters, gb=gb, muntins=False)
+    for mn in (1, 2, 3):                                  # the muntins are three objects of their own: the game shows the set the window has (0: none)
+        mb = Builder('WindowMuntin_%d_%d' % (k, mn))
+        for (a0, a1, b0, b1) in base.muntin_bars(mn, u0, u1, za, zb):
+            trim_box(mb, c, wall, a0, a1, b0, b1, -0.03, 0.012, M['trim'])
+        base.EXTRA_OBJECTS.append(mb.finish())
+    if extra is not None:
+        extra(fb, c, M, wall, u0, u1, zl, zh)
+    else:
+        th = T_SIDING + T_SHEATH + T_STUD + 0.02 if th is None else th
+        kk = 0.02
+        trim_box(fb, c, wall, u0, u0 + kk, za, zb, 0.0, th, M['trim'])
+        trim_box(fb, c, wall, u1 - kk, u1, za, zb, 0.0, th, M['trim'])
+        trim_box(fb, c, wall, u0 + kk, u1 - kk, za, za + kk, 0.0, th, M['trim'])
+        trim_box(fb, c, wall, u0 + kk, u1 - kk, zb - kk, zb, 0.0, th, M['trim'])
+    base.EXTRA_OBJECTS.append(fb.finish())
+    base.EXTRA_OBJECTS.append(gb.finish())
+
+
+def window_dressing(b, c, M, glass, wall, u0, u1, zl, zh, shutters=False, gb=None, muntins=True):
     """Trim, muntins, sill and the glass pane for one window on a wall (outer face at depth 0)."""
     z0 = c.z0
     za, zb = z0 + zl, z0 + zh
@@ -177,10 +209,11 @@ def window_dressing(b, c, M, glass, wall, u0, u1, zl, zh, shutters=False):
     for (a0, a1, b0, b1) in ((u0 - t, u0, za - t, zb + t), (u1, u1 + t, za - t, zb + t), (u0 - t, u1 + t, za - t, za), (u0 - t, u1 + t, zb, zb + t)):
         trim_box(b, c, wall, a0, a1, b0, b1, -0.05, 0.03, M['trim'])
     um = (u0 + u1) / 2
-    trim_box(b, c, wall, um - 0.015, um + 0.015, za, zb, -0.03, 0.012, M['trim'])                     # muntins
-    trim_box(b, c, wall, u0, u1, (za + zb) / 2 - 0.015, (za + zb) / 2 + 0.015, -0.03, 0.012, M['trim'])
+    if muntins:
+        trim_box(b, c, wall, um - 0.015, um + 0.015, za, zb, -0.03, 0.012, M['trim'])                 # muntins
+        trim_box(b, c, wall, u0, u1, (za + zb) / 2 - 0.015, (za + zb) / 2 + 0.015, -0.03, 0.012, M['trim'])
     trim_box(b, c, wall, u0 - t - 0.04, u1 + t + 0.04, za - t - 0.04, za - t, -0.09, 0.03, M['trim'])  # sill
-    trim_box(b, c, wall, u0, u1, za, zb, 0.02, 0.05, glass, to=glass_builder)
+    trim_box(b, c, wall, u0, u1, za, zb, 0.02, 0.05, glass, to=gb if gb is not None else glass_builder)
     if shutters:
         for s0, s1 in ((u0 - t - 0.42, u0 - t - 0.04), (u1 + t + 0.04, u1 + t + 0.42)):
             trim_box(b, c, wall, s0, s1, za - t, zb + t, -0.04, 0.0, M['shutter'], uv=True)    # the louvres are a picture on the slab (StructureLook.cs)
@@ -331,9 +364,11 @@ def roof_deck(b, c, m, thick):
 def complete(b, c, M, glass, finishings=False):
     w, d, h_total = c.w, c.d, c.h_total
     z0, top, ov = c.z0, c.top, c.ov
+    all_ops = c.openings
+    c.openings = door_only(all_ops)           # the walls are SOLID under the windows (each window is an object of its own, the game cuts the hole: docs/WINDOWS.md)
     # the frame the cladding hangs on (no studs show once it is clad, so a closed shell of sheathing is enough)
     parts = {k: Builder(n) for k, n in (('front', 'Wall_Front'), ('back', 'Wall_Back'), ('left', 'Wall_Left'), ('right', 'Wall_Right'), ('roof', 'Roof'))}
-    h = foundation(b, c, M)
+    h = foundation(b, c, M, bolts=False)
     b.box(-w / 2 + 0.02, w / 2 - 0.02, -d / 2 + 0.02, d / 2 - 0.02, h, z0, M['floor'])                       # interior floor / subfloor
     for wall in ('front', 'back', 'left', 'right'):
         wall_box(parts[wall], c, wall, T_SIDING, T_SIDING + T_SHEATH + T_STUD, z0, wall_top(c, wall), M['osb'], inset=T_SIDING, trim=T_SIDING)
@@ -361,11 +396,12 @@ def complete(b, c, M, glass, finishings=False):
         # each corner board belongs to the front or back wall's part, so the cutaway hides it with that wall (a post left standing blocked the view in)
         cw = 'front' if abs(y - c.yh0) < 1e-6 else 'back'
         (parts[cw] if cw in parts else b).box(x0, x1, y0, y1, z0, c.zw + 0.05, M['trim'])
-    # window trim, glass, shutters on the front windows
+    # the windows: each is its own objects (frame, trim, lining, shutters, pane) over the solid wall
+    c.openings = all_ops
     for wall in ('front', 'back', 'left', 'right'):
-        for i, (u0, u1, zl, zh) in enumerate(c.openings[wall]):
+        for i, (u0, u1, zl, zh) in enumerate(all_ops[wall]):
             if zl > 0.05:
-                window_dressing(parts[wall], c, M, M['glass'], wall, u0, u1, zl, zh, shutters=(wall == 'front'))
+                movable_window(c, M, wall, u0, u1, zl, zh, shutters=(wall == 'front'))
     # gable ends, clad: triangles with a vent window on the front
     for y in (-d / 2 + 0.1, d / 2 - 0.04):
         gable_poly(parts['front' if y < 0 else 'back'], c, y, 0.06, M['siding'])
@@ -407,10 +443,11 @@ def complete(b, c, M, glass, finishings=False):
     ctop = c.zw + 1.0
     # the stack and, inside the room, a mantel-height chimney breast with a firebox, a hearth and the flue hole in the cap (one object:
     # "Chimney"). It must show inside: a chimney that ends in the wall leaves its end face level with the interior finish (z-fighting)
-    chim = Builder('Chimney')
-    base.chimney_with_fireplace(chim, M['brick'], colour('Soot', (0.08, 0.07, 0.07), 1.0), M['concrete'], cx0, cx1, -w / 2 + 0.6, cy, 0.45,
-                                c.z0, top + 0.1, ctop)
-    base.EXTRA_OBJECTS.append(chim.finish())
+    if base.BUILD_CHIMNEYS:
+        chim = Builder('Chimney')
+        base.chimney_with_fireplace(chim, M['brick'], colour('Soot', (0.08, 0.07, 0.07), 1.0), M['concrete'], cx0, cx1, -w / 2 + 0.6, cy, 0.45,
+                                    c.z0, top + 0.1, ctop)
+        base.EXTRA_OBJECTS.append(chim.finish())
     # a downspout at the front corner
     b.box(w / 2 + 0.0, w / 2 + 0.07, c.yh0 - 0.1, c.yh0 - 0.03, z0, top - 0.1, M['trim'])
     for part in parts.values():
@@ -499,6 +536,7 @@ def main():
         for o in list(bpy.data.objects):
             bpy.data.objects.remove(o, do_unlink=True)
         del base.EXTRA_OBJECTS[:]
+        base.WINDOW_COUNT[0] = 0
         c = Ctx(w, depth, final_h, found)
         b = Builder(d['id'])
         global glass_builder

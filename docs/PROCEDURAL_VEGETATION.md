@@ -85,7 +85,7 @@ WAILA) uses `Physics.DefaultRaycastLayers`, so the mouse still sees through them
 
 ## Fruit trees and the willow grove
 
-- **Species.** apple, lemon and orange are fruit trees (`Shape.Orchard`: a short trunk and a round crown carrying low-poly fruit); willow is
+- **Species.** apple, lemon, orange, pear, peach, cherry, plum, apricot and fig are fruit trees (`Shape.Orchard`: a short trunk and a round crown carrying low-poly fruit); walnut and pecan are big broadleaf nut trees (`Shape.Broad`, the fruit is the nuts); hazelnut is an orchard-shaped nut tree; the **grapevine** is `Shape.Trellis` (`BuildTrellis`: four posts, three wires, the vine on them, grape clusters as the fruit submesh; about 4 m long, planted with its sapling `plantable_sapling_grape`, never scattered, it grows, fruits and is picked like a fruit tree); the extra species are one `Species` line each in `ProceduralVegetation.Build` plus a kit group made by `tools/make_fruit_trees.py` (rules, drops, sapling, icon-only fruit item); their kit tree icons are rendered from the procedural mesh in the editor (`ProceduralVegetation.BuildSpeciesForIcons` then `ForestTrees.MakeIconProxy`, on a private layer so the scene does not show). Willow is
   `Shape.Weeping` (a low dome of leaves with a curtain of drooping strands). They are scattered thinly through meadow and grass plains
   (`Species.Scatter`); willows fill the `biome_willow_grove` biome (damp ground within 18 m of the water, noise-gated) and the marsh.
 - **Fruit is its own submesh**, the tail of each variant's vertices. `ForestTrees.SyncFruit` (every 1.5 s) hides it by collapsing just

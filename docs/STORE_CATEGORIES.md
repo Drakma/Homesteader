@@ -1,0 +1,8 @@
+# Store categories (the tile grid)
+
+A phone shop opens on a grid of category tiles, four wide, instead of one long list. A tile opens that category's items (or a second grid when the category has kinds of its own: Living Room > Sofa, Lighting > Wall Sconce). The shop's back arrow steps out one level at a time, and the search box still searches the whole shop (a flat list).
+
+- **Where the category comes from:** every sold item has `properties.store_category`, a path such as `Roofing` or `Living Room/Sofa`. `python tools/store_categories.py` sets it for every item that is sold (rules by item id and asset category: `BUILDING`, `TOOLS`, `VOLT`, `GROCER_FOOD` and the rest at the top of the file); re-run it after adding items to a shop, then `python tools/generate_unity_asset_catalog.py` (it copies the label into `store_listings[].category`). A shop that needs its own label for an item uses `store_overrides.<shop>.category` (the Trailer Shack does).
+- **The tiles:** `PhoneController.ShowStoreLevel` (a tile is a button with its picture, its name and how many items are in it). A shop with a single category shows its items straight away.
+- **The pictures:** `Resources/StoreCategoryIcons/<slug>.png` (128 px), one for each top-level category. They were made with Gemini: `tools/make_store_category_icons.py prompt <sheet>` prints the prompt of a 4 x 4 contact sheet, and `crop <sheet> <image>` cuts it into the icons (`--grid` cuts by equal cells when two objects run together). A tile with no picture (and every tile inside a category) shows an item that is in it.
+- **A new category:** add its rule to `store_categories.py`, add it to `SHEETS` in `make_store_category_icons.py` (what to draw), generate its icon and crop it.

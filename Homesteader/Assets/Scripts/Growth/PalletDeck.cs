@@ -21,6 +21,7 @@ namespace Homesteader.Growth
 
         private static readonly Dictionary<string, List<float>> HeightCache = new Dictionary<string, List<float>>();
         private static readonly List<float> NoDecks = new List<float>();
+        private const float OpenTopM = 0.12f;   // a top shelf this close to the model's height is its open top (a table, a cabinet top): stacks go up to TopLimit
         private const float BoardM = 0.035f;   // a shelf board's thickness and a little air: what is lost between one shelf's top face and the underside of the next
 
         /// <summary>The height of each shelf's top face above the ground, lowest first (a shelving unit: properties.deck_heights), or empty for a pallet (one deck at the model height).</summary>
@@ -47,8 +48,10 @@ namespace Homesteader.Growth
             List<float> hs = DeckHeights(pallet.ItemId);
             if (hs.Count == 0) return TopLimit;
             deck = Mathf.Clamp(deck, 0, hs.Count - 1);
-            float next = deck + 1 < hs.Count ? hs[deck + 1] : pallet.Height;
-            return Mathf.Max(0.05f, next - hs[deck] - BoardM);
+            if (deck + 1 < hs.Count) return Mathf.Max(0.05f, hs[deck + 1] - hs[deck] - BoardM);
+            // the topmost shelf: when it IS the top of the model (a desk, a cabinet or a table top) nothing is above it; otherwise a cap or the ceiling of the unit is
+            if (hs[deck] >= pallet.Height - OpenTopM) return TopLimit;
+            return Mathf.Max(0.05f, pallet.Height - hs[deck] - BoardM);
         }
 
         /// <summary>
@@ -109,7 +112,8 @@ namespace Homesteader.Growth
                 if (o == null || !IsPallet(o.ItemId) || IsShelving(o.ItemId)) continue;   // a shelving unit is found by the ray (UnderRay)
                 if (!LocalRect(o.transform, o.gameObject, out Rect deck)) continue;
                 Vector3 l = o.transform.InverseTransformPoint(world);
-                if (deck.Contains(new Vector2(l.x, l.z))) return o;
+                float tol = KitchenRun.IsRun(o.ItemId) ? 0.06f : 0f;   // a kitchen counter pointed at on its front face still counts: the cursor lands on the face, at the edge of the top
+                if (new Rect(deck.x - tol, deck.y - tol, deck.width + 2f * tol, deck.height + 2f * tol).Contains(new Vector2(l.x, l.z))) return o;
             }
             return null;
         }
@@ -196,7 +200,8 @@ namespace Homesteader.Growth
                 if (under && top.ItemId == itemId && c.Count < limit)
                 {
                     float topY = top.transform.position.y + top.Height;
-                    if (topY + 0.01f - deckY + Mathf.Max(0f, height - top.Height) > room) { reason = "That stack is as high as it goes."; return false; }
+                    float itemH = height > 0f ? height : top.Height;   // the new one's own height: the whole stack (what is there plus this one) must fit under the shelf above
+                    if (topY - deckY + itemH > room + 0.01f) { reason = "That stack is as high as it goes."; return false; }
                     position = new Vector3(top.transform.position.x, topY, top.transform.position.z);
                     level = top.Level + 1;
                     return true;
@@ -223,7 +228,7 @@ namespace Homesteader.Growth
             if (!found) { reason = "The pallet is full."; return false; }
             Vector3 world = pallet.transform.TransformPoint(new Vector3(best.x, 0f, best.y));
             position = new Vector3(world.x, deckY, world.z);
-            level = 1;
+            level = 0;   // it rests on a shelf, not on another item: level 0 like anything standing on a support (SettleColumns renumbers a stack from 0)
             return true;
         }
 

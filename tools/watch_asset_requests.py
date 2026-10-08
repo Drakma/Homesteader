@@ -147,6 +147,25 @@ REFERENCE_ITEM_PIPELINE = (
     "before shipping - check colors, trim/material choices, and proportions specifically, not just overall silhouette."
 )
 
+# Items marked PIPELINE=socrates use the free cpu3d image-to-rigged-3D server instead of Meshy.
+SOCRATES_ITEM_PIPELINE = (
+    "FOR ANY ITEM MARKED PIPELINE=socrates above (Socrates = the cpu3d server), use the FREE cpu3d route INSTEAD "
+    "of Meshy for that item: NO credits, NO cost approval needed, skip the Meshy balance check. "
+    "(1) Get ONE clean full-body reference image (side view for animals, front view for humans): the item's existing "
+    "icon assets/<category>/<id>/<id>.png if it has a suitable one, otherwise generate it with gemini_generate "
+    "from the user's PROMPT='...' as-is and crop one image per item. "
+    "(2) Run python tools/cpu3d_client.py generate <image> --name <item_id> --kind <human|quadruped|bird|fish|auto> "
+    "--out assets/_cpu3d_out/<item_id> (about 1.5-4 min per item, jobs run one at a time; add --flip if it faces backwards). "
+    "The same thing is available as POST /api/cpu3d-generate on the asset kit server. "
+    "(3) The result is a low-poly (1,500 tris) RIGGED, ANIMATED GLB (named clips, vertex colours, no texture/UVs): copy "
+    "<item_id>.glb into assets/<category>/<item_id>/, so it already counts as modelled AND rigged - do not rig it again. "
+    "Only humans, quadrupeds, birds and fish are supported: for structures, vehicles, tools or anything else, say so and "
+    "fall back to the Meshy pipeline (with its normal cost approval). "
+    "(4) Then the normal tail: check gait (tools/gait_fix.py measure) and looping clips (tools/loop_fix.py measure), render the "
+    "icon with tools/render_icon_from_model.py, fix the pivot to Y_min=0, assemble the manifest and README, and report "
+    "progress via /api/update-asset-request with credits_used {'creative_claw': 0, 'meshy': 0}."
+)
+
 # The ONLY generation pipeline. There is no free alternative, so this text is
 # always printed with a batch - it is not conditional on a PIPELINE=paid marker
 # any more (the marker only survives as a legacy field in old request files).
@@ -280,6 +299,7 @@ def main():
                     for it in items
                 )
                 has_action_items = any(it.get("action") or it.get("also_rig") for it in items)
+                has_socrates_items = any((it.get("pipeline") or "").lower() == "socrates" for it in items)
                 has_reference_items = any(it.get("reference_item_id") for it in items)
                 print(
                     f"ASSET_REQUEST_BATCH_READY batch_id={batch.get('batch_id')} count={len(items)}\n"
@@ -287,6 +307,7 @@ def main():
                     f"{REQUIRED_PIPELINE}"
                     + (f"\n{ACTION_ITEM_PIPELINE}" if has_action_items else "")
                     + (f"\n{REFERENCE_ITEM_PIPELINE}" if has_reference_items else "")
+                    + (f"\n{SOCRATES_ITEM_PIPELINE}" if has_socrates_items else "")
                     + f"\n{PAID_ITEM_PIPELINE}",
                     flush=True
                 )

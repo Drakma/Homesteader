@@ -1494,18 +1494,28 @@ namespace Homesteader.Growth
             model.transform.localPosition = Vector3.zero;
             model.transform.localRotation = Quaternion.identity;
             EnsureCollider(model);
+            _windows = StructureWindows.Attach(this, model.transform, _windowStates);   // the finished model's windows: the hole is cut in the wall where each one is (docs/WINDOWS.md)
             FindDoor(model.transform);
             StructureLook.Apply(model.transform, _lookItems);   // birch logs, a tin roof: the look follows what it was built from
             ApplyWallPaints(model.transform);                    // and the walls painted one by one
             ShowFoundationVariant(model.transform);
             if (Finished) WindTurbine.AttachToModel(model, HudBindings.GetCatalogItem(StructureId) != null ? HudBindings.GetCatalogItem(StructureId).max_power_w : 0f);   // a finished wind turbine turns into the wind
             if (Finished && !string.IsNullOrEmpty(FittedPanel)) StartCoroutine(ShowFittedPanel(model.transform));   // a well's sub panel on its post
-            Fireplace = Fireplace.Attach(this, model.transform);   // a chimney with a firebox: logs, fire and smoke
             // windows let light through: the pane casts no shadow (and the walls, roof and a closed door do)
             foreach (Renderer r in model.GetComponentsInChildren<Renderer>(true))
-                if (r.name == "WindowGlass") r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                if (r.name.StartsWith("WindowGlass")) r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             _modelPending = false;
         }
+
+        // ------------------------------------------------------------------ movable windows (StructureWindows.cs)
+
+        private StructureWindows _windows;
+        private List<string> _windowStates = new List<string>();   // every window: where, which kind, its muntins, whether it was taken out (StructureWindows.States), saved with the site
+
+        public void SetWindowStates(List<string> states) { _windowStates = states != null ? new List<string>(states) : new List<string>(); }
+        public List<string> WindowStateList() { return new List<string>(_windowStates); }
+        /// <summary>The windows after one was changed: kept for the save and for the next time the model loads.</summary>
+        public void StoreWindowStates(List<string> states) { _windowStates = new List<string>(states); }
 
         // ------------------------------------------------------------------ the door
 
@@ -1802,7 +1812,7 @@ namespace Homesteader.Growth
         {
             if (col.GetComponentInParent<PedController>() != null || col.GetComponentInParent<PlacedObject>() != null || col.GetComponentInParent<WorldItem>() != null) return true;
             for (Transform t = col.transform; t != null && t != transform; t = t.parent)
-                if (t.name == "WindowGlass" || t.name.StartsWith("Door") || t.name.StartsWith("RollLeaf")) return true;
+                if (t.name.StartsWith("WindowGlass") || t.name.StartsWith("WindowFrame") || t.name.StartsWith("WindowMuntin") || t.name.StartsWith("Door") || t.name.StartsWith("RollLeaf")) return true;
             return false;
         }
 
@@ -2048,8 +2058,7 @@ namespace Homesteader.Growth
 
         public bool DoorOpen { get; private set; }
 
-        // the fireplace of a finished building (see Fireplace.cs): the fuel in it, in game minutes, and whether it burns. Saved with the site.
-        public Fireplace Fireplace { get; private set; }
+        // legacy: the fireplace used to be part of the stage models; chimneys are now their own things (Chimney.cs). Old saves still carry these two.
         public float FuelMinutes;
         public bool FireLit;
 

@@ -5,11 +5,10 @@ using UnityEngine;
 namespace Homesteader.Growth
 {
     /// <summary>
-    /// The fireplace of a finished building. The stage models carry a chimney object ("Chimney") with a firebox and a flue hole in its cap,
-    /// and two empties: FireboxPoint (where logs lie and the fire burns) and SmokePoint (the flue). A right click on the chimney with firewood in
-    /// hand (an item whose manifest sets burn_minutes) puts it in the firebox; a right click with a lighter (lights_fires) lights it. It burns
-    /// the fuel down in game time, lights the room with a flickering warm light and sends smoke out of the flue; when the fuel is gone the fire
-    /// goes out. The fuel and whether it burns live on the ConstructionSite (saved with it).
+    /// The fireplace of a chimney (<see cref="PlacedChimney"/>): the chimney has a firebox and a flue hole in its cap, and two empties: FireboxPoint (where logs lie and the fire
+    /// burns) and SmokePoint (the flue). A right click on the chimney with firewood in hand (an item whose manifest sets burn_minutes) puts it in the firebox; a right click with a
+    /// lighter (lights_fires) lights it. It burns the fuel down in game time, lights the room with a flickering warm light and sends smoke out of the flue; when the fuel is gone the
+    /// fire goes out. The fuel and whether it burns live on the PlacedChimney (saved with it).
     /// </summary>
     public sealed class Fireplace : MonoBehaviour
     {
@@ -17,7 +16,7 @@ namespace Homesteader.Growth
         private const float MinutesPerLog = 45f;
         private const float ReachMetres = 4f;
 
-        private ConstructionSite _site;
+        private PlacedChimney _site;
         private Transform _chimney, _firebox, _flue;
         private GameObject _logs;
         private int _shownLogs = -1;
@@ -29,28 +28,8 @@ namespace Homesteader.Growth
         private static Material s_logMat, s_particleMat;
         private static Texture2D s_soft;
 
-        /// <summary>Finds the fireplace parts in a freshly shown stage model and (re)binds the site's fireplace to them; null when it has none.</summary>
-        public static Fireplace Attach(ConstructionSite site, Transform model)
-        {
-            Transform chimney = null, firebox = null, flue = null;
-            foreach (Transform t in model.GetComponentsInChildren<Transform>(true))
-            {
-                if (t.name == "Chimney") chimney = t;
-                else if (t.name == "FireboxPoint") firebox = t;
-                else if (t.name == "SmokePoint") flue = t;
-            }
-            Fireplace fp = site.GetComponent<Fireplace>();
-            if (chimney == null || firebox == null || flue == null)
-            {
-                if (fp != null) Destroy(fp);
-                return null;
-            }
-            if (fp == null) fp = site.gameObject.AddComponent<Fireplace>();
-            fp.Bind(site, chimney, firebox, flue);
-            return fp;
-        }
-
-        private void Bind(ConstructionSite site, Transform chimney, Transform firebox, Transform flue)
+        /// <summary>Binds the fireplace to its chimney and the parts of the model.</summary>
+        public void Bind(PlacedChimney site, Transform chimney, Transform firebox, Transform flue)
         {
             _site = site;
             _chimney = chimney;
@@ -88,7 +67,7 @@ namespace Homesteader.Growth
         {
             AssetCatalogItem item = string.IsNullOrEmpty(heldId) ? null : HudBindings.GetCatalogItem(heldId);
             if (item == null || (item.burn_minutes <= 0f && !item.lights_fires)) return false;
-            if (player != null && _site.DistanceOutside(player.position) > ReachMetres)
+            if (player != null && _site.DistanceTo(player.position) > ReachMetres)
             {
                 ToastNotificationSystem.ShowInfo("Too far", "Move closer to the fireplace.");
                 return true;
@@ -149,7 +128,7 @@ namespace Homesteader.Growth
             if (_logs == null && n > 0) _logs = MakeLogs(n);
             _shownLogs = n;
             bool lit = _site.FireLit && n > 0;
-            if (lit != _wasLit) { _wasLit = lit; Dbg.Log($"[Fireplace] {_site.StructureId}: fire {(lit ? "lit" : "out")}, {n} logs, flames={(_flames != null)}, smoke={(_smoke != null)}, light={(_light != null)}."); }
+            if (lit != _wasLit) { _wasLit = lit; Dbg.Log($"[Fireplace] {_site.KitId}: fire {(lit ? "lit" : "out")}, {n} logs, flames={(_flames != null)}, smoke={(_smoke != null)}, light={(_light != null)}."); }
             SetEmitting(_flames, lit);
             SetEmitting(_smoke, lit);
             if (_light != null) _light.enabled = lit;

@@ -19,7 +19,7 @@ ASSETS = os.path.join(ROOT, 'assets')
 OUT = os.path.join(ROOT, 'docs', 'ASSET_AUDIT.md')
 
 # no model on purpose: built in code, staged, or data only
-NO_MODEL_OK = {'hud', 'hud_kit', 'liquids', 'structures', 'peds'}
+NO_MODEL_OK = {'hud', 'hud_kit', 'liquids', 'structures', 'peds', 'food'}   # food is eaten, never placed: the plate, bowl and glass are the placed things
 NO_MODEL_OK_PREFIX = ('fence_', 'gate_', 'path_', 'road_', 'mat_scoop_', 'clutter_', 'ground_', 'fuel_bulk_', 'fuel_service_')
 PACK = re.compile(r'(_stack(_\d+|_large|_small)?|_pallet(_\d+|_large|_small)?|_case(_\d+)?|_box(_\d+)?|_bundle(_\d+|_large|_small)?|_pack(_\d+)?|_crate(_\d+)?|_coil|_spool(_small)?)$')
 # categories where a pack makes sense, and what is left out of them

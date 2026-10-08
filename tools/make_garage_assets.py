@@ -35,7 +35,7 @@ PIECES = [
     ('cabinet_tall', 'cabinet_tall', 'Tall Steel Cabinet', 'A tall two-door steel cabinet with vent slots.', 'paint', 52, 310, {}),
     ('cabinet_base', 'cabinet_base', 'Steel Base Cabinet', 'A base cabinet with drawers, doors and a wood top.', 'paint', 48, 280, {'support': '0.92'}),
     ('wall_cabinet', 'wall_cabinet', 'Steel Wall Cabinet', 'A two-door steel wall cabinet. Mount it on a wall.', 'paint', 16, 130, {'wall': True}),
-    ('steel_shelving', 'shelving', 'Steel Shelving Unit', 'A steel shelving unit with boxes and bins.', 'paint', 30, 140, {'support': '0.15,0.63,1.11,1.59'}),
+    ('steel_shelving', 'shelving', 'Steel Shelving Unit', 'An empty steel shelving unit with five shelves. Stand things on it.', 'paint', 30, 140, {'support': '0.15,0.63,1.11,1.59'}),
     ('parts_cabinet', 'parts_cabinet', 'Parts Cabinet', 'A small-parts cabinet with 24 labelled drawers.', 'paint', 12, 95, {}),
     ('air_compressor', 'air_compressor', 'Air Compressor', 'A tank air compressor on wheels.', 'paint', 38, 360, {'watts': 1500}),
     ('bench_grinder', 'bench_grinder', 'Bench Grinder', 'A bench grinder with two wheels.', 'paint', 9, 110, {'watts': 400}),
@@ -58,6 +58,16 @@ def variants():
 
 
 def manifest(v, tris, dims):
+    """The item manifest, plus its storage (closed container and / or shelf decks) from tools/furniture_storage.py."""
+    import furniture_storage
+    man = _manifest(v, tris, dims)
+    furniture_storage.apply(man, 'garage', v['model'], v.get('style'))
+    import short_names
+    short_names.apply(man)   # the short display names (tools/short_names.py)
+    return man
+
+
+def _manifest(v, tris, dims):
     w, d, h = dims
     ex = v['extras']
     props = {

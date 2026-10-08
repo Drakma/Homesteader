@@ -95,6 +95,7 @@ namespace Homesteader.Save
                 PlacedObject.SettleOnGround();
                 yield return null;
                 PlacedObject.SettleOnGround();
+                yield return PlacePedOnSurface(save.playerPosition);
                 Step(1f, "Ready");
                 Dbg.Log($"[Save] restored '{SaveSlots.CurrentName}' saved {save.savedAtUtc} ({save.plants.Count} plants, {save.placed.Count} placed) from {System.IO.Path.GetFileName(loadPath)}.");
             }
@@ -270,7 +271,10 @@ namespace Homesteader.Save
                 {
                     saved.contentIds = new List<string>();
                     saved.contentCounts = new List<int>();
-                    foreach (ContainerStack c in slot.Contents) { saved.contentIds.Add(c.ItemId); saved.contentCounts.Add(c.Count); }
+                    saved.contentUsed = new List<float>();
+                    saved.contentLiquid = new List<string>();
+                    saved.contentStored = new List<float>();
+                    foreach (ContainerStack c in slot.Contents) { saved.contentIds.Add(c.ItemId); saved.contentCounts.Add(c.Count); saved.contentUsed.Add(c.Used); saved.contentLiquid.Add(c.Liquid ?? ""); saved.contentStored.Add(c.Stored); }
                 }
                 s.toolbar.Add(saved);
             }
@@ -302,16 +306,20 @@ namespace Homesteader.Save
             {
                 if (o == null) continue;
                 placedIndex[o.gameObject] = s.placed.Count;   // the wiring refers to placed objects by their place in this list
-                var sp = new GameSave.SavedPlaced { lightOff = o.GetComponentInChildren<LightEmitter>(true) != null && o.GetComponentInChildren<LightEmitter>(true).SwitchedOff, itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg, level = o.Level, paintId = o.PaintId, liquidId = o.LiquidId, sawLog = o.SawLog, wireUsed = o.WireUsed, panelId = MountedPanel.PanelOn(o.gameObject), chargeWh = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().ChargeWh : 0f, waterL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().WaterL : 0f, rawL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().RawL : 0f, tempC = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().TempC : 12f };
+                var sp = new GameSave.SavedPlaced { mirrored = o.Mirrored, lightOff = o.GetComponentInChildren<LightEmitter>(true) != null && o.GetComponentInChildren<LightEmitter>(true).SwitchedOff, itemId = o.ItemId, position = o.transform.position, yawDeg = o.YawDeg, level = o.Level, paintId = o.PaintId, liquidId = o.LiquidId, sawLog = o.SawLog, wireUsed = o.WireUsed, panelId = MountedPanel.PanelOn(o.gameObject), chargeWh = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().ChargeWh : 0f, waterL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().WaterL : 0f, rawL = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().RawL : 0f, tempC = o.GetComponent<WireNode>() != null ? o.GetComponent<WireNode>().TempC : 12f };
                 if (o.Contents != null && o.Contents.Count > 0)
                 {
                     sp.contentIds = new List<string>();
                     sp.contentCounts = new List<int>();
-                    foreach (ContainerStack c in o.Contents) { sp.contentIds.Add(c.ItemId); sp.contentCounts.Add(c.Count); }
+                    sp.contentUsed = new List<float>();
+                    sp.contentLiquid = new List<string>();
+                    sp.contentStored = new List<float>();
+                    foreach (ContainerStack c in o.Contents) { sp.contentIds.Add(c.ItemId); sp.contentCounts.Add(c.Count); sp.contentUsed.Add(c.Used); sp.contentLiquid.Add(c.Liquid ?? ""); sp.contentStored.Add(c.Stored); }
                 }
                 s.placed.Add(sp);
             }
             s.attached = AttachedObject.Capture();
+            s.chimneys = PlacedChimney.CaptureAll();
             var attachedIndex = new Dictionary<GameObject, int>();
             List<AttachedObject> attachedOrder = AttachedObject.CaptureOrder();
             for (int ai = 0; ai < attachedOrder.Count; ai++) attachedIndex[attachedOrder[ai].gameObject] = ai;
@@ -320,7 +328,7 @@ namespace Homesteader.Save
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
             foreach (ConstructionSite cs in ConstructionSite.All)
-                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count), choices = cs.ChoiceList(), pumpId = cs.PumpId, fittedPanel = cs.FittedPanel, sewageL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SewageL : 0f, sludgeL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SludgeL : 0f });
+                if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), windowStates = cs.WindowStateList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count), choices = cs.ChoiceList(), pumpId = cs.PumpId, fittedPanel = cs.FittedPanel, sewageL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SewageL : 0f, sludgeL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SludgeL : 0f });
             foreach (LotRun lr in LotRun.All)
                 if (lr != null) s.lots.Add(new GameSave.SavedLot { style = lr.Style, itemId = lr.ItemId, points = new List<Vector3>(lr.Points) });
             foreach (PathRun pr in PathRun.All)
@@ -342,6 +350,7 @@ namespace Homesteader.Save
             s.removedStumps = Homesteader.World.ForestTrees.SavedRemovedStumps();
             s.deadTrees = Homesteader.World.ForestTrees.SavedDead();
             s.pickedTrees = Homesteader.World.ForestTrees.SavedPicked();
+            s.savedMeals = Homesteader.Kitchen.SavedMeals.Capture();
             s.pickedTreeMasks = Homesteader.World.ForestTrees.SavedPickedMasks();
             s.pickedBushes = Homesteader.World.BerryBushes.SavedPicked();
             s.pickedBushMasks = Homesteader.World.BerryBushes.SavedPickedMasks();
@@ -360,6 +369,32 @@ namespace Homesteader.Save
         }
 
         // ------------------------------------------------------------------ apply
+
+        /// <summary>
+        /// Stands the player on whatever is under the saved spot NOW: a house floor, a porch or the ground. The controller was held off during the load, so the player cannot have fallen
+        /// through a floor that was not built yet. A ray from above finds the top surface (the ped's own colliders and triggers are skipped); the ground is the fallback.
+        /// </summary>
+        private IEnumerator PlacePedOnSurface(Vector3 saved)
+        {
+            var ped = PedController.Current;
+            if (ped == null) yield break;
+            var cc = ped.GetComponent<CharacterController>();
+            yield return null;   // a frame for the last colliders to register
+            Vector3 p = saved;
+            float y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(p);
+            RaycastHit[] hits = Physics.RaycastAll(new Vector3(p.x, Mathf.Max(saved.y, y) + 6f, p.z), Vector3.down, 40f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            float best = float.MinValue;
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.transform.IsChildOf(ped.transform)) continue;
+                if (h.point.y > best && h.point.y <= Mathf.Max(saved.y, y) + 1.5f) best = h.point.y;   // the highest surface at or just above where the player was (not a roof)
+            }
+            if (best > y) y = best;
+            p.y = y + 0.05f;
+            if (cc != null) cc.enabled = false;
+            ped.transform.position = p;
+            if (cc != null) cc.enabled = true;
+        }
 
         private IEnumerator ApplySave(GameSave s)
         {
@@ -383,7 +418,7 @@ namespace Homesteader.Save
                 {
                     slot.Contents = new List<ContainerStack>();
                     for (int c = 0; c < s.toolbar[i].contentIds.Count && c < s.toolbar[i].contentCounts.Count; c++)
-                        slot.Contents.Add(new ContainerStack { ItemId = s.toolbar[i].contentIds[c], Count = s.toolbar[i].contentCounts[c] });
+                        slot.Contents.Add(new ContainerStack { ItemId = s.toolbar[i].contentIds[c], Count = s.toolbar[i].contentCounts[c], Used = s.toolbar[i].contentUsed != null && c < s.toolbar[i].contentUsed.Count ? s.toolbar[i].contentUsed[c] : 0f, Liquid = s.toolbar[i].contentLiquid != null && c < s.toolbar[i].contentLiquid.Count ? s.toolbar[i].contentLiquid[c] : "", Stored = s.toolbar[i].contentStored != null && c < s.toolbar[i].contentStored.Count ? s.toolbar[i].contentStored[c] : 0f });
                 }
                 hud.Toolbar.Add(slot);
             }
@@ -409,7 +444,7 @@ namespace Homesteader.Save
                 Vector3 ppos = s.playerPosition;
                 ppos.y = Homesteader.Generation.TerrainHeightDetector.GetSurfaceY(ppos);
                 ped.transform.SetPositionAndRotation(ppos, Quaternion.Euler(0f, s.playerYaw, 0f));
-                if (cc != null) cc.enabled = true;
+                // the controller stays OFF until the buildings are up (PlacePedOnSurface): enabled now it would drop through the floor of a house that does not exist yet
             }
             var cam = IsometricLockedCamera.Current;
             if (cam != null)
@@ -423,6 +458,7 @@ namespace Homesteader.Save
             Homesteader.World.ForestTrees.ApplyRemovedStumps(s.removedStumps);
             Homesteader.World.ForestTrees.ApplyDead(s.deadTrees);
             Homesteader.World.ForestTrees.ApplyPicked(s.pickedTrees, s.pickedTreeMasks);
+            Homesteader.Kitchen.SavedMeals.Apply(s.savedMeals);
             Homesteader.World.BerryBushes.ClearPlanted();
             Homesteader.World.BerryBushes.ApplyPlanted(s.plantedBushes);   // before the picked and dug spots are applied: they may be on these
             Homesteader.World.BerryBushes.ApplyPicked(s.pickedBushes, s.pickedBushMasks);
@@ -477,9 +513,9 @@ namespace Homesteader.Save
                 {
                     contents = new List<ContainerStack>();
                     for (int c = 0; c < so.contentIds.Count && c < so.contentCounts.Count; c++)
-                        contents.Add(new ContainerStack { ItemId = so.contentIds[c], Count = so.contentCounts[c] });
+                        contents.Add(new ContainerStack { ItemId = so.contentIds[c], Count = so.contentCounts[c], Used = so.contentUsed != null && c < so.contentUsed.Count ? so.contentUsed[c] : 0f, Liquid = so.contentLiquid != null && c < so.contentLiquid.Count ? so.contentLiquid[c] : "", Stored = so.contentStored != null && c < so.contentStored.Count ? so.contentStored[c] : 0f });
                 }
-                PlacedObject restored = PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents);
+                PlacedObject restored = PlacementController.SpawnPlaced(so.itemId, info, so.position, so.yawDeg, false, so.level, contents, so.mirrored);
                 if (restored != null && !string.IsNullOrEmpty(so.paintId)) restored.ApplyPaint(so.paintId);   // a painted door
                 if (restored != null && !string.IsNullOrEmpty(so.sawLog)) restored.SawLog = so.sawLog;   // the log on a sawmill's track (Sawmill shows it once its model is there)
                 if (restored != null && !string.IsNullOrEmpty(so.liquidId)) { restored.LiquidId = so.liquidId; TankSticker.Show(restored, so.liquidId); }   // what a tank holds
@@ -494,7 +530,7 @@ namespace Homesteader.Save
             foreach (var cs in s.sites)
             {
                 ConstructionSite site = ConstructionSite.Create(cs.structureId, cs.position, cs.yawDeg, cs.stage);
-                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.SetWallPaints(cs.wallPaints); site.SetOpenDoors(cs.openDoors); site.SetChoices(cs.choices); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; site.PumpId = cs.pumpId; if (!string.IsNullOrEmpty(cs.fittedPanel)) site.FitPanel(cs.fittedPanel); if ((cs.sewageL > 0f || cs.sludgeL > 0f) && site.GetComponent<WireNode>() != null) { site.GetComponent<WireNode>().SewageL = cs.sewageL; site.GetComponent<WireNode>().SludgeL = cs.sludgeL; } if (cs.contentIds != null) for (int ci = 0; ci < cs.contentIds.Count && ci < (cs.contentCounts?.Count ?? 0); ci++) site.Contents.Add(new Homesteader.UI.ContainerStack { ItemId = cs.contentIds[ci], Count = cs.contentCounts[ci] }); }   // before the model loads, or on it at once when it is already showing
+                if (site != null) { site.SetDoor(cs.doorOpen); site.SetLooks(cs.looks); site.SetWallPaints(cs.wallPaints); site.SetWindowStates(cs.windowStates); site.SetOpenDoors(cs.openDoors); site.SetChoices(cs.choices); site.FuelMinutes = cs.fuelMinutes; site.FireLit = cs.fireLit; site.PumpId = cs.pumpId; if (!string.IsNullOrEmpty(cs.fittedPanel)) site.FitPanel(cs.fittedPanel); if ((cs.sewageL > 0f || cs.sludgeL > 0f) && site.GetComponent<WireNode>() != null) { site.GetComponent<WireNode>().SewageL = cs.sewageL; site.GetComponent<WireNode>().SludgeL = cs.sludgeL; } if (cs.contentIds != null) for (int ci = 0; ci < cs.contentIds.Count && ci < (cs.contentCounts?.Count ?? 0); ci++) site.Contents.Add(new Homesteader.UI.ContainerStack { ItemId = cs.contentIds[ci], Count = cs.contentCounts[ci] }); }   // before the model loads, or on it at once when it is already showing
             }
 
             // what is mounted on them (breaker boxes, lights): the sites exist now, in the order they were saved
@@ -516,10 +552,14 @@ namespace Homesteader.Save
                 }
                 if (host == null) continue;
                 AttachedObject restoredA = AttachedObject.Spawn(sa.itemId, ai, host, host.transform.TransformPoint(sa.localPosition), host.transform.rotation * sa.localRotation, sa.thickness);
+                if (restoredA != null && restoredA.Contents != null && sa.contentIds != null)   // what a mounted cabinet held
+                    for (int c = 0; c < sa.contentIds.Count; c++)
+                        restoredA.Contents.Add(new ContainerStack { ItemId = sa.contentIds[c], Count = sa.contentCounts[c], Used = sa.contentUsed != null && c < sa.contentUsed.Count ? sa.contentUsed[c] : 0f, Liquid = sa.contentLiquid != null && c < sa.contentLiquid.Count ? sa.contentLiquid[c] : "", Stored = sa.contentStored != null && c < sa.contentStored.Count ? sa.contentStored[c] : 0f });
                 if (restoredA != null && restoredA.GetComponent<NetRack>() != null) restoredA.GetComponent<NetRack>().Restore(sa.shelfIds);   // what was in a rack
                 if (restoredA != null && restoredA.GetComponent<Shelf>() != null) restoredA.GetComponent<Shelf>().Restore(sa.shelfIds, sa.shelfX, sa.shelfUsed, sa.shelfLiquids);   // what stood on a shelf
                 if (restoredA != null) { restoredAttached[attachedIdx] = restoredA; if (sa.lightOff && restoredA.GetComponentInChildren<LightEmitter>(true) != null) restoredA.GetComponentInChildren<LightEmitter>(true).SwitchedOff = true; if (!string.IsNullOrEmpty(sa.panelId)) MountedPanel.Fit(restoredA.gameObject, sa.itemId, sa.panelId); if (sa.chargeWh > 0f && restoredA.GetComponent<WireNode>() != null) restoredA.GetComponent<WireNode>().ChargeWh = sa.chargeWh; if (sa.switchOff && restoredA.GetComponent<WireNode>() != null) { restoredA.GetComponent<WireNode>().SwitchOff = true; Disconnect.Show(restoredA.GetComponent<WireNode>()); } }
             }
+            PlacedChimney.RestoreAll(s.chimneys);   // the chimneys on the buildings (their sites exist now)
             WireNetwork.Restore(s.wires, restoredPlaced, restoredAttached);   // the wires between them
 
             // paths and roads

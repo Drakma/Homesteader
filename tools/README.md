@@ -65,3 +65,8 @@ Confirm the credit cost against `GET /api/meshy-balance` before spending - see
 Meshy output lands in `scratch/meshy_output/` (gitignored).
 
 See `docs/MESHY_PIPELINE_GUIDE.md` for the full step-by-step pipeline.
+
+
+## cpu3d (free rigged creature models)
+
+`cpu3d_client.py` calls the cpu3d MCP server (image -> low-poly rigged, animated GLB, free). Connection lives in `cpu3d_connection.json` (gitignored; holds the token). The asset kit exposes it as `POST /api/cpu3d-generate` and `GET /api/cpu3d-status`, driven by the Model (CPU) button in the asset popup.

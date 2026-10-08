@@ -53,6 +53,7 @@ namespace Homesteader.Save
         public List<SavedPath> paths = new List<SavedPath>();      // paths and roads the player laid (PathRun)
         public List<SavedFence> fences = new List<SavedFence>();   // fences the player built (FenceRun)
         public List<SavedWire> wires = new List<SavedWire>();   // the wiring between devices (see Wiring.cs)
+        public List<SavedChimney> chimneys = new List<SavedChimney>();   // chimneys built from kits on buildings (PlacedChimney)
         public List<SavedAttached> attached = new List<SavedAttached>();   // breaker boxes and lights mounted on buildings (AttachedObject)
         public List<SavedSite> sites = new List<SavedSite>();   // structures under construction (and finished ones): see ConstructionSite
         public float forestGrowthDay;   // the furthest game day trees have grown to (never decreases)
@@ -67,6 +68,7 @@ namespace Homesteader.Save
         public List<Vector2Int> tilledCells = new List<Vector2Int>();   // grid squares of ground tilled into farmland with a hoe
         public List<Vector2> brokenRocks = new List<Vector2>();   // x, z of scattered rocks broken with a pickaxe
         public List<Vector2> dugBushes = new List<Vector2>();   // berry bushes dug up with a shovel (x, z)
+        public List<SavedMealData> savedMeals = new List<SavedMealData>();   // the Meal Builder's saved meals (Kitchen/SavedMeals.cs)
         public bool musicPlaying = true;   // Steadify music was playing (older saves: yes)
         public bool miniPlayerOpen;     // the Steadify pop-out player: whether it is showing, and where on the screen
         public float miniPlayerX = 40f, miniPlayerY = 90f;   // legacy: positions now live in `windows`
@@ -77,7 +79,8 @@ namespace Homesteader.Save
         public bool radioPaused;
 
         [Serializable] public struct SavedWindow { public string id; public float x, y; }
-        [Serializable] public struct SavedSlot { public string iconId; public int count; public float wireUsed; public List<string> contentIds; public List<int> contentCounts; public List<string> choices; public string liquidId; }
+        [Serializable] public struct SavedMealData { public string name; public List<string> foods; public string drink; public string bowl; }
+        [Serializable] public struct SavedSlot { public string iconId; public int count; public float wireUsed; public List<string> contentIds; public List<int> contentCounts; public List<float> contentUsed; public List<string> contentLiquid; public List<float> contentStored; public List<string> choices; public string liquidId; }
         [Serializable] public struct SavedVital { public int id; public int value; }
         [Serializable]
         public struct SavedResource
@@ -99,10 +102,11 @@ namespace Homesteader.Save
             public int fruitGoneMask;       // which fruit of a planted fruit tree is picked (bit mask; 0 with fruitPickedUntil > 0 = an older save: all picked)
             public float fruitPickedUntil;   // game day a picked fruit tree's fruit is back (0 = not picked)
         }
-        [Serializable] public struct SavedPlaced { public string itemId; public Vector3 position; public float yawDeg; public int level; public float wireUsed; public string panelId; public float chargeWh; public float waterL; public float rawL; public float tempC; public List<string> contentIds; public List<int> contentCounts; public string paintId; public string liquidId; public string sawLog; public bool lightOff; }
+        [Serializable] public struct SavedPlaced { public bool mirrored; public string itemId; public Vector3 position; public float yawDeg; public int level; public float wireUsed; public string panelId; public float chargeWh; public float waterL; public float rawL; public float tempC; public List<string> contentIds; public List<int> contentCounts; public List<float> contentUsed; public List<string> contentLiquid; public List<float> contentStored; public string paintId; public string liquidId; public string sawLog; public bool lightOff; }
+        [Serializable] public struct SavedChimney { public string kitId; public int siteIndex; public Vector3 localPosition; public Quaternion localRotation; public float thickness, bottom, top; public bool brick; public float fuelMinutes; public bool fireLit; }   // in the building's own space; siteIndex = its place in the saved sites
         [Serializable] public struct SavedWire { public int aKind, aIndex, bKind, bIndex; public string kind, wireItem; public float length; }   // kind 0 = an entry of placed[], 1 = an entry of attached[], 2 = a work site (a wind turbine)
-        [Serializable] public struct SavedAttached { public string itemId; public int siteIndex; public Vector3 localPosition; public Quaternion localRotation; public float thickness; public string panelId; public float chargeWh; public bool switchOff; public bool lightOff; public List<string> shelfIds; public List<float> shelfX; public List<float> shelfUsed; public List<string> shelfLiquids; }   // shelf*: what stands on a wall shelf (Shelf.cs), parallel lists; in the building's own space; siteIndex = its place in the saved sites
-        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; public List<string> wallPaints; public List<string> openDoors; public List<string> contentIds; public List<int> contentCounts; public List<string> choices; public string pumpId; public string fittedPanel; public float sewageL; public float sludgeL; }   // sewageL / sludgeL: a septic tank's liquid and solids, a leach field's liquid (docs/SEPTIC.md)
+        [Serializable] public struct SavedAttached { public string itemId; public int siteIndex; public Vector3 localPosition; public Quaternion localRotation; public float thickness; public string panelId; public float chargeWh; public bool switchOff; public bool lightOff; public List<string> shelfIds; public List<float> shelfX; public List<float> shelfUsed; public List<string> shelfLiquids; public List<string> contentIds; public List<int> contentCounts; public List<float> contentUsed; public List<string> contentLiquid; public List<float> contentStored; }   // content*: what a mounted cabinet holds (like a placed container). shelf*: what stands on a wall shelf (Shelf.cs), parallel lists; in the building's own space; siteIndex = its place in the saved sites
+        [Serializable] public struct SavedSite { public string structureId; public Vector3 position; public float yawDeg; public int stage; public bool doorOpen; public List<string> looks; public float fuelMinutes; public bool fireLit; public List<string> wallPaints; public List<string> openDoors; public List<string> contentIds; public List<int> contentCounts; public List<string> choices; public string pumpId; public string fittedPanel; public float sewageL; public float sludgeL; public List<string> windowStates; }   // windowShifts: each window's offset along its wall (docs/WINDOWS.md)   // sewageL / sludgeL: a septic tank's liquid and solids, a leach field's liquid (docs/SEPTIC.md)
         [Serializable] public struct SavedGate { public int segment; public float s; public float width; public string itemId; public string style; public bool open; }
         [Serializable] public struct SavedLot { public string style, itemId; public List<Vector3> points; }
         [Serializable] public struct SavedPath { public string kind, style, itemId; public float width, metresPerItem, built; public List<Vector3> points; }

@@ -86,6 +86,14 @@ public class PedController : MonoBehaviour
         return glbPlayer.BeginAction(clip, true, 0.15f);
     }
 
+    /// <summary>Turns to face a point (flat), the way BeginWork does, without playing a clip (the kitchen gestures, KitchenAnimator, run over the idle).</summary>
+    public void FaceToward(Vector3 point)
+    {
+        Vector3 d = point - transform.position;
+        d.y = 0f;
+        if (d.sqrMagnitude > 0.01f) transform.rotation = Quaternion.LookRotation(d.normalized) * Quaternion.Euler(0f, modelRotationOffset, 0f);
+    }
+
     /// <summary>Playback time within the running work clip, wrapped to one cycle (false if that clip is not running).</summary>
     public bool WorkPhase(string clip, out float seconds, out float length)
     {
@@ -339,7 +347,7 @@ public class PedController : MonoBehaviour
             controller.stepOffset = step;
         }
 
-        controller.Move(velocity * Time.deltaTime);
+        if (controller.enabled) controller.Move(velocity * Time.deltaTime);   // (a save being applied switches the controller off while it moves the player: no move then)
 
         UpdateFootsteps(worldMove, running);
 

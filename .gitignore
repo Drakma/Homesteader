@@ -67,3 +67,9 @@ Homesteader/Assets/StreamingAssets/LocalMedia/
 Homesteader/Assets/StreamingAssets/LocalMedia.meta
 tools/LocalMediaHelper/bin/
 tools/LocalMediaHelper/obj/
+
+# cpu3d MCP server connection (holds a bearer token)
+tools/cpu3d_connection.json
+
+# cpu3d raw results
+assets/_cpu3d_out/

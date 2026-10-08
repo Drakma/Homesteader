@@ -651,6 +651,8 @@ namespace Homesteader.UI
                         if (IsAssetSpawnerOpen) CloseAssetSpawner();
                         else if (IsModalOpen) CloseModal();
                         else if (ContainerPanel.CloseOpen()) { }
+                        else if (Homesteader.Kitchen.MealBuilderPanel.CloseOpen()) { }
+                        else if (Homesteader.Kitchen.MealsPanel.CloseOpen()) { }
                         else if (Homesteader.Growth.FenceBuilder.CancelPlan()) { }
                         else if (Homesteader.Growth.PathBuilder.CancelPlan()) { }
                         else if (Homesteader.Growth.LotBuilder.CancelPlan()) { }
@@ -815,8 +817,22 @@ namespace Homesteader.UI
         {
             if (string.IsNullOrEmpty(itemId)) return null;
             EnsureAssetCatalogLoaded();
-            return s_assetCatalog?.items?.Find(i => i.id == itemId);
+            List<AssetCatalogItem> items = s_assetCatalog?.items;
+            if (items == null) return null;
+            // an index by id (the first of an id wins, like List.Find): this is asked per placed object per frame (PalletDeck, KitchenRun, ContainerRules ...), and the catalog has thousands of items
+            if (s_catalogIndex == null || s_indexFor != items || s_indexCount != items.Count)
+            {
+                s_catalogIndex = new Dictionary<string, AssetCatalogItem>(items.Count);
+                foreach (AssetCatalogItem it in items) if (it != null && !string.IsNullOrEmpty(it.id)) s_catalogIndex.TryAdd(it.id, it);
+                s_indexFor = items;
+                s_indexCount = items.Count;
+            }
+            return s_catalogIndex.TryGetValue(itemId, out AssetCatalogItem found) ? found : null;
         }
+
+        private static Dictionary<string, AssetCatalogItem> s_catalogIndex;
+        private static List<AssetCatalogItem> s_indexFor;
+        private static int s_indexCount;
 
         /// <summary>How many uses one of the item holds (a seed packet: 20); 1 for everything else.</summary>
         public static int UsesPerItem(string itemId)
@@ -829,7 +845,7 @@ namespace Homesteader.UI
         public static int GetMaxStack(string itemId)
         {
             EnsureAssetCatalogLoaded();
-            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            var item = GetCatalogItem(itemId);
             return item != null && item.max_stack > 0 ? item.max_stack : 64;
         }
 
@@ -842,7 +858,7 @@ namespace Homesteader.UI
         public static string GetDisplayName(string itemId)
         {
             EnsureAssetCatalogLoaded();
-            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            var item = GetCatalogItem(itemId);
             if (item == null || string.IsNullOrEmpty(item.name)) return itemId;
             string shown = item.name;
             if (item.pack_quantity > 1) shown += " x" + item.pack_quantity;   // a pack shows how many it holds, then its weight
@@ -857,7 +873,7 @@ namespace Homesteader.UI
         public static string GetItemName(string itemId)
         {
             EnsureAssetCatalogLoaded();
-            var item = s_assetCatalog?.items?.Find(i => i.id == itemId);
+            var item = GetCatalogItem(itemId);
             return item != null && !string.IsNullOrEmpty(item.name) ? item.name : itemId;
         }
 
@@ -920,7 +936,7 @@ namespace Homesteader.UI
                 for (int j = 0; j < _toolbarSlots.Length; j++)
                 {
                     if (j == index || _toolbarSlots[j] == null || !_toolbarSlots[j].worldBound.Contains(evt.position)) continue;
-                    SwapToolbarSlots(index, j);
+                    if (!TryDropIntoContainerSlot(index, j)) SwapToolbarSlots(index, j);   // dropped on a sack, basket or toolbox: it goes in (when it takes it); on anything else the two swap
                     break;
                 }
             });
@@ -932,6 +948,39 @@ namespace Homesteader.UI
                 slot.RemoveFromClassList("tool-slot--dragging");
                 if (_dragGhost != null) { _dragGhost.RemoveFromHierarchy(); _dragGhost = null; }
             });
+        }
+
+        /// <summary>
+        /// A slot dragged onto a slot that holds a CONTAINER (a sack, a basket, a toolbox): the items go into it, as many as it takes by weight and only what it accepts (its manifest's
+        /// container.accepts); the rest stays where it was. True when the drop was for the container (also when it was refused: the toast says why), false when the target is not a
+        /// container or the dragged thing is itself one (then the two slots swap as usual).
+        /// </summary>
+        private bool TryDropIntoContainerSlot(int from, int to)
+        {
+            HudState hs = HudState.Active;
+            hs.EnsureToolbarSlots();
+            if (from < 0 || to < 0 || from >= hs.Toolbar.Count || to >= hs.Toolbar.Count) return false;
+            ToolbarSlotData src = hs.Toolbar[from], box = hs.Toolbar[to];
+            if (src.Count <= 0 || string.IsNullOrEmpty(src.IconId) || box.Count <= 0 || string.IsNullOrEmpty(box.IconId)) return false;
+            if (!ContainerRules.IsContainer(box.IconId) || ContainerRules.IsContainer(src.IconId)) return false;
+            if (box.Contents == null) box.Contents = new List<ContainerStack>();
+            string boxName = GetItemName(box.IconId), itemName = GetItemName(src.IconId);
+            if (!ContainerRules.Accepts(box.IconId, src.IconId, box.Contents)) { ToastNotificationSystem.ShowInfo(boxName, boxName + " does not take " + itemName + "."); return true; }
+            bool liquidState = LiquidRules.IsLiquidContainer(src.IconId) && (!string.IsNullOrEmpty(src.LiquidId) || Mathf.Abs(src.WireUsed) > 0.0001f);   // a filled or part-used jar goes in with what it holds
+            if (!liquidState && Mathf.Abs(src.WireUsed) > 0.0001f) { ToastNotificationSystem.ShowInfo(boxName, "A part-used " + itemName + " cannot go in: it would lose what is used."); return true; }
+            int moved;
+            if (liquidState)
+            {
+                moved = ContainerRules.AddWithState(box.IconId, box.Contents, src.IconId, src.LiquidId, src.WireUsed);
+                if (moved > 0) { src.WireUsed = 0f; src.LiquidId = ""; }
+            }
+            else moved = ContainerRules.Add(box.IconId, box.Contents, src.IconId, src.Count);
+            if (moved <= 0) { ToastNotificationSystem.ShowInfo(boxName, boxName + " is full."); return true; }
+            src.Count -= moved;
+            hs.Toolbar[from] = src.Count > 0 ? src : ToolbarSlotData.Empty();
+            hs.Toolbar[to] = box;
+            WriteToolbar(hs);
+            return true;
         }
 
         private void SwapToolbarSlots(int a, int b)
@@ -2152,6 +2201,8 @@ namespace Homesteader.UI
         public float lot_binder_m2_per_item;                        // square metres one unit of the binder covers                               // square metres one item of it covers
         public float gate_width_m;                                  // > 0: a gate
         public string gate_style;
+        public float hunger_restore, thirst_restore, stamina_restore, wellness_modifier;   // food and drink: what eating one (or drinking 0.25 L of a liquid) gives the vitals (Kitchen/Consumption.cs)
+        public string leaves_item;                                  // what is left when it is eaten (a soup leaves its bowl, a plated meal its plate)
         public float burn_minutes;                                  // > 0: fireplace fuel that burns this many game minutes (Fireplace.cs)
         public bool lights_fires;                                   // a lighter: right click a fireplace with it to light it
         public string look_color;                                   // #RRGGBB
@@ -2198,6 +2249,7 @@ namespace Homesteader.UI
         public float wire_length_m;              // its length in metres
         public float max_power_w;                // electricity items: rated power in watts (a wind turbine's output, a battery's continuous power)
         public float max_current_a;              // breakers, fuses, disconnects: rated current in amps (shown in the name)
+        public bool run_snap;                    // a kitchen run piece: snaps to its neighbours and the wall, filler strips (KitchenRun.cs)
         public bool shelf;                       // a wall shelf: things are stood on it (Shelf.cs)
         public bool sawmill;                     // a stationary sawmill: logs laid on its track are cut into lumber (Sawmill.cs)
         public bool roof_mount;                  // a ground item that may also be put up on a roof, upright, turned freely (a dish, a yagi, an access point)

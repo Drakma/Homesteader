@@ -28,7 +28,7 @@ STRUCTURES = os.path.join(ROOT, 'assets', 'structures')
 WALL_H = 2.7          # eave height of the log walls, metres (the doorway is 2.3 m, the player 1.8 m)
 LOG_D = 0.2           # log diameter
 DOOR_W, DOOR_H = 1.2, 2.3    # wide and tall enough for the player (0.7 m capsule plus skin, 1.8 m tall) to pass with room to spare
-WIN_W, WIN_H, WIN_SILL = 0.8, 0.8, 0.95
+WIN_W, WIN_H, WIN_SILL = 0.8, 0.7, 1.05   # the sill is above a kitchen counter (0.92 m); the head stays at 1.75 m
 
 
 def material(name, rgb, rough=0.9):
@@ -199,7 +199,7 @@ def opening_x_ranges(wall, w, d):
     """x (or y) intervals that stay open on a wall: the door on the front (-Y), a window on the +X side. (lo, hi, z_lo, z_hi)"""
     if wall == 'front':
         return [(-DOOR_W / 2, DOOR_W / 2, 0.0, DOOR_H)]
-    if wall == 'right':
+    if wall == 'right' and not SOLID_WINDOWS[0]:     # (the finished stages have the window as its own object over a solid wall)
         return [(-WIN_W / 2 + d * 0.12, WIN_W / 2 + d * 0.12, WIN_SILL, WIN_SILL + WIN_H)]
     return []
 
@@ -306,6 +306,44 @@ def walls(b, w, d, h_total, found_h, mats, parts=None):
 
 EXTRA_OBJECTS = []   # the hinge and the door leaf of the finished stage (exported with the building)
 
+# MOVABLE WINDOWS (docs/WINDOWS.md). In the finished stages the walls are SOLID where a window is; each window is its own pair of objects (WindowFrame_<k>: trim, sill, lining
+# through the wall, muntins, shutters; WindowGlass_<k>: the pane) and an empty "WinSpec_<k>_<wall>_<u0>_<u1>_<z0>_<z1>" (millimetres, the opening's extent along the wall in this
+# file's x or y, and its height above the ground). The game cuts the hole in the wall where the window is, and the wrench slides the window along its wall.
+WINDOW_COUNT = [0]
+SOLID_WINDOWS = [False]
+
+
+DEFAULT_MUNTINS = 2   # a new window has a cross (one vertical bar and one horizontal): the look the windows had before they could be changed
+
+
+def muntin_bars(n, u0, u1, za, zb, t=0.015):
+    """The bars of a window with n muntins, as (u_a, u_b, z_a, z_b) rectangles across the opening: 1 = one vertical bar (two lites), 2 = a cross (four lites), 3 = two verticals and a
+    horizontal (six lites). 0 has none."""
+    um, zm = (u0 + u1) / 2, (za + zb) / 2
+    if n == 1:
+        return [(um - t, um + t, za, zb)]
+    if n == 2:
+        return [(um - t, um + t, za, zb), (u0, u1, zm - t, zm + t)]
+    if n == 3:
+        u3a, u3b = u0 + (u1 - u0) / 3, u0 + 2 * (u1 - u0) / 3
+        return [(u3a - t, u3a + t, za, zb), (u3b - t, u3b + t, za, zb), (u0, u1, zm - t, zm + t)]
+    return []
+
+
+def next_window(wall, u0, u1, z0, z1):
+    """Numbers a window and writes its WinSpec empty. Returns the number."""
+    k = WINDOW_COUNT[0]
+    WINDOW_COUNT[0] += 1
+    name = 'WinSpec_%d_%s_%d_%d_%d_%d_m%d' % (k, wall, round(u0 * 1000), round(u1 * 1000), round(z0 * 1000), round(z1 * 1000), DEFAULT_MUNTINS)
+    e = bpy.data.objects.new(name, None)
+    bpy.context.collection.objects.link(e)
+    EXTRA_OBJECTS.append(e)
+    return k
+
+
+# Chimneys are built from kits in the game now (docs/CHIMNEYS.md, tools/make_chimney_kits.py): the stage models carry none. Set True only to build the old built-in one.
+BUILD_CHIMNEYS = False
+
 
 def chimney_with_fireplace(b, masonry, soot, stone, x_out, x_wall, bx, cy, half, z_floor, z_ceil, z_top):
     """
@@ -390,6 +428,7 @@ def interior_layer(parts, w, d, z0, top, interiorm):
 def complete(b, w, d, h_total, found_h, mats, finishings=False):
     """The enclosed building. finishings=True adds the baseboards of the finishing stage (paint, flooring and the chimney masonry are materials)."""
     concrete, timber, logm, roofm, doorm, glassm, stonem, masonrym, interiorm, floorm = mats
+    SOLID_WINDOWS[0] = True
     # the log walls and the rafters are built a little lower than the finished height: the roof boards go ON TOP of the rafters
     h_frame = h_total - 0.14
     parts = {k: Builder(n) for k, n in (('front', 'Wall_Front'), ('back', 'Wall_Back'), ('left', 'Wall_Left'), ('right', 'Wall_Right'), ('roof', 'Roof'))}
@@ -440,33 +479,41 @@ def complete(b, w, d, h_total, found_h, mats, finishings=False):
     bpy.context.collection.objects.link(hinge)
     leaf_obj.parent = hinge
     EXTRA_OBJECTS.extend([hinge, leaf_obj])
-    # the window on the +X side: a frame, a pane and a sill
-    wlo, whi = opening_x_ranges('right', w, d)[0][0], opening_x_ranges('right', w, d)[0][1]
+    # the window on the +X side, an object of its own over the SOLID wall (the game cuts the hole and the wrench slides it): a frame, a pane and a sill
+    SOLID_WINDOWS[0] = False
+    wlo, whi = -WIN_W / 2 + d * 0.12, WIN_W / 2 + d * 0.12
     zl, zh = z0 + WIN_SILL, z0 + WIN_SILL + WIN_H
     xw0, xw1 = w / 2 - LOG_D + 0.02, w / 2 - 0.02
-    # the pane is its OWN object (WindowGlass): the game turns its shadow casting off so light passes through it, while the walls block it
-    glass = Builder('WindowGlass')
+    wk = next_window('right', wlo, whi, zl, zh)
+    # the pane is its OWN object (WindowGlass_k): the game turns its shadow casting off so light passes through it, while the walls block it
+    glass = Builder('WindowGlass_%d' % wk)
     glass.box(xw0 + 0.06, xw0 + 0.1, wlo, whi, zl, zh, glassm)
     EXTRA_OBJECTS.append(glass.finish())
+    frame = Builder('WindowFrame_%d' % wk)
     for (ya, yb, za, zb) in ((wlo - 0.06, wlo, zl - 0.06, zh + 0.06), (whi, whi + 0.06, zl - 0.06, zh + 0.06),
                              (wlo - 0.06, whi + 0.06, zl - 0.06, zl), (wlo - 0.06, whi + 0.06, zh, zh + 0.06)):
-        parts['right'].box(xw0, xw1 + 0.03, ya, yb, za, zb, timber)
-    parts['right'].box(xw0 + 0.05, xw0 + 0.11, (wlo + whi) / 2 - 0.02, (wlo + whi) / 2 + 0.02, zl, zh, timber)   # a mullion
-    parts['right'].box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
-    # the inside of the window: a lining through the wall (no outdoors showing between the round log ends) and a flat casing round the opening on the inner face
+        frame.box(xw0, xw1 + 0.03, ya, yb, za, zb, timber)
+    for mn in (1, 2, 3):                                                                                  # the muntins: three sets of bars, the game shows the one the window has (docs/WINDOWS.md)
+        mb = Builder('WindowMuntin_%d_%d' % (wk, mn))
+        for (a0, a1, b0, b1) in muntin_bars(mn, wlo, whi, zl, zh, 0.02):
+            mb.box(xw0 + 0.05, xw0 + 0.11, a0, a1, b0, b1, timber)
+        EXTRA_OBJECTS.append(mb.finish())
+    frame.box(xw0, xw1 + 0.1, wlo - 0.1, whi + 0.1, zl - 0.1, zl - 0.06, timber)                          # sill
+    # the inside of the window: a lining through the wall INSIDE the opening (the cut edges of the round log ends do not show) and a flat casing round it on the inner face
     xi = w / 2 - LOG_D - 0.02                      # the inner face, painted layer included
     kk, cw = 0.025, 0.1
-    for (ya, yb, za, zb) in ((wlo - kk, wlo, zl - kk, zh + kk), (whi, whi + kk, zl - kk, zh + kk), (wlo, whi, zl - kk, zl), (wlo, whi, zh, zh + kk)):
-        parts['right'].box(xi, w / 2 - 0.02, ya, yb, za, zb, timber)
+    for (ya, yb, za, zb) in ((wlo, wlo + kk, zl, zh), (whi - kk, whi, zl, zh), (wlo + kk, whi - kk, zl, zl + kk), (wlo + kk, whi - kk, zh - kk, zh)):
+        frame.box(xi, w / 2 - 0.02, ya, yb, za, zb, timber)
     for (ya, yb, za, zb) in ((wlo - cw, wlo, zl - cw, zh + cw), (whi, whi + cw, zl - cw, zh + cw), (wlo, whi, zl - cw, zl), (wlo, whi, zh, zh + cw)):
-        parts['right'].box(xi - 0.03, xi + 0.012, ya, yb, za, zb, timber)
+        frame.box(xi - 0.03, xi + 0.012, ya, yb, za, zb, timber)
+    EXTRA_OBJECTS.append(frame.finish())
     for part in parts.values():
         EXTRA_OBJECTS.append(part.finish())   # Wall_Front / Wall_Back / Wall_Left / Wall_Right / Roof: the game can hide them (cutaway view)
-    # a stone chimney against the -X wall with a fireplace inside (its own object: "Chimney")
-    chim = Builder('Chimney')
-    chimney_with_fireplace(chim, masonrym, material('Soot', (0.08, 0.07, 0.07), 1.0), material('Hearth', (0.5, 0.49, 0.47), 0.95),
-                           -w / 2 - 0.42, -w / 2 + 0.12, -w / 2 + 0.72, 0.55, 0.35, z0, top + 0.1, h_total)
-    EXTRA_OBJECTS.append(chim.finish())
+    if BUILD_CHIMNEYS:   # a stone chimney against the -X wall with a fireplace inside (its own object: "Chimney")
+        chim = Builder('Chimney')
+        chimney_with_fireplace(chim, masonrym, material('Soot', (0.08, 0.07, 0.07), 1.0), material('Hearth', (0.5, 0.49, 0.47), 0.95),
+                               -w / 2 - 0.42, -w / 2 + 0.12, -w / 2 + 0.72, 0.55, 0.35, z0, top + 0.1, h_total)
+        EXTRA_OBJECTS.append(chim.finish())
 
 
 def finishings(b, w, d, h_total, found_h, mats):
@@ -506,6 +553,8 @@ def main():
             bpy.data.objects.remove(o, do_unlink=True)
         b = Builder(d['id'])
         del EXTRA_OBJECTS[:]
+        WINDOW_COUNT[0] = 0
+        SOLID_WINDOWS[0] = False
         FOUNDATION_BUILDER = Builder('Foundation')    # the slab, lip and steps: its own object in every stage
         if fn is None:
             slab(b, w, depth, h, concrete)

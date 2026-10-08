@@ -106,6 +106,95 @@ def join_into(target, other):
 KEEP_WHOLE = ('Roof', 'WindowGlass')            # the cross wing's roof and glass are kept whole (the roof runs on up into the main roof)
 
 
+def is_window_object(name):
+    """The movable windows' objects (WindowFrame_k, WindowGlass_k, WindowMuntin_k_n, WinSpec_k_...): numbered across both wings, so they keep their names, and they are never cut."""
+    return name.startswith('WinSpec_') or (name.startswith('Window') and name != 'WindowGlass')
+
+
+def respec(o, du_x, du_y, suffix):
+    """A WinSpec empty written in its own wing's frame is rewritten in the whole house's: the offset of the wing is added along the wall (x for the front and back walls, y for the
+    left and right ones), the wall gets the wing's tag, and the empty goes back to the origin (the game reads where the loader moved the model from it: docs/WINDOWS.md)."""
+    p = o.name.split('.')[0].split('_')
+    if len(p) < 7:
+        return
+    wall = p[2]
+    d = du_x if wall in ('front', 'back') else du_y
+    p[2] = wall + suffix
+    p[3] = str(int(p[3]) + round(d * 1000))
+    p[4] = str(int(p[4]) + round(d * 1000))
+    o.name = '_'.join(p)
+    o.location = (0.0, 0.0, 0.0)
+
+
+def interior_inside_cross_wing():
+    """The main wing's back wall is an OUTSIDE wall only where nothing stands behind it. Where the cross wing is built against it (x 0 .. 8) its back face is a room wall: the faces of the
+    siding, sheathing and trim layers that look into the cross wing (and the reveals of the doorway between the two) take the interior finish, so no siding shows inside. The wall is split at
+    the cross wing's two sides first, so only the part inside the cross wing changes. The doorway (the arch between the living room and the den) gets a casing of trim on both sides."""
+    wall = bpy.data.objects.get('Wall_Back')
+    if wall is None or wall.type != 'MESH':
+        return
+    mats = wall.data.materials
+    slot = next((i for i, m in enumerate(mats) if m is not None and m.name.startswith('Interior')), None)
+    trim = next((i for i, m in enumerate(mats) if m is not None and m.name.startswith('Trim')), None)
+    if slot is None:
+        return
+    outer = tuple(i for i, m in enumerate(mats) if m is not None and m.name.split('.')[0] in ('Siding', 'Sheathing', 'Trim'))
+    x0, x1 = BX - BW / 2, BX + BW / 2
+    d0, d1 = DOORWAY[0], DOORWAY[1]
+    bm = bmesh.new()
+    bm.from_mesh(wall.data)
+    for xp in (x0, x1):
+        bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=(xp, 0.0, 0.0), plane_no=(1.0, 0.0, 0.0))
+    bm.normal_update()
+    n = 0
+    flat = set()                                                                 # the outer vertices of the siding boards inside the cross wing: flattened below
+    siding = tuple(i for i, m in enumerate(mats) if m is not None and m.name.startswith('Siding'))
+    den_y, liv_y, jz0, jz1 = None, None, None, None
+    for f in bm.faces:
+        c = f.calc_center_median()
+        if not (x0 - 1e-4 <= c.x <= x1 + 1e-4):
+            continue
+        if f.material_index in outer and f.normal.y > 0.5:
+            if f.material_index in siding:
+                flat.update(f.verts)
+            f.material_index = slot
+            n += 1
+            den_y = c.y if den_y is None else max(den_y, c.y)
+        elif f.normal.y < -0.5 and f.material_index == slot and abs(c.x - (d0 + d1) / 2) < (d1 - d0) / 2:
+            liv_y = c.y if liv_y is None else min(liv_y, c.y)
+        elif abs(f.normal.x) > 0.9 and (abs(c.x - d0) < 0.03 or abs(c.x - d1) < 0.03):
+            if f.material_index in outer:
+                f.material_index = slot                                          # the reveal of the doorway
+            for v in f.verts:
+                jz0 = v.co.z if jz0 is None else min(jz0, v.co.z)
+                jz1 = v.co.z if jz1 is None else max(jz1, v.co.z)
+    if flat:
+        # the clapboards are lapped (each board stands a little proud of the one under it), which still shows on the den side as a siding pattern: the outer face is made one flat plane
+        y_flat = max(v.co.y for v in flat)
+        for v in flat:
+            v.co.y = y_flat
+        den_y = y_flat
+    if trim is not None and den_y is not None and jz1 is not None and jz1 - jz0 > 1.0:
+        t, k, out = 0.07, 0.015, 0.0
+        head = jz1                                                               # the top of the doorway
+        for y_face, direction in ((den_y, 1.0), (liv_y, -1.0)):
+            if y_face is None:
+                continue
+            ya, yb = (y_face, y_face + k) if direction > 0 else (y_face - k, y_face)
+            for (ax0, ax1, az0, az1) in ((d0 - t, d0, jz0, head + t), (d1, d1 + t, jz0, head + t), (d0 - t, d1 + t, head, head + t)):
+                res = bmesh.ops.create_cube(bm, size=1.0)
+                for v in res['verts']:
+                    v.co.x = ax0 + (v.co.x + 0.5) * (ax1 - ax0)
+                    v.co.y = ya + (v.co.y + 0.5) * (yb - ya)
+                    v.co.z = az0 + (v.co.z + 0.5) * (az1 - az0)
+                for f in {f for v in res['verts'] for f in v.link_faces}:
+                    f.material_index = trim
+    bm.to_mesh(wall.data)
+    bm.free()
+    wall.data.update()
+    print('l_house: %d back-wall faces inside the cross wing given the interior finish; doorway z %s..%s' % (n, jz0, jz1))
+
+
 def build_stage(folder, sid_stage_id):
     """Both wings of one stage, put together. Returns (main object, extra objects)."""
     import make_house_stages as hs
@@ -155,7 +244,7 @@ def build_stage(folder, sid_stage_id):
     cut = cut_local()
     tops_b = [o for o in b_all if o.parent is None]
     for o in tops_b:
-        if o.type == 'MESH' and o.name.split('.')[0] not in KEEP_WHOLE:
+        if o.type == 'MESH' and o.name.split('.')[0] not in KEEP_WHOLE and not is_window_object(o.name.split('.')[0]):
             clip(o, cut)
     for o in a_all:
         if o.parent is None:
@@ -165,12 +254,16 @@ def build_stage(folder, sid_stage_id):
 
     for o in b_all:                                                 # (children first: their parents keep their own names for the doors' sake)
         n = o.name.split('.')[0]
-        if o.parent is not None:
+        if o.parent is not None and not is_window_object(n):
             o.name = n + '.B'
     for o in tops_b:
         n = o.name.split('.')[0]
         target = bpy.data.objects.get('A:' + n)
-        if n.startswith('Wall_'):
+        if n.startswith('WinSpec_'):
+            respec(o, BX + shift.x, BDE / 2 + shift.y, '@B')
+        elif is_window_object(n):
+            o.name = n                                              # numbered across both wings: no tag needed
+        elif n.startswith('Wall_'):
             o.name = n + '@B'
         elif target is not None and n in ('Roof', 'WindowGlass', 'Foundation', 'Porch', 'Chimney', sid_stage_id):
             join_into(target, o)
@@ -180,6 +273,9 @@ def build_stage(folder, sid_stage_id):
     for o in a_all:
         if o.name.startswith('A:'):
             o.name = o.name[2:]
+            if o.name.startswith('WinSpec_'):
+                respec(o, shift.x, shift.y, '')
+    interior_inside_cross_wing()
     main = bpy.data.objects[sid_stage_id]
     extras = [o for o in bpy.data.objects if o is not main and o.type in ('MESH', 'EMPTY') and o.parent is None and o.name != 'FrontMarker']
     return main, extras

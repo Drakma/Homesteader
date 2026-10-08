@@ -179,7 +179,7 @@ namespace Homesteader.Growth
                     float cap = n.SewageCapacityL;
                     rows.Add(("Liquid", UnitFormat.Volume(n.SewageL) + " of " + UnitFormat.Volume(cap)));
                     rows.Add(("Sludge", UnitFormat.Volume(n.SludgeL) + (cap > 0f ? " (" + Mathf.RoundToInt(n.SludgeL / cap * 100f) + "% of the tank)" : "")));
-                    rows.Add(("Status", n.SludgeL >= cap * FullAt ? "Full of solids: order a pump-out" : n.SludgeL >= cap * PumpSoonAt ? "Needs pumping out soon" : "OK"));
+                    rows.Add(("Status", n.SludgeL >= cap * FullAt ? "Full of solids" : n.SludgeL >= cap * PumpSoonAt ? "Needs pumping out soon" : "OK"));
                     var tanks = new List<WireNode>();
                     var fields = new List<WireNode>();
                     Downstream(n, tanks, fields);

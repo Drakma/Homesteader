@@ -169,6 +169,57 @@ namespace Homesteader.Growth
             return true;
         }
 
+        /// <summary>Takes ONE plain thing off the shelf for cooking (not a part-used coil or a filled can, which keep what is in them): false when there is none.</summary>
+        public bool Consume(string itemId)
+        {
+            Held held = Items.Find(x => x.ItemId == itemId && x.WireUsed <= 0.01f && string.IsNullOrEmpty(x.LiquidId));
+            if (held == null) return false;
+            Items.Remove(held);
+            if (held.View != null) Destroy(held.View);
+            return true;
+        }
+
+        /// <summary>Takes ONE empty liquid container (a jar, a bottle) off the shelf to be filled in the kitchen: false when there is none.</summary>
+        public bool ConsumeEmpty(string itemId)
+        {
+            Held held = Items.Find(x => x.ItemId == itemId && string.IsNullOrEmpty(x.LiquidId) && LiquidRules.Held(x.ItemId, x.WireUsed) < 0.01f);
+            if (held == null) return false;
+            Items.Remove(held);
+            if (held.View != null) Destroy(held.View);
+            return true;
+        }
+
+        /// <summary>
+        /// Uses up some of an item on the shelf: items that each hold several uses (uses_per_item: a bag of flour) are used a bit at a time, an opened one first
+        /// (its Held.WireUsed counts the uses gone) and taken off when empty; a plain item (one use) is taken off whole. Returns the uses taken.
+        /// </summary>
+        public int ConsumeUses(string itemId, int uses, int per)
+        {
+            int done = 0;
+            if (per <= 1)
+            {
+                while (done < uses && Consume(itemId)) done++;
+                return done;
+            }
+            while (done < uses)
+            {
+                Held best = null;
+                foreach (Held h in Items)
+                    if (h.ItemId == itemId && string.IsNullOrEmpty(h.LiquidId) && (best == null || h.WireUsed > best.WireUsed)) best = h;
+                if (best == null) break;
+                int avail = Mathf.Max(1, per - Mathf.RoundToInt(best.WireUsed));
+                int n = Mathf.Min(avail, uses - done);
+                best.WireUsed += n;
+                done += n;
+                if (best.WireUsed >= per - 0.001f)
+                {
+                    Items.Remove(best);
+                    if (best.View != null) Destroy(best.View);
+                }
+            }
+            return done;
+        }
+
         private static float Flat(Vector3 a, Vector3 b) { return new Vector2(a.x - b.x, a.z - b.z).magnitude; }
 
         /// <summary>The free place nearest <paramref name="x"/> for a thing this wide (half its width): false when none is left.</summary>

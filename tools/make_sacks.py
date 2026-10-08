@@ -36,6 +36,7 @@ SACKS = {
     'ingredient_flax': (0.6, BURLAP, (0.35, 0.45, 0.78), CREAM, (0.15, 0.22, 0.45), ['FLAX']),
     'ingredient_hops': (0.6, BURLAP, (0.45, 0.66, 0.2), CREAM, (0.2, 0.34, 0.08), ['HOPS']),
     'ingredient_oats': (0.6, BURLAP, (0.7, 0.5, 0.25), CREAM, (0.38, 0.25, 0.1), ['OATS', 'GRAIN']),
+    'ingredient_canola': (0.6, BURLAP, (0.95, 0.82, 0.18), CREAM, (0.45, 0.40, 0.04), ['CANOLA', 'SEED']),
     'ingredient_soybeans': (0.6, BURLAP, (0.62, 0.52, 0.14), CREAM, (0.34, 0.27, 0.05), ['SOYBEANS']),
     'ingredient_tobacco': (0.6, BURLAP, (0.5, 0.3, 0.15), CREAM, (0.3, 0.16, 0.07), ['TOBACCO', 'LEAF']),
 }

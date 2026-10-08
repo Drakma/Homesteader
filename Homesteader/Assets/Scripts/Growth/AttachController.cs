@@ -20,6 +20,8 @@ namespace Homesteader.Growth
         private const float Reach = 3.5f;          // metres on the ground from the player to what is mounted
         private const float Snap = 0.05f;
         private const float RoofReach = 6f;       // a roof item is put up from the GROUND (there are no ladders): the player has to be this close to the building
+        private const float CurtainAboveWindowM = 0.10f;   // a curtain or a drape hangs with its top this far above the window it covers
+        private const float UpperBottomM = 0.92f + 0.437f + 0.02f;   // every wall cabinet hangs with its bottom 2 cm above the tallest counter appliance (the grain mill, 0.437 m) standing on a counter (0.92 m)
         private const float MinApart = 0.3f;       // two mounted things are never closer than this
 
         private GameObject _ghost;
@@ -46,6 +48,7 @@ namespace Homesteader.Growth
             public string Reason;
             public ConstructionSite Site;
             public Vector3 Position;
+            public float UpperBottom;      // a wall cabinet: the world y its bottom must be at (NaN for anything else)
             public Quaternion Rotation;
             public float Thickness;        // a through-the-wall item: how thick the wall is there
             public Vector3 GuideFrom;      // a ceiling item: the floor spot the cursor is on (a line rises from it to the item)
@@ -94,6 +97,7 @@ namespace Homesteader.Growth
                 if (!_placing) return;
             }
             if (cam == null || hud.IsPointerOverUI(pointer)) { HideGhost(); return; }
+            if (info.AttachSurface == "chimney") { UpdateChimney(held, cam, pointer, ped); return; }   // a chimney kit: its own preview and rules (Chimney.cs)
             if (!EnsureGhost(held, info)) return;
 
             if (rotate && upright) Dbg.Log("[Roof] R with " + held + " over a roof: turn " + _turn + " -> next");
@@ -122,7 +126,7 @@ namespace Homesteader.Growth
         private static readonly string[] NotWall = { "Door", "Window", "Frame", "Framing", "Trim", "Roof", "Foundation", "Porch", "Stud", "Joist", "Rafter", "Beam", "Post", "Sill", "Header", "Casing" };
 
         /// <summary>True unless the collider is part of a door, a window, framing, trim, a beam, the foundation or the roof: wall items go on the wall surface itself (every layer of a wall counts, whatever it is called).</summary>
-        private static bool IsWallPart(Collider c, ConstructionSite site)
+        internal static bool IsWallPart(Collider c, ConstructionSite site)
         {
             Transform stop = site.VisualRoot != null ? site.VisualRoot : site.transform;   // (the model's own name says nothing about the part)
             for (Transform t = c.transform; t != null && t != stop && t != site.transform; t = t.parent)
@@ -185,7 +189,7 @@ namespace Homesteader.Growth
                 p.z = Mathf.Round(p.z / Snap) * Snap;
                 p -= n * Vector3.Dot(p - hp, n);                                   // the rounding moved it along the normal too: back onto the plane
                 Collider surface = h.collider;
-                RaycastHit[] probe = Physics.RaycastAll(p + n * 0.6f, -n, 1.3f, ~0, QueryTriggerInteraction.Ignore);   // (hidden walls too: the inner face of a cut-away wall)
+                RaycastHit[] probe = RaycastBothFaces(p + n * 0.6f, -n, 1.3f);   // (hidden walls too: the inner face of a cut-away wall)
                 System.Array.Sort(probe, (x, y) => x.distance.CompareTo(y.distance));
                 foreach (RaycastHit ph in probe)
                 {
@@ -197,14 +201,187 @@ namespace Homesteader.Growth
                     break;
                 }
                 Vector3 tangent = Vector3.Cross(Vector3.up, n);
+                float upperBottom = float.NaN;
+                if (IsUpper(info)) { upperBottom = FloorBelow(site, p, n) + UpperBottomM; p.y = upperBottom + _local.size.y * 0.5f; p = SnapUpper(site, p, n, tangent); }   // wall cabinets hang at one standard height and snap to each other
+                bool hangs = info.Id != null && (info.Id.StartsWith("decor_curtains") || info.Id.StartsWith("decor_drapes"));
+                float hangTop = float.NaN;
+                if (hangs && StructureWindows.OpeningNear(site, p, n, out Vector3 winCentre, out float headY))
+                {
+                    p += tangent * Vector3.Dot(winCentre - p, tangent);   // centred on the window ...
+                    hangTop = headY + CurtainAboveWindowM;                 // ... its top 10 cm above it
+                }
+                if (info.Id != null && info.Id.StartsWith("kitchen_range_hood")) p = CentreOnCooktop(p, n, tangent);   // a hood over a cooktop or range centres on it
+                string cornerReason = KeepOffCorner(site, info, ref p, n, tangent);   // a wall item never goes into the wall at the end of its wall; a corner cabinet goes INTO the corner
                 plan.Rotation = Quaternion.LookRotation(n, Vector3.up);   // measured in the game: a wall model occupies z = 0 .. +depth, so +z points out of the wall
                 plan.Position = p + n * 0.003f - Vector3.up * (_local.size.y * 0.5f);   // the pivot is the bottom of the item
+                plan.UpperBottom = upperBottom;
+                if (hangs)   // curtains and drapes: the top is 10 cm above the window, and never through the ceiling
+                {
+                    float top = float.IsNaN(hangTop) ? plan.Position.y + _local.max.y : hangTop;
+                    top = Mathf.Min(top, site.CeilingY() - 0.02f);
+                    plan.Position.y = top - _local.max.y;
+                }
+                if (!float.IsNaN(upperBottom)) plan.Position.y = upperBottom - _local.min.y;   // the model's own lowest point on the standard line, whatever shape it is
+                if (info != null && info.Id != null && info.Id.StartsWith("kitchen_range_hood"))
+                    plan.Position.y = Mathf.Min(plan.Position.y, site.CeilingY() - _local.size.y - 0.01f);   // the chimney tops out at the ceiling, never through it
+                // The wall's layers do not all end in one plane (a thicker band, a plate, a lower or upper layer): the probe above read only the spot under the cursor. Every spot the item covers
+                // is looked at, and the item stands off the FRONTMOST wall surface it spans, so no part of it (the tall chimney of a range hood) sinks into the wall.
+                if (!info.AttachThrough && _local.min.z < -0.002f) plan.Position += n * -_local.min.z;   // a model that reaches behind its origin (the wall cabinets: 3.4 cm) stands off by that much, so its back is on the wall, not in it
+                float push = info.Id != null && info.Id.StartsWith("kitchen_wall_corner") ? 0f : FrontmostWall(site, p, n, tangent, plan.Position.y, _local.size.x, _local.size.y);   // (a corner cabinet's arm reaches the side wall, which read as a wall in front and stood the whole cabinet off the back wall: bigger and nearer than its neighbours)
+                if (push > 0.003f) { p += n * push; plan.Position += n * push; }
                 if (info.AttachThrough) plan.Thickness = AttachedObject.MeasureWall(site, p, n);
-                plan.Reason = Check(site, info, p, n, tangent, surface, ped, true);
+                plan.Reason = cornerReason ?? Check(site, info, p, n, tangent, surface, ped, true);
                 plan.Valid = plan.Reason == null;
                 return plan;
             }
             return plan;
+        }
+
+        /// <summary>RaycastAll that also meets back faces: a wall layer whose collider faces away from the room (a one-sided inner finish) is still the surface nearest the room, not skipped for the layer behind it.</summary>
+        private static RaycastHit[] RaycastBothFaces(Vector3 origin, Vector3 dir, float reach)
+        {
+            bool old = Physics.queriesHitBackfaces;
+            Physics.queriesHitBackfaces = true;
+            RaycastHit[] hits = Physics.RaycastAll(origin, dir, reach, ~0, QueryTriggerInteraction.Ignore);
+            Physics.queriesHitBackfaces = old;
+            System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+            return hits;
+        }
+
+        /// <summary>How far (m) the frontmost wall surface under the item's footprint (a grid over its width and height, from the bottom at bottomY) lies in front of the plane through p; 0 when none does.</summary>
+        private float FrontmostWall(ConstructionSite site, Vector3 p, Vector3 n, Vector3 tangent, float bottomY, float width, float height)
+        {
+            float push = 0f;
+            int cols = Mathf.Max(2, Mathf.CeilToInt(width / 0.1f)), rows = Mathf.Max(2, Mathf.CeilToInt(height / 0.1f));
+            for (int i = 0; i <= cols; i++)
+                for (int j = 0; j <= rows; j++)
+                {
+                    Vector3 s = p + tangent * ((i / (float)cols - 0.5f) * width * 0.96f);
+                    s.y = bottomY + height * (j / (float)rows);
+                    RaycastHit[] hits = RaycastBothFaces(s + n * 0.6f, -n, 1.3f);
+                    System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+                    foreach (RaycastHit h in hits)
+                    {
+                        if (h.collider.GetComponentInParent<ConstructionSite>() != site) continue;
+                        if (h.collider.GetComponentInParent<AttachedObject>() != null) continue;
+                        if (!IsWallPart(h.collider, site)) continue;
+                        if (Mathf.Abs(Vector3.Dot(h.normal, n)) < 0.5f) break;   // the edge of a board or a log, not a face
+                        push = Mathf.Max(push, Vector3.Dot(h.point - p, n));
+                        break;
+                    }
+                }
+            return Mathf.Min(push, 0.4f);
+        }
+
+        /// <summary>A range hood with a cooktop or a range below it (against the same wall, within 0.8 m along it) is slid to the cooktop's centre.</summary>
+        private static Vector3 CentreOnCooktop(Vector3 p, Vector3 n, Vector3 tangent)
+        {
+            float bestD = 0.8f, shift = 0f;
+            foreach (PlacedObject o in PlacedObject.All)
+            {
+                if (o == null || o.ItemId == null) continue;
+                bool cook = o.ItemId.StartsWith("kitchen_cooktop") || (o.ItemId.StartsWith("kitchen_range_") && !o.ItemId.StartsWith("kitchen_range_hood"));
+                if (!cook) continue;
+                Bounds b = default; bool any = false;
+                foreach (Renderer r in o.GetComponentsInChildren<Renderer>()) { if (!any) { b = r.bounds; any = true; } else b.Encapsulate(r.bounds); }
+                if (!any || b.center.y > p.y) continue;
+                float off = Vector3.Dot(b.center - p, n);
+                if (off < -0.2f || off > 1.2f) continue;   // not against this wall
+                float along = Vector3.Dot(b.center - p, tangent);
+                if (Mathf.Abs(along) < bestD) { bestD = Mathf.Abs(along); shift = along; }
+            }
+            return p + tangent * shift;
+        }
+
+        private static bool IsUpper(ItemRegistry.ItemInfo info) { return info != null && info.Id != null && info.Id.StartsWith("kitchen_wall_c"); }
+        private static bool IsUpper(string id) { return id != null && id.StartsWith("kitchen_wall_c"); }
+
+        /// <summary>The floor of the room in front of the wall spot (world y).</summary>
+        private static float FloorBelow(ConstructionSite site, Vector3 p, Vector3 n)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(p + n * 0.3f, Vector3.down, 6f, ~0, QueryTriggerInteraction.Ignore);
+            float floor = float.NaN;
+            foreach (RaycastHit h in hits)   // the LOWEST upward face of the building: a counter, a filler strip or a shelf below the spot is not the floor
+            {
+                if (h.collider.GetComponentInParent<ConstructionSite>() != site || h.collider.GetComponentInParent<AttachedObject>() != null || h.collider.GetComponentInParent<PlacedObject>() != null) continue;
+                if (h.normal.y > 0.5f && (float.IsNaN(floor) || h.point.y < floor)) floor = h.point.y;
+            }
+            return float.IsNaN(floor) ? site.transform.position.y : floor;
+        }
+
+        /// <summary>The span a mounted item covers along the wall (its click box), in the wall's own direction.</summary>
+        private static bool AlongRange(Transform tr, Vector3 tangent, out float lo, out float hi)
+        {
+            lo = hi = 0f;
+            BoxCollider box = tr.GetComponent<BoxCollider>();
+            if (box == null) return false;
+            float c = Vector3.Dot(tr.TransformPoint(box.center), tangent);
+            float half = 0.5f * (Mathf.Abs(Vector3.Dot(tr.right, tangent)) * box.size.x + Mathf.Abs(Vector3.Dot(tr.forward, tangent)) * box.size.z);
+            lo = c - half; hi = c + half;
+            return true;
+        }
+
+        /// <summary>Slides a wall cabinet along its wall so it touches the nearest wall cabinet beside it (within a quarter metre).</summary>
+        private Vector3 SnapUpper(ConstructionSite site, Vector3 p, Vector3 n, Vector3 tangent)
+        {
+            float pa = Vector3.Dot(p, tangent);
+            float lo = pa + _local.center.x - _local.size.x * 0.5f, hi = lo + _local.size.x;
+            float best = 0.25f, delta = 0f;
+            foreach (AttachedObject a in AttachedObject.All)
+            {
+                if (a == null || a.Site != site || !IsUpper(a.ItemId) || Vector3.Dot(a.transform.forward, n) < 0.95f || Mathf.Abs(Vector3.Dot(a.transform.position - p, n)) > 0.12f) continue;
+                if (!AlongRange(a.transform, tangent, out float alo, out float ahi)) continue;
+                float d1 = alo - hi, d2 = ahi - lo;       // my right edge to its left edge, my left edge to its right edge
+                if (Mathf.Abs(d1) < best) { best = Mathf.Abs(d1); delta = d1; }
+                if (Mathf.Abs(d2) < best) { best = Mathf.Abs(d2); delta = d2; }
+            }
+            return p + tangent * delta;
+        }
+
+        /// <summary>The first thing a ray meets that is not the preview, a mounted item or a placed one: true when it is a wall of the building.</summary>
+        private bool WallAhead(ConstructionSite site, Vector3 origin, Vector3 dir, float reach, out RaycastHit wall)
+        {
+            wall = default;
+            RaycastHit[] hits = Physics.RaycastAll(origin, dir, reach, ~0, QueryTriggerInteraction.Ignore);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider == null || (_ghost != null && h.collider.transform.IsChildOf(_ghost.transform))) continue;
+                if (h.collider.GetComponentInParent<AttachedObject>() != null || h.collider.GetComponentInParent<PlacedObject>() != null || h.collider.GetComponentInParent<PedController>() != null) continue;
+                if (h.collider.GetComponentInParent<ConstructionSite>() != site || !IsWallPart(h.collider, site)) return false;
+                wall = h;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Keeps a wall item inside its wall: the wall at either end (a corner) is looked for along the wall at the height of the item, and the item is moved away from it by as much as it
+        /// would have sunk in. A CORNER wall cabinet (kitchen_wall_corner_*: an L whose side arm is on its +x side, the left as you face it) is moved INTO the corner so the arm lies flush on
+        /// the corner wall, or refused (with the reason) when there is no corner on that side. Returns the reason it cannot go here, or null.
+        /// </summary>
+        private string KeepOffCorner(ConstructionSite site, ItemRegistry.ItemInfo info, ref Vector3 p, Vector3 n, Vector3 tangent)
+        {
+            float half = _local.size.x * 0.5f;
+            if (half < 0.05f) return null;
+            bool corner = info != null && info.Id != null && info.Id.StartsWith("kitchen_wall_corner");
+            Vector3 origin = p + n * 0.1f;
+            if (corner)
+            {
+                // the side arm is on the item's +x side: the corner wall must be that way, within reach of the arm
+                if (WallAhead(site, origin, tangent, 1.2f, out RaycastHit side) && Vector3.Dot(side.normal, -tangent) > 0.8f)
+                {
+                    p += tangent * (side.distance - half - 0.003f);
+                    return null;
+                }
+                return "Hang it in a corner: the corner wall must be on its left as you face it (mount it on the other wall of the corner).";
+            }
+            for (int sg = -1; sg <= 1; sg += 2)
+            {
+                if (WallAhead(site, origin, tangent * sg, half + 0.02f, out RaycastHit end) && Vector3.Dot(end.normal, -tangent * sg) > 0.8f && end.distance < half + 0.003f)
+                    p -= tangent * sg * (half + 0.003f - end.distance);      // it would sink into the wall at this end: slid back out
+            }
+            return null;
         }
 
         /// <summary>
@@ -241,7 +418,7 @@ namespace Homesteader.Growth
         }
 
         private static string s_roofLog;
-        public const float RoofTurnDeg = 12.5f;   // R turns a thing standing on a roof by this much (Shift + R: the other way)
+        public const float RoofTurnDeg = 22.5f;   // R turns a thing standing on a roof by this much (Shift + R: the other way)
 
         /// <summary>
         /// R with the cursor on a dish, yagi or access point that already stands on a roof turns it where it is (Shift + R the other way), whatever is in hand:
@@ -406,7 +583,7 @@ namespace Homesteader.Growth
         }
 
         /// <summary>Why it cannot be mounted at this spot, or null when it can.</summary>
-        private static string Check(ConstructionSite site, ItemRegistry.ItemInfo info, Vector3 point, Vector3 normal, Vector3 tangent, Collider wall, PedController ped, bool isWall)
+        private string Check(ConstructionSite site, ItemRegistry.ItemInfo info, Vector3 point, Vector3 normal, Vector3 tangent, Collider wall, PedController ped, bool isWall)
         {
             if (!site.Finished) return "Finish building it first.";
             if (info.ProvidesPower)   // one breaker box to a building: a second would be a second feed into the same system
@@ -418,7 +595,7 @@ namespace Homesteader.Growth
                 // on a door? (the leaf of the front door or a barn door is not a wall)
                 for (Transform t = wall != null ? wall.transform : null; t != null && t != site.transform; t = t.parent)
                     if (t.name.StartsWith("Door")) return "Not on a door.";
-                    else if (t.name == "WindowGlass") return "Not on a window.";
+                    else if (t.name.StartsWith("WindowGlass") || t.name.StartsWith("WindowFrame")) return "Not on a window.";
                 bool inside = site.IsInsideWalls(point + normal * 0.15f);
                 if (info.AttachSide == "exterior" && inside) return "This goes on the OUTSIDE of a building.";
                 if (info.AttachSide == "interior" && !inside) return "This goes on the INSIDE of a building.";
@@ -434,10 +611,70 @@ namespace Homesteader.Growth
             foreach (AttachedObject a in AttachedObject.All)
             {
                 if (a == null || a.Site != site || a.Surface != info.AttachSurface) continue;
+                if (isWall && IsUpper(info) && IsUpper(a.ItemId))
+                {
+                    // wall cabinets sit edge to edge: only overlapping is refused
+                    if (Mathf.Abs(Vector3.Dot(a.transform.position - point, normal)) < 0.12f && Mathf.Abs(a.transform.position.y - point.y) < 0.3f && AlongRange(a.transform, tangent, out float alo, out float ahi))
+                    {
+                        float mlo = Vector3.Dot(point, tangent) + _local.center.x - _local.size.x * 0.5f, mhi = mlo + _local.size.x;
+                        if (Mathf.Min(mhi, ahi) - Mathf.Max(mlo, alo) > 0.02f) return "Too close to another one.";
+                    }
+                    continue;
+                }
                 if ((a.transform.position - point).magnitude < MinApart && !(isWall && Mathf.Abs(a.transform.position.y - point.y) > 0.6f)) return "Too close to another one.";
             }
             return null;
         }
+
+        // ------------------------------------------------------------------ a chimney kit
+
+        private GameObject _chimGhost;
+        private string _chimKey;
+        private ChimneyPlan _chimPlan;
+        private float _chimPlanTime;
+        private Vector2 _chimPlanPointer;
+        private string _chimKeyHeld;
+
+        /// <summary>The preview of a chimney on the wall under the cursor (blue = it can go there, red = not), and the second click or Enter that builds it.</summary>
+        private void UpdateChimney(string held, Camera cam, Vector2 pointer, PedController ped)
+        {
+            // the plan casts a few dozen rays: worked out again only when the cursor has moved or a fifth of a second has passed, not every frame
+            if (_chimKeyHeld != held || Time.unscaledTime - _chimPlanTime > 0.2f || (pointer - _chimPlanPointer).sqrMagnitude > 16f)
+            {
+                _chimPlan = ChimneyPlanner.Plan(cam, pointer, held, ped);
+                _chimPlanTime = Time.unscaledTime;
+                _chimPlanPointer = pointer;
+                _chimKeyHeld = held;
+            }
+            ChimneyPlan plan = _chimPlan;
+            if (plan.Site == null && plan.Reason == null) { HideChimneyGhost(); return; }   // the cursor is not over a building
+            if (plan.Origin != Vector3.zero)
+            {
+                string key = plan.Spec.Brick + ":" + plan.Spec.Thickness.ToString("0.00") + ":" + plan.Spec.Bottom.ToString("0.0") + ":" + plan.Spec.Top.ToString("0.0");
+                if (_chimGhost == null || key != _chimKey)
+                {
+                    if (_chimGhost != null) Destroy(_chimGhost);
+                    _chimGhost = ChimneyBuilder.Build(plan.Spec, false, out _, out _);
+                    _chimGhost.name = "ChimneyGhost";
+                    _chimKey = key;
+                }
+                _chimGhost.SetActive(true);
+                _chimGhost.transform.SetPositionAndRotation(plan.Origin, plan.Rotation);
+                GhostVisual.Apply(_chimGhost, plan.Valid ? ValidTint : InvalidTint, GhostAlpha);
+            }
+            else HideChimneyGhost();
+            bool confirm = Enter() || (LeftClicked() && Time.frameCount != _startFrame);
+            if (!confirm) return;
+            if (!plan.Valid) { ToastNotificationSystem.ShowWarning("Can't build it here", plan.Reason); return; }
+            HudState state = HudState.Active;
+            if (!state.ConsumeFromSelectedSlot(1)) return;
+            HudBindings.Instance?.RefreshToolbar();
+            PlacedChimney.Spawn(plan.Site, held, plan.Origin, plan.Rotation, plan.Spec);
+            _placing = false;
+            HideChimneyGhost();
+        }
+
+        private void HideChimneyGhost() { if (_chimGhost != null) _chimGhost.SetActive(false); }
 
         private static void Mount(string itemId, ItemRegistry.ItemInfo info, Plan plan)
         {
@@ -445,6 +682,13 @@ namespace Homesteader.Growth
             if (!state.ConsumeFromSelectedSlot(1)) return;
             HudBindings.Instance?.RefreshToolbar();
             AttachedObject a = AttachedObject.Spawn(itemId, info, plan.Site, plan.Position, plan.Rotation, plan.Thickness);
+            if (a != null && IsUpper(itemId) && !float.IsNaN(plan.UpperBottom)) a.SetBottom(plan.UpperBottom);   // the real bottom of what was built, on the standard line
+            if (a != null && IsUpper(itemId))   // (measured: every wall cabinet should read the same bottom and top)
+            {
+                Bounds wb = default; bool any = false;
+                foreach (Renderer r in a.GetComponentsInChildren<Renderer>(true)) { if (!any) { wb = r.bounds; any = true; } else wb.Encapsulate(r.bounds); }
+                if (any) Dbg.Log("[UpperCab] " + itemId + " bottom " + wb.min.y.ToString("0.000") + " top " + wb.max.y.ToString("0.000") + " floor " + plan.Site.transform.position.y.ToString("0.000"));
+            }
             if (a != null && info.ProvidesPower)
             {
                 if (a.Exterior) ToastNotificationSystem.ShowInfo("Not wired yet", "Wire an inverter to this panel (wire cutters, AC wire) to bring the building electricity.");
@@ -507,8 +751,8 @@ namespace Homesteader.Growth
             _guide.enabled = true;
         }
 
-        private void HideGhost() { if (_ghost != null) _ghost.SetActive(false); if (_guide != null) _guide.enabled = false; }
-        private void DestroyGhost() { if (_ghost != null) Destroy(_ghost); _ghost = null; _ghostId = null; if (_guide != null) _guide.enabled = false; }
+        private void HideGhost() { HideChimneyGhost(); if (_ghost != null) _ghost.SetActive(false); if (_guide != null) _guide.enabled = false; }
+        private void DestroyGhost() { if (_chimGhost != null) Destroy(_chimGhost); _chimGhost = null; if (_ghost != null) Destroy(_ghost); _ghost = null; _ghostId = null; if (_guide != null) _guide.enabled = false; }
         private void OnDisable() { DestroyGhost(); }
 
         // ------------------------------------------------------------------ input

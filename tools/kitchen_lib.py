@@ -130,6 +130,93 @@ def make_textures(force=False):
     return out
 
 
+def make_controls_texture(force=False):
+    """The touch-control strip of the built-in cooktop: four groups (burner symbol, slide bar, 7-segment level), 1024 x 128, drawn with numpy. Not tiling: it is mapped once over the plate."""
+    path = os.path.join(TEX_DIR, 'cooktop_controls.png')
+    if os.path.exists(path) and not force:
+        return path
+    H, W = 128, 1024
+    img = np.zeros((H, W, 3), dtype=np.float32)
+    img[:] = (0.014, 0.016, 0.021)
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+
+    def rect(x0, x1, y0, y1, col):
+        img[int(y0):int(y1), int(x0):int(x1)] = col
+
+    def ring(cx, cy, r, w, col):
+        d = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
+        m = np.clip(1.0 - np.abs(d - r) / w, 0, 1)[:, :, None]
+        img[:] = img * (1 - m) + np.array(col, dtype=np.float32)[None, None, :] * m
+
+    def disc(cx, cy, r, col):
+        d = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
+        m = np.clip(r - d + 0.5, 0, 1)[:, :, None]
+        img[:] = img * (1 - m) + np.array(col, dtype=np.float32)[None, None, :] * m
+
+    segs = {0: 'abcdef', 1: 'bc', 2: 'abdeg', 3: 'abcdg', 4: 'bcfg', 5: 'acdfg', 6: 'acdefg', 7: 'abc', 8: 'abcdefg', 9: 'abcdfg'}
+
+    def digit(x, y, w, h, t, n, on, off):
+        mid = y + h / 2
+        sx0, sx1 = x + t, x + w - t
+        boxes = {'a': (sx0, sx1, y, y + t), 'd': (sx0, sx1, y + h - t, y + h), 'g': (sx0, sx1, mid - t / 2, mid + t / 2),
+                 'f': (x, x + t, y + t, mid), 'e': (x, x + t, mid, y + h - t), 'b': (x + w - t, x + w, y + t, mid), 'c': (x + w - t, x + w, mid, y + h - t)}
+        for k, (a, b, c, d) in boxes.items():
+            rect(a, b, c, d, on if k in segs[n] else off)
+
+    cyan, dim, white, track = (0.10, 0.85, 0.95), (0.05, 0.075, 0.09), (0.78, 0.80, 0.82), (0.16, 0.18, 0.21)
+    levels = (6, 0, 3, 0)
+    sizes = (21, 15, 15, 21)
+    for g in range(4):
+        x0 = g * 256
+        if g:
+            rect(x0 - 1, x0 + 1, 22, 106, (0.07, 0.08, 0.10))                                  # a hairline between the groups
+        ring(x0 + 36, 64, sizes[g], 1.8, white)                                                  # the burner symbol: its size
+        ring(x0 + 36, 64, sizes[g] * 0.5, 1.6, white)
+        sx0, sx1 = x0 + 74, x0 + 172
+        rect(sx0, sx1, 61, 67, track)                                                            # the slide bar
+        lit = sx0 + (sx1 - sx0) * levels[g] / 9.0
+        if levels[g]:
+            rect(sx0, lit, 61, 67, cyan)
+            disc(lit, 64, 8, cyan)
+        else:
+            disc(sx0, 64, 8, (0.30, 0.32, 0.36))
+        for k in range(10):
+            tx = sx0 + (sx1 - sx0) * k / 9.0
+            rect(tx - 1, tx + 1, 76, 84, (0.30, 0.32, 0.36))
+        digit(x0 + 190, 28, 38, 72, 6, levels[g], cyan, dim)                                    # the level, 7 segments
+        disc(x0 + 240, 100, 4, (0.95, 0.45, 0.10) if levels[g] else (0.12, 0.08, 0.05))        # the hot-surface light
+    os.makedirs(TEX_DIR, exist_ok=True)
+    out = bpy.data.images.new('cooktop_controls', W, H, alpha=False)
+    px = np.ones((H, W, 4), dtype=np.float32)
+    px[:, :, :3] = np.clip(img[::-1], 0, 1)          # row 0 of a Blender image is the bottom
+    out.pixels.foreach_set(px.reshape(-1))
+    out.filepath_raw = path
+    out.file_format = 'PNG'
+    out.save()
+    bpy.data.images.remove(out)
+    return path
+
+
+def controls_material():
+    """The cooktop's touch strip: the controls texture on a glossy dark glass, lit a little by itself so the digits glow."""
+    m = bpy.data.materials.get('CooktopControls')
+    if m is not None:
+        return m
+    m = bpy.data.materials.new('CooktopControls')
+    m.use_nodes = True
+    nt = m.node_tree
+    bsdf = nt.nodes['Principled BSDF']
+    bsdf.inputs['Roughness'].default_value = 0.12
+    img = bpy.data.images.load(make_controls_texture(), check_existing=True)
+    node = nt.nodes.new('ShaderNodeTexImage')
+    node.image = img
+    node.interpolation = 'Linear'
+    nt.links.new(node.outputs['Color'], bsdf.inputs['Base Color'])
+    nt.links.new(node.outputs['Color'], bsdf.inputs['Emission Color'])
+    bsdf.inputs['Emission Strength'].default_value = 0.8
+    return m
+
+
 # ------------------------------------------------------------------ materials
 
 _TEX = None
@@ -281,7 +368,18 @@ class Mesh:
             for f in faces[:2]:
                 edges += list(f.edges)
             bmesh.ops.bevel(self.bm, geom=list({e for e in edges}), offset=min(bevel, 0.45 * (z1 - z0)), offset_type='OFFSET', segments=2, profile=0.5, affect='EDGES')
+        self.bm.normal_update()   # faces made by hand have no normal yet, and the box projection of the textures reads it (a prism's top was projected like a side: streaks, a different colour)
         self._finish_faces(self._new_faces(before), m, False, uv)
+
+    def quad_top(self, x0, x1, y0, y1, z, m):
+        """One upward face with the UVs spread 0..1 over it (u along x, v along y: for a texture drawn once, not tiled)."""
+        vs = [self.bm.verts.new(c) for c in ((x0, y0, z), (x1, y0, z), (x1, y1, z), (x0, y1, z))]
+        f = self.bm.faces.new(vs)
+        self.bm.normal_update()
+        f.material_index = self.mi(m)
+        f.smooth = False
+        for loop, uv in zip(f.loops, ((0, 0), (1, 0), (1, 1), (0, 1))):
+            loop[self.uv].uv = uv
 
     def cyl(self, p0, p1, r, m, seg=16, r1=None, caps=True, smooth=True, uv=1.0):
         """A cylinder (a cone when r1 is given: r at p0, r1 at p1) between two points."""

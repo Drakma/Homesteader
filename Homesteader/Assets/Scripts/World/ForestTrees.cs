@@ -999,8 +999,7 @@ namespace Homesteader.World
                 if (!HarvestReady(t, out string needsStage)) rows.Add(("Harvest", "Not until it is " + needsStage));
                 rows.Add(("Logs", logs > 0 ? $"up to {logs}  {HudBindings.GetItemName(YieldItem(t.Species))}" : "None yet (too young)"));
                 string chopSpec = ToolSpec(t.Species);
-                if (string.IsNullOrEmpty(chopSpec)) rows.Add(("Needs", DescribeTool(chopSpec) + " (active slot)"));
-                else rows.Add(("@tools|Chop with", chopSpec));   // the panel rotates through the tools that accept this
+                if (!string.IsNullOrEmpty(chopSpec)) rows.Add(("@tools|Chop with", chopSpec));   // the panel rotates through the tools that accept this
                 rows.Add(("Chops left", hitsLeft.ToString()));
             }
             GrowthRules fruit = FruitRules(t.Species);

@@ -77,3 +77,21 @@ Solar panels (`electricity_solar_panel_100w_rigid`, `_200w`, `_400w_commercial`)
 Switches (inside, control the lights of their room), sockets, and a building's power draw or the grid supply are not built: a powered building simply lights everything mounted in it.
 
 Solar racks snap to each other: a ground rack (placed) or a roof rack (mounted) held near another rack of the same kind snaps edge to edge to it on any side, 3 cm apart, so the panels fitted on them sit in a neat row or block (`PlacementController.TrySnapMount`, `AttachController.TrySnapRoof`). A roof rack also takes the rotation of the rack it snaps to.
+
+## Corners
+
+A wall item never sinks into the wall at the end of its wall: `AttachController.KeepOffCorner` looks along the wall at the height of the item and slides it back out by as much as it would have sunk in. A CORNER wall cabinet (`kitchen_wall_corner_*`, an L whose side arm is on its +x side, the LEFT as you face it) is moved INTO the corner so the arm lies flush on the corner wall; with no corner within 1.2 m on that side it is refused ("Hang it in a corner: the corner wall must be on its left as you face it"; every inside corner is the left end of one of its two walls, so mount it on the other wall).
+
+## Range hood
+
+A `kitchen_range_hood_*` is kept below the ceiling (its chimney never passes through it). When mounted, a duct the width of the chimney runs from its top to the ceiling, and the duct reaches the roof and only a metal pipe with a cover stands outside, ending 1 m (`AttachedObject.VentAboveRoofM`) above the roof surface with a rain cap and flashing. Built in `AttachedObject.HoodDuct`; nothing is saved separately, it is rebuilt on load.
+
+## Cabinets that hold things
+
+A mounted item whose manifest has a `container` block (the kitchen wall cabinets) opens with C while the cursor is on it, like a placed container. Its contents are saved with the building (`GameSave.SavedAttached.content*`) and it cannot be taken down until it is empty. The Meals List does not draw from mounted cabinets yet.
+
+## Wall cabinets: height and snapping
+
+Every `kitchen_wall_c*` item hangs with its bottom 1.377 m above the floor (2 cm above the tallest counter appliance, the grain mill, 0.437 m, on a 0.92 m counter) (`AttachController.UpperBottomM`; the height of the cursor is ignored) and slides sideways to touch the nearest wall cabinet within 0.25 m (`SnapUpper`). Wall cabinets may touch edge to edge; only overlapping is refused.
+
+A hood hung with a cooktop or range below it (same wall, within 0.8 m along it) is centred on it (`AttachController.CentreOnCooktop`). While placing it, its height follows the cursor (up to the ceiling); the model is a short canopy and the game builds the chimney from it up to the ceiling.

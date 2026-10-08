@@ -30,8 +30,8 @@ namespace Homesteader.Growth
         /// <summary>Placing structures and props from the toolbar (PlacementController).</summary>
         public sealed class PlacementRules
         {
-            public int ReachCells = 1;              // squares around the player a thing can be placed (1 = the player's own square and the ring around it)
-            public float RotateStepDeg = 12.5f;     // one press of R
+            public int ReachCells = 3;              // squares around the player a thing can be placed (3 = three metres: the player's own square and three rings round it)
+            public float RotateStepDeg = 22.5f;     // one press of R
         }
 
         public static PlacementRules Placement { get; private set; } = new PlacementRules();

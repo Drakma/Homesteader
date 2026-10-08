@@ -261,6 +261,9 @@ namespace Homesteader.UI
         private Label _storeCartTotal;
         private Button _storeCheckoutBtn;
         private List<StoreItem> _currentStoreAllItems;
+        private string _storePath = "";          // where the shop is open: "" = the grid of category tiles, "Living Room" = inside a tile, "Living Room/Sofa" = a tile inside it
+        private string _storeBaseTitle = "";
+        private static readonly Dictionary<string, Texture2D> _tileIcons = new Dictionary<string, Texture2D>();
         private string _storeSearchQuery = "";
 
         // Bank App Elements
@@ -894,7 +897,7 @@ namespace Homesteader.UI
             // Back & Home Navigation
             _voltBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _resBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { if (_resDetail != "") { _resDetail = ""; UpdateResAppData(); } else ReturnHome(); });   // back out of a list first
-            _storeBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
+            _storeBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => { if (StoreUp()) return; ReturnHome(); });   // back out of a category first
             _bankBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _marketBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
             _almanacBackBtn.Clickable()?.RegisterCallback<ClickEvent>(evt => ReturnHome());
@@ -1706,6 +1709,8 @@ namespace Homesteader.UI
             if (_viewStore == null) return;
             _viewStore.RemoveFromClassList("phone-app-view--hidden");
 
+            _storeBaseTitle = title;
+            _storePath = "";
             if (_storeTitle != null) _storeTitle.text = title;
             if (_storeBanner != null)
             {
@@ -1739,7 +1744,8 @@ namespace Homesteader.UI
             List<StoreItem> filtered;
             if (string.IsNullOrEmpty(q))
             {
-                filtered = _currentStoreAllItems;
+                ShowStoreLevel();      // no search: the category tiles (or the items of the category that is open)
+                return;
             }
             else
             {
@@ -1766,10 +1772,153 @@ namespace Homesteader.UI
             }
         }
 
+        // =========================================================================
+        // STORE CATEGORY TILES (tools/store_categories.py puts every item in a category path: "Roofing", "Living Room/Sofa")
+        // =========================================================================
+
+        private const int StoreTilesWide = 3;
+
+        private static string Slug(string label)
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach (char c in label.ToLowerInvariant()) sb.Append(char.IsLetterOrDigit(c) ? c : '_');
+            return sb.ToString().Trim('_');
+        }
+
+        /// <summary>A category's icon: Resources/StoreCategoryIcons/&lt;slug&gt;.png (made by tools/make_store_category_icons.py), or null.</summary>
+        private static Texture2D TileIcon(string label)
+        {
+            if (!_tileIcons.TryGetValue(label, out Texture2D tex))
+            {
+                tex = Resources.Load<Texture2D>("StoreCategoryIcons/" + Slug(label));
+                _tileIcons[label] = tex;
+            }
+            return tex;
+        }
+
+        /// <summary>One step up out of a category (true when there was one to leave).</summary>
+        private bool StoreUp()
+        {
+            if (!string.IsNullOrEmpty(_storeSearchQuery?.Trim()))
+            {
+                _storeSearchQuery = "";                                  // a search is the first step to back out of
+                if (_storeSearchInput != null) _storeSearchInput.SetValueWithoutNotify("");
+                FilterAndDisplayStoreItems();
+                return true;
+            }
+            if (_storePath.Length == 0) return false;
+            do
+            {
+                int k = _storePath.LastIndexOf('/');
+                _storePath = k < 0 ? "" : _storePath.Substring(0, k);
+            } while (_storePath.Length > 0 && !StoreLevelIsGrid(_storePath));   // a level that only shows its one tile's items was never a screen of its own
+            FilterAndDisplayStoreItems();
+            return true;
+        }
+
+        /// <summary>True when the level at this path shows a grid of tiles (rather than collapsing straight to items).</summary>
+        private bool StoreLevelIsGrid(string path)
+        {
+            string prefix = path.Length > 0 ? path + "/" : "";
+            var segs = new HashSet<string>();
+            bool direct = false;
+            foreach (StoreItem item in _currentStoreAllItems)
+            {
+                string cat = item.Category ?? "";
+                if (path.Length > 0 && cat != path && !cat.StartsWith(prefix, StringComparison.Ordinal)) continue;
+                string rest = cat == path ? "" : cat.Substring(prefix.Length);
+                int slash = rest.IndexOf('/');
+                string seg = slash >= 0 ? rest.Substring(0, slash) : rest;
+                if (seg.Length == 0) direct = true; else segs.Add(seg);
+            }
+            return !(segs.Count == 0 || (segs.Count == 1 && !direct));
+        }
+
+        private void ShowStoreLevel()
+        {
+            string prefix = _storePath.Length > 0 ? _storePath + "/" : "";
+            var order = new List<string>();
+            var counts = new Dictionary<string, int>();
+            var firstOf = new Dictionary<string, string>();
+            var here = new List<StoreItem>();          // every item at this level or below
+            var direct = new List<StoreItem>();        // the ones that sit at this level itself (no tile of their own)
+            foreach (StoreItem item in _currentStoreAllItems)
+            {
+                string cat = item.Category ?? "";
+                if (_storePath.Length > 0 && cat != _storePath && !cat.StartsWith(prefix, StringComparison.Ordinal)) continue;
+                here.Add(item);
+                string rest = cat == _storePath ? "" : cat.Substring(prefix.Length);
+                int slash = rest.IndexOf('/');
+                string seg = slash >= 0 ? rest.Substring(0, slash) : rest;
+                if (seg.Length == 0) { direct.Add(item); continue; }
+                if (!counts.ContainsKey(seg)) { counts[seg] = 0; order.Add(seg); firstOf[seg] = item.Id; }
+                counts[seg]++;
+            }
+            if (_storeTitle != null) _storeTitle.text = _storePath.Length > 0 ? _storeBaseTitle + ": " + _storePath.Replace("/", " > ") : _storeBaseTitle;
+
+            if (order.Count == 0 || (order.Count == 1 && direct.Count == 0))
+            {
+                PopulateStoreItems(here);              // one category (or none): no tiles, the items
+                return;
+            }
+
+            _storeItemsContainer.Clear();
+            var grid = new VisualElement();
+            grid.AddToClassList("store-tile-grid");
+            order.Sort(StringComparer.OrdinalIgnoreCase);
+            foreach (string seg in order)
+            {
+                string path = prefix + seg;
+                var tile = new VisualElement();
+                tile.AddToClassList("store-tile");
+                tile.style.width = new Length(100f / StoreTilesWide, LengthUnit.Percent);
+                var card = new Button();
+                card.AddToClassList("store-tile-card");
+                var icon = new VisualElement();
+                icon.AddToClassList("store-tile-icon");
+                icon.pickingMode = PickingMode.Ignore;
+                Texture2D tex = _storePath.Length == 0 ? TileIcon(seg) : null;
+                if (tex != null) icon.style.backgroundImage = new StyleBackground(tex);
+                else ApplyItemIcon(icon, null, firstOf[seg]);        // no category picture: an item in it stands for it
+                var name = new Label(seg);
+                name.AddToClassList("store-tile-name");
+                name.pickingMode = PickingMode.Ignore;
+                var count = new Label(counts[seg].ToString());
+                count.AddToClassList("store-tile-count");
+                count.pickingMode = PickingMode.Ignore;
+                card.Add(icon);
+                card.Add(name);
+                card.Add(count);
+                card.clicked += () =>
+                {
+                    _storePath = path;
+                    FilterAndDisplayStoreItems();
+                    ScrollView tilesScroll = _viewStore != null ? _viewStore.Q<ScrollView>() : null;
+                    if (tilesScroll != null) tilesScroll.scrollOffset = Vector2.zero;
+                };
+                tile.Add(card);
+                grid.Add(tile);
+            }
+            _storeItemsContainer.Add(grid);
+            if (direct.Count > 0)
+            {
+                var more = new Label(_storePath.Length > 0 ? "Also in " + _storePath.Replace("/", " > ") : "More");
+                more.AddToClassList("store-tile-heading");
+                _storeItemsContainer.Add(more);
+                AppendStoreItems(direct);
+            }
+        }
+
         private void PopulateStoreItems(List<StoreItem> items)
         {
             if (_storeItemsContainer == null) return;
             _storeItemsContainer.Clear();
+            AppendStoreItems(items);
+        }
+
+        private void AppendStoreItems(List<StoreItem> items)
+        {
+            if (_storeItemsContainer == null) return;
 
             foreach (var item in items)
             {

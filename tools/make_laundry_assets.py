@@ -33,7 +33,7 @@ PIECES = [
     ('folding_counter', 'folding_counter', 'Folding Counter', 'A laundry counter for folding clothes, with a shelf under it.', 'wood', 26, 240, {'support': '0.92'}),
     ('laundry_sink', 'utility_sink', 'Utility Sink', 'A deep steel utility sink on a cabinet, with a tall faucet.', 'wood', 38, 330, {'water_per_use_l': 8, 'water_lpm': 8}),
     ('drying_rack', 'drying_rack', 'Drying Rack', 'A folding wooden clothes drying rack.', 'wood', 4, 45, {}),
-    ('shelf_unit', 'shelf_unit', 'Storage Shelves', 'An open shelf unit with baskets.', 'wood', 28, 160, {'support': '0.225,0.645,1.065,1.485'}),
+    ('shelf_unit', 'shelf_unit', 'Storage Shelves', 'An open shelf unit with five empty shelves. Stand things on it.', 'wood', 28, 160, {'support': '0.225,0.645,1.065,1.485'}),
     ('ironing_board', 'ironing_board', 'Ironing Board', 'An ironing board with a padded cover.', 'fabric', 5, 55, {}),
     ('laundry_basket', 'basket', 'Laundry Basket', 'A laundry basket with clothes in it.', 'fabric', 2, 28, {}),
     ('sorter_hamper', 'sorter', 'Laundry Sorter', 'A three-bag laundry sorter on a frame.', 'fabric', 9, 120, {}),
@@ -56,6 +56,16 @@ def variants():
 
 
 def manifest(v, tris, dims):
+    """The item manifest, plus its storage (closed container and / or shelf decks) from tools/furniture_storage.py."""
+    import furniture_storage
+    man = _manifest(v, tris, dims)
+    furniture_storage.apply(man, 'laundry', v['model'], v.get('style'))
+    import short_names
+    short_names.apply(man)   # the short display names (tools/short_names.py)
+    return man
+
+
+def _manifest(v, tris, dims):
     w, d, h = dims
     ex = v['extras']
     props = {

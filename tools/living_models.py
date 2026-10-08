@@ -376,7 +376,7 @@ def _books(K, P, x0, x1, y0, ztop, z0=None):
 
 
 def bookshelf(P):
-    """A tall open bookshelf with five shelves and books, 0.90 x 0.32 x 1.90 m."""
+    """A tall open bookshelf with five EMPTY shelves (things are placed on them in the game), 0.90 x 0.32 x 1.90 m."""
     K = Mesh('living_bookshelf')
     w, d, h = 0.90, 0.32, 1.90
     cl = P.classic
@@ -392,8 +392,6 @@ def bookshelf(P):
     K.box(-w / 2 - (0.02 if cl else 0.0), w / 2 + (0.02 if cl else 0.0), yf - (0.02 if cl else 0.0), d / 2 + (0.01 if cl else 0.0), h - 0.03, h + (0.0 if not cl else 0.03), P.main, r=0.006, seg=1)
     if cl:
         K.box(-w / 2 + 0.03, w / 2 - 0.03, yf, yf + 0.02, 0.0, 0.10, P.main)
-    for z in zs[:4]:
-        _books(K, P, -w / 2 + 0.03, w / 2 - 0.03, yf, z + t)
     return K
 
 
@@ -426,10 +424,6 @@ def display_cabinet(P):
         K.cyl(((a + b) / 2 + sx * -0.3 * 0 + (0.08 if sx < 0 else -0.08), yf - 0.012, 0.50), ((a + b) / 2 + (0.08 if sx < 0 else -0.08), yf - 0.04, 0.50), 0.013, P.metal, seg=8)
         K.box(a, b, yf - 0.006, yf + 0.0, 0.82, h - 0.07, P.main)                                              # the glass door frame
         K.box(a + 0.035, b - 0.035, yf - 0.007, yf + 0.001, 0.855, h - 0.105, P.glass)
-    for k in range(3):                                                                                          # things on the shelves: plates and a vase
-        z = (0.80, 1.12, 1.44)[k] + 0.012
-        K.lathe([(0.0, 0.0), (0.09, 0.0), (0.12, 0.02), (0.13, 0.025), (0.0, 0.005)], P.white, at=(-0.22, 0.0, z), seg=14)
-        K.lathe([(0.0, 0.0), (0.05, 0.0), (0.07, 0.07), (0.04, 0.14), (0.03, 0.2), (0.0, 0.2)], P.cream, at=(0.2, 0.0, z), seg=12)
     return K
 
 

@@ -166,7 +166,7 @@ namespace Homesteader.UI
             var details = _details;   // reused: this runs every frame
             details.Clear();
 
-            ConstructionSite site = hovered != null && hovered.GetComponentInParent<AttachedObject>() == null ? hovered.GetComponentInParent<ConstructionSite>() : null;   // a mounted item on the building is its own target
+            ConstructionSite site = hovered != null && hovered.GetComponentInParent<AttachedObject>() == null && hovered.GetComponentInParent<Homesteader.Growth.PlacedChimney>() == null ? hovered.GetComponentInParent<ConstructionSite>() : null;   // a mounted item on the building is its own target
             if (Homesteader.Growth.Net.PreviewFrame >= Time.frameCount - 1)
             {
                 // a yagi being placed: how it lines up with the other yagis, connected or not, so the two can be aimed at each other
@@ -210,7 +210,7 @@ namespace Homesteader.UI
                     details.Add(("Water at", UnitFormat.Distance(site.WellDepthM) + " down"));
                     details.Add(("Max flow", UnitFormat.Volume(WaterTable.YieldLph(site.transform.position)) + " an hour"));
                     details.Add(("Pump", string.IsNullOrEmpty(site.PumpId) ? "None yet" : Homesteader.UI.HudBindings.GetItemName(site.PumpId)));
-                    if (site.Finished && string.IsNullOrEmpty(site.FittedPanel)) details.Add(("Sub panel", "None: left click it with a well sub panel"));
+                    if (site.Finished && string.IsNullOrEmpty(site.FittedPanel)) details.Add(("Sub panel", "None"));
                 }
             }
             else if (hovered != null)
@@ -387,6 +387,17 @@ namespace Homesteader.UI
                 return;
             }
 
+            var chimney = hovered.GetComponentInParent<Homesteader.Growth.PlacedChimney>();
+            if (chimney != null)
+            {
+                title = Homesteader.UI.HudBindings.GetDisplayName(chimney.KitId);
+                icon = Homesteader.UI.PhoneController.GetItemIcon(null, chimney.KitId);
+                details.Add(("Height", UnitFormat.Length(chimney.Spec.Top)));
+                details.Add(("Fireplace", chimney.FireLit ? "Burning" : chimney.FuelMinutes > 0f ? "Wood laid, not lit" : "Empty"));
+                if (chimney.FuelMinutes > 0f) details.Add(("Wood", Mathf.RoundToInt(chimney.FuelMinutes) + " game minutes"));
+                return;
+            }
+
             var mounted = hovered.GetComponentInParent<AttachedObject>();
             if (mounted != null)
             {
@@ -433,11 +444,10 @@ namespace Homesteader.UI
                 {
                     if (sawmill.FuelL < Homesteader.Growth.Sawmill.FuelPerCutL - 0.001f) details.Add(("Fuel", "Out of gasoline"));
                     if (sawmill.Busy) details.Add(("Status", "Cutting"));
-                    else if (!string.IsNullOrEmpty(sawmill.LogId)) { details.Add(("@item|" + sawmill.LogId, "=On the track")); details.Add(("Right click", "Choose the lumber to cut")); details.Add(("Shift + right click", "Take the log off")); }
-                    else { details.Add(("Track", "Empty")); details.Add(("Left click", "With an uncut log in hand: lay it on the track")); details.Add(("Shift + right click", "Pick up")); }
+                    else if (!string.IsNullOrEmpty(sawmill.LogId)) { details.Add(("@item|" + sawmill.LogId, "=On the track")); }
+                    else { details.Add(("Track", "Empty")); }
                     return;
                 }
-                details.Add(("Right click", "Pick up"));
                 return;
             }
 
@@ -447,7 +457,6 @@ namespace Homesteader.UI
                 title = Homesteader.UI.HudBindings.GetDisplayName(item.ItemId);
                 icon = Homesteader.UI.PhoneController.GetItemIcon(null, item.ItemId);
                 details.Add(("Type", "Dropped item"));
-                details.Add(("Right click", "Pick up"));
                 return;
             }
 
