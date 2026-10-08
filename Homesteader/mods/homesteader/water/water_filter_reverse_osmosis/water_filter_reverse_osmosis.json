@@ -21,7 +21,8 @@
     "filter_stage": "carbon",
     "attach_surface": "wall",
     "attach_side": "either",
-    "flow_lph": 120
+    "flow_lph": 120,
+    "filter_recovery_pct": 33
   },
   "models": [
     {

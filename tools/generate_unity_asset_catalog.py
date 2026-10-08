@@ -111,6 +111,8 @@ def main():
                             item_data["flow_lph"] = float(props["flow_lph"])          # a well pump: liters an hour it lifts
                         if isinstance(props.get("heater_w"), (int, float)) and props.get("heater_w") > 0:
                             item_data["heater_w"] = float(props["heater_w"])         # a water heater: its element's watts
+                        if isinstance(props.get("filter_recovery_pct"), (int, float)) and 0 < props.get("filter_recovery_pct") < 100:
+                            item_data["filter_recovery_pct"] = float(props["filter_recovery_pct"])   # a reverse osmosis filter: the percent of the water that comes out as product
                         if isinstance(props.get("filter_stage"), str) and props.get("filter_stage"):
                             item_data["filter_stage"] = props["filter_stage"]        # a water filter: sediment | carbon | uv
                         if props.get("pressurized") is True:

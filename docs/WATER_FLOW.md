@@ -14,11 +14,23 @@ The water that can get from one part to another is the NARROWEST pipe or part on
 | PVC pipe | half inch 900, one inch 2400, two inch 9000 | by diameter (the item's `flow_lph`) |
 | Water pump | 1200, 2000, 2400, 3600 | submersible well pumps 1400 to 2900 |
 | Filters | sediment 240, reverse osmosis 120, spin-down 3000, UV chamber 1800 | = the older `max_filter_throughput_lpm` x 60 |
+| Large filters | whole-house reverse osmosis 470 (about 3,000 gallons a day), large 2 inch spin-down 9000 | floor-standing, sold at the water treatment store |
 | Spigot, outdoor and post | 900 | |
 | Faucet, indoor | 480 | |
 | House water inlet | 3000 | |
 | Tank fittings | rain barrel 600, IBC tote 1800, cisterns 1800 to 3600, pressure tank 3600, water heater 900 | |
 | Hand pump | 480 | |
+
+## Reverse osmosis waste
+
+A reverse osmosis filter rejects part of the water it takes in to the drain: only its RECOVERY (manifest `properties.filter_recovery_pct`) comes out as clean product. Its flow rating is the PRODUCT flow.
+Under-sink unit: 33 % (about 2 L rejected for every liter made). Whole-house unit: 50 % (1 L rejected for every liter made). The rest is lost down the drain: there is no sewer connection for it yet.
+
+- The flow that gets past a reverse osmosis filter is `min(what comes in x recovery, its rating)` (`FlowCap.Rec` carries the share along the path).
+- **A tap drawing through one** (`DrawWaterAt`, `DrawWater`): the tank loses `delivered / recovery`: 10 L from a 33 % unit takes 30 L from the tank.
+- **A water pump moving water through one** (`TickWaterPumps`): it drains `moved / recovery` from the cistern and the tanks on the other side get `moved`; `WireNode.WastedLph` is the rest (WAILA "Wasting").
+- **A well filling tanks through one**: only the recovery share arrives (the aquifer is not drawn down, so nothing else is lost).
+- WAILA on the filter shows `Recovery` and the waste per liter made.
 
 ## What it limits
 

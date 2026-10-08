@@ -30,6 +30,10 @@ RATINGS = {
 }
 
 
+# reverse osmosis: the percent of the water that comes out as product (the rest is rejected to the drain); the flow rating above is the PRODUCT flow
+RECOVERY = {'water_filter_reverse_osmosis': 33}
+
+
 def write(path, raw, data):
     m = re.search(r'\n( +)"', raw)
     indent = len(m.group(1)) if m else 2
@@ -58,6 +62,8 @@ def main():
             continue
         before = json.dumps(data, sort_keys=True)
         props['flow_lph'] = lph
+        if iid in RECOVERY:
+            props['filter_recovery_pct'] = RECOVERY[iid]
         if 'max_flow_rate_lpm' in cf:
             cf['max_flow_rate_lpm'] = round(lph / 60.0, 1)
         if 'max_filter_throughput_lpm' in cf and ('filter' in iid or 'sterilizer' in iid):

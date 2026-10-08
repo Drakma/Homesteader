@@ -13,7 +13,7 @@ namespace Homesteader.Growth
     public static partial class WireNetwork
     {
         /// <summary>What a path lets through, in liters an hour (float.MaxValue: nothing on it limits), and the part that limits it.</summary>
-        public struct FlowCap { public float Lph; public string By; }
+        public struct FlowCap { public float Lph; public string By; public float Rec; }   // Rec: the share of the water that arrives (a reverse osmosis filter on the way wastes the rest)
 
         /// <summary>Game hours one tap fill runs (72 game seconds): a tap gives at most its flow for that long per fill.</summary>
         public const float TapFillHours = 0.02f;
@@ -38,6 +38,20 @@ namespace Homesteader.Growth
 
         private static string PartName(WireNode n) { return HudBindings.GetItemName(n.ItemId); }
 
+        /// <summary>The share of its water a part passes on as product: below 1 for a reverse osmosis filter (manifest filter_recovery_pct), 1 for everything else.</summary>
+        public static float RecoveryOf(WireNode n)
+        {
+            if (n == null || n.Role != WireRole.WaterFilter) return 1f;
+            AssetCatalogItem it = HudBindings.GetCatalogItem(n.ItemId);
+            return it != null && it.filter_recovery_pct > 0f && it.filter_recovery_pct < 100f ? it.filter_recovery_pct / 100f : 1f;
+        }
+
+        /// <summary>The share of the water drawn from <paramref name="tank"/> that arrives at the end of a path (1 when no reverse osmosis filter is on it).</summary>
+        private static float RecOf(Dictionary<WireNode, FlowCap> caps, WireNode tank)
+        {
+            return caps.TryGetValue(tank, out FlowCap c) && c.Rec > 0.01f ? c.Rec : 1f;
+        }
+
         /// <summary>
         /// What the water lines let through from <paramref name="from"/> to every part they reach: a way is as good as its narrowest pipe or part, and of several ways the best counts.
         /// The part the start itself is counts too (a spigot).
@@ -47,7 +61,7 @@ namespace Homesteader.Growth
             var caps = new Dictionary<WireNode, FlowCap>();
             if (from == null) return caps;
             float own = NodeFlowLph(from);
-            caps[from] = new FlowCap { Lph = own > 0f ? own : float.MaxValue, By = own > 0f ? PartName(from) : null };
+            caps[from] = new FlowCap { Lph = own > 0f ? own : float.MaxValue, By = own > 0f ? PartName(from) : null, Rec = 1f };
             var queue = new Queue<WireNode>();
             queue.Enqueue(from);
             while (queue.Count > 0)
@@ -61,9 +75,16 @@ namespace Homesteader.Growth
                     FlowCap c = caps[cur];
                     float pipe = PipeFlowLph(l.WireItem);
                     if (pipe > 0f && pipe < c.Lph) { c.Lph = pipe; c.By = "the pipe (" + UnitFormat.Volume(pipe) + " an hour)"; }
+                    float rec = RecoveryOf(o);
+                    if (rec < 1f)
+                    {
+                        c.Rec *= rec;                                       // a reverse osmosis filter: only a share of what comes in comes out
+                        if (c.Lph < float.MaxValue) c.Lph *= rec;
+                        c.By = PartName(o);
+                    }
                     float part = NodeFlowLph(o);
                     if (part > 0f && part < c.Lph) { c.Lph = part; c.By = PartName(o); }
-                    if (caps.TryGetValue(o, out FlowCap had) && had.Lph >= c.Lph) continue;
+                    if (caps.TryGetValue(o, out FlowCap had) && (had.Lph > c.Lph + 0.01f || (Mathf.Abs(had.Lph - c.Lph) <= 0.01f && had.Rec >= c.Rec))) continue;
                     caps[o] = c;
                     queue.Enqueue(o);
                 }
@@ -120,9 +141,10 @@ namespace Homesteader.Growth
         }
 
         /// <summary>The flow a water pump can move: its own rating, held to the narrowest way from the cistern it pulls to a tank with room (and on out from the pump to one).</summary>
-        private static float PumpLimitLph(WireNode pump, List<List<KeyValuePair<WireNode, int>>> sides, int intake, out string by)
+        private static float PumpLimitLph(WireNode pump, List<List<KeyValuePair<WireNode, int>>> sides, int intake, out string by, out float rec)
         {
             by = null;
+            rec = 1f;
             float rate = pump.PumpFlowLph;
             Dictionary<WireNode, FlowCap> caps = FlowCaps(pump);
             float inCap = 0f, outCap = 0f;
@@ -132,7 +154,7 @@ namespace Homesteader.Growth
                 {
                     if (!caps.TryGetValue(t.Key, out FlowCap c)) continue;
                     if (i == intake) { if (t.Key.WaterL > 0.5f && c.Lph > inCap) { inCap = c.Lph; inBy = c.By; } }
-                    else if (t.Key.WaterL < t.Key.WaterCapacityL - 0.5f && c.Lph > outCap) { outCap = c.Lph; outBy = c.By; }
+                    else if (t.Key.WaterL < t.Key.WaterCapacityL - 0.5f && c.Lph > outCap) { outCap = c.Lph; outBy = c.By; rec = c.Rec > 0.01f ? c.Rec : 1f; }
                 }
             float limit = rate;
             if (inCap > 0f && inCap < limit) { limit = inCap; by = inBy; }
@@ -163,6 +185,8 @@ namespace Homesteader.Growth
             if (n == null) return;
             float rated = NodeFlowLph(n);
             if (rated > 0f && n.Role != WireRole.WaterPump) rows.Add(("Rated flow", UnitFormat.Volume(rated) + " an hour"));
+            float rec = RecoveryOf(n);
+            if (rec < 1f) rows.Add(("Recovery", Mathf.RoundToInt(rec * 100f) + "% comes out as clean water, the rest (" + UnitFormat.Volume(1f / rec - 1f) + " for every " + UnitFormat.Volume(1f) + " made) is rejected to the drain"));
             string by = n.Role == WireRole.WaterPump && n.PumpRunning ? n.FlowLimitedBy : LimitedBy(n);
             if (!string.IsNullOrEmpty(by)) rows.Add(("Limited by", by));
         }

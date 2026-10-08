@@ -89,6 +89,7 @@ namespace Homesteader.Growth
         public float LeachStorageL { get { if (Role != WireRole.LeachField) return 0f; AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId); return it != null ? it.leach_storage_l : 0f; } }
         public bool PumpClean;       // a water pump: what it pulls is clean
         public string FlowLimitedBy; // a water pump: the part that holds its flow back (null when nothing does; docs/WATER_FLOW.md)
+        public float WastedLph;      // a water pump: liters an hour rejected to the drain by a reverse osmosis filter on its way out
 
         /// <summary>A water tank that holds its water under pressure (a pressure tank, a water heater): the taps draw from it with no pump running.</summary>
         public bool Pressurized { get { if (Role != WireRole.WaterTank) return false; AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId); return it != null && it.pressurized; } }
@@ -1427,18 +1428,22 @@ namespace Homesteader.Growth
             rawTaken = 0f;
             float took = 0f;
             bool anyTank = false;
+            Dictionary<WireNode, FlowCap> caps = FlowCaps(spigot);
             foreach (KeyValuePair<WireNode, int> kv in TapSources(spigot))
             {
                 if (took >= liters - 0.001f) break;
                 WireNode t = kv.Key;
                 anyTank = true;
-                float take = Mathf.Min(t.WaterL, liters - took);
-                if (take <= 0f) continue;
-                float rawPart = (kv.Value & AllStages) == AllStages ? 0f : take * (t.WaterL > 0f ? t.RawL / t.WaterL : 0f);
-                t.RawL = Mathf.Max(0f, t.RawL - take * (t.WaterL > 0f ? t.RawL / t.WaterL : 0f));   // raw and clean leave in the proportion they are in the tank
-                rawTaken += rawPart;                                                                // (unless the filters between it and the spigot clean it)
+                float rec = RecOf(caps, t);                                  // a reverse osmosis filter on the way: the tank loses more than the tap gives
+                float give = Mathf.Min(t.WaterL * rec, liters - took);
+                if (give <= 0f) continue;
+                float take = give / rec;
+                float rawFrac = t.WaterL > 0f ? t.RawL / t.WaterL : 0f;
+                float rawPart = (kv.Value & AllStages) == AllStages ? 0f : give * rawFrac;
+                t.RawL = Mathf.Max(0f, t.RawL - take * rawFrac);             // raw and clean leave in the proportion they are in the tank
+                rawTaken += rawPart;                                         // (unless the filters between it and the spigot clean it)
                 t.WaterL -= take;
-                took += take;
+                took += give;
             }
             if (took <= 0.01f) why = anyTank ? "The tanks are empty." : "The spigot is not piped to a water tank.";
             return took;
@@ -1521,6 +1526,7 @@ namespace Homesteader.Growth
                 AttachedObject at = n.GetComponent<AttachedObject>();
                 if (at == null || at.Site != site) continue;
                 anyInlet = true;
+                Dictionary<WireNode, FlowCap> icaps = FlowCaps(n);
                 foreach (KeyValuePair<WireNode, int> kv in TapSources(n))   // a cistern only through a running water pump; a pressure tank directly
                 {
                     if (took >= liters - 0.001f) break;
@@ -1530,13 +1536,15 @@ namespace Homesteader.Growth
                     float clean = filteredOnWay ? t.WaterL : Mathf.Max(0f, t.WaterL - t.RawL);
                     float avail = cleanOnly ? clean : t.WaterL;
                     if (t.WaterL > 0.01f && clean < 0.01f) anyRaw = true;
-                    float take = Mathf.Min(avail, liters - took);
-                    if (take <= 0f) continue;
+                    float rec = RecOf(icaps, t);   // a reverse osmosis filter on the way: the tank loses more than the tap gives
+                    float give = Mathf.Min(avail * rec, liters - took);
+                    if (give <= 0f) continue;
+                    float take = give / rec;
                     float rawShare = cleanOnly && !filteredOnWay ? 0f : (t.WaterL > 0f ? t.RawL / t.WaterL : 0f);
                     t.RawL = Mathf.Max(0f, t.RawL - take * rawShare);
-                    if (!filteredOnWay) rawTaken += take * rawShare;
+                    if (!filteredOnWay) rawTaken += give * rawShare;
                     t.WaterL -= take;
-                    took += take;
+                    took += give;
                 }
             }
             if (took <= 0.01f)
@@ -1622,6 +1630,7 @@ namespace Homesteader.Growth
                 p.PumpRunning = false;
                 p.PumpedLph = 0f;
                 p.FlowLimitedBy = null;
+                p.WastedLph = 0f;
                 p.PumpIntake = null;
                 if (!Powered(p)) continue;
                 var sides = new List<List<KeyValuePair<WireNode, int>>>();
@@ -1645,16 +1654,17 @@ namespace Homesteader.Growth
                 float room = 0f;
                 for (int i = 0; i < sides.Count; i++)
                     if (i != intake) foreach (KeyValuePair<WireNode, int> t in sides[i]) room += Mathf.Max(0f, t.Key.WaterCapacityL - t.Key.WaterL);
-                float limit = PumpLimitLph(p, sides, intake, out string limitBy);   // the pump's flow, held to the narrowest pipe or part between it and its tanks
+                float limit = PumpLimitLph(p, sides, intake, out string limitBy, out float rec);   // the pump's flow, held to the narrowest pipe or part between it and its tanks
                 p.FlowLimitedBy = limit < p.PumpFlowLph - 0.5f ? limitBy : null;
-                float move = Mathf.Min(limit * dtH, Mathf.Min(most, room));
+                float move = Mathf.Min(limit * dtH, Mathf.Min(most * rec, room));   // what ARRIVES: a reverse osmosis filter on the way out gives back only its recovery share
+                float drain = move / rec;                                            // and what leaves the cistern to make it
                 if (move <= 0.01f) continue;
                 // out of the cistern(s) on the intake side, raw and clean in their proportion
                 float taken = 0f, raw = 0f;
                 foreach (KeyValuePair<WireNode, int> t in sides[intake])
                 {
-                    if (taken >= move - 0.001f) break;
-                    float take = Mathf.Min(t.Key.WaterL, move - taken);
+                    if (taken >= drain - 0.001f) break;
+                    float take = Mathf.Min(t.Key.WaterL, drain - taken);
                     if (take <= 0f) continue;
                     float rawPart = t.Key.WaterL > 0f ? take * t.Key.RawL / t.Key.WaterL : 0f;
                     t.Key.RawL = Mathf.Max(0f, t.Key.RawL - rawPart);
@@ -1663,7 +1673,8 @@ namespace Homesteader.Growth
                     raw += rawPart;
                 }
                 float rawFrac = taken > 0f ? raw / taken : 0f;
-                float left = taken;
+                float left = taken * rec;
+                p.WastedLph = dtH > 0f ? taken * (1f - rec) / dtH : 0f;   // the rest goes down the drain
                 for (int i = 0; i < sides.Count && left > 0f; i++)
                 {
                     if (i == intake) continue;
@@ -2237,6 +2248,7 @@ namespace Homesteader.Growth
                     rows.Add(("Pump", n.PumpRunning ? UnitFormat.Volume(n.PumpedLph) + " an hour" : !Powered(n) ? "No power" : "Idle"));
                     rows.Add(("Rated", UnitFormat.Volume(n.PumpFlowLph) + " an hour, " + SolarSun.Power(n.PumpDrawW)));
                     if (n.PumpRunning) rows.Add(("Pulling", n.PumpClean ? "Clean water" : "Raw water"));
+                    if (n.WastedLph > 0.5f) rows.Add(("Wasting", UnitFormat.Volume(n.WastedLph) + " an hour down the drain (reverse osmosis)"));
                     break;
                 case WireRole.WaterInlet:
                 case WireRole.WaterSpigot:

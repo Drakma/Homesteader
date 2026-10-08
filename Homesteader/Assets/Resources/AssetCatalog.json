@@ -56160,9 +56160,32 @@
       "max_stack": 1,
       "wire_role": "water_filter",
       "flow_lph": 120.0,
+      "filter_recovery_pct": 33.0,
       "filter_stage": "carbon",
       "weight_kg": 10.0,
       "base_value": 150.0
+    },
+    {
+      "id": "water_filter_reverse_osmosis_whole_house",
+      "name": "Whole-House Reverse Osmosis System",
+      "category": "water",
+      "description": "A floor-standing whole-house reverse osmosis system: a booster pump, three pre-filters and two membrane housings on a steel frame. It makes about 3,000 gallons (11,000 L) of clean water a day, and rejects about a liter to the drain for every liter it makes. Pipe the line through it.",
+      "icon": "water_filter_reverse_osmosis_whole_house.png",
+      "max_stack": 1,
+      "wire_role": "water_filter",
+      "flow_lph": 470.0,
+      "filter_recovery_pct": 50.0,
+      "filter_stage": "carbon",
+      "weight_kg": 55.0,
+      "base_value": 2400.0,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Water Treatment",
+          "unit": "ea",
+          "price": 2400.0
+        }
+      ]
     },
     {
       "id": "water_filter_spin_down_sediment",
@@ -56176,6 +56199,27 @@
       "filter_stage": "sediment",
       "weight_kg": 2.0,
       "base_value": 25.0
+    },
+    {
+      "id": "water_filter_spin_down_sediment_large",
+      "name": "Large Spin-Down Sediment Filter",
+      "category": "water",
+      "description": "A 2 inch spin-down sediment filter on a steel stand: a big clear bowl, a brass head and a flush valve. It takes the sand and grit out of a well line at pump flow rates. Pipe the line through it.",
+      "icon": "water_filter_spin_down_sediment_large.png",
+      "max_stack": 1,
+      "wire_role": "water_filter",
+      "flow_lph": 9000.0,
+      "filter_stage": "sediment",
+      "weight_kg": 9.0,
+      "base_value": 180.0,
+      "store_listings": [
+        {
+          "store": "voltvision",
+          "category": "Water Treatment",
+          "unit": "ea",
+          "price": 180.0
+        }
+      ]
     },
     {
       "id": "water_fitting_camlock_coupler",

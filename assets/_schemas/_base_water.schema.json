@@ -11,6 +11,15 @@
       "label": "Flow (L/h)",
       "note": "Liters an hour this part of a water line can pass (docs/WATER_FLOW.md). A well pump: what it lifts; a well gives this, or what the aquifer gives, whichever is less (docs/WELLS.md). A pipe (wire_kind water): what it carries (half inch 900, one inch 2400, two inch 9000). A filter, spigot, faucet, house inlet, tank fitting, water pump or hand pump: what it lets through. A water line gives no more than the narrowest part on its way, and WAILA names that part. Nothing trips: a part that is too small only slows the water."
     },
+    "filter_recovery_pct": {
+      "type": "number",
+      "required": false,
+      "min": 1,
+      "max": 100,
+      "default": 100,
+      "label": "Recovery (%)",
+      "note": "A reverse osmosis filter: the percent of the water that comes out as clean product; the rest is rejected to the drain (docs/WATER_FLOW.md). An under-sink unit wastes about 3 L for each liter it makes (recovery 25 to 33 %), a whole-house unit about 1 L (50 %). Everything else passes all of its water (leave it out). The flow rating (flow_lph) of an RO unit is its PRODUCT flow."
+    },
     "pressurized": {
       "type": "boolean",
       "required": false,

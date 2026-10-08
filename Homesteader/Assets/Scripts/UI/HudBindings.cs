@@ -2232,6 +2232,7 @@ namespace Homesteader.UI
         public float heater_w;                   // a water heater: its element's watts
         public string filter_stage;              // a water filter: sediment | carbon | uv
         public float flow_lph;                   // a well pump: liters an hour it lifts
+        public float filter_recovery_pct;        // a reverse osmosis filter: the percent of the water that comes out as product (the rest is rejected to the drain); 0 = all of it
         public bool is_well;                     // a drilled well structure (docs/WELLS.md)
         public float sewage_capacity_l;          // a septic tank structure: the liters it holds (docs/SEPTIC.md)
         public float leach_lpd;                  // a leach field: liters a game day that soak away
