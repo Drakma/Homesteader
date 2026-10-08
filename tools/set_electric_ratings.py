@@ -30,10 +30,10 @@ RATINGS = {
     'electricity_controller_mppt_32a': 32, 'electricity_controller_mppt_64a': 64, 'electricity_controller_mppt_128a': 128,
     # inverters: AC output amps (rated watts / 240 V)
     'electricity_inverter_hybrid_3kw': 12.5, 'electricity_inverter_hybrid_5kw': 20.8, 'electricity_inverter_hybrid_10kw': 41.7,
-    # batteries: continuous charge / discharge current at the 48 V bus (the continuous watts the battery allows / 48)
-    'electricity_battery_12v_agm_1200wh': 7.5, 'electricity_battery_12v_lifepo4_1200wh': 25, 'electricity_battery_12v_nmc_1200wh': 15,
+    # batteries: continuous current at the 48 V bus = the continuous watts / 48. Wall batteries keep their manifest watts (0.5 to 0.6 C); the rest: AGM 0.5 C, lithium 1 C
+    'electricity_battery_12v_agm_1200wh': 12.5, 'electricity_battery_12v_lifepo4_1200wh': 25, 'electricity_battery_12v_nmc_1200wh': 25,
     'electricity_battery_wall_power_5kwh': 62.5, 'electricity_battery_wall_power_10kwh': 104.2, 'electricity_battery_wall_power_20kwh': 208.3,
-    'electricity_battery_rack_agm_48v': 25, 'electricity_battery_rack_lifepo4_48v': 53.3, 'electricity_battery_rack_nmc_48v': 51.2,
+    'electricity_battery_rack_agm_48v': 50, 'electricity_battery_rack_lifepo4_48v': 106.7, 'electricity_battery_rack_nmc_48v': 102.4,
     # generators: rated watts / 240 V
     'electricity_generator': 20.8, 'portable_generator': 31.3,
     'electricity_generator_standby_10kw': 41.7, 'electricity_generator_standby_14kw': 58.3, 'electricity_generator_standby_28kw': 116.7,

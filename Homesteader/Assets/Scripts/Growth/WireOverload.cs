@@ -130,7 +130,6 @@ namespace Homesteader.Growth
             if (sys == null || b == null || dtH <= 0f) return;
             float dtS = dtH * 3600f;
             float acDemand = Mathf.Max(0f, b.LoadW - b.WindUsedW);      // what must come through the inverters (the wind is AC and direct)
-            float pvA = b.SolarW / DcV;                                  // the array's current into the controllers
             float battA = (b.BatteryW + (b.Room ? b.SolarSpareW : 0f)) / DcV;   // what the batteries give or take
             float invDcA = (b.SolarUsedW + b.BatteryW) / DcV;
             float invRated = 0f, mpptRated = 0f, capSum = 0f;
@@ -142,6 +141,7 @@ namespace Homesteader.Growth
                 else if (n.Role == WireRole.Mppt && it != null) mpptRated += it.max_power_w;
                 else if (n.Role == WireRole.Battery) capSum += n.CapacityWh;
             }
+            float pvA = (mpptRated > 0f ? Mathf.Min(b.SolarW, mpptRated) : b.SolarW) / DcV;   // what the array pushes: the controller clips it, so a big array on a small controller does not push more through the breaker
             Dictionary<WireNode, float> carried = PanelCarriedW(sys.Nodes);
             var snapshot = new List<WireNode>(sys.Nodes);
             foreach (WireNode n in snapshot)

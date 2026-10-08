@@ -85,6 +85,6 @@
     "fuel_consumption_l_per_min": 0,
     "max_power_w": 0,
     "tank_capacity_l": 0,
-    "max_current_a": 25
+    "max_current_a": 50
   }
 }

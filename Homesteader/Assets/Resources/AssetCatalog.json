@@ -17818,7 +17818,7 @@
       "wire_role": "battery",
       "capacity_wh": 1200.0,
       "voltage_v": 12.0,
-      "max_current_a": 7.5,
+      "max_current_a": 12.5,
       "weight_kg": 27.0,
       "base_value": 180.0,
       "store_listings": [
@@ -17862,7 +17862,7 @@
       "wire_role": "battery",
       "capacity_wh": 1200.0,
       "voltage_v": 11.1,
-      "max_current_a": 15.0,
+      "max_current_a": 25.0,
       "weight_kg": 10.0,
       "base_value": 420.0,
       "store_listings": [
@@ -17883,7 +17883,7 @@
       "max_stack": 1,
       "capacity_wh": 4800.0,
       "voltage_v": 48.0,
-      "max_current_a": 25.0,
+      "max_current_a": 50.0,
       "weight_kg": 100.0,
       "base_value": 700.0,
       "store_listings": [
@@ -17934,7 +17934,7 @@
       "max_stack": 1,
       "capacity_wh": 5120.0,
       "voltage_v": 51.2,
-      "max_current_a": 53.3,
+      "max_current_a": 106.7,
       "weight_kg": 45.0,
       "base_value": 1300.0,
       "store_listings": [
@@ -17955,7 +17955,7 @@
       "max_stack": 1,
       "capacity_wh": 4914.0,
       "voltage_v": 46.8,
-      "max_current_a": 51.2,
+      "max_current_a": 102.4,
       "weight_kg": 36.0,
       "base_value": 1000.0,
       "store_listings": [

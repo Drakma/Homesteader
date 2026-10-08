@@ -2186,7 +2186,6 @@ namespace Homesteader.Growth
             if (it != null)
             {
                 if (it.max_power_w > 0f) rows.Add(("Rated", SolarSun.Power(it.max_power_w)));
-                if (it.max_current_a > 0f) rows.Add(("Current", it.max_current_a.ToString("0.#") + " A"));
                 if (it.voltage_v > 0f) rows.Add(("Voltage", it.voltage_v.ToString("0.#") + " V"));
                 if (n.CapacityWh > 0f) rows.Add(("Capacity", n.CapacityWh >= 1000f ? (n.CapacityWh / 1000f).ToString("0.##") + " kWh" : Mathf.RoundToInt(n.CapacityWh) + " Wh"));
             }

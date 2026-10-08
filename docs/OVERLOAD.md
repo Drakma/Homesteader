@@ -20,11 +20,11 @@ A part at or under its rating cools at 1 / 600 a second. Heat shows in WAILA as 
 |---|---|---|---|
 | AC breaker box (and sub panel) | its building's watts plus every sub panel it feeds, / 240 | 50, 100, 200 A; sub panel 150 A; well panel 20 A | none |
 | Inverter | the AC demand it must give (load less direct wind), shared by rating, / 240 | rated watts / 240 (3 kW 12.5 A) | none |
-| DC breaker box | the array's current into the controllers (solar watts / 48) | 32, 64, 128 A | none |
+| DC breaker box | the array current after the controller clips it (solar watts, at most the controller rating, / 48) | 32, 64, 128 A | none |
 | Bus bar | the largest of the array, battery and inverter DC currents | 100, 250, 500 A | none |
 | Wall entry, safety disconnect, lockout box | AC: the AC demand / 240; DC: the array current | 64 A; 50 A; 50 A | none |
 | Charge controller (MPPT) | the array's current, shared by rating | 32, 64, 128 A | 25 % (it clips first) |
-| Battery | the DISCHARGE (charge is limited by the controller) / 48, shared by capacity | continuous watts / 48 | none |
+| Battery | the DISCHARGE (charge is limited by the controller) / 48, shared by capacity | continuous watts / 48 (AGM 0.5 C, lithium 1 C, wall batteries as made) | none |
 | Standby generator | its share of the building's load / 240 | rated watts / 240 | 10 % |
 | Portable generator | demand / 240 | 31.3 A | 10 %; resets itself when it has cooled |
 | Wire | the larger of the currents at its two ends | the coil's `max_current_a` (DC 55 A) | none; heats the parts at BOTH ends |
