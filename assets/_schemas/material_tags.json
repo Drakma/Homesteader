@@ -422,8 +422,6 @@
       "building_bitumen_bucket"
     ],
     "appliance_oven": [
-      "appliance_oven_budget_electric",
-      "appliance_oven_premium_convection",
       "appliance_oven_wood_fired",
       "appliance_stove_wood_cookstove",
       "kitchen_oven_tower_black",
@@ -437,8 +435,6 @@
       "kitchen_toaster_oven_white"
     ],
     "appliance_stovetop": [
-      "appliance_stove_budget_electric",
-      "appliance_stove_premium_induction",
       "appliance_stove_wood_cookstove",
       "kitchen_cooktop_black",
       "kitchen_cooktop_stainless",
@@ -460,23 +456,15 @@
     "kitchen_appliance": [
       "appliance_dishwasher_budget",
       "appliance_dishwasher_premium",
-      "appliance_fridge_budget",
-      "appliance_fridge_premium",
       "appliance_grill_charcoal",
       "appliance_grill_propane_premium",
       "appliance_grill_propane_standard",
-      "appliance_microwave_budget",
-      "appliance_microwave_premium",
-      "appliance_oven_budget_electric",
-      "appliance_oven_premium_convection",
       "appliance_oven_wood_fired",
       "appliance_sink_budget",
       "appliance_sink_premium",
       "appliance_smoker_budget_charcoal",
       "appliance_smoker_offset",
       "appliance_smoker_pellet_premium",
-      "appliance_stove_budget_electric",
-      "appliance_stove_premium_induction",
       "appliance_stove_wood_cookstove",
       "appliance_woodstove_budget"
     ],
@@ -522,8 +510,6 @@
       "kitchen_juicer_white"
     ],
     "appliance_fridge": [
-      "appliance_fridge_budget",
-      "appliance_fridge_premium",
       "kitchen_fridge_french_black",
       "kitchen_fridge_french_stainless",
       "kitchen_fridge_french_white",
@@ -535,8 +521,6 @@
       "kitchen_fridge_top_white"
     ],
     "appliance_freezer": [
-      "appliance_fridge_budget",
-      "appliance_fridge_premium",
       "kitchen_fridge_french_black",
       "kitchen_fridge_french_stainless",
       "kitchen_fridge_french_white",

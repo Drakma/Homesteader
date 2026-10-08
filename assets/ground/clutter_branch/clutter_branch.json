@@ -19,40 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Clutter_Branch.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SM_Clutter_Branch.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Clutter_Branch.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 1.9,
-        "y": 0.3,
-        "z": 0.6
-      },
-      "dimensions_m": {
-        "x": 0.02,
-        "y": 0.0,
-        "z": 0.01
-      },
-      "vertices": 83631,
-      "faces": 167258,
-      "bounding_box": {
-        "min": [
-          -0.95073,
-          -0.176373,
-          -0.313145
-        ],
-        "max": [
-          0.948506,
-          0.172738,
-          0.311482
-        ]
-      }
+      "file": "SM_Clutter_Branch.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

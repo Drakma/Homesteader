@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Goat_Billy_Black_White_Kid.fbx",
-      "format": "fbx"
+      "file": "SKM_Animal_Goat_Billy_Black_White_Kid.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

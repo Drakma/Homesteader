@@ -20,20 +20,12 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Wand_Watering.mtl",
-      "format": "mtl"
+      "file": "SM_Tool_Wand_Watering.glb",
+      "format": "glb"
     },
     {
-      "file": "wand_watering_brass.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Wand_Watering.obj",
-      "format": "obj"
-    },
-    {
-      "file": "wand_watering_brass.obj",
-      "format": "obj"
+      "file": "wand_watering_brass.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

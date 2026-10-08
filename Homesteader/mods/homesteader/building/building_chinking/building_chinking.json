@@ -27,8 +27,8 @@
   },
   "models": [
     {
-      "file": "building_chinking.fbx",
-      "format": "fbx"
+      "file": "building_chinking.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

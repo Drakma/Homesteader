@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_medium_apple.fbx",
-      "format": "fbx"
+      "file": "tree_medium_apple.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

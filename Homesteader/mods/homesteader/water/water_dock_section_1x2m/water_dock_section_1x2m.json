@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "SM_Water_Dock_Section_1x2m.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Water_Dock_Section_1x2m.obj",
-      "format": "obj"
+      "file": "SM_Water_Dock_Section_1x2m.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

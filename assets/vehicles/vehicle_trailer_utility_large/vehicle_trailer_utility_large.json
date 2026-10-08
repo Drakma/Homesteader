@@ -32,8 +32,8 @@
   },
   "models": [
     {
-      "file": "SM_Vehicle_Trailer_Utility_Large.fbx",
-      "format": "fbx"
+      "file": "SM_Vehicle_Trailer_Utility_Large.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "water_timer_hose_digital.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_timer_hose_digital.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 46.0,
-        "y": 34.0,
-        "z": 76.0
-      },
-      "dimensions_m": {
-        "x": 0.46,
-        "y": 0.34,
-        "z": 0.76
-      },
-      "vertices": 360,
-      "faces": 120,
-      "bounding_box": {
-        "min": [
-          -23.0,
-          -16.0,
-          0.0
-        ],
-        "max": [
-          23.0,
-          18.0,
-          76.0
-        ]
-      }
+      "file": "water_timer_hose_digital.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

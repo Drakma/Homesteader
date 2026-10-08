@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Machine_Skidsteer_Small.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Machine_Skidsteer_Small.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 144.0,
-        "y": 235.0,
-        "z": 175.0
-      },
-      "dimensions_m": {
-        "x": 1.44,
-        "y": 2.35,
-        "z": 1.75
-      },
-      "vertices": 288,
-      "faces": 512,
-      "bounding_box": {
-        "min": [
-          -72.0,
-          -135.0,
-          0.0
-        ],
-        "max": [
-          72.0,
-          100.0,
-          175.0
-        ]
-      }
+      "file": "SM_Machine_Skidsteer_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

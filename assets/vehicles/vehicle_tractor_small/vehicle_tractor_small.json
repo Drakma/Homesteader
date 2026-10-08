@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Machine_Tractor_Small.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Machine_Tractor_Small.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 148.0,
-        "y": 249.0,
-        "z": 223.1
-      },
-      "dimensions_m": {
-        "x": 1.48,
-        "y": 2.49,
-        "z": 2.23
-      },
-      "vertices": 388,
-      "faces": 684,
-      "bounding_box": {
-        "min": [
-          -74.0,
-          -131.0,
-          0.0
-        ],
-        "max": [
-          74.0,
-          118.0,
-          223.1
-        ]
-      }
+      "file": "SM_Machine_Tractor_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

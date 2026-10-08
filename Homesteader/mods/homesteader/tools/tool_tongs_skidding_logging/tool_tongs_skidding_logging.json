@@ -32,36 +32,8 @@
   },
   "models": [
     {
-      "file": "tool_tongs_skidding_logging.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_tongs_skidding_logging.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 62.0,
-        "y": 28.5,
-        "z": 73.0
-      },
-      "dimensions_m": {
-        "x": 0.62,
-        "y": 0.28,
-        "z": 0.73
-      },
-      "vertices": 432,
-      "faces": 144,
-      "bounding_box": {
-        "min": [
-          -31.0,
-          -14.2658,
-          0.0
-        ],
-        "max": [
-          31.0,
-          14.2658,
-          73.0
-        ]
-      }
+      "file": "tool_tongs_skidding_logging.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

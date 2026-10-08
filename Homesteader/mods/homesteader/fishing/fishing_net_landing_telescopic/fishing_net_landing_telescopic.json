@@ -19,36 +19,8 @@
   },
   "models": [
     {
-      "file": "fishing_net_landing_telescopic.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "fishing_net_landing_telescopic.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 63.0,
-        "y": 61.4,
-        "z": 75.0
-      },
-      "dimensions_m": {
-        "x": 0.63,
-        "y": 0.61,
-        "z": 0.75
-      },
-      "vertices": 792,
-      "faces": 264,
-      "bounding_box": {
-        "min": [
-          -31.5,
-          -30.7102,
-          0.0
-        ],
-        "max": [
-          31.5,
-          30.7102,
-          75.0311
-        ]
-      }
+      "file": "fishing_net_landing_telescopic.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

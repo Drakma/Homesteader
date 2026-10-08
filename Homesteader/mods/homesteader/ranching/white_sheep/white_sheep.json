@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 90,
         "resource": "stages/animal_lamb/",
-        "model": "SKM_Animal_Lamb_White.fbx",
+        "model": "SKM_Animal_Lamb_White.glb",
         "icon": "animal_lamb_white_sheep.png"
       },
       {

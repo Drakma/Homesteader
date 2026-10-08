@@ -29,7 +29,7 @@
         "age_min": 30,
         "age_max": 730,
         "resource": "stages/animal_adult/",
-        "model": "SKM_Animal_Chicken_Barred_Chick.fbx",
+        "model": "SKM_Animal_Chicken_Barred_Chick.glb",
         "icon": "animal_adult_barred_chicken.png"
       }
     ]

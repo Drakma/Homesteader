@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "tool_wedge_felling_abs_pack.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_wedge_felling_abs_pack.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 22.0,
-        "y": 55.5,
-        "z": 48.0
-      },
-      "dimensions_m": {
-        "x": 0.22,
-        "y": 0.56,
-        "z": 0.48
-      },
-      "vertices": 396,
-      "faces": 132,
-      "bounding_box": {
-        "min": [
-          -11.0,
-          -22.5,
-          0.0
-        ],
-        "max": [
-          11.0,
-          33.0,
-          48.0
-        ]
-      }
+      "file": "tool_wedge_felling_abs_pack.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

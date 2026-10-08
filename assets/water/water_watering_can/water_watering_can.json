@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_WateringCan.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_WateringCan.obj",
-      "format": "obj"
+      "file": "SM_Tool_WateringCan.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

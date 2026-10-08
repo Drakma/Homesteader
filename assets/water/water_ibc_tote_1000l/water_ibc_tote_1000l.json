@@ -21,20 +21,12 @@
   },
   "models": [
     {
-      "file": "SM_Water_IBC_Tote_275gal.mtl",
-      "format": "mtl"
+      "file": "SM_Water_IBC_Tote_275gal.glb",
+      "format": "glb"
     },
     {
-      "file": "tank_ibc_tote_275gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Water_IBC_Tote_275gal.obj",
-      "format": "obj"
-    },
-    {
-      "file": "tank_ibc_tote_275gal.obj",
-      "format": "obj"
+      "file": "tank_ibc_tote_275gal.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

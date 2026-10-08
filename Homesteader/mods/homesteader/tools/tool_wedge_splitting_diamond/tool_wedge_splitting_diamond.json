@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_wedge_splitting_diamond.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_wedge_splitting_diamond.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 40.0,
-        "y": 40.0,
-        "z": 67.0
-      },
-      "dimensions_m": {
-        "x": 0.4,
-        "y": 0.4,
-        "z": 0.67
-      },
-      "vertices": 60,
-      "faces": 20,
-      "bounding_box": {
-        "min": [
-          -20.0,
-          -20.0,
-          0.0
-        ],
-        "max": [
-          20.0,
-          20.0,
-          67.0
-        ]
-      }
+      "file": "tool_wedge_splitting_diamond.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

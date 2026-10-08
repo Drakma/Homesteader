@@ -55,36 +55,8 @@
       }
     },
     {
-      "file": "SM_Animal_Sheep_White.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Sheep_White.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 67.0,
-        "y": 110.0,
-        "z": 94.0
-      },
-      "dimensions_m": {
-        "x": 0.67,
-        "y": 1.1,
-        "z": 0.94
-      },
-      "vertices": 984,
-      "faces": 504,
-      "bounding_box": {
-        "min": [
-          -33.5,
-          -68.0,
-          0.0
-        ],
-        "max": [
-          33.5,
-          42.0,
-          94.0
-        ]
-      }
+      "file": "SM_Animal_Sheep_White.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

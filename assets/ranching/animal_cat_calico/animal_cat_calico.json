@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Cat_Calico.fbx",
-      "format": "fbx"
+      "file": "SKM_Animal_Cat_Calico.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

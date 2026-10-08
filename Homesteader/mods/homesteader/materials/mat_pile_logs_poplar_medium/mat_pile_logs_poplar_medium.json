@@ -27,8 +27,8 @@
   },
   "models": [
     {
-      "file": "SM_Mat_Pile_Logs_Poplar_Medium.fbx",
-      "format": "fbx"
+      "file": "SM_Mat_Pile_Logs_Poplar_Medium.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

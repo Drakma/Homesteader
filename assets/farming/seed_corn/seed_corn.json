@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Seed_Corn.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Seed_Corn.obj",
-      "format": "obj"
+      "file": "SM_Item_Seed_Corn.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

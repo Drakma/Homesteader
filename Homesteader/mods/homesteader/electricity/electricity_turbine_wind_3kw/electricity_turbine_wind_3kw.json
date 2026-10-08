@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "electricity_turbine_wind_3kw.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "electricity_turbine_wind_3kw.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 70.0,
-        "y": 68.6,
-        "z": 93.0
-      },
-      "dimensions_m": {
-        "x": 0.7,
-        "y": 0.69,
-        "z": 0.93
-      },
-      "vertices": 432,
-      "faces": 144,
-      "bounding_box": {
-        "min": [
-          -24.0,
-          -35.2169,
-          0.0
-        ],
-        "max": [
-          46.0,
-          33.4127,
-          93.0
-        ]
-      }
+      "file": "electricity_turbine_wind_3kw.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

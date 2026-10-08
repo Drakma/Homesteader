@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Pelt_Cow_Hide.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Pelt_Cow_Hide.obj",
-      "format": "obj"
+      "file": "SM_Item_Pelt_Cow_Hide.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

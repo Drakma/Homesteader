@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "tape_drip_roll_1000ft.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tape_drip_roll_1000ft.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 92.4,
-        "y": 92.4,
-        "z": 35.0
-      },
-      "dimensions_m": {
-        "x": 0.92,
-        "y": 0.92,
-        "z": 0.35
-      },
-      "vertices": 1008,
-      "faces": 336,
-      "bounding_box": {
-        "min": [
-          -46.2,
-          -46.2,
-          0.0
-        ],
-        "max": [
-          46.2,
-          46.2,
-          35.0
-        ]
-      }
+      "file": "water_tape_drip_roll_300m.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

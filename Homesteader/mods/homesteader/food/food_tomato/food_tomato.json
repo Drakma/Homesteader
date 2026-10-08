@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Tomato_Fruit.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Tomato_Fruit.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 11.2,
-        "y": 9.7,
-        "z": 11.1
-      },
-      "dimensions_m": {
-        "x": 0.11,
-        "y": 0.1,
-        "z": 0.11
-      },
-      "vertices": 907,
-      "faces": 377,
-      "bounding_box": {
-        "min": [
-          -5.61,
-          -4.86,
-          0.0
-        ],
-        "max": [
-          5.61,
-          4.86,
-          11.1
-        ]
-      }
+      "file": "SM_Item_Tomato_Fruit.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

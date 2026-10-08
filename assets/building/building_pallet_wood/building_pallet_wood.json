@@ -28,36 +28,8 @@
   },
   "models": [
     {
-      "file": "SM_Mat_Pallet_Wood.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Mat_Pallet_Wood.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 100.0,
-        "y": 119.8,
-        "z": 16.5
-      },
-      "dimensions_m": {
-        "x": 1.0,
-        "y": 1.2,
-        "z": 0.17
-      },
-      "vertices": 792,
-      "faces": 264,
-      "bounding_box": {
-        "min": [
-          -50.0,
-          -60.0,
-          0.0
-        ],
-        "max": [
-          50.0,
-          59.8,
-          16.5
-        ]
-      }
+      "file": "SM_Mat_Pallet_Wood.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

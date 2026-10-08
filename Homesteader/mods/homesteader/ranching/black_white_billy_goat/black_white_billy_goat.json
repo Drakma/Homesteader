@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 90,
         "resource": "stages/animal_kid/",
-        "model": "SKM_Animal_Goat_Billy_Black_White_Kid.fbx",
+        "model": "SKM_Animal_Goat_Billy_Black_White_Kid.glb",
         "icon": "animal_kid_black_white_billy_goat.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 90,
         "age_max": 730,
         "resource": "stages/animal_adult/",
-        "model": "SKM_Animal_Goat_Billy_Black_White_Adult.fbx",
+        "model": "SKM_Animal_Goat_Billy_Black_White_Adult.glb",
         "icon": "animal_adult_black_white_billy_goat.png"
       }
     ]

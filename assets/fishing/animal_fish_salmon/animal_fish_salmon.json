@@ -19,12 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Fish_Salmon.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Fish_Salmon.obj",
-      "format": "obj"
+      "file": "SM_Item_Fish_Salmon.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

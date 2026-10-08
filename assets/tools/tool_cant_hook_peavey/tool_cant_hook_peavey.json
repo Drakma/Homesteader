@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_cant_hook_peavey.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_cant_hook_peavey.obj",
-      "format": "obj"
+      "file": "tool_cant_hook_peavey.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

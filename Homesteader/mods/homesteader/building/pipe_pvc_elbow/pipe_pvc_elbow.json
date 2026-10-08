@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "pipe_pvc_elbow.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "pipe_pvc_elbow.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 71.5,
-        "y": 48.0,
-        "z": 74.0
-      },
-      "dimensions_m": {
-        "x": 0.71,
-        "y": 0.48,
-        "z": 0.74
-      },
-      "vertices": 636,
-      "faces": 212,
-      "bounding_box": {
-        "min": [
-          -24.0,
-          -24.0,
-          0.0
-        ],
-        "max": [
-          47.5,
-          24.0,
-          74.0
-        ]
-      }
+      "file": "pipe_pvc_elbow.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

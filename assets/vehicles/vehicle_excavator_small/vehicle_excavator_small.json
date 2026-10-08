@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Machine_Excavator_Small.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Machine_Excavator_Small.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 138.0,
-        "y": 421.0,
-        "z": 215.0
-      },
-      "dimensions_m": {
-        "x": 1.38,
-        "y": 4.21,
-        "z": 2.15
-      },
-      "vertices": 160,
-      "faces": 268,
-      "bounding_box": {
-        "min": [
-          -69.0,
-          -285.0,
-          0.0
-        ],
-        "max": [
-          69.0,
-          136.0,
-          215.0
-        ]
-      }
+      "file": "SM_Machine_Excavator_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

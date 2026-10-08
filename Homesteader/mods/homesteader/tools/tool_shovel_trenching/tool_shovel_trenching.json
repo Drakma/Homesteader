@@ -26,68 +26,12 @@
   },
   "models": [
     {
-      "file": "tool_shovel_trenching.mtl",
-      "format": "mtl"
+      "file": "tool_shovel_trenching.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_shovel_trenching.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 22.0,
-        "y": 10.0,
-        "z": 97.0
-      },
-      "dimensions_m": {
-        "x": 0.22,
-        "y": 0.1,
-        "z": 0.97
-      },
-      "vertices": 276,
-      "faces": 92,
-      "bounding_box": {
-        "min": [
-          -11.0,
-          -5.0,
-          0.0
-        ],
-        "max": [
-          11.0,
-          5.0,
-          97.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Shovel_Trenching.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Shovel_Trenching.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 12.0,
-        "y": 9.0,
-        "z": 140.0
-      },
-      "dimensions_m": {
-        "x": 0.12,
-        "y": 0.09,
-        "z": 1.4
-      },
-      "vertices": 58,
-      "faces": 92,
-      "bounding_box": {
-        "min": [
-          -6.0,
-          -6.0,
-          0.0
-        ],
-        "max": [
-          6.0,
-          3.0,
-          140.0
-        ]
-      }
+      "file": "SM_Tool_Shovel_Trenching.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

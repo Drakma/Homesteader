@@ -1,318 +1,38 @@
 [
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_growing\\crop_growing_corn.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_growing\\crop_growing_corn.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 4282,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.594,
-   0.66,
-   1.0
-  ],
-  "bytes": 7623168
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\red_chicken\\animal_adult\\SKM_Animal_Chicken_Red.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\red_chicken\\animal_adult\\SKM_Animal_Chicken_Red.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  },
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_mature\\crop_mature_corn.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_mature\\crop_mature_corn.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 3935,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.564,
-   0.499,
-   1.0
-  ],
-  "bytes": 7433160
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\suffolk_sheep\\animal_adult\\SKM_Animal_Sheep_Suffolk.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\suffolk_sheep\\animal_adult\\SKM_Animal_Sheep_Suffolk.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  },
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_sprout\\crop_sprout_corn.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\corn\\stages\\crop_sprout\\crop_sprout_corn.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 4365,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.615,
-   1.0,
-   0.421
-  ],
-  "bytes": 6806964,
-  "flag": "size_note: model 1.000 m vs manifest 0.300 m (kept as-authored)"
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\tan_sheep\\animal_adult\\SKM_Animal_Sheep_Tan.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\tan_sheep\\animal_adult\\SKM_Animal_Sheep_Tan.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  },
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_carrot\\SM_Item_Seed_Carrot.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_carrot\\SM_Item_Seed_Carrot.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4468
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_chicken\\animal_adult\\SKM_Animal_Chicken_White.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_chicken\\animal_adult\\SKM_Animal_Chicken_White.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  },
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_corn\\SM_Item_Seed_Corn.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_corn\\SM_Item_Seed_Corn.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4460
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_chicken\\animal_baby\\SKM_Animal_Chicken_Chick.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_chicken\\animal_baby\\SKM_Animal_Chicken_Chick.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  },
  {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_cotton\\SM_Item_Seed_Cotton.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_cotton\\SM_Item_Seed_Cotton.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4468
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_herb\\SM_Item_Seed_Herb.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_herb\\SM_Item_Seed_Herb.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4448
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_potato\\SM_Item_Seed_Potato.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_potato\\SM_Item_Seed_Potato.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4468
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_pumpkin\\SM_Item_Seed_Pumpkin.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_pumpkin\\SM_Item_Seed_Pumpkin.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4472
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_strawberry\\SM_Item_Seed_Strawberry.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_strawberry\\SM_Item_Seed_Strawberry.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4476
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_sunflower\\SM_Item_Seed_Sunflower.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_sunflower\\SM_Item_Seed_Sunflower.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4476
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_tomato\\SM_Item_Seed_Tomato.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_tomato\\SM_Item_Seed_Tomato.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4468
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_wheat\\SM_Item_Seed_Wheat.obj",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\seed_wheat\\SM_Item_Seed_Wheat.glb",
-  "status": "ok",
-  "scale": 0.01,
-  "tris": 36,
-  "meshes": 1,
-  "materials": 3,
-  "images": 0,
-  "size_m": [
-   0.09,
-   0.13,
-   0.019
-  ],
-  "bytes": 4464
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_growing\\crop_growing_sunflower.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_growing\\crop_growing_sunflower.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 4149,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.596,
-   0.623,
-   1.0
-  ],
-  "bytes": 6949660
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_mature\\crop_mature_sunflower.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_mature\\crop_mature_sunflower.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 4366,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.568,
-   0.604,
-   1.0
-  ],
-  "bytes": 6544652
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_sprout\\crop_sprout_sunflower.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\sunflower\\stages\\crop_sprout\\crop_sprout_sunflower.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 4230,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.426,
-   1.0,
-   0.24
-  ],
-  "bytes": 6621032,
-  "flag": "size_note: model 1.000 m vs manifest 0.300 m (kept as-authored)"
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_growing\\crop_growing_wheat.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_growing\\crop_growing_wheat.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 3320,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.518,
-   0.495,
-   1.0
-  ],
-  "bytes": 7373368
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_mature\\crop_mature_wheat.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_mature\\crop_mature_wheat.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 3004,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.729,
-   0.631,
-   1.0
-  ],
-  "bytes": 6616580
- },
- {
-  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_sprout\\crop_sprout_wheat.fbx",
-  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\farming\\wheat\\stages\\crop_sprout\\crop_sprout_wheat.glb",
-  "status": "ok",
-  "base_color": true,
-  "scale": 1.0,
-  "tris": 3761,
-  "meshes": 1,
-  "materials": 1,
-  "images": 2,
-  "size_m": [
-   0.28,
-   1.0,
-   0.418
-  ],
-  "bytes": 7575596,
-  "flag": "size_note: model 1.000 m vs manifest 0.300 m (kept as-authored)"
+  "src": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_goat\\animal_adult\\SKM_Animal_Goat_White.fbx",
+  "out": "C:\\Users\\casey\\Desktop\\Homesteader\\assets\\_trash\\animals_replaced\\white_goat\\animal_adult\\SKM_Animal_Goat_White.glb",
+  "status": "skipped",
+  "reason": "rigged/animated - keep FBX"
  }
 ]

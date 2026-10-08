@@ -19,12 +19,8 @@
   },
   "models": [
     {
-      "file": "tool_rod_fly_fishing.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_rod_fly_fishing.obj",
-      "format": "obj"
+      "file": "tool_rod_fly_fishing.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

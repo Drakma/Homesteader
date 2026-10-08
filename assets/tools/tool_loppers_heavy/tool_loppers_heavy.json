@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_loppers_heavy.mtl",
-      "format": "mtl"
+      "file": "tool_loppers_heavy.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_loppers_heavy.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 41.0,
-        "y": 24.0,
-        "z": 88.0
-      },
-      "dimensions_m": {
-        "x": 0.41,
-        "y": 0.24,
-        "z": 0.88
-      },
-      "vertices": 420,
-      "faces": 140,
-      "bounding_box": {
-        "min": [
-          -20.5,
-          -12.0,
-          0.0
-        ],
-        "max": [
-          20.5,
-          12.0,
-          88.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Loppers_Heavy.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Loppers_Heavy.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 13.6,
-        "y": 4.0,
-        "z": 74.0
-      },
-      "dimensions_m": {
-        "x": 0.14,
-        "y": 0.04,
-        "z": 0.74
-      },
-      "vertices": 64,
-      "faces": 108,
-      "bounding_box": {
-        "min": [
-          -6.8,
-          -2.0,
-          0.0
-        ],
-        "max": [
-          6.8,
-          2.0,
-          74.0
-        ]
-      }
+      "file": "SM_Tool_Loppers_Heavy.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

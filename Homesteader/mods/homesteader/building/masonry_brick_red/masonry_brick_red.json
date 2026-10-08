@@ -32,36 +32,8 @@
   },
   "models": [
     {
-      "file": "masonry_brick_red.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "masonry_brick_red.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 42.0,
-        "y": 78.0,
-        "z": 28.0
-      },
-      "dimensions_m": {
-        "x": 0.42,
-        "y": 0.78,
-        "z": 0.28
-      },
-      "vertices": 324,
-      "faces": 108,
-      "bounding_box": {
-        "min": [
-          -21.0,
-          -39.0,
-          0.0
-        ],
-        "max": [
-          21.0,
-          39.0,
-          28.0
-        ]
-      }
+      "file": "masonry_brick_red.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

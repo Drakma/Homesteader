@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Food_Apple.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Food_Apple.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 8.4,
-        "y": 8.0,
-        "z": 10.9
-      },
-      "dimensions_m": {
-        "x": 0.08,
-        "y": 0.08,
-        "z": 0.11
-      },
-      "vertices": 260,
-      "faces": 132,
-      "bounding_box": {
-        "min": [
-          -4.2,
-          -3.99,
-          0.0
-        ],
-        "max": [
-          4.2,
-          3.99,
-          10.9
-        ]
-      }
+      "file": "SM_Item_Food_Apple.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "toilet_composting_rustic.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "toilet_composting_rustic.obj",
-      "format": "obj"
+      "file": "toilet_composting_rustic.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

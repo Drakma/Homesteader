@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Pelt_Goat_Skin.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Pelt_Goat_Skin.obj",
-      "format": "obj"
+      "file": "SM_Item_Pelt_Goat_Skin.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

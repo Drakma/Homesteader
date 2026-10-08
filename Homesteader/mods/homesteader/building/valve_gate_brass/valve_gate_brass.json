@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "valve_gate_brass.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "valve_gate_brass.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 66.0,
-        "y": 66.0,
-        "z": 76.3
-      },
-      "dimensions_m": {
-        "x": 0.66,
-        "y": 0.66,
-        "z": 0.76
-      },
-      "vertices": 888,
-      "faces": 296,
-      "bounding_box": {
-        "min": [
-          -33.0,
-          -33.0,
-          0.0
-        ],
-        "max": [
-          33.0,
-          33.0,
-          76.3301
-        ]
-      }
+      "file": "valve_gate_brass.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

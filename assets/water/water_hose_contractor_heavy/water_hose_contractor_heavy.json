@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "water_hose_contractor_heavy.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_hose_contractor_heavy.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 129.0,
-        "y": 104.0,
-        "z": 58.0
-      },
-      "dimensions_m": {
-        "x": 1.29,
-        "y": 1.04,
-        "z": 0.58
-      },
-      "vertices": 3072,
-      "faces": 1024,
-      "bounding_box": {
-        "min": [
-          -67.0,
-          -52.0,
-          0.0
-        ],
-        "max": [
-          62.0,
-          52.0,
-          58.0
-        ]
-      }
+      "file": "water_hose_contractor_heavy.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

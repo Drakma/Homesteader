@@ -21,12 +21,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Plumbing_DrainSock_Roll.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Plumbing_DrainSock_Roll.obj",
-      "format": "obj"
+      "file": "SM_Item_Plumbing_DrainSock_Roll.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

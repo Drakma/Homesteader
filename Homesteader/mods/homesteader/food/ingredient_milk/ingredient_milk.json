@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Animal_Milk_Jug.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Animal_Milk_Jug.obj",
-      "format": "obj"
+      "file": "SM_Item_Animal_Milk_Jug.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

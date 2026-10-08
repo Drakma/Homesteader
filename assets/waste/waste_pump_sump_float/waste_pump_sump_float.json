@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "waste_pump_sump_float.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "waste_pump_sump_float.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 72.0,
-        "y": 56.0,
-        "z": 83.0
-      },
-      "dimensions_m": {
-        "x": 0.72,
-        "y": 0.56,
-        "z": 0.83
-      },
-      "vertices": 744,
-      "faces": 248,
-      "bounding_box": {
-        "min": [
-          -44.0,
-          -28.0,
-          0.0
-        ],
-        "max": [
-          28.0,
-          28.0,
-          83.0
-        ]
-      }
+      "file": "waste_pump_sump_float.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

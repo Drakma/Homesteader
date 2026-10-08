@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "spool_wire_woven_field.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "spool_wire_woven_field.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 49.0,
-        "y": 47.8,
-        "z": 88.0
-      },
-      "dimensions_m": {
-        "x": 0.49,
-        "y": 0.48,
-        "z": 0.88
-      },
-      "vertices": 504,
-      "faces": 168,
-      "bounding_box": {
-        "min": [
-          -24.5,
-          -23.8857,
-          0.0
-        ],
-        "max": [
-          24.5,
-          23.8857,
-          88.0
-        ]
-      }
+      "file": "spool_wire_woven_field.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -27,8 +27,8 @@
   },
   "models": [
     {
-      "file": "SM_Mat_Pile_Logs_Willow_Small.fbx",
-      "format": "fbx"
+      "file": "SM_Mat_Pile_Logs_Willow_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

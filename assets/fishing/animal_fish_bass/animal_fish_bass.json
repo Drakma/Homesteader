@@ -19,20 +19,12 @@
 	},
 	"models": [
 		{
-			"file": "SM_Item_Fish_Bass.mtl",
-			"format": "mtl"
+			"file": "SM_Item_Fish_Bass.glb",
+			"format": "glb"
 		},
 		{
-			"file": "SM_Item_Fish_LargemouthBass.mtl",
-			"format": "mtl"
-		},
-		{
-			"file": "SM_Item_Fish_Bass.obj",
-			"format": "obj"
-		},
-		{
-			"file": "SM_Item_Fish_LargemouthBass.obj",
-			"format": "obj"
+			"file": "SM_Item_Fish_LargemouthBass.glb",
+			"format": "glb"
 		}
 	],
 	"utilities": {
@@ -80,7 +72,9 @@
 		}
 	},
 	"spawning": {
-		"biomes": ["biome_pond"],
+		"biomes": [
+			"biome_pond"
+		],
 		"density_per_hectare": 25.0,
 		"clustering": 0.4,
 		"elevation_min_m": -4.0,

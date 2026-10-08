@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Sunflower_Head.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Sunflower_Head.obj",
-      "format": "obj"
+      "file": "SM_Item_Sunflower_Head.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

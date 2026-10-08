@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_chainsaw_gas_16.mtl",
-      "format": "mtl"
+      "file": "tool_chainsaw_gas_16.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_chainsaw_gas_16.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 95.0,
-        "y": 37.2,
-        "z": 51.0
-      },
-      "dimensions_m": {
-        "x": 0.95,
-        "y": 0.37,
-        "z": 0.51
-      },
-      "vertices": 180,
-      "faces": 60,
-      "bounding_box": {
-        "min": [
-          -36.0,
-          -18.5981,
-          0.0
-        ],
-        "max": [
-          59.0,
-          18.5981,
-          51.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Chainsaw_Gas_16.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Chainsaw_Gas_16.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 29.2,
-        "y": 99.0,
-        "z": 34.0
-      },
-      "dimensions_m": {
-        "x": 0.29,
-        "y": 0.99,
-        "z": 0.34
-      },
-      "vertices": 106,
-      "faces": 168,
-      "bounding_box": {
-        "min": [
-          -14.6,
-          -34.0,
-          0.0
-        ],
-        "max": [
-          14.6,
-          65.0,
-          34.0
-        ]
-      }
+      "file": "SM_Tool_Chainsaw_Gas_16.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

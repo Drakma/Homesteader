@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Lamb_White.fbx",
-      "format": "fbx"
+      "file": "SKM_Animal_Lamb_White.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "hardware_gate_hinges.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "hardware_gate_hinges.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 69.0,
-        "y": 36.0,
-        "z": 48.0
-      },
-      "dimensions_m": {
-        "x": 0.69,
-        "y": 0.36,
-        "z": 0.48
-      },
-      "vertices": 204,
-      "faces": 68,
-      "bounding_box": {
-        "min": [
-          -21.0,
-          -18.0,
-          0.0
-        ],
-        "max": [
-          48.0,
-          18.0,
-          48.0
-        ]
-      }
+      "file": "hardware_gate_hinges.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

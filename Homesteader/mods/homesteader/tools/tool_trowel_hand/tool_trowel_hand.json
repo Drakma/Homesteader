@@ -26,68 +26,12 @@
   },
   "models": [
     {
-      "file": "tool_trowel_hand.mtl",
-      "format": "mtl"
+      "file": "tool_trowel_hand.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_trowel_hand.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 33.0,
-        "y": 47.0,
-        "z": 104.0
-      },
-      "dimensions_m": {
-        "x": 0.33,
-        "y": 0.47,
-        "z": 1.04
-      },
-      "vertices": 336,
-      "faces": 112,
-      "bounding_box": {
-        "min": [
-          -7.0,
-          -7.0,
-          0.0
-        ],
-        "max": [
-          26.0,
-          40.0,
-          104.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Trowel_Hand.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Trowel_Hand.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 8.0,
-        "y": 4.0,
-        "z": 30.0
-      },
-      "dimensions_m": {
-        "x": 0.08,
-        "y": 0.04,
-        "z": 0.3
-      },
-      "vertices": 52,
-      "faces": 88,
-      "bounding_box": {
-        "min": [
-          -4.0,
-          -2.0,
-          0.0
-        ],
-        "max": [
-          4.0,
-          2.0,
-          30.0
-        ]
-      }
+      "file": "SM_Tool_Trowel_Hand.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

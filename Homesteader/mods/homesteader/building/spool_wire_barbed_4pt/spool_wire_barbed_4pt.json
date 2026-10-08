@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "spool_wire_barbed_4pt.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "spool_wire_barbed_4pt.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 76.9,
-        "y": 76.8,
-        "z": 42.0
-      },
-      "dimensions_m": {
-        "x": 0.77,
-        "y": 0.77,
-        "z": 0.42
-      },
-      "vertices": 528,
-      "faces": 176,
-      "bounding_box": {
-        "min": [
-          -38.9386,
-          -38.7729,
-          0.0
-        ],
-        "max": [
-          38.0,
-          38.0585,
-          42.0
-        ]
-      }
+      "file": "spool_wire_barbed_4pt.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

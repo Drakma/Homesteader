@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Pickaxe.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Pickaxe.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 4.5,
-        "y": 46.0,
-        "z": 82.0
-      },
-      "dimensions_m": {
-        "x": 0.04,
-        "y": 0.46,
-        "z": 0.82
-      },
-      "vertices": 32,
-      "faces": 24,
-      "bounding_box": {
-        "min": [
-          -2.25,
-          -21.0,
-          -2.0
-        ],
-        "max": [
-          2.25,
-          25.0,
-          80.0
-        ]
-      }
+      "file": "SM_Tool_Pickaxe.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

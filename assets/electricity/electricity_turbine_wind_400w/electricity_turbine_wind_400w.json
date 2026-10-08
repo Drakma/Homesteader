@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "electricity_turbine_wind_400w.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "electricity_turbine_wind_400w.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 45.0,
-        "y": 82.0,
-        "z": 90.0
-      },
-      "dimensions_m": {
-        "x": 0.45,
-        "y": 0.82,
-        "z": 0.9
-      },
-      "vertices": 516,
-      "faces": 172,
-      "bounding_box": {
-        "min": [
-          -15.5,
-          -60.0,
-          0.0
-        ],
-        "max": [
-          29.5,
-          22.0,
-          90.0
-        ]
-      }
+      "file": "electricity_turbine_wind_400w.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -31,36 +31,8 @@
   },
   "models": [
     {
-      "file": "roofing_shingles_bundle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "roofing_shingles_bundle.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 50.0,
-        "y": 82.0,
-        "z": 26.0
-      },
-      "dimensions_m": {
-        "x": 0.5,
-        "y": 0.82,
-        "z": 0.26
-      },
-      "vertices": 108,
-      "faces": 36,
-      "bounding_box": {
-        "min": [
-          -25.0,
-          -41.0,
-          0.0
-        ],
-        "max": [
-          25.0,
-          41.0,
-          26.0
-        ]
-      }
+      "file": "roofing_shingles_bundle.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -21,12 +21,8 @@
   },
   "models": [
     {
-      "file": "treatment_septic_packets.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "treatment_septic_packets.obj",
-      "format": "obj"
+      "file": "treatment_septic_packets.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

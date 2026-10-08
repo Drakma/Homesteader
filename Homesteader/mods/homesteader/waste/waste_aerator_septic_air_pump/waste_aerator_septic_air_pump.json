@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "aerator_septic_air_pump.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "aerator_septic_air_pump.obj",
-      "format": "obj"
+      "file": "aerator_septic_air_pump.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

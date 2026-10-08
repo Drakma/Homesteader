@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "SKM_Animal_Chicken_Barred_Chick.fbx",
-      "format": "fbx"
+      "file": "SKM_Animal_Chicken_Barred_Chick.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

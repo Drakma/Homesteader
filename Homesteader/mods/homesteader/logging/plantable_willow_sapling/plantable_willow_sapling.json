@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Sapling_Willow.fbx",
-      "format": "fbx"
+      "file": "SM_Sapling_Willow.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -20,20 +20,12 @@
   },
   "models": [
     {
-      "file": "box_tackle_3tray.mtl",
-      "format": "mtl"
+      "file": "box_tackle_3tray.glb",
+      "format": "glb"
     },
     {
-      "file": "SM_Item_Fishing_TackleBox.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "box_tackle_3tray.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Item_Fishing_TackleBox.obj",
-      "format": "obj"
+      "file": "SM_Item_Fishing_TackleBox.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

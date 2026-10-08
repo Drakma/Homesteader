@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_axe_felling.mtl",
-      "format": "mtl"
+      "file": "tool_axe_felling.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_axe_felling.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 22.0,
-        "y": 53.0,
-        "z": 96.0
-      },
-      "dimensions_m": {
-        "x": 0.22,
-        "y": 0.53,
-        "z": 0.96
-      },
-      "vertices": 168,
-      "faces": 56,
-      "bounding_box": {
-        "min": [
-          -6.0,
-          -8.0,
-          0.0
-        ],
-        "max": [
-          16.0,
-          45.0,
-          96.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Axe_Felling.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Axe_Felling.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 7.0,
-        "y": 32.0,
-        "z": 89.0
-      },
-      "dimensions_m": {
-        "x": 0.07,
-        "y": 0.32,
-        "z": 0.89
-      },
-      "vertices": 76,
-      "faces": 124,
-      "bounding_box": {
-        "min": [
-          -3.5,
-          -10.0,
-          0.0
-        ],
-        "max": [
-          3.5,
-          22.0,
-          89.0
-        ]
-      }
+      "file": "SM_Tool_Axe_Felling.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

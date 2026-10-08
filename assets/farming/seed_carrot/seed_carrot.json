@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Seed_Carrot.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Seed_Carrot.obj",
-      "format": "obj"
+      "file": "SM_Item_Seed_Carrot.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

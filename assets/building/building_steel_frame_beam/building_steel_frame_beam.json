@@ -27,44 +27,12 @@
   },
   "models": [
     {
-      "file": "building_steel_frame_beam.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "building_steel_frame_beam.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.0,
-        "y": 38.0,
-        "z": 320.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.38,
-        "z": 3.2
-      },
-      "vertices": 360,
-      "faces": 196,
-      "bounding_box": {
-        "min": [
-          -0.14,
-          1.6,
-          -0.19
-        ],
-        "max": [
-          0.14,
-          4.8,
-          0.19
-        ]
-      }
-    },
-    {
       "file": "building_steel_frame_beam.glb",
       "format": "glb"
     },
     {
-      "file": "building_steel_frame_beam.fbx",
-      "format": "fbx"
+      "file": "building_steel_frame_beam.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

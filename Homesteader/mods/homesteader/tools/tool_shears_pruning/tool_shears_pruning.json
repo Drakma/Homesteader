@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_shears_pruning.mtl",
-      "format": "mtl"
+      "file": "tool_shears_pruning.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_shears_pruning.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 34.0,
-        "y": 28.0,
-        "z": 70.0
-      },
-      "dimensions_m": {
-        "x": 0.34,
-        "y": 0.28,
-        "z": 0.7
-      },
-      "vertices": 360,
-      "faces": 120,
-      "bounding_box": {
-        "min": [
-          -17.0,
-          -13.0,
-          0.0
-        ],
-        "max": [
-          17.0,
-          15.0,
-          70.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Shears_Pruning.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Shears_Pruning.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 6.0,
-        "y": 21.0,
-        "z": 3.0
-      },
-      "dimensions_m": {
-        "x": 0.06,
-        "y": 0.21,
-        "z": 0.03
-      },
-      "vertices": 46,
-      "faces": 72,
-      "bounding_box": {
-        "min": [
-          -3.0,
-          -12.0,
-          0.0
-        ],
-        "max": [
-          3.0,
-          9.0,
-          3.0
-        ]
-      }
+      "file": "SM_Tool_Shears_Pruning.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

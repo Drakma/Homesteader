@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "animal_salt_lick_mineral_50lb.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "animal_salt_lick_mineral_50lb.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 52.0,
-        "y": 52.0,
-        "z": 48.0
-      },
-      "dimensions_m": {
-        "x": 0.52,
-        "y": 0.52,
-        "z": 0.48
-      },
-      "vertices": 168,
-      "faces": 56,
-      "bounding_box": {
-        "min": [
-          -26.0,
-          -26.0,
-          0.0
-        ],
-        "max": [
-          26.0,
-          26.0,
-          48.0
-        ]
-      }
+      "file": "animal_salt_lick_mineral_23kg.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

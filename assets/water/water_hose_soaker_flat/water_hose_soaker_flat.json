@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "water_hose_soaker_flat.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_hose_soaker_flat.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 102.0,
-        "y": 94.0,
-        "z": 37.1
-      },
-      "dimensions_m": {
-        "x": 1.02,
-        "y": 0.94,
-        "z": 0.37
-      },
-      "vertices": 1248,
-      "faces": 416,
-      "bounding_box": {
-        "min": [
-          -47.0,
-          -47.0,
-          0.0
-        ],
-        "max": [
-          55.0,
-          47.0,
-          37.0622
-        ]
-      }
+      "file": "water_hose_soaker_flat.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

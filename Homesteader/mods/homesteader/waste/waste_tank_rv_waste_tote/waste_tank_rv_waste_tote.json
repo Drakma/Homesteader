@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "tank_rv_waste_tote.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tank_rv_waste_tote.obj",
-      "format": "obj"
+      "file": "tank_rv_waste_tote.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

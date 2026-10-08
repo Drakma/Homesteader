@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 15,
         "resource": "stages/tree_sapling/",
-        "model": "tree_sapling_pine.fbx",
+        "model": "tree_sapling_pine.glb",
         "icon": "tree_sapling_pine.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 15,
         "age_max": 40,
         "resource": "stages/tree_small/",
-        "model": "tree_small_pine.fbx",
+        "model": "tree_small_pine.glb",
         "icon": "tree_small_pine.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 40,
         "age_max": 75,
         "resource": "stages/tree_medium/",
-        "model": "tree_medium_pine.fbx",
+        "model": "tree_medium_pine.glb",
         "icon": "tree_medium_pine.png"
       },
       {
@@ -47,7 +47,7 @@
         "age_min": 75,
         "age_max": 100,
         "resource": "stages/tree_mature/",
-        "model": "tree_mature_pine.fbx",
+        "model": "tree_mature_pine.glb",
         "icon": "tree_mature_pine.png"
       }
     ],

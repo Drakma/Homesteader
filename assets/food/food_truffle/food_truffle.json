@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Animal_Truffle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Animal_Truffle.obj",
-      "format": "obj"
+      "file": "SM_Item_Animal_Truffle.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Meat_Beef_Steak.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Meat_Beef_Steak.obj",
-      "format": "obj"
+      "file": "SM_Item_Meat_Beef_Steak.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

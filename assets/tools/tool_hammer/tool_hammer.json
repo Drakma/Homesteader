@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Hammer.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Hammer.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 3.8,
-        "y": 15.0,
-        "z": 33.1
-      },
-      "dimensions_m": {
-        "x": 0.04,
-        "y": 0.15,
-        "z": 0.33
-      },
-      "vertices": 40,
-      "faces": 30,
-      "bounding_box": {
-        "min": [
-          -1.9,
-          -7.0,
-          -1.0
-        ],
-        "max": [
-          1.9,
-          8.0,
-          32.1
-        ]
-      }
+      "file": "SM_Tool_Hammer.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

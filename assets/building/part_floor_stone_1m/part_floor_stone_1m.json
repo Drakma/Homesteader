@@ -31,36 +31,8 @@
   },
   "models": [
     {
-      "file": "SM_Part_Floor_Stone_1m.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Part_Floor_Stone_1m.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 100.0,
-        "y": 100.0,
-        "z": 21.0
-      },
-      "dimensions_m": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 0.21
-      },
-      "vertices": 72,
-      "faces": 24,
-      "bounding_box": {
-        "min": [
-          -50.0,
-          -50.0,
-          0.0
-        ],
-        "max": [
-          50.0,
-          50.0,
-          21.0
-        ]
-      }
+      "file": "SM_Part_Floor_Stone_1m.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

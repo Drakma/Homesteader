@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_maul_splitting.mtl",
-      "format": "mtl"
+      "file": "tool_maul_splitting.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_maul_splitting.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 32.0,
-        "y": 50.9,
-        "z": 106.0
-      },
-      "dimensions_m": {
-        "x": 0.32,
-        "y": 0.51,
-        "z": 1.06
-      },
-      "vertices": 264,
-      "faces": 88,
-      "bounding_box": {
-        "min": [
-          -16.0,
-          -21.0,
-          0.0
-        ],
-        "max": [
-          16.0,
-          29.8564,
-          106.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Maul_Splitting.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Maul_Splitting.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 9.0,
-        "y": 35.0,
-        "z": 93.0
-      },
-      "dimensions_m": {
-        "x": 0.09,
-        "y": 0.35,
-        "z": 0.93
-      },
-      "vertices": 82,
-      "faces": 136,
-      "bounding_box": {
-        "min": [
-          -4.5,
-          -14.0,
-          0.0
-        ],
-        "max": [
-          4.5,
-          21.0,
-          93.0
-        ]
-      }
+      "file": "SM_Tool_Maul_Splitting.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

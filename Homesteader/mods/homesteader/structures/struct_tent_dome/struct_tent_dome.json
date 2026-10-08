@@ -26,40 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Struct_Tent_Dome.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SM_Struct_Tent_Dome.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Struct_Tent_Dome.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 354.4,
-        "y": 315.0,
-        "z": 175.0
-      },
-      "dimensions_m": {
-        "x": 3.54,
-        "y": 3.15,
-        "z": 1.75
-      },
-      "vertices": 281,
-      "faces": 102,
-      "bounding_box": {
-        "min": [
-          -196.875,
-          -157.5,
-          0.0
-        ],
-        "max": [
-          157.5,
-          157.5,
-          175.0
-        ]
-      }
+      "file": "SM_Struct_Tent_Dome.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

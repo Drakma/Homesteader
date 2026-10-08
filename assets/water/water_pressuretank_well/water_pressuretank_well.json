@@ -22,12 +22,8 @@
   },
   "models": [
     {
-      "file": "SM_Water_PressureTank_Well.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Water_PressureTank_Well.obj",
-      "format": "obj"
+      "file": "SM_Water_PressureTank_Well.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

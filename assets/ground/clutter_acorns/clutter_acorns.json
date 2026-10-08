@@ -19,40 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Clutter_Acorns.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SM_Clutter_Acorns.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Clutter_Acorns.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 1.9,
-        "y": 0.5,
-        "z": 1.8
-      },
-      "dimensions_m": {
-        "x": 0.02,
-        "y": 0.01,
-        "z": 0.02
-      },
-      "vertices": 465151,
-      "faces": 930450,
-      "bounding_box": {
-        "min": [
-          -0.950586,
-          -0.274406,
-          -0.904392
-        ],
-        "max": [
-          0.947865,
-          0.267052,
-          0.902319
-        ]
-      }
+      "file": "SM_Clutter_Acorns.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

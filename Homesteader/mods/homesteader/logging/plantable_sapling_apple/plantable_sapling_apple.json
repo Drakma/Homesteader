@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Sapling_Apple.fbx",
-      "format": "fbx"
+      "file": "SM_Sapling_Apple.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

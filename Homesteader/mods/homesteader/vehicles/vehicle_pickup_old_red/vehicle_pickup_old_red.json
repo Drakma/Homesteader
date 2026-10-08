@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Vehicle_Pickup_Old_Red.fbx",
-      "format": "fbx"
+      "file": "SM_Vehicle_Pickup_Old_Red.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -19,40 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Clutter_Leaves.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SM_Clutter_Leaves.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Clutter_Leaves.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 1.8,
-        "y": 0.5,
-        "z": 1.8
-      },
-      "dimensions_m": {
-        "x": 0.02,
-        "y": 0.01,
-        "z": 0.02
-      },
-      "vertices": 598289,
-      "faces": 1229090,
-      "bounding_box": {
-        "min": [
-          -0.8266,
-          -0.25302,
-          -0.834543
-        ],
-        "max": [
-          0.928156,
-          0.25613,
-          0.946606
-        ]
-      }
+      "file": "SM_Clutter_Leaves.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

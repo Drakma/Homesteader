@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_FishFillet_Bass.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_FishFillet_Bass.obj",
-      "format": "obj"
+      "file": "SM_Item_FishFillet_Bass.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

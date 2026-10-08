@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_sapling_apple.fbx",
-      "format": "fbx"
+      "file": "tree_sapling_apple.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

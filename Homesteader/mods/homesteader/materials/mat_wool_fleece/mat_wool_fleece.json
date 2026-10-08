@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Animal_Wool_Fleece.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Animal_Wool_Fleece.obj",
-      "format": "obj"
+      "file": "SM_Item_Animal_Wool_Fleece.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

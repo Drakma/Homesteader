@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Shovel.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Shovel.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 18.0,
-        "y": 3.5,
-        "z": 98.5
-      },
-      "dimensions_m": {
-        "x": 0.18,
-        "y": 0.04,
-        "z": 0.98
-      },
-      "vertices": 40,
-      "faces": 30,
-      "bounding_box": {
-        "min": [
-          -9.0,
-          -1.75,
-          -2.0
-        ],
-        "max": [
-          9.0,
-          1.75,
-          96.5
-        ]
-      }
+      "file": "SM_Tool_Shovel.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

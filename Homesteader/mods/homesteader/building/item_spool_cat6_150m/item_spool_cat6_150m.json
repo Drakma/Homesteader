@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Spool_Cat6_500ft.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Spool_Cat6_500ft.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 32.0,
-        "y": 32.0,
-        "z": 26.2
-      },
-      "dimensions_m": {
-        "x": 0.32,
-        "y": 0.32,
-        "z": 0.26
-      },
-      "vertices": 96,
-      "faces": 176,
-      "bounding_box": {
-        "min": [
-          -16.0,
-          -16.0,
-          0.0
-        ],
-        "max": [
-          16.0,
-          16.0,
-          26.2
-        ]
-      }
+      "file": "SM_Item_Spool_Cat6_500ft.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

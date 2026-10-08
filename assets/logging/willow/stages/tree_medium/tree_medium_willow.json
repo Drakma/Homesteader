@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_medium_willow.fbx",
-      "format": "fbx"
+      "file": "tree_medium_willow.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

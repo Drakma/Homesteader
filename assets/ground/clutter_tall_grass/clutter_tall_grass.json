@@ -19,36 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Tile_Tall_grass.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tile_Tall_grass.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 100.0,
-        "y": 100.0,
-        "z": 20.0
-      },
-      "dimensions_m": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 0.2
-      },
-      "vertices": 8,
-      "faces": 6,
-      "bounding_box": {
-        "min": [
-          -50.0,
-          -50.0,
-          -20.0
-        ],
-        "max": [
-          50.0,
-          50.0,
-          0.0
-        ]
-      }
+      "file": "SM_Tile_Tall_grass.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

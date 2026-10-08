@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_mature_pine.fbx",
-      "format": "fbx"
+      "file": "tree_mature_pine.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

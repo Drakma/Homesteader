@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_hatchet_camp.mtl",
-      "format": "mtl"
+      "file": "tool_hatchet_camp.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_hatchet_camp.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 19.0,
-        "y": 44.0,
-        "z": 72.0
-      },
-      "dimensions_m": {
-        "x": 0.19,
-        "y": 0.44,
-        "z": 0.72
-      },
-      "vertices": 168,
-      "faces": 56,
-      "bounding_box": {
-        "min": [
-          -6.0,
-          -7.0,
-          0.0
-        ],
-        "max": [
-          13.0,
-          37.0,
-          72.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Hatchet_Camp.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Hatchet_Camp.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 5.2,
-        "y": 23.0,
-        "z": 42.0
-      },
-      "dimensions_m": {
-        "x": 0.05,
-        "y": 0.23,
-        "z": 0.42
-      },
-      "vertices": 68,
-      "faces": 112,
-      "bounding_box": {
-        "min": [
-          -2.6,
-          -7.0,
-          0.0
-        ],
-        "max": [
-          2.6,
-          16.0,
-          42.0
-        ]
-      }
+      "file": "SM_Tool_Hatchet_Camp.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

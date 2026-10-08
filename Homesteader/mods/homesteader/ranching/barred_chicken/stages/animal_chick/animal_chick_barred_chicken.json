@@ -55,36 +55,8 @@
       }
     },
     {
-      "file": "SM_Animal_Chicken_Barred.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Animal_Chicken_Barred.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.0,
-        "y": 58.0,
-        "z": 54.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.58,
-        "z": 0.54
-      },
-      "vertices": 144,
-      "faces": 220,
-      "bounding_box": {
-        "min": [
-          -14.0,
-          -30.0,
-          0.0
-        ],
-        "max": [
-          14.0,
-          28.0,
-          54.0
-        ]
-      }
+      "file": "SM_Animal_Chicken_Barred.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

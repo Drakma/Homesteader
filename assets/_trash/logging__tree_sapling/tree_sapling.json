@@ -1,29 +1,33 @@
 {
   "$schema": "https://homesteader.game/schemas/item_v1.json",
-  "id": "appliance_recliner_premium",
-  "name": "Premium Recliner Chair",
-  "category": "appliances",
-  "description": "A plush upholstered recliner armchair with a footrest.",
-  "icon": "appliance_recliner_premium.png",
+  "id": "tree_sapling",
+  "name": "Tree Sapling",
+  "category": "logging",
+  "description": "Standard logging asset used in the Homesteader simulation.",
+  "icon": "tree_sapling.png",
   "properties": {
-    "weight_kg": 45.0,
-    "max_stack_size": 1,
-    "base_value": 900,
+    "weight_kg": 1.0,
+    "max_stack_size": 99,
+    "base_value": 10,
     "is_consumable": false,
-    "footprint": "0.95m W x 1.6m D x 1.05m H",
-    "happiness_modifier": 28,
+    "footprint": null,
+    "happiness_modifier": 1,
     "thirst_restore": 0,
-    "energy_restore": 35,
+    "energy_restore": 0,
     "stamina_restore": 0,
     "wellness_modifier": 0,
     "is_buyable": true,
     "stores": [
-      "furniture"
+      "lumber"
     ],
-    "sale_unit": "ea",
-    "store_category": "Appliances/Recliner"
+    "sale_unit": "ea"
   },
-  "models": [],
+  "models": [
+    {
+      "file": "SM_Tree_Sapling.fbx",
+      "format": "fbx"
+    }
+  ],
   "utilities": {
     "water": {
       "metric": "None (unplumbed / dry)",
@@ -63,16 +67,9 @@
   },
   "category_fields": {
     "dimensions_m": {
-      "width": 0.95,
-      "depth": 1.6,
-      "height": 1.05
-    },
-    "fuel_type": "none",
-    "fuel_consumption_per_min": 0,
-    "power_draw_w": 0,
-    "bandwidth_usage_mbps": 0,
-    "water_usage_lpm": 0,
-    "cold_resistance_pct": 0,
-    "water_per_use_l": 0
+      "width": 0.3,
+      "depth": 0.3,
+      "height": 0.4
+    }
   }
 }

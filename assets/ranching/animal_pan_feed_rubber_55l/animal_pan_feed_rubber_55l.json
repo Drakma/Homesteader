@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "animal_pan_feed_rubber_15gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "animal_pan_feed_rubber_15gal.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 96.0,
-        "y": 96.0,
-        "z": 26.0
-      },
-      "dimensions_m": {
-        "x": 0.96,
-        "y": 0.96,
-        "z": 0.26
-      },
-      "vertices": 360,
-      "faces": 120,
-      "bounding_box": {
-        "min": [
-          -48.0,
-          -48.0,
-          0.0
-        ],
-        "max": [
-          48.0,
-          48.0,
-          26.0
-        ]
-      }
+      "file": "animal_pan_feed_rubber_55l.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

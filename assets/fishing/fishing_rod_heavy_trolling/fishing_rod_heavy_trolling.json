@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "fishing_rod_heavy_trolling.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "fishing_rod_heavy_trolling.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 30.0,
-        "y": 33.3,
-        "z": 100.0
-      },
-      "dimensions_m": {
-        "x": 0.3,
-        "y": 0.33,
-        "z": 1.0
-      },
-      "vertices": 444,
-      "faces": 148,
-      "bounding_box": {
-        "min": [
-          -15.0,
-          -7.0,
-          0.0
-        ],
-        "max": [
-          15.0,
-          26.2658,
-          100.0
-        ]
-      }
+      "file": "fishing_rod_heavy_trolling.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -26,40 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Struct_Camper_Teardrop.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Struct_Camper_Teardrop.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 230.0,
-        "y": 370.0,
-        "z": 223.6
-      },
-      "dimensions_m": {
-        "x": 2.3,
-        "y": 3.7,
-        "z": 2.24
-      },
-      "vertices": 744,
-      "faces": 242,
-      "bounding_box": {
-        "min": [
-          -115.0,
-          -210.0,
-          0.0
-        ],
-        "max": [
-          115.0,
-          160.0,
-          223.629578
-        ]
-      }
-    },
-    {
-      "file": "SM_Struct_Camper_Teardrop.fbx",
-      "format": "fbx"
+      "file": "SM_Struct_Camper_Teardrop.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -27,44 +27,12 @@
   },
   "models": [
     {
-      "file": "building_steel_stud_framing.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "building_steel_stud_framing.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 21.0,
-        "y": 10.0,
-        "z": 244.0
-      },
-      "dimensions_m": {
-        "x": 0.21,
-        "y": 0.1,
-        "z": 2.44
-      },
-      "vertices": 360,
-      "faces": 180,
-      "bounding_box": {
-        "min": [
-          -0.105,
-          0.05,
-          -1.22
-        ],
-        "max": [
-          0.105,
-          0.15,
-          1.22
-        ]
-      }
-    },
-    {
       "file": "building_steel_stud_framing.glb",
       "format": "glb"
     },
     {
-      "file": "building_steel_stud_framing.fbx",
-      "format": "fbx"
+      "file": "building_steel_stud_framing.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

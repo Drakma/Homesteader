@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Spool_BarbedWire.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Spool_BarbedWire.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 35.0,
-        "y": 35.0,
-        "z": 30.0
-      },
-      "dimensions_m": {
-        "x": 0.35,
-        "y": 0.35,
-        "z": 0.3
-      },
-      "vertices": 78,
-      "faces": 144,
-      "bounding_box": {
-        "min": [
-          -17.5,
-          -17.5,
-          0.0
-        ],
-        "max": [
-          17.5,
-          17.5,
-          30.0
-        ]
-      }
+      "file": "SM_Item_Spool_BarbedWire.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

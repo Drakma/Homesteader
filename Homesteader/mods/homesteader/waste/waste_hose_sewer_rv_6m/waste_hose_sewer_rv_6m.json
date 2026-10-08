@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "waste_hose_sewer_rv_20ft.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "waste_hose_sewer_rv_20ft.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 115.0,
-        "y": 104.0,
-        "z": 62.0
-      },
-      "dimensions_m": {
-        "x": 1.15,
-        "y": 1.04,
-        "z": 0.62
-      },
-      "vertices": 2544,
-      "faces": 848,
-      "bounding_box": {
-        "min": [
-          -52.0,
-          -52.0,
-          0.0
-        ],
-        "max": [
-          63.0,
-          52.0,
-          62.0
-        ]
-      }
+      "file": "waste_hose_sewer_rv_6m.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

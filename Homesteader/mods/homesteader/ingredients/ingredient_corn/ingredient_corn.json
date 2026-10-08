@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Corn_Ear.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Corn_Ear.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 10.0,
-        "y": 25.0,
-        "z": 6.5
-      },
-      "dimensions_m": {
-        "x": 0.1,
-        "y": 0.25,
-        "z": 0.07
-      },
-      "vertices": 86,
-      "faces": 144,
-      "bounding_box": {
-        "min": [
-          -5.0,
-          -12.0,
-          0.0
-        ],
-        "max": [
-          5.0,
-          13.0,
-          6.54
-        ]
-      }
+      "file": "SM_Item_Corn_Ear.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

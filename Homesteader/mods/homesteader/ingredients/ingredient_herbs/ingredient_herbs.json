@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Cabbage_Harvested.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Cabbage_Harvested.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.4,
-        "y": 24.6,
-        "z": 15.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.25,
-        "z": 0.15
-      },
-      "vertices": 792,
-      "faces": 306,
-      "bounding_box": {
-        "min": [
-          -14.2,
-          -12.3,
-          0.0
-        ],
-        "max": [
-          14.2,
-          12.3,
-          15.0
-        ]
-      }
+      "file": "SM_Item_Cabbage_Harvested.glb",
+      "format": "glb"
     }
   ],
   "utilities": {
@@ -127,4 +99,4 @@
     "processing_method": "none",
     "next_item_id": ""
   }
-}
+}

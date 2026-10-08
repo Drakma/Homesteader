@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_hose_garden_reel.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_hose_garden_reel.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 83.0,
-        "y": 90.5,
-        "z": 73.0
-      },
-      "dimensions_m": {
-        "x": 0.83,
-        "y": 0.91,
-        "z": 0.73
-      },
-      "vertices": 1032,
-      "faces": 344,
-      "bounding_box": {
-        "min": [
-          -45.0,
-          -45.0,
-          0.0
-        ],
-        "max": [
-          38.0,
-          45.4641,
-          73.0
-        ]
-      }
+      "file": "tool_hose_garden_reel.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

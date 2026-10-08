@@ -32,36 +32,8 @@
   },
   "models": [
     {
-      "file": "tool_chain_choker_logging.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_chain_choker_logging.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 97.0,
-        "y": 91.6,
-        "z": 38.4
-      },
-      "dimensions_m": {
-        "x": 0.97,
-        "y": 0.92,
-        "z": 0.38
-      },
-      "vertices": 1368,
-      "faces": 456,
-      "bounding_box": {
-        "min": [
-          -47.0,
-          -45.8216,
-          0.0
-        ],
-        "max": [
-          50.0,
-          45.8216,
-          38.3923
-        ]
-      }
+      "file": "tool_chain_choker_logging.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

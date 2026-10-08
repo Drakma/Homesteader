@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_mature_maple.fbx",
-      "format": "fbx"
+      "file": "tree_mature_maple.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

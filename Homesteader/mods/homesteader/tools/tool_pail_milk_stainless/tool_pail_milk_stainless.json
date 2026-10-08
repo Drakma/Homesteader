@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "pail_milk_stainless.mtl",
-      "format": "mtl"
+      "file": "pail_milk_stainless.glb",
+      "format": "glb"
     },
     {
-      "file": "pail_milk_stainless.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 75.0,
-        "y": 73.1,
-        "z": 57.2
-      },
-      "dimensions_m": {
-        "x": 0.75,
-        "y": 0.73,
-        "z": 0.57
-      },
-      "vertices": 816,
-      "faces": 272,
-      "bounding_box": {
-        "min": [
-          -37.5,
-          -36.5598,
-          0.0
-        ],
-        "max": [
-          37.5,
-          36.5598,
-          57.1651
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Pail_Milk_Stainless.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Pail_Milk_Stainless.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.4,
-        "y": 28.4,
-        "z": 31.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.28,
-        "z": 0.31
-      },
-      "vertices": 52,
-      "faces": 96,
-      "bounding_box": {
-        "min": [
-          -14.2,
-          -14.2,
-          0.0
-        ],
-        "max": [
-          14.2,
-          14.2,
-          31.0
-        ]
-      }
+      "file": "SM_Tool_Pail_Milk_Stainless.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

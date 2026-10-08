@@ -26,20 +26,12 @@
   },
   "models": [
     {
-      "file": "SM_Electric_WindTurbine_Large.mtl",
-      "format": "mtl"
+      "file": "SM_Electric_WindTurbine_Large.glb",
+      "format": "glb"
     },
     {
-      "file": "SM_Electric_WindTurbine_Small.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Electric_WindTurbine_Large.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Electric_WindTurbine_Small.obj",
-      "format": "obj"
+      "file": "SM_Electric_WindTurbine_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

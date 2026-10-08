@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "SM_Sewage_CompostBin_3Bay.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Sewage_CompostBin_3Bay.obj",
-      "format": "obj"
+      "file": "SM_Sewage_CompostBin_3Bay.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -33,36 +33,8 @@
   },
   "models": [
     {
-      "file": "tool_wrench_pipe.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_wrench_pipe.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 16.0,
-        "y": 30.0,
-        "z": 99.0
-      },
-      "dimensions_m": {
-        "x": 0.16,
-        "y": 0.3,
-        "z": 0.99
-      },
-      "vertices": 240,
-      "faces": 80,
-      "bounding_box": {
-        "min": [
-          -8.0,
-          -10.0,
-          0.0
-        ],
-        "max": [
-          8.0,
-          20.0,
-          99.0
-        ]
-      }
+      "file": "tool_wrench_pipe.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

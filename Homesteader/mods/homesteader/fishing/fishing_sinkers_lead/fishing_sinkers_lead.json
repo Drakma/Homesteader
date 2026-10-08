@@ -19,12 +19,8 @@
   },
   "models": [
     {
-      "file": "sinkers_lead_split_shot.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "sinkers_lead_split_shot.obj",
-      "format": "obj"
+      "file": "sinkers_lead_split_shot.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

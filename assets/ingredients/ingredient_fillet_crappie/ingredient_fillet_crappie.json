@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_FishFillet_Crappie.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_FishFillet_Crappie.obj",
-      "format": "obj"
+      "file": "SM_Item_FishFillet_Crappie.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

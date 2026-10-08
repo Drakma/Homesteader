@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "energizer_fence_solar.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "energizer_fence_solar.obj",
-      "format": "obj"
+      "file": "energizer_fence_solar.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

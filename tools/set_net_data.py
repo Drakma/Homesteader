@@ -40,8 +40,6 @@ DATA = {
     'net_ups_rackmount': ({'rack_units': 2, 'capacity_wh': 3000}, {'bandwidth_mbps': 0, 'power_draw_w': 0, 'range_m': 0, 'is_connected': False}),   # 2 h at a full rack: 6 units of PoE switch, 1500 W
     'net_rack_wall_8u': ({'wire_role': 'net_rack', 'rack_capacity_u': 8}, {'bandwidth_mbps': 0, 'power_draw_w': 0, 'range_m': 0, 'is_connected': False}),
     'net_jack_wall': ({'wire_role': 'net_jack', 'net_ports': 2}, {'bandwidth_mbps': 0, 'power_draw_w': 0, 'range_m': 0, 'is_connected': False}),
-    'appliances/appliance_tv_budget': ({'wire_role': 'net_device', 'net_ports': 1}, {}),      # a TV: online by cable (a standard port) or over Wi-Fi
-    'appliances/appliance_tv_premium': ({'wire_role': 'net_device', 'net_ports': 1}, {}),
     'net_cable_ethernet_cat6_15m': ({'wire_kind': 'net', 'wire_length_m': 15, 'stacking_limit': 10}, {}),
     'net_cable_ethernet_cat6_30m': ({'wire_kind': 'net', 'wire_length_m': 30, 'stacking_limit': 10}, {}),
     'net_spool_cable_cat6_150m': ({'wire_kind': 'net', 'wire_length_m': 150, 'stacking_limit': 4}, {}),

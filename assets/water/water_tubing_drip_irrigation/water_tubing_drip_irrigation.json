@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "water_tubing_drip_irrigation.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_tubing_drip_irrigation.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 96.0,
-        "y": 98.0,
-        "z": 26.0
-      },
-      "dimensions_m": {
-        "x": 0.96,
-        "y": 0.98,
-        "z": 0.26
-      },
-      "vertices": 1752,
-      "faces": 584,
-      "bounding_box": {
-        "min": [
-          -48.0,
-          -49.0,
-          0.0
-        ],
-        "max": [
-          48.0,
-          49.0,
-          26.0
-        ]
-      }
+      "file": "water_tubing_drip_irrigation.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

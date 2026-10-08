@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Axe.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Axe.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 4.2,
-        "y": 21.5,
-        "z": 66.5
-      },
-      "dimensions_m": {
-        "x": 0.04,
-        "y": 0.21,
-        "z": 0.67
-      },
-      "vertices": 40,
-      "faces": 30,
-      "bounding_box": {
-        "min": [
-          -2.1,
-          -6.5,
-          -2.5
-        ],
-        "max": [
-          2.1,
-          15.0,
-          64.0
-        ]
-      }
+      "file": "SM_Tool_Axe.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

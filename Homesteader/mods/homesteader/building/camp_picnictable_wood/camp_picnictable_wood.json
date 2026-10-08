@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "SM_Camp_PicnicTable_Wood.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Camp_PicnicTable_Wood.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 136.0,
-        "y": 176.0,
-        "z": 76.0
-      },
-      "dimensions_m": {
-        "x": 1.36,
-        "y": 1.76,
-        "z": 0.76
-      },
-      "vertices": 648,
-      "faces": 216,
-      "bounding_box": {
-        "min": [
-          -68.0,
-          -88.0,
-          0.0
-        ],
-        "max": [
-          68.0,
-          88.0,
-          76.0
-        ]
-      }
+      "file": "SM_Camp_PicnicTable_Wood.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

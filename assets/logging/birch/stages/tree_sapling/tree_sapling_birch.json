@@ -19,8 +19,8 @@
   },
   "models": [
     {
-      "file": "tree_sapling_birch.fbx",
-      "format": "fbx"
+      "file": "tree_sapling_birch.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

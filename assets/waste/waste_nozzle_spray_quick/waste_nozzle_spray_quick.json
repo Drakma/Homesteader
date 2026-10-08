@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "waste_nozzle_spray_quick.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "waste_nozzle_spray_quick.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 32.0,
-        "y": 30.4,
-        "z": 97.0
-      },
-      "dimensions_m": {
-        "x": 0.32,
-        "y": 0.3,
-        "z": 0.97
-      },
-      "vertices": 600,
-      "faces": 200,
-      "bounding_box": {
-        "min": [
-          -16.0,
-          -15.2169,
-          0.0
-        ],
-        "max": [
-          16.0,
-          15.2169,
-          97.0
-        ]
-      }
+      "file": "waste_nozzle_spray_quick.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

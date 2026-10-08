@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_pump_sprayer.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_pump_sprayer.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.0,
-        "y": 14.5,
-        "z": 92.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.14,
-        "z": 0.92
-      },
-      "vertices": 144,
-      "faces": 48,
-      "bounding_box": {
-        "min": [
-          -14.0,
-          -6.0,
-          0.0
-        ],
-        "max": [
-          14.0,
-          8.5,
-          92.0
-        ]
-      }
+      "file": "tool_pump_sprayer.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -25,12 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Wheat_Sheaf.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Wheat_Sheaf.obj",
-      "format": "obj"
+      "file": "SM_Item_Wheat_Sheaf.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

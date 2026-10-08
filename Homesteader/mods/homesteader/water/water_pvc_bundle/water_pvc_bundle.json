@@ -21,12 +21,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Plumbing_PVC_Bundle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Plumbing_PVC_Bundle.obj",
-      "format": "obj"
+      "file": "SM_Item_Plumbing_PVC_Bundle.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

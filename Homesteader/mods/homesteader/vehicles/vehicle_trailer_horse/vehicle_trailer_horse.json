@@ -32,8 +32,8 @@
   },
   "models": [
     {
-      "file": "SM_Vehicle_Trailer_Horse.fbx",
-      "format": "fbx"
+      "file": "SM_Vehicle_Trailer_Horse.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

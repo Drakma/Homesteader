@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Sapling_Pine.fbx",
-      "format": "fbx"
+      "file": "SM_Sapling_Pine.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

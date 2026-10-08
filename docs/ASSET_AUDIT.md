@@ -1,31 +1,13 @@
 # Asset Audit
 
-Generated 2026-10-08 by `python tools/asset_audit.py` from 2649 manifests. Run it again to refresh; do not edit by hand.
+Generated 2026-10-08 by `python tools/asset_audit.py` from 2630 manifests. Run it again to refresh; do not edit by hand.
 
 A file-level check: it does not judge how a model or an icon looks.
 
-## Needs a model (108)
+## Needs a model (59)
 
 No model at all, only an icon.
 
-
-### logging (15)
-
-- [ ] `bush_blueberry`
-- [ ] `bush_elderberry`
-- [ ] `bush_haskap`
-- [ ] `bush_huckleberry`
-- [ ] `bush_raspberry`
-- [ ] `plantable_sapling_apricot`
-- [ ] `plantable_sapling_cherry`
-- [ ] `plantable_sapling_fig`
-- [ ] `plantable_sapling_grape`
-- [ ] `plantable_sapling_hazelnut`
-- [ ] `plantable_sapling_peach`
-- [ ] `plantable_sapling_pear`
-- [ ] `plantable_sapling_pecan`
-- [ ] `plantable_sapling_plum`
-- [ ] `plantable_sapling_walnut`
 
 ### tools (14)
 
@@ -43,6 +25,19 @@ No model at all, only an icon.
 - [ ] `tool_impact_driver_cordless`
 - [ ] `tool_miter_saw`
 - [ ] `tool_table_saw`
+
+### logging (10)
+
+- [ ] `plantable_sapling_apricot`
+- [ ] `plantable_sapling_cherry`
+- [ ] `plantable_sapling_fig`
+- [ ] `plantable_sapling_grape`
+- [ ] `plantable_sapling_hazelnut`
+- [ ] `plantable_sapling_peach`
+- [ ] `plantable_sapling_pear`
+- [ ] `plantable_sapling_pecan`
+- [ ] `plantable_sapling_plum`
+- [ ] `plantable_sapling_walnut`
 
 ### ingredients (8)
 
@@ -81,327 +76,38 @@ No model at all, only an icon.
 
 - [ ] `water_hand_pump_wellhead`
 
-### farming (25)
+### appliances (16)
 
-- [ ] `seed_alfalfa`
-- [ ] `seed_barley`
-- [ ] `seed_beet`
-- [ ] `seed_broccoli`
-- [ ] `seed_cabbage`
-- [ ] `seed_canola`
-- [ ] `seed_cantaloupe`
-- [ ] `seed_cucumber`
-- [ ] `seed_flax`
-- [ ] `seed_garlic`
-- [ ] `seed_green_beans`
-- [ ] `seed_hops`
-- [ ] `seed_lettuce`
-- [ ] `seed_oats`
-- [ ] `seed_onion`
-- [ ] `seed_peanuts`
-- [ ] `seed_peas`
-- [ ] `seed_peppers`
-- [ ] `seed_radish`
-- [ ] `seed_rhubarb`
-- [ ] `seed_soybeans`
-- [ ] `seed_spinach`
-- [ ] `seed_tobacco`
-- [ ] `seed_watermelon`
-- [ ] `seed_zucchini`
-
-### appliances (35)
-
-- [ ] `appliance_armchair_budget`
-- [ ] `appliance_bed_budget`
-- [ ] `appliance_bed_premium`
-- [ ] `appliance_couch_budget`
-- [ ] `appliance_couch_premium`
-- [ ] `appliance_diningtable_budget`
-- [ ] `appliance_diningtable_premium`
 - [ ] `appliance_dryer_budget`
 - [ ] `appliance_dryer_premium`
 - [ ] `appliance_fireplace_insert_standard`
 - [ ] `appliance_fireplace_premium`
-- [ ] `appliance_fridge_budget`
-- [ ] `appliance_fridge_premium`
 - [ ] `appliance_grill_charcoal`
 - [ ] `appliance_grill_propane_premium`
 - [ ] `appliance_grill_propane_standard`
-- [ ] `appliance_microwave_budget`
-- [ ] `appliance_microwave_premium`
-- [ ] `appliance_oven_budget_electric`
-- [ ] `appliance_oven_premium_convection`
 - [ ] `appliance_oven_wood_fired`
-- [ ] `appliance_recliner_premium`
 - [ ] `appliance_smoker_budget_charcoal`
 - [ ] `appliance_smoker_offset`
 - [ ] `appliance_smoker_pellet_premium`
-- [ ] `appliance_stove_budget_electric`
-- [ ] `appliance_stove_premium_induction`
 - [ ] `appliance_stove_wood_cookstove`
-- [ ] `appliance_tv_budget`
-- [ ] `appliance_tv_premium`
-- [ ] `appliance_waterheater_budget_electric`
 - [ ] `appliance_waterheater_premium_tankless`
 - [ ] `appliance_waterheater_wood_fired`
 - [ ] `appliance_winter_coat`
 - [ ] `appliance_woodstove_budget`
 
-## Broken model link (8)
+## Broken model link (0)
 
 The manifest names a model file that is not in the folder (old imperial names): a rename, not a new model.
 
-- [ ] animal_pan_feed_rubber_55l (animal_pan_feed_rubber_15gal.mtl, animal_pan_feed_rubber_15gal.obj)
-- [ ] animal_salt_lick_mineral_23kg (animal_salt_lick_mineral_50lb.mtl, animal_salt_lick_mineral_50lb.obj)
-- [ ] trough_stock_tank_380l (trough_stock_tank_100gal.mtl, trough_stock_tank_100gal.obj)
-- [ ] waste_hose_sewer_rv_3m (waste_hose_sewer_rv_10ft.mtl, waste_hose_sewer_rv_10ft.obj)
-- [ ] waste_hose_sewer_rv_6m (waste_hose_sewer_rv_20ft.mtl, waste_hose_sewer_rv_20ft.obj)
-- [ ] water_barrel_rain_200l (water_barrel_rain_55gal.mtl, water_barrel_rain_55gal.obj)
-- [ ] water_jug_20l (water_jug_5gal.mtl, water_jug_5gal.obj)
-- [ ] water_tape_drip_roll_300m (tape_drip_roll_1000ft.mtl, tape_drip_roll_1000ft.obj)
+None.
 
-## Old OBJ / FBX only (190)
+
+## Old OBJ / FBX only (0)
 
 No GLB. Convert with `tools/convert_models_to_glb.py` (rigged FBX stays FBX), or remake.
 
+None.
 
-### tools (37)
-
-- [ ] `tool_animal_paddle_sorting_cattle`
-- [ ] `tool_anvil_stump`
-- [ ] `tool_axe`
-- [ ] `tool_axe_felling`
-- [ ] `tool_cant_hook_peavey`
-- [ ] `tool_chain_choker_logging`
-- [ ] `tool_chainsaw_gas_16`
-- [ ] `tool_chainsaw_gas_20`
-- [ ] `tool_cord_shore_power_50a`
-- [ ] `tool_cordless_chainsaw_16`
-- [ ] `tool_hammer`
-- [ ] `tool_hammer_claw`
-- [ ] `tool_hammer_club`
-- [ ] `tool_hatchet_camp`
-- [ ] `tool_helmet_logging_safety`
-- [ ] `tool_hoe`
-- [ ] `tool_hose_garden_reel`
-- [ ] `tool_kit_chainsaw_file_pouch`
-- [ ] `tool_loppers_heavy`
-- [ ] `tool_maul_splitting`
-- [ ] `tool_pail_milk_stainless`
-- [ ] `tool_pickaxe`
-- [ ] `tool_pump_sprayer`
-- [ ] `tool_shears_pruning`
-- [ ] `tool_shears_sheepwool`
-- [ ] `tool_shovel`
-- [ ] `tool_shovel_round_point`
-- [ ] `tool_shovel_scoop_flat`
-- [ ] `tool_shovel_trenching`
-- [ ] `tool_sickle`
-- [ ] `tool_sickle_grass`
-- [ ] `tool_tongs_skidding_logging`
-- [ ] `tool_trowel_hand`
-- [ ] `tool_wedge_felling_abs_pack`
-- [ ] `tool_wedge_splitting_diamond`
-- [ ] `tool_wrench_adjustable`
-- [ ] `tool_wrench_pipe`
-
-### vehicles (22)
-
-- [ ] `vehicle_combine_large`
-- [ ] `vehicle_combine_small`
-- [ ] `vehicle_excavator_large`
-- [ ] `vehicle_excavator_small`
-- [ ] `vehicle_pickup_new_silver`
-- [ ] `vehicle_pickup_new_white`
-- [ ] `vehicle_pickup_old_red`
-- [ ] `vehicle_pickup_old_white`
-- [ ] `vehicle_sawmill_portable`
-- [ ] `vehicle_skid_steer_new`
-- [ ] `vehicle_skid_steer_old`
-- [ ] `vehicle_skidsteer_large`
-- [ ] `vehicle_skidsteer_small`
-- [ ] `vehicle_tractor_large`
-- [ ] `vehicle_tractor_large_old`
-- [ ] `vehicle_tractor_small`
-- [ ] `vehicle_tractor_small_old`
-- [ ] `vehicle_trailer_horse`
-- [ ] `vehicle_trailer_livestock_large`
-- [ ] `vehicle_trailer_livestock_small`
-- [ ] `vehicle_trailer_utility_large`
-- [ ] `vehicle_trailer_utility_small`
-
-### building (21)
-
-- [ ] `building_chinking`
-- [ ] `building_pallet_wood`
-- [ ] `camp_campfire_ring`
-- [ ] `camp_picnictable_wood`
-- [ ] `gland_cable_entry_wall`
-- [ ] `hardware_gate_hinges`
-- [ ] `hardware_hurricane_ties`
-- [ ] `insulators_tpost_pack`
-- [ ] `item_spool_barbedwire`
-- [ ] `item_spool_cat6_150m`
-- [ ] `masonry_brick_red`
-- [ ] `part_floor_stone_1m`
-- [ ] `part_floor_wood_1m`
-- [ ] `pipe_pvc_elbow`
-- [ ] `pipe_pvc_tee`
-- [ ] `roofing_shingles_bundle`
-- [ ] `sheet_plywood_cdx`
-- [ ] `spool_wire_barbed_4pt`
-- [ ] `spool_wire_woven_field`
-- [ ] `valve_ball_brass`
-- [ ] `valve_gate_brass`
-
-### fishing (16)
-
-- [ ] `animal_fish_bass`
-- [ ] `animal_fish_catfish`
-- [ ] `animal_fish_crappie`
-- [ ] `animal_fish_salmon`
-- [ ] `animal_fish_trout`
-- [ ] `animal_fish_walleye`
-- [ ] `fishing_basket_wire`
-- [ ] `fishing_bobbers_clip_pack`
-- [ ] `fishing_box_lures_organizer`
-- [ ] `fishing_box_tackle_3tray`
-- [ ] `fishing_line_spool`
-- [ ] `fishing_net_landing_telescopic`
-- [ ] `fishing_rod_fly`
-- [ ] `fishing_rod_heavy_trolling`
-- [ ] `fishing_rod_spincast_combo`
-- [ ] `fishing_sinkers_lead`
-
-### ingredients (15)
-
-- [ ] `ingredient_beef`
-- [ ] `ingredient_chicken`
-- [ ] `ingredient_corn`
-- [ ] `ingredient_cotton`
-- [ ] `ingredient_egg`
-- [ ] `ingredient_fillet_bass`
-- [ ] `ingredient_fillet_catfish`
-- [ ] `ingredient_fillet_crappie`
-- [ ] `ingredient_fillet_salmon`
-- [ ] `ingredient_fillet_trout`
-- [ ] `ingredient_fillet_walleye`
-- [ ] `ingredient_herbs`
-- [ ] `ingredient_pork`
-- [ ] `ingredient_sunflower`
-- [ ] `ingredient_wheat`
-
-### water (14)
-
-- [ ] `water_dock_section_1x2m`
-- [ ] `water_drainsock_roll`
-- [ ] `water_fitting_camlock_coupler`
-- [ ] `water_hose_contractor_heavy`
-- [ ] `water_hose_soaker_flat`
-- [ ] `water_ibc_tote_1000l`
-- [ ] `water_irrigation_sprinkler_riser`
-- [ ] `water_pressuretank_well`
-- [ ] `water_pvc_bundle`
-- [ ] `water_sprinkler`
-- [ ] `water_timer_hose_digital`
-- [ ] `water_tubing_drip_irrigation`
-- [ ] `water_wand_watering_brass`
-- [ ] `water_watering_can`
-
-### materials (10)
-
-- [ ] `mat_pelt_cow`
-- [ ] `mat_pelt_goat`
-- [ ] `mat_pelt_sheep`
-- [ ] `mat_pile_logs_poplar_large`
-- [ ] `mat_pile_logs_poplar_medium`
-- [ ] `mat_pile_logs_poplar_small`
-- [ ] `mat_pile_logs_willow_large`
-- [ ] `mat_pile_logs_willow_medium`
-- [ ] `mat_pile_logs_willow_small`
-- [ ] `mat_wool_fleece`
-
-### ground (9)
-
-- [ ] `clutter_acorns`
-- [ ] `clutter_branch`
-- [ ] `clutter_cattails`
-- [ ] `clutter_leaves`
-- [ ] `clutter_pebbles`
-- [ ] `clutter_pinecones`
-- [ ] `clutter_tall_grass`
-- [ ] `clutter_twigs`
-- [ ] `tile_grass_tuft_meadow`
-
-### logging (7)
-
-- [ ] `plantable_birch_sapling`
-- [ ] `plantable_maple_sapling`
-- [ ] `plantable_oak_sapling`
-- [ ] `plantable_pine_sapling`
-- [ ] `plantable_poplar_sapling`
-- [ ] `plantable_sapling_apple`
-- [ ] `plantable_willow_sapling`
-
-### waste (7)
-
-- [ ] `waste_aerator_septic_air_pump`
-- [ ] `waste_compost_bin_3bay`
-- [ ] `waste_nozzle_spray_quick`
-- [ ] `waste_pump_sump_float`
-- [ ] `waste_tank_rv_waste_tote`
-- [ ] `waste_toilet_composting_rustic`
-- [ ] `waste_treatment_septic_packets`
-
-### electricity (5)
-
-- [ ] `electricity_energizer_fence_solar`
-- [ ] `electricity_powerpole_wood`
-- [ ] `electricity_turbine_wind_3kw`
-- [ ] `electricity_turbine_wind_400w`
-- [ ] `electricity_wind_turbine`
-
-### structures (4)
-
-- [ ] `struct_camper_rv`
-- [ ] `struct_camper_teardrop`
-- [ ] `struct_tent_canvas`
-- [ ] `struct_tent_dome`
-
-### ranching (3)
-
-- [ ] `animal_cat_calico`
-- [ ] `animal_halter_lead_rope`
-- [ ] `trough_stock_tank_380l_empty`
-
-### peds (2)
-
-- [ ] `peds_female_farmer`
-- [ ] `peds_male_farmer`
-
-### farming (10)
-
-- [ ] `seed_carrot`
-- [ ] `seed_corn`
-- [ ] `seed_cotton`
-- [ ] `seed_herb`
-- [ ] `seed_potato`
-- [ ] `seed_pumpkin`
-- [ ] `seed_strawberry`
-- [ ] `seed_sunflower`
-- [ ] `seed_tomato`
-- [ ] `seed_wheat`
-
-### food (8)
-
-- [ ] `food_apple`
-- [ ] `food_carrot`
-- [ ] `food_potato`
-- [ ] `food_pumpkin`
-- [ ] `food_strawberry`
-- [ ] `food_tomato`
-- [ ] `food_truffle`
-- [ ] `ingredient_milk`
 
 ## Over the triangle budget (0)
 

@@ -26,36 +26,8 @@
   },
   "models": [
     {
-      "file": "tool_shovel_round_point.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_shovel_round_point.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 28.0,
-        "y": 28.0,
-        "z": 101.0
-      },
-      "dimensions_m": {
-        "x": 0.28,
-        "y": 0.28,
-        "z": 1.01
-      },
-      "vertices": 276,
-      "faces": 92,
-      "bounding_box": {
-        "min": [
-          -14.0,
-          -14.0,
-          0.0
-        ],
-        "max": [
-          14.0,
-          14.0,
-          101.0
-        ]
-      }
+      "file": "tool_shovel_round_point.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

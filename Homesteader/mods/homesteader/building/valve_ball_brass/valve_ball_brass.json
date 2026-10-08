@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "valve_ball_brass.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "valve_ball_brass.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 81.5,
-        "y": 56.0,
-        "z": 70.0
-      },
-      "dimensions_m": {
-        "x": 0.81,
-        "y": 0.56,
-        "z": 0.7
-      },
-      "vertices": 696,
-      "faces": 232,
-      "bounding_box": {
-        "min": [
-          -26.0,
-          -26.0,
-          0.0
-        ],
-        "max": [
-          55.5,
-          30.0,
-          70.0
-        ]
-      }
+      "file": "valve_ball_brass.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

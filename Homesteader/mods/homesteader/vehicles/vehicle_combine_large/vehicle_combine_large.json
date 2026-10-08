@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Machine_Combine_Large.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Machine_Combine_Large.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 350.0,
-        "y": 670.0,
-        "z": 333.6
-      },
-      "dimensions_m": {
-        "x": 3.5,
-        "y": 6.7,
-        "z": 3.34
-      },
-      "vertices": 432,
-      "faces": 756,
-      "bounding_box": {
-        "min": [
-          -175.0,
-          -310.0,
-          0.0
-        ],
-        "max": [
-          175.0,
-          360.0,
-          333.62
-        ]
-      }
+      "file": "SM_Machine_Combine_Large.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Item_Strawberry_Basket.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Strawberry_Basket.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 17.0,
-        "y": 21.0,
-        "z": 11.2
-      },
-      "dimensions_m": {
-        "x": 0.17,
-        "y": 0.21,
-        "z": 0.11
-      },
-      "vertices": 976,
-      "faces": 492,
-      "bounding_box": {
-        "min": [
-          -8.5,
-          -10.5,
-          0.0
-        ],
-        "max": [
-          8.5,
-          10.5,
-          11.2
-        ]
-      }
+      "file": "SM_Item_Strawberry_Basket.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

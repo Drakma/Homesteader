@@ -19,36 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Grass_Tuft_Meadow.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Grass_Tuft_Meadow.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 63.5,
-        "y": 66.5,
-        "z": 46.5
-      },
-      "dimensions_m": {
-        "x": 0.64,
-        "y": 0.67,
-        "z": 0.47
-      },
-      "vertices": 240,
-      "faces": 80,
-      "bounding_box": {
-        "min": [
-          -31.2918,
-          -33.05,
-          0.0
-        ],
-        "max": [
-          32.2,
-          33.4531,
-          46.55
-        ]
-      }
+      "file": "SM_Grass_Tuft_Meadow.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

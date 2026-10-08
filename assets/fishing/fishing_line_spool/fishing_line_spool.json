@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "spool_fishing_line_braid.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "spool_fishing_line_braid.obj",
-      "format": "obj"
+      "file": "spool_fishing_line_braid.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

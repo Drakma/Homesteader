@@ -20,36 +20,8 @@
   },
   "models": [
     {
-      "file": "fishing_bobbers_clip_pack.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "fishing_bobbers_clip_pack.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 62.0,
-        "y": 54.0,
-        "z": 34.0
-      },
-      "dimensions_m": {
-        "x": 0.62,
-        "y": 0.54,
-        "z": 0.34
-      },
-      "vertices": 1296,
-      "faces": 432,
-      "bounding_box": {
-        "min": [
-          -31.0,
-          -25.0,
-          0.0
-        ],
-        "max": [
-          31.0,
-          29.0,
-          34.0
-        ]
-      }
+      "file": "fishing_bobbers_clip_pack.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

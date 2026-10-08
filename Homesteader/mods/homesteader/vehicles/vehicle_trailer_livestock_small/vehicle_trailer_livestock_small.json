@@ -32,8 +32,8 @@
   },
   "models": [
     {
-      "file": "SM_Vehicle_Trailer_Livestock_Small.fbx",
-      "format": "fbx"
+      "file": "SM_Vehicle_Trailer_Livestock_Small.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

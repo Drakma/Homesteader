@@ -26,12 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Electric_PowerPole_Wood.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Electric_PowerPole_Wood.obj",
-      "format": "obj"
+      "file": "SM_Electric_PowerPole_Wood.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

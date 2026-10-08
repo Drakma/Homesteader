@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_animal_paddle_sorting_cattle.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_animal_paddle_sorting_cattle.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 26.0,
-        "y": 12.0,
-        "z": 96.0
-      },
-      "dimensions_m": {
-        "x": 0.26,
-        "y": 0.12,
-        "z": 0.96
-      },
-      "vertices": 228,
-      "faces": 76,
-      "bounding_box": {
-        "min": [
-          -13.0,
-          -6.0,
-          0.0
-        ],
-        "max": [
-          13.0,
-          6.0,
-          96.0
-        ]
-      }
+      "file": "tool_animal_paddle_sorting_cattle.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

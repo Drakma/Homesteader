@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "tool_helmet_logging_safety.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_helmet_logging_safety.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 80.0,
-        "y": 72.5,
-        "z": 62.0
-      },
-      "dimensions_m": {
-        "x": 0.8,
-        "y": 0.72,
-        "z": 0.62
-      },
-      "vertices": 984,
-      "faces": 328,
-      "bounding_box": {
-        "min": [
-          -40.0,
-          -34.0,
-          0.0
-        ],
-        "max": [
-          40.0,
-          38.5317,
-          62.0
-        ]
-      }
+      "file": "tool_helmet_logging_safety.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

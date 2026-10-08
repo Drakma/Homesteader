@@ -20,20 +20,12 @@
   },
   "models": [
     {
-      "file": "box_lures_organizer.mtl",
-      "format": "mtl"
+      "file": "box_lures_organizer.glb",
+      "format": "glb"
     },
     {
-      "file": "SM_Item_Fishing_LureTray.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "box_lures_organizer.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Item_Fishing_LureTray.obj",
-      "format": "obj"
+      "file": "SM_Item_Fishing_LureTray.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

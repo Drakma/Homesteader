@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "insulators_tpost_pack.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "insulators_tpost_pack.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 48.0,
-        "y": 40.0,
-        "z": 29.0
-      },
-      "dimensions_m": {
-        "x": 0.48,
-        "y": 0.4,
-        "z": 0.29
-      },
-      "vertices": 660,
-      "faces": 220,
-      "bounding_box": {
-        "min": [
-          -24.0,
-          -18.0,
-          0.0
-        ],
-        "max": [
-          24.0,
-          22.0,
-          29.0
-        ]
-      }
+      "file": "insulators_tpost_pack.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Plantable_Maple_Sapling.fbx",
-      "format": "fbx"
+      "file": "SM_Plantable_Maple_Sapling.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

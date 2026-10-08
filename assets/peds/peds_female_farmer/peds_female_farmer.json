@@ -23,8 +23,8 @@
   },
   "models": [
     {
-      "file": "peds_female_farmer.fbx",
-      "format": "fbx",
+      "file": "peds_female_farmer.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.6,
         "y": 0.4,
@@ -32,8 +32,8 @@
       }
     },
     {
-      "file": "SKM_Peds_Female_Farmer_Rigged.fbx",
-      "format": "fbx",
+      "file": "SKM_Peds_Female_Farmer_Rigged.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.6,
         "y": 0.4,
@@ -41,8 +41,8 @@
       }
     },
     {
-      "file": "SKM_Peds_Female_Farmer_Walk.fbx",
-      "format": "fbx",
+      "file": "SKM_Peds_Female_Farmer_Walk.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.6,
         "y": 0.4,
@@ -50,8 +50,8 @@
       }
     },
     {
-      "file": "SKM_Peds_Female_Farmer_Run.fbx",
-      "format": "fbx",
+      "file": "SKM_Peds_Female_Farmer_Run.glb",
+      "format": "glb",
       "dimensions_m": {
         "x": 0.6,
         "y": 0.4,

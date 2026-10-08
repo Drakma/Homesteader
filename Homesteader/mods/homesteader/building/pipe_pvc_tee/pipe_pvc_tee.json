@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "pipe_pvc_tee.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "pipe_pvc_tee.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 68.0,
-        "y": 46.0,
-        "z": 90.0
-      },
-      "dimensions_m": {
-        "x": 0.68,
-        "y": 0.46,
-        "z": 0.9
-      },
-      "vertices": 780,
-      "faces": 260,
-      "bounding_box": {
-        "min": [
-          -23.0,
-          -23.0,
-          0.0
-        ],
-        "max": [
-          45.0,
-          23.0,
-          90.0
-        ]
-      }
+      "file": "pipe_pvc_tee.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

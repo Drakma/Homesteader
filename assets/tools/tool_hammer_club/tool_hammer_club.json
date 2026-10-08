@@ -33,36 +33,8 @@
   },
   "models": [
     {
-      "file": "tool_hammer_club.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "tool_hammer_club.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 26.0,
-        "y": 44.0,
-        "z": 65.0
-      },
-      "dimensions_m": {
-        "x": 0.26,
-        "y": 0.44,
-        "z": 0.65
-      },
-      "vertices": 132,
-      "faces": 44,
-      "bounding_box": {
-        "min": [
-          -13.0,
-          -22.0,
-          0.0
-        ],
-        "max": [
-          13.0,
-          22.0,
-          65.0
-        ]
-      }
+      "file": "tool_hammer_club.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

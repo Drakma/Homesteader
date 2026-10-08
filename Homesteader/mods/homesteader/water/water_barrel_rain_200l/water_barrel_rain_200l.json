@@ -22,36 +22,8 @@
   },
   "models": [
     {
-      "file": "water_barrel_rain_55gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "water_barrel_rain_55gal.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 83.0,
-        "y": 96.5,
-        "z": 97.0
-      },
-      "dimensions_m": {
-        "x": 0.83,
-        "y": 0.96,
-        "z": 0.97
-      },
-      "vertices": 1092,
-      "faces": 364,
-      "bounding_box": {
-        "min": [
-          -41.5,
-          -40.4595,
-          0.0
-        ],
-        "max": [
-          41.5,
-          56.0,
-          97.0
-        ]
-      }
+      "file": "water_barrel_rain_200l.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

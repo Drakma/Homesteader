@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "gland_cable_entry_wall.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "gland_cable_entry_wall.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 48.0,
-        "y": 48.0,
-        "z": 73.0
-      },
-      "dimensions_m": {
-        "x": 0.48,
-        "y": 0.48,
-        "z": 0.73
-      },
-      "vertices": 624,
-      "faces": 208,
-      "bounding_box": {
-        "min": [
-          -24.0,
-          -24.0,
-          0.0
-        ],
-        "max": [
-          24.0,
-          24.0,
-          73.0
-        ]
-      }
+      "file": "gland_cable_entry_wall.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

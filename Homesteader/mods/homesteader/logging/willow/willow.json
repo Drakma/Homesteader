@@ -20,7 +20,7 @@
         "age_min": 0,
         "age_max": 14,
         "resource": "stages/tree_sapling/",
-        "model": "tree_sapling_willow.fbx",
+        "model": "tree_sapling_willow.glb",
         "icon": "tree_sapling_willow.png"
       },
       {
@@ -29,7 +29,7 @@
         "age_min": 14,
         "age_max": 36,
         "resource": "stages/tree_small/",
-        "model": "tree_small_willow.fbx",
+        "model": "tree_small_willow.glb",
         "icon": "tree_small_willow.png"
       },
       {
@@ -38,7 +38,7 @@
         "age_min": 36,
         "age_max": 68,
         "resource": "stages/tree_medium/",
-        "model": "tree_medium_willow.fbx",
+        "model": "tree_medium_willow.glb",
         "icon": "tree_medium_willow.png"
       },
       {
@@ -47,7 +47,7 @@
         "age_min": 68,
         "age_max": 90,
         "resource": "stages/tree_mature/",
-        "model": "tree_mature_willow.fbx",
+        "model": "tree_mature_willow.glb",
         "icon": "tree_mature_willow.png"
       }
     ],

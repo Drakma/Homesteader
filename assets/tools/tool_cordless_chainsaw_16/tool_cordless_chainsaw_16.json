@@ -25,68 +25,12 @@
   },
   "models": [
     {
-      "file": "tool_cordless_chainsaw_16.mtl",
-      "format": "mtl"
+      "file": "tool_cordless_chainsaw_16.glb",
+      "format": "glb"
     },
     {
-      "file": "tool_cordless_chainsaw_16.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 78.0,
-        "y": 26.0,
-        "z": 82.0
-      },
-      "dimensions_m": {
-        "x": 0.78,
-        "y": 0.26,
-        "z": 0.82
-      },
-      "vertices": 288,
-      "faces": 96,
-      "bounding_box": {
-        "min": [
-          -21.0,
-          -13.0,
-          0.0
-        ],
-        "max": [
-          57.0,
-          13.0,
-          82.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Tool_Drill_Cordless_20V.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Drill_Cordless_20V.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 8.4,
-        "y": 18.0,
-        "z": 24.0
-      },
-      "dimensions_m": {
-        "x": 0.08,
-        "y": 0.18,
-        "z": 0.24
-      },
-      "vertices": 40,
-      "faces": 60,
-      "bounding_box": {
-        "min": [
-          -4.2,
-          -8.0,
-          0.0
-        ],
-        "max": [
-          4.2,
-          10.0,
-          24.0
-        ]
-      }
+      "file": "SM_Tool_Drill_Cordless_20V.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

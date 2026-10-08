@@ -1,132 +1,6 @@
 {
   "items": [
     {
-      "id": "appliance_armchair_budget",
-      "name": "Budget Armchair",
-      "category": "appliances",
-      "description": "A simple single armchair with plain fabric upholstery.",
-      "icon": "appliance_armchair_budget.png",
-      "max_stack": 1,
-      "weight_kg": 25.0,
-      "base_value": 200.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Armchair",
-          "unit": "ea",
-          "price": 200.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_bed_budget",
-      "name": "Budget Bed Frame and Mattress",
-      "category": "appliances",
-      "description": "A simple low wooden bed frame with a plain mattress.",
-      "icon": "appliance_bed_budget.png",
-      "max_stack": 1,
-      "weight_kg": 45.0,
-      "base_value": 350.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Bed",
-          "unit": "ea",
-          "price": 350.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_bed_premium",
-      "name": "Premium Queen Bed Frame and Mattress",
-      "category": "appliances",
-      "description": "An upholstered queen bed frame with a tall padded headboard.",
-      "icon": "appliance_bed_premium.png",
-      "max_stack": 1,
-      "weight_kg": 90.0,
-      "base_value": 1800.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Bed",
-          "unit": "ea",
-          "price": 1800.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_couch_budget",
-      "name": "Budget 2-Seater Couch",
-      "category": "appliances",
-      "description": "A simple plain fabric 2-seat couch.",
-      "icon": "appliance_couch_budget.png",
-      "max_stack": 1,
-      "weight_kg": 55.0,
-      "base_value": 450.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Couch",
-          "unit": "ea",
-          "price": 450.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_couch_premium",
-      "name": "Premium 3-Seater Sectional Couch",
-      "category": "appliances",
-      "description": "A plush upholstered 3-seat sectional couch with a chaise.",
-      "icon": "appliance_couch_premium.png",
-      "max_stack": 1,
-      "weight_kg": 110.0,
-      "base_value": 2200.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Couch",
-          "unit": "ea",
-          "price": 2200.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_diningtable_budget",
-      "name": "Budget 4-Seat Dining Table",
-      "category": "appliances",
-      "description": "A simple plain wooden dining table with 4 basic chairs.",
-      "icon": "appliance_diningtable_budget.png",
-      "max_stack": 1,
-      "weight_kg": 60.0,
-      "base_value": 350.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Diningtable",
-          "unit": "ea",
-          "price": 350.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_diningtable_premium",
-      "name": "Premium 6-Seat Dining Table",
-      "category": "appliances",
-      "description": "A nicer wooden dining table with 6 upholstered dining chairs.",
-      "icon": "appliance_diningtable_premium.png",
-      "max_stack": 1,
-      "weight_kg": 90.0,
-      "base_value": 1400.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Diningtable",
-          "unit": "ea",
-          "price": 1400.0
-        }
-      ]
-    },
-    {
       "id": "appliance_dishwasher_budget",
       "name": "Budget Dishwasher",
       "category": "appliances",
@@ -241,44 +115,6 @@
       ]
     },
     {
-      "id": "appliance_fridge_budget",
-      "name": "Budget Fridge",
-      "category": "appliances",
-      "description": "A basic top-freezer refrigerator.",
-      "icon": "appliance_fridge_budget.png",
-      "max_stack": 1,
-      "power_draw_w": 150.0,
-      "weight_kg": 90.0,
-      "base_value": 600.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Fridge",
-          "unit": "ea",
-          "price": 600.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_fridge_premium",
-      "name": "Premium Fridge",
-      "category": "appliances",
-      "description": "A large stainless-steel french-door refrigerator with digital controls.",
-      "icon": "appliance_fridge_premium.png",
-      "max_stack": 1,
-      "power_draw_w": 200.0,
-      "weight_kg": 120.0,
-      "base_value": 2200.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Fridge",
-          "unit": "ea",
-          "price": 2200.0
-        }
-      ]
-    },
-    {
       "id": "appliance_grill_charcoal",
       "name": "Charcoal Grill",
       "category": "appliances",
@@ -333,82 +169,6 @@
       ]
     },
     {
-      "id": "appliance_microwave_budget",
-      "name": "Budget Microwave",
-      "category": "appliances",
-      "description": "A compact countertop microwave oven.",
-      "icon": "appliance_microwave_budget.png",
-      "max_stack": 1,
-      "power_draw_w": 700.0,
-      "weight_kg": 12.0,
-      "base_value": 90.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Microwave",
-          "unit": "ea",
-          "price": 90.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_microwave_premium",
-      "name": "Premium Microwave",
-      "category": "appliances",
-      "description": "A larger countertop microwave with additional convection cooking modes.",
-      "icon": "appliance_microwave_premium.png",
-      "max_stack": 1,
-      "power_draw_w": 1200.0,
-      "weight_kg": 15.0,
-      "base_value": 250.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Microwave",
-          "unit": "ea",
-          "price": 250.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_oven_budget_electric",
-      "name": "Budget Electric Wall Oven",
-      "category": "appliances",
-      "description": "A basic built-in electric wall oven.",
-      "icon": "appliance_oven_budget_electric.png",
-      "max_stack": 1,
-      "power_draw_w": 2400.0,
-      "weight_kg": 40.0,
-      "base_value": 350.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Oven",
-          "unit": "ea",
-          "price": 350.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_oven_premium_convection",
-      "name": "Premium Convection Wall Oven",
-      "category": "appliances",
-      "description": "A high-end built-in convection wall oven with even heat distribution.",
-      "icon": "appliance_oven_premium_convection.png",
-      "max_stack": 1,
-      "power_draw_w": 2800.0,
-      "weight_kg": 45.0,
-      "base_value": 1200.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Oven",
-          "unit": "ea",
-          "price": 1200.0
-        }
-      ]
-    },
-    {
       "id": "appliance_oven_wood_fired",
       "name": "Wood-Fired Oven",
       "category": "appliances",
@@ -423,24 +183,6 @@
           "category": "Appliances/Oven Wood Fired",
           "unit": "ea",
           "price": 1600.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_recliner_premium",
-      "name": "Premium Recliner Chair",
-      "category": "appliances",
-      "description": "A plush upholstered recliner armchair with a footrest.",
-      "icon": "appliance_recliner_premium.png",
-      "max_stack": 1,
-      "weight_kg": 45.0,
-      "base_value": 900.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Recliner",
-          "unit": "ea",
-          "price": 900.0
         }
       ]
     },
@@ -557,44 +299,6 @@
       ]
     },
     {
-      "id": "appliance_stove_budget_electric",
-      "name": "Budget Electric Range",
-      "category": "appliances",
-      "description": "An affordable freestanding electric range with coil burners and a single oven.",
-      "icon": "appliance_stove_budget_electric.png",
-      "max_stack": 1,
-      "power_draw_w": 2000.0,
-      "weight_kg": 60.0,
-      "base_value": 400.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Stove",
-          "unit": "ea",
-          "price": 400.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_stove_premium_induction",
-      "name": "Premium Induction Range",
-      "category": "appliances",
-      "description": "A high-end induction range with a smooth glass cooktop and convection oven.",
-      "icon": "appliance_stove_premium_induction.png",
-      "max_stack": 1,
-      "power_draw_w": 3500.0,
-      "weight_kg": 70.0,
-      "base_value": 1800.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Stove",
-          "unit": "ea",
-          "price": 1800.0
-        }
-      ]
-    },
-    {
       "id": "appliance_stove_wood_cookstove",
       "name": "Wood-Fired Cookstove",
       "category": "appliances",
@@ -628,50 +332,6 @@
           "category": "Appliances/Toilet Flush",
           "unit": "ea",
           "price": 180.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_tv_budget",
-      "name": "Budget TV",
-      "category": "appliances",
-      "description": "A basic 32 inch flat-screen television.",
-      "icon": "appliance_tv_budget.png",
-      "max_stack": 1,
-      "net_ports": 1,
-      "wire_role": "net_device",
-      "bandwidth_usage_mbps": 6.0,
-      "power_draw_w": 60.0,
-      "weight_kg": 5.0,
-      "base_value": 200.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Tv",
-          "unit": "ea",
-          "price": 200.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_tv_premium",
-      "name": "Premium TV",
-      "category": "appliances",
-      "description": "A large 65 inch flat-screen television with a slim metal stand.",
-      "icon": "appliance_tv_premium.png",
-      "max_stack": 1,
-      "net_ports": 1,
-      "wire_role": "net_device",
-      "bandwidth_usage_mbps": 25.0,
-      "power_draw_w": 150.0,
-      "weight_kg": 20.0,
-      "base_value": 1500.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Tv",
-          "unit": "ea",
-          "price": 1500.0
         }
       ]
     },
@@ -712,25 +372,6 @@
           "category": "Appliances/Washer",
           "unit": "ea",
           "price": 1200.0
-        }
-      ]
-    },
-    {
-      "id": "appliance_waterheater_budget_electric",
-      "name": "Budget Electric Water Heater",
-      "category": "appliances",
-      "description": "A standard electric tank water heater.",
-      "icon": "appliance_waterheater_budget_electric.png",
-      "max_stack": 1,
-      "power_draw_w": 4500.0,
-      "weight_kg": 70.0,
-      "base_value": 500.0,
-      "store_listings": [
-        {
-          "store": "furniture",
-          "category": "Appliances/Waterheater",
-          "unit": "ea",
-          "price": 500.0
         }
       ]
     },

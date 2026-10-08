@@ -19,20 +19,12 @@
   },
   "models": [
     {
-      "file": "SM_Item_Fish_RainbowTrout.mtl",
-      "format": "mtl"
+      "file": "SM_Item_Fish_RainbowTrout.glb",
+      "format": "glb"
     },
     {
-      "file": "SM_Item_Fish_Trout.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Fish_RainbowTrout.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Item_Fish_Trout.obj",
-      "format": "obj"
+      "file": "SM_Item_Fish_Trout.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

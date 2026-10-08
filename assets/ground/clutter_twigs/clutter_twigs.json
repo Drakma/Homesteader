@@ -19,40 +19,8 @@
   },
   "models": [
     {
-      "file": "SM_Clutter_Twigs.fbx",
-      "format": "fbx"
-    },
-    {
-      "file": "SM_Clutter_Twigs.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Clutter_Twigs.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 1.8,
-        "y": 1.2,
-        "z": 1.9
-      },
-      "dimensions_m": {
-        "x": 0.02,
-        "y": 0.01,
-        "z": 0.02
-      },
-      "vertices": 710480,
-      "faces": 1423159,
-      "bounding_box": {
-        "min": [
-          -0.914557,
-          -0.57696,
-          -0.949212
-        ],
-        "max": [
-          0.912305,
-          0.5781,
-          0.94881
-        ]
-      }
+      "file": "SM_Clutter_Twigs.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

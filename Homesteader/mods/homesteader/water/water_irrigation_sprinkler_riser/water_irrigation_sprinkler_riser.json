@@ -20,12 +20,8 @@
   },
   "models": [
     {
-      "file": "SM_Farm_Irrigation_Sprinkler_Riser.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Farm_Irrigation_Sprinkler_Riser.obj",
-      "format": "obj"
+      "file": "SM_Farm_Irrigation_Sprinkler_Riser.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -26,40 +26,8 @@
   },
   "models": [
     {
-      "file": "SM_Struct_Camper_RV.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Struct_Camper_RV.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 367.0,
-        "y": 651.0,
-        "z": 309.0
-      },
-      "dimensions_m": {
-        "x": 3.67,
-        "y": 6.51,
-        "z": 3.09
-      },
-      "vertices": 948,
-      "faces": 320,
-      "bounding_box": {
-        "min": [
-          -128.0,
-          -370.0,
-          0.0
-        ],
-        "max": [
-          239.0,
-          281.0,
-          309.0
-        ]
-      }
-    },
-    {
-      "file": "SM_Struct_Camper_RV.fbx",
-      "format": "fbx"
+      "file": "SM_Struct_Camper_RV.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

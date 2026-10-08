@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Trough_Stock_Tank_100gal_Empty.fbx",
-      "format": "fbx"
+      "file": "SM_Trough_Stock_Tank_100gal_Empty.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

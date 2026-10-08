@@ -25,8 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Sapling_Poplar.fbx",
-      "format": "fbx"
+      "file": "SM_Sapling_Poplar.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

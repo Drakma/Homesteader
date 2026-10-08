@@ -19,20 +19,12 @@
   },
   "models": [
     {
-      "file": "basket_fish_wire.mtl",
-      "format": "mtl"
+      "file": "basket_fish_wire.glb",
+      "format": "glb"
     },
     {
-      "file": "SM_Item_Fishing_FishBasket.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "basket_fish_wire.obj",
-      "format": "obj"
-    },
-    {
-      "file": "SM_Item_Fishing_FishBasket.obj",
-      "format": "obj"
+      "file": "SM_Item_Fishing_FishBasket.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -21,16 +21,12 @@
   },
   "models": [
     {
-      "file": "SM_Item_Plumbing_WaterJug_5gal.mtl",
-      "format": "mtl"
+      "file": "SM_Item_Plumbing_WaterJug_5gal.glb",
+      "format": "glb"
     },
     {
       "file": "water_jug_5gal.mtl",
       "format": "mtl"
-    },
-    {
-      "file": "SM_Item_Plumbing_WaterJug_5gal.obj",
-      "format": "obj"
     },
     {
       "file": "water_jug_5gal.obj",

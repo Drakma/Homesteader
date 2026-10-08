@@ -19,28 +19,8 @@
 	},
 	"models": [
 		{
-			"file": "SM_Clutter_Cattails.mtl",
-			"format": "mtl"
-		},
-		{
-			"file": "SM_Clutter_Cattails.obj",
-			"format": "obj",
-			"dimensions_cm": {
-				"x": 18.0,
-				"y": 18.0,
-				"z": 120.0
-			},
-			"dimensions_m": {
-				"x": 0.18,
-				"y": 0.18,
-				"z": 1.2
-			},
-			"vertices": 8,
-			"faces": 4,
-			"bounding_box": {
-				"min": [-9.0, -9.0, 0.0],
-				"max": [9.0, 9.0, 120.0]
-			}
+			"file": "SM_Clutter_Cattails.glb",
+			"format": "glb"
 		}
 	],
 	"utilities": {
@@ -96,8 +76,16 @@
 		"vertices": 8,
 		"faces": 4,
 		"bounding_box": {
-			"min": [-9.0, -9.0, 0.0],
-			"max": [9.0, 9.0, 120.0]
+			"min": [
+				-9.0,
+				-9.0,
+				0.0
+			],
+			"max": [
+				9.0,
+				9.0,
+				120.0
+			]
 		}
 	},
 	"category_fields": {
@@ -108,7 +96,9 @@
 		}
 	},
 	"spawning": {
-		"biomes": ["biome_pond"],
+		"biomes": [
+			"biome_pond"
+		],
 		"density_per_hectare": 450.0,
 		"clustering": 0.85,
 		"elevation_min_m": -0.4,

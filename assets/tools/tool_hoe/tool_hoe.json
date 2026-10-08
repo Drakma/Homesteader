@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "SM_Tool_Hoe.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "SM_Tool_Hoe.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 18.0,
-        "y": 17.0,
-        "z": 145.0
-      },
-      "dimensions_m": {
-        "x": 0.18,
-        "y": 0.17,
-        "z": 1.45
-      },
-      "vertices": 60,
-      "faces": 100,
-      "bounding_box": {
-        "min": [
-          -9.0,
-          -2.0,
-          0.0
-        ],
-        "max": [
-          9.0,
-          15.0,
-          145.0
-        ]
-      }
+      "file": "SM_Tool_Hoe.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

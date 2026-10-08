@@ -27,36 +27,8 @@
   },
   "models": [
     {
-      "file": "hardware_hurricane_ties.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "hardware_hurricane_ties.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 47.0,
-        "y": 26.0,
-        "z": 48.0
-      },
-      "dimensions_m": {
-        "x": 0.47,
-        "y": 0.26,
-        "z": 0.48
-      },
-      "vertices": 288,
-      "faces": 96,
-      "bounding_box": {
-        "min": [
-          -16.0,
-          -13.0,
-          0.0
-        ],
-        "max": [
-          31.0,
-          13.0,
-          48.0
-        ]
-      }
+      "file": "hardware_hurricane_ties.glb",
+      "format": "glb"
     }
   ],
   "utilities": {

@@ -25,36 +25,8 @@
   },
   "models": [
     {
-      "file": "trough_stock_tank_100gal.mtl",
-      "format": "mtl"
-    },
-    {
-      "file": "trough_stock_tank_100gal.obj",
-      "format": "obj",
-      "dimensions_cm": {
-        "x": 90.0,
-        "y": 56.0,
-        "z": 36.0
-      },
-      "dimensions_m": {
-        "x": 0.9,
-        "y": 0.56,
-        "z": 0.36
-      },
-      "vertices": 108,
-      "faces": 36,
-      "bounding_box": {
-        "min": [
-          -45.0,
-          -28.0,
-          0.0
-        ],
-        "max": [
-          45.0,
-          28.0,
-          36.0
-        ]
-      }
+      "file": "trough_stock_tank_380l.glb",
+      "format": "glb"
     }
   ],
   "utilities": {
