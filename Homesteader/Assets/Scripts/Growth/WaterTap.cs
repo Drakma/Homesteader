@@ -52,8 +52,14 @@ namespace Homesteader.Growth
             if (room <= 0.01f) { ToastNotificationSystem.ShowInfo("Full", "That is already full."); return true; }
             string why;
             float raw;
-            float got = post ? WireNetwork.DrawWaterAt(tap, room, out why, out raw) : WireNetwork.DrawWater(mount.Site, room, false, out why, out raw);   // every tap gives whatever water it is supplied with, raw or clean (raw water will make the player sick)
+            // a tap gives at most its flow for one fill: a narrow pipe, a small filter or a small faucet makes it slow, and a big container takes several
+            string slowBy;
+            float flow = post ? WireNetwork.SupplyFlowLph(tap, out slowBy) : WireNetwork.TapFlowLph(tap, mount.Site, out slowBy);
+            float fill = Mathf.Min(room, flow * WireNetwork.TapFillHours);
+            float got = post ? WireNetwork.DrawWaterAt(tap, fill, out why, out raw) : WireNetwork.DrawWater(mount.Site, fill, false, out why, out raw);   // every tap gives whatever water it is supplied with, raw or clean (raw water will make the player sick)
             if (got <= 0.01f) { ToastNotificationSystem.ShowInfo("No water", why); return true; }
+            if (fill < room - 0.01f && got >= fill - 0.01f)
+                ToastNotificationSystem.ShowInfo("Slow tap", "Only " + UnitFormat.Volume(flow) + " an hour reaches it" + (string.IsNullOrEmpty(slowBy) ? "" : ": " + slowBy + " limits it") + ". Fill again for more.");
             // any raw water in it makes the whole container raw
             bool wasRaw = have > 0.01f && slot.LiquidId == RawWater;
             string liquid = raw > 0.01f || wasRaw ? RawWater : Water;

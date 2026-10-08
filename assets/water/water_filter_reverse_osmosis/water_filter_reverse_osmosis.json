@@ -20,7 +20,8 @@
     "wire_role": "water_filter",
     "filter_stage": "carbon",
     "attach_surface": "wall",
-    "attach_side": "either"
+    "attach_side": "either",
+    "flow_lph": 120
   },
   "models": [
     {
@@ -79,10 +80,10 @@
     },
     "power_draw_w": 0,
     "capacity_l": 0,
-    "max_flow_rate_lpm": 0,
+    "max_flow_rate_lpm": 2.0,
     "water_usage_lpm": 0,
     "is_connected": false,
-    "max_filter_throughput_lpm": 2,
+    "max_filter_throughput_lpm": 2.0,
     "max_roof_proximity_m": 0
   }
 }

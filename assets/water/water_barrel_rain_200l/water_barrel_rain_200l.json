@@ -18,7 +18,8 @@
     "wellness_modifier": 0,
     "placeable": true,
     "display_weight": true,
-    "wire_role": "water_tank"
+    "wire_role": "water_tank",
+    "flow_lph": 600
   },
   "models": [
     {
@@ -99,7 +100,7 @@
     },
     "power_draw_w": 0,
     "capacity_l": 200,
-    "max_flow_rate_lpm": 0,
+    "max_flow_rate_lpm": 10.0,
     "water_usage_lpm": 0,
     "is_connected": true,
     "max_filter_throughput_lpm": 0,

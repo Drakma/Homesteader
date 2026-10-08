@@ -70,7 +70,7 @@
     },
     "power_draw_w": 900,
     "capacity_l": 0,
-    "max_flow_rate_lpm": 56.8,
+    "max_flow_rate_lpm": 23.3,
     "water_usage_lpm": 0,
     "is_connected": true,
     "max_filter_throughput_lpm": 0,

@@ -9,7 +9,7 @@
       "required": false,
       "min": 0,
       "label": "Flow (L/h)",
-      "note": "A submersible well pump: liters an hour it lifts. A well gives this, or what the aquifer under it gives, whichever is less (docs/WELLS.md). On a WATER PIPE (wire_kind water): liters an hour the pipe carries; a water line gives no more than its narrowest pipe lets through (half inch 900, one inch 2400, two inch 9000)."
+      "note": "Liters an hour this part of a water line can pass (docs/WATER_FLOW.md). A well pump: what it lifts; a well gives this, or what the aquifer gives, whichever is less (docs/WELLS.md). A pipe (wire_kind water): what it carries (half inch 900, one inch 2400, two inch 9000). A filter, spigot, faucet, house inlet, tank fitting, water pump or hand pump: what it lets through. A water line gives no more than the narrowest part on its way, and WAILA names that part. Nothing trips: a part that is too small only slows the water."
     },
     "pressurized": {
       "type": "boolean",

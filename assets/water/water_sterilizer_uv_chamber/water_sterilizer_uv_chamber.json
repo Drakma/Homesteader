@@ -26,7 +26,8 @@
     "filter_stage": "uv",
     "attach_surface": "wall",
     "attach_side": "either",
-    "store_category": "Water Treatment"
+    "store_category": "Water Treatment",
+    "flow_lph": 1800
   },
   "models": [
     {
@@ -85,10 +86,10 @@
     },
     "power_draw_w": 0,
     "capacity_l": 0,
-    "max_flow_rate_lpm": 0,
+    "max_flow_rate_lpm": 30.0,
     "water_usage_lpm": 0,
     "is_connected": false,
-    "max_filter_throughput_lpm": 0,
+    "max_filter_throughput_lpm": 30.0,
     "max_roof_proximity_m": 0
   }
 }

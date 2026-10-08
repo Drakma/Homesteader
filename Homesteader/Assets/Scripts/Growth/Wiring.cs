@@ -88,6 +88,7 @@ namespace Homesteader.Growth
         public float LeachLpd { get { if (Role != WireRole.LeachField) return 0f; AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId); return it != null ? it.leach_lpd : 0f; } }
         public float LeachStorageL { get { if (Role != WireRole.LeachField) return 0f; AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId); return it != null ? it.leach_storage_l : 0f; } }
         public bool PumpClean;       // a water pump: what it pulls is clean
+        public string FlowLimitedBy; // a water pump: the part that holds its flow back (null when nothing does; docs/WATER_FLOW.md)
 
         /// <summary>A water tank that holds its water under pressure (a pressure tank, a water heater): the taps draw from it with no pump running.</summary>
         public bool Pressurized { get { if (Role != WireRole.WaterTank) return false; AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId); return it != null && it.pressurized; } }
@@ -1253,25 +1254,7 @@ namespace Homesteader.Growth
         public static Dictionary<WireNode, float> PipeCaps(WireNode from)
         {
             var caps = new Dictionary<WireNode, float>();
-            if (from == null) return caps;
-            var queue = new Queue<WireNode>();
-            caps[from] = float.MaxValue;
-            queue.Enqueue(from);
-            while (queue.Count > 0)
-            {
-                WireNode cur = queue.Dequeue();
-                foreach (WireLink l in Links)
-                {
-                    if (l.Kind != "water" || !l.Connects(cur)) continue;
-                    WireNode o = l.Other(cur);
-                    if (o == null || o.Well != null) continue;
-                    float pipe = PipeFlowLph(l.WireItem);
-                    float c = Mathf.Min(caps[cur], pipe > 0f ? pipe : float.MaxValue);
-                    if (caps.TryGetValue(o, out float had) && had >= c) continue;
-                    caps[o] = c;
-                    queue.Enqueue(o);
-                }
-            }
+            foreach (KeyValuePair<WireNode, FlowCap> kv in FlowCaps(from)) caps[kv.Key] = kv.Value.Lph;   // the narrowest pipe OR part (filter, inlet, fitting) on the way
             return caps;
         }
 
@@ -1331,6 +1314,7 @@ namespace Homesteader.Growth
             {
                 if (w == null || w.Well == null || !IsEnergized(w) || !WellWantsToRun(w)) continue;
                 float lph = WellFlowLph(w);
+                Dictionary<WireNode, FlowCap> wcaps = FlowCaps(w);
                 var best = new Dictionary<WireNode, int> { [w] = 0 };
                 var queue = new Queue<WireNode>();
                 queue.Enqueue(w);
@@ -1350,7 +1334,7 @@ namespace Homesteader.Growth
                 {
                     if (kv.Key == w) continue;
                     s_flowMap.TryGetValue(kv.Key, out KeyValuePair<float, int> was);
-                    s_flowMap[kv.Key] = new KeyValuePair<float, int>(was.Key + lph, was.Value | kv.Value);
+                    s_flowMap[kv.Key] = new KeyValuePair<float, int>(was.Key + Mathf.Min(lph, CapTo(wcaps, kv.Key)), was.Value | kv.Value);   // what reaches a part is held to the narrowest pipe or part on the way
                 }
             }
             // a running water pump moves water too: up its intake side (from the cistern, through an inlet or anything else on the way) and on out the other sides
@@ -1499,7 +1483,7 @@ namespace Homesteader.Growth
                 if (t == null || t.Role != WireRole.WaterTank) continue;
                 ConstructionSite site = PlumbedInto(t);
                 if (site == null) continue;
-                float room = Mathf.Min(t.WaterCapacityL - t.WaterL, PlumbedFillLph * dtH);
+                float room = Mathf.Min(t.WaterCapacityL - t.WaterL, Mathf.Min(PlumbedFillLph, SiteSupplyFlowLph(site, out _)) * dtH);   // and what the building's supply line carries
                 if (room <= 0.01f) continue;
                 float got = DrawWater(site, room, false, out _, out float raw, false);
                 if (got <= 0f) continue;
@@ -1637,6 +1621,7 @@ namespace Homesteader.Growth
                 if (p == null || p.Role != WireRole.WaterPump) continue;
                 p.PumpRunning = false;
                 p.PumpedLph = 0f;
+                p.FlowLimitedBy = null;
                 p.PumpIntake = null;
                 if (!Powered(p)) continue;
                 var sides = new List<List<KeyValuePair<WireNode, int>>>();
@@ -1660,7 +1645,9 @@ namespace Homesteader.Growth
                 float room = 0f;
                 for (int i = 0; i < sides.Count; i++)
                     if (i != intake) foreach (KeyValuePair<WireNode, int> t in sides[i]) room += Mathf.Max(0f, t.Key.WaterCapacityL - t.Key.WaterL);
-                float move = Mathf.Min(p.PumpFlowLph * dtH, Mathf.Min(most, room));
+                float limit = PumpLimitLph(p, sides, intake, out string limitBy);   // the pump's flow, held to the narrowest pipe or part between it and its tanks
+                p.FlowLimitedBy = limit < p.PumpFlowLph - 0.5f ? limitBy : null;
+                float move = Mathf.Min(limit * dtH, Mathf.Min(most, room));
                 if (move <= 0.01f) continue;
                 // out of the cistern(s) on the intake side, raw and clean in their proportion
                 float taken = 0f, raw = 0f;
@@ -2130,6 +2117,7 @@ namespace Homesteader.Growth
         {
             DescribeCore(n, rows);
             OverloadRows(n, rows);   // its current against its rating, and a trip
+            FlowRows(n, rows);       // what a part of a water line can pass, and what holds the water back (docs/WATER_FLOW.md)
         }
 
         private static void DescribeCore(WireNode n, List<(string, string)> rows)
@@ -2285,7 +2273,7 @@ namespace Homesteader.Growth
                     if (n.Well != null)
                     {
                         bool running = IsEnergized(n) && WellWantsToRun(n);
-                        rows.Add(("Pump", running ? UnitFormat.Volume(PipedFlowLph(n)) + " an hour" + (PipedFlowLph(n) < WellFlowLph(n) - 0.5f ? " (the pipe limits it: the pump gives " + UnitFormat.Volume(WellFlowLph(n)) + ")" : "") : TanksOf(n).Count == 0 ? "No tank piped" : !IsEnergized(n) ? "No power" : "Tanks full"));
+                        rows.Add(("Pump", running ? UnitFormat.Volume(PipedFlowLph(n)) + " an hour" + (PipedFlowLph(n) < WellFlowLph(n) - 0.5f ? " (the water line limits it: the pump gives " + UnitFormat.Volume(WellFlowLph(n)) + ")" : "") : TanksOf(n).Count == 0 ? "No tank piped" : !IsEnergized(n) ? "No power" : "Tanks full"));
                     }
                     rows.Add(("Supply", SolarSun.Power(SupplyW(n))));
                     foreach (GridSystem gs in SystemsCached())

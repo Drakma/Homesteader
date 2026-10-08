@@ -15,7 +15,8 @@
     "thirst_restore": 0,
     "energy_restore": 0,
     "stamina_restore": 0,
-    "wellness_modifier": 0
+    "wellness_modifier": 0,
+    "flow_lph": 480
   },
   "models": [],
   "utilities": {
@@ -63,7 +64,7 @@
     },
     "power_draw_w": 0,
     "capacity_l": 0,
-    "max_flow_rate_lpm": 8,
+    "max_flow_rate_lpm": 8.0,
     "water_usage_lpm": 0,
     "is_connected": true,
     "max_filter_throughput_lpm": 0,

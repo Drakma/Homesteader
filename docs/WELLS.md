@@ -81,3 +81,5 @@ Inside a building a pipe between two parts that stand apart runs out to the near
 A building's taps draw from a **pressurized** tank (`pressurized`: the pressure tank, the water heater) directly, and from a plain cistern only through a powered water pump on the way (`WireNetwork.TapSources`). The well's own pump still pushes fresh water to every tank it reaches.
 
 Water takes the SHORTEST way through the lines: the filter stages a part shows are those on the shortest way from the well (a filter further round a loop does not count).
+
+Every part of a water line, not only the pipes, has a flow rating that limits the water (filters, taps, the house inlet, pumps): see `docs/WATER_FLOW.md`.
