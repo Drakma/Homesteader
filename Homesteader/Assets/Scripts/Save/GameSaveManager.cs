@@ -324,6 +324,7 @@ namespace Homesteader.Save
             List<AttachedObject> attachedOrder = AttachedObject.CaptureOrder();
             for (int ai = 0; ai < attachedOrder.Count; ai++) attachedIndex[attachedOrder[ai].gameObject] = ai;
             s.wires = WireNetwork.Capture(placedIndex, attachedIndex);
+            s.trips = WireNetwork.CaptureTrips(placedIndex, attachedIndex);
             foreach (WorldItem w in WorldItem.All)
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
@@ -561,6 +562,7 @@ namespace Homesteader.Save
             }
             PlacedChimney.RestoreAll(s.chimneys);   // the chimneys on the buildings (their sites exist now)
             WireNetwork.Restore(s.wires, restoredPlaced, restoredAttached);   // the wires between them
+            WireNetwork.RestoreTrips(s.trips, restoredPlaced, restoredAttached);   // the parts that had tripped
 
             // paths and roads
             Step(0.72f, "Laying paths and fences...");

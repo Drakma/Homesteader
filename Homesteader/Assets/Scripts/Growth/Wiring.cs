@@ -53,6 +53,32 @@ namespace Homesteader.Growth
         public bool GenRunning;      // a standby generator: running now (it starts by itself when the power runs short)
         public bool GenStarting;     // and cranking: a few seconds before it takes the load
         public bool SwitchOff;       // a safety disconnect: thrown off (the handle down): the run is cut there (saved)
+        public bool Tripped;         // overload: the part opened itself (a right click resets it); what is past it gets nothing (saved, docs/OVERLOAD.md)
+        public float Heat;           // 0 cool .. 1 trips: how far into an overload it is (saved)
+        public float LoadA;          // the current through it at the last grid tick, in amps
+
+        /// <summary>True when current cannot pass this part: a disconnect thrown off, or any part that has tripped.</summary>
+        public bool Open { get { return (Role == WireRole.Disconnect && SwitchOff) || Tripped; } }
+
+        /// <summary>Its rated current in amps (manifest max_current_a; a battery rack with none of its own sums the batteries standing in it); 0 for a part with no rating.</summary>
+        public float RatedA
+        {
+            get
+            {
+                AssetCatalogItem it = HudBindings.GetCatalogItem(ItemId);
+                if (it != null && it.max_current_a > 0f) return it.max_current_a;
+                if (Role != WireRole.Battery) return 0f;
+                PlacedObject p = GetComponent<PlacedObject>();
+                if (p == null || p.Contents == null) return 0f;
+                float sum = 0f;
+                foreach (ContainerStack c in p.Contents)
+                {
+                    AssetCatalogItem ci = HudBindings.GetCatalogItem(c.ItemId);
+                    if (ci != null) sum += ci.max_current_a * c.Count;
+                }
+                return sum;
+            }
+        }
         public float GenW;           // and what it gives
 
         /// <summary>A septic tank's capacity in liters (0 for anything else).</summary>
@@ -334,7 +360,7 @@ namespace Homesteader.Growth
     /// are already wired cuts the wire. A building has electricity only while its AC panel is wired to an inverter that is connected all the way back to a solar panel
     /// (<see cref="IsEnergized"/>). docs/WIRING.md.
     /// </summary>
-    public static class WireNetwork
+    public static partial class WireNetwork
     {
         public const float WindSpan = 40f;
         public const float MaxSpan = 4f;          // two devices are at most this far apart
@@ -367,7 +393,7 @@ namespace Homesteader.Growth
         /// <summary>A link to a safety disconnect that is thrown off: the current stops there.</summary>
         public static bool Cut(WireLink l)
         {
-            return (l.A != null && l.A.Role == WireRole.Disconnect && l.A.SwitchOff) || (l.B != null && l.B.Role == WireRole.Disconnect && l.B.SwitchOff);
+            return (l.A != null && l.A.Open) || (l.B != null && l.B.Open);
         }
 
         public static bool IsSewer(WireRole r) { return r == WireRole.SewerOutlet || r == WireRole.SewerPump || r == WireRole.SepticTank || r == WireRole.SepticDBox || r == WireRole.LeachField; }
@@ -651,7 +677,7 @@ namespace Homesteader.Growth
                 if (!l.Connects(n)) continue;
                 WireNode o = l.Other(n);
                 if (o == null) continue;
-                if (o.Role == WireRole.Disconnect && o.SwitchOff) continue;   // thrown off: nothing past it
+                if (o.Open) continue;   // thrown off or tripped: nothing past it
                 if (o.Role == WireRole.BusBar || o.Role == WireRole.Disconnect) { if (bars.Add(o)) queue.Enqueue(o); }   // a disconnect that is on carries the current like a bar
                 else into.Add(o);
             }
@@ -663,7 +689,7 @@ namespace Homesteader.Growth
                     if (!l.Connects(bar)) continue;
                     WireNode far = l.Other(bar);
                     if (far == null || far == n) continue;
-                    if (far.Role == WireRole.Disconnect && far.SwitchOff) continue;
+                    if (far.Open) continue;
                     if (far.Role == WireRole.BusBar || far.Role == WireRole.Disconnect) { if (bars.Add(far)) queue.Enqueue(far); }
                     else into.Add(far);
                 }
@@ -696,7 +722,7 @@ namespace Homesteader.Growth
         /// <summary>True when an AC panel is wired to an inverter whose DC chain is complete back to a solar panel: the building the panel is on has electricity.</summary>
         public static bool IsEnergized(WireNode acPanel)
         {
-            if (acPanel == null) return false;
+            if (acPanel == null || acPanel.Tripped) return false;   // a tripped breaker box gives its building nothing
             var seen = new HashSet<WireNode> { acPanel };
             var queue = new Queue<WireNode>();
             queue.Enqueue(acPanel);
@@ -708,6 +734,7 @@ namespace Homesteader.Growth
                     if (l.Kind != "ac" || !l.Connects(cur)) continue;
                     WireNode o = l.Other(cur);
                     if (o == null || !seen.Add(o)) continue;
+                    if (o.Tripped) continue;   // a tripped part carries nothing
                     if (o.Role == WireRole.Inverter) { if (MissingFrom(o) == WireRole.None) return true; }
                     else if (o.Role == WireRole.WindTurbine) { ConstructionSite ws = o.GetComponent<ConstructionSite>(); if (ws != null && ws.Finished) return true; }   // it has its own inverter
                     else if (o.Role == WireRole.WallEntry || o.Role == WireRole.AcPanel) queue.Enqueue(o);   // AC carried through a wall entry or on from another breaker box
@@ -1084,7 +1111,7 @@ namespace Homesteader.Growth
             s_chargeTime = 0f;
             s_sampleHours += gameHours;
             if (s_sampleHours >= 0.25f) { s_sampleHours = 0f; Sample(); }
-            PortableGenerator.Tick();
+            PortableGenerator.Tick(gameHours);
             s_siteRatio.Clear();
             List<GridSystem> all = Systems();
             LogSystems(all);
@@ -1092,6 +1119,7 @@ namespace Homesteader.Growth
             {
                 Balance bal = BalanceOf(sys.Nodes, gameHours, true);   // the lights draw from the sun first and the batteries after; what the sun has spare charges them
                 foreach (ConstructionSite site in bal.Sites) s_siteRatio[site] = bal.Ratio;
+                ApplyOverload(sys, bal, gameHours);   // the current through every part: heat, and trips (docs/OVERLOAD.md)
                 if (bal.Ratio >= 0.85f) foreach (WireNode well in bal.RunningWells) PumpInto(well, WellFlowLph(well) * gameHours);   // a pump stalls in a brownout
             }
             TickLockouts(all, gameHours);   // the buildings with a generator lockout box: on the breaker box or on the generator, never both
@@ -1962,7 +1990,7 @@ namespace Homesteader.Growth
             {
                 if (l.Kind != "ac" || !l.Connects(lockout)) continue;
                 WireNode o = l.Other(lockout);
-                if (o != null && o.Role == WireRole.StandbyGenerator) gens.Add(o);
+                if (o != null && o.Role == WireRole.StandbyGenerator && !o.Tripped) gens.Add(o);   // a generator that tripped is out until it is reset
             }
             return gens;
         }
@@ -2032,6 +2060,7 @@ namespace Homesteader.Growth
                     g.GenRunning = true;
                     g.GenStarting = false;
                     g.GenW = give * share;
+                    Protect(g, (load * share) / AcV, 1.1f, dtH * 3600f);   // asked for more than it makes: it heats, then its breaker trips
                     feeding.Add(g);
                     if (dtH > 0f && gi.fuel_lpm > 0f) BurnPropane(g, gi.fuel_lpm * 60f * dtH * (0.3f + 0.7f * Mathf.Clamp01(g.GenW / gi.max_power_w)));
                 }
@@ -2098,6 +2127,12 @@ namespace Homesteader.Growth
         }
 
         public static void Describe(WireNode n, List<(string, string)> rows)
+        {
+            DescribeCore(n, rows);
+            OverloadRows(n, rows);   // its current against its rating, and a trip
+        }
+
+        private static void DescribeCore(WireNode n, List<(string, string)> rows)
         {
             if (n == null) return;
             if (Net.IsNet(n.Role)) { Net.Rows(n, rows); return; }   // network gear (docs/INTERNET.md)

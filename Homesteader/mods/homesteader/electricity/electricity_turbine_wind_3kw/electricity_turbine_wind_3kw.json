@@ -101,6 +101,7 @@
       "depth": 0.69,
       "height": 0.93
     },
-    "max_power_w": 3000
+    "max_power_w": 3000,
+    "max_current_a": 62.5
   }
 }

@@ -428,7 +428,9 @@ namespace Homesteader.UI
                 {
                     details.Add(("Output", SolarSun.Power(Mathf.Min(gen.DemandW, gen.RatedW)) + " of " + SolarSun.Power(gen.RatedW)));
                     details.Add(("Range", Mathf.RoundToInt(gen.RadiusTiles) + " tiles, and any build site it reaches"));
-                    if (gen.DemandW > gen.RatedW) details.Add(("Overloaded", "More is wanted than it makes"));
+                    if (gen.RatedA > 0f) details.Add(("Current", gen.LoadA.ToString("0.#") + " A of " + gen.RatedA.ToString("0.#") + " A"));
+                    if (gen.Tripped) details.Add(("State", "Tripped: overload"));
+                    else if (gen.DemandW > gen.RatedW) details.Add(("Overloaded", "More is wanted than it makes"));
                 }
                 Homesteader.UI.AssetCatalogItem spool = Homesteader.UI.HudBindings.GetCatalogItem(placed.ItemId);
                 if (spool != null && spool.wire_length_m > 0f) details.Add(("Wire left", UnitFormat.Distance(Mathf.Max(0f, spool.wire_length_m - placed.WireUsed)) + " of " + UnitFormat.Distance(spool.wire_length_m)));

@@ -22,6 +22,16 @@ namespace Homesteader.Growth
         {
             if (WireTool.JoinToolHeld()) return false;
             WireNode n = WireTool.NodeUnderCursor(cam, pointer);
+            if (n != null && n.Tripped)
+            {
+                if (player != null && Vector3.Distance(player.position, n.transform.position) > Reach)
+                {
+                    ToastNotificationSystem.ShowInfo("Too far", "Move closer to reset it.");
+                    return true;
+                }
+                WireNetwork.Reset(n);   // a tripped breaker, inverter, controller, battery, bus bar or generator comes back (warm)
+                return true;
+            }
             if (n == null || n.Role != WireRole.Disconnect) return false;
             if (player != null && Vector3.Distance(player.position, n.transform.position) > Reach)
             {

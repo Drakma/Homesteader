@@ -70,7 +70,7 @@ namespace Homesteader.Growth
                     if (l.Kind != "dc" || !l.Connects(cur)) continue;
                     WireNode o = l.Other(cur);
                     if (o == null || !seen.Add(o)) continue;
-                    if (o.Role == WireRole.Disconnect && o.SwitchOff) continue;   // a safety disconnect thrown off: nothing comes through it
+                    if (o.Open) continue;   // a safety disconnect thrown off, or a part that tripped: nothing comes through it
                     if (o.Role == WireRole.SolarPanel) sum += PanelWatts(o);
                     queue.Enqueue(o);   // on past a panel too: panels wired to panels add up
                 }

@@ -22,7 +22,7 @@
       "type": "number",
       "required": false,
       "min": 0,
-      "note": "rated current in amps, for protection and switching parts that are bought by their amp rating (circuit breakers, fuses, disconnects). The name generators show it: 'DC Circuit Breaker (32 A)'. Leave it out (or 0) for everything else; a stored name never carries the rating."
+      "note": "rated current in amps of a piece of electric equipment: the most the overload system lets flow through it (Growth/Overload.cs, docs/OVERLOAD.md). Every breaker, bus bar, wall entry, disconnect, charge controller, inverter, battery, generator and wire has one; sources (panels, turbines) carry the current of their rated output. Loads (lights, appliances, pumps) have none, their watts are what flows. AC amps are watts / 240 V, DC amps are watts / 48 V. The name generators show it only for the protection parts (breakers, bus bars, wall entries, disconnects): 'DC Circuit Breaker (32 A)'; a stored name never carries the rating."
     },
     "tank_capacity_l": {
       "note": "liters the item's own onboard fuel tank holds (generators only - a portable/standby generator carries its own small tank, same concept as vehicles.tank_capacity_l). 0 for everything else. Generators only: leave out for anything that burns no fuel (a wind turbine, a solar panel)."

@@ -84,6 +84,7 @@
     "fuel_type": "gasoline",
     "fuel_consumption_l_per_min": 0.004167,
     "max_power_w": 5000,
-    "tank_capacity_l": 15
+    "tank_capacity_l": 15,
+    "max_current_a": 20.8
   }
 }

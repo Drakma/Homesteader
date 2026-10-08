@@ -862,9 +862,11 @@ namespace Homesteader.UI
             if (item == null || string.IsNullOrEmpty(item.name)) return itemId;
             string shown = item.name;
             if (item.pack_quantity > 1) shown += " x" + item.pack_quantity;   // a pack shows how many it holds, then its weight
-            if (item.max_power_w > 0f)                                         // a power source or regulator shows its rated power, "Standby Generator (10 kW)"
+            string role = item.wire_role;
+            bool byAmps = item.max_current_a > 0f && (role == "dc_breaker" || role == "ac_panel" || role == "busbar" || role == "wall_entry" || role == "disconnect" || role == "generator_lockout");
+            if (item.max_power_w > 0f && !byAmps)                              // a power source or regulator shows its rated power, "Standby Generator (10 kW)"
                 shown += " (" + (item.max_power_w >= 1000f ? (Mathf.Round(item.max_power_w / 100f) / 10f).ToString("0.#") + " kW" : Mathf.RoundToInt(item.max_power_w) + " W") + ")";
-            if (item.max_current_a > 0f) shown += " (" + item.max_current_a.ToString("0.#") + " A)";   // a breaker, fuse or disconnect shows its rated current, "DC Circuit Breaker (32 A)"
+            if (byAmps) shown += " (" + item.max_current_a.ToString("0.#") + " A)";   // a breaker, bus bar, wall entry or disconnect shows its rated current, "DC Circuit Breaker (32 A)"
             if (item.liquid_capacity_l > 0f) shown += " (" + UnitFormat.Volume(item.liquid_capacity_l) + ")";   // a liquid container shows how many liters it holds
             else if (item.display_weight && item.weight_kg > 0f) shown += " (" + UnitFormat.WeightLabel(item.weight_kg) + ")";
             return shown;

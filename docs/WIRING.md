@@ -65,6 +65,10 @@ Solar panels can be wired to each other (DC wire): a run of panels wired in a ch
 
 **Panel groups**: solar panels standing side by side (their edges within 0.45 m) are joined by themselves into a group, with no wire: an unseen DC link of no length (`WireLink.Auto`, `WireNetwork.TickSolarGroups`, scanned about once a second; not drawn, not saved, not cut: Shift + right click with the cutters leaves them). ONE wire from any panel of a group to a wall entry (or a DC breaker box, bus bar ...) carries the whole group's output, and one wire from a panel of one group to a panel of another joins the two groups. Moving a panel away drops it from the group.
 
+## Overload
+
+Every piece of electric equipment has a rated current and trips when it carries more for too long: see `docs/OVERLOAD.md`.
+
 ## House load and brownouts
 
 The lights are the first load. A light that `requires_power` draws its `power_w` while it wants to be on (its schedule), and each system serves the lights of the buildings that have one of its AC panels (`WireNetwork.BalanceOf`): first the wind (AC, direct), then solar through the inverter (held to the inverter rating), then the batteries (also through the inverter, as far as they hold energy). Whatever solar the lights do not use charges the batteries; what the batteries cannot take is wasted. The result is a ratio served / load, the share of the 115 V the lights get.

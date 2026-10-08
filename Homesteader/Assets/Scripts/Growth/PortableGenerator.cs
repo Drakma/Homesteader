@@ -17,6 +17,12 @@ namespace Homesteader.Growth
         public float RadiusTiles;
         public float DemandW;     // what the things it reaches would draw
         public float Ratio = 1f;  // the share of that it can give: 1 when it can meet it
+        public bool Tripped;      // its breaker opened on an overload: it gives nothing until it has cooled (it resets itself)
+        public float Heat;        // 0 cool .. 1 trips
+
+        /// <summary>Its rated current in amps (manifest max_current_a), and what it carries now.</summary>
+        public float RatedA { get { AssetCatalogItem it = HudBindings.GetCatalogItem(GetComponent<PlacedObject>() != null ? GetComponent<PlacedObject>().ItemId : ""); return it != null ? it.max_current_a : 0f; } }
+        public float LoadA { get { return Mathf.Min(DemandW, RatedW * 1.5f) / WireNetwork.AcV; } }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatics() { All.Clear(); }
@@ -71,7 +77,7 @@ namespace Homesteader.Growth
 
         private static float s_nextScan;
 
-        public static void Tick()
+        public static void Tick(float dtH = 0f)
         {
             // a generator placed before this existed (or by any other route) has no component yet: found here, so every generator in the world works
             if (Time.unscaledTime >= s_nextScan)
@@ -96,8 +102,23 @@ namespace Homesteader.Growth
                 if (draw <= 0f) continue;
                 foreach (PortableGenerator g in All) if (g != null && g.ReachesSite(s)) g.DemandW += draw;
             }
+            float dtS = dtH * 3600f;
             foreach (PortableGenerator g in All)
-                if (g != null) g.Ratio = g.DemandW <= 0.01f ? 1f : Mathf.Clamp01(g.RatedW / g.DemandW);
+            {
+                if (g == null) continue;
+                if (g.Tripped)
+                {
+                    g.Heat = Mathf.Max(0f, g.Heat - dtS / 120f);   // it cools, and resets itself
+                    if (g.Heat <= 0f) g.Tripped = false;
+                }
+                else if (dtS > 0f && g.RatedW > 0f)
+                {
+                    float r = g.DemandW / (g.RatedW * 1.1f);   // a tenth over is allowed
+                    g.Heat = r > 1f ? Mathf.Min(1f, g.Heat + dtS / WireNetwork.TripSeconds(r)) : Mathf.Max(0f, g.Heat - dtS / 600f);
+                    if (g.Heat >= 1f) { g.Tripped = true; ToastNotificationSystem.ShowWarning("Generator tripped", "More was wanted than it makes. It resets when it has cooled."); }
+                }
+                g.Ratio = g.Tripped ? 0f : g.DemandW <= 0.01f ? 1f : Mathf.Clamp01(g.RatedW / g.DemandW);
+            }
         }
     }
 }

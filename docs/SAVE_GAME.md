@@ -75,6 +75,7 @@ the buildings). `GameSaveManager.LoadProgress` / `LoadPhase` feed the bar and `R
 ## Placed things never hover
 
 `PlacedObject.SettleOnGround` runs after a load AND every 3 s while playing (`PlacedObject.Settler`): anything not held by something (the ground, a floor or deck of a building, a pallet, the piece under it in its stack) is lowered onto what is under it, a stack with a gap in it closes up, and a stack whose bottom piece has nothing under it comes down. Things on a floor, a foundation or a deck stay while the building is there and come down when it is gone.
+- Overload: `trips` (`SavedTrip`: kind and index as in `wires`, `tripped`, `off`, `heat`) keeps the electric parts that tripped, how hot each is, and the safety disconnects thrown off (`Growth/WireOverload.cs`, docs/OVERLOAD.md).
 - Meal Builder saved meals: `savedMeals` (name, foods, drink), `Kitchen/SavedMeals.cs`. A container stack in a cabinet or toolbar slot keeps the liquid it holds: `contentLiquid` / `contentStored` beside `contentIds` / `contentCounts` (and `contentUsed`: the uses taken from the opened item on top).
 - Placed liquid containers (tanks, drums, cans): the liquid in a tank is `SavedPlaced.liquidId`, its liters ride in `wireUsed` (`LiquidRules.Held`). A pending bulk fuel order is a delivery with `fuel = true` (`DeliveryService.Order`).
 

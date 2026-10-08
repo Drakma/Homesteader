@@ -135,6 +135,7 @@ namespace Homesteader.UI
                 H("Pipe wrench in hand: a waste outlet, macerator, septic tank, distribution box or leach field, then the next, lays a sewer line", "Right Click"),
                 H("Sink, toilet, shower or washer in a building: use it (Shift: pick it up)", "Right Click"),
                 H("Safety disconnect: throw it on or off", "Right Click"),
+                H("Reset a breaker, inverter or other part that tripped on an overload", "Right Click"),
                 H("Fuel pump: take the nozzle, then fill a fuel container on the ground", "Right Click"),
                 H("Pipe wrench in hand: a bulk fuel tank, then a fuel pump, lays a fuel line", "Right Click"),
                 H("Mirror the object being placed (left to right)", K(BindAction.MirrorPlacement)),

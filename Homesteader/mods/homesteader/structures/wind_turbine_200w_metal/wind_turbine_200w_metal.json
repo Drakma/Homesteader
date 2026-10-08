@@ -141,6 +141,7 @@
     "wire_role": "wind_turbine"
   },
   "category_fields": {
-    "max_power_w": 200
+    "max_power_w": 200,
+    "max_current_a": 4.2
   }
 }
