@@ -44,6 +44,7 @@ namespace Homesteader.Growth
         private float nextSwing;
         private float workUntil;        // a single click plays the chop clip for a moment
         private PedController workPed;
+        private string workClip = Homesteader.World.ForestTrees.ChopClip;   // the clip of the swing in progress: a chainsaw is swept (SawClip), an axe is chopped
         private Homesteader.World.ForestTree pendingTree;   // a clicked swing waiting for its impact frame
         private string pendingHeld;
         private Transform pendingStump;   // a chainsaw swing at a stump, waiting for its impact frame
@@ -52,12 +53,12 @@ namespace Homesteader.Growth
         {
             if (!ReadRightButton(out bool down, out bool up, out Vector2 pos)) return;
 
-            if (pendingStump != null && (workPed == null || ImpactReached(workPed) || Time.unscaledTime > workUntil))
+            if (pendingStump != null && (workPed == null || Time.unscaledTime > workUntil))   // the saw runs its sweeps, then the stump goes
             {
                 Transform st = pendingStump;
                 pendingStump = null;
                 Homesteader.World.ForestTrees.ChainsawStump(st, workPed != null ? workPed.transform : null);   // the stump goes, a pile of wood chips lies in its place
-                if (workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (workPed != null) workPed.EndWork(workClip);
             }
             // A clicked swing: the hit lands when the axe does (or when the clip ran out without us seeing it).
             if (pendingTree != null)
@@ -72,7 +73,7 @@ namespace Homesteader.Growth
                     // One click chops until the tree is down, like a click on a berry bush picks every berry: the clip keeps
                     // looping and the next swing lands on its next impact frame. Walking away (the clip stops) ends it.
                     bool keepGoing = !felled && !swung.Felled && swung.Hits > hitsBefore && workPed != null
-                        && workPed.WorkPhase(Homesteader.World.ForestTrees.ChopClip, out _, out _);
+                        && workPed.WorkPhase(workClip, out _, out _);
                     if (keepGoing)
                     {
                         pendingTree = swung;
@@ -81,7 +82,7 @@ namespace Homesteader.Growth
                     }
                     else if (felled && workPed != null && !chopStarted)
                     {
-                        workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                        workPed.EndWork(workClip);
                     }
                 }
             }
@@ -91,7 +92,7 @@ namespace Homesteader.Growth
             {
                 pressed = false;
                 chopStarted = false;
-                if (workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (workPed != null) workPed.EndWork(workClip);
                 workPed = null;
                 return;
             }
@@ -99,7 +100,7 @@ namespace Homesteader.Growth
             // A click's chop clip ends by itself.
             if (workPed != null && !chopStarted && Time.unscaledTime > workUntil)
             {
-                workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                workPed.EndWork(workClip);
                 workPed = null;
             }
 
@@ -121,7 +122,7 @@ namespace Homesteader.Growth
             {
                 // The press was a chop: stop the swing and do not treat the release as a click.
                 chopStarted = false;
-                if (workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (workPed != null) workPed.EndWork(workClip);
                 workPed = null;
                 return;
             }
@@ -137,7 +138,7 @@ namespace Homesteader.Growth
             if ((pos - pressPos).magnitude > ClickMaxTravelPx)
             {
                 // Dragging: that is the camera pan, not a chop.
-                if (chopStarted && workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (chopStarted && workPed != null) workPed.EndWork(workClip);
                 chopStarted = false;
                 return;
             }
@@ -145,20 +146,21 @@ namespace Homesteader.Growth
 
             if (!TryGetChopTarget(pos, out Homesteader.World.ForestTree tree, out string heldId, out PedController ped))
             {
-                if (chopStarted && workPed != null) workPed.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (chopStarted && workPed != null) workPed.EndWork(workClip);
                 return;
             }
 
             chopStarted = true;
             workPed = ped;
-            if (ped != null) ped.BeginWork(Homesteader.World.ForestTrees.ChopClip, tree.Position);
+            workClip = Homesteader.World.ForestTrees.FellClip(heldId);
+            if (ped != null) ped.BeginWork(workClip, tree.Position);
             // The hit (sound, chips, damage) lands when the axe does: on the clip's impact frame each cycle.
             if (!ImpactReached(ped)) return;
 
             if (Homesteader.World.ForestTrees.TryChop(tree, heldId, ped != null ? ped.transform : null))
             {
                 // It came down.
-                if (ped != null) ped.EndWork(Homesteader.World.ForestTrees.ChopClip);
+                if (ped != null) ped.EndWork(workClip);
                 chopStarted = false;
             }
         }
@@ -168,9 +170,9 @@ namespace Homesteader.Growth
         /// <summary>True once per cycle, on the frame the chop clip passes its impact point. Without a running clip, falls back to a timer.</summary>
         private bool ImpactReached(PedController ped)
         {
-            if (ped != null && ped.WorkPhase(Homesteader.World.ForestTrees.ChopClip, out float phase, out float length))
+            if (ped != null && ped.WorkPhase(workClip, out float phase, out float length))
             {
-                float impact = Homesteader.World.ForestTrees.ChopImpact;
+                float impact = workClip == Homesteader.World.ForestTrees.SawClip ? Homesteader.World.ForestTrees.SawImpact : Homesteader.World.ForestTrees.ChopImpact;
                 bool hit = _prevPhase >= 0f && _prevPhase < impact && phase >= impact;
                 _prevPhase = phase;
                 return hit;
@@ -232,7 +234,8 @@ namespace Homesteader.Growth
                 && Homesteader.World.ForestTrees.CanFellTree(tree, heldId))
             {
                 var chopper = PedController.Current;
-                if (chopper != null && chopper.BeginWork(Homesteader.World.ForestTrees.ChopClip, tree.Position))
+                workClip = Homesteader.World.ForestTrees.FellClip(heldId);
+                if (chopper != null && chopper.BeginWork(workClip, tree.Position))
                 {
                     // One swing: the hit lands on the clip's impact frame (see Update).
                     workPed = chopper;
@@ -252,10 +255,11 @@ namespace Homesteader.Growth
             if (heldId != null && Homesteader.World.ForestTrees.ChainsawHeld(heldId) && Homesteader.World.ForestTrees.TryPickStump(cam.ScreenPointToRay(screenPos), out Transform stumpHit))
             {
                 var sawyer = PedController.Current;
-                if (sawyer != null && sawyer.BeginWork(Homesteader.World.ForestTrees.ChopClip, stumpHit.position))
+                workClip = Homesteader.World.ForestTrees.SawClip;
+                if (sawyer != null && sawyer.BeginWork(workClip, stumpHit.position))
                 {
                     workPed = sawyer;
-                    workUntil = Time.unscaledTime + Homesteader.World.ForestTrees.SwingSeconds * 1.6f;
+                    workUntil = Time.unscaledTime + Homesteader.World.ForestTrees.SawSeconds;
                     pendingStump = stumpHit;
                     _prevPhase = -1f;
                 }

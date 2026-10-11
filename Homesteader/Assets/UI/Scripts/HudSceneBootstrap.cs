@@ -176,6 +176,7 @@ namespace Homesteader.UI
                                 System.IO.Path.Combine(farmerDir, "peds_farmer_winter_hold.glb"),
                                 System.IO.Path.Combine(farmerDir, "peds_farmer_winter_extra_anims.glb"),
                                 System.IO.Path.Combine(farmerDir, "peds_farmer_winter_work_anims.glb"),
+                                System.IO.Path.Combine(farmerDir, "peds_farmer_winter_saw_anims.glb"),
                             },
                             new System.Collections.Generic.Dictionary<string, string>
                             {

@@ -250,7 +250,7 @@ namespace Homesteader.Growth
         private IEnumerator ChopRoutine(PedController ped)
         {
             chopping = true;
-            string clip = Homesteader.World.ForestTrees.ChopClip;
+            string clip = Homesteader.World.ForestTrees.FellClip(Homesteader.Growth.ConstructionSite.HeldItem());
             bool animated = ped != null && ped.BeginWork(clip, transform.position);
             int hits = Homesteader.World.ForestTrees.FullTreeHits;
             for (int i = 0; i < hits; i++)

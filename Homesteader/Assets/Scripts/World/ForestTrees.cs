@@ -1570,6 +1570,11 @@ namespace Homesteader.World
         // ------------------------------------------------------------------ stumps: a chainsaw takes one out and leaves a pile of wood chips
 
         public const string ChainsawSpec = "#tool_chainsaw";
+        public const string SawClip = "Saw_Sideways";   // a chainsaw is swept side to side with the bar level, not chopped (tools/make_saw_clip.py)
+        public const float SawImpact = 0.6f;            // seconds into the saw clip where a cut registers (mid-sweep)
+        /// <summary>The work clip for felling with this held tool: a chainsaw is swept sideways, anything else (an axe) is chopped.</summary>
+        public static string FellClip(string heldId) { return ChainsawHeld(heldId) ? SawClip : ChopClip; }
+        public const float SawSeconds = 2.5f;           // how long a stump takes to cut: two sweeps of the 1.25 s clip
         public const string ChipScoop = "mat_scoop_mulch";   // wood chips are the mulch pile (mat_pile_mulch_*: "a pile of wood mulch chips")
 
         public static bool ChainsawHeld(string heldId) { return !string.IsNullOrEmpty(heldId) && GrowthRegistry.HeldToolMatches(ChainsawSpec, heldId); }

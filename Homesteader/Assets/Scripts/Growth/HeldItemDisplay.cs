@@ -27,6 +27,9 @@ namespace Homesteader.Growth
         private Quaternion _gripRotation;   // slab orientation relative to the hand bone
         private string _item;
         private float _nextCheck;
+        private GlbClipPlayer _clips;
+        private float _sawBlend;            // 0 = held as usual, 1 = a chainsaw tipped on its side for the sweep
+        private const float SawTurnSeconds = 0.25f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -81,6 +84,8 @@ namespace Homesteader.Growth
             Quaternion start = Quaternion.AngleAxis(basket ? 0f : TurnOutDegrees, Vector3.up) * Quaternion.LookRotation(-player.transform.right, Vector3.up);
             _gripRotation = Quaternion.Inverse(hand.rotation) * start;
             _body = player.transform;
+            _clips = clips;
+            _sawBlend = 0f;
             Place();
         }
 
@@ -93,7 +98,19 @@ namespace Homesteader.Growth
         private void Place()
         {
             if (_hand == null) { Destroy(_quad.gameObject); _quad = null; return; }
-            _quad.rotation = _hand.rotation * _gripRotation;
+            // A chainsaw is swept sideways, not chopped: while the saw clip plays it is tipped 90 degrees onto its side (its top faces the character's right),
+            // the bar level and pointing away from the body, whatever the hand bone does.
+            bool sawing = _clips != null && _clips.ActionActive && _clips.CurrentAction == Homesteader.World.ForestTrees.SawClip && Homesteader.World.ForestTrees.ChainsawHeld(_item);
+            _sawBlend = Mathf.MoveTowards(_sawBlend, sawing ? 1f : 0f, Time.unscaledDeltaTime / SawTurnSeconds);
+            Quaternion held = _hand.rotation * _gripRotation;
+            if (_sawBlend > 0f && _body != null)
+            {
+                Vector3 right = -_body.right;   // the ped transform faces backwards (modelRotationOffset 180)
+                right.y = 0f;
+                Quaternion flat = Quaternion.LookRotation(Vector3.up, right.normalized);   // lying flat: icon up = the character's right, icon right = forward
+                held = Quaternion.Slerp(held, flat, Mathf.SmoothStep(0f, 1f, _sawBlend));
+            }
+            _quad.rotation = held;
             // The icon draws the head top-right and the handle bottom-left: the handle end sits in the palm, which is a little
             // beyond the wrist bone along the fingers.
             // The hand bone has no finger bones and its own axes do not run along the fingers: the fingers continue the forearm's line.
