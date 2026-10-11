@@ -25,3 +25,7 @@ day**. Code: `Assets/Scripts/World/DeliveryService.cs`.
 
 Only one van runs at a time; later orders wait their turn. A van that is mid-trip when the game is saved is not saved: its order
 stays pending and the van starts again on the next load.
+
+## The trash truck
+
+Once a week the trash truck (`vehicle_trash_truck`) comes to the pickup zone and empties the wheeled trash bins in it for $50 (docs/TRASH.md).

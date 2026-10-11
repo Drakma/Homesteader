@@ -32,10 +32,11 @@ namespace Homesteader.World
             if (it == null || it.base_value <= 0f || it.category == "vehicles") return false;
             if (Blueprints.IsBlueprint(itemId) || ConstructionSite.IsStructure(itemId) || PalletDeck.IsPallet(itemId)) return false;
             if (WaterTap.IsFixed(itemId) || FuelDelivery.IsFixedTank(itemId)) return false;
+            if (itemId == TrashService.BagId) return false;   // trash is for the weekly truck, not the Market
             return true;
         }
 
-        private static bool InZone(Vector3 zone, Vector3 p)
+        public static bool InZone(Vector3 zone, Vector3 p)
         {
             if (PickupFlag.TryZone(out Rect square, out _)) return square.Contains(new Vector2(p.x, p.z));   // the flag's square, not a radius
             return new Vector2(p.x - zone.x, p.z - zone.z).sqrMagnitude <= ZoneRadius * ZoneRadius;

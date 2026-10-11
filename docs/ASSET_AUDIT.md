@@ -1,6 +1,6 @@
 # Asset Audit
 
-Generated 2026-10-08 by `python tools/asset_audit.py` from 2641 manifests. Run it again to refresh; do not edit by hand.
+Generated 2026-10-10 by `python tools/asset_audit.py` from 2646 manifests. Run it again to refresh; do not edit by hand.
 
 A file-level check: it does not judge how a model or an icon looks.
 

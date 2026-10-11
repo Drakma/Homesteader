@@ -1,0 +1,78 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "waste_garbage_bag_full",
+  "name": "Full Garbage Bag",
+  "category": "waste",
+  "description": "A full, tied garbage bag. Put it in a wheeled trash bin and put the bin out in the pickup zone: a bag left out is not collected.",
+  "icon": "waste_garbage_bag_full.png",
+  "properties": {
+    "weight_kg": 9.0,
+    "max_stack_size": 8,
+    "base_value": 2,
+    "is_consumable": false,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": false,
+    "stores": []
+  },
+  "models": [
+    {
+      "file": "waste_garbage_bag_full.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 0.5,
+        "y": 0.624,
+        "z": 0.487
+      },
+      "triangles": 288
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "Sewage Processing",
+      "details": "Sewage Processing: 1,000 gallon septic capacity with anaerobic microbial digestion"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 0.5,
+      "depth": 0.487,
+      "height": 0.624
+    },
+    "power_draw_w": 0
+  }
+}

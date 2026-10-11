@@ -35,6 +35,7 @@ namespace Homesteader.World
             public bool fuel;                        // bulk fuel (FuelDelivery.cs): the fuel truck brings it and fills the tanks, nothing is unloaded
             public bool septic;                      // septic pump-outs (SepticPumpOut.cs): the honey pot truck comes and pumps the tanks out
             public bool market;                      // goods sold in the Market app (MarketPickup.cs): the cargo truck collects them from the delivery zone
+            public bool trash;                       // the weekly trash round (TrashService.cs): the trash truck empties the bins in the pickup zone
         }
 
         private static readonly List<Order> Pending = new List<Order>();
@@ -104,6 +105,7 @@ namespace Homesteader.World
             _van = null;
             FuelDelivery.Reset();
             SepticPumpOut.Reset();
+            TrashService.Reset();
         }
 
         public static void RestoreOrders(List<Order> orders)
@@ -125,10 +127,13 @@ namespace Homesteader.World
         {
             if (Time.unscaledTime < _next) return;
             _next = Time.unscaledTime + 1f;
-            if (_van != null || FuelDelivery.Busy || SepticPumpOut.Busy || Pending.Count == 0) return;
+            if (_van != null || FuelDelivery.Busy || SepticPumpOut.Busy) return;
             if (WelcomeMenuController.IsLoading || !GameSaveManager.Restored) return;
             TimeSystem time = TimeSystem.Instance;
             if (time == null) return;
+            Order weekly = TrashService.Tick(time);   // once a week: the trash truck's round
+            if (weekly != null) Pending.Add(weekly);
+            if (Pending.Count == 0) return;
             foreach (Order o in Pending)
                 if (Due(o, time)) { Dispatch(o); return; }
         }
@@ -160,12 +165,12 @@ namespace Homesteader.World
                     Pending.Remove(other);
                 }
             }
-            ToastNotificationSystem.ShowInfo(order.market ? "Market pickup" : "Delivery", order.market ? "The cargo truck is on its way." : "A Delivery is on the way");
+            ToastNotificationSystem.ShowInfo(order.trash ? "Trash pickup" : order.market ? "Market pickup" : "Delivery", order.trash ? "The trash truck is on its way." : order.market ? "The cargo truck is on its way." : "A Delivery is on the way");
 
             // Where the goods go (and are collected from): see ResolveZone.
             ResolveZone(gen, road, out Vector3 zone, out int stopIndex);
-            System.Action<Order, Vector3> work = order.market ? (System.Action<Order, Vector3>)MarketPickup.Collect : Deliver;   // the cargo truck loads up instead of unloading
-            string truckId = order.market ? MarketPickup.TruckItemId : VanItemId;
+            System.Action<Order, Vector3> work = order.trash ? (System.Action<Order, Vector3>)TrashService.Collect : order.market ? MarketPickup.Collect : Deliver;   // the cargo truck loads up instead of unloading; the trash truck empties the bins
+            string truckId = order.trash ? TrashService.TruckItemId : order.market ? MarketPickup.TruckItemId : VanItemId;
 
             if (road == null || road.Count < 8 || !ItemRegistry.TryGet(truckId, out ItemRegistry.ItemInfo vanInfo) || vanInfo.Prefab == null)
             {
@@ -174,7 +179,7 @@ namespace Homesteader.World
                 work(order, zone);
                 return;
             }
-            var go = new GameObject(order.market ? "CargoTruck" : "DeliveryVan");
+            var go = new GameObject(order.trash ? "TrashTruck" : order.market ? "CargoTruck" : "DeliveryVan");
             _van = go.AddComponent<DeliveryVan>();
             _van.Begin(order, road, vanInfo.Prefab, zone, stopIndex, o => { Pending.Remove(o); }, () => { _van = null; }, work);
         }

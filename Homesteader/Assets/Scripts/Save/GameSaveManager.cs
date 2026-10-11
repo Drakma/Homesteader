@@ -328,6 +328,7 @@ namespace Homesteader.Save
             foreach (WorldItem w in WorldItem.All)
                 if (w != null) s.drops.Add(new GameSave.SavedDrop { itemId = w.ItemId, position = w.transform.position, hasYaw = w.FixedYaw, yawDeg = w.Yaw });
             s.deliveries = Homesteader.World.DeliveryService.SavedOrders();
+            s.trashLastDay = Homesteader.World.TrashService.LastDay;
             foreach (ConstructionSite cs in ConstructionSite.All)
                 if (cs != null) s.sites.Add(new GameSave.SavedSite { structureId = cs.StructureId, position = cs.transform.position, yawDeg = cs.YawDeg, stage = cs.Stage, doorOpen = cs.DoorOpen, looks = new List<string>(cs.LookItems), fuelMinutes = cs.FuelMinutes, fireLit = cs.FireLit, wallPaints = cs.WallPaintList(), windowStates = cs.WindowStateList(), openDoors = cs.OpenDoorList(), contentIds = cs.Contents.ConvertAll(c => c.ItemId), contentCounts = cs.Contents.ConvertAll(c => c.Count), choices = cs.ChoiceList(), pumpId = cs.PumpId, fittedPanel = cs.FittedPanel, sewageL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SewageL : 0f, sludgeL = cs.GetComponent<WireNode>() != null ? cs.GetComponent<WireNode>().SludgeL : 0f });
             foreach (LotRun lr in LotRun.All)
@@ -527,6 +528,7 @@ namespace Homesteader.Save
             }
 
             Homesteader.World.DeliveryService.RestoreOrders(s.deliveries);
+            Homesteader.World.TrashService.Restore(s.trashLastDay);
 
             // structures under construction
             Step(0.65f, "Building structures...");

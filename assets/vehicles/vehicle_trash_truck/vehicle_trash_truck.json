@@ -1,0 +1,84 @@
+{
+  "$schema": "https://homesteader.game/schemas/item_v1.json",
+  "id": "vehicle_trash_truck",
+  "name": "Trash Truck",
+  "category": "vehicles",
+  "description": "The weekly trash truck. It comes once a week to the pickup zone, empties the wheeled trash bins standing there and charges the weekly fee.",
+  "icon": "vehicle_trash_truck.png",
+  "properties": {
+    "weight_kg": 9800.0,
+    "max_stack_size": 1,
+    "base_value": 112000.0,
+    "is_consumable": false,
+    "happiness_modifier": 0,
+    "thirst_restore": 0,
+    "energy_restore": 0,
+    "stamina_restore": 0,
+    "wellness_modifier": 0,
+    "is_buyable": false,
+    "stores": []
+  },
+  "models": [
+    {
+      "file": "vehicle_trash_truck.glb",
+      "format": "glb",
+      "dimensions_m": {
+        "x": 2.56,
+        "y": 2.689,
+        "z": 6.95
+      },
+      "triangles": 560
+    }
+  ],
+  "utilities": {
+    "water": {
+      "metric": "None (unplumbed / dry)",
+      "details": "None (unplumbed / dry)"
+    },
+    "electricity": {
+      "metric": "None (passive / unpowered)",
+      "details": "None (passive / unpowered)"
+    },
+    "sewage": {
+      "metric": "None (no waste discharge)",
+      "details": "None (no waste discharge)"
+    },
+    "battery": {
+      "metric": "None (no internal battery)",
+      "details": "None (no internal battery)"
+    },
+    "internet": {
+      "metric": "None (offline / non-networked)",
+      "details": "None (offline / non-networked)"
+    }
+  },
+  "growth": {
+    "is_growable": false,
+    "growth_type": null,
+    "species": null,
+    "max_age": null,
+    "time_unit": null,
+    "total_stages": 0,
+    "current_stage": null,
+    "stages": []
+  },
+  "plugin_metadata": {
+    "version": "1.0.0",
+    "author": "Homesteader Core",
+    "compatible_api": "v1"
+  },
+  "category_fields": {
+    "dimensions_m": {
+      "width": 2.56,
+      "depth": 6.95,
+      "height": 2.689
+    },
+    "vehicle_type": "van",
+    "fuel_type": "diesel",
+    "fuel_consumption_l_per_min": 0.1,
+    "tank_capacity_l": 90,
+    "top_speed_kmh": 110,
+    "seats": 2,
+    "cargo_capacity_m3": 14
+  }
+}

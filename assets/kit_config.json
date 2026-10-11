@@ -1,5 +1,11 @@
 {
   "categories": {
+    "test": {
+      "name": "Test",
+      "icon": "",
+      "desc": "Trial items: generated models and pipeline experiments that are not part of the game yet.",
+      "prefix": "test"
+    },
     "peds": {
       "name": "Peds",
       "icon": "🙍‍♂",

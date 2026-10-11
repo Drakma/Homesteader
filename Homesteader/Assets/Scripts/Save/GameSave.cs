@@ -48,6 +48,7 @@ namespace Homesteader.Save
         public List<SavedPlant> plants = new List<SavedPlant>();
         public List<SavedPlaced> placed = new List<SavedPlaced>();
         public List<SavedDrop> drops = new List<SavedDrop>();
+        public int trashLastDay;   // the day of the year of the last weekly trash round (TrashService.cs)
         public List<Homesteader.World.DeliveryService.Order> deliveries = new List<Homesteader.World.DeliveryService.Order>();   // phone orders waiting for the delivery van
         public List<SavedLot> lots = new List<SavedLot>();          // lots the player laid (LotRun)
         public List<SavedPath> paths = new List<SavedPath>();      // paths and roads the player laid (PathRun)

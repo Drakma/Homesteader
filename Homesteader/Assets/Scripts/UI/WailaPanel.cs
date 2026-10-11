@@ -196,13 +196,13 @@ namespace Homesteader.UI
                 if (site.Finished) WireNetwork.Describe(site.GetComponent<WireNode>(), details);   // a wind turbine: its output and what it is wired to
                 if (site.Finished && !site.IsWell)
                 {
-                    // the utilities the building is connected to: just the name and "Connected" (one that is not connected is left out)
-                    if (AttachedObject.HasPower(site)) details.Add(("Electricity", "Connected"));
-                    WireNetwork.WaterFor(site, out float waterAll, out _);
-                    if (waterAll > 0.01f) details.Add(("Water", "Connected"));
-                    if (Septic.TankFor(site, out _, out _) != null) details.Add(("Sewer", "Connected"));
-                    if (WireNetwork.HasPropane(site)) details.Add(("Propane", "Connected"));
-                    if (Homesteader.Growth.Net.StructureLink(site) == 2) details.Add(("Internet", "Connected"));
+                    // a utility is listed only when something is wrong with it, and the row says what (a tripped breaker, an empty tank, the first break in the network ...)
+                    string powerWhy = WireNetwork.PowerProblem(site);
+                    if (powerWhy != null) details.Add(("Electricity", powerWhy));
+                    string waterWhy = WireNetwork.WaterProblem(site);
+                    if (waterWhy != null) details.Add(("Water", waterWhy));
+                    string netWhy = WireNetwork.InternetProblem(site);
+                    if (netWhy != null) details.Add(("Internet", netWhy));
                 }
                 if (site.IsStorage) details.Add(("Stored", site.StorageSummary()));
                 if (site.IsWell)
