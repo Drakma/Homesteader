@@ -59,11 +59,20 @@
     "gemini-music": {
       "command": "node",
       "args": [
-          "C:/Users/casey/Desktop/Homesteader/tools/gemini_music_mcp/index.js"
-        ],
-        "env": {
-          "GEMINI_MUSIC_HEADED": "1"
-        }
+        "C:/Users/casey/Desktop/Homesteader/tools/gemini_music_mcp/index.js"
+      ],
+      "env": {
+        "GEMINI_MUSIC_HEADED": "1"
       }
+    },
+    "cpu3d": {
+      "command": "C:/Python313/python.exe",
+      "args": [
+        "C:/Users/casey/Desktop/Homesteader/tools/cpu3d_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:/Users/casey/Desktop/Homesteader/tools"
+      }
+    }
   }
 }

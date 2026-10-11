@@ -486,6 +486,8 @@ namespace Homesteader.Growth
                 Homesteader.Kitchen.MealsPanel.Open(target.transform.position, target.ItemId);
                 return;
             }
+            // A stack or pack (solar panels, lumber ...): a plain right click takes ONE piece into the toolbar, even when the pieces themselves are bolted-down kinds (Shift + right click: the whole pack, below)
+            if (!AttachedObject.WrenchInHand() && PackRules.TryTakeOne(target)) return;
             // A bolted-down piece (properties.wrench_remove: kitchen, living room, lighting and bathroom fittings): a right click with a wrench takes it up.
             if (ItemRegistry.NeedsWrench(target.ItemId) && !AttachedObject.WrenchRemoval())
             {
@@ -517,6 +519,8 @@ namespace Homesteader.Growth
                 if (target.Contents != null && target.Contents.Count > 0) { ToastNotificationSystem.ShowInfo(HudBindings.GetItemName(target.ItemId), "Use a shovel to move it."); return; }
             }
             if (ContainerRules.IsContainer(target.ItemId) && !activeSlotEmpty && !AttachedObject.WrenchInHand()) { TransferWithContainer(target); return; }   // (a wrench in hand picks the container up: it is the tool for taking things up)
+            // A served dish (plate, bowl, glass), and anything else standing on a counter, shelf or pallet, is picked up by hand: no wrench (the furniture itself still needs one)
+            if ((Homesteader.Kitchen.MealBuilder.IsDish(target.ItemId) || PalletDeck.RestsOnDeck(target) || HandPickable(target)) && !AttachedObject.WrenchInHand()) { PickUp(target); return; }
             // A bundle, stack or case: a right click takes ONE piece out of it, Shift + right click the whole pack (what is left stays on it and goes with it)
             // A PLACED thing is only taken up with a wrench and Shift (a right click with Shift held, a wrench in the active slot); only a DROPPED item is picked up by a plain right click.
             if (!AttachedObject.WrenchRemoval())
@@ -526,6 +530,16 @@ namespace Homesteader.Growth
             }
             if (PackRules.TryTakeOne(target)) return;
             PickUp(target);
+        }
+
+        public const float HandPickMaxKg = 20f;   // a placed thing this light (a coil of wire, a paint can, a jug) is lifted by hand; heavier things, and anything bolted down, need a wrench
+
+        /// <summary>A light, loose item lying where it was put (not furniture, a bolted-down fitting, a solar part or a pallet): a plain right click takes it up.</summary>
+        private static bool HandPickable(PlacedObject o)
+        {
+            if (o == null || ItemRegistry.NeedsWrench(o.ItemId) || WaterTap.IsBoltedSolar(o.ItemId) || PalletDeck.IsPallet(o.ItemId) || KitchenRun.IsRun(o.ItemId)) return false;
+            AssetCatalogItem info = HudBindings.GetCatalogItem(o.ItemId);
+            return info != null && info.weight_kg > 0f && info.weight_kg <= HandPickMaxKg;
         }
 
         /// <summary>

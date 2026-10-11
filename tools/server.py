@@ -2179,7 +2179,7 @@ CPU3D_JOBS = {}
 
 def _run_cpu3d_job(job, image, item_dir, kind, faces, flip, flat):
     """Background worker for /api/cpu3d-generate. Downloads into a temp folder, then copies the .glb
-    into the item folder as <item_id>.glb (the rest of the result stays in assets/_cpu3d_out/<item_id>)."""
+    into the item folder as <item_id>.glb and the server's clean icon as <item_id>.png (the rest of the result stays in assets/_cpu3d_out/<item_id>)."""
     import cpu3d_client
     item_id = job["item_id"]
     out = os.path.join(BASE_DIR, "_cpu3d_out", item_id)
@@ -2191,6 +2191,15 @@ def _run_cpu3d_job(job, image, item_dir, kind, faces, flip, flat):
         if not os.path.isfile(src):
             raise RuntimeError("cpu3d finished but returned no .glb")
         shutil.copyfile(src, os.path.join(item_dir, item_id + ".glb"))
+        # the server also returns the clean 128x128 catalog icon (report.icon): it replaces the item's icon (the old one is kept in the output folder)
+        icon_rel = (res.get("report") or {}).get("icon")
+        icon_src = os.path.join(out, *icon_rel.split("/")) if icon_rel else None
+        if icon_src and os.path.isfile(icon_src):
+            icon_dst = os.path.join(item_dir, item_id + ".png")
+            if os.path.isfile(icon_dst):
+                shutil.copyfile(icon_dst, os.path.join(out, item_id + "_previous_icon.png"))
+            shutil.copyfile(icon_src, icon_dst)
+            job["icon"] = item_id + ".png"
         job["report"] = {k: res.get("report", {}).get(k) for k in ("triangles", "bones", "clips")}
         job["files"] = [f["path"] for f in res.get("files", [])]
         job["status"], job["stage"] = "done", "done"

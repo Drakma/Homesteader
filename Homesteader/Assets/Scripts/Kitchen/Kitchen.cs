@@ -255,7 +255,9 @@ namespace Homesteader.Kitchen
             HudState hud = HudState.Active;
             if (hud == null) { why = "Nothing to cook with."; return false; }
             hud.EnsureToolbarSlots();
-            if (meal.ResultContainer != null ? FreeSlot(hud) < 0 : ToolbarRoomFor(hud, meal.ResultId) < meal.ResultQty) { why = "No room in the toolbar for it."; return false; }
+            // a made meal is served on a plate on the nearest counter (the toolbar only when the kitchen has no counter room)
+            bool onCounter = meal.ResultContainer == null && scan.Counters.Count > 0;
+            if (!onCounter && (meal.ResultContainer != null ? FreeSlot(hud) < 0 : ToolbarRoomFor(hud, meal.ResultId) < meal.ResultQty)) { why = "No room in the toolbar for it."; return false; }
 
             ConsumeStock(taken, scan);
             foreach (KeyValuePair<string, float> need in LiquidNeed(meal)) DrawLiquid(scan, need.Key, need.Value);
@@ -267,7 +269,11 @@ namespace Homesteader.Kitchen
                 hud.Toolbar[FreeSlot(hud)] = new ToolbarSlotData { IconId = meal.ResultContainer, Count = 1, LiquidId = meal.ResultLiquid, WireUsed = LiquidRules.StoredFor(meal.ResultContainer, liters) };
                 if (!took) why = null;
             }
-            else hud.AddItemToToolbar(meal.ResultId, meal.ResultQty, HudBindings.GetMaxStack(meal.ResultId), useContainers: false);
+            else if (!(onCounter && MealBuilder.ServeOnCounter(meal.ResultId, meal.ResultQty, scan)))
+            {
+                if (ToolbarRoomFor(hud, meal.ResultId) < meal.ResultQty) { why = "No counter room for it, and no room in the toolbar."; return true; }
+                hud.AddItemToToolbar(meal.ResultId, meal.ResultQty, HudBindings.GetMaxStack(meal.ResultId), useContainers: false);
+            }
             hud.SelectSlot(hud.SelectedSlot);
             HudBindings.Instance?.RefreshToolbar();
             return true;

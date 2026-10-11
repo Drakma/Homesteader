@@ -125,6 +125,15 @@ namespace Homesteader.Growth
             return pallet.transform.position.y + pallet.Height;
         }
 
+        /// <summary>True for a loose item standing on a pallet, counter or shelf (not furniture itself): it comes off by hand.</summary>
+        public static bool RestsOnDeck(PlacedObject o)
+        {
+            if (o == null || IsPallet(o.ItemId) || ItemRegistry.NeedsWrench(o.ItemId)) return false;
+            foreach (PlacedObject p in PlacedObject.All)
+                if (p != null && p != o && IsPallet(p.ItemId) && Carried(p).Contains(o)) return true;
+            return false;
+        }
+
         /// <summary>What stands on the pallet now (everything above its deck inside its footprint), the pallet itself excluded. For a shelving unit <paramref name="deck"/> picks one shelf (-1: all of them).</summary>
         public static List<PlacedObject> Carried(PlacedObject pallet, int deck = -1)
         {

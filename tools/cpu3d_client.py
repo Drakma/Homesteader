@@ -24,7 +24,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONN_FILE = os.path.join(HERE, "cpu3d_connection.json")
-KINDS = ("auto", "human", "quadruped", "bird", "fish")
+KINDS = ("auto", "human", "quadruped", "bird", "fish", "vehicle")
 
 
 class Cpu3dError(RuntimeError):
@@ -141,12 +141,13 @@ def server_info():
     return Session(timeout=15).call("server_info")
 
 
-def submit(sess, image_path, name, kind="auto", faces=1500, flat=False, flip=False, mc_resolution=192, previews=False):
+def submit(sess, image_path, name, kind="auto", faces=1500, flat=False, flip=False, mc_resolution=192, previews=False, size_m=0, width_m=0, height_m=0):
     with open(image_path, "rb") as f:
         b64 = base64.b64encode(f.read()).decode()
     return sess.call("submit_creature", {
         "image_base64": b64, "kind": kind, "faces": int(faces), "name": name, "flat": bool(flat),
-        "flip": bool(flip), "mc_resolution": int(mc_resolution), "previews": bool(previews)}, timeout=120)["job_id"]
+        "flip": bool(flip), "mc_resolution": int(mc_resolution), "previews": bool(previews),
+        "size_m": float(size_m), "width_m": float(width_m), "height_m": float(height_m)}, timeout=120)["job_id"]
 
 
 def wait(sess, job_id, on_stage=None, max_seconds=1800):
@@ -162,10 +163,10 @@ def wait(sess, job_id, on_stage=None, max_seconds=1800):
 
 
 def generate(image_path, name, out_dir, kind="auto", faces=1500, flat=False, flip=False,
-             mc_resolution=192, previews=False, on_stage=None):
+             mc_resolution=192, previews=False, on_stage=None, size_m=0, width_m=0, height_m=0):
     """Whole workflow. Downloads every result file into out_dir; returns the finished job dict."""
     sess = Session()
-    jid = submit(sess, image_path, name, kind, faces, flat, flip, mc_resolution, previews)
+    jid = submit(sess, image_path, name, kind, faces, flat, flip, mc_resolution, previews, size_m, width_m, height_m)
     if on_stage:
         on_stage({"status": "queued", "stage": "queued", "job_id": jid})
     job = wait(sess, jid, on_stage)
@@ -189,13 +190,17 @@ def main():
     g.add_argument("--flip", action="store_true")
     g.add_argument("--mc-resolution", type=int, default=192)
     g.add_argument("--previews", action="store_true")
+    g.add_argument("--size-m", type=float, default=0, help="real length in m (height for a human)")
+    g.add_argument("--width-m", type=float, default=0)
+    g.add_argument("--height-m", type=float, default=0)
     g.add_argument("--out", default="cpu3d_result")
     a = p.parse_args()
     if a.cmd == "info":
         print(json.dumps(server_info(), indent=2))
         return
     job = generate(a.image, a.name, a.out, a.kind, a.faces, a.flat, a.flip, a.mc_resolution, a.previews,
-                   on_stage=lambda j: print(f"  {j['status']}: {j.get('stage')}"))
+                   on_stage=lambda j: print(f"  {j['status']}: {j.get('stage')}"),
+                   size_m=a.size_m, width_m=a.width_m, height_m=a.height_m)
     print("done:", json.dumps({k: job["report"].get(k) for k in ("triangles", "bones", "clips")}), "->", os.path.abspath(a.out))
 
 

@@ -124,6 +124,12 @@ namespace Homesteader.Growth
             return carried;
         }
 
+        /// <summary>Parts that protect a circuit and so trip on a wire run that carries too much: breakers, disconnects, wall entries, breaker boxes and lockout boxes.</summary>
+        private static bool Protective(WireRole r)
+        {
+            return r == WireRole.DcBreaker || r == WireRole.Disconnect || r == WireRole.WallEntry || r == WireRole.AcPanel || r == WireRole.Lockout;
+        }
+
         /// <summary>One grid tick's overload work for one system: the current through every part, heat and trips.</summary>
         public static void ApplyOverload(GridSystem sys, Balance b, float dtH)
         {
@@ -146,6 +152,7 @@ namespace Homesteader.Growth
             var snapshot = new List<WireNode>(sys.Nodes);
             foreach (WireNode n in snapshot)
             {
+                if (n != null && n.Tripped && n.Role == WireRole.SolarPanel) { n.Tripped = false; n.Heat = 0f; }   // a panel never trips (a save from before the wire rule was fixed)
                 if (n == null || n.Tripped) continue;
                 AssetCatalogItem it = HudBindings.GetCatalogItem(n.ItemId);
                 switch (n.Role)
@@ -189,7 +196,7 @@ namespace Homesteader.Growth
                 if (wire == null || wire.max_current_a <= 0.01f) continue;
                 float amps = Mathf.Max(l.A.LoadA, l.B.LoadA);
                 float r = amps / wire.max_current_a;
-                if (r > 1f) { Heat(l.A, r, dtS, amps); Heat(l.B, r, dtS, amps); }
+                if (r > 1f) { if (Protective(l.A.Role)) Heat(l.A, r, dtS, amps); if (Protective(l.B.Role)) Heat(l.B, r, dtS, amps); }   // the breaker at the end of a run trips, not a panel or a battery
             }
         }
 

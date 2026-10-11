@@ -27,7 +27,7 @@ A part at or under its rating cools at 1 / 600 a second. Heat shows in WAILA as 
 | Battery | the DISCHARGE (charge is limited by the controller) / 48, shared by capacity | continuous watts / 48 (AGM 0.5 C, lithium 1 C, wall batteries as made) | none |
 | Standby generator | its share of the building's load / 240 | rated watts / 240 | 10 % |
 | Portable generator | demand / 240 | 31.3 A | 10 %; resets itself when it has cooled |
-| Wire | the larger of the currents at its two ends | the coil's `max_current_a` (DC 55 A) | none; heats the parts at BOTH ends |
+| Wire | the larger of the currents at its two ends | the coil's `max_current_a` (DC 55 A) | none; heats the protective parts at BOTH ends (breakers, disconnects, wall entries, breaker and lockout boxes), never a bus bar, panel, battery or device |
 | Solar panels, wind turbines | the current of their rated output | info only: a source cannot be overloaded | n/a |
 
 ## What a trip does

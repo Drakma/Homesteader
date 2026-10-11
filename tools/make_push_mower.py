@@ -106,6 +106,9 @@ def main():
     p.update({'weight_kg': 32.0, 'base_value': 340, 'max_stack_size': 1, 'placeable': True, 'pushable': True, 'mower_width_m': WIDTH,
               'footprint': '%.2fm W x %.2fm D x %.2fm H' % (dims[1], dims[0], dims[2]), 'stores': ['depot'], 'sale_unit': 'ea', 'store_category': 'Power Tools/Garden & Farm'})
     p.pop('build_speed', None)
+    for k in ('container', 'dimensions'):
+        m.pop(k, None)                                  # the shovel's (a bulk-scoop container, its obj size): a mower is not a container, and a leftover container block would override pushable
+    m['category_fields']['dimensions_m'] = {'width': round(dims[1], 2), 'depth': round(dims[0], 2), 'height': round(dims[2], 2)}
     m['models'] = [{'file': ITEM + '.glb', 'format': 'glb', 'dimensions_m': {'x': dims[0], 'y': dims[2], 'z': dims[1]}, 'triangles': tris}]
     props.save(os.path.join(OUT, ITEM + '.json'), json.dumps(m, indent=2))
     props.save(os.path.join(OUT, 'README.md'), '# Push Mower\n\n%s\n\nProcedural model (tools/make_push_mower.py), %d triangles, %.2f x %.2f x %.2f m. `pushable`, `mower_width_m` %.2f. See docs/MOWING.md.\n' % (desc, tris, dims[0], dims[1], dims[2], WIDTH))

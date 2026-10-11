@@ -169,6 +169,26 @@ namespace Homesteader.Kitchen
             return true;
         }
 
+        /// <summary>A served dish: a plated meal, a bowl of soup or a glass. Picked up with a plain right click (no wrench), contents and liquid kept.</summary>
+        public static bool IsDish(string itemId) { return itemId == PlatedMeal || itemId == BowlMeal || itemId == Glass; }
+
+        /// <summary>
+        /// A made meal (the Meals List) served on a plate on the nearest counter, not into the toolbar: a plate is taken from the kitchen when one is stocked, the food goes on it (a plated meal holding
+        /// <paramref name="count"/> of it). False when there is no counter with room or the plate model is not loaded; the caller then falls back to the toolbar.
+        /// </summary>
+        public static bool ServeOnCounter(string foodId, int count, KitchenScan scan)
+        {
+            if (scan.Counters.Count == 0 || !DishesLoaded(true, false, false)) return false;
+            Served.Clear();
+            var ped = PedController.Current;
+            Vector3 near = ped != null ? ped.transform.position : scan.Center;
+            var contents = new List<ContainerStack> { new ContainerStack { ItemId = foodId, Count = Mathf.Max(1, count) } };
+            PlacedObject plate = PlaceOnCounter(scan, PlatedMeal, contents, "", 0f, near);
+            if (plate == null) return false;
+            MealMaker.TakeEmpty(scan, PlatedMeal);   // the plate it stands on comes out of the kitchen when one is stocked
+            return true;
+        }
+
         /// <summary>The dishes served in this one Make call (world x, z and radius), so the next one is packed beside them and never on them.</summary>
         private static readonly List<Vector3> Served = new List<Vector3>();
 

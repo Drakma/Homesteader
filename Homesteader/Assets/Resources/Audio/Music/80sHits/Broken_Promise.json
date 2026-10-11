@@ -1,0 +1,14 @@
+{
+  "file": "Broken_Promise.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 120 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 120 seconds, not cut off mid-song and with NO fade-out. 1980s soft-pop ballad instrumental, 77 BPM, D minor. A sultry, instantly memorable alto sax hook over a smooth, slow groove: warm electric piano, a fretless-style bass, soft drum machine, and a clean, wet guitar. Intimate, regretful sax melody in the verses with a stretched-out, aching chorus. Smooth, late-night, candle-lit mood. Original melody.",
+  "requested_prompt": "1980s soft-pop ballad instrumental, 77 BPM, D minor. A sultry, instantly memorable alto sax hook over a smooth, slow groove: warm electric piano, a fretless-style bass, soft drum machine, and a clean, wet guitar. Intimate, regretful sax melody in the verses with a stretched-out, aching chorus. Smooth, late-night, candle-lit mood. Original melody.",
+  "requested_duration_seconds": 120,
+  "generated_at": "2026-10-07T02:01:26.675Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Broken_Promise.mp4",
+  "bytes": 3499721,
+  "sha256": "9f481962395c637b13b229ddd5668f6e92d7bb2c9c42b9415b5f531a64e4c76d",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

@@ -1,0 +1,14 @@
+{
+  "file": "Watching_From_Afar.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 120 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 120 seconds, not cut off mid-song and with NO fade-out. 1980s new wave pop-rock instrumental, 117 BPM, C# minor. A clean, chiming guitar playing a repeating arpeggio, a simple walking bass, tight dry drums with a snare rimshot, and a soft synth pad. A restrained lead guitar melody sounds calm on the surface and brooding underneath, with a quiet build and a short string-swell bridge. Minimal, tense, polished studio sound. Original melody.",
+  "requested_prompt": "1980s new wave pop-rock instrumental, 117 BPM, C# minor. A clean, chiming guitar playing a repeating arpeggio, a simple walking bass, tight dry drums with a snare rimshot, and a soft synth pad. A restrained lead guitar melody sounds calm on the surface and brooding underneath, with a quiet build and a short string-swell bridge. Minimal, tense, polished studio sound. Original melody.",
+  "requested_duration_seconds": 120,
+  "generated_at": "2026-10-07T01:55:15.851Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Watching_From_Afar.mp4",
+  "bytes": 3772647,
+  "sha256": "5a09f2a634e956b84245843b4aee6c39dfbec1959fb6c7cab1069bbe98cb4227",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

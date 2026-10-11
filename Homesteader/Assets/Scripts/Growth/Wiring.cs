@@ -2284,7 +2284,9 @@ namespace Homesteader.Growth
                 {
                     bool wired = false;
                     foreach (WireLink l in Links) if (l.Connects(n)) wired = true;
-                    rows.Add(("Power", IsEnergized(n) ? "Live" : wired ? "Chain incomplete" : "No inverter"));
+                    AttachedObject pa = n.GetComponent<AttachedObject>();
+                    string why = IsEnergized(n) ? null : n.Tripped ? "Tripped: nothing comes through" : wired ? (PowerProblem(pa != null ? pa.Site : null) ?? "Chain incomplete") : "Nothing wired to it";
+                    rows.Add(("Power", why ?? "Live"));
                     if (n.Well != null)
                     {
                         bool running = IsEnergized(n) && WellWantsToRun(n);
@@ -2301,9 +2303,6 @@ namespace Homesteader.Growth
                     break;
                 }
             }
-            var names = new List<string>();
-            foreach (WireLink l in Links) if (l.Connects(n) && l.Other(n) != null) names.Add(WireNode.RoleName(l.Other(n).Role));
-            rows.Add(("Wired to", names.Count > 0 ? string.Join(", ", names) : "Nothing"));
         }
 
         // ------------------------------------------------------------------ the lines

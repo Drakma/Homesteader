@@ -1,0 +1,14 @@
+{
+  "file": "Cold_Machine_Dreams.mp3",
+  "source": "Google Gemini web app (Lyria), via browser automation",
+  "prompt": "Generate music. Create an instrumental-only music track: no vocals, no singing, no lyrics. It must start and stop within 120 seconds: a complete piece with a clear beginning and a proper, definite ending on a final resolving chord or hit that finishes by 120 seconds, not cut off mid-song and with NO fade-out. 1980s synth-pop instrumental, 125 BPM, C minor. A hypnotic, repeating low analog sequencer riff, stark and dry electronic drum machine, a metallic sawtooth synth lead playing a short chant-like hook, and cold layered pads. Minimal arrangement with a slight robotic menace. Dark, stylish, new-romantic mood. Original melody.",
+  "requested_prompt": "1980s synth-pop instrumental, 125 BPM, C minor. A hypnotic, repeating low analog sequencer riff, stark and dry electronic drum machine, a metallic sawtooth synth lead playing a short chant-like hook, and cold layered pads. Minimal arrangement with a slight robotic menace. Dark, stylish, new-romantic mood. Original melody.",
+  "requested_duration_seconds": 120,
+  "generated_at": "2026-10-07T02:05:24.056Z",
+  "downloaded_via": "media URL fetched with context cookies",
+  "converted_from": "mp4 download kept at C:\\Users\\casey\\Desktop\\Homesteader\\tools\\gemini_music_mcp\\raw\\Cold_Machine_Dreams.mp4",
+  "bytes": 3795817,
+  "sha256": "8dce6a709461a05b18ba4a06eb01c080dd0032d3753251b6473906602de67beb",
+  "licence_note": "Commercial use requires a paid Gemini plan (AI Plus, Pro or Ultra) at the time of generation. Output carries a SynthID watermark and is likely not copyrightable. Listen for stock-library artifacts (\"Purchase your track\"). Record the plan here.",
+  "gemini_plan": "UNVERIFIED - fill in"
+}

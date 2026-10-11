@@ -436,11 +436,12 @@ namespace Homesteader.Growth
                 Vector3 origin = transform.TransformPoint(new Vector3(edge - s * 0.01f, 0.45f, r.center.y));
                 float gap = 0f;
                 bool neighbour = false, seam = false;
-                RaycastHit[] hits = Physics.RaycastAll(origin, transform.TransformVector(new Vector3(s, 0f, 0f)).normalized, 0.01f + KitchenRun.MaxFillerM + 0.02f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+                RaycastHit[] hits = Physics.RaycastAll(origin, transform.TransformVector(new Vector3(s, 0f, 0f)).normalized, 0.01f + KitchenRun.MaxFillerM + 0.02f, Physics.DefaultRaycastLayers | (1 << 2), QueryTriggerInteraction.Ignore);   // (layer 2: a wall the cutaway hides moves there, and its strip must stay)
                 System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
                 foreach (RaycastHit h in hits)
                 {
                     if (h.collider == null || h.collider.transform.IsChildOf(transform)) continue;   // its own body and strips
+                    if (h.collider.gameObject.layer == 2 && !KitchenRun.IsWall(h)) continue;         // only a hidden wall counts on the Ignore Raycast layer (not a tree collider)
                     if (KitchenRun.IsWall(h)) gap = h.distance - 0.01f;                                // the first thing in the way is a wall; anything else means no strip
                     else
                     {

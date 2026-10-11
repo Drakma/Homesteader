@@ -9,7 +9,7 @@ namespace Homesteader.Kitchen
 {
     /// <summary>
     /// The Meals List: a right click on any kitchen object opens it, and it lists ONLY the meals the kitchen can make right now (the appliances they need
-    /// stand in the kitchen and the ingredients are stocked in its containers and shelves). "Make" takes the ingredients out and puts the result in the toolbar.
+    /// stand in the kitchen and the ingredients are stocked in its containers and shelves). "Make" takes the ingredients out and serves the result on a plate on the nearest counter (the toolbar when the kitchen has no counter room).
     /// The kitchen is the same room, or within <see cref="KitchenScan.Radius"/> m of the object that was clicked. docs/COOKING.md.
     /// </summary>
     public sealed class MealsPanel
